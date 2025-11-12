@@ -37,7 +37,10 @@ dotnet build
 # Run tests
 dotnet test
 
-# Run application
+# Run CLI tool
+dotnet run --project src/PromptResponse.Cli -- help
+
+# Run Desktop application (coming soon)
 dotnet run --project src/PromptResponse.Desktop
 ```
 
@@ -55,8 +58,24 @@ dotnet run --project src/PromptResponse.Desktop
 3. Complete responses
 4. Save filled form
 
+## Quick Start with CLI
+
+```bash
+# Validate a form
+dotnet run --project src/PromptResponse.Cli -- validate examples/employment-application.apr
+
+# View form information
+dotnet run --project src/PromptResponse.Cli -- info examples/simple-contact-form.apr
+
+# Create a new template
+dotnet run --project src/PromptResponse.Cli -- new my-form.apr
+```
+
+See [CLI README](src/PromptResponse.Cli/README.md) for complete CLI documentation.
+
 ## Documentation
 
+- [CLI Tool Guide](src/PromptResponse.Cli/README.md) - Command-line tool usage
 - [Usage Guide](docs/USAGE.md) - Detailed usage instructions
 - [Development Guide](docs/DEVELOPMENT.md) - Contributing and development setup
 - [File Format Specification](docs/FILE_FORMAT.md) - .apr format documentation
@@ -78,8 +97,9 @@ GPL-3.0 License - See [LICENSE](LICENSE) file for details
 🚧 **Active Development** - MVP Phase 1
 
 - [x] Project structure
-- [ ] Core library (Models, Serialization)
-- [ ] Desktop UI (Template Editor, Form Filler)
+- [x] Core library (Models, Serialization, Validation)
+- [x] CLI Tool (validate, info, new commands)
+- [ ] Desktop UI (Template Editor, Form Filler) - Next phase
 - [ ] Linux/Windows testing
 - [ ] Mobile support (future)
 
