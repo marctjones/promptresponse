@@ -1,0 +1,116 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels"
+             x:Class="PromptResponse.Desktop.Views.FormFillingView"
+             x:DataType="vm:FormFillingViewModel">
+
+    <Design.DataContext>
+        <vm:FormFillingViewModel/>
+    </Design.DataContext>
+
+    <ScrollViewer>
+        <StackPanel Margin="20">
+            <!-- Form Header -->
+            <TextBlock Text="{Binding Title}"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Margin="0,0,0,10"/>
+
+            <TextBlock Text="{Binding Description}"
+                       FontSize="14"
+                       Foreground="Gray"
+                       TextWrapping="Wrap"
+                       IsVisible="{Binding Description, Converter={x:Static ObjectConverters.IsNotNull}}"
+                       Margin="0,0,0,20"/>
+
+            <!-- Sections -->
+            <ItemsControl ItemsSource="{Binding Sections}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Expander IsExpanded="{Binding IsExpanded}"
+                                  Margin="0,0,0,10">
+                            <Expander.Header>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}"
+                                               FontSize="18"
+                                               FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding Description}"
+                                               FontSize="12"
+                                               Foreground="Gray"
+                                               IsVisible="{Binding Description, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                                </StackPanel>
+                            </Expander.Header>
+
+                            <StackPanel Margin="20,10,0,10">
+                                <!-- Subsections -->
+                                <ItemsControl ItemsSource="{Binding Subsections}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Expander IsExpanded="{Binding IsExpanded}"
+                                                      Margin="0,0,0,10">
+                                                <Expander.Header>
+                                                    <TextBlock Text="{Binding Title}"
+                                                               FontSize="16"
+                                                               FontWeight="Medium"/>
+                                                </Expander.Header>
+
+                                                <StackPanel Margin="15,5,0,5">
+                                                    <!-- Prompts in Subsection -->
+                                                    <ItemsControl ItemsSource="{Binding Prompts}">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Margin="0,0,0,15">
+                                                                    <TextBlock Text="{Binding Label}"
+                                                                               FontWeight="Medium"
+                                                                               Margin="0,0,0,5"/>
+
+                                                                    <TextBox Text="{Binding Response}"
+                                                                             Watermark="{Binding Placeholder}"
+                                                                             MinHeight="30"/>
+
+                                                                    <TextBlock Text="{Binding HelpText}"
+                                                                               FontSize="11"
+                                                                               Foreground="Gray"
+                                                                               Margin="0,3,0,0"
+                                                                               IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </StackPanel>
+                                            </Expander>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <!-- Section-level Prompts -->
+                                <ItemsControl ItemsSource="{Binding Prompts}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0,0,0,15">
+                                                <TextBlock Text="{Binding Label}"
+                                                           FontWeight="Medium"
+                                                           Margin="0,0,0,5"/>
+
+                                                <TextBox Text="{Binding Response}"
+                                                         Watermark="{Binding Placeholder}"
+                                                         MinHeight="30"/>
+
+                                                <TextBlock Text="{Binding HelpText}"
+                                                           FontSize="11"
+                                                           Foreground="Gray"
+                                                           Margin="0,3,0,0"
+                                                           IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Expander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>
