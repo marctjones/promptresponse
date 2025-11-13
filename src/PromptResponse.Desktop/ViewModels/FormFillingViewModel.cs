@@ -9,17 +9,88 @@ namespace PromptResponse.Desktop.ViewModels;
 public class FormFillingViewModel : ViewModelBase
 {
     private readonly AprDocument _document;
+    private bool _hasUnsavedChanges;
+    private string _statusMessage = string.Empty;
+    private string _mode = "Filling Form";
 
     public FormFillingViewModel(AprDocument document)
     {
         _document = document;
         Sections = new ObservableCollection<SectionViewModel>(
             document.Sections.Select(s => new SectionViewModel(s)));
+
+        // Subscribe to property changes to track unsaved changes
+        foreach (var section in Sections)
+        {
+            foreach (var prompt in section.Prompts)
+            {
+                prompt.PropertyChanged += (s, e) => HasUnsavedChanges = true;
+            }
+            foreach (var subsection in section.Subsections)
+            {
+                foreach (var prompt in subsection.Prompts)
+                {
+                    prompt.PropertyChanged += (s, e) => HasUnsavedChanges = true;
+                }
+            }
+        }
+
+        UpdateStatusMessage();
     }
 
     public string Title => _document.Metadata.Title;
     public string? Description => _document.Metadata.Description;
     public ObservableCollection<SectionViewModel> Sections { get; }
+
+    public bool HasUnsavedChanges
+    {
+        get => _hasUnsavedChanges;
+        set
+        {
+            if (SetProperty(ref _hasUnsavedChanges, value))
+            {
+                UpdateStatusMessage();
+            }
+        }
+    }
+
+    public string StatusMessage
+    {
+        get => _statusMessage;
+        private set => SetProperty(ref _statusMessage, value);
+    }
+
+    public string Mode
+    {
+        get => _mode;
+        set => SetProperty(ref _mode, value);
+    }
+
+    public string SaveStateText => HasUnsavedChanges ? "● Modified" : "Saved";
+
+    private void UpdateStatusMessage()
+    {
+        if (HasUnsavedChanges)
+        {
+            StatusMessage = "You have unsaved changes";
+        }
+        else
+        {
+            StatusMessage = "Ready";
+        }
+        OnPropertyChanged(nameof(SaveStateText));
+    }
+
+    public void SetStatusMessage(string message)
+    {
+        StatusMessage = message;
+    }
+
+    public void MarkAsSaved()
+    {
+        HasUnsavedChanges = false;
+        UpdateStatusMessage();
+    }
 
     /// <summary>
     /// Updates the document with current ViewModel values.
@@ -104,6 +175,7 @@ public class PromptViewModel : ViewModelBase
     public string Label => _prompt.Label;
     public string? Placeholder => _prompt.Hints.Placeholder;
     public string? HelpText => _prompt.Hints.HelpText;
+    public string? ExpectedDataType => _prompt.Hints.ExpectedDataType;
 
     public string Response
     {
