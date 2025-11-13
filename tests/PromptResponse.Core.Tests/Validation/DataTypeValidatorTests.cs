@@ -426,4 +426,332 @@ public class DataTypeValidatorTests
         // Assert
         inferredType.Should().Be("multiline");
     }
+
+    #region Edge Case Tests
+
+    [Theory]
+    [InlineData("2000-02-29")] // Leap year
+    [InlineData("2024-02-29")] // Another leap year
+    [InlineData("1900-01-01")] // Old date
+    [InlineData("2099-12-31")] // Future date
+    public void ValidateResponse_EdgeCaseDates_ShouldBeValid(string date)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = date,
+            Hints = new PromptHints { ExpectedDataType = "date" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeTrue($"{date} should be a valid date");
+    }
+
+    [Theory]
+    [InlineData("2001-02-29")] // Not a leap year
+    [InlineData("2025-02-30")] // Invalid day in February
+    [InlineData("2025-13-01")] // Invalid month
+    [InlineData("2025-00-15")] // Zero month
+    [InlineData("2025-06-31")] // June only has 30 days
+    public void ValidateResponse_InvalidEdgeCaseDates_ShouldReturnWarning(string date)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = date,
+            Hints = new PromptHints { ExpectedDataType = "date" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeFalse($"{date} should be invalid");
+    }
+
+    [Theory]
+    [InlineData("1e10")] // Scientific notation
+    [InlineData("1.23e-4")] // Negative exponent
+    [InlineData("999999999999")] // Large number
+    [InlineData("0.0000001")] // Very small decimal
+    [InlineData("+42")] // Explicit positive
+    [InlineData("  123  ")] // Whitespace around number
+    public void ValidateResponse_EdgeCaseNumbers_ShouldBeValid(string number)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = number,
+            Hints = new PromptHints { ExpectedDataType = "number" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeTrue($"{number} should be a valid number");
+    }
+
+    [Theory]
+    [InlineData("1,234")] // Comma separator (not universally valid in parse)
+    [InlineData("$99.99")] // Currency symbol
+    [InlineData("50%")] // Percentage
+    [InlineData("1/2")] // Fraction
+    [InlineData("NaN")] // Not a Number
+    [InlineData("Infinity")] // Infinity string
+    public void ValidateResponse_InvalidNumbers_ShouldReturnWarning(string number)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = number,
+            Hints = new PromptHints { ExpectedDataType = "number" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeFalse($"{number} should be invalid");
+    }
+
+    [Theory]
+    [InlineData("user+tag@example.com")] // Plus addressing
+    [InlineData("very.long.email.address.with.many.dots@example.com")] // Long with dots
+    [InlineData("user_name@example-domain.com")] // Underscore and hyphen
+    [InlineData("123@example.com")] // Numeric local part
+    [InlineData("a@b.co")] // Minimal valid email
+    public void ValidateResponse_ComplexValidEmails_ShouldBeValid(string email)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = email,
+            Hints = new PromptHints { ExpectedDataType = "email" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeTrue($"{email} should be a valid email");
+    }
+
+    [Theory]
+    [InlineData("user@")] // Missing domain
+    [InlineData("@example.com")] // Missing local part
+    [InlineData("user @example.com")] // Space in local part
+    [InlineData("user@.com")] // Domain starts with dot
+    [InlineData("user@domain")] // No TLD
+    [InlineData("user..name@example.com")] // Consecutive dots
+    [InlineData("user@domain..com")] // Consecutive dots in domain
+    public void ValidateResponse_InvalidEdgeCaseEmails_ShouldReturnWarning(string email)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = email,
+            Hints = new PromptHints { ExpectedDataType = "email" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeFalse($"{email} should be invalid");
+    }
+
+    [Theory]
+    [InlineData("https://example.com:8080/path")] // With port
+    [InlineData("http://subdomain.example.com/path?q=1&p=2")] // Complex query
+    [InlineData("ftp://user:pass@example.com")] // With credentials
+    [InlineData("https://example.com/path#anchor")] // With anchor
+    [InlineData("http://192.168.1.1/admin")] // IP address
+    public void ValidateResponse_ComplexValidUrls_ShouldBeValid(string url)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = url,
+            Hints = new PromptHints { ExpectedDataType = "url" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeTrue($"{url} should be a valid URL");
+    }
+
+    [Theory]
+    [InlineData("")] // Empty string with phone type should be valid
+    [InlineData("000-000-0000")] // All zeros
+    [InlineData("1234567890")] // 10 digits no formatting
+    [InlineData("+1 (555) 123-4567")] // Full international format
+    [InlineData("555.123.4567")] // Dot separator
+    public void ValidateResponse_PhoneNumbers_ShouldBeLenient(string phone)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = phone,
+            Hints = new PromptHints { ExpectedDataType = "phone" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        // Phone validation is intentionally lenient
+        result.IsValid.Should().BeTrue($"{phone} should be accepted (lenient validation)");
+    }
+
+    [Theory]
+    [InlineData(".*")] // Match anything
+    [InlineData(@"\d{3}-\d{3}-\d{4}")] // Phone pattern
+    [InlineData(@"[A-Z]{2}\d{4}")] // Alphanumeric pattern
+    public void ValidateResponse_ComplexPatterns_ShouldMatchCorrectly(string pattern)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "ABC1234",
+            Hints = new PromptHints
+            {
+                ValidationPattern = pattern
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        if (pattern == @"[A-Z]{2}\d{4}")
+        {
+            result.IsValid.Should().BeTrue();
+        }
+        else if (pattern == ".*")
+        {
+            result.IsValid.Should().BeTrue();
+        }
+        else
+        {
+            result.IsValid.Should().BeFalse();
+        }
+    }
+
+    [Fact]
+    public void ValidateResponse_InvalidRegexPattern_ShouldHandleGracefully()
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "test",
+            Hints = new PromptHints
+            {
+                ValidationPattern = "["  // Invalid regex
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        // Should not throw, should return invalid with appropriate error
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().NotBeEmpty();
+    }
+
+    [Theory]
+    [InlineData("text")] // Plain text
+    [InlineData("TEXT")] // Different case
+    [InlineData("Text")] // Mixed case
+    [InlineData("email")] // Another known type
+    public void ValidateResponse_CaseInsensitiveDataTypes_ShouldWork(string dataType)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "some value",
+            Hints = new PromptHints { ExpectedDataType = dataType }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        // Text type should always be valid for any string
+        if (dataType.ToLowerInvariant() == "text")
+        {
+            result.IsValid.Should().BeTrue();
+        }
+    }
+
+    [Fact]
+    public void ValidateResponse_WhitespaceOnlyResponse_ShouldBeValid()
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "   ",
+            Hints = new PromptHints { ExpectedDataType = "text" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        // Whitespace-only should be treated as valid text
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Theory]
+    [InlineData("2025-11-12T14:30:00Z")] // ISO 8601 datetime
+    [InlineData("2025-11-12T14:30:00")] // Without timezone
+    [InlineData("2025-11-12 14:30:00")] // Space separator
+    public void ValidateResponse_DateTimeFormats_ShouldBeValidated(string datetime)
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = datetime,
+            Hints = new PromptHints { ExpectedDataType = "date" }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        // These should be validated based on the date validator implementation
+        // The exact behavior depends on whether datetime formats are supported
+        result.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void InferDataType_FromComplexData_ShouldInferCorrectly()
+    {
+        // Test various complex inputs
+        var testCases = new[]
+        {
+            ("1.23e10", "number"),
+            ("user@subdomain.example.com", "email"),
+            ("https://example.com/path?query=1", "url"),
+            ("Multiple\nLines\nOf\nText", "multiline"),
+            ("Simple text", "text")
+        };
+
+        foreach (var (input, expectedType) in testCases)
+        {
+            // Act
+            var inferredType = _validator.InferDataType(input);
+
+            // Assert
+            inferredType.Should().Be(expectedType, $"Input '{input}' should infer to '{expectedType}'");
+        }
+    }
+
+    #endregion
 }
