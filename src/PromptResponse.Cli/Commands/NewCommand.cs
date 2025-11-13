@@ -26,10 +26,12 @@ public class NewCommand : ICommand
 
         var filePath = args[0];
 
-        // Ensure .apr extension
-        if (!filePath.EndsWith(".apr", StringComparison.OrdinalIgnoreCase))
+        // Ensure APR extension (.aprt for templates by default)
+        var extension = Path.GetExtension(filePath).ToLowerInvariant();
+        if (extension != ".apr" && extension != ".aprt" && extension != ".aprf")
         {
-            filePath += ".apr";
+            // Default to .aprt for templates
+            filePath += ".aprt";
         }
 
         if (File.Exists(filePath))

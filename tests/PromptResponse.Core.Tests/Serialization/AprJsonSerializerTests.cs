@@ -38,9 +38,9 @@ public class AprJsonSerializerTests
 
         // Assert
         json.Should().NotBeNullOrEmpty();
-        json.Should().Contain("\"version\":\"1.0\"");
-        json.Should().Contain("\"documentType\":\"template\"");
-        json.Should().Contain("\"title\":\"Test Form\"");
+        json.Should().Contain("\"version\": \"1.0\"");
+        json.Should().Contain("\"documentType\": \"template\"");
+        json.Should().Contain("\"title\": \"Test Form\"");
     }
 
     [Fact]
@@ -53,8 +53,8 @@ public class AprJsonSerializerTests
         var json = _serializer.Serialize(document);
 
         // Assert
-        json.Should().Contain("\"version\":\"1.0\"");
-        json.Should().Contain("\"documentType\":\"template\"");
+        json.Should().Contain("\"version\": \"1.0\"");
+        json.Should().Contain("\"documentType\": \"template\"");
         json.Should().Contain("\"sections\"");
         json.Should().Contain("\"subsections\"");
         json.Should().Contain("\"prompts\"");
@@ -113,7 +113,7 @@ public class AprJsonSerializerTests
 
         // Act & Assert
         var act = () => _serializer.Deserialize(invalidJson);
-        act.Should().Throw<JsonException>();
+        act.Should().Throw<SerializationException>();
     }
 
     [Fact]
@@ -217,10 +217,10 @@ public class AprJsonSerializerTests
         var json = _serializer.Serialize(document);
 
         // Assert
-        json.Should().Contain("\"placeholder\":\"you@example.com\"");
-        json.Should().Contain("\"expectedDataType\":\"email\"");
+        json.Should().Contain("\"placeholder\": \"you@example.com\"");
+        json.Should().Contain("\"expectedDataType\": \"email\"");
         json.Should().Contain("\"suggestedValues\"");
-        json.Should().Contain("\"helpText\":\"Enter email\"");
+        json.Should().Contain("\"helpText\": \"Enter email\"");
         json.Should().Contain("\"validationPattern\"");
     }
 
@@ -300,9 +300,9 @@ public class AprJsonSerializerTests
 
         // Assert
         document.Metadata.Created.Should().NotBeNull();
-        document.Metadata.Created.Value.Year.Should().Be(2025);
-        document.Metadata.Created.Value.Month.Should().Be(11);
-        document.Metadata.Created.Value.Day.Should().Be(12);
+        document.Metadata.Created!.Value.Year.Should().Be(2025);
+        document.Metadata.Created!.Value.Month.Should().Be(11);
+        document.Metadata.Created!.Value.Day.Should().Be(12);
     }
 
     [Fact]
@@ -319,7 +319,7 @@ public class AprJsonSerializerTests
         var json = _serializer.Serialize(document);
 
         // Assert
-        json.Should().Contain("\"sections\":[]");
+        json.Should().Contain("\"sections\": []");
     }
 
     [Fact]

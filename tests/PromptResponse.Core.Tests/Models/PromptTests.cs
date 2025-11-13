@@ -109,7 +109,8 @@ public class PromptTests
         prompt.Response = "Second";
 
         // Assert
-        prompt.ResponseMetadata.LastModified.Should().BeAfter(firstModified);
+        prompt.ResponseMetadata.LastModified.Should().NotBeNull();
+        prompt.ResponseMetadata.LastModified!.Value.Should().BeAfter(firstModified!.Value);
     }
 
     [Fact]

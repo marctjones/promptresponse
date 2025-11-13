@@ -5,7 +5,7 @@
     "title": "Simple Contact Form",
     "description": "Basic contact information collection",
     "created": "2025-11-12T00:00:00Z",
-    "modified": "2025-11-12T00:00:00Z",
+    "modified": "2025-11-13T03:11:40.5172781Z",
     "templateId": "simple-contact-v1",
     "templateVersion": "1.0"
   },
@@ -13,13 +13,32 @@
     {
       "id": "section_001",
       "title": "Contact Information",
+      "subsections": [
+        {
+          "id": "section_001_subsection_1",
+          "title": "New Subsection",
+          "prompts": [
+            {
+              "id": "section_001_subsection_1_prompt_1",
+              "label": "Prefered contact method",
+              "response": "",
+              "hints": {
+                "placeholder": "email",
+                "suggestedValues": []
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
       "prompts": [
         {
           "id": "prompt_001",
           "label": "Name",
           "response": "",
           "hints": {
-            "expectedDataType": "text"
+            "expectedDataType": "text",
+            "suggestedValues": []
           },
           "responseMetadata": {}
         },
@@ -28,7 +47,8 @@
           "label": "Email",
           "response": "",
           "hints": {
-            "expectedDataType": "email"
+            "expectedDataType": "email",
+            "suggestedValues": []
           },
           "responseMetadata": {}
         },
@@ -37,7 +57,8 @@
           "label": "Message",
           "response": "",
           "hints": {
-            "expectedDataType": "multiline"
+            "expectedDataType": "multiline",
+            "suggestedValues": []
           },
           "responseMetadata": {}
         }

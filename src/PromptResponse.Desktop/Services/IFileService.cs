@@ -31,4 +31,9 @@ public interface IFileService
     /// Gets the last opened or saved file path.
     /// </summary>
     string? CurrentFilePath { get; }
+
+    /// <summary>
+    /// Clears the current file path (used when opening a template for filling).
+    /// </summary>
+    void ClearCurrentFilePath();
 }

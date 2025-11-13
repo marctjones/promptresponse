@@ -181,7 +181,7 @@ public class DocumentIntegrationTests
         stream.Position = 0;
         using var reader = new StreamReader(stream);
         var json = await reader.ReadToEndAsync();
-        json.Should().Contain("\"title\":\"Test Form\"");
+        json.Should().Contain("\"title\": \"Test Form\"");
     }
 
     [Fact]
@@ -231,7 +231,7 @@ public class DocumentIntegrationTests
 
         // Act & Assert
         document.Metadata.Created.Should().NotBeNull();
-        document.Metadata.Created.Value.Year.Should().Be(2025);
+        document.Metadata.Created!.Value.Year.Should().Be(2025);
     }
 
     private static string GetExampleFilePath(string filename)

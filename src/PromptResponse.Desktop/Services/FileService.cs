@@ -1,4 +1,6 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
@@ -21,6 +23,11 @@ public class FileService : IFileService
 
     public string? CurrentFilePath => _currentFilePath;
 
+    public void ClearCurrentFilePath()
+    {
+        _currentFilePath = null;
+    }
+
     public async Task<AprDocument?> OpenFileAsync()
     {
         // Get the main window
@@ -34,7 +41,9 @@ public class FileService : IFileService
             AllowMultiple = false,
             FileTypeFilter = new[]
             {
-                new FilePickerFileType("APR Files") { Patterns = new[] { "*.apr" } },
+                new FilePickerFileType("APR Files") { Patterns = new[] { "*.apr", "*.aprt", "*.aprf" } },
+                new FilePickerFileType("APR Templates") { Patterns = new[] { "*.aprt" } },
+                new FilePickerFileType("APR Filled Forms") { Patterns = new[] { "*.aprf" } },
                 new FilePickerFileType("All Files") { Patterns = new[] { "*" } }
             }
         });
@@ -51,6 +60,23 @@ public class FileService : IFileService
         await using var stream = await file.OpenReadAsync();
         var document = await _serializer.DeserializeAsync(stream);
 
+        // Extension-based DocumentType override (extension takes precedence over content)
+        if (document != null)
+        {
+            var extension = Path.GetExtension(_currentFilePath).ToLowerInvariant();
+            if (extension == ".aprt")
+            {
+                // .aprt extension = always treat as template
+                document.DocumentType = DocumentType.Template;
+            }
+            else if (extension == ".aprf")
+            {
+                // .aprf extension = always treat as filled form
+                document.DocumentType = DocumentType.FilledForm;
+            }
+            // .apr extension = use DocumentType from file content (no override)
+        }
+
         return document;
     }
 
@@ -59,17 +85,23 @@ public class FileService : IFileService
         var window = GetMainWindow();
         if (window == null) return false;
 
+        // Determine suggested extension based on DocumentType
+        var extension = document.DocumentType == DocumentType.Template ? ".aprt" : ".aprf";
+        var defaultExtension = extension.TrimStart('.');
+
         // Show save file dialog
         var file = await window.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
             Title = "Save APR File",
-            DefaultExtension = "apr",
+            DefaultExtension = defaultExtension,
             SuggestedFileName = string.IsNullOrWhiteSpace(document.Metadata.Title)
-                ? "document.apr"
-                : MakeValidFileName(document.Metadata.Title) + ".apr",
+                ? $"document{extension}"
+                : MakeValidFileName(document.Metadata.Title) + extension,
             FileTypeChoices = new[]
             {
-                new FilePickerFileType("APR Files") { Patterns = new[] { "*.apr" } }
+                new FilePickerFileType("APR Template") { Patterns = new[] { "*.aprt" } },
+                new FilePickerFileType("APR Filled Form") { Patterns = new[] { "*.aprf" } },
+                new FilePickerFileType("APR Generic") { Patterns = new[] { "*.apr" } }
             }
         });
 
@@ -79,6 +111,19 @@ public class FileService : IFileService
         }
 
         _currentFilePath = file.Path.LocalPath;
+
+        // Update DocumentType based on chosen extension (extension determines type)
+        var chosenExtension = Path.GetExtension(_currentFilePath).ToLowerInvariant();
+        if (chosenExtension == ".aprt")
+        {
+            document.DocumentType = DocumentType.Template;
+        }
+        else if (chosenExtension == ".aprf")
+        {
+            document.DocumentType = DocumentType.FilledForm;
+        }
+        // .apr keeps current DocumentType
+
         await SaveFileAsync(document, _currentFilePath);
 
         return true;
@@ -86,6 +131,18 @@ public class FileService : IFileService
 
     public async Task SaveFileAsync(AprDocument document, string filePath)
     {
+        // Update DocumentType based on file extension (extension determines type)
+        var extension = Path.GetExtension(filePath).ToLowerInvariant();
+        if (extension == ".aprt")
+        {
+            document.DocumentType = DocumentType.Template;
+        }
+        else if (extension == ".aprf")
+        {
+            document.DocumentType = DocumentType.FilledForm;
+        }
+        // .apr keeps current DocumentType
+
         // Update modified timestamp
         document.Metadata.Modified = DateTime.UtcNow;
 

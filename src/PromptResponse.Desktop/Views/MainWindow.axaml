@@ -4,7 +4,7 @@
         xmlns:views="using:PromptResponse.Desktop.Views"
         x:Class="PromptResponse.Desktop.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/app-icon.ico"
         Title="{Binding Title}"
         Width="900"
         Height="700">
@@ -17,11 +17,36 @@
         <!-- Menu Bar -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open..." Command="{Binding OpenCommand}" HotKey="Ctrl+O"/>
+                <MenuItem Header="_Open (Fill Out Form)..." Command="{Binding OpenCommand}" HotKey="Ctrl+O">
+                    <MenuItem.Icon>
+                        <TextBlock Text="📝" FontSize="14"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Open _Template for Editing..." Command="{Binding OpenTemplateForEditingCommand}" HotKey="Ctrl+Shift+O">
+                    <MenuItem.Icon>
+                        <TextBlock Text="✏️" FontSize="14"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_New Template..." Command="{Binding NewTemplateCommand}" HotKey="Ctrl+N">
+                    <MenuItem.Icon>
+                        <TextBlock Text="➕" FontSize="14"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="_Save" Command="{Binding SaveCommand}" HotKey="Ctrl+S"/>
                 <MenuItem Header="Save _As..." Command="{Binding SaveAsCommand}" HotKey="Ctrl+Shift+S"/>
+                <MenuItem Header="_Close" Command="{Binding CloseCommand}" HotKey="Ctrl+W"/>
                 <Separator/>
                 <MenuItem Header="E_xit" Click="OnExitClicked"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="Theme">
+                    <MenuItem Header="_Light Theme" Command="{Binding SetLightThemeCommand}"/>
+                    <MenuItem Header="_Dark Theme" Command="{Binding SetDarkThemeCommand}"/>
+                    <MenuItem Header="_System Default" Command="{Binding SetSystemThemeCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="_Vivid (Custom)" Command="{Binding SetCustomThemeCommand}"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" Click="OnAboutClicked"/>
@@ -29,13 +54,35 @@
         </Menu>
 
         <!-- Main Content Area -->
-        <ContentControl Content="{Binding FormFillingViewModel}">
-            <ContentControl.ContentTemplate>
-                <DataTemplate>
-                    <views:FormFillingView/>
-                </DataTemplate>
-            </ContentControl.ContentTemplate>
-        </ContentControl>
+        <Panel>
+            <!-- Form Filling View -->
+            <ContentControl Content="{Binding FormFillingViewModel}"
+                            IsVisible="{Binding FormFillingViewModel, Converter={x:Static ObjectConverters.IsNotNull}}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <views:FormFillingView/>
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+
+            <!-- Template Editor View -->
+            <ContentControl Content="{Binding TemplateEditorViewModel}"
+                            IsVisible="{Binding TemplateEditorViewModel, Converter={x:Static ObjectConverters.IsNotNull}}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <views:TemplateEditorView/>
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+        </Panel>
     </DockPanel>
 
 </Window>

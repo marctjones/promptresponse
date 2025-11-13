@@ -36,11 +36,39 @@ dotnet build
 
 # Run tests
 dotnet test
+```
 
+### Easy Launcher (Recommended)
+
+Use the provided launcher scripts for the easiest experience:
+
+**Linux/macOS:**
+```bash
+./run.sh              # Launch GUI application
+./run.sh --demo       # Run interactive CLI demos
+./run.sh --validate   # Validate example files
+./run.sh --help       # Show CLI help
+./run.sh --usage      # Show all launcher options
+```
+
+**Windows:**
+```powershell
+.\run.ps1             # Launch GUI application
+.\run.ps1 demo        # Run interactive CLI demos
+.\run.ps1 validate    # Validate example files
+.\run.ps1 help        # Show CLI help
+.\run.ps1 usage       # Show all launcher options
+```
+
+### Manual Commands
+
+You can also run the applications directly:
+
+```bash
 # Run CLI tool
 dotnet run --project src/PromptResponse.Cli -- help
 
-# Run Desktop application (coming soon)
+# Run Desktop application
 dotnet run --project src/PromptResponse.Desktop
 ```
 

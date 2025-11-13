@@ -29,14 +29,7 @@ public class DataTypeValidator
             return result;
         }
 
-        // No expected type = always valid
-        var expectedType = prompt.Hints.ExpectedDataType;
-        if (string.IsNullOrWhiteSpace(expectedType))
-        {
-            return result;
-        }
-
-        // Validate against custom pattern first
+        // Validate against custom pattern first (if present)
         if (!string.IsNullOrWhiteSpace(prompt.Hints.ValidationPattern))
         {
             if (!ValidatePattern(prompt.Response, prompt.Hints.ValidationPattern))
@@ -47,6 +40,13 @@ public class DataTypeValidator
                     "PATTERN_MISMATCH"));
                 return result; // Pattern takes precedence
             }
+        }
+
+        // No expected type = always valid (if no pattern was specified)
+        var expectedType = prompt.Hints.ExpectedDataType;
+        if (string.IsNullOrWhiteSpace(expectedType))
+        {
+            return result;
         }
 
         // Validate against known data types
@@ -131,10 +131,10 @@ public class DataTypeValidator
         if (ValidateEmail(response)) return "email";
         if (ValidateUrl(response)) return "url";
         if (ValidateDate(response)) return "date";
-        if (ValidateTime(response)) return "time";
         if (ValidateDateTime(response)) return "datetime";
         if (ValidateNumber(response)) return "number";
         if (ValidateCurrency(response)) return "currency";
+        if (ValidateTime(response)) return "time";
         if (ValidateBoolean(response)) return "boolean";
 
         return "text";

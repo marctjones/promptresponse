@@ -5,7 +5,7 @@
     "title": "Employment Application Form",
     "description": "Standard employment application for new candidates",
     "created": "2025-11-12T00:00:00Z",
-    "modified": "2025-11-12T00:00:00Z",
+    "modified": "2025-11-13T00:36:57.0215615Z",
     "author": "HR Department",
     "templateId": "employment-app-v1",
     "templateVersion": "1.0"
@@ -24,31 +24,38 @@
             {
               "id": "prompt_001",
               "label": "Full Legal Name",
-              "response": "",
+              "response": "Marc Jones",
               "hints": {
                 "placeholder": "First Middle Last",
                 "expectedDataType": "text",
+                "suggestedValues": [],
                 "helpText": "Enter your name as it appears on government ID"
               },
-              "responseMetadata": {}
+              "responseMetadata": {
+                "lastModified": "2025-11-13T00:35:18.6611589Z"
+              }
             },
             {
               "id": "prompt_002",
               "label": "Email Address",
-              "response": "",
+              "response": "marc@joneslaw.io",
               "hints": {
                 "placeholder": "you@example.com",
-                "expectedDataType": "email"
+                "expectedDataType": "email",
+                "suggestedValues": []
               },
-              "responseMetadata": {}
+              "responseMetadata": {
+                "lastModified": "2025-11-13T00:35:22.4704234Z"
+              }
             },
             {
               "id": "prompt_003",
               "label": "Phone Number",
               "response": "",
               "hints": {
-                "placeholder": "+1-555-0100",
-                "expectedDataType": "phone"
+                "placeholder": "\u002B1-555-0100",
+                "expectedDataType": "phone",
+                "suggestedValues": []
               },
               "responseMetadata": {}
             }
@@ -61,38 +68,50 @@
             {
               "id": "prompt_004",
               "label": "Street Address",
-              "response": "",
+              "response": "14 road",
               "hints": {
-                "expectedDataType": "text"
+                "expectedDataType": "text",
+                "suggestedValues": []
               },
-              "responseMetadata": {}
+              "responseMetadata": {
+                "lastModified": "2025-11-13T00:35:28.7034265Z"
+              }
             },
             {
               "id": "prompt_005",
               "label": "City",
-              "response": "",
+              "response": "Bloomfield",
               "hints": {
-                "expectedDataType": "text"
+                "expectedDataType": "text",
+                "suggestedValues": []
               },
-              "responseMetadata": {}
+              "responseMetadata": {
+                "lastModified": "2025-11-13T00:35:31.5116525Z"
+              }
             },
             {
               "id": "prompt_006",
               "label": "State/Province",
-              "response": "",
+              "response": "CT",
               "hints": {
-                "expectedDataType": "text"
+                "expectedDataType": "text",
+                "suggestedValues": []
               },
-              "responseMetadata": {}
+              "responseMetadata": {
+                "lastModified": "2025-11-13T00:35:32.8349938Z"
+              }
             },
             {
               "id": "prompt_007",
               "label": "Postal Code",
-              "response": "",
+              "response": "06002",
               "hints": {
-                "expectedDataType": "text"
+                "expectedDataType": "text",
+                "suggestedValues": []
               },
-              "responseMetadata": {}
+              "responseMetadata": {
+                "lastModified": "2025-11-13T00:35:34.73052Z"
+              }
             }
           ]
         }
@@ -101,32 +120,39 @@
         {
           "id": "prompt_008",
           "label": "Date of Birth",
-          "response": "",
+          "response": "1980/04/12",
           "hints": {
             "placeholder": "YYYY-MM-DD",
-            "expectedDataType": "date"
+            "expectedDataType": "date",
+            "suggestedValues": []
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:05.0314553Z"
+          }
         }
       ]
     },
     {
       "id": "section_002",
       "title": "Employment History",
+      "subsections": [],
       "prompts": [
         {
           "id": "prompt_009",
           "label": "Current or Most Recent Employer",
-          "response": "",
+          "response": "dada",
           "hints": {
-            "expectedDataType": "text"
+            "expectedDataType": "text",
+            "suggestedValues": []
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:08.8837194Z"
+          }
         },
         {
           "id": "prompt_010",
           "label": "Position/Title",
-          "response": "",
+          "response": "dasds",
           "hints": {
             "expectedDataType": "text",
             "suggestedValues": [
@@ -138,104 +164,131 @@
               "Administrator"
             ]
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:10.3348604Z"
+          }
         },
         {
           "id": "prompt_011",
           "label": "Start Date",
-          "response": "",
+          "response": "2021-01-01",
           "hints": {
             "placeholder": "YYYY-MM-DD",
-            "expectedDataType": "date"
+            "expectedDataType": "date",
+            "suggestedValues": []
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:22.9168849Z"
+          }
         },
         {
           "id": "prompt_012",
           "label": "End Date (leave blank if current)",
-          "response": "",
+          "response": "2021-01-02",
           "hints": {
             "placeholder": "YYYY-MM-DD",
-            "expectedDataType": "date"
+            "expectedDataType": "date",
+            "suggestedValues": []
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:26.1043228Z"
+          }
         },
         {
           "id": "prompt_013",
           "label": "Job Responsibilities",
-          "response": "",
+          "response": "my job!",
           "hints": {
             "placeholder": "Describe your key responsibilities",
-            "expectedDataType": "multiline"
+            "expectedDataType": "multiline",
+            "suggestedValues": []
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:30.1201445Z"
+          }
         }
       ]
     },
     {
       "id": "section_003",
       "title": "Education",
+      "subsections": [],
       "prompts": [
         {
           "id": "prompt_014",
           "label": "Highest Level of Education",
-          "response": "",
+          "response": "none",
           "hints": {
             "expectedDataType": "text",
             "suggestedValues": [
               "High School Diploma",
               "Associate Degree",
-              "Bachelor's Degree",
-              "Master's Degree",
+              "Bachelor\u0027s Degree",
+              "Master\u0027s Degree",
               "Doctorate",
               "Professional Certification"
             ]
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:34.1424749Z"
+          }
         },
         {
           "id": "prompt_015",
           "label": "Institution Name",
-          "response": "",
+          "response": "NA",
           "hints": {
-            "expectedDataType": "text"
+            "expectedDataType": "text",
+            "suggestedValues": []
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:35.5528857Z"
+          }
         },
         {
           "id": "prompt_016",
           "label": "Graduation Year",
-          "response": "",
+          "response": "1900",
           "hints": {
             "placeholder": "YYYY",
-            "expectedDataType": "number"
+            "expectedDataType": "number",
+            "suggestedValues": []
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:37.3846873Z"
+          }
         }
       ]
     },
     {
       "id": "section_004",
       "title": "Additional Information",
+      "subsections": [],
       "prompts": [
         {
           "id": "prompt_017",
           "label": "Why are you interested in this position?",
-          "response": "",
+          "response": "money!",
           "hints": {
-            "expectedDataType": "multiline"
+            "expectedDataType": "multiline",
+            "suggestedValues": []
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:44.1845265Z"
+          }
         },
         {
           "id": "prompt_018",
           "label": "When can you start?",
-          "response": "",
+          "response": "2025-11-13",
           "hints": {
             "placeholder": "YYYY-MM-DD",
-            "expectedDataType": "date"
+            "expectedDataType": "date",
+            "suggestedValues": []
           },
-          "responseMetadata": {}
+          "responseMetadata": {
+            "lastModified": "2025-11-13T00:36:53.1054616Z"
+          }
         }
       ]
     }

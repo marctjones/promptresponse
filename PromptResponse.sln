@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromptResponse.Desktop", "src\PromptResponse.Desktop\PromptResponse.Desktop.csproj", "{C3D4E5F6-G7H8-9012-CDEF-123456789012}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromptResponse.Cli", "src\PromptResponse.Cli\PromptResponse.Cli.csproj", "{D4E5F6G7-H8I9-0123-DEFG-234567890123}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F26E3836-09AB-42A1-80B0-148E5D4193B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromptResponse.AccessibilityTests", "tests\PromptResponse.AccessibilityTests\PromptResponse.AccessibilityTests.csproj", "{623F76B3-5313-4258-80C4-509020818E4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,5 +37,12 @@ Global
 		{D4E5F6G7-H8I9-0123-DEFG-234567890123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E5F6G7-H8I9-0123-DEFG-234567890123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E5F6G7-H8I9-0123-DEFG-234567890123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{623F76B3-5313-4258-80C4-509020818E4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{623F76B3-5313-4258-80C4-509020818E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{623F76B3-5313-4258-80C4-509020818E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{623F76B3-5313-4258-80C4-509020818E4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{623F76B3-5313-4258-80C4-509020818E4B} = {F26E3836-09AB-42A1-80B0-148E5D4193B3}
 	EndGlobalSection
 EndGlobal

@@ -4,29 +4,289 @@ This document outlines the development practices and guidelines for contributing
 
 ## Core Development Principles
 
-### 1. Test-Driven Development (TDD)
+### 1. Accessibility-First Development (CRITICAL)
 
-**Always write tests BEFORE implementation:**
+**Accessibility is NOT optional - it's a core requirement equal to functionality and testing.**
+
+PromptResponse targets **WCAG 2.1 Level AA compliance** minimum. Every feature, every UI element, every APR file must be accessible to users with disabilities.
+
+**Why Accessibility is Critical:**
+- 15% of the world's population has some form of disability
+- Legal requirement in many jurisdictions (ADA, Section 508, EAA)
+- Screen reader users, keyboard-only users, low vision users ALL must be able to use PromptResponse
+- Inaccessible UI is **broken UI** - treat accessibility bugs as critical bugs
+
+**Accessibility-First Workflow:**
+
+```bash
+# Every feature must include accessibility from the start
+1. Design feature with accessibility in mind
+2. Write accessibility test FIRST (along with functional test)
+3. Implement feature with accessibility properties
+4. Run functional tests
+5. Run accessibility tests
+6. Verify with automated tools
+7. Commit only when ALL tests pass (including accessibility)
+```
+
+**Accessibility is a BLOCKER:**
+- ❌ Cannot merge code with failing accessibility tests
+- ❌ Cannot ship features missing AutomationProperties
+- ❌ Cannot create APR files with missing/duplicate labels
+- ✅ Must run `dotnet test tests/PromptResponse.AccessibilityTests` before every commit
+
+**See:** `ACCESSIBILITY.md` and `tests/PromptResponse.AccessibilityTests/README.md` for complete guidelines.
+
+### 2. Test-Driven Development (TDD)
+
+**Always write tests BEFORE implementation (including accessibility tests):**
 
 ```bash
 # Workflow for every feature
-1. Write failing test
+1. Write failing test (functional + accessibility if UI)
 2. Run test (verify it fails)
 3. Implement minimum code to pass
 4. Run test (verify it passes)
-5. Refactor if needed
-6. Run test again
-7. Commit
+5. Run accessibility tests (verify no regressions)
+6. Refactor if needed
+7. Run all tests again
+8. Commit
 ```
 
 **Testing Requirements:**
 - Unit tests for each component
 - Integration tests for component interactions
+- **Accessibility tests for all UI changes and APR files**
 - Run tests after every change
 - Maintain >80% code coverage
-- All tests must pass before committing
+- **All tests must pass before committing (including accessibility)**
 
-### 2. Incremental Development
+## Accessibility Testing
+
+**Automated and static accessibility testing is REQUIRED for all changes.**
+
+### Automated Accessibility Tests
+
+PromptResponse uses **automated, headless accessibility testing** that runs in CI/CD without requiring manual screen reader testing:
+
+```bash
+# Run accessibility tests (MUST pass before commit)
+dotnet test tests/PromptResponse.AccessibilityTests
+
+# Expected output:
+# ✅ 8 passed, ⏭️ 2 skipped (integration tests)
+```
+
+### Types of Accessibility Tests
+
+**1. Static APR File Validation (Primary - Always Use)**
+
+These tests analyze APR files without running the application:
+
+- ✅ **Fast**: < 100ms per test
+- ✅ **No dependencies**: No screen reader or running app needed
+- ✅ **CI/CD friendly**: Runs anywhere
+- ✅ **Deterministic**: Same results every time
+
+**What they test:**
+- All prompts have unique, descriptive labels
+- All sections have titles
+- Help text is meaningful
+- No duplicate labels (confusing for screen reader users)
+- Labels aren't technical IDs (user-friendly)
+
+**Example:**
+```csharp
+[Fact]
+public async Task AprDocument_Prompts_ShouldHave_UniqueLabels()
+{
+    var document = LoadTestDocument();
+    var labels = GetAllPrompts(document).Select(p => p.Label);
+
+    var duplicates = labels.GroupBy(l => l)
+        .Where(g => g.Count() > 1)
+        .Select(g => g.Key);
+
+    duplicates.Should().BeEmpty(
+        "duplicate labels confuse screen reader users");
+}
+```
+
+**2. Runtime Accessibility Tree Inspection (Future)**
+
+These tests launch the app and inspect what assistive technologies see:
+
+- ⚠️ **Slower**: 2-5 seconds (app launch)
+- ⚠️ **Platform-specific**: Requires AT-SPI2 (Linux) or UI Automation (Windows)
+- ✅ **Comprehensive**: Validates actual accessibility tree
+- ✅ **Real-world**: Tests what screen readers actually see
+
+**Status:** Framework implemented, full integration pending
+
+### Mandatory Accessibility Checks
+
+**For UI Changes (XAML):**
+
+Every interactive element MUST have:
+
+```xml
+<!-- Text input field -->
+<TextBox Text="{Binding Response}"
+         AutomationProperties.Name="{Binding Label}"
+         AutomationProperties.HelpText="{Binding HelpText}"
+         TabIndex="0"/>
+
+<!-- Button -->
+<Button Command="{Binding SaveCommand}"
+        AutomationProperties.Name="Save Form"
+        AutomationProperties.HelpText="Saves the current form to disk"/>
+
+<!-- Section expander -->
+<Expander Header="{Binding Title}"
+          AutomationProperties.Name="{Binding Title}"
+          AutomationProperties.HelpText="{Binding Description}"/>
+```
+
+**For APR Files:**
+
+Every APR file MUST have:
+- Unique prompt labels (no duplicates)
+- Section titles (not empty)
+- Descriptive labels (not IDs like "prompt_001")
+- Help text when needed
+- Concise titles (< 100 characters for comfort)
+
+**Test BEFORE committing:**
+```bash
+dotnet test tests/PromptResponse.AccessibilityTests
+```
+
+### Accessibility Testing Workflow
+
+**When creating a new APR file:**
+
+```bash
+# 1. Create the APR file
+vim examples/my-form.aprt
+
+# 2. Run accessibility validation
+dotnet test tests/PromptResponse.AccessibilityTests \
+  --filter "FullyQualifiedName~AprFile_Structure_ShouldSupportAccessibility"
+
+# 3. Fix any issues (duplicate labels, missing titles, etc.)
+
+# 4. Commit only when tests pass
+git add examples/my-form.aprt
+git commit -m "feat: add my-form template with accessibility"
+```
+
+**When adding UI elements:**
+
+```bash
+# 1. Add XAML with AutomationProperties
+vim src/PromptResponse.Desktop/Views/MyView.axaml
+
+# 2. Run all tests
+dotnet test
+
+# 3. Manually test keyboard navigation (Tab through all elements)
+
+# 4. If you have Orca/NVDA, test with screen reader (optional but recommended)
+
+# 5. Commit when everything works
+git commit -m "feat: add accessible MyView component"
+```
+
+### Testing Tools & Approaches
+
+**Priority 1: Automated Static Tests (REQUIRED)**
+- Fast, deterministic, CI/CD friendly
+- No manual interaction needed
+- Primary validation method
+
+**Priority 2: Automated Runtime Tests (IN DEVELOPMENT)**
+- Validates actual accessibility tree
+- Platform-specific but automated
+- Secondary validation when available
+
+**Priority 3: Manual Screen Reader Testing (OPTIONAL)**
+- Real-world validation
+- Slow, requires expertise
+- Use for final verification only
+
+**We prioritize automation over manual testing** because:
+- ✅ Faster feedback
+- ✅ Consistent results
+- ✅ Catches regressions automatically
+- ✅ No special hardware/software setup
+- ✅ Works in CI/CD pipelines
+
+### Common Accessibility Issues (MUST AVOID)
+
+**❌ Missing AutomationProperties.Name:**
+```xml
+<!-- BAD: Screen readers can't identify this -->
+<TextBox Text="{Binding Response}"/>
+
+<!-- GOOD: Screen reader announces "Email Address" -->
+<TextBox Text="{Binding Response}"
+         AutomationProperties.Name="Email Address"/>
+```
+
+**❌ Duplicate labels in APR:**
+```json
+// BAD: Two prompts called "Phone"
+{"id": "home_phone", "label": "Phone"},
+{"id": "work_phone", "label": "Phone"}
+
+// GOOD: Unique labels
+{"id": "home_phone", "label": "Home Phone"},
+{"id": "work_phone", "label": "Work Phone"}
+```
+
+**❌ Using placeholder as only label:**
+```xml
+<!-- BAD: Placeholder disappears when typing -->
+<TextBox Watermark="Enter your name"/>
+
+<!-- GOOD: Proper label always visible to screen readers -->
+<TextBlock Text="Full Name"/>
+<TextBox Text="{Binding Name}"
+         Watermark="e.g., John Smith"
+         AutomationProperties.Name="Full Name"/>
+```
+
+**❌ No help text for complex fields:**
+```xml
+<!-- BAD: No guidance -->
+<TextBox AutomationProperties.Name="Date of Birth"/>
+
+<!-- GOOD: Help text explains format -->
+<TextBox AutomationProperties.Name="Date of Birth"
+         AutomationProperties.HelpText="Enter date in MM/DD/YYYY format"/>
+```
+
+### Accessibility Test Coverage Goals
+
+**Current:** 8 automated tests validating APR structure
+**Target:** 20+ tests covering all accessibility requirements
+**Future:** Full runtime accessibility tree validation
+
+**Expanding tests:**
+- Add tests for new validation rules
+- Test keyboard navigation patterns
+- Validate focus management
+- Test with multiple APR file types
+- Validate color contrast (if applicable)
+
+### Resources
+
+- **Primary:** `tests/PromptResponse.AccessibilityTests/README.md`
+- **Guide:** `ACCESSIBILITY.md`
+- **Standards:** [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- **Avalonia:** [Accessibility Documentation](https://docs.avaloniaui.net/docs/concepts/accessibility)
+
+### 3. Incremental Development
 
 - Build from foundation up
 - Each component must be tested before moving to next
@@ -34,7 +294,7 @@ This document outlines the development practices and guidelines for contributing
 - **Never commit broken code**
 - Each commit should be deployable
 
-### 3. Code Quality Standards
+### 4. Code Quality Standards
 
 **Documentation:**
 - XML documentation comments for all public classes and methods
@@ -87,7 +347,7 @@ public class Prompt
 }
 ```
 
-### 4. Logging & Debugging
+### 5. Logging & Debugging
 
 **Structured Logging:**
 ```csharp
@@ -108,7 +368,7 @@ _logger.LogCritical("Unrecoverable error in serialization engine");
 - **Error**: Error messages for failures
 - **Critical**: Critical failures requiring immediate attention
 
-### 5. Dependency Management
+### 6. Dependency Management
 
 **Principles:**
 - Prefer pure .NET libraries (no native dependencies)
@@ -324,10 +584,13 @@ git push -u origin claude/csharp-cross-platform-app-011CV4c6LNDr1EMwJCyTY83C
 ## Running Tests
 
 ```bash
-# Run all tests
+# Run all tests (functional + accessibility)
 dotnet test
 
-# Run specific test project
+# Run only accessibility tests (MUST pass before commit)
+dotnet test tests/PromptResponse.AccessibilityTests
+
+# Run functional tests
 dotnet test tests/PromptResponse.Core.Tests
 
 # Run with verbose output
@@ -336,8 +599,30 @@ dotnet test --verbosity detailed
 # Run with coverage
 dotnet test /p:CollectCoverage=true
 
+# Run specific accessibility test
+dotnet test --filter "FullyQualifiedName~AprDocument_Prompts_ShouldHave_UniqueLabels"
+
 # Run specific test
 dotnet test --filter "FullyQualifiedName~PromptTests.Prompt_ShouldInitializeWithEmptyResponse"
+
+# Watch mode for TDD (reruns tests on file changes)
+dotnet watch test --project tests/PromptResponse.AccessibilityTests
+```
+
+**Pre-Commit Checklist:**
+```bash
+# 1. Run ALL tests
+dotnet test
+
+# 2. Verify accessibility tests pass
+dotnet test tests/PromptResponse.AccessibilityTests
+
+# 3. Check for warnings
+dotnet build --warnaserror
+
+# 4. Commit only if everything passes
+git add .
+git commit -m "feat: description"
 ```
 
 ## Code Coverage

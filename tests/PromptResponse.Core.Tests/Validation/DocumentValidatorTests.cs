@@ -28,7 +28,15 @@ public class DocumentValidatorTests
             Metadata = new Metadata { Title = "Test Form" },
             Sections = new List<Section>
             {
-                new() { Id = "section_001", Title = "Section 1" }
+                new()
+                {
+                    Id = "section_001",
+                    Title = "Section 1",
+                    Prompts = new List<Prompt>
+                    {
+                        new() { Id = "prompt_001", Label = "Question 1", Response = "" }
+                    }
+                }
             }
         };
 
