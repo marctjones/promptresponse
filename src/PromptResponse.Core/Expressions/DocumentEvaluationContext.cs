@@ -9,6 +9,10 @@ public class DocumentEvaluationContext : IEvaluationContext
 {
     private readonly Dictionary<string, Prompt> _promptsById;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DocumentEvaluationContext"/> class.
+    /// </summary>
+    /// <param name="document">The APR document to provide context for.</param>
     public DocumentEvaluationContext(AprDocument document)
     {
         if (document == null)
@@ -34,6 +38,7 @@ public class DocumentEvaluationContext : IEvaluationContext
         }
     }
 
+    /// <inheritdoc/>
     public string GetFieldValue(string fieldId)
     {
         if (_promptsById.TryGetValue(fieldId, out var prompt))
@@ -43,6 +48,7 @@ public class DocumentEvaluationContext : IEvaluationContext
         return "";
     }
 
+    /// <inheritdoc/>
     public bool HasField(string fieldId)
     {
         return _promptsById.ContainsKey(fieldId);

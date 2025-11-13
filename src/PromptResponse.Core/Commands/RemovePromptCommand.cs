@@ -12,11 +12,14 @@ public class RemovePromptCommand : ICommand
     private int _originalIndex;
     private readonly string _containerName;
 
+    /// <inheritdoc/>
     public string Description => $"Remove prompt '{_prompt.Label}' from {_containerName}";
 
     /// <summary>
     /// Initializes a new instance for removing a prompt from a section.
     /// </summary>
+    /// <param name="section">The section to remove the prompt from.</param>
+    /// <param name="prompt">The prompt to remove.</param>
     public RemovePromptCommand(Section section, Prompt prompt)
     {
         if (section == null) throw new ArgumentNullException(nameof(section));
@@ -28,6 +31,8 @@ public class RemovePromptCommand : ICommand
     /// <summary>
     /// Initializes a new instance for removing a prompt from a subsection.
     /// </summary>
+    /// <param name="subsection">The subsection to remove the prompt from.</param>
+    /// <param name="prompt">The prompt to remove.</param>
     public RemovePromptCommand(Subsection subsection, Prompt prompt)
     {
         if (subsection == null) throw new ArgumentNullException(nameof(subsection));
@@ -36,6 +41,7 @@ public class RemovePromptCommand : ICommand
         _containerName = $"subsection '{subsection.Title}'";
     }
 
+    /// <inheritdoc/>
     public void Execute()
     {
         _originalIndex = _promptList.IndexOf(_prompt);
@@ -45,12 +51,15 @@ public class RemovePromptCommand : ICommand
         _promptList.RemoveAt(_originalIndex);
     }
 
+    /// <inheritdoc/>
     public void Undo()
     {
         _promptList.Insert(_originalIndex, _prompt);
     }
 
+    /// <inheritdoc/>
     public bool CanMergeWith(ICommand other) => false;
 
+    /// <inheritdoc/>
     public void MergeWith(ICommand other) { }
 }

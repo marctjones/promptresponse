@@ -36,4 +36,10 @@ public interface IFileService
     /// Clears the current file path (used when opening a template for filling).
     /// </summary>
     void ClearCurrentFilePath();
+
+    /// <summary>
+    /// Sets the current file path (used when opening a file from command line).
+    /// </summary>
+    /// <param name="filePath">The file path to set.</param>
+    void SetCurrentFilePath(string filePath);
 }

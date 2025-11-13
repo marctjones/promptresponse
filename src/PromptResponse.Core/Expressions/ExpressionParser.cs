@@ -289,6 +289,16 @@ public class ExpressionParser
 /// </summary>
 public class ExpressionParseException : Exception
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExpressionParseException"/> class.
+    /// </summary>
+    /// <param name="message">The error message.</param>
     public ExpressionParseException(string message) : base(message) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExpressionParseException"/> class.
+    /// </summary>
+    /// <param name="message">The error message.</param>
+    /// <param name="innerException">The inner exception.</param>
     public ExpressionParseException(string message, Exception innerException) : base(message, innerException) { }
 }

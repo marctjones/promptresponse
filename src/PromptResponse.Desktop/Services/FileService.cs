@@ -28,6 +28,11 @@ public class FileService : IFileService
         _currentFilePath = null;
     }
 
+    public void SetCurrentFilePath(string filePath)
+    {
+        _currentFilePath = filePath;
+    }
+
     public async Task<AprDocument?> OpenFileAsync()
     {
         // Get the main window

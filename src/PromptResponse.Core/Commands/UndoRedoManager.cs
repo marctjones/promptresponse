@@ -34,6 +34,10 @@ public class UndoRedoManager
     /// </summary>
     public event EventHandler? StateChanged;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UndoRedoManager"/> class.
+    /// </summary>
+    /// <param name="maxUndoLevels">Maximum number of undo levels to maintain. Default is 100.</param>
     public UndoRedoManager(int maxUndoLevels = 100)
     {
         _maxUndoLevels = maxUndoLevels;

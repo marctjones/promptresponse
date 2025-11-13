@@ -8,9 +8,21 @@ public class FunctionCallExpression : IExpression
     private readonly string _functionName;
     private readonly List<IExpression> _arguments;
 
+    /// <summary>
+    /// Gets the name of the function being called.
+    /// </summary>
     public string FunctionName => _functionName;
+
+    /// <summary>
+    /// Gets the list of argument expressions.
+    /// </summary>
     public IReadOnlyList<IExpression> Arguments => _arguments;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FunctionCallExpression"/> class.
+    /// </summary>
+    /// <param name="functionName">The name of the function to call.</param>
+    /// <param name="arguments">The list of argument expressions.</param>
     public FunctionCallExpression(string functionName, List<IExpression> arguments)
     {
         if (string.IsNullOrWhiteSpace(functionName))
@@ -20,6 +32,7 @@ public class FunctionCallExpression : IExpression
         _arguments = arguments ?? new List<IExpression>();
     }
 
+    /// <inheritdoc/>
     public object Evaluate(IEvaluationContext context)
     {
         return _functionName.ToUpperInvariant() switch
@@ -204,6 +217,7 @@ public class FunctionCallExpression : IExpression
         return value != null;
     }
 
+    /// <inheritdoc/>
     public override string ToString()
     {
         var args = string.Join(", ", _arguments.Select(a => a.ToString()));

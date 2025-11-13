@@ -124,6 +124,14 @@
                                                     </Expander.Header>
 
                                                     <StackPanel Margin="12,8,0,8" Spacing="16">
+                                                        <!-- Subsection Description -->
+                                                        <TextBlock Text="{Binding Description}"
+                                                                   FontSize="13"
+                                                                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                                   TextWrapping="Wrap"
+                                                                   Margin="4,0,0,8"
+                                                                   IsVisible="{Binding Description, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+
                                                         <!-- Prompts in Subsection -->
                                                         <ItemsControl ItemsSource="{Binding Prompts}"
                                                                       HorizontalAlignment="Stretch">

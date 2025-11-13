@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F26E3836
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromptResponse.AccessibilityTests", "tests\PromptResponse.AccessibilityTests\PromptResponse.AccessibilityTests.csproj", "{623F76B3-5313-4258-80C4-509020818E4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromptResponse.Cli.Tests", "tests\PromptResponse.Cli.Tests\PromptResponse.Cli.Tests.csproj", "{9252C45F-F59E-438E-BD69-75FE6E4B538A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromptResponse.Desktop.Tests", "tests\PromptResponse.Desktop.Tests\PromptResponse.Desktop.Tests.csproj", "{904120F3-D067-4E66-8CF2-633C2E101BE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,8 +45,18 @@ Global
 		{623F76B3-5313-4258-80C4-509020818E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{623F76B3-5313-4258-80C4-509020818E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{623F76B3-5313-4258-80C4-509020818E4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9252C45F-F59E-438E-BD69-75FE6E4B538A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9252C45F-F59E-438E-BD69-75FE6E4B538A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9252C45F-F59E-438E-BD69-75FE6E4B538A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9252C45F-F59E-438E-BD69-75FE6E4B538A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{904120F3-D067-4E66-8CF2-633C2E101BE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{904120F3-D067-4E66-8CF2-633C2E101BE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{904120F3-D067-4E66-8CF2-633C2E101BE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{904120F3-D067-4E66-8CF2-633C2E101BE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{623F76B3-5313-4258-80C4-509020818E4B} = {F26E3836-09AB-42A1-80B0-148E5D4193B3}
+		{9252C45F-F59E-438E-BD69-75FE6E4B538A} = {F26E3836-09AB-42A1-80B0-148E5D4193B3}
+		{904120F3-D067-4E66-8CF2-633C2E101BE7} = {F26E3836-09AB-42A1-80B0-148E5D4193B3}
 	EndGlobalSection
 EndGlobal

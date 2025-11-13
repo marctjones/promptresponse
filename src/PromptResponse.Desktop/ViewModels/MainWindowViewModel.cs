@@ -4,6 +4,7 @@ using Avalonia.Media;
 using Avalonia.Styling;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Serialization;
 using PromptResponse.Desktop.Services;
 using System.Windows.Input;
 
@@ -210,6 +211,100 @@ public class MainWindowViewModel : ViewModelBase
         {
             _logger.LogError(ex, "Error creating new template");
             Console.Error.WriteLine($"Error creating new template: {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Opens a file on application startup (from command line).
+    /// </summary>
+    public async Task OpenFileOnStartup(string filePath, bool editMode)
+    {
+        _logger.LogInformation("OpenFileOnStartup called: {File} (Edit mode: {EditMode})",
+            filePath, editMode);
+
+        try
+        {
+            // Validate file exists
+            if (!File.Exists(filePath))
+            {
+                _logger.LogError("Startup file not found: {File}", filePath);
+                Console.Error.WriteLine($"Error: File not found: {filePath}");
+                return;
+            }
+
+            // Load the document
+            _logger.LogDebug("Loading document from: {File}", filePath);
+            await using var stream = File.OpenRead(filePath);
+            var serializer = App.ServiceProvider?.GetService(typeof(IAprSerializer)) as IAprSerializer;
+            if (serializer == null)
+            {
+                _logger.LogError("Failed to get IAprSerializer from service provider");
+                return;
+            }
+
+            var document = await serializer.DeserializeAsync(stream);
+            if (document == null)
+            {
+                _logger.LogError("Failed to deserialize document");
+                Console.Error.WriteLine($"Error: Failed to load document from {filePath}");
+                return;
+            }
+
+            // Override DocumentType based on file extension
+            var extension = Path.GetExtension(filePath).ToLowerInvariant();
+            if (extension == ".aprt")
+            {
+                document.DocumentType = DocumentType.Template;
+            }
+            else if (extension == ".aprf")
+            {
+                document.DocumentType = DocumentType.FilledForm;
+            }
+
+            _logger.LogInformation("Document loaded successfully");
+            _logger.LogDebug("  Document Type: {Type}", document.DocumentType);
+            _logger.LogDebug("  Title: {Title}", document.Metadata.Title);
+
+            // Set the file path
+            _fileService.SetCurrentFilePath(filePath);
+
+            // Open in appropriate mode
+            if (editMode || document.DocumentType == DocumentType.Template)
+            {
+                // Edit mode - open template for editing
+                _logger.LogInformation("Opening in edit mode");
+                _isEditingTemplate = true;
+                _currentDocument = document;
+                FormFillingViewModel = null;
+                TemplateEditorViewModel = new TemplateEditorViewModel(document);
+            }
+            else
+            {
+                // Fill mode - open for filling out
+                _logger.LogInformation("Opening in fill mode");
+
+                if (document.DocumentType == DocumentType.Template)
+                {
+                    // Convert template to filled form
+                    document.DocumentType = DocumentType.FilledForm;
+                    document.Metadata.FilledDate = DateTime.UtcNow;
+                    document.Metadata.FilledBy = Environment.UserName;
+                    _fileService.ClearCurrentFilePath(); // Force Save As
+                }
+
+                _isEditingTemplate = false;
+                _currentDocument = document;
+                TemplateEditorViewModel = null;
+                FormFillingViewModel = new FormFillingViewModel(document);
+            }
+
+            UpdateTitle();
+            _logger.LogInformation("File opened successfully on startup");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error opening startup file");
+            Console.Error.WriteLine($"Error opening file: {ex.Message}");
         }
     }
 

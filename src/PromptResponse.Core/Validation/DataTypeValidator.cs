@@ -32,10 +32,11 @@ public class DataTypeValidator
         // Validate against custom pattern first (if present)
         if (!string.IsNullOrWhiteSpace(prompt.Hints.ValidationPattern))
         {
-            if (!ValidatePattern(prompt.Response, prompt.Hints.ValidationPattern))
+            var (patternValid, errorMessage) = ValidatePattern(prompt.Response, prompt.Hints.ValidationPattern);
+            if (!patternValid)
             {
                 result.AddError(new ValidationError(
-                    $"Response does not match expected pattern",
+                    errorMessage ?? "Response does not match expected pattern",
                     prompt.Id,
                     "PATTERN_MISMATCH"));
                 return result; // Pattern takes precedence
@@ -142,7 +143,17 @@ public class DataTypeValidator
 
     private bool ValidateEmail(string value)
     {
-        // Simple email validation
+        // Reject emails with consecutive dots
+        if (value.Contains(".."))
+        {
+            return false;
+        }
+
+        // Simple email validation: local@domain.tld
+        // - No spaces
+        // - Must have @ symbol
+        // - Must have at least one dot after @
+        // - No @ or spaces in local and domain parts
         var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
         return Regex.IsMatch(value, emailPattern);
     }
@@ -168,7 +179,25 @@ public class DataTypeValidator
 
     private bool ValidateNumber(string value)
     {
-        return double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out _);
+        // Reject numbers with commas (not proper decimal separator in invariant culture)
+        if (value.Contains(','))
+        {
+            return false;
+        }
+
+        // Try to parse as double
+        if (!double.TryParse(value, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out var result))
+        {
+            return false;
+        }
+
+        // Reject NaN and Infinity
+        if (double.IsNaN(result) || double.IsInfinity(result))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private bool ValidateUrl(string value)
@@ -200,16 +229,17 @@ public class DataTypeValidator
                lower == "1" || lower == "0";
     }
 
-    private bool ValidatePattern(string value, string pattern)
+    private (bool isValid, string? errorMessage) ValidatePattern(string value, string pattern)
     {
         try
         {
-            return Regex.IsMatch(value, pattern);
+            var isMatch = Regex.IsMatch(value, pattern);
+            return (isMatch, null);
         }
-        catch (ArgumentException)
+        catch (ArgumentException ex)
         {
-            // Invalid regex pattern
-            return true; // Don't fail validation on bad pattern
+            // Invalid regex pattern - report as validation error
+            return (false, $"Invalid validation pattern: {ex.Message}");
         }
     }
 }

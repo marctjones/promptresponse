@@ -198,6 +198,18 @@
                                                             </Expander.Header>
 
                                                             <StackPanel Margin="8" Spacing="8">
+                                                                <!-- Subsection Description -->
+                                                                <TextBox Text="{Binding Description}"
+                                                                         Watermark="Optional description"
+                                                                         AcceptsReturn="True"
+                                                                         TextWrapping="Wrap"
+                                                                         MinHeight="40"
+                                                                         FontSize="13"
+                                                                         Padding="8"
+                                                                         Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                                         AutomationProperties.Name="Subsection description"
+                                                                         AutomationProperties.HelpText="Optional description for this subsection"/>
+
                                                                 <Button Command="{Binding AddPromptCommand}"
                                                                         Content="➕ Add Prompt"
                                                                         Padding="8,4"

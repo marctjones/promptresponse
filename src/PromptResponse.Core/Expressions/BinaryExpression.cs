@@ -5,15 +5,25 @@ namespace PromptResponse.Core.Expressions;
 /// </summary>
 public enum BinaryOperator
 {
+    /// <summary>Addition operator (+)</summary>
     Add,
+    /// <summary>Subtraction operator (-)</summary>
     Subtract,
+    /// <summary>Multiplication operator (*)</summary>
     Multiply,
+    /// <summary>Division operator (/)</summary>
     Divide,
+    /// <summary>Equality operator (==)</summary>
     Equal,
+    /// <summary>Inequality operator (!=)</summary>
     NotEqual,
+    /// <summary>Less than operator (&lt;)</summary>
     LessThan,
+    /// <summary>Less than or equal operator (&lt;=)</summary>
     LessThanOrEqual,
+    /// <summary>Greater than operator (&gt;)</summary>
     GreaterThan,
+    /// <summary>Greater than or equal operator (&gt;=)</summary>
     GreaterThanOrEqual
 }
 
@@ -26,6 +36,12 @@ public class BinaryExpression : IExpression
     private readonly BinaryOperator _operator;
     private readonly IExpression _right;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BinaryExpression"/> class.
+    /// </summary>
+    /// <param name="left">The left operand expression.</param>
+    /// <param name="op">The binary operator.</param>
+    /// <param name="right">The right operand expression.</param>
     public BinaryExpression(IExpression left, BinaryOperator op, IExpression right)
     {
         _left = left ?? throw new ArgumentNullException(nameof(left));
@@ -33,6 +49,7 @@ public class BinaryExpression : IExpression
         _right = right ?? throw new ArgumentNullException(nameof(right));
     }
 
+    /// <inheritdoc/>
     public object Evaluate(IEvaluationContext context)
     {
         var leftValue = _left.Evaluate(context);
@@ -166,6 +183,7 @@ public class BinaryExpression : IExpression
         return result;
     }
 
+    /// <inheritdoc/>
     public override string ToString()
     {
         var opSymbol = _operator switch

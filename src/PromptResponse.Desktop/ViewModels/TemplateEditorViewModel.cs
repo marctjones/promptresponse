@@ -259,12 +259,14 @@ public class EditableSubsectionViewModel : ViewModelBase
     public readonly Subsection Subsection;
     private bool _isExpanded = true;
     private string _title;
+    private string? _description;
 
     public EditableSubsectionViewModel(Subsection subsection, EditableSectionViewModel parentSection)
     {
         Subsection = subsection;
         _parentSection = parentSection;
         _title = subsection.Title;
+        _description = subsection.Description;
 
         Prompts = new ObservableCollection<EditablePromptViewModel>(
             subsection.Prompts.Select(p => new EditablePromptViewModel(p, _parentSection._parent)));
@@ -283,6 +285,19 @@ public class EditableSubsectionViewModel : ViewModelBase
             if (SetProperty(ref _title, value))
             {
                 Subsection.Title = value;
+                _parentSection._parent.MarkAsChanged();
+            }
+        }
+    }
+
+    public string? Description
+    {
+        get => _description;
+        set
+        {
+            if (SetProperty(ref _description, value))
+            {
+                Subsection.Description = value;
                 _parentSection._parent.MarkAsChanged();
             }
         }

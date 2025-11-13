@@ -68,6 +68,18 @@ public partial class App : Application
                 _logger.LogDebug("  Window Title: {Title}", desktop.MainWindow.Title);
                 _logger.LogDebug("  Window Size: {Width}x{Height}", desktop.MainWindow.Width, desktop.MainWindow.Height);
 
+                // Check for startup file from command line
+                if (Program.StartupOptions?.FilePath != null)
+                {
+                    _logger.LogInformation("Opening startup file: {File}", Program.StartupOptions.FilePath);
+                    desktop.MainWindow.Opened += async (s, e) =>
+                    {
+                        await viewModel.OpenFileOnStartup(
+                            Program.StartupOptions.FilePath,
+                            Program.StartupOptions.EditMode);
+                    };
+                }
+
                 // Hook up lifetime events
                 desktop.ShutdownRequested += (s, e) =>
                 {

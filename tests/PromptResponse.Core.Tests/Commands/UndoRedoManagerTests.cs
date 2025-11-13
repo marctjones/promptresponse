@@ -85,8 +85,11 @@ public class UndoRedoManagerTests
         var manager = new UndoRedoManager();
         var prompt = new Prompt { Id = "test", Label = "Test", Response = "v0" };
 
+        // Execute commands with delays to prevent merge optimization
         manager.ExecuteCommand(new SetPromptResponseCommand(prompt, "v1"));
+        Thread.Sleep(60); // Exceed 50ms merge window
         manager.ExecuteCommand(new SetPromptResponseCommand(prompt, "v2"));
+        Thread.Sleep(60);
         manager.ExecuteCommand(new SetPromptResponseCommand(prompt, "v3"));
 
         // Act & Assert

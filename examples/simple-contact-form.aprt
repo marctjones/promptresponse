@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Simple Contact Form",
+    "description": "Basic contact information collection",
+    "created": "2025-11-12T00:00:00Z",
+    "modified": "2025-11-12T00:00:00Z",
+    "templateId": "simple-contact-v1",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_001",
+      "title": "Contact Information",
+      "prompts": [
+        {
+          "id": "prompt_001",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_002",
+          "label": "Email",
+          "response": "",
+          "hints": {
+            "expectedDataType": "email"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_003",
+          "label": "Message",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}
