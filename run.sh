@@ -54,14 +54,10 @@ run_tests() {
 
 # Function to launch GUI
 launch_gui() {
-    local file_arg=""
+    print_header "Launching PromptResponse Desktop Application"
 
-    if [ -n "$1" ]; then
-        file_arg="-- $1"
-        print_header "Launching PromptResponse Desktop Application"
+    if [ -n "$2" ]; then
         print_info "Opening file: $2"
-    else
-        print_header "Launching PromptResponse Desktop Application"
     fi
 
     print_info "Starting GUI application with debug logging enabled..."
@@ -71,7 +67,12 @@ launch_gui() {
     echo ""
 
     # Run with full output visible
-    dotnet run --project src/PromptResponse.Desktop $file_arg
+    # Arguments: $1 = mode flag (--open or --edit), $2 = file path
+    if [ -n "$1" ] && [ -n "$2" ]; then
+        dotnet run --project src/PromptResponse.Desktop -- "$1" "$2"
+    else
+        dotnet run --project src/PromptResponse.Desktop
+    fi
 
     local exit_code=$?
     echo ""
@@ -95,7 +96,7 @@ open_file() {
         return 1
     fi
 
-    launch_gui "--open \"$file\"" "$file"
+    launch_gui "--open" "$file"
 }
 
 # Function to open a file for editing
@@ -107,7 +108,7 @@ edit_file() {
         return 1
     fi
 
-    launch_gui "--edit \"$file\"" "$file"
+    launch_gui "--edit" "$file"
 }
 
 # Function to show CLI help
