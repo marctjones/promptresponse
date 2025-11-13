@@ -53,9 +53,14 @@
             </Grid>
         </Border>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-            <Grid Margin="24">
-                <StackPanel HorizontalAlignment="Stretch" MaxWidth="1000">
+        <!-- Main content grid with sidebar -->
+        <Grid ColumnDefinitions="*,Auto,250">
+            <!-- Main content area -->
+            <ScrollViewer Grid.Column="0"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Name="MainScrollViewer">
+                <Grid Margin="24">
+                    <StackPanel HorizontalAlignment="Stretch" MaxWidth="1000">
                 <!-- Form Header (Simplified - no orange bar!) -->
                 <StackPanel Margin="0,0,0,24">
                     <TextBlock Text="{Binding Title}"
@@ -203,9 +208,54 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-                </StackPanel>
-            </Grid>
-        </ScrollViewer>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+
+            <!-- Sidebar separator -->
+            <Border Grid.Column="1"
+                    Width="1"
+                    Background="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+
+            <!-- Section navigation sidebar -->
+            <Border Grid.Column="2"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    Padding="12">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top"
+                               Text="Sections"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,8"
+                               Foreground="{DynamicResource SystemBaseMediumHighColor}"/>
+
+                    <ScrollViewer>
+                        <ItemsControl ItemsSource="{Binding Sections}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="8,6"
+                                            Margin="0,2"
+                                            Background="Transparent"
+                                            CornerRadius="4">
+                                        <TextBlock Text="{Binding Title}"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="13"
+                                                   Foreground="{DynamicResource SystemBaseMediumHighColor}"
+                                                   ToolTip.Tip="{Binding Title}"
+                                                   AutomationProperties.Name="{Binding Title}"/>
+                                        <Border.Styles>
+                                            <Style Selector="Border:pointerover">
+                                                <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListLowBrush}"/>
+                                            </Style>
+                                        </Border.Styles>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Grid>
     </DockPanel>
 
 </UserControl>

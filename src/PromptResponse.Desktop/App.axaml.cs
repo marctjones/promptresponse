@@ -54,6 +54,13 @@ public partial class App : Application
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 _logger.LogInformation("Initializing ClassicDesktop lifetime");
+
+                // Load settings
+                var settingsService = serviceProvider.GetRequiredService<ISettingsService>();
+                _logger.LogDebug("Loading application settings...");
+                settingsService.LoadAsync().Wait();
+                _logger.LogInformation("Settings loaded successfully");
+
                 _logger.LogDebug("Creating MainWindow...");
 
                 var viewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
@@ -64,9 +71,30 @@ public partial class App : Application
                     DataContext = viewModel
                 };
 
+                // Apply saved window settings
+                var windowSettings = settingsService.Settings.Window;
+                desktop.MainWindow.Width = windowSettings.Width;
+                desktop.MainWindow.Height = windowSettings.Height;
+
+                if (windowSettings.X.HasValue && windowSettings.Y.HasValue)
+                {
+                    desktop.MainWindow.Position = new Avalonia.PixelPoint(
+                        (int)windowSettings.X.Value,
+                        (int)windowSettings.Y.Value);
+                }
+
+                if (windowSettings.IsMaximized)
+                {
+                    desktop.MainWindow.WindowState = Avalonia.Controls.WindowState.Maximized;
+                }
+
                 _logger.LogInformation("MainWindow created and assigned");
                 _logger.LogDebug("  Window Title: {Title}", desktop.MainWindow.Title);
                 _logger.LogDebug("  Window Size: {Width}x{Height}", desktop.MainWindow.Width, desktop.MainWindow.Height);
+                _logger.LogDebug("  Window Position: {X},{Y}", windowSettings.X, windowSettings.Y);
+
+                // Apply saved theme
+                viewModel.ApplyThemeFromSettings();
 
                 // Check for startup file from command line
                 if (Program.StartupOptions?.FilePath != null)
@@ -84,6 +112,26 @@ public partial class App : Application
                 desktop.ShutdownRequested += (s, e) =>
                 {
                     _logger?.LogInformation("Application shutdown requested");
+
+                    // Save window position and size
+                    var window = desktop.MainWindow;
+                    if (window != null)
+                    {
+                        var settings = settingsService.Settings.Window;
+                        settings.IsMaximized = window.WindowState == Avalonia.Controls.WindowState.Maximized;
+
+                        if (!settings.IsMaximized)
+                        {
+                            settings.Width = window.Width;
+                            settings.Height = window.Height;
+                            settings.X = window.Position.X;
+                            settings.Y = window.Position.Y;
+                        }
+                    }
+
+                    // Save settings
+                    settingsService.SaveAsync().Wait();
+                    _logger?.LogInformation("Settings saved on shutdown");
                 };
 
                 desktop.Exit += (s, e) =>
@@ -124,6 +172,9 @@ public partial class App : Application
         // Desktop services
         Console.WriteLine("[App]   - Registering IFileService -> FileService");
         services.AddSingleton<IFileService, FileService>();
+
+        Console.WriteLine("[App]   - Registering ISettingsService -> SettingsService");
+        services.AddSingleton<ISettingsService, SettingsService>();
 
         // ViewModels
         Console.WriteLine("[App]   - Registering MainWindowViewModel");

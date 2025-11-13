@@ -16,6 +16,7 @@ namespace PromptResponse.Desktop.ViewModels;
 public class MainWindowViewModel : ViewModelBase
 {
     private readonly IFileService _fileService;
+    private readonly ISettingsService _settingsService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private AprDocument? _currentDocument;
     private FormFillingViewModel? _formFillingViewModel;
@@ -23,13 +24,15 @@ public class MainWindowViewModel : ViewModelBase
     private string _title = "PromptResponse";
     private bool _isEditingTemplate = false; // Track if we're editing a template vs filling a form
 
-    public MainWindowViewModel(IFileService fileService, ILogger<MainWindowViewModel> logger)
+    public MainWindowViewModel(IFileService fileService, ISettingsService settingsService, ILogger<MainWindowViewModel> logger)
     {
         _fileService = fileService;
+        _settingsService = settingsService;
         _logger = logger;
 
         _logger.LogInformation("MainWindowViewModel constructor called");
         _logger.LogDebug("  FileService type: {Type}", fileService.GetType().Name);
+        _logger.LogDebug("  SettingsService type: {Type}", settingsService.GetType().Name);
 
         // Commands
         _logger.LogDebug("Setting up commands...");
@@ -95,6 +98,12 @@ public class MainWindowViewModel : ViewModelBase
                 _logger.LogDebug("  Document Type: {Type}", document.DocumentType);
                 _logger.LogDebug("  Title: {Title}", document.Metadata.Title);
                 _logger.LogDebug("  Sections: {Count}", document.Sections.Count);
+
+                // Add to recent files
+                if (_fileService.CurrentFilePath != null)
+                {
+                    _settingsService.AddRecentFile(_fileService.CurrentFilePath);
+                }
 
                 // Handle template opening workflow
                 if (document.DocumentType == DocumentType.Template && forFilling)
@@ -320,6 +329,9 @@ public class MainWindowViewModel : ViewModelBase
             // Set the file path
             _fileService.SetCurrentFilePath(filePath);
 
+            // Add to recent files
+            _settingsService.AddRecentFile(filePath);
+
             // Open in appropriate mode
             if (editMode || document.DocumentType == DocumentType.Template)
             {
@@ -393,6 +405,12 @@ public class MainWindowViewModel : ViewModelBase
                 _logger.LogDebug("Calling FileService.SaveFileAsync()...");
                 await _fileService.SaveFileAsync(_currentDocument, _fileService.CurrentFilePath);
 
+                // Add to recent files
+                if (_fileService.CurrentFilePath != null)
+                {
+                    _settingsService.AddRecentFile(_fileService.CurrentFilePath);
+                }
+
                 _logger.LogInformation("File saved successfully");
                 FormFillingViewModel?.MarkAsSaved();
                 TemplateEditorViewModel?.MarkAsSaved();
@@ -430,6 +448,12 @@ public class MainWindowViewModel : ViewModelBase
 
             _logger.LogDebug("Calling FileService.SaveFileAsAsync()...");
             await _fileService.SaveFileAsAsync(_currentDocument);
+
+            // Add to recent files
+            if (_fileService.CurrentFilePath != null)
+            {
+                _settingsService.AddRecentFile(_fileService.CurrentFilePath);
+            }
 
             _logger.LogInformation("File saved successfully");
             FormFillingViewModel?.MarkAsSaved();
@@ -483,7 +507,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         var themeName = themeVariant == ThemeVariant.Light ? "Light"
             : themeVariant == ThemeVariant.Dark ? "Dark"
-            : "System Default";
+            : "System";
 
         _logger.LogInformation("Changing theme to: {Theme}", themeName);
 
@@ -492,6 +516,9 @@ public class MainWindowViewModel : ViewModelBase
             if (Application.Current != null)
             {
                 Application.Current.RequestedThemeVariant = themeVariant;
+
+                // Save theme preference
+                _settingsService.Settings.Theme = themeName;
                 _logger.LogInformation("Theme changed successfully to: {Theme}", themeName);
             }
             else
@@ -575,6 +602,8 @@ public class MainWindowViewModel : ViewModelBase
                 resources["TextControlBorderBrushPointerOver"] = new SolidColorBrush(Color.Parse("#0891B2"));
                 resources["TextControlBorderBrushFocused"] = new SolidColorBrush(Color.Parse("#0E7490"));
 
+                // Save theme preference
+                _settingsService.Settings.Theme = "Custom";
                 _logger.LogInformation("Custom theme applied successfully");
             }
             else
@@ -585,6 +614,32 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error changing to custom theme");
+        }
+    }
+
+    /// <summary>
+    /// Applies the theme from saved settings on startup.
+    /// </summary>
+    public void ApplyThemeFromSettings()
+    {
+        var theme = _settingsService.Settings.Theme;
+        _logger.LogInformation("Applying saved theme: {Theme}", theme);
+
+        switch (theme)
+        {
+            case "Light":
+                SetTheme(ThemeVariant.Light);
+                break;
+            case "Dark":
+                SetTheme(ThemeVariant.Dark);
+                break;
+            case "Custom":
+                SetCustomTheme();
+                break;
+            case "System":
+            default:
+                SetTheme(ThemeVariant.Default);
+                break;
         }
     }
 }
