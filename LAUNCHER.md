@@ -11,7 +11,7 @@ Both scripts provide identical functionality.
 
 ## Quick Start
 
-### Launch the GUI (Default)
+### Open SF-86 Form for Filling (Default)
 
 **Linux/macOS:**
 ```bash
@@ -23,17 +23,27 @@ Both scripts provide identical functionality.
 .\run.ps1
 ```
 
-This builds the project (if needed) and launches the AvaloniaUI desktop application.
+This builds the project (if needed) and launches the AvaloniaUI desktop application with the SF-86 security clearance template open in form filling mode. This provides an immediate, working demonstration of the application with a comprehensive real-world form.
 
 ## Available Commands
 
 ### GUI Commands
 
 ```bash
-# Launch the GUI application (default behavior)
+# Open SF-86 template for filling (default behavior)
 ./run.sh
+
+# Launch GUI without opening any file
+./run.sh --no-file
 ./run.sh --gui
 ./run.sh -g
+
+# Open a specific file for filling out
+./run.sh --open examples/simple-contact-form.aprt
+./run.sh examples/myform.aprf  # Shorthand (same as --open)
+
+# Open a template for editing
+./run.sh --edit examples/sf-86-full-template.aprt
 ```
 
 ### CLI Demo Commands
@@ -89,6 +99,17 @@ This is perfect for:
 - Showing the full feature set
 
 ## Example Workflows
+
+### Filling Out and Converting to Template
+
+```bash
+# Open SF-86 form for filling (default)
+./run.sh
+
+# Fill out the form in the GUI
+# Use File → "Switch to Template Editing" (Ctrl+E) to convert filled form to template
+# This allows you to create reusable templates from filled-out forms
+```
 
 ### Quick Validation Check
 

@@ -3,7 +3,7 @@
 # PromptResponse Launcher Script
 #
 # This script provides an easy way to run the PromptResponse application.
-# By default, it launches the GUI. Use options for CLI demos.
+# By default, it opens the SF-86 template for filling. Use options to override.
 
 set -e  # Exit on error
 
@@ -226,8 +226,9 @@ ${GREEN}Usage:${NC}
   ./run.sh [OPTION] [FILE]
 
 ${GREEN}Options:${NC}
-  ${YELLOW}(none)${NC}           Launch the GUI application (default)
-  ${YELLOW}--gui, -g${NC}        Launch the GUI application
+  ${YELLOW}(none)${NC}           Open SF-86 template for filling (default)
+  ${YELLOW}--no-file${NC}        Launch GUI without opening any file
+  ${YELLOW}--gui, -g${NC}        Launch GUI without opening any file (same as --no-file)
   ${YELLOW}--open <file>${NC}    Open an APR file for filling out
   ${YELLOW}--edit <file>${NC}    Open an APR template for editing
   ${YELLOW}<file>${NC}           Open an APR file for filling out (same as --open)
@@ -243,9 +244,10 @@ ${GREEN}Options:${NC}
   ${YELLOW}--usage${NC}           Show this usage information
 
 ${GREEN}Examples:${NC}
-  ./run.sh                                      # Launch GUI
-  ./run.sh --open examples/sf-86-full-template.aprt   # Open SF-86 for filling
-  ./run.sh --edit examples/simple-contact-form.aprt   # Edit contact form template
+  ./run.sh                                      # Open SF-86 template for filling (default)
+  ./run.sh --no-file                            # Launch GUI without opening any file
+  ./run.sh --open examples/simple-contact-form.aprt   # Open contact form for filling
+  ./run.sh --edit examples/sf-86-full-template.aprt   # Edit SF-86 template
   ./run.sh examples/myform.aprf                 # Open filled form
   ./run.sh --demo                               # Run full CLI demo
   ./run.sh --validate                           # Validate example files
@@ -275,17 +277,30 @@ main() {
         exit 1
     fi
 
-    # If no arguments, build and launch GUI
+    # Default file to open when no arguments provided
+    local default_file="examples/sf-86-full-template.aprt"
+
+    # If no arguments, build and open default file in form mode
     if [ $# -eq 0 ]; then
         build_project || exit 1
         echo ""
-        launch_gui
+        if [ -f "$default_file" ]; then
+            open_file "$default_file"
+        else
+            print_error "Default file not found: $default_file"
+            launch_gui
+        fi
         exit 0
     fi
 
     # Parse command line arguments
     case "$1" in
         --gui|-g)
+            build_project || exit 1
+            echo ""
+            launch_gui
+            ;;
+        --no-file)
             build_project || exit 1
             echo ""
             launch_gui

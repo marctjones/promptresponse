@@ -33,6 +33,12 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
+                <MenuItem Header="Switch to _Template Editing" Command="{Binding SwitchToTemplateEditingCommand}" HotKey="Ctrl+E">
+                    <MenuItem.Icon>
+                        <TextBlock Text="🔧" FontSize="14"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="_Save" Command="{Binding SaveCommand}" HotKey="Ctrl+S"/>
                 <MenuItem Header="Save _As..." Command="{Binding SaveAsCommand}" HotKey="Ctrl+Shift+S"/>
                 <MenuItem Header="_Close" Command="{Binding CloseCommand}" HotKey="Ctrl+W"/>

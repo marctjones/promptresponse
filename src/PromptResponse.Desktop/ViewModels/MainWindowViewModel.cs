@@ -39,6 +39,7 @@ public class MainWindowViewModel : ViewModelBase
         SaveCommand = new RelayCommand(async () => await SaveFileAsync(), () => _currentDocument != null);
         SaveAsCommand = new RelayCommand(async () => await SaveFileAsAsync(), () => _currentDocument != null);
         CloseCommand = new RelayCommand(CloseDocument, () => _currentDocument != null);
+        SwitchToTemplateEditingCommand = new RelayCommand(SwitchToTemplateEditing, () => _currentDocument != null && !_isEditingTemplate);
 
         // Theme commands
         SetLightThemeCommand = new RelayCommand(() => SetTheme(ThemeVariant.Light));
@@ -73,6 +74,7 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand SaveCommand { get; }
     public ICommand SaveAsCommand { get; }
     public ICommand CloseCommand { get; }
+    public ICommand SwitchToTemplateEditingCommand { get; }
     public ICommand SetLightThemeCommand { get; }
     public ICommand SetDarkThemeCommand { get; }
     public ICommand SetSystemThemeCommand { get; }
@@ -211,6 +213,56 @@ public class MainWindowViewModel : ViewModelBase
         {
             _logger.LogError(ex, "Error creating new template");
             Console.Error.WriteLine($"Error creating new template: {ex.Message}");
+        }
+    }
+
+    private void SwitchToTemplateEditing()
+    {
+        _logger.LogInformation("SwitchToTemplateEditing command invoked");
+
+        if (_currentDocument == null)
+        {
+            _logger.LogWarning("No document loaded, switch cancelled");
+            return;
+        }
+
+        if (_isEditingTemplate)
+        {
+            _logger.LogWarning("Already in template editing mode");
+            return;
+        }
+
+        try
+        {
+            _logger.LogInformation("Switching from form filling to template editing mode");
+
+            // Update document from form filling view before switching
+            FormFillingViewModel?.UpdateDocument();
+
+            // Convert to template
+            _currentDocument.DocumentType = DocumentType.Template;
+
+            // Clear filled form metadata
+            _currentDocument.Metadata.FilledDate = null;
+            _currentDocument.Metadata.FilledBy = null;
+
+            // Set editing mode
+            _isEditingTemplate = true;
+
+            // Clear the file path to force Save As
+            _fileService.ClearCurrentFilePath();
+
+            // Switch ViewModels
+            FormFillingViewModel = null;
+            TemplateEditorViewModel = new TemplateEditorViewModel(_currentDocument);
+
+            UpdateTitle();
+            _logger.LogInformation("Switched to template editing mode successfully");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error switching to template editing mode");
+            Console.Error.WriteLine($"Error switching to template editing mode: {ex.Message}");
         }
     }
 
