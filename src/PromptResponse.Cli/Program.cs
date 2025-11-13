@@ -35,6 +35,9 @@ class Program
                 "validate" => await serviceProvider.GetRequiredService<ValidateCommand>().ExecuteAsync(commandArgs),
                 "info" => await serviceProvider.GetRequiredService<InfoCommand>().ExecuteAsync(commandArgs),
                 "new" => await serviceProvider.GetRequiredService<NewCommand>().ExecuteAsync(commandArgs),
+                "stats" => await serviceProvider.GetRequiredService<StatsCommand>().ExecuteAsync(commandArgs),
+                "diff" => await serviceProvider.GetRequiredService<DiffCommand>().ExecuteAsync(commandArgs),
+                "export" => await serviceProvider.GetRequiredService<ExportCommand>().ExecuteAsync(commandArgs),
                 "help" or "--help" or "-h" => ShowHelp(),
                 "version" or "--version" or "-v" => ShowVersion(),
                 _ => ShowUnknownCommand(command)
@@ -65,6 +68,9 @@ class Program
         services.AddTransient<ValidateCommand>();
         services.AddTransient<InfoCommand>();
         services.AddTransient<NewCommand>();
+        services.AddTransient<StatsCommand>();
+        services.AddTransient<DiffCommand>();
+        services.AddTransient<ExportCommand>();
     }
 
     private static int ShowHelp()
@@ -74,16 +80,26 @@ class Program
         Console.WriteLine("Usage: apr <command> [options]");
         Console.WriteLine();
         Console.WriteLine("Commands:");
-        Console.WriteLine("  validate <file>      Validate an APR file");
-        Console.WriteLine("  info <file>          Show information about an APR file");
-        Console.WriteLine("  new <file>           Create a new template");
-        Console.WriteLine("  help                 Show this help message");
-        Console.WriteLine("  version              Show version information");
+        Console.WriteLine("  validate <file>                Validate an APR file");
+        Console.WriteLine("  info <file>                    Show information about an APR file");
+        Console.WriteLine("  new <file>                     Create a new template");
+        Console.WriteLine("  stats <file> [--json]          Show detailed statistics");
+        Console.WriteLine("  diff <file1> <file2>           Compare two APR files");
+        Console.WriteLine("  export <file> [options]        Export responses to various formats");
+        Console.WriteLine("  help                           Show this help message");
+        Console.WriteLine("  version                        Show version information");
+        Console.WriteLine();
+        Console.WriteLine("Export Options:");
+        Console.WriteLine("  --format=<csv|json|txt>        Output format (default: csv)");
+        Console.WriteLine("  --output=<file>                Output file (default: stdout)");
         Console.WriteLine();
         Console.WriteLine("Examples:");
         Console.WriteLine("  apr validate form.apr");
         Console.WriteLine("  apr info employment-app.apr");
         Console.WriteLine("  apr new my-template.apr");
+        Console.WriteLine("  apr stats form.apr --json");
+        Console.WriteLine("  apr diff original.apr modified.apr");
+        Console.WriteLine("  apr export form.apr --format=csv --output=responses.csv");
         Console.WriteLine();
         return 0;
     }
