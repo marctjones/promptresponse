@@ -1,7 +1,12 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
+using Avalonia.VisualTree;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using PromptResponse.Desktop.ViewModels;
 using System;
+using System.Linq;
 
 namespace PromptResponse.Desktop.Views;
 
@@ -99,6 +104,69 @@ public partial class TemplateEditorView : UserControl
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error logging layout hierarchy");
+        }
+    }
+
+    /// <summary>
+    /// Handles click on section navigation button in sidebar.
+    /// Scrolls the main content area to bring the selected section into view.
+    /// </summary>
+    private void OnSectionNavigationClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button || button.Tag is not EditableSectionViewModel targetSection)
+        {
+            _logger?.LogWarning("OnSectionNavigationClick: sender is not a Button or Tag is not EditableSectionViewModel");
+            return;
+        }
+
+        _logger?.LogInformation("Section navigation clicked: {SectionTitle}", targetSection.Title);
+
+        try
+        {
+            // Find the main ScrollViewer
+            var scrollViewer = this.FindControl<ScrollViewer>("MainScrollViewer");
+            if (scrollViewer == null)
+            {
+                _logger?.LogError("Could not find MainScrollViewer");
+                return;
+            }
+
+            // Find all Border elements with Tags (these are section containers)
+            var allBorders = scrollViewer.GetVisualDescendants()
+                .OfType<Border>()
+                .Where(b => b.Tag is EditableSectionViewModel)
+                .ToList();
+
+            _logger?.LogDebug("Found {Count} section borders", allBorders.Count);
+
+            // Find the border that contains our target section
+            var targetBorder = allBorders.FirstOrDefault(b => b.Tag == targetSection);
+
+            if (targetBorder != null)
+            {
+                _logger?.LogInformation("Found target border, bringing into view");
+
+                // Expand the section if it's collapsed
+                var expander = targetBorder.GetVisualDescendants().OfType<Expander>().FirstOrDefault();
+                if (expander != null && !expander.IsExpanded)
+                {
+                    targetSection.IsExpanded = true;
+                    _logger?.LogDebug("Expanded section");
+                }
+
+                // Bring the border into view (this scrolls it)
+                targetBorder.BringIntoView();
+
+                _logger?.LogInformation("Section scrolled into view successfully");
+            }
+            else
+            {
+                _logger?.LogWarning("Could not find Border for section: {Title}", targetSection.Title);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex, "Error scrolling to section: {Title}", targetSection.Title);
         }
     }
 }

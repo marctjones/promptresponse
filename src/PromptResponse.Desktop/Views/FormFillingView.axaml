@@ -88,7 +88,8 @@
                                 CornerRadius="6"
                                 Margin="0,0,0,16"
                                 Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                                HorizontalAlignment="Stretch">
+                                HorizontalAlignment="Stretch"
+                                Tag="{Binding}">
                             <Expander IsExpanded="{Binding IsExpanded}"
                                       AutomationProperties.Name="{Binding Title}"
                                       AutomationProperties.HelpText="{Binding Description}"
@@ -233,22 +234,33 @@
                         <ItemsControl ItemsSource="{Binding Sections}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Padding="8,6"
+                                    <Button Content="{Binding Title}"
+                                            Tag="{Binding}"
+                                            Click="OnSectionNavigationClick"
+                                            HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Left"
+                                            Padding="8,6"
                                             Margin="0,2"
                                             Background="Transparent"
-                                            CornerRadius="4">
-                                        <TextBlock Text="{Binding Title}"
-                                                   TextWrapping="Wrap"
-                                                   FontSize="13"
-                                                   Foreground="{DynamicResource SystemBaseMediumHighColor}"
-                                                   ToolTip.Tip="{Binding Title}"
-                                                   AutomationProperties.Name="{Binding Title}"/>
-                                        <Border.Styles>
-                                            <Style Selector="Border:pointerover">
+                                            BorderThickness="0"
+                                            CornerRadius="4"
+                                            Foreground="{DynamicResource SystemBaseMediumHighColor}"
+                                            ToolTip.Tip="{Binding Title}"
+                                            AutomationProperties.Name="{Binding Title, StringFormat='Navigate to section: {0}'}"
+                                            AutomationProperties.HelpText="Click to scroll to this section in the form">
+                                        <Button.Styles>
+                                            <Style Selector="Button:pointerover">
                                                 <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListLowBrush}"/>
                                             </Style>
-                                        </Border.Styles>
-                                    </Border>
+                                            <Style Selector="Button:pressed">
+                                                <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListMediumBrush}"/>
+                                            </Style>
+                                            <Style Selector="Button:focus">
+                                                <Setter Property="Background" Value="{DynamicResource SystemControlHighlightAccentBrush}"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Style>
+                                        </Button.Styles>
+                                    </Button>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
