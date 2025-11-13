@@ -432,4 +432,90 @@ public class DocumentValidatorTests
         result.IsValid.Should().BeFalse();
         result.Errors.Should().HaveCountGreaterThan(1);
     }
+
+    [Fact]
+    public void Validate_IrsFormW4Template_ShouldPassValidation()
+    {
+        // Arrange
+        var examplePath = GetExampleFilePath("irs-form-w4-2024.aprt");
+        var json = File.ReadAllText(examplePath);
+        var serializer = new Core.Serialization.AprJsonSerializer();
+        var document = serializer.Deserialize(json);
+
+        // Act
+        var result = _validator.Validate(document);
+
+        // Assert
+        result.IsValid.Should().BeTrue();
+        result.Errors.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void Validate_GsaSf86Template_ShouldPassValidation()
+    {
+        // Arrange
+        var examplePath = GetExampleFilePath("gsa-sf86-sections.aprt");
+        var json = File.ReadAllText(examplePath);
+        var serializer = new Core.Serialization.AprJsonSerializer();
+        var document = serializer.Deserialize(json);
+
+        // Act
+        var result = _validator.Validate(document);
+
+        // Assert
+        result.IsValid.Should().BeTrue();
+        result.Errors.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void Validate_IrsForm1040Template_ShouldPassValidation()
+    {
+        // Arrange
+        var examplePath = GetExampleFilePath("irs-form-1040-simplified.aprt");
+        var json = File.ReadAllText(examplePath);
+        var serializer = new Core.Serialization.AprJsonSerializer();
+        var document = serializer.Deserialize(json);
+
+        // Act
+        var result = _validator.Validate(document);
+
+        // Assert
+        result.IsValid.Should().BeTrue();
+        result.Errors.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void Validate_AllGovernmentForms_ShouldPassValidation()
+    {
+        // Arrange
+        var formFiles = new[]
+        {
+            "irs-form-w4-2024.aprt",
+            "gsa-sf86-sections.aprt",
+            "irs-form-1040-simplified.aprt"
+        };
+
+        var serializer = new Core.Serialization.AprJsonSerializer();
+
+        // Act & Assert
+        foreach (var formFile in formFiles)
+        {
+            var examplePath = GetExampleFilePath(formFile);
+            var json = File.ReadAllText(examplePath);
+            var document = serializer.Deserialize(json);
+            var result = _validator.Validate(document);
+
+            result.IsValid.Should().BeTrue($"{formFile} should pass validation");
+            result.Errors.Should().BeEmpty($"{formFile} should have no validation errors");
+        }
+    }
+
+    private static string GetExampleFilePath(string filename)
+    {
+        // Navigate from test output directory to examples directory
+        var testDir = Directory.GetCurrentDirectory();
+        var projectRoot = Path.GetFullPath(Path.Combine(testDir, "..", "..", "..", "..", ".."));
+        var examplesDir = Path.Combine(projectRoot, "examples");
+        return Path.Combine(examplesDir, filename);
+    }
 }

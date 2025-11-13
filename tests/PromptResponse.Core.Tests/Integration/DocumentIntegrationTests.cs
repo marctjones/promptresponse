@@ -234,6 +234,189 @@ public class DocumentIntegrationTests
         document.Metadata.Created!.Value.Year.Should().Be(2025);
     }
 
+    [Fact]
+    public void LoadIrsFormW4_ShouldDeserializeCorrectly()
+    {
+        // Arrange
+        var examplePath = GetExampleFilePath("irs-form-w4-2024.aprt");
+        var json = File.ReadAllText(examplePath);
+
+        // Act
+        var document = _serializer.Deserialize(json);
+
+        // Assert
+        document.Should().NotBeNull();
+        document.Version.Should().Be("1.0");
+        document.DocumentType.Should().Be(DocumentType.Template);
+        document.Metadata.Title.Should().Be("Form W-4: Employee's Withholding Certificate (2024)");
+        document.Metadata.TemplateId.Should().Be("irs-w4-2024-v1");
+        document.Metadata.Author.Should().Be("Internal Revenue Service");
+
+        // Should have 6 main sections (Steps 1-5 plus Employer Section)
+        document.Sections.Should().HaveCount(6);
+
+        // Step 1 should have personal information prompts
+        var step1 = document.Sections[0];
+        step1.Id.Should().Be("step1");
+        step1.Title.Should().Be("Step 1: Enter Personal Information");
+        step1.Prompts.Should().HaveCount(6); // firstName, lastName, address, etc.
+
+        // Step 2 should have subsections option
+        var step2 = document.Sections[1];
+        step2.Id.Should().Be("step2");
+        step2.Title.Should().Contain("Multiple Jobs");
+
+        // Step 4 should have subsections
+        var step4 = document.Sections[3];
+        step4.Id.Should().Be("step4");
+        step4.Subsections.Should().HaveCount(3); // 4a, 4b, 4c
+    }
+
+    [Fact]
+    public void LoadGsaSf86_ShouldDeserializeComplexHierarchy()
+    {
+        // Arrange
+        var examplePath = GetExampleFilePath("gsa-sf86-sections.aprt");
+        var json = File.ReadAllText(examplePath);
+
+        // Act
+        var document = _serializer.Deserialize(json);
+
+        // Assert
+        document.Should().NotBeNull();
+        document.Version.Should().Be("1.0");
+        document.DocumentType.Should().Be(DocumentType.Template);
+        document.Metadata.Title.Should().Be("SF-86: Questionnaire for National Security Positions");
+        document.Metadata.TemplateId.Should().Be("gsa-sf86-2024-v1");
+        document.Metadata.Author.Should().Be("U.S. General Services Administration");
+
+        // Should have multiple sections
+        document.Sections.Should().HaveCountGreaterThan(3);
+
+        // Section 1 should have multiple subsections for personal info
+        var section1 = document.Sections[0];
+        section1.Id.Should().Be("section1");
+        section1.Title.Should().Contain("Information About You");
+        section1.Subsections.Should().HaveCountGreaterThan(3);
+
+        // Check citizenship subsection
+        var citizenshipSubsection = section1.Subsections.FirstOrDefault(s => s.Title.Contains("Citizenship"));
+        citizenshipSubsection.Should().NotBeNull();
+        citizenshipSubsection!.Prompts.Should().Contain(p => p.Label.Contains("U.S. citizen"));
+
+        // Section 7 (Where You Have Lived) should have residence subsections
+        var section7 = document.Sections.FirstOrDefault(s => s.Id == "section7");
+        section7.Should().NotBeNull();
+        section7!.Subsections.Should().HaveCountGreaterThan(0);
+
+        // Section 13A (References) should have 3 reference subsections
+        var section13a = document.Sections.FirstOrDefault(s => s.Id == "section13a");
+        section13a.Should().NotBeNull();
+        section13a!.Subsections.Should().HaveCount(3);
+    }
+
+    [Fact]
+    public void LoadIrsForm1040_ShouldDeserializeWithCalculations()
+    {
+        // Arrange
+        var examplePath = GetExampleFilePath("irs-form-1040-simplified.aprt");
+        var json = File.ReadAllText(examplePath);
+
+        // Act
+        var document = _serializer.Deserialize(json);
+
+        // Assert
+        document.Should().NotBeNull();
+        document.Version.Should().Be("1.0");
+        document.DocumentType.Should().Be(DocumentType.Template);
+        document.Metadata.Title.Should().Be("Form 1040: U.S. Individual Income Tax Return (Simplified)");
+        document.Metadata.TemplateId.Should().Be("irs-1040-2024-simplified-v1");
+
+        // Should have multiple sections for filing status, personal info, income, etc.
+        document.Sections.Should().HaveCountGreaterThan(5);
+
+        // Filing status section
+        var filingStatus = document.Sections[0];
+        filingStatus.Id.Should().Be("filing-status");
+        filingStatus.Prompts.Should().ContainSingle();
+        filingStatus.Prompts[0].Hints.SuggestedValues.Should().Contain("Single");
+
+        // Personal info section should have subsections for taxpayer and spouse
+        var personalInfo = document.Sections[1];
+        personalInfo.Id.Should().Be("personal-info");
+        personalInfo.Subsections.Should().HaveCountGreaterThan(1);
+
+        // Income section should have subsections
+        var income = document.Sections.FirstOrDefault(s => s.Id == "income");
+        income.Should().NotBeNull();
+        income!.Subsections.Should().HaveCountGreaterThan(1);
+
+        // Check for number type hints
+        var wagesSubsection = income.Subsections.FirstOrDefault(s => s.Title.Contains("Wages"));
+        wagesSubsection.Should().NotBeNull();
+        wagesSubsection!.Prompts.Should().Contain(p =>
+            p.Hints.ExpectedDataType == "number");
+    }
+
+    [Fact]
+    public void AllGovernmentForms_ShouldHaveProperMetadata()
+    {
+        // Arrange & Act
+        var w4Path = GetExampleFilePath("irs-form-w4-2024.aprt");
+        var sf86Path = GetExampleFilePath("gsa-sf86-sections.aprt");
+        var form1040Path = GetExampleFilePath("irs-form-1040-simplified.aprt");
+
+        var w4 = _serializer.Deserialize(File.ReadAllText(w4Path));
+        var sf86 = _serializer.Deserialize(File.ReadAllText(sf86Path));
+        var form1040 = _serializer.Deserialize(File.ReadAllText(form1040Path));
+
+        // Assert - All should have proper metadata
+        var forms = new[] { w4, sf86, form1040 };
+        foreach (var form in forms)
+        {
+            form.Version.Should().Be("1.0");
+            form.DocumentType.Should().Be(DocumentType.Template);
+            form.Metadata.Title.Should().NotBeNullOrEmpty();
+            form.Metadata.Author.Should().NotBeNullOrEmpty();
+            form.Metadata.TemplateId.Should().NotBeNullOrEmpty();
+            form.Metadata.Created.Should().NotBeNull();
+            form.Sections.Should().NotBeEmpty();
+        }
+    }
+
+    [Fact]
+    public void GovernmentForms_ShouldUseProperDataTypeHints()
+    {
+        // Arrange
+        var w4Path = GetExampleFilePath("irs-form-w4-2024.aprt");
+        var json = File.ReadAllText(w4Path);
+        var document = _serializer.Deserialize(json);
+
+        // Act - Find prompts with type hints
+        var allPrompts = new List<Prompt>();
+        foreach (var section in document.Sections)
+        {
+            allPrompts.AddRange(section.Prompts);
+            foreach (var subsection in section.Subsections)
+            {
+                allPrompts.AddRange(subsection.Prompts);
+            }
+        }
+
+        // Assert
+        allPrompts.Should().Contain(p => p.Hints.ExpectedDataType == "number");
+        allPrompts.Should().Contain(p => p.Hints.ExpectedDataType == "date");
+        allPrompts.Should().Contain(p => p.Hints.ExpectedDataType == "text");
+
+        // Date fields should have proper placeholders
+        var datePrompts = allPrompts.Where(p => p.Hints.ExpectedDataType == "date").ToList();
+        datePrompts.Should().NotBeEmpty();
+        foreach (var datePrompt in datePrompts)
+        {
+            datePrompt.Hints.Placeholder.Should().NotBeNullOrEmpty();
+        }
+    }
+
     private static string GetExampleFilePath(string filename)
     {
         // Navigate from test output directory to examples directory

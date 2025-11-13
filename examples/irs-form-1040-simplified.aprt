@@ -1,0 +1,892 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Form 1040: U.S. Individual Income Tax Return (Simplified)",
+    "description": "Form 1040 is used by U.S. taxpayers to file an annual income tax return. This is a simplified version covering the main sections.",
+    "author": "Internal Revenue Service",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "templateId": "irs-1040-2024-simplified-v1"
+  },
+  "sections": [
+    {
+      "id": "filing-status",
+      "title": "Filing Status",
+      "description": "Check only one box",
+      "prompts": [
+        {
+          "id": "filingStatus",
+          "label": "Your Filing Status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Single",
+              "Married filing jointly",
+              "Married filing separately",
+              "Head of household",
+              "Qualifying surviving spouse"
+            ],
+            "helpText": "Select the filing status that applies to you. If more than one status applies, choose the one that gives you the lowest tax."
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "personal-info",
+      "title": "Your Personal Information",
+      "description": "Provide your personal details",
+      "subsections": [
+        {
+          "id": "taxpayer-info",
+          "title": "Primary Taxpayer",
+          "prompts": [
+            {
+              "id": "firstName",
+              "label": "First name",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., John",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "middleInitial",
+              "label": "Middle initial",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., M",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "lastName",
+              "label": "Last name",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., Smith",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "ssn",
+              "label": "Social Security Number",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 123-45-6789",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "spouse-info",
+          "title": "Spouse (if filing jointly)",
+          "prompts": [
+            {
+              "id": "spouseFirstName",
+              "label": "Spouse's first name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "spouseMiddleInitial",
+              "label": "Spouse's middle initial",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "spouseLastName",
+              "label": "Spouse's last name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "spouseSSN",
+              "label": "Spouse's Social Security Number",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 987-65-4321",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "address-info",
+          "title": "Home Address",
+          "prompts": [
+            {
+              "id": "address",
+              "label": "Street address",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 123 Main Street",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "aptNumber",
+              "label": "Apartment number",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., Apt 4B",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "city",
+              "label": "City, town, or post office",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., Springfield",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "state",
+              "label": "State",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., IL",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "zipCode",
+              "label": "ZIP code",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 62701",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "dependents",
+      "title": "Dependents",
+      "description": "If someone can claim you as a dependent, check the box on line 18a. If you are claiming dependents, complete the information below.",
+      "prompts": [
+        {
+          "id": "canBeClaimedAsDependent",
+          "label": "Can someone claim you as a dependent?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "numDependents",
+          "label": "Number of dependents you are claiming",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 2",
+            "expectedDataType": "number",
+            "helpText": "Enter the total number of dependents listed below"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": [
+        {
+          "id": "dependent1",
+          "title": "Dependent #1",
+          "prompts": [
+            {
+              "id": "dep1_name",
+              "label": "Dependent's name",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., Emily Smith",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "dep1_ssn",
+              "label": "Social Security Number",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 111-22-3333",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "dep1_relationship",
+              "label": "Relationship to you",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., Daughter",
+                "expectedDataType": "text",
+                "suggestedValues": ["Son", "Daughter", "Stepchild", "Foster child", "Other"]
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "dep1_childTaxCredit",
+              "label": "Qualifies for child tax credit?",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["Yes", "No"],
+                "helpText": "Child must be under age 17 at the end of the year"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "income",
+      "title": "Income",
+      "description": "Report all income from wages, salaries, tips, interest, dividends, and other sources",
+      "subsections": [
+        {
+          "id": "wages",
+          "title": "Wages, Salaries, Tips, etc.",
+          "prompts": [
+            {
+              "id": "wagesAmount",
+              "label": "Total wages, salaries, tips, etc. (from Form W-2)",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 75000",
+                "expectedDataType": "number",
+                "helpText": "Add the amounts from all your W-2 forms"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "interest-dividends",
+          "title": "Interest and Dividends",
+          "prompts": [
+            {
+              "id": "taxableInterest",
+              "label": "Taxable interest",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 250",
+                "expectedDataType": "number",
+                "helpText": "From Form 1099-INT"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "taxExemptInterest",
+              "label": "Tax-exempt interest",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 0",
+                "expectedDataType": "number",
+                "helpText": "Do not include on line 2b"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "qualifiedDividends",
+              "label": "Qualified dividends",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 500",
+                "expectedDataType": "number",
+                "helpText": "From Form 1099-DIV"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "ordinaryDividends",
+              "label": "Ordinary dividends",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 500",
+                "expectedDataType": "number"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "other-income",
+          "title": "Other Income",
+          "prompts": [
+            {
+              "id": "ira",
+              "label": "IRA distributions",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 0",
+                "expectedDataType": "number"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "pensions",
+              "label": "Pensions and annuities",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 0",
+                "expectedDataType": "number"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "socialSecurity",
+              "label": "Social Security benefits",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 0",
+                "expectedDataType": "number"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "capitalGain",
+              "label": "Capital gain or loss",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 1000",
+                "expectedDataType": "number",
+                "helpText": "From Schedule D"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            },
+            {
+              "id": "otherIncome",
+              "label": "Other income from Schedule 1",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 0",
+                "expectedDataType": "number"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        }
+      ],
+      "prompts": [
+        {
+          "id": "totalIncome",
+          "label": "Total Income",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 76750",
+            "expectedDataType": "number",
+            "helpText": "Add all income amounts from above"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "adjustments",
+      "title": "Adjustments to Income",
+      "description": "These adjustments reduce your total income",
+      "prompts": [
+        {
+          "id": "studentLoanInterest",
+          "label": "Student loan interest deduction",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 2500",
+            "expectedDataType": "number"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "iraContributions",
+          "label": "IRA deduction",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 6500",
+            "expectedDataType": "number"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "otherAdjustments",
+          "label": "Other adjustments from Schedule 1",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 0",
+            "expectedDataType": "number"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "totalAdjustments",
+          "label": "Total adjustments to income",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 9000",
+            "expectedDataType": "number",
+            "helpText": "Add all adjustment amounts from above"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "adjustedGrossIncome",
+          "label": "Adjusted Gross Income (AGI)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 67750",
+            "expectedDataType": "number",
+            "helpText": "Subtract total adjustments from total income"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "deductions",
+      "title": "Standard Deduction or Itemized Deductions",
+      "description": "Choose either standard deduction or itemized deductions (whichever is larger)",
+      "prompts": [
+        {
+          "id": "deductionType",
+          "label": "Type of deduction",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Standard deduction", "Itemized deductions"],
+            "helpText": "Most taxpayers take the standard deduction"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "deductionAmount",
+          "label": "Deduction amount",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 13850",
+            "expectedDataType": "number",
+            "helpText": "2024 standard deduction: Single $13,850; Married filing jointly $27,700; Head of household $20,800"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "taxableIncome",
+          "label": "Taxable Income",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 53900",
+            "expectedDataType": "number",
+            "helpText": "Subtract deduction amount from AGI. If zero or less, enter 0"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "tax-credits",
+      "title": "Tax and Credits",
+      "description": "Calculate your tax and apply any credits",
+      "prompts": [
+        {
+          "id": "taxFromTable",
+          "label": "Tax (from tax table or Tax Computation Worksheet)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 6200",
+            "expectedDataType": "number",
+            "helpText": "Use the tax tables in the instructions or Tax Computation Worksheet"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "childTaxCredit",
+          "label": "Child tax credit",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 2000",
+            "expectedDataType": "number",
+            "helpText": "$2,000 per qualifying child under 17"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "otherCredits",
+          "label": "Other credits from Schedule 3",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 0",
+            "expectedDataType": "number"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "totalTax",
+          "label": "Total tax after credits",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 4200",
+            "expectedDataType": "number",
+            "helpText": "Tax minus credits (if zero or less, enter 0)"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "payments",
+      "title": "Payments",
+      "description": "Enter all federal income tax withheld and estimated tax payments",
+      "prompts": [
+        {
+          "id": "federalWithholding",
+          "label": "Federal income tax withheld from Forms W-2 and 1099",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 8500",
+            "expectedDataType": "number",
+            "helpText": "Total from all W-2 and 1099 forms"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "estimatedTaxPayments",
+          "label": "Estimated tax payments",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 0",
+            "expectedDataType": "number",
+            "helpText": "Quarterly estimated tax payments you made"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "earnedIncomeCredit",
+          "label": "Earned income credit (EIC)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 0",
+            "expectedDataType": "number"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "otherPayments",
+          "label": "Other payments and refundable credits",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 0",
+            "expectedDataType": "number"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "totalPayments",
+          "label": "Total payments",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 8500",
+            "expectedDataType": "number",
+            "helpText": "Add all payment amounts from above"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "refund-amount-owed",
+      "title": "Refund or Amount You Owe",
+      "description": "Determine if you are getting a refund or owe additional tax",
+      "prompts": [
+        {
+          "id": "refundOrOwed",
+          "label": "Result",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Refund", "Amount owed"],
+            "helpText": "If total payments exceed total tax, you have a refund. Otherwise, you owe."
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "refundAmount",
+          "label": "Amount of refund (if applicable)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 4300",
+            "expectedDataType": "number",
+            "helpText": "Total payments minus total tax (if positive)"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "amountOwed",
+          "label": "Amount you owe (if applicable)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 0",
+            "expectedDataType": "number",
+            "helpText": "Total tax minus total payments (if positive)"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "signature",
+      "title": "Sign Here",
+      "description": "Under penalties of perjury, I declare that I have examined this return and accompanying schedules and statements, and to the best of my knowledge and belief, they are true, correct, and complete.",
+      "prompts": [
+        {
+          "id": "taxpayerSignature",
+          "label": "Your signature",
+          "response": "",
+          "hints": {
+            "placeholder": "Type your full name to sign",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "signatureDate",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "placeholder": "YYYY-MM-DD",
+            "expectedDataType": "date"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "occupation",
+          "label": "Your occupation",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., Software Engineer",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "spouseSignature",
+          "label": "Spouse's signature (if filing jointly)",
+          "response": "",
+          "hints": {
+            "placeholder": "Type spouse's full name to sign",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "spouseOccupation",
+          "label": "Spouse's occupation (if filing jointly)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    }
+  ]
+}
