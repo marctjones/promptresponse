@@ -58,7 +58,7 @@ public partial class App : Application
                 // Load settings
                 var settingsService = serviceProvider.GetRequiredService<ISettingsService>();
                 _logger.LogDebug("Loading application settings...");
-                settingsService.LoadAsync().Wait();
+                settingsService.Load();
                 _logger.LogInformation("Settings loaded successfully");
 
                 _logger.LogDebug("Creating MainWindow...");
@@ -130,7 +130,7 @@ public partial class App : Application
                     }
 
                     // Save settings
-                    settingsService.SaveAsync().Wait();
+                    settingsService.Save();
                     _logger?.LogInformation("Settings saved on shutdown");
                 };
 

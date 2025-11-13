@@ -13,12 +13,22 @@ public interface ISettingsService
     AppSettings Settings { get; }
 
     /// <summary>
-    /// Loads settings from disk. If no settings file exists, returns default settings.
+    /// Loads settings from disk synchronously. If no settings file exists, uses default settings.
+    /// </summary>
+    void Load();
+
+    /// <summary>
+    /// Loads settings from disk asynchronously. If no settings file exists, uses default settings.
     /// </summary>
     Task LoadAsync();
 
     /// <summary>
-    /// Saves current settings to disk.
+    /// Saves current settings to disk synchronously.
+    /// </summary>
+    void Save();
+
+    /// <summary>
+    /// Saves current settings to disk asynchronously.
     /// </summary>
     Task SaveAsync();
 
