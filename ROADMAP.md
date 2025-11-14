@@ -235,6 +235,27 @@
 - Evaluate rules reactively in UI
 - Never block input, only show/hide
 
+### Form Submission & Distribution
+
+**Priority: MEDIUM**
+
+- [ ] **S3 Pre-Signed POST Support**
+  - Direct client-to-S3 form submission without server code
+  - Embed S3 pre-signed POST policies in templates
+  - Support for policy expiration and validation
+  - CORS-enabled bucket configuration
+  - Hybrid approach: manual send OR direct S3 upload
+  - Template publishers can specify S3 submission endpoint
+  - Security: policy-based upload authorization
+  - Example: IRS template with direct S3 submission to agency bucket
+
+- [ ] **Submission Config in APR Format**
+  - Add optional `submissionConfig` to metadata
+  - Support for S3 pre-signed POST parameters
+  - Support for webhook endpoints
+  - Policy expiration handling and refresh
+  - Multiple submission targets (S3, webhook, email)
+
 ### Print & Export
 
 **Priority: MEDIUM**
@@ -467,6 +488,7 @@ High Impact, High Effort (Plan Carefully):
 - Mobile Applications
 - Cloud Sync
 - Workflow Management
+- S3 Pre-Signed POST (Infrastructure-less submission)
 
 Low Impact, Low Effort (Quick Wins):
 - Recent files list

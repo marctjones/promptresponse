@@ -526,6 +526,101 @@ catch (JsonException ex)
 - Test data binding
 - Manual testing for UI/UX
 
+## Form Submission Architecture
+
+### Hybrid Submission Model
+
+PromptResponse supports multiple form submission workflows:
+
+#### 1. Manual Workflow (Default)
+```
+User fills form → Save locally → Manual send (email, file transfer)
+```
+- No infrastructure required
+- Maximum privacy
+- Simple workflow
+- Works offline
+
+#### 2. Direct S3 Submission (Future)
+```
+Template with S3 config → User fills form → Direct POST to S3 → No server needed
+```
+
+**Architecture:**
+```
+┌──────────────────┐
+│  Template Author │
+│  (Has AWS creds) │
+└────────┬─────────┘
+         │
+         │ 1. Generate pre-signed POST policy
+         │    (AWSAccessKeyId, policy, signature)
+         │
+         ▼
+┌─────────────────────────────────┐
+│  APR Template with              │
+│  submissionConfig in metadata   │
+└────────┬────────────────────────┘
+         │
+         │ 2. Distribute template
+         │
+         ▼
+┌─────────────────┐
+│  User fills out │
+│  form           │
+└────────┬────────┘
+         │
+         │ 3. Click "Submit"
+         │
+         ▼
+┌─────────────────────────────────┐
+│  PromptResponse Desktop/CLI     │
+│  reads submissionConfig         │
+└────────┬────────────────────────┘
+         │
+         │ 4. HTTPS POST directly to S3
+         │    with policy + signature
+         │
+         ▼
+┌─────────────────┐
+│  S3 validates   │
+│  signature &    │
+│  accepts file   │
+└─────────────────┘
+```
+
+**Benefits:**
+- No server-side code required
+- No serverless functions needed
+- Direct client-to-S3 upload
+- S3 handles validation via policy
+- Can combine with APR digital signatures
+- Template signature proves authenticity
+- S3 policy controls upload authorization
+
+**Security Model:**
+- Pre-signed POST policy includes expiration (typically 7 days max)
+- Policy restricts file size, content type, key prefix
+- Access key ID visible in template (not secret key)
+- Signature computed from secret key but doesn't expose it
+- Anyone with template can upload (until expiration)
+- S3 bucket can have additional policies (encryption, lifecycle)
+
+**Implementation Considerations:**
+- Check policy expiration before submitting
+- Handle CORS requirements (S3 bucket configuration)
+- Provide fallback to manual save if submission fails
+- Show policy expiration warning in UI
+- Optional: Support policy refresh from URL
+
+### 3. Webhook Submission (Future)
+```
+Template with webhook URL → User fills form → POST to webhook
+```
+- Simple HTTP POST to custom endpoint
+- Template includes webhook URL
+- Implementation handles auth, validation, storage
+
 ## Future Considerations
 
 ### Mobile Support
@@ -539,6 +634,7 @@ catch (JsonException ex)
 - Custom validators
 - Custom data types
 - Export formats
+- Custom submission handlers
 
 ### Collaboration
 
