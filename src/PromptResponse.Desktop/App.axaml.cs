@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Core.Services;
 using PromptResponse.Core.Services.Certificates;
 using PromptResponse.Core.Validation;
 using PromptResponse.Desktop.Services;
@@ -215,6 +216,9 @@ public partial class App : Application
 
         Console.WriteLine("[App]   - Registering IOnePasswordService -> OnePasswordService");
         services.AddSingleton<IOnePasswordService, OnePasswordService>();
+
+        Console.WriteLine("[App]   - Registering ISignatureService -> SignatureService");
+        services.AddSingleton<ISignatureService, SignatureService>();
 
         // ViewModels
         Console.WriteLine("[App]   - Registering MainWindowViewModel");

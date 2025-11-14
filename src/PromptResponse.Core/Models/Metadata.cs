@@ -98,4 +98,24 @@ public class Metadata
     /// Should be UTC timestamp.
     /// </remarks>
     public DateTime? FilledDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the digital signatures applied to the template.
+    /// </summary>
+    /// <remarks>
+    /// Template-specific field. Contains signatures from template publishers (e.g., IRS, HR department)
+    /// that establish the authenticity and integrity of the template structure.
+    /// Multiple signatures can be present if co-signed or countersigned.
+    /// </remarks>
+    public List<DigitalSignature>? TemplateSignatures { get; set; }
+
+    /// <summary>
+    /// Gets or sets the digital signatures applied to the filled form.
+    /// </summary>
+    /// <remarks>
+    /// FilledForm-specific field. Contains signatures from the person(s) who completed the form,
+    /// establishing the authenticity and integrity of their responses.
+    /// Multiple signatures can be present if the form requires multiple signatories.
+    /// </remarks>
+    public List<DigitalSignature>? FormSignatures { get; set; }
 }
