@@ -5,6 +5,7 @@ using Avalonia.Styling;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Core.Services;
 using PromptResponse.Core.Services.Certificates;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.Views;
@@ -21,6 +22,7 @@ public class MainWindowViewModel : ViewModelBase
     private readonly ISettingsService _settingsService;
     private readonly ICertificateGenerator _certificateGenerator;
     private readonly ICertificateStore _certificateStore;
+    private readonly ISignatureService _signatureService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private AprDocument? _currentDocument;
     private FormFillingViewModel? _formFillingViewModel;
@@ -33,12 +35,14 @@ public class MainWindowViewModel : ViewModelBase
         ISettingsService settingsService,
         ICertificateGenerator certificateGenerator,
         ICertificateStore certificateStore,
+        ISignatureService signatureService,
         ILogger<MainWindowViewModel> logger)
     {
         _fileService = fileService;
         _settingsService = settingsService;
         _certificateGenerator = certificateGenerator;
         _certificateStore = certificateStore;
+        _signatureService = signatureService;
         _logger = logger;
 
         _logger.LogInformation("MainWindowViewModel constructor called");
@@ -113,6 +117,20 @@ public class MainWindowViewModel : ViewModelBase
                 _logger.LogDebug("  Document Type: {Type}", document.DocumentType);
                 _logger.LogDebug("  Title: {Title}", document.Metadata.Title);
                 _logger.LogDebug("  Sections: {Count}", document.Sections.Count);
+
+                // Verify signatures if present
+                if (_signatureService.IsSigned(document))
+                {
+                    _logger.LogInformation("Document has signatures - verifying...");
+                    var verificationResults = _signatureService.VerifyAllSignatures(document);
+
+                    foreach (var (signature, result) in verificationResults)
+                    {
+                        _logger.LogInformation("Signature from {Signer}: {Result}",
+                            signature.SignerName,
+                            result.Summary);
+                    }
+                }
 
                 // Add to recent files
                 if (_fileService.CurrentFilePath != null)

@@ -77,6 +77,71 @@
                                AutomationProperties.Name="Form Description"/>
                 </StackPanel>
 
+                <!-- Signature Information Banner -->
+                <Border Margin="0,0,0,16"
+                        Padding="16,12"
+                        Background="{DynamicResource SystemControlHighlightAccentBrush}"
+                        CornerRadius="6"
+                        IsVisible="{Binding SignatureStatusMessage, Converter={x:Static ObjectConverters.IsNotNull}}"
+                        AutomationProperties.Name="Signature information">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding SignatureStatusMessage}"
+                                   Foreground="White"
+                                   FontWeight="Medium"
+                                   TextWrapping="Wrap"
+                                   AutomationProperties.Name="{Binding SignatureStatusMessage}"/>
+
+                        <!-- Show template signature details if present -->
+                        <ItemsControl ItemsSource="{Binding TemplateSignatures}"
+                                      IsVisible="{Binding HasTemplateSignatures}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Spacing="4" Margin="0,4,0,0">
+                                        <TextBlock Foreground="White" FontSize="12" FontWeight="SemiBold" Text="Template Publisher:"/>
+                                        <TextBlock Foreground="White" FontSize="12">
+                                            <Run Text="Name: "/>
+                                            <Run Text="{Binding SignerName}" FontWeight="Medium"/>
+                                        </TextBlock>
+                                        <TextBlock Foreground="White" FontSize="12" IsVisible="{Binding SignerOrganization, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                            <Run Text="Organization: "/>
+                                            <Run Text="{Binding SignerOrganization}"/>
+                                        </TextBlock>
+                                        <TextBlock Foreground="White" FontSize="12">
+                                            <Run Text="Signed: "/>
+                                            <Run Text="{Binding SignedAt, StringFormat='{}{0:g}'}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <!-- Show form signature details if present -->
+                        <ItemsControl ItemsSource="{Binding FormSignatures}"
+                                      IsVisible="{Binding HasFormSignatures}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Spacing="4" Margin="0,4,0,0">
+                                        <TextBlock Foreground="White" FontSize="12" FontWeight="SemiBold" Text="Form Signer:"/>
+                                        <TextBlock Foreground="White" FontSize="12">
+                                            <Run Text="Name: "/>
+                                            <Run Text="{Binding SignerName}" FontWeight="Medium"/>
+                                        </TextBlock>
+                                        <TextBlock Foreground="White" FontSize="12" IsVisible="{Binding SignerEmail, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                            <Run Text="Email: "/>
+                                            <Run Text="{Binding SignerEmail}"/>
+                                        </TextBlock>
+                                        <TextBlock Foreground="White" FontSize="12">
+                                            <Run Text="Signed: "/>
+                                            <Run Text="{Binding SignedAt, StringFormat='{}{0:g}'}"/>
+                                        </TextBlock>
+                                        <TextBlock Foreground="White" FontSize="11" Margin="0,4,0,0" FontWeight="SemiBold" Text="⚠ This form is read-only and cannot be edited" IsVisible="{Binding $parent[UserControl].((vm:FormFillingViewModel)DataContext).IsReadOnly}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
             <!-- Sections -->
             <ItemsControl ItemsSource="{Binding Sections}"
                           HorizontalAlignment="Stretch"
