@@ -12,10 +12,16 @@ public class FormFillingViewModel : ViewModelBase
     private bool _hasUnsavedChanges;
     private string _statusMessage = string.Empty;
     private string _mode = "Filling Form";
+    private bool _isReadOnly = false;
 
     public FormFillingViewModel(AprDocument document)
     {
         _document = document;
+
+        // Check if form is signed (making it read-only)
+        var hasFormSignatures = document.Metadata.FormSignatures?.Count > 0;
+        _isReadOnly = hasFormSignatures;
+
         Sections = new ObservableCollection<SectionViewModel>(
             document.Sections.Select(s => new SectionViewModel(s)));
 
@@ -67,6 +73,57 @@ public class FormFillingViewModel : ViewModelBase
     }
 
     public string SaveStateText => HasUnsavedChanges ? "● Modified" : "Saved";
+
+    /// <summary>
+    /// Gets whether this form is read-only (signed forms cannot be edited).
+    /// </summary>
+    public bool IsReadOnly => _isReadOnly;
+
+    /// <summary>
+    /// Gets whether this form can be edited (inverse of IsReadOnly).
+    /// </summary>
+    public bool IsEditable => !_isReadOnly;
+
+    /// <summary>
+    /// Gets whether the template this form is based on has been signed.
+    /// </summary>
+    public bool HasTemplateSignatures => _document.Metadata.TemplateSignatures?.Count > 0;
+
+    /// <summary>
+    /// Gets whether this filled form has been signed.
+    /// </summary>
+    public bool HasFormSignatures => _document.Metadata.FormSignatures?.Count > 0;
+
+    /// <summary>
+    /// Gets the template signatures (if any).
+    /// </summary>
+    public IReadOnlyList<DigitalSignature>? TemplateSignatures => _document.Metadata.TemplateSignatures;
+
+    /// <summary>
+    /// Gets the form signatures (if any).
+    /// </summary>
+    public IReadOnlyList<DigitalSignature>? FormSignatures => _document.Metadata.FormSignatures;
+
+    /// <summary>
+    /// Gets a user-friendly message about signatures.
+    /// </summary>
+    public string SignatureStatusMessage
+    {
+        get
+        {
+            if (HasFormSignatures)
+            {
+                var sig = _document.Metadata.FormSignatures![0];
+                return $"✓ Signed by {sig.SignerName} on {sig.SignedAt:g} (Read-only)";
+            }
+            else if (HasTemplateSignatures)
+            {
+                var sig = _document.Metadata.TemplateSignatures![0];
+                return $"ℹ Template signed by {sig.SignerName} on {sig.SignedAt:g}";
+            }
+            return string.Empty;
+        }
+    }
 
     private void UpdateStatusMessage()
     {
