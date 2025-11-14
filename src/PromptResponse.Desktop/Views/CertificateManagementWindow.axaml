@@ -1,0 +1,262 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PromptResponse.Desktop.ViewModels"
+        x:Class="PromptResponse.Desktop.Views.CertificateManagementWindow"
+        x:DataType="vm:CertificateManagementViewModel"
+        Title="Certificate Management"
+        Width="800"
+        Height="600"
+        MinWidth="600"
+        MinHeight="400"
+        WindowStartupLocation="CenterOwner">
+
+    <Design.DataContext>
+        <vm:CertificateManagementViewModel/>
+    </Design.DataContext>
+
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="20">
+            <!-- Header -->
+            <TextBlock Text="Certificate Management"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       AutomationProperties.HeadingLevel="1"/>
+
+            <TextBlock TextWrapping="Wrap"
+                       Foreground="{DynamicResource SystemBaseMediumColor}">
+                Generate self-signed certificates for testing and personal use. Certificates are compatible with email clients (S/MIME), PDF signing (Adobe), and document signing (Word, DocuSign).
+            </TextBlock>
+
+            <!-- Generate New Certificate Section -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="15">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Generate New Certificate"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               AutomationProperties.HeadingLevel="2"/>
+
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+                        <!-- Common Name -->
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Full Name:"
+                                   VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="1"
+                                 Text="{Binding CommonName}"
+                                 Watermark="John Doe"
+                                 AutomationProperties.Name="Full Name"
+                                 AutomationProperties.HelpText="Your full name as it should appear on the certificate"/>
+
+                        <!-- Email -->
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Text="Email:"
+                                   VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1"
+                                 Text="{Binding Email}"
+                                 Watermark="john@example.com"
+                                 AutomationProperties.Name="Email Address"
+                                 AutomationProperties.HelpText="Email address for certificate identification and S/MIME"/>
+
+                        <!-- Organization -->
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                                   Text="Organization:"
+                                   VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="2" Grid.Column="1"
+                                 Text="{Binding Organization}"
+                                 Watermark="Acme Corp (optional)"
+                                 AutomationProperties.Name="Organization"
+                                 AutomationProperties.HelpText="Optional organization name"/>
+
+                        <!-- Validity -->
+                        <TextBlock Grid.Row="3" Grid.Column="0"
+                                   Text="Validity (days):"
+                                   VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="3" Grid.Column="1"
+                                       Value="{Binding ValidityDays}"
+                                       Minimum="1"
+                                       Maximum="3650"
+                                       Increment="30"
+                                       FormatString="0"
+                                       AutomationProperties.Name="Validity Days"
+                                       AutomationProperties.HelpText="Number of days the certificate will be valid"/>
+
+                        <!-- Usage -->
+                        <TextBlock Grid.Row="4" Grid.Column="0"
+                                   Text="Usage:"
+                                   VerticalAlignment="Top"
+                                   Margin="0,5,0,0"/>
+                        <StackPanel Grid.Row="4" Grid.Column="1" Spacing="5">
+                            <CheckBox IsChecked="{Binding EmailSigningEnabled}"
+                                      AutomationProperties.Name="Email Signing">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="📧 Email Signing (S/MIME)"/>
+                                </StackPanel>
+                            </CheckBox>
+                            <CheckBox IsChecked="{Binding DocumentSigningEnabled}"
+                                      AutomationProperties.Name="Document Signing">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="📄 Document Signing (PDF, Word)"/>
+                                </StackPanel>
+                            </CheckBox>
+                            <CheckBox IsChecked="{Binding CodeSigningEnabled}"
+                                      AutomationProperties.Name="Code Signing">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <TextBlock Text="💻 Code Signing"/>
+                                </StackPanel>
+                            </CheckBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Button Content="Generate Certificate"
+                            Command="{Binding GenerateCertificateCommand}"
+                            HorizontalAlignment="Left"
+                            Padding="20,8"
+                            AutomationProperties.Name="Generate Certificate"
+                            AutomationProperties.HelpText="Create a new self-signed certificate with the specified parameters"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Status Message -->
+            <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    CornerRadius="4"
+                    Padding="12"
+                    IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                <TextBlock Text="{Binding StatusMessage}"
+                           TextWrapping="Wrap"
+                           FontFamily="Consolas,Courier New,monospace"
+                           AutomationProperties.LiveSetting="Polite"/>
+            </Border>
+
+            <!-- Generated Certificates -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="15"
+                    IsVisible="{Binding GeneratedCertificates.Count, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Generated Certificates"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               AutomationProperties.HeadingLevel="2"/>
+
+                    <ItemsControl ItemsSource="{Binding GeneratedCertificates}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="4"
+                                        Padding="10"
+                                        Margin="0,5">
+                                    <Grid ColumnDefinitions="*,Auto" RowSpacing="5">
+                                        <StackPanel Grid.Column="0" Spacing="3">
+                                            <TextBlock Text="{Binding Subject}"
+                                                       FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding Email}"
+                                                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                       FontSize="12"/>
+                                            <TextBlock Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                       FontSize="12">
+                                                <Run Text="Usage:"/>
+                                                <Run Text="{Binding UsageDescription}"/>
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding ValidityDescription}"
+                                                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                       FontSize="12"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" Spacing="5" VerticalAlignment="Center">
+                                            <Button Content="Install to System"
+                                                    Command="{Binding $parent[Window].((vm:CertificateManagementViewModel)DataContext).InstallCertificateCommand}"
+                                                    CommandParameter="{Binding Certificate}"
+                                                    Padding="10,5"
+                                                    AutomationProperties.Name="Install Certificate to System Store"/>
+                                            <Button Content="💾 Save to 1Password"
+                                                    Command="{Binding $parent[Window].((vm:CertificateManagementViewModel)DataContext).SaveTo1PasswordCommand}"
+                                                    CommandParameter="{Binding Certificate}"
+                                                    Padding="10,5"
+                                                    AutomationProperties.Name="Save Certificate to 1Password"
+                                                    IsVisible="{Binding $parent[Window].((vm:CertificateManagementViewModel)DataContext).Is1PasswordAvailable}"/>
+                                            <Button Content="Export (.pfx)"
+                                                    Command="{Binding $parent[Window].((vm:CertificateManagementViewModel)DataContext).ExportCertificateCommand}"
+                                                    CommandParameter="{Binding Certificate}"
+                                                    Padding="10,5"
+                                                    AutomationProperties.Name="Export Certificate as PFX File"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <!-- Installed Certificates -->
+            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="15">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Grid.Column="0"
+                                   Text="Installed Certificates"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.HeadingLevel="2"/>
+                        <Button Grid.Column="1"
+                                Content="🔄 Refresh"
+                                Command="{Binding RefreshInstalledCertificatesCommand}"
+                                Padding="10,5"
+                                AutomationProperties.Name="Refresh Installed Certificates List"/>
+                    </Grid>
+
+                    <TextBlock Text="{Binding InstalledCertificates.Count, StringFormat='Found {0} signing certificate(s) in your system store'}"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"
+                               FontSize="12"/>
+
+                    <ItemsControl ItemsSource="{Binding InstalledCertificates}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="4"
+                                        Padding="10"
+                                        Margin="0,5">
+                                    <StackPanel Spacing="3">
+                                        <TextBlock Text="{Binding Subject}"
+                                                   FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Email}"
+                                                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                   FontSize="12"
+                                                   IsVisible="{Binding Email, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                                        <TextBlock Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                   FontSize="12">
+                                            <Run Text="Usage:"/>
+                                            <Run Text="{Binding UsageDescription}"/>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding ValidityDescription}"
+                                                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                   FontSize="12"/>
+                                        <TextBlock Text="{Binding Thumbprint, StringFormat='Thumbprint: {0}'}"
+                                                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                   FontSize="10"
+                                                   FontFamily="Consolas,Courier New,monospace"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <!-- Footer Info -->
+            <TextBlock TextWrapping="Wrap"
+                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                       FontSize="12">
+                💡 Tip: Self-signed certificates work great for testing! For production use with external parties, consider purchasing a commercial certificate from DigiCert, Sectigo, or similar Certificate Authorities.
+            </TextBlock>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

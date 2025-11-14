@@ -5,7 +5,9 @@ using Avalonia.Styling;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Core.Services.Certificates;
 using PromptResponse.Desktop.Services;
+using PromptResponse.Desktop.Views;
 using System.Windows.Input;
 
 namespace PromptResponse.Desktop.ViewModels;
@@ -17,6 +19,8 @@ public class MainWindowViewModel : ViewModelBase
 {
     private readonly IFileService _fileService;
     private readonly ISettingsService _settingsService;
+    private readonly ICertificateGenerator _certificateGenerator;
+    private readonly ICertificateStore _certificateStore;
     private readonly ILogger<MainWindowViewModel> _logger;
     private AprDocument? _currentDocument;
     private FormFillingViewModel? _formFillingViewModel;
@@ -24,10 +28,17 @@ public class MainWindowViewModel : ViewModelBase
     private string _title = "PromptResponse";
     private bool _isEditingTemplate = false; // Track if we're editing a template vs filling a form
 
-    public MainWindowViewModel(IFileService fileService, ISettingsService settingsService, ILogger<MainWindowViewModel> logger)
+    public MainWindowViewModel(
+        IFileService fileService,
+        ISettingsService settingsService,
+        ICertificateGenerator certificateGenerator,
+        ICertificateStore certificateStore,
+        ILogger<MainWindowViewModel> logger)
     {
         _fileService = fileService;
         _settingsService = settingsService;
+        _certificateGenerator = certificateGenerator;
+        _certificateStore = certificateStore;
         _logger = logger;
 
         _logger.LogInformation("MainWindowViewModel constructor called");
@@ -49,6 +60,9 @@ public class MainWindowViewModel : ViewModelBase
         SetDarkThemeCommand = new RelayCommand(() => SetTheme(ThemeVariant.Dark));
         SetSystemThemeCommand = new RelayCommand(() => SetTheme(ThemeVariant.Default));
         SetCustomThemeCommand = new RelayCommand(SetCustomTheme);
+
+        // Tools commands
+        OpenCertificateManagementCommand = new RelayCommand(OpenCertificateManagement);
 
         _logger.LogInformation("MainWindowViewModel initialized successfully");
     }
@@ -82,6 +96,7 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand SetDarkThemeCommand { get; }
     public ICommand SetSystemThemeCommand { get; }
     public ICommand SetCustomThemeCommand { get; }
+    public ICommand OpenCertificateManagementCommand { get; }
 
     private async Task OpenFileAsync(bool forFilling)
     {
@@ -640,6 +655,45 @@ public class MainWindowViewModel : ViewModelBase
             default:
                 SetTheme(ThemeVariant.Default);
                 break;
+        }
+    }
+
+    private void OpenCertificateManagement()
+    {
+        _logger.LogInformation("Opening Certificate Management window");
+
+        try
+        {
+            var onePasswordService = App.ServiceProvider?.GetService(typeof(IOnePasswordService)) as IOnePasswordService
+                ?? throw new InvalidOperationException("OnePasswordService not available");
+
+            var logger = App.ServiceProvider?.GetService(typeof(ILogger<CertificateManagementViewModel>)) as ILogger<CertificateManagementViewModel>
+                ?? throw new InvalidOperationException("Logger not available");
+
+            var viewModel = new CertificateManagementViewModel(
+                _certificateGenerator,
+                _certificateStore,
+                onePasswordService,
+                logger);
+
+            var window = new CertificateManagementWindow(viewModel);
+
+            // Get the main window as the owner
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                window.ShowDialog(desktop.MainWindow);
+            }
+            else
+            {
+                window.Show();
+            }
+
+            _logger.LogInformation("Certificate Management window opened");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error opening Certificate Management window");
+            Console.Error.WriteLine($"Error opening Certificate Management: {ex.Message}");
         }
     }
 }

@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Core.Services.Certificates;
 using PromptResponse.Core.Validation;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels;
@@ -205,12 +206,25 @@ public partial class App : Application
         Console.WriteLine("[App]   - Registering ISettingsService -> SettingsService");
         services.AddSingleton<ISettingsService, SettingsService>();
 
+        // Certificate services
+        Console.WriteLine("[App]   - Registering ICertificateGenerator -> CertificateGenerator");
+        services.AddSingleton<ICertificateGenerator, CertificateGenerator>();
+
+        Console.WriteLine("[App]   - Registering ICertificateStore -> CertificateStoreService");
+        services.AddSingleton<ICertificateStore, CertificateStoreService>();
+
+        Console.WriteLine("[App]   - Registering IOnePasswordService -> OnePasswordService");
+        services.AddSingleton<IOnePasswordService, OnePasswordService>();
+
         // ViewModels
         Console.WriteLine("[App]   - Registering MainWindowViewModel");
         services.AddTransient<MainWindowViewModel>();
 
         Console.WriteLine("[App]   - Registering FormFillingViewModel");
         services.AddTransient<FormFillingViewModel>();
+
+        Console.WriteLine("[App]   - Registering CertificateManagementViewModel");
+        services.AddTransient<CertificateManagementViewModel>();
 
         Console.WriteLine("[App] Service configuration complete");
     }
