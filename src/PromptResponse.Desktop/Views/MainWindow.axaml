@@ -54,6 +54,13 @@
                     <MenuItem Header="_Vivid (Custom)" Command="{Binding SetCustomThemeCommand}"/>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Certificate Management..." Command="{Binding OpenCertificateManagementCommand}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="🔐" FontSize="14"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" Click="OnAboutClicked"/>
             </MenuItem>
