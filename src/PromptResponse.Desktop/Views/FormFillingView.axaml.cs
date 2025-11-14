@@ -169,4 +169,178 @@ public partial class FormFillingView : UserControl
             _logger?.LogError(ex, "Error scrolling to section: {Title}", targetSection.Title);
         }
     }
+
+    /// <summary>
+    /// Handles click on calendar button for date fields.
+    /// Opens a calendar picker that allows selecting a date while still allowing freeform text entry.
+    /// </summary>
+    private void OnDatePickerClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button || button.Tag is not PromptViewModel promptViewModel)
+        {
+            _logger?.LogWarning("OnDatePickerClick: sender is not a Button or Tag is not PromptViewModel");
+            return;
+        }
+
+        _logger?.LogInformation("Date picker clicked for prompt: {Label}", promptViewModel.Label);
+
+        try
+        {
+            // Create a CalendarDatePicker
+            var datePicker = new CalendarDatePicker
+            {
+                MinWidth = 250
+            };
+
+            // Try to parse existing response as a date
+            if (!string.IsNullOrWhiteSpace(promptViewModel.Response))
+            {
+                if (DateTime.TryParse(promptViewModel.Response, out var existingDate))
+                {
+                    datePicker.SelectedDate = existingDate;
+                }
+            }
+
+            // Create a flyout to show the date picker (declare before initializer to avoid capture issues)
+            Flyout? flyout = null;
+            flyout = new Flyout
+            {
+                Content = new StackPanel
+                {
+                    Spacing = 8,
+                    Children =
+                    {
+                        datePicker,
+                        new StackPanel
+                        {
+                            Orientation = Avalonia.Layout.Orientation.Horizontal,
+                            Spacing = 8,
+                            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                            Children =
+                            {
+                                new Button
+                                {
+                                    Content = "OK",
+                                    Classes = { "accent" },
+                                    Command = new RelayCommand(() =>
+                                    {
+                                        if (datePicker.SelectedDate.HasValue)
+                                        {
+                                            var date = datePicker.SelectedDate.Value;
+                                            promptViewModel.Response = date.ToString("yyyy-MM-dd");
+                                            _logger?.LogInformation("Date selected: {Date}", promptViewModel.Response);
+                                        }
+                                        flyout?.Hide();
+                                    })
+                                },
+                                new Button
+                                {
+                                    Content = "Cancel",
+                                    Command = new RelayCommand(() => flyout?.Hide())
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            flyout.ShowAt(button);
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex, "Error showing date picker for prompt: {Label}", promptViewModel.Label);
+        }
+    }
+
+    /// <summary>
+    /// Handles click on toggle button to switch between smart controls and plain text.
+    /// </summary>
+    private void OnToggleSmartControlClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button || button.Tag is not PromptViewModel promptViewModel)
+        {
+            _logger?.LogWarning("OnToggleSmartControlClick: sender is not a Button or Tag is not PromptViewModel");
+            return;
+        }
+
+        _logger?.LogInformation("Toggle smart control clicked for prompt: {Label}, current state: {UseSmartControl}",
+            promptViewModel.Label, promptViewModel.UseSmartControl);
+
+        promptViewModel.UseSmartControl = !promptViewModel.UseSmartControl;
+
+        _logger?.LogInformation("Smart control toggled to: {UseSmartControl}", promptViewModel.UseSmartControl);
+    }
+
+    /// <summary>
+    /// Handles radio button click for single-choice fields.
+    /// </summary>
+    private void OnRadioButtonClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not RadioButton radioButton || radioButton.Tag is not string selectedValue)
+        {
+            _logger?.LogWarning("OnRadioButtonClick: sender is not a RadioButton or Tag is not string");
+            return;
+        }
+
+        // Find the PromptViewModel from the parent ItemsControl
+        var itemsControl = radioButton.FindLogicalAncestorOfType<ItemsControl>();
+        if (itemsControl?.Tag is PromptViewModel promptViewModel)
+        {
+            promptViewModel.Response = selectedValue;
+            _logger?.LogInformation("Radio button selected: {Value} for prompt: {Label}", selectedValue, promptViewModel.Label);
+        }
+    }
+
+    /// <summary>
+    /// Handles checkbox click for boolean fields.
+    /// </summary>
+    private void OnBooleanCheckBoxClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not CheckBox checkBox || checkBox.Tag is not PromptViewModel promptViewModel)
+        {
+            _logger?.LogWarning("OnBooleanCheckBoxClick: sender is not a CheckBox or Tag is not PromptViewModel");
+            return;
+        }
+
+        // Store as "true" or "false" string
+        promptViewModel.Response = checkBox.IsChecked == true ? "true" : "false";
+        _logger?.LogInformation("Boolean checkbox toggled: {Value} for prompt: {Label}", promptViewModel.Response, promptViewModel.Label);
+    }
+
+    /// <summary>
+    /// Handles checkbox click for multichoice fields.
+    /// </summary>
+    private void OnMultiChoiceCheckBoxClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not CheckBox checkBox || checkBox.Tag is not string value)
+        {
+            _logger?.LogWarning("OnMultiChoiceCheckBoxClick: sender is not a CheckBox or Tag is not string");
+            return;
+        }
+
+        // Find the PromptViewModel from the parent ItemsControl
+        var itemsControl = checkBox.FindLogicalAncestorOfType<ItemsControl>();
+        if (itemsControl?.Tag is PromptViewModel promptViewModel)
+        {
+            // Get current response as comma-separated list
+            var current = string.IsNullOrWhiteSpace(promptViewModel.Response)
+                ? new List<string>()
+                : promptViewModel.Response.Split(',').Select(s => s.Trim()).ToList();
+
+            if (checkBox.IsChecked == true)
+            {
+                if (!current.Contains(value))
+                {
+                    current.Add(value);
+                }
+            }
+            else
+            {
+                current.Remove(value);
+            }
+
+            promptViewModel.Response = string.Join(", ", current);
+            _logger?.LogInformation("Multichoice updated: {Values} for prompt: {Label}", promptViewModel.Response, promptViewModel.Label);
+        }
+    }
 }

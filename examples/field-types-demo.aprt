@@ -152,15 +152,15 @@
     {
       "id": "choices_and_options",
       "title": "Choices and Options",
-      "description": "Fields with suggested values",
+      "description": "Fields with choice, multichoice, and boolean types",
       "prompts": [
         {
           "id": "country",
           "label": "Country",
           "hints": {
-            "expectedDataType": "text",
-            "placeholder": "Select or type a country",
-            "helpText": "Common suggestions provided, but you can enter any country",
+            "expectedDataType": "choice",
+            "placeholder": "Select a country",
+            "helpText": "Select from dropdown (6+ options shows as dropdown)",
             "suggestedValues": [
               "United States",
               "Canada",
@@ -176,8 +176,9 @@
           "id": "preferred_contact",
           "label": "Preferred Contact Method",
           "hints": {
-            "expectedDataType": "text",
-            "placeholder": "Email, Phone, or Mail",
+            "expectedDataType": "choice",
+            "placeholder": "Select contact method",
+            "helpText": "Radio buttons shown for 2-5 options",
             "suggestedValues": [
               "Email",
               "Phone",
@@ -187,15 +188,35 @@
           }
         },
         {
-          "id": "yes_no_question",
-          "label": "Would you like to receive updates?",
+          "id": "interests",
+          "label": "Areas of Interest",
+          "hints": {
+            "expectedDataType": "multichoice",
+            "helpText": "Select all that apply (checkboxes for multiple selection)",
+            "suggestedValues": [
+              "Technology",
+              "Finance",
+              "Healthcare",
+              "Education",
+              "Arts & Entertainment",
+              "Sports & Recreation"
+            ]
+          }
+        },
+        {
+          "id": "newsletter_subscription",
+          "label": "Subscribe to Newsletter",
           "hints": {
             "expectedDataType": "boolean",
-            "placeholder": "Yes or No",
-            "suggestedValues": [
-              "Yes",
-              "No"
-            ]
+            "helpText": "Check to receive monthly updates"
+          }
+        },
+        {
+          "id": "terms_agreement",
+          "label": "I agree to the Terms and Conditions",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "You must agree to continue"
           }
         }
       ],

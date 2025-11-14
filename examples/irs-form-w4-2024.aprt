@@ -90,7 +90,7 @@
           "response": "",
           "hints": {
             "placeholder": "Select one",
-            "expectedDataType": "text",
+            "expectedDataType": "choice",
             "suggestedValues": [
               "Single or Married filing separately",
               "Married filing jointly or Qualifying surviving spouse",
@@ -116,7 +116,7 @@
           "label": "Choose ONE of the following options",
           "response": "",
           "hints": {
-            "expectedDataType": "text",
+            "expectedDataType": "choice",
             "suggestedValues": [
               "Option A: Use the IRS Tax Withholding Estimator at www.irs.gov/W4App",
               "Option B: Use the Multiple Jobs Worksheet on page 3 and enter result below",

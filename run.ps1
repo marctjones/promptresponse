@@ -3,7 +3,7 @@
 # PromptResponse Launcher Script (PowerShell)
 #
 # This script provides an easy way to run the PromptResponse application.
-# By default, it launches the GUI. Use options for CLI demos.
+# By default, it opens the Field Types Demo to showcase all controls. Use options for CLI demos.
 
 param(
     [Parameter(Position=0)]
@@ -61,9 +61,18 @@ function Invoke-Tests {
 # Function to launch GUI
 function Start-GUI {
     Write-Header "Launching PromptResponse Desktop Application"
-    Write-Info "Starting GUI application..."
-    Write-Host ""
-    dotnet run --project src/PromptResponse.Desktop
+
+    $defaultFile = "examples/field-types-demo.aprt"
+
+    if (Test-Path $defaultFile) {
+        Write-Info "Opening Field Types Demo to showcase all controls..."
+        Write-Host ""
+        dotnet run --project src/PromptResponse.Desktop $defaultFile
+    } else {
+        Write-Info "Starting GUI application..."
+        Write-Host ""
+        dotnet run --project src/PromptResponse.Desktop
+    }
 }
 
 # Function to show CLI help
@@ -177,9 +186,9 @@ function Show-Usage {
     Write-Host ""
     Write-Host "Commands:" -ForegroundColor Green
     Write-Host "  (none)      " -ForegroundColor Yellow -NoNewline
-    Write-Host "     Launch the GUI application (default)"
+    Write-Host "     Open Field Types Demo to showcase all controls (default)"
     Write-Host "  gui         " -ForegroundColor Yellow -NoNewline
-    Write-Host "     Launch the GUI application"
+    Write-Host "     Open Field Types Demo to showcase all controls"
     Write-Host "  help        " -ForegroundColor Yellow -NoNewline
     Write-Host "     Show CLI help information"
     Write-Host "  demo        " -ForegroundColor Yellow -NoNewline
@@ -198,7 +207,7 @@ function Show-Usage {
     Write-Host "     Show version information"
     Write-Host ""
     Write-Host "Examples:" -ForegroundColor Green
-    Write-Host "  .\run.ps1                    # Launch GUI"
+    Write-Host "  .\run.ps1                    # Open Field Types Demo (default - shows all controls)"
     Write-Host "  .\run.ps1 demo               # Run full CLI demo"
     Write-Host "  .\run.ps1 validate           # Validate example files"
     Write-Host "  .\run.ps1 help               # Show CLI help"

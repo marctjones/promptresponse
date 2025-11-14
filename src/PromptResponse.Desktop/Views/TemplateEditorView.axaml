@@ -261,13 +261,20 @@
                                                                                              TextWrapping="Wrap"
                                                                                              HorizontalAlignment="Stretch"
                                                                                              AutomationProperties.Name="Prompt help text"/>
-                                                                                    <TextBox Text="{Binding ExpectedDataType}"
-                                                                                             Watermark="Expected data type (e.g., email, phone, date)"
+                                                                                    <AutoCompleteBox Text="{Binding ExpectedDataType}"
+                                                                                                     ItemsSource="{x:Static vm:TemplateEditorViewModel.ValidFieldTypes}"
+                                                                                                     Watermark="Select or type field type (e.g., email, phone, date)"
+                                                                                                     MinHeight="32"
+                                                                                                     HorizontalAlignment="Stretch"
+                                                                                                     AutomationProperties.Name="Expected data type"
+                                                                                                     AutomationProperties.HelpText="Select a standard field type or enter a custom value - advisory hint only, does not enforce validation"/>
+                                                                                    <TextBox Text="{Binding SuggestedValuesText}"
+                                                                                             Watermark="Suggested values (comma-separated, e.g., Option 1, Option 2, Option 3)"
                                                                                              MinHeight="32"
                                                                                              Padding="8"
                                                                                              HorizontalAlignment="Stretch"
-                                                                                             AutomationProperties.Name="Expected data type"
-                                                                                             AutomationProperties.HelpText="Advisory hint for field type - does not enforce validation"/>
+                                                                                             AutomationProperties.Name="Suggested values"
+                                                                                             AutomationProperties.HelpText="Comma-separated list of suggested values that will appear in autocomplete dropdown"/>
                                                                                 </StackPanel>
                                                                             </Border>
                                                                         </DataTemplate>
@@ -319,13 +326,20 @@
                                                                      TextWrapping="Wrap"
                                                                      HorizontalAlignment="Stretch"
                                                                      AutomationProperties.Name="Prompt help text"/>
-                                                            <TextBox Text="{Binding ExpectedDataType}"
-                                                                     Watermark="Expected data type (e.g., email, phone, date)"
+                                                            <AutoCompleteBox Text="{Binding ExpectedDataType}"
+                                                                             ItemsSource="{x:Static vm:TemplateEditorViewModel.ValidFieldTypes}"
+                                                                             Watermark="Select or type field type (e.g., email, phone, date)"
+                                                                             MinHeight="32"
+                                                                             HorizontalAlignment="Stretch"
+                                                                             AutomationProperties.Name="Expected data type"
+                                                                             AutomationProperties.HelpText="Select a standard field type or enter a custom value - advisory hint only, does not enforce validation"/>
+                                                            <TextBox Text="{Binding SuggestedValuesText}"
+                                                                     Watermark="Suggested values (comma-separated, e.g., Option 1, Option 2, Option 3)"
                                                                      MinHeight="32"
                                                                      Padding="8"
                                                                      HorizontalAlignment="Stretch"
-                                                                     AutomationProperties.Name="Expected data type"
-                                                                     AutomationProperties.HelpText="Advisory hint for field type - does not enforce validation"/>
+                                                                     AutomationProperties.Name="Suggested values"
+                                                                     AutomationProperties.HelpText="Comma-separated list of suggested values that will appear in autocomplete dropdown"/>
                                                         </StackPanel>
                                                     </Border>
                                                 </DataTemplate>

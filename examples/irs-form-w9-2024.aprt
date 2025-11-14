@@ -48,7 +48,7 @@
           "label": "Check appropriate box for federal tax classification",
           "response": "",
           "hints": {
-            "expectedDataType": "text",
+            "expectedDataType": "choice",
             "suggestedValues": [
               "Individual/sole proprietor or single-member LLC",
               "C Corporation",
@@ -71,7 +71,7 @@
           "response": "",
           "hints": {
             "placeholder": "e.g., S",
-            "expectedDataType": "text",
+            "expectedDataType": "choice",
             "suggestedValues": ["C", "S", "P"],
             "helpText": "Required if you selected LLC above"
           },
@@ -252,8 +252,7 @@
           "label": "I certify that I am a U.S. citizen or other U.S. person",
           "response": "",
           "hints": {
-            "expectedDataType": "text",
-            "suggestedValues": ["Yes", "No"],
+            "expectedDataType": "boolean",
             "helpText": "You must be a U.S. person to use this form"
           },
           "responseMetadata": {
@@ -302,9 +301,8 @@
           "label": "Has your name changed since you last provided a W-9?",
           "response": "",
           "hints": {
-            "expectedDataType": "text",
-            "suggestedValues": ["Yes", "No"],
-            "helpText": "Check Yes if your name has changed (e.g., due to marriage)"
+            "expectedDataType": "boolean",
+            "helpText": "Check if your name has changed (e.g., due to marriage)"
           },
           "responseMetadata": {
             "lastModified": null,
@@ -330,9 +328,8 @@
           "label": "Has your TIN changed since you last provided a W-9?",
           "response": "",
           "hints": {
-            "expectedDataType": "text",
-            "suggestedValues": ["Yes", "No"],
-            "helpText": "Rare, but check Yes if your TIN has changed"
+            "expectedDataType": "boolean",
+            "helpText": "Rare, but check if your TIN has changed"
           },
           "responseMetadata": {
             "lastModified": null,

@@ -154,7 +154,8 @@
           "label": "Position/Title",
           "response": "dasds",
           "hints": {
-            "expectedDataType": "text",
+            "expectedDataType": "choice",
+            "helpText": "Select from common positions or type your own",
             "suggestedValues": [
               "Software Engineer",
               "Manager",
@@ -219,7 +220,8 @@
           "label": "Highest Level of Education",
           "response": "none",
           "hints": {
-            "expectedDataType": "text",
+            "expectedDataType": "choice",
+            "helpText": "Select your highest completed education level",
             "suggestedValues": [
               "High School Diploma",
               "Associate Degree",

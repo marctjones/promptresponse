@@ -166,6 +166,7 @@ public class SubsectionViewModel : ViewModelBase
 public class PromptViewModel : ViewModelBase
 {
     private readonly Prompt _prompt;
+    private bool _useSmartControl = true;
 
     public PromptViewModel(Prompt prompt)
     {
@@ -176,6 +177,41 @@ public class PromptViewModel : ViewModelBase
     public string? Placeholder => _prompt.Hints.Placeholder;
     public string? HelpText => _prompt.Hints.HelpText;
     public string? ExpectedDataType => _prompt.Hints.ExpectedDataType;
+    public List<string> SuggestedValues => _prompt.Hints.SuggestedValues;
+
+    public bool HasSuggestedValues => SuggestedValues.Count > 0;
+    public bool IsDateField => ExpectedDataType?.ToLowerInvariant() == "date";
+    public bool IsChoiceField => ExpectedDataType?.ToLowerInvariant() == "choice" && HasSuggestedValues;
+    public bool IsMultiChoiceField => ExpectedDataType?.ToLowerInvariant() == "multichoice" && HasSuggestedValues;
+    public bool IsBooleanField => ExpectedDataType?.ToLowerInvariant() == "boolean";
+
+    // For choice fields, use radio buttons if 2-5 options, dropdown if 6+
+    public bool UseRadioButtons => IsChoiceField && SuggestedValues.Count >= 2 && SuggestedValues.Count <= 5;
+    public bool UseDropdown => IsChoiceField && SuggestedValues.Count > 5;
+
+    // AutoComplete should only show for fields with suggestions that are NOT choice/multichoice
+    public bool ShowAutocomplete => HasSuggestedValues && !IsChoiceField && !IsMultiChoiceField;
+
+    public bool HasSmartControl => HasSuggestedValues || IsDateField || IsChoiceField || IsMultiChoiceField || IsBooleanField;
+
+    /// <summary>
+    /// Controls whether to show smart controls (autocomplete, date picker) or plain text box.
+    /// </summary>
+    public bool UseSmartControl
+    {
+        get => _useSmartControl;
+        set
+        {
+            if (SetProperty(ref _useSmartControl, value))
+            {
+                OnPropertyChanged(nameof(ShowSmartControl));
+                OnPropertyChanged(nameof(ShowPlainTextBox));
+            }
+        }
+    }
+
+    public bool ShowSmartControl => _useSmartControl && HasSmartControl;
+    public bool ShowPlainTextBox => !_useSmartControl || !HasSmartControl;
 
     public string Response
     {

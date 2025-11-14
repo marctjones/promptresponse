@@ -3,7 +3,7 @@
 # PromptResponse Launcher Script
 #
 # This script provides an easy way to run the PromptResponse application.
-# By default, it opens the SF-86 template for filling. Use options to override.
+# By default, it opens the Field Types Demo to showcase all control types. Use options to override.
 
 set -e  # Exit on error
 
@@ -227,7 +227,7 @@ ${GREEN}Usage:${NC}
   ./run.sh [OPTION] [FILE]
 
 ${GREEN}Options:${NC}
-  ${YELLOW}(none)${NC}           Open SF-86 template for filling (default)
+  ${YELLOW}(none)${NC}           Open Field Types Demo to showcase all controls (default)
   ${YELLOW}--no-file${NC}        Launch GUI without opening any file
   ${YELLOW}--gui, -g${NC}        Launch GUI without opening any file (same as --no-file)
   ${YELLOW}--open <file>${NC}    Open an APR file for filling out
@@ -245,7 +245,7 @@ ${GREEN}Options:${NC}
   ${YELLOW}--usage${NC}           Show this usage information
 
 ${GREEN}Examples:${NC}
-  ./run.sh                                      # Open SF-86 template for filling (default)
+  ./run.sh                                      # Open Field Types Demo (default - shows all controls)
   ./run.sh --no-file                            # Launch GUI without opening any file
   ./run.sh --open examples/simple-contact-form.aprt   # Open contact form for filling
   ./run.sh --edit examples/sf-86-full-template.aprt   # Edit SF-86 template
@@ -279,7 +279,7 @@ main() {
     fi
 
     # Default file to open when no arguments provided
-    local default_file="examples/sf-86-full-template.aprt"
+    local default_file="examples/field-types-demo.aprt"
 
     # If no arguments, build and open default file in form mode
     if [ $# -eq 0 ]; then

@@ -649,7 +649,8 @@ public class MainWindowViewModel : ViewModelBase
 /// </summary>
 public class RelayCommand : ICommand
 {
-    private readonly Func<Task> _execute;
+    private readonly Func<Task>? _execute;
+    private readonly Func<object?, Task>? _executeWithParameter;
     private readonly Func<bool>? _canExecute;
 
     public RelayCommand(Func<Task> execute, Func<bool>? canExecute = null)
@@ -665,11 +666,28 @@ public class RelayCommand : ICommand
         _canExecute = canExecute;
     }
 
+    public RelayCommand(Action<object?> execute, Func<bool>? canExecute = null)
+    {
+        if (execute == null) throw new ArgumentNullException(nameof(execute));
+        _executeWithParameter = (param) => { execute(param); return Task.CompletedTask; };
+        _canExecute = canExecute;
+    }
+
     public event EventHandler? CanExecuteChanged;
 
     public bool CanExecute(object? parameter) => _canExecute?.Invoke() ?? true;
 
-    public async void Execute(object? parameter) => await _execute();
+    public async void Execute(object? parameter)
+    {
+        if (_executeWithParameter != null)
+        {
+            await _executeWithParameter(parameter);
+        }
+        else if (_execute != null)
+        {
+            await _execute();
+        }
+    }
 
     public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 }

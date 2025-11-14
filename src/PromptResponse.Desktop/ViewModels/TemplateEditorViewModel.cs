@@ -16,6 +16,30 @@ public class TemplateEditorViewModel : ViewModelBase
     private string _title;
     private string? _description;
 
+    /// <summary>
+    /// Standard field type hints available for prompts.
+    /// </summary>
+    public static readonly string[] ValidFieldTypes = new[]
+    {
+        "text",
+        "email",
+        "phone",
+        "date",
+        "time",
+        "datetime",
+        "number",
+        "currency",
+        "url",
+        "multiline",
+        "boolean",
+        "choice",         // Single choice from suggestedValues (radio or dropdown)
+        "multichoice",    // Multiple choices from suggestedValues (checkboxes)
+        "password",
+        "range",
+        "color",
+        "file"
+    };
+
     public TemplateEditorViewModel(AprDocument document)
     {
         _document = document;
@@ -407,6 +431,33 @@ public class EditablePromptViewModel : ViewModelBase
             if (SetProperty(ref _expectedDataType, value))
             {
                 Prompt.Hints.ExpectedDataType = value;
+                _parent.MarkAsChanged();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets suggested values as a comma-separated string for easier editing.
+    /// </summary>
+    public string SuggestedValuesText
+    {
+        get => string.Join(", ", Prompt.Hints.SuggestedValues);
+        set
+        {
+            var newValues = value
+                .Split(',')
+                .Select(s => s.Trim())
+                .Where(s => !string.IsNullOrEmpty(s))
+                .ToList();
+
+            if (!newValues.SequenceEqual(Prompt.Hints.SuggestedValues))
+            {
+                Prompt.Hints.SuggestedValues.Clear();
+                foreach (var item in newValues)
+                {
+                    Prompt.Hints.SuggestedValues.Add(item);
+                }
+                OnPropertyChanged();
                 _parent.MarkAsChanged();
             }
         }

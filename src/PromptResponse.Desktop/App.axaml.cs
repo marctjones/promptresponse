@@ -76,11 +76,40 @@ public partial class App : Application
                 desktop.MainWindow.Width = windowSettings.Width;
                 desktop.MainWindow.Height = windowSettings.Height;
 
+                // Only restore window position if it's within screen bounds
                 if (windowSettings.X.HasValue && windowSettings.Y.HasValue)
                 {
-                    desktop.MainWindow.Position = new Avalonia.PixelPoint(
-                        (int)windowSettings.X.Value,
-                        (int)windowSettings.Y.Value);
+                    var screens = desktop.MainWindow.Screens;
+                    var allScreens = screens?.All ?? Array.Empty<Avalonia.Platform.Screen>();
+
+                    // Check if the saved position is within any screen's bounds
+                    bool isOnScreen = false;
+                    foreach (var screen in allScreens)
+                    {
+                        var bounds = screen.WorkingArea;
+                        if (windowSettings.X >= bounds.X &&
+                            windowSettings.X < bounds.X + bounds.Width &&
+                            windowSettings.Y >= bounds.Y &&
+                            windowSettings.Y < bounds.Y + bounds.Height)
+                        {
+                            isOnScreen = true;
+                            break;
+                        }
+                    }
+
+                    if (isOnScreen)
+                    {
+                        desktop.MainWindow.Position = new Avalonia.PixelPoint(
+                            (int)windowSettings.X.Value,
+                            (int)windowSettings.Y.Value);
+                        _logger.LogDebug("Window position restored to: {X},{Y}", windowSettings.X, windowSettings.Y);
+                    }
+                    else
+                    {
+                        _logger.LogWarning("Saved window position ({X},{Y}) is off-screen, using default",
+                            windowSettings.X, windowSettings.Y);
+                        // Let Avalonia position the window at default location (centered)
+                    }
                 }
 
                 if (windowSettings.IsMaximized)
