@@ -90,11 +90,10 @@
                 </StackPanel>
 
                 <!-- Signature Information Banner -->
-                <Border Margin="0,0,0,24"
-                        Padding="20,16"
+                <Border Margin="0,0,0,16"
+                        Padding="16,12"
                         Background="{DynamicResource SystemControlHighlightAccentBrush}"
-                        CornerRadius="{StaticResource RadiusLarge}"
-                        BoxShadow="{StaticResource ShadowSmall}"
+                        CornerRadius="6"
                         IsVisible="{Binding SignatureStatusMessage, Converter={x:Static ObjectConverters.IsNotNull}}"
                         AutomationProperties.Name="Signature information">
                     <StackPanel Spacing="8">

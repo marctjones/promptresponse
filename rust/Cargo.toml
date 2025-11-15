@@ -1,0 +1,40 @@
+[package]
+name = "promptresponse"
+version = "0.1.0"
+edition = "2021"
+authors = ["PromptResponse Contributors"]
+description = "Rust library for working with APR (Adaptive Prompt Response) forms"
+repository = "https://github.com/marctjones/promptresponse"
+license = "MIT"
+keywords = ["forms", "json", "validation", "signatures"]
+categories = ["data-structures", "encoding"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "1.0"
+
+# Optional: Digital signatures
+ring = { version = "0.17", optional = true }
+base64 = { version = "0.21", optional = true }
+pem = { version = "3.0", optional = true }
+
+[dev-dependencies]
+anyhow = "1.0"
+
+[features]
+default = []
+signatures = ["ring", "base64", "pem"]
+
+[[example]]
+name = "create_template"
+required-features = []
+
+[[example]]
+name = "fill_form"
+required-features = []
+
+[[example]]
+name = "sign_verify"
+required-features = ["signatures"]
