@@ -85,6 +85,68 @@ apr new my-form.apr
 
 Creates a minimal template with one example section and prompt.
 
+### fill
+
+Fills out a form interactively or programmatically.
+
+```bash
+apr fill <template> [options]
+```
+
+**Modes:**
+
+1. **Interactive Mode (Default)**: Walk through each prompt step-by-step
+2. **JSON File Mode**: Fill from a JSON file
+3. **JSON String Mode**: Fill from a JSON string
+4. **Non-Interactive Mode**: Fill from command-line arguments
+
+**Options:**
+
+- `--json-file=<file>`: Fill from JSON file
+- `--json=<json-string>`: Fill from JSON string
+- `--non-interactive`: Fill from command-line args
+- `--set-{promptId}=<value>`: Set response (non-interactive mode)
+- `--output=<file>`: Output file (default: template.aprf)
+- `--filled-by=<name>`: Name of person filling form
+- `--validate`: Validate after filling
+
+**Examples:**
+
+```bash
+# Interactive mode
+apr fill examples/simple-contact-form.aprt
+
+# Fill from JSON file
+apr fill examples/simple-contact-form.aprt --json-file=examples/responses-simple-contact.json
+
+# Fill from JSON string
+apr fill template.aprt --json='{"prompt_001":"John Doe","prompt_002":"john@example.com"}'
+
+# Non-interactive with command-line args
+apr fill template.aprt --non-interactive \
+  --set-prompt_001="John Doe" \
+  --set-prompt_002="john@example.com" \
+  --filled-by="John Doe"
+
+# Fill and validate
+apr fill template.aprt --json-file=responses.json --validate --output=filled-form.aprf
+```
+
+**JSON Format:**
+
+```json
+{
+  "prompt_001": "John Doe",
+  "prompt_002": "john@example.com",
+  "prompt_003": "2025-11-15"
+}
+```
+
+**Output:**
+- Creates a filled form with `.aprf` extension
+- Shows completion percentage
+- Optional validation results
+
 ### help
 
 Shows usage information.
@@ -162,6 +224,62 @@ Template ID (optional): customer-survey-q4
 
 The template has been created with one example section and prompt.
 Edit the file to add more sections and prompts.
+```
+
+### Fill Out a Form Interactively
+
+```bash
+$ apr fill examples/simple-contact-form.aprt
+
+Template: Simple Contact Form
+Template ID: simple-contact-v1
+
+=== Interactive Form Filling ===
+(Press Enter to skip a field, Ctrl+C to cancel)
+
+--- Contact Information ---
+
+Name: John Doe
+Email: john.doe@example.com
+Message: I would like to inquire about your services.
+
+Form filling complete!
+Completion: 75.0%
+Saved to: examples/simple-contact-form.aprf
+```
+
+### Fill From JSON File
+
+```bash
+$ apr fill examples/employment-application.apr \
+    --json-file=examples/responses-employment-app.json \
+    --output=filled-employment.aprf \
+    --validate
+
+Loading responses from: examples/responses-employment-app.json
+
+Form filling complete!
+Completion: 33.3%
+Saved to: filled-employment.aprf
+
+Validating...
+✓ Validation passed
+```
+
+### Fill Non-Interactively
+
+```bash
+$ apr fill examples/simple-contact-form.aprt \
+    --non-interactive \
+    --set-prompt_001="Jane Smith" \
+    --set-prompt_002="jane@example.com" \
+    --filled-by="Jane Smith"
+
+Filling form from command-line arguments
+
+Form filling complete!
+Completion: 50.0%
+Saved to: examples/simple-contact-form.aprf
 ```
 
 ## Exit Codes
