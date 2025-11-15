@@ -235,6 +235,29 @@
 - Evaluate rules reactively in UI
 - Never block input, only show/hide
 
+### Form Submission & Distribution
+
+**Priority: MEDIUM**
+
+- [x] **S3 Pre-Signed POST Support (Backend Complete)**
+  - ✅ Direct client-to-S3 form submission without server code
+  - ✅ Embed S3 pre-signed POST policies in templates
+  - ✅ Support for policy expiration and validation
+  - ✅ CORS-enabled bucket configuration
+  - ✅ Hybrid approach: manual send OR direct S3 upload
+  - ✅ Template publishers can specify S3 submission endpoint
+  - ✅ Security: policy-based upload authorization
+  - ✅ Example: IRS template with direct S3 submission to agency bucket
+  - ✅ S3 browser service for viewing submitted forms
+  - ⏳ UI integration (see docs/S3_SUBMISSION_IMPLEMENTATION.md)
+
+- [x] **Submission Config in APR Format**
+  - ✅ Add optional `submissionConfig` to metadata
+  - ✅ Support for S3 pre-signed POST parameters
+  - ✅ Support for webhook endpoints (architecture ready)
+  - ✅ Policy expiration handling and refresh
+  - ⏳ Multiple submission targets (S3 complete, webhook future)
+
 ### Print & Export
 
 **Priority: MEDIUM**
@@ -259,11 +282,21 @@
 
 **Priority: MEDIUM**
 
-- [ ] **Template Library**
-  - Browse available templates
-  - Download from online repository
-  - Rate and review templates
-  - Submit templates to library
+- [x] **Template Gallery (Backend Complete)**
+  - ✅ Browse templates from S3 galleries
+  - ✅ Download templates with signature verification
+  - ✅ Search templates by keyword
+  - ✅ Template metadata display (author, version, signed status)
+  - ⏳ UI integration (see docs/TEMPLATE_PUBLISHING_WORKFLOW.md)
+  - ⏳ Rate and review templates (future)
+
+- [x] **Template Publishing (Backend Complete)**
+  - ✅ Publish signed templates to S3 gallery
+  - ✅ Validation: templates must be signed before publishing
+  - ✅ S3 metadata tracking (template-id, version, author, is-signed)
+  - ✅ List and unpublish templates from gallery
+  - ✅ Support for multiple gallery categories (official/community/test)
+  - ⏳ UI integration (see docs/TEMPLATE_PUBLISHING_WORKFLOW.md)
 
 - [ ] **Version Control**
   - Track template changes over time
@@ -467,6 +500,7 @@ High Impact, High Effort (Plan Carefully):
 - Mobile Applications
 - Cloud Sync
 - Workflow Management
+- S3 Pre-Signed POST (Infrastructure-less submission)
 
 Low Impact, Low Effort (Quick Wins):
 - Recent files list

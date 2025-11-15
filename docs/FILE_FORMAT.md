@@ -80,6 +80,33 @@ A completed form with responses. Based on a template but contains user data.
 - Establishes authenticity of the template structure
 - Multiple signatures supported for co-signing
 
+**Submission Configuration (Optional):**
+Templates may include submission configuration to enable direct form submission:
+
+```json
+{
+  "submissionConfig": {
+    "type": "s3-presigned-post",
+    "url": "https://my-bucket.s3.us-east-1.amazonaws.com/",
+    "fields": {
+      "key": "filled-forms/${filename}",
+      "AWSAccessKeyId": "AKIAIOSFODNN7EXAMPLE",
+      "policy": "eyJleHBpcmF0aW9u...",
+      "signature": "0RavWzkygo6QX9caELEqKi9kDbU=",
+      "acl": "private"
+    },
+    "expiresAt": "2025-12-31T12:00:00Z"
+  }
+}
+```
+
+- `type`: Submission method (currently only "s3-presigned-post")
+- `url`: Target S3 bucket URL
+- `fields`: AWS pre-signed POST fields (policy, signature, etc.)
+- `expiresAt`: Policy expiration timestamp
+
+This allows users to submit filled forms directly to S3 without server infrastructure.
+
 #### Filled Form Metadata
 
 ```json
