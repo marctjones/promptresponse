@@ -17,27 +17,11 @@
         <!-- Menu Bar -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open (Fill Out Form)..." Command="{Binding OpenCommand}" HotKey="Ctrl+O">
-                    <MenuItem.Icon>
-                        <TextBlock Text="📝" FontSize="14"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Open _Template for Editing..." Command="{Binding OpenTemplateForEditingCommand}" HotKey="Ctrl+Shift+O">
-                    <MenuItem.Icon>
-                        <TextBlock Text="✏️" FontSize="14"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="_New Template..." Command="{Binding NewTemplateCommand}" HotKey="Ctrl+N">
-                    <MenuItem.Icon>
-                        <TextBlock Text="➕" FontSize="14"/>
-                    </MenuItem.Icon>
-                </MenuItem>
+                <MenuItem Header="_Open (Fill Out Form)..." Command="{Binding OpenCommand}" HotKey="Ctrl+O"/>
+                <MenuItem Header="Open _Template for Editing..." Command="{Binding OpenTemplateForEditingCommand}" HotKey="Ctrl+Shift+O"/>
+                <MenuItem Header="_New Template..." Command="{Binding NewTemplateCommand}" HotKey="Ctrl+N"/>
                 <Separator/>
-                <MenuItem Header="Switch to _Template Editing" Command="{Binding SwitchToTemplateEditingCommand}" HotKey="Ctrl+E">
-                    <MenuItem.Icon>
-                        <TextBlock Text="🔧" FontSize="14"/>
-                    </MenuItem.Icon>
-                </MenuItem>
+                <MenuItem Header="Switch to _Template Editing" Command="{Binding SwitchToTemplateEditingCommand}" HotKey="Ctrl+E"/>
                 <Separator/>
                 <MenuItem Header="_Save" Command="{Binding SaveCommand}" HotKey="Ctrl+S"/>
                 <MenuItem Header="Save _As..." Command="{Binding SaveAsCommand}" HotKey="Ctrl+Shift+S"/>
@@ -55,11 +39,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Tools">
-                <MenuItem Header="_Certificate Management..." Command="{Binding OpenCertificateManagementCommand}">
-                    <MenuItem.Icon>
-                        <TextBlock Text="🔐" FontSize="14"/>
-                    </MenuItem.Icon>
-                </MenuItem>
+                <MenuItem Header="_Certificate Management..." Command="{Binding OpenCertificateManagementCommand}"/>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="_About" Click="OnAboutClicked"/>

@@ -10,51 +10,61 @@
 
     <DockPanel>
         <!-- Toolbar -->
-        <Border DockPanel.Dock="Top"
-                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                BorderThickness="0,0,0,1"
-                Padding="16,8"
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
-            <StackPanel Orientation="Horizontal" Spacing="8">
+        <Border DockPanel.Dock="Top" Classes="command-bar">
+            <StackPanel Orientation="Horizontal" Spacing="12">
                 <Button Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).SaveCommand}"
-                        Content="💾 Save Template"
-                        Padding="12,6"
+                        Classes="modern-accent"
                         ToolTip.Tip="Save template (Ctrl+S)"
-                        AutomationProperties.Name="Save template button"/>
+                        AutomationProperties.Name="Save template button">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Save Template" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
                 <Button Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).SaveAsCommand}"
-                        Content="Save As..."
-                        Padding="12,6"
+                        Classes="modern"
                         ToolTip.Tip="Save as new template (Ctrl+Shift+S)"
-                        AutomationProperties.Name="Save As button"/>
-                <Separator Width="1" Height="24" Margin="8,0"/>
+                        AutomationProperties.Name="Save As button">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Save As..." VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Separator Width="1" Height="24" Margin="4,0"/>
                 <Button Command="{Binding AddSectionCommand}"
-                        Content="➕ Add Section"
-                        Padding="12,6"
+                        Classes="modern"
                         ToolTip.Tip="Add a new section to the template"
-                        AutomationProperties.Name="Add section button"/>
+                        AutomationProperties.Name="Add section button">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Add Section" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Border>
 
         <!-- Status Bar -->
-        <Border DockPanel.Dock="Bottom"
-                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                BorderThickness="0,1,0,0"
-                Padding="16,6"
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+        <Border DockPanel.Dock="Bottom" Classes="status-bar">
             <Grid ColumnDefinitions="*,Auto,Auto">
                 <TextBlock Text="{Binding StatusMessage}"
                            VerticalAlignment="Center"
+                           FontSize="{StaticResource FontSizeSmall}"
                            Foreground="{DynamicResource SystemBaseMediumColor}"/>
                 <TextBlock Grid.Column="1"
                            Text="{Binding Mode}"
                            VerticalAlignment="Center"
                            Margin="16,0"
-                           FontWeight="Medium"
+                           FontSize="{StaticResource FontSizeSmall}"
+                           FontWeight="{StaticResource FontWeightMedium}"
                            Foreground="{DynamicResource SystemBaseMediumHighColor}"/>
                 <TextBlock Grid.Column="2"
                            Text="{Binding SaveStateText}"
                            VerticalAlignment="Center"
-                           FontWeight="SemiBold"
+                           FontSize="{StaticResource FontSizeSmall}"
+                           FontWeight="{StaticResource FontWeightSemiBold}"
                            Foreground="{DynamicResource SystemAccentColor}"/>
             </Grid>
         </Border>
@@ -68,39 +78,33 @@
                 <Grid Margin="24">
                     <StackPanel HorizontalAlignment="Stretch">
                 <!-- Template Metadata -->
-                <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                        BorderThickness="1"
-                        CornerRadius="6"
-                        Padding="20"
+                <Border Classes="modern-card"
                         Margin="0,0,0,24"
-                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
                         HorizontalAlignment="Stretch">
-                    <StackPanel Spacing="16">
+                    <StackPanel Spacing="20">
                         <TextBlock Text="Template Information"
-                                   FontSize="20"
-                                   FontWeight="SemiBold"/>
+                                   Classes="section-title"/>
 
-                        <StackPanel Spacing="6">
+                        <StackPanel Spacing="8">
                             <TextBlock Text="Title *"
-                                       FontWeight="Medium"/>
+                                       Classes="field-label"/>
                             <TextBox Text="{Binding Title}"
+                                     Classes="modern"
                                      Watermark="Enter template title"
-                                     MinHeight="36"
-                                     Padding="10,8"
                                      HorizontalAlignment="Stretch"
                                      AutomationProperties.Name="Template title"
                                      AutomationProperties.HelpText="The main title of the template"/>
                         </StackPanel>
 
-                        <StackPanel Spacing="6">
+                        <StackPanel Spacing="8">
                             <TextBlock Text="Description"
-                                       FontWeight="Medium"/>
+                                       Classes="field-label"/>
                             <TextBox Text="{Binding Description}"
+                                     Classes="modern"
                                      Watermark="Optional description"
                                      AcceptsReturn="True"
                                      TextWrapping="Wrap"
-                                     MinHeight="60"
-                                     Padding="10,8"
+                                     MinHeight="80"
                                      HorizontalAlignment="Stretch"
                                      AutomationProperties.Name="Template description"
                                      AutomationProperties.HelpText="Optional description of what this template is for"/>
@@ -113,14 +117,12 @@
                               HorizontalAlignment="Stretch">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                            <Border Classes="section-card"
                                     BorderThickness="2"
-                                    CornerRadius="6"
-                                    Margin="0,0,0,16"
-                                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
                                     HorizontalAlignment="Stretch"
                                     Tag="{Binding}">
-                                <Expander IsExpanded="{Binding IsExpanded}"
+                                <Expander Classes="modern"
+                                          IsExpanded="{Binding IsExpanded}"
                                           HorizontalAlignment="Stretch">
                                     <Expander.Header>
                                         <Grid ColumnDefinitions="*,Auto">
@@ -158,15 +160,25 @@
                                         <!-- Action Buttons -->
                                         <StackPanel Orientation="Horizontal" Spacing="8">
                                             <Button Command="{Binding AddPromptCommand}"
-                                                    Content="➕ Add Prompt"
-                                                    Padding="10,6"
-                                                    FontSize="12"
-                                                    AutomationProperties.Name="Add prompt to section"/>
+                                                    Classes="modern"
+                                                    FontSize="{StaticResource FontSizeSmall}"
+                                                    AutomationProperties.Name="Add prompt to section">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                                                              Width="12" Height="12"/>
+                                                    <TextBlock Text="Add Prompt" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Button>
                                             <Button Command="{Binding AddSubsectionCommand}"
-                                                    Content="➕ Add Subsection"
-                                                    Padding="10,6"
-                                                    FontSize="12"
-                                                    AutomationProperties.Name="Add subsection"/>
+                                                    Classes="modern"
+                                                    FontSize="{StaticResource FontSizeSmall}"
+                                                    AutomationProperties.Name="Add subsection">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                                                              Width="12" Height="12"/>
+                                                    <TextBlock Text="Add Subsection" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Button>
                                         </StackPanel>
 
                                         <!-- Subsections -->
