@@ -20,7 +20,7 @@
             <TextBlock Text="Certificate Management"
                        FontSize="24"
                        FontWeight="Bold"
-                       AutomationProperties.HeadingLevel="1"/>
+                       />
 
             <TextBlock TextWrapping="Wrap"
                        Foreground="{DynamicResource SystemBaseMediumColor}">
@@ -36,9 +36,9 @@
                     <TextBlock Text="Generate New Certificate"
                                FontSize="18"
                                FontWeight="SemiBold"
-                               AutomationProperties.HeadingLevel="2"/>
+                               />
 
-                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
                         <!-- Common Name -->
                         <TextBlock Grid.Row="0" Grid.Column="0"
                                    Text="Full Name:"
@@ -139,7 +139,7 @@
                     <TextBlock Text="Generated Certificates"
                                FontSize="18"
                                FontWeight="SemiBold"
-                               AutomationProperties.HeadingLevel="2"/>
+                               />
 
                     <ItemsControl ItemsSource="{Binding GeneratedCertificates}">
                         <ItemsControl.ItemTemplate>
@@ -149,7 +149,7 @@
                                         CornerRadius="4"
                                         Padding="10"
                                         Margin="0,5">
-                                    <Grid ColumnDefinitions="*,Auto" RowSpacing="5">
+                                    <Grid ColumnDefinitions="*,Auto">
                                         <StackPanel Grid.Column="0" Spacing="3">
                                             <TextBlock Text="{Binding Subject}"
                                                        FontWeight="SemiBold"/>
@@ -204,7 +204,7 @@
                                    FontSize="18"
                                    FontWeight="SemiBold"
                                    VerticalAlignment="Center"
-                                   AutomationProperties.HeadingLevel="2"/>
+                                   />
                         <Button Grid.Column="1"
                                 Content="🔄 Refresh"
                                 Command="{Binding RefreshInstalledCertificatesCommand}"

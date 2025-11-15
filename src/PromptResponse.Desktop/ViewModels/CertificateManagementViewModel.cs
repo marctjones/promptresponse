@@ -1,9 +1,11 @@
 using System.Collections.ObjectModel;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Services.Certificates;
+using X509CertificateRequest = System.Security.Cryptography.X509Certificates.CertificateRequest;
 
 namespace PromptResponse.Desktop.ViewModels;
 
@@ -43,20 +45,19 @@ public class CertificateManagementViewModel : ViewModelBase
             async () => await GenerateCertificateAsync(),
             () => !string.IsNullOrWhiteSpace(CommonName) && !string.IsNullOrWhiteSpace(Email) && !IsGenerating);
 
-        InstallCertificateCommand = new RelayCommand<X509Certificate2>(
-            async (cert) => await InstallCertificateAsync(cert),
-            (cert) => cert != null && !IsGenerating);
+        InstallCertificateCommand = new RelayCommand(
+            async (param) => await InstallCertificateAsync((X509Certificate2)param!),
+            () => !IsGenerating);
 
-        ExportCertificateCommand = new RelayCommand<X509Certificate2>(
-            async (cert) => await ExportCertificateAsync(cert),
-            (cert) => cert != null);
+        ExportCertificateCommand = new RelayCommand(
+            async (param) => await ExportCertificateAsync((X509Certificate2)param!));
 
         RefreshInstalledCertificatesCommand = new RelayCommand(
             () => { RefreshInstalledCertificates(); return Task.CompletedTask; });
 
-        SaveTo1PasswordCommand = new RelayCommand<X509Certificate2>(
-            async (cert) => await SaveTo1PasswordAsync(cert),
-            (cert) => cert != null && Is1PasswordAvailable);
+        SaveTo1PasswordCommand = new RelayCommand(
+            async (param) => await SaveTo1PasswordAsync((X509Certificate2)param!),
+            () => Is1PasswordAvailable);
 
         Check1PasswordCommand = new RelayCommand(
             async () => await Check1PasswordAvailabilityAsync());
@@ -149,7 +150,7 @@ public class CertificateManagementViewModel : ViewModelBase
         {
             if (SetProperty(ref _is1PasswordAvailable, value))
             {
-                (SaveTo1PasswordCommand as RelayCommand<X509Certificate2>)?.RaiseCanExecuteChanged();
+                (SaveTo1PasswordCommand as RelayCommand)?.RaiseCanExecuteChanged();
             }
         }
     }
@@ -186,7 +187,7 @@ public class CertificateManagementViewModel : ViewModelBase
             if (DocumentSigningEnabled) usage |= CertificateUsage.DocumentSigning;
             if (CodeSigningEnabled) usage |= CertificateUsage.CodeSigning;
 
-            var request = new CertificateRequest
+            var request = new Core.Models.CertificateRequest
             {
                 CommonName = CommonName,
                 Email = Email,

@@ -1,3 +1,4 @@
+using System.Linq;
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -185,15 +186,31 @@ public class TemplateGalleryService : ITemplateGalleryService
 
             try
             {
-                verificationResult = await _signatureService.VerifyTemplateSignatureAsync(template);
+                // Verify all signatures on the template
+                var results = _signatureService.VerifyAllSignatures(template);
 
-                if (verificationResult.IsValid)
+                // Get the first signature's result (most templates have one signature)
+                var firstSignature = template.Metadata.TemplateSignatures.FirstOrDefault();
+                if (firstSignature != null && results.TryGetValue(firstSignature, out var result))
                 {
-                    _logger.LogInformation("Template signature verified successfully");
+                    verificationResult = result;
+
+                    if (result.IsValid)
+                    {
+                        _logger.LogInformation("Template signature verified successfully");
+                    }
+                    else
+                    {
+                        _logger.LogWarning("Template signature verification failed: {Reason}", result.Summary);
+                    }
                 }
                 else
                 {
-                    _logger.LogWarning("Template signature verification failed: {Reason}", verificationResult.ErrorMessage);
+                    verificationResult = new SignatureVerificationResult
+                    {
+                        IsValid = false
+                    };
+                    verificationResult.Errors.Add("No signature found to verify");
                 }
             }
             catch (Exception ex)
@@ -201,9 +218,9 @@ public class TemplateGalleryService : ITemplateGalleryService
                 _logger.LogError(ex, "Error verifying template signature");
                 verificationResult = new SignatureVerificationResult
                 {
-                    IsValid = false,
-                    ErrorMessage = $"Signature verification error: {ex.Message}"
+                    IsValid = false
                 };
+                verificationResult.Errors.Add($"Signature verification error: {ex.Message}");
             }
         }
         else if (template.Metadata?.TemplateSignatures == null || template.Metadata.TemplateSignatures.Count == 0)
@@ -211,9 +228,9 @@ public class TemplateGalleryService : ITemplateGalleryService
             _logger.LogWarning("Template has no signatures");
             verificationResult = new SignatureVerificationResult
             {
-                IsValid = false,
-                ErrorMessage = "Template is not signed"
+                IsValid = false
             };
+            verificationResult.Errors.Add("Template is not signed");
         }
 
         return (template, verificationResult);

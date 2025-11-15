@@ -18,7 +18,7 @@ public class CertificateGeneratorTests
     {
         // Arrange
         var generator = new CertificateGenerator();
-        var request = new CertificateRequest
+        var request = new PromptResponse.Core.Models.CertificateRequest
         {
             CommonName = "Test User",
             Email = "test@example.com",
@@ -44,7 +44,7 @@ public class CertificateGeneratorTests
     {
         // Arrange
         var generator = new CertificateGenerator();
-        var request = new CertificateRequest
+        var request = new PromptResponse.Core.Models.CertificateRequest
         {
             CommonName = "Test User",
             Email = "test@example.com",
@@ -70,7 +70,7 @@ public class CertificateGeneratorTests
     {
         // Arrange
         var generator = new CertificateGenerator();
-        var request = new CertificateRequest
+        var request = new PromptResponse.Core.Models.CertificateRequest
         {
             CommonName = "Test User",
             Email = "test@example.com",
@@ -97,7 +97,7 @@ public class CertificateGeneratorTests
     {
         // Arrange
         var generator = new CertificateGenerator();
-        var request = new CertificateRequest
+        var request = new PromptResponse.Core.Models.CertificateRequest
         {
             CommonName = "Test User",
             Email = "test@example.com",
@@ -124,7 +124,7 @@ public class CertificateGeneratorTests
     {
         // Arrange
         var generator = new CertificateGenerator();
-        var request = new CertificateRequest
+        var request = new PromptResponse.Core.Models.CertificateRequest
         {
             CommonName = "Test User",
             Email = "test@example.com",
@@ -151,7 +151,7 @@ public class CertificateGeneratorTests
     {
         // Arrange
         var generator = new CertificateGenerator();
-        var request = new CertificateRequest
+        var request = new PromptResponse.Core.Models.CertificateRequest
         {
             CommonName = "Test User",
             Email = "test@example.com"
@@ -172,7 +172,7 @@ public class CertificateGeneratorTests
     {
         // Arrange
         var generator = new CertificateGenerator();
-        var request = new CertificateRequest
+        var request = new PromptResponse.Core.Models.CertificateRequest
         {
             CommonName = "Test User",
             Email = "test@example.com",

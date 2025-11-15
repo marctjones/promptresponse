@@ -745,6 +745,12 @@ public class RelayCommand : ICommand
         _canExecute = canExecute;
     }
 
+    public RelayCommand(Func<object?, Task> execute, Func<bool>? canExecute = null)
+    {
+        _executeWithParameter = execute ?? throw new ArgumentNullException(nameof(execute));
+        _canExecute = canExecute;
+    }
+
     public event EventHandler? CanExecuteChanged;
 
     public bool CanExecute(object? parameter) => _canExecute?.Invoke() ?? true;

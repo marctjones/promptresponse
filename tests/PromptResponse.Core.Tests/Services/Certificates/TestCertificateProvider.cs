@@ -147,7 +147,7 @@ public static class TestCertificateProvider
         int validityDays = 365)
     {
         var generator = new CertificateGenerator();
-        var request = new CertificateRequest
+        var request = new PromptResponse.Core.Models.CertificateRequest
         {
             CommonName = commonName,
             Email = email,
