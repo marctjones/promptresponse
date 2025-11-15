@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using PromptResponse.Cli.Api;
 using PromptResponse.Cli.Commands;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
@@ -35,6 +36,7 @@ class Program
                 "validate" => await serviceProvider.GetRequiredService<ValidateCommand>().ExecuteAsync(commandArgs),
                 "info" => await serviceProvider.GetRequiredService<InfoCommand>().ExecuteAsync(commandArgs),
                 "new" => await serviceProvider.GetRequiredService<NewCommand>().ExecuteAsync(commandArgs),
+                "fill" => await serviceProvider.GetRequiredService<FillCommand>().ExecuteAsync(commandArgs),
                 "stats" => await serviceProvider.GetRequiredService<StatsCommand>().ExecuteAsync(commandArgs),
                 "diff" => await serviceProvider.GetRequiredService<DiffCommand>().ExecuteAsync(commandArgs),
                 "export" => await serviceProvider.GetRequiredService<ExportCommand>().ExecuteAsync(commandArgs),
@@ -64,10 +66,14 @@ class Program
         services.AddSingleton<DocumentValidator>();
         services.AddSingleton<DataTypeValidator>();
 
+        // API services
+        services.AddSingleton<FormFillingApi>();
+
         // Commands
         services.AddTransient<ValidateCommand>();
         services.AddTransient<InfoCommand>();
         services.AddTransient<NewCommand>();
+        services.AddTransient<FillCommand>();
         services.AddTransient<StatsCommand>();
         services.AddTransient<DiffCommand>();
         services.AddTransient<ExportCommand>();
@@ -83,11 +89,21 @@ class Program
         Console.WriteLine("  validate <file>                Validate an APR file");
         Console.WriteLine("  info <file>                    Show information about an APR file");
         Console.WriteLine("  new <file>                     Create a new template");
+        Console.WriteLine("  fill <template> [options]      Fill out a form (interactive or programmatic)");
         Console.WriteLine("  stats <file> [--json]          Show detailed statistics");
         Console.WriteLine("  diff <file1> <file2>           Compare two APR files");
         Console.WriteLine("  export <file> [options]        Export responses to various formats");
         Console.WriteLine("  help                           Show this help message");
         Console.WriteLine("  version                        Show version information");
+        Console.WriteLine();
+        Console.WriteLine("Fill Options:");
+        Console.WriteLine("  --json-file=<file>             Fill from JSON file");
+        Console.WriteLine("  --json=<json-string>           Fill from JSON string");
+        Console.WriteLine("  --non-interactive              Fill from command-line args");
+        Console.WriteLine("  --set-{promptId}=<value>       Set response (non-interactive mode)");
+        Console.WriteLine("  --output=<file>                Output file (default: template.aprf)");
+        Console.WriteLine("  --filled-by=<name>             Name of person filling form");
+        Console.WriteLine("  --validate                     Validate after filling");
         Console.WriteLine();
         Console.WriteLine("Export Options:");
         Console.WriteLine("  --format=<csv|json|txt>        Output format (default: csv)");
@@ -97,6 +113,9 @@ class Program
         Console.WriteLine("  apr validate form.apr");
         Console.WriteLine("  apr info employment-app.apr");
         Console.WriteLine("  apr new my-template.apr");
+        Console.WriteLine("  apr fill template.aprt");
+        Console.WriteLine("  apr fill template.aprt --json-file=responses.json");
+        Console.WriteLine("  apr fill template.aprt --non-interactive --set-name=\"John Doe\"");
         Console.WriteLine("  apr stats form.apr --json");
         Console.WriteLine("  apr diff original.apr modified.apr");
         Console.WriteLine("  apr export form.apr --format=csv --output=responses.csv");
