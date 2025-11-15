@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptResponse Icon Preview</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .preview-item {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+        }
+        .preview-item img {
+            image-rendering: auto;
+            max-width: 100%;
+            height: auto;
+        }
+        .preview-item.large img {
+            width: 256px;
+            height: 256px;
+        }
+        .preview-item.medium img {
+            width: 128px;
+            height: 128px;
+        }
+        .preview-item.small img {
+            width: 64px;
+            height: 64px;
+        }
+        .preview-item.tiny img {
+            width: 32px;
+            height: 32px;
+        }
+        .preview-label {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #555;
+        }
+        .dark-background {
+            background: #2c3e50;
+        }
+        .concept {
+            background: linear-gradient(90deg, #00ACC1 0%, #66BB6A 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+        .concept h2 {
+            margin-top: 0;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .feature {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .feature h3 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+        .svg-preview {
+            text-align: center;
+            margin: 40px 0;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 PromptResponse Application Icon</h1>
+        <p class="subtitle">Flowing dialogue: Prompt → Response</p>
+
+        <div class="svg-preview">
+            <h2>Master SVG (Scalable)</h2>
+            <img src="app-icon.svg" alt="PromptResponse Icon" style="width: 300px; height: 300px;">
+        </div>
+
+        <h2>Generated Icon Sizes</h2>
+        <div class="preview-grid">
+            <div class="preview-item large">
+                <img src="app-icon-256.png" alt="256x256">
+                <div class="preview-label">256×256 (Large)</div>
+            </div>
+            <div class="preview-item medium">
+                <img src="app-icon-256.png" alt="128x128">
+                <div class="preview-label">128×128 (Medium)</div>
+            </div>
+            <div class="preview-item small">
+                <img src="app-icon-256.png" alt="64x64">
+                <div class="preview-label">64×64 (Small)</div>
+            </div>
+            <div class="preview-item tiny">
+                <img src="app-icon-256.png" alt="32x32">
+                <div class="preview-label">32×32 (Tiny)</div>
+            </div>
+        </div>
+
+        <h2>On Different Backgrounds</h2>
+        <div class="preview-grid">
+            <div class="preview-item">
+                <img src="app-icon-256.png" alt="Light Background" style="width: 128px; height: 128px;">
+                <div class="preview-label">Light Background</div>
+            </div>
+            <div class="preview-item dark-background">
+                <img src="app-icon-256.png" alt="Dark Background" style="width: 128px; height: 128px;">
+                <div class="preview-label" style="color: white;">Dark Background</div>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>Design Concept</h2>
+            <p><strong>The icon represents transforming rigid PDFs/Word forms into flowing, adaptive conversations.</strong></p>
+
+            <div class="features">
+                <div class="feature">
+                    <h3>? Left Bubble (Prompt)</h3>
+                    <p>Teal color represents questions and prompts. The question mark symbolizes inquiry.</p>
+                </div>
+                <div class="feature">
+                    <h3>→ Flow Arrow</h3>
+                    <p>Gradient arrow shows the transformation from question to answer, dynamic and adaptive.</p>
+                </div>
+                <div class="feature">
+                    <h3>✓ Right Bubble (Response)</h3>
+                    <p>Green color represents completed responses. The checkmark symbolizes completion.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Color Palette</h3>
+            <div style="display: flex; gap: 20px; margin-top: 15px; flex-wrap: wrap;">
+                <div style="background: #00ACC1; padding: 20px 40px; border-radius: 8px; font-weight: bold;">
+                    Prompt Teal<br>#00ACC1
+                </div>
+                <div style="background: #66BB6A; padding: 20px 40px; border-radius: 8px; font-weight: bold;">
+                    Response Green<br>#66BB6A
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

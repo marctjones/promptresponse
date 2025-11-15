@@ -1,0 +1,167 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Smart Controls Test Form",
+    "description": "Test form demonstrating smart UI controls with suggested values",
+    "author": "System",
+    "created": "2025-01-13T00:00:00Z",
+    "modified": "2025-01-13T00:00:00Z"
+  },
+  "sections": [
+    {
+      "id": "sec_001",
+      "title": "Contact Information",
+      "prompts": [
+        {
+          "id": "p_001",
+          "label": "Country",
+          "response": "",
+          "hints": {
+            "placeholder": "Select or type country name",
+            "helpText": "Select from the list or type your own",
+            "suggestedValues": [
+              "United States",
+              "Canada",
+              "United Kingdom",
+              "Australia",
+              "Germany",
+              "France",
+              "Japan"
+            ]
+          }
+        },
+        {
+          "id": "p_002",
+          "label": "State/Province",
+          "response": "",
+          "hints": {
+            "placeholder": "Select or type state/province",
+            "suggestedValues": [
+              "California",
+              "New York",
+              "Texas",
+              "Florida",
+              "Ontario",
+              "Quebec"
+            ]
+          }
+        },
+        {
+          "id": "p_003",
+          "label": "Preferred Contact Method",
+          "response": "",
+          "hints": {
+            "placeholder": "Select or type preference",
+            "helpText": "How would you like us to contact you?",
+            "suggestedValues": [
+              "Email",
+              "Phone",
+              "Text Message",
+              "Mail"
+            ]
+          }
+        },
+        {
+          "id": "p_004",
+          "label": "Email",
+          "response": "",
+          "hints": {
+            "placeholder": "your@email.com",
+            "expectedDataType": "email"
+          }
+        },
+        {
+          "id": "p_005",
+          "label": "Birth Date",
+          "response": "",
+          "hints": {
+            "placeholder": "YYYY-MM-DD or 'tomorrow', '3 days ago', etc.",
+            "expectedDataType": "date",
+            "helpText": "Enter a date in YYYY-MM-DD format, or use natural language like 'tomorrow'"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sec_002",
+      "title": "Preferences and Choices",
+      "description": "Demonstrates choice fields with radio buttons and dropdowns",
+      "prompts": [
+        {
+          "id": "p_006",
+          "label": "T-Shirt Size",
+          "response": "",
+          "hints": {
+            "expectedDataType": "choice",
+            "helpText": "Select your preferred t-shirt size (radio buttons - 2-5 options)",
+            "suggestedValues": [
+              "Small",
+              "Medium",
+              "Large",
+              "X-Large"
+            ]
+          }
+        },
+        {
+          "id": "p_007",
+          "label": "Favorite Programming Language",
+          "response": "",
+          "hints": {
+            "expectedDataType": "choice",
+            "helpText": "Select your favorite programming language (dropdown - 6+ options)",
+            "suggestedValues": [
+              "C#",
+              "JavaScript",
+              "Python",
+              "Java",
+              "TypeScript",
+              "Go",
+              "Rust",
+              "Ruby",
+              "PHP",
+              "Swift"
+            ]
+          }
+        },
+        {
+          "id": "p_008",
+          "label": "Interests",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multichoice",
+            "helpText": "Select all that apply (checkboxes)",
+            "suggestedValues": [
+              "Reading",
+              "Sports",
+              "Music",
+              "Gaming",
+              "Cooking",
+              "Travel",
+              "Photography",
+              "Art"
+            ]
+          }
+        },
+        {
+          "id": "p_009",
+          "label": "Subscribe to Newsletter",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Check to receive our monthly newsletter"
+          }
+        },
+        {
+          "id": "p_010",
+          "label": "Agree to Terms and Conditions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "You must agree to the terms and conditions to continue"
+          }
+        }
+      ]
+    }
+  ]
+}

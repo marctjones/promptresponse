@@ -1,0 +1,355 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Form W-4: Employee's Withholding Certificate (2024)",
+    "description": "Complete Form W-4 so that your employer can withhold the correct federal income tax from your pay. Form W-4 contains several steps, though you only need to complete Step 1 and Step 5. Complete the other steps if they apply to you.",
+    "author": "Internal Revenue Service",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "templateId": "irs-w4-2024-v1"
+  },
+  "sections": [
+    {
+      "id": "step1",
+      "title": "Step 1: Enter Personal Information",
+      "description": "Required for all employees",
+      "prompts": [
+        {
+          "id": "firstName",
+          "label": "First name and middle initial",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., John M.",
+            "expectedDataType": "text",
+            "helpText": "Enter your legal first name and middle initial as shown on your Social Security card"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "lastName",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., Smith",
+            "expectedDataType": "text",
+            "helpText": "Enter your legal last name as shown on your Social Security card"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 123 Main Street",
+            "expectedDataType": "text",
+            "helpText": "Street address or P.O. box"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "cityStateZip",
+          "label": "City or town, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., Springfield, IL 62701",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "ssn",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 123-45-6789",
+            "expectedDataType": "text",
+            "helpText": "Enter your 9-digit Social Security Number"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "filingStatus",
+          "label": "Filing Status",
+          "response": "",
+          "hints": {
+            "placeholder": "Select one",
+            "expectedDataType": "choice",
+            "suggestedValues": [
+              "Single or Married filing separately",
+              "Married filing jointly or Qualifying surviving spouse",
+              "Head of household"
+            ],
+            "helpText": "Check only one box. Complete Steps 2-4 ONLY if they apply to you; otherwise, skip to Step 5."
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "step2",
+      "title": "Step 2: Multiple Jobs or Spouse Works",
+      "description": "Complete this step if you (1) hold more than one job at a time, or (2) are married filing jointly and your spouse also works. The correct amount of withholding depends on income earned from all of these jobs.",
+      "prompts": [
+        {
+          "id": "multipleJobsOption",
+          "label": "Choose ONE of the following options",
+          "response": "",
+          "hints": {
+            "expectedDataType": "choice",
+            "suggestedValues": [
+              "Option A: Use the IRS Tax Withholding Estimator at www.irs.gov/W4App",
+              "Option B: Use the Multiple Jobs Worksheet on page 3 and enter result below",
+              "Option C: Check this box if there are only two jobs total (yours and spouse's)"
+            ],
+            "helpText": "If you choose Option C, do this on Form W-4 for only ONE of the two jobs. If you (and your spouse) have more than two jobs or the pay is similar, use Option A or B."
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "step2bAmount",
+          "label": "Extra withholding amount from Multiple Jobs Worksheet (if using Option B)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 150",
+            "expectedDataType": "number",
+            "helpText": "Enter the amount from Step 2(b) of the Multiple Jobs Worksheet, if applicable"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "step3",
+      "title": "Step 3: Claim Dependents",
+      "description": "Complete this step if your total income will be $200,000 or less ($400,000 or less if married filing jointly).",
+      "prompts": [
+        {
+          "id": "qualifyingChildren",
+          "label": "Number of qualifying children under age 17",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 2",
+            "expectedDataType": "number",
+            "helpText": "Multiply the number of qualifying children under age 17 by $2,000"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "otherDependents",
+          "label": "Number of other dependents",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 1",
+            "expectedDataType": "number",
+            "helpText": "Multiply the number of other dependents by $500"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "step3Total",
+          "label": "Total claim amount",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 4500",
+            "expectedDataType": "number",
+            "helpText": "Add the amounts above and enter the total here"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "step4",
+      "title": "Step 4: Other Adjustments (Optional)",
+      "description": "Complete all worksheets that apply. However, you may claim fewer allowances.",
+      "subsections": [
+        {
+          "id": "step4a",
+          "title": "Step 4(a): Other Income",
+          "description": "Other income (not from jobs). If you want tax withheld for other income you expect this year that won't have withholding, enter the amount of other income here. This may include interest, dividends, and retirement income.",
+          "prompts": [
+            {
+              "id": "otherIncome",
+              "label": "Other income amount",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 5000",
+                "expectedDataType": "number",
+                "helpText": "This may include interest, dividends, and retirement income"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "step4b",
+          "title": "Step 4(b): Deductions",
+          "description": "Deductions. If you expect to claim deductions other than the standard deduction and want to reduce your withholding, use the Deductions Worksheet on page 3 and enter the result here.",
+          "prompts": [
+            {
+              "id": "deductions",
+              "label": "Deductions amount",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 12000",
+                "expectedDataType": "number",
+                "helpText": "Use the Deductions Worksheet on page 3 if claiming itemized deductions"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        },
+        {
+          "id": "step4c",
+          "title": "Step 4(c): Extra Withholding",
+          "description": "Extra withholding. Enter any additional tax you want withheld each pay period.",
+          "prompts": [
+            {
+              "id": "extraWithholding",
+              "label": "Extra withholding amount per pay period",
+              "response": "",
+              "hints": {
+                "placeholder": "e.g., 50",
+                "expectedDataType": "number",
+                "helpText": "Enter any additional tax you want withheld each pay period"
+              },
+              "responseMetadata": {
+                "lastModified": null,
+                "inferredDataType": null
+              }
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "step5",
+      "title": "Step 5: Sign Here",
+      "description": "Under penalties of perjury, I declare that this certificate, to the best of my knowledge and belief, is true, correct, and complete.",
+      "prompts": [
+        {
+          "id": "employeeSignature",
+          "label": "Employee's signature",
+          "response": "",
+          "hints": {
+            "placeholder": "Type your full name to sign electronically",
+            "expectedDataType": "text",
+            "helpText": "By typing your name, you are signing this form electronically"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "signatureDate",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "placeholder": "YYYY-MM-DD",
+            "expectedDataType": "date",
+            "helpText": "Date you are signing this form"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "employerSection",
+      "title": "Employer's Section (For Employer Use Only)",
+      "description": "Employers must complete this section",
+      "prompts": [
+        {
+          "id": "employerName",
+          "label": "Employer's name and address",
+          "response": "",
+          "hints": {
+            "placeholder": "Company Name, Address",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "employerEIN",
+          "label": "Employer identification number (EIN)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 12-3456789",
+            "expectedDataType": "text",
+            "helpText": "9-digit federal employer identification number"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "firstDateOfEmployment",
+          "label": "First date of employment",
+          "response": "",
+          "hints": {
+            "placeholder": "YYYY-MM-DD",
+            "expectedDataType": "date"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    }
+  ]
+}

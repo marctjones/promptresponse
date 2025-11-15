@@ -1,0 +1,35 @@
+# Assets Directory
+
+This directory is for application assets like icons, images, etc.
+
+## Adding a Window Icon
+
+To add an icon to the application window:
+
+1. Place your icon file here (e.g., `app-icon.ico` or `app-icon.png`)
+2. Update `Views/MainWindow.axaml` to reference it:
+
+```xml
+<Window ...
+        Icon="/Assets/app-icon.ico"
+        ...>
+```
+
+3. Update the `.csproj` file to include it as an AvaloniaResource:
+
+```xml
+<ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+</ItemGroup>
+```
+
+## Supported Icon Formats
+
+- `.ico` - Windows icon format (recommended for cross-platform)
+- `.png` - PNG images (works on all platforms)
+- `.bmp` - Bitmap images
+
+## Icon Size Recommendations
+
+- 16x16, 32x32, 48x48, 256x256 (for .ico files with multiple sizes)
+- 256x256 or 512x512 (for .png files)

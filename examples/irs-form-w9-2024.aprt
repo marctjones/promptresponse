@@ -1,0 +1,357 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Form W-9: Request for Taxpayer Identification Number and Certification",
+    "description": "Form W-9 is used by U.S. persons (including resident aliens) to provide their correct TIN to payers who are required to file information returns with the IRS.",
+    "author": "Internal Revenue Service",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "templateId": "irs-w9-2024-v1"
+  },
+  "sections": [
+    {
+      "id": "part1",
+      "title": "Part I: Taxpayer Identification Number (TIN)",
+      "description": "Enter your TIN in the appropriate box. For individuals, this is generally your Social Security Number (SSN). For businesses and other entities, this is your Employer Identification Number (EIN).",
+      "prompts": [
+        {
+          "id": "name",
+          "label": "Name (as shown on your income tax return)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., John Smith or Smith Consulting LLC",
+            "expectedDataType": "text",
+            "helpText": "Name is required on this line; do not leave this line blank."
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "businessName",
+          "label": "Business name/disregarded entity name, if different from above",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., Smith Consulting Services",
+            "expectedDataType": "text",
+            "helpText": "Optional - only if different from line 1"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "federalTaxClassification",
+          "label": "Check appropriate box for federal tax classification",
+          "response": "",
+          "hints": {
+            "expectedDataType": "choice",
+            "suggestedValues": [
+              "Individual/sole proprietor or single-member LLC",
+              "C Corporation",
+              "S Corporation",
+              "Partnership",
+              "Trust/estate",
+              "Limited liability company (LLC)",
+              "Other"
+            ],
+            "helpText": "Select the tax classification that applies to you"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "llcClassification",
+          "label": "If LLC, enter the tax classification (C=C corporation, S=S corporation, P=Partnership)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., S",
+            "expectedDataType": "choice",
+            "suggestedValues": ["C", "S", "P"],
+            "helpText": "Required if you selected LLC above"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "otherClassification",
+          "label": "If Other, specify",
+          "response": "",
+          "hints": {
+            "placeholder": "Specify other classification",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "exemptPayeeCode",
+          "label": "Exempt payee code (if any)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 1, 2, etc.",
+            "expectedDataType": "text",
+            "helpText": "See instructions for exempt payee codes"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "exemptionFromFATCA",
+          "label": "Exemption from FATCA reporting code (if any)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., A, B, etc.",
+            "expectedDataType": "text",
+            "helpText": "See instructions for FATCA exemption codes"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "address",
+      "title": "Address Information",
+      "description": "Enter your address information",
+      "prompts": [
+        {
+          "id": "streetAddress",
+          "label": "Address (number, street, and apt. or suite no.)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 123 Main Street, Apt 4B",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "cityStateZip",
+          "label": "City, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., Springfield, IL 62701",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "requesterNameAddress",
+          "label": "Requester's name and address (optional)",
+          "response": "",
+          "hints": {
+            "placeholder": "Name and address of person requesting Form W-9",
+            "expectedDataType": "text",
+            "helpText": "Optional - for your records"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "tin",
+      "title": "Taxpayer Identification Number",
+      "description": "Enter your TIN in the appropriate box",
+      "prompts": [
+        {
+          "id": "tinType",
+          "label": "Type of TIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Social Security Number (SSN)",
+              "Employer Identification Number (EIN)"
+            ],
+            "helpText": "Select the type of TIN you are providing"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "ssn",
+          "label": "Social Security Number (if applicable)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 123-45-6789",
+            "expectedDataType": "text",
+            "helpText": "Enter your 9-digit SSN in the format XXX-XX-XXXX"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "ein",
+          "label": "Employer Identification Number (if applicable)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 12-3456789",
+            "expectedDataType": "text",
+            "helpText": "Enter your 9-digit EIN in the format XX-XXXXXXX"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "part2",
+      "title": "Part II: Certification",
+      "description": "Under penalties of perjury, I certify that: (1) The number shown on this form is my correct taxpayer identification number (or I am waiting for a number to be issued to me); and (2) I am not subject to backup withholding because: (a) I am exempt from backup withholding, or (b) I have not been notified by the IRS that I am subject to backup withholding as a result of a failure to report all interest or dividends, or (c) the IRS has notified me that I am no longer subject to backup withholding; and (3) I am a U.S. citizen or other U.S. person (defined in instructions); and (4) The FATCA code(s) entered on this form (if any) indicating that I am exempt from FATCA reporting is correct.",
+      "prompts": [
+        {
+          "id": "backupWithholdingCertification",
+          "label": "Backup Withholding Status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I am not subject to backup withholding",
+              "I have been notified by IRS that I am subject to backup withholding (cross out item 2 above)"
+            ],
+            "helpText": "You must cross out item 2 above if you have been notified by the IRS that you are currently subject to backup withholding"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "usCitizenCertification",
+          "label": "I certify that I am a U.S. citizen or other U.S. person",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "You must be a U.S. person to use this form"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "signature",
+          "label": "Signature",
+          "response": "",
+          "hints": {
+            "placeholder": "Type your full name to sign electronically",
+            "expectedDataType": "text",
+            "helpText": "By typing your name, you are signing this form electronically under penalties of perjury"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "signatureDate",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "placeholder": "YYYY-MM-DD",
+            "expectedDataType": "date",
+            "helpText": "Date you are signing this form"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    },
+    {
+      "id": "part3",
+      "title": "Part III: Notification of Name/TIN Change",
+      "description": "Complete only if you are notifying the requester of a name or TIN change",
+      "prompts": [
+        {
+          "id": "nameChange",
+          "label": "Has your name changed since you last provided a W-9?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Check if your name has changed (e.g., due to marriage)"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "previousName",
+          "label": "Previous name (if name changed)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., Jane Doe",
+            "expectedDataType": "text",
+            "helpText": "Enter your previous name if you answered Yes above"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "tinChange",
+          "label": "Has your TIN changed since you last provided a W-9?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Rare, but check if your TIN has changed"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        },
+        {
+          "id": "previousTIN",
+          "label": "Previous TIN (if TIN changed)",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g., 987-65-4321",
+            "expectedDataType": "text",
+            "helpText": "Enter your previous TIN if you answered Yes above"
+          },
+          "responseMetadata": {
+            "lastModified": null,
+            "inferredDataType": null
+          }
+        }
+      ],
+      "subsections": []
+    }
+  ]
+}
