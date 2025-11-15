@@ -270,6 +270,11 @@ public class PromptViewModel : ViewModelBase
     public bool ShowSmartControl => _useSmartControl && HasSmartControl;
     public bool ShowPlainTextBox => !_useSmartControl || !HasSmartControl;
 
+    /// <summary>
+    /// For multichoice fields, use a multiline textbox to show all selected values clearly.
+    /// </summary>
+    public bool UseMultilineTextBox => IsMultiChoiceField || ExpectedDataType?.ToLowerInvariant() == "multiline";
+
     public string Response
     {
         get => _prompt.Response;

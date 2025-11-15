@@ -1,8 +1,17 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:PromptResponse.Desktop.ViewModels"
+             xmlns:converters="using:PromptResponse.Desktop.Converters"
              x:Class="PromptResponse.Desktop.Views.FormFillingView"
              x:DataType="vm:FormFillingViewModel">
+
+    <UserControl.Resources>
+        <converters:EqualsConverter x:Key="EqualsConverter"/>
+        <converters:BooleanResponseConverter x:Key="BooleanResponseConverter"/>
+        <converters:ContainsValueConverter x:Key="ContainsValueConverter"/>
+        <converters:EqualsMultiConverter x:Key="EqualsMultiConverter"/>
+        <converters:ContainsMultiConverter x:Key="ContainsMultiConverter"/>
+    </UserControl.Resources>
 
     <Design.DataContext>
         <vm:FormFillingViewModel/>
@@ -260,12 +269,19 @@
                                                                                           Tag="{Binding}"
                                                                                           IsVisible="{Binding UseRadioButtons}">
                                                                                 <ItemsControl.ItemTemplate>
-                                                                                    <DataTemplate>
+                                                                                    <DataTemplate x:CompileBindings="False">
                                                                                         <RadioButton Content="{Binding}"
                                                                                                      Click="OnRadioButtonClick"
                                                                                                      Tag="{Binding}"
                                                                                                      Margin="0,4"
-                                                                                                     AutomationProperties.Name="{Binding}"/>
+                                                                                                     AutomationProperties.Name="{Binding}">
+                                                                                            <RadioButton.IsChecked>
+                                                                                                <MultiBinding Converter="{StaticResource EqualsMultiConverter}" Mode="OneWay">
+                                                                                                    <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="Tag.Response"/>
+                                                                                                    <Binding />
+                                                                                                </MultiBinding>
+                                                                                            </RadioButton.IsChecked>
+                                                                                        </RadioButton>
                                                                                     </DataTemplate>
                                                                                 </ItemsControl.ItemTemplate>
                                                                             </ItemsControl>
@@ -285,12 +301,19 @@
                                                                                           Tag="{Binding}"
                                                                                           IsVisible="{Binding IsMultiChoiceField}">
                                                                                 <ItemsControl.ItemTemplate>
-                                                                                    <DataTemplate>
+                                                                                    <DataTemplate x:CompileBindings="False">
                                                                                         <CheckBox Content="{Binding}"
                                                                                                   Click="OnMultiChoiceCheckBoxClick"
                                                                                                   Tag="{Binding}"
                                                                                                   Margin="0,4"
-                                                                                                  AutomationProperties.Name="{Binding}"/>
+                                                                                                  AutomationProperties.Name="{Binding}">
+                                                                                            <CheckBox.IsChecked>
+                                                                                                <MultiBinding Converter="{StaticResource ContainsMultiConverter}" Mode="OneWay">
+                                                                                                    <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="Tag.Response"/>
+                                                                                                    <Binding />
+                                                                                                </MultiBinding>
+                                                                                            </CheckBox.IsChecked>
+                                                                                        </CheckBox>
                                                                                     </DataTemplate>
                                                                                 </ItemsControl.ItemTemplate>
                                                                             </ItemsControl>
@@ -298,6 +321,7 @@
                                                                             <!-- Single checkbox for boolean fields -->
                                                                             <CheckBox Grid.Column="0"
                                                                                       Content="{Binding Label}"
+                                                                                      IsChecked="{Binding Response, Converter={StaticResource BooleanResponseConverter}, Mode=OneWay}"
                                                                                       Click="OnBooleanCheckBoxClick"
                                                                                       Tag="{Binding}"
                                                                                       MinHeight="36"
@@ -329,6 +353,8 @@
                                                                                      Watermark="{Binding Placeholder}"
                                                                                      MinHeight="36"
                                                                                      Padding="10,8"
+                                                                                     AcceptsReturn="{Binding UseMultilineTextBox}"
+                                                                                     TextWrapping="Wrap"
                                                                                      AutomationProperties.Name="{Binding Label}"
                                                                                      AutomationProperties.HelpText="{Binding HelpText}"
                                                                                      TabIndex="0"/>
@@ -424,12 +450,19 @@
                                                                   Tag="{Binding}"
                                                                   IsVisible="{Binding UseRadioButtons}">
                                                         <ItemsControl.ItemTemplate>
-                                                            <DataTemplate>
+                                                            <DataTemplate x:CompileBindings="False">
                                                                 <RadioButton Content="{Binding}"
                                                                              Click="OnRadioButtonClick"
                                                                              Tag="{Binding}"
                                                                              Margin="0,4"
-                                                                             AutomationProperties.Name="{Binding}"/>
+                                                                             AutomationProperties.Name="{Binding}">
+                                                                    <RadioButton.IsChecked>
+                                                                        <MultiBinding Converter="{StaticResource EqualsMultiConverter}" Mode="OneWay">
+                                                                            <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="Tag.Response"/>
+                                                                            <Binding />
+                                                                        </MultiBinding>
+                                                                    </RadioButton.IsChecked>
+                                                                </RadioButton>
                                                             </DataTemplate>
                                                         </ItemsControl.ItemTemplate>
                                                     </ItemsControl>
@@ -449,12 +482,19 @@
                                                                   Tag="{Binding}"
                                                                   IsVisible="{Binding IsMultiChoiceField}">
                                                         <ItemsControl.ItemTemplate>
-                                                            <DataTemplate>
+                                                            <DataTemplate x:CompileBindings="False">
                                                                 <CheckBox Content="{Binding}"
                                                                           Click="OnMultiChoiceCheckBoxClick"
                                                                           Tag="{Binding}"
                                                                           Margin="0,4"
-                                                                          AutomationProperties.Name="{Binding}"/>
+                                                                          AutomationProperties.Name="{Binding}">
+                                                                    <CheckBox.IsChecked>
+                                                                        <MultiBinding Converter="{StaticResource ContainsMultiConverter}" Mode="OneWay">
+                                                                            <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="Tag.Response"/>
+                                                                            <Binding />
+                                                                        </MultiBinding>
+                                                                    </CheckBox.IsChecked>
+                                                                </CheckBox>
                                                             </DataTemplate>
                                                         </ItemsControl.ItemTemplate>
                                                     </ItemsControl>
@@ -462,6 +502,7 @@
                                                     <!-- Single checkbox for boolean fields -->
                                                     <CheckBox Grid.Column="0"
                                                               Content="{Binding Label}"
+                                                              IsChecked="{Binding Response, Converter={StaticResource BooleanResponseConverter}, Mode=OneWay}"
                                                               Click="OnBooleanCheckBoxClick"
                                                               Tag="{Binding}"
                                                               MinHeight="36"
@@ -493,6 +534,8 @@
                                                              Watermark="{Binding Placeholder}"
                                                              MinHeight="36"
                                                              Padding="10,8"
+                                                             AcceptsReturn="{Binding UseMultilineTextBox}"
+                                                             TextWrapping="Wrap"
                                                              AutomationProperties.Name="{Binding Label}"
                                                              AutomationProperties.HelpText="{Binding HelpText}"
                                                              TabIndex="0"/>
