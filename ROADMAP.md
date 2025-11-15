@@ -282,11 +282,21 @@
 
 **Priority: MEDIUM**
 
-- [ ] **Template Library**
-  - Browse available templates
-  - Download from online repository
-  - Rate and review templates
-  - Submit templates to library
+- [x] **Template Gallery (Backend Complete)**
+  - ✅ Browse templates from S3 galleries
+  - ✅ Download templates with signature verification
+  - ✅ Search templates by keyword
+  - ✅ Template metadata display (author, version, signed status)
+  - ⏳ UI integration (see docs/TEMPLATE_PUBLISHING_WORKFLOW.md)
+  - ⏳ Rate and review templates (future)
+
+- [x] **Template Publishing (Backend Complete)**
+  - ✅ Publish signed templates to S3 gallery
+  - ✅ Validation: templates must be signed before publishing
+  - ✅ S3 metadata tracking (template-id, version, author, is-signed)
+  - ✅ List and unpublish templates from gallery
+  - ✅ Support for multiple gallery categories (official/community/test)
+  - ⏳ UI integration (see docs/TEMPLATE_PUBLISHING_WORKFLOW.md)
 
 - [ ] **Version Control**
   - Track template changes over time
