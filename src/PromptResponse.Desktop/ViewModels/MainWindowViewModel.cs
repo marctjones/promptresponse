@@ -158,7 +158,7 @@ public class MainWindowViewModel : ViewModelBase
 
                     _currentDocument = document;
                     TemplateEditorViewModel = null; // Clear template editor
-                    FormFillingViewModel = new FormFillingViewModel(document);
+                    FormFillingViewModel = new FormFillingViewModel(document, _signatureService, _certificateStore);
 
                     UpdateTitle();
                     _logger.LogInformation("Template converted to FilledForm - user must Save As");
@@ -179,7 +179,7 @@ public class MainWindowViewModel : ViewModelBase
                     _isEditingTemplate = false;
                     _currentDocument = document;
                     TemplateEditorViewModel = null; // Clear template editor
-                    FormFillingViewModel = new FormFillingViewModel(document);
+                    FormFillingViewModel = new FormFillingViewModel(document, _signatureService, _certificateStore);
                     UpdateTitle();
                 }
 
@@ -392,7 +392,7 @@ public class MainWindowViewModel : ViewModelBase
                 _isEditingTemplate = false;
                 _currentDocument = document;
                 TemplateEditorViewModel = null;
-                FormFillingViewModel = new FormFillingViewModel(document);
+                FormFillingViewModel = new FormFillingViewModel(document, _signatureService, _certificateStore);
             }
 
             UpdateTitle();

@@ -1,5 +1,8 @@
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Services;
+using PromptResponse.Core.Services.Certificates;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace PromptResponse.Desktop.ViewModels;
 
@@ -9,14 +12,21 @@ namespace PromptResponse.Desktop.ViewModels;
 public class FormFillingViewModel : ViewModelBase
 {
     private readonly AprDocument _document;
+    private readonly ISignatureService? _signatureService;
+    private readonly ICertificateStore? _certificateStore;
     private bool _hasUnsavedChanges;
     private string _statusMessage = string.Empty;
     private string _mode = "Filling Form";
     private bool _isReadOnly = false;
 
-    public FormFillingViewModel(AprDocument document)
+    public FormFillingViewModel(
+        AprDocument document,
+        ISignatureService? signatureService = null,
+        ICertificateStore? certificateStore = null)
     {
         _document = document;
+        _signatureService = signatureService;
+        _certificateStore = certificateStore;
 
         // Check if form is signed (making it read-only)
         var hasFormSignatures = document.Metadata.FormSignatures?.Count > 0;
@@ -40,6 +50,11 @@ public class FormFillingViewModel : ViewModelBase
                 }
             }
         }
+
+        // Initialize commands
+        SignFormCommand = new RelayCommand(
+            async () => await SignFormAsync(),
+            () => CanSignForm);
 
         UpdateStatusMessage();
     }
@@ -125,6 +140,19 @@ public class FormFillingViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// Gets whether this form can be signed (services available, not already signed, and is a filled form).
+    /// </summary>
+    public bool CanSignForm => _signatureService != null
+                               && _certificateStore != null
+                               && !HasFormSignatures
+                               && _document.DocumentType == DocumentType.FilledForm;
+
+    /// <summary>
+    /// Command to sign the filled form.
+    /// </summary>
+    public ICommand SignFormCommand { get; }
+
     private void UpdateStatusMessage()
     {
         if (HasUnsavedChanges)
@@ -157,6 +185,63 @@ public class FormFillingViewModel : ViewModelBase
         // ViewModels update the model in real-time through two-way binding
         // This method is here for future explicit save operations if needed
         _document.Metadata.Modified = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Signs the filled form with a user-selected certificate.
+    /// </summary>
+    private async Task SignFormAsync()
+    {
+        if (_signatureService == null || _certificateStore == null)
+        {
+            StatusMessage = "Signature services not available";
+            return;
+        }
+
+        try
+        {
+            // Get installed certificates
+            var certificates = _certificateStore.GetCertificates().ToList();
+            if (certificates.Count == 0)
+            {
+                StatusMessage = "No certificates found. Please generate or install a certificate first.";
+                return;
+            }
+
+            // For now, use the first certificate with a private key
+            // TODO: Show certificate selection dialog
+            var cert = certificates.FirstOrDefault(c => c.HasPrivateKey);
+            if (cert == null)
+            {
+                StatusMessage = "No certificate with private key found";
+                return;
+            }
+
+            // Sign the form
+            StatusMessage = "Signing form...";
+            var signature = _signatureService.SignFilledForm(_document, cert, "Signed via PromptResponse Desktop");
+
+            // Add signature to document
+            _document.Metadata.FormSignatures ??= new List<DigitalSignature>();
+            _document.Metadata.FormSignatures.Add(signature);
+
+            // Update read-only status
+            _isReadOnly = true;
+            OnPropertyChanged(nameof(IsReadOnly));
+            OnPropertyChanged(nameof(IsEditable));
+            OnPropertyChanged(nameof(HasFormSignatures));
+            OnPropertyChanged(nameof(FormSignatures));
+            OnPropertyChanged(nameof(SignatureStatusMessage));
+            OnPropertyChanged(nameof(CanSignForm));
+
+            // Mark as having unsaved changes
+            HasUnsavedChanges = true;
+            StatusMessage = $"✓ Form signed by {signature.SignerName}. Please save the document.";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Error signing form: {ex.Message}";
+        }
     }
 }
 

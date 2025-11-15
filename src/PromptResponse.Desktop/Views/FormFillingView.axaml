@@ -151,6 +151,23 @@
                     </StackPanel>
                 </Border>
 
+                <!-- Sign Form Button -->
+                <Border Margin="0,0,0,16"
+                        IsVisible="{Binding CanSignForm}">
+                    <Button Command="{Binding SignFormCommand}"
+                            HorizontalAlignment="Left"
+                            Background="{DynamicResource SystemControlHighlightAccentBrush}"
+                            Foreground="White"
+                            Padding="20,10"
+                            CornerRadius="4"
+                            AutomationProperties.Name="Sign this form">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="🔏" FontSize="16"/>
+                            <TextBlock Text="Sign This Form" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Button>
+                </Border>
+
             <!-- Sections -->
             <ItemsControl ItemsSource="{Binding Sections}"
                           HorizontalAlignment="Stretch"
