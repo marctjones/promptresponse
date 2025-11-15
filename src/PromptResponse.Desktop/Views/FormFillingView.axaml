@@ -19,45 +19,50 @@
 
     <DockPanel>
         <!-- Toolbar -->
-        <Border DockPanel.Dock="Top"
-                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                BorderThickness="0,0,0,1"
-                Padding="16,8"
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
-            <StackPanel Orientation="Horizontal" Spacing="8">
+        <Border DockPanel.Dock="Top" Classes="command-bar">
+            <StackPanel Orientation="Horizontal" Spacing="12">
                 <Button Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).SaveCommand}"
-                        Content="💾 Save"
-                        Padding="12,6"
+                        Classes="modern-accent"
                         ToolTip.Tip="Save changes (Ctrl+S)"
-                        AutomationProperties.Name="Save button"/>
+                        AutomationProperties.Name="Save button">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Save" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
                 <Button Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).SaveAsCommand}"
-                        Content="Save As..."
-                        Padding="12,6"
+                        Classes="modern"
                         ToolTip.Tip="Save as new file (Ctrl+Shift+S)"
-                        AutomationProperties.Name="Save As button"/>
+                        AutomationProperties.Name="Save As button">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
+                                  Width="16" Height="16"/>
+                        <TextBlock Text="Save As..." VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Border>
 
         <!-- Status Bar -->
-        <Border DockPanel.Dock="Bottom"
-                BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                BorderThickness="0,1,0,0"
-                Padding="16,6"
-                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+        <Border DockPanel.Dock="Bottom" Classes="status-bar">
             <Grid ColumnDefinitions="*,Auto,Auto">
                 <TextBlock Text="{Binding StatusMessage}"
                            VerticalAlignment="Center"
+                           FontSize="{StaticResource FontSizeSmall}"
                            Foreground="{DynamicResource SystemBaseMediumColor}"/>
                 <TextBlock Grid.Column="1"
                            Text="{Binding Mode}"
                            VerticalAlignment="Center"
                            Margin="16,0"
-                           FontWeight="Medium"
+                           FontSize="{StaticResource FontSizeSmall}"
+                           FontWeight="{StaticResource FontWeightMedium}"
                            Foreground="{DynamicResource SystemBaseMediumHighColor}"/>
                 <TextBlock Grid.Column="2"
                            Text="{Binding SaveStateText}"
                            VerticalAlignment="Center"
-                           FontWeight="SemiBold"
+                           FontSize="{StaticResource FontSizeSmall}"
+                           FontWeight="{StaticResource FontWeightSemiBold}"
                            Foreground="{DynamicResource SystemAccentColor}"/>
             </Grid>
         </Border>
@@ -70,16 +75,14 @@
                           Name="MainScrollViewer">
                 <Grid Margin="24">
                     <StackPanel HorizontalAlignment="Stretch" MaxWidth="1000">
-                <!-- Form Header (Simplified - no orange bar!) -->
-                <StackPanel Margin="0,0,0,24">
+                <!-- Form Header -->
+                <StackPanel Margin="0,0,0,32">
                     <TextBlock Text="{Binding Title}"
-                               FontSize="28"
-                               FontWeight="Bold"
-                               AutomationProperties.Name="{Binding Title}"
-                               Margin="0,0,0,8"/>
+                               Classes="page-title"
+                               AutomationProperties.Name="{Binding Title}"/>
 
                     <TextBlock Text="{Binding Description}"
-                               FontSize="15"
+                               FontSize="{StaticResource FontSizeMedium}"
                                Foreground="{DynamicResource SystemBaseMediumColor}"
                                TextWrapping="Wrap"
                                IsVisible="{Binding Description, Converter={x:Static ObjectConverters.IsNotNull}}"
@@ -87,10 +90,11 @@
                 </StackPanel>
 
                 <!-- Signature Information Banner -->
-                <Border Margin="0,0,0,16"
-                        Padding="16,12"
+                <Border Margin="0,0,0,24"
+                        Padding="20,16"
                         Background="{DynamicResource SystemControlHighlightAccentBrush}"
-                        CornerRadius="6"
+                        CornerRadius="{StaticResource RadiusLarge}"
+                        BoxShadow="{StaticResource ShadowSmall}"
                         IsVisible="{Binding SignatureStatusMessage, Converter={x:Static ObjectConverters.IsNotNull}}"
                         AutomationProperties.Name="Signature information">
                     <StackPanel Spacing="8">
@@ -157,27 +161,23 @@
                           AutomationProperties.Name="Form Sections">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                                BorderThickness="1"
-                                CornerRadius="6"
-                                Margin="0,0,0,16"
-                                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                        <Border Classes="section-card"
                                 HorizontalAlignment="Stretch"
                                 Tag="{Binding}">
-                            <Expander IsExpanded="{Binding IsExpanded}"
+                            <Expander Classes="modern"
+                                      IsExpanded="{Binding IsExpanded}"
                                       AutomationProperties.Name="{Binding Title}"
                                       AutomationProperties.HelpText="{Binding Description}"
                                       HorizontalAlignment="Stretch">
                                 <Expander.Header>
-                                    <StackPanel Margin="4,8">
+                                    <StackPanel Margin="0,4">
                                         <TextBlock Text="{Binding Title}"
-                                                   FontSize="20"
-                                                   FontWeight="SemiBold"/>
+                                                   Classes="section-title"/>
                                         <TextBlock Text="{Binding Description}"
-                                                   FontSize="13"
+                                                   FontSize="{StaticResource FontSizeBody}"
                                                    Foreground="{DynamicResource SystemBaseMediumColor}"
                                                    TextWrapping="Wrap"
-                                                   Margin="0,4,0,0"
+                                                   Margin="0,6,0,0"
                                                    IsVisible="{Binding Description, Converter={x:Static ObjectConverters.IsNotNull}}"/>
                                     </StackPanel>
                                 </Expander.Header>
@@ -219,8 +219,7 @@
                                                                 <DataTemplate>
                                                                     <StackPanel Spacing="6">
                                                                         <TextBlock Text="{Binding Label}"
-                                                                                   FontWeight="Medium"
-                                                                                   FontSize="14"/>
+                                                                                   Classes="field-label"/>
 
                                                                         <!-- Smart controls (shown when UseSmartControl is true) -->
                                                                         <Grid ColumnDefinitions="*,Auto"
@@ -377,9 +376,7 @@
                                                                         </Grid>
 
                                                                         <TextBlock Text="{Binding HelpText}"
-                                                                                   FontSize="12"
-                                                                                   Foreground="{DynamicResource SystemBaseMediumLowColor}"
-                                                                                   TextWrapping="Wrap"
+                                                                                   Classes="help-text"
                                                                                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                                                                                    AutomationProperties.LiveSetting="Polite"/>
                                                                     </StackPanel>
@@ -400,8 +397,7 @@
                                         <DataTemplate>
                                             <StackPanel Spacing="6" Margin="0,8,0,0">
                                                 <TextBlock Text="{Binding Label}"
-                                                           FontWeight="Medium"
-                                                           FontSize="14"/>
+                                                           Classes="field-label"/>
 
                                                 <!-- Smart controls (shown when UseSmartControl is true) -->
                                                 <Grid ColumnDefinitions="*,Auto"
@@ -558,9 +554,7 @@
                                                 </Grid>
 
                                                 <TextBlock Text="{Binding HelpText}"
-                                                           FontSize="12"
-                                                           Foreground="{DynamicResource SystemBaseMediumLowColor}"
-                                                           TextWrapping="Wrap"
+                                                           Classes="help-text"
                                                            IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                                                            AutomationProperties.LiveSetting="Polite"/>
                                             </StackPanel>

@@ -2,11 +2,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="PromptResponse.Desktop.App"
              RequestedThemeVariant="Default">
+
+    <Application.Resources>
+        <!-- Modern Design System Resources -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Styles/DesignTokens.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
     <Application.Styles>
         <FluentTheme />
 
-        <!-- Custom PromptResponse Styling Enhancement -->
-        <!-- These styles add visual polish while respecting the selected theme -->
+        <!-- Modern Design System Styles -->
+        <StyleInclude Source="/Styles/ModernControls.axaml"/>
+
+        <!-- Enhanced Default Control Styles -->
+        <!-- These apply modern touches to all controls by default -->
 
         <!-- Button Styling - Modern rounded with smooth interactions -->
         <Style Selector="Button">
@@ -14,6 +27,12 @@
             <Setter Property="Padding" Value="16,8"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="MinHeight" Value="36"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15"/>
+                </Transitions>
+            </Setter>
         </Style>
 
         <Style Selector="Button:pressed">
@@ -22,16 +41,48 @@
 
         <!-- TextBox Styling - Rounded corners and enhanced focus -->
         <Style Selector="TextBox">
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,8"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinHeight" Value="36"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <ThicknessTransition Property="BorderThickness" Duration="0:0:0.15"/>
+                </Transitions>
+            </Setter>
         </Style>
 
-        <Style Selector="TextBox:focus">
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
 
-        <!-- Border Styling - Rounded corners everywhere -->
+        <!-- ComboBox Styling -->
+        <Style Selector="ComboBox">
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="MinHeight" Value="36"/>
+        </Style>
+
+        <!-- AutoCompleteBox Styling -->
+        <Style Selector="AutoCompleteBox">
+            <Setter Property="MinHeight" Value="36"/>
+        </Style>
+
+        <!-- Expander Styling - Smoother animations -->
+        <Style Selector="Expander">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+
+        <!-- CheckBox modern spacing -->
+        <Style Selector="CheckBox">
+            <Setter Property="MinHeight" Value="32"/>
+        </Style>
+
+        <!-- RadioButton modern spacing -->
+        <Style Selector="RadioButton">
+            <Setter Property="MinHeight" Value="32"/>
+        </Style>
+
+        <!-- Border Styling - Default rounded corners -->
         <Style Selector="Border">
             <Setter Property="CornerRadius" Value="8"/>
         </Style>
