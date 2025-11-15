@@ -1,0 +1,14 @@
+# Rust
+/target/
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Generated files
+*.aprt
+*.aprf
+*.apr

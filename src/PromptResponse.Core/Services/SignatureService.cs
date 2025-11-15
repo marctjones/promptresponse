@@ -11,7 +11,7 @@ namespace PromptResponse.Core.Services;
 /// </summary>
 public class SignatureService : ISignatureService
 {
-    private const string DefaultHashAlgorithm = "SHA256";
+    private const string HashAlgorithmName = "SHA256";
 
     /// <inheritdoc />
     public DigitalSignature SignTemplate(AprDocument document, X509Certificate2 certificate, string? reason = null)
@@ -315,7 +315,7 @@ public class SignatureService : ISignatureService
 
         return new DigitalSignature
         {
-            SignerName = subjectParts.GetValueOrDefault("CN") ?? "Unknown",
+            SignerName = subjectParts.GetValueOrDefault("CN", "Unknown"),
             SignerEmail = subjectParts.GetValueOrDefault("E", certificate.GetNameInfo(X509NameType.EmailName, false)),
             SignerOrganization = subjectParts.GetValueOrDefault("O", null),
             SignerOrganizationalUnit = subjectParts.GetValueOrDefault("OU", null),
@@ -324,7 +324,7 @@ public class SignatureService : ISignatureService
             SignedAt = DateTime.UtcNow,
             SignatureData = Convert.ToBase64String(signatureData),
             SignatureType = signatureType,
-            HashAlgorithm = DefaultHashAlgorithm,
+            HashAlgorithm = HashAlgorithmName,
             SignatureReason = reason
         };
     }
@@ -332,9 +332,9 @@ public class SignatureService : ISignatureService
     /// <summary>
     /// Parse X.500 Distinguished Name into component parts.
     /// </summary>
-    private Dictionary<string, string?> ParseDistinguishedName(string dn)
+    private Dictionary<string, string> ParseDistinguishedName(string dn)
     {
-        var parts = new Dictionary<string, string?>();
+        var parts = new Dictionary<string, string>();
 
         // Simple parser - split on comma (doesn't handle escaped commas, but good enough for most cases)
         var components = dn.Split(',', StringSplitOptions.TrimEntries);
