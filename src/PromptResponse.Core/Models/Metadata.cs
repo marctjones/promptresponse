@@ -118,4 +118,14 @@ public class Metadata
     /// Multiple signatures can be present if the form requires multiple signatories.
     /// </remarks>
     public List<DigitalSignature>? FormSignatures { get; set; }
+
+    /// <summary>
+    /// Gets or sets the submission configuration for filled forms.
+    /// </summary>
+    /// <remarks>
+    /// Template-specific field. Specifies how filled forms should be submitted
+    /// (e.g., direct S3 upload via pre-signed POST, webhook endpoint).
+    /// When present, the UI can offer a "Submit" option in addition to local save.
+    /// </remarks>
+    public SubmissionConfig? SubmissionConfig { get; set; }
 }
