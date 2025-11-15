@@ -40,6 +40,22 @@ This feature enables APR templates to include S3 pre-signed POST configuration t
    - `S3Object` record for S3 object metadata
    - Uses AWS SDK for .NET (AWSSDK.S3)
 
+3. **ITemplatePublishingService.cs + TemplatePublishingService.cs**
+   - `PublishTemplateAsync()` - Publishes signed templates to S3 gallery
+   - `ValidateForPublishing()` - Validates template is signed and valid
+   - `ListPublishedTemplatesAsync()` - Lists templates in gallery
+   - `UnpublishTemplateAsync()` - Removes template from gallery
+   - Requires templates to be digitally signed before publishing
+   - Attaches metadata to S3 objects (template-id, version, author, is-signed)
+
+4. **ITemplateGalleryService.cs + TemplateGalleryService.cs**
+   - `BrowseTemplatesAsync()` - Lists available templates with metadata
+   - `DownloadTemplateAsync()` - Downloads template from gallery
+   - `DownloadAndVerifyTemplateAsync()` - Downloads and verifies signature
+   - `SearchTemplatesAsync()` - Searches templates by keyword
+   - `TemplateGalleryItem` record for template metadata display
+   - Integrates with signature verification service
+
 ### ✅ Dependencies
 
 - Added `AWSSDK.S3` package (version 3.7.403.9) to Desktop project
@@ -53,6 +69,13 @@ This feature enables APR templates to include S3 pre-signed POST configuration t
    - Calculates HMAC-SHA1 signature
    - Outputs JSON ready to paste into template metadata
    - Includes helpful instructions for testing
+
+2. **minio-setup-gallery.sh** - Sets up MinIO template gallery for testing
+   - Creates `template-gallery` bucket with public read access
+   - Creates directory structure (templates/official/, templates/community/)
+   - Creates `form-submissions` bucket for submitted forms
+   - Configures appropriate bucket policies
+   - Provides configuration examples for publishing and downloading
 
 ### ✅ Test Template
 
