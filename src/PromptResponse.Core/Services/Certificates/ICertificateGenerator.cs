@@ -1,5 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using PromptResponse.Core.Models;
+using X509CertificateRequest = System.Security.Cryptography.X509Certificates.CertificateRequest;
 
 namespace PromptResponse.Core.Services.Certificates;
 
@@ -17,7 +18,7 @@ public interface ICertificateGenerator
     /// </summary>
     /// <param name="request">Certificate request with subject information and usage flags</param>
     /// <returns>X.509 certificate with private key</returns>
-    X509Certificate2 GenerateSelfSignedCertificate(CertificateRequest request);
+    X509Certificate2 GenerateSelfSignedCertificate(Models.CertificateRequest request);
 
     /// <summary>
     /// Generate a test Certificate Authority (CA) certificate.
@@ -34,7 +35,7 @@ public interface ICertificateGenerator
     /// <param name="request">Certificate request with subject information</param>
     /// <param name="caCert">CA certificate to sign with (must have private key)</param>
     /// <returns>Certificate signed by the CA with private key</returns>
-    X509Certificate2 GenerateTestCertificate(CertificateRequest request, X509Certificate2 caCert);
+    X509Certificate2 GenerateTestCertificate(Models.CertificateRequest request, X509Certificate2 caCert);
 
     /// <summary>
     /// Export certificate with private key in PKCS#12 (.pfx) format.

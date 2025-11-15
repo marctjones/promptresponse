@@ -4,7 +4,7 @@ using Amazon.S3.Model;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
-using PromptResponse.Core.Services.Signatures;
+using PromptResponse.Core.Services;
 
 namespace PromptResponse.Desktop.Services;
 
@@ -14,13 +14,13 @@ namespace PromptResponse.Desktop.Services;
 public class TemplateGalleryService : ITemplateGalleryService
 {
     private readonly IAprSerializer _serializer;
-    private readonly ISignatureVerificationService? _signatureService;
+    private readonly ISignatureService? _signatureService;
     private readonly ILogger<TemplateGalleryService> _logger;
 
     public TemplateGalleryService(
         IAprSerializer serializer,
         ILogger<TemplateGalleryService> logger,
-        ISignatureVerificationService? signatureService = null)
+        ISignatureService? signatureService = null)
     {
         _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));

@@ -1,8 +1,10 @@
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using FluentAssertions;
+using PromptResponse.Core.Models;
 using PromptResponse.Core.Services.Certificates;
 using Xunit;
+using X509CertificateRequest = System.Security.Cryptography.X509Certificates.CertificateRequest;
 
 namespace PromptResponse.Core.Tests.Services.Certificates;
 

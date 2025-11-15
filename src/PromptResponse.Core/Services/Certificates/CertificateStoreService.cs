@@ -11,6 +11,10 @@ public class CertificateStoreService : ICertificateStore
 {
     private readonly ILogger<CertificateStoreService> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CertificateStoreService"/> class.
+    /// </summary>
+    /// <param name="logger">Logger for diagnostic messages</param>
     public CertificateStoreService(ILogger<CertificateStoreService> logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));

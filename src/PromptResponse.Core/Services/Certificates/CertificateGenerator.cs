@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using PromptResponse.Core.Models;
+using X509CertificateRequest = System.Security.Cryptography.X509Certificates.CertificateRequest;
 
 namespace PromptResponse.Core.Services.Certificates;
 
@@ -18,7 +19,7 @@ public class CertificateGenerator : ICertificateGenerator
     private const string OidCodeSigning = "1.3.6.1.5.5.7.3.3";            // Code signing
 
     /// <inheritdoc />
-    public X509Certificate2 GenerateSelfSignedCertificate(CertificateRequest request)
+    public X509Certificate2 GenerateSelfSignedCertificate(Models.CertificateRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.CommonName))
         {
@@ -32,7 +33,7 @@ public class CertificateGenerator : ICertificateGenerator
         var subjectName = BuildSubjectName(request);
 
         // Create certificate request
-        var certRequest = new CertificateRequest(
+        var certRequest = new X509CertificateRequest(
             subjectName,
             rsa,
             HashAlgorithmName.SHA256,
@@ -90,7 +91,7 @@ public class CertificateGenerator : ICertificateGenerator
 
         var subjectName = new X500DistinguishedName($"CN={caName}, O=Test CA, OU=Testing");
 
-        var certRequest = new CertificateRequest(
+        var certRequest = new X509CertificateRequest(
             subjectName,
             rsa,
             HashAlgorithmName.SHA256,
@@ -122,7 +123,7 @@ public class CertificateGenerator : ICertificateGenerator
     }
 
     /// <inheritdoc />
-    public X509Certificate2 GenerateTestCertificate(CertificateRequest request, X509Certificate2 caCert)
+    public X509Certificate2 GenerateTestCertificate(Models.CertificateRequest request, X509Certificate2 caCert)
     {
         if (string.IsNullOrWhiteSpace(request.CommonName))
         {
@@ -138,7 +139,7 @@ public class CertificateGenerator : ICertificateGenerator
 
         var subjectName = BuildSubjectName(request);
 
-        var certRequest = new CertificateRequest(
+        var certRequest = new X509CertificateRequest(
             subjectName,
             rsa,
             HashAlgorithmName.SHA256,
@@ -225,7 +226,7 @@ public class CertificateGenerator : ICertificateGenerator
     /// <summary>
     /// Build X.500 distinguished name from certificate request
     /// </summary>
-    private static X500DistinguishedName BuildSubjectName(CertificateRequest request)
+    private static X500DistinguishedName BuildSubjectName(Models.CertificateRequest request)
     {
         var parts = new List<string>
         {

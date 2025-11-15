@@ -16,6 +16,11 @@ public class OnePasswordService : IOnePasswordService
     private const string OpCommand = "op";
     private const string CertificateTag = "promptresponse-cert";
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OnePasswordService"/> class.
+    /// </summary>
+    /// <param name="certificateGenerator">Certificate generator for creating new certificates</param>
+    /// <param name="logger">Logger for diagnostic messages</param>
     public OnePasswordService(
         ICertificateGenerator certificateGenerator,
         ILogger<OnePasswordService> logger)

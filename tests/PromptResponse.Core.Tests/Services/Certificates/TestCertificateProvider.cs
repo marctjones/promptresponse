@@ -1,6 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Services.Certificates;
+using X509CertificateRequest = System.Security.Cryptography.X509Certificates.CertificateRequest;
 
 namespace PromptResponse.Core.Tests.Services.Certificates;
 
@@ -108,7 +109,7 @@ public static class TestCertificateProvider
                 {
                     var generator = new CertificateGenerator();
                     var ca = GetTestCA();
-                    var request = new CertificateRequest
+                    var request = new PromptResponse.Core.Models.CertificateRequest
                     {
                         CommonName = "Test CA-Signed User",
                         Email = "casigned@example.com",
