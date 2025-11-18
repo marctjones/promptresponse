@@ -1,18 +1,21 @@
 using PromptResponse.Core.Models;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace PromptResponse.Desktop.ViewModels;
 
 /// <summary>
 /// ViewModel for filling out a form.
 /// </summary>
-public class FormFillingViewModel : ViewModelBase
+public class FormFillingViewModel : ViewModelBase, IDisposable
 {
     private readonly AprDocument _document;
     private bool _hasUnsavedChanges;
     private string _statusMessage = string.Empty;
     private string _mode = "Filling Form";
     private bool _isReadOnly = false;
+    private readonly List<(PromptViewModel prompt, PropertyChangedEventHandler handler)> _eventSubscriptions = new();
+    private bool _disposed;
 
     public FormFillingViewModel(AprDocument document)
     {
@@ -30,13 +33,17 @@ public class FormFillingViewModel : ViewModelBase
         {
             foreach (var prompt in section.Prompts)
             {
-                prompt.PropertyChanged += (s, e) => HasUnsavedChanges = true;
+                PropertyChangedEventHandler handler = (s, e) => HasUnsavedChanges = true;
+                prompt.PropertyChanged += handler;
+                _eventSubscriptions.Add((prompt, handler));
             }
             foreach (var subsection in section.Subsections)
             {
                 foreach (var prompt in subsection.Prompts)
                 {
-                    prompt.PropertyChanged += (s, e) => HasUnsavedChanges = true;
+                    PropertyChangedEventHandler handler = (s, e) => HasUnsavedChanges = true;
+                    prompt.PropertyChanged += handler;
+                    _eventSubscriptions.Add((prompt, handler));
                 }
             }
         }
@@ -157,6 +164,24 @@ public class FormFillingViewModel : ViewModelBase
         // ViewModels update the model in real-time through two-way binding
         // This method is here for future explicit save operations if needed
         _document.Metadata.Modified = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Disposes the ViewModel and unsubscribes from all event handlers to prevent memory leaks.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed)
+            return;
+
+        // Unsubscribe from all prompt property changed events
+        foreach (var (prompt, handler) in _eventSubscriptions)
+        {
+            prompt.PropertyChanged -= handler;
+        }
+        _eventSubscriptions.Clear();
+
+        _disposed = true;
     }
 }
 

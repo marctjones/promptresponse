@@ -80,7 +80,12 @@ public class MainWindowViewModel : ViewModelBase
     public FormFillingViewModel? FormFillingViewModel
     {
         get => _formFillingViewModel;
-        private set => SetProperty(ref _formFillingViewModel, value);
+        private set
+        {
+            // Dispose the old ViewModel to prevent memory leaks
+            _formFillingViewModel?.Dispose();
+            SetProperty(ref _formFillingViewModel, value);
+        }
     }
 
     public TemplateEditorViewModel? TemplateEditorViewModel
