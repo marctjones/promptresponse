@@ -210,7 +210,7 @@ dotnet run --project src/PromptResponse.Cli -- info form.aprf
 
 ### Git Workflow
 
-**Main branch**: `claude/csharp-cross-platform-app-011CV4c6LNDr1EMwJCyTY83C`
+**Main branch**: `main`
 
 **Commit message format:**
 ```
