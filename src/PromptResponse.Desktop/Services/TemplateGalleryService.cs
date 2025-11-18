@@ -1,11 +1,10 @@
-using System.Linq;
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
-using PromptResponse.Core.Services;
+using PromptResponse.Core.Services.Signatures;
 
 namespace PromptResponse.Desktop.Services;
 
@@ -15,13 +14,13 @@ namespace PromptResponse.Desktop.Services;
 public class TemplateGalleryService : ITemplateGalleryService
 {
     private readonly IAprSerializer _serializer;
-    private readonly ISignatureService? _signatureService;
+    private readonly ISignatureVerificationService? _signatureService;
     private readonly ILogger<TemplateGalleryService> _logger;
 
     public TemplateGalleryService(
         IAprSerializer serializer,
         ILogger<TemplateGalleryService> logger,
-        ISignatureService? signatureService = null)
+        ISignatureVerificationService? signatureService = null)
     {
         _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -186,31 +185,15 @@ public class TemplateGalleryService : ITemplateGalleryService
 
             try
             {
-                // Verify all signatures on the template
-                var results = _signatureService.VerifyAllSignatures(template);
+                verificationResult = await _signatureService.VerifyTemplateSignatureAsync(template);
 
-                // Get the first signature's result (most templates have one signature)
-                var firstSignature = template.Metadata.TemplateSignatures.FirstOrDefault();
-                if (firstSignature != null && results.TryGetValue(firstSignature, out var result))
+                if (verificationResult.IsValid)
                 {
-                    verificationResult = result;
-
-                    if (result.IsValid)
-                    {
-                        _logger.LogInformation("Template signature verified successfully");
-                    }
-                    else
-                    {
-                        _logger.LogWarning("Template signature verification failed: {Reason}", result.Summary);
-                    }
+                    _logger.LogInformation("Template signature verified successfully");
                 }
                 else
                 {
-                    verificationResult = new SignatureVerificationResult
-                    {
-                        IsValid = false
-                    };
-                    verificationResult.Errors.Add("No signature found to verify");
+                    _logger.LogWarning("Template signature verification failed: {Reason}", verificationResult.ErrorMessage);
                 }
             }
             catch (Exception ex)
@@ -218,9 +201,9 @@ public class TemplateGalleryService : ITemplateGalleryService
                 _logger.LogError(ex, "Error verifying template signature");
                 verificationResult = new SignatureVerificationResult
                 {
-                    IsValid = false
+                    IsValid = false,
+                    ErrorMessage = $"Signature verification error: {ex.Message}"
                 };
-                verificationResult.Errors.Add($"Signature verification error: {ex.Message}");
             }
         }
         else if (template.Metadata?.TemplateSignatures == null || template.Metadata.TemplateSignatures.Count == 0)
@@ -228,9 +211,9 @@ public class TemplateGalleryService : ITemplateGalleryService
             _logger.LogWarning("Template has no signatures");
             verificationResult = new SignatureVerificationResult
             {
-                IsValid = false
+                IsValid = false,
+                ErrorMessage = "Template is not signed"
             };
-            verificationResult.Errors.Add("Template is not signed");
         }
 
         return (template, verificationResult);

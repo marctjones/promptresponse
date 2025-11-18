@@ -207,6 +207,9 @@ public partial class App : Application
         Console.WriteLine("[App]   - Registering ISettingsService -> SettingsService");
         services.AddSingleton<ISettingsService, SettingsService>();
 
+        Console.WriteLine("[App]   - Registering IPlatformFeatures -> PlatformFeatures");
+        services.AddSingleton<IPlatformFeatures, PlatformFeatures>();
+
         // Certificate services
         Console.WriteLine("[App]   - Registering ICertificateGenerator -> CertificateGenerator");
         services.AddSingleton<ICertificateGenerator, CertificateGenerator>();

@@ -1,32 +1,25 @@
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Services;
-using PromptResponse.Core.Services.Certificates;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.ComponentModel;
 
 namespace PromptResponse.Desktop.ViewModels;
 
 /// <summary>
 /// ViewModel for filling out a form.
 /// </summary>
-public class FormFillingViewModel : ViewModelBase
+public class FormFillingViewModel : ViewModelBase, IDisposable
 {
     private readonly AprDocument _document;
-    private readonly ISignatureService? _signatureService;
-    private readonly ICertificateStore? _certificateStore;
     private bool _hasUnsavedChanges;
     private string _statusMessage = string.Empty;
     private string _mode = "Filling Form";
     private bool _isReadOnly = false;
+    private readonly List<(PromptViewModel prompt, PropertyChangedEventHandler handler)> _eventSubscriptions = new();
+    private bool _disposed;
 
-    public FormFillingViewModel(
-        AprDocument document,
-        ISignatureService? signatureService = null,
-        ICertificateStore? certificateStore = null)
+    public FormFillingViewModel(AprDocument document)
     {
         _document = document;
-        _signatureService = signatureService;
-        _certificateStore = certificateStore;
 
         // Check if form is signed (making it read-only)
         var hasFormSignatures = document.Metadata.FormSignatures?.Count > 0;
@@ -40,21 +33,20 @@ public class FormFillingViewModel : ViewModelBase
         {
             foreach (var prompt in section.Prompts)
             {
-                prompt.PropertyChanged += (s, e) => HasUnsavedChanges = true;
+                PropertyChangedEventHandler handler = (s, e) => HasUnsavedChanges = true;
+                prompt.PropertyChanged += handler;
+                _eventSubscriptions.Add((prompt, handler));
             }
             foreach (var subsection in section.Subsections)
             {
                 foreach (var prompt in subsection.Prompts)
                 {
-                    prompt.PropertyChanged += (s, e) => HasUnsavedChanges = true;
+                    PropertyChangedEventHandler handler = (s, e) => HasUnsavedChanges = true;
+                    prompt.PropertyChanged += handler;
+                    _eventSubscriptions.Add((prompt, handler));
                 }
             }
         }
-
-        // Initialize commands
-        SignFormCommand = new RelayCommand(
-            async () => await SignFormAsync(),
-            () => CanSignForm);
 
         UpdateStatusMessage();
     }
@@ -140,19 +132,6 @@ public class FormFillingViewModel : ViewModelBase
         }
     }
 
-    /// <summary>
-    /// Gets whether this form can be signed (services available, not already signed, and is a filled form).
-    /// </summary>
-    public bool CanSignForm => _signatureService != null
-                               && _certificateStore != null
-                               && !HasFormSignatures
-                               && _document.DocumentType == DocumentType.FilledForm;
-
-    /// <summary>
-    /// Command to sign the filled form.
-    /// </summary>
-    public ICommand SignFormCommand { get; }
-
     private void UpdateStatusMessage()
     {
         if (HasUnsavedChanges)
@@ -188,60 +167,21 @@ public class FormFillingViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Signs the filled form with a user-selected certificate.
+    /// Disposes the ViewModel and unsubscribes from all event handlers to prevent memory leaks.
     /// </summary>
-    private async Task SignFormAsync()
+    public void Dispose()
     {
-        if (_signatureService == null || _certificateStore == null)
-        {
-            StatusMessage = "Signature services not available";
+        if (_disposed)
             return;
-        }
 
-        try
+        // Unsubscribe from all prompt property changed events
+        foreach (var (prompt, handler) in _eventSubscriptions)
         {
-            // Get installed certificates
-            var certificates = _certificateStore.GetCertificates().ToList();
-            if (certificates.Count == 0)
-            {
-                StatusMessage = "No certificates found. Please generate or install a certificate first.";
-                return;
-            }
-
-            // For now, use the first certificate with a private key
-            // TODO: Show certificate selection dialog
-            var cert = certificates.FirstOrDefault(c => c.HasPrivateKey);
-            if (cert == null)
-            {
-                StatusMessage = "No certificate with private key found";
-                return;
-            }
-
-            // Sign the form
-            StatusMessage = "Signing form...";
-            var signature = _signatureService.SignFilledForm(_document, cert, "Signed via PromptResponse Desktop");
-
-            // Add signature to document
-            _document.Metadata.FormSignatures ??= new List<DigitalSignature>();
-            _document.Metadata.FormSignatures.Add(signature);
-
-            // Update read-only status
-            _isReadOnly = true;
-            OnPropertyChanged(nameof(IsReadOnly));
-            OnPropertyChanged(nameof(IsEditable));
-            OnPropertyChanged(nameof(HasFormSignatures));
-            OnPropertyChanged(nameof(FormSignatures));
-            OnPropertyChanged(nameof(SignatureStatusMessage));
-            OnPropertyChanged(nameof(CanSignForm));
-
-            // Mark as having unsaved changes
-            HasUnsavedChanges = true;
-            StatusMessage = $"✓ Form signed by {signature.SignerName}. Please save the document.";
+            prompt.PropertyChanged -= handler;
         }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Error signing form: {ex.Message}";
-        }
+        _eventSubscriptions.Clear();
+
+        _disposed = true;
     }
 }
 

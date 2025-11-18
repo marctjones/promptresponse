@@ -80,7 +80,12 @@ public class MainWindowViewModel : ViewModelBase
     public FormFillingViewModel? FormFillingViewModel
     {
         get => _formFillingViewModel;
-        private set => SetProperty(ref _formFillingViewModel, value);
+        private set
+        {
+            // Dispose the old ViewModel to prevent memory leaks
+            _formFillingViewModel?.Dispose();
+            SetProperty(ref _formFillingViewModel, value);
+        }
     }
 
     public TemplateEditorViewModel? TemplateEditorViewModel
@@ -158,7 +163,7 @@ public class MainWindowViewModel : ViewModelBase
 
                     _currentDocument = document;
                     TemplateEditorViewModel = null; // Clear template editor
-                    FormFillingViewModel = new FormFillingViewModel(document, _signatureService, _certificateStore);
+                    FormFillingViewModel = new FormFillingViewModel(document);
 
                     UpdateTitle();
                     _logger.LogInformation("Template converted to FilledForm - user must Save As");
@@ -179,7 +184,7 @@ public class MainWindowViewModel : ViewModelBase
                     _isEditingTemplate = false;
                     _currentDocument = document;
                     TemplateEditorViewModel = null; // Clear template editor
-                    FormFillingViewModel = new FormFillingViewModel(document, _signatureService, _certificateStore);
+                    FormFillingViewModel = new FormFillingViewModel(document);
                     UpdateTitle();
                 }
 
@@ -392,7 +397,7 @@ public class MainWindowViewModel : ViewModelBase
                 _isEditingTemplate = false;
                 _currentDocument = document;
                 TemplateEditorViewModel = null;
-                FormFillingViewModel = new FormFillingViewModel(document, _signatureService, _certificateStore);
+                FormFillingViewModel = new FormFillingViewModel(document);
             }
 
             UpdateTitle();
