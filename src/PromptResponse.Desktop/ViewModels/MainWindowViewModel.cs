@@ -23,6 +23,7 @@ public class MainWindowViewModel : ViewModelBase
     private readonly ICertificateGenerator _certificateGenerator;
     private readonly ICertificateStore _certificateStore;
     private readonly ISignatureService _signatureService;
+    private readonly IS3BrowserService _s3BrowserService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private AprDocument? _currentDocument;
     private FormFillingViewModel? _formFillingViewModel;
@@ -36,6 +37,7 @@ public class MainWindowViewModel : ViewModelBase
         ICertificateGenerator certificateGenerator,
         ICertificateStore certificateStore,
         ISignatureService signatureService,
+        IS3BrowserService s3BrowserService,
         ILogger<MainWindowViewModel> logger)
     {
         _fileService = fileService;
@@ -43,6 +45,7 @@ public class MainWindowViewModel : ViewModelBase
         _certificateGenerator = certificateGenerator;
         _certificateStore = certificateStore;
         _signatureService = signatureService;
+        _s3BrowserService = s3BrowserService;
         _logger = logger;
 
         _logger.LogInformation("MainWindowViewModel constructor called");
@@ -58,6 +61,7 @@ public class MainWindowViewModel : ViewModelBase
         SaveAsCommand = new RelayCommand(async () => await SaveFileAsAsync(), () => _currentDocument != null);
         CloseCommand = new RelayCommand(CloseDocument, () => _currentDocument != null);
         SwitchToTemplateEditingCommand = new RelayCommand(SwitchToTemplateEditing, () => _currentDocument != null && !_isEditingTemplate);
+        SwitchToFormFillingCommand = new RelayCommand(SwitchToFormFilling, () => _currentDocument != null && _isEditingTemplate);
 
         // Theme commands
         SetLightThemeCommand = new RelayCommand(() => SetTheme(ThemeVariant.Light));
@@ -67,6 +71,7 @@ public class MainWindowViewModel : ViewModelBase
 
         // Tools commands
         OpenCertificateManagementCommand = new RelayCommand(OpenCertificateManagement);
+        OpenS3BrowserCommand = new RelayCommand(OpenS3Browser);
 
         _logger.LogInformation("MainWindowViewModel initialized successfully");
     }
@@ -101,11 +106,13 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand SaveAsCommand { get; }
     public ICommand CloseCommand { get; }
     public ICommand SwitchToTemplateEditingCommand { get; }
+    public ICommand SwitchToFormFillingCommand { get; }
     public ICommand SetLightThemeCommand { get; }
     public ICommand SetDarkThemeCommand { get; }
     public ICommand SetSystemThemeCommand { get; }
     public ICommand SetCustomThemeCommand { get; }
     public ICommand OpenCertificateManagementCommand { get; }
+    public ICommand OpenS3BrowserCommand { get; }
 
     private async Task OpenFileAsync(bool forFilling)
     {
@@ -310,6 +317,57 @@ public class MainWindowViewModel : ViewModelBase
         {
             _logger.LogError(ex, "Error switching to template editing mode");
             Console.Error.WriteLine($"Error switching to template editing mode: {ex.Message}");
+        }
+    }
+
+    private void SwitchToFormFilling()
+    {
+        _logger.LogInformation("SwitchToFormFilling command invoked");
+
+        if (_currentDocument == null)
+        {
+            _logger.LogWarning("No document loaded, switch cancelled");
+            return;
+        }
+
+        if (!_isEditingTemplate)
+        {
+            _logger.LogWarning("Already in form filling mode");
+            return;
+        }
+
+        try
+        {
+            _logger.LogInformation("Switching from template editing to form filling mode");
+
+            // Update document from template editor view before switching
+            TemplateEditorViewModel?.UpdateDocument();
+
+            // Convert to filled form
+            _currentDocument.DocumentType = DocumentType.FilledForm;
+
+            // Set filled form metadata
+            _currentDocument.Metadata.TemplateId = _currentDocument.Metadata.TemplateId ?? Guid.NewGuid().ToString();
+            _currentDocument.Metadata.FilledDate = DateTime.UtcNow;
+            _currentDocument.Metadata.FilledBy = Environment.UserName;
+
+            // Set editing mode
+            _isEditingTemplate = false;
+
+            // Clear the file path to force Save As
+            _fileService.ClearCurrentFilePath();
+
+            // Switch ViewModels
+            TemplateEditorViewModel = null;
+            FormFillingViewModel = new FormFillingViewModel(_currentDocument);
+
+            UpdateTitle();
+            _logger.LogInformation("Switched to form filling mode successfully");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error switching to form filling mode");
+            Console.Error.WriteLine($"Error switching to form filling mode: {ex.Message}");
         }
     }
 
@@ -717,6 +775,57 @@ public class MainWindowViewModel : ViewModelBase
         {
             _logger.LogError(ex, "Error opening Certificate Management window");
             Console.Error.WriteLine($"Error opening Certificate Management: {ex.Message}");
+        }
+    }
+
+    private void OpenS3Browser()
+    {
+        _logger.LogInformation("Opening S3 Browser window");
+
+        try
+        {
+            var logger = App.ServiceProvider?.GetService(typeof(ILogger<S3BrowserViewModel>)) as ILogger<S3BrowserViewModel>
+                ?? throw new InvalidOperationException("Logger not available");
+
+            // Create a callback to load downloaded documents
+            Action<AprDocument> documentLoadedCallback = (document) =>
+            {
+                _logger.LogInformation("Document loaded from S3: {Title}", document.Metadata.Title);
+
+                // Open the document in form filling mode
+                _currentDocument = document;
+                _isEditingTemplate = false;
+                _fileService.ClearCurrentFilePath(); // Force Save As since it came from S3
+
+                TemplateEditorViewModel = null;
+                FormFillingViewModel = new FormFillingViewModel(document);
+
+                UpdateTitle();
+            };
+
+            var viewModel = new S3BrowserViewModel(
+                _s3BrowserService,
+                logger,
+                documentLoadedCallback);
+
+            var window = new S3BrowserWindow(viewModel);
+
+            // Get the main window as the owner
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                window.ShowDialog(desktop.MainWindow);
+            }
+            else
+            {
+                window.Show();
+            }
+
+            _logger.LogInformation("S3 Browser window opened");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error opening S3 Browser window");
+            Console.Error.WriteLine($"Error opening S3 Browser: {ex.Message}");
         }
     }
 }

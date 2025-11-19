@@ -44,6 +44,11 @@
                           HotKey="Ctrl+E"
                           AutomationProperties.Name="Switch to template editing mode"
                           AutomationProperties.HelpText="Convert current form to a template for editing. Press Ctrl+E"/>
+                <MenuItem Header="Switch to _Form Filling"
+                          Command="{Binding SwitchToFormFillingCommand}"
+                          HotKey="Ctrl+F"
+                          AutomationProperties.Name="Switch to form filling mode"
+                          AutomationProperties.HelpText="Convert current template to a form for filling. Press Ctrl+F"/>
                 <Separator/>
                 <MenuItem Header="_Save"
                           Command="{Binding SaveCommand}"
@@ -98,6 +103,10 @@
                           Command="{Binding OpenCertificateManagementCommand}"
                           AutomationProperties.Name="Certificate management"
                           AutomationProperties.HelpText="Manage digital certificates for signing documents"/>
+                <MenuItem Header="_S3 Browser..."
+                          Command="{Binding OpenS3BrowserCommand}"
+                          AutomationProperties.Name="S3 Browser"
+                          AutomationProperties.HelpText="Browse and download APR documents from S3 storage"/>
             </MenuItem>
             <MenuItem Header="_Help"
                       AutomationProperties.Name="Help menu"

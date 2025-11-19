@@ -223,6 +223,16 @@ public partial class App : Application
         Console.WriteLine("[App]   - Registering ISignatureService -> SignatureService");
         services.AddSingleton<ISignatureService, SignatureService>();
 
+        // S3 services
+        Console.WriteLine("[App]   - Registering HttpClient");
+        services.AddSingleton<HttpClient>();
+
+        Console.WriteLine("[App]   - Registering IS3SubmissionService -> S3SubmissionService");
+        services.AddSingleton<IS3SubmissionService, S3SubmissionService>();
+
+        Console.WriteLine("[App]   - Registering IS3BrowserService -> S3BrowserService");
+        services.AddSingleton<IS3BrowserService, S3BrowserService>();
+
         // ViewModels
         Console.WriteLine("[App]   - Registering MainWindowViewModel");
         services.AddTransient<MainWindowViewModel>();
