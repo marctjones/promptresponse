@@ -1,9 +1,12 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Styling;
 using FluentAssertions;
 using Xunit;
+
+using AvaloniaStyles = Avalonia.Styling.Styles;
 
 namespace PromptResponse.Desktop.Tests.Styles;
 
@@ -69,10 +72,10 @@ public class DesignSystemTests
         resourceInclude.Loaded.Should().NotBeNull();
 
         // Act & Assert - Check that key spacing tokens exist
-        resourceInclude.Should().ContainKey("Space2", "spacing tokens should be defined");
-        resourceInclude.Should().ContainKey("Space4", "spacing tokens should be defined");
-        resourceInclude.Should().ContainKey("Space6", "spacing tokens should be defined");
-        resourceInclude.Should().ContainKey("Space8", "spacing tokens should be defined");
+        resourceInclude.TryGetResource("Space2", null, out _).Should().BeTrue("spacing tokens should be defined");
+        resourceInclude.TryGetResource("Space4", null, out _).Should().BeTrue("spacing tokens should be defined");
+        resourceInclude.TryGetResource("Space6", null, out _).Should().BeTrue("spacing tokens should be defined");
+        resourceInclude.TryGetResource("Space8", null, out _).Should().BeTrue("spacing tokens should be defined");
     }
 
     [Fact]
@@ -86,9 +89,9 @@ public class DesignSystemTests
         resourceInclude.Loaded.Should().NotBeNull();
 
         // Act & Assert - Check that radius tokens exist
-        resourceInclude.Should().ContainKey("RadiusSmall", "radius tokens should be defined");
-        resourceInclude.Should().ContainKey("RadiusMedium", "radius tokens should be defined");
-        resourceInclude.Should().ContainKey("RadiusLarge", "radius tokens should be defined");
+        resourceInclude.TryGetResource("RadiusSmall", null, out _).Should().BeTrue("radius tokens should be defined");
+        resourceInclude.TryGetResource("RadiusMedium", null, out _).Should().BeTrue("radius tokens should be defined");
+        resourceInclude.TryGetResource("RadiusLarge", null, out _).Should().BeTrue("radius tokens should be defined");
     }
 
     [Fact]
@@ -102,10 +105,10 @@ public class DesignSystemTests
         resourceInclude.Loaded.Should().NotBeNull();
 
         // Act & Assert - Check that font size tokens exist
-        resourceInclude.Should().ContainKey("FontSizeSmall", "font size tokens should be defined");
-        resourceInclude.Should().ContainKey("FontSizeBody", "font size tokens should be defined");
-        resourceInclude.Should().ContainKey("FontSizeTitle", "font size tokens should be defined");
-        resourceInclude.Should().ContainKey("FontSizeDisplay", "font size tokens should be defined");
+        resourceInclude.TryGetResource("FontSizeSmall", null, out _).Should().BeTrue("font size tokens should be defined");
+        resourceInclude.TryGetResource("FontSizeBody", null, out _).Should().BeTrue("font size tokens should be defined");
+        resourceInclude.TryGetResource("FontSizeTitle", null, out _).Should().BeTrue("font size tokens should be defined");
+        resourceInclude.TryGetResource("FontSizeDisplay", null, out _).Should().BeTrue("font size tokens should be defined");
     }
 
     [Fact]
@@ -119,9 +122,9 @@ public class DesignSystemTests
         resourceInclude.Loaded.Should().NotBeNull();
 
         // Act & Assert - Check that shadow tokens exist
-        resourceInclude.Should().ContainKey("ShadowSmall", "shadow tokens should be defined");
-        resourceInclude.Should().ContainKey("ShadowMedium", "shadow tokens should be defined");
-        resourceInclude.Should().ContainKey("ShadowLarge", "shadow tokens should be defined");
+        resourceInclude.TryGetResource("ShadowSmall", null, out _).Should().BeTrue("shadow tokens should be defined");
+        resourceInclude.TryGetResource("ShadowMedium", null, out _).Should().BeTrue("shadow tokens should be defined");
+        resourceInclude.TryGetResource("ShadowLarge", null, out _).Should().BeTrue("shadow tokens should be defined");
     }
 
     [Fact]
@@ -135,10 +138,10 @@ public class DesignSystemTests
         resourceInclude.Loaded.Should().NotBeNull();
 
         // Act & Assert - Check that semantic color tokens exist
-        resourceInclude.Should().ContainKey("SuccessBrush", "semantic color tokens should be defined");
-        resourceInclude.Should().ContainKey("ErrorBrush", "semantic color tokens should be defined");
-        resourceInclude.Should().ContainKey("WarningBrush", "semantic color tokens should be defined");
-        resourceInclude.Should().ContainKey("InfoBrush", "semantic color tokens should be defined");
+        resourceInclude.TryGetResource("SuccessBrush", null, out _).Should().BeTrue("semantic color tokens should be defined");
+        resourceInclude.TryGetResource("ErrorBrush", null, out _).Should().BeTrue("semantic color tokens should be defined");
+        resourceInclude.TryGetResource("WarningBrush", null, out _).Should().BeTrue("semantic color tokens should be defined");
+        resourceInclude.TryGetResource("InfoBrush", null, out _).Should().BeTrue("semantic color tokens should be defined");
     }
 
     [Fact]
@@ -151,7 +154,7 @@ public class DesignSystemTests
         };
 
         // Act
-        var styles = styleInclude.Loaded as Styles;
+        var styles = styleInclude.Loaded as AvaloniaStyles;
 
         // Assert
         styles.Should().NotBeNull("ModernControls should contain style definitions");
@@ -220,7 +223,7 @@ public class DesignSystemTests
                 }
             };
 
-            var styles = new Styles
+            var styles = new AvaloniaStyles
             {
                 new StyleInclude(new Uri("avares://PromptResponse.Desktop"))
                 {

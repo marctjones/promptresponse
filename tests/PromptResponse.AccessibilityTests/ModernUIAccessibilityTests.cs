@@ -41,7 +41,7 @@ public class ModernUIAccessibilityTests
         var minHeight = button.MinHeight;
 
         // Assert
-        minHeight.Should().BeGreaterOrEqualTo(32,
+        minHeight.Should().BeGreaterThanOrEqualTo(32,
             "buttons should have minimum 32px touch target for accessibility (WCAG 2.1 AA - Target Size 2.5.5)");
     }
 
@@ -55,7 +55,7 @@ public class ModernUIAccessibilityTests
         var minHeight = textBox.MinHeight;
 
         // Assert
-        minHeight.Should().BeGreaterOrEqualTo(32,
+        minHeight.Should().BeGreaterThanOrEqualTo(32,
             "text inputs should have minimum 32px height for accessibility");
     }
 
@@ -73,7 +73,7 @@ public class ModernUIAccessibilityTests
         var contrast = CalculateContrastRatio(foreground, background);
 
         // Assert
-        contrast.Should().BeGreaterOrEqualTo(minimumRatio - 0.5, // Allow small tolerance for rounding
+        contrast.Should().BeGreaterThanOrEqualTo(minimumRatio - 0.5, // Allow small tolerance for rounding
             $"contrast ratio between {foregroundHex} and {backgroundHex} should meet WCAG AA standards");
     }
 
@@ -88,7 +88,7 @@ public class ModernUIAccessibilityTests
         var contrast = CalculateContrastRatio(successColor, whiteBackground);
 
         // Assert
-        contrast.Should().BeGreaterOrEqualTo(4.5,
+        contrast.Should().BeGreaterThanOrEqualTo(4.5,
             "success color should meet WCAG AA contrast ratio of 4.5:1 on white background");
     }
 
@@ -103,7 +103,7 @@ public class ModernUIAccessibilityTests
         var contrast = CalculateContrastRatio(errorColor, whiteBackground);
 
         // Assert
-        contrast.Should().BeGreaterOrEqualTo(4.5,
+        contrast.Should().BeGreaterThanOrEqualTo(4.5,
             "error color should meet WCAG AA contrast ratio of 4.5:1 on white background");
     }
 
@@ -114,7 +114,7 @@ public class ModernUIAccessibilityTests
 
         // Assert
         const double smallFontSize = 12.0;
-        smallFontSize.Should().BeGreaterOrEqualTo(12.0,
+        smallFontSize.Should().BeGreaterThanOrEqualTo(12.0,
             "minimum font size should be 12pt for legibility (though larger is preferred)");
     }
 
@@ -125,7 +125,7 @@ public class ModernUIAccessibilityTests
 
         // Assert
         const double bodyFontSize = 14.0;
-        bodyFontSize.Should().BeGreaterOrEqualTo(14.0,
+        bodyFontSize.Should().BeGreaterThanOrEqualTo(14.0,
             "body text should be at least 14pt for comfortable reading");
     }
 
@@ -161,7 +161,7 @@ public class ModernUIAccessibilityTests
         // field-label class uses FontSizeBody (14pt)
         const double fieldLabelSize = 14.0;
 
-        fieldLabelSize.Should().BeGreaterOrEqualTo(14.0,
+        fieldLabelSize.Should().BeGreaterThanOrEqualTo(14.0,
             "field labels should be at least 14pt for legibility");
     }
 
@@ -171,7 +171,7 @@ public class ModernUIAccessibilityTests
         // help-text class uses FontSizeSmall (12pt)
         const double helpTextSize = 12.0;
 
-        helpTextSize.Should().BeGreaterOrEqualTo(11.0,
+        helpTextSize.Should().BeGreaterThanOrEqualTo(11.0,
             "help text should be at least 11pt to remain legible");
     }
 
@@ -183,7 +183,7 @@ public class ModernUIAccessibilityTests
         const double bodySize = 14.0;
 
         var ratio = sectionTitleSize / bodySize;
-        ratio.Should().BeGreaterOrEqualTo(1.3,
+        ratio.Should().BeGreaterThanOrEqualTo(1.3,
             "section titles should be significantly larger than body text for clear hierarchy");
     }
 
@@ -195,7 +195,7 @@ public class ModernUIAccessibilityTests
         const double sectionTitleSize = 20.0;
 
         var ratio = pageTitleSize / sectionTitleSize;
-        ratio.Should().BeGreaterOrEqualTo(1.2,
+        ratio.Should().BeGreaterThanOrEqualTo(1.2,
             "page titles should be larger than section titles for clear hierarchy");
     }
 
@@ -205,7 +205,7 @@ public class ModernUIAccessibilityTests
         // Modern TextBox uses 2px border on focus
         const double focusBorderThickness = 2.0;
 
-        focusBorderThickness.Should().BeGreaterOrEqualTo(2.0,
+        focusBorderThickness.Should().BeGreaterThanOrEqualTo(2.0,
             "focus indicators should be at least 2px to be clearly visible");
     }
 

@@ -1,5 +1,5 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--
     Modern Control Styles for PromptResponse
@@ -256,4 +256,4 @@
         <Setter Property="Margin" Value="0,0,0,8"/>
     </Style>
 
-</ResourceDictionary>
+</Styles>

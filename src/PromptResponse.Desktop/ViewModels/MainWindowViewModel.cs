@@ -760,7 +760,8 @@ public class MainWindowViewModel : ViewModelBase
             var window = new CertificateManagementWindow(viewModel);
 
             // Get the main window as the owner
-            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+                && desktop.MainWindow is not null)
             {
                 window.ShowDialog(desktop.MainWindow);
             }
@@ -811,7 +812,8 @@ public class MainWindowViewModel : ViewModelBase
             var window = new S3BrowserWindow(viewModel);
 
             // Get the main window as the owner
-            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+                && desktop.MainWindow is not null)
             {
                 window.ShowDialog(desktop.MainWindow);
             }

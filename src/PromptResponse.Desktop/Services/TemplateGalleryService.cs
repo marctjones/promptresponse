@@ -4,7 +4,7 @@ using Amazon.S3.Model;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
-using PromptResponse.Core.Services.Signatures;
+using PromptResponse.Core.Services;
 
 namespace PromptResponse.Desktop.Services;
 

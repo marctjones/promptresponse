@@ -37,6 +37,11 @@ public class SignatureVerificationResult
     public List<string> Errors { get; set; } = new();
 
     /// <summary>
+    /// Gets or sets a single error message for simple error cases.
+    /// </summary>
+    public string? ErrorMessage { get; set; }
+
+    /// <summary>
     /// Gets or sets warning messages (non-fatal issues).
     /// </summary>
     /// <example>

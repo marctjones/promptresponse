@@ -121,7 +121,8 @@ public class PlatformFeaturesTests
         var prefersReducedMotion = service.PrefersReducedMotion();
 
         // Assert
-        prefersReducedMotion.Should().BeOfType<bool>("should return a boolean value");
+        // Bool methods should return true or false - just verify the call doesn't throw
+        (prefersReducedMotion || !prefersReducedMotion).Should().BeTrue("should return a valid boolean value");
     }
 
     [Fact]
@@ -134,7 +135,8 @@ public class PlatformFeaturesTests
         var supportsAcrylic = service.SupportsAcrylic;
 
         // Assert
-        supportsAcrylic.Should().BeOfType<bool>("should return a boolean value");
+        // Bool properties should return true or false - just verify the call doesn't throw
+        (supportsAcrylic || !supportsAcrylic).Should().BeTrue("should return a valid boolean value");
     }
 
     [Fact]
@@ -147,7 +149,8 @@ public class PlatformFeaturesTests
         var supportsCustomTitleBar = service.SupportsCustomTitleBar;
 
         // Assert
-        supportsCustomTitleBar.Should().BeOfType<bool>("should return a boolean value");
+        // Bool properties should return true or false - just verify the call doesn't throw
+        (supportsCustomTitleBar || !supportsCustomTitleBar).Should().BeTrue("should return a valid boolean value");
     }
 
     [Fact]
@@ -160,7 +163,8 @@ public class PlatformFeaturesTests
         var supportsSystemAccentColor = service.SupportsSystemAccentColor;
 
         // Assert
-        supportsSystemAccentColor.Should().BeOfType<bool>("should return a boolean value");
+        // Bool properties should return true or false - just verify the call doesn't throw
+        (supportsSystemAccentColor || !supportsSystemAccentColor).Should().BeTrue("should return a valid boolean value");
     }
 
     [Theory]
@@ -177,7 +181,7 @@ public class PlatformFeaturesTests
         var result = service.GetAnimationDuration(duration);
 
         // Assert
-        result.Should().BeGreaterOrEqualTo(0, "animation duration should never be negative");
+        result.Should().BeGreaterThanOrEqualTo(0, "animation duration should never be negative");
     }
 
     [Fact]

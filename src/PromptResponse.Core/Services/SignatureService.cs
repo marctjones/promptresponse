@@ -297,7 +297,7 @@ public class SignatureService : ISignatureService
             throw new InvalidOperationException("Certificate does not have an RSA private key");
         }
 
-        return rsa.SignHash(hash, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+        return rsa.SignHash(hash, System.Security.Cryptography.HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
     }
 
     /// <summary>
@@ -315,10 +315,10 @@ public class SignatureService : ISignatureService
 
         return new DigitalSignature
         {
-            SignerName = subjectParts.GetValueOrDefault("CN", "Unknown"),
-            SignerEmail = subjectParts.GetValueOrDefault("E", certificate.GetNameInfo(X509NameType.EmailName, false)),
-            SignerOrganization = subjectParts.GetValueOrDefault("O", null),
-            SignerOrganizationalUnit = subjectParts.GetValueOrDefault("OU", null),
+            SignerName = subjectParts.TryGetValue("CN", out var cn) ? cn : "Unknown",
+            SignerEmail = subjectParts.TryGetValue("E", out var email) ? email : certificate.GetNameInfo(X509NameType.EmailName, false),
+            SignerOrganization = subjectParts.TryGetValue("O", out var org) ? org : null,
+            SignerOrganizationalUnit = subjectParts.TryGetValue("OU", out var ou) ? ou : null,
             CertificateIssuer = certificate.Issuer,
             CertificateThumbprint = certificate.Thumbprint,
             SignedAt = DateTime.UtcNow,
