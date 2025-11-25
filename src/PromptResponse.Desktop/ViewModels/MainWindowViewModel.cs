@@ -29,6 +29,8 @@ public class MainWindowViewModel : ViewModelBase
     private readonly IS3SubmissionService _s3SubmissionService;
     private readonly ITemplateGalleryService _templateGalleryService;
     private readonly ITemplatePublishingService _templatePublishingService;
+    private readonly S3PolicyGenerator _s3PolicyGenerator;
+    private readonly ITemplateUpdateService _templateUpdateService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly UndoRedoManager _undoRedoManager;
     private AprDocument? _currentDocument;
@@ -52,6 +54,8 @@ public class MainWindowViewModel : ViewModelBase
         IS3SubmissionService s3SubmissionService,
         ITemplateGalleryService templateGalleryService,
         ITemplatePublishingService templatePublishingService,
+        S3PolicyGenerator s3PolicyGenerator,
+        ITemplateUpdateService templateUpdateService,
         ILogger<MainWindowViewModel> logger)
     {
         _fileService = fileService;
@@ -64,6 +68,8 @@ public class MainWindowViewModel : ViewModelBase
         _s3SubmissionService = s3SubmissionService;
         _templateGalleryService = templateGalleryService;
         _templatePublishingService = templatePublishingService;
+        _s3PolicyGenerator = s3PolicyGenerator;
+        _templateUpdateService = templateUpdateService;
         _logger = logger;
 
         _logger.LogInformation("MainWindowViewModel constructor called");
@@ -103,6 +109,10 @@ public class MainWindowViewModel : ViewModelBase
         SubmitToS3Command = new RelayCommand(async () => await SubmitToS3Async(), CanSubmitToS3);
         BrowseTemplateGalleryCommand = new RelayCommand(BrowseTemplateGallery);
         PublishTemplateCommand = new RelayCommand(async () => await PublishTemplateAsync(), CanPublishTemplate);
+        ConfigureS3Command = new RelayCommand(OpenS3ConfigurationDialog, CanConfigureS3);
+
+        // Template update commands
+        CheckForUpdatesCommand = new RelayCommand(async () => await CheckForUpdatesAsync(), CanCheckForUpdates);
 
         _logger.LogInformation("MainWindowViewModel initialized successfully");
     }
@@ -232,6 +242,8 @@ public class MainWindowViewModel : ViewModelBase
     public IInputCommand SubmitToS3Command { get; }
     public IInputCommand BrowseTemplateGalleryCommand { get; }
     public IInputCommand PublishTemplateCommand { get; }
+    public IInputCommand ConfigureS3Command { get; }
+    public IInputCommand CheckForUpdatesCommand { get; }
 
     private async Task OpenFileAsync(bool forFilling)
     {
@@ -982,6 +994,7 @@ public class MainWindowViewModel : ViewModelBase
 
         try
         {
+            // Check if submission is configured
             if (!_s3SubmissionService.CanSubmit(_currentDocument))
             {
                 await _dialogService.ShowErrorAsync(
@@ -990,18 +1003,72 @@ public class MainWindowViewModel : ViewModelBase
                 return;
             }
 
+            // Check expiration status
+            var expirationStatus = _s3SubmissionService.GetExpirationStatus(_currentDocument);
+            if (expirationStatus.IsExpired)
+            {
+                await _dialogService.ShowErrorAsync(
+                    "Submission Expired",
+                    "The submission policy for this form has expired.\n\nPlease contact the form provider for an updated template.");
+                return;
+            }
+
+            // Build confirmation message
+            var formTitle = _currentDocument.Metadata.Title;
+            var confirmMessage = $"You are about to submit the form:\n\n\"{formTitle}\"\n\n";
+
+            if (expirationStatus.TimeRemaining.HasValue)
+            {
+                var daysRemaining = expirationStatus.TimeRemaining.Value.TotalDays;
+                if (daysRemaining < 7)
+                {
+                    confirmMessage += $"Note: This submission window expires in {(int)daysRemaining} days.\n\n";
+                }
+            }
+
+            confirmMessage += "This action will upload your form data to the configured S3 storage. Continue?";
+
+            // Show confirmation dialog
+            var confirmed = await _dialogService.ShowConfirmationAsync(
+                "Confirm Submission",
+                confirmMessage);
+
+            if (!confirmed)
+            {
+                _logger.LogInformation("S3 submission cancelled by user");
+                return;
+            }
+
+            // Perform the submission
+            _logger.LogInformation("User confirmed S3 submission, uploading...");
+
             var s3Key = await _s3SubmissionService.SubmitFormAsync(_currentDocument);
 
+            // Show success with details
+            var successMessage = $"Your form has been submitted successfully!\n\n" +
+                                 $"Form: {formTitle}\n" +
+                                 $"Storage Key: {s3Key}\n" +
+                                 $"Submitted: {DateTime.Now:g}";
+
             await _dialogService.ShowInfoAsync(
-                "Submission Successful",
-                $"Form submitted successfully.\nKey: {s3Key}");
+                "Submission Complete",
+                successMessage);
+
+            _logger.LogInformation("Form submitted successfully to S3: {Key}", s3Key);
+        }
+        catch (HttpRequestException ex)
+        {
+            _logger.LogError(ex, "Network error submitting form to S3");
+            await _dialogService.ShowErrorAsync(
+                "Network Error",
+                $"Could not connect to the storage server.\n\nPlease check your internet connection and try again.\n\nDetails: {ex.Message}");
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error submitting form to S3");
             await _dialogService.ShowErrorAsync(
-                "S3 Submission Error",
-                $"Failed to submit form: {ex.Message}");
+                "Submission Failed",
+                $"An error occurred while submitting the form.\n\nDetails: {ex.Message}");
         }
     }
 
@@ -1048,10 +1115,8 @@ public class MainWindowViewModel : ViewModelBase
                 return;
             }
 
-            // For now, show a placeholder message - full S3 config dialog would be needed
-            await _dialogService.ShowInfoAsync(
-                "Template Publishing",
-                "Template publishing requires S3 configuration. This feature will be available in a future release.");
+            // Open S3 configuration dialog for publishing
+            OpenS3ConfigurationDialog();
         }
         catch (Exception ex)
         {
@@ -1059,6 +1124,155 @@ public class MainWindowViewModel : ViewModelBase
             await _dialogService.ShowErrorAsync(
                 "Publishing Error",
                 $"Failed to publish template: {ex.Message}");
+        }
+    }
+
+    private bool CanConfigureS3()
+    {
+        return _currentDocument != null && _isEditingTemplate;
+    }
+
+    private void OpenS3ConfigurationDialog()
+    {
+        if (_currentDocument == null) return;
+
+        _logger.LogInformation("Opening S3 Configuration dialog");
+
+        try
+        {
+            var lifetime = Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+            var mainWindow = lifetime?.MainWindow;
+
+            if (mainWindow == null)
+            {
+                _logger.LogWarning("Could not get main window for S3 Configuration dialog");
+                return;
+            }
+
+            var viewModel = new S3ConfigurationViewModel(
+                _s3PolicyGenerator,
+                _currentDocument,
+                (applied) =>
+                {
+                    if (applied && _templateEditorViewModel != null)
+                    {
+                        _templateEditorViewModel.MarkAsChanged();
+                        _logger.LogInformation("S3 configuration applied to template");
+                    }
+                });
+
+            var window = new S3ConfigurationWindow(viewModel)
+            {
+                WindowStartupLocation = Avalonia.Controls.WindowStartupLocation.CenterOwner
+            };
+
+            window.ShowDialog(mainWindow);
+
+            _logger.LogInformation("S3 Configuration dialog opened");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error opening S3 Configuration dialog");
+            _ = _dialogService.ShowErrorAsync(
+                "S3 Configuration Error",
+                $"Unable to open the S3 Configuration dialog.\n\nDetails: {ex.Message}");
+        }
+    }
+
+    private bool CanCheckForUpdates()
+    {
+        // Can check for updates when filling a form that has a template source URL
+        return _currentDocument != null &&
+               !_isEditingTemplate &&
+               !string.IsNullOrWhiteSpace(_currentDocument.Metadata.TemplateSourceUrl);
+    }
+
+    private async Task CheckForUpdatesAsync()
+    {
+        if (_currentDocument == null) return;
+
+        _logger.LogInformation("Checking for template updates");
+
+        try
+        {
+            // Check for updates
+            var result = await _templateUpdateService.CheckForUpdateAsync(_currentDocument);
+
+            if (!result.Success)
+            {
+                await _dialogService.ShowErrorAsync(
+                    "Update Check Failed",
+                    result.ErrorMessage ?? "Failed to check for updates.");
+                return;
+            }
+
+            if (!result.UpdateAvailable)
+            {
+                await _dialogService.ShowInfoAsync(
+                    "No Updates Available",
+                    $"You have the latest version of this template.\n\nCurrent version: {result.CurrentVersion}");
+                return;
+            }
+
+            // Update is available - ask user if they want to apply it
+            var confirmMessage = $"A new version of this template is available.\n\n" +
+                                 $"Current version: {result.CurrentVersion}\n" +
+                                 $"New version: {result.NewVersion}\n\n" +
+                                 "Your existing responses will be preserved where possible.\n\n" +
+                                 "Do you want to update to the new version?";
+
+            var confirmed = await _dialogService.ShowConfirmationAsync(
+                "Template Update Available",
+                confirmMessage);
+
+            if (!confirmed || result.NewTemplate == null)
+            {
+                _logger.LogInformation("User declined template update");
+                return;
+            }
+
+            // Apply the update
+            _logger.LogInformation("Applying template update from {Old} to {New}",
+                result.CurrentVersion, result.NewVersion);
+
+            var migrationResult = _templateUpdateService.ApplyUpdate(_currentDocument, result.NewTemplate);
+
+            // Update the current document
+            _currentDocument = migrationResult.MigratedDocument;
+
+            // Refresh the view
+            FormFillingViewModel = new FormFillingViewModel(_currentDocument);
+
+            // Show summary
+            var summaryMessage = $"Template updated successfully!\n\n" +
+                                 $"{migrationResult.Summary}\n\n";
+
+            if (migrationResult.OrphanedPrompts.Count > 0)
+            {
+                summaryMessage += "Note: Some of your responses were for fields that no longer exist. " +
+                                  "These have been preserved in the form description.";
+            }
+
+            if (migrationResult.NewPrompts.Count > 0)
+            {
+                summaryMessage += $"\n\n{migrationResult.NewPrompts.Count} new field(s) have been added. " +
+                                  "Please review and complete them.";
+            }
+
+            await _dialogService.ShowInfoAsync("Update Complete", summaryMessage);
+
+            // Mark as needing save
+            _fileService.ClearCurrentFilePath();
+            UpdateTitle();
+
+            _logger.LogInformation("Template update applied: {Summary}", migrationResult.Summary);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error checking for template updates");
+            await _dialogService.ShowErrorAsync(
+                "Update Error",
+                $"Failed to check for updates.\n\nDetails: {ex.Message}");
         }
     }
 }

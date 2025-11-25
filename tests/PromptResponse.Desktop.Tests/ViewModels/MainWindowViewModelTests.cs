@@ -26,6 +26,8 @@ public class MainWindowViewModelTests
     private readonly Mock<IS3SubmissionService> _mockS3SubmissionService;
     private readonly Mock<ITemplateGalleryService> _mockTemplateGalleryService;
     private readonly Mock<ITemplatePublishingService> _mockTemplatePublishingService;
+    private readonly S3PolicyGenerator _s3PolicyGenerator;
+    private readonly Mock<ITemplateUpdateService> _mockTemplateUpdateService;
     private readonly Mock<ILogger<MainWindowViewModel>> _mockLogger;
     private readonly AppSettings _appSettings;
 
@@ -41,6 +43,8 @@ public class MainWindowViewModelTests
         _mockS3SubmissionService = new Mock<IS3SubmissionService>();
         _mockTemplateGalleryService = new Mock<ITemplateGalleryService>();
         _mockTemplatePublishingService = new Mock<ITemplatePublishingService>();
+        _s3PolicyGenerator = new S3PolicyGenerator();
+        _mockTemplateUpdateService = new Mock<ITemplateUpdateService>();
         _mockLogger = new Mock<ILogger<MainWindowViewModel>>();
 
         // Setup default app settings
@@ -61,6 +65,8 @@ public class MainWindowViewModelTests
             _mockS3SubmissionService.Object,
             _mockTemplateGalleryService.Object,
             _mockTemplatePublishingService.Object,
+            _s3PolicyGenerator,
+            _mockTemplateUpdateService.Object,
             _mockLogger.Object);
     }
 

@@ -905,6 +905,149 @@
           "responseMetadata": {}
         }
       ]
+    },
+    {
+      "id": "section_smart_controls",
+      "title": "Smart Control Fields",
+      "description": "Advanced smart controls with specialized UI widgets",
+      "prompts": [
+        {
+          "id": "prompt_password",
+          "label": "Password",
+          "response": "",
+          "hints": {
+            "placeholder": "Enter a secure password",
+            "expectedDataType": "password",
+            "helpText": "Password is masked by default. Click the eye icon to reveal."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_time_smart",
+          "label": "Meeting Time",
+          "response": "",
+          "hints": {
+            "placeholder": "14:30:00",
+            "expectedDataType": "time",
+            "helpText": "Use the time picker or type in 24-hour format"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_datetime_smart",
+          "label": "Appointment Date and Time",
+          "response": "",
+          "hints": {
+            "placeholder": "2025-01-15T14:30:00",
+            "expectedDataType": "datetime",
+            "helpText": "Use the date and time pickers or type manually"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_file",
+          "label": "Resume Upload",
+          "response": "",
+          "hints": {
+            "placeholder": "Click Browse to select a file",
+            "expectedDataType": "file",
+            "helpText": "Select a file to attach. Stores the file path."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_range",
+          "label": "Satisfaction Rating",
+          "response": "",
+          "hints": {
+            "expectedDataType": "range",
+            "min": "1",
+            "max": "10",
+            "step": "1",
+            "helpText": "Drag the slider to rate from 1 (low) to 10 (high)"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_range_decimal",
+          "label": "Temperature Setting",
+          "response": "",
+          "hints": {
+            "expectedDataType": "range",
+            "min": "60",
+            "max": "80",
+            "step": "0.5",
+            "helpText": "Set desired temperature in degrees Fahrenheit"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_color",
+          "label": "Brand Color",
+          "response": "",
+          "hints": {
+            "placeholder": "#FF5733 or red",
+            "expectedDataType": "color",
+            "helpText": "Enter a hex color code or color name. Preview shows on the left."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_email_validated",
+          "label": "Work Email",
+          "response": "",
+          "hints": {
+            "placeholder": "name@company.com",
+            "expectedDataType": "email",
+            "helpText": "Email validation indicator shows green checkmark when valid"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_url_validated",
+          "label": "LinkedIn Profile URL",
+          "response": "",
+          "hints": {
+            "placeholder": "https://linkedin.com/in/yourprofile",
+            "expectedDataType": "url",
+            "helpText": "URL validation indicator shows green checkmark when valid"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_signature_smart",
+          "label": "Digital Signature",
+          "response": "",
+          "hints": {
+            "placeholder": "Type your full legal name",
+            "expectedDataType": "signature",
+            "helpText": "Type your full legal name as an electronic signature. Text appears in cursive."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_multichoice",
+          "label": "Programming Languages Known",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multichoice",
+            "suggestedValues": ["Python", "JavaScript", "TypeScript", "C#", "Java", "Go", "Rust", "C++", "Ruby", "PHP"],
+            "helpText": "Select all programming languages you are proficient in"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_multichoice_interests",
+          "label": "Areas of Interest",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multichoice",
+            "suggestedValues": ["Web Development", "Mobile Apps", "Machine Learning", "Cloud Computing", "DevOps", "Security", "Data Science"],
+            "helpText": "Select all areas that interest you (multiple selections allowed)"
+          },
+          "responseMetadata": {}
+        }
+      ]
     }
   ]
 }

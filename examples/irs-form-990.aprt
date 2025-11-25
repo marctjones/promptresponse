@@ -104,10 +104,9 @@
           "label": "Employer Identification Number (EIN)",
           "response": "",
           "hints": {
-            "placeholder": "12-3456789",
-            "expectedDataType": "text",
-            "validationPattern": "^\\d{2}-\\d{7}$",
-            "helpText": "Nine-digit number assigned by IRS"
+            "placeholder": "XX-XXXXXXX",
+            "expectedDataType": "ein",
+            "helpText": "Nine-digit number assigned by IRS (auto-formats as you type)"
           },
           "responseMetadata": {}
         },
@@ -147,9 +146,9 @@
           "label": "ZIP Code",
           "response": "",
           "hints": {
-            "placeholder": "20001-1234",
-            "expectedDataType": "text",
-            "validationPattern": "^\\d{5}(-\\d{4})?$"
+            "placeholder": "XXXXX or XXXXX-XXXX",
+            "expectedDataType": "zipcode",
+            "helpText": "Auto-formats as you type"
           },
           "responseMetadata": {}
         },

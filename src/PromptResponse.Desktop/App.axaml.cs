@@ -244,6 +244,12 @@ public partial class App : Application
         Console.WriteLine("[App]   - Registering ITemplatePublishingService -> TemplatePublishingService");
         services.AddSingleton<ITemplatePublishingService, TemplatePublishingService>();
 
+        Console.WriteLine("[App]   - Registering S3PolicyGenerator");
+        services.AddSingleton<S3PolicyGenerator>();
+
+        Console.WriteLine("[App]   - Registering ITemplateUpdateService -> TemplateUpdateService");
+        services.AddSingleton<ITemplateUpdateService, TemplateUpdateService>();
+
         // ViewModels
         Console.WriteLine("[App]   - Registering MainWindowViewModel");
         services.AddTransient<MainWindowViewModel>();

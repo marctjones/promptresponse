@@ -83,6 +83,21 @@ public class Metadata
     public string? TemplateVersion { get; set; }
 
     /// <summary>
+    /// Gets or sets the URL where this template can be fetched or updated from.
+    /// </summary>
+    /// <remarks>
+    /// Set by template authors when publishing to a gallery, S3 bucket, or web server.
+    /// Inherited by filled forms when opened from a template.
+    /// Used by the "Check for Updates" feature to fetch the latest template version
+    /// and migrate existing responses to the new structure.
+    /// </remarks>
+    /// <example>
+    /// "https://forms.example.com/templates/employment-app.aprt"
+    /// "https://my-bucket.s3.us-east-1.amazonaws.com/templates/w4-2024.aprt"
+    /// </example>
+    public string? TemplateSourceUrl { get; set; }
+
+    /// <summary>
     /// Gets or sets the name of the person who filled out the form.
     /// </summary>
     /// <remarks>

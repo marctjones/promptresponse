@@ -27,6 +27,7 @@ public static class InputFormatter
             "creditcard" => FormatCreditCard(input),
             "zipcode" => FormatZipCode(input),
             "currency" => FormatCurrency(input),
+            "number" => FormatNumber(input),
             _ => input
         };
     }
@@ -133,6 +134,37 @@ public static class InputFormatter
         {
             // Format with commas and 2 decimal places
             return amount.ToString("N2");
+        }
+
+        return input;
+    }
+
+    /// <summary>
+    /// Formats a number with thousand separators, preserving decimal places as entered.
+    /// </summary>
+    public static string FormatNumber(string input)
+    {
+        // Remove existing formatting but keep decimal point and minus sign
+        var cleaned = Regex.Replace(input, @"[^\d.\-]", "");
+
+        if (string.IsNullOrEmpty(cleaned)) return "";
+
+        // Try to parse as decimal
+        if (decimal.TryParse(cleaned, out var number))
+        {
+            // Count decimal places in original input
+            var decimalIndex = cleaned.IndexOf('.');
+            if (decimalIndex >= 0)
+            {
+                var decimalPlaces = cleaned.Length - decimalIndex - 1;
+                // Format with the same number of decimal places
+                return number.ToString($"N{decimalPlaces}");
+            }
+            else
+            {
+                // No decimal places - format as integer with thousand separators
+                return number.ToString("N0");
+            }
         }
 
         return input;

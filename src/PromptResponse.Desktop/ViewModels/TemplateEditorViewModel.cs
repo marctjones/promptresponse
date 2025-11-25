@@ -18,9 +18,11 @@ public class TemplateEditorViewModel : ViewModelBase
 
     /// <summary>
     /// Standard field type hints available for prompts.
+    /// Empty string allows clearing the selection.
     /// </summary>
     public static readonly string[] ValidFieldTypes = new[]
     {
+        "",               // No type (clear selection)
         "text",
         "email",
         "phone",
@@ -37,7 +39,12 @@ public class TemplateEditorViewModel : ViewModelBase
         "password",
         "range",
         "color",
-        "file"
+        "file",
+        "ssn",            // Social Security Number with auto-formatting
+        "ein",            // Employer Identification Number with auto-formatting
+        "creditcard",     // Credit card number with auto-formatting
+        "zipcode",        // ZIP code with auto-formatting
+        "table"           // Tabular data entry
     };
 
     public TemplateEditorViewModel(AprDocument document)

@@ -301,6 +301,98 @@ public class FormFillingViewModel : ViewModelBase, IDisposable
         }
     }
 
+    #region S3 Submission Status
+
+    /// <summary>
+    /// Gets whether this form has S3 submission configured.
+    /// </summary>
+    public bool HasS3SubmissionConfig =>
+        _document.Metadata.SubmissionConfig?.Type == "s3-presigned-post";
+
+    /// <summary>
+    /// Gets whether this form has a template source URL configured for updates.
+    /// </summary>
+    public bool HasTemplateSourceUrl =>
+        !string.IsNullOrWhiteSpace(_document.Metadata.TemplateSourceUrl);
+
+    /// <summary>
+    /// Gets whether the S3 submission policy has expired.
+    /// </summary>
+    public bool IsSubmissionExpired =>
+        HasS3SubmissionConfig &&
+        _document.Metadata.SubmissionConfig?.ExpiresAt < DateTime.UtcNow;
+
+    /// <summary>
+    /// Gets whether the S3 submission policy is expiring soon (within 7 days).
+    /// </summary>
+    public bool IsSubmissionExpiringSoon
+    {
+        get
+        {
+            if (!HasS3SubmissionConfig) return false;
+            var expiresAt = _document.Metadata.SubmissionConfig?.ExpiresAt;
+            if (expiresAt == null) return false;
+            var daysUntilExpiry = (expiresAt.Value - DateTime.UtcNow).TotalDays;
+            return daysUntilExpiry > 0 && daysUntilExpiry < 7;
+        }
+    }
+
+    /// <summary>
+    /// Gets a user-friendly message about S3 submission status.
+    /// </summary>
+    public string SubmissionStatusText
+    {
+        get
+        {
+            if (!HasS3SubmissionConfig)
+                return string.Empty;
+
+            var config = _document.Metadata.SubmissionConfig!;
+
+            if (IsSubmissionExpired)
+                return "S3 submission EXPIRED - contact form provider";
+
+            if (config.ExpiresAt.HasValue)
+            {
+                var remaining = config.ExpiresAt.Value - DateTime.UtcNow;
+                if (remaining.TotalDays < 1)
+                    return $"Submit to S3 (expires in {remaining.Hours}h)";
+                if (remaining.TotalDays < 7)
+                    return $"Submit to S3 (expires in {(int)remaining.TotalDays} days)";
+                return $"Submit to S3 (expires {config.ExpiresAt.Value:MMM d})";
+            }
+
+            return "Submit to S3";
+        }
+    }
+
+    /// <summary>
+    /// Gets the S3 submission tooltip with more details.
+    /// </summary>
+    public string SubmissionTooltip
+    {
+        get
+        {
+            if (!HasS3SubmissionConfig)
+                return "S3 submission is not configured for this form";
+
+            if (IsSubmissionExpired)
+                return "The S3 submission policy has expired. Please contact the form provider for an updated form.";
+
+            var config = _document.Metadata.SubmissionConfig!;
+            var tooltip = "Click to submit this completed form to S3 storage";
+
+            if (config.ExpiresAt.HasValue)
+            {
+                tooltip += $"\n\nExpires: {config.ExpiresAt.Value:g}";
+            }
+
+            return tooltip;
+        }
+    }
+
+    #endregion
+
     private void UpdateStatusMessage()
     {
         if (HasUnsavedChanges)
@@ -692,26 +784,123 @@ public class PromptViewModel : ViewModelBase
     // Date field - shows date picker (only if no suggested values to avoid overlap)
     public bool IsDateField => ExpectedDataType?.ToLowerInvariant() == "date" && !HasSuggestedValues;
 
+    // Time field - shows time picker
+    public bool IsTimeField => ExpectedDataType?.ToLowerInvariant() == "time" && !HasSuggestedValues;
+
+    // DateTime field - shows combined date and time picker
+    public bool IsDateTimeField => ExpectedDataType?.ToLowerInvariant() == "datetime" && !HasSuggestedValues;
+
     // Boolean field - shows single checkbox (only if no suggested values)
     public bool IsBooleanField => ExpectedDataType?.ToLowerInvariant() == "boolean" && !HasSuggestedValues;
 
-    // Auto-formatted fields (phone, ssn, ein, creditcard, zipcode)
+    // Password field - shows masked input with toggle
+    public bool IsPasswordField => ExpectedDataType?.ToLowerInvariant() == "password";
+    private bool _showPassword;
+    public bool ShowPassword
+    {
+        get => _showPassword;
+        set => SetProperty(ref _showPassword, value);
+    }
+
+    // Color field - shows color picker
+    public bool IsColorField => ExpectedDataType?.ToLowerInvariant() == "color";
+
+    // Range/slider field - shows slider control
+    public bool IsRangeField => ExpectedDataType?.ToLowerInvariant() == "range";
+    public double RangeMin => GetHintDouble("min", 0);
+    public double RangeMax => GetHintDouble("max", 100);
+    public double RangeStep => GetHintDouble("step", 1);
+    public double RangeValue
+    {
+        get => double.TryParse(Response, out var v) ? v : RangeMin;
+        set => Response = value.ToString();
+    }
+    private double GetHintDouble(string key, double defaultValue)
+    {
+        // TODO: Add support for range hints in Prompt model
+        return defaultValue;
+    }
+
+    // File attachment field
+    public bool IsFileField => ExpectedDataType?.ToLowerInvariant() == "file";
+    public string FileName => string.IsNullOrEmpty(Response) ? "" : System.IO.Path.GetFileName(Response);
+
+    // Signature field - digital signature capture
+    public bool IsSignatureField => ExpectedDataType?.ToLowerInvariant() == "signature";
+    public bool HasSignature => !string.IsNullOrEmpty(Response) && Response.StartsWith("data:image");
+
+    // Multichoice field - multiple selection with checkboxes
+    public bool IsMultichoiceField => ExpectedDataType?.ToLowerInvariant() == "multichoice" && HasSuggestedValues;
+    public List<string> SelectedChoices
+    {
+        get => string.IsNullOrEmpty(Response) ? new List<string>() : Response.Split(',').Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToList();
+        set => Response = string.Join(", ", value);
+    }
+    public bool IsChoiceSelected(string choice) => SelectedChoices.Contains(choice);
+    public void ToggleChoice(string choice)
+    {
+        var choices = SelectedChoices;
+        if (choices.Contains(choice))
+            choices.Remove(choice);
+        else
+            choices.Add(choice);
+        SelectedChoices = choices;
+        OnPropertyChanged(nameof(Response));
+    }
+
+    // Email field - text with validation indicator
+    public bool IsEmailField => ExpectedDataType?.ToLowerInvariant() == "email";
+    public bool IsValidEmail => string.IsNullOrEmpty(Response) || System.Text.RegularExpressions.Regex.IsMatch(Response, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+
+    // URL field - text with validation indicator
+    public bool IsUrlField => ExpectedDataType?.ToLowerInvariant() == "url";
+    public bool IsValidUrl => string.IsNullOrEmpty(Response) || Uri.TryCreate(Response, UriKind.Absolute, out var uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
+
+    // Pattern validation field - shows validation indicator based on regex pattern
+    public string? ValidationPattern => _prompt.Hints.ValidationPattern;
+    public bool HasValidationPattern => !string.IsNullOrEmpty(ValidationPattern) && !IsFormattedField;
+    public bool IsValidPattern
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(ValidationPattern))
+                return true;
+            if (string.IsNullOrEmpty(Response))
+                return true; // Empty is valid (unless required)
+            try
+            {
+                return System.Text.RegularExpressions.Regex.IsMatch(Response, ValidationPattern);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+    }
+
+    // Number field - shows numeric-only input
+    public bool IsNumberField => ExpectedDataType?.ToLowerInvariant() is "number" or "currency";
+
+    // Auto-formatted fields (phone, ssn, ein, creditcard, zipcode, currency, number)
     private static readonly HashSet<string> FormattedDataTypes = new(StringComparer.OrdinalIgnoreCase)
     {
-        "phone", "ssn", "ein", "creditcard", "zipcode"
+        "phone", "ssn", "ein", "creditcard", "zipcode", "currency", "number"
     };
     public bool IsFormattedField => ExpectedDataType != null && FormattedDataTypes.Contains(ExpectedDataType);
 
     // Fields with limited options show radio buttons (2-5) or dropdown (6+)
     // Only if NOT a special type field (table, date with no suggestions, etc.)
-    private bool CanShowSelectionControl => HasSuggestedValues && !IsMultilineField && !IsTableField && !IsFormattedField;
+    private bool CanShowSelectionControl => HasSuggestedValues && !IsMultilineField && !IsTableField && !IsFormattedField && !IsMultichoiceField;
     public bool UseRadioButtons => CanShowSelectionControl && SuggestedValues.Count >= 2 && SuggestedValues.Count <= 5;
     public bool UseDropdown => CanShowSelectionControl && SuggestedValues.Count > 5;
 
     // AutoComplete is disabled - we use radio/dropdown for all suggestion cases
     public bool ShowAutocomplete => false;
 
-    public bool HasSmartControl => UseRadioButtons || UseDropdown || IsDateField || IsBooleanField || IsTableField || IsFormattedField;
+    public bool HasSmartControl => UseRadioButtons || UseDropdown || IsDateField || IsTimeField || IsDateTimeField ||
+                                   IsBooleanField || IsTableField || IsFormattedField || IsPasswordField ||
+                                   IsColorField || IsRangeField || IsFileField || IsSignatureField ||
+                                   IsMultichoiceField || IsEmailField || IsUrlField || HasValidationPattern;
 
     /// <summary>
     /// Controls whether to show smart controls (autocomplete, date picker) or plain text box.
@@ -750,6 +939,7 @@ public class PromptViewModel : ViewModelBase
                 {
                     _prompt.Response = value;
                     OnPropertyChanged();
+                    NotifyValidationProperties();
                     return;
                 }
 
@@ -759,15 +949,27 @@ public class PromptViewModel : ViewModelBase
                     var command = new SetPromptResponseCommand(_prompt, value);
                     _undoRedoManager.ExecuteCommand(command);
                     OnPropertyChanged();
+                    NotifyValidationProperties();
                 }
                 else
                 {
                     // Fallback to direct assignment
                     _prompt.Response = value;
                     OnPropertyChanged();
+                    NotifyValidationProperties();
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Notifies validation-related properties when Response changes.
+    /// </summary>
+    private void NotifyValidationProperties()
+    {
+        OnPropertyChanged(nameof(IsValidEmail));
+        OnPropertyChanged(nameof(IsValidUrl));
+        OnPropertyChanged(nameof(IsValidPattern));
     }
 
     /// <summary>

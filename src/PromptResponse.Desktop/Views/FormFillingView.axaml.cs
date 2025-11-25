@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Desktop.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PromptResponse.Desktop.Views;
@@ -477,5 +479,201 @@ public partial class FormFillingView : UserControl
 
         _logger?.LogInformation("Remove row clicked for table: {Label}", promptViewModel.Label);
         promptViewModel.RemoveRow();
+    }
+
+    /// <summary>
+    /// Handles click on password visibility toggle button.
+    /// </summary>
+    private void OnTogglePasswordVisibility(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button || button.Tag is not PromptViewModel promptViewModel)
+        {
+            _logger?.LogWarning("OnTogglePasswordVisibility: sender is not a Button or Tag is not PromptViewModel");
+            return;
+        }
+
+        promptViewModel.ShowPassword = !promptViewModel.ShowPassword;
+        _logger?.LogInformation("Password visibility toggled: {ShowPassword} for prompt: {Label}",
+            promptViewModel.ShowPassword, promptViewModel.Label);
+    }
+
+    /// <summary>
+    /// Handles click on file browse button.
+    /// </summary>
+    private async void OnBrowseFileClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button || button.Tag is not PromptViewModel promptViewModel)
+        {
+            _logger?.LogWarning("OnBrowseFileClick: sender is not a Button or Tag is not PromptViewModel");
+            return;
+        }
+
+        _logger?.LogInformation("Browse file clicked for prompt: {Label}", promptViewModel.Label);
+
+        try
+        {
+            // Get the top-level window
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel == null)
+            {
+                _logger?.LogError("Could not find top-level window");
+                return;
+            }
+
+            // Show file picker
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions
+            {
+                Title = $"Select file for: {promptViewModel.Label}",
+                AllowMultiple = false
+            });
+
+            if (files.Count > 0)
+            {
+                var file = files[0];
+                promptViewModel.Response = file.Path.LocalPath;
+                _logger?.LogInformation("File selected: {Path} for prompt: {Label}", file.Path.LocalPath, promptViewModel.Label);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex, "Error browsing for file for prompt: {Label}", promptViewModel.Label);
+        }
+    }
+
+    /// <summary>
+    /// Handles time picker selection changed.
+    /// </summary>
+    private void OnTimePickerChanged(object? sender, TimePickerSelectedValueChangedEventArgs e)
+    {
+        if (sender is not TimePicker timePicker)
+        {
+            return;
+        }
+
+        // Find the PromptViewModel - the TimePicker's Tag should be the prompt
+        if (timePicker.Tag is PromptViewModel promptViewModel && e.NewTime.HasValue)
+        {
+            promptViewModel.Response = e.NewTime.Value.ToString(@"hh\:mm\:ss");
+            _logger?.LogInformation("Time selected: {Time} for prompt: {Label}", promptViewModel.Response, promptViewModel.Label);
+        }
+    }
+
+    /// <summary>
+    /// Handles date picker selection changed for datetime fields.
+    /// </summary>
+    private void OnDateTimePickerChanged(object? sender, DatePickerSelectedValueChangedEventArgs e)
+    {
+        if (sender is not CalendarDatePicker datePicker)
+        {
+            return;
+        }
+
+        // Find the PromptViewModel from the parent container
+        var parent = datePicker.Parent;
+        while (parent != null && parent is not Grid grid)
+        {
+            parent = parent.Parent as Control;
+        }
+
+        if (parent is Grid containerGrid && containerGrid.Tag is PromptViewModel promptViewModel && e.NewDate.HasValue)
+        {
+            // Get existing time portion if any
+            var existingTime = TimeSpan.Zero;
+            if (!string.IsNullOrEmpty(promptViewModel.Response) && DateTime.TryParse(promptViewModel.Response, out var existingDt))
+            {
+                existingTime = existingDt.TimeOfDay;
+            }
+
+            var newDateTime = e.NewDate.Value.Date.Add(existingTime);
+            promptViewModel.Response = newDateTime.ToString("yyyy-MM-ddTHH:mm:ss");
+            _logger?.LogInformation("DateTime date portion updated: {DateTime} for prompt: {Label}", promptViewModel.Response, promptViewModel.Label);
+        }
+    }
+
+    /// <summary>
+    /// Handles click on color picker button.
+    /// </summary>
+    private void OnColorPickerClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button || button.Tag is not PromptViewModel promptViewModel)
+        {
+            _logger?.LogWarning("OnColorPickerClick: sender is not a Button or Tag is not PromptViewModel");
+            return;
+        }
+
+        _logger?.LogInformation("Color picker clicked for prompt: {Label}", promptViewModel.Label);
+
+        // Common color palette
+        var colors = new[]
+        {
+            "#FF0000", "#FF6600", "#FFCC00", "#33CC00", "#00CCCC",
+            "#0066FF", "#6600FF", "#CC00CC", "#000000", "#666666",
+            "#CCCCCC", "#FFFFFF", "#8B4513", "#FFB6C1", "#20B2AA"
+        };
+
+        var colorGrid = new UniformGrid
+        {
+            Columns = 5,
+            Width = 150,
+            Height = 90
+        };
+
+        Flyout? flyout = null;
+        foreach (var colorHex in colors)
+        {
+            var colorButton = new Button
+            {
+                Width = 28,
+                Height = 28,
+                Margin = new Avalonia.Thickness(1),
+                Background = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse(colorHex)),
+                Tag = colorHex
+            };
+            colorButton.Click += (s, args) =>
+            {
+                if (s is Button btn && btn.Tag is string hex)
+                {
+                    promptViewModel.Response = hex;
+                    _logger?.LogInformation("Color selected: {Color} for prompt: {Label}", hex, promptViewModel.Label);
+                    flyout?.Hide();
+                }
+            };
+            colorGrid.Children.Add(colorButton);
+        }
+
+        flyout = new Flyout
+        {
+            Content = new StackPanel
+            {
+                Spacing = 8,
+                Children =
+                {
+                    colorGrid,
+                    new TextBox
+                    {
+                        Text = promptViewModel.Response,
+                        Watermark = "#RRGGBB or color name",
+                        Width = 150
+                    }
+                }
+            }
+        };
+
+        flyout.ShowAt(button);
+    }
+
+    /// <summary>
+    /// Handles signature clear button click.
+    /// </summary>
+    private void OnClearSignatureClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button || button.Tag is not PromptViewModel promptViewModel)
+        {
+            _logger?.LogWarning("OnClearSignatureClick: sender is not a Button or Tag is not PromptViewModel");
+            return;
+        }
+
+        promptViewModel.Response = "";
+        _logger?.LogInformation("Signature cleared for prompt: {Label}", promptViewModel.Label);
     }
 }

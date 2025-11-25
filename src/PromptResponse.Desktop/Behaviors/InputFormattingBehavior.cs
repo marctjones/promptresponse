@@ -1,7 +1,10 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using PromptResponse.Desktop.Services;
+using System;
+using System.Text.RegularExpressions;
 
 namespace PromptResponse.Desktop.Behaviors;
 
@@ -37,16 +40,83 @@ public static class InputFormattingBehavior
 
     private static void OnIsEnabledChanged(TextBox textBox, AvaloniaPropertyChangedEventArgs e)
     {
+        var dataType = GetDataType(textBox);
+        Console.WriteLine($"[InputFormattingBehavior] IsEnabledChanged: {e.NewValue}, DataType: {dataType}");
+
         if (e.NewValue is true)
         {
             textBox.LostFocus += OnTextBoxLostFocus;
             textBox.TextChanged += OnTextChanged;
+            // Use AddHandler with handledEventsToo:true to intercept input before TextBox handles it
+            textBox.AddHandler(InputElement.TextInputEvent, OnTextInput, RoutingStrategies.Tunnel, handledEventsToo: true);
+            textBox.KeyDown += OnKeyDown;
         }
         else
         {
             textBox.LostFocus -= OnTextBoxLostFocus;
             textBox.TextChanged -= OnTextChanged;
+            textBox.RemoveHandler(InputElement.TextInputEvent, OnTextInput);
+            textBox.KeyDown -= OnKeyDown;
         }
+    }
+
+    /// <summary>
+    /// Filters text input based on data type to prevent invalid characters.
+    /// </summary>
+    private static void OnTextInput(object? sender, TextInputEventArgs e)
+    {
+        if (sender is not TextBox textBox || string.IsNullOrEmpty(e.Text))
+            return;
+
+        var dataType = GetDataType(textBox)?.ToLowerInvariant();
+        Console.WriteLine($"[InputFormattingBehavior] TextInput: '{e.Text}', DataType: {dataType}");
+
+        if (string.IsNullOrEmpty(dataType))
+            return;
+
+        // For numeric types, only allow digits and decimal point
+        if (dataType == "number" || dataType == "currency")
+        {
+            var currentText = textBox.Text ?? "";
+            foreach (var c in e.Text)
+            {
+                // Allow digits
+                if (char.IsDigit(c))
+                    continue;
+                // Allow one decimal point
+                if (c == '.' && !currentText.Contains('.'))
+                    continue;
+                // Allow minus sign at start
+                if (c == '-' && textBox.CaretIndex == 0 && !currentText.Contains('-'))
+                    continue;
+                // Block other characters
+                Console.WriteLine($"[InputFormattingBehavior] Blocking character: '{c}'");
+                e.Handled = true;
+                return;
+            }
+        }
+        // For phone, ssn, ein, creditcard, zipcode - only digits
+        else if (dataType is "phone" or "ssn" or "ein" or "creditcard" or "zipcode")
+        {
+            foreach (var c in e.Text)
+            {
+                if (!char.IsDigit(c))
+                {
+                    Console.WriteLine($"[InputFormattingBehavior] Blocking non-digit: '{c}'");
+                    e.Handled = true;
+                    return;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Allows navigation and editing keys for all types.
+    /// </summary>
+    private static void OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        // Always allow navigation, delete, backspace, etc.
+        // These keys don't trigger TextInput, so we don't need to handle them
     }
 
     private static void OnTextChanged(object? sender, TextChangedEventArgs e)
@@ -106,10 +176,11 @@ public static class InputFormattingBehavior
         if (string.IsNullOrEmpty(dataType))
             return;
 
-        // Format on blur for types that don't format on every keystroke (like currency)
+        // Format on blur for types that don't format on every keystroke (like currency, number)
         var formatOnBlur = dataType.ToLowerInvariant() switch
         {
             "currency" => true,
+            "number" => true,
             _ => false
         };
 

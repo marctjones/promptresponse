@@ -184,10 +184,9 @@
           "label": "Social Security Number",
           "response": "",
           "hints": {
-            "placeholder": "123-45-6789",
-            "expectedDataType": "text",
-            "validationPattern": "^\\d{3}-\\d{2}-\\d{4}$",
-            "helpText": "Enter your 9-digit Social Security Number"
+            "placeholder": "XXX-XX-XXXX",
+            "expectedDataType": "ssn",
+            "helpText": "Enter your 9-digit Social Security Number (auto-formats as you type)"
           },
           "responseMetadata": {}
         },
@@ -369,7 +368,9 @@
               "label": "ZIP Code",
               "response": "",
               "hints": {
-                "expectedDataType": "text"
+                "placeholder": "XXXXX or XXXXX-XXXX",
+                "expectedDataType": "zipcode",
+                "helpText": "Auto-formats as you type"
               },
               "responseMetadata": {}
             },
@@ -471,7 +472,9 @@
               "label": "ZIP Code",
               "response": "",
               "hints": {
-                "expectedDataType": "text"
+                "placeholder": "XXXXX or XXXXX-XXXX",
+                "expectedDataType": "zipcode",
+                "helpText": "Auto-formats as you type"
               },
               "responseMetadata": {}
             },

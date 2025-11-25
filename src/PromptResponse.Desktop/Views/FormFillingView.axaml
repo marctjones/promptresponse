@@ -12,6 +12,14 @@
         <converters:ContainsValueConverter x:Key="ContainsValueConverter"/>
         <converters:EqualsMultiConverter x:Key="EqualsMultiConverter"/>
         <converters:ContainsMultiConverter x:Key="ContainsMultiConverter"/>
+        <converters:DateTimeConverter x:Key="DateTimeConverter"/>
+        <converters:TimeSpanConverter x:Key="TimeSpanConverter"/>
+        <converters:DateTimeToTimeConverter x:Key="DateTimeToTimeConverter"/>
+        <converters:ColorBrushConverter x:Key="ColorBrushConverter"/>
+        <converters:ValidationIconConverter x:Key="ValidationIconConverter"/>
+        <converters:ValidationColorConverter x:Key="ValidationColorConverter"/>
+        <converters:ValidationTooltipConverter x:Key="ValidationTooltipConverter"/>
+        <converters:ContainsConverter x:Key="ContainsConverter"/>
     </UserControl.Resources>
 
     <Design.DataContext>
@@ -46,13 +54,51 @@
                     </Button>
                     <Button Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).SubmitToS3Command}"
                             Classes="modern"
-                            ToolTip.Tip="Submit this form to S3 storage"
+                            ToolTip.Tip="{Binding SubmissionTooltip}"
+                            IsEnabled="{Binding !IsSubmissionExpired}"
+                            IsVisible="{Binding HasS3SubmissionConfig}"
                             AutomationProperties.Name="Submit to S3 button"
-                            AutomationProperties.HelpText="Submit this completed form to the configured S3 bucket">
+                            AutomationProperties.HelpText="{Binding SubmissionTooltip}">
                         <StackPanel Orientation="Horizontal" Spacing="8">
+                            <!-- Cloud icon with status color -->
                             <PathIcon Data="M19.35,10.04C18.67,6.59 15.64,4 12,4C9.11,4 6.6,5.64 5.35,8.04C2.34,8.36 0,10.91 0,14A6,6 0 0,0 6,20H19A5,5 0 0,0 24,15C24,12.36 21.95,10.22 19.35,10.04M19,18H6A4,4 0 0,1 2,14C2,11.95 3.53,10.24 5.56,10.03L6.63,9.92L7.13,8.97C8.08,7.14 9.94,6 12,6C14.62,6 16.88,7.86 17.39,10.43L17.69,11.93L19.22,12.04C20.78,12.14 22,13.45 22,15A3,3 0 0,1 19,18M8,13H10.55V16H13.45V13H16L12,9L8,13Z"
+                                      Width="16" Height="16">
+                                <PathIcon.Styles>
+                                    <Style Selector="PathIcon">
+                                        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+                                    </Style>
+                                </PathIcon.Styles>
+                            </PathIcon>
+                            <TextBlock Text="{Binding SubmissionStatusText}" VerticalAlignment="Center"/>
+                            <!-- Warning indicator for expiring soon -->
+                            <TextBlock Text="⚠"
+                                       FontSize="14"
+                                       Foreground="#FFA500"
+                                       IsVisible="{Binding IsSubmissionExpiringSoon}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <!-- Show disabled state message when no S3 config -->
+                    <TextBlock Text="No S3 submission configured"
+                               FontSize="12"
+                               Foreground="{DynamicResource SystemBaseMediumColor}"
+                               VerticalAlignment="Center"
+                               Margin="8,0,0,0"
+                               IsVisible="{Binding !HasS3SubmissionConfig}"
+                               AutomationProperties.Name="S3 submission not configured"/>
+
+                    <!-- Check for Updates button - shown when template has a source URL -->
+                    <Button Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).CheckForUpdatesCommand}"
+                            Classes="modern"
+                            ToolTip.Tip="Check if a newer version of this template is available"
+                            IsVisible="{Binding HasTemplateSourceUrl}"
+                            Margin="8,0,0,0"
+                            AutomationProperties.Name="Check for updates"
+                            AutomationProperties.HelpText="Check if a newer version of this template is available from the original source">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"
                                       Width="16" Height="16"/>
-                            <TextBlock Text="Submit to S3" VerticalAlignment="Center"/>
+                            <TextBlock Text="Check for Updates" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -604,32 +650,414 @@
                                                                                       IsVisible="{Binding IsBooleanField}"/>
 
                                                                             <!-- Auto-formatted text input (phone, SSN, etc.) -->
-                                                                            <TextBox Grid.Column="0"
-                                                                                     Text="{Binding Response}"
-                                                                                     Watermark="{Binding Placeholder}"
-                                                                                     MinHeight="36"
-                                                                                     Padding="10,8"
-                                                                                     behaviors:InputFormattingBehavior.IsEnabled="{Binding ShowSmartControl}"
-                                                                                     behaviors:InputFormattingBehavior.DataType="{Binding ExpectedDataType}"
-                                                                                     AutomationProperties.Name="{Binding Label}"
-                                                                                     AutomationProperties.HelpText="{Binding HelpText}"
-                                                                                     IsVisible="{Binding IsFormattedField}"
-                                                                                     TabIndex="0"/>
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto"
+                                                                                  IsVisible="{Binding IsFormattedField}">
+                                                                                <TextBox Grid.Column="0"
+                                                                                         Text="{Binding Response}"
+                                                                                         Watermark="{Binding Placeholder}"
+                                                                                         MinHeight="36"
+                                                                                         Padding="10,8"
+                                                                                         behaviors:InputFormattingBehavior.IsEnabled="{Binding ShowSmartControl}"
+                                                                                         behaviors:InputFormattingBehavior.DataType="{Binding ExpectedDataType}"
+                                                                                         AutomationProperties.Name="{Binding Label}"
+                                                                                         AutomationProperties.HelpText="{Binding HelpText}"
+                                                                                         TabIndex="0"/>
+                                                                                <Button Grid.Column="1"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input"
+                                                                                        AutomationProperties.HelpText="Click to use a simple text box instead of the smart control">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16"
+                                                                                              Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
 
-                                                                            <!-- Toggle button to switch to plain text -->
-                                                                            <Button Grid.Column="1"
-                                                                                    Width="36"
-                                                                                    Height="36"
-                                                                                    Margin="4,0,0,0"
-                                                                                    Click="OnToggleSmartControlClick"
-                                                                                    Tag="{Binding}"
-                                                                                    ToolTip.Tip="Switch to plain text input"
-                                                                                    AutomationProperties.Name="Switch to plain text input"
-                                                                                    AutomationProperties.HelpText="Click to use a simple text box instead of the smart control">
-                                                                                <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
-                                                                                          Width="16"
-                                                                                          Height="16"/>
-                                                                            </Button>
+                                                                            <!-- Password field with masked input and show/hide toggle -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto,Auto"
+                                                                                  IsVisible="{Binding IsPasswordField}">
+                                                                                <TextBox Grid.Column="0"
+                                                                                         Text="{Binding Response}"
+                                                                                         Watermark="{Binding Placeholder}"
+                                                                                         PasswordChar="●"
+                                                                                         RevealPassword="{Binding ShowPassword}"
+                                                                                         MinHeight="36"
+                                                                                         Padding="10,8"
+                                                                                         AutomationProperties.Name="{Binding Label}"
+                                                                                         AutomationProperties.HelpText="{Binding HelpText}"
+                                                                                         TabIndex="0"/>
+                                                                                <Button Grid.Column="1"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnTogglePasswordVisibility"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Show/hide password"
+                                                                                        AutomationProperties.Name="Toggle password visibility">
+                                                                                    <PathIcon Data="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                                <Button Grid.Column="2"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- Time picker -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto,Auto"
+                                                                                  IsVisible="{Binding IsTimeField}">
+                                                                                <TextBox Grid.Column="0"
+                                                                                         Text="{Binding Response}"
+                                                                                         Watermark="HH:MM:SS"
+                                                                                         MinHeight="36"
+                                                                                         Padding="10,8"
+                                                                                         AutomationProperties.Name="{Binding Label}"
+                                                                                         AutomationProperties.HelpText="{Binding HelpText}"
+                                                                                         TabIndex="0"/>
+                                                                                <TimePicker Grid.Column="1"
+                                                                                            SelectedTime="{Binding Response, Converter={StaticResource TimeSpanConverter}}"
+                                                                                            MinWidth="100"
+                                                                                            Margin="4,0,0,0"
+                                                                                            AutomationProperties.Name="{Binding Label}"/>
+                                                                                <Button Grid.Column="2"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- DateTime picker -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto,Auto,Auto"
+                                                                                  IsVisible="{Binding IsDateTimeField}">
+                                                                                <TextBox Grid.Column="0"
+                                                                                         Text="{Binding Response}"
+                                                                                         Watermark="YYYY-MM-DD HH:MM:SS"
+                                                                                         MinHeight="36"
+                                                                                         Padding="10,8"
+                                                                                         AutomationProperties.Name="{Binding Label}"
+                                                                                         AutomationProperties.HelpText="{Binding HelpText}"
+                                                                                         TabIndex="0"/>
+                                                                                <CalendarDatePicker Grid.Column="1"
+                                                                                                    SelectedDate="{Binding Response, Converter={StaticResource DateTimeConverter}}"
+                                                                                                    MinWidth="120"
+                                                                                                    Margin="4,0,0,0"
+                                                                                                    AutomationProperties.Name="{Binding Label}"/>
+                                                                                <TimePicker Grid.Column="2"
+                                                                                            SelectedTime="{Binding Response, Converter={StaticResource DateTimeToTimeConverter}}"
+                                                                                            MinWidth="100"
+                                                                                            Margin="4,0,0,0"
+                                                                                            AutomationProperties.Name="{Binding Label} time"/>
+                                                                                <Button Grid.Column="3"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- File picker -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto,Auto"
+                                                                                  IsVisible="{Binding IsFileField}">
+                                                                                <TextBox Grid.Column="0"
+                                                                                         Text="{Binding Response}"
+                                                                                         Watermark="Click Browse to select a file"
+                                                                                         MinHeight="36"
+                                                                                         Padding="10,8"
+                                                                                         IsReadOnly="True"
+                                                                                         AutomationProperties.Name="{Binding Label}"
+                                                                                         AutomationProperties.HelpText="{Binding HelpText}"
+                                                                                         TabIndex="0"/>
+                                                                                <Button Grid.Column="1"
+                                                                                        Content="Browse..."
+                                                                                        MinWidth="80"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnBrowseFileClick"
+                                                                                        Tag="{Binding}"
+                                                                                        AutomationProperties.Name="Browse for file"/>
+                                                                                <Button Grid.Column="2"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- Range slider -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="Auto,*,Auto,Auto"
+                                                                                  IsVisible="{Binding IsRangeField}">
+                                                                                <TextBlock Grid.Column="0"
+                                                                                           Text="{Binding RangeMin}"
+                                                                                           VerticalAlignment="Center"
+                                                                                           Margin="0,0,8,0"/>
+                                                                                <Slider Grid.Column="1"
+                                                                                        Value="{Binding RangeValue}"
+                                                                                        Minimum="{Binding RangeMin}"
+                                                                                        Maximum="{Binding RangeMax}"
+                                                                                        TickFrequency="{Binding RangeStep}"
+                                                                                        IsSnapToTickEnabled="True"
+                                                                                        MinHeight="36"
+                                                                                        AutomationProperties.Name="{Binding Label}"
+                                                                                        AutomationProperties.HelpText="{Binding HelpText}"/>
+                                                                                <TextBlock Grid.Column="2"
+                                                                                           Text="{Binding Response}"
+                                                                                           VerticalAlignment="Center"
+                                                                                           FontWeight="Bold"
+                                                                                           MinWidth="40"
+                                                                                           TextAlignment="Center"
+                                                                                           Margin="8,0"/>
+                                                                                <Button Grid.Column="3"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- Color picker -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="Auto,*,Auto"
+                                                                                  IsVisible="{Binding IsColorField}">
+                                                                                <Border Grid.Column="0"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        CornerRadius="4"
+                                                                                        BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                                                                        BorderThickness="1"
+                                                                                        Background="{Binding Response, Converter={StaticResource ColorBrushConverter}}"
+                                                                                        Margin="0,0,8,0"/>
+                                                                                <TextBox Grid.Column="1"
+                                                                                         Text="{Binding Response}"
+                                                                                         Watermark="#RRGGBB or color name"
+                                                                                         MinHeight="36"
+                                                                                         Padding="10,8"
+                                                                                         AutomationProperties.Name="{Binding Label}"
+                                                                                         AutomationProperties.HelpText="{Binding HelpText}"
+                                                                                         TabIndex="0"/>
+                                                                                <Button Grid.Column="2"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- Email field with validation indicator -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto,Auto"
+                                                                                  IsVisible="{Binding IsEmailField}">
+                                                                                <TextBox Grid.Column="0"
+                                                                                         Text="{Binding Response}"
+                                                                                         Watermark="{Binding Placeholder}"
+                                                                                         MinHeight="36"
+                                                                                         Padding="10,8"
+                                                                                         AutomationProperties.Name="{Binding Label}"
+                                                                                         AutomationProperties.HelpText="{Binding HelpText}"
+                                                                                         TabIndex="0"/>
+                                                                                <Border Grid.Column="1"
+                                                                                        Width="24"
+                                                                                        Height="24"
+                                                                                        Margin="4,0,0,0"
+                                                                                        VerticalAlignment="Center"
+                                                                                        ToolTip.Tip="{Binding IsValidEmail, Converter={StaticResource ValidationTooltipConverter}}">
+                                                                                    <PathIcon Data="{Binding IsValidEmail, Converter={StaticResource ValidationIconConverter}}"
+                                                                                              Foreground="{Binding IsValidEmail, Converter={StaticResource ValidationColorConverter}}"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Border>
+                                                                                <Button Grid.Column="2"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- URL field with validation indicator -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto,Auto"
+                                                                                  IsVisible="{Binding IsUrlField}">
+                                                                                <TextBox Grid.Column="0"
+                                                                                         Text="{Binding Response}"
+                                                                                         Watermark="{Binding Placeholder}"
+                                                                                         MinHeight="36"
+                                                                                         Padding="10,8"
+                                                                                         AutomationProperties.Name="{Binding Label}"
+                                                                                         AutomationProperties.HelpText="{Binding HelpText}"
+                                                                                         TabIndex="0"/>
+                                                                                <Border Grid.Column="1"
+                                                                                        Width="24"
+                                                                                        Height="24"
+                                                                                        Margin="4,0,0,0"
+                                                                                        VerticalAlignment="Center"
+                                                                                        ToolTip.Tip="{Binding IsValidUrl, Converter={StaticResource ValidationTooltipConverter}}">
+                                                                                    <PathIcon Data="{Binding IsValidUrl, Converter={StaticResource ValidationIconConverter}}"
+                                                                                              Foreground="{Binding IsValidUrl, Converter={StaticResource ValidationColorConverter}}"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Border>
+                                                                                <Button Grid.Column="2"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- Signature capture field -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto"
+                                                                                  IsVisible="{Binding IsSignatureField}">
+                                                                                <Border Grid.Column="0"
+                                                                                        BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                                                                        BorderThickness="1"
+                                                                                        CornerRadius="4"
+                                                                                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                                                                                        MinHeight="80"
+                                                                                        Padding="8">
+                                                                                    <StackPanel>
+                                                                                        <TextBlock Text="Type your full legal name as signature:"
+                                                                                                   FontSize="11"
+                                                                                                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                                                                                                   Margin="0,0,0,4"/>
+                                                                                        <TextBox Text="{Binding Response}"
+                                                                                                 FontFamily="Segoe Script, Brush Script MT, cursive"
+                                                                                                 FontSize="20"
+                                                                                                 FontStyle="Italic"
+                                                                                                 Watermark="Type your signature here"
+                                                                                                 MinHeight="36"
+                                                                                                 AutomationProperties.Name="{Binding Label}"
+                                                                                                 AutomationProperties.HelpText="Type your full legal name as an electronic signature"/>
+                                                                                    </StackPanel>
+                                                                                </Border>
+                                                                                <Button Grid.Column="1"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        VerticalAlignment="Top"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- Multichoice checkboxes -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto"
+                                                                                  IsVisible="{Binding IsMultichoiceField}">
+                                                                                <ItemsControl Grid.Column="0"
+                                                                                              ItemsSource="{Binding SuggestedValues}"
+                                                                                              Tag="{Binding}">
+                                                                                    <ItemsControl.ItemTemplate>
+                                                                                        <DataTemplate>
+                                                                                            <CheckBox Content="{Binding}"
+                                                                                                      Click="OnMultiChoiceCheckBoxClick"
+                                                                                                      Tag="{Binding}"
+                                                                                                      Margin="0,2"/>
+                                                                                        </DataTemplate>
+                                                                                    </ItemsControl.ItemTemplate>
+                                                                                </ItemsControl>
+                                                                                <Button Grid.Column="1"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        VerticalAlignment="Top"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
+
+                                                                            <!-- Pattern validation field -->
+                                                                            <Grid Grid.Column="0"
+                                                                                  ColumnDefinitions="*,Auto,Auto"
+                                                                                  IsVisible="{Binding HasValidationPattern}">
+                                                                                <TextBox Grid.Column="0"
+                                                                                         Text="{Binding Response}"
+                                                                                         Watermark="{Binding Placeholder}"
+                                                                                         MinHeight="36"
+                                                                                         Padding="10,8"
+                                                                                         AutomationProperties.Name="{Binding Label}"
+                                                                                         AutomationProperties.HelpText="{Binding HelpText}"
+                                                                                         TabIndex="0"/>
+                                                                                <Border Grid.Column="1"
+                                                                                        Width="24"
+                                                                                        Height="24"
+                                                                                        Margin="4,0,0,0"
+                                                                                        VerticalAlignment="Center"
+                                                                                        ToolTip.Tip="{Binding IsValidPattern, Converter={StaticResource ValidationTooltipConverter}}">
+                                                                                    <PathIcon Data="{Binding IsValidPattern, Converter={StaticResource ValidationIconConverter}}"
+                                                                                              Foreground="{Binding IsValidPattern, Converter={StaticResource ValidationColorConverter}}"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Border>
+                                                                                <Button Grid.Column="2"
+                                                                                        Width="36"
+                                                                                        Height="36"
+                                                                                        Margin="4,0,0,0"
+                                                                                        Click="OnToggleSmartControlClick"
+                                                                                        Tag="{Binding}"
+                                                                                        ToolTip.Tip="Switch to plain text input"
+                                                                                        AutomationProperties.Name="Switch to plain text input">
+                                                                                    <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                                              Width="16" Height="16"/>
+                                                                                </Button>
+                                                                            </Grid>
                                                                         </Grid>
 
                                                                         <!-- Plain TextBox (shown when UseSmartControl is false or no smart control available) -->
@@ -962,32 +1390,33 @@
                                                               IsVisible="{Binding IsBooleanField}"/>
 
                                                     <!-- Auto-formatted text input (phone, SSN, etc.) -->
-                                                    <TextBox Grid.Column="0"
-                                                             Text="{Binding Response}"
-                                                             Watermark="{Binding Placeholder}"
-                                                             MinHeight="36"
-                                                             Padding="10,8"
-                                                             behaviors:InputFormattingBehavior.IsEnabled="{Binding ShowSmartControl}"
-                                                             behaviors:InputFormattingBehavior.DataType="{Binding ExpectedDataType}"
-                                                             AutomationProperties.Name="{Binding Label}"
-                                                             AutomationProperties.HelpText="{Binding HelpText}"
-                                                             IsVisible="{Binding IsFormattedField}"
-                                                             TabIndex="0"/>
-
-                                                    <!-- Toggle button to switch to plain text -->
-                                                    <Button Grid.Column="1"
-                                                            Width="36"
-                                                            Height="36"
-                                                            Margin="4,0,0,0"
-                                                            Click="OnToggleSmartControlClick"
-                                                            Tag="{Binding}"
-                                                            ToolTip.Tip="Switch to plain text input"
-                                                            AutomationProperties.Name="Switch to plain text input"
-                                                            AutomationProperties.HelpText="Click to use a simple text box instead of the smart control">
-                                                        <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
-                                                                  Width="16"
-                                                                  Height="16"/>
-                                                    </Button>
+                                                    <Grid Grid.Column="0"
+                                                          ColumnDefinitions="*,Auto"
+                                                          IsVisible="{Binding IsFormattedField}">
+                                                        <TextBox Grid.Column="0"
+                                                                 Text="{Binding Response}"
+                                                                 Watermark="{Binding Placeholder}"
+                                                                 MinHeight="36"
+                                                                 Padding="10,8"
+                                                                 behaviors:InputFormattingBehavior.IsEnabled="{Binding ShowSmartControl}"
+                                                                 behaviors:InputFormattingBehavior.DataType="{Binding ExpectedDataType}"
+                                                                 AutomationProperties.Name="{Binding Label}"
+                                                                 AutomationProperties.HelpText="{Binding HelpText}"
+                                                                 TabIndex="0"/>
+                                                        <Button Grid.Column="1"
+                                                                Width="36"
+                                                                Height="36"
+                                                                Margin="4,0,0,0"
+                                                                Click="OnToggleSmartControlClick"
+                                                                Tag="{Binding}"
+                                                                ToolTip.Tip="Switch to plain text input"
+                                                                AutomationProperties.Name="Switch to plain text input"
+                                                                AutomationProperties.HelpText="Click to use a simple text box instead of the smart control">
+                                                            <PathIcon Data="M5,3C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3H5M5,5H19V19H5V5M7,7V9H17V7H7M7,11V13H17V11H7M7,15V17H14V15H7Z"
+                                                                      Width="16"
+                                                                      Height="16"/>
+                                                        </Button>
+                                                    </Grid>
                                                 </Grid>
 
                                                 <!-- Plain TextBox (shown when UseSmartControl is false or no smart control available) -->
