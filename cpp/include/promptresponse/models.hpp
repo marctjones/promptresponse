@@ -40,27 +40,20 @@ struct Prompt {
         : id(std::move(id)), label(std::move(label)), response("") {}
 };
 
-struct Subsection {
-    std::string id;
-    std::string title;
-    std::optional<std::string> description;
-    std::vector<Prompt> prompts;
-
-    Subsection() = default;
-    Subsection(std::string id, std::string title)
-        : id(std::move(id)), title(std::move(title)) {}
-};
-
 struct Section {
     std::string id;
     std::string title;
     std::optional<std::string> description;
     std::vector<Prompt> prompts;
-    std::vector<Subsection> subsections;
+    std::vector<Section> sections;
 
     Section() = default;
     Section(std::string id, std::string title)
         : id(std::move(id)), title(std::move(title)) {}
+
+    // Get all prompts in this section and nested sections (flattened)
+    std::vector<Prompt*> getAllPrompts();
+    std::vector<const Prompt*> getAllPrompts() const;
 };
 
 struct DigitalSignature {

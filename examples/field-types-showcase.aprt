@@ -1,0 +1,910 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Field Types Showcase - APR Format Demo",
+    "description": "A comprehensive demonstration of all supported field types, hints, validation patterns, and form features in the APR format",
+    "created": "2025-01-01T00:00:00Z",
+    "modified": "2025-01-01T00:00:00Z",
+    "author": "PromptResponse Team",
+    "templateId": "field-types-showcase",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_text_fields",
+      "title": "Text Input Fields",
+      "description": "Various text-based input types",
+      "prompts": [
+        {
+          "id": "prompt_text_basic",
+          "label": "Basic Text Field",
+          "response": "",
+          "hints": {
+            "placeholder": "Enter any text here",
+            "expectedDataType": "text",
+            "helpText": "A simple single-line text input for general text entry"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_text_multiline",
+          "label": "Multi-line Text (Comments/Description)",
+          "response": "",
+          "hints": {
+            "placeholder": "Enter multiple lines of text...\nPress Enter for new lines",
+            "expectedDataType": "multiline",
+            "helpText": "Use this for longer text entries like comments, descriptions, or addresses"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_text_with_validation",
+          "label": "Text with Validation Pattern (Product Code)",
+          "response": "",
+          "hints": {
+            "placeholder": "ABC-12345",
+            "expectedDataType": "text",
+            "validationPattern": "^[A-Z]{3}-\\d{5}$",
+            "helpText": "Format: 3 uppercase letters, hyphen, 5 digits (e.g., ABC-12345)"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_contact_fields",
+      "title": "Contact Information Fields",
+      "description": "Email, phone, and URL inputs",
+      "prompts": [
+        {
+          "id": "prompt_email",
+          "label": "Email Address",
+          "response": "",
+          "hints": {
+            "placeholder": "user@example.com",
+            "expectedDataType": "email",
+            "helpText": "Enter a valid email address"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_phone",
+          "label": "Phone Number",
+          "response": "",
+          "hints": {
+            "placeholder": "+1 (555) 123-4567",
+            "expectedDataType": "phone",
+            "helpText": "Accepts various phone formats"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_phone_international",
+          "label": "International Phone Number",
+          "response": "",
+          "hints": {
+            "placeholder": "+44 20 7946 0958",
+            "expectedDataType": "phone",
+            "helpText": "Include country code for international numbers"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_url",
+          "label": "Website URL",
+          "response": "",
+          "hints": {
+            "placeholder": "https://www.example.com",
+            "expectedDataType": "url",
+            "helpText": "Enter a complete URL including https://"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_formatted_fields",
+      "title": "Auto-Formatted Fields",
+      "description": "Fields that automatically format as you type (SSN, EIN, credit card, etc.)",
+      "prompts": [
+        {
+          "id": "prompt_ssn_formatted",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "placeholder": "XXX-XX-XXXX",
+            "expectedDataType": "ssn",
+            "helpText": "Auto-formats as XXX-XX-XXXX as you type"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_ein_formatted",
+          "label": "Employer Identification Number (EIN)",
+          "response": "",
+          "hints": {
+            "placeholder": "XX-XXXXXXX",
+            "expectedDataType": "ein",
+            "helpText": "Auto-formats as XX-XXXXXXX as you type"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_creditcard",
+          "label": "Credit Card Number",
+          "response": "",
+          "hints": {
+            "placeholder": "XXXX XXXX XXXX XXXX",
+            "expectedDataType": "creditcard",
+            "helpText": "Auto-formats with spaces every 4 digits"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_zipcode",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "placeholder": "XXXXX or XXXXX-XXXX",
+            "expectedDataType": "zipcode",
+            "helpText": "Auto-formats as XXXXX or XXXXX-XXXX (ZIP+4)"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_date_time",
+      "title": "Date and Time Fields",
+      "description": "Various date and time input types",
+      "prompts": [
+        {
+          "id": "prompt_date",
+          "label": "Date (Standard Format)",
+          "response": "",
+          "hints": {
+            "placeholder": "2025-01-15",
+            "expectedDataType": "date",
+            "helpText": "Enter date in YYYY-MM-DD format"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_time",
+          "label": "Time",
+          "response": "",
+          "hints": {
+            "placeholder": "14:30:00",
+            "expectedDataType": "time",
+            "helpText": "Enter time in 24-hour format (HH:MM:SS)"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_datetime",
+          "label": "Date and Time Combined",
+          "response": "",
+          "hints": {
+            "placeholder": "2025-01-15T14:30:00Z",
+            "expectedDataType": "datetime",
+            "helpText": "ISO 8601 format with timezone"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_date_range_start",
+          "label": "Date Range - Start Date",
+          "response": "",
+          "hints": {
+            "placeholder": "2025-01-01",
+            "expectedDataType": "date",
+            "helpText": "Beginning of the date range"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_date_range_end",
+          "label": "Date Range - End Date",
+          "response": "",
+          "hints": {
+            "placeholder": "2025-12-31",
+            "expectedDataType": "date",
+            "helpText": "End of the date range"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_numeric",
+      "title": "Numeric Fields",
+      "description": "Numbers and currency amounts",
+      "prompts": [
+        {
+          "id": "prompt_number_integer",
+          "label": "Integer Number (Quantity)",
+          "response": "",
+          "hints": {
+            "placeholder": "42",
+            "expectedDataType": "number",
+            "helpText": "Enter a whole number"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_number_decimal",
+          "label": "Decimal Number (Measurement)",
+          "response": "",
+          "hints": {
+            "placeholder": "3.14159",
+            "expectedDataType": "number",
+            "helpText": "Decimal values are supported"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_currency_usd",
+          "label": "Currency Amount (USD)",
+          "response": "",
+          "hints": {
+            "placeholder": "1234.56",
+            "expectedDataType": "currency",
+            "helpText": "Enter amount in dollars and cents (no $ symbol needed)"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_percentage",
+          "label": "Percentage",
+          "response": "",
+          "hints": {
+            "placeholder": "75.5",
+            "expectedDataType": "number",
+            "helpText": "Enter percentage as a number (e.g., 75.5 for 75.5%)"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_number_negative",
+          "label": "Number (Can Be Negative)",
+          "response": "",
+          "hints": {
+            "placeholder": "-250",
+            "expectedDataType": "number",
+            "helpText": "Negative numbers are allowed"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_boolean",
+      "title": "Boolean/Yes-No Fields",
+      "description": "True/false and yes/no choices",
+      "prompts": [
+        {
+          "id": "prompt_boolean_yesno",
+          "label": "Yes/No Question",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"],
+            "helpText": "A simple yes or no answer"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_boolean_truefalse",
+          "label": "True/False Statement",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["True", "False"],
+            "helpText": "Indicate if the statement is true or false"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_boolean_agree",
+          "label": "Agreement Checkbox",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["I Agree", "I Do Not Agree"],
+            "helpText": "Indicate your agreement"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_selection",
+      "title": "Selection Fields (Suggested Values)",
+      "description": "Dropdown and selection-style inputs",
+      "prompts": [
+        {
+          "id": "prompt_select_small",
+          "label": "Small Selection (2-3 Options)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Option A", "Option B", "Option C"],
+            "helpText": "Choose from a small set of options"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_select_medium",
+          "label": "Medium Selection (Department)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Sales", "Marketing", "Engineering", "Human Resources", "Finance", "Operations", "Legal", "Customer Support"],
+            "helpText": "Select your department"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_select_priority",
+          "label": "Priority Level",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Critical", "High", "Medium", "Low"],
+            "helpText": "Select the priority level"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_select_status",
+          "label": "Status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Not Started", "In Progress", "On Hold", "Completed", "Cancelled"],
+            "helpText": "Current status of the item"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_select_country",
+          "label": "Country Selection",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["United States", "Canada", "United Kingdom", "Germany", "France", "Japan", "Australia", "Brazil", "India", "China", "Other"],
+            "helpText": "Select a country from the list or type 'Other'"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_select_state",
+          "label": "US State Selection",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "District of Columbia"],
+            "helpText": "Select a US state"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_formatted",
+      "title": "Formatted Input Fields",
+      "description": "Fields with specific format requirements",
+      "prompts": [
+        {
+          "id": "prompt_ssn",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "placeholder": "123-45-6789",
+            "expectedDataType": "text",
+            "validationPattern": "^\\d{3}-\\d{2}-\\d{4}$",
+            "helpText": "Format: XXX-XX-XXXX"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_ein",
+          "label": "Employer Identification Number (EIN)",
+          "response": "",
+          "hints": {
+            "placeholder": "12-3456789",
+            "expectedDataType": "text",
+            "validationPattern": "^\\d{2}-\\d{7}$",
+            "helpText": "Format: XX-XXXXXXX"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_zip",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "placeholder": "12345-6789",
+            "expectedDataType": "text",
+            "validationPattern": "^\\d{5}(-\\d{4})?$",
+            "helpText": "5-digit or 9-digit ZIP code"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_credit_card",
+          "label": "Credit Card Number",
+          "response": "",
+          "hints": {
+            "placeholder": "4111-1111-1111-1111",
+            "expectedDataType": "text",
+            "validationPattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{4}$",
+            "helpText": "16-digit card number with dashes"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_ip_address",
+          "label": "IP Address",
+          "response": "",
+          "hints": {
+            "placeholder": "192.168.1.1",
+            "expectedDataType": "text",
+            "validationPattern": "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
+            "helpText": "IPv4 address format"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_mac_address",
+          "label": "MAC Address",
+          "response": "",
+          "hints": {
+            "placeholder": "00:1A:2B:3C:4D:5E",
+            "expectedDataType": "text",
+            "validationPattern": "^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$",
+            "helpText": "Hardware address format"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_nested",
+      "title": "Nested Sections Demo",
+      "description": "Demonstrating section hierarchy",
+      "sections": [
+        {
+          "id": "section_nested_level1a",
+          "title": "Level 1 - Section A",
+          "description": "First level nested section",
+          "sections": [
+            {
+              "id": "section_nested_level2a",
+              "title": "Level 2 - Subsection A.1",
+              "prompts": [
+                {
+                  "id": "prompt_nested_2a_1",
+                  "label": "Deeply Nested Field 1",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "text",
+                    "helpText": "This field is inside a Level 2 nested section"
+                  },
+                  "responseMetadata": {}
+                },
+                {
+                  "id": "prompt_nested_2a_2",
+                  "label": "Deeply Nested Field 2",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "text"
+                  },
+                  "responseMetadata": {}
+                }
+              ]
+            },
+            {
+              "id": "section_nested_level2b",
+              "title": "Level 2 - Subsection A.2",
+              "prompts": [
+                {
+                  "id": "prompt_nested_2b_1",
+                  "label": "Another Deeply Nested Field",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "text"
+                  },
+                  "responseMetadata": {}
+                }
+              ]
+            }
+          ],
+          "prompts": [
+            {
+              "id": "prompt_level1a_direct",
+              "label": "Level 1 Direct Field",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "helpText": "This field is directly in the Level 1 section"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_nested_level1b",
+          "title": "Level 1 - Section B",
+          "description": "Another first level section",
+          "prompts": [
+            {
+              "id": "prompt_level1b_1",
+              "label": "Section B Field 1",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_level1b_2",
+              "label": "Section B Field 2",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "section_special",
+      "title": "Special Use Cases",
+      "description": "Edge cases and special scenarios",
+      "prompts": [
+        {
+          "id": "prompt_no_hints",
+          "label": "Field With No Hints",
+          "response": "",
+          "hints": {},
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_long_label",
+          "label": "This Is An Example Of A Very Long Field Label That Might Wrap To Multiple Lines In The User Interface To Demonstrate How The System Handles Longer Text",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Testing long labels"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_special_chars",
+          "label": "Field With Special Characters: & < > \" ' @#$%",
+          "response": "",
+          "hints": {
+            "placeholder": "Test <special> \"chars\" & symbols",
+            "expectedDataType": "text",
+            "helpText": "Labels and hints can contain special characters"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_unicode",
+          "label": "Unicode Support (日本語, Русский, 中文, العربية)",
+          "response": "",
+          "hints": {
+            "placeholder": "こんにちは, Привет, 你好, مرحبا",
+            "expectedDataType": "text",
+            "helpText": "The APR format fully supports Unicode characters"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_emoji",
+          "label": "Emoji Support 🎉",
+          "response": "",
+          "hints": {
+            "placeholder": "You can use emojis! 😀 🚀 ✅",
+            "expectedDataType": "text",
+            "helpText": "Emojis work in labels, placeholders, and responses 👍"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_optional",
+          "label": "Optional Field (No Asterisk)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "This field is optional - you may leave it blank"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_readonly_hint",
+          "label": "Read-Only Information Field",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Note: This would typically be populated by the system and marked as read-only in the UI"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_repeating",
+      "title": "Repeating Sections Pattern",
+      "description": "Demonstrating how to structure repeating data (like multiple addresses, employment history, etc.)",
+      "sections": [
+        {
+          "id": "section_item_1",
+          "title": "Item 1",
+          "prompts": [
+            {
+              "id": "prompt_item1_name",
+              "label": "Item Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_item1_quantity",
+              "label": "Quantity",
+              "response": "",
+              "hints": {
+                "expectedDataType": "number"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_item1_price",
+              "label": "Unit Price",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_item_2",
+          "title": "Item 2",
+          "prompts": [
+            {
+              "id": "prompt_item2_name",
+              "label": "Item Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_item2_quantity",
+              "label": "Quantity",
+              "response": "",
+              "hints": {
+                "expectedDataType": "number"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_item2_price",
+              "label": "Unit Price",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_item_3",
+          "title": "Item 3",
+          "prompts": [
+            {
+              "id": "prompt_item3_name",
+              "label": "Item Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_item3_quantity",
+              "label": "Quantity",
+              "response": "",
+              "hints": {
+                "expectedDataType": "number"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_item3_price",
+              "label": "Unit Price",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": [
+        {
+          "id": "prompt_total",
+          "label": "Total Amount",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency",
+            "helpText": "Sum of all items"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_tables",
+      "title": "Table Fields",
+      "description": "Demonstrating fixed and dynamic table data entry",
+      "prompts": [
+        {
+          "id": "prompt_table_fixed",
+          "label": "Income by Tax Year (Fixed Table)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "table",
+            "helpText": "Enter income data for each tax year. Rows are fixed - you cannot add or remove years.",
+            "tableDefinition": {
+              "columns": [
+                { "id": "wages", "label": "Wages & Salary", "type": "currency", "placeholder": "0.00" },
+                { "id": "interest", "label": "Interest Income", "type": "currency", "placeholder": "0.00" },
+                { "id": "dividends", "label": "Dividend Income", "type": "currency", "placeholder": "0.00" },
+                { "id": "other", "label": "Other Income", "type": "currency", "placeholder": "0.00" }
+              ],
+              "fixedRows": [
+                { "id": "year_2024", "label": "2024" },
+                { "id": "year_2023", "label": "2023" },
+                { "id": "year_2022", "label": "2022" }
+              ]
+            }
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_table_dynamic",
+          "label": "Order Line Items (Dynamic Table)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "table",
+            "helpText": "Add items to your order. You can add up to 20 items.",
+            "tableDefinition": {
+              "columns": [
+                { "id": "item", "label": "Item Description", "type": "text", "placeholder": "Enter item name" },
+                { "id": "sku", "label": "SKU", "type": "text", "placeholder": "ABC-123" },
+                { "id": "qty", "label": "Qty", "type": "number", "width": "60px" },
+                { "id": "price", "label": "Unit Price", "type": "currency", "placeholder": "0.00" }
+              ],
+              "dynamicRows": {
+                "minRows": 1,
+                "maxRows": 20,
+                "rowLabel": "Item"
+              }
+            }
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_table_addresses",
+          "label": "Previous Addresses (Dynamic Table)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "table",
+            "helpText": "List all addresses where you have lived in the past 5 years",
+            "tableDefinition": {
+              "columns": [
+                { "id": "street", "label": "Street Address", "type": "text", "width": "30%" },
+                { "id": "city", "label": "City", "type": "text" },
+                { "id": "state", "label": "State", "type": "text", "suggestedValues": ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC"] },
+                { "id": "zip", "label": "ZIP", "type": "text", "width": "80px" },
+                { "id": "from", "label": "From Date", "type": "date" },
+                { "id": "to", "label": "To Date", "type": "date" }
+              ],
+              "dynamicRows": {
+                "minRows": 0,
+                "maxRows": 10,
+                "rowLabel": "Address"
+              }
+            }
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_table_quarterly",
+          "label": "Quarterly Revenue (Fixed Table)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "table",
+            "helpText": "Enter revenue figures for each quarter",
+            "tableDefinition": {
+              "columns": [
+                { "id": "revenue", "label": "Gross Revenue", "type": "currency" },
+                { "id": "expenses", "label": "Expenses", "type": "currency" },
+                { "id": "net", "label": "Net Income", "type": "currency" }
+              ],
+              "fixedRows": [
+                { "id": "q1", "label": "Q1 (Jan-Mar)" },
+                { "id": "q2", "label": "Q2 (Apr-Jun)" },
+                { "id": "q3", "label": "Q3 (Jul-Sep)" },
+                { "id": "q4", "label": "Q4 (Oct-Dec)" }
+              ]
+            }
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_signature",
+      "title": "Signature Section",
+      "description": "Capturing signature and date",
+      "prompts": [
+        {
+          "id": "prompt_certify",
+          "label": "I certify that all information provided is accurate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes, I certify"],
+            "helpText": "Check to certify the accuracy of your responses"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_signature",
+          "label": "Electronic Signature (Type Full Name)",
+          "response": "",
+          "hints": {
+            "placeholder": "John Michael Doe",
+            "expectedDataType": "text",
+            "helpText": "By typing your full legal name, you are electronically signing this form"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_signature_date",
+          "label": "Date Signed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_signature_title",
+          "label": "Title/Position",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Individual", "Owner", "Officer", "Director", "Manager", "Attorney", "Other"]
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+# Docker Compose for local S3 testing with MinIO
+#
+# Usage:
+#   docker-compose -f docker/docker-compose.s3-test.yml up -d
+#
+# MinIO Console: http://localhost:9001
+# S3 API: http://localhost:9000
+#
+# Default credentials:
+#   Access Key: minioadmin
+#   Secret Key: minioadmin
+
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: apr-minio
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # MinIO Console
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Initialization container to create bucket and set policies
+  minio-init:
+    image: minio/mc:latest
+    container_name: apr-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set myminio http://minio:9000 minioadmin minioadmin;
+      mc mb myminio/apr-submissions --ignore-existing;
+      mc anonymous set upload myminio/apr-submissions;
+      echo 'MinIO bucket apr-submissions created and configured!';
+      "
+
+volumes:
+  minio_data:

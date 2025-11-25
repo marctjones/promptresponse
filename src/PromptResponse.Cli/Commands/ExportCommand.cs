@@ -110,37 +110,34 @@ public class ExportCommand : ICommand
         // Rows
         foreach (var section in document.Sections)
         {
-            foreach (var prompt in section.Prompts)
-            {
-                sb.AppendLine(FormatCsvRow(
-                    section.Title,
-                    "",
-                    prompt.Id,
-                    prompt.Label,
-                    prompt.Response,
-                    prompt.Hints.ExpectedDataType ?? "",
-                    prompt.ResponseMetadata.LastModified?.ToString("yyyy-MM-dd HH:mm:ss") ?? ""
-                ));
-            }
-
-            foreach (var subsection in section.Subsections)
-            {
-                foreach (var prompt in subsection.Prompts)
-                {
-                    sb.AppendLine(FormatCsvRow(
-                        section.Title,
-                        subsection.Title,
-                        prompt.Id,
-                        prompt.Label,
-                        prompt.Response,
-                        prompt.Hints.ExpectedDataType ?? "",
-                        prompt.ResponseMetadata.LastModified?.ToString("yyyy-MM-dd HH:mm:ss") ?? ""
-                    ));
-                }
-            }
+            ExportSectionToCsv(section, section.Title, "", sb);
         }
 
         return sb.ToString();
+    }
+
+    private void ExportSectionToCsv(Section section, string rootSectionTitle, string parentPath, StringBuilder sb)
+    {
+        var currentPath = string.IsNullOrEmpty(parentPath) ? "" : $"{parentPath} / {section.Title}";
+
+        foreach (var prompt in section.Prompts)
+        {
+            sb.AppendLine(FormatCsvRow(
+                rootSectionTitle,
+                currentPath,
+                prompt.Id,
+                prompt.Label,
+                prompt.Response,
+                prompt.Hints.ExpectedDataType ?? "",
+                prompt.ResponseMetadata.LastModified?.ToString("yyyy-MM-dd HH:mm:ss") ?? ""
+            ));
+        }
+
+        foreach (var childSection in section.Sections)
+        {
+            var childPath = string.IsNullOrEmpty(currentPath) ? childSection.Title : $"{currentPath} / {childSection.Title}";
+            ExportSectionToCsv(childSection, rootSectionTitle, childPath, sb);
+        }
     }
 
     private string FormatCsvRow(params string[] values)
@@ -182,39 +179,35 @@ public class ExportCommand : ICommand
 
         foreach (var section in document.Sections)
         {
-            foreach (var prompt in section.Prompts)
-            {
-                responses.Add(new ResponseItem
-                {
-                    Section = section.Title,
-                    Subsection = null,
-                    PromptId = prompt.Id,
-                    Label = prompt.Label,
-                    Response = prompt.Response,
-                    DataType = prompt.Hints.ExpectedDataType,
-                    LastModified = prompt.ResponseMetadata.LastModified
-                });
-            }
-
-            foreach (var subsection in section.Subsections)
-            {
-                foreach (var prompt in subsection.Prompts)
-                {
-                    responses.Add(new ResponseItem
-                    {
-                        Section = section.Title,
-                        Subsection = subsection.Title,
-                        PromptId = prompt.Id,
-                        Label = prompt.Label,
-                        Response = prompt.Response,
-                        DataType = prompt.Hints.ExpectedDataType,
-                        LastModified = prompt.ResponseMetadata.LastModified
-                    });
-                }
-            }
+            ExtractResponsesFromSection(section, section.Title, null, responses);
         }
 
         return responses;
+    }
+
+    private void ExtractResponsesFromSection(Section section, string rootSectionTitle, string? parentPath, List<ResponseItem> responses)
+    {
+        var currentPath = parentPath == null ? null : $"{parentPath} / {section.Title}";
+
+        foreach (var prompt in section.Prompts)
+        {
+            responses.Add(new ResponseItem
+            {
+                Section = rootSectionTitle,
+                Subsection = currentPath,
+                PromptId = prompt.Id,
+                Label = prompt.Label,
+                Response = prompt.Response,
+                DataType = prompt.Hints.ExpectedDataType,
+                LastModified = prompt.ResponseMetadata.LastModified
+            });
+        }
+
+        foreach (var childSection in section.Sections)
+        {
+            var childPath = currentPath == null ? childSection.Title : $"{currentPath} / {childSection.Title}";
+            ExtractResponsesFromSection(childSection, rootSectionTitle, childPath, responses);
+        }
     }
 
     private string ExportToText(AprDocument document)
@@ -230,45 +223,36 @@ public class ExportCommand : ICommand
 
         foreach (var section in document.Sections)
         {
-            sb.AppendLine($"## {section.Title}");
-            sb.AppendLine();
-
-            foreach (var prompt in section.Prompts)
-            {
-                sb.AppendLine($"**{prompt.Label}**");
-                if (!string.IsNullOrWhiteSpace(prompt.Response))
-                {
-                    sb.AppendLine(prompt.Response);
-                }
-                else
-                {
-                    sb.AppendLine("(no response)");
-                }
-                sb.AppendLine();
-            }
-
-            foreach (var subsection in section.Subsections)
-            {
-                sb.AppendLine($"### {subsection.Title}");
-                sb.AppendLine();
-
-                foreach (var prompt in subsection.Prompts)
-                {
-                    sb.AppendLine($"**{prompt.Label}**");
-                    if (!string.IsNullOrWhiteSpace(prompt.Response))
-                    {
-                        sb.AppendLine(prompt.Response);
-                    }
-                    else
-                    {
-                        sb.AppendLine("(no response)");
-                    }
-                    sb.AppendLine();
-                }
-            }
+            ExportSectionToText(section, 2, sb);
         }
 
         return sb.ToString();
+    }
+
+    private void ExportSectionToText(Section section, int headingLevel, StringBuilder sb)
+    {
+        var heading = new string('#', headingLevel);
+        sb.AppendLine($"{heading} {section.Title}");
+        sb.AppendLine();
+
+        foreach (var prompt in section.Prompts)
+        {
+            sb.AppendLine($"**{prompt.Label}**");
+            if (!string.IsNullOrWhiteSpace(prompt.Response))
+            {
+                sb.AppendLine(prompt.Response);
+            }
+            else
+            {
+                sb.AppendLine("(no response)");
+            }
+            sb.AppendLine();
+        }
+
+        foreach (var childSection in section.Sections)
+        {
+            ExportSectionToText(childSection, headingLevel + 1, sb);
+        }
     }
 
     private class ResponseItem

@@ -11,7 +11,7 @@ The APR (Adaptive Prompt Response) format is a JSON-based file format designed f
 
 1. **Text-First**: All responses are stored as plain text strings
 2. **Type Hints, Not Restrictions**: Expected data types are suggestions, not enforced constraints
-3. **Semantic Structure**: Sections and subsections provide meaningful grouping
+3. **Semantic Structure**: Sections provide meaningful grouping with unlimited nesting
 4. **No Layout/Styling**: UI presentation is dynamic and user-configurable
 5. **Human-Readable**: Standard JSON for easy parsing and debugging
 6. **Portable**: Maximum interoperability across platforms and tools
@@ -150,39 +150,24 @@ This allows users to submit filled forms directly to S3 without server infrastru
 
 ### Section Structure
 
-Sections provide semantic grouping of prompts.
+Sections provide semantic grouping of prompts and can be nested to any depth.
 
 ```json
 {
   "id": "section_001",
   "title": "Section Title",
   "description": "Optional section description",
-  "subsections": [ ... ],
+  "sections": [ ... ],
   "prompts": [ ... ]
 }
 ```
 
 **Rules:**
-- Sections can contain both `subsections[]` and `prompts[]`
-- `subsections` are optional (can be empty array or omitted)
-- At least one of `subsections` or `prompts` should contain data
-
-### Subsection Structure
-
-Subsections provide nested grouping within sections.
-
-```json
-{
-  "id": "subsection_001_001",
-  "title": "Subsection Title",
-  "description": "Optional subsection description",
-  "prompts": [ ... ]
-}
-```
-
-**Rules:**
-- Subsections can only contain `prompts[]`, not nested subsections
-- Maximum depth: Section → Subsection → Prompt (3 levels)
+- Sections can contain both nested `sections[]` and `prompts[]`
+- Nested `sections` are optional (can be empty array or omitted)
+- At least one of `sections` or `prompts` should contain data
+- Sections can be nested to unlimited depth (sections within sections)
+- No artificial depth limit - structure to match your content's natural hierarchy
 
 ### Prompt Structure
 
@@ -217,7 +202,8 @@ Hints provide guidance to the UI but are **never enforced**.
   "expectedDataType": "date",
   "suggestedValues": ["2025-01-01", "2025-12-31"],
   "helpText": "Enter the start date",
-  "validationPattern": "\\d{4}-\\d{2}-\\d{2}"
+  "validationPattern": "\\d{4}-\\d{2}-\\d{2}",
+  "tableDefinition": null
 }
 ```
 
@@ -227,6 +213,7 @@ Hints provide guidance to the UI but are **never enforced**.
 - `suggestedValues`: Array of string suggestions for autocomplete
 - `helpText`: Additional help text shown to user
 - `validationPattern`: Optional regex pattern for validation (advisory only)
+- `tableDefinition`: Table structure for `expectedDataType: "table"` (see Table Fields below)
 
 **All fields are optional.**
 
@@ -262,15 +249,120 @@ Suggested values for `expectedDataType` and `inferredDataType`:
 | `multiline` | Multi-line text | "Line 1\nLine 2" |
 | `currency` | Currency amount | "99.99" |
 | `boolean` | Yes/No | "true" or "yes" |
+| `table` | Tabular data | See Table Fields section |
 
 **Important**: These are hints only. Any visible text string is always valid as a response.
+
+## Table Fields
+
+For tabular data entry, use `expectedDataType: "table"` with a `tableDefinition` in the hints. Tables come in two modes:
+
+### Fixed Tables
+
+Fixed tables have predefined rows (e.g., tax years, categories). Users can enter data in cells but cannot add or remove rows.
+
+```json
+{
+  "id": "prompt_income",
+  "label": "Income by Tax Year",
+  "response": "",
+  "hints": {
+    "expectedDataType": "table",
+    "tableDefinition": {
+      "columns": [
+        { "id": "wages", "label": "Wages", "type": "currency" },
+        { "id": "interest", "label": "Interest", "type": "currency" },
+        { "id": "dividends", "label": "Dividends", "type": "currency" }
+      ],
+      "fixedRows": [
+        { "id": "year_2024", "label": "2024" },
+        { "id": "year_2023", "label": "2023" },
+        { "id": "year_2022", "label": "2022" }
+      ]
+    }
+  }
+}
+```
+
+**Response format for fixed tables** (JSON object keyed by row ID):
+```json
+{
+  "year_2024": { "wages": "75000.00", "interest": "150.00", "dividends": "500.00" },
+  "year_2023": { "wages": "72000.00", "interest": "125.00", "dividends": "450.00" },
+  "year_2022": { "wages": "68000.00", "interest": "100.00", "dividends": "400.00" }
+}
+```
+
+### Dynamic Tables
+
+Dynamic tables allow users to add and remove rows (e.g., line items, addresses).
+
+```json
+{
+  "id": "prompt_order_items",
+  "label": "Order Items",
+  "response": "",
+  "hints": {
+    "expectedDataType": "table",
+    "tableDefinition": {
+      "columns": [
+        { "id": "item", "label": "Item Description", "type": "text" },
+        { "id": "qty", "label": "Quantity", "type": "number" },
+        { "id": "price", "label": "Unit Price", "type": "currency" }
+      ],
+      "dynamicRows": {
+        "minRows": 1,
+        "maxRows": 50,
+        "rowLabel": "Item"
+      }
+    }
+  }
+}
+```
+
+**Response format for dynamic tables** (JSON array):
+```json
+[
+  { "item": "Widget A", "qty": "10", "price": "25.00" },
+  { "item": "Widget B", "qty": "5", "price": "42.50" }
+]
+```
+
+### Table Column Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `id` | string | Unique column identifier (required) |
+| `label` | string | Display header text (required) |
+| `type` | string | Cell data type: "text", "number", "currency", "date", "boolean" |
+| `placeholder` | string | Placeholder text for cells |
+| `suggestedValues` | string[] | Autocomplete suggestions for cells |
+| `helpText` | string | Column help text |
+| `width` | string | Width hint: "25%", "100px", or "*" (relative) |
+
+### Fixed Row Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `id` | string | Unique row identifier (required) |
+| `label` | string | Display label for row header (required) |
+
+### Dynamic Row Configuration
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `minRows` | number | 0 | Minimum number of rows |
+| `maxRows` | number | 100 | Maximum number of rows |
+| `rowLabel` | string | "Row" | Prefix for auto-generated row labels |
+
+**Note**: Use either `fixedRows` OR `dynamicRows`, not both. Table responses are stored as JSON strings.
 
 ## ID Conventions
 
 ### Recommended ID Format
 
 - **Sections**: `section_001`, `section_002`, etc.
-- **Subsections**: `subsection_001_001`, `subsection_001_002`, etc.
+- **Nested Sections**: `section_001_001`, `section_001_002`, etc.
 - **Prompts**: `prompt_001`, `prompt_002`, etc.
 
 **Rules:**
@@ -298,9 +390,9 @@ Suggested values for `expectedDataType` and `inferredDataType`:
       "id": "section_001",
       "title": "Personal Information",
       "description": "Basic personal details",
-      "subsections": [
+      "sections": [
         {
-          "id": "subsection_001_001",
+          "id": "section_001_001",
           "title": "Name and Contact",
           "prompts": [
             {
@@ -402,9 +494,9 @@ Suggested values for `expectedDataType` and `inferredDataType`:
     {
       "id": "section_001",
       "title": "Personal Information",
-      "subsections": [
+      "sections": [
         {
-          "id": "subsection_001_001",
+          "id": "section_001_001",
           "title": "Name and Contact",
           "prompts": [
             {
@@ -480,7 +572,7 @@ APR documents support cryptographic digital signatures for authenticity and inte
 #### Template Signatures (`signatureType: "template"`)
 
 - Applied by template publishers (e.g., IRS, HR department)
-- Covers the template structure: sections, subsections, prompts, labels
+- Covers the template structure: sections, nested sections, prompts, labels
 - Does NOT cover response values (templates have empty responses)
 - Establishes authenticity: "This is the official form"
 
@@ -524,7 +616,7 @@ While APR is flexible, implementations should validate:
 1. **Version**: Must be present and recognized
 2. **Document Type**: Must be "template" or "filledForm"
 3. **IDs**: Must be unique within scope
-4. **Structure**: Sections → Subsections → Prompts (max 3 levels)
+4. **Structure**: Sections can contain nested sections and prompts (unlimited depth)
 5. **Responses**: Always strings (or empty string)
 
 **Invalid examples:**
@@ -534,13 +626,6 @@ While APR is flexible, implementations should validate:
 
 // ❌ Invalid documentType
 { "version": "1.0", "documentType": "other" }
-
-// ❌ Nested subsections
-{
-  "subsections": [{
-    "subsections": [...]  // Not allowed
-  }]
-}
 
 // ❌ Non-string response
 { "response": 42 }  // Must be "42"

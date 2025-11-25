@@ -110,20 +110,12 @@ public class InfoCommand : ICommand
 
             foreach (var section in document.Sections)
             {
-                totalSubsections += section.Subsections.Count;
-                totalPrompts += section.Prompts.Count;
-                answeredPrompts += section.Prompts.Count(p => !string.IsNullOrWhiteSpace(p.Response));
-
-                foreach (var subsection in section.Subsections)
-                {
-                    totalPrompts += subsection.Prompts.Count;
-                    answeredPrompts += subsection.Prompts.Count(p => !string.IsNullOrWhiteSpace(p.Response));
-                }
+                CountSectionStats(section, ref totalPrompts, ref totalSubsections, ref answeredPrompts);
             }
 
             if (totalSubsections > 0)
             {
-                Console.WriteLine($"  Subsections: {totalSubsections}");
+                Console.WriteLine($"  Child Sections: {totalSubsections}");
             }
             Console.WriteLine($"  Total Prompts: {totalPrompts}");
 
@@ -140,20 +132,16 @@ public class InfoCommand : ICommand
             for (int i = 0; i < document.Sections.Count; i++)
             {
                 var section = document.Sections[i];
-                var sectionPrompts = section.Prompts.Count +
-                                   section.Subsections.Sum(s => s.Prompts.Count);
+                var sectionPrompts = CountPromptsInSection(section);
 
                 Console.WriteLine($"  {i + 1}. {section.Title}");
                 Console.WriteLine($"     ID: {section.Id}");
                 Console.WriteLine($"     Prompts: {sectionPrompts}");
 
-                if (section.Subsections.Count > 0)
+                if (section.Sections.Count > 0)
                 {
-                    Console.WriteLine($"     Subsections: {section.Subsections.Count}");
-                    foreach (var subsection in section.Subsections)
-                    {
-                        Console.WriteLine($"       - {subsection.Title} ({subsection.Prompts.Count} prompts)");
-                    }
+                    Console.WriteLine($"     Child Sections: {section.Sections.Count}");
+                    DisplayChildSections(section.Sections, "       ");
                 }
             }
 
@@ -171,6 +159,41 @@ public class InfoCommand : ICommand
         {
             Console.Error.WriteLine($"Error: {ex.Message}");
             return 1;
+        }
+    }
+
+    private void CountSectionStats(Core.Models.Section section, ref int totalPrompts, ref int totalSubsections, ref int answeredPrompts)
+    {
+        totalPrompts += section.Prompts.Count;
+        answeredPrompts += section.Prompts.Count(p => !string.IsNullOrWhiteSpace(p.Response));
+
+        foreach (var childSection in section.Sections)
+        {
+            totalSubsections++;
+            CountSectionStats(childSection, ref totalPrompts, ref totalSubsections, ref answeredPrompts);
+        }
+    }
+
+    private int CountPromptsInSection(Core.Models.Section section)
+    {
+        var count = section.Prompts.Count;
+        foreach (var childSection in section.Sections)
+        {
+            count += CountPromptsInSection(childSection);
+        }
+        return count;
+    }
+
+    private void DisplayChildSections(List<Core.Models.Section> sections, string indent)
+    {
+        foreach (var section in sections)
+        {
+            var promptCount = CountPromptsInSection(section);
+            Console.WriteLine($"{indent}- {section.Title} ({promptCount} prompts)");
+            if (section.Sections.Count > 0)
+            {
+                DisplayChildSections(section.Sections, indent + "  ");
+            }
         }
     }
 }

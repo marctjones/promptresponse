@@ -20,21 +20,25 @@ public class DocumentEvaluationContext : IEvaluationContext
 
         _promptsById = new Dictionary<string, Prompt>();
 
-        // Index all prompts by ID
+        // Index all prompts by ID (recursive)
         foreach (var section in document.Sections)
         {
-            foreach (var prompt in section.Prompts)
-            {
-                _promptsById[prompt.Id] = prompt;
-            }
+            IndexPromptsInSection(section);
+        }
+    }
 
-            foreach (var subsection in section.Subsections)
-            {
-                foreach (var prompt in subsection.Prompts)
-                {
-                    _promptsById[prompt.Id] = prompt;
-                }
-            }
+    private void IndexPromptsInSection(Section section)
+    {
+        // Index prompts at this level
+        foreach (var prompt in section.Prompts)
+        {
+            _promptsById[prompt.Id] = prompt;
+        }
+
+        // Recursively index prompts in child sections
+        foreach (var childSection in section.Sections)
+        {
+            IndexPromptsInSection(childSection);
         }
     }
 

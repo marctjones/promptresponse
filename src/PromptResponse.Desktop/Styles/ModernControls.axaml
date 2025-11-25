@@ -233,6 +233,37 @@
         <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
     </Style>
 
+    <!-- Search Highlight Styles -->
+    <Style Selector="StackPanel.search-highlight">
+        <Setter Property="Background" Value="#FFFDE7"/>
+    </Style>
+
+    <Style Selector="StackPanel.search-current-match">
+        <Setter Property="Background" Value="#FFF9C4"/>
+    </Style>
+
+    <!-- Prompt container for search highlighting -->
+    <Style Selector="Border.prompt-container">
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Margin" Value="-8,-4,-8,8"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.prompt-container.search-highlight">
+        <Setter Property="Background" Value="#FFFDE7"/>
+    </Style>
+
+    <Style Selector="Border.prompt-container.search-current-match">
+        <Setter Property="Background" Value="#FFF59D"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColor}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+
     <!-- Help Text Style -->
     <Style Selector="TextBlock.help-text">
         <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}"/>

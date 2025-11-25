@@ -126,44 +126,13 @@ class Prompt:
 
 
 @dataclass
-class Subsection:
-    """A subsection within a section (3-level hierarchy max)."""
-    id: str
-    title: str
-    description: Optional[str] = None
-    prompts: List[Prompt] = field(default_factory=list)
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for JSON serialization."""
-        result = {
-            'id': self.id,
-            'title': self.title,
-            'prompts': [p.to_dict() for p in self.prompts]
-        }
-        if self.description:
-            result['description'] = self.description
-        return result
-
-    @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'Subsection':
-        """Create from dictionary."""
-        prompts = [Prompt.from_dict(p) for p in data.get('prompts', [])]
-        return cls(
-            id=data['id'],
-            title=data['title'],
-            description=data.get('description'),
-            prompts=prompts
-        )
-
-
-@dataclass
 class Section:
-    """A top-level section in an APR document."""
+    """A section in an APR document. Sections can be nested to unlimited depth."""
     id: str
     title: str
     description: Optional[str] = None
     prompts: List[Prompt] = field(default_factory=list)
-    subsections: List[Subsection] = field(default_factory=list)
+    sections: List['Section'] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
@@ -171,7 +140,7 @@ class Section:
             'id': self.id,
             'title': self.title,
             'prompts': [p.to_dict() for p in self.prompts],
-            'subsections': [s.to_dict() for s in self.subsections]
+            'sections': [s.to_dict() for s in self.sections]
         }
         if self.description:
             result['description'] = self.description
@@ -181,14 +150,21 @@ class Section:
     def from_dict(cls, data: Dict[str, Any]) -> 'Section':
         """Create from dictionary."""
         prompts = [Prompt.from_dict(p) for p in data.get('prompts', [])]
-        subsections = [Subsection.from_dict(s) for s in data.get('subsections', [])]
+        sections = [Section.from_dict(s) for s in data.get('sections', [])]
         return cls(
             id=data['id'],
             title=data['title'],
             description=data.get('description'),
             prompts=prompts,
-            subsections=subsections
+            sections=sections
         )
+
+    def get_all_prompts(self) -> List[Prompt]:
+        """Get all prompts in this section and nested sections (flattened)."""
+        prompts = list(self.prompts)
+        for section in self.sections:
+            prompts.extend(section.get_all_prompts())
+        return prompts
 
 
 @dataclass
@@ -395,9 +371,7 @@ class AprDocument:
         """Get all prompts in the document (flattened)."""
         prompts = []
         for section in self.sections:
-            prompts.extend(section.prompts)
-            for subsection in section.subsections:
-                prompts.extend(subsection.prompts)
+            prompts.extend(section.get_all_prompts())
         return prompts
 
     def get_prompt_by_id(self, prompt_id: str) -> Optional[Prompt]:

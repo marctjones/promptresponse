@@ -1,0 +1,930 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form 990 - Return of Organization Exempt From Income Tax",
+    "description": "Annual information return filed by tax-exempt organizations under section 501(c), 527, or 4947(a)(1) of the Internal Revenue Code",
+    "created": "2025-01-01T00:00:00Z",
+    "modified": "2025-01-01T00:00:00Z",
+    "author": "Internal Revenue Service",
+    "templateId": "irs-form-990-2024",
+    "templateVersion": "2024.1"
+  },
+  "sections": [
+    {
+      "id": "section_header",
+      "title": "Form Header Information",
+      "description": "Basic form identification and tax period",
+      "prompts": [
+        {
+          "id": "prompt_tax_year",
+          "label": "Tax Year",
+          "response": "",
+          "hints": {
+            "placeholder": "2024",
+            "expectedDataType": "number",
+            "helpText": "Calendar year or fiscal year ending date"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_fiscal_year_begin",
+          "label": "Fiscal Year Beginning Date",
+          "response": "",
+          "hints": {
+            "placeholder": "2024-01-01",
+            "expectedDataType": "date",
+            "helpText": "For calendar year filers, enter January 1"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_fiscal_year_end",
+          "label": "Fiscal Year Ending Date",
+          "response": "",
+          "hints": {
+            "placeholder": "2024-12-31",
+            "expectedDataType": "date",
+            "helpText": "For calendar year filers, enter December 31"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_amended_return",
+          "label": "Is this an amended return?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"],
+            "helpText": "Check if this is an amended return"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_application_pending",
+          "label": "Is the application for exemption pending?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_a",
+      "title": "Part A - Identification",
+      "description": "Organization identification information",
+      "prompts": [
+        {
+          "id": "prompt_org_name",
+          "label": "Name of Organization",
+          "response": "",
+          "hints": {
+            "placeholder": "Example Nonprofit Foundation",
+            "expectedDataType": "text",
+            "helpText": "Legal name as shown on organizing document"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_dba_name",
+          "label": "Doing Business As (DBA) Name",
+          "response": "",
+          "hints": {
+            "placeholder": "Example Foundation",
+            "expectedDataType": "text",
+            "helpText": "If different from legal name"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_ein",
+          "label": "Employer Identification Number (EIN)",
+          "response": "",
+          "hints": {
+            "placeholder": "12-3456789",
+            "expectedDataType": "text",
+            "validationPattern": "^\\d{2}-\\d{7}$",
+            "helpText": "Nine-digit number assigned by IRS"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_street_address",
+          "label": "Street Address",
+          "response": "",
+          "hints": {
+            "placeholder": "123 Main Street, Suite 100",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_city",
+          "label": "City",
+          "response": "",
+          "hints": {
+            "placeholder": "Washington",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "placeholder": "DC",
+            "expectedDataType": "text",
+            "suggestedValues": ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_zip",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "placeholder": "20001-1234",
+            "expectedDataType": "text",
+            "validationPattern": "^\\d{5}(-\\d{4})?$"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_phone",
+          "label": "Telephone Number",
+          "response": "",
+          "hints": {
+            "placeholder": "(202) 555-0100",
+            "expectedDataType": "phone"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_website",
+          "label": "Website URL",
+          "response": "",
+          "hints": {
+            "placeholder": "https://www.example.org",
+            "expectedDataType": "url"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_formation_year",
+          "label": "Year of Formation",
+          "response": "",
+          "hints": {
+            "placeholder": "1985",
+            "expectedDataType": "number",
+            "helpText": "Year the organization was legally formed"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_state_of_domicile",
+          "label": "State of Legal Domicile",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "State where the organization is legally domiciled"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_exempt_status",
+          "label": "Tax-Exempt Status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["501(c)(3)", "501(c)(4)", "501(c)(5)", "501(c)(6)", "501(c)(7)", "527", "4947(a)(1)"],
+            "helpText": "Section of the Internal Revenue Code under which the organization is exempt"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_b",
+      "title": "Part B - Organization Type and Activities",
+      "description": "Information about what the organization does",
+      "prompts": [
+        {
+          "id": "prompt_primary_activity",
+          "label": "Primary Exempt Purpose",
+          "response": "",
+          "hints": {
+            "placeholder": "Charitable, Educational, Religious, Scientific...",
+            "expectedDataType": "text",
+            "helpText": "Describe the organization's primary exempt purpose"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_mission_statement",
+          "label": "Mission Statement",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "Briefly describe the organization's mission"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_program_service_desc",
+          "label": "Description of Program Service Accomplishments",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "Describe the organization's largest program service accomplishments"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_num_employees",
+          "label": "Number of Employees",
+          "response": "",
+          "hints": {
+            "placeholder": "25",
+            "expectedDataType": "number",
+            "helpText": "Total number of employees"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_num_volunteers",
+          "label": "Number of Volunteers",
+          "response": "",
+          "hints": {
+            "placeholder": "150",
+            "expectedDataType": "number",
+            "helpText": "Total number of volunteers"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_num_voting_members",
+          "label": "Number of Voting Members of Governing Body",
+          "response": "",
+          "hints": {
+            "placeholder": "9",
+            "expectedDataType": "number"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_num_independent_members",
+          "label": "Number of Independent Voting Members",
+          "response": "",
+          "hints": {
+            "placeholder": "7",
+            "expectedDataType": "number"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_revenue",
+      "title": "Part VIII - Revenue",
+      "description": "Statement of Revenue",
+      "sections": [
+        {
+          "id": "section_revenue_contributions",
+          "title": "Contributions and Grants",
+          "prompts": [
+            {
+              "id": "prompt_contributions_gifts",
+              "label": "Contributions and Gifts",
+              "response": "",
+              "hints": {
+                "placeholder": "1000000.00",
+                "expectedDataType": "currency",
+                "helpText": "Total contributions, gifts, and grants received"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_federated_campaigns",
+              "label": "Federated Campaigns",
+              "response": "",
+              "hints": {
+                "placeholder": "50000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_membership_dues",
+              "label": "Membership Dues",
+              "response": "",
+              "hints": {
+                "placeholder": "25000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_fundraising_events",
+              "label": "Fundraising Events",
+              "response": "",
+              "hints": {
+                "placeholder": "75000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_government_grants",
+              "label": "Government Grants",
+              "response": "",
+              "hints": {
+                "placeholder": "500000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_other_contributions",
+              "label": "All Other Contributions",
+              "response": "",
+              "hints": {
+                "placeholder": "100000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_noncash_contributions",
+              "label": "Noncash Contributions",
+              "response": "",
+              "hints": {
+                "placeholder": "15000.00",
+                "expectedDataType": "currency",
+                "helpText": "Fair market value of in-kind contributions"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_revenue_program",
+          "title": "Program Service Revenue",
+          "prompts": [
+            {
+              "id": "prompt_program_revenue_total",
+              "label": "Total Program Service Revenue",
+              "response": "",
+              "hints": {
+                "placeholder": "200000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_revenue_investment",
+          "title": "Investment Income",
+          "prompts": [
+            {
+              "id": "prompt_investment_income",
+              "label": "Investment Income",
+              "response": "",
+              "hints": {
+                "placeholder": "35000.00",
+                "expectedDataType": "currency",
+                "helpText": "Interest, dividends, and other investment income"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_net_rental_income",
+              "label": "Net Rental Income",
+              "response": "",
+              "hints": {
+                "placeholder": "12000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_net_gain_sales",
+              "label": "Net Gain from Sale of Assets",
+              "response": "",
+              "hints": {
+                "placeholder": "8000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_revenue_other",
+          "title": "Other Revenue",
+          "prompts": [
+            {
+              "id": "prompt_other_revenue",
+              "label": "Other Revenue",
+              "response": "",
+              "hints": {
+                "placeholder": "5000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_total_revenue",
+              "label": "TOTAL REVENUE",
+              "response": "",
+              "hints": {
+                "placeholder": "2025000.00",
+                "expectedDataType": "currency",
+                "helpText": "Sum of all revenue sources"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "section_expenses",
+      "title": "Part IX - Expenses",
+      "description": "Statement of Functional Expenses",
+      "sections": [
+        {
+          "id": "section_expenses_compensation",
+          "title": "Compensation and Benefits",
+          "prompts": [
+            {
+              "id": "prompt_salaries_wages",
+              "label": "Salaries and Wages",
+              "response": "",
+              "hints": {
+                "placeholder": "600000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_compensation_officers",
+              "label": "Compensation of Officers, Directors, Trustees",
+              "response": "",
+              "hints": {
+                "placeholder": "150000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_other_employee_benefits",
+              "label": "Other Employee Benefits",
+              "response": "",
+              "hints": {
+                "placeholder": "80000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_payroll_taxes",
+              "label": "Payroll Taxes",
+              "response": "",
+              "hints": {
+                "placeholder": "55000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_expenses_operations",
+          "title": "Operating Expenses",
+          "prompts": [
+            {
+              "id": "prompt_professional_fees",
+              "label": "Professional Fees",
+              "response": "",
+              "hints": {
+                "placeholder": "45000.00",
+                "expectedDataType": "currency",
+                "helpText": "Legal, accounting, and other professional fees"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_office_expenses",
+              "label": "Office Expenses",
+              "response": "",
+              "hints": {
+                "placeholder": "25000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_occupancy",
+              "label": "Occupancy",
+              "response": "",
+              "hints": {
+                "placeholder": "120000.00",
+                "expectedDataType": "currency",
+                "helpText": "Rent, utilities, and building maintenance"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_travel",
+              "label": "Travel",
+              "response": "",
+              "hints": {
+                "placeholder": "15000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_conferences",
+              "label": "Conferences and Meetings",
+              "response": "",
+              "hints": {
+                "placeholder": "10000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_depreciation",
+              "label": "Depreciation and Amortization",
+              "response": "",
+              "hints": {
+                "placeholder": "30000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_insurance",
+              "label": "Insurance",
+              "response": "",
+              "hints": {
+                "placeholder": "18000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_other_expenses",
+              "label": "Other Expenses",
+              "response": "",
+              "hints": {
+                "placeholder": "50000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": [
+        {
+          "id": "prompt_total_expenses",
+          "label": "TOTAL EXPENSES",
+          "response": "",
+          "hints": {
+            "placeholder": "1198000.00",
+            "expectedDataType": "currency",
+            "helpText": "Sum of all functional expenses"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_balance_sheet",
+      "title": "Part X - Balance Sheet",
+      "description": "Statement of financial position",
+      "sections": [
+        {
+          "id": "section_assets",
+          "title": "Assets",
+          "prompts": [
+            {
+              "id": "prompt_cash",
+              "label": "Cash and Cash Equivalents",
+              "response": "",
+              "hints": {
+                "placeholder": "350000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_savings",
+              "label": "Savings and Temporary Cash Investments",
+              "response": "",
+              "hints": {
+                "placeholder": "200000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_accounts_receivable",
+              "label": "Accounts Receivable",
+              "response": "",
+              "hints": {
+                "placeholder": "75000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_pledges_receivable",
+              "label": "Pledges Receivable",
+              "response": "",
+              "hints": {
+                "placeholder": "150000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_investments",
+              "label": "Investments - Securities",
+              "response": "",
+              "hints": {
+                "placeholder": "500000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_land_buildings",
+              "label": "Land, Buildings, and Equipment",
+              "response": "",
+              "hints": {
+                "placeholder": "800000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_total_assets",
+              "label": "TOTAL ASSETS",
+              "response": "",
+              "hints": {
+                "placeholder": "2075000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_liabilities",
+          "title": "Liabilities",
+          "prompts": [
+            {
+              "id": "prompt_accounts_payable",
+              "label": "Accounts Payable",
+              "response": "",
+              "hints": {
+                "placeholder": "45000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_grants_payable",
+              "label": "Grants Payable",
+              "response": "",
+              "hints": {
+                "placeholder": "100000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_deferred_revenue",
+              "label": "Deferred Revenue",
+              "response": "",
+              "hints": {
+                "placeholder": "50000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_total_liabilities",
+              "label": "TOTAL LIABILITIES",
+              "response": "",
+              "hints": {
+                "placeholder": "195000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_net_assets",
+          "title": "Net Assets",
+          "prompts": [
+            {
+              "id": "prompt_unrestricted_net_assets",
+              "label": "Unrestricted Net Assets",
+              "response": "",
+              "hints": {
+                "placeholder": "1200000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_temporarily_restricted",
+              "label": "Temporarily Restricted Net Assets",
+              "response": "",
+              "hints": {
+                "placeholder": "400000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_permanently_restricted",
+              "label": "Permanently Restricted Net Assets",
+              "response": "",
+              "hints": {
+                "placeholder": "280000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_total_net_assets",
+              "label": "TOTAL NET ASSETS",
+              "response": "",
+              "hints": {
+                "placeholder": "1880000.00",
+                "expectedDataType": "currency"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "section_governance",
+      "title": "Part VI - Governance and Management",
+      "description": "Policies and procedures",
+      "prompts": [
+        {
+          "id": "prompt_governing_docs_changes",
+          "label": "Were there any significant changes to organizing documents?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_material_diversion",
+          "label": "Was there any material diversion of assets?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_conflict_of_interest",
+          "label": "Does the organization have a written conflict of interest policy?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_whistleblower_policy",
+          "label": "Does the organization have a written whistleblower policy?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_document_retention",
+          "label": "Does the organization have a written document retention policy?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_form_990_provided",
+          "label": "Was a copy of Form 990 provided to governing body before filing?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_signature",
+      "title": "Signature Block",
+      "description": "Officer signature and preparer information",
+      "prompts": [
+        {
+          "id": "prompt_officer_signature",
+          "label": "Signature of Officer",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Type full name to serve as electronic signature"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_officer_title",
+          "label": "Title of Officer",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["President", "Executive Director", "CEO", "Treasurer", "CFO"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_signature_date",
+          "label": "Date Signed",
+          "response": "",
+          "hints": {
+            "placeholder": "2025-03-15",
+            "expectedDataType": "date"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_preparer_name",
+          "label": "Preparer's Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_preparer_firm",
+          "label": "Preparer's Firm Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_preparer_ptin",
+          "label": "Preparer's PTIN",
+          "response": "",
+          "hints": {
+            "placeholder": "P12345678",
+            "expectedDataType": "text",
+            "helpText": "Preparer Tax Identification Number"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_preparer_ein",
+          "label": "Firm's EIN",
+          "response": "",
+          "hints": {
+            "placeholder": "12-3456789",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}

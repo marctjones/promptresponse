@@ -56,7 +56,6 @@ public class AprJsonSerializerTests
         json.Should().Contain("\"version\": \"1.0\"");
         json.Should().Contain("\"documentType\": \"template\"");
         json.Should().Contain("\"sections\"");
-        json.Should().Contain("\"subsections\"");
         json.Should().Contain("\"prompts\"");
     }
 
@@ -175,10 +174,10 @@ public class AprJsonSerializerTests
 
         // Assert
         deserialized.Sections.Should().HaveCount(original.Sections.Count);
-        deserialized.Sections[0].Subsections.Should().HaveCount(
-            original.Sections[0].Subsections.Count);
-        deserialized.Sections[0].Subsections[0].Prompts.Should().HaveCount(
-            original.Sections[0].Subsections[0].Prompts.Count);
+        deserialized.Sections[0].Sections.Should().HaveCount(
+            original.Sections[0].Sections.Count);
+        deserialized.Sections[0].Sections[0].Prompts.Should().HaveCount(
+            original.Sections[0].Sections[0].Prompts.Count);
     }
 
     [Fact]
@@ -377,14 +376,14 @@ public class AprJsonSerializerTests
                 new()
                 {
                     Id = "section_001",
-                    Title = "Section with Subsections",
+                    Title = "Section with Child Sections",
                     Description = "Test section",
-                    Subsections = new List<Subsection>
+                    Sections = new List<Section>
                     {
                         new()
                         {
-                            Id = "subsection_001_001",
-                            Title = "Subsection 1",
+                            Id = "child_001_001",
+                            Title = "Child Section 1",
                             Prompts = new List<Prompt>
                             {
                                 new()

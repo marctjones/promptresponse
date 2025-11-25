@@ -115,10 +115,14 @@ class FormFiller:
 
         responses = {}
 
-        for section in template.sections:
-            print(f"\n--- {section.title} ---")
+        def process_section(section, indent=0):
+            prefix = "  " * indent
+            if indent == 0:
+                print(f"\n--- {section.title} ---")
+            else:
+                print(f"\n{prefix}-- {section.title} --")
             if section.description:
-                print(f"    {section.description}")
+                print(f"{prefix}    {section.description}")
             print()
 
             # Section-level prompts
@@ -127,17 +131,12 @@ class FormFiller:
                 if response:
                     responses[prompt.id] = response
 
-            # Subsection prompts
-            for subsection in section.subsections:
-                print(f"\n  -- {subsection.title} --")
-                if subsection.description:
-                    print(f"     {subsection.description}")
-                print()
+            # Nested section prompts (recursive)
+            for nested_section in section.sections:
+                process_section(nested_section, indent + 1)
 
-                for prompt in subsection.prompts:
-                    response = FormFiller._prompt_user(prompt)
-                    if response:
-                        responses[prompt.id] = response
+        for section in template.sections:
+            process_section(section)
 
         return FormFiller.fill_form(template, responses, filled_by)
 

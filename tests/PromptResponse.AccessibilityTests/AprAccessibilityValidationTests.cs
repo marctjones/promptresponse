@@ -278,18 +278,24 @@ public class AprAccessibilityValidationTests
             section.Title.Should().NotBeNullOrWhiteSpace(
                 "sections must have titles for navigation");
 
-            // Validate prompts
-            ValidatePromptsAccessibility(section.Prompts, $"Section '{section.Title}'");
+            // Validate prompts and child sections recursively
+            ValidateSectionAccessibility(section, $"Section '{section.Title}'");
+        }
+    }
 
-            // Validate subsections
-            foreach (var subsection in section.Subsections)
-            {
-                subsection.Title.Should().NotBeNullOrWhiteSpace(
-                    "subsections must have titles");
+    private void ValidateSectionAccessibility(Section section, string context)
+    {
+        // Validate prompts at this level
+        ValidatePromptsAccessibility(section.Prompts, context);
 
-                ValidatePromptsAccessibility(subsection.Prompts,
-                    $"Subsection '{subsection.Title}' in Section '{section.Title}'");
-            }
+        // Recursively validate child sections
+        foreach (var childSection in section.Sections)
+        {
+            childSection.Title.Should().NotBeNullOrWhiteSpace(
+                "sections must have titles");
+
+            ValidateSectionAccessibility(childSection,
+                $"Child Section '{childSection.Title}' in {context}");
         }
     }
 
@@ -319,14 +325,19 @@ public class AprAccessibilityValidationTests
 
         foreach (var section in document.Sections)
         {
-            prompts.AddRange(section.Prompts);
-
-            foreach (var subsection in section.Subsections)
-            {
-                prompts.AddRange(subsection.Prompts);
-            }
+            CollectPromptsFromSection(section, prompts);
         }
 
         return prompts;
+    }
+
+    private void CollectPromptsFromSection(Section section, List<Prompt> prompts)
+    {
+        prompts.AddRange(section.Prompts);
+
+        foreach (var childSection in section.Sections)
+        {
+            CollectPromptsFromSection(childSection, prompts);
+        }
     }
 }

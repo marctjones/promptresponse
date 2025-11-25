@@ -181,31 +181,53 @@ public class DiffCommand : ICommand
             // Compare prompts in section
             ComparePrompts(section1.Prompts, section2.Prompts, $"Section '{section1.Title}'", differences);
 
-            // Compare subsections
-            var maxSubsections = Math.Max(section1.Subsections.Count, section2.Subsections.Count);
-            for (int j = 0; j < maxSubsections; j++)
-            {
-                if (j >= section1.Subsections.Count || j >= section2.Subsections.Count)
-                {
-                    differences.Add(new Difference
-                    {
-                        Type = "Structure",
-                        Path = $"Section '{section1.Title}' / Subsection[{j}]",
-                        Value1 = j < section1.Subsections.Count ? section1.Subsections[j].Title : null,
-                        Value2 = j < section2.Subsections.Count ? section2.Subsections[j].Title : null
-                    });
-                    continue;
-                }
-
-                var subsection1 = section1.Subsections[j];
-                var subsection2 = section2.Subsections[j];
-
-                ComparePrompts(subsection1.Prompts, subsection2.Prompts,
-                    $"Section '{section1.Title}' / Subsection '{subsection1.Title}'", differences);
-            }
+            // Compare child sections recursively
+            CompareSections(section1.Sections, section2.Sections, $"Section '{section1.Title}'", differences);
         }
 
         return differences;
+    }
+
+    private void CompareSections(List<Section> sections1, List<Section> sections2, string parentPath, List<Difference> differences)
+    {
+        var maxSections = Math.Max(sections1.Count, sections2.Count);
+        for (int i = 0; i < maxSections; i++)
+        {
+            if (i >= sections1.Count || i >= sections2.Count)
+            {
+                differences.Add(new Difference
+                {
+                    Type = "Structure",
+                    Path = $"{parentPath} / Section[{i}]",
+                    Value1 = i < sections1.Count ? sections1[i].Title : null,
+                    Value2 = i < sections2.Count ? sections2[i].Title : null
+                });
+                continue;
+            }
+
+            var section1 = sections1[i];
+            var section2 = sections2[i];
+
+            // Compare section titles
+            if (section1.Title != section2.Title)
+            {
+                differences.Add(new Difference
+                {
+                    Type = "Structure",
+                    Path = $"{parentPath} / Section[{i}].Title",
+                    Value1 = section1.Title,
+                    Value2 = section2.Title
+                });
+            }
+
+            var sectionPath = $"{parentPath} / '{section1.Title}'";
+
+            // Compare prompts
+            ComparePrompts(section1.Prompts, section2.Prompts, sectionPath, differences);
+
+            // Recursively compare child sections
+            CompareSections(section1.Sections, section2.Sections, sectionPath, differences);
+        }
     }
 
     private void ComparePrompts(List<Prompt> prompts1, List<Prompt> prompts2, string path, List<Difference> differences)

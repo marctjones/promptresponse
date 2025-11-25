@@ -66,8 +66,7 @@ PromptResponse.Core/
 │   ├── AprDocument.cs          # Root document
 │   ├── DocumentType.cs         # Enum: Template/FilledForm
 │   ├── Metadata.cs             # Document metadata
-│   ├── Section.cs              # Section grouping
-│   ├── Subsection.cs           # Nested grouping
+│   ├── Section.cs              # Section grouping (recursive)
 │   ├── Prompt.cs               # Individual prompt
 │   ├── PromptHints.cs          # Type hints, suggestions
 │   └── ResponseMetadata.cs     # Response tracking
@@ -171,14 +170,14 @@ public class AprDocument
 
 ```csharp
 /// <summary>
-/// Top-level grouping of prompts in a document.
+/// Grouping of prompts in a document, can be nested to unlimited depth.
 /// </summary>
 public class Section
 {
     public string Id { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string? Description { get; set; }
-    public List<Subsection> Subsections { get; set; } = new();
+    public List<Section> Sections { get; set; } = new();
     public List<Prompt> Prompts { get; set; } = new();
 }
 ```
@@ -644,12 +643,25 @@ Template with webhook URL → User fills form → POST to webhook
 
 ## Design Decisions
 
+### Why This Project?
+
+Office workers constantly need to create and fill forms, but existing tools are painful:
+- **PDF Forms**: Difficult to create, weird rendering issues, hard to extract data
+- **Word Tables/Forms**: Break easily, formatting nightmares, no structured data export
+- **Custom CRUD Apps**: Same form logic rebuilt over and over for every project
+
+PromptResponse solves these by providing:
+- Simple form creation without layout hassles
+- Direct database import (it's just JSON)
+- Built-in submission to S3/webhooks (no custom server code)
+- Easy programmatic filling for automation
+
 ### Why JSON?
 
 - Human-readable
 - Wide tool support
-- Easy to parse
-- Interoperable
+- Easy to parse and import into databases
+- Interoperable with any language or system
 
 ### Why Plain Text Responses?
 
@@ -657,6 +669,7 @@ Template with webhook URL → User fills form → POST to webhook
 - No data loss from type coercion
 - Portable across systems
 - Accessibility
+- Easy database import (no type conversion issues)
 
 ### Why No Layout Info?
 
@@ -664,12 +677,20 @@ Template with webhook URL → User fills form → POST to webhook
 - Dynamic UI adaptation
 - Accessibility
 - Portability
+- Focus on data, not formatting headaches
 
 ### Why Two Document Types?
 
 - Clear intent (template vs filled)
 - Different workflows
 - Prevent accidental template modification
+
+### Why Built-in Submission?
+
+- Eliminates need to build custom CRUD apps for every form
+- S3 pre-signed POST means no server-side code needed
+- Template publishers control where submissions go
+- Users just click "Submit" - no configuration needed
 
 ## References
 

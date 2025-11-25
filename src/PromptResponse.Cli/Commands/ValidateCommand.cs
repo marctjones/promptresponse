@@ -106,11 +106,17 @@ public class ValidateCommand : ICommand
         var count = 0;
         foreach (var section in document.Sections)
         {
-            count += section.Prompts.Count;
-            foreach (var subsection in section.Subsections)
-            {
-                count += subsection.Prompts.Count;
-            }
+            count += CountPromptsInSection(section);
+        }
+        return count;
+    }
+
+    private int CountPromptsInSection(Core.Models.Section section)
+    {
+        var count = section.Prompts.Count;
+        foreach (var childSection in section.Sections)
+        {
+            count += CountPromptsInSection(childSection);
         }
         return count;
     }

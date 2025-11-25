@@ -88,13 +88,8 @@ public class StatsCommand : ICommand
 
         foreach (var section in document.Sections)
         {
-            var sectionPrompts = new List<Prompt>(section.Prompts);
-
-            foreach (var subsection in section.Subsections)
-            {
-                sectionPrompts.AddRange(subsection.Prompts);
-                stats.SubsectionCount++;
-            }
+            var sectionPrompts = new List<Prompt>();
+            CollectPromptsFromSection(section, sectionPrompts, stats);
 
             allPrompts.AddRange(sectionPrompts);
 
@@ -147,6 +142,17 @@ public class StatsCommand : ICommand
         stats.SectionStatistics = sectionStats;
 
         return stats;
+    }
+
+    private void CollectPromptsFromSection(Section section, List<Prompt> prompts, DocumentStatistics stats)
+    {
+        prompts.AddRange(section.Prompts);
+
+        foreach (var childSection in section.Sections)
+        {
+            stats.SubsectionCount++;
+            CollectPromptsFromSection(childSection, prompts, stats);
+        }
     }
 
     private void DisplayStatistics(DocumentStatistics stats)

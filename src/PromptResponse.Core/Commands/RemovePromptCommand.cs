@@ -3,7 +3,7 @@ using PromptResponse.Core.Models;
 namespace PromptResponse.Core.Commands;
 
 /// <summary>
-/// Command to remove a prompt from a section or subsection.
+/// Command to remove a prompt from a section.
 /// </summary>
 public class RemovePromptCommand : ICommand
 {
@@ -26,19 +26,6 @@ public class RemovePromptCommand : ICommand
         _promptList = section.Prompts;
         _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
         _containerName = $"section '{section.Title}'";
-    }
-
-    /// <summary>
-    /// Initializes a new instance for removing a prompt from a subsection.
-    /// </summary>
-    /// <param name="subsection">The subsection to remove the prompt from.</param>
-    /// <param name="prompt">The prompt to remove.</param>
-    public RemovePromptCommand(Subsection subsection, Prompt prompt)
-    {
-        if (subsection == null) throw new ArgumentNullException(nameof(subsection));
-        _promptList = subsection.Prompts;
-        _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
-        _containerName = $"subsection '{subsection.Title}'";
     }
 
     /// <inheritdoc/>

@@ -3,13 +3,14 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Microsoft.Extensions.Logging;
+using PromptResponse.Core.Commands;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Services;
 using PromptResponse.Core.Services.Certificates;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.Views;
-using System.Windows.Input;
+using IInputCommand = System.Windows.Input.ICommand;
 
 namespace PromptResponse.Desktop.ViewModels;
 
@@ -20,37 +21,58 @@ public class MainWindowViewModel : ViewModelBase
 {
     private readonly IFileService _fileService;
     private readonly ISettingsService _settingsService;
+    private readonly IDialogService _dialogService;
     private readonly ICertificateGenerator _certificateGenerator;
     private readonly ICertificateStore _certificateStore;
     private readonly ISignatureService _signatureService;
     private readonly IS3BrowserService _s3BrowserService;
+    private readonly IS3SubmissionService _s3SubmissionService;
+    private readonly ITemplateGalleryService _templateGalleryService;
+    private readonly ITemplatePublishingService _templatePublishingService;
     private readonly ILogger<MainWindowViewModel> _logger;
+    private readonly UndoRedoManager _undoRedoManager;
     private AprDocument? _currentDocument;
     private FormFillingViewModel? _formFillingViewModel;
     private TemplateEditorViewModel? _templateEditorViewModel;
     private string _title = "PromptResponse";
     private bool _isEditingTemplate = false; // Track if we're editing a template vs filling a form
+    private bool _canUndo;
+    private bool _canRedo;
+    private string _undoDescription = string.Empty;
+    private string _redoDescription = string.Empty;
 
     public MainWindowViewModel(
         IFileService fileService,
         ISettingsService settingsService,
+        IDialogService dialogService,
         ICertificateGenerator certificateGenerator,
         ICertificateStore certificateStore,
         ISignatureService signatureService,
         IS3BrowserService s3BrowserService,
+        IS3SubmissionService s3SubmissionService,
+        ITemplateGalleryService templateGalleryService,
+        ITemplatePublishingService templatePublishingService,
         ILogger<MainWindowViewModel> logger)
     {
         _fileService = fileService;
         _settingsService = settingsService;
+        _dialogService = dialogService;
         _certificateGenerator = certificateGenerator;
         _certificateStore = certificateStore;
         _signatureService = signatureService;
         _s3BrowserService = s3BrowserService;
+        _s3SubmissionService = s3SubmissionService;
+        _templateGalleryService = templateGalleryService;
+        _templatePublishingService = templatePublishingService;
         _logger = logger;
 
         _logger.LogInformation("MainWindowViewModel constructor called");
         _logger.LogDebug("  FileService type: {Type}", fileService.GetType().Name);
         _logger.LogDebug("  SettingsService type: {Type}", settingsService.GetType().Name);
+
+        // Initialize UndoRedoManager
+        _undoRedoManager = new UndoRedoManager();
+        _undoRedoManager.StateChanged += OnUndoRedoStateChanged;
 
         // Commands
         _logger.LogDebug("Setting up commands...");
@@ -63,6 +85,10 @@ public class MainWindowViewModel : ViewModelBase
         SwitchToTemplateEditingCommand = new RelayCommand(SwitchToTemplateEditing, () => _currentDocument != null && !_isEditingTemplate);
         SwitchToFormFillingCommand = new RelayCommand(SwitchToFormFilling, () => _currentDocument != null && _isEditingTemplate);
 
+        // Undo/Redo commands
+        UndoCommand = new RelayCommand(Undo, () => CanUndo);
+        RedoCommand = new RelayCommand(Redo, () => CanRedo);
+
         // Theme commands
         SetLightThemeCommand = new RelayCommand(() => SetTheme(ThemeVariant.Light));
         SetDarkThemeCommand = new RelayCommand(() => SetTheme(ThemeVariant.Dark));
@@ -73,7 +99,95 @@ public class MainWindowViewModel : ViewModelBase
         OpenCertificateManagementCommand = new RelayCommand(OpenCertificateManagement);
         OpenS3BrowserCommand = new RelayCommand(OpenS3Browser);
 
+        // S3 commands
+        SubmitToS3Command = new RelayCommand(async () => await SubmitToS3Async(), CanSubmitToS3);
+        BrowseTemplateGalleryCommand = new RelayCommand(BrowseTemplateGallery);
+        PublishTemplateCommand = new RelayCommand(async () => await PublishTemplateAsync(), CanPublishTemplate);
+
         _logger.LogInformation("MainWindowViewModel initialized successfully");
+    }
+
+    /// <summary>
+    /// Gets the UndoRedoManager for tracking command history.
+    /// </summary>
+    public UndoRedoManager UndoRedoManager => _undoRedoManager;
+
+    /// <summary>
+    /// Gets whether undo is available.
+    /// </summary>
+    public bool CanUndo
+    {
+        get => _canUndo;
+        private set
+        {
+            if (SetProperty(ref _canUndo, value))
+            {
+                (UndoCommand as RelayCommand)?.RaiseCanExecuteChanged();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets whether redo is available.
+    /// </summary>
+    public bool CanRedo
+    {
+        get => _canRedo;
+        private set
+        {
+            if (SetProperty(ref _canRedo, value))
+            {
+                (RedoCommand as RelayCommand)?.RaiseCanExecuteChanged();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the description of the command that would be undone.
+    /// </summary>
+    public string UndoDescription
+    {
+        get => _undoDescription;
+        private set => SetProperty(ref _undoDescription, value);
+    }
+
+    /// <summary>
+    /// Gets the description of the command that would be redone.
+    /// </summary>
+    public string RedoDescription
+    {
+        get => _redoDescription;
+        private set => SetProperty(ref _redoDescription, value);
+    }
+
+    private void OnUndoRedoStateChanged(object? sender, EventArgs e)
+    {
+        CanUndo = _undoRedoManager.CanUndo;
+        CanRedo = _undoRedoManager.CanRedo;
+        UndoDescription = _undoRedoManager.GetUndoDescription() ?? string.Empty;
+        RedoDescription = _undoRedoManager.GetRedoDescription() ?? string.Empty;
+    }
+
+    private void Undo()
+    {
+        if (!_undoRedoManager.CanUndo) return;
+
+        _logger.LogDebug("Executing Undo: {Description}", _undoRedoManager.GetUndoDescription());
+        _undoRedoManager.Undo();
+
+        // Notify the active ViewModel to refresh its view
+        FormFillingViewModel?.RefreshFromModel();
+    }
+
+    private void Redo()
+    {
+        if (!_undoRedoManager.CanRedo) return;
+
+        _logger.LogDebug("Executing Redo: {Description}", _undoRedoManager.GetRedoDescription());
+        _undoRedoManager.Redo();
+
+        // Notify the active ViewModel to refresh its view
+        FormFillingViewModel?.RefreshFromModel();
     }
 
     public string Title
@@ -99,20 +213,25 @@ public class MainWindowViewModel : ViewModelBase
         private set => SetProperty(ref _templateEditorViewModel, value);
     }
 
-    public ICommand OpenCommand { get; }
-    public ICommand OpenTemplateForEditingCommand { get; }
-    public ICommand NewTemplateCommand { get; }
-    public ICommand SaveCommand { get; }
-    public ICommand SaveAsCommand { get; }
-    public ICommand CloseCommand { get; }
-    public ICommand SwitchToTemplateEditingCommand { get; }
-    public ICommand SwitchToFormFillingCommand { get; }
-    public ICommand SetLightThemeCommand { get; }
-    public ICommand SetDarkThemeCommand { get; }
-    public ICommand SetSystemThemeCommand { get; }
-    public ICommand SetCustomThemeCommand { get; }
-    public ICommand OpenCertificateManagementCommand { get; }
-    public ICommand OpenS3BrowserCommand { get; }
+    public IInputCommand OpenCommand { get; }
+    public IInputCommand OpenTemplateForEditingCommand { get; }
+    public IInputCommand NewTemplateCommand { get; }
+    public IInputCommand SaveCommand { get; }
+    public IInputCommand SaveAsCommand { get; }
+    public IInputCommand CloseCommand { get; }
+    public IInputCommand SwitchToTemplateEditingCommand { get; }
+    public IInputCommand SwitchToFormFillingCommand { get; }
+    public IInputCommand UndoCommand { get; }
+    public IInputCommand RedoCommand { get; }
+    public IInputCommand SetLightThemeCommand { get; }
+    public IInputCommand SetDarkThemeCommand { get; }
+    public IInputCommand SetSystemThemeCommand { get; }
+    public IInputCommand SetCustomThemeCommand { get; }
+    public IInputCommand OpenCertificateManagementCommand { get; }
+    public IInputCommand OpenS3BrowserCommand { get; }
+    public IInputCommand SubmitToS3Command { get; }
+    public IInputCommand BrowseTemplateGalleryCommand { get; }
+    public IInputCommand PublishTemplateCommand { get; }
 
     private async Task OpenFileAsync(bool forFilling)
     {
@@ -205,8 +324,9 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error opening file");
-            // TODO: Show error dialog
-            Console.Error.WriteLine($"Error opening file: {ex.Message}");
+            await _dialogService.ShowErrorAsync(
+                "File Open Error",
+                $"Unable to open the file. Please check that the file exists and is a valid APR document.\n\nDetails: {ex.Message}");
         }
     }
 
@@ -248,7 +368,7 @@ public class MainWindowViewModel : ViewModelBase
                                 }
                             }
                         },
-                        Subsections = new List<Subsection>()
+                        Sections = new List<Section>()
                     }
                 }
             };
@@ -266,7 +386,9 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error creating new template");
-            Console.Error.WriteLine($"Error creating new template: {ex.Message}");
+            _ = _dialogService.ShowErrorAsync(
+                "Template Creation Error",
+                $"Unable to create a new template.\n\nDetails: {ex.Message}");
         }
     }
 
@@ -316,7 +438,9 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error switching to template editing mode");
-            Console.Error.WriteLine($"Error switching to template editing mode: {ex.Message}");
+            _ = _dialogService.ShowErrorAsync(
+                "Mode Switch Error",
+                $"Unable to switch to template editing mode.\n\nDetails: {ex.Message}");
         }
     }
 
@@ -367,7 +491,9 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error switching to form filling mode");
-            Console.Error.WriteLine($"Error switching to form filling mode: {ex.Message}");
+            _ = _dialogService.ShowErrorAsync(
+                "Mode Switch Error",
+                $"Unable to switch to form filling mode.\n\nDetails: {ex.Message}");
         }
     }
 
@@ -385,7 +511,9 @@ public class MainWindowViewModel : ViewModelBase
             if (!File.Exists(filePath))
             {
                 _logger.LogError("Startup file not found: {File}", filePath);
-                Console.Error.WriteLine($"Error: File not found: {filePath}");
+                await _dialogService.ShowErrorAsync(
+                    "File Not Found",
+                    $"The specified file could not be found:\n{filePath}");
                 return;
             }
 
@@ -403,7 +531,9 @@ public class MainWindowViewModel : ViewModelBase
             if (document == null)
             {
                 _logger.LogError("Failed to deserialize document");
-                Console.Error.WriteLine($"Error: Failed to load document from {filePath}");
+                await _dialogService.ShowErrorAsync(
+                    "Document Load Error",
+                    $"Failed to load the document. The file may be corrupted or not a valid APR file:\n{filePath}");
                 return;
             }
 
@@ -464,7 +594,9 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error opening startup file");
-            Console.Error.WriteLine($"Error opening file: {ex.Message}");
+            await _dialogService.ShowErrorAsync(
+                "Startup File Error",
+                $"Unable to open the specified file at startup.\n\nDetails: {ex.Message}");
         }
     }
 
@@ -520,8 +652,9 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error saving file");
-            // TODO: Show error dialog
-            Console.Error.WriteLine($"Error saving file: {ex.Message}");
+            await _dialogService.ShowErrorAsync(
+                "File Save Error",
+                $"Unable to save the file. Please check that you have write permissions and sufficient disk space.\n\nDetails: {ex.Message}");
         }
     }
 
@@ -559,8 +692,9 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error saving file");
-            // TODO: Show error dialog
-            Console.Error.WriteLine($"Error saving file: {ex.Message}");
+            await _dialogService.ShowErrorAsync(
+                "File Save Error",
+                $"Unable to save the file. Please check that you have write permissions and sufficient disk space.\n\nDetails: {ex.Message}");
         }
     }
 
@@ -775,7 +909,9 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error opening Certificate Management window");
-            Console.Error.WriteLine($"Error opening Certificate Management: {ex.Message}");
+            _ = _dialogService.ShowErrorAsync(
+                "Certificate Management Error",
+                $"Unable to open the Certificate Management window.\n\nDetails: {ex.Message}");
         }
     }
 
@@ -827,7 +963,102 @@ public class MainWindowViewModel : ViewModelBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error opening S3 Browser window");
-            Console.Error.WriteLine($"Error opening S3 Browser: {ex.Message}");
+            _ = _dialogService.ShowErrorAsync(
+                "S3 Browser Error",
+                $"Unable to open the S3 Browser window.\n\nDetails: {ex.Message}");
+        }
+    }
+
+    private bool CanSubmitToS3()
+    {
+        return _currentDocument != null && !_isEditingTemplate;
+    }
+
+    private async Task SubmitToS3Async()
+    {
+        if (_currentDocument == null) return;
+
+        _logger.LogInformation("Submitting form to S3");
+
+        try
+        {
+            if (!_s3SubmissionService.CanSubmit(_currentDocument))
+            {
+                await _dialogService.ShowErrorAsync(
+                    "S3 Submission Error",
+                    "This form is not configured for S3 submission. Please configure S3 settings in the template.");
+                return;
+            }
+
+            var s3Key = await _s3SubmissionService.SubmitFormAsync(_currentDocument);
+
+            await _dialogService.ShowInfoAsync(
+                "Submission Successful",
+                $"Form submitted successfully.\nKey: {s3Key}");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error submitting form to S3");
+            await _dialogService.ShowErrorAsync(
+                "S3 Submission Error",
+                $"Failed to submit form: {ex.Message}");
+        }
+    }
+
+    private void BrowseTemplateGallery()
+    {
+        _logger.LogInformation("Opening Template Gallery");
+
+        try
+        {
+            // Template gallery functionality would go here
+            _ = _dialogService.ShowInfoAsync(
+                "Template Gallery",
+                "Template Gallery functionality coming soon.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error opening Template Gallery");
+            _ = _dialogService.ShowErrorAsync(
+                "Template Gallery Error",
+                $"Unable to open the Template Gallery.\n\nDetails: {ex.Message}");
+        }
+    }
+
+    private bool CanPublishTemplate()
+    {
+        return _currentDocument != null && _isEditingTemplate;
+    }
+
+    private async Task PublishTemplateAsync()
+    {
+        if (_currentDocument == null) return;
+
+        _logger.LogInformation("Publishing template");
+
+        try
+        {
+            // Validate template for publishing
+            var (isValid, errorMessage) = _templatePublishingService.ValidateForPublishing(_currentDocument);
+            if (!isValid)
+            {
+                await _dialogService.ShowErrorAsync(
+                    "Publishing Validation Failed",
+                    errorMessage ?? "Template cannot be published.");
+                return;
+            }
+
+            // For now, show a placeholder message - full S3 config dialog would be needed
+            await _dialogService.ShowInfoAsync(
+                "Template Publishing",
+                "Template publishing requires S3 configuration. This feature will be available in a future release.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error publishing template");
+            await _dialogService.ShowErrorAsync(
+                "Publishing Error",
+                $"Failed to publish template: {ex.Message}");
         }
     }
 }
@@ -835,7 +1066,7 @@ public class MainWindowViewModel : ViewModelBase
 /// <summary>
 /// Simple relay command implementation.
 /// </summary>
-public class RelayCommand : ICommand
+public class RelayCommand : IInputCommand
 {
     private readonly Func<Task>? _execute;
     private readonly Func<object?, Task>? _executeWithParameter;

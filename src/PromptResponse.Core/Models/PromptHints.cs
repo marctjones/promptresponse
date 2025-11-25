@@ -23,9 +23,10 @@ public class PromptHints
     /// </summary>
     /// <remarks>
     /// Common values: "text", "email", "phone", "date", "time", "datetime",
-    /// "number", "url", "multiline", "currency", "boolean".
+    /// "number", "url", "multiline", "currency", "boolean", "table".
     /// The UI may use this to show appropriate input widgets (e.g., date picker),
     /// but any text string is always allowed as a response.
+    /// For "table" type, see TableDefinition for structure configuration.
     /// </remarks>
     public string? ExpectedDataType { get; set; }
 
@@ -57,4 +58,13 @@ public class PromptHints
     /// @"^\d{4}-\d{2}-\d{2}$" for ISO date format
     /// </example>
     public string? ValidationPattern { get; set; }
+
+    /// <summary>
+    /// Gets or sets the table definition for table-type prompts.
+    /// </summary>
+    /// <remarks>
+    /// Only used when ExpectedDataType is "table".
+    /// Defines columns and whether rows are fixed or dynamic.
+    /// </remarks>
+    public TableDefinition? TableDefinition { get; set; }
 }

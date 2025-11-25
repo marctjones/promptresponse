@@ -169,20 +169,20 @@
                                                     <TextBlock Text="Add Prompt" VerticalAlignment="Center"/>
                                                 </StackPanel>
                                             </Button>
-                                            <Button Command="{Binding AddSubsectionCommand}"
+                                            <Button Command="{Binding AddSectionCommand}"
                                                     Classes="modern"
                                                     FontSize="{StaticResource FontSizeSmall}"
-                                                    AutomationProperties.Name="Add subsection">
+                                                    AutomationProperties.Name="Add child section">
                                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                                     <PathIcon Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
                                                               Width="12" Height="12"/>
-                                                    <TextBlock Text="Add Subsection" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="Add Section" VerticalAlignment="Center"/>
                                                 </StackPanel>
                                             </Button>
                                         </StackPanel>
 
-                                        <!-- Subsections -->
-                                        <ItemsControl ItemsSource="{Binding Subsections}"
+                                        <!-- Child Sections -->
+                                        <ItemsControl ItemsSource="{Binding Sections}"
                                                       HorizontalAlignment="Stretch">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -198,25 +198,25 @@
                                                                 <Grid ColumnDefinitions="*,Auto">
                                                                     <TextBox Grid.Column="0"
                                                                              Text="{Binding Title}"
-                                                                             Watermark="Subsection title"
+                                                                             Watermark="Section title"
                                                                              FontSize="15"
                                                                              FontWeight="Medium"
                                                                              BorderThickness="0"
                                                                              Background="Transparent"
                                                                              Padding="4"
-                                                                             AutomationProperties.Name="Subsection title"/>
+                                                                             AutomationProperties.Name="Child section title"/>
                                                                     <Button Grid.Column="1"
-                                                                            Command="{Binding RemoveSubsectionCommand}"
+                                                                            Command="{Binding RemoveSectionCommand}"
                                                                             Content="🗑️"
                                                                             Padding="6"
                                                                             FontSize="12"
-                                                                            ToolTip.Tip="Remove subsection"
-                                                                            AutomationProperties.Name="Remove subsection"/>
+                                                                            ToolTip.Tip="Remove section"
+                                                                            AutomationProperties.Name="Remove section"/>
                                                                 </Grid>
                                                             </Expander.Header>
 
                                                             <StackPanel Margin="8" Spacing="8">
-                                                                <!-- Subsection Description -->
+                                                                <!-- Section Description -->
                                                                 <TextBox Text="{Binding Description}"
                                                                          Watermark="Optional description"
                                                                          AcceptsReturn="True"
@@ -225,14 +225,14 @@
                                                                          FontSize="13"
                                                                          Padding="8"
                                                                          Foreground="{DynamicResource SystemBaseMediumColor}"
-                                                                         AutomationProperties.Name="Subsection description"
-                                                                         AutomationProperties.HelpText="Optional description for this subsection"/>
+                                                                         AutomationProperties.Name="Section description"
+                                                                         AutomationProperties.HelpText="Optional description for this section"/>
 
                                                                 <Button Command="{Binding AddPromptCommand}"
                                                                         Content="➕ Add Prompt"
                                                                         Padding="8,4"
                                                                         FontSize="11"
-                                                                        AutomationProperties.Name="Add prompt to subsection"/>
+                                                                        AutomationProperties.Name="Add prompt to section"/>
 
                                                                 <!-- Prompts in Subsection -->
                                                                 <ItemsControl ItemsSource="{Binding Prompts}"

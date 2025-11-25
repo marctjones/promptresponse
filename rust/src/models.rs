@@ -64,28 +64,6 @@ impl Prompt {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Subsection {
-    pub id: String,
-    pub title: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    #[serde(default)]
-    pub prompts: Vec<Prompt>,
-}
-
-impl Subsection {
-    pub fn new(id: impl Into<String>, title: impl Into<String>) -> Self {
-        Self {
-            id: id.into(),
-            title: title.into(),
-            description: None,
-            prompts: Vec::new(),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
 pub struct Section {
     pub id: String,
     pub title: String,
@@ -94,7 +72,7 @@ pub struct Section {
     #[serde(default)]
     pub prompts: Vec<Prompt>,
     #[serde(default)]
-    pub subsections: Vec<Subsection>,
+    pub sections: Vec<Section>,
 }
 
 impl Section {
@@ -104,8 +82,26 @@ impl Section {
             title: title.into(),
             description: None,
             prompts: Vec::new(),
-            subsections: Vec::new(),
+            sections: Vec::new(),
         }
+    }
+
+    /// Get all prompts in this section and nested sections (flattened)
+    pub fn get_all_prompts(&self) -> Vec<&Prompt> {
+        let mut prompts: Vec<&Prompt> = self.prompts.iter().collect();
+        for section in &self.sections {
+            prompts.extend(section.get_all_prompts());
+        }
+        prompts
+    }
+
+    /// Get all prompts (mutable, flattened)
+    pub fn get_all_prompts_mut(&mut self) -> Vec<&mut Prompt> {
+        let mut prompts: Vec<&mut Prompt> = self.prompts.iter_mut().collect();
+        for section in &mut self.sections {
+            prompts.extend(section.get_all_prompts_mut());
+        }
+        prompts
     }
 }
 
@@ -190,10 +186,7 @@ impl AprDocument {
     pub fn get_all_prompts(&self) -> Vec<&Prompt> {
         let mut prompts = Vec::new();
         for section in &self.sections {
-            prompts.extend(&section.prompts);
-            for subsection in &section.subsections {
-                prompts.extend(&subsection.prompts);
-            }
+            prompts.extend(section.get_all_prompts());
         }
         prompts
     }
@@ -202,10 +195,7 @@ impl AprDocument {
     pub fn get_all_prompts_mut(&mut self) -> Vec<&mut Prompt> {
         let mut prompts = Vec::new();
         for section in &mut self.sections {
-            prompts.extend(section.prompts.iter_mut());
-            for subsection in &mut section.subsections {
-                prompts.extend(subsection.prompts.iter_mut());
-            }
+            prompts.extend(section.get_all_prompts_mut());
         }
         prompts
     }

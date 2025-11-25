@@ -76,82 +76,60 @@ public class DocumentValidator : IValidator<AprDocument>
             return;
         }
 
-        var sectionIds = new HashSet<string>();
+        var allSectionIds = new HashSet<string>();
         var allPromptIds = new HashSet<string>();
 
         for (int i = 0; i < document.Sections.Count; i++)
         {
-            var section = document.Sections[i];
-            var sectionPath = $"sections[{i}]";
-
-            // Validate section ID
-            if (string.IsNullOrWhiteSpace(section.Id))
-            {
-                result.AddError(new ValidationError("Section ID is required", $"{sectionPath}.id", "REQUIRED_FIELD"));
-            }
-            else if (sectionIds.Contains(section.Id))
-            {
-                result.AddError(new ValidationError($"Duplicate section ID: {section.Id}", $"{sectionPath}.id", "DUPLICATE_ID"));
-            }
-            else
-            {
-                sectionIds.Add(section.Id);
-            }
-
-            // Validate section title
-            if (string.IsNullOrWhiteSpace(section.Title))
-            {
-                result.AddError(new ValidationError("Section title is required", $"{sectionPath}.title", "REQUIRED_FIELD"));
-            }
-
-            // Section must have at least one prompt or subsection
-            var hasContent = (section.Prompts != null && section.Prompts.Count > 0) ||
-                           (section.Subsections != null && section.Subsections.Count > 0);
-            if (!hasContent)
-            {
-                result.AddError(new ValidationError("Section must have at least one prompt or subsection", sectionPath, "EMPTY_SECTION"));
-            }
-
-            // Validate subsections
-            if (section.Subsections != null)
-            {
-                for (int j = 0; j < section.Subsections.Count; j++)
-                {
-                    ValidateSubsection(section.Subsections[j], $"{sectionPath}.subsections[{j}]", allPromptIds, result);
-                }
-            }
-
-            // Validate section-level prompts
-            if (section.Prompts != null)
-            {
-                for (int j = 0; j < section.Prompts.Count; j++)
-                {
-                    ValidatePrompt(section.Prompts[j], $"{sectionPath}.prompts[{j}]", allPromptIds, result);
-                }
-            }
+            ValidateSection(document.Sections[i], $"sections[{i}]", allSectionIds, allPromptIds, result);
         }
     }
 
-    private void ValidateSubsection(Subsection subsection, string path, HashSet<string> allPromptIds, ValidationResult result)
+    private void ValidateSection(Section section, string path, HashSet<string> allSectionIds, HashSet<string> allPromptIds, ValidationResult result)
     {
-        // Validate subsection ID
-        if (string.IsNullOrWhiteSpace(subsection.Id))
+        // Validate section ID
+        if (string.IsNullOrWhiteSpace(section.Id))
         {
-            result.AddError(new ValidationError("Subsection ID is required", $"{path}.id", "REQUIRED_FIELD"));
+            result.AddError(new ValidationError("Section ID is required", $"{path}.id", "REQUIRED_FIELD"));
+        }
+        else if (allSectionIds.Contains(section.Id))
+        {
+            result.AddError(new ValidationError($"Duplicate section ID: {section.Id}", $"{path}.id", "DUPLICATE_ID"));
+        }
+        else
+        {
+            allSectionIds.Add(section.Id);
         }
 
-        // Validate subsection title
-        if (string.IsNullOrWhiteSpace(subsection.Title))
+        // Validate section title
+        if (string.IsNullOrWhiteSpace(section.Title))
         {
-            result.AddError(new ValidationError("Subsection title is required", $"{path}.title", "REQUIRED_FIELD"));
+            result.AddError(new ValidationError("Section title is required", $"{path}.title", "REQUIRED_FIELD"));
+        }
+
+        // Section must have at least one prompt or child section
+        var hasContent = (section.Prompts != null && section.Prompts.Count > 0) ||
+                       (section.Sections != null && section.Sections.Count > 0);
+        if (!hasContent)
+        {
+            result.AddError(new ValidationError("Section must have at least one prompt or child section", path, "EMPTY_SECTION"));
+        }
+
+        // Validate child sections (recursive)
+        if (section.Sections != null)
+        {
+            for (int i = 0; i < section.Sections.Count; i++)
+            {
+                ValidateSection(section.Sections[i], $"{path}.sections[{i}]", allSectionIds, allPromptIds, result);
+            }
         }
 
         // Validate prompts
-        if (subsection.Prompts != null)
+        if (section.Prompts != null)
         {
-            for (int i = 0; i < subsection.Prompts.Count; i++)
+            for (int i = 0; i < section.Prompts.Count; i++)
             {
-                ValidatePrompt(subsection.Prompts[i], $"{path}.prompts[{i}]", allPromptIds, result);
+                ValidatePrompt(section.Prompts[i], $"{path}.prompts[{i}]", allPromptIds, result);
             }
         }
     }

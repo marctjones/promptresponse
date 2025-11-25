@@ -7,6 +7,7 @@ using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Services;
 using PromptResponse.Core.Services.Certificates;
 using PromptResponse.Core.Validation;
+using IValidator = PromptResponse.Core.Validation.IValidator<PromptResponse.Core.Models.AprDocument>;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels;
 using PromptResponse.Desktop.Views;
@@ -196,6 +197,7 @@ public partial class App : Application
 
         Console.WriteLine("[App]   - Registering DocumentValidator");
         services.AddSingleton<DocumentValidator>();
+        services.AddSingleton<IValidator>(sp => sp.GetRequiredService<DocumentValidator>());
 
         Console.WriteLine("[App]   - Registering DataTypeValidator");
         services.AddSingleton<DataTypeValidator>();
@@ -206,6 +208,9 @@ public partial class App : Application
 
         Console.WriteLine("[App]   - Registering ISettingsService -> SettingsService");
         services.AddSingleton<ISettingsService, SettingsService>();
+
+        Console.WriteLine("[App]   - Registering IDialogService -> DialogService");
+        services.AddSingleton<IDialogService, DialogService>();
 
         Console.WriteLine("[App]   - Registering IPlatformFeatures -> PlatformFeatures");
         services.AddSingleton<IPlatformFeatures, PlatformFeatures>();
@@ -232,6 +237,12 @@ public partial class App : Application
 
         Console.WriteLine("[App]   - Registering IS3BrowserService -> S3BrowserService");
         services.AddSingleton<IS3BrowserService, S3BrowserService>();
+
+        Console.WriteLine("[App]   - Registering ITemplateGalleryService -> TemplateGalleryService");
+        services.AddSingleton<ITemplateGalleryService, TemplateGalleryService>();
+
+        Console.WriteLine("[App]   - Registering ITemplatePublishingService -> TemplatePublishingService");
+        services.AddSingleton<ITemplatePublishingService, TemplatePublishingService>();
 
         // ViewModels
         Console.WriteLine("[App]   - Registering MainWindowViewModel");

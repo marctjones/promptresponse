@@ -4,7 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-PromptResponse is a cross-platform form creation and filling application using a flexible JSON-based format (.apr files). It replaces traditional document-based forms (Word, PDF) with a semantic, portable, text-based format that breaks free from the page metaphor.
+PromptResponse is a cross-platform form creation and filling application using a flexible JSON-based format (.apr files). It makes it easy for office workers to create typical office forms without the hassle of editing PDFs, wrangling Word form fields and tables, or dealing with weird PDF form rendering issues.
+
+**Core Goals:**
+- **Easy Form Creation**: Office workers can create forms without fighting layout tools
+- **Database Integration**: JSON format makes importing form data into databases trivial
+- **Online Submissions**: Submit forms directly to S3 or webhooks without building custom CRUD apps over and over
+- **Programmatic Filling**: Easy API for automated form filling from scripts or other systems
 
 **Technology Stack**: .NET 8.0, C# 12, AvaloniaUI 11, xUnit
 
@@ -85,7 +91,7 @@ dotnet run --project src/PromptResponse.Desktop
 ### Three-Layer Architecture
 
 1. **Core Library** (`PromptResponse.Core`): Platform-agnostic business logic
-   - `Models/`: Domain models (AprDocument, Section, Subsection, Prompt, etc.)
+   - `Models/`: Domain models (AprDocument, Section, Prompt, etc.)
    - `Serialization/`: JSON serialization using System.Text.Json
    - `Validation/`: Structural and semantic validation
 
@@ -110,7 +116,7 @@ dotnet run --project src/PromptResponse.Desktop
 ### APR File Format
 
 - **Format**: JSON-based, UTF-8 encoded
-- **Structure**: 3-level hierarchy: Document → Sections → Subsections → Prompts
+- **Structure**: Recursive hierarchy: Document → Sections → (Nested Sections) → Prompts (unlimited depth)
 - **Data Model**:
   - All responses are plain text strings
   - Type hints (`expectedDataType`) guide UI but are never enforced
@@ -196,7 +202,7 @@ dotnet run --project src/PromptResponse.Cli -- info form.aprf
 - **ALL interactive UI elements MUST have `AutomationProperties.Name`**
 - **Form fields MUST have `AutomationProperties.HelpText` when help is available**
 - **APR documents MUST have unique, descriptive labels for all prompts**
-- **Section and subsection titles are REQUIRED (not optional)**
+- **Section titles are REQUIRED (not optional)**
 - **Test accessibility with automated tests BEFORE committing**
 - **Never use placeholder text as the only label**
 - **Never create duplicate field labels**
@@ -236,9 +242,8 @@ AprDocument
   ├── DocumentType (enum: Template | FilledForm)
   ├── Metadata (creation, modification, authorship)
   └── Sections[] (list of Section)
-      ├── Subsections[] (optional nested grouping)
-      │   └── Prompts[]
-      └── Prompts[] (can exist at both section and subsection level)
+        ├── Prompts[]
+        └── Sections[] (recursive, unlimited depth)
 ```
 
 ### Serialization
@@ -343,9 +348,8 @@ public class PromptViewModel : ViewModelBase
 1. **No Layout Information**: APR format contains no styling or layout data (separation of content and presentation)
 2. **No Code Execution**: APR files are pure data, no scripting or executable code (safe to open untrusted files)
 3. **String-Only Responses**: All responses stored as strings, regardless of expected type
-4. **3-Level Max Depth**: Section → Subsection → Prompt (subsections cannot nest)
-5. **Unique IDs**: All IDs must be unique within their scope
-6. **Stable IDs**: IDs should remain stable across versions (don't change when reordering)
+4. **Unique IDs**: All IDs must be unique within their scope
+5. **Stable IDs**: IDs should remain stable across versions (don't change when reordering)
 
 ## Performance Considerations
 

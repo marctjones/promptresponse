@@ -129,8 +129,7 @@ std::cout << message << "\n";
 ### Models
 
 - `AprDocument` - Root document class
-- `Section` - Document section
-- `Subsection` - Nested subsection
+- `Section` - Document section (recursive, unlimited depth)
 - `Prompt` - Single question/field
 - `DocumentType` - Template or FilledForm enum
 - `Metadata` - Document metadata
@@ -145,7 +144,7 @@ auto doc = TemplateBuilder(title, templateId)
     .setAuthor(author)
     .addSection(title)
         .addPrompt(label, type, placeholder, helpText)
-        .addSubsection(title)
+        .addSection(title)  // Nested sections (unlimited depth)
             .addPrompt(label, type)
             .done()
         .done()

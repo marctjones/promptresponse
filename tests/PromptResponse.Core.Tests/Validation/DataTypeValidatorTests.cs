@@ -325,7 +325,7 @@ public class DataTypeValidatorTests
     }
 
     [Fact]
-    public void ValidateDocument_WithSubsections_ShouldValidateAll()
+    public void ValidateDocument_WithChildSections_ShouldValidateAll()
     {
         // Arrange
         var document = new AprDocument
@@ -337,12 +337,12 @@ public class DataTypeValidatorTests
                 {
                     Id = "section_001",
                     Title = "Section",
-                    Subsections = new List<Subsection>
+                    Sections = new List<Section>
                     {
                         new()
                         {
-                            Id = "subsection_001",
-                            Title = "Subsection",
+                            Id = "child_001",
+                            Title = "Child Section",
                             Prompts = new List<Prompt>
                             {
                                 new()
@@ -751,6 +751,283 @@ public class DataTypeValidatorTests
             // Assert
             inferredType.Should().Be(expectedType, $"Input '{input}' should infer to '{expectedType}'");
         }
+    }
+
+    #endregion
+
+    #region Table Validation Tests
+
+    [Fact]
+    public void ValidateResponse_ValidFixedTableJson_ShouldBeValid()
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "{\"year_2024\": {\"wages\": \"75000\", \"interest\": \"150\"}, \"year_2023\": {\"wages\": \"72000\", \"interest\": \"125\"}}",
+            Hints = new PromptHints
+            {
+                ExpectedDataType = "table",
+                TableDefinition = new TableDefinition
+                {
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn { Id = "wages", Label = "Wages", Type = "currency" },
+                        new TableColumn { Id = "interest", Label = "Interest", Type = "currency" }
+                    },
+                    FixedRows = new List<FixedRow>
+                    {
+                        new FixedRow { Id = "year_2024", Label = "2024" },
+                        new FixedRow { Id = "year_2023", Label = "2023" }
+                    }
+                }
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ValidateResponse_ValidDynamicTableJson_ShouldBeValid()
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "[{\"item\": \"Widget A\", \"qty\": \"10\"}, {\"item\": \"Widget B\", \"qty\": \"5\"}]",
+            Hints = new PromptHints
+            {
+                ExpectedDataType = "table",
+                TableDefinition = new TableDefinition
+                {
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn { Id = "item", Label = "Item", Type = "text" },
+                        new TableColumn { Id = "qty", Label = "Quantity", Type = "number" }
+                    },
+                    DynamicRows = new DynamicRowConfig
+                    {
+                        MinRows = 0,
+                        MaxRows = 10,
+                        RowLabel = "Item"
+                    }
+                }
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ValidateResponse_InvalidTableJson_ShouldReturnWarning()
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "not valid json at all",
+            Hints = new PromptHints
+            {
+                ExpectedDataType = "table",
+                TableDefinition = new TableDefinition
+                {
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn { Id = "col1", Label = "Column 1" }
+                    }
+                }
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ValidateResponse_FixedTableWithArrayResponse_ShouldReturnWarning()
+    {
+        // Arrange - Fixed tables expect object, not array
+        var prompt = new Prompt
+        {
+            Response = "[{\"wages\": \"75000\"}]",
+            Hints = new PromptHints
+            {
+                ExpectedDataType = "table",
+                TableDefinition = new TableDefinition
+                {
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn { Id = "wages", Label = "Wages" }
+                    },
+                    FixedRows = new List<FixedRow>
+                    {
+                        new FixedRow { Id = "year_2024", Label = "2024" }
+                    }
+                }
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ValidateResponse_DynamicTableWithObjectResponse_ShouldReturnWarning()
+    {
+        // Arrange - Dynamic tables expect array, not object
+        var prompt = new Prompt
+        {
+            Response = "{\"item\": \"Widget\"}",
+            Hints = new PromptHints
+            {
+                ExpectedDataType = "table",
+                TableDefinition = new TableDefinition
+                {
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn { Id = "item", Label = "Item" }
+                    },
+                    DynamicRows = new DynamicRowConfig
+                    {
+                        MinRows = 0,
+                        MaxRows = 10,
+                        RowLabel = "Row"
+                    }
+                }
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ValidateResponse_DynamicTableExceedsMaxRows_ShouldReturnWarning()
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "[{\"item\": \"1\"}, {\"item\": \"2\"}, {\"item\": \"3\"}, {\"item\": \"4\"}]",
+            Hints = new PromptHints
+            {
+                ExpectedDataType = "table",
+                TableDefinition = new TableDefinition
+                {
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn { Id = "item", Label = "Item" }
+                    },
+                    DynamicRows = new DynamicRowConfig
+                    {
+                        MinRows = 1,
+                        MaxRows = 3,
+                        RowLabel = "Row"
+                    }
+                }
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ValidateResponse_DynamicTableBelowMinRows_ShouldReturnWarning()
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "[]",
+            Hints = new PromptHints
+            {
+                ExpectedDataType = "table",
+                TableDefinition = new TableDefinition
+                {
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn { Id = "item", Label = "Item" }
+                    },
+                    DynamicRows = new DynamicRowConfig
+                    {
+                        MinRows = 1,
+                        MaxRows = 10,
+                        RowLabel = "Row"
+                    }
+                }
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ValidateResponse_TableWithNoDefinition_ShouldAcceptValidJson()
+    {
+        // Arrange - No table definition means just check for valid JSON
+        var prompt = new Prompt
+        {
+            Response = "{\"any\": \"json\", \"is\": \"valid\"}",
+            Hints = new PromptHints
+            {
+                ExpectedDataType = "table",
+                TableDefinition = null
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ValidateResponse_EmptyTableResponse_ShouldBeValid()
+    {
+        // Arrange
+        var prompt = new Prompt
+        {
+            Response = "",
+            Hints = new PromptHints
+            {
+                ExpectedDataType = "table",
+                TableDefinition = new TableDefinition
+                {
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn { Id = "col1", Label = "Column 1" }
+                    }
+                }
+            }
+        };
+
+        // Act
+        var result = _validator.ValidateResponse(prompt);
+
+        // Assert
+        // Empty responses are always valid
+        result.IsValid.Should().BeTrue();
     }
 
     #endregion

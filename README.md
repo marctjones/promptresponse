@@ -1,21 +1,32 @@
 # PromptResponse
 
-A cross-platform form creation and filling application that replaces traditional document-based forms (Word, PDF) with a flexible, portable, text-based format.
+A cross-platform form creation and filling application that makes it easy for office workers to create typical office forms without the hassle of editing PDFs, wrangling Word form fields and tables, or dealing with weird PDF form rendering issues.
 
 ## Overview
 
-PromptResponse (.apr format) breaks free from the page metaphor, allowing forms to be:
-- **Flexible**: No fixed layouts or styling in the file format
-- **Portable**: Simple JSON-based format that's easy to parse
-- **Accessible**: Text-based responses with type hints, not restrictions
-- **Semantic**: Organized by sections and subsections for meaningful grouping
+PromptResponse (.apr format) breaks free from the page metaphor. Traditional forms trap your data in formats that are frustrating to work with and difficult to process. PromptResponse solves this with a flexible, portable, text-based format designed for:
+
+**Solving Daily Frustrations:**
+- **Office Workers**: Create and fill forms without fighting PDF editors, Word tables, or Excel protection schemes
+- **Database Integration**: JSON format imports directly into databases - no parsing headaches
+- **Online Submissions**: Submit forms to S3 or webhooks without building custom CRUD apps for every form
+- **Programmatic Filling**: Easy API for automated form filling from scripts or other systems
+
+**Better by Design:**
+- **Flexible**: No fixed layouts or styling - forms adapt to any screen
+- **Portable**: Simple JSON that's easy to parse and transform
+- **Accessible**: WCAG 2.1 Level AA compliance built-in
+- **Semantic**: Organized by sections and prompts for meaningful structure
+- **Safe**: Pure data format - no code execution, safe to open untrusted files
 
 ## Key Features
 
-- **Template Creation**: Design reusable form templates
+- **Template Creation**: Design reusable form templates without fighting layout tools
 - **Form Filling**: Fill out forms with intelligent input assistance
+- **Direct Submission**: Submit filled forms to S3 or webhooks - no server code needed
+- **Database-Ready**: JSON format imports directly into databases without parsing headaches
+- **Programmatic API**: Fill forms from scripts, batch processes, or other applications
 - **Type Hints**: Suggest data types without enforcing them
-- **Suggested Values**: Autocomplete where helpful
 - **Cross-Platform**: Linux, Windows (macOS, Android, iOS planned)
 - **Open Format**: JSON subset for maximum interoperability
 

@@ -171,14 +171,14 @@ Root document class. Can be either a template or filled form.
 - `get_completion_percentage() -> float` - Calculate % filled (0-100)
 
 #### `Section`
-Top-level section in a document.
+A section in a document. Sections can be nested to unlimited depth.
 
 **Properties:**
 - `id: str` - Unique section ID
 - `title: str` - Section title
 - `description: Optional[str]` - Section description
 - `prompts: List[Prompt]` - Section-level prompts
-- `subsections: List[Subsection]` - Nested subsections
+- `sections: List[Section]` - Nested sections (recursive, unlimited depth)
 
 #### `Prompt`
 A single question/field in a form.
@@ -247,8 +247,8 @@ Builder for sections (returned by `add_section()`).
 
 **Methods:**
 - `add_prompt(label, expected_type, ...)` - Add prompt to section
-- `add_subsection(title, ...) -> SubsectionBuilder` - Add subsection
-- `done() -> TemplateBuilder` - Finish section, return to template
+- `add_section(title, ...) -> SectionBuilder` - Add nested section (recursive, unlimited depth)
+- `done() -> TemplateBuilder` - Finish section, return to template or parent section
 
 #### `FormFiller`
 

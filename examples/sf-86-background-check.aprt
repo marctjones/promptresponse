@@ -1,0 +1,1252 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "SF-86 - Questionnaire for National Security Positions",
+    "description": "Standard Form 86 - Used to conduct background investigations for national security positions requiring access to classified information",
+    "created": "2025-01-01T00:00:00Z",
+    "modified": "2025-01-01T00:00:00Z",
+    "author": "U.S. Office of Personnel Management",
+    "templateId": "sf-86-2024",
+    "templateVersion": "2024.1"
+  },
+  "sections": [
+    {
+      "id": "section_instructions",
+      "title": "Instructions and Certification",
+      "description": "Read carefully before completing this form",
+      "prompts": [
+        {
+          "id": "prompt_investigation_type",
+          "label": "Type of Investigation Requested",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Initial Investigation", "Reinvestigation", "Upgrade"],
+            "helpText": "Select the type of investigation being conducted"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_agency_use",
+          "label": "Agency Use Only - Case Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "To be completed by sponsoring agency"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_1",
+      "title": "Section 1 - Personal Information",
+      "description": "Full legal name and other names used",
+      "sections": [
+        {
+          "id": "section_1_name",
+          "title": "Full Legal Name",
+          "prompts": [
+            {
+              "id": "prompt_last_name",
+              "label": "Last Name (Family Name)",
+              "response": "",
+              "hints": {
+                "placeholder": "Smith",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_first_name",
+              "label": "First Name (Given Name)",
+              "response": "",
+              "hints": {
+                "placeholder": "John",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_middle_name",
+              "label": "Middle Name",
+              "response": "",
+              "hints": {
+                "placeholder": "Michael",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_suffix",
+              "label": "Suffix (Jr., Sr., III, etc.)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["Jr.", "Sr.", "II", "III", "IV"]
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_1_other_names",
+          "title": "Other Names Used",
+          "description": "List all other names you have used (maiden name, aliases, nicknames, etc.)",
+          "prompts": [
+            {
+              "id": "prompt_other_name_1",
+              "label": "Other Name 1",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "helpText": "Include maiden names, former names, nicknames, or aliases"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_other_name_1_dates",
+              "label": "Dates Used (From - To)",
+              "response": "",
+              "hints": {
+                "placeholder": "1990-2015",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_other_name_2",
+              "label": "Other Name 2",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_other_name_2_dates",
+              "label": "Dates Used (From - To)",
+              "response": "",
+              "hints": {
+                "placeholder": "2010-Present",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": [
+        {
+          "id": "prompt_dob",
+          "label": "Date of Birth",
+          "response": "",
+          "hints": {
+            "placeholder": "1985-06-15",
+            "expectedDataType": "date"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_birth_city",
+          "label": "City of Birth",
+          "response": "",
+          "hints": {
+            "placeholder": "Chicago",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_birth_state",
+          "label": "State or Territory of Birth",
+          "response": "",
+          "hints": {
+            "placeholder": "Illinois",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_birth_country",
+          "label": "Country of Birth",
+          "response": "",
+          "hints": {
+            "placeholder": "United States",
+            "expectedDataType": "text",
+            "suggestedValues": ["United States", "Canada", "Mexico", "United Kingdom", "Germany", "Japan", "Other"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_ssn",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "placeholder": "123-45-6789",
+            "expectedDataType": "text",
+            "validationPattern": "^\\d{3}-\\d{2}-\\d{4}$",
+            "helpText": "Enter your 9-digit Social Security Number"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_height",
+          "label": "Height",
+          "response": "",
+          "hints": {
+            "placeholder": "5'10\"",
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_weight",
+          "label": "Weight (lbs)",
+          "response": "",
+          "hints": {
+            "placeholder": "175",
+            "expectedDataType": "number"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_hair_color",
+          "label": "Hair Color",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Black", "Brown", "Blonde", "Red", "Gray", "White", "Bald"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_eye_color",
+          "label": "Eye Color",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Brown", "Blue", "Green", "Hazel", "Gray", "Black"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_sex",
+          "label": "Sex",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Male", "Female"]
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_2",
+      "title": "Section 2 - Citizenship",
+      "description": "Information about your citizenship status",
+      "prompts": [
+        {
+          "id": "prompt_citizenship_status",
+          "label": "Citizenship Status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["U.S. Citizen by Birth", "Naturalized U.S. Citizen", "U.S. National", "Lawful Permanent Resident", "Other"],
+            "helpText": "Select your current citizenship status"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_naturalization_date",
+          "label": "Date of Naturalization (if applicable)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date",
+            "helpText": "If naturalized, enter the date you became a U.S. citizen"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_naturalization_cert",
+          "label": "Naturalization Certificate Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_dual_citizenship",
+          "label": "Do you hold or have you held dual citizenship?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_dual_citizenship_countries",
+          "label": "If yes, list countries",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "List all countries of which you are or were a citizen"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_passport_number",
+          "label": "U.S. Passport Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_passport_issue_date",
+          "label": "Passport Issue Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_passport_expiration",
+          "label": "Passport Expiration Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_3",
+      "title": "Section 3 - Residence History",
+      "description": "List all places you have lived in the past 10 years",
+      "sections": [
+        {
+          "id": "section_3_residence_1",
+          "title": "Current Residence",
+          "prompts": [
+            {
+              "id": "prompt_res1_street",
+              "label": "Street Address",
+              "response": "",
+              "hints": {
+                "placeholder": "123 Main Street, Apt 4B",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res1_city",
+              "label": "City",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res1_state",
+              "label": "State",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res1_zip",
+              "label": "ZIP Code",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res1_country",
+              "label": "Country",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["United States", "Other"]
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res1_from",
+              "label": "From Date",
+              "response": "",
+              "hints": {
+                "placeholder": "2020-01",
+                "expectedDataType": "text",
+                "helpText": "Month and year you moved to this address"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res1_to",
+              "label": "To Date",
+              "response": "",
+              "hints": {
+                "placeholder": "Present",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res1_verifier_name",
+              "label": "Person Who Can Verify Residence (Name)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "helpText": "Neighbor, landlord, or someone who can verify you lived there"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res1_verifier_phone",
+              "label": "Verifier Phone Number",
+              "response": "",
+              "hints": {
+                "expectedDataType": "phone"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res1_verifier_relationship",
+              "label": "Relationship to You",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["Neighbor", "Landlord", "Roommate", "Friend", "Other"]
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_3_residence_2",
+          "title": "Previous Residence 1",
+          "prompts": [
+            {
+              "id": "prompt_res2_street",
+              "label": "Street Address",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res2_city",
+              "label": "City",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res2_state",
+              "label": "State",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res2_zip",
+              "label": "ZIP Code",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res2_from",
+              "label": "From Date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_res2_to",
+              "label": "To Date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "section_4",
+      "title": "Section 4 - Employment History",
+      "description": "List all employment for the past 10 years",
+      "sections": [
+        {
+          "id": "section_4_employer_1",
+          "title": "Current/Most Recent Employer",
+          "prompts": [
+            {
+              "id": "prompt_emp1_name",
+              "label": "Employer Name",
+              "response": "",
+              "hints": {
+                "placeholder": "ABC Corporation",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp1_address",
+              "label": "Employer Address",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp1_phone",
+              "label": "Employer Phone",
+              "response": "",
+              "hints": {
+                "expectedDataType": "phone"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp1_position",
+              "label": "Position/Title",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp1_supervisor",
+              "label": "Supervisor's Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp1_from",
+              "label": "Employment Start Date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp1_to",
+              "label": "Employment End Date",
+              "response": "",
+              "hints": {
+                "placeholder": "Present",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp1_reason_leaving",
+              "label": "Reason for Leaving",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["Still Employed", "Resignation", "Laid Off", "Terminated", "Contract Ended", "Career Change"]
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp1_contact_employer",
+              "label": "May we contact this employer?",
+              "response": "",
+              "hints": {
+                "expectedDataType": "boolean",
+                "suggestedValues": ["Yes", "No"]
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_4_employer_2",
+          "title": "Previous Employer 1",
+          "prompts": [
+            {
+              "id": "prompt_emp2_name",
+              "label": "Employer Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp2_position",
+              "label": "Position/Title",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp2_from",
+              "label": "Employment Start Date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_emp2_to",
+              "label": "Employment End Date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "section_5",
+      "title": "Section 5 - Education",
+      "description": "Schools attended in the last 10 years",
+      "sections": [
+        {
+          "id": "section_5_school_1",
+          "title": "Most Recent School",
+          "prompts": [
+            {
+              "id": "prompt_school1_name",
+              "label": "School Name",
+              "response": "",
+              "hints": {
+                "placeholder": "State University",
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_school1_address",
+              "label": "School Address",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_school1_type",
+              "label": "Type of School",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["High School", "Trade/Vocational", "Community College", "College/University", "Graduate School"]
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_school1_from",
+              "label": "Attendance Start Date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_school1_to",
+              "label": "Attendance End Date",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_school1_degree",
+              "label": "Degree/Diploma Received",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["High School Diploma", "GED", "Associate's Degree", "Bachelor's Degree", "Master's Degree", "Doctorate", "Certificate", "Did Not Graduate"]
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_school1_major",
+              "label": "Major/Field of Study",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "section_6",
+      "title": "Section 6 - References",
+      "description": "Provide three people who know you well",
+      "sections": [
+        {
+          "id": "section_6_ref_1",
+          "title": "Reference 1",
+          "prompts": [
+            {
+              "id": "prompt_ref1_name",
+              "label": "Full Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref1_relationship",
+              "label": "Relationship",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["Friend", "Coworker", "Supervisor", "Neighbor", "Other"],
+                "helpText": "Cannot be a relative"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref1_phone",
+              "label": "Phone Number",
+              "response": "",
+              "hints": {
+                "expectedDataType": "phone"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref1_email",
+              "label": "Email Address",
+              "response": "",
+              "hints": {
+                "expectedDataType": "email"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref1_address",
+              "label": "Address",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref1_years_known",
+              "label": "Years Known",
+              "response": "",
+              "hints": {
+                "placeholder": "5",
+                "expectedDataType": "number"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_6_ref_2",
+          "title": "Reference 2",
+          "prompts": [
+            {
+              "id": "prompt_ref2_name",
+              "label": "Full Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref2_relationship",
+              "label": "Relationship",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["Friend", "Coworker", "Supervisor", "Neighbor", "Other"]
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref2_phone",
+              "label": "Phone Number",
+              "response": "",
+              "hints": {
+                "expectedDataType": "phone"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref2_email",
+              "label": "Email Address",
+              "response": "",
+              "hints": {
+                "expectedDataType": "email"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_6_ref_3",
+          "title": "Reference 3",
+          "prompts": [
+            {
+              "id": "prompt_ref3_name",
+              "label": "Full Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref3_relationship",
+              "label": "Relationship",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["Friend", "Coworker", "Supervisor", "Neighbor", "Other"]
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref3_phone",
+              "label": "Phone Number",
+              "response": "",
+              "hints": {
+                "expectedDataType": "phone"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_ref3_email",
+              "label": "Email Address",
+              "response": "",
+              "hints": {
+                "expectedDataType": "email"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "section_7",
+      "title": "Section 7 - Family Members",
+      "description": "Information about spouse and relatives",
+      "sections": [
+        {
+          "id": "section_7_marital",
+          "title": "Marital Status",
+          "prompts": [
+            {
+              "id": "prompt_marital_status",
+              "label": "Current Marital Status",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["Never Married", "Married", "Separated", "Divorced", "Widowed", "Domestic Partnership"]
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_spouse_name",
+              "label": "Spouse/Partner Full Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "helpText": "If married or in domestic partnership"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_spouse_dob",
+              "label": "Spouse/Partner Date of Birth",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_spouse_birthplace",
+              "label": "Spouse/Partner Place of Birth",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_spouse_citizenship",
+              "label": "Spouse/Partner Citizenship",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text",
+                "suggestedValues": ["U.S. Citizen", "Permanent Resident", "Foreign National"]
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_marriage_date",
+              "label": "Date of Marriage/Partnership",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              },
+              "responseMetadata": {}
+            }
+          ]
+        },
+        {
+          "id": "section_7_parents",
+          "title": "Parents Information",
+          "prompts": [
+            {
+              "id": "prompt_father_name",
+              "label": "Father's Full Name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_father_dob",
+              "label": "Father's Date of Birth",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_father_birthplace",
+              "label": "Father's Place of Birth",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_father_citizenship",
+              "label": "Father's Citizenship",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_father_deceased",
+              "label": "Is your father deceased?",
+              "response": "",
+              "hints": {
+                "expectedDataType": "boolean",
+                "suggestedValues": ["Yes", "No"]
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_mother_name",
+              "label": "Mother's Full Name (Maiden Name)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_mother_dob",
+              "label": "Mother's Date of Birth",
+              "response": "",
+              "hints": {
+                "expectedDataType": "date"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_mother_birthplace",
+              "label": "Mother's Place of Birth",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_mother_citizenship",
+              "label": "Mother's Citizenship",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              },
+              "responseMetadata": {}
+            },
+            {
+              "id": "prompt_mother_deceased",
+              "label": "Is your mother deceased?",
+              "response": "",
+              "hints": {
+                "expectedDataType": "boolean",
+                "suggestedValues": ["Yes", "No"]
+              },
+              "responseMetadata": {}
+            }
+          ]
+        }
+      ],
+      "prompts": []
+    },
+    {
+      "id": "section_8",
+      "title": "Section 8 - Foreign Activities",
+      "description": "Foreign contacts, travel, and activities",
+      "prompts": [
+        {
+          "id": "prompt_foreign_contacts",
+          "label": "Do you have close/continuing contact with foreign nationals?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"],
+            "helpText": "Include friends, business associates, or others"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_foreign_travel",
+          "label": "Have you traveled outside the U.S. in the last 7 years?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_foreign_travel_details",
+          "label": "If yes, list countries and dates",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "List each country visited, dates, and purpose"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_foreign_financial",
+          "label": "Do you have any foreign financial interests?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"],
+            "helpText": "Bank accounts, property, business interests in foreign countries"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_foreign_government",
+          "label": "Have you ever worked for or had contact with a foreign government?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_9",
+      "title": "Section 9 - Legal and Financial",
+      "description": "Legal history and financial status",
+      "prompts": [
+        {
+          "id": "prompt_criminal_record",
+          "label": "Have you ever been arrested, charged, or convicted of any crime?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"],
+            "helpText": "Include all offenses, even if dismissed or expunged"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_criminal_details",
+          "label": "If yes, provide details",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "Include date, charge, jurisdiction, and outcome"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_bankruptcy",
+          "label": "Have you filed for bankruptcy in the last 7 years?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_delinquent_debt",
+          "label": "Are you currently delinquent on any federal debt?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"],
+            "helpText": "Includes taxes, student loans, etc."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_civil_court",
+          "label": "Have you been party to any civil court actions in the last 10 years?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_10",
+      "title": "Section 10 - Drug and Alcohol Use",
+      "description": "Information about substance use",
+      "prompts": [
+        {
+          "id": "prompt_illegal_drugs",
+          "label": "Have you ever illegally used any controlled substance?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"],
+            "helpText": "Include marijuana even if legal in your state"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_drug_details",
+          "label": "If yes, provide details",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "Include substance, dates of use, and frequency"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_drug_treatment",
+          "label": "Have you ever received treatment for drug or alcohol use?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"]
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_alcohol_incidents",
+          "label": "Have you ever had any alcohol-related incidents?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"],
+            "helpText": "DUI, public intoxication, etc."
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_certification",
+      "title": "Certification",
+      "description": "Signature and certification",
+      "prompts": [
+        {
+          "id": "prompt_certification_statement",
+          "label": "Certification Statement",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "I certify that the statements I have made on this form, and any attachments to it, are true, complete, and correct to the best of my knowledge and belief. I understand that a knowing and willful false statement on this form can be punished by fine or imprisonment or both (18 U.S.C. 1001)."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_signature",
+          "label": "Signature (Type Full Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "By typing your full name, you are electronically signing this document"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_signature_date",
+          "label": "Date Signed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}

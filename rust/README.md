@@ -124,8 +124,7 @@ println!("{}", message);
 
 **Core Types:**
 - `AprDocument` - Root document
-- `Section` - Document section
-- `Subsection` - Nested subsection
+- `Section` - Document section (recursive, unlimited depth)
 - `Prompt` - Single field/question
 - `DocumentType` - Enum: Template, FilledForm
 - `Metadata` - Document metadata

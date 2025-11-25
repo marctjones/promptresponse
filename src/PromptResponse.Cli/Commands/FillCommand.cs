@@ -124,45 +124,37 @@ public class FillCommand : ICommand
 
         foreach (var section in template.Sections)
         {
-            Console.WriteLine($"\n--- {section.Title} ---");
-            if (!string.IsNullOrWhiteSpace(section.Description))
-            {
-                Console.WriteLine($"    {section.Description}");
-            }
-            Console.WriteLine();
-
-            // Section-level prompts
-            foreach (var prompt in section.Prompts)
-            {
-                var response = PromptForResponse(prompt);
-                if (!string.IsNullOrEmpty(response))
-                {
-                    responses[prompt.Id] = response;
-                }
-            }
-
-            // Subsection prompts
-            foreach (var subsection in section.Subsections)
-            {
-                Console.WriteLine($"\n  -- {subsection.Title} --");
-                if (!string.IsNullOrWhiteSpace(subsection.Description))
-                {
-                    Console.WriteLine($"     {subsection.Description}");
-                }
-                Console.WriteLine();
-
-                foreach (var prompt in subsection.Prompts)
-                {
-                    var response = PromptForResponse(prompt);
-                    if (!string.IsNullOrEmpty(response))
-                    {
-                        responses[prompt.Id] = response;
-                    }
-                }
-            }
+            FillSectionInteractive(section, responses, 0);
         }
 
         return _api.FillForm(template, responses, filledBy);
+    }
+
+    private void FillSectionInteractive(Section section, Dictionary<string, string> responses, int depth)
+    {
+        var indent = new string(' ', depth * 2);
+        var marker = depth == 0 ? "---" : "--";
+
+        Console.WriteLine($"\n{indent}{marker} {section.Title} {marker}");
+        if (!string.IsNullOrWhiteSpace(section.Description))
+        {
+            Console.WriteLine($"{indent}    {section.Description}");
+        }
+        Console.WriteLine();
+
+        foreach (var prompt in section.Prompts)
+        {
+            var response = PromptForResponse(prompt);
+            if (!string.IsNullOrEmpty(response))
+            {
+                responses[prompt.Id] = response;
+            }
+        }
+
+        foreach (var childSection in section.Sections)
+        {
+            FillSectionInteractive(childSection, responses, depth + 1);
+        }
     }
 
     private async Task<AprDocument> FillFromJsonFileAsync(

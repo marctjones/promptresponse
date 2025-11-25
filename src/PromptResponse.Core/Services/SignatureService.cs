@@ -187,30 +187,7 @@ public class SignatureService : ISignatureService
                 templateId = document.Metadata.TemplateId,
                 templateVersion = document.Metadata.TemplateVersion
             },
-            sections = document.Sections.Select(s => new
-            {
-                id = s.Id,
-                title = s.Title,
-                description = s.Description,
-                subsections = s.Subsections?.Select(sub => new
-                {
-                    id = sub.Id,
-                    title = sub.Title,
-                    description = sub.Description,
-                    prompts = sub.Prompts.Select(p => new
-                    {
-                        id = p.Id,
-                        label = p.Label,
-                        hints = p.Hints
-                    }).ToList()
-                }).ToList(),
-                prompts = s.Prompts.Select(p => new
-                {
-                    id = p.Id,
-                    label = p.Label,
-                    hints = p.Hints
-                }).ToList()
-            }).ToList()
+            sections = document.Sections.Select(s => SerializeSectionForTemplate(s)).ToList()
         };
 
         return JsonSerializer.Serialize(canonical, new JsonSerializerOptions
@@ -218,6 +195,23 @@ public class SignatureService : ISignatureService
             WriteIndented = false,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
+    }
+
+    private object SerializeSectionForTemplate(Section section)
+    {
+        return new
+        {
+            id = section.Id,
+            title = section.Title,
+            description = section.Description,
+            sections = section.Sections?.Select(s => SerializeSectionForTemplate(s)).ToList(),
+            prompts = section.Prompts.Select(p => new
+            {
+                id = p.Id,
+                label = p.Label,
+                hints = p.Hints
+            }).ToList()
+        };
     }
 
     /// <summary>
@@ -249,24 +243,7 @@ public class SignatureService : ISignatureService
                     signatureData = sig.SignatureData
                 }).ToList()
             },
-            responses = document.Sections.SelectMany(s =>
-            {
-                var sectionPrompts = s.Prompts.Select(p => new
-                {
-                    id = p.Id,
-                    response = p.Response
-                });
-
-                var subsectionPrompts = s.Subsections?.SelectMany(sub =>
-                    sub.Prompts.Select(p => new
-                    {
-                        id = p.Id,
-                        response = p.Response
-                    })
-                ) ?? Enumerable.Empty<dynamic>();
-
-                return sectionPrompts.Concat(subsectionPrompts);
-            }).ToList()
+            responses = document.Sections.SelectMany(s => GetAllPromptsFromSection(s)).ToList()
         };
 
         return JsonSerializer.Serialize(canonical, new JsonSerializerOptions
@@ -274,6 +251,22 @@ public class SignatureService : ISignatureService
             WriteIndented = false,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         });
+    }
+
+    private IEnumerable<object> GetAllPromptsFromSection(Section section)
+    {
+        // Get prompts at this level
+        var prompts = section.Prompts.Select(p => new
+        {
+            id = p.Id,
+            response = p.Response
+        });
+
+        // Recursively get prompts from child sections
+        var childPrompts = section.Sections?.SelectMany(s => GetAllPromptsFromSection(s))
+            ?? Enumerable.Empty<object>();
+
+        return prompts.Concat(childPrompts);
     }
 
     /// <summary>

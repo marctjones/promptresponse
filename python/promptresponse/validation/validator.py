@@ -3,7 +3,7 @@ Validation for APR documents.
 """
 from dataclasses import dataclass
 from typing import List, Set
-from ..models import AprDocument, DocumentType, Section, Subsection, Prompt
+from ..models import AprDocument, DocumentType, Section, Prompt
 
 
 @dataclass
@@ -83,8 +83,9 @@ class AprValidator:
             errors.append(ValidationError("sections", "Document must have at least one section"))
         else:
             section_ids: Set[str] = set()
+            prompt_ids: Set[str] = set()
             for idx, section in enumerate(document.sections):
-                errors.extend(AprValidator._validate_section(section, idx, section_ids))
+                errors.extend(AprValidator._validate_section(section, f"sections[{idx}]", section_ids, prompt_ids))
 
         # Check if there are any actual errors (not just warnings)
         has_errors = any(e.severity == "error" for e in errors)
@@ -92,10 +93,9 @@ class AprValidator:
         return ValidationResult(is_valid=not has_errors, errors=errors)
 
     @staticmethod
-    def _validate_section(section: Section, index: int, section_ids: Set[str]) -> List[ValidationError]:
-        """Validate a section."""
+    def _validate_section(section: Section, prefix: str, section_ids: Set[str], prompt_ids: Set[str]) -> List[ValidationError]:
+        """Validate a section recursively."""
         errors: List[ValidationError] = []
-        prefix = f"sections[{index}]"
 
         # ID validation
         if not section.id:
@@ -110,47 +110,17 @@ class AprValidator:
             errors.append(ValidationError(f"{prefix}.title", "Section title is required"))
 
         # Validate prompts in section
-        prompt_ids: Set[str] = set()
         for pidx, prompt in enumerate(section.prompts):
             errors.extend(AprValidator._validate_prompt(prompt, f"{prefix}.prompts[{pidx}]", prompt_ids))
 
-        # Validate subsections
-        subsection_ids: Set[str] = set()
-        for sidx, subsection in enumerate(section.subsections):
-            errors.extend(AprValidator._validate_subsection(
-                subsection,
-                f"{prefix}.subsections[{sidx}]",
-                subsection_ids,
+        # Validate nested sections recursively
+        for sidx, nested_section in enumerate(section.sections):
+            errors.extend(AprValidator._validate_section(
+                nested_section,
+                f"{prefix}.sections[{sidx}]",
+                section_ids,
                 prompt_ids
             ))
-
-        return errors
-
-    @staticmethod
-    def _validate_subsection(
-        subsection: Subsection,
-        prefix: str,
-        subsection_ids: Set[str],
-        prompt_ids: Set[str]
-    ) -> List[ValidationError]:
-        """Validate a subsection."""
-        errors: List[ValidationError] = []
-
-        # ID validation
-        if not subsection.id:
-            errors.append(ValidationError(f"{prefix}.id", "Subsection ID is required"))
-        elif subsection.id in subsection_ids:
-            errors.append(ValidationError(f"{prefix}.id", f"Duplicate subsection ID: {subsection.id}"))
-        else:
-            subsection_ids.add(subsection.id)
-
-        # Title validation
-        if not subsection.title:
-            errors.append(ValidationError(f"{prefix}.title", "Subsection title is required"))
-
-        # Validate prompts in subsection
-        for pidx, prompt in enumerate(subsection.prompts):
-            errors.extend(AprValidator._validate_prompt(prompt, f"{prefix}.prompts[{pidx}]", prompt_ids))
 
         return errors
 

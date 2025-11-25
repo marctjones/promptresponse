@@ -47,7 +47,7 @@ The application automatically detects the type when you open a file.
 - **Prompt**: A question or field (e.g., "What is your name?")
 - **Response**: Your answer (always stored as text)
 - **Section**: A group of related prompts (e.g., "Personal Information")
-- **Subsection**: A nested group within a section (e.g., "Name and Contact")
+- **Nested Section**: A section within a section (e.g., "Name and Contact" within "Personal Information") - can be nested to any depth
 
 ## Creating Templates
 
@@ -66,16 +66,17 @@ The application automatically detects the type when you open a file.
 2. Enter section title and optional description
 3. Sections help organize related prompts
 
-### Adding Subsections
+### Adding Nested Sections
 
 1. Select a section
-2. Click **Add Subsection**
-3. Enter subsection title
-4. Use subsections for further organization within sections
+2. Click **Add Section** (within the selected section)
+3. Enter section title
+4. Use nested sections for further organization within sections
+5. Sections can be nested to any depth - structure to match your content
 
 ### Adding Prompts
 
-1. Select a section or subsection
+1. Select a section (at any nesting level)
 2. Click **Add Prompt**
 3. Configure the prompt:
    - **Label**: The question or field name (e.g., "Email Address")
@@ -88,20 +89,22 @@ The application automatically detects the type when you open a file.
 
 ```
 Employment Application
-├── Personal Information
-│   ├── Name and Contact
-│   │   ├── Full Legal Name
-│   │   ├── Email Address
-│   │   └── Phone Number
-│   └── Date of Birth
-└── Employment History
-    ├── Current Employer
-    └── Position/Title
+├── Personal Information (section)
+│   ├── Name and Contact (nested section)
+│   │   ├── Full Legal Name (prompt)
+│   │   ├── Email Address (prompt)
+│   │   └── Phone Number (prompt)
+│   └── Date of Birth (prompt)
+└── Employment History (section)
+    ├── Current Employer (prompt)
+    └── Position/Title (prompt)
 ```
+
+Sections can be nested to any depth to match your content's natural hierarchy.
 
 ### Reordering Prompts
 
-- Drag and drop prompts, subsections, or sections
+- Drag and drop prompts or sections (including nested sections)
 - Order matters: forms display in the same order
 
 ### Saving Templates

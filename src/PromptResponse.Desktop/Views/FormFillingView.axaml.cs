@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.VisualTree;
@@ -38,6 +39,110 @@ public partial class FormFillingView : UserControl
                     e.PreviousSize, e.NewSize);
                 LogLayoutHierarchy("SizeChanged");
             };
+        }
+
+        // Subscribe to DataContext changes to set up navigation event handler
+        this.DataContextChanged += OnDataContextChanged;
+
+        // Handle Enter key in search box
+        var searchTextBox = this.FindControl<TextBox>("SearchTextBox");
+        if (searchTextBox != null)
+        {
+            searchTextBox.KeyDown += OnSearchTextBoxKeyDown;
+        }
+    }
+
+    /// <summary>
+    /// Handles DataContext changes to subscribe to navigation events.
+    /// </summary>
+    private void OnDataContextChanged(object? sender, EventArgs e)
+    {
+        if (DataContext is FormFillingViewModel viewModel)
+        {
+            viewModel.OnNavigateToPromptRequested += NavigateToPrompt;
+            _logger?.LogInformation("Subscribed to OnNavigateToPromptRequested event");
+        }
+    }
+
+    /// <summary>
+    /// Handles Enter key press in search box to go to next match.
+    /// </summary>
+    private void OnSearchTextBoxKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter && DataContext is FormFillingViewModel viewModel)
+        {
+            if (viewModel.NextMatchCommand.CanExecute(null))
+            {
+                viewModel.NextMatchCommand.Execute(null);
+            }
+            e.Handled = true;
+        }
+        else if (e.Key == Key.Escape)
+        {
+            if (DataContext is FormFillingViewModel vm)
+            {
+                vm.ClearSearchCommand.Execute(null);
+            }
+            e.Handled = true;
+        }
+    }
+
+    /// <summary>
+    /// Navigates to a specific prompt by scrolling it into view.
+    /// </summary>
+    private void NavigateToPrompt(PromptViewModel targetPrompt)
+    {
+        _logger?.LogInformation("Navigating to prompt: {Label}", targetPrompt.Label);
+
+        try
+        {
+            var scrollViewer = this.FindControl<ScrollViewer>("MainScrollViewer");
+            if (scrollViewer == null)
+            {
+                _logger?.LogError("Could not find MainScrollViewer");
+                return;
+            }
+
+            // Find all StackPanels that are prompt containers (they have a TextBlock with matching label)
+            var allTextBlocks = scrollViewer.GetVisualDescendants()
+                .OfType<TextBlock>()
+                .Where(tb => tb.Text == targetPrompt.Label && tb.Classes.Contains("field-label"))
+                .ToList();
+
+            _logger?.LogDebug("Found {Count} TextBlocks with label: {Label}", allTextBlocks.Count, targetPrompt.Label);
+
+            if (allTextBlocks.Count > 0)
+            {
+                // Find the parent StackPanel of the first matching TextBlock
+                var targetTextBlock = allTextBlocks.First();
+                var parentStackPanel = targetTextBlock.Parent as StackPanel;
+
+                if (parentStackPanel != null)
+                {
+                    // Expand any collapsed parent sections
+                    var parentExpander = parentStackPanel.FindLogicalAncestorOfType<Expander>();
+                    while (parentExpander != null)
+                    {
+                        if (!parentExpander.IsExpanded)
+                        {
+                            parentExpander.IsExpanded = true;
+                        }
+                        parentExpander = parentExpander.FindLogicalAncestorOfType<Expander>();
+                    }
+
+                    // Bring the prompt into view
+                    parentStackPanel.BringIntoView();
+                    _logger?.LogInformation("Prompt scrolled into view successfully");
+                }
+            }
+            else
+            {
+                _logger?.LogWarning("Could not find TextBlock for prompt: {Label}", targetPrompt.Label);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex, "Error navigating to prompt: {Label}", targetPrompt.Label);
         }
     }
 
@@ -342,5 +447,35 @@ public partial class FormFillingView : UserControl
             promptViewModel.Response = string.Join(", ", current);
             _logger?.LogInformation("Multichoice updated: {Values} for prompt: {Label}", promptViewModel.Response, promptViewModel.Label);
         }
+    }
+
+    /// <summary>
+    /// Handles click on Add Row button for dynamic tables.
+    /// </summary>
+    private void OnAddRowClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button || button.Tag is not PromptViewModel promptViewModel)
+        {
+            _logger?.LogWarning("OnAddRowClick: sender is not a Button or Tag is not PromptViewModel");
+            return;
+        }
+
+        _logger?.LogInformation("Add row clicked for table: {Label}", promptViewModel.Label);
+        promptViewModel.AddRow();
+    }
+
+    /// <summary>
+    /// Handles click on Remove Row button for dynamic tables.
+    /// </summary>
+    private void OnRemoveRowClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Button button || button.Tag is not PromptViewModel promptViewModel)
+        {
+            _logger?.LogWarning("OnRemoveRowClick: sender is not a Button or Tag is not PromptViewModel");
+            return;
+        }
+
+        _logger?.LogInformation("Remove row clicked for table: {Label}", promptViewModel.Label);
+        promptViewModel.RemoveRow();
     }
 }

@@ -24,10 +24,7 @@ public class AprDocument {
     public List<Prompt> getAllPrompts() {
         List<Prompt> prompts = new ArrayList<>();
         for (Section section : sections) {
-            prompts.addAll(section.getPrompts());
-            for (Subsection subsection : section.getSubsections()) {
-                prompts.addAll(subsection.getPrompts());
-            }
+            prompts.addAll(section.getAllPrompts());
         }
         return prompts;
     }

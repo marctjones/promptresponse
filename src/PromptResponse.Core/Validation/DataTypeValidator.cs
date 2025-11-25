@@ -1,5 +1,6 @@
 using PromptResponse.Core.Models;
 using System.Globalization;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace PromptResponse.Core.Validation;
@@ -62,6 +63,7 @@ public class DataTypeValidator
             "phone" => ValidatePhone(prompt.Response),
             "currency" => ValidateCurrency(prompt.Response),
             "boolean" => ValidateBoolean(prompt.Response),
+            "table" => ValidateTable(prompt.Response, prompt.Hints.TableDefinition),
             "text" => true, // Always valid
             "multiline" => true, // Always valid
             _ => true // Unknown types are always valid
@@ -89,25 +91,26 @@ public class DataTypeValidator
 
         foreach (var section in document.Sections)
         {
-            // Validate section-level prompts
-            foreach (var prompt in section.Prompts)
-            {
-                var promptResult = ValidateResponse(prompt);
-                result.AddErrors(promptResult.Errors);
-            }
-
-            // Validate subsection prompts
-            foreach (var subsection in section.Subsections)
-            {
-                foreach (var prompt in subsection.Prompts)
-                {
-                    var promptResult = ValidateResponse(prompt);
-                    result.AddErrors(promptResult.Errors);
-                }
-            }
+            ValidatePromptsInSection(section, result);
         }
 
         return result;
+    }
+
+    private void ValidatePromptsInSection(Section section, ValidationResult result)
+    {
+        // Validate prompts at this level
+        foreach (var prompt in section.Prompts)
+        {
+            var promptResult = ValidateResponse(prompt);
+            result.AddErrors(promptResult.Errors);
+        }
+
+        // Recursively validate prompts in child sections
+        foreach (var childSection in section.Sections)
+        {
+            ValidatePromptsInSection(childSection, result);
+        }
     }
 
     /// <summary>
@@ -240,6 +243,91 @@ public class DataTypeValidator
         {
             // Invalid regex pattern - report as validation error
             return (false, $"Invalid validation pattern: {ex.Message}");
+        }
+    }
+
+    private bool ValidateTable(string value, TableDefinition? tableDefinition)
+    {
+        // If no table definition, just check that it's valid JSON
+        if (tableDefinition == null)
+        {
+            return IsValidJson(value);
+        }
+
+        try
+        {
+            using var doc = JsonDocument.Parse(value);
+            var root = doc.RootElement;
+
+            if (tableDefinition.IsFixedTable)
+            {
+                // Fixed table: expect JSON object with row IDs as keys
+                if (root.ValueKind != JsonValueKind.Object)
+                {
+                    return false;
+                }
+
+                // Each row should be an object with column IDs as keys
+                foreach (var rowProperty in root.EnumerateObject())
+                {
+                    if (rowProperty.Value.ValueKind != JsonValueKind.Object)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            else if (tableDefinition.IsDynamicTable)
+            {
+                // Dynamic table: expect JSON array of objects
+                if (root.ValueKind != JsonValueKind.Array)
+                {
+                    return false;
+                }
+
+                // Validate row count constraints
+                var rowCount = root.GetArrayLength();
+                if (tableDefinition.DynamicRows != null)
+                {
+                    if (rowCount < tableDefinition.DynamicRows.MinRows ||
+                        rowCount > tableDefinition.DynamicRows.MaxRows)
+                    {
+                        return false;
+                    }
+                }
+
+                // Each row should be an object
+                foreach (var row in root.EnumerateArray())
+                {
+                    if (row.ValueKind != JsonValueKind.Object)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            // Neither fixed nor dynamic - just valid JSON is fine
+            return true;
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
+    }
+
+    private bool IsValidJson(string value)
+    {
+        try
+        {
+            using var doc = JsonDocument.Parse(value);
+            return true;
+        }
+        catch (JsonException)
+        {
+            return false;
         }
     }
 }

@@ -171,23 +171,23 @@ public class FormFillingApi
 
         foreach (var section in template.Sections)
         {
-            // Section-level prompts
-            foreach (var prompt in section.Prompts)
-            {
-                promptIds.Add(prompt.Id);
-            }
-
-            // Subsection prompts
-            foreach (var subsection in section.Subsections)
-            {
-                foreach (var prompt in subsection.Prompts)
-                {
-                    promptIds.Add(prompt.Id);
-                }
-            }
+            CollectPromptIdsFromSection(section, promptIds);
         }
 
         return promptIds;
+    }
+
+    private void CollectPromptIdsFromSection(Section section, List<string> promptIds)
+    {
+        foreach (var prompt in section.Prompts)
+        {
+            promptIds.Add(prompt.Id);
+        }
+
+        foreach (var childSection in section.Sections)
+        {
+            CollectPromptIdsFromSection(childSection, promptIds);
+        }
     }
 
     /// <summary>
@@ -200,29 +200,27 @@ public class FormFillingApi
 
         foreach (var section in document.Sections)
         {
-            foreach (var prompt in section.Prompts)
-            {
-                totalPrompts++;
-                if (!string.IsNullOrWhiteSpace(prompt.Response))
-                {
-                    filledPrompts++;
-                }
-            }
-
-            foreach (var subsection in section.Subsections)
-            {
-                foreach (var prompt in subsection.Prompts)
-                {
-                    totalPrompts++;
-                    if (!string.IsNullOrWhiteSpace(prompt.Response))
-                    {
-                        filledPrompts++;
-                    }
-                }
-            }
+            CountCompletionInSection(section, ref totalPrompts, ref filledPrompts);
         }
 
         return totalPrompts > 0 ? (double)filledPrompts / totalPrompts * 100 : 0;
+    }
+
+    private void CountCompletionInSection(Section section, ref int totalPrompts, ref int filledPrompts)
+    {
+        foreach (var prompt in section.Prompts)
+        {
+            totalPrompts++;
+            if (!string.IsNullOrWhiteSpace(prompt.Response))
+            {
+                filledPrompts++;
+            }
+        }
+
+        foreach (var childSection in section.Sections)
+        {
+            CountCompletionInSection(childSection, ref totalPrompts, ref filledPrompts);
+        }
     }
 
     private AprDocument CloneAsFilledForm(AprDocument template, string? filledBy)
@@ -244,29 +242,32 @@ public class FormFillingApi
     {
         foreach (var section in document.Sections)
         {
-            // Check section-level prompts
-            foreach (var prompt in section.Prompts)
+            if (TrySetResponseInSection(section, promptId, response))
             {
-                if (prompt.Id == promptId)
-                {
-                    prompt.Response = response;
-                    prompt.ResponseMetadata.LastModified = DateTime.UtcNow;
-                    return true;
-                }
+                return true;
             }
+        }
 
-            // Check subsection prompts
-            foreach (var subsection in section.Subsections)
+        return false;
+    }
+
+    private bool TrySetResponseInSection(Section section, string promptId, string response)
+    {
+        foreach (var prompt in section.Prompts)
+        {
+            if (prompt.Id == promptId)
             {
-                foreach (var prompt in subsection.Prompts)
-                {
-                    if (prompt.Id == promptId)
-                    {
-                        prompt.Response = response;
-                        prompt.ResponseMetadata.LastModified = DateTime.UtcNow;
-                        return true;
-                    }
-                }
+                prompt.Response = response;
+                prompt.ResponseMetadata.LastModified = DateTime.UtcNow;
+                return true;
+            }
+        }
+
+        foreach (var childSection in section.Sections)
+        {
+            if (TrySetResponseInSection(childSection, promptId, response))
+            {
+                return true;
             }
         }
 

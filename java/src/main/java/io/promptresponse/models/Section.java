@@ -8,13 +8,22 @@ public class Section {
     private String title;
     private String description;
     private List<Prompt> prompts = new ArrayList<>();
-    private List<Subsection> subsections = new ArrayList<>();
+    private List<Section> sections = new ArrayList<>();
 
     public Section() {}
 
     public Section(String id, String title) {
         this.id = id;
         this.title = title;
+    }
+
+    // Get all prompts in this section and nested sections (flattened)
+    public List<Prompt> getAllPrompts() {
+        List<Prompt> allPrompts = new ArrayList<>(prompts);
+        for (Section section : sections) {
+            allPrompts.addAll(section.getAllPrompts());
+        }
+        return allPrompts;
     }
 
     // Getters and setters
@@ -30,6 +39,6 @@ public class Section {
     public List<Prompt> getPrompts() { return prompts; }
     public void setPrompts(List<Prompt> prompts) { this.prompts = prompts; }
 
-    public List<Subsection> getSubsections() { return subsections; }
-    public void setSubsections(List<Subsection> subsections) { this.subsections = subsections; }
+    public List<Section> getSections() { return sections; }
+    public void setSections(List<Section> sections) { this.sections = sections; }
 }

@@ -47,7 +47,7 @@ public class TemplateEditorViewModel : ViewModelBase
         _description = document.Metadata.Description;
 
         Sections = new ObservableCollection<EditableSectionViewModel>(
-            document.Sections.Select(s => new EditableSectionViewModel(s, this)));
+            document.Sections.Select(s => new EditableSectionViewModel(s, this, null)));
 
         AddSectionCommand = new RelayCommand(AddSection);
         UpdateStatusMessage();
@@ -117,11 +117,11 @@ public class TemplateEditorViewModel : ViewModelBase
             Title = "New Section",
             Description = null,
             Prompts = new List<Prompt>(),
-            Subsections = new List<Subsection>()
+            Sections = new List<Section>()
         };
 
         _document.Sections.Add(newSection);
-        Sections.Add(new EditableSectionViewModel(newSection, this));
+        Sections.Add(new EditableSectionViewModel(newSection, this, null));
         HasUnsavedChanges = true;
     }
 
@@ -163,31 +163,34 @@ public class TemplateEditorViewModel : ViewModelBase
 }
 
 /// <summary>
-/// ViewModel for editing a section.
+/// ViewModel for editing a section with recursive child section support.
 /// </summary>
 public class EditableSectionViewModel : ViewModelBase
 {
-    internal readonly TemplateEditorViewModel _parent;
+    internal readonly TemplateEditorViewModel _root;
+    private readonly EditableSectionViewModel? _parentSection;
     public readonly Section Section;
     private bool _isExpanded = true;
     private string _title;
     private string? _description;
 
-    public EditableSectionViewModel(Section section, TemplateEditorViewModel parent)
+    public EditableSectionViewModel(Section section, TemplateEditorViewModel root, EditableSectionViewModel? parentSection)
     {
         Section = section;
-        _parent = parent;
+        _root = root;
+        _parentSection = parentSection;
         _title = section.Title;
         _description = section.Description;
 
-        Subsections = new ObservableCollection<EditableSubsectionViewModel>(
-            section.Subsections.Select(s => new EditableSubsectionViewModel(s, this)));
+        // Recursively create child section ViewModels
+        Sections = new ObservableCollection<EditableSectionViewModel>(
+            section.Sections.Select(s => new EditableSectionViewModel(s, root, this)));
         Prompts = new ObservableCollection<EditablePromptViewModel>(
-            section.Prompts.Select(p => new EditablePromptViewModel(p, _parent)));
+            section.Prompts.Select(p => new EditablePromptViewModel(p, root)));
 
         AddPromptCommand = new RelayCommand(AddPrompt);
-        AddSubsectionCommand = new RelayCommand(AddSubsection);
-        RemoveSectionCommand = new RelayCommand(() => _parent.RemoveSection(this));
+        AddSectionCommand = new RelayCommand(AddChildSection);
+        RemoveSectionCommand = new RelayCommand(RemoveThisSection);
     }
 
     public string Id => Section.Id;
@@ -200,7 +203,7 @@ public class EditableSectionViewModel : ViewModelBase
             if (SetProperty(ref _title, value))
             {
                 Section.Title = value;
-                _parent.MarkAsChanged();
+                _root.MarkAsChanged();
             }
         }
     }
@@ -213,7 +216,7 @@ public class EditableSectionViewModel : ViewModelBase
             if (SetProperty(ref _description, value))
             {
                 Section.Description = value;
-                _parent.MarkAsChanged();
+                _root.MarkAsChanged();
             }
         }
     }
@@ -224,11 +227,18 @@ public class EditableSectionViewModel : ViewModelBase
         set => SetProperty(ref _isExpanded, value);
     }
 
-    public ObservableCollection<EditableSubsectionViewModel> Subsections { get; }
+    /// <summary>
+    /// Child sections within this section.
+    /// </summary>
+    public ObservableCollection<EditableSectionViewModel> Sections { get; }
+
+    /// <summary>
+    /// Prompts directly in this section.
+    /// </summary>
     public ObservableCollection<EditablePromptViewModel> Prompts { get; }
 
     public ICommand AddPromptCommand { get; }
-    public ICommand AddSubsectionCommand { get; }
+    public ICommand AddSectionCommand { get; }
     public ICommand RemoveSectionCommand { get; }
 
     private void AddPrompt()
@@ -241,122 +251,51 @@ public class EditableSectionViewModel : ViewModelBase
         };
 
         Section.Prompts.Add(newPrompt);
-        Prompts.Add(new EditablePromptViewModel(newPrompt, _parent));
-        _parent.MarkAsChanged();
+        Prompts.Add(new EditablePromptViewModel(newPrompt, _root));
+        _root.MarkAsChanged();
     }
 
-    private void AddSubsection()
+    private void AddChildSection()
     {
-        var newSubsection = new Subsection
+        var newSection = new Section
         {
-            Id = $"{Section.Id}_subsection_{Subsections.Count + 1}",
-            Title = "New Subsection",
-            Prompts = new List<Prompt>()
+            Id = $"{Section.Id}_section_{Sections.Count + 1}",
+            Title = "New Section",
+            Prompts = new List<Prompt>(),
+            Sections = new List<Section>()
         };
 
-        Section.Subsections.Add(newSubsection);
-        Subsections.Add(new EditableSubsectionViewModel(newSubsection, this));
-        _parent.MarkAsChanged();
+        Section.Sections.Add(newSection);
+        Sections.Add(new EditableSectionViewModel(newSection, _root, this));
+        _root.MarkAsChanged();
+    }
+
+    private void RemoveThisSection()
+    {
+        if (_parentSection != null)
+        {
+            // Remove from parent section
+            _parentSection.RemoveChildSection(this);
+        }
+        else
+        {
+            // Remove from root
+            _root.RemoveSection(this);
+        }
     }
 
     public void RemovePrompt(EditablePromptViewModel prompt)
     {
         Section.Prompts.Remove(prompt.Prompt);
         Prompts.Remove(prompt);
-        _parent.MarkAsChanged();
+        _root.MarkAsChanged();
     }
 
-    public void RemoveSubsection(EditableSubsectionViewModel subsection)
+    public void RemoveChildSection(EditableSectionViewModel childSection)
     {
-        Section.Subsections.Remove(subsection.Subsection);
-        Subsections.Remove(subsection);
-        _parent.MarkAsChanged();
-    }
-}
-
-/// <summary>
-/// ViewModel for editing a subsection.
-/// </summary>
-public class EditableSubsectionViewModel : ViewModelBase
-{
-    private readonly EditableSectionViewModel _parentSection;
-    public readonly Subsection Subsection;
-    private bool _isExpanded = true;
-    private string _title;
-    private string? _description;
-
-    public EditableSubsectionViewModel(Subsection subsection, EditableSectionViewModel parentSection)
-    {
-        Subsection = subsection;
-        _parentSection = parentSection;
-        _title = subsection.Title;
-        _description = subsection.Description;
-
-        Prompts = new ObservableCollection<EditablePromptViewModel>(
-            subsection.Prompts.Select(p => new EditablePromptViewModel(p, _parentSection._parent)));
-
-        AddPromptCommand = new RelayCommand(AddPrompt);
-        RemoveSubsectionCommand = new RelayCommand(() => _parentSection.RemoveSubsection(this));
-    }
-
-    public string Id => Subsection.Id;
-
-    public string Title
-    {
-        get => _title;
-        set
-        {
-            if (SetProperty(ref _title, value))
-            {
-                Subsection.Title = value;
-                _parentSection._parent.MarkAsChanged();
-            }
-        }
-    }
-
-    public string? Description
-    {
-        get => _description;
-        set
-        {
-            if (SetProperty(ref _description, value))
-            {
-                Subsection.Description = value;
-                _parentSection._parent.MarkAsChanged();
-            }
-        }
-    }
-
-    public bool IsExpanded
-    {
-        get => _isExpanded;
-        set => SetProperty(ref _isExpanded, value);
-    }
-
-    public ObservableCollection<EditablePromptViewModel> Prompts { get; }
-
-    public ICommand AddPromptCommand { get; }
-    public ICommand RemoveSubsectionCommand { get; }
-
-    private void AddPrompt()
-    {
-        var newPrompt = new Prompt
-        {
-            Id = $"{Subsection.Id}_prompt_{Prompts.Count + 1}",
-            Label = "New Prompt",
-            Hints = new PromptHints()
-        };
-
-        Subsection.Prompts.Add(newPrompt);
-        Prompts.Add(new EditablePromptViewModel(newPrompt, _parentSection._parent));
-        _parentSection._parent.MarkAsChanged();
-    }
-
-    public void RemovePrompt(EditablePromptViewModel prompt)
-    {
-        Subsection.Prompts.Remove(prompt.Prompt);
-        Prompts.Remove(prompt);
-        _parentSection._parent.MarkAsChanged();
+        Section.Sections.Remove(childSection.Section);
+        Sections.Remove(childSection);
+        _root.MarkAsChanged();
     }
 }
 

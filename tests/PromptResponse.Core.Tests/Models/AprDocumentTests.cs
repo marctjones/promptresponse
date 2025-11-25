@@ -184,13 +184,13 @@ public class AprDocumentTests
                 new()
                 {
                     Id = "section_001",
-                    Title = "Section with Subsections",
-                    Subsections = new List<Subsection>
+                    Title = "Section with Child Sections",
+                    Sections = new List<Section>
                     {
                         new()
                         {
-                            Id = "subsection_001_001",
-                            Title = "Subsection 1",
+                            Id = "child_001_001",
+                            Title = "Child Section 1",
                             Prompts = new List<Prompt>
                             {
                                 new() { Id = "prompt_001", Label = "Q1" }
@@ -198,8 +198,8 @@ public class AprDocumentTests
                         },
                         new()
                         {
-                            Id = "subsection_001_002",
-                            Title = "Subsection 2",
+                            Id = "child_001_002",
+                            Title = "Child Section 2",
                             Prompts = new List<Prompt>
                             {
                                 new() { Id = "prompt_002", Label = "Q2" }
@@ -225,9 +225,9 @@ public class AprDocumentTests
 
         // Assert
         document.Sections.Should().HaveCount(2);
-        document.Sections[0].Subsections.Should().HaveCount(2);
+        document.Sections[0].Sections.Should().HaveCount(2);
         document.Sections[0].Prompts.Should().ContainSingle();
-        document.Sections[1].Subsections.Should().BeEmpty();
+        document.Sections[1].Sections.Should().BeEmpty();
         document.Sections[1].Prompts.Should().ContainSingle();
     }
 

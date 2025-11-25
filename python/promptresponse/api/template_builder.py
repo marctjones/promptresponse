@@ -7,7 +7,6 @@ from ..models import (
     AprDocument,
     DocumentType,
     Section,
-    Subsection,
     Prompt,
     PromptHints,
     Metadata
@@ -33,7 +32,6 @@ class TemplateBuilder:
         )
         self.sections: List[Section] = []
         self._section_counter = 0
-        self._subsection_counter = 0
         self._prompt_counter = 0
 
     def set_description(self, description: str) -> 'TemplateBuilder':
@@ -70,7 +68,7 @@ class TemplateBuilder:
             title=title,
             description=description,
             prompts=[],
-            subsections=[]
+            sections=[]
         )
 
         section_builder = SectionBuilder(self, section)
@@ -96,16 +94,18 @@ class TemplateBuilder:
 class SectionBuilder:
     """Builder for creating sections in a template."""
 
-    def __init__(self, template_builder: TemplateBuilder, section: Section):
+    def __init__(self, template_builder: TemplateBuilder, section: Section, parent_builder: Optional['SectionBuilder'] = None):
         """
         Initialize section builder.
 
         Args:
             template_builder: Parent template builder
             section: Section being built
+            parent_builder: Parent section builder (for nested sections)
         """
         self.template_builder = template_builder
         self.section = section
+        self._parent_builder = parent_builder
 
     def add_prompt(
         self,
@@ -146,99 +146,39 @@ class SectionBuilder:
         self.section.prompts.append(prompt)
         return self
 
-    def add_subsection(self, title: str, description: Optional[str] = None) -> 'SubsectionBuilder':
+    def add_section(self, title: str, description: Optional[str] = None) -> 'SectionBuilder':
         """
-        Add a subsection to this section.
+        Add a nested section to this section.
 
         Args:
-            title: Subsection title
-            description: Optional subsection description
+            title: Nested section title
+            description: Optional nested section description
 
         Returns:
-            SubsectionBuilder for building the subsection
+            SectionBuilder for building the nested section
         """
-        self.template_builder._subsection_counter += 1
-        subsection_id = f"{self.section.id}_subsection_{self.template_builder._subsection_counter}"
+        self.template_builder._section_counter += 1
+        section_id = f"section_{self.template_builder._section_counter:03d}"
 
-        subsection = Subsection(
-            id=subsection_id,
+        nested_section = Section(
+            id=section_id,
             title=title,
             description=description,
-            prompts=[]
+            prompts=[],
+            sections=[]
         )
 
-        return SubsectionBuilder(self, subsection)
+        return SectionBuilder(self.template_builder, nested_section, parent_builder=self)
 
     def done(self) -> TemplateBuilder:
         """
         Finish building this section and return to template builder.
 
         Returns:
-            Parent template builder
+            Parent template builder or parent section builder
         """
+        if self._parent_builder is not None:
+            self._parent_builder.section.sections.append(self.section)
+            return self._parent_builder
         self.template_builder.sections.append(self.section)
         return self.template_builder
-
-
-class SubsectionBuilder:
-    """Builder for creating subsections."""
-
-    def __init__(self, section_builder: SectionBuilder, subsection: Subsection):
-        """
-        Initialize subsection builder.
-
-        Args:
-            section_builder: Parent section builder
-            subsection: Subsection being built
-        """
-        self.section_builder = section_builder
-        self.subsection = subsection
-
-    def add_prompt(
-        self,
-        label: str,
-        expected_type: Optional[str] = None,
-        placeholder: Optional[str] = None,
-        help_text: Optional[str] = None
-    ) -> 'SubsectionBuilder':
-        """
-        Add a prompt to this subsection.
-
-        Args:
-            label: Prompt label/question
-            expected_type: Expected data type (text, email, phone, etc.)
-            placeholder: Placeholder text
-            help_text: Help text for the prompt
-
-        Returns:
-            Self for chaining
-        """
-        self.section_builder.template_builder._prompt_counter += 1
-        prompt_id = f"prompt_{self.section_builder.template_builder._prompt_counter:03d}"
-
-        hints = None
-        if expected_type or placeholder or help_text:
-            hints = PromptHints(
-                expected_data_type=expected_type,
-                placeholder=placeholder,
-                help_text=help_text
-            )
-
-        prompt = Prompt(
-            id=prompt_id,
-            label=label,
-            hints=hints
-        )
-
-        self.subsection.prompts.append(prompt)
-        return self
-
-    def done(self) -> SectionBuilder:
-        """
-        Finish building this subsection and return to section builder.
-
-        Returns:
-            Parent section builder
-        """
-        self.section_builder.section.subsections.append(self.subsection)
-        return self.section_builder

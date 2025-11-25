@@ -136,8 +136,7 @@ System.out.println(verification.getMessage());
 
 **Core Classes:**
 - `AprDocument` - Root document
-- `Section` - Document section
-- `Subsection` - Nested subsection
+- `Section` - Document section (recursive, unlimited depth)
 - `Prompt` - Single field/question
 - `DocumentType` - Enum: TEMPLATE, FILLED_FORM
 - `Metadata` - Document metadata
