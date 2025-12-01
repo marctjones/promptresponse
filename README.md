@@ -129,7 +129,7 @@ See [CLI README](src/PromptResponse.Cli/README.md) for complete CLI documentatio
 
 ## License
 
-GPL-3.0 License - See [LICENSE](LICENSE) file for details
+Not Licensed
 
 ## Project Status
 
