@@ -306,7 +306,13 @@ These documents define categories of confusable characters, recommended security
     "url": "https://acme.example.com/hr"
   },
   "templateSourceUrl": "https://forms.acme.example.com/employment-app.aprt",
-  "submitUrl": "https://submissions.acme.example.com/hr/applications"
+  "submitUrls": [
+    {
+      "url": "https://submissions.acme.example.com/hr/applications",
+      "label": "Submit Application",
+      "primary": "true"
+    }
+  ]
 }
 ```
 
@@ -388,7 +394,7 @@ The publisher object provides attribution but not authentication. To cryptograph
 |-------|------|----------|-------------|
 | `published` | string | No | ISO 8601 timestamp when publicly released |
 | `templateSourceUrl` | string | No | URL where the template can be fetched/updated |
-| `submitUrl` | string | No | Recommended URL for form submission |
+| `submitUrls` | array | No | Recommended URLs for form submission (array of Submit URL objects) |
 
 **Template Source URL:**
 
@@ -405,17 +411,39 @@ The `templateSourceUrl` field enables update checking and template distribution:
 }
 ```
 
-**Submit URL:**
+**Submit URLs:**
 
-The `submitUrl` field specifies where completed forms should be submitted:
+The `submitUrls` field specifies where completed forms should be submitted. It is an array of Submit URL objects, allowing forms to be submitted to multiple destinations:
 
 ```json
 {
-  "submitUrl": "https://api.example.com/forms/submit"
+  "submitUrls": [
+    {
+      "url": "https://api.example.com/forms/submit",
+      "label": "Submit to HR System",
+      "primary": "true"
+    },
+    {
+      "url": "mailto:hr-backup@example.com",
+      "label": "Email to HR (backup)"
+    },
+    {
+      "url": "s3://forms-bucket/submissions/",
+      "label": "Archive to S3"
+    }
+  ]
 }
 ```
 
-Supported URL schemes:
+**Submit URL Object:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `url` | string | Yes | The submission endpoint URL |
+| `label` | string | No | Human-readable name for this destination |
+| `primary` | string | No | Set to `"true"` to indicate the preferred submission target |
+
+**Supported URL schemes:**
 
 | Scheme | Example | Behavior |
 |--------|---------|----------|
@@ -424,7 +452,13 @@ Supported URL schemes:
 | `mailto:` | `mailto:forms@example.com` | Open email client with form attached |
 | `s3://` | `s3://bucket/prefix/` | Direct S3 upload (requires config) |
 
-**Note:** The `submitUrl` is a recommendation only. Users may choose to save locally or submit elsewhere. See Appendix B for detailed submission configuration.
+**Usage notes:**
+
+- Applications SHOULD present all submit URLs to the user for selection
+- If `primary` is set on one URL, applications MAY pre-select it as the default
+- Users may choose to submit to multiple destinations, one destination, or save locally
+- The `submitUrls` array is a recommendation only; users are never required to use it
+- See Appendix B for detailed submission configuration (pre-signed URLs, authentication, etc.)
 
 ### 3.7 Filled Form Additional Fields
 
