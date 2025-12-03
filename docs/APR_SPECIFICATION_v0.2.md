@@ -290,33 +290,111 @@ These documents define categories of confusable characters, recommended security
 
 ```json
 {
-  "title": "Form Title",
-  "description": "Optional description",
-  "author": "Author Name",
+  "title": "Employment Application",
+  "description": "Standard employment application form",
+  "templateId": "emp-app-2025",
+  "version": {
+    "major": "2",
+    "minor": "1"
+  },
   "created": "2025-01-15T00:00:00Z",
   "modified": "2025-01-15T00:00:00Z",
-  "templateId": "unique-id",
-  "templateVersion": "1.0",
-  "templateSourceUrl": "https://example.com/forms/my-form.aprt"
+  "published": "2025-01-20T00:00:00Z",
+  "publisher": {
+    "name": "Acme Corporation HR",
+    "email": "hr@acme.example.com",
+    "url": "https://acme.example.com/hr"
+  },
+  "templateSourceUrl": "https://forms.acme.example.com/employment-app.aprt",
+  "submitUrl": "https://submissions.acme.example.com/hr/applications"
 }
 ```
+
+### 3.3 Core Metadata Fields
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `title` | string | Yes | Human-readable form title |
 | `description` | string | No | Form description |
-| `author` | string | No | Template author |
-| `created` | string | No | ISO 8601 creation timestamp |
-| `modified` | string | No | ISO 8601 last modified timestamp |
-| `templateId` | string | No | Unique template identifier |
-| `templateVersion` | string | No | Template version number |
-| `templateSourceUrl` | string | No | URL where the template can be fetched or updated from |
+| `templateId` | string | No | Unique template identifier (stable across versions) |
+| `created` | string | No | ISO 8601 timestamp when first created |
+| `modified` | string | No | ISO 8601 timestamp when last modified |
+
+### 3.4 Version Object
+
+Templates use semantic versioning to track changes:
+
+```json
+{
+  "version": {
+    "major": "2",
+    "minor": "1"
+  }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `major` | string | Yes | Major version (breaking changes to form structure) |
+| `minor` | string | Yes | Minor version (non-breaking additions or fixes) |
+
+**Version semantics:**
+
+| Change Type | Version Bump | Examples |
+|-------------|--------------|----------|
+| Breaking | Major | Removing fields, renaming IDs, restructuring sections |
+| Non-breaking | Minor | Adding new fields, fixing typos, adding help text |
+
+**Version comparison:**
+- `2.1` is newer than `2.0`
+- `2.0` is newer than `1.9`
+- Filled forms should record the template version they were created from
+
+### 3.5 Publisher Object
+
+The publisher identifies who created and published the template:
+
+```json
+{
+  "publisher": {
+    "name": "Acme Corporation HR",
+    "email": "hr@acme.example.com",
+    "url": "https://acme.example.com/hr",
+    "organization": "Acme Corporation",
+    "location": "New York, NY, USA"
+  }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Publisher name (person or department) |
+| `email` | string | No | Contact email |
+| `url` | string | No | Publisher's website or profile |
+| `organization` | string | No | Organization name |
+| `location` | string | No | Geographic location |
+
+**Publisher Authentication:**
+
+The publisher object provides attribution but not authentication. To cryptographically verify that a template was published by the claimed publisher, use **template signatures** as described in Appendix A. When a template is signed:
+
+- The signature covers the publisher metadata along with all other content
+- Recipients can verify the template hasn't been modified since signing
+- The signer's identity can be established through their public key or certificate
+
+### 3.6 Publication and Distribution Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `published` | string | No | ISO 8601 timestamp when publicly released |
+| `templateSourceUrl` | string | No | URL where the template can be fetched/updated |
+| `submitUrl` | string | No | Recommended URL for form submission |
 
 **Template Source URL:**
 
 The `templateSourceUrl` field enables update checking and template distribution:
 
-- Set by template authors when publishing to a web server, S3 bucket, or form gallery
+- Set by template publishers when hosting on a web server, S3 bucket, or form gallery
 - Inherited by filled forms when created from a template
 - Applications MAY use this to offer "Check for Updates" functionality
 - Applications MAY use this to fetch the latest template version and migrate responses
@@ -327,12 +405,34 @@ The `templateSourceUrl` field enables update checking and template distribution:
 }
 ```
 
-**Filled Form Additional Fields:**
+**Submit URL:**
+
+The `submitUrl` field specifies where completed forms should be submitted:
+
+```json
+{
+  "submitUrl": "https://api.example.com/forms/submit"
+}
+```
+
+Supported URL schemes:
+
+| Scheme | Example | Behavior |
+|--------|---------|----------|
+| `https://` | `https://api.example.com/submit` | HTTP POST with form data |
+| `http://` | `http://internal.example.com/submit` | HTTP POST (insecure, warn user) |
+| `mailto:` | `mailto:forms@example.com` | Open email client with form attached |
+| `s3://` | `s3://bucket/prefix/` | Direct S3 upload (requires config) |
+
+**Note:** The `submitUrl` is a recommendation only. Users may choose to save locally or submit elsewhere. See Appendix B for detailed submission configuration.
+
+### 3.7 Filled Form Additional Fields
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `filledBy` | string | No | Name of person who filled the form |
 | `filledDate` | string | No | ISO 8601 timestamp when filled |
+| `templateVersion` | object | No | Version of template used (copy of `version` at fill time) |
 
 ---
 
