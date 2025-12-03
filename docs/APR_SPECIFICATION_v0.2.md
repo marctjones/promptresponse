@@ -2,7 +2,7 @@
 
 **Version:** 0.2
 **Status:** Draft
-**Last Updated:** 2025-12-02
+**Last Updated:** 2025-12-03
 
 ---
 
@@ -1559,18 +1559,475 @@ Template Creation        Form Filling           Processing
 
 ---
 
-## 16. Encoding and Format
+## 16. Response Identifiers
+
+### 16.1 Response ID Purpose
+
+Each prompt/response pair can have an optional `responseId` that uniquely identifies that specific response instance. This enables:
+
+- Attachments to reference specific responses they relate to
+- External systems to track individual responses
+- Audit trails linking actions to specific answers
+
+### 16.2 Response ID Field
+
+```json
+{
+  "id": "prompt_passport",
+  "label": "Passport Number",
+  "response": "AB1234567",
+  "responseId": "resp_a1b2c3d4"
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `responseId` | string | No | Unique identifier for this response instance |
+
+### 16.3 Response ID Generation
+
+**Response IDs are optional but encouraged.** They serve different purposes in templates vs filled forms:
+
+| Context | Who Generates | Purpose |
+|---------|---------------|---------|
+| Template (.aprt) | Template author | Pre-assign IDs for known attachment points |
+| Filled Form (.aprf) | Application or user | Identify responses for attachment annotations |
+
+**Generation rules:**
+
+1. Template authors MAY pre-assign `responseId` values to prompts
+2. If not present in template, applications SHOULD auto-generate when creating filled forms
+3. Users MAY manually assign or modify `responseId` values
+4. Format: Same rules as `id` field (ASCII, no spaces, starts with letter)
+5. Recommended format: `resp_` prefix + random alphanumeric (e.g., `resp_x7k9m2p4`)
+
+**Uniqueness:**
+
+- `responseId` MUST be unique within the document
+- `responseId` is separate from `id` (prompt ID identifies the field; response ID identifies the answer instance)
+
+### 16.4 Response ID vs Prompt ID
+
+| Field | Identifies | Stable Across | Example |
+|-------|------------|---------------|---------|
+| `id` | The prompt/field definition | All copies of template | `prompt_passport` |
+| `responseId` | This specific response instance | This filled form only | `resp_a1b2c3d4` |
+
+**Example:** An employment application template has `id: "prompt_ssn"`. When Alice fills it out, her response gets `responseId: "resp_alice_ssn_001"`. When Bob fills out the same template, his response gets `responseId: "resp_bob_ssn_002"`. Both reference the same prompt (`prompt_ssn`) but are distinct response instances.
+
+---
+
+## 17. Localization
+
+APR supports localized versions of all user-facing text, allowing forms to be displayed in multiple languages.
+
+### 17.1 Localization Structure
+
+Localizations are stored at the document level and provide alternative text for any user-facing field:
+
+```json
+{
+  "version": "0.2",
+  "documentType": "template",
+  "metadata": { },
+  "sections": [ ],
+  "localizations": {
+    "es": {
+      "metadata": {
+        "title": "Solicitud de Empleo",
+        "description": "Formulario estándar de solicitud de empleo"
+      },
+      "translator": {
+        "name": "Maria García",
+        "email": "maria@translations.example.com",
+        "organization": "Professional Translations Inc."
+      },
+      "translatedAt": "2025-01-20T00:00:00Z",
+      "sections": {
+        "section_personal": {
+          "title": "Información Personal",
+          "description": "Datos de contacto básicos"
+        }
+      },
+      "prompts": {
+        "prompt_name": {
+          "label": "Nombre Completo",
+          "hints": {
+            "inputPlaceholder": "Juan Pérez",
+            "inputHelpText": "Ingrese su nombre como aparece en su identificación"
+          }
+        },
+        "prompt_email": {
+          "label": "Correo Electrónico",
+          "hints": {
+            "inputPlaceholder": "usuario@ejemplo.com"
+          }
+        }
+      }
+    },
+    "fr": {
+      "metadata": {
+        "title": "Demande d'Emploi"
+      },
+      "translator": {
+        "name": "Jean Dupont"
+      },
+      "translatedAt": "2025-01-22T00:00:00Z",
+      "sections": { },
+      "prompts": { }
+    }
+  }
+}
+```
+
+### 17.2 Localizations Object
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `localizations` | object | No | Map of language codes to Localization objects |
+
+Keys are [BCP 47](https://www.rfc-editor.org/info/bcp47) language tags (e.g., `"en"`, `"es"`, `"fr"`, `"zh-Hans"`, `"pt-BR"`).
+
+### 17.3 Localization Object
+
+Each localization contains:
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `metadata` | object | No | Localized metadata fields |
+| `translator` | object | No | Information about who created this translation |
+| `translatedAt` | string | No | ISO 8601 timestamp when translation was created |
+| `sections` | object | No | Map of section IDs to localized section fields |
+| `prompts` | object | No | Map of prompt IDs to localized prompt fields |
+
+### 17.4 Translator Object
+
+```json
+{
+  "translator": {
+    "name": "Maria García",
+    "email": "maria@translations.example.com",
+    "organization": "Professional Translations Inc.",
+    "url": "https://translations.example.com"
+  }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Translator's name |
+| `email` | string | No | Contact email |
+| `organization` | string | No | Translation company or organization |
+| `url` | string | No | Translator's website or profile |
+
+### 17.5 Localizable Fields
+
+The following fields can be localized:
+
+**Metadata:**
+- `title`
+- `description`
+
+**Sections:**
+- `title`
+- `description`
+
+**Prompts:**
+- `label`
+- `hints.inputPlaceholder`
+- `hints.inputHelpText`
+- `hints.suggestValues` (array of localized values)
+
+**Table Columns:**
+- `label`
+- `placeholder`
+- `helpText`
+- `suggestedValues`
+
+**Table Rows (fixed):**
+- `label`
+
+### 17.6 Localization Resolution
+
+When rendering, implementations SHOULD:
+
+1. Determine the user's preferred language
+2. Look up the localization for that language
+3. For each field, use localized value if present, otherwise fall back to base value
+4. If no matching localization exists, use base values
+
+**Example resolution for `prompt_name.label` with user language `es`:**
+
+```
+1. Check localizations.es.prompts.prompt_name.label
+2. If found: use "Nombre Completo"
+3. If not found: use base sections[].prompts[].label = "Full Name"
+```
+
+### 17.7 Translator Signatures
+
+Translations can be independently signed by translators, separate from template or form signatures:
+
+```json
+{
+  "localizations": {
+    "es": {
+      "translator": { },
+      "translatedAt": "2025-01-20T00:00:00Z",
+      "signature": {
+        "signerName": "Maria García",
+        "signerEmail": "maria@translations.example.com",
+        "signerOrganization": "Professional Translations Inc.",
+        "signedAt": "2025-01-20T12:00:00Z",
+        "signatureData": "base64...",
+        "hashAlgorithm": "SHA256",
+        "certificateChain": "base64..."
+      },
+      "sections": { },
+      "prompts": { }
+    }
+  }
+}
+```
+
+**Translator signature covers:**
+- All localized text within that language block
+- Translator attribution
+- Translation timestamp
+
+**Translator signature does NOT cover:**
+- Base template content
+- Other localizations
+- Response data
+
+This allows:
+- Template publisher to sign the base template
+- Different translators to independently sign each language version
+- Verification that translations are authentic and unmodified
+
+### 17.8 Partial Localizations
+
+Localizations may be partial. Implementations MUST fall back gracefully:
+
+- If a localization exists but is missing a field → use base value
+- If a localization has extra fields not in base → ignore them
+- If a language code is unknown → treat as no localization
+
+---
+
+## 18. Attachments
+
+APR supports embedded file attachments that can be annotated to reference specific prompt/response pairs.
+
+### 18.1 Attachments Array
+
+```json
+{
+  "version": "0.2",
+  "documentType": "filledForm",
+  "metadata": { },
+  "sections": [ ],
+  "attachments": [
+    {
+      "id": "att_passport_scan",
+      "filename": "passport.pdf",
+      "mimeType": "application/pdf",
+      "description": "Scanned passport photo page",
+      "addedAt": "2025-01-22T10:30:00Z",
+      "addedBy": "John Doe",
+      "size": "245678",
+      "data": "base64...",
+      "annotations": [
+        {
+          "responseId": "resp_passport_number",
+          "note": "Passport number visible on page 1"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 18.2 Attachment Object
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | Unique attachment identifier |
+| `filename` | string | Yes | Original filename |
+| `mimeType` | string | Yes | MIME type (e.g., `application/pdf`, `image/jpeg`) |
+| `description` | string | No | Human-readable description |
+| `addedAt` | string | No | ISO 8601 timestamp when attached |
+| `addedBy` | string | No | Name of person who added attachment |
+| `size` | string | Yes | File size in bytes (as string) |
+| `data` | string | Yes | Base64-encoded file content |
+| `annotations` | array | No | References to related prompt/response pairs |
+
+### 18.3 Annotation Object
+
+Annotations link an attachment to specific responses it supports or relates to:
+
+```json
+{
+  "annotations": [
+    {
+      "responseId": "resp_ssn_proof",
+      "promptId": "prompt_ssn",
+      "note": "Social Security card showing number"
+    },
+    {
+      "responseId": "resp_address_proof",
+      "promptId": "prompt_address",
+      "note": "Utility bill showing current address"
+    }
+  ]
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `responseId` | string | Yes* | References a specific response instance |
+| `promptId` | string | No | References the prompt definition (for context) |
+| `note` | string | No | Explanation of how attachment relates to response |
+
+*At least one of `responseId` or `promptId` should be provided.
+
+### 18.4 Attachment Use Cases
+
+| Use Case | Example |
+|----------|---------|
+| **Supporting document** | Passport scan attached to passport number field |
+| **Proof of response** | Pay stub attached to salary field |
+| **Signature image** | Handwritten signature image for signature field |
+| **Additional context** | Resume attached to employment history section |
+| **Required upload** | Photo ID required by template |
+
+### 18.5 Template Attachment Hints
+
+Templates can indicate that certain prompts expect attachments:
+
+```json
+{
+  "id": "prompt_photo_id",
+  "label": "Government-Issued Photo ID",
+  "response": "",
+  "hints": {
+    "type": "file",
+    "inputHelpText": "Please attach a scan or photo of your ID",
+    "behaviorExpected": true
+  }
+}
+```
+
+When `type` is `file`, implementations SHOULD:
+- Provide an attachment interface for that prompt
+- Auto-generate annotation linking attachment to the prompt
+
+### 18.6 Attachment ID Format
+
+Attachment IDs follow the same rules as other IDs:
+
+- ASCII letters, digits, underscore only
+- Must start with letter
+- Recommended format: `att_` prefix + descriptive name (e.g., `att_passport_scan`)
+
+### 18.7 Supported MIME Types
+
+Implementations SHOULD support at minimum:
+
+| Category | MIME Types |
+|----------|------------|
+| **Documents** | `application/pdf` |
+| **Images** | `image/jpeg`, `image/png`, `image/gif`, `image/webp` |
+| **Text** | `text/plain` |
+
+Implementations MAY support additional types but MUST preserve attachments with unrecognized MIME types.
+
+### 18.8 Attachment Security
+
+**Safety considerations:**
+
+- Attachments are base64-encoded data, not executable
+- Implementations SHOULD scan attachments for malware before processing
+- Implementations SHOULD NOT auto-execute or auto-open attachments
+- Users SHOULD be warned before opening attachments from untrusted sources
+
+**Size considerations:**
+
+- Large attachments significantly increase file size
+- See Section 19 for file size requirements
+
+---
+
+## 19. Encoding, Format, and Size
+
+### 19.1 Encoding Requirements
 
 - **Encoding:** UTF-8 (required)
 - **Line endings:** Any (LF, CRLF, CR)
 - **Whitespace:** Insignificant (may pretty-print or minify)
 - **MIME type:** `application/vnd.apr+json` or `application/json`
 
+### 19.2 File Size Requirements
+
+APR-compliant systems MUST support minimum file sizes to ensure forms with reasonable attachments can be submitted.
+
+**Minimum acceptance requirement:**
+
+| Requirement | Description |
+|-------------|-------------|
+| **Absolute minimum** | Systems MUST accept files of at least **1 MB** |
+| **Template-relative minimum** | Systems MUST accept files of at least **3× the template size** |
+| **Effective minimum** | Whichever is **greater** of the above |
+
+**Examples:**
+
+| Template Size | 3× Template | 1 MB Floor | Minimum Accepted |
+|---------------|-------------|------------|------------------|
+| 50 KB | 150 KB | 1 MB | **1 MB** |
+| 200 KB | 600 KB | 1 MB | **1 MB** |
+| 500 KB | 1.5 MB | 1 MB | **1.5 MB** |
+| 2 MB | 6 MB | 1 MB | **6 MB** |
+
+**Rationale:**
+
+- 1 MB floor ensures basic attachments (a few images, a short PDF) are always possible
+- 3× multiplier ensures filled forms have room for reasonable supporting documents
+- Large templates (with many prompts or embedded localizations) get proportionally more allowance
+
+### 19.3 Size Advisories
+
+**Template authors SHOULD:**
+
+- Keep base templates under 500 KB when possible
+- Use `suggestValuesUrl` for large option lists instead of embedding
+- Consider attachment size when designing forms requiring uploads
+
+**Implementation authors SHOULD:**
+
+- Display file size to users before submission
+- Warn when approaching size limits
+- Provide clear error messages when size limits are exceeded
+
+**Form fillers SHOULD:**
+
+- Compress images before attaching
+- Use PDF rather than raw images for multi-page documents
+- Remove unnecessary attachments before submission
+
+### 19.4 Size Calculation
+
+File size is calculated as the byte length of the UTF-8 encoded JSON document, including:
+
+- All text content
+- All base64-encoded attachments
+- All localizations
+- All whitespace (if pretty-printed)
+
 ---
 
-## 17. Implementation Checklist
+## 20. Implementation Checklist
 
-### 17.1 Minimum Viable Implementation
+### 20.1 Minimum Viable Implementation
 
 A minimal APR implementation must:
 
@@ -1581,8 +2038,9 @@ A minimal APR implementation must:
 - [ ] Store responses as strings
 - [ ] Handle `.aprt` as blank, `.aprf` as filled
 - [ ] Ignore unknown fields
+- [ ] Accept files of at least 1 MB (or 3× template size)
 
-### 17.2 Recommended Implementation
+### 20.2 Recommended Implementation
 
 A recommended APR implementation should also:
 
@@ -1592,8 +2050,10 @@ A recommended APR implementation should also:
 - [ ] Display `inputPlaceholder` and `inputHelpText`
 - [ ] Support fixed and dynamic tables
 - [ ] Preserve unknown fields on save
+- [ ] Auto-generate `responseId` for filled forms
+- [ ] Support basic attachments (PDF, images)
 
-### 17.3 Full Implementation
+### 20.3 Full Implementation
 
 A full APR implementation may also:
 
@@ -1602,6 +2062,9 @@ A full APR implementation may also:
 - [ ] Show `inputValidationPattern` warnings
 - [ ] Support digital signatures (see appendix)
 - [ ] Support submission configuration (see appendix)
+- [ ] Support localizations with language switching
+- [ ] Support translator signatures
+- [ ] Display attachment annotations
 
 ---
 
@@ -1764,3 +2227,4 @@ Implementations that don't support submission should preserve this field.
 |---------|------|---------|
 | 0.1 | 2025-11-12 | Initial specification |
 | 0.2 | 2025-12-02 | Restructured hints with prefixed naming convention (`input*`, `behavior*`, `display*`, `layout*`, `suggest*`, `type*`), renamed `expectedDataType` to `type`, added behavioral/display/layout hints, formalized type tiers, added implementation checklist |
+| 0.2 | 2025-12-03 | Added publisher metadata, semantic versioning, `submitUrls` array, submission history tracking, response identifiers (`responseId`), localization support with translator signatures, embedded attachments with annotations, file size requirements (1 MB or 3× template minimum) |
