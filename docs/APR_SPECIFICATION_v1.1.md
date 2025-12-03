@@ -296,7 +296,8 @@ These documents define categories of confusable characters, recommended security
   "created": "2025-01-15T00:00:00Z",
   "modified": "2025-01-15T00:00:00Z",
   "templateId": "unique-id",
-  "templateVersion": "1.0"
+  "templateVersion": "1.0",
+  "templateSourceUrl": "https://example.com/forms/my-form.aprt"
 }
 ```
 
@@ -309,6 +310,22 @@ These documents define categories of confusable characters, recommended security
 | `modified` | string | No | ISO 8601 last modified timestamp |
 | `templateId` | string | No | Unique template identifier |
 | `templateVersion` | string | No | Template version number |
+| `templateSourceUrl` | string | No | URL where the template can be fetched or updated from |
+
+**Template Source URL:**
+
+The `templateSourceUrl` field enables update checking and template distribution:
+
+- Set by template authors when publishing to a web server, S3 bucket, or form gallery
+- Inherited by filled forms when created from a template
+- Applications MAY use this to offer "Check for Updates" functionality
+- Applications MAY use this to fetch the latest template version and migrate responses
+
+```json
+{
+  "templateSourceUrl": "https://forms.example.com/templates/employment-app.aprt"
+}
+```
 
 **Filled Form Additional Fields:**
 
@@ -514,8 +531,8 @@ A table has EITHER `fixedRows` OR `dynamicRows`, never both.
 {
   "columns": [
     { "id": "item", "label": "Item", "type": "text" },
-    { "id": "qty", "label": "Quantity", "type": "number" },
-    { "id": "price", "label": "Price", "type": "currency" }
+    { "id": "qty", "label": "Quantity", "type": "number", "width": "60px" },
+    { "id": "price", "label": "Price", "type": "currency", "placeholder": "0.00" }
   ]
 }
 ```
@@ -526,6 +543,46 @@ A table has EITHER `fixedRows` OR `dynamicRows`, never both.
 | `label` | string | Yes | Column header text |
 | `type` | string | No | Cell type: `text`, `number`, `currency`, `date`, `boolean` |
 | `placeholder` | string | No | Placeholder for cells |
+| `suggestedValues` | array | No | List of suggested values for cells (renders as dropdown) |
+| `helpText` | string | No | Help text for the column (shown in header tooltip or similar) |
+| `width` | string | No | Width hint for the column (see below) |
+
+**Display Hints:**
+
+Columns support optional display hints that implementations MAY use to improve rendering. These hints are advisory and implementations MUST function correctly if they ignore them.
+
+**Width Hint:**
+
+The `width` field suggests column width. Implementations MAY use this as a hint but are free to adjust based on available space:
+
+| Format | Example | Meaning |
+|--------|---------|---------|
+| Pixels | `"100px"` | Fixed pixel width |
+| Percentage | `"25%"` | Percentage of table width |
+| Relative | `"*"` or `"2*"` | Relative to other columns |
+
+```json
+{
+  "columns": [
+    { "id": "description", "label": "Description", "width": "40%" },
+    { "id": "qty", "label": "Qty", "width": "60px" },
+    { "id": "notes", "label": "Notes", "width": "*" }
+  ]
+}
+```
+
+**Column-Level Suggested Values:**
+
+For columns with a limited set of valid options, `suggestedValues` can provide a dropdown:
+
+```json
+{
+  "id": "state",
+  "label": "State",
+  "type": "text",
+  "suggestedValues": ["AL", "AK", "AZ", "AR", "CA", "..."]
+}
+```
 
 ### 8.3 Fixed Rows
 
@@ -557,7 +614,8 @@ Dynamic tables allow users to add/remove rows:
 {
   "dynamicRows": {
     "minRows": 1,
-    "maxRows": 50
+    "maxRows": 50,
+    "rowLabel": "Item"
   }
 }
 ```
@@ -566,6 +624,23 @@ Dynamic tables allow users to add/remove rows:
 |-------|------|---------|-------------|
 | `minRows` | number | 0 | Minimum rows required |
 | `maxRows` | number | 100 | Maximum rows allowed |
+| `rowLabel` | string | `"Row"` | Label prefix for auto-generated row labels |
+
+**Row Label:**
+
+The `rowLabel` field provides a prefix for generating row labels in the UI (e.g., "Item 1", "Item 2" or "Address 1", "Address 2"):
+
+```json
+{
+  "dynamicRows": {
+    "minRows": 1,
+    "maxRows": 20,
+    "rowLabel": "Line Item"
+  }
+}
+```
+
+This is a display hint only. Implementations MAY ignore it or use a different labeling scheme.
 
 **Response format (array of objects):**
 
