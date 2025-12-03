@@ -127,7 +127,7 @@ See [CLI README](src/PromptResponse.Cli/README.md) for complete CLI documentatio
 
 ## Documentation
 
-- [APR Format Specification v1.1](docs/APR_SPECIFICATION_v1.1.md) - **Complete formal specification**
+- [APR Format Specification v1.2](docs/APR_SPECIFICATION_v1.2.md) - **Complete formal specification**
 - [CLI Tool Guide](src/PromptResponse.Cli/README.md) - Command-line tool usage
 - [Usage Guide](docs/USAGE.md) - Detailed usage instructions
 - [Development Guide](docs/DEVELOPMENT.md) - Contributing and development setup

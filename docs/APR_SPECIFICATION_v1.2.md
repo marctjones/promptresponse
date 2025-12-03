@@ -1,6 +1,6 @@
 # APR File Format Specification
 
-**Version:** 1.1
+**Version:** 1.2
 **Status:** Draft
 **Last Updated:** 2025-12-02
 
@@ -272,7 +272,7 @@ These documents define categories of confusable characters, recommended security
 
 ```json
 {
-  "version": "1.1",
+  "version": "1.2",
   "documentType": "template",
   "metadata": { },
   "sections": [ ]
@@ -281,7 +281,7 @@ These documents define categories of confusable characters, recommended security
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `version` | string | Yes | Specification version (currently "1.1") |
+| `version` | string | Yes | Specification version (currently "1.2") |
 | `documentType` | string | Yes | Either `"template"` or `"filledForm"` |
 | `metadata` | object | Yes | Document metadata |
 | `sections` | array | Yes | Array of Section objects |
@@ -397,45 +397,100 @@ Prompts are individual form fields that collect user input.
 
 Hints provide guidance to the UI. All hints are optional and advisory only.
 
+### 6.1 Naming Convention
+
+All hint fields use a **category prefix** to indicate their purpose:
+
+| Prefix | Purpose | Examples |
+|--------|---------|----------|
+| `type` | Data type (no prefix, special) | `type` |
+| `input*` | Input assistance | `inputPlaceholder`, `inputHelpText` |
+| `behavior*` | Field behavior | `behaviorExpected`, `behaviorReadOnly` |
+| `display*` | Visual formatting | `displayPrefix`, `displayMask` |
+| `layout*` | Positioning | `layoutWidth`, `layoutGroup` |
+| `suggest*` | Value suggestions | `suggestValues`, `suggestValuesUrl` |
+
+This convention makes it easy to identify what category a hint belongs to and to search for all hints of a particular type.
+
+### 6.2 Complete Example
+
 ```json
 {
-  "placeholder": "you@example.com",
-  "expectedDataType": "email",
-  "helpText": "Enter your primary email",
-  "suggestedValues": ["gmail.com", "outlook.com"],
-  "validationPattern": "^[^@]+@[^@]+$",
-  "expected": true,
-  "defaultValue": "user@example.com"
+  "id": "prompt_salary",
+  "label": "Annual Salary",
+  "response": "",
+  "hints": {
+    "type": "currency",
+    "inputPlaceholder": "75000.00",
+    "inputHelpText": "Enter your annual salary before taxes",
+    "inputDefaultValue": "0.00",
+    "inputValidationPattern": "^\\d+(\\.\\d{2})?$",
+    "behaviorExpected": true,
+    "behaviorReadOnly": false,
+    "displayPrefix": "$",
+    "displaySuffix": " USD",
+    "layoutWidth": "50%",
+    "layoutGroup": "compensation_row",
+    "layoutOrder": 1
+  }
 }
 ```
 
-### 6.1 Core Hint Fields
+### 6.3 Type Field
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `placeholder` | string | Example text shown in empty field |
-| `expectedDataType` | string | Type hint (see section 7) |
-| `helpText` | string | Additional guidance shown to user |
-| `suggestedValues` | array | List of suggested string values |
-| `validationPattern` | string | Regex pattern (advisory only) |
+| `type` | string | Data type hint (see section 7) |
 
-### 6.2 Behavioral Hints
+The `type` field (formerly `expectedDataType`) suggests how the UI should render the field. It has no prefix because it's the most fundamental hint.
+
+```json
+{
+  "hints": {
+    "type": "email"
+  }
+}
+```
+
+### 6.4 Input Hints (`input*`)
+
+Input hints help users enter data correctly.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `inputPlaceholder` | string | Example text shown in empty field |
+| `inputHelpText` | string | Additional guidance shown to user |
+| `inputDefaultValue` | string | Value to pre-populate when creating new filled form |
+| `inputValidationPattern` | string | Regex pattern (advisory only) |
+
+```json
+{
+  "hints": {
+    "type": "email",
+    "inputPlaceholder": "you@example.com",
+    "inputHelpText": "Enter your primary email address",
+    "inputValidationPattern": "^[^@]+@[^@]+\\.[^@]+$"
+  }
+}
+```
+
+### 6.5 Behavior Hints (`behavior*`)
+
+Behavior hints control how the field behaves.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `expected` | boolean | `false` | Indicates field is expected to be filled (advisory, never enforced) |
-| `readOnly` | boolean | `false` | Indicates field is display-only (pre-populated by system) |
-| `hidden` | boolean | `false` | Field exists in data but should not be displayed |
-| `defaultValue` | string | `""` | Value to pre-populate when creating new filled form |
+| `behaviorExpected` | boolean | `false` | Field is expected to be filled (shows indicator) |
+| `behaviorReadOnly` | boolean | `false` | Field is display-only (pre-populated by system) |
+| `behaviorHidden` | boolean | `false` | Field exists in data but should not be displayed |
 
 **Important:** These are all advisory hints:
 
-- `expected: true` does NOT make the file invalid if left empty - it's a hint to the UI to show an indicator (e.g., asterisk)
-- `readOnly: true` suggests the UI should prevent editing, but the response can still be modified programmatically
-- `hidden: true` suggests the field shouldn't be shown to users, but data should be preserved
-- `defaultValue` is copied to `response` when a template is opened for filling
+- `behaviorExpected: true` does NOT make the file invalid if left empty - it's a hint to show an indicator (e.g., asterisk)
+- `behaviorReadOnly: true` suggests the UI should prevent editing, but the response can still be modified programmatically
+- `behaviorHidden: true` suggests the field shouldn't be shown to users, but data should be preserved
 
-**Why `expected` instead of `required`?**
+**Why `behaviorExpected` instead of `behaviorRequired`?**
 
 The word "required" implies validation and enforcement. But APR hints are always advisory - the file is valid regardless of whether expected fields are filled. Using `expected` makes it clear this is what the form designer *expects*, not what the format *requires*.
 
@@ -445,8 +500,8 @@ The word "required" implies validation and enforcement. But APR hints are always
   "id": "prompt_name",
   "label": "Full Legal Name",
   "hints": {
-    "expected": true,
-    "helpText": "Please enter your name as it appears on government ID"
+    "behaviorExpected": true,
+    "inputHelpText": "Please enter your name as it appears on government ID"
   }
 }
 ```
@@ -458,8 +513,8 @@ The word "required" implies validation and enforcement. But APR hints are always
   "label": "Form ID",
   "response": "APP-2025-001234",
   "hints": {
-    "readOnly": true,
-    "helpText": "Automatically assigned - do not modify"
+    "behaviorReadOnly": true,
+    "inputHelpText": "Automatically assigned - do not modify"
   }
 }
 ```
@@ -471,21 +526,20 @@ The word "required" implies validation and enforcement. But APR hints are always
   "label": "Internal Tracking Code",
   "response": "TRK-XYZ-789",
   "hints": {
-    "hidden": true
+    "behaviorHidden": true
   }
 }
 ```
 
-### 6.3 Display Hints
+### 6.6 Display Hints (`display*`)
+
+Display hints control how values are formatted and presented.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `width` | string | Width hint for the prompt (see Layout Hints) |
-| `group` | string | Group ID for horizontal grouping (see Layout Hints) |
-| `groupOrder` | number | Order within group (1, 2, 3...) |
-| `prefix` | string | Text displayed before the input (e.g., "$") |
-| `suffix` | string | Text displayed after the input (e.g., "%", " lbs") |
-| `mask` | string | Input mask pattern for formatted entry |
+| `displayPrefix` | string | Text displayed before the input (e.g., "$") |
+| `displaySuffix` | string | Text displayed after the input (e.g., "%", " lbs") |
+| `displayMask` | string | Input mask pattern for formatted entry |
 | `displayFormat` | string | How to format the value for display |
 
 **Prefix and Suffix:**
@@ -495,9 +549,9 @@ The word "required" implies validation and enforcement. But APR hints are always
   "id": "prompt_price",
   "label": "Price",
   "hints": {
-    "expectedDataType": "currency",
-    "prefix": "$",
-    "placeholder": "0.00"
+    "type": "currency",
+    "displayPrefix": "$",
+    "inputPlaceholder": "0.00"
   }
 }
 ```
@@ -507,15 +561,15 @@ The word "required" implies validation and enforcement. But APR hints are always
   "id": "prompt_weight",
   "label": "Weight",
   "hints": {
-    "expectedDataType": "number",
-    "suffix": " lbs"
+    "type": "number",
+    "displaySuffix": " lbs"
   }
 }
 ```
 
 **Input Mask:**
 
-The `mask` field suggests an input pattern. Use `#` for digits and `A` for letters:
+The `displayMask` field suggests an input pattern. Use `#` for digits and `A` for letters:
 
 | Mask | Example Input | Use Case |
 |------|---------------|----------|
@@ -530,9 +584,9 @@ The `mask` field suggests an input pattern. Use `#` for digits and `A` for lette
   "id": "prompt_phone",
   "label": "Phone Number",
   "hints": {
-    "expectedDataType": "phone",
-    "mask": "(###) ###-####",
-    "placeholder": "(555) 123-4567"
+    "type": "phone",
+    "displayMask": "(###) ###-####",
+    "inputPlaceholder": "(555) 123-4567"
   }
 }
 ```
@@ -541,7 +595,7 @@ Implementations MAY auto-format as the user types, or MAY ignore the mask entire
 
 **Display Format:**
 
-The `displayFormat` field suggests how to format values for display (distinct from `expectedDataType` which affects input):
+The `displayFormat` field suggests how to format values for display (distinct from `type` which affects input):
 
 | Format | Description | Example |
 |--------|-------------|---------|
@@ -553,33 +607,35 @@ The `displayFormat` field suggests how to format values for display (distinct fr
 | `currency` | Currency format | "$1,234.56" |
 | `percent` | Percentage format | "75.5%" |
 
-### 6.4 Suggested Values Options
+### 6.7 Suggestion Hints (`suggest*`)
+
+Suggestion hints provide value options to the user.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `suggestedValues` | array | Static list of suggested values |
-| `suggestedValuesUrl` | string | URL to fetch suggestions from (see below) |
-| `allowOther` | boolean | Whether values not in list are allowed (default: `true`) |
+| `suggestValues` | array | Static list of suggested values |
+| `suggestValuesUrl` | string | URL to fetch suggestions from |
+| `suggestAllowOther` | boolean | Whether values not in list are allowed (default: `true`) |
 
 **Static Suggested Values:**
 ```json
 {
   "hints": {
-    "suggestedValues": ["Red", "Green", "Blue"],
-    "allowOther": false
+    "suggestValues": ["Red", "Green", "Blue"],
+    "suggestAllowOther": false
   }
 }
 ```
 
 **Dynamic Suggested Values:**
 
-The `suggestedValuesUrl` field allows fetching suggestions from a remote endpoint:
+The `suggestValuesUrl` field allows fetching suggestions from a remote endpoint:
 
 ```json
 {
   "hints": {
-    "suggestedValuesUrl": "https://api.example.com/countries",
-    "helpText": "Select a country (requires internet connection)"
+    "suggestValuesUrl": "https://api.example.com/countries",
+    "inputHelpText": "Select a country (requires internet connection)"
   }
 }
 ```
@@ -604,15 +660,21 @@ Or an array of objects with `value` and optional `label`:
 - Breaks the "offline-first" principle - implementations SHOULD cache results
 - Implementations MAY refuse to fetch from untrusted URLs
 - If fetch fails, implementations SHOULD fall back to free text entry
-- `suggestedValues` (static) takes precedence if both are specified
+- `suggestValues` (static) takes precedence if both are specified
 
-### 6.5 Layout Hints
+### 6.8 Layout Hints (`layout*`)
 
 Layout hints suggest how prompts should be arranged. These are advisory - implementations may render all prompts vertically.
 
+| Field | Type | Description |
+|-------|------|-------------|
+| `layoutWidth` | string | Width hint for the prompt |
+| `layoutGroup` | string | Group ID for horizontal grouping |
+| `layoutOrder` | number | Order within group (1, 2, 3...) |
+
 **Width Hint:**
 
-The `width` field suggests how much horizontal space a prompt should occupy:
+The `layoutWidth` field suggests how much horizontal space a prompt should occupy:
 
 | Format | Example | Meaning |
 |--------|---------|---------|
@@ -624,67 +686,91 @@ The `width` field suggests how much horizontal space a prompt should occupy:
 {
   "id": "prompt_city",
   "label": "City",
-  "hints": { "width": "50%" }
+  "hints": { "layoutWidth": "50%" }
 },
 {
   "id": "prompt_state",
   "label": "State",
-  "hints": { "width": "20%" }
+  "hints": { "layoutWidth": "20%" }
 },
 {
   "id": "prompt_zip",
   "label": "ZIP",
-  "hints": { "width": "30%" }
+  "hints": { "layoutWidth": "30%" }
 }
 ```
 
 **Group Hint:**
 
-For explicit horizontal grouping, use `group` and `groupOrder`:
+For explicit horizontal grouping, use `layoutGroup` and `layoutOrder`:
 
 ```json
 {
   "id": "prompt_city",
   "label": "City",
-  "hints": { "group": "address_row_2", "groupOrder": 1, "width": "50%" }
+  "hints": { "layoutGroup": "address_row_2", "layoutOrder": 1, "layoutWidth": "50%" }
 },
 {
   "id": "prompt_state",
   "label": "State",
-  "hints": { "group": "address_row_2", "groupOrder": 2, "width": "25%" }
+  "hints": { "layoutGroup": "address_row_2", "layoutOrder": 2, "layoutWidth": "25%" }
 },
 {
   "id": "prompt_zip",
   "label": "ZIP",
-  "hints": { "group": "address_row_2", "groupOrder": 3, "width": "25%" }
+  "hints": { "layoutGroup": "address_row_2", "layoutOrder": 3, "layoutWidth": "25%" }
 }
 ```
 
-Prompts with the same `group` value are rendered on the same row, ordered by `groupOrder`.
+Prompts with the same `layoutGroup` value are rendered on the same row, ordered by `layoutOrder`.
 
-### 6.6 Type-Specific Hint Fields
+### 6.9 Type-Specific Hint Fields
 
-Some `expectedDataType` values support additional hint fields:
+Some `type` values support additional hint fields. These use the `type*` prefix:
 
 **For `range` type:**
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `min` | string | "0" | Minimum value |
-| `max` | string | "100" | Maximum value |
-| `step` | string | "1" | Step increment |
+| `typeRangeMin` | string | "0" | Minimum value |
+| `typeRangeMax` | string | "100" | Maximum value |
+| `typeRangeStep` | string | "1" | Step increment |
+
+```json
+{
+  "hints": {
+    "type": "range",
+    "typeRangeMin": "0",
+    "typeRangeMax": "10",
+    "typeRangeStep": "1",
+    "inputHelpText": "Rate from 0 to 10"
+  }
+}
+```
 
 **For `table` type:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `tableDefinition` | object | Table structure (see section 8) |
+| `typeTableDefinition` | object | Table structure (see section 8) |
+
+```json
+{
+  "hints": {
+    "type": "table",
+    "typeTableDefinition": {
+      "columns": [...],
+      "dynamicRows": { "minRows": 1, "maxRows": 10 }
+    }
+  }
+}
+```
 
 ---
 
 ## 7. Data Types
 
-The `expectedDataType` field suggests how the UI should render the field.
+The `type` field suggests how the UI should render the field.
 
 ### 7.1 Core Types (Recommended for all implementations)
 
@@ -726,23 +812,23 @@ The `expectedDataType` field suggests how the UI should render the field.
 ### 7.4 Type Handling Rules
 
 1. **Unknown types** → Render as `text`
-2. **Missing `expectedDataType`** → Default to `text`
+2. **Missing `type`** → Default to `text`
 3. **Any response is valid** → Types never restrict what the user can enter
 4. **All responses are strings** → Even numbers are stored as `"42"` not `42`
 
 ### 7.5 Types Are Hints, Not Validators
 
-The `expectedDataType` field tells the UI how to render the input (date picker, number spinner, etc.) and tells the user what kind of data the form designer expects.
+The `type` field tells the UI how to render the input (date picker, number spinner, etc.) and tells the user what kind of data the form designer expects.
 
 **It does NOT:**
 - Prevent the user from entering any string they want
 - Make the file invalid if the response doesn't match the type
 - Require implementations to validate responses against the type
 
-**Examples of valid responses regardless of `expectedDataType`:**
+**Examples of valid responses regardless of `type`:**
 
-| expectedDataType | Valid Responses (all of these are valid) |
-|------------------|------------------------------------------|
+| type | Valid Responses (all of these are valid) |
+|------|------------------------------------------|
 | `date` | `"2025-01-15"`, `"January 15th"`, `"next Tuesday"`, `"TBD"`, `""` |
 | `number` | `"42"`, `"forty-two"`, `"~50"`, `"N/A"`, `""` |
 | `email` | `"user@example.com"`, `"none"`, `"see attached"`, `""` |
@@ -761,8 +847,8 @@ Tables allow structured data entry with rows and columns.
 
 ```json
 {
-  "expectedDataType": "table",
-  "tableDefinition": {
+  "type": "table",
+  "typeTableDefinition": {
     "columns": [ ],
     "fixedRows": [ ],
     "dynamicRows": { }
@@ -908,8 +994,8 @@ Table responses are stored as **JSON strings** in the `response` field:
   "label": "Order Items",
   "response": "[{\"item\":\"Widget\",\"qty\":\"10\"}]",
   "hints": {
-    "expectedDataType": "table",
-    "tableDefinition": { ... }
+    "type": "table",
+    "typeTableDefinition": { ... }
   }
 }
 ```
@@ -940,11 +1026,11 @@ This section specifies how compliant implementations SHOULD render each type.
 | `range` | Slider |
 | `file` | File browser |
 | `signature` | Text input (may style as cursive) |
-| `multichoice` | Checkboxes for each `suggestedValues` item |
+| `multichoice` | Checkboxes for each `suggestValues` item |
 
 ### 9.2 Suggested Values Behavior
 
-When `suggestedValues` is present:
+When `suggestValues` is present:
 
 | Type | Behavior |
 |------|----------|
@@ -996,8 +1082,8 @@ If a response contains invalid or non-printable characters, the file is invalid.
 
 Implementations MUST NOT reject a file based on response *meaning*:
 
-- Response doesn't match `expectedDataType` → **Still valid**
-- Response doesn't match `validationPattern` → **Still valid**
+- Response doesn't match `type` → **Still valid**
+- Response doesn't match `inputValidationPattern` → **Still valid**
 - Response is empty → **Still valid**
 - Response contains "wrong" information → **Still valid**
 
@@ -1009,9 +1095,9 @@ The format validates that responses are proper strings. It never validates what 
 
 Implementations MAY show advisory feedback to help users:
 
-- Highlight fields where response doesn't match `expectedDataType`
-- Show warning icon if `validationPattern` doesn't match
-- Indicate which fields the form designer marked as expected
+- Highlight fields where response doesn't match `type`
+- Show warning icon if `inputValidationPattern` doesn't match
+- Indicate which fields have `behaviorExpected: true`
 
 But this feedback must NEVER:
 - Prevent the user from saving the file
@@ -1033,7 +1119,7 @@ Implementations MUST:
 ### 11.2 Unknown Data Types
 
 Implementations MUST:
-- Treat unknown `expectedDataType` values as `text`
+- Treat unknown `type` values as `text`
 - Never fail to load a document due to unknown type
 
 ### 11.3 Version Compatibility
@@ -1102,7 +1188,7 @@ APR's structure is designed to support accessible form rendering.
 | `section.title` | Heading (h1-h6 based on nesting depth) |
 | `section.description` | Descriptive text, group description |
 | `prompt.label` | Form field label (associated with input) |
-| `prompt.hints.helpText` | Field description/instructions |
+| `prompt.hints.inputHelpText` | Field description/instructions |
 | `prompt.id` | Unique identifier for label association |
 
 ### 13.2 Implementation Requirements for Accessibility
@@ -1110,20 +1196,20 @@ APR's structure is designed to support accessible form rendering.
 Implementations targeting WCAG 2.1 Level AA SHOULD:
 
 1. Associate each `label` with its input using `for`/`id` or ARIA
-2. Expose `helpText` to assistive technology
+2. Expose `inputHelpText` to assistive technology
 3. Provide keyboard navigation between fields
 4. Maintain logical reading order matching section hierarchy
 5. Announce section titles when navigating between sections
-6. Indicate required fields (if workflow defines them)
+6. Indicate expected fields (`behaviorExpected: true`)
 
 ### 13.3 Template Design for Accessibility
 
 Templates SHOULD:
 
 1. Use clear, descriptive labels (not "Field 1", "Field 2")
-2. Provide `helpText` for fields that need explanation
+2. Provide `inputHelpText` for fields that need explanation
 3. Use `section.title` to group related fields
-4. Avoid relying solely on `placeholder` for instructions
+4. Avoid relying solely on `inputPlaceholder` for instructions
 
 ---
 
@@ -1307,9 +1393,9 @@ A minimal APR implementation must:
 A recommended APR implementation should also:
 
 - [ ] Support all Core Types (section 7.1)
-- [ ] Render `suggestedValues` as dropdown
+- [ ] Render `suggestValues` as dropdown
 - [ ] Render `boolean` as radio buttons
-- [ ] Display `placeholder` and `helpText`
+- [ ] Display `inputPlaceholder` and `inputHelpText`
 - [ ] Support fixed and dynamic tables
 - [ ] Preserve unknown fields on save
 
@@ -1319,7 +1405,7 @@ A full APR implementation may also:
 
 - [ ] Support Extended Types (section 7.2)
 - [ ] Support Formatted Types (section 7.3)
-- [ ] Show `validationPattern` warnings
+- [ ] Show `inputValidationPattern` warnings
 - [ ] Support digital signatures (see appendix)
 - [ ] Support submission configuration (see appendix)
 
@@ -1466,9 +1552,7 @@ Implementations that don't support submission should preserve this field.
 
 2. **Type proliferation** - The current implementation has many specialized types (`ssn`, `ein`, `creditcard`, etc.). These are classified as optional "Formatted Types" to keep the core specification simple.
 
-3. **`min`/`max`/`step` location** - For `range` type, these fields are in `hints` rather than a dedicated object. This is acceptable but slightly inconsistent with `tableDefinition`.
-
-4. **`multichoice` response format** - Currently uses comma-separated values. This works but could be ambiguous if values contain commas. Recommendation: Allow either comma-separated or JSON array format.
+3. **`multichoice` response format** - Currently uses comma-separated values. This works but could be ambiguous if values contain commas. Recommendation: Allow either comma-separated or JSON array format.
 
 ### Simplifications Made
 
@@ -1476,6 +1560,7 @@ Implementations that don't support submission should preserve this field.
 2. **Clear extension points** - Signatures and submission are appendices, not required
 3. **File extension precedence** - Simple rule eliminates ambiguity
 4. **Ignore-unknown policy** - Ensures forward compatibility
+5. **Prefixed hint naming** - All hints use category prefixes (`input*`, `behavior*`, `display*`, `layout*`, `suggest*`, `type*`) for easy identification and grouping
 
 ---
 
@@ -1485,3 +1570,4 @@ Implementations that don't support submission should preserve this field.
 |---------|------|---------|
 | 1.0 | 2025-11-12 | Initial specification |
 | 1.1 | 2025-12-02 | Formalized type tiers, added implementation checklist, clarified extension handling |
+| 1.2 | 2025-12-02 | Restructured hints with prefixed naming convention (`input*`, `behavior*`, `display*`, `layout*`, `suggest*`, `type*`), renamed `expectedDataType` to `type`, added behavioral/display/layout hints |
