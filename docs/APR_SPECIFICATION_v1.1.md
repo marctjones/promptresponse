@@ -404,7 +404,7 @@ Hints provide guidance to the UI. All hints are optional and advisory only.
   "helpText": "Enter your primary email",
   "suggestedValues": ["gmail.com", "outlook.com"],
   "validationPattern": "^[^@]+@[^@]+$",
-  "required": true,
+  "expected": true,
   "defaultValue": "user@example.com"
 }
 ```
@@ -423,26 +423,30 @@ Hints provide guidance to the UI. All hints are optional and advisory only.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `required` | boolean | `false` | Indicates field should be filled (advisory, never enforced) |
+| `expected` | boolean | `false` | Indicates field is expected to be filled (advisory, never enforced) |
 | `readOnly` | boolean | `false` | Indicates field is display-only (pre-populated by system) |
 | `hidden` | boolean | `false` | Field exists in data but should not be displayed |
 | `defaultValue` | string | `""` | Value to pre-populate when creating new filled form |
 
 **Important:** These are all advisory hints:
 
-- `required: true` does NOT make the file invalid if left empty - it's a hint to the UI to show an indicator (e.g., asterisk)
+- `expected: true` does NOT make the file invalid if left empty - it's a hint to the UI to show an indicator (e.g., asterisk)
 - `readOnly: true` suggests the UI should prevent editing, but the response can still be modified programmatically
 - `hidden: true` suggests the field shouldn't be shown to users, but data should be preserved
 - `defaultValue` is copied to `response` when a template is opened for filling
 
-**Example - Required field:**
+**Why `expected` instead of `required`?**
+
+The word "required" implies validation and enforcement. But APR hints are always advisory - the file is valid regardless of whether expected fields are filled. Using `expected` makes it clear this is what the form designer *expects*, not what the format *requires*.
+
+**Example - Expected field:**
 ```json
 {
   "id": "prompt_name",
   "label": "Full Legal Name",
   "hints": {
-    "required": true,
-    "helpText": "Required - enter your name as it appears on government ID"
+    "expected": true,
+    "helpText": "Please enter your name as it appears on government ID"
   }
 }
 ```
