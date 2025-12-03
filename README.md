@@ -30,16 +30,29 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 - **Cross-Platform**: Linux, Windows (macOS, Android, iOS planned)
 - **Open Format**: JSON subset for maximum interoperability
 
-## Quick Start
+## Quick Start Demo
 
-### Installation
+Try PromptResponse in 30 seconds with just Python:
+
+```bash
+# Clone and run
+git clone https://github.com/marctjones/promptresponse.git
+cd promptresponse
+./run-aprt-server.sh
+```
+
+Open http://localhost:8080 in your browser to see a form. Fill it out and submit - the JSON data prints to your terminal.
+
+**Requirements:** Python 3 (Flask is auto-installed)
+
+## Installation (Full .NET Application)
 
 ```bash
 # Prerequisites: .NET 8.0 SDK
 dotnet --version  # Should be 8.0 or higher
 
 # Clone repository
-git clone https://github.com/yourusername/promptresponse.git
+git clone https://github.com/marctjones/promptresponse.git
 cd promptresponse
 
 # Build
@@ -148,4 +161,4 @@ See [DEVELOPMENT.md](docs/DEVELOPMENT.md) for development guidelines and best pr
 
 ## Contact
 
-Report issues at: https://github.com/yourusername/promptresponse/issues
+Report issues at: https://github.com/marctjones/promptresponse/issues
