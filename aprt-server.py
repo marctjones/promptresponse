@@ -21,6 +21,7 @@ app = Flask(__name__)
 # Global to hold the loaded template
 TEMPLATE_DATA = None
 TEMPLATE_PATH = None
+IS_FILLED_FORM = False  # Whether to show pre-filled response values
 
 HTML_TEMPLATE = '''
 <!DOCTYPE html>
@@ -147,10 +148,23 @@ def get_input_type(expected_type):
     }
     return type_map.get(expected_type, 'text')
 
+def escape_html(text):
+    """Escape HTML special characters."""
+    if not text:
+        return ''
+    return (text
+            .replace('&', '&amp;')
+            .replace('<', '&lt;')
+            .replace('>', '&gt;')
+            .replace('"', '&quot;')
+            .replace("'", '&#39;'))
+
 def render_prompt(prompt):
     """Render a single prompt as HTML form field."""
     prompt_id = prompt.get('id', '')
     label = prompt.get('label', 'Unlabeled Field')
+    # Only show pre-filled values for filled forms, not templates
+    response = prompt.get('response', '') if IS_FILLED_FORM else ''
     hints = prompt.get('hints', {})
 
     placeholder = hints.get('placeholder', '')
@@ -160,65 +174,88 @@ def render_prompt(prompt):
     validation_pattern = hints.get('validationPattern', '')
     table_def = hints.get('tableDefinition')
 
+    # Escape values for HTML attributes
+    response_escaped = escape_html(response)
+    placeholder_escaped = escape_html(placeholder)
+
     html = f'<div class="prompt">\n'
-    html += f'  <label for="{prompt_id}">{label}</label>\n'
+    html += f'  <label for="{prompt_id}">{escape_html(label)}</label>\n'
 
     if help_text:
-        html += f'  <div class="help-text">{help_text}</div>\n'
+        html += f'  <div class="help-text">{escape_html(help_text)}</div>\n'
 
     # Table fields
     if expected_type == 'table' and table_def:
-        html += render_table(prompt_id, table_def)
+        html += render_table(prompt_id, table_def, response)
     # Multi-choice (checkboxes)
     elif expected_type == 'multichoice' and suggested_values:
+        # Parse selected values (comma-separated or JSON array)
+        selected = []
+        if response:
+            try:
+                selected = json.loads(response) if response.startswith('[') else [v.strip() for v in response.split(',')]
+            except:
+                selected = [v.strip() for v in response.split(',')]
         html += '  <div class="checkbox-group">\n'
-        for i, val in enumerate(suggested_values):
-            html += f'    <label><input type="checkbox" name="{prompt_id}" value="{val}"> {val}</label>\n'
+        for val in suggested_values:
+            checked = ' checked' if val in selected else ''
+            html += f'    <label><input type="checkbox" name="{prompt_id}" value="{escape_html(val)}"{checked}> {escape_html(val)}</label>\n'
         html += '  </div>\n'
     # Boolean (yes/no)
     elif expected_type == 'boolean':
         options = suggested_values if suggested_values else ['Yes', 'No']
         html += '  <div class="radio-group">\n'
         for val in options:
-            html += f'    <label><input type="radio" name="{prompt_id}" value="{val}"> {val}</label>\n'
+            checked = ' checked' if val == response else ''
+            html += f'    <label><input type="radio" name="{prompt_id}" value="{escape_html(val)}"{checked}> {escape_html(val)}</label>\n'
         html += '  </div>\n'
     # Dropdown (suggested values)
     elif suggested_values and expected_type not in ('multichoice', 'boolean'):
         html += f'  <select name="{prompt_id}" id="{prompt_id}">\n'
         html += f'    <option value="">-- Select --</option>\n'
         for val in suggested_values:
-            html += f'    <option value="{val}">{val}</option>\n'
+            selected = ' selected' if val == response else ''
+            html += f'    <option value="{escape_html(val)}"{selected}>{escape_html(val)}</option>\n'
         html += f'  </select>\n'
     # Multiline text
     elif expected_type == 'multiline':
-        html += f'  <textarea name="{prompt_id}" id="{prompt_id}" placeholder="{placeholder}"></textarea>\n'
+        html += f'  <textarea name="{prompt_id}" id="{prompt_id}" placeholder="{placeholder_escaped}">{response_escaped}</textarea>\n'
     # Range slider
     elif expected_type == 'range':
         min_val = hints.get('min', '0')
         max_val = hints.get('max', '100')
         step = hints.get('step', '1')
-        html += f'  <input type="range" name="{prompt_id}" id="{prompt_id}" min="{min_val}" max="{max_val}" step="{step}" value="{min_val}">\n'
-        html += f'  <div class="range-value" id="{prompt_id}_value">{min_val}</div>\n'
+        range_value = response if response else min_val
+        html += f'  <input type="range" name="{prompt_id}" id="{prompt_id}" min="{min_val}" max="{max_val}" step="{step}" value="{range_value}">\n'
+        html += f'  <div class="range-value" id="{prompt_id}_value">{range_value}</div>\n'
     # Signature (styled text)
     elif expected_type == 'signature':
-        html += f'  <input type="text" name="{prompt_id}" id="{prompt_id}" placeholder="{placeholder}" style="font-family: cursive; font-size: 18px;">\n'
+        html += f'  <input type="text" name="{prompt_id}" id="{prompt_id}" placeholder="{placeholder_escaped}" value="{response_escaped}" style="font-family: cursive; font-size: 18px;">\n'
     # Currency (number with step)
     elif expected_type == 'currency':
-        html += f'  <input type="number" name="{prompt_id}" id="{prompt_id}" placeholder="{placeholder}" step="0.01">\n'
+        html += f'  <input type="number" name="{prompt_id}" id="{prompt_id}" placeholder="{placeholder_escaped}" value="{response_escaped}" step="0.01">\n'
     # Standard inputs
     else:
         input_type = get_input_type(expected_type)
         pattern_attr = f' pattern="{validation_pattern}"' if validation_pattern else ''
-        html += f'  <input type="{input_type}" name="{prompt_id}" id="{prompt_id}" placeholder="{placeholder}"{pattern_attr}>\n'
+        html += f'  <input type="{input_type}" name="{prompt_id}" id="{prompt_id}" placeholder="{placeholder_escaped}" value="{response_escaped}"{pattern_attr}>\n'
 
     html += '</div>\n'
     return html
 
-def render_table(prompt_id, table_def):
+def render_table(prompt_id, table_def, response=''):
     """Render a table field as HTML."""
     columns = table_def.get('columns', [])
     fixed_rows = table_def.get('fixedRows', [])
     dynamic_rows = table_def.get('dynamicRows')
+
+    # Parse response data (JSON string) - only for filled forms
+    response_data = {}
+    if response and IS_FILLED_FORM:
+        try:
+            response_data = json.loads(response)
+        except:
+            pass
 
     html = '<table class="data-table">\n'
 
@@ -227,41 +264,51 @@ def render_table(prompt_id, table_def):
     if fixed_rows:
         html += '    <th></th>\n'  # Row label column
     for col in columns:
-        html += f'    <th>{col.get("label", "")}</th>\n'
+        html += f'    <th>{escape_html(col.get("label", ""))}</th>\n'
     html += '  </tr></thead>\n'
 
     html += '  <tbody>\n'
 
     if fixed_rows:
-        # Fixed table
+        # Fixed table - response_data is dict keyed by row_id
         for row in fixed_rows:
             row_id = row.get('id', '')
             row_label = row.get('label', '')
+            row_data = response_data.get(row_id, {}) if isinstance(response_data, dict) else {}
             html += '  <tr>\n'
-            html += f'    <td class="row-header">{row_label}</td>\n'
+            html += f'    <td class="row-header">{escape_html(row_label)}</td>\n'
             for col in columns:
                 col_id = col.get('id', '')
                 col_type = col.get('type', 'text')
                 placeholder = col.get('placeholder', '')
                 field_name = f'{prompt_id}[{row_id}][{col_id}]'
+                cell_value = escape_html(row_data.get(col_id, ''))
                 input_type = 'number' if col_type in ('number', 'currency') else 'text'
                 step = ' step="0.01"' if col_type == 'currency' else ''
-                html += f'    <td><input type="{input_type}" name="{field_name}" placeholder="{placeholder}"{step}></td>\n'
+                html += f'    <td><input type="{input_type}" name="{field_name}" placeholder="{escape_html(placeholder)}" value="{cell_value}"{step}></td>\n'
             html += '  </tr>\n'
     elif dynamic_rows:
-        # Dynamic table - render minRows or 3 rows
+        # Dynamic table - response_data is list of dicts
         min_rows = dynamic_rows.get('minRows', 1)
-        num_rows = max(min_rows, 3)
+        # Use existing data rows or minimum rows
+        if isinstance(response_data, list) and len(response_data) > 0:
+            num_rows = max(len(response_data), min_rows, 3)
+        else:
+            num_rows = max(min_rows, 3)
+            response_data = []
+
         for i in range(num_rows):
+            row_data = response_data[i] if i < len(response_data) else {}
             html += '  <tr>\n'
             for col in columns:
                 col_id = col.get('id', '')
                 col_type = col.get('type', 'text')
                 placeholder = col.get('placeholder', '')
                 field_name = f'{prompt_id}[{i}][{col_id}]'
+                cell_value = escape_html(row_data.get(col_id, ''))
                 input_type = 'number' if col_type in ('number', 'currency') else 'text'
                 step = ' step="0.01"' if col_type == 'currency' else ''
-                html += f'    <td><input type="{input_type}" name="{field_name}" placeholder="{placeholder}"{step}></td>\n'
+                html += f'    <td><input type="{input_type}" name="{field_name}" placeholder="{escape_html(placeholder)}" value="{cell_value}"{step}></td>\n'
             html += '  </tr>\n'
 
     html += '  </tbody>\n</table>\n'
@@ -456,13 +503,26 @@ Form submissions are printed to stdout as JSON.
 
     args = parser.parse_args()
 
-    global TEMPLATE_DATA, TEMPLATE_PATH
+    global TEMPLATE_DATA, TEMPLATE_PATH, IS_FILLED_FORM
     TEMPLATE_PATH = args.template
     TEMPLATE_DATA = load_template(args.template)
 
+    # Determine if this is a filled form (show response values) or template (blank)
+    # File extension takes precedence: .aprt = template, .aprf = filled form
+    # For .apr files, check documentType field
+    if args.template.endswith('.aprt'):
+        IS_FILLED_FORM = False
+    elif args.template.endswith('.aprf'):
+        IS_FILLED_FORM = True
+    else:
+        # .apr or other - check documentType field
+        IS_FILLED_FORM = TEMPLATE_DATA.get('documentType') == 'filledForm'
+
     title = TEMPLATE_DATA.get('metadata', {}).get('title', 'APR Form')
-    print(f"Loading template: {args.template}")
-    print(f"Form title: {title}")
+    mode = "filled form (showing responses)" if IS_FILLED_FORM else "template (blank form)"
+    print(f"Loading: {args.template}")
+    print(f"Title: {title}")
+    print(f"Mode: {mode}")
     print(f"Starting server at http://{args.host}:{args.port}")
     print("Press Ctrl+C to stop\n")
 
