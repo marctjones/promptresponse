@@ -467,6 +467,66 @@ The `submitUrls` field specifies where completed forms should be submitted. It i
 | `filledBy` | string | No | Name of person who filled the form |
 | `filledDate` | string | No | ISO 8601 timestamp when filled |
 | `templateVersion` | object | No | Version of template used (copy of `version` at fill time) |
+| `submissions` | array | No | History of form submissions (array of Submission objects) |
+
+### 3.8 Submission History
+
+The `submissions` array tracks when and where a filled form was submitted, along with any response received from the destination:
+
+```json
+{
+  "submissions": [
+    {
+      "submittedAt": "2025-01-22T14:30:00Z",
+      "submittedTo": "https://api.example.com/forms/submit",
+      "submittedToLabel": "Submit to HR System",
+      "status": "success",
+      "responseId": "APP-2025-00847",
+      "responseMessage": "Application received. Your reference number is APP-2025-00847.",
+      "responseData": {
+        "confirmationNumber": "APP-2025-00847",
+        "estimatedReviewDate": "2025-02-05",
+        "trackingUrl": "https://status.example.com/track/APP-2025-00847"
+      }
+    },
+    {
+      "submittedAt": "2025-01-22T14:30:05Z",
+      "submittedTo": "mailto:hr-backup@example.com",
+      "submittedToLabel": "Email to HR (backup)",
+      "status": "success",
+      "responseMessage": "Email queued for delivery"
+    }
+  ]
+}
+```
+
+**Submission Object:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `submittedAt` | string | Yes | ISO 8601 timestamp when submission occurred |
+| `submittedTo` | string | Yes | The URL the form was submitted to |
+| `submittedToLabel` | string | No | Human-readable name of the destination (from `submitUrls`) |
+| `status` | string | Yes | Submission result: `"success"`, `"failed"`, or `"pending"` |
+| `responseId` | string | No | Reference/confirmation number from the remote system |
+| `responseMessage` | string | No | Human-readable response or error message |
+| `responseData` | object | No | Additional structured data returned by the remote system |
+
+**Status values:**
+
+| Status | Meaning |
+|--------|---------|
+| `success` | Submission completed successfully |
+| `failed` | Submission failed (see `responseMessage` for details) |
+| `pending` | Submission in progress or awaiting confirmation |
+
+**Usage notes:**
+
+- Applications SHOULD append to `submissions` after each submission attempt
+- Failed submissions SHOULD be recorded to help users troubleshoot
+- The `responseId` field is intended for reference numbers, order numbers, confirmation codes, etc.
+- The `responseData` object can store any structured data the remote system returns
+- Applications MAY display submission history to help users track their forms
 
 ---
 
