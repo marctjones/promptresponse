@@ -403,19 +403,262 @@ Hints provide guidance to the UI. All hints are optional and advisory only.
   "expectedDataType": "email",
   "helpText": "Enter your primary email",
   "suggestedValues": ["gmail.com", "outlook.com"],
-  "validationPattern": "^[^@]+@[^@]+$"
+  "validationPattern": "^[^@]+@[^@]+$",
+  "required": true,
+  "defaultValue": "user@example.com"
 }
 ```
+
+### 6.1 Core Hint Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `placeholder` | string | Example text shown in empty field |
-| `expectedDataType` | string | Type hint (see section 6) |
+| `expectedDataType` | string | Type hint (see section 7) |
 | `helpText` | string | Additional guidance shown to user |
 | `suggestedValues` | array | List of suggested string values |
 | `validationPattern` | string | Regex pattern (advisory only) |
 
-### 6.1 Type-Specific Hint Fields
+### 6.2 Behavioral Hints
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `required` | boolean | `false` | Indicates field should be filled (advisory, never enforced) |
+| `readOnly` | boolean | `false` | Indicates field is display-only (pre-populated by system) |
+| `hidden` | boolean | `false` | Field exists in data but should not be displayed |
+| `defaultValue` | string | `""` | Value to pre-populate when creating new filled form |
+
+**Important:** These are all advisory hints:
+
+- `required: true` does NOT make the file invalid if left empty - it's a hint to the UI to show an indicator (e.g., asterisk)
+- `readOnly: true` suggests the UI should prevent editing, but the response can still be modified programmatically
+- `hidden: true` suggests the field shouldn't be shown to users, but data should be preserved
+- `defaultValue` is copied to `response` when a template is opened for filling
+
+**Example - Required field:**
+```json
+{
+  "id": "prompt_name",
+  "label": "Full Legal Name",
+  "hints": {
+    "required": true,
+    "helpText": "Required - enter your name as it appears on government ID"
+  }
+}
+```
+
+**Example - Read-only field:**
+```json
+{
+  "id": "prompt_form_id",
+  "label": "Form ID",
+  "response": "APP-2025-001234",
+  "hints": {
+    "readOnly": true,
+    "helpText": "Automatically assigned - do not modify"
+  }
+}
+```
+
+**Example - Hidden field:**
+```json
+{
+  "id": "prompt_internal_tracking",
+  "label": "Internal Tracking Code",
+  "response": "TRK-XYZ-789",
+  "hints": {
+    "hidden": true
+  }
+}
+```
+
+### 6.3 Display Hints
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `width` | string | Width hint for the prompt (see Layout Hints) |
+| `group` | string | Group ID for horizontal grouping (see Layout Hints) |
+| `groupOrder` | number | Order within group (1, 2, 3...) |
+| `prefix` | string | Text displayed before the input (e.g., "$") |
+| `suffix` | string | Text displayed after the input (e.g., "%", " lbs") |
+| `mask` | string | Input mask pattern for formatted entry |
+| `displayFormat` | string | How to format the value for display |
+
+**Prefix and Suffix:**
+
+```json
+{
+  "id": "prompt_price",
+  "label": "Price",
+  "hints": {
+    "expectedDataType": "currency",
+    "prefix": "$",
+    "placeholder": "0.00"
+  }
+}
+```
+
+```json
+{
+  "id": "prompt_weight",
+  "label": "Weight",
+  "hints": {
+    "expectedDataType": "number",
+    "suffix": " lbs"
+  }
+}
+```
+
+**Input Mask:**
+
+The `mask` field suggests an input pattern. Use `#` for digits and `A` for letters:
+
+| Mask | Example Input | Use Case |
+|------|---------------|----------|
+| `(###) ###-####` | (555) 123-4567 | US phone |
+| `###-##-####` | 123-45-6789 | SSN |
+| `##-#######` | 12-3456789 | EIN |
+| `####-####-####-####` | 1234-5678-9012-3456 | Credit card |
+| `AAAAA-####` | ABCDE-1234 | Product code |
+
+```json
+{
+  "id": "prompt_phone",
+  "label": "Phone Number",
+  "hints": {
+    "expectedDataType": "phone",
+    "mask": "(###) ###-####",
+    "placeholder": "(555) 123-4567"
+  }
+}
+```
+
+Implementations MAY auto-format as the user types, or MAY ignore the mask entirely.
+
+**Display Format:**
+
+The `displayFormat` field suggests how to format values for display (distinct from `expectedDataType` which affects input):
+
+| Format | Description | Example |
+|--------|-------------|---------|
+| `uppercase` | Display in uppercase | "JOHN DOE" |
+| `lowercase` | Display in lowercase | "john doe" |
+| `titlecase` | Capitalize each word | "John Doe" |
+| `date-long` | Long date format | "January 15, 2025" |
+| `date-short` | Short date format | "1/15/25" |
+| `currency` | Currency format | "$1,234.56" |
+| `percent` | Percentage format | "75.5%" |
+
+### 6.4 Suggested Values Options
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `suggestedValues` | array | Static list of suggested values |
+| `suggestedValuesUrl` | string | URL to fetch suggestions from (see below) |
+| `allowOther` | boolean | Whether values not in list are allowed (default: `true`) |
+
+**Static Suggested Values:**
+```json
+{
+  "hints": {
+    "suggestedValues": ["Red", "Green", "Blue"],
+    "allowOther": false
+  }
+}
+```
+
+**Dynamic Suggested Values:**
+
+The `suggestedValuesUrl` field allows fetching suggestions from a remote endpoint:
+
+```json
+{
+  "hints": {
+    "suggestedValuesUrl": "https://api.example.com/countries",
+    "helpText": "Select a country (requires internet connection)"
+  }
+}
+```
+
+**URL Response Format:**
+
+The endpoint MUST return a JSON array of strings:
+```json
+["United States", "Canada", "Mexico", "United Kingdom", "Germany", "France"]
+```
+
+Or an array of objects with `value` and optional `label`:
+```json
+[
+  { "value": "US", "label": "United States" },
+  { "value": "CA", "label": "Canada" },
+  { "value": "MX", "label": "Mexico" }
+]
+```
+
+**Important considerations:**
+- Breaks the "offline-first" principle - implementations SHOULD cache results
+- Implementations MAY refuse to fetch from untrusted URLs
+- If fetch fails, implementations SHOULD fall back to free text entry
+- `suggestedValues` (static) takes precedence if both are specified
+
+### 6.5 Layout Hints
+
+Layout hints suggest how prompts should be arranged. These are advisory - implementations may render all prompts vertically.
+
+**Width Hint:**
+
+The `width` field suggests how much horizontal space a prompt should occupy:
+
+| Format | Example | Meaning |
+|--------|---------|---------|
+| Percentage | `"50%"` | Half of available width |
+| Pixels | `"200px"` | Fixed pixel width |
+| Relative | `"*"` or `"2*"` | Relative to siblings |
+
+```json
+{
+  "id": "prompt_city",
+  "label": "City",
+  "hints": { "width": "50%" }
+},
+{
+  "id": "prompt_state",
+  "label": "State",
+  "hints": { "width": "20%" }
+},
+{
+  "id": "prompt_zip",
+  "label": "ZIP",
+  "hints": { "width": "30%" }
+}
+```
+
+**Group Hint:**
+
+For explicit horizontal grouping, use `group` and `groupOrder`:
+
+```json
+{
+  "id": "prompt_city",
+  "label": "City",
+  "hints": { "group": "address_row_2", "groupOrder": 1, "width": "50%" }
+},
+{
+  "id": "prompt_state",
+  "label": "State",
+  "hints": { "group": "address_row_2", "groupOrder": 2, "width": "25%" }
+},
+{
+  "id": "prompt_zip",
+  "label": "ZIP",
+  "hints": { "group": "address_row_2", "groupOrder": 3, "width": "25%" }
+}
+```
+
+Prompts with the same `group` value are rendered on the same row, ordered by `groupOrder`.
+
+### 6.6 Type-Specific Hint Fields
 
 Some `expectedDataType` values support additional hint fields:
 
