@@ -2065,6 +2065,7 @@ A full APR implementation may also:
 - [ ] Support localizations with language switching
 - [ ] Support translator signatures
 - [ ] Display attachment annotations
+- [ ] Support CEL expression hints (see appendix)
 
 ---
 
@@ -2201,7 +2202,368 @@ Implementations that don't support submission should preserve this field.
 
 ---
 
-## Appendix C: Complexity Notes
+## Appendix C: Expression Hints with CEL (Optional)
+
+APR supports dynamic behavior through expression hints using the Common Expression Language (CEL). This enables conditional visibility, dynamic suggested values, and cross-field validation.
+
+### C.1 Overview
+
+[CEL (Common Expression Language)](https://github.com/google/cel-spec) is a non-Turing-complete expression language designed for safe evaluation in configuration files. It is:
+
+- **Sandboxed** - No I/O, no side effects, no infinite loops
+- **Deterministic** - Same inputs always produce same outputs
+- **Type-safe** - Expressions are validated before evaluation
+- **Familiar** - C-like syntax similar to JavaScript, Java, Go
+
+CEL is used by Google Cloud, Kubernetes, Firebase, and other systems for policy evaluation.
+
+### C.2 Expression Hint Fields
+
+Expression hints use the `expr*` prefix and contain CEL expression strings:
+
+| Field | Return Type | Description |
+|-------|-------------|-------------|
+| `exprHidden` | boolean | If true, hide this prompt |
+| `exprReadOnly` | boolean | If true, make this prompt read-only |
+| `exprExpected` | boolean | If true, mark this prompt as expected |
+| `exprSuggestValues` | array | List of suggested values to display |
+| `exprDefaultValue` | string | Default value when creating filled form |
+| `exprValidation` | string | Validation message (empty string = valid) |
+| `exprHelpText` | string | Dynamic help text based on context |
+
+### C.3 CEL Evaluation Context
+
+When evaluating expressions, all prompt responses are exposed as variables using their prompt IDs:
+
+```cel
+// Given a form with prompts: emp_status, emp_employer, addr_country
+emp_status                          // Returns response string (or "" if empty)
+emp_status == "Employed"            // Boolean comparison
+addr_country == "USA"               // Another field
+```
+
+**Context structure:**
+
+```json
+{
+  "emp_status": "Employed",
+  "emp_employer": "Acme Corporation",
+  "emp_start_date": "2020-01-15",
+  "addr_country": "USA",
+  "addr_state": "California",
+  "addr_zip": ""
+}
+```
+
+Each prompt ID becomes a CEL variable containing the response string.
+
+### C.4 Built-in Variables
+
+In addition to prompt responses, these built-in variables are available:
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `_this` | string | Current prompt's response (self-reference) |
+| `_id` | string | Current prompt's ID |
+| `_now` | timestamp | Current date/time (UTC) |
+| `_today` | string | Current date as "YYYY-MM-DD" |
+
+**Example using `_this`:**
+
+```json
+{
+  "id": "confirm_email",
+  "label": "Confirm Email",
+  "hints": {
+    "exprValidation": "_this == email ? '' : 'Emails must match'"
+  }
+}
+```
+
+### C.5 Type Handling
+
+All prompt responses are strings. CEL provides type coercion:
+
+```cel
+// String comparisons (most common)
+emp_status == "Employed"
+
+// Numeric comparisons - use int() or double()
+int(emp_age) >= 18
+double(emp_salary) > 50000.0
+
+// Date comparisons - use timestamp()
+timestamp(emp_start_date) < timestamp(_today)
+
+// Empty checks
+emp_employer != ""
+size(emp_employer) > 0
+```
+
+**Type coercion functions:**
+
+| Function | Description |
+|----------|-------------|
+| `int(string)` | Parse as integer |
+| `double(string)` | Parse as decimal |
+| `timestamp(string)` | Parse ISO 8601 date/time |
+| `size(string)` | Length of string |
+| `matches(string, regex)` | Regex match |
+
+### C.6 Common Patterns
+
+**Conditional visibility:**
+
+```json
+{
+  "id": "emp_employer",
+  "label": "Employer Name",
+  "hints": {
+    "exprHidden": "emp_status == 'Unemployed' || emp_status == 'Retired' || emp_status == 'Student'"
+  }
+}
+```
+
+**Dynamic suggested values:**
+
+```json
+{
+  "id": "addr_state",
+  "label": "State/Province",
+  "hints": {
+    "exprSuggestValues": "addr_country == 'USA' ? ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', '...'] : addr_country == 'Canada' ? ['Alberta', 'British Columbia', 'Manitoba', '...'] : []"
+  }
+}
+```
+
+**Cross-field validation:**
+
+```json
+{
+  "id": "emp_end_date",
+  "label": "End Date",
+  "hints": {
+    "type": "date",
+    "exprValidation": "_this == '' || emp_start_date == '' ? '' : (timestamp(_this) > timestamp(emp_start_date) ? '' : 'End date must be after start date')"
+  }
+}
+```
+
+**Conditional expected/required:**
+
+```json
+{
+  "id": "emp_employer",
+  "label": "Employer Name",
+  "hints": {
+    "exprExpected": "emp_status == 'Employed' || emp_status == 'Self-Employed'"
+  }
+}
+```
+
+**Dynamic default value:**
+
+```json
+{
+  "id": "billing_address",
+  "label": "Billing Address",
+  "hints": {
+    "exprDefaultValue": "shipping_address"
+  }
+}
+```
+
+**Dynamic help text:**
+
+```json
+{
+  "id": "tax_id",
+  "label": "Tax ID",
+  "hints": {
+    "exprHelpText": "addr_country == 'USA' ? 'Enter your SSN (XXX-XX-XXXX)' : addr_country == 'Canada' ? 'Enter your SIN (XXX-XXX-XXX)' : 'Enter your national tax ID'"
+  }
+}
+```
+
+### C.7 Complete Example
+
+```json
+{
+  "sections": [
+    {
+      "id": "section_employment",
+      "title": "Employment Information",
+      "prompts": [
+        {
+          "id": "emp_status",
+          "label": "Employment Status",
+          "hints": {
+            "suggestValues": ["Employed", "Self-Employed", "Unemployed", "Retired", "Student"],
+            "behaviorExpected": true
+          }
+        },
+        {
+          "id": "emp_employer",
+          "label": "Employer Name",
+          "hints": {
+            "exprHidden": "emp_status != 'Employed'",
+            "exprExpected": "emp_status == 'Employed'"
+          }
+        },
+        {
+          "id": "emp_business_name",
+          "label": "Business Name",
+          "hints": {
+            "exprHidden": "emp_status != 'Self-Employed'",
+            "exprExpected": "emp_status == 'Self-Employed'"
+          }
+        },
+        {
+          "id": "emp_start_date",
+          "label": "Start Date",
+          "hints": {
+            "type": "date",
+            "exprHidden": "emp_status == 'Unemployed' || emp_status == 'Student'"
+          }
+        },
+        {
+          "id": "emp_annual_income",
+          "label": "Annual Income",
+          "hints": {
+            "type": "currency",
+            "displayPrefix": "$",
+            "exprHidden": "emp_status == 'Unemployed' || emp_status == 'Student'",
+            "exprHelpText": "emp_status == 'Retired' ? 'Include pension and retirement income' : 'Enter gross annual salary'"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section_address",
+      "title": "Address",
+      "prompts": [
+        {
+          "id": "addr_country",
+          "label": "Country",
+          "hints": {
+            "suggestValues": ["USA", "Canada", "Mexico", "United Kingdom", "Other"],
+            "behaviorExpected": true
+          }
+        },
+        {
+          "id": "addr_state",
+          "label": "State/Province",
+          "hints": {
+            "exprHidden": "addr_country == 'Other'",
+            "exprSuggestValues": "addr_country == 'USA' ? ['Alabama', 'Alaska', 'Arizona', 'California', 'Colorado', '...'] : addr_country == 'Canada' ? ['Alberta', 'British Columbia', 'Manitoba', 'Ontario', '...'] : addr_country == 'Mexico' ? ['Aguascalientes', 'Baja California', '...'] : addr_country == 'United Kingdom' ? ['England', 'Scotland', 'Wales', 'Northern Ireland'] : []"
+          }
+        },
+        {
+          "id": "addr_region",
+          "label": "Region/Province",
+          "hints": {
+            "exprHidden": "addr_country != 'Other'",
+            "inputHelpText": "Enter your state, province, or region"
+          }
+        },
+        {
+          "id": "addr_postal_code",
+          "label": "Postal Code",
+          "hints": {
+            "exprHelpText": "addr_country == 'USA' ? 'ZIP code (12345 or 12345-6789)' : addr_country == 'Canada' ? 'Postal code (A1A 1A1)' : addr_country == 'United Kingdom' ? 'Postcode (SW1A 1AA)' : 'Enter postal code'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### C.8 Expression Precedence
+
+When both static hints and expression hints are present, expression hints take precedence:
+
+| Static Hint | Expression Hint | Behavior |
+|-------------|-----------------|----------|
+| `behaviorHidden: true` | `exprHidden: "..."` | Expression result used |
+| `behaviorExpected: true` | `exprExpected: "..."` | Expression result used |
+| `suggestValues: [...]` | `exprSuggestValues: "..."` | Expression result used |
+| `inputHelpText: "..."` | `exprHelpText: "..."` | Expression result used |
+
+Static hints serve as fallbacks if:
+- The implementation doesn't support CEL
+- The expression fails to evaluate
+- The expression returns null/undefined
+
+### C.9 Error Handling
+
+Expressions may fail to evaluate due to:
+- Syntax errors in the expression
+- Type errors (e.g., `int("abc")`)
+- Reference to non-existent prompt ID
+- Division by zero
+
+**Implementation requirements:**
+
+1. Expressions MUST NOT crash the application
+2. Failed expressions SHOULD fall back to static hints
+3. Failed expressions MAY log warnings for template authors
+4. Implementations SHOULD validate expressions when loading templates
+
+**Fallback behavior:**
+
+| Expression Type | Fallback on Error |
+|-----------------|-------------------|
+| `exprHidden` | `false` (show the field) |
+| `exprReadOnly` | `false` (allow editing) |
+| `exprExpected` | `false` (not expected) |
+| `exprSuggestValues` | Empty array or static `suggestValues` |
+| `exprDefaultValue` | Static `inputDefaultValue` or empty |
+| `exprValidation` | Empty string (no validation error) |
+| `exprHelpText` | Static `inputHelpText` |
+
+### C.10 Security Considerations
+
+CEL is designed to be safe, but implementations SHOULD:
+
+1. **Limit execution time** - Set reasonable timeouts (e.g., 100ms)
+2. **Limit memory** - Cap string sizes and array lengths
+3. **No external access** - CEL has no I/O by design; don't add any
+4. **Validate on load** - Parse and type-check expressions when loading templates
+5. **Sandbox evaluation** - Use CEL's built-in sandboxing features
+
+**CEL guarantees:**
+- No file system access
+- No network access
+- No infinite loops (not Turing-complete)
+- No side effects
+- Deterministic evaluation
+
+### C.11 Implementation Notes
+
+**For implementations that support CEL:**
+
+1. Use an official CEL implementation:
+   - Go: `github.com/google/cel-go`
+   - Java: `dev.cel:cel`
+   - C++: `google/cel-cpp`
+   - Python: `cel-python` (community)
+   - JavaScript: `cel-js` (community)
+
+2. Register the evaluation context with all prompt IDs as variables
+3. Add built-in variables (`_this`, `_id`, `_now`, `_today`)
+4. Evaluate expressions on every relevant change (field value update)
+5. Cache parsed expressions for performance
+
+**For implementations that don't support CEL:**
+
+1. MUST preserve `expr*` fields when reading/writing
+2. SHOULD fall back to static hints
+3. MAY display a notice that dynamic features are not supported
+
+---
+
+## Appendix D: Complexity Notes
 
 ### Issues Identified in Current Implementation
 
@@ -2227,4 +2589,4 @@ Implementations that don't support submission should preserve this field.
 |---------|------|---------|
 | 0.1 | 2025-11-12 | Initial specification |
 | 0.2 | 2025-12-02 | Restructured hints with prefixed naming convention (`input*`, `behavior*`, `display*`, `layout*`, `suggest*`, `type*`), renamed `expectedDataType` to `type`, added behavioral/display/layout hints, formalized type tiers, added implementation checklist |
-| 0.2 | 2025-12-03 | Added publisher metadata, semantic versioning, `submitUrls` array, submission history tracking, response identifiers (`responseId`), localization support with translator signatures, embedded attachments with annotations, file size requirements (1 MB or 3× template minimum) |
+| 0.2 | 2025-12-03 | Added publisher metadata, semantic versioning, `submitUrls` array, submission history tracking, response identifiers (`responseId`), localization support with translator signatures, embedded attachments with annotations, file size requirements (1 MB or 3× template minimum), CEL expression hints (`expr*`) for dynamic visibility, validation, and suggested values |
