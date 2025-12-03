@@ -1,6 +1,6 @@
 # APR File Format Specification
 
-**Version:** 1.2
+**Version:** 0.2
 **Status:** Draft
 **Last Updated:** 2025-12-02
 
@@ -272,7 +272,7 @@ These documents define categories of confusable characters, recommended security
 
 ```json
 {
-  "version": "1.2",
+  "version": "0.2",
   "documentType": "template",
   "metadata": { },
   "sections": [ ]
@@ -281,7 +281,7 @@ These documents define categories of confusable characters, recommended security
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `version` | string | Yes | Specification version (currently "1.2") |
+| `version` | string | Yes | Specification version (currently "0.2") |
 | `documentType` | string | Yes | Either `"template"` or `"filledForm"` |
 | `metadata` | object | Yes | Document metadata |
 | `sections` | array | Yes | Array of Section objects |
@@ -1568,6 +1568,5 @@ Implementations that don't support submission should preserve this field.
 
 | Version | Date | Changes |
 |---------|------|---------|
-| 1.0 | 2025-11-12 | Initial specification |
-| 1.1 | 2025-12-02 | Formalized type tiers, added implementation checklist, clarified extension handling |
-| 1.2 | 2025-12-02 | Restructured hints with prefixed naming convention (`input*`, `behavior*`, `display*`, `layout*`, `suggest*`, `type*`), renamed `expectedDataType` to `type`, added behavioral/display/layout hints |
+| 0.1 | 2025-11-12 | Initial specification |
+| 0.2 | 2025-12-02 | Restructured hints with prefixed naming convention (`input*`, `behavior*`, `display*`, `layout*`, `suggest*`, `type*`), renamed `expectedDataType` to `type`, added behavioral/display/layout hints, formalized type tiers, added implementation checklist |
