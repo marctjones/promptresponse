@@ -2280,7 +2280,223 @@ In addition to prompt responses, these built-in variables are available:
 }
 ```
 
-### C.5 Type Handling
+### C.5 Context Dictionary
+
+Form filler applications can provide a **context dictionary** containing user, organization, or environmental data. This data is accessible in CEL expressions via the `ctx` namespace.
+
+#### C.5.1 Context Structure
+
+The context dictionary is a flat or nested object provided by the form filler application:
+
+```json
+{
+  "ctx": {
+    "user": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@acme.com",
+      "phone": "+1-555-0100",
+      "employeeId": "EMP-12345"
+    },
+    "address": {
+      "street": "123 Main Street",
+      "city": "Springfield",
+      "state": "IL",
+      "zip": "62701",
+      "country": "USA"
+    },
+    "org": {
+      "name": "Acme Corporation",
+      "department": "Engineering",
+      "costCenter": "CC-4200",
+      "manager": "Jane Smith"
+    },
+    "env": {
+      "device": "desktop",
+      "location": "HQ-Building-A",
+      "timestamp": "2025-01-22T10:30:00Z"
+    }
+  }
+}
+```
+
+#### C.5.2 Accessing Context in CEL
+
+Context values are accessed via `ctx.` prefix:
+
+```cel
+// User information
+ctx.user.firstName                    // "John"
+ctx.user.email                        // "john.doe@acme.com"
+
+// Address
+ctx.address.city                      // "Springfield"
+ctx.address.state                     // "IL"
+
+// Organization
+ctx.org.name                          // "Acme Corporation"
+ctx.org.department                    // "Engineering"
+
+// Environment
+ctx.env.device                        // "desktop"
+```
+
+#### C.5.3 Auto-fill with Context
+
+Templates can use context for default values:
+
+```json
+{
+  "id": "applicant_name",
+  "label": "Full Name",
+  "hints": {
+    "exprDefaultValue": "ctx.user.firstName + ' ' + ctx.user.lastName"
+  }
+},
+{
+  "id": "applicant_email",
+  "label": "Email Address",
+  "hints": {
+    "exprDefaultValue": "ctx.user.email"
+  }
+},
+{
+  "id": "applicant_state",
+  "label": "State",
+  "hints": {
+    "exprDefaultValue": "ctx.address.state",
+    "exprSuggestValues": "ctx.address.country == 'USA' ? ['AL', 'AK', 'AZ', '...'] : []"
+  }
+}
+```
+
+#### C.5.4 Conditional Logic with Context
+
+Use context for conditional visibility or validation:
+
+```json
+{
+  "id": "manager_approval",
+  "label": "Manager Approval Required",
+  "hints": {
+    "exprHidden": "ctx.org.department != 'Finance'",
+    "inputHelpText": "Required for Finance department submissions"
+  }
+},
+{
+  "id": "expense_amount",
+  "label": "Expense Amount",
+  "hints": {
+    "type": "currency",
+    "exprValidation": "double(_this) > 5000 && ctx.org.department != 'Executive' ? 'Expenses over $5000 require Executive approval' : ''"
+  }
+}
+```
+
+#### C.5.5 Dynamic Lookups
+
+Context can include lookup functions or data:
+
+```json
+{
+  "ctx": {
+    "employees": [
+      {"id": "EMP-001", "name": "Alice Johnson", "department": "Engineering"},
+      {"id": "EMP-002", "name": "Bob Smith", "department": "Sales"},
+      {"id": "EMP-003", "name": "Carol White", "department": "Engineering"}
+    ],
+    "products": [
+      {"sku": "WIDGET-A", "name": "Widget A", "price": "29.99"},
+      {"sku": "WIDGET-B", "name": "Widget B", "price": "49.99"}
+    ]
+  }
+}
+```
+
+```json
+{
+  "id": "select_employee",
+  "label": "Select Employee",
+  "hints": {
+    "exprSuggestValues": "ctx.employees.filter(e, e.department == ctx.org.department).map(e, e.name)"
+  }
+}
+```
+
+#### C.5.6 Standard Context Keys
+
+While context is application-defined, these keys are recommended for interoperability:
+
+| Path | Type | Description |
+|------|------|-------------|
+| `ctx.user.firstName` | string | User's first name |
+| `ctx.user.lastName` | string | User's last name |
+| `ctx.user.fullName` | string | User's full name |
+| `ctx.user.email` | string | User's email address |
+| `ctx.user.phone` | string | User's phone number |
+| `ctx.user.id` | string | User identifier |
+| `ctx.address.street` | string | Street address |
+| `ctx.address.city` | string | City |
+| `ctx.address.state` | string | State/province |
+| `ctx.address.zip` | string | ZIP/postal code |
+| `ctx.address.country` | string | Country |
+| `ctx.org.name` | string | Organization name |
+| `ctx.org.department` | string | Department name |
+| `ctx.org.id` | string | Organization identifier |
+| `ctx.env.device` | string | Device type (desktop, mobile, tablet) |
+| `ctx.env.locale` | string | User's locale (e.g., "en-US") |
+| `ctx.env.timezone` | string | User's timezone |
+
+#### C.5.7 Context Availability
+
+Context may be:
+- **Fully available** - All values populated by the application
+- **Partially available** - Some values present, others missing
+- **Unavailable** - No context provided (anonymous/offline use)
+
+**Expressions MUST handle missing context gracefully:**
+
+```cel
+// Safe access with fallback
+has(ctx.user) && has(ctx.user.firstName) ? ctx.user.firstName : ''
+
+// Or use default operator (if supported)
+ctx.user.firstName ?? ''
+```
+
+**Template design guidance:**
+- Always provide static fallbacks for context-dependent defaults
+- Don't assume context will be available
+- Test templates with empty context
+
+#### C.5.8 Context vs Response Data
+
+| Aspect | Prompt Responses | Context Dictionary |
+|--------|------------------|-------------------|
+| **Source** | User input | Application/environment |
+| **Stored in file** | Yes (in `response` field) | No (runtime only) |
+| **Available at** | Fill time | Fill time |
+| **CEL access** | `prompt_id` | `ctx.path.to.value` |
+| **Editable by user** | Yes | No (read-only) |
+
+Context is **not saved** in the APR file. It's provided at runtime by the form filler application.
+
+#### C.5.9 Security Considerations
+
+**For applications providing context:**
+
+1. **Minimize sensitive data** - Only include what templates actually need
+2. **User consent** - Inform users what data is being shared with forms
+3. **Audit logging** - Log when context data is used in form filling
+4. **Sandboxing** - Context data should not grant access beyond CEL expressions
+
+**For template authors:**
+
+1. **Don't assume context** - Always provide fallbacks
+2. **Don't leak context** - Don't copy sensitive context into visible fields without user awareness
+3. **Document requirements** - Specify what context your template expects
+
+### C.6 Type Handling
 
 All prompt responses are strings. CEL provides type coercion:
 
@@ -2310,7 +2526,7 @@ size(emp_employer) > 0
 | `size(string)` | Length of string |
 | `matches(string, regex)` | Regex match |
 
-### C.6 Common Patterns
+### C.7 Common Patterns
 
 **Conditional visibility:**
 
@@ -2385,7 +2601,7 @@ size(emp_employer) > 0
 }
 ```
 
-### C.7 Complete Example
+### C.8 Complete Example
 
 ```json
 {
@@ -2479,7 +2695,7 @@ size(emp_employer) > 0
 }
 ```
 
-### C.8 Expression Precedence
+### C.9 Expression Precedence
 
 When both static hints and expression hints are present, expression hints take precedence:
 
@@ -2495,7 +2711,7 @@ Static hints serve as fallbacks if:
 - The expression fails to evaluate
 - The expression returns null/undefined
 
-### C.9 Error Handling
+### C.10 Error Handling
 
 Expressions may fail to evaluate due to:
 - Syntax errors in the expression
@@ -2522,7 +2738,7 @@ Expressions may fail to evaluate due to:
 | `exprValidation` | Empty string (no validation error) |
 | `exprHelpText` | Static `inputHelpText` |
 
-### C.10 Security Considerations
+### C.11 Security Considerations
 
 CEL is designed to be safe, but implementations SHOULD:
 
@@ -2539,7 +2755,7 @@ CEL is designed to be safe, but implementations SHOULD:
 - No side effects
 - Deterministic evaluation
 
-### C.11 Implementation Notes
+### C.12 Implementation Notes
 
 **For implementations that support CEL:**
 
@@ -2589,4 +2805,4 @@ CEL is designed to be safe, but implementations SHOULD:
 |---------|------|---------|
 | 0.1 | 2025-11-12 | Initial specification |
 | 0.2 | 2025-12-02 | Restructured hints with prefixed naming convention (`input*`, `behavior*`, `display*`, `layout*`, `suggest*`, `type*`), renamed `expectedDataType` to `type`, added behavioral/display/layout hints, formalized type tiers, added implementation checklist |
-| 0.2 | 2025-12-03 | Added publisher metadata, semantic versioning, `submitUrls` array, submission history tracking, response identifiers (`responseId`), localization support with translator signatures, embedded attachments with annotations, file size requirements (1 MB or 3× template minimum), CEL expression hints (`expr*`) for dynamic visibility, validation, and suggested values |
+| 0.2 | 2025-12-03 | Added publisher metadata, semantic versioning, `submitUrls` array, submission history tracking, response identifiers (`responseId`), localization support with translator signatures, embedded attachments with annotations, file size requirements (1 MB or 3× template minimum), CEL expression hints (`expr*`) for dynamic visibility/validation/suggested values, context dictionary (`ctx`) for application-provided user/org/environment data |
