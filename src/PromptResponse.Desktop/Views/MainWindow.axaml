@@ -3,144 +3,19 @@
         xmlns:vm="using:PromptResponse.Desktop.ViewModels"
         xmlns:views="using:PromptResponse.Desktop.Views"
         x:Class="PromptResponse.Desktop.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
+        x:DataType="vm:MainShellViewModel"
         Icon="/Assets/app-icon.ico"
         Title="{Binding Title}"
-        Width="900"
-        Height="700"
-        AutomationProperties.Name="PromptResponse Main Window"
-        AutomationProperties.HelpText="Main application window for creating and filling APR forms">
-
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
-    <DockPanel>
-        <!-- Menu Bar -->
-        <Menu DockPanel.Dock="Top"
-              AutomationProperties.Name="Main menu bar"
-              AutomationProperties.HelpText="Application menu with File, View, Tools, and Help options">
-            <MenuItem Header="_File"
-                      AutomationProperties.Name="File menu"
-                      AutomationProperties.HelpText="Access file operations like open, save, and close">
-                <MenuItem Header="_Open (Fill Out Form)..."
-                          Command="{Binding OpenCommand}"
-                          HotKey="Ctrl+O"
-                          AutomationProperties.Name="Open form for filling"
-                          AutomationProperties.HelpText="Open an APR form to fill out. Press Ctrl+O"/>
-                <MenuItem Header="Open _Template for Editing..."
-                          Command="{Binding OpenTemplateForEditingCommand}"
-                          HotKey="Ctrl+Shift+O"
-                          AutomationProperties.Name="Open template for editing"
-                          AutomationProperties.HelpText="Open an APR template to edit its structure. Press Ctrl+Shift+O"/>
-                <MenuItem Header="_New Template..."
-                          Command="{Binding NewTemplateCommand}"
-                          HotKey="Ctrl+N"
-                          AutomationProperties.Name="New template"
-                          AutomationProperties.HelpText="Create a new blank APR template. Press Ctrl+N"/>
-                <Separator/>
-                <MenuItem Header="Switch to _Template Editing"
-                          Command="{Binding SwitchToTemplateEditingCommand}"
-                          HotKey="Ctrl+E"
-                          AutomationProperties.Name="Switch to template editing mode"
-                          AutomationProperties.HelpText="Convert current form to a template for editing. Press Ctrl+E"/>
-                <MenuItem Header="Switch to _Form Filling"
-                          Command="{Binding SwitchToFormFillingCommand}"
-                          HotKey="Ctrl+F"
-                          AutomationProperties.Name="Switch to form filling mode"
-                          AutomationProperties.HelpText="Convert current template to a form for filling. Press Ctrl+F"/>
-                <Separator/>
-                <MenuItem Header="_Save"
-                          Command="{Binding SaveCommand}"
-                          HotKey="Ctrl+S"
-                          AutomationProperties.Name="Save"
-                          AutomationProperties.HelpText="Save the current document. Press Ctrl+S"/>
-                <MenuItem Header="Save _As..."
-                          Command="{Binding SaveAsCommand}"
-                          HotKey="Ctrl+Shift+S"
-                          AutomationProperties.Name="Save as"
-                          AutomationProperties.HelpText="Save the current document to a new file. Press Ctrl+Shift+S"/>
-                <MenuItem Header="_Close"
-                          Command="{Binding CloseCommand}"
-                          HotKey="Ctrl+W"
-                          AutomationProperties.Name="Close"
-                          AutomationProperties.HelpText="Close the current document. Press Ctrl+W"/>
-                <Separator/>
-                <MenuItem Header="E_xit"
-                          Click="OnExitClicked"
-                          AutomationProperties.Name="Exit"
-                          AutomationProperties.HelpText="Exit the application"/>
-            </MenuItem>
-            <MenuItem Header="_View"
-                      AutomationProperties.Name="View menu"
-                      AutomationProperties.HelpText="Change application appearance and theme">
-                <MenuItem Header="Theme"
-                          AutomationProperties.Name="Theme submenu"
-                          AutomationProperties.HelpText="Select application theme">
-                    <MenuItem Header="_Light Theme"
-                              Command="{Binding SetLightThemeCommand}"
-                              AutomationProperties.Name="Light theme"
-                              AutomationProperties.HelpText="Switch to light color theme"/>
-                    <MenuItem Header="_Dark Theme"
-                              Command="{Binding SetDarkThemeCommand}"
-                              AutomationProperties.Name="Dark theme"
-                              AutomationProperties.HelpText="Switch to dark color theme"/>
-                    <MenuItem Header="_System Default"
-                              Command="{Binding SetSystemThemeCommand}"
-                              AutomationProperties.Name="System default theme"
-                              AutomationProperties.HelpText="Use system theme setting"/>
-                    <Separator/>
-                    <MenuItem Header="_Vivid (Custom)"
-                              Command="{Binding SetCustomThemeCommand}"
-                              AutomationProperties.Name="Vivid custom theme"
-                              AutomationProperties.HelpText="Switch to custom vivid color theme with warm tones"/>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Header="_Help"
-                      AutomationProperties.Name="Help menu"
-                      AutomationProperties.HelpText="Get help and information about the application">
-                <MenuItem Header="_About"
-                          Click="OnAboutClicked"
-                          AutomationProperties.Name="About"
-                          AutomationProperties.HelpText="View application information and version"/>
-            </MenuItem>
-        </Menu>
-
-        <!-- Main Content Area -->
-        <Panel AutomationProperties.Name="Main content area"
-               AutomationProperties.HelpText="Document editing area for forms and templates">
-            <!-- Form Filling View -->
-            <ContentControl Content="{Binding FormFillingViewModel}"
-                            IsVisible="{Binding FormFillingViewModel, Converter={x:Static ObjectConverters.IsNotNull}}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch"
-                            AutomationProperties.Name="Form filling view"
-                            AutomationProperties.HelpText="View for filling out APR forms">
-                <ContentControl.ContentTemplate>
-                    <DataTemplate>
-                        <views:FormFillingView/>
-                    </DataTemplate>
-                </ContentControl.ContentTemplate>
-            </ContentControl>
-
-            <!-- Template Editor View -->
-            <ContentControl Content="{Binding TemplateEditorViewModel}"
-                            IsVisible="{Binding TemplateEditorViewModel, Converter={x:Static ObjectConverters.IsNotNull}}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch"
-                            AutomationProperties.Name="Template editor view"
-                            AutomationProperties.HelpText="View for editing APR template structure">
-                <ContentControl.ContentTemplate>
-                    <DataTemplate>
-                        <views:TemplateEditorView/>
-                    </DataTemplate>
-                </ContentControl.ContentTemplate>
-            </ContentControl>
-        </Panel>
-    </DockPanel>
-
+        Width="1100"
+        Height="720"
+        MinWidth="800"
+        MinHeight="500"
+        AutomationProperties.Name="PromptResponse"
+        AutomationProperties.HelpText="Form designer and filler workspace">
+    <!--
+      Thin window host. The full UI lives in MainShellView so it can be
+      instantiated from headless GUI tests without a Window wrapper.
+      The Window itself only owns chrome (title, icon, position, size).
+    -->
+    <views:MainShellView/>
 </Window>

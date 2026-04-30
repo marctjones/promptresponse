@@ -31,7 +31,7 @@ public class KeyboardNavigationValidationTests
     public void MainWindow_CommonActions_ShouldHave_KeyboardShortcuts()
     {
         // Arrange
-        var xamlPath = Path.Combine(_projectRoot, "src/PromptResponse.Desktop/Views/MainWindow.axaml");
+        var xamlPath = Path.Combine(_projectRoot, "src/PromptResponse.Desktop/Views/MainShellView.axaml");
 
         if (!File.Exists(xamlPath))
         {
@@ -40,13 +40,16 @@ public class KeyboardNavigationValidationTests
 
         var xamlContent = File.ReadAllText(xamlPath);
 
-        // Act & Assert - Check for common shortcuts
+        // Act & Assert - Check for common shortcuts.
+        // The new MainShellView uses a single Open command (extension determines
+        // template vs filled form), so the legacy Ctrl+Shift+O is no longer present.
         var shortcuts = new Dictionary<string, string>
         {
+            { "Ctrl+N", "New template" },
             { "Ctrl+O", "Open" },
             { "Ctrl+S", "Save" },
             { "Ctrl+Shift+S", "Save As" },
-            { "Ctrl+Shift+O", "Open template for editing" }
+            { "Ctrl+W", "Close" },
         };
 
         foreach (var shortcut in shortcuts)
@@ -60,7 +63,7 @@ public class KeyboardNavigationValidationTests
     public void MainWindow_Menus_ShouldHave_MnemonicsForTopLevel()
     {
         // Arrange
-        var xamlPath = Path.Combine(_projectRoot, "src/PromptResponse.Desktop/Views/MainWindow.axaml");
+        var xamlPath = Path.Combine(_projectRoot, "src/PromptResponse.Desktop/Views/MainShellView.axaml");
 
         if (!File.Exists(xamlPath))
         {

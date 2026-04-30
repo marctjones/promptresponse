@@ -6,8 +6,10 @@ using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
 using IValidator = PromptResponse.Core.Validation.IValidator<PromptResponse.Core.Models.AprDocument>;
+using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels;
+using PromptResponse.Desktop.ViewModels.Prompts;
 using PromptResponse.Desktop.Views;
 using System;
 
@@ -20,206 +22,136 @@ public partial class App : Application
 
     public override void Initialize()
     {
-        Console.WriteLine("[App] Initialize() called - Loading XAML resources");
         AvaloniaXamlLoader.Load(this);
-        Console.WriteLine("[App] XAML resources loaded successfully");
     }
 
     public override void OnFrameworkInitializationCompleted()
     {
-        Console.WriteLine("[App] OnFrameworkInitializationCompleted() called");
-        Console.WriteLine("[App] Lifetime type: {0}", ApplicationLifetime?.GetType().Name ?? "null");
-
         try
         {
-            // Setup dependency injection
-            Console.WriteLine("[App] Setting up dependency injection container...");
             var services = new ServiceCollection();
-
-            // Add logging first
             services.AddLogging(builder =>
             {
                 builder.AddConsole();
-                builder.SetMinimumLevel(LogLevel.Debug);
+                builder.SetMinimumLevel(LogLevel.Information);
             });
-
             ConfigureServices(services);
 
-            Console.WriteLine("[App] Building service provider...");
             var serviceProvider = services.BuildServiceProvider();
-            ServiceProvider = serviceProvider; // Store for view access
+            ServiceProvider = serviceProvider;
 
             _logger = serviceProvider.GetRequiredService<ILogger<App>>();
-            _logger.LogInformation("Service provider built successfully");
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                _logger.LogInformation("Initializing ClassicDesktop lifetime");
-
-                // Load settings
                 var settingsService = serviceProvider.GetRequiredService<ISettingsService>();
-                _logger.LogDebug("Loading application settings...");
                 settingsService.Load();
-                _logger.LogInformation("Settings loaded successfully");
 
-                _logger.LogDebug("Creating MainWindow...");
+                var shellVm = serviceProvider.GetRequiredService<MainShellViewModel>();
 
-                var viewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
-                _logger.LogDebug("MainWindowViewModel created: {Type}", viewModel.GetType().Name);
+                var window = new MainWindow { DataContext = shellVm };
+                desktop.MainWindow = window;
 
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = viewModel
-                };
+                ApplyWindowSettings(window, settingsService);
+                HookShutdown(desktop, window, settingsService);
 
-                // Apply saved window settings
-                var windowSettings = settingsService.Settings.Window;
-                desktop.MainWindow.Width = windowSettings.Width;
-                desktop.MainWindow.Height = windowSettings.Height;
-
-                // Only restore window position if it's within screen bounds
-                if (windowSettings.X.HasValue && windowSettings.Y.HasValue)
-                {
-                    var screens = desktop.MainWindow.Screens;
-                    var allScreens = screens?.All ?? Array.Empty<Avalonia.Platform.Screen>();
-
-                    // Check if the saved position is within any screen's bounds
-                    bool isOnScreen = false;
-                    foreach (var screen in allScreens)
-                    {
-                        var bounds = screen.WorkingArea;
-                        if (windowSettings.X >= bounds.X &&
-                            windowSettings.X < bounds.X + bounds.Width &&
-                            windowSettings.Y >= bounds.Y &&
-                            windowSettings.Y < bounds.Y + bounds.Height)
-                        {
-                            isOnScreen = true;
-                            break;
-                        }
-                    }
-
-                    if (isOnScreen)
-                    {
-                        desktop.MainWindow.Position = new Avalonia.PixelPoint(
-                            (int)windowSettings.X.Value,
-                            (int)windowSettings.Y.Value);
-                        _logger.LogDebug("Window position restored to: {X},{Y}", windowSettings.X, windowSettings.Y);
-                    }
-                    else
-                    {
-                        _logger.LogWarning("Saved window position ({X},{Y}) is off-screen, using default",
-                            windowSettings.X, windowSettings.Y);
-                        // Let Avalonia position the window at default location (centered)
-                    }
-                }
-
-                if (windowSettings.IsMaximized)
-                {
-                    desktop.MainWindow.WindowState = Avalonia.Controls.WindowState.Maximized;
-                }
-
-                _logger.LogInformation("MainWindow created and assigned");
-                _logger.LogDebug("  Window Title: {Title}", desktop.MainWindow.Title);
-                _logger.LogDebug("  Window Size: {Width}x{Height}", desktop.MainWindow.Width, desktop.MainWindow.Height);
-                _logger.LogDebug("  Window Position: {X},{Y}", windowSettings.X, windowSettings.Y);
-
-                // Apply saved theme
-                viewModel.ApplyThemeFromSettings();
-
-                // Check for startup file from command line
-                if (Program.StartupOptions?.FilePath != null)
-                {
-                    _logger.LogInformation("Opening startup file: {File}", Program.StartupOptions.FilePath);
-                    desktop.MainWindow.Opened += async (s, e) =>
-                    {
-                        await viewModel.OpenFileOnStartup(
-                            Program.StartupOptions.FilePath,
-                            Program.StartupOptions.EditMode);
-                    };
-                }
-
-                // Hook up lifetime events
-                desktop.ShutdownRequested += (s, e) =>
-                {
-                    _logger?.LogInformation("Application shutdown requested");
-
-                    // Save window position and size
-                    var window = desktop.MainWindow;
-                    if (window != null)
-                    {
-                        var settings = settingsService.Settings.Window;
-                        settings.IsMaximized = window.WindowState == Avalonia.Controls.WindowState.Maximized;
-
-                        if (!settings.IsMaximized)
-                        {
-                            settings.Width = window.Width;
-                            settings.Height = window.Height;
-                            settings.X = window.Position.X;
-                            settings.Y = window.Position.Y;
-                        }
-                    }
-
-                    // Save settings
-                    settingsService.Save();
-                    _logger?.LogInformation("Settings saved on shutdown");
-                };
-
-                desktop.Exit += (s, e) =>
-                {
-                    _logger?.LogInformation("Application exiting with code: {ExitCode}", e.ApplicationExitCode);
-                };
-            }
-            else
-            {
-                _logger.LogWarning("ApplicationLifetime is not ClassicDesktop type!");
+                _logger.LogInformation("MainWindow shown with new MainShellViewModel.");
             }
 
             base.OnFrameworkInitializationCompleted();
-            _logger.LogInformation("Framework initialization completed successfully");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[App] FATAL ERROR during initialization: {ex.Message}");
-            Console.WriteLine($"[App] Stack trace: {ex.StackTrace}");
+            Console.WriteLine($"[App] FATAL: {ex.Message}");
+            Console.WriteLine(ex.StackTrace);
             throw;
         }
     }
 
     private void ConfigureServices(IServiceCollection services)
     {
-        Console.WriteLine("[App] Configuring services...");
-
-        // Core services
-        Console.WriteLine("[App]   - Registering IAprSerializer -> AprJsonSerializer");
+        // Core
         services.AddSingleton<IAprSerializer, AprJsonSerializer>();
-
-        Console.WriteLine("[App]   - Registering DocumentValidator");
         services.AddSingleton<DocumentValidator>();
         services.AddSingleton<IValidator>(sp => sp.GetRequiredService<DocumentValidator>());
-
-        Console.WriteLine("[App]   - Registering DataTypeValidator");
         services.AddSingleton<DataTypeValidator>();
 
-        // Desktop services
-        Console.WriteLine("[App]   - Registering IFileService -> FileService");
+        // Desktop infra
         services.AddSingleton<IFileService, FileService>();
-
-        Console.WriteLine("[App]   - Registering ISettingsService -> SettingsService");
         services.AddSingleton<ISettingsService, SettingsService>();
-
-        Console.WriteLine("[App]   - Registering IDialogService -> DialogService");
         services.AddSingleton<IDialogService, DialogService>();
-
-        Console.WriteLine("[App]   - Registering IPlatformFeatures -> PlatformFeatures");
         services.AddSingleton<IPlatformFeatures, PlatformFeatures>();
 
-        // ViewModels
-        Console.WriteLine("[App]   - Registering MainWindowViewModel");
-        services.AddTransient<MainWindowViewModel>();
+        // Phase 4 — focused services
+        services.AddSingleton<IDocumentSessionService, DocumentSessionService>();
 
-        Console.WriteLine("[App]   - Registering FormFillingViewModel");
-        services.AddTransient<FormFillingViewModel>();
+        // Phase 2 — rendering profile system
+        services.AddSingleton<IOsAccessibilityProbe, OsAccessibilityProbe>();
+        services.AddSingleton<IProfileService, ProfileService>();
 
-        Console.WriteLine("[App] Service configuration complete");
+        // Phase 3 — polymorphic prompt VM factory
+        services.AddSingleton<PromptViewModelFactory>();
+
+        // Phase 4d — thin shell composing everything
+        services.AddTransient<MainShellViewModel>();
+
+        // Display Preferences VM (Phase 2)
+        services.AddTransient<DisplayPreferencesViewModel>();
+    }
+
+    private static void ApplyWindowSettings(Avalonia.Controls.Window window, ISettingsService settingsService)
+    {
+        var ws = settingsService.Settings.Window;
+        window.Width = ws.Width;
+        window.Height = ws.Height;
+
+        if (ws.X.HasValue && ws.Y.HasValue)
+        {
+            var screens = window.Screens;
+            var allScreens = screens?.All ?? Array.Empty<Avalonia.Platform.Screen>();
+
+            bool isOnScreen = false;
+            foreach (var screen in allScreens)
+            {
+                var bounds = screen.WorkingArea;
+                if (ws.X >= bounds.X && ws.X < bounds.X + bounds.Width &&
+                    ws.Y >= bounds.Y && ws.Y < bounds.Y + bounds.Height)
+                {
+                    isOnScreen = true;
+                    break;
+                }
+            }
+
+            if (isOnScreen)
+            {
+                window.Position = new PixelPoint((int)ws.X.Value, (int)ws.Y.Value);
+            }
+        }
+
+        if (ws.IsMaximized)
+        {
+            window.WindowState = Avalonia.Controls.WindowState.Maximized;
+        }
+    }
+
+    private void HookShutdown(
+        IClassicDesktopStyleApplicationLifetime desktop,
+        Avalonia.Controls.Window window,
+        ISettingsService settingsService)
+    {
+        desktop.ShutdownRequested += (_, _) =>
+        {
+            var ws = settingsService.Settings.Window;
+            ws.IsMaximized = window.WindowState == Avalonia.Controls.WindowState.Maximized;
+            if (!ws.IsMaximized)
+            {
+                ws.Width = window.Width;
+                ws.Height = window.Height;
+                ws.X = window.Position.X;
+                ws.Y = window.Position.Y;
+            }
+            settingsService.Save();
+            _logger?.LogInformation("Settings saved on shutdown.");
+        };
     }
 }

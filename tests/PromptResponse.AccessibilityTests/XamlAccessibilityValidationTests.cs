@@ -31,7 +31,7 @@ public class XamlAccessibilityValidationTests
 
     [Theory]
     [InlineData("src/PromptResponse.Desktop/Views/FormFillingView.axaml")]
-    [InlineData("src/PromptResponse.Desktop/Views/MainWindow.axaml")]
+    [InlineData("src/PromptResponse.Desktop/Views/MainShellView.axaml")]
     public void XamlFile_InteractiveElements_ShouldHave_AutomationName(string relativePath)
     {
         // Arrange
@@ -182,7 +182,7 @@ public class XamlAccessibilityValidationTests
         var xamlFiles = new[]
         {
             "src/PromptResponse.Desktop/Views/FormFillingView.axaml",
-            "src/PromptResponse.Desktop/Views/MainWindow.axaml",
+            "src/PromptResponse.Desktop/Views/MainShellView.axaml",
             "src/PromptResponse.Desktop/App.axaml"
         };
 
@@ -356,7 +356,7 @@ public class XamlAccessibilityValidationTests
     public void MainWindow_Menus_ShouldHave_AccessKeys()
     {
         // Arrange
-        var xamlPath = Path.Combine(_projectRoot, "src/PromptResponse.Desktop/Views/MainWindow.axaml");
+        var xamlPath = Path.Combine(_projectRoot, "src/PromptResponse.Desktop/Views/MainShellView.axaml");
 
         if (!File.Exists(xamlPath))
         {
@@ -379,7 +379,7 @@ public class XamlAccessibilityValidationTests
     public void MainWindow_Menus_ShouldHave_InputGestures()
     {
         // Arrange
-        var xamlPath = Path.Combine(_projectRoot, "src/PromptResponse.Desktop/Views/MainWindow.axaml");
+        var xamlPath = Path.Combine(_projectRoot, "src/PromptResponse.Desktop/Views/MainShellView.axaml");
 
         if (!File.Exists(xamlPath))
         {
