@@ -22,6 +22,70 @@ public class DataTypeValidatorTests
         _validator = new DataTypeValidator();
     }
 
+    // === Vision: type hints are advisory; any visible text is valid ===
+
+    [Theory]
+    [InlineData("number", "5")]
+    [InlineData("number", "five")]
+    [InlineData("number", "No response")]
+    [InlineData("number", "approximately 5")]
+    [InlineData("email", "I prefer not to say")]
+    [InlineData("date", "see attached")]
+    [InlineData("phone", "n/a")]
+    [InlineData("currency", "varies")]
+    public void ValidateResponse_AnyVisibleTextResponse_ShouldBeValid(string expectedType, string response)
+    {
+        var prompt = new Prompt
+        {
+            Id = "p1",
+            Label = "x",
+            Response = response,
+            Hints = new PromptHints { ExpectedDataType = expectedType }
+        };
+
+        var result = _validator.ValidateResponse(prompt);
+
+        result.IsValid.Should().BeTrue("any visible text must be a valid response — type hints are advisory only");
+    }
+
+    [Fact]
+    public void ValidateResponse_FiveAsNumberResponse_ShouldProduceAdvisoryWarning()
+    {
+        var prompt = new Prompt
+        {
+            Id = "p1",
+            Label = "Age",
+            Response = "five",
+            Hints = new PromptHints { ExpectedDataType = "number" }
+        };
+
+        var result = _validator.ValidateResponse(prompt);
+
+        result.IsValid.Should().BeTrue();
+        result.HasWarnings.Should().BeTrue();
+        result.Warnings.Should().ContainSingle();
+        result.Warnings[0].WarningCode.Should().Be("TYPE_MISMATCH");
+        result.Warnings[0].PropertyPath.Should().Be("p1");
+    }
+
+    [Fact]
+    public void ValidateResponse_PatternMismatch_ShouldProduceWarning_NotError()
+    {
+        var prompt = new Prompt
+        {
+            Id = "p1",
+            Label = "Code",
+            Response = "ABC",
+            Hints = new PromptHints { ValidationPattern = @"^\d{3}$" }
+        };
+
+        var result = _validator.ValidateResponse(prompt);
+
+        result.IsValid.Should().BeTrue("pattern hints are advisory like type hints");
+        result.HasWarnings.Should().BeTrue();
+        result.Warnings[0].WarningCode.Should().Be("PATTERN_MISMATCH");
+    }
+
     [Fact]
     public void ValidateResponse_EmptyResponse_ShouldBeValid()
     {
@@ -97,9 +161,9 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse();
-        result.Errors.Should().ContainSingle();
-        result.Errors[0].ErrorCode.Should().Be("TYPE_MISMATCH");
+        result.HasWarnings.Should().BeTrue();
+        result.Warnings.Should().ContainSingle();
+        result.Warnings[0].WarningCode.Should().Be("TYPE_MISMATCH");
     }
 
     [Theory]
@@ -139,8 +203,8 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse();
-        result.Errors[0].ErrorCode.Should().Be("TYPE_MISMATCH");
+        result.HasWarnings.Should().BeTrue();
+        result.Warnings[0].WarningCode.Should().Be("TYPE_MISMATCH");
     }
 
     [Theory]
@@ -181,7 +245,7 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse();
+        result.HasWarnings.Should().BeTrue();
     }
 
     [Theory]
@@ -261,8 +325,8 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse();
-        result.Errors[0].ErrorCode.Should().Be("PATTERN_MISMATCH");
+        result.HasWarnings.Should().BeTrue();
+        result.Warnings[0].WarningCode.Should().Be("PATTERN_MISMATCH");
     }
 
     [Fact]
@@ -320,8 +384,8 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateDocument(document);
 
         // Assert
-        result.IsValid.Should().BeFalse();
-        result.Errors.Should().HaveCount(2);
+        result.HasWarnings.Should().BeTrue();
+        result.Warnings.Should().HaveCount(2);
     }
 
     [Fact]
@@ -363,8 +427,8 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateDocument(document);
 
         // Assert
-        result.IsValid.Should().BeFalse();
-        result.Errors.Should().ContainSingle();
+        result.HasWarnings.Should().BeTrue();
+        result.Warnings.Should().ContainSingle();
     }
 
     [Fact]
@@ -469,7 +533,7 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse($"{date} should be invalid");
+        result.HasWarnings.Should().BeTrue($"{date} should produce a warning");
     }
 
     [Theory]
@@ -515,7 +579,7 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse($"{number} should be invalid");
+        result.HasWarnings.Should().BeTrue($"{number} should produce a warning");
     }
 
     [Theory]
@@ -561,7 +625,7 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse($"{email} should be invalid");
+        result.HasWarnings.Should().BeTrue($"{email} should produce a warning");
     }
 
     [Theory]
@@ -639,7 +703,7 @@ public class DataTypeValidatorTests
         }
         else
         {
-            result.IsValid.Should().BeFalse();
+            result.HasWarnings.Should().BeTrue();
         }
     }
 
@@ -661,8 +725,8 @@ public class DataTypeValidatorTests
 
         // Assert
         // Should not throw, should return invalid with appropriate error
-        result.IsValid.Should().BeFalse();
-        result.Errors.Should().NotBeEmpty();
+        result.HasWarnings.Should().BeTrue();
+        result.Warnings.Should().NotBeEmpty();
     }
 
     [Theory]
@@ -848,7 +912,7 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse();
+        result.HasWarnings.Should().BeTrue();
     }
 
     [Fact]
@@ -879,7 +943,7 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse();
+        result.HasWarnings.Should().BeTrue();
     }
 
     [Fact]
@@ -912,7 +976,7 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse();
+        result.HasWarnings.Should().BeTrue();
     }
 
     [Fact]
@@ -945,7 +1009,7 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse();
+        result.HasWarnings.Should().BeTrue();
     }
 
     [Fact]
@@ -978,7 +1042,7 @@ public class DataTypeValidatorTests
         var result = _validator.ValidateResponse(prompt);
 
         // Assert
-        result.IsValid.Should().BeFalse();
+        result.HasWarnings.Should().BeTrue();
     }
 
     [Fact]

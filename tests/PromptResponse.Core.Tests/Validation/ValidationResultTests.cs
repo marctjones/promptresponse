@@ -135,4 +135,83 @@ public class ValidationResultTests
         // Assert
         result.Errors.Should().HaveCount(2);
     }
+
+    // === Advisory warnings (vision: type/capacity hints never block) ===
+
+    [Fact]
+    public void ValidationResult_New_ShouldHaveEmptyWarnings()
+    {
+        var result = new ValidationResult();
+
+        result.Warnings.Should().BeEmpty();
+        result.HasWarnings.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ValidationResult_AddWarning_ShouldNotAffectIsValid()
+    {
+        var result = new ValidationResult();
+
+        result.AddWarning(new ValidationWarning("Looks like 'five', expected number", "prompts[0]", "TYPE_MISMATCH"));
+
+        result.IsValid.Should().BeTrue("warnings are advisory and never invalidate a document");
+        result.HasWarnings.Should().BeTrue();
+        result.Warnings.Should().ContainSingle();
+    }
+
+    [Fact]
+    public void ValidationResult_AddWarning_AndAddError_AreIndependent()
+    {
+        var result = new ValidationResult();
+
+        result.AddError(new ValidationError("Missing required field", "metadata.title"));
+        result.AddWarning(new ValidationWarning("Looks like 'five', expected number", "prompts[0]", "TYPE_MISMATCH"));
+
+        result.IsValid.Should().BeFalse("there is a structural error");
+        result.HasWarnings.Should().BeTrue();
+        result.Errors.Should().ContainSingle();
+        result.Warnings.Should().ContainSingle();
+    }
+
+    [Fact]
+    public void ValidationResult_AddMultipleWarnings_ShouldAccumulate()
+    {
+        var result = new ValidationResult();
+
+        result.AddWarning(new ValidationWarning("W1", "p1", "TYPE_MISMATCH"));
+        result.AddWarning(new ValidationWarning("W2", "p2", "PATTERN_MISMATCH"));
+
+        result.Warnings.Should().HaveCount(2);
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ValidationWarning_ShouldStoreMessagePathAndCode()
+    {
+        var warning = new ValidationWarning("'five' does not look like a number", "prompts[0]", "TYPE_MISMATCH");
+
+        warning.Message.Should().Be("'five' does not look like a number");
+        warning.PropertyPath.Should().Be("prompts[0]");
+        warning.WarningCode.Should().Be("TYPE_MISMATCH");
+    }
+
+    [Fact]
+    public void ValidationWarning_WithoutCode_ShouldHaveNullCode()
+    {
+        var warning = new ValidationWarning("Some advisory message", "path");
+
+        warning.WarningCode.Should().BeNull();
+    }
+
+    [Fact]
+    public void ValidationResult_ToString_ShouldIncludeWarnings()
+    {
+        var result = new ValidationResult();
+        result.AddWarning(new ValidationWarning("Maybe a number?", "prompts[0]", "TYPE_MISMATCH"));
+
+        var str = result.ToString();
+
+        str.Should().Contain("Maybe a number?");
+        str.Should().Contain("prompts[0]");
+    }
 }

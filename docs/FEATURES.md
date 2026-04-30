@@ -26,12 +26,10 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 
 | Category | Complete | In Progress | Planned | Total |
 |----------|----------|-------------|---------|-------|
-| Core Library | 8 | 0 | 2 | 10 |
-| Desktop UI | 6 | 2 | 8 | 16 |
+| Core Library | 6 | 0 | 2 | 8 |
+| Desktop UI | 6 | 1 | 6 | 13 |
 | Export & Print | 1 | 0 | 3 | 4 |
-| S3 & Cloud | 4 | 2 | 4 | 10 |
-| Signatures | 3 | 1 | 2 | 6 |
-| CLI Tool | 6 | 0 | 4 | 10 |
+| CLI Tool | 6 | 0 | 0 | 6 |
 | Mobile | 0 | 0 | 4 | 4 |
 | Enterprise | 0 | 0 | 6 | 6 |
 
@@ -47,8 +45,6 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Data type hints | P1 | ✅ | text, email, date, number, etc. |
 | Expression parser | P1 | ✅ | Basic expression evaluation |
 | Undo/Redo system | P1 | ✅ | Command pattern implemented |
-| Digital signatures | P1 | ✅ | Certificate generation, signing |
-| Signature verification | P1 | ✅ | Verify signed documents |
 | Calculation engine | P1 | ⏳ | Computed fields with formulas |
 | Conditional logic | P2 | ⏳ | Show/hide fields based on values |
 
@@ -65,14 +61,11 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Unsaved changes tracking | P1 | ✅ | Prompt before losing work |
 | Collapsible sections | P1 | ✅ | Expand/collapse in editor |
 | **Windows 11 UI redesign** | P0 | 🔄 | Modern Fluent design system |
-| **S3 configuration wizard** | P1 | 🔄 | Easy S3 setup |
 | Dashboard/home screen | P1 | ⏳ | Recent docs, quick actions |
 | Progress tracking | P1 | ⏳ | Visual % complete indicator |
 | Search & navigation | P1 | ⏳ | Find prompts, jump to section |
 | Validation panel | P2 | ⏳ | Dedicated error/warning panel |
 | Print preview | P2 | ⏳ | WYSIWYG print layout |
-| Template gallery browser | P1 | ⏳ | Browse S3 templates |
-| Form submission UI | P1 | ⏳ | Submit to S3 with confirmation |
 | Recent files list | P2 | ⏳ | Quick access to recent docs |
 
 ---
@@ -93,7 +86,6 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 **Requirements**:
 - Generate professional PDF from filled form
 - Include headers, footers, page numbers
-- Support signature blocks
 - Custom PDF templates per form type
 - Preserve form structure visually
 - Option to include/exclude empty fields
@@ -112,36 +104,6 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 
 ---
 
-## S3 & Cloud Features
-
-| Feature | Priority | Status | Notes |
-|---------|----------|--------|-------|
-| S3 browser service | P1 | ✅ | Browse S3 buckets |
-| Template gallery service | P1 | ✅ | List templates from S3 |
-| Template publishing service | P1 | ✅ | Publish signed templates |
-| S3 submission service | P1 | ✅ | Submit forms to S3 |
-| **S3 configuration UI** | P1 | 🔄 | Wizard for easy setup |
-| **Gallery browser UI** | P1 | 🔄 | Visual template browser |
-| Form submission tracking | P2 | ⏳ | Track submitted forms |
-| Profile management | P2 | ⏳ | Multiple S3 configurations |
-| Cloud sync | P3 | ⏳ | Sync across devices |
-| Collaboration | P3 | ⏳ | Share and co-edit |
-
----
-
-## Signature Features
-
-| Feature | Priority | Status | Notes |
-|---------|----------|--------|-------|
-| Certificate generation | P1 | ✅ | Create signing certificates |
-| Document signing | P1 | ✅ | Sign with certificate |
-| Signature verification | P1 | ✅ | Verify document signatures |
-| **Certificate management UI** | P1 | 🔄 | User-friendly cert management |
-| Trust management | P2 | ⏳ | Manage trusted signers |
-| 1Password integration | P3 | ⏳ | Store certs in 1Password |
-
----
-
 ## CLI Tool Features
 
 | Feature | Priority | Status | Notes |
@@ -152,10 +114,6 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | stats | P1 | ✅ | Detailed statistics |
 | diff | P1 | ✅ | Compare two APR files |
 | export | P1 | ✅ | Export to CSV/JSON/TXT |
-| **s3 configure** | P1 | ⏳ | Configure S3 connection |
-| **s3 gallery** | P1 | ⏳ | Manage template gallery |
-| **s3 submissions** | P1 | ⏳ | Manage submissions |
-| **cert/sign/verify** | P1 | ⏳ | Certificate and signing commands |
 
 ---
 
@@ -185,19 +143,16 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 
 ## Current Sprint (Phase 1)
 
-**Focus**: Windows 11 UI redesign, S3 integration completion
+**Focus**: Foundation polish — clean up the basic core implementation before any Phase 2 work.
 
 ### High Priority (P0-P1)
 
 | Feature | Status | Owner | Target |
 |---------|--------|-------|--------|
 | Windows 11 UI redesign | 🔄 | - | Month 1 |
-| S3 configuration wizard | 🔄 | - | Month 1 |
 | Dashboard/home screen | ⏳ | - | Month 1 |
 | Form filling experience | ⏳ | - | Month 2 |
-| Certificate management UI | 🔄 | - | Month 2-3 |
 | **PDF export** | ⏳ | - | Month 2 |
-| CLI S3 commands | ⏳ | - | Month 3 |
 
 ### Nice to Have (P2)
 
@@ -206,7 +161,6 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Progress tracking | ⏳ | Visual indicator |
 | Print preview | ⏳ | After PDF export |
 | Word/Excel export | ⏳ | After PDF export |
-| Trust management | ⏳ | After cert UI |
 
 ---
 
@@ -229,8 +183,6 @@ Track new feature requests here before adding to main list:
 | CLI tools | 2024-Q4 | 6 commands |
 | Template editor | 2024-Q4 | Basic functionality |
 | Form filling | 2024-Q4 | With response tracking |
-| Digital signatures | 2025-Q1 | Core implementation |
-| S3 services | 2025-Q1 | Backend complete |
 
 ---
 

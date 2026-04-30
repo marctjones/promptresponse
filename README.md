@@ -9,7 +9,6 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 **Solving Daily Frustrations:**
 - **Office Workers**: Create and fill forms without fighting PDF editors, Word tables, or Excel protection schemes
 - **Database Integration**: JSON format imports directly into databases - no parsing headaches
-- **Online Submissions**: Submit forms to S3 or webhooks without building custom CRUD apps for every form
 - **Programmatic Filling**: Easy API for automated form filling from scripts or other systems
 
 **Better by Design:**
@@ -23,7 +22,6 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 
 - **Template Creation**: Design reusable form templates without fighting layout tools
 - **Form Filling**: Fill out forms with intelligent input assistance
-- **Direct Submission**: Submit filled forms to S3 or webhooks - no server code needed
 - **Database-Ready**: JSON format imports directly into databases without parsing headaches
 - **Programmatic API**: Fill forms from scripts, batch processes, or other applications
 - **Type Hints**: Suggest data types without enforcing them

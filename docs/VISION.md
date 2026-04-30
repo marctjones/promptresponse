@@ -27,7 +27,7 @@ Traditional forms trap information in visual layouts:
 
 ### The Hidden Cost
 
-A small town hall spends **40% of staff time** re-entering data from paper forms into databases. Forms get lost, signatures get questioned, and citizens wait in line while staff manually processes paperwork.
+A small town hall spends **40% of staff time** re-entering data from paper forms into databases. Forms get lost and citizens wait in line while staff manually processes paperwork.
 
 ---
 
@@ -72,8 +72,6 @@ PromptResponse uses a semantic, JSON-based format that:
 
 - **Privacy by default**: Data stays on your device
 - **Work offline**: Full functionality without internet
-- **Sync when ready**: You choose when and where
-- **Your storage**: Use your own S3, not our servers
 
 ### 4. Radical Accessibility
 
@@ -135,7 +133,6 @@ PromptResponse uses a semantic, JSON-based format that:
 **How We Help**:
 - Local storage for sensitive data
 - Professional form templates
-- Digital signatures for compliance
 
 ---
 
@@ -192,9 +189,9 @@ Morning: Supervisor requests a new dog license form
   ↓
 2 minutes: Preview and test the form
   ↓
-1 minute: Sign with Town Clerk certificate and publish to S3
+1 minute: Save and distribute (email, shared drive, town website)
   ↓
-Done: Share link on town website, residents can download and fill
+Done: Residents can download and fill
 ```
 
 ### Resident: Filling Forms
@@ -206,19 +203,17 @@ Evening: Need to register new dog
   ↓
 5 minutes: Fill out at home, save progress
   ↓
-1 minute: Sign and submit electronically
+1 minute: Save and return the filled form (email, upload, etc.)
   ↓
-Instant: Receive confirmation, keep local copy
+Instant: Keep local copy
 ```
 
 ### Staff: Processing Submissions
 
 ```
-Morning: Check submissions inbox
+Morning: Check filled form inbox
   ↓
-30 seconds: Open submission, verify signature
-  ↓
-1 minute: Review information, approve
+1 minute: Open filled form, review information
   ↓
 Done: Export to database, archive form
 ```
@@ -229,15 +224,14 @@ Done: Export to database, archive form
 
 ### Year 1: Foundation (Current)
 
-**Goal**: Polish core application, complete S3 integration
+**Goal**: Polish a clean, focused core application
 
 - ✅ Core library with serialization and validation
 - ✅ Desktop application with basic editing
 - ✅ CLI tool for automation
 - 🔄 Windows 11 UI redesign
-- 🔄 Complete S3 gallery and submission
-- 🔄 Signature management system
 - ⏳ Accessibility audit and fixes
+- ⏳ ViewModel refactor (reduce god classes, adopt CommunityToolkit.Mvvm)
 
 **Success Metric**: 100 active users, 10 government offices
 

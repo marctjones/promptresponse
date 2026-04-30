@@ -46,14 +46,14 @@ public class ValidateCommand : ICommand
             var json = await File.ReadAllTextAsync(filePath);
             var document = _serializer.Deserialize(json);
 
-            // Validate structure
+            // Validate structure (errors block; advisory hints are gathered separately)
             var structureResult = _documentValidator.Validate(document);
 
-            // Validate data types (advisory)
-            var dataTypeResult = _dataTypeValidator.ValidateDocument(document);
+            // Inspect data types (advisory only — warnings, never errors)
+            var hintInspection = _dataTypeValidator.ValidateDocument(document);
 
             // Report results
-            if (structureResult.IsValid && dataTypeResult.IsValid)
+            if (structureResult.IsValid && !hintInspection.HasWarnings)
             {
                 Console.WriteLine("✓ Validation passed");
                 Console.WriteLine($"  Document type: {document.DocumentType}");
@@ -64,7 +64,6 @@ public class ValidateCommand : ICommand
                 return 0;
             }
 
-            // Show errors
             if (!structureResult.IsValid)
             {
                 Console.WriteLine("✗ Structure validation failed:");
@@ -74,17 +73,14 @@ public class ValidateCommand : ICommand
                 }
             }
 
-            // Show warnings for data type mismatches
-            if (!dataTypeResult.IsValid)
+            if (hintInspection.HasWarnings)
             {
                 Console.WriteLine();
-                Console.WriteLine("⚠ Data type warnings (advisory):");
-                foreach (var error in dataTypeResult.Errors)
+                Console.WriteLine("⚠ Advisory warnings (responses are still valid — any text is accepted):");
+                foreach (var warning in hintInspection.Warnings)
                 {
-                    Console.WriteLine($"  - {error}");
+                    Console.WriteLine($"  - {warning}");
                 }
-                Console.WriteLine();
-                Console.WriteLine("Note: Type mismatches are warnings only. All text input is valid.");
             }
 
             return structureResult.IsValid ? 0 : 1;

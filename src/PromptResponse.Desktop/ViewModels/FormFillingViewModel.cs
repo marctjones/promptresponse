@@ -36,10 +36,6 @@ public class FormFillingViewModel : ViewModelBase, IDisposable
         _document = document;
         _undoRedoManager = undoRedoManager;
 
-        // Check if form is signed (making it read-only)
-        var hasFormSignatures = document.Metadata.FormSignatures?.Count > 0;
-        _isReadOnly = hasFormSignatures;
-
         Sections = new ObservableCollection<SectionViewModel>(
             document.Sections.Select(s => new SectionViewModel(s, undoRedoManager)));
 
@@ -259,139 +255,6 @@ public class FormFillingViewModel : ViewModelBase, IDisposable
     /// Gets whether this form can be edited (inverse of IsReadOnly).
     /// </summary>
     public bool IsEditable => !_isReadOnly;
-
-    /// <summary>
-    /// Gets whether the template this form is based on has been signed.
-    /// </summary>
-    public bool HasTemplateSignatures => _document.Metadata.TemplateSignatures?.Count > 0;
-
-    /// <summary>
-    /// Gets whether this filled form has been signed.
-    /// </summary>
-    public bool HasFormSignatures => _document.Metadata.FormSignatures?.Count > 0;
-
-    /// <summary>
-    /// Gets the template signatures (if any).
-    /// </summary>
-    public IReadOnlyList<DigitalSignature>? TemplateSignatures => _document.Metadata.TemplateSignatures;
-
-    /// <summary>
-    /// Gets the form signatures (if any).
-    /// </summary>
-    public IReadOnlyList<DigitalSignature>? FormSignatures => _document.Metadata.FormSignatures;
-
-    /// <summary>
-    /// Gets a user-friendly message about signatures.
-    /// </summary>
-    public string SignatureStatusMessage
-    {
-        get
-        {
-            if (HasFormSignatures)
-            {
-                var sig = _document.Metadata.FormSignatures![0];
-                return $"✓ Signed by {sig.SignerName} on {sig.SignedAt:g} (Read-only)";
-            }
-            else if (HasTemplateSignatures)
-            {
-                var sig = _document.Metadata.TemplateSignatures![0];
-                return $"ℹ Template signed by {sig.SignerName} on {sig.SignedAt:g}";
-            }
-            return string.Empty;
-        }
-    }
-
-    #region S3 Submission Status
-
-    /// <summary>
-    /// Gets whether this form has S3 submission configured.
-    /// </summary>
-    public bool HasS3SubmissionConfig =>
-        _document.Metadata.SubmissionConfig?.Type == "s3-presigned-post";
-
-    /// <summary>
-    /// Gets whether this form has a template source URL configured for updates.
-    /// </summary>
-    public bool HasTemplateSourceUrl =>
-        !string.IsNullOrWhiteSpace(_document.Metadata.TemplateSourceUrl);
-
-    /// <summary>
-    /// Gets whether the S3 submission policy has expired.
-    /// </summary>
-    public bool IsSubmissionExpired =>
-        HasS3SubmissionConfig &&
-        _document.Metadata.SubmissionConfig?.ExpiresAt < DateTime.UtcNow;
-
-    /// <summary>
-    /// Gets whether the S3 submission policy is expiring soon (within 7 days).
-    /// </summary>
-    public bool IsSubmissionExpiringSoon
-    {
-        get
-        {
-            if (!HasS3SubmissionConfig) return false;
-            var expiresAt = _document.Metadata.SubmissionConfig?.ExpiresAt;
-            if (expiresAt == null) return false;
-            var daysUntilExpiry = (expiresAt.Value - DateTime.UtcNow).TotalDays;
-            return daysUntilExpiry > 0 && daysUntilExpiry < 7;
-        }
-    }
-
-    /// <summary>
-    /// Gets a user-friendly message about S3 submission status.
-    /// </summary>
-    public string SubmissionStatusText
-    {
-        get
-        {
-            if (!HasS3SubmissionConfig)
-                return string.Empty;
-
-            var config = _document.Metadata.SubmissionConfig!;
-
-            if (IsSubmissionExpired)
-                return "S3 submission EXPIRED - contact form provider";
-
-            if (config.ExpiresAt.HasValue)
-            {
-                var remaining = config.ExpiresAt.Value - DateTime.UtcNow;
-                if (remaining.TotalDays < 1)
-                    return $"Submit to S3 (expires in {remaining.Hours}h)";
-                if (remaining.TotalDays < 7)
-                    return $"Submit to S3 (expires in {(int)remaining.TotalDays} days)";
-                return $"Submit to S3 (expires {config.ExpiresAt.Value:MMM d})";
-            }
-
-            return "Submit to S3";
-        }
-    }
-
-    /// <summary>
-    /// Gets the S3 submission tooltip with more details.
-    /// </summary>
-    public string SubmissionTooltip
-    {
-        get
-        {
-            if (!HasS3SubmissionConfig)
-                return "S3 submission is not configured for this form";
-
-            if (IsSubmissionExpired)
-                return "The S3 submission policy has expired. Please contact the form provider for an updated form.";
-
-            var config = _document.Metadata.SubmissionConfig!;
-            var tooltip = "Click to submit this completed form to S3 storage";
-
-            if (config.ExpiresAt.HasValue)
-            {
-                tooltip += $"\n\nExpires: {config.ExpiresAt.Value:g}";
-            }
-
-            return tooltip;
-        }
-    }
-
-    #endregion
 
     private void UpdateStatusMessage()
     {
@@ -825,7 +688,7 @@ public class PromptViewModel : ViewModelBase
     public bool IsFileField => ExpectedDataType?.ToLowerInvariant() == "file";
     public string FileName => string.IsNullOrEmpty(Response) ? "" : System.IO.Path.GetFileName(Response);
 
-    // Signature field - digital signature capture
+    // Signature field - typed name or drawing input (no cryptography)
     public bool IsSignatureField => ExpectedDataType?.ToLowerInvariant() == "signature";
     public bool HasSignature => !string.IsNullOrEmpty(Response) && Response.StartsWith("data:image");
 

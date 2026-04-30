@@ -83,21 +83,6 @@ public class Metadata
     public string? TemplateVersion { get; set; }
 
     /// <summary>
-    /// Gets or sets the URL where this template can be fetched or updated from.
-    /// </summary>
-    /// <remarks>
-    /// Set by template authors when publishing to a gallery, S3 bucket, or web server.
-    /// Inherited by filled forms when opened from a template.
-    /// Used by the "Check for Updates" feature to fetch the latest template version
-    /// and migrate existing responses to the new structure.
-    /// </remarks>
-    /// <example>
-    /// "https://forms.example.com/templates/employment-app.aprt"
-    /// "https://my-bucket.s3.us-east-1.amazonaws.com/templates/w4-2024.aprt"
-    /// </example>
-    public string? TemplateSourceUrl { get; set; }
-
-    /// <summary>
     /// Gets or sets the name of the person who filled out the form.
     /// </summary>
     /// <remarks>
@@ -113,34 +98,4 @@ public class Metadata
     /// Should be UTC timestamp.
     /// </remarks>
     public DateTime? FilledDate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the digital signatures applied to the template.
-    /// </summary>
-    /// <remarks>
-    /// Template-specific field. Contains signatures from template publishers (e.g., IRS, HR department)
-    /// that establish the authenticity and integrity of the template structure.
-    /// Multiple signatures can be present if co-signed or countersigned.
-    /// </remarks>
-    public List<DigitalSignature>? TemplateSignatures { get; set; }
-
-    /// <summary>
-    /// Gets or sets the digital signatures applied to the filled form.
-    /// </summary>
-    /// <remarks>
-    /// FilledForm-specific field. Contains signatures from the person(s) who completed the form,
-    /// establishing the authenticity and integrity of their responses.
-    /// Multiple signatures can be present if the form requires multiple signatories.
-    /// </remarks>
-    public List<DigitalSignature>? FormSignatures { get; set; }
-
-    /// <summary>
-    /// Gets or sets the submission configuration for filled forms.
-    /// </summary>
-    /// <remarks>
-    /// Template-specific field. Specifies how filled forms should be submitted
-    /// (e.g., direct S3 upload via pre-signed POST, webhook endpoint).
-    /// When present, the UI can offer a "Submit" option in addition to local save.
-    /// </remarks>
-    public SubmissionConfig? SubmissionConfig { get; set; }
 }

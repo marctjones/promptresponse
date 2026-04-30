@@ -66,15 +66,6 @@
                           AutomationProperties.Name="Close"
                           AutomationProperties.HelpText="Close the current document. Press Ctrl+W"/>
                 <Separator/>
-                <MenuItem Header="Browse Template _Gallery..."
-                          Command="{Binding BrowseTemplateGalleryCommand}"
-                          AutomationProperties.Name="Browse Template Gallery"
-                          AutomationProperties.HelpText="Browse and download templates from S3 template gallery"/>
-                <MenuItem Header="P_ublish Template..."
-                          Command="{Binding PublishTemplateCommand}"
-                          AutomationProperties.Name="Publish Template"
-                          AutomationProperties.HelpText="Publish current signed template to S3 for distribution"/>
-                <Separator/>
                 <MenuItem Header="E_xit"
                           Click="OnExitClicked"
                           AutomationProperties.Name="Exit"
@@ -104,18 +95,6 @@
                               AutomationProperties.Name="Vivid custom theme"
                               AutomationProperties.HelpText="Switch to custom vivid color theme with warm tones"/>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="_Tools"
-                      AutomationProperties.Name="Tools menu"
-                      AutomationProperties.HelpText="Access application tools and utilities">
-                <MenuItem Header="_Certificate Management..."
-                          Command="{Binding OpenCertificateManagementCommand}"
-                          AutomationProperties.Name="Certificate management"
-                          AutomationProperties.HelpText="Manage digital certificates for signing documents"/>
-                <MenuItem Header="_S3 Browser..."
-                          Command="{Binding OpenS3BrowserCommand}"
-                          AutomationProperties.Name="S3 Browser"
-                          AutomationProperties.HelpText="Browse and download APR documents from S3 storage"/>
             </MenuItem>
             <MenuItem Header="_Help"
                       AutomationProperties.Name="Help menu"

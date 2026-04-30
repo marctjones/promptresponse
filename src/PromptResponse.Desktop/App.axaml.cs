@@ -4,8 +4,6 @@ using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Serialization;
-using PromptResponse.Core.Services;
-using PromptResponse.Core.Services.Certificates;
 using PromptResponse.Core.Validation;
 using IValidator = PromptResponse.Core.Validation.IValidator<PromptResponse.Core.Models.AprDocument>;
 using PromptResponse.Desktop.Services;
@@ -215,50 +213,12 @@ public partial class App : Application
         Console.WriteLine("[App]   - Registering IPlatformFeatures -> PlatformFeatures");
         services.AddSingleton<IPlatformFeatures, PlatformFeatures>();
 
-        // Certificate services
-        Console.WriteLine("[App]   - Registering ICertificateGenerator -> CertificateGenerator");
-        services.AddSingleton<ICertificateGenerator, CertificateGenerator>();
-
-        Console.WriteLine("[App]   - Registering ICertificateStore -> CertificateStoreService");
-        services.AddSingleton<ICertificateStore, CertificateStoreService>();
-
-        Console.WriteLine("[App]   - Registering IOnePasswordService -> OnePasswordService");
-        services.AddSingleton<IOnePasswordService, OnePasswordService>();
-
-        Console.WriteLine("[App]   - Registering ISignatureService -> SignatureService");
-        services.AddSingleton<ISignatureService, SignatureService>();
-
-        // S3 services
-        Console.WriteLine("[App]   - Registering HttpClient");
-        services.AddSingleton<HttpClient>();
-
-        Console.WriteLine("[App]   - Registering IS3SubmissionService -> S3SubmissionService");
-        services.AddSingleton<IS3SubmissionService, S3SubmissionService>();
-
-        Console.WriteLine("[App]   - Registering IS3BrowserService -> S3BrowserService");
-        services.AddSingleton<IS3BrowserService, S3BrowserService>();
-
-        Console.WriteLine("[App]   - Registering ITemplateGalleryService -> TemplateGalleryService");
-        services.AddSingleton<ITemplateGalleryService, TemplateGalleryService>();
-
-        Console.WriteLine("[App]   - Registering ITemplatePublishingService -> TemplatePublishingService");
-        services.AddSingleton<ITemplatePublishingService, TemplatePublishingService>();
-
-        Console.WriteLine("[App]   - Registering S3PolicyGenerator");
-        services.AddSingleton<S3PolicyGenerator>();
-
-        Console.WriteLine("[App]   - Registering ITemplateUpdateService -> TemplateUpdateService");
-        services.AddSingleton<ITemplateUpdateService, TemplateUpdateService>();
-
         // ViewModels
         Console.WriteLine("[App]   - Registering MainWindowViewModel");
         services.AddTransient<MainWindowViewModel>();
 
         Console.WriteLine("[App]   - Registering FormFillingViewModel");
         services.AddTransient<FormFillingViewModel>();
-
-        Console.WriteLine("[App]   - Registering CertificateManagementViewModel");
-        services.AddTransient<CertificateManagementViewModel>();
 
         Console.WriteLine("[App] Service configuration complete");
     }

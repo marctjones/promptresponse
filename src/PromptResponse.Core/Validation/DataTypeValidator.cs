@@ -6,53 +6,53 @@ using System.Text.RegularExpressions;
 namespace PromptResponse.Core.Validation;
 
 /// <summary>
-/// Validates prompt responses against expected data types.
+/// Inspects prompt responses against their advisory data-type and pattern hints.
 /// </summary>
 /// <remarks>
-/// IMPORTANT: This validation is ADVISORY ONLY. The application should never
-/// prevent users from entering any text string as a response. These validations
-/// are used to provide helpful feedback, but all text input is always acceptable.
+/// This is ADVISORY ONLY. The validator never produces <see cref="ValidationError"/>s:
+/// any visible text is a valid response in PromptResponse. Hint mismatches are surfaced
+/// as <see cref="ValidationWarning"/>s so UIs and downstream programs can offer helpful
+/// feedback without blocking the user.
 /// </remarks>
 public class DataTypeValidator
 {
     /// <summary>
-    /// Validates a prompt response against its expected data type.
+    /// Inspects a prompt response. The result is always <see cref="ValidationResult.IsValid"/> = true;
+    /// hint mismatches are added to <see cref="ValidationResult.Warnings"/>.
     /// </summary>
-    /// <param name="prompt">The prompt to validate.</param>
-    /// <returns>Validation result with warnings (not errors) if type mismatch.</returns>
     public ValidationResult ValidateResponse(Prompt prompt)
     {
         var result = new ValidationResult();
 
-        // Empty responses are always valid
+        // Empty responses produce no advisories
         if (string.IsNullOrWhiteSpace(prompt.Response))
         {
             return result;
         }
 
-        // Validate against custom pattern first (if present)
+        // Inspect against custom pattern first (if present)
         if (!string.IsNullOrWhiteSpace(prompt.Hints.ValidationPattern))
         {
-            var (patternValid, errorMessage) = ValidatePattern(prompt.Response, prompt.Hints.ValidationPattern);
-            if (!patternValid)
+            var (patternMatches, patternProblem) = ValidatePattern(prompt.Response, prompt.Hints.ValidationPattern);
+            if (!patternMatches)
             {
-                result.AddError(new ValidationError(
-                    errorMessage ?? "Response does not match expected pattern",
+                result.AddWarning(new ValidationWarning(
+                    patternProblem ?? "Response does not match the suggested pattern",
                     prompt.Id,
                     "PATTERN_MISMATCH"));
-                return result; // Pattern takes precedence
+                return result; // Pattern advisory takes precedence
             }
         }
 
-        // No expected type = always valid (if no pattern was specified)
+        // No expected type = no further advisory possible
         var expectedType = prompt.Hints.ExpectedDataType;
         if (string.IsNullOrWhiteSpace(expectedType))
         {
             return result;
         }
 
-        // Validate against known data types
-        var isValid = expectedType.ToLowerInvariant() switch
+        // Inspect against known data type hints
+        var matchesHint = expectedType.ToLowerInvariant() switch
         {
             "email" => ValidateEmail(prompt.Response),
             "date" => ValidateDate(prompt.Response),
@@ -64,15 +64,15 @@ public class DataTypeValidator
             "currency" => ValidateCurrency(prompt.Response),
             "boolean" => ValidateBoolean(prompt.Response),
             "table" => ValidateTable(prompt.Response, prompt.Hints.TableDefinition),
-            "text" => true, // Always valid
-            "multiline" => true, // Always valid
-            _ => true // Unknown types are always valid
+            "text" => true, // Always matches
+            "multiline" => true, // Always matches
+            _ => true // Unknown types: no advisory
         };
 
-        if (!isValid)
+        if (!matchesHint)
         {
-            result.AddError(new ValidationError(
-                $"Response '{prompt.Response}' does not match expected type '{expectedType}'",
+            result.AddWarning(new ValidationWarning(
+                $"Response '{prompt.Response}' does not look like '{expectedType}' (advisory)",
                 prompt.Id,
                 "TYPE_MISMATCH"));
         }
@@ -81,10 +81,9 @@ public class DataTypeValidator
     }
 
     /// <summary>
-    /// Validates all prompts in a document.
+    /// Inspects all prompts in a document. Always returns <see cref="ValidationResult.IsValid"/> = true;
+    /// hint mismatches are surfaced as warnings.
     /// </summary>
-    /// <param name="document">The document to validate.</param>
-    /// <returns>Validation result with all type mismatches.</returns>
     public ValidationResult ValidateDocument(AprDocument document)
     {
         var result = new ValidationResult();
@@ -99,14 +98,12 @@ public class DataTypeValidator
 
     private void ValidatePromptsInSection(Section section, ValidationResult result)
     {
-        // Validate prompts at this level
         foreach (var prompt in section.Prompts)
         {
             var promptResult = ValidateResponse(prompt);
-            result.AddErrors(promptResult.Errors);
+            result.AddWarnings(promptResult.Warnings);
         }
 
-        // Recursively validate prompts in child sections
         foreach (var childSection in section.Sections)
         {
             ValidatePromptsInSection(childSection, result);

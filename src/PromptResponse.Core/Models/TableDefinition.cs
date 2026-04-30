@@ -92,15 +92,6 @@ public class TableColumn
     /// Gets or sets help text for this column.
     /// </summary>
     public string? HelpText { get; set; }
-
-    /// <summary>
-    /// Gets or sets an optional width hint for the column.
-    /// </summary>
-    /// <remarks>
-    /// Can be percentage ("25%"), pixels ("100px"), or relative ("*", "2*").
-    /// UI may use this as a hint but is free to adjust.
-    /// </remarks>
-    public string? Width { get; set; }
 }
 
 /// <summary>

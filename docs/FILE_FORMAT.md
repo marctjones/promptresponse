@@ -57,55 +57,9 @@ A completed form with responses. Based on a template but contains user data.
   "modified": "2025-11-12T00:00:00Z",
   "author": "Author name (optional)",
   "templateId": "unique-template-identifier",
-  "version": "1.0",
-  "templateSignatures": [
-    {
-      "signerName": "IRS Forms Division",
-      "signerEmail": "forms@irs.gov",
-      "signerOrganization": "Internal Revenue Service",
-      "certificateIssuer": "DigiCert",
-      "certificateThumbprint": "ABC123...",
-      "signedAt": "2025-11-12T00:00:00Z",
-      "signatureData": "Base64EncodedSignature...",
-      "signatureType": "template",
-      "hashAlgorithm": "SHA256",
-      "signatureReason": "Official IRS form for tax year 2025"
-    }
-  ]
+  "version": "1.0"
 }
 ```
-
-**Digital Signatures (Optional):**
-- `templateSignatures`: Array of signatures from template publishers
-- Establishes authenticity of the template structure
-- Multiple signatures supported for co-signing
-
-**Submission Configuration (Optional):**
-Templates may include submission configuration to enable direct form submission:
-
-```json
-{
-  "submissionConfig": {
-    "type": "s3-presigned-post",
-    "url": "https://my-bucket.s3.us-east-1.amazonaws.com/",
-    "fields": {
-      "key": "filled-forms/${filename}",
-      "AWSAccessKeyId": "AKIAIOSFODNN7EXAMPLE",
-      "policy": "eyJleHBpcmF0aW9u...",
-      "signature": "0RavWzkygo6QX9caELEqKi9kDbU=",
-      "acl": "private"
-    },
-    "expiresAt": "2025-12-31T12:00:00Z"
-  }
-}
-```
-
-- `type`: Submission method (currently only "s3-presigned-post")
-- `url`: Target S3 bucket URL
-- `fields`: AWS pre-signed POST fields (policy, signature, etc.)
-- `expiresAt`: Policy expiration timestamp
-
-This allows users to submit filled forms directly to S3 without server infrastructure.
 
 #### Filled Form Metadata
 
@@ -117,36 +71,9 @@ This allows users to submit filled forms directly to S3 without server infrastru
   "templateVersion": "1.0",
   "filledBy": "Person filling out form",
   "filledDate": "2025-11-12T14:30:00Z",
-  "modified": "2025-11-12T14:35:00Z",
-  "templateSignatures": [
-    {
-      "signerName": "IRS Forms Division",
-      "certificateThumbprint": "ABC123...",
-      "signedAt": "2025-11-12T00:00:00Z",
-      "signatureData": "Base64...",
-      "signatureType": "template"
-    }
-  ],
-  "formSignatures": [
-    {
-      "signerName": "John Doe",
-      "signerEmail": "john@example.com",
-      "certificateIssuer": "Self-signed",
-      "certificateThumbprint": "XYZ789...",
-      "signedAt": "2025-11-12T15:00:00Z",
-      "signatureData": "Base64...",
-      "signatureType": "filledForm",
-      "hashAlgorithm": "SHA256",
-      "signatureReason": "Attestation of accuracy"
-    }
-  ]
+  "modified": "2025-11-12T14:35:00Z"
 }
 ```
-
-**Digital Signatures (Optional):**
-- `templateSignatures`: Inherited from the template (establishes trust chain)
-- `formSignatures`: Signatures from the person(s) who filled out the form
-- Signed forms become read-only and cannot be edited
 
 ### Section Structure
 
@@ -544,70 +471,6 @@ Dynamic tables allow users to add and remove rows (e.g., line items, addresses).
   ]
 }
 ```
-
-## Digital Signatures
-
-APR documents support cryptographic digital signatures for authenticity and integrity verification.
-
-### Signature Structure
-
-```json
-{
-  "signerName": "Signer's common name",
-  "signerEmail": "signer@example.com",
-  "signerOrganization": "Organization name",
-  "signerOrganizationalUnit": "Department/division",
-  "certificateIssuer": "Certificate Authority name",
-  "certificateThumbprint": "SHA-256 hash of certificate",
-  "signedAt": "2025-11-12T15:00:00Z",
-  "signatureData": "Base64-encoded RSA signature",
-  "signatureType": "template" | "filledForm",
-  "hashAlgorithm": "SHA256",
-  "signatureReason": "Optional explanation for signature"
-}
-```
-
-### Signature Types
-
-#### Template Signatures (`signatureType: "template"`)
-
-- Applied by template publishers (e.g., IRS, HR department)
-- Covers the template structure: sections, nested sections, prompts, labels
-- Does NOT cover response values (templates have empty responses)
-- Establishes authenticity: "This is the official form"
-
-#### Form Signatures (`signatureType: "filledForm"`)
-
-- Applied by the person who completed the form
-- Covers all response values and the template reference
-- Includes template signatures if present (creates trust chain)
-- Establishes attestation: "I filled out the official form and attest to my responses"
-
-### Trust Chain
-
-When both template and form signatures are present, a trust chain is created:
-
-```
-IRS Template Signature
-  └─> Establishes: "This is official IRS Form 1040"
-        └─> User's Form Signature
-              └─> Establishes: "I filled out the official IRS Form 1040"
-```
-
-### Signature Verification
-
-Implementations should verify:
-
-1. **Cryptographic validity**: Signature matches computed hash
-2. **Certificate validity**: Certificate was valid at signing time
-3. **Document integrity**: Content hasn't changed since signing
-4. **Trust chain**: Template signatures (if any) are included in form signature
-
-### Read-Only Requirement
-
-**Signed filled forms MUST be read-only.** Once a form has been digitally signed (`formSignatures` is not empty), implementations must prevent editing to preserve signature validity.
-
-Template signatures do not make forms read-only; users can still fill out a signed template.
 
 ## Validation Rules
 

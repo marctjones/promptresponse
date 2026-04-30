@@ -70,67 +70,17 @@ public class FormFillingViewModelTests
 
     #endregion
 
-    #region Read-Only / Signed Form Tests
+    #region Editable State Tests
 
     [Fact]
-    public void Constructor_WithSignedForm_ShouldBeReadOnly()
+    public void Constructor_DefaultDocument_ShouldBeEditable()
     {
-        // Arrange
-        var document = CreateTestDocument();
-        document.Metadata.FormSignatures = new List<DigitalSignature>
-        {
-            new DigitalSignature
-            {
-                SignerName = "Test Signer",
-                SignedAt = DateTime.UtcNow,
-                SignatureData = "test"
-            }
-        };
-
-        // Act
-        var viewModel = new FormFillingViewModel(document);
-
-        // Assert
-        viewModel.IsReadOnly.Should().BeTrue();
-        viewModel.IsEditable.Should().BeFalse();
-        viewModel.HasFormSignatures.Should().BeTrue();
-    }
-
-    [Fact]
-    public void Constructor_WithUnsignedForm_ShouldBeEditable()
-    {
-        // Arrange
         var document = CreateTestDocument();
 
-        // Act
         var viewModel = new FormFillingViewModel(document);
 
-        // Assert
         viewModel.IsReadOnly.Should().BeFalse();
         viewModel.IsEditable.Should().BeTrue();
-    }
-
-    [Fact]
-    public void Constructor_WithTemplateSignatures_ShouldShowTemplateSignatureInfo()
-    {
-        // Arrange
-        var document = CreateTestDocument();
-        document.Metadata.TemplateSignatures = new List<DigitalSignature>
-        {
-            new DigitalSignature
-            {
-                SignerName = "Template Publisher",
-                SignedAt = DateTime.UtcNow,
-                SignatureData = "test"
-            }
-        };
-
-        // Act
-        var viewModel = new FormFillingViewModel(document);
-
-        // Assert
-        viewModel.HasTemplateSignatures.Should().BeTrue();
-        viewModel.IsReadOnly.Should().BeFalse("template signatures don't make form read-only");
     }
 
     #endregion

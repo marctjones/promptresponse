@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using PromptResponse.Cli.Api;
 using PromptResponse.Cli.Commands;
 using PromptResponse.Core.Serialization;
-using PromptResponse.Core.Services;
 using PromptResponse.Core.Validation;
 
 namespace PromptResponse.Cli;
@@ -41,7 +40,6 @@ class Program
                 "stats" => await serviceProvider.GetRequiredService<StatsCommand>().ExecuteAsync(commandArgs),
                 "diff" => await serviceProvider.GetRequiredService<DiffCommand>().ExecuteAsync(commandArgs),
                 "export" => await serviceProvider.GetRequiredService<ExportCommand>().ExecuteAsync(commandArgs),
-                "s3-setup" => await serviceProvider.GetRequiredService<S3SetupCommand>().ExecuteAsync(commandArgs),
                 "help" or "--help" or "-h" => ShowHelp(),
                 "version" or "--version" or "-v" => ShowVersion(),
                 _ => ShowUnknownCommand(command)
@@ -67,7 +65,6 @@ class Program
         services.AddSingleton<IAprSerializer, AprJsonSerializer>();
         services.AddSingleton<DocumentValidator>();
         services.AddSingleton<DataTypeValidator>();
-        services.AddSingleton<S3PolicyGenerator>();
 
         // API services
         services.AddSingleton<FormFillingApi>();
@@ -80,7 +77,6 @@ class Program
         services.AddTransient<StatsCommand>();
         services.AddTransient<DiffCommand>();
         services.AddTransient<ExportCommand>();
-        services.AddTransient<S3SetupCommand>();
     }
 
     private static int ShowHelp()
@@ -97,7 +93,6 @@ class Program
         Console.WriteLine("  stats <file> [--json]          Show detailed statistics");
         Console.WriteLine("  diff <file1> <file2>           Compare two APR files");
         Console.WriteLine("  export <file> [options]        Export responses to various formats");
-        Console.WriteLine("  s3-setup [options]             Configure S3 bucket for form submissions");
         Console.WriteLine("  help                           Show this help message");
         Console.WriteLine("  version                        Show version information");
         Console.WriteLine();

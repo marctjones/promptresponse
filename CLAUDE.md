@@ -9,7 +9,6 @@ PromptResponse is a cross-platform form creation and filling application using a
 **Core Goals:**
 - **Easy Form Creation**: Office workers can create forms without fighting layout tools
 - **Database Integration**: JSON format makes importing form data into databases trivial
-- **Online Submissions**: Submit forms directly to S3 or webhooks without building custom CRUD apps over and over
 - **Programmatic Filling**: Easy API for automated form filling from scripts or other systems
 
 **Technology Stack**: .NET 8.0, C# 12, AvaloniaUI 11, xUnit
@@ -388,3 +387,21 @@ See `ACCESSIBILITY.md` for comprehensive testing guide and accessibility feature
 - `docs/DEVELOPMENT.md`: Full development guidelines and TDD workflow
 - `docs/USAGE.md`: User-facing usage instructions
 - `src/PromptResponse.Cli/README.md`: CLI tool documentation
+
+## IdlerGear Usage
+
+**ALWAYS run at session start:**
+```bash
+idlergear context
+```
+
+**FORBIDDEN files:** `TODO.md`, `NOTES.md`, `SESSION_*.md`, `SCRATCH.md`
+**FORBIDDEN comments:** `// TODO:`, `# FIXME:`, `/* HACK: */`
+
+**Use instead:**
+- `idlergear task create "..."` - Create actionable tasks
+- `idlergear note create "..."` - Capture quick thoughts
+- `idlergear explore create "..."` - Research questions
+- `idlergear vision show` - Check project goals
+
+See AGENTS.md for full command reference.

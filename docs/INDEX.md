@@ -24,7 +24,6 @@ PRIORITY READING ORDER FOR AI ASSISTANTS:
 | Create UI components | [/.claude/DESIGN_SYSTEM.md](../.claude/DESIGN_SYSTEM.md) |
 | Understand APR format | [specifications/FILE_FORMAT.md](specifications/FILE_FORMAT.md) |
 | Write tests | [guides/DEVELOPMENT.md](guides/DEVELOPMENT.md) |
-| Work on S3 features | [S3_INTEGRATION.md](S3_INTEGRATION.md) |
 
 ---
 
@@ -68,8 +67,6 @@ System design and technical architecture.
 |------|---------|-------------------|
 | `SYSTEM_ARCHITECTURE.md` | Three-layer architecture, patterns | New features |
 | `DATA_MODEL.md` | APR format deep dive | Format work |
-| `S3_INTEGRATION.md` | S3 service architecture | S3 features |
-| `CERTIFICATE_SYSTEM.md` | Digital signature system | Signature work |
 
 **Note**: Some architecture docs may need to be created or moved from existing locations.
 
@@ -110,7 +107,6 @@ Technical specifications and references.
 ### Needs Creation
 
 - ⏳ `/docs/architecture/DATA_MODEL.md`
-- ⏳ `/docs/architecture/CERTIFICATE_SYSTEM.md`
 - ⏳ `/docs/guides/UI_GUIDELINES.md`
 - ⏳ `/docs/guides/WORKFLOW_GUIDE.md`
 - ⏳ `/docs/specifications/CLI_REFERENCE.md`
@@ -120,7 +116,6 @@ Technical specifications and references.
 
 - 🔄 `ARCHITECTURE.md` → Move to `/docs/architecture/SYSTEM_ARCHITECTURE.md`
 - 🔄 `ACCESSIBILITY.md` → Consider moving to `/docs/guides/`
-- 🔄 Consolidate S3 documentation (multiple overlapping docs)
 
 ---
 
