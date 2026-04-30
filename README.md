@@ -145,14 +145,22 @@ Not Licensed
 
 ## Project Status
 
-🚧 **Active Development** - MVP Phase 1
+🚧 **Active Development** - 0.1 baseline
 
-- [x] Project structure
-- [x] Core library (Models, Serialization, Validation)
-- [x] CLI Tool (validate, info, new commands)
-- [ ] Desktop UI (Template Editor, Form Filler) - Next phase
-- [ ] Linux/Windows testing
-- [ ] Mobile support (future)
+- [x] Core library (models, JSON serialization, advisory validation)
+- [x] CLI tool (validate, info, new, fill, stats, diff, export)
+- [x] Capability-profile rendering system (Light / Dark / HighContrast +
+      VisualFormatting / LargeText / ReducedMotion / ScreenReaderTuned /
+      MotorAssist, all composable)
+- [x] Polymorphic prompt views (one focused VM + view per data-type hint)
+- [x] Three-column desktop shell with native menu, screen-reader live region,
+      empty state, and a keyboard shortcuts cheat sheet (F1)
+- [x] WCAG-gated CI: every theme contrast pair, every keyboard shortcut,
+      every interactive control's accessible name
+- [x] Avalonia.Headless GUI automation tests for keyboard + mouse interactions
+- [ ] Mobile support (.NET MAUI) — future
+- [ ] Calculation engine (computed fields) — future
+- [ ] Conditional logic (show/hide based on responses) — future
 
 ## Contributing
 

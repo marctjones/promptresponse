@@ -1,8 +1,53 @@
 # Accessibility Guide
 
-## Overview
+## Design philosophy: capability-profile architecture
 
-PromptResponse is designed with accessibility as a core requirement. This document covers the accessibility features implemented in the application and provides guidance on testing accessibility with various tools.
+PromptResponse rejects the framing that splits users into "normal" and
+"accessibility" populations. Every user has a **capability profile** — a set of
+sensory, motor, and cognitive capabilities — and the application is structured
+as a universal core plus optional, composable enhancements that serve specific
+profiles.
+
+- **Core (mandatory, universal):** keyboard reachable, semantic structure,
+  screen-reader coherent, raw string responses, no required color signals,
+  no required animation, no mouse-only interactions. Everyone starts here.
+- **Rendering profiles (composable, optional):** layered enhancements that
+  specific capability profiles benefit from. Enabling visual formatting for
+  a sighted user is the same kind of accommodation as enabling verbose
+  screen-reader announcements for a blind user — both serve a capability profile.
+  Available profiles:
+  `Default`, `Light`, `Dark`, `HighContrast`,
+  `VisualFormatting`, `LargeText`, `ReducedMotion`,
+  `ScreenReaderTuned`, `MotorAssist`. They compose ("most accommodating wins")
+  through `CompositeProfile`.
+- **OS preferences are auto-detected at startup.** Windows HCM, macOS Increase
+  Contrast, GNOME high-contrast, prefers-reduced-motion, and screen-reader
+  presence all flip the matching profile on.
+- **Display Preferences panel** (View → Display Preferences) lets the user
+  toggle each profile independently and Reset to OS-detected defaults.
+
+### Vision invariant: type hints are advisory, never enforced
+
+Every prompt's `expectedDataType` is a hint, not a constraint. A field hinting
+"number" still accepts "five", "n/a", or "approximately 5" — any visible text
+is a valid response. UIs and downstream programs use the hint for affordances
+and advisory feedback only.
+
+## CI gates (vision-critical, non-negotiable)
+
+The CI pipeline blocks merge on any of these regressions:
+
+- **Build green** on Linux + Windows + macOS (matrix).
+- **Accessibility tests** (`tests/PromptResponse.AccessibilityTests`):
+  - `ColorContrastTests` validates every (foreground, background) pair on every
+    theme palette against WCAG 2.1 (AA on Light/Dark, AAA on HighContrast).
+  - `XamlAccessibilityValidationTests` enforces `AutomationProperties.Name`
+    coverage and minimum touch-target sizes on interactive controls.
+  - `KeyboardNavigationValidationTests` verifies keyboard shortcuts and
+    menu mnemonics are present in the live shell.
+- **Coverage gate**: `PromptResponse.Core` line coverage ≥ 95% (currently
+  97.69% / 95.95% branch / 100% method). `PromptResponse.Cli` ratchets up
+  per `idlergear` task #24.
 
 ## Accessibility Features
 
@@ -59,11 +104,16 @@ All interactive elements include proper automation properties for screen readers
 - All functionality accessible via keyboard
 - Logical tab order through form fields
 - Menu shortcuts for common actions:
-  - `Ctrl+O` - Open file for filling
-  - `Ctrl+Shift+O` - Open template for editing
+  - `Ctrl+N` - New template
+  - `Ctrl+O` - Open file (extension determines template vs filled form mode)
   - `Ctrl+S` - Save
   - `Ctrl+Shift+S` - Save As
+  - `Ctrl+W` - Close document
+  - `F1` - Keyboard shortcuts cheat sheet
   - Menu mnemonics: `Alt+F` (File), `Alt+V` (View), `Alt+H` (Help)
+  - `Tab` / `Shift+Tab` - Move between focusable controls
+  - `Enter` - Activate the focused button or default action
+  - `Space` - Toggle the focused checkbox or radio button
 
 **Focus Management:**
 - Clear focus indicators (built into FluentTheme)
