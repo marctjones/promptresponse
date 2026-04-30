@@ -3,20 +3,15 @@
              x:Class="PromptResponse.Desktop.App"
              RequestedThemeVariant="Default">
 
-    <Application.Resources>
-        <!-- Modern Design System Resources -->
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="/Styles/DesignTokens.axaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>
-
     <Application.Styles>
         <FluentTheme />
 
-        <!-- Modern Design System Styles -->
-        <StyleInclude Source="/Styles/ModernControls.axaml"/>
+        <!--
+            The Phase 5 rebuild renders through ColorTokens.cs + the per-profile
+            shell. The legacy DesignTokens.axaml and ModernControls.axaml have
+            been deleted; the inline styles below remain as generic Avalonia
+            control styling that's intentionally agnostic of the active profile.
+        -->
 
         <!-- Enhanced Default Control Styles -->
         <!-- These apply modern touches to all controls by default -->

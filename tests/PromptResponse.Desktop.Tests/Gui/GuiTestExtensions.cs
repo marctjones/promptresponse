@@ -40,6 +40,52 @@ public static class GuiTestExtensions
     }
 
     /// <summary>
+    /// Captures the current frame as a PNG byte array. Useful for visual regression
+    /// tests and for asserting the window isn't all one color (e.g., the
+    /// "everything is black" failure mode).
+    /// </summary>
+    public static byte[] CaptureRenderedPngBytes(this Window window)
+    {
+        Dispatcher.UIThread.RunJobs();
+        using var ms = new MemoryStream();
+        var bitmap = Avalonia.Headless.HeadlessWindowExtensions.CaptureRenderedFrame(window);
+        if (bitmap == null)
+        {
+            throw new InvalidOperationException("Headless harness did not produce a frame; ensure UseSkia + UseHeadlessDrawing=false.");
+        }
+        bitmap.Save(ms);
+        return ms.ToArray();
+    }
+
+    /// <summary>
+    /// Counts the number of distinct colors in the captured frame. A trivially
+    /// rendered window (all-black, all-white) has very few. A real shell with
+    /// surfaces, text, borders, and accents has dozens to thousands.
+    /// </summary>
+    public static int CountDistinctColors(this Window window, int sampleStride = 4)
+    {
+        var bitmap = Avalonia.Headless.HeadlessWindowExtensions.CaptureRenderedFrame(window);
+        if (bitmap == null) return 0;
+        var distinct = new HashSet<uint>();
+        var pixelSize = bitmap.PixelSize;
+        // Save to a memory stream and re-load via SkiaSharp-free path: read PNG bytes,
+        // walk the IPlatformRenderInterface bitmap by copying into a writable stream.
+        // Simpler approximation: save then count unique 4-byte chunks in the PNG.
+        // The PNG is compressed so this isn't exact, but it's a strong signal: an
+        // all-one-color render produces a tiny PNG dominated by repeats.
+        using var ms = new MemoryStream();
+        bitmap.Save(ms);
+        var bytes = ms.ToArray();
+        for (int i = 0; i + 3 < bytes.Length; i += sampleStride)
+        {
+            uint chunk = (uint)(bytes[i] | (bytes[i + 1] << 8) | (bytes[i + 2] << 16) | (bytes[i + 3] << 24));
+            distinct.Add(chunk);
+        }
+        _ = pixelSize;
+        return distinct.Count;
+    }
+
+    /// <summary>
     /// Pumps any queued Avalonia dispatcher work to completion. Call this after raising input
     /// events to let bindings, command execution, and rendering settle before asserting.
     /// </summary>

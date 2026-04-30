@@ -12,77 +12,94 @@
         <promptViews:PromptDataTemplateSelector x:Key="PromptTemplate"/>
     </UserControl.Resources>
 
-    <DockPanel>
+    <!--
+        Background bound to the active profile's Surface color. TextElement.Foreground
+        cascades OnSurface to every TextBlock. This is what fixes the "everything is
+        black" regression — without it, the Window falls through to the OS variant and
+        our text colors fight the OS-painted background.
+    -->
+    <DockPanel Background="{Binding ActiveProfileSurfaceBrush}"
+               TextElement.Foreground="{Binding ActiveProfileOnSurfaceBrush}">
 
         <!-- ============= Native menu bar ============= -->
         <Menu DockPanel.Dock="Top"
+              Background="{Binding ActiveProfileSubtleSurfaceBrush}"
+              FontSize="{Binding BodyFontSize}"
               AutomationProperties.Name="Main menu"
-              AutomationProperties.HelpText="File, Edit, View, and Help menus">
+              AutomationProperties.HelpText="File, View, and Help menus">
             <MenuItem Header="_File" AutomationProperties.Name="File menu">
                 <MenuItem Header="_New Template..."
                           Command="{Binding NewTemplateCommand}"
                           HotKey="Ctrl+N"
+                          InputGesture="Ctrl+N"
                           AutomationProperties.Name="New template"
                           AutomationProperties.HelpText="Create a new blank APR template (Ctrl+N)"/>
                 <MenuItem Header="_Open..."
                           Command="{Binding OpenCommand}"
                           HotKey="Ctrl+O"
+                          InputGesture="Ctrl+O"
                           AutomationProperties.Name="Open file"
                           AutomationProperties.HelpText="Open an existing APR template or filled form (Ctrl+O)"/>
                 <Separator/>
                 <MenuItem Header="_Save"
                           Command="{Binding SaveCommand}"
                           HotKey="Ctrl+S"
-                          AutomationProperties.Name="Save"
-                          AutomationProperties.HelpText="Save the current document (Ctrl+S)"/>
+                          InputGesture="Ctrl+S"
+                          AutomationProperties.Name="Save"/>
                 <MenuItem Header="Save _As..."
                           Command="{Binding SaveAsCommand}"
                           HotKey="Ctrl+Shift+S"
-                          AutomationProperties.Name="Save as"
-                          AutomationProperties.HelpText="Save the current document to a new file (Ctrl+Shift+S)"/>
+                          InputGesture="Ctrl+Shift+S"
+                          AutomationProperties.Name="Save as"/>
                 <Separator/>
                 <MenuItem Header="_Close"
                           Command="{Binding CloseCommand}"
                           HotKey="Ctrl+W"
-                          AutomationProperties.Name="Close"
-                          AutomationProperties.HelpText="Close the current document (Ctrl+W)"/>
+                          InputGesture="Ctrl+W"
+                          AutomationProperties.Name="Close"/>
             </MenuItem>
             <MenuItem Header="_View" AutomationProperties.Name="View menu">
                 <MenuItem Header="_Display Preferences..."
                           x:Name="DisplayPreferencesMenuItem"
+                          Click="OnDisplayPreferencesClicked"
                           AutomationProperties.Name="Display preferences"
                           AutomationProperties.HelpText="Configure color scheme, text scale, and other rendering enhancements"/>
                 <Separator/>
                 <MenuItem Header="Keyboard _Shortcuts..."
                           x:Name="KeyboardShortcutsMenuItem"
+                          Click="OnKeyboardShortcutsClicked"
                           HotKey="F1"
-                          AutomationProperties.Name="Keyboard shortcuts"
-                          AutomationProperties.HelpText="Show the keyboard shortcuts cheat sheet (F1)"/>
+                          InputGesture="F1"
+                          AutomationProperties.Name="Keyboard shortcuts"/>
             </MenuItem>
             <MenuItem Header="_Help" AutomationProperties.Name="Help menu">
                 <MenuItem Header="_About"
                           x:Name="AboutMenuItem"
+                          Click="OnAboutClicked"
                           AutomationProperties.Name="About PromptResponse"/>
             </MenuItem>
         </Menu>
 
         <!-- ============= Status bar (screen-reader live region) ============= -->
         <Border DockPanel.Dock="Bottom"
-                Padding="12,6"
+                Background="{Binding ActiveProfileSubtleSurfaceBrush}"
+                Padding="14,8"
                 BorderThickness="0,1,0,0"
-                BorderBrush="{DynamicResource SystemBaseLowColor}"
+                BorderBrush="{Binding ActiveProfileBorderBrush}"
                 AutomationProperties.Name="Status"
                 AutomationProperties.LiveSetting="Polite">
             <Grid ColumnDefinitions="*,Auto">
                 <TextBlock Grid.Column="0"
                            Text="{Binding StatusMessage}"
                            VerticalAlignment="Center"
-                           FontSize="12"
+                           FontSize="{Binding CaptionFontSize}"
+                           Foreground="{Binding ActiveProfileMutedTextBrush}"
                            AutomationProperties.LiveSetting="Polite"/>
                 <TextBlock Grid.Column="1"
                            Text="{Binding Progress.StatusText}"
                            VerticalAlignment="Center"
-                           FontSize="12"
+                           FontSize="{Binding CaptionFontSize}"
+                           Foreground="{Binding ActiveProfileMutedTextBrush}"
                            Margin="16,0,0,0"
                            AutomationProperties.Name="Form completion"
                            AutomationProperties.LiveSetting="Polite"/>
@@ -95,108 +112,160 @@
                AutomationProperties.HelpText="No document is open">
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Spacing="20"
-                        MaxWidth="480">
+                        Spacing="24"
+                        MaxWidth="520">
                 <TextBlock Text="PromptResponse"
-                           FontSize="32" FontWeight="Light"
-                           HorizontalAlignment="Center"/>
-                <TextBlock Text="Open or create a form to get started."
-                           FontSize="16"
+                           FontSize="{Binding DisplayFontSize}"
+                           FontWeight="Light"
+                           HorizontalAlignment="Center"
+                           Foreground="{Binding ActiveProfileOnSurfaceBrush}"/>
+                <TextBlock Text="A semantic form designer and filler. Open or create a form to begin."
+                           FontSize="{Binding SubtitleFontSize}"
                            TextWrapping="Wrap"
                            HorizontalAlignment="Center"
-                           Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                           TextAlignment="Center"
+                           Foreground="{Binding ActiveProfileMutedTextBrush}"/>
                 <StackPanel Orientation="Horizontal"
-                            Spacing="12"
-                            HorizontalAlignment="Center">
-                    <Button Content="New template"
-                            Command="{Binding NewTemplateCommand}"
-                            MinHeight="44" MinWidth="160"
-                            FontSize="14"
+                            Spacing="14"
+                            HorizontalAlignment="Center"
+                            Margin="0,8,0,0">
+                    <Button Command="{Binding NewTemplateCommand}"
+                            Background="{Binding ActiveProfilePrimaryBrush}"
+                            Foreground="{Binding ActiveProfileOnPrimaryBrush}"
+                            MinHeight="44" MinWidth="180"
+                            Padding="20,10"
+                            FontSize="{Binding BodyFontSize}"
+                            FontWeight="SemiBold"
+                            CornerRadius="8"
                             AutomationProperties.Name="Create new template"
-                            AutomationProperties.HelpText="Start designing a new APR template (Ctrl+N)"/>
-                    <Button Content="Open file"
-                            Command="{Binding OpenCommand}"
-                            MinHeight="44" MinWidth="160"
-                            FontSize="14"
+                            AutomationProperties.HelpText="Start designing a new APR template (Ctrl+N)">
+                        <TextBlock Text="New template" />
+                    </Button>
+                    <Button Command="{Binding OpenCommand}"
+                            Background="{Binding ActiveProfileElevatedSurfaceBrush}"
+                            Foreground="{Binding ActiveProfileOnSurfaceBrush}"
+                            BorderBrush="{Binding ActiveProfileBorderBrush}"
+                            BorderThickness="1"
+                            MinHeight="44" MinWidth="180"
+                            Padding="20,10"
+                            FontSize="{Binding BodyFontSize}"
+                            FontWeight="SemiBold"
+                            CornerRadius="8"
                             AutomationProperties.Name="Open existing file"
-                            AutomationProperties.HelpText="Open an existing APR template or filled form (Ctrl+O)"/>
+                            AutomationProperties.HelpText="Open an existing APR template or filled form (Ctrl+O)">
+                        <TextBlock Text="Open file" />
+                    </Button>
                 </StackPanel>
+                <TextBlock Text="Tip: press F1 anytime to see keyboard shortcuts. View → Display Preferences lets you configure visual formatting, large text, high contrast, and more."
+                           FontSize="{Binding CaptionFontSize}"
+                           Foreground="{Binding ActiveProfileMutedTextBrush}"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           Margin="0,16,0,0"
+                           MaxWidth="440"/>
             </StackPanel>
         </Panel>
 
         <!-- ============= Main 3-column layout ============= -->
         <Grid IsVisible="{Binding HasDocument}"
-              ColumnDefinitions="240,*,300">
+              ColumnDefinitions="260,*,320">
 
             <!-- Left rail: section navigation + search -->
             <Border Grid.Column="0"
+                    Background="{Binding ActiveProfileSubtleSurfaceBrush}"
                     BorderThickness="0,0,1,0"
-                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    BorderBrush="{Binding ActiveProfileBorderBrush}"
                     AutomationProperties.Name="Sections sidebar">
                 <DockPanel>
-                    <StackPanel DockPanel.Dock="Top" Margin="12">
+                    <StackPanel DockPanel.Dock="Top" Margin="16,16,16,8" Spacing="6">
                         <TextBlock Text="Search"
                                    FontWeight="SemiBold"
-                                   FontSize="12"
-                                   Margin="0,0,0,4"/>
+                                   FontSize="{Binding CaptionFontSize}"
+                                   Foreground="{Binding ActiveProfileMutedTextBrush}"/>
                         <TextBox x:Name="SearchTextBox"
                                  Text="{Binding Search.Query, Mode=TwoWay}"
                                  Watermark="Find a prompt..."
                                  MinHeight="36"
+                                 CornerRadius="6"
+                                 FontSize="{Binding BodyFontSize}"
                                  AutomationProperties.Name="Search prompts"
                                  AutomationProperties.HelpText="Type to find prompts by label or response"/>
                         <TextBlock Text="{Binding Search.MatchCount, StringFormat='{}{0} matches'}"
-                                   FontSize="11"
-                                   Foreground="{DynamicResource SystemBaseMediumColor}"
-                                   Margin="0,4,0,0"
+                                   FontSize="{Binding CaptionFontSize}"
+                                   Foreground="{Binding ActiveProfileMutedTextBrush}"
                                    IsVisible="{Binding Search.Query, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                     </StackPanel>
                     <TextBlock DockPanel.Dock="Top"
                                Text="Document"
                                FontWeight="SemiBold"
-                               FontSize="12"
-                               Margin="12,8,12,4"/>
+                               FontSize="{Binding CaptionFontSize}"
+                               Foreground="{Binding ActiveProfileMutedTextBrush}"
+                               Margin="16,16,16,4"/>
                     <ScrollViewer>
-                        <StackPanel Margin="12,4,12,12" Spacing="2">
+                        <StackPanel Margin="16,4,16,16" Spacing="2">
                             <TextBlock Text="{Binding CurrentDocumentTitle}"
                                        FontWeight="SemiBold"
-                                       TextWrapping="Wrap"/>
+                                       FontSize="{Binding BodyFontSize}"
+                                       TextWrapping="Wrap"
+                                       Foreground="{Binding ActiveProfileOnSurfaceBrush}"/>
                             <TextBlock Text="{Binding Mode}"
-                                       FontSize="11"
-                                       Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                                       FontSize="{Binding CaptionFontSize}"
+                                       Foreground="{Binding ActiveProfileMutedTextBrush}"/>
                         </StackPanel>
                     </ScrollViewer>
                 </DockPanel>
             </Border>
 
-            <!-- Center: prompts -->
+            <!-- Center: prompt cards -->
             <ScrollViewer Grid.Column="1"
                           AutomationProperties.Name="Form content">
-                <ItemsControl x:Name="PromptsHost"
-                              ItemsSource="{Binding PromptViewModels}"
-                              ItemTemplate="{StaticResource PromptTemplate}"
-                              Margin="24"
-                              AutomationProperties.Name="Prompts"/>
+                <StackPanel Margin="32,28,32,28" Spacing="0">
+                    <TextBlock Text="{Binding CurrentDocumentTitle}"
+                               FontSize="{Binding TitleFontSize}"
+                               FontWeight="SemiBold"
+                               Foreground="{Binding ActiveProfileOnSurfaceBrush}"
+                               Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding Mode}"
+                               FontSize="{Binding CaptionFontSize}"
+                               Foreground="{Binding ActiveProfileMutedTextBrush}"
+                               Margin="0,0,0,24"/>
+                    <Border Background="{Binding ActiveProfileElevatedSurfaceBrush}"
+                            BorderBrush="{Binding ActiveProfileBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="12"
+                            Padding="24"
+                            AutomationProperties.Name="Prompts card">
+                        <ItemsControl x:Name="PromptsHost"
+                                      ItemsSource="{Binding PromptViewModels}"
+                                      ItemTemplate="{StaticResource PromptTemplate}"
+                                      AutomationProperties.Name="Prompts"/>
+                    </Border>
+                </StackPanel>
             </ScrollViewer>
 
             <!-- Right rail: progress + advisories -->
             <Border Grid.Column="2"
+                    Background="{Binding ActiveProfileSubtleSurfaceBrush}"
                     BorderThickness="1,0,0,0"
-                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    BorderBrush="{Binding ActiveProfileBorderBrush}"
                     AutomationProperties.Name="Form progress and advisories">
                 <ScrollViewer>
-                    <StackPanel Margin="16" Spacing="16">
-                        <StackPanel>
-                            <TextBlock Text="Progress" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <StackPanel Margin="20" Spacing="20">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Progress"
+                                       FontWeight="SemiBold"
+                                       FontSize="{Binding CaptionFontSize}"
+                                       Foreground="{Binding ActiveProfileMutedTextBrush}"/>
                             <ProgressBar Value="{Binding Progress.PercentComplete}"
                                          Maximum="100"
                                          Height="8"
+                                         CornerRadius="4"
+                                         Foreground="{Binding ActiveProfilePrimaryBrush}"
                                          AutomationProperties.Name="Form completion progress"
                                          AutomationProperties.HelpText="{Binding Progress.StatusText}"/>
                             <TextBlock Text="{Binding Progress.StatusText}"
-                                       FontSize="12"
-                                       Foreground="{DynamicResource SystemBaseMediumColor}"
-                                       Margin="0,4,0,0"
+                                       FontSize="{Binding CaptionFontSize}"
+                                       Foreground="{Binding ActiveProfileMutedTextBrush}"
                                        AutomationProperties.LiveSetting="Polite"/>
                         </StackPanel>
                     </StackPanel>

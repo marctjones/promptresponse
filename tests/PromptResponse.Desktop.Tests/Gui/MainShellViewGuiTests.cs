@@ -72,8 +72,12 @@ public class MainShellViewGuiTests
 
         vm.IsEmptyState.Should().BeTrue();
 
-        var newBtn = view.FindDescendant<Button>(b => b.Content as string == "New template");
-        var openBtn = view.FindDescendant<Button>(b => b.Content as string == "Open file");
+        // The redesigned shell wraps the button label in a TextBlock for typography
+        // control, so b.Content is no longer a plain string. Find by accessible name.
+        var newBtn = view.FindDescendant<Button>(b =>
+            b.GetValue(Avalonia.Automation.AutomationProperties.NameProperty) as string == "Create new template");
+        var openBtn = view.FindDescendant<Button>(b =>
+            b.GetValue(Avalonia.Automation.AutomationProperties.NameProperty) as string == "Open existing file");
 
         newBtn.MinHeight.Should().BeGreaterThanOrEqualTo(44, "primary call-to-action buttons need 44px+ touch target");
         openBtn.MinHeight.Should().BeGreaterThanOrEqualTo(44);

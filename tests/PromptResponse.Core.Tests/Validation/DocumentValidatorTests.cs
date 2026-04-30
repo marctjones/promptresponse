@@ -433,7 +433,7 @@ public class DocumentValidatorTests
         result.Errors.Should().HaveCountGreaterThan(1);
     }
 
-    [Fact(Skip = "Example file needs to be updated to use recursive sections instead of subsections")]
+    [Fact]
     public void Validate_IrsFormW4Template_ShouldPassValidation()
     {
         // Arrange
@@ -450,7 +450,7 @@ public class DocumentValidatorTests
         result.Errors.Should().BeEmpty();
     }
 
-    [Fact(Skip = "Example file needs to be updated to use recursive sections instead of subsections")]
+    [Fact]
     public void Validate_GsaSf86Template_ShouldPassValidation()
     {
         // Arrange
@@ -467,7 +467,7 @@ public class DocumentValidatorTests
         result.Errors.Should().BeEmpty();
     }
 
-    [Fact(Skip = "Example file needs to be updated to use recursive sections instead of subsections")]
+    [Fact]
     public void Validate_IrsForm1040Template_ShouldPassValidation()
     {
         // Arrange
@@ -484,7 +484,7 @@ public class DocumentValidatorTests
         result.Errors.Should().BeEmpty();
     }
 
-    [Fact(Skip = "Example files need to be updated to use recursive sections instead of subsections")]
+    [Fact]
     public void Validate_AllGovernmentForms_ShouldPassValidation()
     {
         // Arrange
@@ -512,10 +512,11 @@ public class DocumentValidatorTests
 
     private static string GetExampleFilePath(string filename)
     {
-        // Navigate from test output directory to examples directory
+        // Test fixtures live in tests/Fixtures/ — the same set used by
+        // DocumentIntegrationTests. Examples/ is for end-user demo files.
         var testDir = Directory.GetCurrentDirectory();
         var projectRoot = Path.GetFullPath(Path.Combine(testDir, "..", "..", "..", "..", ".."));
-        var examplesDir = Path.Combine(projectRoot, "examples");
-        return Path.Combine(examplesDir, filename);
+        var fixturesDir = Path.Combine(projectRoot, "tests", "Fixtures");
+        return Path.Combine(fixturesDir, filename);
     }
 }

@@ -6,16 +6,23 @@
         x:DataType="vm:MainShellViewModel"
         Icon="/Assets/app-icon.ico"
         Title="{Binding Title}"
-        Width="1100"
-        Height="720"
-        MinWidth="800"
-        MinHeight="500"
+        Width="1180"
+        Height="760"
+        MinWidth="900"
+        MinHeight="560"
+        Background="{Binding ActiveProfileSurfaceBrush}"
+        TransparencyLevelHint="Mica,AcrylicBlur,None"
+        ExtendClientAreaToDecorationsHint="False"
         AutomationProperties.Name="PromptResponse"
         AutomationProperties.HelpText="Form designer and filler workspace">
     <!--
       Thin window host. The full UI lives in MainShellView so it can be
       instantiated from headless GUI tests without a Window wrapper.
-      The Window itself only owns chrome (title, icon, position, size).
+
+      TransparencyLevelHint sequence: Mica preferred (Win11), AcrylicBlur as
+      a Win10/macOS fallback, then opaque. The hint is honoured by Avalonia
+      where the OS supports it; on Linux it's a no-op and the bound
+      ActiveProfileSurfaceBrush owns the appearance.
     -->
     <views:MainShellView/>
 </Window>

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PromptResponse.Core.Models;
@@ -41,7 +42,26 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
         _session.DocumentChanged += OnDocumentChanged;
         _session.DirtyChanged += OnDirtyChanged;
-        _profileService.ProfileChanged += (_, _) => OnPropertyChanged(nameof(ActiveProfile));
+        _profileService.ProfileChanged += (_, _) => OnAllProfileBrushesChanged();
+    }
+
+    private void OnAllProfileBrushesChanged()
+    {
+        OnPropertyChanged(nameof(ActiveProfile));
+        OnPropertyChanged(nameof(ActiveProfileSurfaceBrush));
+        OnPropertyChanged(nameof(ActiveProfileSubtleSurfaceBrush));
+        OnPropertyChanged(nameof(ActiveProfileElevatedSurfaceBrush));
+        OnPropertyChanged(nameof(ActiveProfileOnSurfaceBrush));
+        OnPropertyChanged(nameof(ActiveProfileMutedTextBrush));
+        OnPropertyChanged(nameof(ActiveProfilePrimaryBrush));
+        OnPropertyChanged(nameof(ActiveProfileOnPrimaryBrush));
+        OnPropertyChanged(nameof(ActiveProfileBorderBrush));
+        OnPropertyChanged(nameof(ActiveProfileFocusBrush));
+        OnPropertyChanged(nameof(BodyFontSize));
+        OnPropertyChanged(nameof(CaptionFontSize));
+        OnPropertyChanged(nameof(SubtitleFontSize));
+        OnPropertyChanged(nameof(TitleFontSize));
+        OnPropertyChanged(nameof(DisplayFontSize));
     }
 
     /// <summary>The active profile, exposed for view bindings (e.g., font scale, contrast).</summary>
@@ -49,6 +69,35 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
     /// <summary>Profile service exposed for the Display Preferences bindings.</summary>
     public IProfileService ProfileService => _profileService;
+
+    private ColorPalette Palette => ColorTokens.For(ActiveProfile.ColorScheme);
+    private IBrush BrushFor(ColorRole role) => new SolidColorBrush(Palette[role]);
+
+    /// <summary>Window background — base surface for the active profile.</summary>
+    public IBrush ActiveProfileSurfaceBrush => BrushFor(ColorRole.Surface);
+    /// <summary>Sidebar / status-bar tint, subtly distinct from the main surface.</summary>
+    public IBrush ActiveProfileSubtleSurfaceBrush => BrushFor(ColorRole.SubtleSurface);
+    /// <summary>Card / dialog background — sits visually above the main surface.</summary>
+    public IBrush ActiveProfileElevatedSurfaceBrush => BrushFor(ColorRole.ElevatedSurface);
+    /// <summary>Body-text foreground.</summary>
+    public IBrush ActiveProfileOnSurfaceBrush => BrushFor(ColorRole.OnSurface);
+    /// <summary>Secondary / muted text foreground.</summary>
+    public IBrush ActiveProfileMutedTextBrush => BrushFor(ColorRole.MutedText);
+    /// <summary>Action-affordance accent (system blue / system tint).</summary>
+    public IBrush ActiveProfilePrimaryBrush => BrushFor(ColorRole.Primary);
+    /// <summary>Foreground rendered on Primary.</summary>
+    public IBrush ActiveProfileOnPrimaryBrush => BrushFor(ColorRole.OnPrimary);
+    /// <summary>Hairline / separator brush.</summary>
+    public IBrush ActiveProfileBorderBrush => BrushFor(ColorRole.Border);
+    /// <summary>Focus-indicator brush (3px ring under HighContrast, 2px otherwise).</summary>
+    public IBrush ActiveProfileFocusBrush => BrushFor(ColorRole.Focus);
+
+    /// <summary>Typography scale, profile-aware. LargeText profile multiplies all sizes by 1.5.</summary>
+    public double CaptionFontSize  => 12 * ActiveProfile.TextScale;
+    public double BodyFontSize     => 14 * ActiveProfile.TextScale;
+    public double SubtitleFontSize => 18 * ActiveProfile.TextScale;
+    public double TitleFontSize    => 22 * ActiveProfile.TextScale;
+    public double DisplayFontSize  => 32 * ActiveProfile.TextScale;
 
     public FormProgressViewModel Progress { get; }
     public SearchViewModel Search { get; }

@@ -111,6 +111,30 @@ public class ColorContrastTests
 
     [Theory]
     [MemberData(nameof(Palettes))]
+    public void OnSurface_OnSubtleSurface_MeetsBodyTextContrast(ColorPalette palette, double normalThreshold, double largeThreshold)
+    {
+        _ = largeThreshold;
+        // Body text rendered against the sidebar / status-bar tint must remain readable.
+        var ratio = ContrastCalculator.Ratio(palette[ColorRole.OnSurface], palette[ColorRole.SubtleSurface]);
+
+        ratio.Should().BeGreaterThanOrEqualTo(normalThreshold,
+            $"OnSurface on SubtleSurface in {palette.Scheme} must meet body-text contrast threshold");
+    }
+
+    [Theory]
+    [MemberData(nameof(Palettes))]
+    public void OnSurface_OnElevatedSurface_MeetsBodyTextContrast(ColorPalette palette, double normalThreshold, double largeThreshold)
+    {
+        _ = largeThreshold;
+        // Body text rendered on cards / dialogs must remain readable.
+        var ratio = ContrastCalculator.Ratio(palette[ColorRole.OnSurface], palette[ColorRole.ElevatedSurface]);
+
+        ratio.Should().BeGreaterThanOrEqualTo(normalThreshold,
+            $"OnSurface on ElevatedSurface in {palette.Scheme} must meet body-text contrast threshold");
+    }
+
+    [Theory]
+    [MemberData(nameof(Palettes))]
     public void EveryRoleIsPresent(ColorPalette palette, double normalThreshold, double largeThreshold)
     {
         _ = normalThreshold;
