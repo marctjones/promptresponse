@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
+             x:Class="PromptResponse.Desktop.Views.Prompts.BooleanPromptView"
+             x:DataType="vm:BooleanPromptViewModel">
+    <StackPanel Spacing="6">
+        <TextBlock Text="{Binding Label}"
+                   FontWeight="SemiBold"
+                   AutomationProperties.Name="{Binding Label}"/>
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <RadioButton x:Name="YesRadio"
+                         Content="Yes"
+                         GroupName="{Binding Id}"
+                         MinHeight="36"
+                         AutomationProperties.Name="Yes"
+                         AutomationProperties.HelpText="{Binding HelpText}"/>
+            <RadioButton x:Name="NoRadio"
+                         Content="No"
+                         GroupName="{Binding Id}"
+                         MinHeight="36"
+                         AutomationProperties.Name="No"
+                         AutomationProperties.HelpText="{Binding HelpText}"/>
+            <TextBox x:Name="FreeTextEntry"
+                     Text="{Binding Response, Mode=TwoWay}"
+                     Watermark="Or type any answer"
+                     Width="240"
+                     MinHeight="36"
+                     AutomationProperties.Name="Free-text response"
+                     AutomationProperties.HelpText="Any text is a valid response, including 'maybe' or 'depends'"/>
+        </StackPanel>
+        <TextBlock Text="{Binding HelpText}"
+                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
+                   FontSize="12"
+                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+    </StackPanel>
+</UserControl>

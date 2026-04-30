@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
+             x:Class="PromptResponse.Desktop.Views.Prompts.NumberPromptView"
+             x:DataType="vm:NumberPromptViewModel">
+    <StackPanel Spacing="6">
+        <TextBlock Text="{Binding Label}"
+                   FontWeight="SemiBold"
+                   AutomationProperties.Name="{Binding Label}"/>
+        <TextBox x:Name="ResponseTextBox"
+                 Text="{Binding Response, Mode=TwoWay}"
+                 Watermark="{Binding Placeholder}"
+                 MinHeight="36"
+                 InputMethod.IsInputMethodEnabled="False"
+                 AutomationProperties.Name="{Binding Label}"
+                 AutomationProperties.HelpText="{Binding HelpText}"/>
+        <TextBlock x:Name="DisplayHint"
+                   Text="{Binding DisplayValue, StringFormat='Displays as: {0}'}"
+                   IsVisible="False"
+                   FontSize="12"
+                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                   AutomationProperties.LiveSetting="Polite"/>
+        <TextBlock Text="{Binding HelpText}"
+                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
+                   FontSize="12"
+                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+    </StackPanel>
+</UserControl>
