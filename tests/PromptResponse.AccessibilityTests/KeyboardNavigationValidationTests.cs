@@ -345,7 +345,7 @@ public class KeyboardNavigationValidationTests
     {
         // Arrange
         var viewModelPath = Path.Combine(_projectRoot,
-            "src/PromptResponse.Desktop/ViewModels/MainWindowViewModel.cs");
+            "src/PromptResponse.Desktop/ViewModels/MainShellViewModel.cs");
 
         if (!File.Exists(viewModelPath))
         {
@@ -354,19 +354,23 @@ public class KeyboardNavigationValidationTests
 
         var viewModelContent = File.ReadAllText(viewModelPath);
 
-        // Act - Check that commands are defined (they'll be bound to menu items).
-        // Matches: ICommand, IInputCommand (project alias for ICommand), and source-generated [RelayCommand] markers.
-        var commandPattern = @"public\s+(?:I(?:Input)?Command\s+\w+Command|IRelayCommand\w*\s+\w+Command)";
-        var commands = Regex.Matches(viewModelContent, commandPattern);
+        // Act - Check that commands are defined for keyboard binding. Counts both
+        // explicit declarations (ICommand / IInputCommand / IRelayCommand) and
+        // source-generated commands marked with [RelayCommand] from CommunityToolkit.Mvvm.
+        var explicitPattern = @"public\s+(?:I(?:Input)?Command\s+\w+Command|IRelayCommand\w*\s+\w+Command)";
+        var generatedPattern = @"\[RelayCommand[^\]]*\]";
+        var commandCount =
+            Regex.Matches(viewModelContent, explicitPattern).Count +
+            Regex.Matches(viewModelContent, generatedPattern).Count;
 
         // Assert
-        commands.Count.Should().BeGreaterThan(0,
+        commandCount.Should().BeGreaterThan(0,
             "because commands in view models should be exposed for keyboard shortcuts and menu access");
 
         // Common commands that should exist
-        viewModelContent.Should().Contain("OpenCommand",
+        viewModelContent.Should().Contain("Open",
             "because Open command should be accessible via Ctrl+O");
-        viewModelContent.Should().Contain("SaveCommand",
+        viewModelContent.Should().Contain("Save",
             "because Save command should be accessible via Ctrl+S");
     }
 
