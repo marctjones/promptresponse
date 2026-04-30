@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
+             x:Class="PromptResponse.Desktop.Views.Prompts.TablePromptView"
+             x:DataType="vm:TablePromptViewModel">
+    <StackPanel Spacing="6">
+        <TextBlock Text="{Binding Label}" FontWeight="SemiBold"/>
+        <TextBlock Text="{Binding HelpText}"
+                   FontSize="12" Opacity="0.7"
+                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+        <TextBlock Text="Tabular response — paste or type the JSON array/object below. Cell-by-cell editing UI is on the roadmap."
+                   FontSize="12" Opacity="0.7"
+                   TextWrapping="Wrap"/>
+        <TextBox Text="{Binding Response, Mode=TwoWay}"
+                 Watermark="JSON array (dynamic rows) or object keyed by row id (fixed rows)"
+                 MinHeight="120"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 FontFamily="Cascadia Mono,Consolas,monospace"
+                 FontSize="13"
+                 CornerRadius="6"
+                 AutomationProperties.Name="{Binding Label}"
+                 AutomationProperties.HelpText="Tabular response stored as JSON. Free-text is also valid."/>
+    </StackPanel>
+</UserControl>

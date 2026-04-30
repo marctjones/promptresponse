@@ -116,13 +116,14 @@ public class MainShellViewGuiTests
         GuiTestExtensions.PumpDispatcher();
 
         vm.PromptViewModels.Should().HaveCount(3);
+        vm.Sections.Should().HaveCount(1, "the test document has one section containing the three prompts");
 
         // Force layout so the ItemsControl materialises children into the visual tree.
         view.UpdateLayout();
         GuiTestExtensions.PumpDispatcher();
 
-        // The PromptsHost should host one view per prompt VM.
-        var host = view.FindDescendant<ItemsControl>(c => c.Name == "PromptsHost");
+        // The shell now uses a section tree; SectionsHost is the top-level ItemsControl.
+        var host = view.FindDescendant<ItemsControl>(c => c.Name == "SectionsHost");
         host.Should().NotBeNull();
     }
 

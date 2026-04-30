@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels"
+             xmlns:views="using:PromptResponse.Desktop.Views"
+             xmlns:promptViews="using:PromptResponse.Desktop.Views.Prompts"
+             x:Class="PromptResponse.Desktop.Views.SectionView"
+             x:DataType="vm:SectionViewModel"
+             AutomationProperties.Name="{Binding Title}"
+             AutomationProperties.HelpText="{Binding Description}">
+
+    <UserControl.Resources>
+        <promptViews:PromptDataTemplateSelector x:Key="PromptTemplate"/>
+    </UserControl.Resources>
+
+    <StackPanel Spacing="14">
+        <!-- Section heading -->
+        <StackPanel Spacing="2">
+            <TextBlock Text="{Binding Title}"
+                       FontSize="18"
+                       FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding Description}"
+                       FontSize="13"
+                       Opacity="0.7"
+                       TextWrapping="Wrap"
+                       IsVisible="{Binding HasDescription}"/>
+        </StackPanel>
+
+        <!-- Prompts in this section -->
+        <ItemsControl ItemsSource="{Binding PromptViewModels}"
+                      ItemTemplate="{StaticResource PromptTemplate}"
+                      AutomationProperties.Name="Prompts">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Spacing="16"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        <!-- Recursive nested sections, indented with a left rule -->
+        <ItemsControl ItemsSource="{Binding NestedSections}"
+                      Margin="20,4,0,0"
+                      AutomationProperties.Name="Nested sections">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="vm:SectionViewModel">
+                    <Border BorderThickness="2,0,0,0"
+                            Opacity="0.85"
+                            Padding="16,4,0,4">
+                        <views:SectionView/>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Spacing="20"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>

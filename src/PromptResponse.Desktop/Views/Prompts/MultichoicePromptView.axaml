@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
+             x:Class="PromptResponse.Desktop.Views.Prompts.MultichoicePromptView"
+             x:DataType="vm:MultichoicePromptViewModel">
+    <StackPanel Spacing="6">
+        <TextBlock Text="{Binding Label}" FontWeight="SemiBold"/>
+        <ItemsControl x:Name="ChoicesHost"
+                      ItemsSource="{Binding SuggestedValues}"
+                      AutomationProperties.Name="{Binding Label}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="x:String">
+                    <CheckBox Content="{Binding}"
+                              Click="OnChoiceClicked"
+                              MinHeight="36"
+                              Margin="0,2"
+                              AutomationProperties.Name="{Binding}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBox x:Name="FreeTextEntry"
+                 Text="{Binding Response, Mode=TwoWay}"
+                 Watermark="Or type a comma-separated response"
+                 MinHeight="36"
+                 CornerRadius="6"
+                 AutomationProperties.Name="Free-text response"
+                 AutomationProperties.HelpText="Any text is a valid response — the comma-separated checkbox state is just a convenient default."/>
+        <TextBlock Text="{Binding HelpText}"
+                   FontSize="12" Opacity="0.7"
+                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+    </StackPanel>
+</UserControl>

@@ -1,15 +1,13 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using Avalonia.Markup.Xaml.Templates;
 using PromptResponse.Desktop.ViewModels.Prompts;
-using PromptResponse.Desktop.Views.Prompts;
 
 namespace PromptResponse.Desktop.Views.Prompts;
 
 /// <summary>
-/// Picks the right view at runtime for each prompt VM. The form-filling host wires
-/// this up via a DataTemplate; each VM type gets its dedicated, individually
-/// accessibility-tested rendering.
+/// Picks the right view at runtime for each prompt VM. Each typed VM gets its own
+/// dedicated, individually accessibility-tested rendering. Unknown VM types fall
+/// back to <see cref="TextPromptView"/>.
 /// </summary>
 public sealed class PromptDataTemplateSelector : IDataTemplate
 {
@@ -17,15 +15,18 @@ public sealed class PromptDataTemplateSelector : IDataTemplate
     {
         BooleanPromptViewModel       => new BooleanPromptView(),
         SelectPromptViewModel        => new SelectPromptView(),
+        MultichoicePromptViewModel   => new MultichoicePromptView(),
         MultilinePromptViewModel     => new MultilinePromptView(),
         DatePromptViewModel          => new DatePromptView(),
         NumberPromptViewModel        => new NumberPromptView(),
-        // Fallback: every other typed VM (Text, Email, Url, Phone, Currency,
-        // Signature, File, Multichoice, Table) renders as a single-line text input
-        // until its dedicated view ships in subsequent Phase 3 follow-ups. The
-        // base class already exposes Label / Response / Placeholder / HelpText;
-        // TextPromptView reads them all.
-        PromptViewModelBase => new TextPromptView(),
+        CurrencyPromptViewModel      => new CurrencyPromptView(),
+        EmailPromptViewModel         => new EmailPromptView(),
+        UrlPromptViewModel           => new UrlPromptView(),
+        PhonePromptViewModel         => new PhonePromptView(),
+        SignaturePromptViewModel     => new SignaturePromptView(),
+        FilePromptViewModel          => new FilePromptView(),
+        TablePromptViewModel         => new TablePromptView(),
+        PromptViewModelBase          => new TextPromptView(),
         _ => null,
     };
 

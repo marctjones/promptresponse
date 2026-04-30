@@ -43,6 +43,11 @@ public partial class MainShellView : UserControl
         else dialog.Show();
     }
 
+    private void OnRefreshAdvisoriesClicked(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainShellViewModel shell) shell.RefreshAdvisories();
+    }
+
     private void OnAboutClicked(object? sender, RoutedEventArgs e)
     {
         var about = new Window

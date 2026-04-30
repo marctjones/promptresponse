@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
+             x:Class="PromptResponse.Desktop.Views.Prompts.SignaturePromptView"
+             x:DataType="vm:SignaturePromptViewModel">
+    <StackPanel Spacing="6">
+        <TextBlock Text="{Binding Label}" FontWeight="SemiBold"/>
+        <Border BorderThickness="1" CornerRadius="6" BorderBrush="#80808080" Padding="0">
+            <TextBox x:Name="ResponseTextBox"
+                     Text="{Binding Response, Mode=TwoWay}"
+                     Watermark="Type your full legal name as your signature"
+                     MinHeight="56"
+                     FontSize="20"
+                     FontFamily="Cambria,Georgia,serif"
+                     FontStyle="Italic"
+                     Padding="16,12"
+                     BorderThickness="0"
+                     AutomationProperties.Name="{Binding Label}"
+                     AutomationProperties.HelpText="Type your full legal name. Any visible text is a valid signature; this is not a cryptographic signature."/>
+        </Border>
+        <TextBlock Text="By typing your name above, you acknowledge it as your signature on this form."
+                   FontSize="12" Opacity="0.7"
+                   TextWrapping="Wrap"/>
+        <TextBlock Text="{Binding HelpText}"
+                   FontSize="12" Opacity="0.7"
+                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+    </StackPanel>
+</UserControl>

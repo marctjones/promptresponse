@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
+             x:Class="PromptResponse.Desktop.Views.Prompts.FilePromptView"
+             x:DataType="vm:FilePromptViewModel">
+    <StackPanel Spacing="6">
+        <TextBlock Text="{Binding Label}" FontWeight="SemiBold"/>
+        <Grid ColumnDefinitions="*,Auto">
+            <TextBox Grid.Column="0"
+                     x:Name="ResponseTextBox"
+                     Text="{Binding Response, Mode=TwoWay}"
+                     Watermark="{Binding Placeholder, FallbackValue='File path or description'}"
+                     MinHeight="36"
+                     CornerRadius="6"
+                     AutomationProperties.Name="{Binding Label}"
+                     AutomationProperties.HelpText="{Binding HelpText}"/>
+            <Button Grid.Column="1"
+                    x:Name="BrowseButton"
+                    Content="Browse..."
+                    Click="OnBrowseClicked"
+                    Margin="8,0,0,0"
+                    MinHeight="36"
+                    Padding="14,0"
+                    CornerRadius="6"
+                    AutomationProperties.Name="Browse for file"
+                    AutomationProperties.HelpText="Pick a file from disk; the path will be stored in the response. You can also type any text instead."/>
+        </Grid>
+        <TextBlock Text="{Binding FileName, StringFormat='Selected: {0}'}"
+                   FontSize="12" Opacity="0.7"
+                   IsVisible="{Binding FileName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+        <TextBlock Text="{Binding HelpText}"
+                   FontSize="12" Opacity="0.7"
+                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+    </StackPanel>
+</UserControl>

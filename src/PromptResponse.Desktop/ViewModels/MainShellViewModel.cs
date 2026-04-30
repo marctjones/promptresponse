@@ -3,6 +3,7 @@ using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Validation;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels.Prompts;
@@ -21,8 +22,10 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly IDocumentSessionService _session;
     private readonly IProfileService _profileService;
     private readonly PromptViewModelFactory _factory;
+    private readonly DataTypeValidator _dataTypeValidator = new();
 
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
+    private readonly ObservableCollection<SectionViewModel> _sections = new();
 
     public MainShellViewModel(
         IFileService fileService,
@@ -103,11 +106,71 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     public SearchViewModel Search { get; }
     public IReadOnlyList<PromptViewModelBase> PromptViewModels => _promptViewModels;
 
+    /// <summary>Top-level sections (each carries nested sections + typed prompt VMs).</summary>
+    public IReadOnlyList<SectionViewModel> Sections => _sections;
+
     public bool HasDocument => _session.HasDocument;
+    public bool IsFilledForm => _session.Mode == DocumentMode.FillingForm;
     public bool IsEmptyState => !HasDocument;
     public DocumentMode Mode => _session.Mode;
     public string Title => _session.Title;
     public string CurrentDocumentTitle => _session.CurrentDocument?.Metadata.Title ?? string.Empty;
+    public string? DocumentDescription => _session.CurrentDocument?.Metadata.Description;
+    public bool HasDocumentDescription => !string.IsNullOrWhiteSpace(DocumentDescription);
+
+    /// <summary>Count of advisory warnings from the data-type validator (never errors — vision invariant).</summary>
+    public int AdvisoryCount { get; private set; }
+    public bool HasAdvisories => AdvisoryCount > 0;
+    public string AdvisorySummary => AdvisoryCount switch
+    {
+        0 => "No advisories",
+        1 => "1 advisory",
+        _ => $"{AdvisoryCount} advisories",
+    };
+
+    /// <summary>
+    /// Re-runs the advisory inspection over the current document. Per the vision,
+    /// these are never blocking — they're hints surfaced for the user's awareness
+    /// (e.g., "five" in a number-hinted field renders an advisory but is still valid).
+    /// </summary>
+    public void RefreshAdvisories()
+    {
+        var doc = _session.CurrentDocument;
+        if (doc == null)
+        {
+            AdvisoryCount = 0;
+        }
+        else
+        {
+            var result = _dataTypeValidator.ValidateDocument(doc);
+            AdvisoryCount = result.Warnings.Count;
+        }
+        OnPropertyChanged(nameof(AdvisoryCount));
+        OnPropertyChanged(nameof(HasAdvisories));
+        OnPropertyChanged(nameof(AdvisorySummary));
+    }
+
+    /// <summary>
+    /// "Filled by Alex Doe on 2025-04-29" style summary — null when the document is
+    /// a template or doesn't carry FilledBy metadata.
+    /// </summary>
+    public string? FilledByDisplay
+    {
+        get
+        {
+            var meta = _session.CurrentDocument?.Metadata;
+            if (meta == null || _session.Mode != DocumentMode.FillingForm) return null;
+            var by = string.IsNullOrWhiteSpace(meta.FilledBy) ? null : meta.FilledBy;
+            var when = meta.FilledDate?.ToString("MMMM d, yyyy");
+            return (by, when) switch
+            {
+                (not null, not null) => $"Filled by {by} on {when}",
+                (not null, null) => $"Filled by {by}",
+                (null, not null) => $"Filled on {when}",
+                _ => null,
+            };
+        }
+    }
 
     public string StatusMessage => _session.HasDocument
         ? $"{_session.CurrentDocument!.Metadata.Title} — {Progress.StatusText}"
@@ -183,18 +246,21 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         Progress.SetDocument(document);
         Search.SetDocument(document);
 
-        // Dispose the previous prompt VMs and rebuild from the new document.
+        // Dispose the previous prompt VMs and rebuild the section tree.
         foreach (var vm in _promptViewModels)
         {
             vm.Dispose();
         }
         _promptViewModels.Clear();
+        _sections.Clear();
 
         if (document != null)
         {
-            foreach (var prompt in EnumeratePrompts(document))
+            foreach (var section in document.Sections)
             {
-                _promptViewModels.Add(_factory.Create(prompt));
+                var sectionVm = new SectionViewModel(section, _factory, depth: 0);
+                _sections.Add(sectionVm);
+                CollectPrompts(sectionVm);
             }
         }
 
@@ -203,11 +269,23 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(Mode));
         OnPropertyChanged(nameof(Title));
         OnPropertyChanged(nameof(CurrentDocumentTitle));
+        OnPropertyChanged(nameof(DocumentDescription));
+        OnPropertyChanged(nameof(HasDocumentDescription));
+        OnPropertyChanged(nameof(FilledByDisplay));
+        OnPropertyChanged(nameof(IsFilledForm));
         OnPropertyChanged(nameof(StatusMessage));
         OnPropertyChanged(nameof(PromptViewModels));
+        OnPropertyChanged(nameof(Sections));
+        RefreshAdvisories();
         SaveCommand.NotifyCanExecuteChanged();
         SaveAsCommand.NotifyCanExecuteChanged();
         CloseCommand.NotifyCanExecuteChanged();
+    }
+
+    private void CollectPrompts(SectionViewModel section)
+    {
+        foreach (var prompt in section.PromptViewModels) _promptViewModels.Add(prompt);
+        foreach (var nested in section.NestedSections) CollectPrompts(nested);
     }
 
     private void OnDirtyChanged(object? sender, bool isDirty)

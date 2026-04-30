@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
+             x:Class="PromptResponse.Desktop.Views.Prompts.UrlPromptView"
+             x:DataType="vm:UrlPromptViewModel">
+    <StackPanel Spacing="6">
+        <TextBlock Text="{Binding Label}" FontWeight="SemiBold"/>
+        <TextBox x:Name="ResponseTextBox"
+                 Text="{Binding Response, Mode=TwoWay}"
+                 Watermark="{Binding Placeholder, FallbackValue='https://example.com'}"
+                 MinHeight="36"
+                 CornerRadius="6"
+                 AutomationProperties.Name="{Binding Label}"
+                 AutomationProperties.HelpText="{Binding HelpText}"/>
+        <TextBlock Text="{Binding HelpText}"
+                   FontSize="12" Opacity="0.7"
+                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+    </StackPanel>
+</UserControl>

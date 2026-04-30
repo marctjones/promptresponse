@@ -191,7 +191,7 @@ public class PromptViewsGuiTests
         ((IDataTemplate)selector).Build(new SelectPromptViewModel(P("p", "x"), service))
             .Should().BeOfType<SelectPromptView>();
         ((IDataTemplate)selector).Build(new EmailPromptViewModel(P("p", "x", "email"), service))
-            .Should().BeOfType<TextPromptView>("Email falls back to text view in this iteration");
+            .Should().BeOfType<EmailPromptView>("Email now has its own dedicated view");
     }
 
     [AvaloniaFact]
