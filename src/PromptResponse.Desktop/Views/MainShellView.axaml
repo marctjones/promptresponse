@@ -1,0 +1,208 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels"
+             xmlns:promptVm="using:PromptResponse.Desktop.ViewModels.Prompts"
+             xmlns:promptViews="using:PromptResponse.Desktop.Views.Prompts"
+             x:Class="PromptResponse.Desktop.Views.MainShellView"
+             x:DataType="vm:MainShellViewModel"
+             AutomationProperties.Name="PromptResponse main shell"
+             AutomationProperties.HelpText="Form designer and filler workspace">
+
+    <UserControl.Resources>
+        <promptViews:PromptDataTemplateSelector x:Key="PromptTemplate"/>
+    </UserControl.Resources>
+
+    <DockPanel>
+
+        <!-- ============= Native menu bar ============= -->
+        <Menu DockPanel.Dock="Top"
+              AutomationProperties.Name="Main menu"
+              AutomationProperties.HelpText="File, Edit, View, and Help menus">
+            <MenuItem Header="_File" AutomationProperties.Name="File menu">
+                <MenuItem Header="_New Template..."
+                          Command="{Binding NewTemplateCommand}"
+                          HotKey="Ctrl+N"
+                          AutomationProperties.Name="New template"
+                          AutomationProperties.HelpText="Create a new blank APR template (Ctrl+N)"/>
+                <MenuItem Header="_Open..."
+                          Command="{Binding OpenCommand}"
+                          HotKey="Ctrl+O"
+                          AutomationProperties.Name="Open file"
+                          AutomationProperties.HelpText="Open an existing APR template or filled form (Ctrl+O)"/>
+                <Separator/>
+                <MenuItem Header="_Save"
+                          Command="{Binding SaveCommand}"
+                          HotKey="Ctrl+S"
+                          AutomationProperties.Name="Save"
+                          AutomationProperties.HelpText="Save the current document (Ctrl+S)"/>
+                <MenuItem Header="Save _As..."
+                          Command="{Binding SaveAsCommand}"
+                          HotKey="Ctrl+Shift+S"
+                          AutomationProperties.Name="Save as"
+                          AutomationProperties.HelpText="Save the current document to a new file (Ctrl+Shift+S)"/>
+                <Separator/>
+                <MenuItem Header="_Close"
+                          Command="{Binding CloseCommand}"
+                          HotKey="Ctrl+W"
+                          AutomationProperties.Name="Close"
+                          AutomationProperties.HelpText="Close the current document (Ctrl+W)"/>
+            </MenuItem>
+            <MenuItem Header="_View" AutomationProperties.Name="View menu">
+                <MenuItem Header="_Display Preferences..."
+                          x:Name="DisplayPreferencesMenuItem"
+                          AutomationProperties.Name="Display preferences"
+                          AutomationProperties.HelpText="Configure color scheme, text scale, and other rendering enhancements"/>
+                <Separator/>
+                <MenuItem Header="Keyboard _Shortcuts..."
+                          x:Name="KeyboardShortcutsMenuItem"
+                          HotKey="F1"
+                          AutomationProperties.Name="Keyboard shortcuts"
+                          AutomationProperties.HelpText="Show the keyboard shortcuts cheat sheet (F1)"/>
+            </MenuItem>
+            <MenuItem Header="_Help" AutomationProperties.Name="Help menu">
+                <MenuItem Header="_About"
+                          x:Name="AboutMenuItem"
+                          AutomationProperties.Name="About PromptResponse"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- ============= Status bar (screen-reader live region) ============= -->
+        <Border DockPanel.Dock="Bottom"
+                Padding="12,6"
+                BorderThickness="0,1,0,0"
+                BorderBrush="{DynamicResource SystemBaseLowColor}"
+                AutomationProperties.Name="Status"
+                AutomationProperties.LiveSetting="Polite">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Column="0"
+                           Text="{Binding StatusMessage}"
+                           VerticalAlignment="Center"
+                           FontSize="12"
+                           AutomationProperties.LiveSetting="Polite"/>
+                <TextBlock Grid.Column="1"
+                           Text="{Binding Progress.StatusText}"
+                           VerticalAlignment="Center"
+                           FontSize="12"
+                           Margin="16,0,0,0"
+                           AutomationProperties.Name="Form completion"
+                           AutomationProperties.LiveSetting="Polite"/>
+            </Grid>
+        </Border>
+
+        <!-- ============= Empty state ============= -->
+        <Panel IsVisible="{Binding IsEmptyState}"
+               AutomationProperties.Name="Empty state"
+               AutomationProperties.HelpText="No document is open">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="20"
+                        MaxWidth="480">
+                <TextBlock Text="PromptResponse"
+                           FontSize="32" FontWeight="Light"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Open or create a form to get started."
+                           FontSize="16"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center"
+                           Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="12"
+                            HorizontalAlignment="Center">
+                    <Button Content="New template"
+                            Command="{Binding NewTemplateCommand}"
+                            MinHeight="44" MinWidth="160"
+                            FontSize="14"
+                            AutomationProperties.Name="Create new template"
+                            AutomationProperties.HelpText="Start designing a new APR template (Ctrl+N)"/>
+                    <Button Content="Open file"
+                            Command="{Binding OpenCommand}"
+                            MinHeight="44" MinWidth="160"
+                            FontSize="14"
+                            AutomationProperties.Name="Open existing file"
+                            AutomationProperties.HelpText="Open an existing APR template or filled form (Ctrl+O)"/>
+                </StackPanel>
+            </StackPanel>
+        </Panel>
+
+        <!-- ============= Main 3-column layout ============= -->
+        <Grid IsVisible="{Binding HasDocument}"
+              ColumnDefinitions="240,*,300">
+
+            <!-- Left rail: section navigation + search -->
+            <Border Grid.Column="0"
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    AutomationProperties.Name="Sections sidebar">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Margin="12">
+                        <TextBlock Text="Search"
+                                   FontWeight="SemiBold"
+                                   FontSize="12"
+                                   Margin="0,0,0,4"/>
+                        <TextBox x:Name="SearchTextBox"
+                                 Text="{Binding Search.Query, Mode=TwoWay}"
+                                 Watermark="Find a prompt..."
+                                 MinHeight="36"
+                                 AutomationProperties.Name="Search prompts"
+                                 AutomationProperties.HelpText="Type to find prompts by label or response"/>
+                        <TextBlock Text="{Binding Search.MatchCount, StringFormat='{}{0} matches'}"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                                   Margin="0,4,0,0"
+                                   IsVisible="{Binding Search.Query, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                    </StackPanel>
+                    <TextBlock DockPanel.Dock="Top"
+                               Text="Document"
+                               FontWeight="SemiBold"
+                               FontSize="12"
+                               Margin="12,8,12,4"/>
+                    <ScrollViewer>
+                        <StackPanel Margin="12,4,12,12" Spacing="2">
+                            <TextBlock Text="{Binding CurrentDocumentTitle}"
+                                       FontWeight="SemiBold"
+                                       TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Mode}"
+                                       FontSize="11"
+                                       Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+
+            <!-- Center: prompts -->
+            <ScrollViewer Grid.Column="1"
+                          AutomationProperties.Name="Form content">
+                <ItemsControl x:Name="PromptsHost"
+                              ItemsSource="{Binding PromptViewModels}"
+                              ItemTemplate="{StaticResource PromptTemplate}"
+                              Margin="24"
+                              AutomationProperties.Name="Prompts"/>
+            </ScrollViewer>
+
+            <!-- Right rail: progress + advisories -->
+            <Border Grid.Column="2"
+                    BorderThickness="1,0,0,0"
+                    BorderBrush="{DynamicResource SystemBaseLowColor}"
+                    AutomationProperties.Name="Form progress and advisories">
+                <ScrollViewer>
+                    <StackPanel Margin="16" Spacing="16">
+                        <StackPanel>
+                            <TextBlock Text="Progress" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                            <ProgressBar Value="{Binding Progress.PercentComplete}"
+                                         Maximum="100"
+                                         Height="8"
+                                         AutomationProperties.Name="Form completion progress"
+                                         AutomationProperties.HelpText="{Binding Progress.StatusText}"/>
+                            <TextBlock Text="{Binding Progress.StatusText}"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource SystemBaseMediumColor}"
+                                       Margin="0,4,0,0"
+                                       AutomationProperties.LiveSetting="Polite"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,67 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="PromptResponse.Desktop.Views.KeyboardShortcutsDialog"
+        Width="520" Height="520"
+        Title="Keyboard Shortcuts"
+        WindowStartupLocation="CenterOwner"
+        AutomationProperties.Name="Keyboard shortcuts cheat sheet"
+        AutomationProperties.HelpText="A reference of every keyboard shortcut available in PromptResponse">
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Padding="16">
+            <Button x:Name="CloseButton"
+                    Content="Close"
+                    Click="OnCloseClicked"
+                    HorizontalAlignment="Right"
+                    MinHeight="36" MinWidth="100"
+                    AutomationProperties.Name="Close shortcuts dialog"/>
+        </Border>
+        <ScrollViewer>
+            <StackPanel Margin="20" Spacing="16">
+                <TextBlock Text="Keyboard Shortcuts"
+                           FontSize="22" FontWeight="Light"/>
+                <TextBlock Text="Every command in PromptResponse is reachable from the keyboard."
+                           FontSize="13"
+                           TextWrapping="Wrap"
+                           Foreground="{DynamicResource SystemBaseMediumColor}"/>
+
+                <TextBlock Text="File" FontWeight="SemiBold" Margin="0,12,0,4"/>
+                <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" Margin="0,4,0,0">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Ctrl + N"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="New template"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Ctrl + O"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Open file"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Ctrl + S"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Save"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Ctrl + Shift + S"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Save As..."/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Ctrl + W"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="Close document"/>
+                </Grid>
+
+                <TextBlock Text="Navigation" FontWeight="SemiBold" Margin="0,12,0,4"/>
+                <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,4,0,0">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Tab"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Move to next focusable control"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Shift + Tab"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Move to previous focusable control"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Enter"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Activate the focused button or default action"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Space"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Toggle the focused checkbox or radio button"/>
+                </Grid>
+
+                <TextBlock Text="Help" FontWeight="SemiBold" Margin="0,12,0,4"/>
+                <Grid ColumnDefinitions="160,*" RowDefinitions="Auto" Margin="0,4,0,0">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="F1"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Show this dialog"/>
+                </Grid>
+
+                <TextBlock Margin="0,16,0,0"
+                           FontSize="12"
+                           TextWrapping="Wrap"
+                           Foreground="{DynamicResource SystemBaseMediumColor}"
+                           Text="Tip: open Display Preferences from the View menu to enable enhancements like high-contrast colors, large text, and reduced motion. Every enhancement is opt-in and composable."/>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
