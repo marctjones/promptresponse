@@ -69,6 +69,11 @@ public class AprJsonSerializer : IAprSerializer
         {
             throw new SerializationException("Invalid JSON format", ex);
         }
+        catch (OperationCanceledException)
+        {
+            // Cancellation must propagate unchanged; wrapping it breaks async cancellation contracts.
+            throw;
+        }
         catch (Exception ex) when (ex is not SerializationException)
         {
             throw new SerializationException("Failed to deserialize APR document", ex);
@@ -94,6 +99,11 @@ public class AprJsonSerializer : IAprSerializer
         {
             throw new SerializationException("Invalid JSON format", ex);
         }
+        catch (OperationCanceledException)
+        {
+            // Cancellation must propagate unchanged; wrapping it breaks async cancellation contracts.
+            throw;
+        }
         catch (Exception ex) when (ex is not SerializationException)
         {
             throw new SerializationException("Failed to deserialize APR document", ex);
@@ -109,6 +119,10 @@ public class AprJsonSerializer : IAprSerializer
         try
         {
             await JsonSerializer.SerializeAsync(stream, document, _options, cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
         }
         catch (Exception ex)
         {
