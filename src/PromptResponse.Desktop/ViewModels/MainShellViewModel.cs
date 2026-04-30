@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Avalonia.Media;
+using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PromptResponse.Core.Models;
@@ -51,6 +52,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private void OnAllProfileBrushesChanged()
     {
         OnPropertyChanged(nameof(ActiveProfile));
+        OnPropertyChanged(nameof(ActiveThemeVariant));
         OnPropertyChanged(nameof(ActiveProfileSurfaceBrush));
         OnPropertyChanged(nameof(ActiveProfileSubtleSurfaceBrush));
         OnPropertyChanged(nameof(ActiveProfileElevatedSurfaceBrush));
@@ -94,6 +96,18 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     public IBrush ActiveProfileBorderBrush => BrushFor(ColorRole.Border);
     /// <summary>Focus-indicator brush (3px ring under HighContrast, 2px otherwise).</summary>
     public IBrush ActiveProfileFocusBrush => BrushFor(ColorRole.Focus);
+
+    /// <summary>
+    /// FluentTheme variant matching the active profile's color scheme. Bound to
+    /// Window.RequestedThemeVariant so child controls (RadioButton, CheckBox,
+    /// MenuItem) inherit FluentTheme colors that contrast with our profile palette.
+    /// </summary>
+    public ThemeVariant ActiveThemeVariant => ActiveProfile.ColorScheme switch
+    {
+        ColorScheme.Dark => ThemeVariant.Dark,
+        ColorScheme.HighContrast => ThemeVariant.Dark, // FluentTheme has no HighContrast; Dark is the closer base
+        _ => ThemeVariant.Light,
+    };
 
     /// <summary>Typography scale, profile-aware. LargeText profile multiplies all sizes by 1.5.</summary>
     public double CaptionFontSize  => 12 * ActiveProfile.TextScale;

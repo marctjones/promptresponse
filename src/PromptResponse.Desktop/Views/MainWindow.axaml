@@ -11,6 +11,7 @@
         MinWidth="900"
         MinHeight="560"
         Background="{Binding ActiveProfileSurfaceBrush}"
+        RequestedThemeVariant="{Binding ActiveThemeVariant}"
         TransparencyLevelHint="Mica,AcrylicBlur,None"
         ExtendClientAreaToDecorationsHint="False"
         AutomationProperties.Name="PromptResponse"

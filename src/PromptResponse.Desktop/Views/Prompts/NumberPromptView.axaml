@@ -11,18 +11,22 @@
                  Text="{Binding Response, Mode=TwoWay}"
                  Watermark="{Binding Placeholder}"
                  MinHeight="36"
-                 InputMethod.IsInputMethodEnabled="False"
+                 CornerRadius="6"
                  AutomationProperties.Name="{Binding Label}"
                  AutomationProperties.HelpText="{Binding HelpText}"/>
+        <!--
+            Live formatted preview. Visible only when DisplayValue differs from
+            the raw Response — i.e., when the active profile (e.g. VisualFormatting)
+            renders a different visible string. The raw response is what's stored.
+        -->
         <TextBlock x:Name="DisplayHint"
                    Text="{Binding DisplayValue, StringFormat='Displays as: {0}'}"
-                   IsVisible="False"
                    FontSize="12"
-                   Foreground="{DynamicResource SystemBaseMediumColor}"
+                   Opacity="0.7"
                    AutomationProperties.LiveSetting="Polite"/>
         <TextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                    FontSize="12"
-                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                   Opacity="0.7"/>
     </StackPanel>
 </UserControl>

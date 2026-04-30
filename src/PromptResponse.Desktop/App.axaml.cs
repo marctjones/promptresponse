@@ -49,6 +49,19 @@ public partial class App : Application
 
                 var shellVm = serviceProvider.GetRequiredService<MainShellViewModel>();
 
+                // Pin the Application-level theme variant to the active profile so
+                // every Window (main + dialogs) and every Control template uses
+                // FluentTheme system colors that contrast with our profile palette.
+                // Without this, RadioButton/CheckBox/MenuItem render invisible.
+                RequestedThemeVariant = shellVm.ActiveThemeVariant;
+                shellVm.PropertyChanged += (_, e) =>
+                {
+                    if (e.PropertyName == nameof(MainShellViewModel.ActiveThemeVariant))
+                    {
+                        RequestedThemeVariant = shellVm.ActiveThemeVariant;
+                    }
+                };
+
                 var window = new MainWindow { DataContext = shellVm };
                 desktop.MainWindow = window;
 

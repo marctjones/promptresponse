@@ -7,15 +7,34 @@
         <TextBlock Text="{Binding Label}"
                    FontWeight="SemiBold"
                    AutomationProperties.Name="{Binding Label}"/>
-        <TextBox x:Name="ResponseTextBox"
-                 Text="{Binding Response, Mode=TwoWay}"
-                 Watermark="{Binding Placeholder, FallbackValue='YYYY-MM-DD'}"
-                 MinHeight="36"
-                 AutomationProperties.Name="{Binding Label}"
-                 AutomationProperties.HelpText="{Binding HelpText}"/>
+        <Grid ColumnDefinitions="*,Auto">
+            <!-- Universal core: free-text input. Any visible text is a valid response. -->
+            <TextBox Grid.Column="0"
+                     x:Name="ResponseTextBox"
+                     Text="{Binding Response, Mode=TwoWay}"
+                     Watermark="{Binding Placeholder, FallbackValue='YYYY-MM-DD or any text'}"
+                     MinHeight="36"
+                     CornerRadius="6"
+                     AutomationProperties.Name="{Binding Label}"
+                     AutomationProperties.HelpText="{Binding HelpText}"/>
+            <!--
+                Visual affordance for sighted users: native CalendarDatePicker.
+                Selection round-trips with the underlying Response string.
+                Typing free text (e.g. "see attached") into the TextBox above
+                clears the picker without breaking the response — vision invariant.
+            -->
+            <CalendarDatePicker Grid.Column="1"
+                                x:Name="DatePicker"
+                                Margin="8,0,0,0"
+                                MinHeight="36"
+                                MinWidth="160"
+                                SelectedDateChanged="OnSelectedDateChanged"
+                                AutomationProperties.Name="Pick a date"
+                                AutomationProperties.HelpText="Calendar picker; you can also type any text in the field on the left"/>
+        </Grid>
         <TextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                    FontSize="12"
-                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                   Opacity="0.7"/>
     </StackPanel>
 </UserControl>
