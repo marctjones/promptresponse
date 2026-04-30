@@ -11,201 +11,181 @@ namespace PromptResponse.Desktop.Tests.Services;
 /// Unit tests for FileService.
 /// </summary>
 /// <remarks>
-/// These tests focus on the testable aspects of FileService that don't require Avalonia dialogs:
-/// - CurrentFilePath management (Set, Clear, Get)
-/// - Extension-based DocumentType override logic in SaveFileAsync
-/// - Serialization integration
-///
-/// Tests for OpenFileAsync and SaveFileAsAsync require Avalonia StorageProvider dialogs
-/// and are better suited for integration tests with UI automation.
+/// These tests focus on testable aspects of FileService that don't require Avalonia dialogs:
+/// CurrentFilePath management, extension-based DocumentType override, and serializer integration.
+/// SaveFileAsync writes a real (empty) file via a mocked serializer to a per-test temp directory;
+/// no fictitious paths are used.
 /// </remarks>
-public class FileServiceTests
+public class FileServiceTests : IDisposable
 {
     private readonly Mock<IAprSerializer> _mockSerializer;
+    private readonly string _tempDir;
 
     public FileServiceTests()
     {
         _mockSerializer = new Mock<IAprSerializer>();
+        _tempDir = Path.Combine(Path.GetTempPath(), "promptresponse-tests-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(_tempDir);
+
+        _mockSerializer
+            .Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
     }
 
-    private FileService CreateService()
+    public void Dispose()
     {
-        return new FileService(_mockSerializer.Object);
+        try
+        {
+            if (Directory.Exists(_tempDir))
+            {
+                Directory.Delete(_tempDir, recursive: true);
+            }
+        }
+        catch
+        {
+            // Best-effort cleanup; ignore failures (e.g., file locks on Windows).
+        }
+    }
+
+    private FileService CreateService() => new(_mockSerializer.Object);
+
+    private string PathFor(string fileName, string? subdir = null)
+    {
+        var dir = subdir != null ? Path.Combine(_tempDir, subdir) : _tempDir;
+        Directory.CreateDirectory(dir);
+        return Path.Combine(dir, fileName);
     }
 
     [Fact]
     public void Constructor_ShouldInitializeWithNullCurrentFilePath()
     {
-        // Arrange & Act
         var service = CreateService();
-
-        // Assert
-        service.CurrentFilePath.Should().BeNull("CurrentFilePath should be null initially");
+        service.CurrentFilePath.Should().BeNull();
     }
 
     [Fact]
     public void SetCurrentFilePath_ShouldUpdatePath()
     {
-        // Arrange
         var service = CreateService();
-        const string testPath = "/test/document.aprt";
+        var path = PathFor("document.aprt");
 
-        // Act
-        service.SetCurrentFilePath(testPath);
+        service.SetCurrentFilePath(path);
 
-        // Assert
-        service.CurrentFilePath.Should().Be(testPath, "CurrentFilePath should be set to the provided path");
+        service.CurrentFilePath.Should().Be(path);
     }
 
     [Fact]
     public void ClearCurrentFilePath_ShouldResetPath()
     {
-        // Arrange
         var service = CreateService();
-        service.SetCurrentFilePath("/test/document.aprt");
+        service.SetCurrentFilePath(PathFor("document.aprt"));
 
-        // Act
         service.ClearCurrentFilePath();
 
-        // Assert
-        service.CurrentFilePath.Should().BeNull("CurrentFilePath should be null after clearing");
+        service.CurrentFilePath.Should().BeNull();
     }
 
     [Fact]
     public void SetCurrentFilePath_MultipleTimes_ShouldKeepLastPath()
     {
-        // Arrange
         var service = CreateService();
+        var third = PathFor("third.aprf");
 
-        // Act
-        service.SetCurrentFilePath("/test/first.apr");
-        service.SetCurrentFilePath("/test/second.aprt");
-        service.SetCurrentFilePath("/test/third.aprf");
+        service.SetCurrentFilePath(PathFor("first.apr"));
+        service.SetCurrentFilePath(PathFor("second.aprt"));
+        service.SetCurrentFilePath(third);
 
-        // Assert
-        service.CurrentFilePath.Should().Be("/test/third.aprf", "CurrentFilePath should be the last set path");
+        service.CurrentFilePath.Should().Be(third);
     }
 
     [Fact]
     public async Task SaveFileAsync_WithAprtExtension_ShouldSetDocumentTypeToTemplate()
     {
-        // Arrange
         var service = CreateService();
-        var document = CreateTestFilledForm(); // Start with filled form
-        const string filePath = "/test/document.aprt";
+        var document = CreateTestFilledForm();
+        var filePath = PathFor("document.aprt");
 
-        _mockSerializer.Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Returns(Task.CompletedTask);
-
-        // Act
         await service.SaveFileAsync(document, filePath);
 
-        // Assert
-        document.DocumentType.Should().Be(DocumentType.Template, ".aprt extension should override DocumentType to Template");
-        service.CurrentFilePath.Should().Be(filePath, "CurrentFilePath should be set after save");
+        document.DocumentType.Should().Be(DocumentType.Template, ".aprt overrides DocumentType to Template");
+        service.CurrentFilePath.Should().Be(filePath);
     }
 
     [Fact]
     public async Task SaveFileAsync_WithAprfExtension_ShouldSetDocumentTypeToFilledForm()
     {
-        // Arrange
         var service = CreateService();
-        var document = CreateTestTemplate(); // Start with template
-        const string filePath = "/test/document.aprf";
+        var document = CreateTestTemplate();
+        var filePath = PathFor("document.aprf");
 
-        _mockSerializer.Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Returns(Task.CompletedTask);
-
-        // Act
         await service.SaveFileAsync(document, filePath);
 
-        // Assert
-        document.DocumentType.Should().Be(DocumentType.FilledForm, ".aprf extension should override DocumentType to FilledForm");
-        service.CurrentFilePath.Should().Be(filePath, "CurrentFilePath should be set after save");
+        document.DocumentType.Should().Be(DocumentType.FilledForm, ".aprf overrides DocumentType to FilledForm");
+        service.CurrentFilePath.Should().Be(filePath);
     }
 
     [Fact]
     public async Task SaveFileAsync_WithAprExtension_ShouldKeepCurrentDocumentType()
     {
-        // Arrange
         var service = CreateService();
         var templateDoc = CreateTestTemplate();
         var filledDoc = CreateTestFilledForm();
-        const string templatePath = "/test/template.apr";
-        const string filledPath = "/test/filled.apr";
+        var templatePath = PathFor("template.apr");
+        var filledPath = PathFor("filled.apr");
 
-        _mockSerializer.Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Returns(Task.CompletedTask);
-
-        // Act & Assert for template
         await service.SaveFileAsync(templateDoc, templatePath);
-        templateDoc.DocumentType.Should().Be(DocumentType.Template, ".apr extension should not change Template type");
+        templateDoc.DocumentType.Should().Be(DocumentType.Template, ".apr does not change Template");
 
-        // Act & Assert for filled form
         await service.SaveFileAsync(filledDoc, filledPath);
-        filledDoc.DocumentType.Should().Be(DocumentType.FilledForm, ".apr extension should not change FilledForm type");
+        filledDoc.DocumentType.Should().Be(DocumentType.FilledForm, ".apr does not change FilledForm");
     }
 
     [Fact]
     public async Task SaveFileAsync_ShouldUpdateModifiedTimestamp()
     {
-        // Arrange
         var service = CreateService();
         var document = CreateTestTemplate();
         var originalModified = document.Metadata.Modified;
-        const string filePath = "/test/document.aprt";
+        var filePath = PathFor("document.aprt");
 
-        _mockSerializer.Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Returns(Task.CompletedTask);
-
-        // Wait a bit to ensure timestamp difference
         await Task.Delay(50);
-
-        // Act
         await service.SaveFileAsync(document, filePath);
 
-        // Assert
-        document.Metadata.Modified.Should().NotBeNull("Modified timestamp should be set");
-        document.Metadata.Modified!.Value.Should().BeAfter(originalModified ?? DateTime.MinValue, "Modified timestamp should be updated on save");
+        document.Metadata.Modified.Should().NotBeNull();
+        document.Metadata.Modified!.Value.Should().BeAfter(originalModified ?? DateTime.MinValue);
     }
 
     [Fact]
     public async Task SaveFileAsync_ShouldCallSerializerWithDocument()
     {
-        // Arrange
         var service = CreateService();
         var document = CreateTestTemplate();
-        const string filePath = "/test/document.aprt";
+        var filePath = PathFor("document.aprt");
 
-        AprDocument? capturedDocument = null;
-        _mockSerializer.Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Callback<AprDocument, Stream, CancellationToken>((doc, _, _) => capturedDocument = doc)
+        AprDocument? captured = null;
+        _mockSerializer
+            .Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
+            .Callback<AprDocument, Stream, CancellationToken>((doc, _, _) => captured = doc)
             .Returns(Task.CompletedTask);
 
-        // Act
         await service.SaveFileAsync(document, filePath);
 
-        // Assert
-        _mockSerializer.Verify(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()), Times.Once);
-        capturedDocument.Should().BeSameAs(document, "serializer should be called with the provided document");
+        _mockSerializer.Verify(
+            s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()),
+            Times.Once);
+        captured.Should().BeSameAs(document);
     }
 
     [Fact]
     public async Task SaveFileAsync_ShouldSetCurrentFilePath()
     {
-        // Arrange
         var service = CreateService();
         var document = CreateTestTemplate();
-        const string filePath = "/test/saved-document.aprt";
+        var filePath = PathFor("saved-document.aprt");
 
-        _mockSerializer.Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Returns(Task.CompletedTask);
-
-        // Act
         await service.SaveFileAsync(document, filePath);
 
-        // Assert
-        service.CurrentFilePath.Should().Be(filePath, "CurrentFilePath should be set after saving");
+        service.CurrentFilePath.Should().Be(filePath);
     }
 
     [Theory]
@@ -217,99 +197,74 @@ public class FileServiceTests
     [InlineData(".Aprf", DocumentType.FilledForm)]
     public async Task SaveFileAsync_WithVariousExtensionCases_ShouldSetCorrectDocumentType(string extension, DocumentType expectedType)
     {
-        // Arrange
         var service = CreateService();
-        var document = CreateTestTemplate();
-        if (expectedType == DocumentType.FilledForm)
-        {
-            document = CreateTestFilledForm();
-            document.DocumentType = DocumentType.Template; // Override to test conversion
-        }
-        else
-        {
-            document.DocumentType = DocumentType.FilledForm; // Override to test conversion
-        }
-        var filePath = $"/test/document{extension}";
+        var document = expectedType == DocumentType.FilledForm
+            ? CreateTestFilledForm()
+            : CreateTestTemplate();
+        // Flip the type so the extension-based override is exercised.
+        document.DocumentType = expectedType == DocumentType.FilledForm
+            ? DocumentType.Template
+            : DocumentType.FilledForm;
 
-        _mockSerializer.Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Returns(Task.CompletedTask);
+        var filePath = PathFor($"document{extension}");
 
-        // Act
         await service.SaveFileAsync(document, filePath);
 
-        // Assert
         document.DocumentType.Should().Be(expectedType, $"{extension} extension should set DocumentType to {expectedType}");
     }
 
     [Fact]
     public void SetCurrentFilePath_WithEmptyString_ShouldSetEmptyPath()
     {
-        // Arrange
         var service = CreateService();
 
-        // Act
         service.SetCurrentFilePath(string.Empty);
 
-        // Assert
-        service.CurrentFilePath.Should().Be(string.Empty, "should accept empty string as path");
+        service.CurrentFilePath.Should().Be(string.Empty);
     }
 
     [Fact]
     public void SetCurrentFilePath_ThenClear_ThenSet_ShouldWorkCorrectly()
     {
-        // Arrange
         var service = CreateService();
 
-        // Act & Assert
-        service.SetCurrentFilePath("/first/path.apr");
-        service.CurrentFilePath.Should().Be("/first/path.apr");
+        service.SetCurrentFilePath(PathFor("first.apr"));
+        service.CurrentFilePath.Should().NotBeNull();
 
         service.ClearCurrentFilePath();
         service.CurrentFilePath.Should().BeNull();
 
-        service.SetCurrentFilePath("/second/path.aprt");
-        service.CurrentFilePath.Should().Be("/second/path.aprt");
+        var second = PathFor("second.aprt");
+        service.SetCurrentFilePath(second);
+        service.CurrentFilePath.Should().Be(second);
     }
 
     [Fact]
     public async Task SaveFileAsync_WithPathContainingSpaces_ShouldWork()
     {
-        // Arrange
         var service = CreateService();
         var document = CreateTestTemplate();
-        const string filePath = "/test/path with spaces/document name.aprt";
+        var filePath = PathFor("document name.aprt", subdir: "path with spaces");
 
-        _mockSerializer.Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Returns(Task.CompletedTask);
-
-        // Act
         await service.SaveFileAsync(document, filePath);
 
-        // Assert
-        service.CurrentFilePath.Should().Be(filePath, "should handle paths with spaces");
+        service.CurrentFilePath.Should().Be(filePath);
     }
 
     [Fact]
     public async Task SaveFileAsync_WithUnicodeCharactersInPath_ShouldWork()
     {
-        // Arrange
         var service = CreateService();
         var document = CreateTestTemplate();
-        const string filePath = "/test/Documents/formulaire.aprt";
+        var filePath = PathFor("formulaire-éàü-日本語.aprt", subdir: "Documents-éàü");
 
-        _mockSerializer.Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Returns(Task.CompletedTask);
-
-        // Act
         await service.SaveFileAsync(document, filePath);
 
-        // Assert
-        service.CurrentFilePath.Should().Be(filePath, "should handle Unicode characters in path");
+        service.CurrentFilePath.Should().Be(filePath);
     }
 
-    private static AprDocument CreateTestTemplate()
-    {
-        return new AprDocument
+    private static AprDocument CreateTestTemplate() =>
+        new()
         {
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
@@ -322,27 +277,17 @@ public class FileServiceTests
             },
             Sections = new List<Section>
             {
-                new Section
-                {
+                new() {
                     Id = "section_1",
                     Title = "Test Section",
-                    Prompts = new List<Prompt>
-                    {
-                        new Prompt
-                        {
-                            Id = "prompt_1",
-                            Label = "Test Prompt"
-                        }
-                    },
+                    Prompts = new List<Prompt> { new() { Id = "prompt_1", Label = "Test Prompt" } },
                     Sections = new List<Section>()
                 }
             }
         };
-    }
 
-    private static AprDocument CreateTestFilledForm()
-    {
-        return new AprDocument
+    private static AprDocument CreateTestFilledForm() =>
+        new()
         {
             DocumentType = DocumentType.FilledForm,
             Metadata = new Metadata
@@ -358,22 +303,12 @@ public class FileServiceTests
             },
             Sections = new List<Section>
             {
-                new Section
-                {
+                new() {
                     Id = "section_1",
                     Title = "Test Section",
-                    Prompts = new List<Prompt>
-                    {
-                        new Prompt
-                        {
-                            Id = "prompt_1",
-                            Label = "Test Prompt",
-                            Response = "Test Response"
-                        }
-                    },
+                    Prompts = new List<Prompt> { new() { Id = "prompt_1", Label = "Test Prompt", Response = "Test Response" } },
                     Sections = new List<Section>()
                 }
             }
         };
-    }
 }

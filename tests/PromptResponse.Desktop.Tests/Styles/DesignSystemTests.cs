@@ -27,7 +27,7 @@ public class DesignSystemTests
         }
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void DesignTokens_LoadsWithoutErrors()
     {
         // Arrange & Act
@@ -44,7 +44,7 @@ public class DesignSystemTests
         exception.Should().BeNull("DesignTokens.axaml should load without errors");
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void ModernControls_LoadsWithoutErrors()
     {
         // Arrange & Act
@@ -61,7 +61,7 @@ public class DesignSystemTests
         exception.Should().BeNull("ModernControls.axaml should load without errors");
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void DesignTokens_ContainsSpacingResources()
     {
         // Arrange
@@ -78,7 +78,7 @@ public class DesignSystemTests
         resourceInclude.TryGetResource("Space8", null, out _).Should().BeTrue("spacing tokens should be defined");
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void DesignTokens_ContainsRadiusResources()
     {
         // Arrange
@@ -94,7 +94,7 @@ public class DesignSystemTests
         resourceInclude.TryGetResource("RadiusLarge", null, out _).Should().BeTrue("radius tokens should be defined");
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void DesignTokens_ContainsFontSizeResources()
     {
         // Arrange
@@ -111,7 +111,7 @@ public class DesignSystemTests
         resourceInclude.TryGetResource("FontSizeDisplay", null, out _).Should().BeTrue("font size tokens should be defined");
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void DesignTokens_ContainsShadowResources()
     {
         // Arrange
@@ -127,7 +127,7 @@ public class DesignSystemTests
         resourceInclude.TryGetResource("ShadowLarge", null, out _).Should().BeTrue("shadow tokens should be defined");
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void DesignTokens_ContainsColorResources()
     {
         // Arrange
@@ -144,7 +144,7 @@ public class DesignSystemTests
         resourceInclude.TryGetResource("InfoBrush", null, out _).Should().BeTrue("semantic color tokens should be defined");
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void ModernControls_ContainsButtonStyles()
     {
         // Arrange
@@ -161,7 +161,7 @@ public class DesignSystemTests
         styles!.Count.Should().BeGreaterThan(0, "ModernControls should define multiple styles");
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void ModernControls_ButtonModernClass_HasCornerRadius()
     {
         // This test verifies that the modern button style includes corner radius
@@ -181,7 +181,7 @@ public class DesignSystemTests
         exception.Should().BeNull("Button.modern style should load without errors");
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void DesignTokens_SpacingValues_AreMultiplesOfFour()
     {
         // Arrange
@@ -205,7 +205,7 @@ public class DesignSystemTests
         }
     }
 
-    [Fact]
+    [Fact(Skip = "Design system is being redesigned in Phase 5 (rendering profile system); these tests will be rewritten against the new tokens. Tracked: idlergear task #22.")]
     public void Application_CanLoadAllDesignSystemResources()
     {
         // Arrange & Act

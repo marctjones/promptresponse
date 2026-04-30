@@ -1,0 +1,153 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Form W-4: Employee's Withholding Certificate (2024)",
+    "description": "Fixture mimicking IRS Form W-4 (2024) structure for integration tests.",
+    "author": "Internal Revenue Service",
+    "templateId": "irs-w4-2024-v1",
+    "templateVersion": "2024",
+    "created": "2025-01-01T00:00:00Z",
+    "modified": "2025-01-01T00:00:00Z"
+  },
+  "sections": [
+    {
+      "id": "step1",
+      "title": "Step 1: Enter Personal Information",
+      "prompts": [
+        {
+          "id": "w4_first_name",
+          "label": "First Name and Middle Initial",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        },
+        {
+          "id": "w4_last_name",
+          "label": "Last Name",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        },
+        {
+          "id": "w4_address",
+          "label": "Address",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        },
+        {
+          "id": "w4_ssn",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": { "expectedDataType": "text", "placeholder": "XXX-XX-XXXX" }
+        },
+        {
+          "id": "w4_filing_status",
+          "label": "Filing Status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Single", "Married filing jointly", "Head of household"]
+          }
+        },
+        {
+          "id": "w4_dob",
+          "label": "Date of Birth",
+          "response": "",
+          "hints": { "expectedDataType": "date", "placeholder": "YYYY-MM-DD" }
+        }
+      ]
+    },
+    {
+      "id": "step2",
+      "title": "Step 2: Multiple Jobs or Spouse Works",
+      "prompts": [
+        {
+          "id": "w4_multiple_jobs",
+          "label": "Do you hold more than one job?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Yes", "No"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "step3",
+      "title": "Step 3: Claim Dependents",
+      "prompts": [
+        {
+          "id": "w4_qualifying_children",
+          "label": "Number of qualifying children under age 17",
+          "response": "",
+          "hints": { "expectedDataType": "number" }
+        },
+        {
+          "id": "w4_other_dependents",
+          "label": "Number of other dependents",
+          "response": "",
+          "hints": { "expectedDataType": "number" }
+        }
+      ]
+    },
+    {
+      "id": "step4",
+      "title": "Step 4 (optional): Other Adjustments",
+      "prompts": [
+        {
+          "id": "w4_other_income",
+          "label": "Other income (not from jobs)",
+          "response": "",
+          "hints": { "expectedDataType": "number" }
+        },
+        {
+          "id": "w4_deductions",
+          "label": "Deductions",
+          "response": "",
+          "hints": { "expectedDataType": "number" }
+        }
+      ]
+    },
+    {
+      "id": "step5",
+      "title": "Step 5: Sign Here",
+      "prompts": [
+        {
+          "id": "w4_employee_signature",
+          "label": "Employee's signature",
+          "response": "",
+          "hints": { "expectedDataType": "signature" }
+        },
+        {
+          "id": "w4_signed_date",
+          "label": "Date signed",
+          "response": "",
+          "hints": { "expectedDataType": "date", "placeholder": "YYYY-MM-DD" }
+        }
+      ]
+    },
+    {
+      "id": "employer",
+      "title": "Employers Only",
+      "prompts": [
+        {
+          "id": "w4_employer_name",
+          "label": "Employer's name and address",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        },
+        {
+          "id": "w4_first_date_employment",
+          "label": "First date of employment",
+          "response": "",
+          "hints": { "expectedDataType": "date", "placeholder": "YYYY-MM-DD" }
+        },
+        {
+          "id": "w4_ein",
+          "label": "Employer Identification Number (EIN)",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Simple Contact Form",
+    "description": "A minimal contact form fixture used by integration tests.",
+    "author": "PromptResponse Test Suite",
+    "templateId": "simple-contact-v1",
+    "templateVersion": "1.0",
+    "created": "2025-01-01T00:00:00Z",
+    "modified": "2025-01-01T00:00:00Z"
+  },
+  "sections": [
+    {
+      "id": "contact_section",
+      "title": "Contact Information",
+      "description": "Basic contact details.",
+      "prompts": [
+        {
+          "id": "prompt_name",
+          "label": "Full Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "prompt_email",
+          "label": "Email Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "email",
+            "placeholder": "you@example.com"
+          }
+        },
+        {
+          "id": "prompt_message",
+          "label": "Message",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        }
+      ]
+    }
+  ]
+}

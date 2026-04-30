@@ -29,6 +29,8 @@ public class PromptViewModelTests
     [InlineData("ein")]
     [InlineData("creditcard")]
     [InlineData("zipcode")]
+    [InlineData("currency")]
+    [InlineData("number")]
     [InlineData("PHONE")]  // Case insensitive
     [InlineData("SSN")]
     public void IsFormattedField_WithFormattedDataType_ShouldBeTrue(string dataType)
@@ -44,7 +46,6 @@ public class PromptViewModelTests
 
     [Theory]
     [InlineData("text")]
-    [InlineData("number")]
     [InlineData("email")]
     [InlineData("url")]
     [InlineData(null)]

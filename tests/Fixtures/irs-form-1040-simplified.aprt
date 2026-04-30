@@ -1,0 +1,174 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Form 1040: U.S. Individual Income Tax Return (Simplified)",
+    "description": "Simplified IRS Form 1040 fixture used by integration tests.",
+    "author": "Internal Revenue Service",
+    "templateId": "irs-1040-2024-simplified-v1",
+    "templateVersion": "2024",
+    "created": "2025-01-15T00:00:00Z",
+    "modified": "2025-01-15T00:00:00Z"
+  },
+  "sections": [
+    {
+      "id": "filing-status",
+      "title": "Filing Status",
+      "prompts": [
+        {
+          "id": "filing_status_choice",
+          "label": "Select your filing status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Single",
+              "Married filing jointly",
+              "Married filing separately",
+              "Head of household",
+              "Qualifying surviving spouse"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "personal-info",
+      "title": "Personal Information",
+      "prompts": [
+        {
+          "id": "1040_first_name",
+          "label": "First name and middle initial",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        },
+        {
+          "id": "1040_last_name",
+          "label": "Last name",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        },
+        {
+          "id": "1040_ssn",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": { "expectedDataType": "text", "placeholder": "XXX-XX-XXXX" }
+        }
+      ]
+    },
+    {
+      "id": "dependents",
+      "title": "Dependents",
+      "prompts": [
+        {
+          "id": "1040_num_dependents",
+          "label": "Number of dependents",
+          "response": "",
+          "hints": { "expectedDataType": "number" }
+        }
+      ]
+    },
+    {
+      "id": "income",
+      "title": "Income",
+      "prompts": [
+        {
+          "id": "1040_wages",
+          "label": "Wages, salaries, tips, etc.",
+          "response": "",
+          "hints": { "expectedDataType": "currency" }
+        },
+        {
+          "id": "1040_interest_income",
+          "label": "Taxable interest",
+          "response": "",
+          "hints": { "expectedDataType": "currency" }
+        },
+        {
+          "id": "1040_total_income",
+          "label": "Total income",
+          "response": "",
+          "hints": { "expectedDataType": "currency" }
+        }
+      ]
+    },
+    {
+      "id": "deductions",
+      "title": "Deductions and Adjustments",
+      "prompts": [
+        {
+          "id": "1040_standard_deduction",
+          "label": "Standard or itemized deduction",
+          "response": "",
+          "hints": { "expectedDataType": "currency" }
+        }
+      ]
+    },
+    {
+      "id": "tax-and-credits",
+      "title": "Tax and Credits",
+      "prompts": [
+        {
+          "id": "1040_taxable_income",
+          "label": "Taxable income",
+          "response": "",
+          "hints": { "expectedDataType": "currency" }
+        },
+        {
+          "id": "1040_tax",
+          "label": "Tax",
+          "response": "",
+          "hints": { "expectedDataType": "currency" }
+        }
+      ]
+    },
+    {
+      "id": "payments",
+      "title": "Payments",
+      "prompts": [
+        {
+          "id": "1040_federal_withholding",
+          "label": "Federal income tax withheld",
+          "response": "",
+          "hints": { "expectedDataType": "currency" }
+        }
+      ]
+    },
+    {
+      "id": "refund-or-due",
+      "title": "Refund or Amount You Owe",
+      "prompts": [
+        {
+          "id": "1040_refund_amount",
+          "label": "Refund amount",
+          "response": "",
+          "hints": { "expectedDataType": "currency" }
+        },
+        {
+          "id": "1040_amount_owed",
+          "label": "Amount you owe",
+          "response": "",
+          "hints": { "expectedDataType": "currency" }
+        }
+      ]
+    },
+    {
+      "id": "signature",
+      "title": "Sign Here",
+      "prompts": [
+        {
+          "id": "1040_taxpayer_signature",
+          "label": "Taxpayer signature",
+          "response": "",
+          "hints": { "expectedDataType": "signature" }
+        },
+        {
+          "id": "1040_signed_date",
+          "label": "Date signed",
+          "response": "",
+          "hints": { "expectedDataType": "date", "placeholder": "YYYY-MM-DD" }
+        }
+      ]
+    }
+  ]
+}

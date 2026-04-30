@@ -404,10 +404,11 @@ public class DocumentIntegrationTests
 
     private static string GetExampleFilePath(string filename)
     {
-        // Navigate from test output directory to examples directory
+        // Test fixtures live in tests/Fixtures/ (separate from examples/, which is for end-users).
+        // Navigate from test output directory (bin/Debug/net8.0) up to repo root, then into tests/Fixtures/.
         var testDir = Directory.GetCurrentDirectory();
         var projectRoot = Path.GetFullPath(Path.Combine(testDir, "..", "..", "..", "..", ".."));
-        var examplesDir = Path.Combine(projectRoot, "examples");
-        return Path.Combine(examplesDir, filename);
+        var fixturesDir = Path.Combine(projectRoot, "tests", "Fixtures");
+        return Path.Combine(fixturesDir, filename);
     }
 }

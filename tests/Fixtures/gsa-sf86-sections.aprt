@@ -1,0 +1,90 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "SF-86: Questionnaire for National Security Positions",
+    "description": "Fixture mimicking the SF-86 sectional structure for integration tests.",
+    "author": "U.S. General Services Administration",
+    "templateId": "gsa-sf86-2024-v1",
+    "templateVersion": "2024",
+    "created": "2025-02-01T00:00:00Z",
+    "modified": "2025-02-01T00:00:00Z"
+  },
+  "sections": [
+    {
+      "id": "section1",
+      "title": "Section 1: Information About You",
+      "prompts": [
+        {
+          "id": "sf86_full_name",
+          "label": "Full name (last, first, middle)",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        },
+        {
+          "id": "sf86_date_of_birth",
+          "label": "Date of birth",
+          "response": "",
+          "hints": { "expectedDataType": "date", "placeholder": "YYYY-MM-DD" }
+        }
+      ]
+    },
+    {
+      "id": "section2",
+      "title": "Section 2: Date and Place of Birth",
+      "prompts": [
+        {
+          "id": "sf86_place_of_birth",
+          "label": "Place of birth (city, county, state, country)",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        }
+      ]
+    },
+    {
+      "id": "section3",
+      "title": "Section 3: Citizenship",
+      "prompts": [
+        {
+          "id": "sf86_citizenship_status",
+          "label": "Citizenship status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["U.S. citizen by birth", "Naturalized U.S. citizen", "Derived U.S. citizen", "Not a U.S. citizen"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "section7",
+      "title": "Section 7: Where You Have Lived",
+      "prompts": [
+        {
+          "id": "sf86_current_address",
+          "label": "Current home address",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        }
+      ]
+    },
+    {
+      "id": "section13a",
+      "title": "Section 13A: Employment Activities",
+      "prompts": [
+        {
+          "id": "sf86_current_employer",
+          "label": "Current employer name",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        },
+        {
+          "id": "sf86_employer_address",
+          "label": "Current employer address",
+          "response": "",
+          "hints": { "expectedDataType": "text" }
+        }
+      ]
+    }
+  ]
+}

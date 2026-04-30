@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.os }} / .NET 8
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build (Release, warnings-as-errors)
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test (all projects, with coverage)
+        run: >-
+          dotnet test --configuration Release --no-build
+          --logger "trx;LogFileName=test-results.trx"
+          --collect:"XPlat Code Coverage"
+          --settings coverlet.runsettings
+          --results-directory ./TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}
+          path: |
+            **/TestResults/**/*.trx
+            ./TestResults/**/coverage.cobertura.xml
+            ./TestResults/**/coverage.opencover.xml
+
+  accessibility-gate:
+    name: Accessibility tests (mandatory)
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Run accessibility tests
+        # Vision-critical: this is a non-negotiable gate, separated for visibility.
+        # Any failure here blocks merge regardless of other test status.
+        run: dotnet test tests/PromptResponse.AccessibilityTests --configuration Release --logger "console;verbosity=normal"
+
+  coverage-gate:
+    name: Coverage gate (≥95% on Core + Cli)
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      # Run coverage gate per project that's testable today. Desktop is excluded
+      # at this gate level because the legacy god-class ViewModels are slated for
+      # Phase 3/4 refactor; once split, they'll be added to this gate.
+      - name: Core coverage gate
+        run: >-
+          dotnet test tests/PromptResponse.Core.Tests
+          --configuration Release
+          /p:CollectCoverage=true
+          /p:CoverletOutputFormat=cobertura
+          /p:Threshold=95
+          /p:ThresholdType=line
+          /p:ThresholdStat=total
+          /p:Exclude="[xunit.*]*,[*.Tests]*,[*.Tests.*]*"
+
+      - name: Cli coverage gate
+        run: >-
+          dotnet test tests/PromptResponse.Cli.Tests
+          --configuration Release
+          /p:CollectCoverage=true
+          /p:CoverletOutputFormat=cobertura
+          /p:Threshold=95
+          /p:ThresholdType=line
+          /p:ThresholdStat=total
+          /p:Exclude="[xunit.*]*,[*.Tests]*,[*.Tests.*]*,[PromptResponse.Cli]PromptResponse.Cli.Program"

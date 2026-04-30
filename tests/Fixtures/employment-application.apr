@@ -1,0 +1,95 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Employment Application Form",
+    "description": "Test fixture for an employment application with multiple sections.",
+    "author": "PromptResponse Test Suite",
+    "templateId": "employment-app-v1",
+    "templateVersion": "1.0",
+    "created": "2025-03-15T00:00:00Z",
+    "modified": "2025-03-15T00:00:00Z"
+  },
+  "sections": [
+    {
+      "id": "personal_info",
+      "title": "Personal Information",
+      "prompts": [
+        {
+          "id": "prompt_dob",
+          "label": "Date of Birth",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date",
+            "placeholder": "YYYY-MM-DD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "position_info",
+      "title": "Position",
+      "prompts": [
+        {
+          "id": "prompt_position",
+          "label": "Position/Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Software Engineer",
+              "Manager",
+              "Designer",
+              "Analyst"
+            ]
+          }
+        },
+        {
+          "id": "prompt_start_date",
+          "label": "Available Start Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date",
+            "placeholder": "YYYY-MM-DD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "experience",
+      "title": "Work Experience",
+      "prompts": [
+        {
+          "id": "prompt_years_experience",
+          "label": "Years of Experience",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "prompt_summary",
+          "label": "Experience Summary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "references",
+      "title": "References",
+      "prompts": [
+        {
+          "id": "prompt_reference_email",
+          "label": "Reference Contact Email",
+          "response": "",
+          "hints": {
+            "expectedDataType": "email"
+          }
+        }
+      ]
+    }
+  ]
+}

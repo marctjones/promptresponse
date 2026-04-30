@@ -36,6 +36,9 @@ TestResults/
 *.trx
 *.coverage
 *.coveragexml
+coverage.json
+coverage.cobertura.xml
+coverage.opencover.xml
 
 # NuGet
 *.nupkg
@@ -57,3 +60,8 @@ test-forms/
 # Logs
 logs/
 *.log
+
+# IdlerGear daemon files (don't commit)
+.idlergear/daemon.sock
+.idlergear/daemon.pid
+.idlergear/sync/

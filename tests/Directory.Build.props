@@ -1,0 +1,16 @@
+<Project>
+  <Import Project="..\Directory.Build.props" />
+
+  <!--
+    Test-project-only settings:
+      coverlet.msbuild enables /p:CollectCoverage=true /p:Threshold=N gating
+      from the command line and CI (in addition to the data-collector approach
+      configured in coverlet.runsettings).
+  -->
+  <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="6.0.0" Condition="'$(IsTestProject)' == 'true'">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

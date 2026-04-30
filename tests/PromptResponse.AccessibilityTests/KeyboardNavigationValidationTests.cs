@@ -351,8 +351,9 @@ public class KeyboardNavigationValidationTests
 
         var viewModelContent = File.ReadAllText(viewModelPath);
 
-        // Act - Check that commands are defined (they'll be bound to menu items)
-        var commandPattern = @"public ICommand \w+Command";
+        // Act - Check that commands are defined (they'll be bound to menu items).
+        // Matches: ICommand, IInputCommand (project alias for ICommand), and source-generated [RelayCommand] markers.
+        var commandPattern = @"public\s+(?:I(?:Input)?Command\s+\w+Command|IRelayCommand\w*\s+\w+Command)";
         var commands = Regex.Matches(viewModelContent, commandPattern);
 
         // Assert
