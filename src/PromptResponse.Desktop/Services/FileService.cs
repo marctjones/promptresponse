@@ -33,6 +33,23 @@ public class FileService : IFileService
         _currentFilePath = filePath;
     }
 
+    public async Task<AprDocument?> LoadFileAsync(string filePath)
+    {
+        if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath)) return null;
+
+        await using var stream = File.OpenRead(filePath);
+        var document = await _serializer.DeserializeAsync(stream);
+        if (document == null) return null;
+
+        // Extension-based DocumentType override (extension takes precedence over content).
+        var extension = Path.GetExtension(filePath).ToLowerInvariant();
+        if (extension == ".aprt") document.DocumentType = DocumentType.Template;
+        else if (extension == ".aprf") document.DocumentType = DocumentType.FilledForm;
+
+        _currentFilePath = filePath;
+        return document;
+    }
+
     public async Task<AprDocument?> OpenFileAsync()
     {
         // Get the main window

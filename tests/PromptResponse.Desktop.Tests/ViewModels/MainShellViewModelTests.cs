@@ -99,6 +99,32 @@ public class MainShellViewModelTests
     }
 
     [Fact]
+    public async Task OpenFromPath_LoadsViaFileService_AndUpdatesShell()
+    {
+        var fs = new Mock<IFileService>();
+        fs.Setup(s => s.LoadFileAsync("/tmp/example.aprt")).ReturnsAsync(MakeTemplate());
+        var shell = CreateShell(fileService: fs);
+
+        await shell.OpenFromPath("/tmp/example.aprt");
+
+        shell.HasDocument.Should().BeTrue();
+        shell.CurrentDocumentTitle.Should().Be("Test Template");
+        fs.Verify(s => s.LoadFileAsync("/tmp/example.aprt"), Times.Once);
+    }
+
+    [Fact]
+    public async Task OpenFromPath_WhenFileFailsToLoad_LeavesShellUnchanged()
+    {
+        var fs = new Mock<IFileService>();
+        fs.Setup(s => s.LoadFileAsync(It.IsAny<string>())).ReturnsAsync((AprDocument?)null);
+        var shell = CreateShell(fileService: fs);
+
+        await shell.OpenFromPath("/nonexistent.aprt");
+
+        shell.HasDocument.Should().BeFalse();
+    }
+
+    [Fact]
     public async Task OpenCommand_WhenUserCancels_LeavesShellUnchanged()
     {
         var fs = new Mock<IFileService>();

@@ -55,6 +55,25 @@ public partial class App : Application
                 ApplyWindowSettings(window, settingsService);
                 HookShutdown(desktop, window, settingsService);
 
+                // Honour command-line "--open <path>" by loading the file once the
+                // window is shown. Errors are logged but don't prevent the empty
+                // state from showing, so the user can still use the app.
+                if (Program.StartupOptions?.FilePath is { } startupFile)
+                {
+                    window.Opened += async (_, _) =>
+                    {
+                        try
+                        {
+                            await shellVm.OpenFromPath(startupFile);
+                            _logger?.LogInformation("Auto-opened startup file: {File}", startupFile);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger?.LogError(ex, "Failed to auto-open {File}", startupFile);
+                        }
+                    };
+                }
+
                 _logger.LogInformation("MainWindow shown with new MainShellViewModel.");
             }
 

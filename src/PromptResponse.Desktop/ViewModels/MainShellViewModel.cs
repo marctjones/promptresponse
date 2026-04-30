@@ -203,6 +203,17 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _session.Set(doc, _fileService.CurrentFilePath, dirty: false);
     }
 
+    /// <summary>
+    /// Loads a document directly from disk without showing the file picker. Used by
+    /// the command-line "--open path" flag and demo flows.
+    /// </summary>
+    public async Task OpenFromPath(string filePath)
+    {
+        var doc = await _fileService.LoadFileAsync(filePath);
+        if (doc == null) return;
+        _session.Set(doc, filePath, dirty: false);
+    }
+
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task Save()
     {

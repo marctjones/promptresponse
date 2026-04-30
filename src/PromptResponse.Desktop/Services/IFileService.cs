@@ -14,6 +14,13 @@ public interface IFileService
     Task<AprDocument?> OpenFileAsync();
 
     /// <summary>
+    /// Loads an APR document directly from a known file path. No dialog is shown.
+    /// Used for command-line "--open path" startup and demo flows.
+    /// </summary>
+    /// <returns>The loaded document, or null if the path doesn't exist or fails to parse.</returns>
+    Task<AprDocument?> LoadFileAsync(string filePath);
+
+    /// <summary>
     /// Shows a save file dialog and saves an APR document.
     /// </summary>
     /// <param name="document">The document to save.</param>
