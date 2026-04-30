@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\PromptResponse.Core\PromptResponse.Core.csproj" />
+    <ProjectReference Include="..\..\src\PromptResponse.Desktop\PromptResponse.Desktop.csproj" />
   </ItemGroup>
 
 </Project>

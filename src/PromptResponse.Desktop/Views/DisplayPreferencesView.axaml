@@ -1,0 +1,96 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels"
+             x:Class="PromptResponse.Desktop.Views.DisplayPreferencesView"
+             x:DataType="vm:DisplayPreferencesViewModel"
+             AutomationProperties.Name="Display Preferences"
+             AutomationProperties.HelpText="Toggle the rendering profile enhancements that match your needs">
+    <ScrollViewer>
+        <StackPanel Margin="24" Spacing="24" MaxWidth="640" HorizontalAlignment="Stretch">
+
+            <TextBlock Text="Display Preferences"
+                       FontSize="24" FontWeight="Bold"
+                      />
+
+            <TextBlock TextWrapping="Wrap"
+                       Text="PromptResponse adapts to your needs. The defaults work for everyone — turn on the enhancements that help you. You can combine any of these."/>
+
+            <!-- Color scheme (capability profile) -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Color scheme" FontWeight="SemiBold"
+                          />
+                <RadioButton x:Name="LightRadio"
+                             Content="Light"
+                             GroupName="ColorScheme"
+                             IsChecked="{Binding IsLight, Mode=TwoWay}"
+                             MinHeight="36"
+                             AutomationProperties.Name="Light color scheme"
+                             AutomationProperties.HelpText="Bright background; recommended for well-lit environments and most users"/>
+                <RadioButton x:Name="DarkRadio"
+                             Content="Dark"
+                             GroupName="ColorScheme"
+                             IsChecked="{Binding IsDark, Mode=TwoWay}"
+                             MinHeight="36"
+                             AutomationProperties.Name="Dark color scheme"
+                             AutomationProperties.HelpText="Dim background; recommended for low-light environments, photophobia, or migraine sensitivity"/>
+                <RadioButton x:Name="HighContrastRadio"
+                             Content="High contrast"
+                             GroupName="ColorScheme"
+                             IsChecked="{Binding IsHighContrast, Mode=TwoWay}"
+                             MinHeight="36"
+                             AutomationProperties.Name="High contrast color scheme"
+                             AutomationProperties.HelpText="Maximum contrast (WCAG AAA); thick borders, no transparency, no animations"/>
+            </StackPanel>
+
+            <!-- Optional rendering enhancements -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Rendering enhancements" FontWeight="SemiBold"
+                          />
+
+                <CheckBox x:Name="VisualFormattingCheck"
+                          Content="Visual formatting (numbers, dates)"
+                          IsChecked="{Binding VisualFormatting, Mode=TwoWay}"
+                          MinHeight="36"
+                          AutomationProperties.Name="Visual formatting"
+                          AutomationProperties.HelpText="Renders 42000 as 42,000 and ISO dates as April 29, 2025. The stored response is always the raw text you typed."/>
+
+                <CheckBox x:Name="LargeTextCheck"
+                          Content="Large text (1.5×)"
+                          IsChecked="{Binding LargeText, Mode=TwoWay}"
+                          MinHeight="36"
+                          AutomationProperties.Name="Large text"
+                          AutomationProperties.HelpText="Increases all text sizes by 1.5×"/>
+
+                <CheckBox x:Name="ReducedMotionCheck"
+                          Content="Reduced motion"
+                          IsChecked="{Binding ReducedMotion, Mode=TwoWay}"
+                          MinHeight="36"
+                          AutomationProperties.Name="Reduced motion"
+                          AutomationProperties.HelpText="Disables decorative animations and transitions"/>
+
+                <CheckBox x:Name="ScreenReaderTunedCheck"
+                          Content="Screen-reader tuned announcements"
+                          IsChecked="{Binding ScreenReaderTuned, Mode=TwoWay}"
+                          MinHeight="36"
+                          AutomationProperties.Name="Screen-reader tuned announcements"
+                          AutomationProperties.HelpText="More verbose live-region announcements for screen-reader users"/>
+
+                <CheckBox x:Name="MotorAssistCheck"
+                          Content="Larger touch / click targets"
+                          IsChecked="{Binding MotorAssist, Mode=TwoWay}"
+                          MinHeight="36"
+                          AutomationProperties.Name="Motor assist"
+                          AutomationProperties.HelpText="Increases minimum touch / click target size to 56 by 56 pixels"/>
+            </StackPanel>
+
+            <Button x:Name="ResetButton"
+                    Content="Reset to system defaults"
+                    Click="OnResetClicked"
+                    MinHeight="36"
+                    HorizontalAlignment="Left"
+                    AutomationProperties.Name="Reset display preferences"
+                    AutomationProperties.HelpText="Clears all your toggles and restores OS-detected accessibility preferences"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
