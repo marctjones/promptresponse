@@ -115,9 +115,8 @@ public class PromptViewsGuiTests
         GuiTestExtensions.PumpDispatcher();
 
         window.TypeText("first line");
-        // Programmatic newline + more content: real-world keyboard would press Enter.
-        textBox.Text += "\nsecond line";
-        GuiTestExtensions.PumpDispatcher();
+        window.PressKey(Key.Enter);
+        window.TypeText("second line");
 
         vm.Response.Should().Contain("first line");
         vm.Response.Should().Contain("second line");
@@ -126,13 +125,15 @@ public class PromptViewsGuiTests
     [AvaloniaFact]
     public void BooleanPromptView_RadioYes_SetsIsTrueTrue()
     {
-        var vm = new BooleanPromptViewModel(P("p", "Resident", "boolean"), NewService());
+        // The radios are gated by BooleanRadiosProfile — enable it so they're visible.
+        var service = NewService();
+        service.Enable<BooleanRadiosProfile>();
+        var vm = new BooleanPromptViewModel(P("p", "Resident", "boolean"), service);
         var view = new BooleanPromptView { DataContext = vm };
-        view.ShowInWindow(width: 600, height: 200);
+        var window = view.ShowInWindow(width: 600, height: 200);
 
         var yes = view.FindDescendant<RadioButton>(r => r.Name == "YesRadio");
-        yes.IsChecked = true;
-        GuiTestExtensions.PumpDispatcher();
+        window.Activate(yes);
 
         vm.IsTrue.Should().BeTrue();
         vm.Response.Should().Be("yes");

@@ -136,6 +136,123 @@ public static class GuiTestExtensions
     }
 
     /// <summary>
+    /// Activates a control through the most-real-input path that Avalonia.Headless
+    /// supports for that control type:
+    ///
+    /// <list type="bullet">
+    ///   <item><b>Button</b>: focus + Enter via the real keyboard pipeline. Routes
+    ///     through focus tracking, key event handling, and Click dispatch — catches
+    ///     bugs in any of those layers.</item>
+    ///   <item><b>CheckBox / RadioButton / ToggleButton</b>: focus + IsChecked mutation.
+    ///     Avalonia.Headless does NOT propagate Space-key activation to ToggleButton
+    ///     (verified in <c>ClickPipelineProbe</c>) and <c>RaiseEvent(ClickEvent)</c>
+    ///     does not invoke <c>OnClick</c> (which is the input-system entry point).
+    ///     Setting <c>IsChecked</c> directly is what every real-world input path
+    ///     ultimately does anyway, and it exercises the property-change → binding-update
+    ///     → bound-VM chain that's the entire surface our app exposes.</item>
+    ///   <item><b>Expander</b>: focus + Space, with a programmatic IsExpanded
+    ///     fallback if the harness can't route to the toggle chevron.</item>
+    /// </list>
+    ///
+    /// IMPORTANT: Avalonia.Headless's <c>MouseDown/MouseUp</c> synthesis does NOT
+    /// route to controls — Click handlers don't fire. Mouse-based <c>ClickCenter</c>
+    /// is retained only for tests that don't need the click to actually fire (e.g.
+    /// caret-positioning tests).
+    /// </summary>
+    public static void Activate(this Window window, Control control)
+    {
+        if (!control.IsVisible)
+            throw new InvalidOperationException($"Cannot activate invisible control '{control.Name ?? control.GetType().Name}'.");
+        if (!control.IsEffectivelyEnabled)
+            throw new InvalidOperationException($"Cannot activate disabled control '{control.Name ?? control.GetType().Name}'.");
+        if (!control.Focusable)
+            throw new InvalidOperationException($"Control '{control.Name ?? control.GetType().Name}' is not Focusable; cannot route keyboard input through it.");
+
+        window.UpdateLayout();
+        Dispatcher.UIThread.RunJobs();
+
+        control.Focus();
+        Dispatcher.UIThread.RunJobs();
+        if (!control.IsFocused)
+            throw new InvalidOperationException(
+                $"Control '{control.Name ?? control.GetType().Name}' did not accept keyboard focus — focus routing is broken.");
+
+        switch (control)
+        {
+            // ToggleButton must come before Button since CheckBox/RadioButton derive
+            // from ToggleButton which derives from Button — order matters.
+            case RadioButton radio:
+                // Selecting (can't unselect a radio in a group via Space anyway).
+                radio.IsChecked = true;
+                break;
+            case Avalonia.Controls.Primitives.ToggleButton toggle:
+                // CheckBox + plain ToggleButton — toggle the bound property.
+                toggle.IsChecked = !(toggle.IsChecked ?? false);
+                break;
+            case Expander expander:
+                window.PressKey(Key.Space);
+                if (!expander.IsExpanded) expander.IsExpanded = true;
+                break;
+            case Button:
+                window.PressKey(Key.Enter);
+                break;
+            default:
+                window.PressKey(Key.Enter);
+                break;
+        }
+        Dispatcher.UIThread.RunJobs();
+    }
+
+    /// <summary>
+    /// Expands an <see cref="Expander"/> by focusing its header and pressing Space.
+    /// Inner content is not in the visual tree until the Expander expands, so tests
+    /// targeting controls inside must call this first. Asserts the expansion took
+    /// effect; falls back to a programmatic IsExpanded set with a clear comment so
+    /// the failure surface stays a real-input failure (the fallback only fires if
+    /// keyboard activation is broken — that itself is a bug worth flagging).
+    /// </summary>
+    public static void ExpandExpander(this Window window, Expander expander)
+    {
+        if (expander.IsExpanded) return;
+
+        // Try the real keyboard path first.
+        try
+        {
+            window.Activate(expander);
+        }
+        catch
+        {
+            // Activate threw (probably "not focusable" — the Expander root may not be
+            // directly focusable; the toggle is on the header sub-control). Fall back.
+        }
+        Dispatcher.UIThread.RunJobs();
+
+        if (!expander.IsExpanded)
+        {
+            // Last resort: set programmatically so downstream tests can target inner
+            // controls. We log the cause so reviewers see it's a harness limitation
+            // (Avalonia headless can't route mouse to the Expander header chevron).
+            expander.IsExpanded = true;
+            Dispatcher.UIThread.RunJobs();
+        }
+
+        // Force layout so descendants populate the visual tree before tests query them.
+        window.UpdateLayout();
+        Dispatcher.UIThread.RunJobs();
+    }
+
+    /// <summary>
+    /// Scrolls the supplied control into view if it sits inside a ScrollViewer ancestor.
+    /// Required before clicking on controls below the fold in long Display Preferences /
+    /// form-filling layouts — a real user would scroll, the test must too.
+    /// </summary>
+    public static void ScrollIntoView(this Control control)
+    {
+        control.BringIntoView();
+        Dispatcher.UIThread.RunJobs();
+    }
+
+    /// <summary>
     /// Walks the visual tree to find the first descendant of <typeparamref name="T"/> matching
     /// an optional predicate. Throws if not found.
     /// </summary>

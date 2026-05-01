@@ -48,28 +48,29 @@ public class DisplayPreferencesViewGuiTests
     }
 
     [AvaloniaFact]
-    public void TogglingDarkRadio_ViaProgrammaticChecked_UpdatesActiveProfile()
+    public void SelectingDarkRadio_ViaActivation_UpdatesActiveProfile()
     {
         var (view, vm, _) = BuildView();
         var window = view.ShowInWindow(width: 700, height: 720);
 
-        var darkRadio = view.FindDescendant<RadioButton>(rb => rb.Name == "DarkRadio");
-        darkRadio.IsChecked = true;
-        GuiTestExtensions.PumpDispatcher();
+        // The radio is inside the Customize Expander — must expand it first
+        // (real users click the expander chevron; headless can't, so the harness
+        // handles the fallback).
+        window.ExpandExpander(view.FindDescendant<Expander>(e => true));
+        window.Activate(view.FindDescendant<RadioButton>(rb => rb.Name == "DarkRadio"));
 
         vm.ColorScheme.Should().Be(ColorScheme.Dark);
         vm.ActiveProfile.ColorScheme.Should().Be(ColorScheme.Dark);
     }
 
     [AvaloniaFact]
-    public void TogglingHighContrastRadio_PromotesContrastToAaa()
+    public void SelectingHighContrastRadio_PromotesContrastToAaa()
     {
         var (view, vm, _) = BuildView();
         var window = view.ShowInWindow(width: 700, height: 720);
 
-        var hcRadio = view.FindDescendant<RadioButton>(rb => rb.Name == "HighContrastRadio");
-        hcRadio.IsChecked = true;
-        GuiTestExtensions.PumpDispatcher();
+        window.ExpandExpander(view.FindDescendant<Expander>(e => true));
+        window.Activate(view.FindDescendant<RadioButton>(rb => rb.Name == "HighContrastRadio"));
 
         vm.ActiveProfile.TargetContrast.Should().Be(ContrastLevel.AAA);
     }
@@ -103,34 +104,32 @@ public class DisplayPreferencesViewGuiTests
     [AvaloniaFact]
     public void CheckBox_BoundToVm_PropagatesChangesBothWays()
     {
-        // Equivalent of the keyboard-Space flow: the CheckBox's bound IsChecked
-        // round-trips with the underlying view-model.
         var (view, vm, _) = BuildView();
-        view.ShowInWindow(width: 700, height: 720);
+        var window = view.ShowInWindow(width: 700, height: 720);
 
+        window.ExpandExpander(view.FindDescendant<Expander>(e => true));
         var checkbox = view.FindDescendant<CheckBox>(cb => cb.Name == "LargeTextCheck");
-        checkbox.IsChecked = true;
-        GuiTestExtensions.PumpDispatcher();
+        window.Activate(checkbox);
 
         vm.LargeText.Should().BeTrue();
         vm.ActiveProfile.TextScale.Should().Be(1.5);
 
+        // Reverse direction: VM update reflects on the visible CheckBox.
         vm.LargeText = false;
         GuiTestExtensions.PumpDispatcher();
-
         checkbox.IsChecked.Should().BeFalse();
     }
 
     [AvaloniaFact]
-    public void CheckingMultipleEnhancements_ComposesTheActiveProfile()
+    public void TogglingMultipleCheckboxes_ComposesTheActiveProfile()
     {
         var (view, vm, _) = BuildView();
-        view.ShowInWindow(width: 700, height: 720);
+        var window = view.ShowInWindow(width: 700, height: 720);
 
-        view.FindDescendant<CheckBox>(cb => cb.Name == "NumberThousandsSeparatorsCheck").IsChecked = true;
-        view.FindDescendant<CheckBox>(cb => cb.Name == "LargeTextCheck").IsChecked = true;
-        view.FindDescendant<CheckBox>(cb => cb.Name == "LargeHitTargetsCheck").IsChecked = true;
-        GuiTestExtensions.PumpDispatcher();
+        window.ExpandExpander(view.FindDescendant<Expander>(e => true));
+        window.Activate(view.FindDescendant<CheckBox>(cb => cb.Name == "NumberThousandsSeparatorsCheck"));
+        window.Activate(view.FindDescendant<CheckBox>(cb => cb.Name == "LargeTextCheck"));
+        window.Activate(view.FindDescendant<CheckBox>(cb => cb.Name == "LargeHitTargetsCheck"));
 
         vm.ActiveProfile.TextScale.Should().Be(1.5);
         vm.ActiveProfile.MinimumTouchTarget.Width.Should().Be(56);
@@ -138,49 +137,39 @@ public class DisplayPreferencesViewGuiTests
     }
 
     [AvaloniaFact]
-    public void ResetButton_RoutedClick_ClearsUserToggles()
+    public void ResetButton_ViaRealKeyboard_ClearsUserToggles()
     {
         var (view, vm, _) = BuildView();
-        view.ShowInWindow(width: 700, height: 720);
+        var window = view.ShowInWindow(width: 700, height: 720);
 
-        view.FindDescendant<CheckBox>(cb => cb.Name == "LargeTextCheck").IsChecked = true;
-        GuiTestExtensions.PumpDispatcher();
+        window.ExpandExpander(view.FindDescendant<Expander>(e => true));
+        window.Activate(view.FindDescendant<CheckBox>(cb => cb.Name == "LargeTextCheck"));
         vm.LargeText.Should().BeTrue();
 
         var resetButton = view.FindDescendant<Button>(b => b.Name == "ResetButton");
-        resetButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        GuiTestExtensions.PumpDispatcher();
+        window.Activate(resetButton);
 
-        vm.LargeText.Should().BeFalse("Reset button click must clear user toggles");
+        vm.LargeText.Should().BeFalse("Reset button activation must clear user toggles");
     }
 
     [AvaloniaFact]
-    public void PresetButtons_ApplyTheirCompositions()
+    public void PresetButtons_ApplyTheirCompositions_ViaRealKeyboardEnter()
     {
         var (view, vm, _) = BuildView();
-        view.ShowInWindow(width: 700, height: 720);
+        var window = view.ShowInWindow(width: 700, height: 720);
 
-        // Excellent: all visual affordances on, light scheme.
-        view.FindDescendant<Button>(b => b.Name == "PresetExcellent")
-            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        GuiTestExtensions.PumpDispatcher();
+        window.Activate(view.FindDescendant<Button>(b => b.Name == "PresetExcellent"));
         vm.ColorScheme.Should().Be(ColorScheme.Light);
         vm.NumberThousandsSeparators.Should().BeTrue();
         vm.PhoneInputMask.Should().BeTrue();
         vm.CalendarPicker.Should().BeTrue();
 
-        // LowVision: high contrast + large text + large hit targets.
-        view.FindDescendant<Button>(b => b.Name == "PresetLowVision")
-            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        GuiTestExtensions.PumpDispatcher();
+        window.Activate(view.FindDescendant<Button>(b => b.Name == "PresetLowVision"));
         vm.ColorScheme.Should().Be(ColorScheme.HighContrast);
         vm.LargeText.Should().BeTrue();
         vm.LargeHitTargets.Should().BeTrue();
 
-        // Blind: live input masks OFF, calendar picker OFF, screen-reader tuned ON.
-        view.FindDescendant<Button>(b => b.Name == "PresetBlind")
-            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        GuiTestExtensions.PumpDispatcher();
+        window.Activate(view.FindDescendant<Button>(b => b.Name == "PresetBlind"));
         vm.ScreenReaderTuned.Should().BeTrue();
         vm.PhoneInputMask.Should().BeFalse("live phone reshape disrupts screen-reader speech");
         vm.SsnInputMask.Should().BeFalse();
