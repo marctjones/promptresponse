@@ -85,6 +85,41 @@ public static class StringSanitizer
             : stripped.Normalize(NormalizationForm.FormC);
     }
 
+    /// <summary>
+    /// Strict-mode sanitization for hint types where ALL hidden characters are
+    /// suspect (URL, email — no legitimate Persian/emoji content there). Strips
+    /// the always-abusive set PLUS zero-width chars, bidi marks, soft hyphens,
+    /// variation selectors, etc. Use for <c>"url"</c> and <c>"email"</c> hint
+    /// types only.
+    /// </summary>
+    public static string? NormalizeAndStripStrict(string? value)
+    {
+        if (string.IsNullOrEmpty(value)) return value;
+
+        var hasStrict = ContainsStrictAbusive(value);
+        var alreadyNfc = !hasStrict && value.IsNormalized(NormalizationForm.FormC);
+        if (alreadyNfc) return value;
+
+        string stripped;
+        if (hasStrict)
+        {
+            var sb = new StringBuilder(value.Length);
+            foreach (var rune in value.EnumerateRunes())
+            {
+                if (!IsStrictAbusive(rune)) sb.Append(rune.ToString());
+            }
+            stripped = sb.ToString();
+        }
+        else
+        {
+            stripped = value;
+        }
+
+        return stripped.IsNormalized(NormalizationForm.FormC)
+            ? stripped
+            : stripped.Normalize(NormalizationForm.FormC);
+    }
+
     /// <summary>True when the character has no legitimate use in a form response
     /// and is silently stripped on save.</summary>
     public static bool IsAbusive(System.Text.Rune rune)
@@ -122,6 +157,36 @@ public static class StringSanitizer
         foreach (var rune in value.EnumerateRunes())
         {
             if (IsAbusive(rune)) return true;
+        }
+        return false;
+    }
+
+    /// <summary>True for the always-abusive set plus the almost-always-abusive set
+    /// (ZWSP, ZWJ, ZWNJ, soft hyphen, bidi marks, variation selectors, word joiner,
+    /// invisible operators). Used in strict-mode for url/email hint types where no
+    /// hidden character has a legitimate purpose.</summary>
+    private static bool IsStrictAbusive(System.Text.Rune rune)
+    {
+        if (IsAbusive(rune)) return true;
+        var v = rune.Value;
+        return v switch
+        {
+            0x00AD => true,                      // soft hyphen
+            0x200B or 0x200C or 0x200D => true,  // ZWSP, ZWNJ, ZWJ
+            0x200E or 0x200F => true,            // LRM, RLM
+            0x2060 => true,                      // word joiner
+            >= 0x2061 and <= 0x2064 => true,     // invisible math operators
+            >= 0xFE00 and <= 0xFE0F => true,     // variation selectors
+            >= 0xE0100 and <= 0xE01EF => true,   // VS supplement
+            _ => false,
+        };
+    }
+
+    private static bool ContainsStrictAbusive(string value)
+    {
+        foreach (var rune in value.EnumerateRunes())
+        {
+            if (IsStrictAbusive(rune)) return true;
         }
         return false;
     }

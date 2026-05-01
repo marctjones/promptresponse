@@ -178,7 +178,16 @@ public class AprJsonSerializer : IAprSerializer
     private static void SanitizePrompt(Prompt prompt)
     {
         prompt.Label = StringSanitizer.NormalizeAndStrip(prompt.Label) ?? string.Empty;
-        prompt.Response = StringSanitizer.NormalizeAndStrip(prompt.Response) ?? string.Empty;
+        // Per-hint-type strict policy: url/email responses get the no-hidden-chars
+        // treatment because zero-width / bidi / variation-selector content has NO
+        // legitimate purpose in a URL or email. All other hints stay on the
+        // permissive sanitizer that preserves Persian ZWNJ, emoji ZWJ, etc.
+        var hint = prompt.Hints?.ExpectedDataType?.ToLowerInvariant();
+        prompt.Response = (hint switch
+        {
+            "url" or "email" => StringSanitizer.NormalizeAndStripStrict(prompt.Response),
+            _ => StringSanitizer.NormalizeAndStrip(prompt.Response),
+        }) ?? string.Empty;
         if (prompt.Hints != null)
         {
             prompt.Hints.HelpText = StringSanitizer.NormalizeAndStrip(prompt.Hints.HelpText);
