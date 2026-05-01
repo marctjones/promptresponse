@@ -1,4 +1,5 @@
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -7,6 +8,16 @@ namespace PromptResponse.Core.Serialization;
 /// <summary>
 /// JSON serializer for APR documents using System.Text.Json.
 /// </summary>
+/// <remarks>
+/// Sanitizes every string field at the serialization boundary via
+/// <see cref="StringSanitizer.NormalizeAndStrip"/>: NFC normalize so equal-looking
+/// strings store as equal bytes, and strip the always-abusive character set
+/// (BOM mid-string, bidi overrides, lone surrogates, control characters except
+/// tab/LF/CR, non-character codepoints). Sanitization runs on both write AND read
+/// so a tampered file fed in from outside is normalised before downstream code
+/// sees it. Vision invariant preserved: legitimate Unicode (Persian ZWNJ, emoji
+/// ZWJ sequences, bidi marks, combining accents) survives untouched.
+/// </remarks>
 public class AprJsonSerializer : IAprSerializer
 {
     private readonly JsonSerializerOptions _options;
@@ -42,6 +53,7 @@ public class AprJsonSerializer : IAprSerializer
 
         try
         {
+            SanitizeDocument(document);
             return JsonSerializer.Serialize(document, _options);
         }
         catch (Exception ex)
@@ -62,7 +74,7 @@ public class AprJsonSerializer : IAprSerializer
             {
                 throw new SerializationException("Deserialization returned null");
             }
-
+            SanitizeDocument(document);
             return document;
         }
         catch (JsonException ex)
@@ -92,7 +104,7 @@ public class AprJsonSerializer : IAprSerializer
             {
                 throw new SerializationException("Deserialization returned null");
             }
-
+            SanitizeDocument(document);
             return document;
         }
         catch (JsonException ex)
@@ -118,6 +130,7 @@ public class AprJsonSerializer : IAprSerializer
 
         try
         {
+            SanitizeDocument(document);
             await JsonSerializer.SerializeAsync(stream, document, _options, cancellationToken);
         }
         catch (OperationCanceledException)
@@ -127,6 +140,49 @@ public class AprJsonSerializer : IAprSerializer
         catch (Exception ex)
         {
             throw new SerializationException("Failed to serialize APR document", ex);
+        }
+    }
+
+    /// <summary>Walks the document tree and applies <see cref="StringSanitizer.NormalizeAndStrip"/>
+    /// to every user-content string. Field-name strings (Id, hint type names) are
+    /// left untouched — they're internal identifiers, not user-typed responses.</summary>
+    private static void SanitizeDocument(AprDocument document)
+    {
+        if (document.Metadata != null)
+        {
+            document.Metadata.Title = StringSanitizer.NormalizeAndStrip(document.Metadata.Title) ?? string.Empty;
+            document.Metadata.Description = StringSanitizer.NormalizeAndStrip(document.Metadata.Description);
+            document.Metadata.Author = StringSanitizer.NormalizeAndStrip(document.Metadata.Author);
+            document.Metadata.FilledBy = StringSanitizer.NormalizeAndStrip(document.Metadata.FilledBy);
+        }
+        foreach (var section in document.Sections)
+        {
+            SanitizeSection(section);
+        }
+    }
+
+    private static void SanitizeSection(Section section)
+    {
+        section.Title = StringSanitizer.NormalizeAndStrip(section.Title) ?? string.Empty;
+        section.Description = StringSanitizer.NormalizeAndStrip(section.Description);
+        foreach (var prompt in section.Prompts)
+        {
+            SanitizePrompt(prompt);
+        }
+        foreach (var nested in section.Sections)
+        {
+            SanitizeSection(nested);
+        }
+    }
+
+    private static void SanitizePrompt(Prompt prompt)
+    {
+        prompt.Label = StringSanitizer.NormalizeAndStrip(prompt.Label) ?? string.Empty;
+        prompt.Response = StringSanitizer.NormalizeAndStrip(prompt.Response) ?? string.Empty;
+        if (prompt.Hints != null)
+        {
+            prompt.Hints.HelpText = StringSanitizer.NormalizeAndStrip(prompt.Hints.HelpText);
+            prompt.Hints.Placeholder = StringSanitizer.NormalizeAndStrip(prompt.Hints.Placeholder);
         }
     }
 }
