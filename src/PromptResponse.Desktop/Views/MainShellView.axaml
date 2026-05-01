@@ -308,6 +308,29 @@
                             <TextBlock Text="{Binding AdvisorySummary}"
                                        FontSize="{Binding BodyFontSize}"
                                        AutomationProperties.LiveSetting="Polite"/>
+                            <ItemsControl ItemsSource="{Binding Advisories}"
+                                          x:Name="AdvisoryList"
+                                          AutomationProperties.Name="Advisory list">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="vm:AdvisoryItem">
+                                        <Border Padding="8,6" Margin="0,2"
+                                                CornerRadius="4"
+                                                BorderThickness="1"
+                                                BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="{Binding PromptLabel}"
+                                                           FontSize="12"
+                                                           FontWeight="SemiBold"/>
+                                                <TextBlock Text="{Binding Message}"
+                                                           FontSize="11"
+                                                           Opacity="0.8"
+                                                           TextWrapping="Wrap"
+                                                           AutomationProperties.HelpText="{Binding Message}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                             <TextBlock Text="Advisories are non-blocking. Any visible text is a valid response — hints help you fill in the form, they don't restrict you."
                                        FontSize="{Binding CaptionFontSize}"
                                        Foreground="{Binding ActiveProfileMutedTextBrush}"

@@ -27,6 +27,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
     private readonly ObservableCollection<SectionViewModel> _sections = new();
+    private readonly ObservableCollection<AdvisoryItem> _advisories = new();
 
     public MainShellViewModel(
         IFileService fileService,
@@ -133,14 +134,19 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     public bool HasDocumentDescription => !string.IsNullOrWhiteSpace(DocumentDescription);
 
     /// <summary>Count of advisory warnings from the data-type validator (never errors — vision invariant).</summary>
-    public int AdvisoryCount { get; private set; }
-    public bool HasAdvisories => AdvisoryCount > 0;
-    public string AdvisorySummary => AdvisoryCount switch
+    public int AdvisoryCount => _advisories.Count;
+    public bool HasAdvisories => _advisories.Count > 0;
+    public string AdvisorySummary => _advisories.Count switch
     {
         0 => "No advisories",
         1 => "1 advisory",
-        _ => $"{AdvisoryCount} advisories",
+        _ => $"{_advisories.Count} advisories",
     };
+
+    /// <summary>Itemized list of advisories. Each entry links back to the prompt that
+    /// triggered it (PromptId, PromptLabel) and explains why (Message). Pinned in the
+    /// right rail so the user can see which fields need attention without hunting.</summary>
+    public IReadOnlyList<AdvisoryItem> Advisories => _advisories;
 
     /// <summary>
     /// Re-runs the advisory inspection over the current document. Per the vision,
@@ -149,19 +155,43 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </summary>
     public void RefreshAdvisories()
     {
+        _advisories.Clear();
         var doc = _session.CurrentDocument;
-        if (doc == null)
-        {
-            AdvisoryCount = 0;
-        }
-        else
+        if (doc != null)
         {
             var result = _dataTypeValidator.ValidateDocument(doc);
-            AdvisoryCount = result.Warnings.Count;
+            foreach (var warning in result.Warnings)
+            {
+                var (promptId, promptLabel) = ResolvePromptFromPath(doc, warning.PropertyPath);
+                _advisories.Add(new AdvisoryItem(promptId, promptLabel, warning.Message));
+            }
         }
         OnPropertyChanged(nameof(AdvisoryCount));
         OnPropertyChanged(nameof(HasAdvisories));
         OnPropertyChanged(nameof(AdvisorySummary));
+        OnPropertyChanged(nameof(Advisories));
+    }
+
+    /// <summary>
+    /// Resolves a validator's PropertyPath (which is the prompt's Id) to the
+    /// prompt's user-visible label. Falls back to the id when the prompt can't
+    /// be located so the advisory remains informative.
+    /// </summary>
+    private static (string id, string label) ResolvePromptFromPath(AprDocument doc, string propertyPath)
+    {
+        var prompt = FindPromptById(doc.Sections, propertyPath);
+        return prompt != null ? (prompt.Id, prompt.Label) : (propertyPath, propertyPath);
+    }
+
+    private static Prompt? FindPromptById(IList<Section> sections, string id)
+    {
+        foreach (var section in sections)
+        {
+            foreach (var p in section.Prompts) if (p.Id == id) return p;
+            var nested = FindPromptById(section.Sections, id);
+            if (nested != null) return nested;
+        }
+        return null;
     }
 
     /// <summary>
@@ -271,9 +301,11 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         Progress.SetDocument(document);
         Search.SetDocument(document);
 
-        // Dispose the previous prompt VMs and rebuild the section tree.
+        // Dispose the previous prompt VMs (also unsubscribes our PropertyChanged
+        // handler) and rebuild the section tree.
         foreach (var vm in _promptViewModels)
         {
+            vm.PropertyChanged -= OnPromptResponseChanged;
             vm.Dispose();
         }
         _promptViewModels.Clear();
@@ -286,6 +318,13 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
                 var sectionVm = new SectionViewModel(section, _factory, depth: 0);
                 _sections.Add(sectionVm);
                 CollectPrompts(sectionVm);
+            }
+            // Subscribe to every prompt's Response changes so the progress bar and
+            // advisory list refresh as the user types — fixes the "progress never
+            // updates / advisories require Refresh button" live-app bugs.
+            foreach (var promptVm in _promptViewModels)
+            {
+                promptVm.PropertyChanged += OnPromptResponseChanged;
             }
         }
 
@@ -311,6 +350,18 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     {
         foreach (var prompt in section.PromptViewModels) _promptViewModels.Add(prompt);
         foreach (var nested in section.NestedSections) CollectPrompts(nested);
+    }
+
+    /// <summary>
+    /// Pulses progress + advisories whenever any prompt VM's Response changes.
+    /// Filtered to Response-only updates so other property pulses (DisplayValue,
+    /// Show* derived bools) don't trigger redundant validation passes.
+    /// </summary>
+    private void OnPromptResponseChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(PromptViewModelBase.Response)) return;
+        Progress.Refresh();
+        RefreshAdvisories();
     }
 
     private void OnDirtyChanged(object? sender, bool isDirty)
