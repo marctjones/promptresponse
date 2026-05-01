@@ -1,5 +1,6 @@
 using FluentAssertions;
 using PromptResponse.Cli.Commands;
+using PromptResponse.Cli.Tests.Fixtures;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using Xunit;
@@ -9,15 +10,17 @@ namespace PromptResponse.Cli.Tests.Commands;
 /// <summary>
 /// Unit tests for DiffCommand.
 /// </summary>
-public class DiffCommandTests
+public class DiffCommandTests : IDisposable
 {
     private readonly AprJsonSerializer _serializer;
     private readonly DiffCommand _command;
+    private readonly TempFileHelper _tempHelper;
 
     public DiffCommandTests()
     {
         _serializer = new AprJsonSerializer();
         _command = new DiffCommand(_serializer);
+        _tempHelper = new TempFileHelper(_serializer);
     }
 
     [Fact]
@@ -234,4 +237,192 @@ public class DiffCommandTests
             }
         };
     }
+
+    // ── Nested-section diff coverage ──
+
+    [Fact]
+    public async Task ExecuteAsync_NestedSectionsDiffer_ReportsNestedDifference()
+    {
+        var doc1 = new AprDocument
+        {
+            Version = "1.0", DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = "T" },
+            Sections = new List<Section>
+            {
+                new()
+                {
+                    Id = "s1", Title = "Outer",
+                    Sections = new List<Section>
+                    {
+                        new() { Id = "s1a", Title = "Inner-A", Prompts = new List<Prompt>() },
+                    },
+                },
+            },
+        };
+        var doc2 = new AprDocument
+        {
+            Version = "1.0", DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = "T" },
+            Sections = new List<Section>
+            {
+                new()
+                {
+                    Id = "s1", Title = "Outer",
+                    Sections = new List<Section>
+                    {
+                        new() { Id = "s1a", Title = "Inner-B", Prompts = new List<Prompt>() },
+                    },
+                },
+            },
+        };
+
+        var f1 = _tempHelper.CreateTempFile(doc1);
+        var f2 = _tempHelper.CreateTempFile(doc2);
+        var exit = await _command.ExecuteAsync(new[] { f1, f2 });
+        exit.Should().Be(1, "nested-section title diff is a real difference");
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_OneDocHasExtraNestedSection_ReportsAddedSubsection()
+    {
+        var doc1 = new AprDocument
+        {
+            Version = "1.0", DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = "T" },
+            Sections = new List<Section>
+            {
+                new() { Id = "s1", Title = "Outer", Prompts = new List<Prompt>() },
+            },
+        };
+        var doc2 = new AprDocument
+        {
+            Version = "1.0", DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = "T" },
+            Sections = new List<Section>
+            {
+                new()
+                {
+                    Id = "s1", Title = "Outer",
+                    Sections = new List<Section>
+                    {
+                        new() { Id = "s1a", Title = "Added", Prompts = new List<Prompt>() },
+                    },
+                },
+            },
+        };
+
+        var f1 = _tempHelper.CreateTempFile(doc1);
+        var f2 = _tempHelper.CreateTempFile(doc2);
+        var exit = await _command.ExecuteAsync(new[] { f1, f2 });
+        exit.Should().Be(1);
+    }
+
+    // ── Prompt-list shape diffs ──
+
+    [Fact]
+    public async Task ExecuteAsync_PromptCountDiffers_ReportsDifference()
+    {
+        var doc1 = CreateTestDocument();
+        var doc2 = CreateTestDocument();
+        doc2.Sections[0].Prompts.Add(new Prompt { Id = "extra", Label = "Extra", Response = "" });
+
+        var f1 = _tempHelper.CreateTempFile(doc1);
+        var f2 = _tempHelper.CreateTempFile(doc2);
+        var exit = await _command.ExecuteAsync(new[] { f1, f2 });
+        exit.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_PromptLabelDiffers_ReportsDifference()
+    {
+        var doc1 = CreateTestDocument();
+        var doc2 = CreateTestDocument();
+        doc2.Sections[0].Prompts[0].Label = "Renamed";
+
+        var f1 = _tempHelper.CreateTempFile(doc1);
+        var f2 = _tempHelper.CreateTempFile(doc2);
+        var exit = await _command.ExecuteAsync(new[] { f1, f2 });
+        exit.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_PromptIdDiffers_ReportsDifference()
+    {
+        var doc1 = CreateTestDocument();
+        var doc2 = CreateTestDocument();
+        doc2.Sections[0].Prompts[0].Id = "renamed-id";
+
+        var f1 = _tempHelper.CreateTempFile(doc1);
+        var f2 = _tempHelper.CreateTempFile(doc2);
+        var exit = await _command.ExecuteAsync(new[] { f1, f2 });
+        exit.Should().Be(1);
+    }
+
+    // ── Edge cases ──
+
+    [Fact]
+    public async Task ExecuteAsync_BothFilesMissing_ReturnsError()
+    {
+        var exit = await _command.ExecuteAsync(new[] { "missing1.apr", "missing2.apr" });
+        exit.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_FirstFileMalformedJson_ReturnsError()
+    {
+        var bad = Path.GetTempFileName();
+        await File.WriteAllTextAsync(bad, "not json {");
+        var doc = CreateTestDocument();
+        var ok = _tempHelper.CreateTempFile(doc);
+        try
+        {
+            var exit = await _command.ExecuteAsync(new[] { bad, ok });
+            exit.Should().Be(1);
+        }
+        finally
+        {
+            if (File.Exists(bad)) File.Delete(bad);
+        }
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_SecondFileMalformedJson_ReturnsError()
+    {
+        var doc = CreateTestDocument();
+        var ok = _tempHelper.CreateTempFile(doc);
+        var bad = Path.GetTempFileName();
+        await File.WriteAllTextAsync(bad, "not json {");
+        try
+        {
+            var exit = await _command.ExecuteAsync(new[] { ok, bad });
+            exit.Should().Be(1);
+        }
+        finally
+        {
+            if (File.Exists(bad)) File.Delete(bad);
+        }
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_EmptySectionsBoth_NoDifferences_ReturnsZero()
+    {
+        var doc1 = new AprDocument
+        {
+            Version = "1.0", DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = "T" },
+            Sections = new List<Section>(),
+        };
+        var doc2 = new AprDocument
+        {
+            Version = "1.0", DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = "T" },
+            Sections = new List<Section>(),
+        };
+        var f1 = _tempHelper.CreateTempFile(doc1);
+        var f2 = _tempHelper.CreateTempFile(doc2);
+        var exit = await _command.ExecuteAsync(new[] { f1, f2 });
+        exit.Should().Be(0);
+    }
+
+    public void Dispose() => _tempHelper?.Dispose();
 }

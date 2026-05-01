@@ -1,0 +1,237 @@
+using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using Moq;
+using PromptResponse.Cli.Commands;
+using PromptResponse.Cli.Tests.Fixtures;
+using PromptResponse.Core.Serialization;
+using PromptResponse.Core.Validation;
+using Xunit;
+
+namespace PromptResponse.Cli.Tests.Commands;
+
+/// <summary>
+/// Unit tests for ValidateCommand.
+/// </summary>
+public class ValidateCommandTests : IDisposable
+{
+    private readonly IAprSerializer _serializer;
+    private readonly DocumentValidator _documentValidator;
+    private readonly DataTypeValidator _dataTypeValidator;
+    private readonly ValidateCommand _command;
+    private readonly TempFileHelper _tempHelper;
+
+    public ValidateCommandTests()
+    {
+        _serializer = new AprJsonSerializer();
+        _documentValidator = new DocumentValidator();
+        _dataTypeValidator = new DataTypeValidator();
+        var loggerMock = new Mock<ILogger<ValidateCommand>>();
+        _command = new ValidateCommand(_serializer, _documentValidator, _dataTypeValidator);
+        _tempHelper = new TempFileHelper(_serializer);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_NoArguments_ReturnsError()
+    {
+        // Act
+        var result = await _command.ExecuteAsync(Array.Empty<string>());
+
+        // Assert
+        result.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_FileNotFound_ReturnsError()
+    {
+        // Act
+        var result = await _command.ExecuteAsync(new[] { "/nonexistent/path/file.apr" });
+
+        // Assert
+        result.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_ValidTemplate_ReturnsSuccess()
+    {
+        // Arrange
+        var templatePath = _tempHelper.CreateTemplateFile();
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { templatePath });
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_ValidFilledForm_ReturnsSuccess()
+    {
+        // Arrange
+        var filledFormPath = _tempHelper.CreateFilledFormFile();
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { filledFormPath });
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_MalformedJson_ReturnsError()
+    {
+        // Arrange
+        var filePath = _tempHelper.CreateFileWithContent("{ invalid json");
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { filePath });
+
+        // Assert
+        result.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_EmptyFile_ReturnsError()
+    {
+        // Arrange
+        var filePath = _tempHelper.CreateFileWithContent("");
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { filePath });
+
+        // Assert
+        result.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithExtraArgs_IgnoresExtra()
+    {
+        // Arrange
+        var templatePath = _tempHelper.CreateTemplateFile();
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { templatePath, "extraArg", "anotherExtra" });
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_PartiallyFilledForm_ReturnsSuccess()
+    {
+        // Arrange
+        var partialPath = _tempHelper.CreateTempFile(TestDocumentFactory.CreatePartiallyFilledForm());
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { partialPath });
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_ValidatesWithoutExceptions()
+    {
+        // Arrange
+        var templatePath = _tempHelper.CreateTemplateFile();
+
+        // Act & Assert - should not throw
+        var result = await _command.ExecuteAsync(new[] { templatePath });
+        result.Should().BeOneOf(0, 1);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_HandlesRelativePath()
+    {
+        // Arrange
+        var originalDir = Directory.GetCurrentDirectory();
+        var tempDir = Path.GetTempPath();
+        var fileName = $"test-{Guid.NewGuid():N}.apr";
+        var filePath = Path.Combine(tempDir, fileName);
+        var doc = TestDocumentFactory.CreateMinimalTemplate();
+        var json = _serializer.Serialize(doc);
+        File.WriteAllText(filePath, json);
+
+        try
+        {
+            Directory.SetCurrentDirectory(tempDir);
+
+            // Act
+            var result = await _command.ExecuteAsync(new[] { fileName });
+
+            // Assert
+            result.Should().Be(0);
+        }
+        finally
+        {
+            Directory.SetCurrentDirectory(originalDir);
+            File.Delete(filePath);
+        }
+    }
+
+    [Theory]
+    [InlineData("file.apr")]
+    [InlineData("file.aprt")]
+    [InlineData("file.aprf")]
+    public async Task ExecuteAsync_AllExtensions_Succeed(string fileName)
+    {
+        // Arrange
+        var filePath = _tempHelper.CreateTempFile(TestDocumentFactory.CreateMinimalTemplate(), fileName);
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { filePath });
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_DocumentWithoutDescription_Succeeds()
+    {
+        // Arrange
+        var doc = TestDocumentFactory.CreateMinimalTemplate();
+        doc.Metadata.Description = null;
+        var filePath = _tempHelper.CreateTempFile(doc);
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { filePath });
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_DocumentWithMissingOptionalFields_Succeeds()
+    {
+        // Arrange
+        var doc = TestDocumentFactory.CreateMinimalTemplate();
+        doc.Metadata.Author = null;
+        doc.Metadata.TemplateId = null;
+        var filePath = _tempHelper.CreateTempFile(doc);
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { filePath });
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_PromptWithStringResponse_IsValid()
+    {
+        // Arrange
+        var doc = TestDocumentFactory.CreateMinimalTemplate();
+        doc.Sections[0].Prompts[0].Response = "42";  // String, not numeric
+        var filePath = _tempHelper.CreateTempFile(doc);
+
+        // Act
+        var result = await _command.ExecuteAsync(new[] { filePath });
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    public void Dispose()
+    {
+        _tempHelper?.Dispose();
+    }
+}
