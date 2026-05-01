@@ -38,6 +38,7 @@ public class DisplayPreferencesViewGuiTests
     {
         var (view, _, _) = BuildView();
         var window = view.ShowInWindow(width: 700, height: 720);
+        window.ExpandExpander(view.FindDescendant<Expander>(e => true));
 
         var lightRadio = view.FindDescendant<RadioButton>(rb => rb.Name == "LightRadio");
 
@@ -81,7 +82,8 @@ public class DisplayPreferencesViewGuiTests
         // Every customize-panel flag has an x:Name and an AutomationProperties.Name.
         // This guards against a regression where adding a new flag forgets one.
         var (view, _, _) = BuildView();
-        view.ShowInWindow(width: 700, height: 720);
+        var window = view.ShowInWindow(width: 700, height: 720);
+        window.ExpandExpander(view.FindDescendant<Expander>(e => true));
 
         var checkboxNames = new[]
         {
