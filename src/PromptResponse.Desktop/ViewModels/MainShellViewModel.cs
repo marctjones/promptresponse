@@ -25,6 +25,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly PromptViewModelFactory _factory;
     private readonly DataTypeValidator _dataTypeValidator = new();
     private readonly HiddenCharacterAdvisor _hiddenCharAdvisor = new();
+    private readonly MixedScriptAdvisor _mixedScriptAdvisor = new();
 
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
     private readonly ObservableCollection<SectionViewModel> _sections = new();
@@ -171,6 +172,14 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             // selectors) — preserved on save but flagged so the user can confirm intent.
             var hiddenResult = _hiddenCharAdvisor.Validate(doc);
             foreach (var warning in hiddenResult.Warnings)
+            {
+                var (promptId, promptLabel) = ResolvePromptFromPath(doc, warning.PropertyPath);
+                _advisories.Add(new AdvisoryItem(promptId, promptLabel, warning.Message));
+            }
+            // Mixed-script findings on URL hosts and email domains (homoglyph attack
+            // vector — Cyrillic 'а' in аpple.com).
+            var mixedResult = _mixedScriptAdvisor.Validate(doc);
+            foreach (var warning in mixedResult.Warnings)
             {
                 var (promptId, promptLabel) = ResolvePromptFromPath(doc, warning.PropertyPath);
                 _advisories.Add(new AdvisoryItem(promptId, promptLabel, warning.Message));
