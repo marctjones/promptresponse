@@ -58,6 +58,7 @@ AI-specific configuration and instructions.
 | `INDEX.md` | This documentation map | Finding docs |
 | `VISION.md` | **Mission, values, roadmap** | Architecture decisions |
 | `IMPLEMENTATION_PLAN.md` | **Phased implementation plan** | Planning work |
+| `CAPABILITY_PROFILES.md` | **Feature-flag capability model + 5 named presets** | Adding/editing UX affordances |
 
 ### /docs/architecture/
 
