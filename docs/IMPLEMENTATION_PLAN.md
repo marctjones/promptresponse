@@ -9,30 +9,33 @@ Tasks should align with the current phase priorities.
 ## Current Status
 
 **Phase**: Foundation (Year 1)
-**Focus**: UI polish, S3 integration, signature system
+**Focus**: Capability profiles, accessibility, UI polish
 
 ### What's Built
 
 - ✅ Core library (models, serialization, validation)
 - ✅ Desktop application (basic template editing, form filling)
 - ✅ CLI tool (validate, info, new, export, diff)
-- ✅ Certificate generation and signing
-- ✅ S3 browser and submission services
-- ✅ Design tokens and modern control styles
+- ✅ Capability-profile architecture (universal core + composable per-feature flags)
+- ✅ Modern Win11 / macOS-aligned shell with theme switching
 
 ### What's In Progress
 
-- 🔄 Windows 11 UI redesign
-- 🔄 S3 configuration wizard
-- 🔄 Signature management UI
-- 🔄 Form submission workflow
+- 🔄 Capability-profile flag split (one flag per affordance) + 5 named presets
+- 🔄 Form submission workflow (optional webhook only)
+- 🔄 Accessibility audit + screen-reader tuning
 
 ### What's Planned
 
-- ⏳ Accessibility audit
-- ⏳ CLI S3 commands
-- ⏳ Template gallery polish
+- ⏳ Cognitive / motor capability flags (DyslexiaFont, SectionFocusMode, HitMarginPadding, …)
+- ⏳ Per-cell table grid editor
+- ⏳ CLI coverage ratchet toward 95%
 - ⏳ Performance optimization
+
+> **Removed from scope:** S3 / cloud-storage submission, cryptographic template/form
+> signing, certificate management, template-update service. PromptResponse stays
+> local-first; submission is optional and limited to webhook endpoints owned by the
+> template publisher.
 
 ---
 
@@ -71,21 +74,20 @@ Tasks should align with the current phase priorities.
 
 ```
 docs/
-├── INDEX.md                    ← Documentation map (NEW)
-├── VISION.md                   ← Project vision (NEW)
-├── IMPLEMENTATION_PLAN.md      ← This document (NEW)
+├── INDEX.md                    ← Documentation map
+├── VISION.md                   ← Project vision
+├── IMPLEMENTATION_PLAN.md      ← This document
+├── CAPABILITY_PROFILES.md      ← Capability flags + 5 named presets
 ├── architecture/
 │   ├── SYSTEM_ARCHITECTURE.md  ← Move from docs/ARCHITECTURE.md
-│   ├── DATA_MODEL.md           ← APR format deep dive (NEW)
-│   ├── S3_INTEGRATION.md       ← Keep existing
-│   └── CERTIFICATE_SYSTEM.md   ← Signature architecture (NEW)
+│   └── DATA_MODEL.md           ← APR format deep dive
 ├── guides/
 │   ├── DEVELOPMENT.md          ← Keep existing
-│   ├── UI_GUIDELINES.md        ← Windows 11 design guide (NEW)
-│   └── WORKFLOW_GUIDE.md       ← Town hall workflows (NEW)
+│   ├── UI_GUIDELINES.md        ← Win11 / macOS native design guide
+│   └── WORKFLOW_GUIDE.md       ← Town hall workflows
 ├── specifications/
 │   ├── FILE_FORMAT.md          ← Keep existing
-│   └── CLI_REFERENCE.md        ← Complete CLI commands (NEW)
+│   └── CLI_REFERENCE.md        ← Complete CLI commands
 └── images/
     └── screenshots/            ← UI screenshots
 ```
@@ -121,7 +123,7 @@ When AI assistants should reference this.
 - Dashboard-style home screen
 - Recent documents with modification time
 - Quick action buttons (large, touch-friendly)
-- S3 connection status indicator
+- Active capability-profile indicator
 - Notification badge for new submissions
 
 **Components**:
@@ -134,7 +136,7 @@ When AI assistants should reference this.
 
 - [ ] Create `DashboardView.axaml` and ViewModel
 - [ ] Implement recent documents service
-- [ ] Add S3 connection status polling
+- [ ] Surface active capability-profile in shell chrome
 - [ ] Create notification badge component
 - [ ] Implement quick action navigation
 
@@ -184,166 +186,95 @@ When AI assistants should reference this.
 - [ ] Create section navigator component
 - [ ] Add keyboard navigation (Tab, Enter)
 
-**Week 7-8: Signature Integration**
+**Week 7-8: Optional Webhook Submission**
 
 **Design Specifications**:
 
-- Signature panel in form filling view
-- Visual signature status (signed/unsigned)
-- One-click signing with selected certificate
-- Verification display for received forms
+- Submit button in form filling view (only when template defines `submitUrls`)
+- POST as JSON to each configured webhook
+- Response feedback (success / failure with retry)
+- Local copy always retained — webhook submission never replaces save
 
 **Implementation Tasks**:
 
-- [ ] Create `SignaturePanel` component
-- [ ] Integrate with existing `SignatureService`
-- [ ] Add signature visualization (seal icon)
-- [ ] Implement verification display
-- [ ] Add signature timestamp display
+- [ ] Create `SubmissionPanel` component
+- [ ] Wire up `submitUrls` array from APR metadata
+- [ ] Implement async POST with progress + retry
+- [ ] Confirmation dialog with reference (if server returns one)
+- [ ] Submission history tracking in filled-form metadata
 
-### Month 3: S3 Integration Completion
+### Month 3: Capability-Profile Polish
 
-**Week 9-10: S3 Configuration**
+**Week 9-10: Per-Feature Flag Split + Presets**
 
-**Design Specifications**:
-
-**Configuration Wizard**:
-1. Choose provider (AWS, MinIO, DigitalOcean, Custom)
-2. Enter credentials (with auto-detect from ~/.aws)
-3. Select/create buckets
-4. Test connection
-5. Save profile
+(See `docs/CAPABILITY_PROFILES.md` for the full flag list.)
 
 **Implementation Tasks**:
 
-- [ ] Create `S3ConfigurationWizard` window
-- [ ] Implement provider presets
-- [ ] Add credential auto-detection
-- [ ] Create connection testing with progress
-- [ ] Implement profile management
+- [ ] Split `VisualFormattingProfile` into 12 individual flag classes
+- [ ] Wire each flag to its own checkbox in Display Preferences
+- [ ] Add `ProfilePresets` helper with 5 named presets
+- [ ] GUI tests verifying preset switching produces expected on-screen state
 
-**Week 11-12: Gallery and Submission**
-
-**Design Specifications**:
-
-**Gallery Browser**:
-- Grid view with preview cards
-- Category/tag filtering
-- Search functionality
-- Download with verification
-
-**Submission Flow**:
-- Submit button in form filling view
-- Automatic signing before submit
-- Confirmation with reference number
-- Local copy retention
+**Week 11-12: Cognitive + Motor Flag Implementation**
 
 **Implementation Tasks**:
 
-- [ ] Polish `S3BrowserWindow.axaml`
-- [ ] Add category filtering
-- [ ] Implement search
-- [ ] Create submission confirmation dialog
-- [ ] Add submission history tracking
+- [ ] `DyslexiaFont` (Atkinson Hyperlegible)
+- [ ] `IncreasedSpacing` (line-height 1.6, letter-spacing 0.05em)
+- [ ] `SectionFocusMode` (collapse all but focused section)
+- [ ] `AlwaysVisibleHelp` rendering toggle
+- [ ] `HitMarginPadding` (extra invisible padding around clickables)
+- [ ] `KeyboardShortcutOverlay` (Alt-press highlights shortcuts)
 
 ---
 
 ## Long-Term Goals (Month 4-6)
 
-### Month 4: Signature System
+### Month 4: Form Authoring Polish
 
-**Week 13-14: Certificate UI**
+**Week 13-14: Per-cell Table Grid Editor**
 
-**Design Specifications**:
-
-**Grandmother-Friendly Design**:
-- Physical metaphors ("your personal stamp")
-- Simple language (no "X.509")
-- Visual feedback (green checks, red X's)
-- Step-by-step wizards
-
-**My Signatures Panel**:
-- List of personal certificates
-- Create/Import/Export actions
-- Active/Expired status
+Currently, the table prompt type renders a JSON textarea placeholder. Replace
+with a real per-cell editor that respects `TableDefinition` semantics (no width
+or alignment fields — tables are semantic structures, not layout devices).
 
 **Implementation Tasks**:
 
-- [ ] Redesign `CertificateManagementWindow.axaml`
-- [ ] Create certificate creation wizard
-- [ ] Add visual status indicators
-- [ ] Implement export to file
-- [ ] Add 1Password integration UI
+- [ ] Render `DataGrid` with per-cell editing
+- [ ] Bind to row-level VMs that maintain string responses per cell
+- [ ] Keyboard navigation between cells
+- [ ] Add/remove/reorder rows
 
-**Week 15-16: Trust Management**
-
-**Design Specifications**:
-
-**Trusted Sources**:
-- List of trusted certificates
-- Add from file or URL
-- Trust levels (Always, Ask, Never)
-- Visual trust indicators on forms
+**Week 15-16: Read-only Filled-Form Polish**
 
 **Implementation Tasks**:
 
-- [ ] Create `TrustedSourcesPanel`
-- [ ] Implement certificate import
-- [ ] Add trust level management
-- [ ] Display trust indicators in form filling
+- [ ] Mode toggle (read-only review vs edit)
+- [ ] "Last submitted" indicator from metadata
+- [ ] Diff view between two filled-form versions
 
 ### Month 5: CLI Enhancement
 
-**Week 17-18: S3 Commands**
+**Week 17-18: Coverage Ratchet**
+
+Push CLI test coverage from ~28% toward 95% across `ValidateCommand`,
+`InfoCommand`, `NewCommand`, `FillCommand`, `DiffCommand`, `ExportCommand`,
+and the `FormFillingApi`.
+
+**Week 19-20: New CLI Commands**
 
 ```bash
-# Configuration
-promptresponse-cli s3 configure [--profile NAME]
-promptresponse-cli s3 profiles list
-promptresponse-cli s3 test-connection
-
-# Gallery
-promptresponse-cli s3 gallery list [--category CAT]
-promptresponse-cli s3 gallery publish TEMPLATE [--sign-with CERT]
-promptresponse-cli s3 gallery unpublish ID
-
-# Submissions
-promptresponse-cli s3 submissions list [--from DATE]
-promptresponse-cli s3 submissions download ID
-promptresponse-cli s3 submissions export --format csv
+promptresponse-cli profile list           # List active capability flags
+promptresponse-cli profile preset NAME    # Apply a preset to user settings
+promptresponse-cli batch fill GLOB --csv  # Batch-fill forms from CSV
 ```
 
 **Implementation Tasks**:
 
-- [ ] Create `S3ConfigureCommand`
-- [ ] Create `S3GalleryCommand` with subcommands
-- [ ] Create `S3SubmissionsCommand` with subcommands
-- [ ] Add progress indicators for uploads/downloads
-- [ ] Implement CSV export
-
-**Week 19-20: Certificate Commands**
-
-```bash
-# Certificate management
-promptresponse-cli cert generate --name NAME [--role ROLE]
-promptresponse-cli cert list
-promptresponse-cli cert export ID --format pem|pfx
-promptresponse-cli cert import FILE [--password]
-promptresponse-cli cert trust FILE
-
-# Signing
-promptresponse-cli sign FILE --cert NAME
-promptresponse-cli verify FILE
-promptresponse-cli verify-batch GLOB --report
-```
-
-**Implementation Tasks**:
-
-- [ ] Create `CertCommand` with subcommands
-- [ ] Create `SignCommand`
-- [ ] Create `VerifyCommand`
-- [ ] Add batch verification with report
-- [ ] Support multiple export formats
+- [ ] `ProfileCommand` with `list` and `preset` subcommands
+- [ ] `BatchFillCommand` with CSV input
+- [ ] Update `--help` output for all commands
 
 ### Month 6: Testing & Polish
 
@@ -371,7 +302,7 @@ promptresponse-cli verify-batch GLOB --report
 **Performance Targets**:
 
 - Form load: < 1 second for 1000 fields
-- S3 operations: Progress indication for > 500ms
+- Webhook submission: progress indication for > 500ms
 - UI responsiveness: No blocking operations on UI thread
 
 **Implementation Tasks**:
@@ -402,14 +333,9 @@ promptresponse-cli verify-batch GLOB --report
 
 | Command | Description | Status |
 |---------|-------------|--------|
-| `s3 configure` | Configure S3 connection | ⏳ Planned |
-| `s3 gallery list` | List gallery templates | ⏳ Planned |
-| `s3 gallery publish` | Publish template | ⏳ Planned |
-| `s3 submissions list` | List submissions | ⏳ Planned |
-| `cert generate` | Generate certificate | ⏳ Planned |
-| `cert list` | List certificates | ⏳ Planned |
-| `sign` | Sign document | ⏳ Planned |
-| `verify` | Verify signature | ⏳ Planned |
+| `profile list` | List active capability flags | ⏳ Planned |
+| `profile preset NAME` | Apply a named capability preset | ⏳ Planned |
+| `batch fill GLOB` | Batch-fill forms from CSV | ⏳ Planned |
 
 ---
 
@@ -427,7 +353,6 @@ promptresponse-cli verify-batch GLOB --report
 
 - **Source Control**: GitHub
 - **CI/CD**: GitHub Actions
-- **S3 Testing**: MinIO (local), AWS S3 (integration)
 - **Testing Devices**: Windows 11, macOS, Linux (Ubuntu)
 
 ### Testing Tools
@@ -445,8 +370,7 @@ promptresponse-cli verify-batch GLOB --report
 | Risk | Impact | Mitigation |
 |------|--------|------------|
 | Avalonia limitations | High | Fallback designs, custom controls |
-| S3 provider differences | Medium | Test multiple providers, abstraction layer |
-| Certificate complexity | High | Wizard-based UI, sensible defaults |
+| Capability-flag interaction bugs | Medium | Compose-test every preset; CompositeProfile contract tests |
 | Cross-platform differences | Medium | Extensive testing, platform abstractions |
 
 ### User Adoption Risks
@@ -473,10 +397,9 @@ promptresponse-cli verify-batch GLOB --report
 ### Month 3 Checkpoint
 
 - [ ] Form filling experience smooth and intuitive
-- [ ] S3 configuration wizard complete
-- [ ] Gallery browser functional
-- [ ] Submission workflow working end-to-end
-- [ ] Signature panel integrated
+- [ ] All 12 visual flags split out + 5 named presets working
+- [ ] Cognitive + motor flags implemented
+- [ ] Optional webhook submission working end-to-end
 
 ### Month 6 Checkpoint
 
@@ -508,7 +431,7 @@ promptresponse-cli verify-batch GLOB --report
 | Development | $150,000 | 6 months full-time senior dev |
 | Design | $30,000 | 6 months half-time designer |
 | Testing | $20,000 | QA + accessibility audit |
-| Infrastructure | $5,000 | CI/CD, S3, testing devices |
+| Infrastructure | $5,000 | CI/CD, testing devices |
 | Marketing | $10,000 | Documentation, website, outreach |
 | **Total** | **$215,000** | |
 

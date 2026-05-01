@@ -193,12 +193,6 @@ PromptResponse addresses the daily frustrations office workers face with traditi
 - **Stable Format**: APR format version 1.0 designed for long-term stability
 - **Self-Contained**: No external services, APIs, or integrations required
 
-#### Optional Cloud Features
-- **S3 Direct Upload**: Submit to cloud storage without server code
-- **Pre-Signed URLs**: Secure submission without managing credentials
-- **Webhook Support**: POST to any endpoint that accepts JSON
-- **Progressive Enhancement**: Cloud features optional, not required
-
 #### Easy Integration
 - **Standard JSON**: Every system can consume JSON
 - **REST-Friendly**: Forms can be POSTed to any REST API
@@ -220,7 +214,7 @@ PromptResponse addresses the daily frustrations office workers face with traditi
 #### Advanced Document Features
 - **No Rich Text**: Responses are plain text only, no bold/italic/underline
 - **No Embedded Media**: Can't embed images, videos, or files in forms
-- **No Digital Signatures**: No cryptographic signing built into format (yet)
+- **No Digital Signatures**: Cryptographic signing is out of scope for the format
 - **No Complex Logic**: No conditional fields, skip logic, or branching (yet)
 
 #### Ecosystem Limitations
@@ -251,7 +245,7 @@ PromptResponse addresses the daily frustrations office workers face with traditi
 
 #### Choose PDF When:
 - Legal/regulatory requirements mandate PDF format
-- You need cryptographic signatures with certificate authorities
+- You need cryptographic signatures with certificate authorities (PromptResponse does not implement these)
 - You need pixel-perfect print output
 - You're working with external parties who only accept PDF
 

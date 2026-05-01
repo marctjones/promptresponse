@@ -58,18 +58,20 @@ Emails to department (buildingpermit@townhall.gov)
 Staff opens in Desktop app, processes
 ```
 
-**Stage 2: S3 Direct Upload (After 3-6 months)**
+**Stage 2: Webhook Submission (After 3-6 months)**
 ```
-Template includes S3 submission config
+Template includes a `submitUrls` webhook (town's intake endpoint)
   ↓
 Citizen clicks "Submit" button in app
   ↓
-Goes directly to town's S3 bucket
+HTTPS POST to town's intake URL — town owns the endpoint
   ↓
-Staff checks bucket daily via S3 browser in app
+Staff processes incoming submissions in their existing system
 ```
 
-**Cost**: AWS free tier (5GB storage) is sufficient for small towns
+**Cost**: hosting cost is whatever the intake endpoint costs the town to run.
+The webhook can be a serverless function, a small VPS, or a Google Form-style
+intake — PromptResponse only requires that it accepts a JSON POST.
 
 ### Integration Points
 
@@ -176,7 +178,7 @@ Send .aprt template via email
   ↓
 Customer uses web-based filler (future feature)
   ↓
-Submits via S3 or email
+Submits via webhook or returns the .aprf via email
   ↓
 Sales team processes in Desktop app
 ```
@@ -461,7 +463,7 @@ Sends status notifications to citizen
 | Accessibility concerns | Already WCAG 2.1 AA compliant by design |
 | Security requirements | FedRAMP-equivalent documentation |
 | Legacy systems | Export adapters for common formats |
-| Signatures required | Digital signature support (PKI) |
+| Signatures required | Out-of-scope; agencies that require PKI signing should use existing PDF/eSign workflows alongside PromptResponse |
 
 ### Implementation Roadmap
 
@@ -502,13 +504,17 @@ Sends status notifications to citizen
 ### Recommended Feature Priorities
 
 1. **USWDS compliance** - US Web Design System components
-2. **PKI signature support** - X.509 certificate signing
-3. **FIPS 140-2 encryption** - Government-approved cryptography
-4. **Batch processing tools** - Handle thousands of submissions
-5. **Section 508 certification** - VPAT documentation
-6. **NIST security controls** - 800-53 compliance documentation
-7. **Legacy format export** - XFA PDF, fixed-width text
-8. **Multi-language support** - Spanish, Chinese, etc.
+2. **Batch processing tools** - Handle thousands of submissions
+3. **Section 508 certification** - VPAT documentation
+4. **NIST security controls** - 800-53 compliance documentation
+5. **Legacy format export** - XFA PDF, fixed-width text
+6. **Multi-language support** - Spanish, Chinese, etc.
+
+> Cryptographic signing (PKI / X.509) and government-approved encryption modules
+> (FIPS 140-2) are explicitly out of scope for PromptResponse. Agencies that
+> require these must continue to rely on existing PDF + e-sign workflows; the
+> APR format can carry the *content* of the form alongside those signed
+> artifacts, but does not itself sign or verify.
 
 ---
 
@@ -520,7 +526,7 @@ Sends status notifications to citizen
 2. **Keep Options**: Never force adoption, offer alternatives
 3. **Export Everything**: CSV/Excel is universal language
 4. **Work Offline**: Network issues happen everywhere
-5. **Simple Submission**: S3 or email, not custom servers
+5. **Simple Submission**: optional webhook or email, not custom servers
 
 ### Universal Feature Requirements
 
@@ -542,9 +548,8 @@ Sends status notifications to citizen
 
 **Near-term Priority** (Needed in 3-6 months):
 - [ ] REST API for integrations
-- [ ] Webhook notifications
+- [ ] Webhook notifications (template-defined `submitUrls`)
 - [ ] Basic workflow engine (submitted → approved → processed)
-- [ ] Digital signature support
 
 **Long-term Priority** (12+ months):
 - [ ] Mobile apps (iOS, Android)
@@ -569,7 +574,9 @@ Sends status notifications to citizen
 
 **PromptResponse Requires**:
 - Desktop application (free download)
-- S3 bucket ($0-5/month for small orgs)
+- An optional intake endpoint (webhook) — only needed if templates ask for one;
+  any HTTP-accepting endpoint works (serverless function, small VPS, even an
+  intake-only Google Form)
 
 **This changes everything**:
 - Small towns can digitize without IT staff
@@ -577,12 +584,9 @@ Sends status notifications to citizen
 - Enterprises reduce custom app development
 - Government reduces infrastructure costs
 
-The S3 direct submission model is particularly powerful:
-- No server-side code needed
-- No hosting costs
-- No maintenance burden
-- Scales automatically
-- Works with compliance frameworks
+Templates that don't define a webhook still work end-to-end — the user fills,
+saves locally, and shares the .aprf via whatever channel the organization
+already uses (email, shared drive, file transfer).
 
 ---
 

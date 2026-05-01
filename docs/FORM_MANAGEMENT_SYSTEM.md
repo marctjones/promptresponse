@@ -8,12 +8,18 @@
 
 This document specifies the architecture and implementation plan for transforming PromptResponse into a comprehensive form management system. The system will enable organizations (e.g., town halls, municipal offices) to manage collections of APR forms with features including:
 
-- **Storage abstraction** for local folders and AWS S3
+- **Local-folder storage** with abstraction for any future-added providers
 - **Metadata database** for tracking, tagging, and workflow management
 - **Form discovery and grouping** by template type
 - **Private tagging system** that doesn't modify original files
 - **Status tracking** for form processing workflows
 - **Reporting capabilities** for submission analytics
+
+> **Out of scope:** direct cloud-storage integration (S3, Azure Blob, GCS) and
+> cryptographic template/form signing. PromptResponse stays local-first.
+> Cloud delivery, when needed, happens via the optional template-defined
+> `submitUrls` webhook — the application POSTs the filled form to whatever
+> intake endpoint the template publisher owns.
 
 ## 1. System Architecture
 
@@ -39,7 +45,6 @@ This document specifies the architecture and implementation plan for transformin
 │   (Business      │      │ - IStorage       │
 │    Logic)        │      │   Provider       │
 └────────┬─────────┘      │ - Local          │
-         │                │ - S3             │
          │                └──────────────────┘
          │
          ▼
@@ -56,10 +61,11 @@ This document specifies the architecture and implementation plan for transformin
 ### 1.2 New Projects
 
 #### PromptResponse.Storage
-- **Purpose:** Abstraction layer for form storage (local/cloud)
+- **Purpose:** Abstraction layer for form storage (local folders today; the
+  abstraction leaves room for future providers without baking any specific
+  cloud SDK into the design)
 - **Dependencies:**
   - PromptResponse.Core
-  - AWSSDK.S3 (3.7.x)
 - **Namespace:** `PromptResponse.Storage`
 
 #### PromptResponse.Data
@@ -89,8 +95,8 @@ CREATE TABLE FormMetadata (
     FormId TEXT NOT NULL UNIQUE,           -- Storage provider ID
     FileName TEXT NOT NULL,
     TemplateId TEXT,                       -- From APR metadata
-    StorageLocation TEXT NOT NULL,         -- "local" | "s3"
-    StorageKey TEXT NOT NULL,              -- Path or S3 key
+    StorageLocation TEXT NOT NULL,         -- "local" (provider name)
+    StorageKey TEXT NOT NULL,              -- Path within the provider
 
     -- Dates from file system
     FileCreatedDate TEXT NOT NULL,         -- ISO 8601
@@ -177,18 +183,11 @@ CREATE INDEX idx_note_form ON FormNote(FormMetadataId);
 CREATE TABLE StorageConnection (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL,
-    Type TEXT NOT NULL,                   -- "Local" | "S3"
+    Type TEXT NOT NULL,                   -- "Local" (only provider today)
     IsActive INTEGER NOT NULL DEFAULT 1,
 
     -- Local settings
     LocalPath TEXT,
-
-    -- S3 settings
-    S3BucketName TEXT,
-    S3Region TEXT,
-    S3Prefix TEXT,
-    S3AccessKeyId TEXT,                   -- Encrypted
-    S3SecretAccessKey TEXT,               -- Encrypted
 
     CreatedDate TEXT NOT NULL,
     LastUsedDate TEXT
@@ -281,12 +280,6 @@ public class StorageConnection
 
     public string? LocalPath { get; set; }
 
-    public string? S3BucketName { get; set; }
-    public string? S3Region { get; set; }
-    public string? S3Prefix { get; set; }
-    public string? S3AccessKeyId { get; set; }
-    public string? S3SecretAccessKey { get; set; }
-
     public DateTime CreatedDate { get; set; }
     public DateTime? LastUsedDate { get; set; }
 }
@@ -303,7 +296,6 @@ public enum ProcessingStatus
 public enum StorageType
 {
     Local,
-    S3
 }
 ```
 
@@ -495,107 +487,22 @@ public class LocalFileStorageProvider : IStorageProvider
 }
 ```
 
-### 3.3 S3StorageProvider
+### 3.3 Future providers
 
-```csharp
-namespace PromptResponse.Storage.S3;
+The `IStorageProvider` abstraction is deliberately small (list / load / save) so
+additional providers can be added later without leaking provider-specific
+concepts into the management service. Any provider added later must:
 
-using Amazon.S3;
-using Amazon.S3.Model;
+- Translate its native key/path scheme into the `StorageKey` string used by
+  `FormMetadata`.
+- Round-trip APR documents byte-for-byte (no re-serialization).
+- Surface its provider type via the `ProviderType` property so the management
+  service can route operations appropriately.
 
-public class S3StorageProvider : IStorageProvider
-{
-    private readonly IAmazonS3 _s3Client;
-    private readonly string _bucketName;
-    private readonly string _prefix;
-    private readonly IAprSerializer _serializer;
-
-    public string ProviderType => "S3";
-
-    public S3StorageProvider(
-        string bucketName,
-        string region,
-        string accessKey,
-        string secretKey,
-        IAprSerializer serializer,
-        string? prefix = null)
-    {
-        _bucketName = bucketName;
-        _prefix = prefix ?? string.Empty;
-        _serializer = serializer;
-
-        var config = new AmazonS3Config { RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(region) };
-        _s3Client = new AmazonS3Client(accessKey, secretKey, config);
-    }
-
-    public async Task<IEnumerable<StoredFormInfo>> ListFormsAsync(
-        string? prefix = null,
-        CancellationToken cancellationToken = default)
-    {
-        var searchPrefix = string.IsNullOrEmpty(prefix)
-            ? _prefix
-            : $"{_prefix}/{prefix}".TrimStart('/');
-
-        var request = new ListObjectsV2Request
-        {
-            BucketName = _bucketName,
-            Prefix = searchPrefix
-        };
-
-        var forms = new List<StoredFormInfo>();
-        ListObjectsV2Response response;
-
-        do
-        {
-            response = await _s3Client.ListObjectsV2Async(request, cancellationToken);
-
-            foreach (var obj in response.S3Objects)
-            {
-                var extension = Path.GetExtension(obj.Key).ToLowerInvariant();
-                if (extension is ".apr" or ".aprt" or ".aprf")
-                {
-                    forms.Add(new StoredFormInfo(
-                        FormId: obj.Key,
-                        FileName: Path.GetFileName(obj.Key),
-                        StorageKey: obj.Key,
-                        CreatedDate: obj.LastModified,
-                        ModifiedDate: obj.LastModified,
-                        SizeBytes: obj.Size,
-                        Etag: obj.ETag
-                    ));
-                }
-            }
-
-            request.ContinuationToken = response.NextContinuationToken;
-        } while (response.IsTruncated);
-
-        return forms;
-    }
-
-    public async Task<AprDocument> LoadFormAsync(
-        string formId,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new GetObjectRequest
-        {
-            BucketName = _bucketName,
-            Key = formId
-        };
-
-        using var response = await _s3Client.GetObjectAsync(request, cancellationToken);
-        await using var stream = response.ResponseStream;
-
-        var document = await _serializer.DeserializeAsync(stream);
-
-        if (document == null)
-            throw new InvalidOperationException($"Failed to deserialize form: {formId}");
-
-        return document;
-    }
-
-    // Additional methods...
-}
-```
+PromptResponse does not currently ship a cloud-storage provider. The project's
+position is that cloud delivery is the publisher's concern; the application
+ships local storage plus the optional `submitUrls` webhook described in the
+top-level note.
 
 ## 4. Form Management Service
 
@@ -1220,8 +1127,6 @@ public class FormManagementViewModel : ViewModelBase
 - [x] Define `IStorageProvider` interface
 - [ ] Implement `LocalFileStorageProvider`
 - [ ] Unit tests for local provider
-- [ ] Implement `S3StorageProvider`
-- [ ] Integration tests with MinIO/LocalStack
 - [ ] Error handling and logging
 
 ### Phase 2: Data Layer (Weeks 2-3)
@@ -1266,12 +1171,7 @@ public class FormManagementViewModel : ViewModelBase
 
 ## 7. Security Considerations
 
-### 7.1 Credential Storage
-- **S3 Credentials**: Store encrypted in database using Data Protection API (DPAPI) on Windows, keychain on macOS, secret-service on Linux
-- **Never log credentials**
-- **Use IAM roles** when running on EC2
-
-### 7.2 Tag Privacy
+### 7.1 Tag Privacy
 - Tags are stored ONLY in local SQLite database
 - Tags NEVER written to APR files
 - Tags are per-user (if multi-user support added)
@@ -1286,7 +1186,7 @@ public class FormManagementViewModel : ViewModelBase
 - **Form list load**: < 500ms for 1000 forms
 - **Form detail load**: < 100ms
 - **Search**: < 200ms with indexed fields
-- **Bulk import**: > 50 forms/second (local), > 10 forms/second (S3)
+- **Bulk import**: > 50 forms/second (local)
 - **Tag operations**: < 50ms
 
 ## 9. Testing Strategy
@@ -1320,9 +1220,6 @@ public class FormManagementViewModel : ViewModelBase
 ### New NuGet Packages
 
 ```xml
-<!-- PromptResponse.Storage -->
-<PackageReference Include="AWSSDK.S3" Version="3.7.*" />
-
 <!-- PromptResponse.Data -->
 <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.*" />
 <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.*" />

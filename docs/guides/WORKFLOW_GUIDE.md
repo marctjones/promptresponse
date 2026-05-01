@@ -173,32 +173,7 @@ The town manager asks Sarah to create a new "Dog License Application" form. Sara
                       │
                       ▼
 ┌─────────────────────────────────────────────────┐
-│  6. SIGN THE TEMPLATE (Optional)                │
-│                                                 │
-│  Sarah clicks "Sign with Certificate"           │
-│  - Select: "Town Clerk Official"                │
-│  - Template is now verified/official            │
-│  - Residents see "✓ Verified by Town Hall"      │
-│                                                 │
-│  Time: 30 seconds                               │
-└─────────────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────┐
-│  7. PUBLISH TO S3 GALLERY                       │
-│                                                 │
-│  Sarah clicks "Publish"                         │
-│  - Dialog: Choose category (Licenses)           │
-│  - Add tags: "pets, dogs, annual, license"      │
-│  - Confirm publish                              │
-│  - Get shareable link                           │
-│                                                 │
-│  Time: 1 minute                                 │
-└─────────────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────┐
-│  8. SHARE WITH RESIDENTS                        │
+│  6. SHARE WITH RESIDENTS                        │
 │                                                 │
 │  Sarah copies the link and:                     │
 │  - Sends to webmaster for town website          │
@@ -207,7 +182,7 @@ The town manager asks Sarah to create a new "Dog License Application" form. Sara
 │                                                 │
 │  Done! Form is live.                            │
 │                                                 │
-│  Total Time: ~20 minutes                        │
+│  Total Time: ~18 minutes                        │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -250,18 +225,7 @@ John needs to register his new dog. He found the form link on the town website a
                       │
                       ▼
 ┌─────────────────────────────────────────────────┐
-│  2. VERIFY THE FORM                             │
-│                                                 │
-│  Form opens in PromptResponse                   │
-│  - Banner: "✓ Official Town Hall Form"          │
-│  - Signed by: Town Clerk                        │
-│  - John knows it's legitimate                   │
-│                                                 │
-└─────────────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────┐
-│  3. FILL OUT THE FORM                           │
+│  2. FILL OUT THE FORM                           │
 │                                                 │
 │  Clean, focused interface                       │
 │  - One section at a time                        │
@@ -280,46 +244,29 @@ John needs to register his new dog. He found the form link on the town website a
                       │
                       ▼
 ┌─────────────────────────────────────────────────┐
-│  4. ADD DIGITAL SIGNATURE                       │
-│                                                 │
-│  At end of form: "Sign This Form"               │
-│                                                 │
-│  First time? Create signature:                  │
-│  - "Create Your Digital Signature"              │
-│  - Enter name: "John Smith"                     │
-│  - Click "Create"                               │
-│  - Signature saved for future forms             │
-│                                                 │
-│  Returning? Select existing:                    │
-│  - "Sign with: John Smith"                      │
-│  - One click to apply                           │
-│                                                 │
-│  Visual: Seal icon appears on form              │
-│                                                 │
-└─────────────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────┐
-│  5. SUBMIT TO TOWN HALL                         │
+│  3. SUBMIT TO TOWN HALL                         │
 │                                                 │
 │  John clicks "Submit to Town Hall"              │
 │                                                 │
 │  Process:                                       │
 │  1. Validate all required fields ✓              │
-│  2. Apply signature ✓                           │
-│  3. Upload to S3 ✓                              │
-│  4. Generate confirmation number ✓              │
+│  2. POST to the town's intake webhook ✓         │
+│     (defined in template's submitUrls)          │
+│  3. Confirmation returned by the webhook ✓      │
 │                                                 │
 │  Result:                                        │
 │  - Confirmation: "DL-2024-0001"                 │
 │  - "Your form has been submitted"               │
 │  - Local copy saved automatically               │
 │                                                 │
+│  Note: if the template has no submitUrls,       │
+│  John just emails the saved .aprf file.         │
+│                                                 │
 └─────────────────────────────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────┐
-│  6. TRACK SUBMISSION                            │
+│  4. TRACK SUBMISSION                            │
 │                                                 │
 │  John's dashboard shows:                        │
 │  - "Dog License Application"                    │
@@ -380,7 +327,6 @@ It's Monday morning. Sarah has 15 submissions from the weekend to process.
 │  - Submitted By (John Smith)                    │
 │  - Date (Nov 18, 2024)                          │
 │  - Status (New, In Review, Processed)           │
-│  - Signature (✓ Valid, ⚠️ Issue)                │
 │                                                 │
 │  Filters:                                       │
 │  - Form type dropdown                           │
@@ -403,10 +349,7 @@ It's Monday morning. Sarah has 15 submissions from the weekend to process.
 │  Form opens with:                               │
 │  - All filled data visible                      │
 │  - Header: Who submitted, when                  │
-│  - Signature status: "✓ Signed by John Smith"   │
-│  - Verification: "Signature Valid"              │
-│                                                 │
-│  Visual: Green banner for valid signature       │
+│  - Read-only mode unless explicitly edited      │
 │                                                 │
 └─────────────────────────────────────────────────┘
                       │
@@ -418,7 +361,6 @@ It's Monday morning. Sarah has 15 submissions from the weekend to process.
 │  - All required fields filled ✓                 │
 │  - Information looks correct ✓                  │
 │  - Rabies date is recent ✓                      │
-│  - Signature is valid ✓                         │
 │                                                 │
 │  If issues found:                               │
 │  - Click "Request More Info"                    │
@@ -462,211 +404,12 @@ It's Monday morning. Sarah has 15 submissions from the weekend to process.
 └─────────────────────────────────────────────────┘
 ```
 
-### Verification Details
-
-**Signature Verification Display**:
-
-| Status | Icon | Meaning |
-|--------|------|---------|
-| ✓ Valid | Green check | Signature verified, trusted source |
-| ⚠️ Unknown | Yellow warning | Signature valid but signer not trusted |
-| ❌ Invalid | Red X | Signature tampered or corrupted |
-| ○ Unsigned | Gray circle | Form not signed |
-
----
-
-## Workflow 4: Setting Up S3 Connection
-
-### Scenario
-
-Sarah is setting up PromptResponse on a new computer. The town already has an S3 bucket configured.
-
-### Step-by-Step Flow
-
-```
-┌─────────────────────────────────────────────────┐
-│  1. OPEN SETTINGS                               │
-│                                                 │
-│  Sarah goes to Settings → S3 Configuration      │
-│  - Sees "No S3 connection configured"           │
-│  - Clicks "Set Up Connection"                   │
-│                                                 │
-└─────────────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────┐
-│  2. ENTER CREDENTIALS                           │
-│                                                 │
-│  Configuration wizard:                          │
-│                                                 │
-│  Profile Name: [Town Hall Forms_____]           │
-│                                                 │
-│  Endpoint URL: [https://s3.amazonaws.com]       │
-│    (Dropdown: AWS, MinIO, DigitalOcean, Custom) │
-│                                                 │
-│  Bucket Name: [townhall-forms_______]           │
-│                                                 │
-│  Access Key: [AKIA****************]             │
-│                                                 │
-│  Secret Key: [●●●●●●●●●●●●●●●●●●●●] [👁]        │
-│                                                 │
-│  Region: [us-east-1_______] (dropdown)          │
-│                                                 │
-└─────────────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────┐
-│  3. TEST CONNECTION                             │
-│                                                 │
-│  Sarah clicks "Test Connection"                 │
-│                                                 │
-│  Progress:                                      │
-│  - Connecting... ✓                              │
-│  - Authenticating... ✓                          │
-│  - Checking bucket... ✓                         │
-│  - Reading templates... ✓                       │
-│  - Checking submissions... ✓                    │
-│                                                 │
-│  Result: "Connection successful!"               │
-│  - Found: 12 templates, 45 submissions          │
-│                                                 │
-└─────────────────────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────┐
-│  4. SAVE PROFILE                                │
-│                                                 │
-│  Sarah clicks "Save Profile"                    │
-│                                                 │
-│  Options:                                       │
-│  - [✓] Set as default profile                   │
-│  - [✓] Remember credentials securely            │
-│                                                 │
-│  Done! S3 is configured.                        │
-│                                                 │
-└─────────────────────────────────────────────────┘
-```
-
-### Alternative: Import Configuration
-
-If IT provides a config file:
-
-1. Sarah clicks "Import Configuration"
-2. Selects `townhall-s3-config.json` from USB
-3. Credentials imported
-4. Test connection
-5. Done in 30 seconds
-
-### CLI Alternative
-
-For IT administrators setting up multiple computers:
-
-```bash
-# Set up S3 configuration
-promptresponse-cli s3 configure \
-  --profile "Town Hall" \
-  --endpoint "https://s3.amazonaws.com" \
-  --bucket "townhall-forms" \
-  --access-key "AKIA..." \
-  --secret-key "..." \
-  --region "us-east-1"
-
-# Test connection
-promptresponse-cli s3 test-connection
-
-# Export for other computers
-promptresponse-cli s3 profiles export --output townhall-config.json
-```
-
----
-
-## Workflow 5: Managing Digital Signatures
-
-### Scenario
-
-Sarah needs to create her official Town Clerk signature and add the town's trusted signatures.
-
-### Creating a Signature
-
-```
-┌─────────────────────────────────────────────────┐
-│  CREATE YOUR SIGNATURE                          │
-│                                                 │
-│  Think of this as your official stamp           │
-│                                                 │
-│  Step 1: Your Information                       │
-│  ─────────────────────────                      │
-│  Your Name: [Sarah Johnson_______]              │
-│  Your Role: [Town Clerk__________]              │
-│  Organization: [Town of Millbrook]              │
-│                                                 │
-│  Step 2: Create It                              │
-│  ─────────────────                              │
-│  This creates a unique digital stamp that       │
-│  only you can use to sign documents.            │
-│                                                 │
-│  [Create My Signature]                          │
-│                                                 │
-│  Step 3: Keep It Safe                           │
-│  ────────────────────                           │
-│  ✓ Your signature has been created!             │
-│                                                 │
-│  Save a backup?                                 │
-│  [Save to File] [Save to 1Password] [Skip]      │
-│                                                 │
-│  Step 4: Ready!                                 │
-│  ─────────────                                  │
-│  You can now sign documents as:                 │
-│  "Sarah Johnson - Town Clerk"                   │
-│                                                 │
-│  [Start Using My Signature]                     │
-│                                                 │
-└─────────────────────────────────────────────────┘
-```
-
-### Adding Trusted Signatures
-
-```
-┌─────────────────────────────────────────────────┐
-│  TRUSTED SIGNATURES                             │
-│                                                 │
-│  Forms from these sources will show as trusted  │
-│                                                 │
-│  ┌─────────────────────────────────────────┐   │
-│  │ ✓ State of Vermont                      │   │
-│  │   Official state forms                  │   │
-│  │   Added: Oct 15, 2024                   │   │
-│  │   [Remove]                              │   │
-│  └─────────────────────────────────────────┘   │
-│                                                 │
-│  ┌─────────────────────────────────────────┐   │
-│  │ ✓ IRS Official Forms                    │   │
-│  │   Federal tax forms                     │   │
-│  │   Added: Jan 1, 2024                    │   │
-│  │   [Remove]                              │   │
-│  └─────────────────────────────────────────┘   │
-│                                                 │
-│  [+ Add Trusted Source]                         │
-│                                                 │
-│  How to add:                                    │
-│  - Import from file (.cer, .pem)                │
-│  - Download from URL                            │
-│  - Scan QR code                                 │
-│                                                 │
-└─────────────────────────────────────────────────┘
-```
-
-### Simple Language Guide
-
-| Technical Term | User-Friendly Term |
-|----------------|-------------------|
-| Certificate | Digital signature / Your stamp |
-| Private key | Your secret (never share) |
-| Public key | What others see |
-| Certificate Authority | Trusted source |
-| X.509 | (Never shown) |
-| SHA-256 | (Never shown) |
-| RSA/ECDSA | (Never shown) |
+> **Out of scope:** cryptographic signature verification of forms or templates.
+> PromptResponse does not implement digital signing; agencies needing PKI-signed
+> documents should rely on existing PDF + e-sign workflows alongside the .aprf
+> file. Workflows previously sketched for an S3 connection wizard and a
+> certificate-management flow have been removed from this guide for the same
+> reason.
 
 ---
 
@@ -676,9 +419,8 @@ Sarah needs to create her official Town Clerk signature and add the town's trust
 
 | Error | Message | Recovery |
 |-------|---------|----------|
-| No internet | "Can't connect. Working offline." | Queue actions, sync later |
-| S3 timeout | "Upload taking longer than usual..." | Retry automatically |
-| Invalid signature | "This signature couldn't be verified" | Show details, suggest action |
+| No internet | "Can't submit right now. Working offline." | Save locally, retry later |
+| Webhook timeout | "Submission taking longer than usual..." | Retry automatically |
 | Required field missing | "Please fill in: [field name]" | Highlight field, scroll to it |
 | File corrupted | "This form appears damaged" | Offer to restore from backup |
 
@@ -698,9 +440,9 @@ Sarah needs to create her official Town Clerk signature and add the town's trust
 
 **Example**:
 
-❌ Bad: "Error 403: Access Denied to s3://bucket/path"
+❌ Bad: "Error 403: Forbidden POST https://intake.example.com/forms"
 
-✅ Good: "Can't access the form gallery. Check your S3 settings or contact IT."
+✅ Good: "Can't submit right now. The receiving server rejected the form. Save locally and contact your administrator."
 
 ---
 

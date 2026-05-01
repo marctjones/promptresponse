@@ -348,11 +348,6 @@ time dotnet run --project src/PromptResponse.Desktop
   - [ ] Template structure preserved
   - [ ] Metadata updated appropriately
 
-- [ ] **Certificate management**
-  - [ ] Certificate window opens
-  - [ ] Can generate certificates
-  - [ ] Can import certificates
-
 - [ ] **Validation**
   - [ ] Structural validation works
   - [ ] Semantic validation works

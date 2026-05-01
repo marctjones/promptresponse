@@ -305,7 +305,6 @@ These documents define categories of confusable characters, recommended security
     "email": "hr@acme.example.com",
     "url": "https://acme.example.com/hr"
   },
-  "templateSourceUrl": "https://forms.acme.example.com/employment-app.aprt",
   "submitUrls": [
     {
       "url": "https://submissions.acme.example.com/hr/applications",
@@ -382,34 +381,17 @@ The publisher identifies who created and published the template:
 
 **Publisher Authentication:**
 
-The publisher object provides attribution but not authentication. To cryptographically verify that a template was published by the claimed publisher, use **template signatures** as described in Appendix A. When a template is signed:
-
-- The signature covers the publisher metadata along with all other content
-- Recipients can verify the template hasn't been modified since signing
-- The signer's identity can be established through their public key or certificate
+The publisher object provides attribution only. PromptResponse does not implement
+cryptographic signing or signature verification of templates or filled forms;
+recipients who need authenticated provenance should rely on out-of-band channels
+(signed PDFs, e-sign workflows, certificate-pinned distribution, etc.).
 
 ### 3.6 Publication and Distribution Fields
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `published` | string | No | ISO 8601 timestamp when publicly released |
-| `templateSourceUrl` | string | No | URL where the template can be fetched/updated |
 | `submitUrls` | array | No | Recommended URLs for form submission (array of Submit URL objects) |
-
-**Template Source URL:**
-
-The `templateSourceUrl` field enables update checking and template distribution:
-
-- Set by template publishers when hosting on a web server, S3 bucket, or form gallery
-- Inherited by filled forms when created from a template
-- Applications MAY use this to offer "Check for Updates" functionality
-- Applications MAY use this to fetch the latest template version and migrate responses
-
-```json
-{
-  "templateSourceUrl": "https://forms.example.com/templates/employment-app.aprt"
-}
-```
 
 **Submit URLs:**
 
@@ -426,10 +408,6 @@ The `submitUrls` field specifies where completed forms should be submitted. It i
     {
       "url": "mailto:hr-backup@example.com",
       "label": "Email to HR (backup)"
-    },
-    {
-      "url": "s3://forms-bucket/submissions/",
-      "label": "Archive to S3"
     }
   ]
 }
@@ -447,10 +425,9 @@ The `submitUrls` field specifies where completed forms should be submitted. It i
 
 | Scheme | Example | Behavior |
 |--------|---------|----------|
-| `https://` | `https://api.example.com/submit` | HTTP POST with form data |
+| `https://` | `https://api.example.com/submit` | HTTPS POST with form data (JSON body) |
 | `http://` | `http://internal.example.com/submit` | HTTP POST (insecure, warn user) |
 | `mailto:` | `mailto:forms@example.com` | Open email client with form attached |
-| `s3://` | `s3://bucket/prefix/` | Direct S3 upload (requires config) |
 
 **Usage notes:**
 
@@ -458,7 +435,6 @@ The `submitUrls` field specifies where completed forms should be submitted. It i
 - If `primary` is set on one URL, applications MAY pre-select it as the default
 - Users may choose to submit to multiple destinations, one destination, or save locally
 - The `submitUrls` array is a recommendation only; users are never required to use it
-- See Appendix B for detailed submission configuration (pre-signed URLs, authentication, etc.)
 
 ### 3.7 Filled Form Additional Fields
 
@@ -1495,7 +1471,6 @@ APR distinguishes between **templates** (blank forms) and **filled forms** (comp
 | **Who creates it** | Form designer | Form filler |
 | **Typical action** | Open and fill out | Open and review/process |
 | **Modification** | Edit structure and labels | Edit responses only |
-| **Signature type** | Template signature (optional) | Form signature (optional) |
 
 ### 15.2 Analogy: Paper Forms
 
@@ -1529,7 +1504,6 @@ Template Creation        Form Filling           Processing
 - `documentType` MUST be `"template"`
 - All `response` fields SHOULD be empty strings
 - Contains form structure: sections, prompts, labels, hints
-- May be digitally signed by publisher (template signature)
 - Intended to be filled out, not edited structurally by end users
 - When opened for filling, implementation creates a new filled form
 
@@ -1538,9 +1512,7 @@ Template Creation        Form Filling           Processing
 - `documentType` MUST be `"filledForm"`
 - `response` fields contain user data
 - Structure matches original template (sections, prompts, labels)
-- May be digitally signed by filler (form signature)
-- Signed forms become logically read-only (edits invalidate signature)
-- Can be opened, reviewed, edited (if unsigned), and re-saved
+- Can be opened, reviewed, edited, and re-saved
 
 ### 15.6 Conversion Rules
 
@@ -1764,25 +1736,20 @@ When rendering, implementations SHOULD:
 3. If not found: use base sections[].prompts[].label = "Full Name"
 ```
 
-### 17.7 Translator Signatures
+### 17.7 Translator Attribution
 
-Translations can be independently signed by translators, separate from template or form signatures:
+Translations may carry translator attribution metadata:
 
 ```json
 {
   "localizations": {
     "es": {
-      "translator": { },
-      "translatedAt": "2025-01-20T00:00:00Z",
-      "signature": {
-        "signerName": "Maria García",
-        "signerEmail": "maria@translations.example.com",
-        "signerOrganization": "Professional Translations Inc.",
-        "signedAt": "2025-01-20T12:00:00Z",
-        "signatureData": "base64...",
-        "hashAlgorithm": "SHA256",
-        "certificateChain": "base64..."
+      "translator": {
+        "name": "Maria García",
+        "email": "maria@translations.example.com",
+        "organization": "Professional Translations Inc."
       },
+      "translatedAt": "2025-01-20T00:00:00Z",
       "sections": { },
       "prompts": { }
     }
@@ -1790,20 +1757,9 @@ Translations can be independently signed by translators, separate from template 
 }
 ```
 
-**Translator signature covers:**
-- All localized text within that language block
-- Translator attribution
-- Translation timestamp
-
-**Translator signature does NOT cover:**
-- Base template content
-- Other localizations
-- Response data
-
-This allows:
-- Template publisher to sign the base template
-- Different translators to independently sign each language version
-- Verification that translations are authentic and unmodified
+This is attribution only. PromptResponse does not implement signatures or
+verification of translations; recipients who need authenticated provenance
+should rely on out-of-band channels.
 
 ### 17.8 Partial Localizations
 
@@ -2060,149 +2016,31 @@ A full APR implementation may also:
 - [ ] Support Extended Types (section 7.2)
 - [ ] Support Formatted Types (section 7.3)
 - [ ] Show `inputValidationPattern` warnings
-- [ ] Support digital signatures (see appendix)
-- [ ] Support submission configuration (see appendix)
 - [ ] Support localizations with language switching
-- [ ] Support translator signatures
 - [ ] Display attachment annotations
 - [ ] Support CEL expression hints (see appendix)
 
 ---
 
-## Appendix A: Digital Signatures (Optional)
+## Appendix A: Digital Signatures (Out of Scope)
 
-Digital signatures are an optional extension for document authenticity. APR distinguishes between two types of signatures with different purposes.
+Cryptographic signing of templates or filled forms is **not part of the APR
+format** and PromptResponse does not implement signature creation or
+verification. Earlier drafts of this specification described a `templateSignatures`
+and `formSignatures` mechanism; that mechanism has been removed.
 
-### A.1 Two Types of Signatures
+Implementations that encounter unknown fields in `metadata` (including
+hypothetical signature fields produced by older drafts) MUST preserve them
+unchanged on save, per Section 4.x's general round-trip rule.
 
-| Signature Type | Who Signs | What's Signed | Purpose |
-|----------------|-----------|---------------|---------|
-| **Template Signature** | Form publisher | Template structure only | Verify template hasn't been tampered with |
-| **Form Signature** | Form filler | Complete filled form | Certify the responses as authentic |
-
-### A.2 Template Signatures
-
-Template signatures attest to the authenticity and integrity of the form structure itself:
-
-- Signed by the organization that created/published the template
-- Covers: `sections`, `prompts`, `hints`, `metadata` (except signatures)
-- Does NOT cover: `response` fields (which are empty in templates)
-- Use case: Government agency publishes an official form; signature proves it's genuine
-
-**When template signature is verified:**
-- User can trust the form comes from the stated publisher
-- User can trust the questions haven't been modified
-- User can trust the submission configuration is legitimate
-
-### A.3 Form Signatures
-
-Form signatures attest that a specific person filled out specific responses:
-
-- Signed by the person who filled out the form
-- Covers: entire document including all `response` values
-- Use case: Employee signs their completed timesheet; signature proves they submitted it
-
-**When form signature is verified:**
-- Recipient can trust the responses came from the stated person
-- Recipient can trust responses haven't been modified after signing
-- Form becomes logically read-only (modifications would invalidate signature)
-
-### A.4 Signature Data Structure
-
-```json
-{
-  "metadata": {
-    "templateSignatures": [ ],
-    "formSignatures": [ ]
-  }
-}
-```
-
-**Signature Object:**
-
-```json
-{
-  "signerName": "John Doe",
-  "signerEmail": "john@example.com",
-  "signerOrganization": "Acme Corp",
-  "signedAt": "2025-01-15T12:00:00Z",
-  "signatureData": "base64...",
-  "signatureType": "template",
-  "hashAlgorithm": "SHA256",
-  "certificateChain": "base64..."
-}
-```
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| `signerName` | Yes | Human-readable signer name |
-| `signerEmail` | No | Signer's email address |
-| `signerOrganization` | No | Organization name (especially for template signatures) |
-| `signedAt` | Yes | ISO 8601 timestamp |
-| `signatureData` | Yes | Base64-encoded signature |
-| `signatureType` | Yes | `"template"` or `"form"` |
-| `hashAlgorithm` | Yes | Hash algorithm used (e.g., `"SHA256"`) |
-| `certificateChain` | No | Base64-encoded certificate chain for verification |
-
-### A.5 Signature Workflow
-
-```
-Template Creation          Form Filling              Verification
-──────────────────        ──────────────            ─────────────
-
-[Create .aprt]            [Open .aprt]              [Open .aprf]
-      │                         │                         │
-      ▼                         ▼                         ▼
-[Optionally sign     ─────►[Verify template       [Verify both
- as template]               signature if present]   signatures]
-      │                         │                         │
-      ▼                         ▼                         │
-[Publish]                 [Fill responses]                │
-                                │                         │
-                                ▼                         │
-                          [Sign as form] ────────────────►│
-                                │                         │
-                                ▼                         ▼
-                          [Save .aprf]              [Trust content]
-```
-
-### A.6 Implementation Notes
-
-Implementations that don't support signatures:
-- MUST preserve signature fields when reading/writing
-- SHOULD display a notice that signatures are present but unverified
-- MUST NOT remove signatures when saving
-
-Implementations that support signatures:
-- SHOULD use established cryptographic libraries
-- SHOULD support X.509 certificate chains
-- MAY support multiple signatures of each type
-- SHOULD refuse to modify signed forms without warning
+Recipients who require authenticated provenance should rely on out-of-band
+channels: signed PDFs, e-sign workflows, certificate-pinned distribution
+servers, or transport-level (HTTPS / signed-URL) controls owned by the
+publisher.
 
 ---
 
-## Appendix B: Submission Configuration (Optional)
-
-Templates may include submission configuration for direct form submission:
-
-```json
-{
-  "metadata": {
-    "submissionConfig": {
-      "type": "s3-presigned-post",
-      "url": "https://bucket.s3.amazonaws.com/",
-      "fields": { },
-      "expiresAt": "2025-12-31T00:00:00Z"
-    }
-  }
-}
-```
-
-Implementations that don't support submission should preserve this field.
-
----
-
-## Appendix C: Expression Hints with CEL (Optional)
+## Appendix B: Expression Hints with CEL (Optional)
 
 APR supports dynamic behavior through expression hints using the Common Expression Language (CEL). This enables conditional visibility, dynamic suggested values, and cross-field validation.
 
@@ -2779,7 +2617,7 @@ CEL is designed to be safe, but implementations SHOULD:
 
 ---
 
-## Appendix D: Complexity Notes
+## Appendix C: Complexity Notes
 
 ### Issues Identified in Current Implementation
 
@@ -2805,4 +2643,5 @@ CEL is designed to be safe, but implementations SHOULD:
 |---------|------|---------|
 | 0.1 | 2025-11-12 | Initial specification |
 | 0.2 | 2025-12-02 | Restructured hints with prefixed naming convention (`input*`, `behavior*`, `display*`, `layout*`, `suggest*`, `type*`), renamed `expectedDataType` to `type`, added behavioral/display/layout hints, formalized type tiers, added implementation checklist |
-| 0.2 | 2025-12-03 | Added publisher metadata, semantic versioning, `submitUrls` array, submission history tracking, response identifiers (`responseId`), localization support with translator signatures, embedded attachments with annotations, file size requirements (1 MB or 3× template minimum), CEL expression hints (`expr*`) for dynamic visibility/validation/suggested values, context dictionary (`ctx`) for application-provided user/org/environment data |
+| 0.2 | 2025-12-03 | Added publisher metadata, semantic versioning, `submitUrls` array, submission history tracking, response identifiers (`responseId`), localization support with translator attribution, embedded attachments with annotations, file size requirements (1 MB or 3× template minimum), CEL expression hints (`expr*`) for dynamic visibility/validation/suggested values, context dictionary (`ctx`) for application-provided user/org/environment data |
+| 0.2.1 | 2026-05-01 | Removed cryptographic-signature mechanism (Appendix A retained as out-of-scope note); removed `templateSourceUrl` and `s3://` submitUrl scheme; removed S3 submission-config appendix |

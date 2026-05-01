@@ -540,85 +540,19 @@ User fills form → Save locally → Manual send (email, file transfer)
 - Simple workflow
 - Works offline
 
-#### 2. Direct S3 Submission (Future)
-```
-Template with S3 config → User fills form → Direct POST to S3 → No server needed
-```
-
-**Architecture:**
-```
-┌──────────────────┐
-│  Template Author │
-│  (Has AWS creds) │
-└────────┬─────────┘
-         │
-         │ 1. Generate pre-signed POST policy
-         │    (AWSAccessKeyId, policy, signature)
-         │
-         ▼
-┌─────────────────────────────────┐
-│  APR Template with              │
-│  submissionConfig in metadata   │
-└────────┬────────────────────────┘
-         │
-         │ 2. Distribute template
-         │
-         ▼
-┌─────────────────┐
-│  User fills out │
-│  form           │
-└────────┬────────┘
-         │
-         │ 3. Click "Submit"
-         │
-         ▼
-┌─────────────────────────────────┐
-│  PromptResponse Desktop/CLI     │
-│  reads submissionConfig         │
-└────────┬────────────────────────┘
-         │
-         │ 4. HTTPS POST directly to S3
-         │    with policy + signature
-         │
-         ▼
-┌─────────────────┐
-│  S3 validates   │
-│  signature &    │
-│  accepts file   │
-└─────────────────┘
-```
-
-**Benefits:**
-- No server-side code required
-- No serverless functions needed
-- Direct client-to-S3 upload
-- S3 handles validation via policy
-- Can combine with APR digital signatures
-- Template signature proves authenticity
-- S3 policy controls upload authorization
-
-**Security Model:**
-- Pre-signed POST policy includes expiration (typically 7 days max)
-- Policy restricts file size, content type, key prefix
-- Access key ID visible in template (not secret key)
-- Signature computed from secret key but doesn't expose it
-- Anyone with template can upload (until expiration)
-- S3 bucket can have additional policies (encryption, lifecycle)
-
-**Implementation Considerations:**
-- Check policy expiration before submitting
-- Handle CORS requirements (S3 bucket configuration)
-- Provide fallback to manual save if submission fails
-- Show policy expiration warning in UI
-- Optional: Support policy refresh from URL
-
-### 3. Webhook Submission (Future)
+#### 2. Webhook Submission (Future)
 ```
 Template with webhook URL → User fills form → POST to webhook
 ```
 - Simple HTTP POST to custom endpoint
 - Template includes webhook URL
 - Implementation handles auth, validation, storage
+
+> **Note:** Direct cloud-storage submission (S3, Azure Blob, GCS) and cryptographic
+> template/form signing were considered for an earlier roadmap but have been removed
+> from scope. PromptResponse is local-first: submission is always optional, and any
+> cloud delivery happens through standard webhook endpoints owned by the template
+> publisher.
 
 ## Future Considerations
 
@@ -653,7 +587,7 @@ Office workers constantly need to create and fill forms, but existing tools are 
 PromptResponse solves these by providing:
 - Simple form creation without layout hassles
 - Direct database import (it's just JSON)
-- Built-in submission to S3/webhooks (no custom server code)
+- Optional webhook submission for templates that need it
 - Easy programmatic filling for automation
 
 ### Why JSON?
@@ -685,12 +619,12 @@ PromptResponse solves these by providing:
 - Different workflows
 - Prevent accidental template modification
 
-### Why Built-in Submission?
+### Why Optional Webhook Submission?
 
 - Eliminates need to build custom CRUD apps for every form
-- S3 pre-signed POST means no server-side code needed
-- Template publishers control where submissions go
-- Users just click "Submit" - no configuration needed
+- Template publishers can route submissions to any HTTP endpoint they own
+- Users just click "Submit" — no configuration needed
+- Templates without a webhook are never blocked from being saved/exported locally
 
 ## References
 
