@@ -24,6 +24,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly IProfileService _profileService;
     private readonly PromptViewModelFactory _factory;
     private readonly DataTypeValidator _dataTypeValidator = new();
+    private readonly HiddenCharacterAdvisor _hiddenCharAdvisor = new();
 
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
     private readonly ObservableCollection<SectionViewModel> _sections = new();
@@ -159,8 +160,17 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         var doc = _session.CurrentDocument;
         if (doc != null)
         {
-            var result = _dataTypeValidator.ValidateDocument(doc);
-            foreach (var warning in result.Warnings)
+            // Data-type hint mismatches ("five" in a number-hinted field, etc.)
+            var typeResult = _dataTypeValidator.ValidateDocument(doc);
+            foreach (var warning in typeResult.Warnings)
+            {
+                var (promptId, promptLabel) = ResolvePromptFromPath(doc, warning.PropertyPath);
+                _advisories.Add(new AdvisoryItem(promptId, promptLabel, warning.Message));
+            }
+            // Hidden-character findings (ZWSP, soft hyphen, bidi marks, variation
+            // selectors) — preserved on save but flagged so the user can confirm intent.
+            var hiddenResult = _hiddenCharAdvisor.Validate(doc);
+            foreach (var warning in hiddenResult.Warnings)
             {
                 var (promptId, promptLabel) = ResolvePromptFromPath(doc, warning.PropertyPath);
                 _advisories.Add(new AdvisoryItem(promptId, promptLabel, warning.Message));
