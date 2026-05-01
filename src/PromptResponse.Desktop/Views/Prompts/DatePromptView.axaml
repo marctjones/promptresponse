@@ -28,6 +28,7 @@
                                 Margin="8,0,0,0"
                                 MinHeight="36"
                                 MinWidth="160"
+                                IsVisible="{Binding ShowCalendarPicker}"
                                 SelectedDateChanged="OnSelectedDateChanged"
                                 AutomationProperties.Name="Pick a date"
                                 AutomationProperties.HelpText="Calendar picker; you can also type any text in the field on the left"/>

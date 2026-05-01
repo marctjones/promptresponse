@@ -96,7 +96,7 @@ public class PromptViewsGuiTests
 
         vm.DisplayValue.Should().Be("42000");
 
-        service.Enable<VisualFormattingProfile>();
+        service.Enable<NumberThousandsSeparatorsProfile>();
         GuiTestExtensions.PumpDispatcher();
 
         vm.DisplayValue.Should().NotBe("42000");

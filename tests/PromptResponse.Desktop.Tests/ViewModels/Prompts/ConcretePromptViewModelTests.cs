@@ -247,20 +247,20 @@ public class ConcretePromptViewModelTests
     // ---- Currency / Date / Number profile-aware display ----
 
     [Fact]
-    public void Currency_VisualFormatting_RendersWithSymbol()
+    public void Currency_CurrencyDisplayFlag_RendersWithSymbol()
     {
         var service = NewService();
-        service.Enable<VisualFormattingProfile>();
+        service.Enable<CurrencyDisplayProfile>();
         var vm = new CurrencyPromptViewModel(P("p", "$", p => { p.Response = "1500"; p.Hints.ExpectedDataType = "currency"; }), service);
 
         vm.DisplayValue.Should().NotBe("1500");
     }
 
     [Fact]
-    public void Date_VisualFormatting_RendersHumanReadable()
+    public void Date_IsoDatePrettifyFlag_RendersHumanReadable()
     {
         var service = NewService();
-        service.Enable<VisualFormattingProfile>();
+        service.Enable<IsoDatePrettifyProfile>();
         var vm = new DatePromptViewModel(P("p", "DOB", p => { p.Response = "2025-04-29"; p.Hints.ExpectedDataType = "date"; }), service);
 
         vm.DisplayValue.Should().NotBe("2025-04-29");

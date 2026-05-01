@@ -12,12 +12,14 @@
                          Content="Yes"
                          GroupName="{Binding Id}"
                          MinHeight="36"
+                         IsVisible="{Binding ShowRadios}"
                          AutomationProperties.Name="Yes"
                          AutomationProperties.HelpText="{Binding HelpText}"/>
             <RadioButton x:Name="NoRadio"
                          Content="No"
                          GroupName="{Binding Id}"
                          MinHeight="36"
+                         IsVisible="{Binding ShowRadios}"
                          AutomationProperties.Name="No"
                          AutomationProperties.HelpText="{Binding HelpText}"/>
             <TextBox x:Name="FreeTextEntry"

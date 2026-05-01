@@ -58,6 +58,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
             _prompt.Response = newValue;
             Notify(nameof(Response));
             Notify(nameof(DisplayValue));
+            OnDerivedPropertiesShouldRefresh();
         }
     }
 
@@ -82,13 +83,15 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// the VM just hands over the gate.</summary>
     internal IProfileService ProfileService => _profileService;
 
-    /// <summary>Raised on every active-profile transition; subclasses pulse derived properties.</summary>
-    protected virtual void OnProfileChangedCore() { }
+    /// <summary>Hook subclasses override to pulse derived bool/string properties
+    /// (e.g. ShowCalendarPicker, ShowDisplaysAs) when either the active profile
+    /// changes OR the response changes. The base raises this on both events.</summary>
+    protected virtual void OnDerivedPropertiesShouldRefresh() { }
 
     private void OnProfileChanged(object? sender, EventArgs e)
     {
         Notify(nameof(DisplayValue));
-        OnProfileChangedCore();
+        OnDerivedPropertiesShouldRefresh();
     }
 
     protected void Notify([CallerMemberName] string? propertyName = null)

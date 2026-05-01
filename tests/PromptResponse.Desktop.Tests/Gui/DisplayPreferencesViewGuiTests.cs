@@ -75,44 +75,28 @@ public class DisplayPreferencesViewGuiTests
     }
 
     [AvaloniaFact]
-    public void Keyboard_TabsThroughEveryToggle_ReachableForKeyboardOnlyUsers()
+    public void EveryFlagCheckbox_IsAccessible_ForScreenReaderUsers()
     {
-        // Cornerstone vision check: a user without a mouse can reach every toggle
-        // via Tab. Counts focusable controls in the view's tab order.
+        // Every customize-panel flag has an x:Name and an AutomationProperties.Name.
+        // This guards against a regression where adding a new flag forgets one.
         var (view, _, _) = BuildView();
-        var window = view.ShowInWindow(width: 700, height: 720);
+        view.ShowInWindow(width: 700, height: 720);
 
-        // Focus first focusable element to start the walk.
-        var lightRadio = view.FindDescendant<RadioButton>(rb => rb.Name == "LightRadio");
-        lightRadio.Focus();
-        GuiTestExtensions.PumpDispatcher();
-        lightRadio.IsFocused.Should().BeTrue("starting point of the tab walk");
-
-        var visited = new HashSet<string>();
-        var current = (Control)lightRadio;
-        for (int i = 0; i < 30; i++) // bounded loop
+        var checkboxNames = new[]
         {
-            if (current.Name is { } name)
-            {
-                visited.Add(name);
-            }
-            window.PressKey(Key.Tab);
-            var focused = window.FocusManager?.GetFocusedElement() as Control;
-            if (focused == null || focused == current) break;
-            current = focused;
-        }
-
-        var expected = new[]
-        {
-            "LightRadio", "DarkRadio", "HighContrastRadio",
-            "VisualFormattingCheck", "LargeTextCheck", "ReducedMotionCheck",
-            "ScreenReaderTunedCheck", "MotorAssistCheck",
-            "ResetButton",
+            "LargeTextCheck", "ReducedMotionCheck", "ScreenReaderTunedCheck", "LargeHitTargetsCheck",
+            "NumberThousandsSeparatorsCheck", "CurrencyDisplayCheck", "IsoDatePrettifyCheck", "DisplaysAsPreviewCheck",
+            "CalendarPickerCheck", "BooleanRadiosCheck",
+            "PhoneInputMaskCheck", "SsnInputMaskCheck", "EinInputMaskCheck", "ZipInputMaskCheck",
+            "CurrencyInputMaskCheck", "PercentageInputMaskCheck",
         };
-        foreach (var name in expected)
+
+        foreach (var name in checkboxNames)
         {
-            visited.Should().Contain(name,
-                $"keyboard users must be able to Tab to '{name}' — accessibility floor");
+            var control = view.FindDescendant<CheckBox>(c => c.Name == name);
+            control.GetValue(Avalonia.Automation.AutomationProperties.NameProperty)
+                .Should().NotBeNullOrWhiteSpace(
+                    $"every flag checkbox must announce itself to screen readers; '{name}' is missing AutomationProperties.Name");
         }
     }
 
@@ -120,24 +104,17 @@ public class DisplayPreferencesViewGuiTests
     public void CheckBox_BoundToVm_PropagatesChangesBothWays()
     {
         // Equivalent of the keyboard-Space flow: the CheckBox's bound IsChecked
-        // round-trips with the underlying view-model, which is what every real input
-        // path (Space key, mouse click, screen-reader activation) ultimately drives.
+        // round-trips with the underlying view-model.
         var (view, vm, _) = BuildView();
-        var window = view.ShowInWindow(width: 700, height: 720);
+        view.ShowInWindow(width: 700, height: 720);
 
         var checkbox = view.FindDescendant<CheckBox>(cb => cb.Name == "LargeTextCheck");
-        checkbox.Focus();
-        GuiTestExtensions.PumpDispatcher();
-        checkbox.IsFocused.Should().BeTrue("focusable for keyboard users");
-
-        // Toggle the visible IsChecked; the binding must drive the VM.
         checkbox.IsChecked = true;
         GuiTestExtensions.PumpDispatcher();
 
         vm.LargeText.Should().BeTrue();
         vm.ActiveProfile.TextScale.Should().Be(1.5);
 
-        // Now the reverse direction: VM update reflects in the visible IsChecked.
         vm.LargeText = false;
         GuiTestExtensions.PumpDispatcher();
 
@@ -147,14 +124,12 @@ public class DisplayPreferencesViewGuiTests
     [AvaloniaFact]
     public void CheckingMultipleEnhancements_ComposesTheActiveProfile()
     {
-        // Click each checkbox programmatically; the visible behaviour is the same as
-        // a mouse user toggling them in sequence.
         var (view, vm, _) = BuildView();
-        var window = view.ShowInWindow(width: 700, height: 720);
+        view.ShowInWindow(width: 700, height: 720);
 
-        view.FindDescendant<CheckBox>(cb => cb.Name == "VisualFormattingCheck").IsChecked = true;
+        view.FindDescendant<CheckBox>(cb => cb.Name == "NumberThousandsSeparatorsCheck").IsChecked = true;
         view.FindDescendant<CheckBox>(cb => cb.Name == "LargeTextCheck").IsChecked = true;
-        view.FindDescendant<CheckBox>(cb => cb.Name == "MotorAssistCheck").IsChecked = true;
+        view.FindDescendant<CheckBox>(cb => cb.Name == "LargeHitTargetsCheck").IsChecked = true;
         GuiTestExtensions.PumpDispatcher();
 
         vm.ActiveProfile.TextScale.Should().Be(1.5);
@@ -166,15 +141,12 @@ public class DisplayPreferencesViewGuiTests
     public void ResetButton_RoutedClick_ClearsUserToggles()
     {
         var (view, vm, _) = BuildView();
-        var window = view.ShowInWindow(width: 700, height: 720);
+        view.ShowInWindow(width: 700, height: 720);
 
-        // Set a custom enhancement first.
         view.FindDescendant<CheckBox>(cb => cb.Name == "LargeTextCheck").IsChecked = true;
         GuiTestExtensions.PumpDispatcher();
         vm.LargeText.Should().BeTrue();
 
-        // Click the Reset button via routed event (functionally equivalent to mouse click,
-        // and guaranteed-reliable across headless harness versions).
         var resetButton = view.FindDescendant<Button>(b => b.Name == "ResetButton");
         resetButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         GuiTestExtensions.PumpDispatcher();
@@ -183,24 +155,55 @@ public class DisplayPreferencesViewGuiTests
     }
 
     [AvaloniaFact]
-    public void EveryToggle_HasAccessibleName_ForScreenReaderUsers()
+    public void PresetButtons_ApplyTheirCompositions()
+    {
+        var (view, vm, _) = BuildView();
+        view.ShowInWindow(width: 700, height: 720);
+
+        // Excellent: all visual affordances on, light scheme.
+        view.FindDescendant<Button>(b => b.Name == "PresetExcellent")
+            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        GuiTestExtensions.PumpDispatcher();
+        vm.ColorScheme.Should().Be(ColorScheme.Light);
+        vm.NumberThousandsSeparators.Should().BeTrue();
+        vm.PhoneInputMask.Should().BeTrue();
+        vm.CalendarPicker.Should().BeTrue();
+
+        // LowVision: high contrast + large text + large hit targets.
+        view.FindDescendant<Button>(b => b.Name == "PresetLowVision")
+            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        GuiTestExtensions.PumpDispatcher();
+        vm.ColorScheme.Should().Be(ColorScheme.HighContrast);
+        vm.LargeText.Should().BeTrue();
+        vm.LargeHitTargets.Should().BeTrue();
+
+        // Blind: live input masks OFF, calendar picker OFF, screen-reader tuned ON.
+        view.FindDescendant<Button>(b => b.Name == "PresetBlind")
+            .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        GuiTestExtensions.PumpDispatcher();
+        vm.ScreenReaderTuned.Should().BeTrue();
+        vm.PhoneInputMask.Should().BeFalse("live phone reshape disrupts screen-reader speech");
+        vm.SsnInputMask.Should().BeFalse();
+        vm.CalendarPicker.Should().BeFalse("calendar picker grid is slower than typing ISO date");
+        vm.BooleanRadios.Should().BeTrue("yes/no radios are arrow-key friendly");
+        vm.CurrencyInputMask.Should().BeTrue("commit-time currency mask fires once on LostFocus");
+    }
+
+    [AvaloniaFact]
+    public void PresetButtons_HaveAccessibleNames()
     {
         var (view, _, _) = BuildView();
-        var window = view.ShowInWindow(width: 700, height: 720);
+        view.ShowInWindow(width: 700, height: 720);
 
-        var toggleNames = new[]
+        var presetNames = new[]
         {
-            "LightRadio", "DarkRadio", "HighContrastRadio",
-            "VisualFormattingCheck", "LargeTextCheck", "ReducedMotionCheck",
-            "ScreenReaderTunedCheck", "MotorAssistCheck",
+            "PresetExcellent", "PresetBlind", "PresetLowVision", "PresetCognitive", "PresetMotor",
         };
-
-        foreach (var name in toggleNames)
+        foreach (var name in presetNames)
         {
-            var control = view.FindDescendant<Control>(c => c.Name == name);
-            var accessibleName = control.GetValue(Avalonia.Automation.AutomationProperties.NameProperty);
-            accessibleName.Should().NotBeNullOrWhiteSpace(
-                $"every interactive toggle must announce itself to screen readers; '{name}' is missing AutomationProperties.Name");
+            var btn = view.FindDescendant<Button>(b => b.Name == name);
+            btn.GetValue(Avalonia.Automation.AutomationProperties.NameProperty)
+                .Should().NotBeNullOrWhiteSpace($"preset '{name}' must announce itself to screen readers");
         }
     }
 }

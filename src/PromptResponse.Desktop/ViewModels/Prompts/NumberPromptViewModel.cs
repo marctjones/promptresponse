@@ -13,4 +13,14 @@ public sealed class NumberPromptViewModel : PromptViewModelBase
 {
     public NumberPromptViewModel(Prompt prompt, IProfileService profileService)
         : base(prompt, profileService) { }
+
+    /// <summary>True when both <see cref="DisplaysAsPreviewProfile"/> is active AND
+    /// <see cref="PromptViewModelBase.DisplayValue"/> differs meaningfully — i.e.
+    /// some active flag actually reformatted the response.</summary>
+    public bool ShowDisplaysAs =>
+        ProfileService.IsActive(typeof(DisplaysAsPreviewProfile))
+        && !string.IsNullOrEmpty(DisplayValue)
+        && DisplayValue != Response;
+
+    protected override void OnDerivedPropertiesShouldRefresh() => Notify(nameof(ShowDisplaysAs));
 }

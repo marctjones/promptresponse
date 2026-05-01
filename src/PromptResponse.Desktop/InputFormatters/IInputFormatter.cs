@@ -21,6 +21,14 @@ public readonly record struct FormatResult(string Text, int CaretIndex);
 public interface IInputFormatter
 {
     /// <summary>
+    /// The capability-profile flag that gates this formatter. <see cref="InputMaskBehavior"/>
+    /// only invokes <see cref="Format"/> when this profile is active in the user's
+    /// composition, preserving the universal-core invariant that affordances are off
+    /// by default.
+    /// </summary>
+    Type GateProfile { get; }
+
+    /// <summary>
     /// Reshape <paramref name="raw"/> into canonical form. <paramref name="caretIndex"/>
     /// is the caret position before formatting; the returned <see cref="FormatResult.CaretIndex"/>
     /// is the position after formatting (digit-anchored when reshaping occurred,

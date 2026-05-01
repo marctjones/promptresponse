@@ -94,7 +94,7 @@ public class PromptViewModelBaseTests
     public void DisplayValue_WhenVisualFormattingActive_RendersFormatted()
     {
         var service = NewService();
-        service.Enable<VisualFormattingProfile>();
+        service.Enable<NumberThousandsSeparatorsProfile>();
         var prompt = MakePrompt("p1", "Salary", "number", "42000");
         var vm = new NumberPromptViewModel(prompt, service);
 
@@ -107,7 +107,7 @@ public class PromptViewModelBaseTests
     {
         // Cornerstone vision invariant: non-numeric response in a number field is valid.
         var service = NewService();
-        service.Enable<VisualFormattingProfile>();
+        service.Enable<NumberThousandsSeparatorsProfile>();
         var prompt = MakePrompt("p1", "Age", "number", "five");
         var vm = new NumberPromptViewModel(prompt, service);
 
@@ -124,7 +124,7 @@ public class PromptViewModelBaseTests
         var changed = new List<string?>();
         vm.PropertyChanged += (_, e) => changed.Add(e.PropertyName);
 
-        service.Enable<VisualFormattingProfile>();
+        service.Enable<NumberThousandsSeparatorsProfile>();
 
         changed.Should().Contain(nameof(vm.DisplayValue),
             "DisplayValue depends on the active profile and must re-bind when it changes");
@@ -141,7 +141,7 @@ public class PromptViewModelBaseTests
 
         var changed = 0;
         vm.PropertyChanged += (_, _) => changed++;
-        service.Enable<VisualFormattingProfile>();
+        service.Enable<NumberThousandsSeparatorsProfile>();
 
         changed.Should().Be(0, "disposed VMs must stop reacting to profile changes");
     }

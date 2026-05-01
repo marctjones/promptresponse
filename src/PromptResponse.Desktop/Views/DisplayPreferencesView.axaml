@@ -4,84 +4,162 @@
              x:Class="PromptResponse.Desktop.Views.DisplayPreferencesView"
              x:DataType="vm:DisplayPreferencesViewModel"
              AutomationProperties.Name="Display Preferences"
-             AutomationProperties.HelpText="Toggle the rendering profile enhancements that match your needs">
+             AutomationProperties.HelpText="Pick a preset that matches your capabilities, or expand Customize to toggle individual features">
     <ScrollViewer>
-        <StackPanel Margin="24" Spacing="24" MaxWidth="640" HorizontalAlignment="Stretch">
+        <StackPanel Margin="24" Spacing="24" MaxWidth="720" HorizontalAlignment="Stretch">
 
             <TextBlock Text="Display Preferences"
-                       FontSize="24" FontWeight="Bold"
-                      />
+                       FontSize="24" FontWeight="Bold"/>
 
             <TextBlock TextWrapping="Wrap"
-                       Text="PromptResponse adapts to your needs. The defaults work for everyone — turn on the enhancements that help you. You can combine any of these."/>
+                       Text="PromptResponse adapts to your capabilities. Pick a preset, or expand Customize to toggle every feature individually."/>
 
-            <!-- Color scheme (capability profile) -->
+            <!-- ── Presets ── -->
             <StackPanel Spacing="8">
-                <TextBlock Text="Color scheme" FontWeight="SemiBold"
-                          />
-                <RadioButton x:Name="LightRadio"
-                             Content="Light"
-                             GroupName="ColorScheme"
-                             IsChecked="{Binding IsLight, Mode=TwoWay}"
-                             MinHeight="36"
-                             AutomationProperties.Name="Light color scheme"
-                             AutomationProperties.HelpText="Bright background; recommended for well-lit environments and most users"/>
-                <RadioButton x:Name="DarkRadio"
-                             Content="Dark"
-                             GroupName="ColorScheme"
-                             IsChecked="{Binding IsDark, Mode=TwoWay}"
-                             MinHeight="36"
-                             AutomationProperties.Name="Dark color scheme"
-                             AutomationProperties.HelpText="Dim background; recommended for low-light environments, photophobia, or migraine sensitivity"/>
-                <RadioButton x:Name="HighContrastRadio"
-                             Content="High contrast"
-                             GroupName="ColorScheme"
-                             IsChecked="{Binding IsHighContrast, Mode=TwoWay}"
-                             MinHeight="36"
-                             AutomationProperties.Name="High contrast color scheme"
-                             AutomationProperties.HelpText="Maximum contrast (WCAG AAA); thick borders, no transparency, no animations"/>
+                <TextBlock Text="Preset" FontWeight="SemiBold"/>
+                <TextBlock TextWrapping="Wrap" FontSize="12" Opacity="0.7"
+                           Text="One-click compositions for common capability profiles. You can fine-tune any preset under Customize below."/>
+
+                <Button x:Name="PresetExcellent"
+                        Content="Excellent vision (default)"
+                        Click="OnPresetExcellentClicked"
+                        MinHeight="40" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                        AutomationProperties.Name="Excellent vision preset"
+                        AutomationProperties.HelpText="Sighted user with no other accessibility needs; all visual affordances on"/>
+
+                <Button x:Name="PresetBlind"
+                        Content="Blind / screen reader"
+                        Click="OnPresetBlindClicked"
+                        MinHeight="40" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                        AutomationProperties.Name="Blind screen reader preset"
+                        AutomationProperties.HelpText="Pure-text input; live input masks and calendar picker off so screen-reader speech isn't interrupted; commit-time masks and display previews stay on"/>
+
+                <Button x:Name="PresetLowVision"
+                        Content="Low vision / high contrast"
+                        Click="OnPresetLowVisionClicked"
+                        MinHeight="40" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                        AutomationProperties.Name="Low vision high contrast preset"
+                        AutomationProperties.HelpText="High contrast color scheme, large text, large hit targets, all visual affordances on"/>
+
+                <Button x:Name="PresetCognitive"
+                        Content="Cognitive / dyslexia / executive-function"
+                        Click="OnPresetCognitiveClicked"
+                        MinHeight="40" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                        AutomationProperties.Name="Cognitive preset"
+                        AutomationProperties.HelpText="Large text plus visual affordances. Future cognitive-specific features (dyslexia font, section focus mode) will be added to this preset when implemented"/>
+
+                <Button x:Name="PresetMotor"
+                        Content="Motor / mobility"
+                        Click="OnPresetMotorClicked"
+                        MinHeight="40" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                        AutomationProperties.Name="Motor mobility preset"
+                        AutomationProperties.HelpText="Large hit targets and reduced motion. Future motor-specific features (hit-margin padding, voice-control names) will be added to this preset when implemented"/>
             </StackPanel>
 
-            <!-- Optional rendering enhancements -->
-            <StackPanel Spacing="8">
-                <TextBlock Text="Rendering enhancements" FontWeight="SemiBold"
-                          />
+            <!-- ── Customize: every flag individually ── -->
+            <Expander Header="Customize individual features" IsExpanded="False"
+                      AutomationProperties.Name="Customize features"
+                      AutomationProperties.HelpText="Expand to toggle every feature flag independently of any preset">
+                <StackPanel Spacing="20" Margin="0,12,0,0">
 
-                <CheckBox x:Name="VisualFormattingCheck"
-                          Content="Visual formatting (numbers, dates, input masks)"
-                          IsChecked="{Binding VisualFormatting, Mode=TwoWay}"
-                          MinHeight="36"
-                          AutomationProperties.Name="Visual formatting"
-                          AutomationProperties.HelpText="Renders numbers with separators, ISO dates as 'April 29, 2025', and reshapes phone/SSN/EIN/ZIP digits as you type. Free text always passes through unchanged."/>
+                    <!-- Color scheme (mutually exclusive) -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Color scheme" FontWeight="SemiBold"/>
+                        <RadioButton x:Name="LightRadio" Content="Light" GroupName="ColorScheme"
+                                     IsChecked="{Binding IsLight, Mode=TwoWay}" MinHeight="36"
+                                     AutomationProperties.Name="Light color scheme"
+                                     AutomationProperties.HelpText="Bright background"/>
+                        <RadioButton x:Name="DarkRadio" Content="Dark" GroupName="ColorScheme"
+                                     IsChecked="{Binding IsDark, Mode=TwoWay}" MinHeight="36"
+                                     AutomationProperties.Name="Dark color scheme"
+                                     AutomationProperties.HelpText="Dim background; for photophobia, migraine sensitivity"/>
+                        <RadioButton x:Name="HighContrastRadio" Content="High contrast" GroupName="ColorScheme"
+                                     IsChecked="{Binding IsHighContrast, Mode=TwoWay}" MinHeight="36"
+                                     AutomationProperties.Name="High contrast color scheme"
+                                     AutomationProperties.HelpText="WCAG AAA; thick borders, no transparency"/>
+                    </StackPanel>
 
-                <CheckBox x:Name="LargeTextCheck"
-                          Content="Large text (1.5×)"
-                          IsChecked="{Binding LargeText, Mode=TwoWay}"
-                          MinHeight="36"
-                          AutomationProperties.Name="Large text"
-                          AutomationProperties.HelpText="Increases all text sizes by 1.5×"/>
+                    <!-- Global -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Global enhancements" FontWeight="SemiBold"/>
+                        <CheckBox x:Name="LargeTextCheck"
+                                  Content="Large text (1.5×)" IsChecked="{Binding LargeText, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Large text"
+                                  AutomationProperties.HelpText="Scales all text by 1.5×"/>
+                        <CheckBox x:Name="ReducedMotionCheck"
+                                  Content="Reduced motion" IsChecked="{Binding ReducedMotion, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Reduced motion"
+                                  AutomationProperties.HelpText="Disables decorative animations and transitions"/>
+                        <CheckBox x:Name="ScreenReaderTunedCheck"
+                                  Content="Screen-reader tuned announcements" IsChecked="{Binding ScreenReaderTuned, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Screen-reader tuned announcements"
+                                  AutomationProperties.HelpText="Verbose live regions for screen-reader users"/>
+                        <CheckBox x:Name="LargeHitTargetsCheck"
+                                  Content="Larger touch / click targets (56×56)" IsChecked="{Binding LargeHitTargets, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Large hit targets"
+                                  AutomationProperties.HelpText="Tremor / switch / voice-control friendly"/>
+                    </StackPanel>
 
-                <CheckBox x:Name="ReducedMotionCheck"
-                          Content="Reduced motion"
-                          IsChecked="{Binding ReducedMotion, Mode=TwoWay}"
-                          MinHeight="36"
-                          AutomationProperties.Name="Reduced motion"
-                          AutomationProperties.HelpText="Disables decorative animations and transitions"/>
+                    <!-- Display rendering -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Display rendering" FontWeight="SemiBold"/>
+                        <TextBlock FontSize="12" Opacity="0.7" TextWrapping="Wrap"
+                                   Text="Reshapes how stored values are rendered. The underlying response stays raw."/>
+                        <CheckBox x:Name="NumberThousandsSeparatorsCheck"
+                                  Content="Number thousands separators (42,000)" IsChecked="{Binding NumberThousandsSeparators, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Number thousands separators"/>
+                        <CheckBox x:Name="CurrencyDisplayCheck"
+                                  Content="Currency display ($1,234.56)" IsChecked="{Binding CurrencyDisplay, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Currency display"/>
+                        <CheckBox x:Name="IsoDatePrettifyCheck"
+                                  Content="ISO date prettify (April 29, 2026)" IsChecked="{Binding IsoDatePrettify, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="ISO date prettify"/>
+                        <CheckBox x:Name="DisplaysAsPreviewCheck"
+                                  Content="'Displays as: …' preview line" IsChecked="{Binding DisplaysAsPreview, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Displays as preview"
+                                  AutomationProperties.HelpText="Shows a polite live-region preview of how the value will be rendered"/>
+                    </StackPanel>
 
-                <CheckBox x:Name="ScreenReaderTunedCheck"
-                          Content="Screen-reader tuned announcements"
-                          IsChecked="{Binding ScreenReaderTuned, Mode=TwoWay}"
-                          MinHeight="36"
-                          AutomationProperties.Name="Screen-reader tuned announcements"
-                          AutomationProperties.HelpText="More verbose live-region announcements for screen-reader users"/>
+                    <!-- Interactive widgets -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Interactive widgets" FontWeight="SemiBold"/>
+                        <TextBlock FontSize="12" Opacity="0.7" TextWrapping="Wrap"
+                                   Text="Auxiliary widgets alongside the universal text field. The text field is always available."/>
+                        <CheckBox x:Name="CalendarPickerCheck"
+                                  Content="Calendar picker on Date fields" IsChecked="{Binding CalendarPicker, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Calendar picker"/>
+                        <CheckBox x:Name="BooleanRadiosCheck"
+                                  Content="Yes/No radios on Boolean fields" IsChecked="{Binding BooleanRadios, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Boolean radios"/>
+                    </StackPanel>
 
-                <CheckBox x:Name="MotorAssistCheck"
-                          Content="Larger touch / click targets"
-                          IsChecked="{Binding MotorAssist, Mode=TwoWay}"
-                          MinHeight="36"
-                          AutomationProperties.Name="Motor assist"
-                          AutomationProperties.HelpText="Increases minimum touch / click target size to 56 by 56 pixels"/>
-            </StackPanel>
+                    <!-- Input masks -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Input masks" FontWeight="SemiBold"/>
+                        <TextBlock FontSize="12" Opacity="0.7" TextWrapping="Wrap"
+                                   Text="Reshape user-typed text for matching hint types. Free text always passes through."/>
+                        <CheckBox x:Name="PhoneInputMaskCheck"
+                                  Content="Phone — (555) 123-4567" IsChecked="{Binding PhoneInputMask, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Phone input mask"/>
+                        <CheckBox x:Name="SsnInputMaskCheck"
+                                  Content="SSN — ###-##-####" IsChecked="{Binding SsnInputMask, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="SSN input mask"/>
+                        <CheckBox x:Name="EinInputMaskCheck"
+                                  Content="EIN — ##-#######" IsChecked="{Binding EinInputMask, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="EIN input mask"/>
+                        <CheckBox x:Name="ZipInputMaskCheck"
+                                  Content="ZIP — #####-####" IsChecked="{Binding ZipInputMask, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="ZIP input mask"/>
+                        <CheckBox x:Name="CurrencyInputMaskCheck"
+                                  Content="Currency — $1,234.56 (commit)" IsChecked="{Binding CurrencyInputMask, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Currency input mask"/>
+                        <CheckBox x:Name="PercentageInputMaskCheck"
+                                  Content="Percentage — 12.5% (commit)" IsChecked="{Binding PercentageInputMask, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Percentage input mask"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </Expander>
 
             <Button x:Name="ResetButton"
                     Content="Reset to system defaults"

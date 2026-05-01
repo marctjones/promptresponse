@@ -13,15 +13,31 @@ public class RenderingProfileContractTests
 {
     public static IEnumerable<object[]> AllProfiles()
     {
+        // Color schemes
         yield return new object[] { new DefaultProfile() };
         yield return new object[] { new LightProfile() };
         yield return new object[] { new DarkProfile() };
         yield return new object[] { new HighContrastProfile() };
-        yield return new object[] { new VisualFormattingProfile() };
+        // Global enhancements
         yield return new object[] { new LargeTextProfile() };
         yield return new object[] { new ReducedMotionProfile() };
         yield return new object[] { new ScreenReaderTunedProfile() };
-        yield return new object[] { new MotorAssistProfile() };
+        yield return new object[] { new LargeHitTargetsProfile() };
+        // Display rendering flags
+        yield return new object[] { new NumberThousandsSeparatorsProfile() };
+        yield return new object[] { new CurrencyDisplayProfile() };
+        yield return new object[] { new IsoDatePrettifyProfile() };
+        yield return new object[] { new DisplaysAsPreviewProfile() };
+        // Interactive widget flags
+        yield return new object[] { new CalendarPickerProfile() };
+        yield return new object[] { new BooleanRadiosProfile() };
+        // Input mask flags
+        yield return new object[] { new PhoneInputMaskProfile() };
+        yield return new object[] { new SsnInputMaskProfile() };
+        yield return new object[] { new EinInputMaskProfile() };
+        yield return new object[] { new ZipInputMaskProfile() };
+        yield return new object[] { new CurrencyInputMaskProfile() };
+        yield return new object[] { new PercentageInputMaskProfile() };
     }
 
     [Theory]
@@ -50,7 +66,7 @@ public class RenderingProfileContractTests
     [MemberData(nameof(AllProfiles))]
     public void MinimumTouchTarget_IsAtLeast32px(IRenderingProfile profile)
     {
-        // 32px is our absolute floor (WCAG 2.1 AA target-size); the MotorAssist profile
+        // 32px is our absolute floor (WCAG 2.1 AA target-size); the LargeHitTargets profile
         // raises this further. No profile should be below the floor.
         profile.MinimumTouchTarget.Width.Should().BeGreaterThanOrEqualTo(32);
         profile.MinimumTouchTarget.Height.Should().BeGreaterThanOrEqualTo(32);

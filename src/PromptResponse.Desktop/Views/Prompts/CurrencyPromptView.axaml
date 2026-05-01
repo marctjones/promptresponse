@@ -14,7 +14,7 @@
                  AutomationProperties.HelpText="{Binding HelpText}"/>
         <TextBlock Text="{Binding DisplayValue, StringFormat='Displays as: {0}'}"
                    FontSize="12" Opacity="0.7"
-                   IsVisible="{Binding DisplayValue, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                   IsVisible="{Binding ShowDisplaysAs}"
                    AutomationProperties.LiveSetting="Polite"/>
         <TextBlock Text="{Binding HelpText}"
                    FontSize="12" Opacity="0.7"

@@ -37,11 +37,22 @@ public class DisplayPreferencesViewModelTests
         vm.IsLight.Should().BeTrue();
         vm.IsDark.Should().BeFalse();
         vm.IsHighContrast.Should().BeFalse();
-        vm.VisualFormatting.Should().BeFalse();
+        vm.NumberThousandsSeparators.Should().BeFalse();
+        vm.CurrencyDisplay.Should().BeFalse();
+        vm.IsoDatePrettify.Should().BeFalse();
+        vm.DisplaysAsPreview.Should().BeFalse();
+        vm.CalendarPicker.Should().BeFalse();
+        vm.BooleanRadios.Should().BeFalse();
+        vm.PhoneInputMask.Should().BeFalse();
+        vm.SsnInputMask.Should().BeFalse();
+        vm.EinInputMask.Should().BeFalse();
+        vm.ZipInputMask.Should().BeFalse();
+        vm.CurrencyInputMask.Should().BeFalse();
+        vm.PercentageInputMask.Should().BeFalse();
         vm.LargeText.Should().BeFalse();
         vm.ReducedMotion.Should().BeFalse();
         vm.ScreenReaderTuned.Should().BeFalse();
-        vm.MotorAssist.Should().BeFalse();
+        vm.LargeHitTargets.Should().BeFalse();
     }
 
     [Fact]
@@ -84,16 +95,37 @@ public class DisplayPreferencesViewModelTests
     }
 
     [Fact]
-    public void ToggleVisualFormatting_RoundTripsThroughService()
+    public void ToggleNumberThousandsSeparators_RoundTripsThroughService()
     {
         var vm = CreateVm();
 
-        vm.VisualFormatting = true;
-        vm.VisualFormatting.Should().BeTrue();
+        vm.NumberThousandsSeparators = true;
+        vm.NumberThousandsSeparators.Should().BeTrue();
         vm.ActiveProfile.FormatDisplay("42000", "number").Should().Be("42,000");
 
-        vm.VisualFormatting = false;
-        vm.VisualFormatting.Should().BeFalse();
+        vm.NumberThousandsSeparators = false;
+        vm.NumberThousandsSeparators.Should().BeFalse();
+        vm.ActiveProfile.FormatDisplay("42000", "number").Should().Be("42000");
+    }
+
+    [Fact]
+    public void ToggleCurrencyDisplay_OnlyShapesCurrencyHint()
+    {
+        var vm = CreateVm();
+        vm.CurrencyDisplay = true;
+
+        vm.ActiveProfile.FormatDisplay("1234.56", "currency").Should().StartWith("$");
+        vm.ActiveProfile.FormatDisplay("42000", "number").Should().Be("42000",
+            "currency flag must not affect non-currency hints");
+    }
+
+    [Fact]
+    public void ToggleIsoDatePrettify_OnlyShapesDateHint()
+    {
+        var vm = CreateVm();
+        vm.IsoDatePrettify = true;
+
+        vm.ActiveProfile.FormatDisplay("2026-04-29", "date").Should().NotBe("2026-04-29");
         vm.ActiveProfile.FormatDisplay("42000", "number").Should().Be("42000");
     }
 
@@ -134,14 +166,14 @@ public class DisplayPreferencesViewModelTests
     }
 
     [Fact]
-    public void ToggleMotorAssist_RaisesTouchTargetSize()
+    public void ToggleLargeHitTargets_RaisesTouchTargetSize()
     {
         var vm = CreateVm();
 
-        vm.MotorAssist = true;
+        vm.LargeHitTargets = true;
         vm.ActiveProfile.MinimumTouchTarget.Width.Should().Be(56);
 
-        vm.MotorAssist = false;
+        vm.LargeHitTargets = false;
         vm.ActiveProfile.MinimumTouchTarget.Width.Should().Be(36);
     }
 
@@ -150,12 +182,12 @@ public class DisplayPreferencesViewModelTests
     {
         var probe = new FixedProbe { ReducedMotion = true };
         var vm = new DisplayPreferencesViewModel(new ProfileService(probe));
-        vm.MotorAssist = true;
+        vm.LargeHitTargets = true;
         vm.LargeText = true;
 
         vm.Reset();
 
-        vm.MotorAssist.Should().BeFalse();
+        vm.LargeHitTargets.Should().BeFalse();
         vm.LargeText.Should().BeFalse();
         vm.ReducedMotion.Should().BeTrue("OS-detected reduced-motion is restored after reset");
     }
@@ -182,8 +214,8 @@ public class DisplayPreferencesViewModelTests
         vm.IsHighContrast = true;
         vm.LargeText = true;
         vm.ReducedMotion = true;
-        vm.MotorAssist = true;
-        vm.VisualFormatting = true;
+        vm.LargeHitTargets = true;
+        vm.NumberThousandsSeparators = true;
 
         vm.ActiveProfile.TargetContrast.Should().Be(ContrastLevel.AAA);
         vm.ActiveProfile.TextScale.Should().Be(1.5);

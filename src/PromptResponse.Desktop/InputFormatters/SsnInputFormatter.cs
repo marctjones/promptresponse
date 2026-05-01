@@ -10,6 +10,8 @@ public sealed class SsnInputFormatter : IInputFormatter
 {
     private static readonly char[] AllowedDelimiters = { ' ', '-' };
 
+    public Type GateProfile => typeof(Profiles.SsnInputMaskProfile);
+
     public FormatResult Format(string raw, int caretIndex)
     {
         if (!LooksLikeStructured(raw, AllowedDelimiters))

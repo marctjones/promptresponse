@@ -11,6 +11,8 @@ public sealed class PhoneInputFormatter : IInputFormatter
 {
     private static readonly char[] AllowedDelimiters = { ' ', '(', ')', '-', '.', '+' };
 
+    public Type GateProfile => typeof(Profiles.PhoneInputMaskProfile);
+
     public FormatResult Format(string raw, int caretIndex)
     {
         if (!LooksLikeStructured(raw, AllowedDelimiters))

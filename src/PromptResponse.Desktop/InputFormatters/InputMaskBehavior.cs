@@ -8,9 +8,9 @@ namespace PromptResponse.Desktop.InputFormatters;
 /// Wires an <see cref="IInputFormatter"/> to a <see cref="TextBox"/>: every time
 /// the user types, the formatter is invoked, and (if the result differs) the
 /// TextBox's text + caret are updated atomically. The behavior is gated on the
-/// <see cref="VisualFormattingProfile"/> being active in the supplied
-/// <see cref="IProfileService"/> — when that profile is off, typing passes through
-/// untouched (universal-core behavior).
+/// formatter's advertised <see cref="IInputFormatter.GateProfile"/> being active
+/// in the supplied <see cref="IProfileService"/> — when that flag is off, typing
+/// passes through untouched (universal-core behavior).
 /// </summary>
 /// <remarks>
 /// Two distinct trigger points are supported:
@@ -60,7 +60,9 @@ public static class InputMaskBehavior
         void ApplyFormat()
         {
             if (inFlight) return;
-            if (!profileService.IsActive(typeof(VisualFormattingProfile))) return;
+            // Each formatter advertises its own gate flag (e.g. PhoneInputMaskProfile);
+            // the mask only fires when that specific capability is in the active profile.
+            if (!profileService.IsActive(formatter.GateProfile)) return;
             var raw = textBox.Text ?? string.Empty;
             var caret = textBox.CaretIndex;
             var result = formatter.Format(raw, caret);

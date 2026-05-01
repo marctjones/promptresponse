@@ -123,10 +123,10 @@ public class ProfileServiceTests
         var raised = 0;
         service.ProfileChanged += (_, _) => raised++;
 
-        service.Disable<MotorAssistProfile>();
+        service.Disable<LargeHitTargetsProfile>();
 
         raised.Should().Be(0);
-        service.IsActive(typeof(MotorAssistProfile)).Should().BeFalse();
+        service.IsActive(typeof(LargeHitTargetsProfile)).Should().BeFalse();
     }
 
     [Fact]
@@ -161,9 +161,11 @@ public class ProfileServiceTests
         service.SetColorScheme(ColorScheme.HighContrast);
         service.Enable<LargeTextProfile>();
         service.Enable<ReducedMotionProfile>();
-        service.Enable<MotorAssistProfile>();
+        service.Enable<LargeHitTargetsProfile>();
         service.Enable<ScreenReaderTunedProfile>();
-        service.Enable<VisualFormattingProfile>();
+        service.Enable<NumberThousandsSeparatorsProfile>();
+        service.Enable<CurrencyDisplayProfile>();
+        service.Enable<IsoDatePrettifyProfile>();
 
         service.ActiveProfile.ColorScheme.Should().Be(ColorScheme.HighContrast);
         service.ActiveProfile.TargetContrast.Should().Be(ContrastLevel.AAA);
@@ -180,12 +182,12 @@ public class ProfileServiceTests
         var probe = new StubProbe { ReducedMotion = true };
         var service = new ProfileService(probe);
         service.Enable<LargeTextProfile>();
-        service.Enable<MotorAssistProfile>();
+        service.Enable<LargeHitTargetsProfile>();
 
         service.Reset();
 
         service.IsActive(typeof(LargeTextProfile)).Should().BeFalse();
-        service.IsActive(typeof(MotorAssistProfile)).Should().BeFalse();
+        service.IsActive(typeof(LargeHitTargetsProfile)).Should().BeFalse();
         service.IsActive(typeof(ReducedMotionProfile)).Should().BeTrue("OS preferences are still respected after reset");
     }
 }

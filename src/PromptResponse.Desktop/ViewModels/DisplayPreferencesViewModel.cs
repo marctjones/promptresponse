@@ -5,10 +5,11 @@ using PromptResponse.Desktop.Profiles;
 namespace PromptResponse.Desktop.ViewModels;
 
 /// <summary>
-/// ViewModel backing the Display Preferences panel. Exposes the seven enhancement
-/// profiles as toggleable booleans plus a color-scheme choice. All changes flow
-/// through the IProfileService so the application's effective rendering profile
-/// updates immediately.
+/// ViewModel backing the Display Preferences panel. Exposes every capability flag
+/// individually plus a preset picker that composes named groups (Excellent vision,
+/// Blind/screen reader, Low vision/HC, Cognitive, Motor). All toggles flow through
+/// the <see cref="IProfileService"/> so the application's effective rendering
+/// profile updates immediately.
 /// </summary>
 public sealed class DisplayPreferencesViewModel : INotifyPropertyChanged
 {
@@ -22,9 +23,9 @@ public sealed class DisplayPreferencesViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    /// <summary>Convenience: the active composite profile, for views that bind to its properties.</summary>
     public IRenderingProfile ActiveProfile => _profileService.ActiveProfile;
 
+    // ── Color scheme (mutually-exclusive triplet) ──
     public ColorScheme ColorScheme
     {
         get => _profileService.ActiveProfile.ColorScheme;
@@ -38,56 +39,42 @@ public sealed class DisplayPreferencesViewModel : INotifyPropertyChanged
         }
     }
 
-    public bool IsLight
-    {
-        get => ColorScheme == ColorScheme.Light;
-        set { if (value) ColorScheme = ColorScheme.Light; }
-    }
+    public bool IsLight { get => ColorScheme == ColorScheme.Light;        set { if (value) ColorScheme = ColorScheme.Light; } }
+    public bool IsDark  { get => ColorScheme == ColorScheme.Dark;         set { if (value) ColorScheme = ColorScheme.Dark; } }
+    public bool IsHighContrast { get => ColorScheme == ColorScheme.HighContrast; set { if (value) ColorScheme = ColorScheme.HighContrast; } }
 
-    public bool IsDark
-    {
-        get => ColorScheme == ColorScheme.Dark;
-        set { if (value) ColorScheme = ColorScheme.Dark; }
-    }
+    // ── Global capability flags ──
+    public bool LargeText           { get => IsActive<LargeTextProfile>();           set => Toggle<LargeTextProfile>(value); }
+    public bool ReducedMotion       { get => IsActive<ReducedMotionProfile>();       set => Toggle<ReducedMotionProfile>(value); }
+    public bool ScreenReaderTuned   { get => IsActive<ScreenReaderTunedProfile>();   set => Toggle<ScreenReaderTunedProfile>(value); }
+    public bool LargeHitTargets     { get => IsActive<LargeHitTargetsProfile>();     set => Toggle<LargeHitTargetsProfile>(value); }
 
-    public bool IsHighContrast
-    {
-        get => ColorScheme == ColorScheme.HighContrast;
-        set { if (value) ColorScheme = ColorScheme.HighContrast; }
-    }
+    // ── Display rendering flags ──
+    public bool NumberThousandsSeparators { get => IsActive<NumberThousandsSeparatorsProfile>(); set => Toggle<NumberThousandsSeparatorsProfile>(value); }
+    public bool CurrencyDisplay           { get => IsActive<CurrencyDisplayProfile>();           set => Toggle<CurrencyDisplayProfile>(value); }
+    public bool IsoDatePrettify           { get => IsActive<IsoDatePrettifyProfile>();           set => Toggle<IsoDatePrettifyProfile>(value); }
+    public bool DisplaysAsPreview         { get => IsActive<DisplaysAsPreviewProfile>();         set => Toggle<DisplaysAsPreviewProfile>(value); }
 
-    public bool VisualFormatting
-    {
-        get => _profileService.IsActive(typeof(VisualFormattingProfile));
-        set => Toggle<VisualFormattingProfile>(value);
-    }
+    // ── Interactive widget flags ──
+    public bool CalendarPicker { get => IsActive<CalendarPickerProfile>(); set => Toggle<CalendarPickerProfile>(value); }
+    public bool BooleanRadios  { get => IsActive<BooleanRadiosProfile>();  set => Toggle<BooleanRadiosProfile>(value); }
 
-    public bool LargeText
-    {
-        get => _profileService.IsActive(typeof(LargeTextProfile));
-        set => Toggle<LargeTextProfile>(value);
-    }
+    // ── Input mask flags ──
+    public bool PhoneInputMask      { get => IsActive<PhoneInputMaskProfile>();      set => Toggle<PhoneInputMaskProfile>(value); }
+    public bool SsnInputMask        { get => IsActive<SsnInputMaskProfile>();        set => Toggle<SsnInputMaskProfile>(value); }
+    public bool EinInputMask        { get => IsActive<EinInputMaskProfile>();        set => Toggle<EinInputMaskProfile>(value); }
+    public bool ZipInputMask        { get => IsActive<ZipInputMaskProfile>();        set => Toggle<ZipInputMaskProfile>(value); }
+    public bool CurrencyInputMask   { get => IsActive<CurrencyInputMaskProfile>();   set => Toggle<CurrencyInputMaskProfile>(value); }
+    public bool PercentageInputMask { get => IsActive<PercentageInputMaskProfile>(); set => Toggle<PercentageInputMaskProfile>(value); }
 
-    public bool ReducedMotion
-    {
-        get => _profileService.IsActive(typeof(ReducedMotionProfile));
-        set => Toggle<ReducedMotionProfile>(value);
-    }
-
-    public bool ScreenReaderTuned
-    {
-        get => _profileService.IsActive(typeof(ScreenReaderTunedProfile));
-        set => Toggle<ScreenReaderTunedProfile>(value);
-    }
-
-    public bool MotorAssist
-    {
-        get => _profileService.IsActive(typeof(MotorAssistProfile));
-        set => Toggle<MotorAssistProfile>(value);
-    }
+    /// <summary>Applies a named preset by composing its flag set on top of the current
+    /// color scheme. See <see cref="ProfilePresets"/> for the composition rules.</summary>
+    public void ApplyPreset(ProfilePresets.Preset preset) => ProfilePresets.Apply(preset, _profileService);
 
     /// <summary>Restores OS-detected defaults; clears all user-toggled enhancements.</summary>
     public void Reset() => _profileService.Reset();
+
+    private bool IsActive<TProfile>() where TProfile : IRenderingProfile => _profileService.IsActive(typeof(TProfile));
 
     private void Toggle<TProfile>(bool enable) where TProfile : IRenderingProfile, new()
     {
@@ -109,11 +96,22 @@ public sealed class DisplayPreferencesViewModel : INotifyPropertyChanged
         Notify(nameof(IsLight));
         Notify(nameof(IsDark));
         Notify(nameof(IsHighContrast));
-        Notify(nameof(VisualFormatting));
         Notify(nameof(LargeText));
         Notify(nameof(ReducedMotion));
         Notify(nameof(ScreenReaderTuned));
-        Notify(nameof(MotorAssist));
+        Notify(nameof(LargeHitTargets));
+        Notify(nameof(NumberThousandsSeparators));
+        Notify(nameof(CurrencyDisplay));
+        Notify(nameof(IsoDatePrettify));
+        Notify(nameof(DisplaysAsPreview));
+        Notify(nameof(CalendarPicker));
+        Notify(nameof(BooleanRadios));
+        Notify(nameof(PhoneInputMask));
+        Notify(nameof(SsnInputMask));
+        Notify(nameof(EinInputMask));
+        Notify(nameof(ZipInputMask));
+        Notify(nameof(CurrencyInputMask));
+        Notify(nameof(PercentageInputMask));
     }
 
     private void Notify([CallerMemberName] string? propertyName = null)

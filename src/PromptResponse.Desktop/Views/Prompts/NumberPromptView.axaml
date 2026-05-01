@@ -21,6 +21,7 @@
         -->
         <TextBlock x:Name="DisplayHint"
                    Text="{Binding DisplayValue, StringFormat='Displays as: {0}'}"
+                   IsVisible="{Binding ShowDisplaysAs}"
                    FontSize="12"
                    Opacity="0.7"
                    AutomationProperties.LiveSetting="Polite"/>

@@ -50,16 +50,16 @@ public class CompositeProfileTests
     }
 
     [Fact]
-    public void Compose_MotorAssistPlusVisualFormatting_TakesLargerTouchTargets_AndKeepsFormatting()
+    public void Compose_LargeHitTargetsPlusNumberSeparators_TakesLargerTouchTargets_AndKeepsFormatting()
     {
         var composite = CompositeProfile.Of(
-            new MotorAssistProfile(),
-            new VisualFormattingProfile(new CultureInfo("en-US")));
+            new LargeHitTargetsProfile(),
+            new NumberThousandsSeparatorsProfile(new CultureInfo("en-US")));
 
-        composite.MinimumTouchTarget.Width.Should().Be(56, "MotorAssist wins on target size");
+        composite.MinimumTouchTarget.Width.Should().Be(56, "LargeHitTargets wins on target size");
         composite.MinimumTouchTarget.Height.Should().Be(56);
         composite.FormatDisplay("42000", "number").Should().Be("42,000",
-            "VisualFormatting's display rule still applies under composition");
+            "the per-flag display rule still applies under composition");
     }
 
     [Fact]
@@ -108,7 +108,7 @@ public class CompositeProfileTests
     {
         // Only one display formatter at a time makes sense; we use the first non-identity.
         var composite = CompositeProfile.Of(
-            new VisualFormattingProfile(new CultureInfo("en-US")),
+            new NumberThousandsSeparatorsProfile(new CultureInfo("en-US")),
             new HighContrastProfile());
 
         composite.FormatDisplay("42000", "number").Should().Be("42,000");
@@ -137,7 +137,7 @@ public class CompositeProfileTests
     {
         // 36 floor + 56 from MotorAssist = 56 win. Also a non-square dimension override
         // would still take the max on each axis independently.
-        var composite = CompositeProfile.Of(new DefaultProfile(), new MotorAssistProfile(), new HighContrastProfile());
+        var composite = CompositeProfile.Of(new DefaultProfile(), new LargeHitTargetsProfile(), new HighContrastProfile());
 
         composite.MinimumTouchTarget.Width.Should().Be(56);
         composite.MinimumTouchTarget.Height.Should().Be(56);
@@ -149,9 +149,9 @@ public class CompositeProfileTests
         // Vision check: "five" in a number-hinted prompt survives every profile combo.
         var combos = new IRenderingProfile[][]
         {
-            new IRenderingProfile[] { new VisualFormattingProfile(new CultureInfo("en-US")) },
-            new IRenderingProfile[] { new VisualFormattingProfile(new CultureInfo("en-US")), new HighContrastProfile(), new LargeTextProfile() },
-            new IRenderingProfile[] { new MotorAssistProfile(), new ScreenReaderTunedProfile(), new ReducedMotionProfile() },
+            new IRenderingProfile[] { new NumberThousandsSeparatorsProfile(new CultureInfo("en-US")) },
+            new IRenderingProfile[] { new NumberThousandsSeparatorsProfile(new CultureInfo("en-US")), new CurrencyDisplayProfile(new CultureInfo("en-US")), new HighContrastProfile(), new LargeTextProfile() },
+            new IRenderingProfile[] { new LargeHitTargetsProfile(), new ScreenReaderTunedProfile(), new ReducedMotionProfile() },
             new IRenderingProfile[] { new DefaultProfile() },
         };
 

@@ -23,14 +23,21 @@ public class InputMaskGuiTests
         public ColorScheme PreferredColorScheme => ColorScheme.Light;
     }
 
-    private static IProfileService NewServiceWithVisualFormatting()
+    private static IProfileService NewServiceWithAllMasksEnabled()
     {
         var s = new ProfileService(new FixedProbe());
-        s.Enable<VisualFormattingProfile>();
+        // Each input-mask formatter advertises its own gate flag now; the GUI tests
+        // enable every mask flag so they exercise the live-reshape path uniformly.
+        s.Enable<PhoneInputMaskProfile>();
+        s.Enable<SsnInputMaskProfile>();
+        s.Enable<EinInputMaskProfile>();
+        s.Enable<ZipInputMaskProfile>();
+        s.Enable<CurrencyInputMaskProfile>();
+        s.Enable<PercentageInputMaskProfile>();
         return s;
     }
 
-    private static IProfileService NewServiceWithoutVisualFormatting()
+    private static IProfileService NewServiceWithoutAnyMasks()
         => new ProfileService(new FixedProbe());
 
     private static Prompt P(string id, string label, string type, string response = "") =>
@@ -45,7 +52,7 @@ public class InputMaskGuiTests
     [AvaloniaFact]
     public void PhonePromptView_VisualFormattingOn_TypingDigits_ReshapesLive()
     {
-        var service = NewServiceWithVisualFormatting();
+        var service = NewServiceWithAllMasksEnabled();
         var vm = new PhonePromptViewModel(P("p", "Phone", "phone"), service);
         var view = new PhonePromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
@@ -66,7 +73,7 @@ public class InputMaskGuiTests
     public void PhonePromptView_VisualFormattingOff_TypingDigits_StaysRaw()
     {
         // Universal core: no formatting profile means no reshape — invariant.
-        var service = NewServiceWithoutVisualFormatting();
+        var service = NewServiceWithoutAnyMasks();
         var vm = new PhonePromptViewModel(P("p", "Phone", "phone"), service);
         var view = new PhonePromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
@@ -87,7 +94,7 @@ public class InputMaskGuiTests
     {
         // Vision invariant: any visible text is a valid response. Typing "see HR"
         // into a phone-hinted prompt must NOT be reshaped.
-        var service = NewServiceWithVisualFormatting();
+        var service = NewServiceWithAllMasksEnabled();
         var vm = new PhonePromptViewModel(P("p", "Phone", "phone"), service);
         var view = new PhonePromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
@@ -107,7 +114,7 @@ public class InputMaskGuiTests
     {
         // SSN hint is routed through TextPromptView (factory fallback). The view's
         // mask attachment should still find the right formatter via the registry.
-        var service = NewServiceWithVisualFormatting();
+        var service = NewServiceWithAllMasksEnabled();
         var vm = new TextPromptViewModel(P("p", "SSN", "ssn"), service);
         var view = new TextPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
@@ -125,7 +132,7 @@ public class InputMaskGuiTests
     [AvaloniaFact]
     public void TextPromptView_EinHint_VisualFormattingOn_ReshapesLive()
     {
-        var service = NewServiceWithVisualFormatting();
+        var service = NewServiceWithAllMasksEnabled();
         var vm = new TextPromptViewModel(P("p", "EIN", "ein"), service);
         var view = new TextPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
@@ -142,7 +149,7 @@ public class InputMaskGuiTests
     [AvaloniaFact]
     public void TextPromptView_ZipHint_VisualFormattingOn_ReshapesNinePlusFour()
     {
-        var service = NewServiceWithVisualFormatting();
+        var service = NewServiceWithAllMasksEnabled();
         var vm = new TextPromptViewModel(P("p", "ZIP", "zipcode"), service);
         var view = new TextPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
@@ -160,7 +167,7 @@ public class InputMaskGuiTests
     public void TextPromptView_TextHint_NoMask_TypingPassesThrough()
     {
         // Plain text hint has no formatter — typing must NOT be reshaped.
-        var service = NewServiceWithVisualFormatting();
+        var service = NewServiceWithAllMasksEnabled();
         var vm = new TextPromptViewModel(P("p", "Name", "text"), service);
         var view = new TextPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);

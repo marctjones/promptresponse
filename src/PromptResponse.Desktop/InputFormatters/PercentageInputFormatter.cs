@@ -22,6 +22,8 @@ public sealed class PercentageInputFormatter : IInputFormatter
         _culture = culture ?? throw new ArgumentNullException(nameof(culture));
     }
 
+    public Type GateProfile => typeof(Profiles.PercentageInputMaskProfile);
+
     public FormatResult Format(string raw, int caretIndex)
     {
         if (string.IsNullOrWhiteSpace(raw)) return new FormatResult(raw, caretIndex);
