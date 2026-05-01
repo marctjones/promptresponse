@@ -48,11 +48,11 @@
                           />
 
                 <CheckBox x:Name="VisualFormattingCheck"
-                          Content="Visual formatting (numbers, dates)"
+                          Content="Visual formatting (numbers, dates, input masks)"
                           IsChecked="{Binding VisualFormatting, Mode=TwoWay}"
                           MinHeight="36"
                           AutomationProperties.Name="Visual formatting"
-                          AutomationProperties.HelpText="Renders 42000 as 42,000 and ISO dates as April 29, 2025. The stored response is always the raw text you typed."/>
+                          AutomationProperties.HelpText="Renders numbers with separators, ISO dates as 'April 29, 2025', and reshapes phone/SSN/EIN/ZIP digits as you type. Free text always passes through unchanged."/>
 
                 <CheckBox x:Name="LargeTextCheck"
                           Content="Large text (1.5×)"

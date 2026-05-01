@@ -77,6 +77,11 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// <summary>The current active rendering profile; subclasses use this for type-specific rendering hints.</summary>
     protected IRenderingProfile ActiveProfile => _profileService.ActiveProfile;
 
+    /// <summary>Profile service exposed to views for capability gating of UX affordances
+    /// (input masks, calendar pickers, …). The view-layer concern stays in the view —
+    /// the VM just hands over the gate.</summary>
+    internal IProfileService ProfileService => _profileService;
+
     /// <summary>Raised on every active-profile transition; subclasses pulse derived properties.</summary>
     protected virtual void OnProfileChangedCore() { }
 
