@@ -100,13 +100,15 @@
                     <StackPanel Spacing="8">
                         <TextBlock Text="Table layout"
                                    FontWeight="SemiBold"/>
-                        <TextBlock Text="Fixed rows: rows declared up front; users fill cells but cannot add or remove rows."
+                        <TextBlock Text="Fixed table: every row is declared here. Users can fill cells but can't add or remove rows when filling out the form."
                                    FontSize="12"
                                    Opacity="0.7"
+                                   TextWrapping="Wrap"
                                    IsVisible="{Binding IsFixedTable}"/>
-                        <TextBlock Text="Dynamic rows: users add and remove rows at fill time."
+                        <TextBlock Text="Dynamic table: rows are added by the user at fill time. Configure the columns + label/bounds below, then press Ctrl+E to switch to preview mode and try adding rows."
                                    FontSize="12"
                                    Opacity="0.7"
+                                   TextWrapping="Wrap"
                                    IsVisible="{Binding IsDynamicTable}"/>
 
                         <!-- Column list editor -->
@@ -202,6 +204,40 @@
                                 HorizontalAlignment="Left"
                                 Command="{Binding AddFixedRowCommand}"
                                 AutomationProperties.Name="Add row"/>
+
+                        <!-- Dynamic table: row config (label prefix, min/max bounds) -->
+                        <StackPanel IsVisible="{Binding IsDynamicTable}" Spacing="6" Margin="0,4,0,0">
+                            <TextBlock Text="Dynamic-row settings" FontWeight="SemiBold"/>
+                            <Grid ColumnDefinitions="180,8,*"
+                                  RowDefinitions="Auto,6,Auto,6,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0"
+                                           Text="Row label prefix"
+                                           VerticalAlignment="Center"
+                                           ToolTip.Tip="Used to auto-generate row labels when the user adds rows at fill time. Example: &quot;Item&quot; → &quot;Item 1&quot;, &quot;Item 2&quot;."/>
+                                <TextBox Grid.Row="0" Grid.Column="2"
+                                         Text="{Binding DynamicRowLabel, Mode=TwoWay}"
+                                         Watermark="Row"
+                                         AutomationProperties.Name="Row label prefix"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0"
+                                           Text="Minimum rows"
+                                           VerticalAlignment="Center"
+                                           ToolTip.Tip="The form pads up to this many rows on open. Set to 0 to allow an empty table; set to 1 (or more) to require at least one row."/>
+                                <TextBox Grid.Row="2" Grid.Column="2"
+                                         Text="{Binding DynamicMinRows, Mode=TwoWay}"
+                                         Watermark="0"
+                                         AutomationProperties.Name="Minimum rows"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0"
+                                           Text="Maximum rows"
+                                           VerticalAlignment="Center"
+                                           ToolTip.Tip="The user can't add more rows past this cap when filling. Default is 100."/>
+                                <TextBox Grid.Row="4" Grid.Column="2"
+                                         Text="{Binding DynamicMaxRows, Mode=TwoWay}"
+                                         Watermark="100"
+                                         AutomationProperties.Name="Maximum rows"/>
+                            </Grid>
+                        </StackPanel>
 
                         <Button Content="Remove table layout"
                                 HorizontalAlignment="Left"

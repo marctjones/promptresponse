@@ -40,6 +40,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     private readonly EditHistory? _history;
     private readonly ObservableCollection<SectionViewModel> _nestedSections;
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels;
+    private readonly ObservableCollection<TableColumn> _columnsObservable = new();
     private IReadOnlyList<TableCellViewModel> _cells = Array.Empty<TableCellViewModel>();
 
     public SectionViewModel(
@@ -73,6 +74,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         // layout so its cells can be rendered in column order.
         if (TableLayout != null)
         {
+            SyncColumnsObservable();
             foreach (var rowVm in _nestedSections)
             {
                 rowVm.ConfigureAsTableRow(TableLayout.Columns);
@@ -309,7 +311,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         def.Columns.RemoveAt(fromIndex);
         def.Columns.Insert(toIndex, col);
         ReconfigureAllRowsAsTableRows();
-        OnPropertyChanged(nameof(Columns));
+        NotifyTableShapeChanged();
     }
 
     internal void ApplyMoveFixedRow(int fromIndex, int toIndex)
@@ -382,8 +384,61 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     public bool IsFixedTable => TableLayout?.IsFixedTable ?? false;
     public bool IsDynamicTable => TableLayout?.IsDynamicTable ?? false;
 
-    /// <summary>Column headers from the table layout — empty for non-table sections.</summary>
-    public IReadOnlyList<TableColumn> Columns => (IReadOnlyList<TableColumn>?)TableLayout?.Columns ?? Array.Empty<TableColumn>();
+    /// <summary>Dynamic-row config: minimum rows the user must keep at fill time.
+    /// Bound by the editor when this section is a dynamic table.</summary>
+    public int DynamicMinRows
+    {
+        get => TableLayout?.DynamicRows?.MinRows ?? 0;
+        set
+        {
+            var d = TableLayout?.DynamicRows;
+            if (d == null) return;
+            var v = Math.Max(0, value);
+            if (d.MinRows == v) return;
+            d.MinRows = v;
+            OnPropertyChanged();
+            NotifyTableMembershipChanged();
+        }
+    }
+
+    /// <summary>Dynamic-row config: maximum rows the user can add at fill time.</summary>
+    public int DynamicMaxRows
+    {
+        get => TableLayout?.DynamicRows?.MaxRows ?? 100;
+        set
+        {
+            var d = TableLayout?.DynamicRows;
+            if (d == null) return;
+            var v = Math.Max(1, value);
+            if (d.MaxRows == v) return;
+            d.MaxRows = v;
+            OnPropertyChanged();
+            NotifyTableMembershipChanged();
+        }
+    }
+
+    /// <summary>Dynamic-row config: prefix used for auto-generated row labels
+    /// at fill time (e.g. "Item" → "Item 1", "Item 2", …).</summary>
+    public string DynamicRowLabel
+    {
+        get => TableLayout?.DynamicRows?.RowLabel ?? "Row";
+        set
+        {
+            var d = TableLayout?.DynamicRows;
+            if (d == null) return;
+            var v = string.IsNullOrWhiteSpace(value) ? "Row" : value;
+            if (d.RowLabel == v) return;
+            d.RowLabel = v;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>Column headers from the table layout. Backed by an
+    /// ObservableCollection so live edits (Add/Remove/Move column) refresh
+    /// the editor's column list automatically. The underlying model list
+    /// (<c>TableLayout.Columns</c>) is the source of truth for serialization;
+    /// this collection mirrors it at every Apply* op.</summary>
+    public ObservableCollection<TableColumn> Columns => _columnsObservable;
 
     /// <summary>Cells in column order — populated only when this section is a row of a parent table-section.</summary>
     public IReadOnlyList<TableCellViewModel> Cells
@@ -887,8 +942,25 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         }
     }
 
+    /// <summary>Re-syncs the observable Columns mirror to the underlying
+    /// <c>TableLayout.Columns</c> list. Called after any Apply* op that adds,
+    /// removes, or reorders columns, and after table-layout state changes
+    /// (convert / strip / restore-from-snapshot).</summary>
+    private void SyncColumnsObservable()
+    {
+        _columnsObservable.Clear();
+        var layoutColumns = _section.TableLayout?.Columns;
+        if (layoutColumns != null)
+        {
+            foreach (var c in layoutColumns) _columnsObservable.Add(c);
+        }
+    }
+
     private void NotifyTableShapeChanged()
     {
+        // Re-sync the observable column mirror first so listeners that
+        // re-fetch Columns in response to PropertyChanged see the new state.
+        SyncColumnsObservable();
         OnPropertyChanged(nameof(IsTableSection));
         OnPropertyChanged(nameof(IsRegularSection));
         OnPropertyChanged(nameof(IsFixedTable));

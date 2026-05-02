@@ -272,6 +272,46 @@ public class EditorMutationTests
     }
 
     [Fact]
+    public void AddColumn_AppearsInLiveBoundColumnsCollection()
+    {
+        // Regression: the column-list editor's ItemsControl is bound to the
+        // SectionViewModel.Columns collection. The previous implementation
+        // returned the underlying List<TableColumn> directly, so adding a
+        // column kept the same list reference and the ItemsControl never
+        // re-fetched — the user couldn't see the new column to edit it
+        // until they switched away and came back.
+        var (vm, _, _, _) = NewBlankSection();
+        vm.ConvertToFixedTable();
+        var initialCount = vm.Columns.Count;
+        var observableTriggered = false;
+        if (vm.Columns is System.Collections.Specialized.INotifyCollectionChanged ncc)
+        {
+            ncc.CollectionChanged += (_, _) => observableTriggered = true;
+        }
+
+        vm.AddColumn();
+
+        vm.Columns.Count.Should().Be(initialCount + 1, "the bound Columns collection must reflect the add");
+        observableTriggered.Should().BeTrue(
+            "Columns must raise CollectionChanged so ItemsControl re-renders with the new column inline-editable");
+    }
+
+    [Fact]
+    public void RemoveColumn_DropsFromLiveBoundColumnsCollection()
+    {
+        var (vm, _, _, _) = NewBlankSection();
+        vm.ConvertToFixedTable();
+        vm.AddColumn(); // 2 columns
+        var col2 = vm.Columns[1];
+        var initialCount = vm.Columns.Count;
+
+        vm.RemoveColumn(col2);
+
+        vm.Columns.Count.Should().Be(initialCount - 1);
+        vm.Columns.Should().NotContain(col2);
+    }
+
+    [Fact]
     public void RemoveColumn_RefusesToDropTheLastColumn()
     {
         // A table with zero columns is meaningless; the editor should refuse
