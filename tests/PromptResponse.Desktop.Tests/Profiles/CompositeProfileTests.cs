@@ -1,6 +1,6 @@
 using System.Globalization;
 using Avalonia;
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Desktop.Profiles;
 using Xunit;
 

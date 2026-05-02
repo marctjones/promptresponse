@@ -1,4 +1,4 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.ViewModels;
 using Xunit;

@@ -1,5 +1,5 @@
 using System.Text;
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using Xunit;

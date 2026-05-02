@@ -1,4 +1,4 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.ViewModels;
@@ -229,7 +229,7 @@ public class EditorMutationTests
         vm.IsTableSection.Should().BeFalse();
         model.TableLayout.Should().BeNull();
         vm.NestedSections.Should().BeEmpty();
-        removed.Count.Should().BeGreaterOrEqualTo(2,
+        removed.Count.Should().BeGreaterThanOrEqualTo(2,
             "every cell prompt across every row must be detached when the layout is dropped");
     }
 

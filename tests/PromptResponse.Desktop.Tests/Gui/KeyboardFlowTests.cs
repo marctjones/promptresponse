@@ -3,8 +3,8 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using FluentAssertions;
-using Moq;
+using AwesomeAssertions;
+using NSubstitute;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -41,12 +41,12 @@ public class KeyboardFlowTests
 
     private static (MainShellView view, MainShellViewModel vm, IDocumentSessionService session, Window window) Build()
     {
-        var fs = new Mock<IFileService>();
-        var dlg = new Mock<IDialogService>();
+        var fs = Substitute.For<IFileService>();
+        var dlg = Substitute.For<IDialogService>();
         var session = new DocumentSessionService();
         var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
-        var vm = new MainShellViewModel(fs.Object, dlg.Object, session, profile, factory);
+        var vm = new MainShellViewModel(fs, dlg, session, profile, factory);
         var view = new MainShellView { DataContext = vm };
         var window = view.ShowInWindow(width: 1200, height: 800);
         return (view, vm, session, window);

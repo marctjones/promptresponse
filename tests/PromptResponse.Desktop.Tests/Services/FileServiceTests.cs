@@ -1,5 +1,5 @@
-using FluentAssertions;
-using Moq;
+using AwesomeAssertions;
+using NSubstitute;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Desktop.Services;
@@ -18,17 +18,17 @@ namespace PromptResponse.Desktop.Tests.Services;
 /// </remarks>
 public class FileServiceTests : IDisposable
 {
-    private readonly Mock<IAprSerializer> _mockSerializer;
+    private readonly IAprSerializer _mockSerializer;
     private readonly string _tempDir;
 
     public FileServiceTests()
     {
-        _mockSerializer = new Mock<IAprSerializer>();
+        _mockSerializer = Substitute.For<IAprSerializer>();
         _tempDir = Path.Combine(Path.GetTempPath(), "promptresponse-tests-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(_tempDir);
 
         _mockSerializer
-            .Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
+            .SerializeAsync(Arg.Any<AprDocument>(), Arg.Any<Stream>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
     }
 
@@ -47,7 +47,7 @@ public class FileServiceTests : IDisposable
         }
     }
 
-    private FileService CreateService() => new(_mockSerializer.Object);
+    private FileService CreateService() => new(_mockSerializer);
 
     private string PathFor(string fileName, string? subdir = null)
     {
@@ -164,15 +164,13 @@ public class FileServiceTests : IDisposable
 
         AprDocument? captured = null;
         _mockSerializer
-            .Setup(s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()))
-            .Callback<AprDocument, Stream, CancellationToken>((doc, _, _) => captured = doc)
-            .Returns(Task.CompletedTask);
+            .SerializeAsync(Arg.Any<AprDocument>(), Arg.Any<Stream>(), Arg.Any<CancellationToken>())
+            .Returns(Task.CompletedTask)
+            .AndDoes(call => captured = call.Arg<AprDocument>());
 
         await service.SaveFileAsync(document, filePath);
 
-        _mockSerializer.Verify(
-            s => s.SerializeAsync(It.IsAny<AprDocument>(), It.IsAny<Stream>(), It.IsAny<CancellationToken>()),
-            Times.Once);
+        _ = _mockSerializer.Received(1).SerializeAsync(Arg.Any<AprDocument>(), Arg.Any<Stream>(), Arg.Any<CancellationToken>());
         captured.Should().BeSameAs(document);
     }
 

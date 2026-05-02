@@ -1,5 +1,5 @@
-using FluentAssertions;
-using Moq;
+using AwesomeAssertions;
+using NSubstitute;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Services;
 using Xunit;

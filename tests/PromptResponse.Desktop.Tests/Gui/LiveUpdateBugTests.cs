@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
+using NSubstitute;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -30,12 +30,12 @@ public class LiveUpdateBugTests
 
     private static MainShellViewModel BuildShell(AprDocument document)
     {
-        var fileService = new Mock<IFileService>();
-        var dialog = new Mock<IDialogService>();
+        var fileService = Substitute.For<IFileService>();
+        var dialog = Substitute.For<IDialogService>();
         var session = new DocumentSessionService();
         var profile = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
-        var shell = new MainShellViewModel(fileService.Object, dialog.Object, session, profile, factory);
+        var shell = new MainShellViewModel(fileService, dialog, session, profile, factory);
         session.Set(document, "test.aprf");
         return shell;
     }

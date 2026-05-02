@@ -1,5 +1,5 @@
 using Avalonia.Media;
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Desktop.Profiles;
 using Xunit;
 

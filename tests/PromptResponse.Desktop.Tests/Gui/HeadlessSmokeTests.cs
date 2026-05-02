@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace PromptResponse.Desktop.Tests.Gui;
 

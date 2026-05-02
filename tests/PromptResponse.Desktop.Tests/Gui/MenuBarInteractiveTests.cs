@@ -2,8 +2,8 @@ using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
-using FluentAssertions;
-using Moq;
+using AwesomeAssertions;
+using NSubstitute;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels;
@@ -29,15 +29,15 @@ public class MenuBarInteractiveTests
         public ColorScheme PreferredColorScheme => ColorScheme.Light;
     }
 
-    private static (MainShellView view, MainShellViewModel vm, Mock<IFileService> fs, Mock<IDialogService> dlg)
+    private static (MainShellView view, MainShellViewModel vm, IFileService fs, IDialogService dlg)
         BuildShell()
     {
-        var fs = new Mock<IFileService>();
-        var dlg = new Mock<IDialogService>();
+        var fs = Substitute.For<IFileService>();
+        var dlg = Substitute.For<IDialogService>();
         var session = new DocumentSessionService();
         var profile = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
-        var vm = new MainShellViewModel(fs.Object, dlg.Object, session, profile, factory);
+        var vm = new MainShellViewModel(fs, dlg, session, profile, factory);
         var view = new MainShellView { DataContext = vm };
         return (view, vm, fs, dlg);
     }
@@ -101,14 +101,14 @@ public class MenuBarInteractiveTests
     public void OpenCommand_DelegatesToFileService_OpenFileAsync()
     {
         var (_, vm, fs, _) = BuildShell();
-        fs.Setup(f => f.OpenFileAsync()).ReturnsAsync((PromptResponse.Core.Models.AprDocument?)null);
+        fs.OpenFileAsync().Returns((PromptResponse.Core.Models.AprDocument?)null);
 
         vm.OpenCommand.Execute(null);
 
         // Async command — let the call propagate.
         GuiTestExtensions.PumpDispatcher();
-        fs.Verify(f => f.OpenFileAsync(), Times.AtLeastOnce(),
-            "OpenCommand must route through IFileService.OpenFileAsync; otherwise the file dialog never appears");
+        // OpenCommand must route through IFileService.OpenFileAsync; otherwise the file dialog never appears.
+        _ = fs.Received().OpenFileAsync();
     }
 
     [AvaloniaFact]
@@ -147,7 +147,7 @@ public class MenuBarInteractiveTests
     {
         var (_, vm, _, dlg) = BuildShell();
         // Skip the unsaved-changes prompt by saying "yes, close anyway" if asked.
-        dlg.Setup(d => d.ShowConfirmationAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
+        dlg.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
 
         vm.NewTemplateCommand.Execute(null);
         vm.HasDocument.Should().BeTrue();

@@ -1,6 +1,6 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.Extensions.Logging;
-using Moq;
+using NSubstitute;
 using PromptResponse.Cli.Api;
 using PromptResponse.Cli.Tests.Fixtures;
 using PromptResponse.Core.Models;
@@ -20,8 +20,8 @@ public class FormFillingApiTests : IDisposable
     {
         _serializer = new AprJsonSerializer();
         var validator = new DocumentValidator();
-        var logger = new Mock<ILogger<FormFillingApi>>();
-        _api = new FormFillingApi(_serializer, validator, logger.Object);
+        var logger = Substitute.For<ILogger<FormFillingApi>>();
+        _api = new FormFillingApi(_serializer, validator, logger);
         _tempHelper = new TempFileHelper(_serializer);
     }
 

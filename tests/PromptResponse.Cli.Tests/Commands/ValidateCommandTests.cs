@@ -1,6 +1,6 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.Extensions.Logging;
-using Moq;
+using NSubstitute;
 using PromptResponse.Cli.Commands;
 using PromptResponse.Cli.Tests.Fixtures;
 using PromptResponse.Core.Serialization;
@@ -25,7 +25,7 @@ public class ValidateCommandTests : IDisposable
         _serializer = new AprJsonSerializer();
         _documentValidator = new DocumentValidator();
         _dataTypeValidator = new DataTypeValidator();
-        var loggerMock = new Mock<ILogger<ValidateCommand>>();
+        var loggerMock = Substitute.For<ILogger<ValidateCommand>>();
         _command = new ValidateCommand(_serializer, _documentValidator, _dataTypeValidator);
         _tempHelper = new TempFileHelper(_serializer);
     }

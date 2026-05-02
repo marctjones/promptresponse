@@ -1,4 +1,4 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Cli.Commands;
 using PromptResponse.Core.Serialization;
 using Xunit;

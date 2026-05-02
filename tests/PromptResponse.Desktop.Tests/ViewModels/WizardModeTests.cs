@@ -1,5 +1,5 @@
-using FluentAssertions;
-using Moq;
+using AwesomeAssertions;
+using NSubstitute;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -27,12 +27,12 @@ public class WizardModeTests
 
     private static (MainShellViewModel shell, IDocumentSessionService session) NewShell()
     {
-        var fs = new Mock<IFileService>();
-        var dlg = new Mock<IDialogService>();
+        var fs = Substitute.For<IFileService>();
+        var dlg = Substitute.For<IDialogService>();
         var session = new DocumentSessionService();
         var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
-        var shell = new MainShellViewModel(fs.Object, dlg.Object, session, profile, factory);
+        var shell = new MainShellViewModel(fs, dlg, session, profile, factory);
         return (shell, session);
     }
 

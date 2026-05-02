@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
 using Avalonia.VisualTree;
-using FluentAssertions;
-using Moq;
+using AwesomeAssertions;
+using NSubstitute;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -30,13 +30,13 @@ public class WizardModeGuiTests
 
     private static (MainShellView view, MainShellViewModel vm, IDocumentSessionService session) Build()
     {
-        var fs = new Mock<IFileService>();
-        var dlg = new Mock<IDialogService>();
+        var fs = Substitute.For<IFileService>();
+        var dlg = Substitute.For<IDialogService>();
         var session = new DocumentSessionService();
         var probe = new StubProbe();
         var profile = new ProfileService(probe, applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
-        var vm = new MainShellViewModel(fs.Object, dlg.Object, session, profile, factory);
+        var vm = new MainShellViewModel(fs, dlg, session, profile, factory);
         var view = new MainShellView { DataContext = vm };
         return (view, vm, session);
     }

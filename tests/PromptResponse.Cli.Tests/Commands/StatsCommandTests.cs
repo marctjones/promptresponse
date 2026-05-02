@@ -1,4 +1,4 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Cli.Commands;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;

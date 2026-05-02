@@ -1,4 +1,4 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Core.Commands;
 using PromptResponse.Core.Models;
 using Xunit;
@@ -140,7 +140,7 @@ public class UndoRedoManagerTests
         }
 
         // Assert
-        manager.UndoCount.Should().BeLessOrEqualTo(3);
+        manager.UndoCount.Should().BeLessThanOrEqualTo(3);
     }
 
     [Fact]

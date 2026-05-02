@@ -1,4 +1,4 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Cli.Commands;
 using PromptResponse.Cli.Tests.Fixtures;
 using PromptResponse.Core.Models;

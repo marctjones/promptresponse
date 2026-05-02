@@ -24,9 +24,19 @@ namespace PromptResponse.Desktop.Views.Editor;
 /// Avalonia.Headless can't synthesize real drag-drop events, so the
 /// drag-drop UX itself isn't end-to-end testable here — the underlying VM
 /// Move methods are unit-tested separately.
+///
+/// Avalonia 12: payloads are carried via DataTransfer/DataTransferItem with
+/// a per-payload-type DataFormat&lt;object&gt; key — replaces the legacy
+/// IDataObject API used in Avalonia 11.
 /// </remarks>
 public static class DragReorderBehavior
 {
+    /// <summary>Build a DataFormat for the given payload-type token. Same
+    /// token used by both source and target sides keeps drags scoped to
+    /// matching lists.</summary>
+    private static DataFormat<object> FormatFor(string payloadType) =>
+        DataFormat.CreateInProcessFormat<object>($"promptresponse.reorder.{payloadType}");
+
     /// <summary>
     /// Registers <paramref name="handle"/> as a drag source. On pointer-press
     /// we start a drag whose data is whatever <paramref name="payloadFactory"/>
@@ -35,17 +45,19 @@ public static class DragReorderBehavior
     /// </summary>
     public static void RegisterDragSource(Control handle, string payloadType, Func<object?> payloadFactory)
     {
+        var format = FormatFor(payloadType);
         handle.PointerPressed += async (_, e) =>
         {
             if (!e.GetCurrentPoint(handle).Properties.IsLeftButtonPressed) return;
             var payload = payloadFactory();
             if (payload is null) return;
 
-            var data = new DataObject();
-            data.Set(payloadType, payload);
+            var item = DataTransferItem.Create(format, payload);
+            var data = new DataTransfer();
+            data.Add(item);
             try
             {
-                await DragDrop.DoDragDrop(e, data, DragDropEffects.Move);
+                await DragDrop.DoDragDropAsync(e, data, DragDropEffects.Move);
             }
             catch (InvalidOperationException)
             {
@@ -67,16 +79,25 @@ public static class DragReorderBehavior
         string payloadType,
         Action<int, int> onMove)
     {
+        var format = FormatFor(payloadType);
         DragDrop.SetAllowDrop(itemsControl, true);
         itemsControl.AddHandler(DragDrop.DragOverEvent, (_, e) =>
         {
-            e.DragEffects = e.Data.Contains(payloadType) ? DragDropEffects.Move : DragDropEffects.None;
+            e.DragEffects = e.DataTransfer != null && e.DataTransfer.Formats.Contains(format)
+                ? DragDropEffects.Move
+                : DragDropEffects.None;
             e.Handled = true;
         });
         itemsControl.AddHandler(DragDrop.DropEvent, (_, e) =>
         {
-            if (!e.Data.Contains(payloadType)) return;
-            var payload = e.Data.Get(payloadType);
+            if (e.DataTransfer == null) return;
+            if (!e.DataTransfer.Formats.Contains(format)) return;
+            object? payload = null;
+            foreach (var item in e.DataTransfer.Items)
+            {
+                var raw = item.TryGetRaw(format);
+                if (raw is not null) { payload = raw; break; }
+            }
             if (payload is null) return;
 
             var items = (itemsControl.ItemsSource as System.Collections.IEnumerable)?

@@ -1,9 +1,9 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Cli.Commands;
 using PromptResponse.Cli.Tests.Fixtures;
 using PromptResponse.Core.Serialization;
 using Microsoft.Extensions.Logging;
-using Moq;
+using NSubstitute;
 using PromptResponse.Cli.Api;
 using Xunit;
 
@@ -17,9 +17,9 @@ public class FillCommandTests : IDisposable
     public FillCommandTests()
     {
         var serializer = new AprJsonSerializer();
-        var api = new FormFillingApi(serializer, new Core.Validation.DocumentValidator(), new Mock<ILogger<FormFillingApi>>().Object);
-        var logger = new Mock<ILogger<FillCommand>>();
-        _command = new FillCommand(api, serializer, logger.Object);
+        var api = new FormFillingApi(serializer, new Core.Validation.DocumentValidator(), Substitute.For<ILogger<FormFillingApi>>());
+        var logger = Substitute.For<ILogger<FillCommand>>();
+        _command = new FillCommand(api, serializer, logger);
         _tempHelper = new TempFileHelper(serializer);
     }
 

@@ -1,9 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
 using Avalonia.VisualTree;
-using FluentAssertions;
+using AwesomeAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
+using NSubstitute;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Desktop.Profiles;
@@ -56,7 +56,7 @@ public class FullStackPhoneMaskTest
         services.AddSingleton<IDocumentSessionService, DocumentSessionService>();
         services.AddSingleton<PromptViewModelFactory>();
         services.AddSingleton<IFileService>(sp => new FileService(sp.GetRequiredService<IAprSerializer>()));
-        services.AddSingleton<IDialogService>(_ => new Mock<IDialogService>().Object);
+        services.AddSingleton<IDialogService>(_ => Substitute.For<IDialogService>());
         services.AddTransient<MainShellViewModel>();
         services.AddTransient<DisplayPreferencesViewModel>();
         var sp = services.BuildServiceProvider();

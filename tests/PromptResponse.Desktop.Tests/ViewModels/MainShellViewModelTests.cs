@@ -1,5 +1,5 @@
-using FluentAssertions;
-using Moq;
+using AwesomeAssertions;
+using NSubstitute;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Desktop.Profiles;
@@ -28,17 +28,17 @@ public class MainShellViewModelTests
     }
 
     private static MainShellViewModel CreateShell(
-        Mock<IFileService>? fileService = null,
-        Mock<IDialogService>? dialogService = null,
+        IFileService? fileService = null,
+        IDialogService? dialogService = null,
         IDocumentSessionService? session = null,
         IProfileService? profile = null)
     {
-        fileService ??= new Mock<IFileService>();
-        dialogService ??= new Mock<IDialogService>();
+        fileService ??= Substitute.For<IFileService>();
+        dialogService ??= Substitute.For<IDialogService>();
         session ??= new DocumentSessionService();
         profile ??= new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
-        return new MainShellViewModel(fileService.Object, dialogService.Object, session, profile, factory);
+        return new MainShellViewModel(fileService, dialogService, session, profile, factory);
     }
 
     private static AprDocument MakeTemplate() => new()
@@ -86,37 +86,37 @@ public class MainShellViewModelTests
     [Fact]
     public async Task OpenCommand_LoadsDocumentViaFileService_AndUpdatesShell()
     {
-        var fs = new Mock<IFileService>();
-        fs.Setup(s => s.OpenFileAsync()).ReturnsAsync(MakeTemplate());
-        fs.Setup(s => s.CurrentFilePath).Returns("/tmp/test.aprt");
+        var fs = Substitute.For<IFileService>();
+        fs.OpenFileAsync().Returns(MakeTemplate());
+        fs.CurrentFilePath.Returns("/tmp/test.aprt");
         var shell = CreateShell(fileService: fs);
 
         await shell.Open();
 
         shell.HasDocument.Should().BeTrue();
         shell.CurrentDocumentTitle.Should().Be("Test Template");
-        fs.Verify(s => s.OpenFileAsync(), Times.Once);
+        _ = fs.Received(1).OpenFileAsync();
     }
 
     [Fact]
     public async Task OpenFromPath_LoadsViaFileService_AndUpdatesShell()
     {
-        var fs = new Mock<IFileService>();
-        fs.Setup(s => s.LoadFileAsync("/tmp/example.aprt")).ReturnsAsync(MakeTemplate());
+        var fs = Substitute.For<IFileService>();
+        fs.LoadFileAsync("/tmp/example.aprt").Returns(MakeTemplate());
         var shell = CreateShell(fileService: fs);
 
         await shell.OpenFromPath("/tmp/example.aprt");
 
         shell.HasDocument.Should().BeTrue();
         shell.CurrentDocumentTitle.Should().Be("Test Template");
-        fs.Verify(s => s.LoadFileAsync("/tmp/example.aprt"), Times.Once);
+        _ = fs.Received(1).LoadFileAsync("/tmp/example.aprt");
     }
 
     [Fact]
     public async Task OpenFromPath_WhenFileFailsToLoad_LeavesShellUnchanged()
     {
-        var fs = new Mock<IFileService>();
-        fs.Setup(s => s.LoadFileAsync(It.IsAny<string>())).ReturnsAsync((AprDocument?)null);
+        var fs = Substitute.For<IFileService>();
+        fs.LoadFileAsync(Arg.Any<string>()).Returns((AprDocument?)null);
         var shell = CreateShell(fileService: fs);
 
         await shell.OpenFromPath("/nonexistent.aprt");
@@ -127,8 +127,8 @@ public class MainShellViewModelTests
     [Fact]
     public async Task OpenCommand_WhenUserCancels_LeavesShellUnchanged()
     {
-        var fs = new Mock<IFileService>();
-        fs.Setup(s => s.OpenFileAsync()).ReturnsAsync((AprDocument?)null);
+        var fs = Substitute.For<IFileService>();
+        fs.OpenFileAsync().Returns((AprDocument?)null);
         var shell = CreateShell(fileService: fs);
 
         await shell.Open();
@@ -139,47 +139,47 @@ public class MainShellViewModelTests
     [Fact]
     public async Task SaveCommand_RequiresDocument_NoOpWhenEmpty()
     {
-        var fs = new Mock<IFileService>();
+        var fs = Substitute.For<IFileService>();
         var shell = CreateShell(fileService: fs);
 
         await shell.Save();
 
-        fs.Verify(s => s.SaveFileAsync(It.IsAny<AprDocument>(), It.IsAny<string>()), Times.Never);
+        _ = fs.DidNotReceive().SaveFileAsync(Arg.Any<AprDocument>(), Arg.Any<string>());
     }
 
     [Fact]
     public async Task SaveCommand_WithCurrentFilePath_SavesToPath()
     {
-        var fs = new Mock<IFileService>();
-        fs.Setup(s => s.CurrentFilePath).Returns("/tmp/example.aprt");
+        var fs = Substitute.For<IFileService>();
+        fs.CurrentFilePath.Returns("/tmp/example.aprt");
         var session = new DocumentSessionService();
         var shell = CreateShell(fileService: fs, session: session);
         session.Set(MakeTemplate(), "/tmp/example.aprt", dirty: true);
 
         await shell.Save();
 
-        fs.Verify(s => s.SaveFileAsync(It.IsAny<AprDocument>(), "/tmp/example.aprt"), Times.Once);
+        _ = fs.Received(1).SaveFileAsync(Arg.Any<AprDocument>(), "/tmp/example.aprt");
     }
 
     [Fact]
     public async Task SaveCommand_WithoutPath_FallsBackToSaveAs()
     {
-        var fs = new Mock<IFileService>();
-        fs.Setup(s => s.CurrentFilePath).Returns((string?)null);
+        var fs = Substitute.For<IFileService>();
+        fs.CurrentFilePath.Returns((string?)null);
         var session = new DocumentSessionService();
         var shell = CreateShell(fileService: fs, session: session);
         session.Set(MakeTemplate(), null, dirty: true);
 
         await shell.Save();
 
-        fs.Verify(s => s.SaveFileAsAsync(It.IsAny<AprDocument>()), Times.Once);
+        _ = fs.Received(1).SaveFileAsAsync(Arg.Any<AprDocument>());
     }
 
     [Fact]
     public async Task SaveCommand_AfterSuccessfulSave_ClearsDirty()
     {
-        var fs = new Mock<IFileService>();
-        fs.Setup(s => s.CurrentFilePath).Returns("/tmp/x.aprt");
+        var fs = Substitute.For<IFileService>();
+        fs.CurrentFilePath.Returns("/tmp/x.aprt");
         var session = new DocumentSessionService();
         var shell = CreateShell(fileService: fs, session: session);
         session.Set(MakeTemplate(), "/tmp/x.aprt", dirty: true);
@@ -192,23 +192,23 @@ public class MainShellViewModelTests
     [Fact]
     public async Task CloseCommand_OnDirtyDocument_AsksToConfirm()
     {
-        var dialog = new Mock<IDialogService>();
-        dialog.Setup(d => d.ShowConfirmationAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
+        var dialog = Substitute.For<IDialogService>();
+        dialog.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(true);
         var session = new DocumentSessionService();
         var shell = CreateShell(dialogService: dialog, session: session);
         session.Set(MakeTemplate(), "/tmp/x.aprt", dirty: true);
 
         await shell.Close();
 
-        dialog.Verify(d => d.ShowConfirmationAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        _ = dialog.Received(1).ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>());
         session.HasDocument.Should().BeFalse();
     }
 
     [Fact]
     public async Task CloseCommand_OnDirtyDocument_UserCancels_KeepsDocument()
     {
-        var dialog = new Mock<IDialogService>();
-        dialog.Setup(d => d.ShowConfirmationAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
+        var dialog = Substitute.For<IDialogService>();
+        dialog.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
         var session = new DocumentSessionService();
         var shell = CreateShell(dialogService: dialog, session: session);
         session.Set(MakeTemplate(), "/tmp/x.aprt", dirty: true);
@@ -306,8 +306,8 @@ public class MainShellViewModelTests
     [Fact]
     public void Constructor_RejectsAllNullArguments()
     {
-        var fs = new Mock<IFileService>().Object;
-        var dlg = new Mock<IDialogService>().Object;
+        var fs = Substitute.For<IFileService>();
+        var dlg = Substitute.For<IDialogService>();
         var session = new DocumentSessionService();
         var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
