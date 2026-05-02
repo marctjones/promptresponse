@@ -139,6 +139,10 @@
                                   Content="Larger touch / click targets (56×56)" IsChecked="{Binding LargeHitTargets, Mode=TwoWay}" MinHeight="36"
                                   AutomationProperties.Name="Large hit targets"
                                   AutomationProperties.HelpText="Tremor / switch / voice-control friendly"/>
+                        <CheckBox x:Name="WizardModeCheck"
+                                  Content="Wizard mode (one section at a time)" IsChecked="{Binding WizardMode, Mode=TwoWay}" MinHeight="36"
+                                  AutomationProperties.Name="Wizard mode"
+                                  AutomationProperties.HelpText="Render forms section-by-section with Previous/Next navigation; reduces cognitive load on long forms"/>
                     </StackPanel>
 
                     <!-- Display rendering -->

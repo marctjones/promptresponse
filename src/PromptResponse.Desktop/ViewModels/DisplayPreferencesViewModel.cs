@@ -48,6 +48,7 @@ public sealed class DisplayPreferencesViewModel : INotifyPropertyChanged
     public bool ReducedMotion       { get => IsActive<ReducedMotionProfile>();       set => Toggle<ReducedMotionProfile>(value); }
     public bool ScreenReaderTuned   { get => IsActive<ScreenReaderTunedProfile>();   set => Toggle<ScreenReaderTunedProfile>(value); }
     public bool LargeHitTargets     { get => IsActive<LargeHitTargetsProfile>();     set => Toggle<LargeHitTargetsProfile>(value); }
+    public bool WizardMode          { get => IsActive<WizardModeProfile>();          set => Toggle<WizardModeProfile>(value); }
 
     // ── Display rendering flags ──
     public bool NumberThousandsSeparators { get => IsActive<NumberThousandsSeparatorsProfile>(); set => Toggle<NumberThousandsSeparatorsProfile>(value); }
@@ -90,6 +91,7 @@ public sealed class DisplayPreferencesViewModel : INotifyPropertyChanged
         if (ReducedMotion) yield return "Reduced motion";
         if (ScreenReaderTuned) yield return "Screen-reader tuned";
         if (LargeHitTargets) yield return "Large hit targets";
+        if (WizardMode) yield return "Wizard mode";
         if (NumberThousandsSeparators) yield return "Thousands separators";
         if (CurrencyDisplay) yield return "Currency display";
         if (IsoDatePrettify) yield return "ISO date prettify";
@@ -137,6 +139,7 @@ public sealed class DisplayPreferencesViewModel : INotifyPropertyChanged
         Notify(nameof(ReducedMotion));
         Notify(nameof(ScreenReaderTuned));
         Notify(nameof(LargeHitTargets));
+        Notify(nameof(WizardMode));
         Notify(nameof(NumberThousandsSeparators));
         Notify(nameof(CurrencyDisplay));
         Notify(nameof(IsoDatePrettify));

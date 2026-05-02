@@ -107,6 +107,12 @@
                           InputGesture="Ctrl+E"
                           AutomationProperties.Name="Toggle edit mode"
                           AutomationProperties.HelpText="Switch between structural editor (template authoring) and fillable preview (Ctrl+E). Only available for templates."/>
+                <MenuItem Header="Toggle _Wizard Mode"
+                          Command="{Binding ToggleWizardModeCommand}"
+                          HotKey="Ctrl+W"
+                          InputGesture="Ctrl+W"
+                          AutomationProperties.Name="Toggle wizard mode"
+                          AutomationProperties.HelpText="Switch between section-at-a-time (wizard) and full-list rendering (Ctrl+W)"/>
                 <Separator/>
                 <MenuItem Header="_Display Preferences..."
                           x:Name="DisplayPreferencesMenuItem"
@@ -358,9 +364,82 @@
                         </Grid>
                     </Expander>
 
+                    <!-- Wizard nav bar — visible when wizard mode is on. Section
+                         step label + Previous/Next on the right. -->
+                    <Border IsVisible="{Binding IsWizardMode}"
+                            Background="{Binding ActiveProfileSubtleSurfaceBrush}"
+                            BorderThickness="1"
+                            BorderBrush="{Binding ActiveProfileBorderBrush}"
+                            CornerRadius="8"
+                            Padding="14,10"
+                            Margin="0,0,0,16">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Grid.Column="0"
+                                       Text="{Binding WizardStepLabel}"
+                                       VerticalAlignment="Center"
+                                       FontWeight="SemiBold"
+                                       FontSize="{Binding BodyFontSize}"
+                                       Foreground="{Binding ActiveProfileOnSurfaceBrush}"
+                                       TextWrapping="Wrap"
+                                       AutomationProperties.LiveSetting="Polite"/>
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        Spacing="8">
+                                <Button Content="◀ Previous"
+                                        Command="{Binding WizardPreviousCommand}"
+                                        AutomationProperties.Name="Previous section"/>
+                                <Button Content="Next ▶"
+                                        Command="{Binding WizardNextCommand}"
+                                        AutomationProperties.Name="Next section"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- ── Wizard mode: render only the current section ── -->
+                    <ContentControl IsVisible="{Binding IsWizardMode}"
+                                    Content="{Binding WizardCurrentSection}">
+                        <ContentControl.DataTemplates>
+                            <!-- Edit-mode wizard cell -->
+                            <DataTemplate DataType="vm:SectionViewModel">
+                                <Border Padding="20"
+                                        CornerRadius="12"
+                                        BorderThickness="1"
+                                        Background="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileElevatedSurfaceBrush}"
+                                        BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
+                                        AutomationProperties.Name="{Binding Title}">
+                                    <Panel>
+                                        <editor:SectionEditorView IsVisible="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).IsEditMode}"/>
+                                        <views:SectionView IsVisible="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).IsEditMode, Converter={x:Static BoolConverters.Not}}"/>
+                                    </Panel>
+                                </Border>
+                            </DataTemplate>
+                        </ContentControl.DataTemplates>
+                    </ContentControl>
+
+                    <!-- Wizard nav (bottom): Previous / Next mirrors the top bar
+                         so users at the bottom of a long section don't have to
+                         scroll back up to advance. -->
+                    <Grid IsVisible="{Binding IsWizardMode}"
+                          ColumnDefinitions="*,Auto"
+                          Margin="0,16,0,0">
+                        <TextBlock Grid.Column="0"
+                                   Text="{Binding WizardStepLabel}"
+                                   VerticalAlignment="Center"
+                                   FontSize="{Binding CaptionFontSize}"
+                                   Foreground="{Binding ActiveProfileMutedTextBrush}"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                            <Button Content="◀ Previous"
+                                    Command="{Binding WizardPreviousCommand}"
+                                    AutomationProperties.Name="Previous section (bottom)"/>
+                            <Button Content="Next ▶"
+                                    Command="{Binding WizardNextCommand}"
+                                    AutomationProperties.Name="Next section (bottom)"/>
+                        </StackPanel>
+                    </Grid>
+
                     <!-- Edit-mode section tree (template authoring) -->
                     <ItemsControl x:Name="SectionsHostEdit"
-                                  IsVisible="{Binding IsEditMode}"
+                                  IsVisible="{Binding ShowFullEditList}"
                                   ItemsSource="{Binding Sections}"
                                   AutomationProperties.Name="Form sections (edit mode)">
                         <ItemsControl.ItemTemplate>
@@ -383,7 +462,7 @@
                     </ItemsControl>
 
                     <!-- Edit-mode: top-level section management -->
-                    <Button IsVisible="{Binding IsEditMode}"
+                    <Button IsVisible="{Binding ShowFullEditList}"
                             Content="+ Add top-level section"
                             HorizontalAlignment="Left"
                             Margin="0,12,0,0"
@@ -393,7 +472,7 @@
 
                     <!-- Fill-mode section tree (the existing, fillable form) -->
                     <ItemsControl x:Name="SectionsHost"
-                                  IsVisible="{Binding IsEditMode, Converter={x:Static BoolConverters.Not}}"
+                                  IsVisible="{Binding ShowFullFillList}"
                                   ItemsSource="{Binding Sections}"
                                   AutomationProperties.Name="Form sections">
                         <ItemsControl.ItemTemplate>

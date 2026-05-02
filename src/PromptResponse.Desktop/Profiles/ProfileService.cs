@@ -31,6 +31,7 @@ public sealed class ProfileService : IProfileService
         typeof(ZipInputMaskProfile),
         typeof(CurrencyInputMaskProfile),
         typeof(PercentageInputMaskProfile),
+        typeof(WizardModeProfile),
     };
 
     private readonly IOsAccessibilityProbe _osProbe;

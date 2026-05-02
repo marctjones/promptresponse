@@ -60,6 +60,7 @@ public static class ProfilePresets
         DisableByType(service, typeof(ReducedMotionProfile));
         DisableByType(service, typeof(ScreenReaderTunedProfile));
         DisableByType(service, typeof(LargeHitTargetsProfile));
+        DisableByType(service, typeof(WizardModeProfile));
 
         switch (preset)
         {
@@ -93,10 +94,13 @@ public static class ProfilePresets
                 break;
 
             case Preset.CognitiveDyslexia:
-                // Today this preset is sparse — most cognitive flags are still ⏳ later.
-                // It enables the v0.1 flags now; future cognitive flags fold in here.
+                // Cognitive preset — large text, all visual affordances, plus
+                // wizard-mode rendering (one section at a time) to reduce
+                // cognitive load on long forms. Future cognitive flags fold
+                // in here as they ship.
                 service.SetColorScheme(ColorScheme.Light);
                 service.Enable<LargeTextProfile>();
+                service.Enable<WizardModeProfile>();
                 EnableAll(service, AllAffordanceFlags);
                 break;
 
