@@ -67,6 +67,43 @@ public sealed class DisplayPreferencesViewModel : INotifyPropertyChanged
     public bool CurrencyInputMask   { get => IsActive<CurrencyInputMaskProfile>();   set => Toggle<CurrencyInputMaskProfile>(value); }
     public bool PercentageInputMask { get => IsActive<PercentageInputMaskProfile>(); set => Toggle<PercentageInputMaskProfile>(value); }
 
+    // ── Summary of the currently-active flags (for the "Active enhancements" panel) ──
+
+    /// <summary>Human-readable list of every active capability flag, comma-
+    /// separated. Surfaces "what's on right now" so users don't have to scan a
+    /// long checkbox list to see their current state.</summary>
+    public string ActiveSummary
+    {
+        get
+        {
+            var on = ActiveLabels().ToList();
+            return on.Count == 0 ? "No enhancements active." : string.Join(", ", on);
+        }
+    }
+
+    /// <summary>Count of currently-active flags. Bound by the prefs panel header.</summary>
+    public int ActiveCount => ActiveLabels().Count();
+
+    private IEnumerable<string> ActiveLabels()
+    {
+        if (LargeText) yield return "Large text";
+        if (ReducedMotion) yield return "Reduced motion";
+        if (ScreenReaderTuned) yield return "Screen-reader tuned";
+        if (LargeHitTargets) yield return "Large hit targets";
+        if (NumberThousandsSeparators) yield return "Thousands separators";
+        if (CurrencyDisplay) yield return "Currency display";
+        if (IsoDatePrettify) yield return "ISO date prettify";
+        if (DisplaysAsPreview) yield return "Displays-as preview";
+        if (CalendarPicker) yield return "Calendar picker";
+        if (BooleanRadios) yield return "Boolean radios";
+        if (PhoneInputMask) yield return "Phone mask";
+        if (SsnInputMask) yield return "SSN mask";
+        if (EinInputMask) yield return "EIN mask";
+        if (ZipInputMask) yield return "ZIP mask";
+        if (CurrencyInputMask) yield return "Currency mask";
+        if (PercentageInputMask) yield return "Percentage mask";
+    }
+
     /// <summary>Applies a named preset by composing its flag set on top of the current
     /// color scheme. See <see cref="ProfilePresets"/> for the composition rules.</summary>
     public void ApplyPreset(ProfilePresets.Preset preset) => ProfilePresets.Apply(preset, _profileService);
@@ -112,6 +149,8 @@ public sealed class DisplayPreferencesViewModel : INotifyPropertyChanged
         Notify(nameof(ZipInputMask));
         Notify(nameof(CurrencyInputMask));
         Notify(nameof(PercentageInputMask));
+        Notify(nameof(ActiveSummary));
+        Notify(nameof(ActiveCount));
     }
 
     private void Notify([CallerMemberName] string? propertyName = null)

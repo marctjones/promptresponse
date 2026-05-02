@@ -75,6 +75,31 @@
                           AutomationProperties.HelpText="Re-apply the most recently undone edit (Ctrl+Y)"/>
             </MenuItem>
             <MenuItem Header="_View" AutomationProperties.Name="View menu">
+                <MenuItem Header="Capability _Profile"
+                          AutomationProperties.Name="Capability profile menu"
+                          AutomationProperties.HelpText="Switch the active capability-profile preset">
+                    <MenuItem Header="_Excellent vision (default)"
+                              Command="{Binding ApplyPresetCommand}"
+                              CommandParameter="ExcellentVision"
+                              AutomationProperties.Name="Excellent vision preset"/>
+                    <MenuItem Header="_Blind / screen reader"
+                              Command="{Binding ApplyPresetCommand}"
+                              CommandParameter="BlindScreenReader"
+                              AutomationProperties.Name="Blind screen reader preset"/>
+                    <MenuItem Header="_Low vision / high contrast"
+                              Command="{Binding ApplyPresetCommand}"
+                              CommandParameter="LowVisionHighContrast"
+                              AutomationProperties.Name="Low vision high contrast preset"/>
+                    <MenuItem Header="_Cognitive / dyslexia"
+                              Command="{Binding ApplyPresetCommand}"
+                              CommandParameter="CognitiveDyslexia"
+                              AutomationProperties.Name="Cognitive preset"/>
+                    <MenuItem Header="_Motor / mobility"
+                              Command="{Binding ApplyPresetCommand}"
+                              CommandParameter="MotorMobility"
+                              AutomationProperties.Name="Motor mobility preset"/>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="Toggle _Edit Mode"
                           Command="{Binding ToggleEditModeCommand}"
                           IsEnabled="{Binding CanToggleEditMode}"

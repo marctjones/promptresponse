@@ -70,6 +70,21 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     public string UndoLabel => _editHistory.UndoDescription is { } d ? $"Undo {d}" : "Undo";
     public string RedoLabel => _editHistory.RedoDescription is { } d ? $"Redo {d}" : "Redo";
 
+    /// <summary>One-click capability-profile preset switch. Bound to the View →
+    /// Capability Profile submenu items; the parameter is the preset enum name
+    /// (e.g. "ExcellentVision") so each menu item can pass its preset via
+    /// <c>CommandParameter</c>. Apply composes the preset's flag set on top of
+    /// a clean baseline; existing toggles are reset.</summary>
+    [RelayCommand]
+    private void ApplyPreset(string? presetName)
+    {
+        if (string.IsNullOrWhiteSpace(presetName)) return;
+        if (Enum.TryParse<ProfilePresets.Preset>(presetName, out var preset))
+        {
+            ProfilePresets.Apply(preset, _profileService);
+        }
+    }
+
     [RelayCommand(CanExecute = nameof(CanUndo))]
     private void Undo() => _editHistory.Undo();
 
