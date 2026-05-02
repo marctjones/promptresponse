@@ -9,6 +9,23 @@ development; entries are grouped by date rather than versioned releases.
 
 ## [Unreleased]
 
+### Dependency patch sweep — 2026-05-02
+
+Follow-up to the bundle upgrade — picks up patch / minor releases that
+landed in the days after the initial commit.
+
+- `Microsoft.Extensions.*` 10.0.0 → **10.0.7** (DI, Logging.Console,
+  Logging.Abstractions; .NET 10 servicing patches).
+- `xunit.runner.visualstudio` 3.0.0 → **3.1.5** (minor; same v3 line).
+- `Tmds.DBus` 0.92.0 → **0.93.0**.
+- `coverlet.collector` / `coverlet.msbuild` 6.0.4 → **10.0.0** (project
+  re-versioned to align with .NET 10; no breaking changes for our
+  `<Threshold>` / `<ThresholdType>` / `<ExcludeByFile>` config).
+
+`dotnet list package --outdated` now reports nothing. Tests: 1206
+still passing on the freshened stack. Layer 3 AT-SPI smoke test still
+passes against the live bus.
+
 ### Linux accessibility & dependency refresh — 2026-05-02
 
 - **Linux screen-reader support**: Avalonia 12's AT-SPI2 backend ships,
