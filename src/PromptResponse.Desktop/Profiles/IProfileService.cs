@@ -28,4 +28,12 @@ public interface IProfileService
 
     /// <summary>Raised after any change to the active set.</summary>
     event EventHandler? ProfileChanged;
+
+    /// <summary>Captures the current active flag set as a serializable snapshot.
+    /// Used by SettingsService to persist the profile across launches.</summary>
+    Models.ProfileSettings Snapshot();
+
+    /// <summary>Restores the active flag set from a previously-captured snapshot.
+    /// Replaces any current flags. Raises <see cref="ProfileChanged"/> once.</summary>
+    void Restore(Models.ProfileSettings snapshot);
 }

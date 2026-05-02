@@ -32,7 +32,7 @@ public class InputMaskVisualTests
 
     private static IProfileService NewService(params Type[] enabledFlags)
     {
-        var svc = new ProfileService(new FixedProbe());
+        var svc = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
         foreach (var t in enabledFlags)
         {
             // generic Enable<T>() via reflection — keeps test data tables readable.

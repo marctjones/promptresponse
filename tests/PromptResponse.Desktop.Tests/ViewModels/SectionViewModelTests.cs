@@ -24,7 +24,7 @@ public class SectionViewModelTests
     }
 
     private static PromptViewModelFactory NewFactory() =>
-        new(new ProfileService(new StubProbe()));
+        new(new ProfileService(new StubProbe(), applyAffordanceDefaults: false));
 
     [Fact]
     public void Constructor_ExposesTitleAndDescription_FromSectionModel()

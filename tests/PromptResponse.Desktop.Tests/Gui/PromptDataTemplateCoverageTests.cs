@@ -26,7 +26,7 @@ public class PromptDataTemplateCoverageTests
         public ColorScheme PreferredColorScheme => ColorScheme.Light;
     }
 
-    private static IProfileService NewService() => new ProfileService(new StubProbe());
+    private static IProfileService NewService() => new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
 
     private static Prompt P(string type) => new()
     {

@@ -33,7 +33,7 @@ public class LiveUpdateBugTests
         var fileService = new Mock<IFileService>();
         var dialog = new Mock<IDialogService>();
         var session = new DocumentSessionService();
-        var profile = new ProfileService(new FixedProbe());
+        var profile = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
         var shell = new MainShellViewModel(fileService.Object, dialog.Object, session, profile, factory);
         session.Set(document, "test.aprf");

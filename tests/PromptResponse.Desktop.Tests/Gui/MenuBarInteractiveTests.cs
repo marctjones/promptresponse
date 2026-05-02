@@ -35,7 +35,7 @@ public class MenuBarInteractiveTests
         var fs = new Mock<IFileService>();
         var dlg = new Mock<IDialogService>();
         var session = new DocumentSessionService();
-        var profile = new ProfileService(new FixedProbe());
+        var profile = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
         var vm = new MainShellViewModel(fs.Object, dlg.Object, session, profile, factory);
         var view = new MainShellView { DataContext = vm };

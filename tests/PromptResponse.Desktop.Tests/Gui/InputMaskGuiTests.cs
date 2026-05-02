@@ -25,7 +25,7 @@ public class InputMaskGuiTests
 
     private static IProfileService NewServiceWithAllMasksEnabled()
     {
-        var s = new ProfileService(new FixedProbe());
+        var s = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
         // Each input-mask formatter advertises its own gate flag now; the GUI tests
         // enable every mask flag so they exercise the live-reshape path uniformly.
         s.Enable<PhoneInputMaskProfile>();
@@ -38,7 +38,7 @@ public class InputMaskGuiTests
     }
 
     private static IProfileService NewServiceWithoutAnyMasks()
-        => new ProfileService(new FixedProbe());
+        => new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
 
     private static Prompt P(string id, string label, string type, string response = "") =>
         new()

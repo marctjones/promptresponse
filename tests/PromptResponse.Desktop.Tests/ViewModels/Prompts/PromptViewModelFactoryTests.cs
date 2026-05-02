@@ -16,7 +16,7 @@ public class PromptViewModelFactoryTests
         public ColorScheme PreferredColorScheme => ColorScheme.Light;
     }
 
-    private static PromptViewModelFactory CreateFactory() => new(new ProfileService(new FixedProbe()));
+    private static PromptViewModelFactory CreateFactory() => new(new ProfileService(new FixedProbe(), applyAffordanceDefaults: false));
 
     private static Prompt PromptWithHint(string? hint, IList<string>? suggestions = null)
     {

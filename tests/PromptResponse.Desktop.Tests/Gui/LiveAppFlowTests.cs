@@ -41,7 +41,11 @@ public class LiveAppFlowTests
         // Mirror App.axaml.cs's DI configuration so we test what production wires.
         var services = new ServiceCollection();
         services.AddSingleton<IOsAccessibilityProbe, FixedProbe>();
-        services.AddSingleton<IProfileService, ProfileService>();
+        // Test-mode constructor — no affordance defaults so tests assume "no flags
+        // active" until they explicitly toggle one. Production wires the default
+        // sighted-user defaults via the parameterless constructor.
+        services.AddSingleton<IProfileService>(sp =>
+            new ProfileService(sp.GetRequiredService<IOsAccessibilityProbe>(), applyAffordanceDefaults: false));
         services.AddTransient<DisplayPreferencesViewModel>();
         return services.BuildServiceProvider();
     }

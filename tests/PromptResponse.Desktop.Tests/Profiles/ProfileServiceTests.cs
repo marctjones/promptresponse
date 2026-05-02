@@ -23,7 +23,7 @@ public class ProfileServiceTests
     [Fact]
     public void NewService_NoOsPreferences_ActiveProfileIsLight()
     {
-        var service = new ProfileService(NoPreferences());
+        var service = new ProfileService(NoPreferences(), applyAffordanceDefaults: false);
 
         service.ActiveProfile.ColorScheme.Should().Be(ColorScheme.Light);
         service.IsActive(typeof(LightProfile)).Should().BeTrue();
@@ -34,7 +34,7 @@ public class ProfileServiceTests
     {
         var probe = new StubProbe { HighContrast = true, PreferredColorScheme = ColorScheme.HighContrast };
 
-        var service = new ProfileService(probe);
+        var service = new ProfileService(probe, applyAffordanceDefaults: false);
 
         service.IsActive(typeof(HighContrastProfile)).Should().BeTrue();
         service.ActiveProfile.TargetContrast.Should().Be(ContrastLevel.AAA);
@@ -45,7 +45,7 @@ public class ProfileServiceTests
     {
         var probe = new StubProbe { ReducedMotion = true };
 
-        var service = new ProfileService(probe);
+        var service = new ProfileService(probe, applyAffordanceDefaults: false);
 
         service.IsActive(typeof(ReducedMotionProfile)).Should().BeTrue();
         service.ActiveProfile.AnimationsEnabled.Should().BeFalse();
@@ -56,7 +56,7 @@ public class ProfileServiceTests
     {
         var probe = new StubProbe { ScreenReaderActive = true };
 
-        var service = new ProfileService(probe);
+        var service = new ProfileService(probe, applyAffordanceDefaults: false);
 
         service.IsActive(typeof(ScreenReaderTunedProfile)).Should().BeTrue();
         service.ActiveProfile.LiveRegions.Should().Be(LiveRegionVerbosity.Verbose);
@@ -67,7 +67,7 @@ public class ProfileServiceTests
     {
         var probe = new StubProbe { PreferredColorScheme = ColorScheme.Dark };
 
-        var service = new ProfileService(probe);
+        var service = new ProfileService(probe, applyAffordanceDefaults: false);
 
         service.IsActive(typeof(DarkProfile)).Should().BeTrue();
         service.IsActive(typeof(LightProfile)).Should().BeFalse();
@@ -77,7 +77,7 @@ public class ProfileServiceTests
     [Fact]
     public void Enable_AddsProfileToActiveSet_AndRaisesProfileChanged()
     {
-        var service = new ProfileService(NoPreferences());
+        var service = new ProfileService(NoPreferences(), applyAffordanceDefaults: false);
         var raised = 0;
         service.ProfileChanged += (_, _) => raised++;
 
@@ -91,7 +91,7 @@ public class ProfileServiceTests
     [Fact]
     public void Enable_SameProfileTwice_IsIdempotent_AndDoesNotRaiseEventTwice()
     {
-        var service = new ProfileService(NoPreferences());
+        var service = new ProfileService(NoPreferences(), applyAffordanceDefaults: false);
         service.Enable<LargeTextProfile>();
         var raised = 0;
         service.ProfileChanged += (_, _) => raised++;
@@ -104,7 +104,7 @@ public class ProfileServiceTests
     [Fact]
     public void Disable_RemovesProfile_AndRaisesProfileChanged()
     {
-        var service = new ProfileService(NoPreferences());
+        var service = new ProfileService(NoPreferences(), applyAffordanceDefaults: false);
         service.Enable<LargeTextProfile>();
         var raised = 0;
         service.ProfileChanged += (_, _) => raised++;
@@ -119,7 +119,7 @@ public class ProfileServiceTests
     [Fact]
     public void Disable_NotEnabledProfile_IsSafe()
     {
-        var service = new ProfileService(NoPreferences());
+        var service = new ProfileService(NoPreferences(), applyAffordanceDefaults: false);
         var raised = 0;
         service.ProfileChanged += (_, _) => raised++;
 
@@ -132,7 +132,7 @@ public class ProfileServiceTests
     [Fact]
     public void SetColorScheme_SwapsLightForDark_RaisingExactlyOnce()
     {
-        var service = new ProfileService(NoPreferences());
+        var service = new ProfileService(NoPreferences(), applyAffordanceDefaults: false);
         var raised = 0;
         service.ProfileChanged += (_, _) => raised++;
 
@@ -147,7 +147,7 @@ public class ProfileServiceTests
     [Fact]
     public void SetColorScheme_HighContrast_AlsoPromotesContrastBudget()
     {
-        var service = new ProfileService(NoPreferences());
+        var service = new ProfileService(NoPreferences(), applyAffordanceDefaults: false);
 
         service.SetColorScheme(ColorScheme.HighContrast);
 
@@ -157,7 +157,7 @@ public class ProfileServiceTests
     [Fact]
     public void Compose_AccessibilityStack_AllEnhancementsCoExist()
     {
-        var service = new ProfileService(NoPreferences());
+        var service = new ProfileService(NoPreferences(), applyAffordanceDefaults: false);
         service.SetColorScheme(ColorScheme.HighContrast);
         service.Enable<LargeTextProfile>();
         service.Enable<ReducedMotionProfile>();
@@ -180,7 +180,7 @@ public class ProfileServiceTests
     public void Reset_ClearsAllUserChoices_AndRestoresOsDefaults()
     {
         var probe = new StubProbe { ReducedMotion = true };
-        var service = new ProfileService(probe);
+        var service = new ProfileService(probe, applyAffordanceDefaults: false);
         service.Enable<LargeTextProfile>();
         service.Enable<LargeHitTargetsProfile>();
 

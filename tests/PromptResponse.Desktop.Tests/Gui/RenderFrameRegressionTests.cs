@@ -38,7 +38,7 @@ public class RenderFrameRegressionTests
         var dlg = new Mock<IDialogService>();
         var session = new DocumentSessionService();
         var probe = new StubProbe();
-        var profile = new ProfileService(probe);
+        var profile = new ProfileService(probe, applyAffordanceDefaults: false);
         if (scheme != ColorScheme.Light)
         {
             profile.SetColorScheme(scheme);

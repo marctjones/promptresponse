@@ -47,6 +47,32 @@ public partial class App : Application
                 var settingsService = serviceProvider.GetRequiredService<ISettingsService>();
                 settingsService.Load();
 
+                // Restore the user's persisted capability profile if one exists. On a
+                // fresh install (settings.Profile == null) ProfileService's
+                // ApplyOsDefaults already enabled the visual affordances for sighted
+                // users — that branch is what gives the auto-formatters a working
+                // first-launch experience without forcing the user to dig into the
+                // Display Preferences panel.
+                var profileService = serviceProvider.GetRequiredService<IProfileService>();
+                if (settingsService.Settings.Profile != null)
+                {
+                    profileService.Restore(settingsService.Settings.Profile);
+                    _logger?.LogInformation("Restored capability profile from settings: scheme={Scheme}, flags={Flags}",
+                        settingsService.Settings.Profile.ColorScheme,
+                        string.Join(",", settingsService.Settings.Profile.ActiveFlags));
+                }
+                else
+                {
+                    _logger?.LogInformation("First launch — keeping ProfileService's OS-defaults composition (sighted user → Excellent Vision affordances on)");
+                }
+
+                // Persist the profile on every change so the next launch gets the
+                // same setup — checkbox toggles, preset clicks, color-scheme swaps.
+                profileService.ProfileChanged += (_, _) =>
+                {
+                    settingsService.Settings.Profile = profileService.Snapshot();
+                };
+
                 var shellVm = serviceProvider.GetRequiredService<MainShellViewModel>();
 
                 // Pin the Application-level theme variant to the active profile so
@@ -87,7 +113,7 @@ public partial class App : Application
                     };
                 }
 
-                _logger.LogInformation("MainWindow shown with new MainShellViewModel.");
+                _logger?.LogInformation("MainWindow shown with new MainShellViewModel.");
             }
 
             base.OnFrameworkInitializationCompleted();

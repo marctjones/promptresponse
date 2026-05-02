@@ -21,7 +21,7 @@ public class PromptViewModelBaseTests
         public ColorScheme PreferredColorScheme => ColorScheme.Light;
     }
 
-    private static IProfileService NewService() => new ProfileService(new FixedProbe());
+    private static IProfileService NewService() => new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
 
     private static Prompt MakePrompt(string id, string label, string? type = null, string response = "") =>
         new()

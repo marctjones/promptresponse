@@ -36,7 +36,7 @@ public class MainShellViewModelTests
         fileService ??= new Mock<IFileService>();
         dialogService ??= new Mock<IDialogService>();
         session ??= new DocumentSessionService();
-        profile ??= new ProfileService(new StubProbe());
+        profile ??= new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
         return new MainShellViewModel(fileService.Object, dialogService.Object, session, profile, factory);
     }
@@ -297,7 +297,7 @@ public class MainShellViewModelTests
     [Fact]
     public void Profile_IsAvailableForBindings()
     {
-        var profile = new ProfileService(new StubProbe());
+        var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var shell = CreateShell(profile: profile);
 
         shell.ProfileService.Should().BeSameAs(profile);
@@ -309,7 +309,7 @@ public class MainShellViewModelTests
         var fs = new Mock<IFileService>().Object;
         var dlg = new Mock<IDialogService>().Object;
         var session = new DocumentSessionService();
-        var profile = new ProfileService(new StubProbe());
+        var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
 
         Action a = () => new MainShellViewModel(null!, dlg, session, profile, factory);

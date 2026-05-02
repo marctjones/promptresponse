@@ -27,7 +27,7 @@ public class DisplayPreferencesViewGuiTests
 
     private static (DisplayPreferencesView view, DisplayPreferencesViewModel vm, IProfileService service) BuildView()
     {
-        var service = new ProfileService(new FixedProbe());
+        var service = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
         var vm = new DisplayPreferencesViewModel(service);
         var view = new DisplayPreferencesView { DataContext = vm };
         return (view, vm, service);

@@ -20,7 +20,7 @@ public class DisplayPreferencesViewModelTests
         public ColorScheme PreferredColorScheme { get; init; } = ColorScheme.Light;
     }
 
-    private static DisplayPreferencesViewModel CreateVm() => new(new ProfileService(new FixedProbe()));
+    private static DisplayPreferencesViewModel CreateVm() => new(new ProfileService(new FixedProbe(), applyAffordanceDefaults: false));
 
     [Fact]
     public void Constructor_RejectsNullService()
@@ -181,7 +181,7 @@ public class DisplayPreferencesViewModelTests
     public void Reset_RestoresOsDetectedDefaults_OverridingUserToggles()
     {
         var probe = new FixedProbe { ReducedMotion = true };
-        var vm = new DisplayPreferencesViewModel(new ProfileService(probe));
+        var vm = new DisplayPreferencesViewModel(new ProfileService(probe, applyAffordanceDefaults: false));
         vm.LargeHitTargets = true;
         vm.LargeText = true;
 

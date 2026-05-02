@@ -33,7 +33,7 @@ public class PerPromptTypeInteractiveTests
 
     private static IProfileService NewService(params Type[] enabled)
     {
-        var s = new ProfileService(new FixedProbe());
+        var s = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
         foreach (var t in enabled)
         {
             typeof(IProfileService).GetMethod(nameof(IProfileService.Enable))!
