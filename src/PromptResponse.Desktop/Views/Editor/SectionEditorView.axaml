@@ -121,17 +121,14 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid ColumnDefinitions="120,8,*,8,140,8,Auto">
+                                    <!-- Column = label + type. Id is auto-generated like regular
+                                         prompts; authors don't edit it inline. Mirrors PromptEditorView. -->
+                                    <Grid ColumnDefinitions="*,8,140,8,Auto">
                                         <TextBox Grid.Column="0"
-                                                 Text="{Binding Id, Mode=TwoWay}"
-                                                 Watermark="Column id"
-                                                 FontFamily="Cascadia Mono,Consolas,monospace"
-                                                 AutomationProperties.Name="Column id"/>
-                                        <TextBox Grid.Column="2"
                                                  Text="{Binding Label, Mode=TwoWay}"
-                                                 Watermark="Column label"
-                                                 AutomationProperties.Name="Column label"/>
-                                        <ComboBox Grid.Column="4"
+                                                 Watermark="Column header"
+                                                 AutomationProperties.Name="Column header"/>
+                                        <ComboBox Grid.Column="2"
                                                   SelectedItem="{Binding Type, Mode=TwoWay}"
                                                   PlaceholderText="text"
                                                   AutomationProperties.Name="Column type">
@@ -144,7 +141,7 @@
                                             <ComboBoxItem>url</ComboBoxItem>
                                             <ComboBoxItem>phone</ComboBoxItem>
                                         </ComboBox>
-                                        <Button Grid.Column="6"
+                                        <Button Grid.Column="4"
                                                 Content="✕"
                                                 FontSize="11"
                                                 Padding="6,2"
@@ -176,17 +173,14 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="vm:SectionViewModel">
-                                    <Grid ColumnDefinitions="120,8,*,8,Auto">
+                                    <!-- Fixed row = label only. Id is auto-generated; authors
+                                         never edit it inline (matches column + prompt behavior). -->
+                                    <Grid ColumnDefinitions="*,8,Auto">
                                         <TextBox Grid.Column="0"
-                                                 Text="{Binding Id, Mode=TwoWay}"
-                                                 Watermark="Row id"
-                                                 FontFamily="Cascadia Mono,Consolas,monospace"
-                                                 AutomationProperties.Name="Row id"/>
-                                        <TextBox Grid.Column="2"
                                                  Text="{Binding Title, Mode=TwoWay}"
                                                  Watermark="Row label"
                                                  AutomationProperties.Name="Row label"/>
-                                        <Button Grid.Column="4"
+                                        <Button Grid.Column="2"
                                                 Content="✕"
                                                 FontSize="11"
                                                 Padding="6,2"
