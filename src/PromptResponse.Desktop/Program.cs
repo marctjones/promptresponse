@@ -11,6 +11,9 @@ public class StartupOptions
 {
     public string? FilePath { get; set; }
     public bool EditMode { get; set; }
+    /// <summary>When true, the shell enables wizard mode (one section at a time)
+    /// at startup. Set via <c>--wizard</c> on the command line.</summary>
+    public bool WizardMode { get; set; }
 }
 
 class Program
@@ -106,6 +109,11 @@ class Program
                 options.EditMode = false;
                 _logger?.LogDebug("Parsed file path argument: {File}", options.FilePath);
             }
+            else if (arg == "--wizard")
+            {
+                options.WizardMode = true;
+                _logger?.LogDebug("Parsed --wizard flag");
+            }
             else if (arg == "--help" || arg == "-h")
             {
                 ShowHelp();
@@ -127,6 +135,7 @@ class Program
         Console.WriteLine("  --open <file>    Open APR file for filling out");
         Console.WriteLine("  --edit <file>    Open APR template for editing");
         Console.WriteLine("  <file>           Open APR file for filling out (same as --open)");
+        Console.WriteLine("  --wizard         Start in wizard mode (one section at a time)");
         Console.WriteLine("  --help, -h       Show this help message");
         Console.WriteLine();
         Console.WriteLine("Examples:");

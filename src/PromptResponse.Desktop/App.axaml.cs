@@ -111,6 +111,17 @@ public partial class App : Application
                         }
                     };
                 }
+                if (Program.StartupOptions?.WizardMode == true)
+                {
+                    // Toggle wizard mode on at startup. Honors --wizard as a
+                    // testing/demo flag without persisting; the user's saved
+                    // profile state would otherwise win.
+                    window.Opened += (_, _) =>
+                    {
+                        if (!shellVm.IsWizardMode) shellVm.ToggleWizardModeCommand.Execute(null);
+                        _logger?.LogInformation("Started in wizard mode (--wizard flag)");
+                    };
+                }
 
                 _logger?.LogInformation("MainWindow shown with new MainShellViewModel.");
             }
