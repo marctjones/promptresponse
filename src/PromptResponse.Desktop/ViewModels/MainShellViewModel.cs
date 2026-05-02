@@ -393,6 +393,34 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Reorder a top-level section. Undoable.</summary>
+    public void MoveTopLevelSection(int fromIndex, int toIndex)
+    {
+        if (fromIndex == toIndex) return;
+        var doc = _session.CurrentDocument;
+        if (doc == null) return;
+        if (fromIndex < 0 || fromIndex >= _sections.Count) return;
+        if (toIndex < 0 || toIndex >= _sections.Count) return;
+
+        if (!_editHistory.IsApplying)
+            _editHistory.Execute(new MoveTopLevelSectionCommand(this, fromIndex, toIndex));
+        else
+            ApplyMoveTopLevelSection(fromIndex, toIndex);
+    }
+
+    internal void ApplyMoveTopLevelSection(int fromIndex, int toIndex)
+    {
+        var doc = _session.CurrentDocument;
+        if (doc == null) return;
+        var sec = doc.Sections[fromIndex];
+        doc.Sections.RemoveAt(fromIndex);
+        doc.Sections.Insert(toIndex, sec);
+        var vm = _sections[fromIndex];
+        _sections.RemoveAt(fromIndex);
+        _sections.Insert(toIndex, vm);
+        _session.MarkDirty();
+    }
+
     /// <summary>Raw mutation: insert a top-level section at the given index. Used
     /// by both the public AddTopLevelSection and undo of RemoveTopLevelSection.</summary>
     internal void ApplyAddTopLevelSectionAt(int index, Section section, SectionViewModel vm)

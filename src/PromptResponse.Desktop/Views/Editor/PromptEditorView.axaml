@@ -8,16 +8,30 @@
             Padding="10"
             Margin="0,2">
         <StackPanel Spacing="8">
-            <!-- Top row: label + type + remove -->
-            <Grid ColumnDefinitions="*,8,180,8,Auto">
-                <TextBox Grid.Column="0"
+            <!-- Top row: drag handle + label + type + remove -->
+            <Grid ColumnDefinitions="Auto,8,*,8,180,8,Auto">
+                <Border Grid.Column="0"
+                        x:Name="DragHandle"
+                        VerticalAlignment="Center"
+                        Padding="6,4"
+                        Cursor="SizeAll"
+                        Background="Transparent"
+                        ToolTip.Tip="Drag to reorder"
+                        AutomationProperties.Name="Drag to reorder prompt">
+                    <TextBlock Text="⋮⋮"
+                               FontSize="14"
+                               Opacity="0.6"
+                               IsHitTestVisible="False"/>
+                </Border>
+
+                <TextBox Grid.Column="2"
                          Text="{Binding Label, Mode=TwoWay}"
                          Watermark="Prompt label (required)"
                          FontWeight="SemiBold"
                          AutomationProperties.Name="Prompt label"
                          AutomationProperties.HelpText="The user-visible label shown to whoever fills this form"/>
 
-                <ComboBox Grid.Column="2"
+                <ComboBox Grid.Column="4"
                           SelectedItem="{Binding ExpectedDataType, Mode=TwoWay}"
                           PlaceholderText="(no type hint)"
                           AutomationProperties.Name="Expected data type"
@@ -37,7 +51,7 @@
                     <ComboBoxItem>file</ComboBoxItem>
                 </ComboBox>
 
-                <Button Grid.Column="4"
+                <Button Grid.Column="6"
                         Content="✕"
                         FontSize="11"
                         Padding="6,2"

@@ -22,7 +22,15 @@ namespace PromptResponse.Desktop.Views.Editor;
 /// </remarks>
 public partial class PromptEditorView : UserControl
 {
-    public PromptEditorView() { InitializeComponent(); }
+    public PromptEditorView()
+    {
+        InitializeComponent();
+        var handle = this.FindControl<Border>("DragHandle");
+        if (handle != null)
+        {
+            DragReorderBehavior.RegisterDragSource(handle, "prompt", () => DataContext);
+        }
+    }
     private void InitializeComponent() => AvaloniaXamlLoader.Load(this);
 
     private void OnRemoveClick(object? sender, RoutedEventArgs e)

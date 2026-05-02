@@ -224,6 +224,86 @@ internal sealed class AddFixedRowCommand : IEditCommand
     public void MergeWith(IEditCommand next) { }
 }
 
+internal sealed class MovePromptCommand : IEditCommand
+{
+    private readonly SectionViewModel _section;
+    private readonly int _from;
+    private readonly int _to;
+
+    public MovePromptCommand(SectionViewModel section, int from, int to)
+    { _section = section; _from = from; _to = to; }
+
+    public string Description => "Reorder prompt";
+    public void Execute() => _section.ApplyMovePrompt(_from, _to);
+    public void Undo() => _section.ApplyMovePrompt(_to, _from);
+    public bool CanMergeWith(IEditCommand next) => false;
+    public void MergeWith(IEditCommand next) { }
+}
+
+internal sealed class MoveNestedSectionCommand : IEditCommand
+{
+    private readonly SectionViewModel _parent;
+    private readonly int _from;
+    private readonly int _to;
+
+    public MoveNestedSectionCommand(SectionViewModel parent, int from, int to)
+    { _parent = parent; _from = from; _to = to; }
+
+    public string Description => "Reorder section";
+    public void Execute() => _parent.ApplyMoveNestedSection(_from, _to);
+    public void Undo() => _parent.ApplyMoveNestedSection(_to, _from);
+    public bool CanMergeWith(IEditCommand next) => false;
+    public void MergeWith(IEditCommand next) { }
+}
+
+internal sealed class MoveColumnCommand : IEditCommand
+{
+    private readonly SectionViewModel _section;
+    private readonly int _from;
+    private readonly int _to;
+
+    public MoveColumnCommand(SectionViewModel section, int from, int to)
+    { _section = section; _from = from; _to = to; }
+
+    public string Description => "Reorder column";
+    public void Execute() => _section.ApplyMoveColumn(_from, _to);
+    public void Undo() => _section.ApplyMoveColumn(_to, _from);
+    public bool CanMergeWith(IEditCommand next) => false;
+    public void MergeWith(IEditCommand next) { }
+}
+
+internal sealed class MoveFixedRowCommand : IEditCommand
+{
+    private readonly SectionViewModel _section;
+    private readonly int _from;
+    private readonly int _to;
+
+    public MoveFixedRowCommand(SectionViewModel section, int from, int to)
+    { _section = section; _from = from; _to = to; }
+
+    public string Description => "Reorder row";
+    public void Execute() => _section.ApplyMoveFixedRow(_from, _to);
+    public void Undo() => _section.ApplyMoveFixedRow(_to, _from);
+    public bool CanMergeWith(IEditCommand next) => false;
+    public void MergeWith(IEditCommand next) { }
+}
+
+internal sealed class MoveTopLevelSectionCommand : IEditCommand
+{
+    private readonly MainShellViewModel _shell;
+    private readonly int _from;
+    private readonly int _to;
+
+    public MoveTopLevelSectionCommand(MainShellViewModel shell, int from, int to)
+    { _shell = shell; _from = from; _to = to; }
+
+    public string Description => "Reorder top-level section";
+    public void Execute() => _shell.ApplyMoveTopLevelSection(_from, _to);
+    public void Undo() => _shell.ApplyMoveTopLevelSection(_to, _from);
+    public bool CanMergeWith(IEditCommand next) => false;
+    public void MergeWith(IEditCommand next) { }
+}
+
 internal sealed class AddTopLevelSectionCommand : IEditCommand
 {
     private readonly MainShellViewModel _shell;

@@ -13,8 +13,22 @@
             Margin="0,4">
         <StackPanel Spacing="10">
             <!-- Section title + description editors + structural buttons -->
-            <Grid ColumnDefinitions="*,8,Auto">
-                <StackPanel Grid.Column="0" Spacing="6">
+            <Grid ColumnDefinitions="Auto,8,*,8,Auto">
+                <Border Grid.Column="0"
+                        x:Name="SectionDragHandle"
+                        VerticalAlignment="Center"
+                        Padding="6,4"
+                        Cursor="SizeAll"
+                        Background="Transparent"
+                        ToolTip.Tip="Drag to reorder this section"
+                        AutomationProperties.Name="Drag to reorder section">
+                    <TextBlock Text="⋮⋮"
+                               FontSize="14"
+                               Opacity="0.6"
+                               IsHitTestVisible="False"/>
+                </Border>
+
+                <StackPanel Grid.Column="2" Spacing="6">
                     <TextBox Text="{Binding Title, Mode=TwoWay}"
                              Watermark="Section title (required)"
                              FontSize="16"
@@ -32,7 +46,7 @@
                      find the parent (a nested section's parent SectionViewModel, or
                      the shell for top-level sections) and dispatches the appropriate
                      remove command. -->
-                <Button Grid.Column="2"
+                <Button Grid.Column="4"
                         Content="✕ Remove section"
                         VerticalAlignment="Top"
                         Padding="8,4"
@@ -43,7 +57,8 @@
 
             <!-- ── Regular section: prompts list + add buttons ── -->
             <StackPanel IsVisible="{Binding IsRegularSection}" Spacing="6">
-                <ItemsControl ItemsSource="{Binding PromptViewModels}"
+                <ItemsControl x:Name="PromptsList"
+                              ItemsSource="{Binding PromptViewModels}"
                               AutomationProperties.Name="Section prompts">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -200,7 +215,8 @@
             </StackPanel>
 
             <!-- Recursive: nested sections rendered via SectionEditorView -->
-            <ItemsControl ItemsSource="{Binding NestedSections}"
+            <ItemsControl x:Name="NestedSectionsList"
+                          ItemsSource="{Binding NestedSections}"
                           Margin="20,8,0,0"
                           AutomationProperties.Name="Nested sections">
                 <ItemsControl.ItemsPanel>

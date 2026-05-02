@@ -20,8 +20,43 @@ namespace PromptResponse.Desktop.Views.Editor;
 /// </remarks>
 public partial class SectionEditorView : UserControl
 {
-    public SectionEditorView() { InitializeComponent(); }
+    public SectionEditorView()
+    {
+        InitializeComponent();
+        WireDragDrop();
+    }
     private void InitializeComponent() => AvaloniaXamlLoader.Load(this);
+
+    private void WireDragDrop()
+    {
+        // The section's title row drag handle starts a "section" drag whose
+        // payload is this view's bound SectionViewModel.
+        var sectionHandle = this.FindControl<Border>("SectionDragHandle");
+        if (sectionHandle != null)
+        {
+            DragReorderBehavior.RegisterDragSource(sectionHandle, "section", () => DataContext);
+        }
+
+        // PromptsList accepts "prompt" drops — reorder within this section.
+        var promptsList = this.FindControl<ItemsControl>("PromptsList");
+        if (promptsList != null)
+        {
+            DragReorderBehavior.RegisterDropTarget(promptsList, "prompt", (from, to) =>
+            {
+                if (DataContext is SectionViewModel s) s.MovePrompt(from, to);
+            });
+        }
+
+        // NestedSectionsList accepts "section" drops — reorder children of THIS section.
+        var nestedList = this.FindControl<ItemsControl>("NestedSectionsList");
+        if (nestedList != null)
+        {
+            DragReorderBehavior.RegisterDropTarget(nestedList, "section", (from, to) =>
+            {
+                if (DataContext is SectionViewModel s) s.MoveNestedSection(from, to);
+            });
+        }
+    }
 
     private void OnRemoveColumnClick(object? sender, RoutedEventArgs e)
     {

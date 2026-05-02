@@ -221,7 +221,114 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         }
     }
 
+    /// <summary>Move a prompt within this section from one index to another. Undoable.</summary>
+    public void MovePrompt(int fromIndex, int toIndex)
+    {
+        if (fromIndex == toIndex) return;
+        if (fromIndex < 0 || fromIndex >= _promptViewModels.Count) return;
+        if (toIndex < 0 || toIndex >= _promptViewModels.Count) return;
+
+        if (_history != null && !_history.IsApplying)
+            _history.Execute(new MovePromptCommand(this, fromIndex, toIndex));
+        else
+            ApplyMovePrompt(fromIndex, toIndex);
+    }
+
+    /// <summary>Move a nested section within this section from one index to another. Undoable.</summary>
+    public void MoveNestedSection(int fromIndex, int toIndex)
+    {
+        if (fromIndex == toIndex) return;
+        if (fromIndex < 0 || fromIndex >= _nestedSections.Count) return;
+        if (toIndex < 0 || toIndex >= _nestedSections.Count) return;
+
+        if (_history != null && !_history.IsApplying)
+            _history.Execute(new MoveNestedSectionCommand(this, fromIndex, toIndex));
+        else
+            ApplyMoveNestedSection(fromIndex, toIndex);
+    }
+
+    /// <summary>Reorder a column in the table layout. Cell prompts in every row
+    /// are not moved — they're keyed by id, so column visual order is the only
+    /// thing that changes. Undoable.</summary>
+    public void MoveColumn(int fromIndex, int toIndex)
+    {
+        if (!IsTableSection) return;
+        var def = _section.TableLayout!;
+        if (fromIndex == toIndex) return;
+        if (fromIndex < 0 || fromIndex >= def.Columns.Count) return;
+        if (toIndex < 0 || toIndex >= def.Columns.Count) return;
+
+        if (_history != null && !_history.IsApplying)
+            _history.Execute(new MoveColumnCommand(this, fromIndex, toIndex));
+        else
+            ApplyMoveColumn(fromIndex, toIndex);
+    }
+
+    /// <summary>Reorder a fixed row. Undoable.</summary>
+    public void MoveFixedRow(int fromIndex, int toIndex)
+    {
+        if (!IsTableSection) return;
+        var def = _section.TableLayout!;
+        if (def.FixedRows == null) return;
+        if (fromIndex == toIndex) return;
+        if (fromIndex < 0 || fromIndex >= def.FixedRows.Count) return;
+        if (toIndex < 0 || toIndex >= def.FixedRows.Count) return;
+
+        if (_history != null && !_history.IsApplying)
+            _history.Execute(new MoveFixedRowCommand(this, fromIndex, toIndex));
+        else
+            ApplyMoveFixedRow(fromIndex, toIndex);
+    }
+
     // ── Apply* methods: raw mutations used by both public methods and command Execute/Undo. ──
+
+    internal void ApplyMovePrompt(int fromIndex, int toIndex)
+    {
+        var prompt = _section.Prompts[fromIndex];
+        _section.Prompts.RemoveAt(fromIndex);
+        _section.Prompts.Insert(toIndex, prompt);
+        var vm = _promptViewModels[fromIndex];
+        _promptViewModels.RemoveAt(fromIndex);
+        _promptViewModels.Insert(toIndex, vm);
+    }
+
+    internal void ApplyMoveNestedSection(int fromIndex, int toIndex)
+    {
+        var sec = _section.Sections[fromIndex];
+        _section.Sections.RemoveAt(fromIndex);
+        _section.Sections.Insert(toIndex, sec);
+        var vm = _nestedSections[fromIndex];
+        _nestedSections.RemoveAt(fromIndex);
+        _nestedSections.Insert(toIndex, vm);
+    }
+
+    internal void ApplyMoveColumn(int fromIndex, int toIndex)
+    {
+        var def = _section.TableLayout!;
+        var col = def.Columns[fromIndex];
+        def.Columns.RemoveAt(fromIndex);
+        def.Columns.Insert(toIndex, col);
+        ReconfigureAllRowsAsTableRows();
+        OnPropertyChanged(nameof(Columns));
+    }
+
+    internal void ApplyMoveFixedRow(int fromIndex, int toIndex)
+    {
+        var def = _section.TableLayout!;
+        var rows = def.FixedRows!;
+        var row = rows[fromIndex];
+        rows.RemoveAt(fromIndex);
+        rows.Insert(toIndex, row);
+        // Also move the corresponding row sub-section so the rendered order matches.
+        var rowVm = _nestedSections[fromIndex];
+        _nestedSections.RemoveAt(fromIndex);
+        _nestedSections.Insert(toIndex, rowVm);
+        var rowSec = _section.Sections[fromIndex];
+        _section.Sections.RemoveAt(fromIndex);
+        _section.Sections.Insert(toIndex, rowSec);
+    }
+
+
 
     internal void ApplyAddPromptAt(int index, Prompt prompt, PromptViewModelBase vm)
     {
