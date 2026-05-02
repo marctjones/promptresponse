@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:PromptResponse.Desktop.ViewModels"
+             xmlns:vmp="using:PromptResponse.Desktop.ViewModels.Prompts"
              xmlns:views="using:PromptResponse.Desktop.Views"
              xmlns:promptViews="using:PromptResponse.Desktop.Views.Prompts"
              x:Class="PromptResponse.Desktop.Views.SectionView"
@@ -33,39 +34,140 @@
                        IsVisible="{Binding HasDescription}"/>
         </StackPanel>
 
-        <!-- Prompts in this section -->
-        <ItemsControl ItemsSource="{Binding PromptViewModels}"
-                      ItemTemplate="{StaticResource PromptTemplate}"
-                      AutomationProperties.Name="Prompts">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Spacing="16"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <!-- ── Regular section layout: prompts + nested sub-sections ── -->
+        <StackPanel Spacing="14" IsVisible="{Binding IsRegularSection}">
+            <ItemsControl ItemsSource="{Binding PromptViewModels}"
+                          ItemTemplate="{StaticResource PromptTemplate}"
+                          AutomationProperties.Name="Prompts">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Spacing="16"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
 
-        <!-- Recursive nested sections, indented with a left rule. The left-rule
-             carries the active profile's accent so it picks up theme changes,
-             and indents are uniform per nesting level so a 3-deep section
-             reads visibly indented from a 2-deep one. -->
-        <ItemsControl ItemsSource="{Binding NestedSections}"
-                      Margin="0,8,0,0"
-                      AutomationProperties.Name="Nested sections">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="vm:SectionViewModel">
-                    <Border BorderThickness="2,0,0,0"
-                            BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush, FallbackValue={x:Null}}"
-                            Padding="20,6,0,6"
-                            Margin="0,0,0,0">
-                        <views:SectionView/>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Spacing="14"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+            <!-- Recursive nested sections, indented with a left rule. The left-rule
+                 carries the active profile's accent so it picks up theme changes,
+                 and indents are uniform per nesting level so a 3-deep section
+                 reads visibly indented from a 2-deep one. -->
+            <ItemsControl ItemsSource="{Binding NestedSections}"
+                          Margin="0,8,0,0"
+                          AutomationProperties.Name="Nested sections">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="vm:SectionViewModel">
+                        <Border BorderThickness="2,0,0,0"
+                                BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush, FallbackValue={x:Null}}"
+                                Padding="20,6,0,6"
+                                Margin="0,0,0,0">
+                            <views:SectionView/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Spacing="14"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
+
+        <!-- ── Table-section layout: column headers + row cells + add button ──
+             Used when Section.TableLayout is set. The row sub-sections live in
+             NestedSections but here they're rendered inline as table rows
+             (header + cells + remove button per row). -->
+        <Border IsVisible="{Binding IsTableSection}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="0">
+            <StackPanel Spacing="0">
+                <!-- Header row -->
+                <ItemsControl ItemsSource="{Binding Columns}"
+                              AutomationProperties.Name="Table column headers">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="0"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border MinWidth="160"
+                                    Padding="10,8"
+                                    BorderThickness="0,0,1,1">
+                                <TextBlock Text="{Binding Label}"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           AutomationProperties.HelpText="{Binding HelpText}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Rows: NestedSections rendered as one row per child SectionViewModel -->
+                <ItemsControl ItemsSource="{Binding NestedSections}"
+                              AutomationProperties.Name="Table rows">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="vm:SectionViewModel">
+                            <StackPanel Orientation="Horizontal" Spacing="0">
+                                <!-- Row label cell + remove button -->
+                                <Border MinWidth="160"
+                                        Padding="10,8"
+                                        BorderThickness="0,0,1,1"
+                                        AutomationProperties.Name="{Binding Title}">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="{Binding Title}"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="13"/>
+                                        <Button Content="✕"
+                                                FontSize="11"
+                                                Padding="4,0"
+                                                MinHeight="22"
+                                                MinWidth="22"
+                                                ToolTip.Tip="Remove this row"
+                                                AutomationProperties.Name="Remove row"
+                                                AutomationProperties.HelpText="{Binding Title}"
+                                                IsVisible="{Binding $parent[ItemsControl].((vm:SectionViewModel)DataContext).IsDynamicTable}"
+                                                Command="{Binding $parent[ItemsControl].((vm:SectionViewModel)DataContext).RemoveRowCommand}"
+                                                CommandParameter="{Binding}"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Cells in column order -->
+                                <ItemsControl ItemsSource="{Binding Cells}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" Spacing="0"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="vmp:TableCellViewModel">
+                                            <Border MinWidth="160"
+                                                    BorderThickness="0,0,1,1">
+                                                <TextBox Text="{Binding Value, Mode=TwoWay}"
+                                                         Watermark="{Binding Placeholder}"
+                                                         BorderThickness="0"
+                                                         CornerRadius="0"
+                                                         MinHeight="36"
+                                                         FontSize="13"
+                                                         AutomationProperties.Name="{Binding ColumnLabel}"
+                                                         AutomationProperties.HelpText="Cell — any visible text is a valid response"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Add-row button: only for dynamic tables -->
+                <Button Content="+ Add row"
+                        Margin="8"
+                        HorizontalAlignment="Left"
+                        IsVisible="{Binding IsDynamicTable}"
+                        Command="{Binding AddRowCommand}"
+                        AutomationProperties.Name="Add row"
+                        AutomationProperties.HelpText="Append a new empty row to the table"/>
+            </StackPanel>
+        </Border>
     </StackPanel>
 </UserControl>

@@ -760,101 +760,117 @@
     {
       "id": "section_tables",
       "title": "Table Fields",
-      "description": "Demonstrating fixed and dynamic table data entry",
-      "prompts": [
+      "description": "Demonstrating fixed and dynamic tables. Tables are sections with a tableLayout: rows are sub-sections, cells are prompts addressed by {rowId}.{columnId}.",
+      "sections": [
         {
-          "id": "prompt_table_fixed",
-          "label": "Income by Tax Year (Fixed Table)",
-          "response": "",
-          "hints": {
-            "expectedDataType": "table",
-            "helpText": "Enter income data for each tax year. Rows are fixed - you cannot add or remove years.",
-            "tableDefinition": {
-              "columns": [
-                { "id": "wages", "label": "Wages & Salary", "type": "currency", "placeholder": "0.00" },
-                { "id": "interest", "label": "Interest Income", "type": "currency", "placeholder": "0.00" },
-                { "id": "dividends", "label": "Dividend Income", "type": "currency", "placeholder": "0.00" },
-                { "id": "other", "label": "Other Income", "type": "currency", "placeholder": "0.00" }
-              ],
-              "fixedRows": [
-                { "id": "year_2024", "label": "2024" },
-                { "id": "year_2023", "label": "2023" },
-                { "id": "year_2022", "label": "2022" }
-              ]
-            }
+          "id": "tbl_income",
+          "title": "Income by Tax Year (Fixed Table)",
+          "description": "Enter income data for each tax year. Rows are fixed — you cannot add or remove years.",
+          "tableLayout": {
+            "columns": [
+              { "id": "wages", "label": "Wages & Salary", "type": "currency", "placeholder": "0.00" },
+              { "id": "interest", "label": "Interest Income", "type": "currency", "placeholder": "0.00" },
+              { "id": "dividends", "label": "Dividend Income", "type": "currency", "placeholder": "0.00" },
+              { "id": "other", "label": "Other Income", "type": "currency", "placeholder": "0.00" }
+            ],
+            "fixedRows": [
+              { "id": "year_2024", "label": "2024" },
+              { "id": "year_2023", "label": "2023" },
+              { "id": "year_2022", "label": "2022" }
+            ]
           },
-          "responseMetadata": {}
+          "sections": [
+            { "id": "year_2024", "title": "2024", "prompts": [
+              { "id": "year_2024.wages", "label": "Wages & Salary", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
+              { "id": "year_2024.interest", "label": "Interest Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
+              { "id": "year_2024.dividends", "label": "Dividend Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
+              { "id": "year_2024.other", "label": "Other Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } }
+            ]},
+            { "id": "year_2023", "title": "2023", "prompts": [
+              { "id": "year_2023.wages", "label": "Wages & Salary", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
+              { "id": "year_2023.interest", "label": "Interest Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
+              { "id": "year_2023.dividends", "label": "Dividend Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
+              { "id": "year_2023.other", "label": "Other Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } }
+            ]},
+            { "id": "year_2022", "title": "2022", "prompts": [
+              { "id": "year_2022.wages", "label": "Wages & Salary", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
+              { "id": "year_2022.interest", "label": "Interest Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
+              { "id": "year_2022.dividends", "label": "Dividend Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
+              { "id": "year_2022.other", "label": "Other Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } }
+            ]}
+          ]
         },
         {
-          "id": "prompt_table_dynamic",
-          "label": "Order Line Items (Dynamic Table)",
-          "response": "",
-          "hints": {
-            "expectedDataType": "table",
-            "helpText": "Add items to your order. You can add up to 20 items.",
-            "tableDefinition": {
-              "columns": [
-                { "id": "item", "label": "Item Description", "type": "text", "placeholder": "Enter item name" },
-                { "id": "sku", "label": "SKU", "type": "text", "placeholder": "ABC-123" },
-                { "id": "qty", "label": "Qty", "type": "number", "width": "60px" },
-                { "id": "price", "label": "Unit Price", "type": "currency", "placeholder": "0.00" }
-              ],
-              "dynamicRows": {
-                "minRows": 1,
-                "maxRows": 20,
-                "rowLabel": "Item"
-              }
-            }
+          "id": "tbl_lineitems",
+          "title": "Order Line Items (Dynamic Table)",
+          "description": "Add items to your order. You can add up to 20 items.",
+          "tableLayout": {
+            "columns": [
+              { "id": "item", "label": "Item Description", "type": "text", "placeholder": "Enter item name" },
+              { "id": "sku", "label": "SKU", "type": "text", "placeholder": "ABC-123" },
+              { "id": "qty", "label": "Qty", "type": "number" },
+              { "id": "price", "label": "Unit Price", "type": "currency", "placeholder": "0.00" }
+            ],
+            "dynamicRows": { "minRows": 1, "maxRows": 20, "rowLabel": "Item" }
           },
-          "responseMetadata": {}
+          "sections": []
         },
         {
-          "id": "prompt_table_addresses",
-          "label": "Previous Addresses (Dynamic Table)",
-          "response": "",
-          "hints": {
-            "expectedDataType": "table",
-            "helpText": "List all addresses where you have lived in the past 5 years",
-            "tableDefinition": {
-              "columns": [
-                { "id": "street", "label": "Street Address", "type": "text", "width": "30%" },
-                { "id": "city", "label": "City", "type": "text" },
-                { "id": "state", "label": "State", "type": "text", "suggestedValues": ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC"] },
-                { "id": "zip", "label": "ZIP", "type": "text", "width": "80px" },
-                { "id": "from", "label": "From Date", "type": "date" },
-                { "id": "to", "label": "To Date", "type": "date" }
-              ],
-              "dynamicRows": {
-                "minRows": 0,
-                "maxRows": 10,
-                "rowLabel": "Address"
-              }
-            }
+          "id": "tbl_addresses",
+          "title": "Previous Addresses (Dynamic Table)",
+          "description": "List all addresses where you have lived in the past 5 years",
+          "tableLayout": {
+            "columns": [
+              { "id": "street", "label": "Street Address", "type": "text" },
+              { "id": "city", "label": "City", "type": "text" },
+              { "id": "state", "label": "State", "type": "text", "suggestedValues": ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC"] },
+              { "id": "zip", "label": "ZIP", "type": "text" },
+              { "id": "from", "label": "From Date", "type": "date" },
+              { "id": "to", "label": "To Date", "type": "date" }
+            ],
+            "dynamicRows": { "minRows": 0, "maxRows": 10, "rowLabel": "Address" }
           },
-          "responseMetadata": {}
+          "sections": []
         },
         {
-          "id": "prompt_table_quarterly",
-          "label": "Quarterly Revenue (Fixed Table)",
-          "response": "",
-          "hints": {
-            "expectedDataType": "table",
-            "helpText": "Enter revenue figures for each quarter",
-            "tableDefinition": {
-              "columns": [
-                { "id": "revenue", "label": "Gross Revenue", "type": "currency" },
-                { "id": "expenses", "label": "Expenses", "type": "currency" },
-                { "id": "net", "label": "Net Income", "type": "currency" }
-              ],
-              "fixedRows": [
-                { "id": "q1", "label": "Q1 (Jan-Mar)" },
-                { "id": "q2", "label": "Q2 (Apr-Jun)" },
-                { "id": "q3", "label": "Q3 (Jul-Sep)" },
-                { "id": "q4", "label": "Q4 (Oct-Dec)" }
-              ]
-            }
+          "id": "tbl_quarterly",
+          "title": "Quarterly Revenue (Fixed Table)",
+          "description": "Enter revenue figures for each quarter",
+          "tableLayout": {
+            "columns": [
+              { "id": "revenue", "label": "Gross Revenue", "type": "currency" },
+              { "id": "expenses", "label": "Expenses", "type": "currency" },
+              { "id": "net", "label": "Net Income", "type": "currency" }
+            ],
+            "fixedRows": [
+              { "id": "q1", "label": "Q1 (Jan-Mar)" },
+              { "id": "q2", "label": "Q2 (Apr-Jun)" },
+              { "id": "q3", "label": "Q3 (Jul-Sep)" },
+              { "id": "q4", "label": "Q4 (Oct-Dec)" }
+            ]
           },
-          "responseMetadata": {}
+          "sections": [
+            { "id": "q1", "title": "Q1 (Jan-Mar)", "prompts": [
+              { "id": "q1.revenue", "label": "Gross Revenue", "response": "", "hints": { "expectedDataType": "currency" } },
+              { "id": "q1.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } },
+              { "id": "q1.net", "label": "Net Income", "response": "", "hints": { "expectedDataType": "currency" } }
+            ]},
+            { "id": "q2", "title": "Q2 (Apr-Jun)", "prompts": [
+              { "id": "q2.revenue", "label": "Gross Revenue", "response": "", "hints": { "expectedDataType": "currency" } },
+              { "id": "q2.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } },
+              { "id": "q2.net", "label": "Net Income", "response": "", "hints": { "expectedDataType": "currency" } }
+            ]},
+            { "id": "q3", "title": "Q3 (Jul-Sep)", "prompts": [
+              { "id": "q3.revenue", "label": "Gross Revenue", "response": "", "hints": { "expectedDataType": "currency" } },
+              { "id": "q3.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } },
+              { "id": "q3.net", "label": "Net Income", "response": "", "hints": { "expectedDataType": "currency" } }
+            ]},
+            { "id": "q4", "title": "Q4 (Oct-Dec)", "prompts": [
+              { "id": "q4.revenue", "label": "Gross Revenue", "response": "", "hints": { "expectedDataType": "currency" } },
+              { "id": "q4.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } },
+              { "id": "q4.net", "label": "Net Income", "response": "", "hints": { "expectedDataType": "currency" } }
+            ]}
+          ]
         }
       ]
     },

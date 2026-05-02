@@ -4,6 +4,7 @@
              xmlns:promptVm="using:PromptResponse.Desktop.ViewModels.Prompts"
              xmlns:promptViews="using:PromptResponse.Desktop.Views.Prompts"
              xmlns:views="using:PromptResponse.Desktop.Views"
+             xmlns:editor="using:PromptResponse.Desktop.Views.Editor"
              x:Class="PromptResponse.Desktop.Views.MainShellView"
              x:DataType="vm:MainShellViewModel"
              AutomationProperties.Name="PromptResponse main shell"
@@ -60,6 +61,14 @@
                           AutomationProperties.Name="Close"/>
             </MenuItem>
             <MenuItem Header="_View" AutomationProperties.Name="View menu">
+                <MenuItem Header="Toggle _Edit Mode"
+                          Command="{Binding ToggleEditModeCommand}"
+                          IsEnabled="{Binding CanToggleEditMode}"
+                          HotKey="Ctrl+E"
+                          InputGesture="Ctrl+E"
+                          AutomationProperties.Name="Toggle edit mode"
+                          AutomationProperties.HelpText="Switch between structural editor (template authoring) and fillable preview (Ctrl+E). Only available for templates."/>
+                <Separator/>
                 <MenuItem Header="_Display Preferences..."
                           x:Name="DisplayPreferencesMenuItem"
                           Click="OnDisplayPreferencesClicked"
@@ -239,8 +248,113 @@
                                IsVisible="{Binding FilledByDisplay, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                                Margin="0,0,0,24"/>
 
-                    <!-- Section tree -->
+                    <!-- Mode banner: shown when a template is being authored to make
+                         the current rendering mode explicit, with a quick toggle. -->
+                    <Border IsVisible="{Binding IsEditingTemplate}"
+                            Background="{Binding ActiveProfileSubtleSurfaceBrush}"
+                            BorderThickness="1"
+                            BorderBrush="{Binding ActiveProfileBorderBrush}"
+                            CornerRadius="8"
+                            Padding="14,10"
+                            Margin="0,0,0,16">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <TextBlock Text="Template — Edit mode"
+                                       VerticalAlignment="Center"
+                                       FontSize="{Binding CaptionFontSize}"
+                                       Foreground="{Binding ActiveProfileMutedTextBrush}"
+                                       IsVisible="{Binding IsEditMode}"/>
+                            <TextBlock Text="Template — Preview (fillable) mode"
+                                       VerticalAlignment="Center"
+                                       FontSize="{Binding CaptionFontSize}"
+                                       Foreground="{Binding ActiveProfileMutedTextBrush}"
+                                       IsVisible="{Binding IsEditMode, Converter={x:Static BoolConverters.Not}}"/>
+                            <Button Content="Toggle (Ctrl+E)"
+                                    Command="{Binding ToggleEditModeCommand}"
+                                    AutomationProperties.Name="Toggle edit mode"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Edit-mode: document metadata editor (collapsed by default) -->
+                    <Expander IsVisible="{Binding IsEditMode}"
+                              Header="Document metadata"
+                              Margin="0,0,0,16"
+                              AutomationProperties.Name="Document metadata"
+                              AutomationProperties.HelpText="Edit document title, description, author, template id, and version">
+                        <Grid IsEnabled="{Binding HasDocument}"
+                              ColumnDefinitions="160,12,*"
+                              RowDefinitions="Auto,8,Auto,8,Auto,8,Auto,8,Auto"
+                              Margin="0,8,0,0">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Title" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="2"
+                                     Text="{Binding Metadata.Title, Mode=TwoWay, FallbackValue=''}"
+                                     Watermark="Document title"
+                                     AutomationProperties.Name="Document title"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Description" VerticalAlignment="Top"/>
+                            <TextBox Grid.Row="2" Grid.Column="2"
+                                     Text="{Binding Metadata.Description, Mode=TwoWay, FallbackValue=''}"
+                                     Watermark="Optional description"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     MinHeight="48"
+                                     AutomationProperties.Name="Document description"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Author" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="4" Grid.Column="2"
+                                     Text="{Binding Metadata.Author, Mode=TwoWay, FallbackValue=''}"
+                                     Watermark="Template author"
+                                     AutomationProperties.Name="Author"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Template ID" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="6" Grid.Column="2"
+                                     Text="{Binding Metadata.TemplateId, Mode=TwoWay, FallbackValue=''}"
+                                     Watermark="Stable template identifier (e.g. employment-app-v1)"
+                                     AutomationProperties.Name="Template id"/>
+
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="Template version" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="8" Grid.Column="2"
+                                     Text="{Binding Metadata.TemplateVersion, Mode=TwoWay, FallbackValue=''}"
+                                     Watermark="e.g. 1.0"
+                                     AutomationProperties.Name="Template version"/>
+                        </Grid>
+                    </Expander>
+
+                    <!-- Edit-mode section tree (template authoring) -->
+                    <ItemsControl x:Name="SectionsHostEdit"
+                                  IsVisible="{Binding IsEditMode}"
+                                  ItemsSource="{Binding Sections}"
+                                  AutomationProperties.Name="Form sections (edit mode)">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="vm:SectionViewModel">
+                                <Border Padding="20"
+                                        CornerRadius="12"
+                                        BorderThickness="1"
+                                        Background="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileElevatedSurfaceBrush}"
+                                        BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
+                                        AutomationProperties.Name="{Binding Title}">
+                                    <editor:SectionEditorView/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Spacing="16"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                    <!-- Edit-mode: top-level section management -->
+                    <Button IsVisible="{Binding IsEditMode}"
+                            Content="+ Add top-level section"
+                            HorizontalAlignment="Left"
+                            Margin="0,12,0,0"
+                            Command="{Binding AddTopLevelSectionCommand}"
+                            AutomationProperties.Name="Add top-level section"
+                            AutomationProperties.HelpText="Append a new top-level section to the document"/>
+
+                    <!-- Fill-mode section tree (the existing, fillable form) -->
                     <ItemsControl x:Name="SectionsHost"
+                                  IsVisible="{Binding IsEditMode, Converter={x:Static BoolConverters.Not}}"
                                   ItemsSource="{Binding Sections}"
                                   AutomationProperties.Name="Form sections">
                         <ItemsControl.ItemTemplate>

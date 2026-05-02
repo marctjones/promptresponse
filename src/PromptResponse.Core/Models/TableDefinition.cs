@@ -1,12 +1,15 @@
 namespace PromptResponse.Core.Models;
 
 /// <summary>
-/// Defines the structure of a table field for tabular data entry.
+/// Layout metadata for a table section: columns and whether rows are fixed or dynamic.
 /// </summary>
 /// <remarks>
-/// Tables can be either fixed (predefined rows like "Last 3 years of tax data")
-/// or dynamic (user can add/remove rows like "Order line items").
-/// Use either FixedRows OR DynamicRows, not both.
+/// Attached to <see cref="Section.TableLayout"/>. The section's child sections are
+/// the rows; each row section's prompts are the cells (one per column, with
+/// <c>id = "{rowId}.{columnId}"</c>). Tables can be either fixed (predefined rows
+/// like "Last 3 years of tax data") or dynamic (user can add/remove rows like
+/// "Order line items"). Use either <see cref="FixedRows"/> OR <see cref="DynamicRows"/>,
+/// not both.
 /// </remarks>
 public class TableDefinition
 {
@@ -20,8 +23,8 @@ public class TableDefinition
     /// </summary>
     /// <remarks>
     /// Use this for tables where rows are known in advance (e.g., years, categories).
-    /// When FixedRows is set, users cannot add or remove rows.
-    /// Response format: JSON object keyed by row ID.
+    /// When FixedRows is set, the row sub-sections are materialized from this list
+    /// and users cannot add or remove rows.
     /// </remarks>
     /// <example>
     /// Fixed rows for tax years: [{ id: "year_2024", label: "2024" }, { id: "year_2023", label: "2023" }]
@@ -32,8 +35,9 @@ public class TableDefinition
     /// Gets or sets the dynamic row configuration for tables where users can add/remove rows.
     /// </summary>
     /// <remarks>
-    /// Use this for variable-length lists (e.g., line items, addresses).
-    /// Response format: JSON array of objects.
+    /// Use this for variable-length lists (e.g., line items, addresses). The actual
+    /// row sub-sections live in the document (whatever the user added); MinRows/MaxRows
+    /// are advisory bounds on the add/remove commands.
     /// </remarks>
     public DynamicRowConfig? DynamicRows { get; set; }
 
@@ -57,7 +61,8 @@ public class TableColumn
     /// Gets or sets the unique identifier for this column.
     /// </summary>
     /// <remarks>
-    /// Used as the key in JSON response objects.
+    /// Used as the suffix in cell prompt ids: a cell at row "q1", column "revenue"
+    /// has prompt id "q1.revenue".
     /// </remarks>
     public string Id { get; set; } = string.Empty;
 
@@ -103,7 +108,8 @@ public class FixedRow
     /// Gets or sets the unique identifier for this row.
     /// </summary>
     /// <remarks>
-    /// Used as the key in JSON response objects.
+    /// Used as the row sub-Section's id and as the prefix in cell prompt ids
+    /// (e.g. "q1.revenue").
     /// </remarks>
     public string Id { get; set; } = string.Empty;
 

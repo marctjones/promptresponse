@@ -5,8 +5,8 @@ namespace PromptResponse.Desktop.ViewModels;
 
 /// <summary>
 /// Tracks completion progress on a filled form. Pure derived state — no UI
-/// dependencies, fully unit-testable. Composed into <c>FormFillingViewModel</c>
-/// to remove the progress logic from the legacy god class.
+/// dependencies, fully unit-testable. Composed into the shell so progress is
+/// owned by a small focused VM, not the host.
 /// </summary>
 public sealed partial class FormProgressViewModel : ObservableObject
 {

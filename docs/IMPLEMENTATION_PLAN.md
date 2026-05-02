@@ -28,7 +28,6 @@ Tasks should align with the current phase priorities.
 ### What's Planned
 
 - ⏳ Cognitive / motor capability flags (DyslexiaFont, SectionFocusMode, HitMarginPadding, …)
-- ⏳ Per-cell table grid editor
 - ⏳ CLI coverage ratchet toward 95%
 - ⏳ Performance optimization
 
@@ -233,20 +232,7 @@ When AI assistants should reference this.
 
 ### Month 4: Form Authoring Polish
 
-**Week 13-14: Per-cell Table Grid Editor**
-
-Currently, the table prompt type renders a JSON textarea placeholder. Replace
-with a real per-cell editor that respects `TableDefinition` semantics (no width
-or alignment fields — tables are semantic structures, not layout devices).
-
-**Implementation Tasks**:
-
-- [ ] Render `DataGrid` with per-cell editing
-- [ ] Bind to row-level VMs that maintain string responses per cell
-- [ ] Keyboard navigation between cells
-- [ ] Add/remove/reorder rows
-
-**Week 15-16: Read-only Filled-Form Polish**
+**Week 13-14: Read-only Filled-Form Polish**
 
 **Implementation Tasks**:
 
@@ -256,7 +242,7 @@ or alignment fields — tables are semantic structures, not layout devices).
 
 ### Month 5: CLI Enhancement
 
-**Week 17-18: Coverage Ratchet**
+**Week 15-16: Coverage Ratchet**
 
 Push CLI test coverage from ~28% toward 95% across `ValidateCommand`,
 `InfoCommand`, `NewCommand`, `FillCommand`, `DiffCommand`, `ExportCommand`,

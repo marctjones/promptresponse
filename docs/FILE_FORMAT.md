@@ -129,8 +129,7 @@ Hints provide guidance to the UI but are **never enforced**.
   "expectedDataType": "date",
   "suggestedValues": ["2025-01-01", "2025-12-31"],
   "helpText": "Enter the start date",
-  "validationPattern": "\\d{4}-\\d{2}-\\d{2}",
-  "tableDefinition": null
+  "validationPattern": "\\d{4}-\\d{2}-\\d{2}"
 }
 ```
 
@@ -140,7 +139,6 @@ Hints provide guidance to the UI but are **never enforced**.
 - `suggestedValues`: Array of string suggestions for autocomplete
 - `helpText`: Additional help text shown to user
 - `validationPattern`: Optional regex pattern for validation (advisory only)
-- `tableDefinition`: Table structure for `expectedDataType: "table"` (see Table Fields below)
 
 **All fields are optional.**
 
@@ -176,83 +174,96 @@ Suggested values for `expectedDataType` and `inferredDataType`:
 | `multiline` | Multi-line text | "Line 1\nLine 2" |
 | `currency` | Currency amount | "99.99" |
 | `boolean` | Yes/No | "true" or "yes" |
-| `table` | Tabular data | See Table Fields section |
 
 **Important**: These are hints only. Any visible text string is always valid as a response.
 
-## Table Fields
+## Tables
 
-For tabular data entry, use `expectedDataType: "table"` with a `tableDefinition` in the hints. Tables come in two modes:
+Tables are sections, not prompts. A section becomes a table by setting
+`tableLayout` on it. The section's child sections are the rows; each row's
+prompts are the cells. Cell prompt ids follow the convention
+`{rowId}.{columnId}` so importers iterating the prompt tree can address every
+cell directly without parsing nested JSON.
+
+Tables come in two modes:
 
 ### Fixed Tables
 
-Fixed tables have predefined rows (e.g., tax years, categories). Users can enter data in cells but cannot add or remove rows.
+Fixed tables have predefined rows (e.g., tax years, categories). Users can
+enter data in cells but cannot add or remove rows.
 
 ```json
 {
-  "id": "prompt_income",
-  "label": "Income by Tax Year",
-  "response": "",
-  "hints": {
-    "expectedDataType": "table",
-    "tableDefinition": {
-      "columns": [
-        { "id": "wages", "label": "Wages", "type": "currency" },
-        { "id": "interest", "label": "Interest", "type": "currency" },
-        { "id": "dividends", "label": "Dividends", "type": "currency" }
-      ],
-      "fixedRows": [
-        { "id": "year_2024", "label": "2024" },
-        { "id": "year_2023", "label": "2023" },
-        { "id": "year_2022", "label": "2022" }
+  "id": "tbl_income",
+  "title": "Income by Tax Year",
+  "tableLayout": {
+    "columns": [
+      { "id": "wages", "label": "Wages", "type": "currency" },
+      { "id": "interest", "label": "Interest", "type": "currency" },
+      { "id": "dividends", "label": "Dividends", "type": "currency" }
+    ],
+    "fixedRows": [
+      { "id": "year_2024", "label": "2024" },
+      { "id": "year_2023", "label": "2023" }
+    ]
+  },
+  "sections": [
+    {
+      "id": "year_2024",
+      "title": "2024",
+      "prompts": [
+        { "id": "year_2024.wages",     "label": "Wages",     "response": "75000.00", "hints": { "expectedDataType": "currency" } },
+        { "id": "year_2024.interest",  "label": "Interest",  "response": "150.00",   "hints": { "expectedDataType": "currency" } },
+        { "id": "year_2024.dividends", "label": "Dividends", "response": "500.00",   "hints": { "expectedDataType": "currency" } }
+      ]
+    },
+    {
+      "id": "year_2023",
+      "title": "2023",
+      "prompts": [
+        { "id": "year_2023.wages",     "label": "Wages",     "response": "72000.00", "hints": { "expectedDataType": "currency" } },
+        { "id": "year_2023.interest",  "label": "Interest",  "response": "125.00",   "hints": { "expectedDataType": "currency" } },
+        { "id": "year_2023.dividends", "label": "Dividends", "response": "450.00",   "hints": { "expectedDataType": "currency" } }
       ]
     }
-  }
-}
-```
-
-**Response format for fixed tables** (JSON object keyed by row ID):
-```json
-{
-  "year_2024": { "wages": "75000.00", "interest": "150.00", "dividends": "500.00" },
-  "year_2023": { "wages": "72000.00", "interest": "125.00", "dividends": "450.00" },
-  "year_2022": { "wages": "68000.00", "interest": "100.00", "dividends": "400.00" }
+  ]
 }
 ```
 
 ### Dynamic Tables
 
-Dynamic tables allow users to add and remove rows (e.g., line items, addresses).
+Dynamic tables allow users to add and remove rows (e.g., line items,
+addresses). The `tableLayout` declares the column set and the bounds; the
+actual rows live in `sections` and are added by the user at fill time.
 
 ```json
 {
-  "id": "prompt_order_items",
-  "label": "Order Items",
-  "response": "",
-  "hints": {
-    "expectedDataType": "table",
-    "tableDefinition": {
-      "columns": [
-        { "id": "item", "label": "Item Description", "type": "text" },
-        { "id": "qty", "label": "Quantity", "type": "number" },
-        { "id": "price", "label": "Unit Price", "type": "currency" }
-      ],
-      "dynamicRows": {
-        "minRows": 1,
-        "maxRows": 50,
-        "rowLabel": "Item"
-      }
+  "id": "tbl_order_items",
+  "title": "Order Items",
+  "tableLayout": {
+    "columns": [
+      { "id": "item",  "label": "Item Description", "type": "text" },
+      { "id": "qty",   "label": "Quantity",         "type": "number" },
+      { "id": "price", "label": "Unit Price",       "type": "currency" }
+    ],
+    "dynamicRows": {
+      "minRows": 1,
+      "maxRows": 50,
+      "rowLabel": "Item"
     }
-  }
+  },
+  "sections": [
+    {
+      "id": "8a0c1f...",
+      "title": "Item 1",
+      "prompts": [
+        { "id": "8a0c1f....item",  "label": "Item Description", "response": "Widget A", "hints": { "expectedDataType": "text" } },
+        { "id": "8a0c1f....qty",   "label": "Quantity",         "response": "10",       "hints": { "expectedDataType": "number" } },
+        { "id": "8a0c1f....price", "label": "Unit Price",       "response": "25.00",    "hints": { "expectedDataType": "currency" } }
+      ]
+    }
+  ]
 }
-```
-
-**Response format for dynamic tables** (JSON array):
-```json
-[
-  { "item": "Widget A", "qty": "10", "price": "25.00" },
-  { "item": "Widget B", "qty": "5", "price": "42.50" }
-]
 ```
 
 ### Table Column Properties
@@ -261,11 +272,13 @@ Dynamic tables allow users to add and remove rows (e.g., line items, addresses).
 |----------|------|-------------|
 | `id` | string | Unique column identifier (required) |
 | `label` | string | Display header text (required) |
-| `type` | string | Cell data type: "text", "number", "currency", "date", "boolean" |
+| `type` | string | Cell data type hint: "text", "number", "currency", "date", "boolean" |
 | `placeholder` | string | Placeholder text for cells |
 | `suggestedValues` | string[] | Autocomplete suggestions for cells |
 | `helpText` | string | Column help text |
-| `width` | string | Width hint: "25%", "100px", or "*" (relative) |
+
+Column properties are pure semantics — no width, alignment, color or other
+display fields. Layout belongs in the renderer's stylesheet.
 
 ### Fixed Row Properties
 
@@ -282,7 +295,8 @@ Dynamic tables allow users to add and remove rows (e.g., line items, addresses).
 | `maxRows` | number | 100 | Maximum number of rows |
 | `rowLabel` | string | "Row" | Prefix for auto-generated row labels |
 
-**Note**: Use either `fixedRows` OR `dynamicRows`, not both. Table responses are stored as JSON strings.
+**Note**: Use either `fixedRows` OR `dynamicRows`, not both. For dynamic
+tables, an empty `sections` list is valid — the user adds rows at fill time.
 
 ## ID Conventions
 

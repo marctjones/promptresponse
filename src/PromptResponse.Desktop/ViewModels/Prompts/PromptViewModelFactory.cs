@@ -36,7 +36,6 @@ public sealed class PromptViewModelFactory
             "multiline" => new MultilinePromptViewModel(prompt, _profileService),
             "signature" => new SignaturePromptViewModel(prompt, _profileService),
             "file" => new FilePromptViewModel(prompt, _profileService),
-            "table" => new TablePromptViewModel(prompt, _profileService),
             "select" => new SelectPromptViewModel(prompt, _profileService),
             "multichoice" => new MultichoicePromptViewModel(prompt, _profileService),
             _ when prompt.Hints.SuggestedValues is { Count: > 0 } => new SelectPromptViewModel(prompt, _profileService),

@@ -8,8 +8,8 @@ namespace PromptResponse.Desktop.Profiles;
 /// </summary>
 /// <remarks>
 /// Detection mechanisms:
-///   - Windows: ENVIRONMENT/registry probes (current implementation deliberately
-///     conservative; full SystemParametersInfo wiring is a Phase 5 follow-up).
+///   - Windows: environment / registry probes (current implementation
+///     deliberately conservative — full SystemParametersInfo wiring is future work).
 ///   - macOS: NSUserDefaults probes via environment variables exposed by AppKit.
 ///   - Linux: GTK / GNOME settings via environment variables; if unavailable, no signal.
 ///   - All platforms: AVALONIA_HIGH_CONTRAST, AVALONIA_REDUCED_MOTION, AVALONIA_DARK

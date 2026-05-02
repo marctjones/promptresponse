@@ -59,12 +59,4 @@ public class PromptHints
     /// </example>
     public string? ValidationPattern { get; set; }
 
-    /// <summary>
-    /// Gets or sets the table definition for table-type prompts.
-    /// </summary>
-    /// <remarks>
-    /// Only used when ExpectedDataType is "table".
-    /// Defines columns and whether rows are fixed or dynamic.
-    /// </remarks>
-    public TableDefinition? TableDefinition { get; set; }
 }

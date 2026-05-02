@@ -11,8 +11,6 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.3" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.3" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
@@ -23,7 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="Assets\**" />
+    <!-- Embed only the image assets; tooling files (README.md, generate-icons.sh,
+         icon-preview.html) live alongside the icons but don't belong in the binary. -->
+    <AvaloniaResource Include="Assets\*.png" />
+    <AvaloniaResource Include="Assets\*.svg" />
+    <AvaloniaResource Include="Assets\*.ico" />
   </ItemGroup>
 
 </Project>

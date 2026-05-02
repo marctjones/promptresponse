@@ -25,7 +25,6 @@ public sealed class PromptDataTemplateSelector : IDataTemplate
         PhonePromptViewModel         => new PhonePromptView(),
         SignaturePromptViewModel     => new SignaturePromptView(),
         FilePromptViewModel          => new FilePromptView(),
-        TablePromptViewModel         => new TablePromptView(),
         PromptViewModelBase          => new TextPromptView(),
         _ => null,
     };

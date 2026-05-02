@@ -33,9 +33,10 @@ public class TableDefinitionTests
     [Fact]
     public void TableColumn_RoundTrip_ShouldDropUnknownDisplayFields()
     {
-        // A renderer that historically wrote a "width" field must lose it on read/write —
-        // the schema doesn't recognize it, so it must not survive a round trip.
-        var docWithLegacyWidth = """
+        // A renderer that wrote display-only fields like "width" or "alignment"
+        // on a column must lose them on read/write — the schema doesn't recognize
+        // them, so they must not survive a round trip.
+        var docWithDisplayFields = """
             {
               "version": "1.0",
               "documentType": "template",
@@ -43,33 +44,35 @@ public class TableDefinitionTests
               "sections": [{
                 "id": "s1",
                 "title": "S",
-                "prompts": [{
-                  "id": "p1",
-                  "label": "Quarterly",
-                  "hints": {
-                    "expectedDataType": "table",
-                    "tableDefinition": {
-                      "columns": [
-                        { "id": "q1", "label": "Q1", "type": "currency", "width": "25%" },
-                        { "id": "q2", "label": "Q2", "type": "currency", "width": "100px" }
-                      ]
-                    }
-                  }
+                "tableLayout": {
+                  "columns": [
+                    { "id": "q1", "label": "Q1", "type": "currency", "width": "25%" },
+                    { "id": "q2", "label": "Q2", "type": "currency", "width": "100px" }
+                  ],
+                  "fixedRows": [{ "id": "r1", "label": "R1" }]
+                },
+                "sections": [{
+                  "id": "r1",
+                  "title": "R1",
+                  "prompts": [
+                    { "id": "r1.q1", "label": "Q1", "response": "", "hints": { "expectedDataType": "currency" } },
+                    { "id": "r1.q2", "label": "Q2", "response": "", "hints": { "expectedDataType": "currency" } }
+                  ]
                 }]
               }]
             }
             """;
 
-        var doc = _serializer.Deserialize(docWithLegacyWidth);
+        var doc = _serializer.Deserialize(docWithDisplayFields);
         var json = _serializer.Serialize(doc);
 
         json.Should().NotContain("\"width\"", "round-trip must drop display-only fields like width");
         json.Should().NotContain("\"25%\"");
         json.Should().NotContain("\"100px\"");
 
-        // The semantic content survives intact
+        // The semantic column metadata survives.
         var rt = _serializer.Deserialize(json);
-        var cols = rt.Sections[0].Prompts[0].Hints.TableDefinition!.Columns;
+        var cols = rt.Sections[0].TableLayout!.Columns;
         cols.Should().HaveCount(2);
         cols[0].Id.Should().Be("q1");
         cols[0].Label.Should().Be("Q1");

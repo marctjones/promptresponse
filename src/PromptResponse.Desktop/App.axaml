@@ -7,14 +7,10 @@
         <FluentTheme />
 
         <!--
-            The Phase 5 rebuild renders through ColorTokens.cs + the per-profile
-            shell. The legacy DesignTokens.axaml and ModernControls.axaml have
-            been deleted; the inline styles below remain as generic Avalonia
-            control styling that's intentionally agnostic of the active profile.
+            App-wide control polish on top of FluentTheme. Anything profile-aware
+            renders through ColorTokens.cs + the per-profile shell, not styles —
+            keep this section profile-agnostic.
         -->
-
-        <!-- Enhanced Default Control Styles -->
-        <!-- These apply modern touches to all controls by default -->
 
         <!-- Button Styling - Modern rounded with smooth interactions -->
         <Style Selector="Button">

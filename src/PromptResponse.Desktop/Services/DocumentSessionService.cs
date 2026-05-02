@@ -14,8 +14,8 @@ public enum DocumentMode
 
 /// <summary>
 /// Owns the active document's lifecycle: open / save / close, dirty tracking, and
-/// derived state (title, mode). Extracted from MainWindowViewModel to keep that
-/// shell thin and to make this contract testable in isolation.
+/// derived state (title, mode). Kept as a focused service so the shell stays
+/// thin and the contract is testable in isolation.
 /// </summary>
 public interface IDocumentSessionService
 {

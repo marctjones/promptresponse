@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
-using IValidator = PromptResponse.Core.Validation.IValidator<PromptResponse.Core.Models.AprDocument>;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels;
@@ -131,29 +130,21 @@ public partial class App : Application
         // Core
         services.AddSingleton<IAprSerializer, AprJsonSerializer>();
         services.AddSingleton<DocumentValidator>();
-        services.AddSingleton<IValidator>(sp => sp.GetRequiredService<DocumentValidator>());
         services.AddSingleton<DataTypeValidator>();
 
-        // Desktop infra
+        // Desktop infrastructure
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<ISettingsService, SettingsService>();
         services.AddSingleton<IDialogService, DialogService>();
-        services.AddSingleton<IPlatformFeatures, PlatformFeatures>();
-
-        // Phase 4 — focused services
         services.AddSingleton<IDocumentSessionService, DocumentSessionService>();
 
-        // Phase 2 — rendering profile system
+        // Rendering profile system
         services.AddSingleton<IOsAccessibilityProbe, OsAccessibilityProbe>();
         services.AddSingleton<IProfileService, ProfileService>();
 
-        // Phase 3 — polymorphic prompt VM factory
+        // View-models
         services.AddSingleton<PromptViewModelFactory>();
-
-        // Phase 4d — thin shell composing everything
         services.AddTransient<MainShellViewModel>();
-
-        // Display Preferences VM (Phase 2)
         services.AddTransient<DisplayPreferencesViewModel>();
     }
 

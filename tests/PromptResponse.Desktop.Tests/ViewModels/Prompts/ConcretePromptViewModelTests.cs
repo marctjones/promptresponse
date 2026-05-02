@@ -207,42 +207,8 @@ public class ConcretePromptViewModelTests
         vm.Response.Should().Be("see attached PDF in email");
     }
 
-    // ---- TablePromptViewModel ----
-
-    [Fact]
-    public void Table_DefinitionExposed_FromPromptHints()
-    {
-        var def = new TableDefinition
-        {
-            Columns = new List<TableColumn>
-            {
-                new() { Id = "col1", Label = "Year", Type = "number" }
-            },
-            FixedRows = new List<FixedRow>
-            {
-                new() { Id = "r1", Label = "2024" }
-            },
-        };
-        var vm = new TablePromptViewModel(P("p", "T", p => p.Hints.TableDefinition = def), NewService());
-
-        vm.Definition.Should().BeSameAs(def);
-        vm.IsFixedTable.Should().BeTrue();
-        vm.IsDynamicTable.Should().BeFalse();
-    }
-
-    [Fact]
-    public void Table_DynamicTable_FlagsCorrectly()
-    {
-        var def = new TableDefinition
-        {
-            Columns = new List<TableColumn> { new() { Id = "c", Label = "L" } },
-            DynamicRows = new DynamicRowConfig { MinRows = 0, MaxRows = 10 },
-        };
-        var vm = new TablePromptViewModel(P("p", "T", p => p.Hints.TableDefinition = def), NewService());
-
-        vm.IsDynamicTable.Should().BeTrue();
-        vm.IsFixedTable.Should().BeFalse();
-    }
+    // (Tables are no longer prompt-typed — they're modeled as Section.TableLayout
+    // with row sub-sections and cell prompts. See TableSectionViewModelTests.)
 
     // ---- Currency / Date / Number profile-aware display ----
 

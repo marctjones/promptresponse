@@ -107,10 +107,14 @@ public class DocumentValidator : IValidator<AprDocument>
             result.AddError(new ValidationError("Section title is required", $"{path}.title", "REQUIRED_FIELD"));
         }
 
-        // Section must have at least one prompt or child section
+        // Section must have at least one prompt or child section.
+        // Exception: a dynamic table-section legitimately starts empty — rows are
+        // added by the user at fill time, so the structural "at least one child"
+        // rule would block templates from authoring an empty dynamic table.
         var hasContent = (section.Prompts != null && section.Prompts.Count > 0) ||
                        (section.Sections != null && section.Sections.Count > 0);
-        if (!hasContent)
+        var isEmptyDynamicTable = section.TableLayout?.IsDynamicTable == true;
+        if (!hasContent && !isEmptyDynamicTable)
         {
             result.AddError(new ValidationError("Section must have at least one prompt or child section", path, "EMPTY_SECTION"));
         }

@@ -11,21 +11,6 @@ public class AppSettings
     public WindowSettings Window { get; set; } = new();
 
     /// <summary>
-    /// Theme preference.
-    /// </summary>
-    public string Theme { get; set; } = "System"; // System, Light, Dark, Custom
-
-    /// <summary>
-    /// Recently opened files (most recent first).
-    /// </summary>
-    public List<string> RecentFiles { get; set; } = new();
-
-    /// <summary>
-    /// Maximum number of recent files to track.
-    /// </summary>
-    public int MaxRecentFiles { get; set; } = 10;
-
-    /// <summary>
     /// Capability-profile flags persisted across launches. <c>null</c> indicates a
     /// fresh-install state where ProfileService should apply OS-detected defaults
     /// + the "Excellent vision" preset (the latter only when no special

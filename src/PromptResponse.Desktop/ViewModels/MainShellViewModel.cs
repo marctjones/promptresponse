@@ -12,9 +12,9 @@ using PromptResponse.Desktop.ViewModels.Prompts;
 namespace PromptResponse.Desktop.ViewModels;
 
 /// <summary>
-/// Thin replacement for the legacy MainWindowViewModel. Composes the focused
-/// services and child VMs that own their slice of state. Source-generated INPC
-/// + RelayCommand via CommunityToolkit.Mvvm.
+/// Top-level shell view-model. Composes the focused services and child VMs
+/// that each own their slice of state (session, profile, progress, search,
+/// advisories). Source-generated INPC + RelayCommand via CommunityToolkit.Mvvm.
 /// </summary>
 public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 {
@@ -128,12 +128,40 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
     public bool HasDocument => _session.HasDocument;
     public bool IsFilledForm => _session.Mode == DocumentMode.FillingForm;
+    public bool IsEditingTemplate => _session.Mode == DocumentMode.EditingTemplate;
     public bool IsEmptyState => !HasDocument;
     public DocumentMode Mode => _session.Mode;
     public string Title => _session.Title;
+
+    /// <summary>
+    /// Template authoring mode. When true, the shell renders the structural editor
+    /// (SectionEditorView) so the user can add/remove/rename sections and prompts.
+    /// When false, the shell renders the fillable form (SectionView). Filled forms
+    /// are always in fill mode; templates default to edit mode but can toggle to
+    /// preview-fill via the View menu.
+    /// </summary>
+    [ObservableProperty]
+    private bool _isEditMode;
+
+    /// <summary>True when the toggle is meaningful — only templates can switch
+    /// between edit and preview. Filled forms stay in fill mode.</summary>
+    public bool CanToggleEditMode => HasDocument && IsEditingTemplate;
+
+    [RelayCommand]
+    private void ToggleEditMode()
+    {
+        if (!CanToggleEditMode) return;
+        IsEditMode = !IsEditMode;
+    }
     public string CurrentDocumentTitle => _session.CurrentDocument?.Metadata.Title ?? string.Empty;
     public string? DocumentDescription => _session.CurrentDocument?.Metadata.Description;
     public bool HasDocumentDescription => !string.IsNullOrWhiteSpace(DocumentDescription);
+
+    /// <summary>Editable wrapper around the active document's metadata. Bound by
+    /// the edit-mode metadata panel; null when no document is open. When the user
+    /// types in any metadata field, this VM raises Changed so the shell marks
+    /// the document dirty and refreshes derived display properties.</summary>
+    public DocumentMetadataViewModel? Metadata { get; private set; }
 
     /// <summary>Count of advisory warnings from the data-type validator (never errors — vision invariant).</summary>
     public int AdvisoryCount => _advisories.Count;
@@ -242,6 +270,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private void NewTemplate()
     {
+        // Seed a starter section so the document validates and the editor has
+        // something to render. The user renames / adds prompts from there.
         var doc = new AprDocument
         {
             Version = "1.0",
@@ -252,10 +282,74 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
                 Created = DateTime.UtcNow,
                 Modified = DateTime.UtcNow,
             },
-            Sections = new List<Section>(),
+            Sections = new List<Section>
+            {
+                new()
+                {
+                    Id = $"section_{Guid.NewGuid():N}",
+                    Title = "Section 1",
+                    Prompts = new List<Prompt>
+                    {
+                        new()
+                        {
+                            Id = $"prompt_{Guid.NewGuid():N}",
+                            Label = "First prompt",
+                            Hints = new PromptHints { ExpectedDataType = "text" },
+                        },
+                    },
+                },
+            },
         };
         _fileService.ClearCurrentFilePath();
         _session.Set(doc, filePath: null, dirty: true);
+    }
+
+    /// <summary>
+    /// Append a new top-level section to the current document. Used by the
+    /// editor's "+ Add top-level section" button. Top-level sections live on
+    /// the document directly, so the shell — not any SectionViewModel — owns
+    /// this command.
+    /// </summary>
+    [RelayCommand]
+    public void AddTopLevelSection()
+    {
+        var doc = _session.CurrentDocument;
+        if (doc == null) return;
+        var section = new Section
+        {
+            Id = $"section_{Guid.NewGuid():N}",
+            Title = "New section",
+            Prompts = new List<Prompt>(),
+        };
+        doc.Sections.Add(section);
+        var vm = new SectionViewModel(section, _factory, depth: 0,
+            onPromptAdded: AttachDynamicPromptVm,
+            onPromptRemoved: DetachDynamicPromptVm);
+        _sections.Add(vm);
+        _session.MarkDirty();
+    }
+
+    /// <summary>Remove a top-level section from the current document. The user
+    /// triggers this via the editor's section-list ✕ button. Disposes any prompt
+    /// VMs under the removed subtree so subscriptions and resources are released.</summary>
+    [RelayCommand]
+    public void RemoveTopLevelSection(SectionViewModel? sectionVm)
+    {
+        if (sectionVm is null) return;
+        var doc = _session.CurrentDocument;
+        if (doc == null) return;
+        if (!_sections.Contains(sectionVm)) return;
+
+        WalkAndDetachPrompts(sectionVm);
+        doc.Sections.Remove(sectionVm.Model);
+        _sections.Remove(sectionVm);
+        _session.MarkDirty();
+    }
+
+    private void WalkAndDetachPrompts(SectionViewModel s)
+    {
+        foreach (var p in s.PromptViewModels) DetachDynamicPromptVm(p);
+        foreach (var child in s.NestedSections) WalkAndDetachPrompts(child);
     }
 
     [RelayCommand]
@@ -329,12 +423,26 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         }
         _promptViewModels.Clear();
         _sections.Clear();
+        if (Metadata != null)
+        {
+            Metadata.Changed -= OnMetadataChanged;
+        }
+        Metadata = null;
 
         if (document != null)
         {
+            Metadata = new DocumentMetadataViewModel(document.Metadata);
+            Metadata.Changed += OnMetadataChanged;
+
             foreach (var section in document.Sections)
             {
-                var sectionVm = new SectionViewModel(section, _factory, depth: 0);
+                // onPromptAdded/onPromptRemoved fire when dynamic table rows are
+                // added or removed at runtime — keep the shell-tracked prompt VM
+                // list in sync so progress + advisories pick up the new cells.
+                var sectionVm = new SectionViewModel(
+                    section, _factory, depth: 0,
+                    onPromptAdded: AttachDynamicPromptVm,
+                    onPromptRemoved: DetachDynamicPromptVm);
                 _sections.Add(sectionVm);
                 CollectPrompts(sectionVm);
             }
@@ -347,6 +455,11 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             }
         }
 
+        // Templates default to edit mode (the user is authoring); filled forms
+        // are never in edit mode. The user can toggle templates to preview-fill
+        // via the View menu.
+        IsEditMode = _session.Mode == DocumentMode.EditingTemplate;
+
         OnPropertyChanged(nameof(HasDocument));
         OnPropertyChanged(nameof(IsEmptyState));
         OnPropertyChanged(nameof(Mode));
@@ -356,9 +469,13 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(HasDocumentDescription));
         OnPropertyChanged(nameof(FilledByDisplay));
         OnPropertyChanged(nameof(IsFilledForm));
+        OnPropertyChanged(nameof(IsEditingTemplate));
+        OnPropertyChanged(nameof(CanToggleEditMode));
         OnPropertyChanged(nameof(StatusMessage));
         OnPropertyChanged(nameof(PromptViewModels));
         OnPropertyChanged(nameof(Sections));
+        OnPropertyChanged(nameof(Metadata));
+        ToggleEditModeCommand.NotifyCanExecuteChanged();
         RefreshAdvisories();
         SaveCommand.NotifyCanExecuteChanged();
         SaveAsCommand.NotifyCanExecuteChanged();
@@ -369,6 +486,38 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     {
         foreach (var prompt in section.PromptViewModels) _promptViewModels.Add(prompt);
         foreach (var nested in section.NestedSections) CollectPrompts(nested);
+    }
+
+    /// <summary>Mark dirty + refresh derived display properties whenever the user
+    /// edits any metadata field via the edit-mode metadata panel.</summary>
+    private void OnMetadataChanged(object? sender, EventArgs e)
+    {
+        _session.MarkDirty();
+        OnPropertyChanged(nameof(CurrentDocumentTitle));
+        OnPropertyChanged(nameof(DocumentDescription));
+        OnPropertyChanged(nameof(HasDocumentDescription));
+        OnPropertyChanged(nameof(Title));
+    }
+
+    /// <summary>Wire a newly-added dynamic cell prompt (from AddRow) into the shell's
+    /// tracked list so its Response changes drive progress + advisory refresh.</summary>
+    private void AttachDynamicPromptVm(PromptViewModelBase promptVm)
+    {
+        _promptViewModels.Add(promptVm);
+        promptVm.PropertyChanged += OnPromptResponseChanged;
+        Progress.Refresh();
+        RefreshAdvisories();
+    }
+
+    /// <summary>Detach a removed dynamic cell prompt (from RemoveRow), unsubscribe,
+    /// and dispose so the rendering profile event handler is released.</summary>
+    private void DetachDynamicPromptVm(PromptViewModelBase promptVm)
+    {
+        promptVm.PropertyChanged -= OnPromptResponseChanged;
+        _promptViewModels.Remove(promptVm);
+        promptVm.Dispose();
+        Progress.Refresh();
+        RefreshAdvisories();
     }
 
     /// <summary>

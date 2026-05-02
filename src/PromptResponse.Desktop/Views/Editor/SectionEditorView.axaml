@@ -1,0 +1,219 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PromptResponse.Desktop.ViewModels"
+             xmlns:editor="using:PromptResponse.Desktop.Views.Editor"
+             x:Class="PromptResponse.Desktop.Views.Editor.SectionEditorView"
+             x:DataType="vm:SectionViewModel"
+             AutomationProperties.Name="{Binding Title}"
+             AutomationProperties.HelpText="{Binding Description}">
+
+    <Border BorderThickness="1"
+            CornerRadius="6"
+            Padding="12"
+            Margin="0,4">
+        <StackPanel Spacing="10">
+            <!-- Section title + description editors + structural buttons -->
+            <Grid ColumnDefinitions="*,8,Auto">
+                <StackPanel Grid.Column="0" Spacing="6">
+                    <TextBox Text="{Binding Title, Mode=TwoWay}"
+                             Watermark="Section title (required)"
+                             FontSize="16"
+                             FontWeight="SemiBold"
+                             AutomationProperties.Name="Section title"/>
+                    <TextBox Text="{Binding Description, Mode=TwoWay}"
+                             Watermark="Optional description"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             MinHeight="36"
+                             AutomationProperties.Name="Section description"/>
+                </StackPanel>
+
+                <!-- Remove section button. Click handler walks the visual tree to
+                     find the parent (a nested section's parent SectionViewModel, or
+                     the shell for top-level sections) and dispatches the appropriate
+                     remove command. -->
+                <Button Grid.Column="2"
+                        Content="✕ Remove section"
+                        VerticalAlignment="Top"
+                        Padding="8,4"
+                        ToolTip.Tip="Remove this section and all of its prompts"
+                        AutomationProperties.Name="Remove section"
+                        Click="OnRemoveSectionClick"/>
+            </Grid>
+
+            <!-- ── Regular section: prompts list + add buttons ── -->
+            <StackPanel IsVisible="{Binding IsRegularSection}" Spacing="6">
+                <ItemsControl ItemsSource="{Binding PromptViewModels}"
+                              AutomationProperties.Name="Section prompts">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="4"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <editor:PromptEditorView/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Content="+ Add prompt"
+                            Command="{Binding AddPromptCommand}"
+                            AutomationProperties.Name="Add prompt"
+                            AutomationProperties.HelpText="Append a new empty prompt to this section"/>
+                    <Button Content="+ Add nested section"
+                            Command="{Binding AddNestedSectionCommand}"
+                            AutomationProperties.Name="Add nested section"
+                            AutomationProperties.HelpText="Append a new empty sub-section inside this section"/>
+                    <Button Content="Convert to fixed table"
+                            Command="{Binding ConvertToFixedTableCommand}"
+                            AutomationProperties.Name="Convert to fixed table"
+                            AutomationProperties.HelpText="Promote this section to a fixed-row table — declare columns + predefined rows"/>
+                    <Button Content="Convert to dynamic table"
+                            Command="{Binding ConvertToDynamicTableCommand}"
+                            AutomationProperties.Name="Convert to dynamic table"
+                            AutomationProperties.HelpText="Promote this section to a dynamic table — declare columns; users add rows at fill time"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- ── Table section: column editor + (fixed) row list, or row config preview ── -->
+            <StackPanel IsVisible="{Binding IsTableSection}" Spacing="10">
+                <Border Padding="10"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Table layout"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Text="Fixed rows: rows declared up front; users fill cells but cannot add or remove rows."
+                                   FontSize="12"
+                                   Opacity="0.7"
+                                   IsVisible="{Binding IsFixedTable}"/>
+                        <TextBlock Text="Dynamic rows: users add and remove rows at fill time."
+                                   FontSize="12"
+                                   Opacity="0.7"
+                                   IsVisible="{Binding IsDynamicTable}"/>
+
+                        <!-- Column list editor -->
+                        <TextBlock Text="Columns" FontWeight="SemiBold" Margin="0,4,0,0"/>
+                        <ItemsControl ItemsSource="{Binding Columns}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Spacing="4"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="120,8,*,8,140,8,Auto">
+                                        <TextBox Grid.Column="0"
+                                                 Text="{Binding Id, Mode=TwoWay}"
+                                                 Watermark="Column id"
+                                                 FontFamily="Cascadia Mono,Consolas,monospace"
+                                                 AutomationProperties.Name="Column id"/>
+                                        <TextBox Grid.Column="2"
+                                                 Text="{Binding Label, Mode=TwoWay}"
+                                                 Watermark="Column label"
+                                                 AutomationProperties.Name="Column label"/>
+                                        <ComboBox Grid.Column="4"
+                                                  SelectedItem="{Binding Type, Mode=TwoWay}"
+                                                  PlaceholderText="text"
+                                                  AutomationProperties.Name="Column type">
+                                            <ComboBoxItem>text</ComboBoxItem>
+                                            <ComboBoxItem>number</ComboBoxItem>
+                                            <ComboBoxItem>currency</ComboBoxItem>
+                                            <ComboBoxItem>date</ComboBoxItem>
+                                            <ComboBoxItem>boolean</ComboBoxItem>
+                                            <ComboBoxItem>email</ComboBoxItem>
+                                            <ComboBoxItem>url</ComboBoxItem>
+                                            <ComboBoxItem>phone</ComboBoxItem>
+                                        </ComboBox>
+                                        <Button Grid.Column="6"
+                                                Content="✕"
+                                                FontSize="11"
+                                                Padding="6,2"
+                                                MinHeight="28"
+                                                MinWidth="28"
+                                                ToolTip.Tip="Remove this column"
+                                                AutomationProperties.Name="Remove column"
+                                                Click="OnRemoveColumnClick"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button Content="+ Add column"
+                                HorizontalAlignment="Left"
+                                Command="{Binding AddColumnCommand}"
+                                AutomationProperties.Name="Add column"/>
+
+                        <!-- Fixed table: row list editor -->
+                        <TextBlock Text="Rows"
+                                   FontWeight="SemiBold"
+                                   Margin="0,4,0,0"
+                                   IsVisible="{Binding IsFixedTable}"/>
+                        <ItemsControl IsVisible="{Binding IsFixedTable}"
+                                      ItemsSource="{Binding NestedSections}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Spacing="4"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="vm:SectionViewModel">
+                                    <Grid ColumnDefinitions="120,8,*,8,Auto">
+                                        <TextBox Grid.Column="0"
+                                                 Text="{Binding Id, Mode=TwoWay}"
+                                                 Watermark="Row id"
+                                                 FontFamily="Cascadia Mono,Consolas,monospace"
+                                                 AutomationProperties.Name="Row id"/>
+                                        <TextBox Grid.Column="2"
+                                                 Text="{Binding Title, Mode=TwoWay}"
+                                                 Watermark="Row label"
+                                                 AutomationProperties.Name="Row label"/>
+                                        <Button Grid.Column="4"
+                                                Content="✕"
+                                                FontSize="11"
+                                                Padding="6,2"
+                                                MinHeight="28"
+                                                MinWidth="28"
+                                                ToolTip.Tip="Remove this row"
+                                                AutomationProperties.Name="Remove row"
+                                                Click="OnRemoveFixedRowClick"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button IsVisible="{Binding IsFixedTable}"
+                                Content="+ Add row"
+                                HorizontalAlignment="Left"
+                                Command="{Binding AddFixedRowCommand}"
+                                AutomationProperties.Name="Add row"/>
+
+                        <Button Content="Remove table layout"
+                                HorizontalAlignment="Left"
+                                Margin="0,8,0,0"
+                                Command="{Binding RemoveTableLayoutCommand}"
+                                ToolTip.Tip="Strip the table layout and convert this section back to a regular section. All cell data is dropped."
+                                AutomationProperties.Name="Remove table layout"
+                                AutomationProperties.HelpText="Convert this table back into a regular section. Cell data will be lost."/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- Recursive: nested sections rendered via SectionEditorView -->
+            <ItemsControl ItemsSource="{Binding NestedSections}"
+                          Margin="20,8,0,0"
+                          AutomationProperties.Name="Nested sections">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Spacing="6"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="vm:SectionViewModel">
+                        <editor:SectionEditorView/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Border>
+</UserControl>

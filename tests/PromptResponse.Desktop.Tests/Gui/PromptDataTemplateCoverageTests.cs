@@ -48,7 +48,6 @@ public class PromptDataTemplateCoverageTests
     [InlineData("boolean", typeof(BooleanPromptView))]
     [InlineData("signature", typeof(SignaturePromptView))]
     [InlineData("file", typeof(FilePromptView))]
-    [InlineData("table", typeof(TablePromptView))]
     public void EveryDataTypeHint_RendersDedicatedView(string hint, Type expectedView)
     {
         var factory = new PromptViewModelFactory(NewService());

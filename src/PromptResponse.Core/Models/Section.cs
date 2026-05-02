@@ -55,4 +55,23 @@ public class Section
     /// Prompts are displayed in the order they appear in this list.
     /// </remarks>
     public List<Prompt> Prompts { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the optional table layout for this section.
+    /// </summary>
+    /// <remarks>
+    /// When set, this section is rendered as a table: column headers come from
+    /// <see cref="TableDefinition.Columns"/>, each entry in <see cref="Sections"/>
+    /// is a row, and each row's <see cref="Prompts"/> hold the cell values
+    /// (one prompt per column, with <c>id = "{rowId}.{columnId}"</c>).
+    ///
+    /// Static tables: <see cref="TableDefinition.FixedRows"/> declares which row
+    /// sub-sections must exist. Dynamic tables: <see cref="TableDefinition.DynamicRows"/>
+    /// configures min/max bounds and the row label prefix; the user adds/removes
+    /// row sub-sections at fill time.
+    ///
+    /// Cells are regular Prompts: every value is a string, type hints are advisory,
+    /// any visible text is a valid response (vision invariants).
+    /// </remarks>
+    public TableDefinition? TableLayout { get; set; }
 }

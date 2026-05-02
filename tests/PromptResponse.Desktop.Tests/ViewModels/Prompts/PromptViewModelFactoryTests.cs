@@ -38,7 +38,6 @@ public class PromptViewModelFactoryTests
     [InlineData("multiline", typeof(MultilinePromptViewModel))]
     [InlineData("signature", typeof(SignaturePromptViewModel))]
     [InlineData("file", typeof(FilePromptViewModel))]
-    [InlineData("table", typeof(TablePromptViewModel))]
     [InlineData("select", typeof(SelectPromptViewModel))]
     [InlineData("multichoice", typeof(MultichoicePromptViewModel))]
     public void Create_ReturnsCorrectVmTypeForKnownHint(string hint, Type expected)
