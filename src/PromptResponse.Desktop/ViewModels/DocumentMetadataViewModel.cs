@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using PromptResponse.Core.Models;
+using PromptResponse.Desktop.ViewModels.Editing;
 
 namespace PromptResponse.Desktop.ViewModels;
 
@@ -11,9 +12,16 @@ namespace PromptResponse.Desktop.ViewModels;
 /// raise PropertyChanged so other parts of the shell (page header, sidebar)
 /// can refresh when the title changes.
 /// </summary>
+/// <remarks>
+/// When constructed with an <see cref="EditHistory"/>, every property setter
+/// records its edit as a mergeable property-edit command so the user can
+/// Ctrl+Z out of metadata field changes the same way they can out of any
+/// other authoring edit.
+/// </remarks>
 public sealed class DocumentMetadataViewModel : INotifyPropertyChanged
 {
     private readonly Metadata _metadata;
+    private readonly EditHistory? _history;
     public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>Raised whenever any field on this metadata wrapper changes.
@@ -21,64 +29,64 @@ public sealed class DocumentMetadataViewModel : INotifyPropertyChanged
     /// display properties (e.g. page header title).</summary>
     public event EventHandler? Changed;
 
-    public DocumentMetadataViewModel(Metadata metadata)
+    public DocumentMetadataViewModel(Metadata metadata, EditHistory? history = null)
     {
         _metadata = metadata ?? throw new ArgumentNullException(nameof(metadata));
+        _history = history;
     }
 
     public string Title
     {
         get => _metadata.Title;
-        set
-        {
-            var v = value ?? string.Empty;
-            if (_metadata.Title == v) return;
-            _metadata.Title = v;
-            Notify();
-        }
+        set => SetWithUndo(nameof(Title), () => _metadata.Title, v => _metadata.Title = v, value ?? string.Empty);
     }
 
     public string? Description
     {
         get => _metadata.Description;
-        set
-        {
-            if (_metadata.Description == value) return;
-            _metadata.Description = value;
-            Notify();
-        }
+        set => SetWithUndo(nameof(Description), () => _metadata.Description, v => _metadata.Description = v, value);
     }
 
     public string? Author
     {
         get => _metadata.Author;
-        set
-        {
-            if (_metadata.Author == value) return;
-            _metadata.Author = value;
-            Notify();
-        }
+        set => SetWithUndo(nameof(Author), () => _metadata.Author, v => _metadata.Author = v, value);
     }
 
     public string? TemplateId
     {
         get => _metadata.TemplateId;
-        set
-        {
-            if (_metadata.TemplateId == value) return;
-            _metadata.TemplateId = value;
-            Notify();
-        }
+        set => SetWithUndo(nameof(TemplateId), () => _metadata.TemplateId, v => _metadata.TemplateId = v, value);
     }
 
     public string? TemplateVersion
     {
         get => _metadata.TemplateVersion;
-        set
+        set => SetWithUndo(nameof(TemplateVersion), () => _metadata.TemplateVersion, v => _metadata.TemplateVersion = v, value);
+    }
+
+    private void SetWithUndo<T>(string propertyName, Func<T> getter, Action<T> applySetter, T newValue)
+    {
+        var oldValue = getter();
+        if (EqualityComparer<T>.Default.Equals(oldValue, newValue)) return;
+
+        if (_history?.IsApplying == true)
         {
-            if (_metadata.TemplateVersion == value) return;
-            _metadata.TemplateVersion = value;
-            Notify();
+            applySetter(newValue);
+            Notify(propertyName);
+            return;
+        }
+        if (_history != null)
+        {
+            _history.Execute(new PropertyEditCommand<T>(
+                this, propertyName,
+                v => { applySetter(v); Notify(propertyName); },
+                oldValue, newValue));
+        }
+        else
+        {
+            applySetter(newValue);
+            Notify(propertyName);
         }
     }
 

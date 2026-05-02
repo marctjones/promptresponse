@@ -60,6 +60,20 @@
                           InputGesture="Ctrl+W"
                           AutomationProperties.Name="Close"/>
             </MenuItem>
+            <MenuItem Header="_Edit" AutomationProperties.Name="Edit menu">
+                <MenuItem Header="_Undo"
+                          Command="{Binding UndoCommand}"
+                          HotKey="Ctrl+Z"
+                          InputGesture="Ctrl+Z"
+                          AutomationProperties.Name="Undo"
+                          AutomationProperties.HelpText="Reverse the most recent edit (Ctrl+Z)"/>
+                <MenuItem Header="_Redo"
+                          Command="{Binding RedoCommand}"
+                          HotKey="Ctrl+Y"
+                          InputGesture="Ctrl+Y"
+                          AutomationProperties.Name="Redo"
+                          AutomationProperties.HelpText="Re-apply the most recently undone edit (Ctrl+Y)"/>
+            </MenuItem>
             <MenuItem Header="_View" AutomationProperties.Name="View menu">
                 <MenuItem Header="Toggle _Edit Mode"
                           Command="{Binding ToggleEditModeCommand}"

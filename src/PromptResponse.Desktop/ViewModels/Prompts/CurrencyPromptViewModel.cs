@@ -1,5 +1,6 @@
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
+using PromptResponse.Desktop.ViewModels.Editing;
 
 namespace PromptResponse.Desktop.ViewModels.Prompts;
 
@@ -10,8 +11,8 @@ namespace PromptResponse.Desktop.ViewModels.Prompts;
 /// </summary>
 public sealed class CurrencyPromptViewModel : PromptViewModelBase
 {
-    public CurrencyPromptViewModel(Prompt prompt, IProfileService profileService)
-        : base(prompt, profileService) { }
+    public CurrencyPromptViewModel(Prompt prompt, IProfileService profileService, EditHistory? history = null)
+        : base(prompt, profileService, history) { }
 
     /// <summary>True when both <see cref="DisplaysAsPreviewProfile"/> is active AND
     /// <see cref="PromptViewModelBase.DisplayValue"/> differs from the raw response

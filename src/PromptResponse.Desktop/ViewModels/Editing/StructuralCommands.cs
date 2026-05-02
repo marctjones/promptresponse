@@ -224,6 +224,44 @@ internal sealed class AddFixedRowCommand : IEditCommand
     public void MergeWith(IEditCommand next) { }
 }
 
+internal sealed class AddTopLevelSectionCommand : IEditCommand
+{
+    private readonly MainShellViewModel _shell;
+    private readonly Section _model;
+    private readonly SectionViewModel _vm;
+    private readonly int _index;
+
+    public AddTopLevelSectionCommand(MainShellViewModel shell, Section model, SectionViewModel vm, int index)
+    {
+        _shell = shell; _model = model; _vm = vm; _index = index;
+    }
+
+    public string Description => "Add top-level section";
+    public void Execute() => _shell.ApplyAddTopLevelSectionAt(_index, _model, _vm);
+    public void Undo() => _shell.ApplyRemoveTopLevelSection(_vm);
+    public bool CanMergeWith(IEditCommand next) => false;
+    public void MergeWith(IEditCommand next) { }
+}
+
+internal sealed class RemoveTopLevelSectionCommand : IEditCommand
+{
+    private readonly MainShellViewModel _shell;
+    private readonly SectionViewModel _vm;
+    private readonly Section _model;
+    private readonly int _index;
+
+    public RemoveTopLevelSectionCommand(MainShellViewModel shell, SectionViewModel vm, int index)
+    {
+        _shell = shell; _vm = vm; _model = vm.Model; _index = index;
+    }
+
+    public string Description => "Remove top-level section";
+    public void Execute() => _shell.ApplyRemoveTopLevelSection(_vm);
+    public void Undo() => _shell.ApplyAddTopLevelSectionAt(_index, _model, _vm);
+    public bool CanMergeWith(IEditCommand next) => false;
+    public void MergeWith(IEditCommand next) { }
+}
+
 internal sealed class RemoveFixedRowCommand : IEditCommand
 {
     private readonly SectionViewModel _section;

@@ -1,5 +1,6 @@
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
+using PromptResponse.Desktop.ViewModels.Editing;
 
 namespace PromptResponse.Desktop.ViewModels.Prompts;
 
@@ -12,8 +13,8 @@ namespace PromptResponse.Desktop.ViewModels.Prompts;
 /// </summary>
 public sealed class DatePromptViewModel : PromptViewModelBase
 {
-    public DatePromptViewModel(Prompt prompt, IProfileService profileService)
-        : base(prompt, profileService) { }
+    public DatePromptViewModel(Prompt prompt, IProfileService profileService, EditHistory? history = null)
+        : base(prompt, profileService, history) { }
 
     /// <summary>True when the active capability profile includes the calendar-picker
     /// affordance. Bound to the picker's IsVisible — universal-core (no flag active)

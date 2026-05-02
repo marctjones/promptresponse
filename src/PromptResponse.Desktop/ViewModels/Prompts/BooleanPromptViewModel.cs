@@ -1,5 +1,6 @@
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
+using PromptResponse.Desktop.ViewModels.Editing;
 
 namespace PromptResponse.Desktop.ViewModels.Prompts;
 
@@ -10,8 +11,8 @@ namespace PromptResponse.Desktop.ViewModels.Prompts;
 /// </summary>
 public sealed class BooleanPromptViewModel : PromptViewModelBase
 {
-    public BooleanPromptViewModel(Prompt prompt, IProfileService profileService)
-        : base(prompt, profileService) { }
+    public BooleanPromptViewModel(Prompt prompt, IProfileService profileService, EditHistory? history = null)
+        : base(prompt, profileService, history) { }
 
     /// <summary>True when the active capability profile includes the Boolean-radios
     /// affordance. Bound to the radios' IsVisible — universal-core (no flag active)

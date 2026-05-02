@@ -7,6 +7,7 @@ using PromptResponse.Core.Models;
 using PromptResponse.Core.Validation;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
+using PromptResponse.Desktop.ViewModels.Editing;
 using PromptResponse.Desktop.ViewModels.Prompts;
 
 namespace PromptResponse.Desktop.ViewModels;
@@ -23,6 +24,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly IDocumentSessionService _session;
     private readonly IProfileService _profileService;
     private readonly PromptViewModelFactory _factory;
+    private readonly EditHistory _editHistory;
     private readonly DataTypeValidator _dataTypeValidator = new();
     private readonly HiddenCharacterAdvisor _hiddenCharAdvisor = new();
     private readonly MixedScriptAdvisor _mixedScriptAdvisor = new();
@@ -36,13 +38,19 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         IDialogService dialogService,
         IDocumentSessionService session,
         IProfileService profileService,
-        PromptViewModelFactory factory)
+        PromptViewModelFactory factory,
+        EditHistory? editHistory = null)
     {
         _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
         _session = session ?? throw new ArgumentNullException(nameof(session));
         _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
-        _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+        if (factory == null) throw new ArgumentNullException(nameof(factory));
+        _editHistory = editHistory ?? new EditHistory();
+        // Reconstruct the factory locally so it threads the shell's edit history
+        // into every prompt VM it creates. The injected factory's profile is the
+        // same DI singleton — only its history binding differs.
+        _factory = new PromptViewModelFactory(profileService, _editHistory);
 
         Progress = new FormProgressViewModel();
         Search = new SearchViewModel();
@@ -50,6 +58,32 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _session.DocumentChanged += OnDocumentChanged;
         _session.DirtyChanged += OnDirtyChanged;
         _profileService.ProfileChanged += (_, _) => OnAllProfileBrushesChanged();
+        _editHistory.PropertyChanged += OnEditHistoryChanged;
+    }
+
+    /// <summary>The shell-owned undo/redo history. Cleared on document load so
+    /// edits in one document never resurface in another.</summary>
+    public EditHistory EditHistory => _editHistory;
+
+    public bool CanUndo => _editHistory.CanUndo;
+    public bool CanRedo => _editHistory.CanRedo;
+    public string UndoLabel => _editHistory.UndoDescription is { } d ? $"Undo {d}" : "Undo";
+    public string RedoLabel => _editHistory.RedoDescription is { } d ? $"Redo {d}" : "Redo";
+
+    [RelayCommand(CanExecute = nameof(CanUndo))]
+    private void Undo() => _editHistory.Undo();
+
+    [RelayCommand(CanExecute = nameof(CanRedo))]
+    private void Redo() => _editHistory.Redo();
+
+    private void OnEditHistoryChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        OnPropertyChanged(nameof(CanUndo));
+        OnPropertyChanged(nameof(CanRedo));
+        OnPropertyChanged(nameof(UndoLabel));
+        OnPropertyChanged(nameof(RedoLabel));
+        UndoCommand.NotifyCanExecuteChanged();
+        RedoCommand.NotifyCanExecuteChanged();
     }
 
     private void OnAllProfileBrushesChanged()
@@ -321,12 +355,20 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             Title = "New section",
             Prompts = new List<Prompt>(),
         };
-        doc.Sections.Add(section);
         var vm = new SectionViewModel(section, _factory, depth: 0,
             onPromptAdded: AttachDynamicPromptVm,
-            onPromptRemoved: DetachDynamicPromptVm);
-        _sections.Add(vm);
-        _session.MarkDirty();
+            onPromptRemoved: DetachDynamicPromptVm,
+            history: _editHistory);
+        var index = _sections.Count;
+
+        if (!_editHistory.IsApplying)
+        {
+            _editHistory.Execute(new AddTopLevelSectionCommand(this, section, vm, index));
+        }
+        else
+        {
+            ApplyAddTopLevelSectionAt(index, section, vm);
+        }
     }
 
     /// <summary>Remove a top-level section from the current document. The user
@@ -340,6 +382,37 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         if (doc == null) return;
         if (!_sections.Contains(sectionVm)) return;
 
+        if (!_editHistory.IsApplying)
+        {
+            var index = _sections.IndexOf(sectionVm);
+            _editHistory.Execute(new RemoveTopLevelSectionCommand(this, sectionVm, index));
+        }
+        else
+        {
+            ApplyRemoveTopLevelSection(sectionVm);
+        }
+    }
+
+    /// <summary>Raw mutation: insert a top-level section at the given index. Used
+    /// by both the public AddTopLevelSection and undo of RemoveTopLevelSection.</summary>
+    internal void ApplyAddTopLevelSectionAt(int index, Section section, SectionViewModel vm)
+    {
+        var doc = _session.CurrentDocument;
+        if (doc == null) return;
+        if (index < 0 || index > doc.Sections.Count) index = doc.Sections.Count;
+        doc.Sections.Insert(index, section);
+        if (index > _sections.Count) index = _sections.Count;
+        _sections.Insert(index, vm);
+        _session.MarkDirty();
+    }
+
+    /// <summary>Raw mutation: remove a top-level section. Used by both the
+    /// public RemoveTopLevelSection and undo of AddTopLevelSection.</summary>
+    internal void ApplyRemoveTopLevelSection(SectionViewModel sectionVm)
+    {
+        var doc = _session.CurrentDocument;
+        if (doc == null) return;
+        if (!_sections.Contains(sectionVm)) return;
         WalkAndDetachPrompts(sectionVm);
         doc.Sections.Remove(sectionVm.Model);
         _sections.Remove(sectionVm);
@@ -429,9 +502,13 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         }
         Metadata = null;
 
+        // Drop any undo history from the previous document — edits in one
+        // document must never resurface as undo steps in another.
+        _editHistory.Clear();
+
         if (document != null)
         {
-            Metadata = new DocumentMetadataViewModel(document.Metadata);
+            Metadata = new DocumentMetadataViewModel(document.Metadata, _editHistory);
             Metadata.Changed += OnMetadataChanged;
 
             foreach (var section in document.Sections)
@@ -442,7 +519,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
                 var sectionVm = new SectionViewModel(
                     section, _factory, depth: 0,
                     onPromptAdded: AttachDynamicPromptVm,
-                    onPromptRemoved: DetachDynamicPromptVm);
+                    onPromptRemoved: DetachDynamicPromptVm,
+                    history: _editHistory);
                 _sections.Add(sectionVm);
                 CollectPrompts(sectionVm);
             }

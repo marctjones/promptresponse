@@ -1,5 +1,6 @@
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
+using PromptResponse.Desktop.ViewModels.Editing;
 
 namespace PromptResponse.Desktop.ViewModels.Prompts;
 
@@ -10,8 +11,8 @@ namespace PromptResponse.Desktop.ViewModels.Prompts;
 /// </summary>
 public sealed class FilePromptViewModel : PromptViewModelBase
 {
-    public FilePromptViewModel(Prompt prompt, IProfileService profileService)
-        : base(prompt, profileService) { }
+    public FilePromptViewModel(Prompt prompt, IProfileService profileService, EditHistory? history = null)
+        : base(prompt, profileService, history) { }
 
     public string FileName =>
         string.IsNullOrEmpty(Response) ? string.Empty : System.IO.Path.GetFileName(Response);

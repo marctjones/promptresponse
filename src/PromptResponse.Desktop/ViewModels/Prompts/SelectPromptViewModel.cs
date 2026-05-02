@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
+using PromptResponse.Desktop.ViewModels.Editing;
 
 namespace PromptResponse.Desktop.ViewModels.Prompts;
 
@@ -11,8 +12,8 @@ namespace PromptResponse.Desktop.ViewModels.Prompts;
 /// </summary>
 public sealed class SelectPromptViewModel : PromptViewModelBase
 {
-    public SelectPromptViewModel(Prompt prompt, IProfileService profileService)
-        : base(prompt, profileService)
+    public SelectPromptViewModel(Prompt prompt, IProfileService profileService, EditHistory? history = null)
+        : base(prompt, profileService, history)
     {
         SuggestedValues = new ReadOnlyCollection<string>(prompt.Hints.SuggestedValues ?? new List<string>());
     }
