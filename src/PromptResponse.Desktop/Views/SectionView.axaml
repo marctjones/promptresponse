@@ -13,11 +13,19 @@
     </UserControl.Resources>
 
     <StackPanel Spacing="14">
-        <!-- Section heading -->
+        <!-- Section heading: font shrinks slightly with depth so nested sections
+             read as subordinate to their parent. Top-level: 18pt; deeper levels
+             clamp to 14pt so the visual hierarchy stays readable but not tiny. -->
         <StackPanel Spacing="2">
             <TextBlock Text="{Binding Title}"
-                       FontSize="18"
-                       FontWeight="SemiBold"/>
+                       FontWeight="SemiBold"
+                       AutomationProperties.Name="{Binding Title}">
+                <TextBlock.FontSize>
+                    <MultiBinding Converter="{x:Static views:SectionView.SectionTitleSizeConverter}">
+                        <Binding Path="Depth"/>
+                    </MultiBinding>
+                </TextBlock.FontSize>
+            </TextBlock>
             <TextBlock Text="{Binding Description}"
                        FontSize="13"
                        Opacity="0.7"
@@ -36,22 +44,26 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <!-- Recursive nested sections, indented with a left rule -->
+        <!-- Recursive nested sections, indented with a left rule. The left-rule
+             carries the active profile's accent so it picks up theme changes,
+             and indents are uniform per nesting level so a 3-deep section
+             reads visibly indented from a 2-deep one. -->
         <ItemsControl ItemsSource="{Binding NestedSections}"
-                      Margin="20,4,0,0"
+                      Margin="0,8,0,0"
                       AutomationProperties.Name="Nested sections">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="vm:SectionViewModel">
                     <Border BorderThickness="2,0,0,0"
-                            Opacity="0.85"
-                            Padding="16,4,0,4">
+                            BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush, FallbackValue={x:Null}}"
+                            Padding="20,6,0,6"
+                            Margin="0,0,0,0">
                         <views:SectionView/>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Spacing="20"/>
+                    <StackPanel Spacing="14"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
