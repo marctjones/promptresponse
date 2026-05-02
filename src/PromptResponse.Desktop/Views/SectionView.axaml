@@ -138,7 +138,10 @@
                                     </StackPanel>
                                 </Border>
 
-                                <!-- Cells in column order -->
+                                <!-- Cells in column order. Cells need a visible
+                                     resting state so users can see where to
+                                     click — without it, empty borderless
+                                     TextBoxes are invisible until focused. -->
                                 <ItemsControl ItemsSource="{Binding Cells}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -148,9 +151,11 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate DataType="vmp:TableCellViewModel">
                                             <Border MinWidth="160"
-                                                    BorderThickness="0,0,1,1">
+                                                    BorderThickness="0,0,1,1"
+                                                    Background="#08000000">
                                                 <TextBox Text="{Binding Value, Mode=TwoWay}"
                                                          Watermark="{Binding Placeholder}"
+                                                         Background="Transparent"
                                                          BorderThickness="0"
                                                          CornerRadius="0"
                                                          MinHeight="36"
