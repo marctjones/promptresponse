@@ -23,4 +23,14 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+
+  <!--
+    Policy: don't pin transitive dependencies. Let our direct deps
+    (Microsoft.NET.Test.Sdk, xUnit, NSubstitute, Avalonia, etc.) drive what
+    transitive versions get resolved. Force-pinning transitives upward is
+    actively harmful — when we tried it, pinning Microsoft.Testing.Platform
+    1.9.1 → 2.2.2 introduced OpenTelemetry.Api 1.15.1 (GHSA-g94r-2vxg-569j).
+    Promote a transitive to a direct ref only for security remediation; track
+    via `dotnet list package` (vulnerable / include-transitive flags) in CI.
+  -->
 </Project>

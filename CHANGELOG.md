@@ -9,6 +9,19 @@ development; entries are grouped by date rather than versioned releases.
 
 ## [Unreleased]
 
+### Dependency policy: don't pin transitives — 2026-05-02
+
+Recorded as a comment in `tests/Directory.Build.props`. We let our direct
+deps (Microsoft.NET.Test.Sdk, xUnit, NSubstitute, Avalonia, etc.) drive
+what transitive versions get resolved. We tried force-pinning the
+transitive `Microsoft.Testing.Platform` 1.9.1 → 2.2.2 to silence
+NU1903-style noise; that pulled in `OpenTelemetry.Api` 1.15.1 with
+[GHSA-g94r-2vxg-569j](https://github.com/advisories/GHSA-g94r-2vxg-569j),
+introducing a *new* vulnerability while trying to chase a non-issue.
+Lesson: only promote a transitive to a direct ref for **security
+remediation**, not "freshness." Track via `dotnet list package` with the
+`--vulnerable` / `--include-transitive` flags in CI.
+
 ### Dependency patch sweep — 2026-05-02
 
 Follow-up to the bundle upgrade — picks up patch / minor releases that
