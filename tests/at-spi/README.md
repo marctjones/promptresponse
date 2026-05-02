@@ -54,16 +54,14 @@ and a private dbus bus. CI runners typically don't have all of that. We
 keep Layer 1/2 in the default `dotnet test` for fast deterministic coverage
 and run Layer 3 manually before releases.
 
-## Known issue exposed by this layer
+## Status
 
-Running this script today **exits non-zero with "no AT-SPI application
-matching 'PromptResponse' is registered"**. That's a real bug, not a
-script bug — the Avalonia desktop app isn't registering itself on the
-AT-SPI bus at all (other apps on the same session DO register). Until
-the Avalonia-side at-spi backend wiring is fixed, screen readers cannot
-see PromptResponse. Tracked separately as an idlergear bug task. Layer 3
-will start passing once that's resolved; the framework here is the
-guard against future regressions.
+Layer 3 currently **passes** against the live AT-SPI bus. PromptResponse
+registers on the bus as `PromptResponse` (set via `Application.Name` in
+`App.axaml`); every focusable interactive node carries a non-empty Name
+that screen readers can announce. The earlier registration bug
+(idlergear #26) is closed — fixed by upgrading to Avalonia 12, which
+ships the AT-SPI2 backend.
 
 ## Not covered
 

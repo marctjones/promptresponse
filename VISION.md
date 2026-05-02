@@ -4,9 +4,9 @@
 Replace rigid PDF/Word forms with a flexible, semantic, JSON-based format (.apr) that separates content from presentation. Office workers should be able to create and fill forms without fighting layout tools, and downstream systems should get clean structured data without parsing PDFs.
 
 ## What it is (post-Phase 5 baseline)
-A cross-platform .NET 8 / C# 12 / AvaloniaUI 11 application stack:
+A cross-platform .NET 10 / C# 14 / AvaloniaUI 12 application stack:
 - **PromptResponse.Core** — platform-agnostic models, JSON serialization, advisory validation. >95% line coverage gated in CI.
-- **PromptResponse.Desktop** — Avalonia 11 app on the new MainShell stack:
+- **PromptResponse.Desktop** — Avalonia 12 app on the new MainShell stack:
   thin MainShellViewModel composing DocumentSessionService + ProfileService +
   FormProgressViewModel + SearchViewModel + PromptViewModelFactory; all using
   CommunityToolkit.Mvvm source generators. Three-column layout with native menu,

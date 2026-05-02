@@ -41,7 +41,7 @@ info: PromptResponse.Desktop.Program[0]
 info: PromptResponse.Desktop.Program[0]
       Platform: Unix 6.17.0.1002
 info: PromptResponse.Desktop.Program[0]
-      Runtime: .NET 8.0.11
+      Runtime: .NET 10.0.7
 info: PromptResponse.Desktop.Program[0]
       Working Directory: /home/user/promptresponse
 ```

@@ -15,7 +15,7 @@ Complete guide to using PromptResponse for creating and filling out forms.
 
 ### Prerequisites
 
-- .NET 8.0 Runtime or SDK
+- .NET 10.0 Runtime or SDK
 - Linux or Windows (macOS support planned)
 
 ### Download and Install

@@ -46,8 +46,8 @@ Open http://localhost:8080 in your browser to see a form. Fill it out and submit
 ## Installation (Full .NET Application)
 
 ```bash
-# Prerequisites: .NET 8.0 SDK
-dotnet --version  # Should be 8.0 or higher
+# Prerequisites: .NET 10.0 SDK
+dotnet --version  # Should be 10.0 or higher
 
 # Clone repository
 git clone https://github.com/marctjones/promptresponse.git
@@ -134,30 +134,51 @@ See [CLI README](src/PromptResponse.Cli/README.md) for complete CLI documentatio
 
 ## Technology Stack
 
-- **.NET 8.0** - Cross-platform runtime
-- **C# 12** - Modern language features
-- **AvaloniaUI 11** - Cross-platform UI framework
-- **xUnit** - Testing framework
+- **.NET 10.0** (LTS, supported through Nov 2028) — cross-platform runtime
+- **C# 14** (preview) — modern language features
+- **AvaloniaUI 12** — cross-platform UI framework, first .NET UI framework
+  with a native Linux accessibility (AT-SPI2) backend
+- **CommunityToolkit.Mvvm 8.4** — MVVM source generators (`[ObservableProperty]`,
+  `[RelayCommand]`)
+- **xUnit.v3** — testing framework
+- **NSubstitute** — mocking (MIT-licensed; replaces Moq)
+- **AwesomeAssertions** — fluent assertion library (Apache 2.0 community
+  fork of FluentAssertions, kept open-source by design)
 
 ## License
 
-Not Licensed
+GPL-3.0-or-later (see each project's `<PackageLicenseExpression>` in
+the corresponding `.csproj`).
 
 ## Project Status
 
-🚧 **Active Development** - 0.1 baseline
+🚧 **Active Development**
 
-- [x] Core library (models, JSON serialization, advisory validation)
-- [x] CLI tool (validate, info, new, fill, stats, diff, export)
-- [x] Capability-profile rendering system (Light / Dark / HighContrast +
-      VisualFormatting / LargeText / ReducedMotion / ScreenReaderTuned /
-      MotorAssist, all composable)
+- [x] Core library (models, JSON serialization, advisory validation,
+      hidden-character + mixed-script advisors)
+- [x] CLI tool (validate, info, new, fill, stats, diff, export) with
+      ~83% line coverage gate
+- [x] Capability-profile rendering system: Light / Dark / HighContrast,
+      LargeText / ReducedMotion / ScreenReaderTuned / LargeHitTargets /
+      WizardMode globals, plus 12 composable display + input-mask flags,
+      named presets (Excellent vision, Blind/SR, LowVision/HC,
+      Cognitive/Dyslexia, Motor/Mobility) selectable via
+      `View → Capability Profile`
 - [x] Polymorphic prompt views (one focused VM + view per data-type hint)
-- [x] Three-column desktop shell with native menu, screen-reader live region,
-      empty state, and a keyboard shortcuts cheat sheet (F1)
-- [x] WCAG-gated CI: every theme contrast pair, every keyboard shortcut,
-      every interactive control's accessible name
-- [x] Avalonia.Headless GUI automation tests for keyboard + mouse interactions
+- [x] **APRT structural editor** with inline title/label edits, type
+      ComboBox, hints expander, drag-and-drop reorder, undo/redo
+      (Ctrl+Z / Ctrl+Y), section + nested-section + table-section
+      authoring, and a document-metadata expander
+- [x] **Wizard mode**: section-at-a-time rendering with Previous/Next
+      navigation; auto-on under the Cognitive preset (`View → Toggle
+      Wizard Mode` / Ctrl+W)
+- [x] **Linux accessibility (AT-SPI2)** — native screen-reader support
+      via Avalonia 12; verified against Orca's AT-SPI bus
+- [x] Three-layer blind-user accessibility test stack: in-process
+      AutomationPeer tree + keyboard flow tests + external AT-SPI smoke
+      test (`./tests/at-spi/run_at_spi_smoke.sh`)
+- [x] WCAG-gated CI: every theme contrast pair, every keyboard
+      shortcut, every interactive control's accessible name
 - [ ] Mobile support (.NET MAUI) — future
 - [ ] Calculation engine (computed fields) — future
 - [ ] Conditional logic (show/hide based on responses) — future

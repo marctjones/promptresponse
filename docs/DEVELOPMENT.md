@@ -388,15 +388,17 @@ _logger.LogCritical("Unrecoverable error in serialization engine");
 <ItemGroup>
   <PackageReference Include="Avalonia" Version="11.0.0" />
   <!-- Cross-platform UI: MIT License -->
-  <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+  <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" />
   <!-- Logging: MIT License -->
 </ItemGroup>
 
 <!-- Test Projects -->
 <ItemGroup>
-  <PackageReference Include="xUnit" Version="2.6.0" />
-  <PackageReference Include="FluentAssertions" Version="6.12.0" />
-  <PackageReference Include="coverlet.collector" Version="6.0.0" />
+  <PackageReference Include="xunit.v3" Version="3.2.2" />
+  <PackageReference Include="AwesomeAssertions" Version="9.4.0" />
+  <PackageReference Include="NSubstitute" Version="5.3.0" />
+  <PackageReference Include="coverlet.collector" Version="6.0.4" />
+  <PackageReference Include="Avalonia.Headless.XUnit" Version="12.0.2" />
 </ItemGroup>
 ```
 
@@ -405,11 +407,11 @@ _logger.LogCritical("Unrecoverable error in serialization engine");
 ### Prerequisites
 
 ```bash
-# Install .NET 8.0 SDK
+# Install .NET 10.0 SDK
 # Linux:
 wget https://dot.net/v1/dotnet-install.sh
 chmod +x dotnet-install.sh
-./dotnet-install.sh --channel 8.0
+./dotnet-install.sh --channel 10.0
 
 # Verify installation
 dotnet --version  # Should show 8.0.x
@@ -658,7 +660,7 @@ builder.Logging.SetMinimumLevel(LogLevel.Debug);
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/src/PromptResponse.Desktop/bin/Debug/net8.0/PromptResponse.Desktop.dll",
+      "program": "${workspaceFolder}/src/PromptResponse.Desktop/bin/Debug/net10.0/PromptResponse.Desktop.dll",
       "args": [],
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",

@@ -11,7 +11,7 @@ PromptResponse is a cross-platform form creation and filling application using a
 - **Database Integration**: JSON format makes importing form data into databases trivial
 - **Programmatic Filling**: Easy API for automated form filling from scripts or other systems
 
-**Technology Stack**: .NET 8.0, C# 12, AvaloniaUI 11, xUnit
+**Technology Stack**: .NET 10.0 (LTS), C# 14 (preview), AvaloniaUI 12, xUnit.v3, NSubstitute, AwesomeAssertions, CommunityToolkit.Mvvm 8.4
 
 ## Build and Test Commands
 
@@ -336,11 +336,13 @@ public class PromptViewModel : ViewModelBase
 - `PromptResponse.Core` (local)
 
 **Test Projects:**
-- `xUnit` 2.6+
-- `FluentAssertions` 6.12+
-- `coverlet.collector` 6.0+ (for coverage)
+- `xunit.v3` 3.2+
+- `AwesomeAssertions` 9.4+ (Apache 2.0 community fork of FluentAssertions)
+- `NSubstitute` 5.3+ (MIT-licensed mock framework)
+- `coverlet.collector` / `coverlet.msbuild` 6.0+ (for coverage)
+- `Avalonia.Headless.XUnit` 12.0+ (in-process GUI tests)
 
-**Principle**: Minimize external dependencies; prefer pure .NET libraries; use only permissive licenses (MIT, Apache 2.0, BSD)
+**Principle**: Minimize external dependencies; prefer pure .NET libraries; use only permissive licenses (MIT, Apache 2.0, BSD). Reject packages with paid-commercial-license schemes (FluentAssertions v8) or trust-eroding behaviors (Moq SponsorLink).
 
 ## Important Constraints
 

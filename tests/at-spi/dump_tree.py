@@ -127,9 +127,9 @@ def check(app):
 
 def main():
     parser = argparse.ArgumentParser(description="AT-SPI smoke test for PromptResponse.Desktop")
-    parser.add_argument("--application", default="Avalonia Application",
+    parser.add_argument("--application", default="PromptResponse",
                         help="Substring of the app's AT-SPI name to look up. "
-                             "Avalonia 12 defaults to 'Avalonia Application' until app sets a different name.")
+                             "Set via Application.Name in App.axaml.")
     parser.add_argument("--check", action="store_true",
                         help="Run Layer 1-equivalent checks against the live tree and exit non-zero on failure")
     args = parser.parse_args()

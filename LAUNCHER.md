@@ -210,9 +210,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ### ".NET SDK not found"
 
-Ensure .NET 8.0 SDK is installed:
+Ensure .NET 10.0 SDK is installed:
 ```bash
-dotnet --version  # Should show 8.0.x
+dotnet --version  # Should show 10.0.x
 ```
 
 Download from: https://dotnet.microsoft.com/download
@@ -277,7 +277,7 @@ echo "Validation and testing complete!"
 
 For issues with the launcher scripts, check:
 1. You're in the project root directory
-2. .NET 8.0 SDK is installed
+2. .NET 10.0 SDK is installed
 3. The project builds successfully: `dotnet build`
 4. Scripts have execute permissions (Linux/macOS)
 
