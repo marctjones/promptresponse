@@ -39,6 +39,11 @@ TestResults/
 coverage.json
 coverage.cobertura.xml
 coverage.opencover.xml
+coverage-*.xml
+
+# Stryker.NET mutation testing output
+StrykerOutput/
+StrykerLogs/
 
 # NuGet
 *.nupkg
@@ -65,3 +70,4 @@ logs/
 .idlergear/daemon.sock
 .idlergear/daemon.pid
 .idlergear/sync/
+.idlergear/runs/

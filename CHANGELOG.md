@@ -9,6 +9,64 @@ development; entries are grouped by date rather than versioned releases.
 
 ## [Unreleased]
 
+### Test coverage: Desktop ViewModels gap closure — 2026-05-02
+
+Added 29 tests targeting the lowest-coverage Desktop ViewModels.
+
+- New `DocumentMetadataViewModelTests` (8 tests): every property setter
+  (Title / Description / Author / TemplateId / TemplateVersion) propagates
+  through to the underlying `Metadata` model, raises `PropertyChanged` +
+  `Changed`, no-op assignments short-circuit cleanly, every field is
+  individually undoable, consecutive same-field keystrokes merge into one
+  undo step, edits across different fields don't merge, the
+  `IsApplying` short-circuit during command replay works, and the
+  no-history path still propagates writes.
+- New `EditingCommandUndoRedoTests` (21 tests): every structural editing
+  command's Execute → Undo → Redo cycle. Closes the previously-zero
+  coverage on `AddTopLevelSection` / `RemoveTopLevelSection` /
+  `RemoveColumn` / `RemoveFixedRow` / `RemoveNestedSection` /
+  `RemoveTableLayout` Undo paths, and the redo branch on the
+  captured-state add commands (`AddColumn` / `AddFixedRow`) where the
+  command reuses the captured column / row instance instead of
+  synthesizing a fresh one.
+
+Coverage moves:
+
+| Class | Before | After |
+|---|---|---|
+| `DocumentMetadataViewModel` | 25.6% | **100.0%** |
+| `RemoveColumnCommand` | 0.0% | 78.6% |
+| `RemoveTableLayoutCommand` | 0.0% | 75.0% |
+| `AddTopLevelSectionCommand` | 0.0% | 66.7% |
+| `RemoveFixedRowCommand` | 0.0% | 66.7% |
+| `RemoveNestedSectionCommand` | 0.0% | 66.7% |
+| `AddColumnCommand` | 70.6% | 88.2% |
+| `AddFixedRowCommand` | 68.8% | 87.5% |
+| Desktop module overall | 74.88% line / 76.38% method | **78.70%** / **80.44%** |
+
+Tests now: 1235 passing across Core (405) + Desktop (634, +29) + CLI (96)
++ AccessibilityTests (100). Skipped: 4 (unchanged — known harness limits).
+
+### Mutation testing: Stryker.NET attempted, integration broken — 2026-05-02
+
+Tried Stryker.NET 4.14.1 against `PromptResponse.Core.Tests` to validate
+that the 93% line coverage actually catches behavioral changes. The full
+1049-mutant run completed in ~15 min but reported **Killed: 0 / Survived:
+542 / Timeout: 197**, scored 26.66% — the score is entirely from
+timeouts, no real test executions. A narrow-scope re-run on a single
+file (`Models/Prompt.cs`, 5 mutants) reproduced the same shape: zero
+kills, all timeouts.
+
+Symptom: Stryker emits `It looks like the test coverage capture failed.
+Disable coverage based optimisation.` during analysis. The VsTest +
+xunit.v3 3.2.2 path doesn't appear to actually run our 405 tests against
+mutants.
+
+Rather than commit dead scaffolding (a tool manifest + config that
+yield meaningless scores), Stryker is held off until a Stryker.NET /
+xunit.v3 fix lands. Tracked as a follow-up; line coverage remains the
+primary gate for now.
+
 ### Dependency policy: don't pin transitives — 2026-05-02
 
 Recorded as a comment in `tests/Directory.Build.props`. We let our direct
