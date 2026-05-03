@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Xml.Linq;
 using AwesomeAssertions;
 using PromptResponse.Desktop.Views;
@@ -11,13 +12,19 @@ namespace PromptResponse.Desktop.Tests.Views;
 /// Drift guard for the About dialog's open source acknowledgements list.
 ///
 /// The list in <see cref="AboutDialog.Acknowledgements"/> is hand-maintained
-/// — adding a new runtime dependency to <c>PromptResponse.Desktop.csproj</c>
-/// or <c>PromptResponse.Core.csproj</c> without updating the dialog would
-/// mean we ship a binary with under-disclosed third-party code. These tests
-/// fail loudly on that drift, AT BUILD TIME, so the omission is caught
-/// before release.
+/// — adding (or transitively pulling in) a new runtime NuGet without
+/// updating the dialog would mean we ship a binary with under-disclosed
+/// third-party code. These tests fail loudly on that drift, AT BUILD TIME,
+/// so the omission is caught before release.
 ///
-/// Test-only dependencies (xUnit, NSubstitute, etc.) don't ship in the
+/// We assert against each runtime project's resolved package closure
+/// (<c>obj/project.assets.json</c>), not just the direct
+/// <c>PackageReference</c> entries — so a transitive bump that pulls in a
+/// brand-new package also fails the build until the dialog catches up.
+///
+/// Test-only dependencies (xUnit, NSubstitute, etc.) and packages flagged
+/// <c>developmentDependency=true</c> in their <c>.nuspec</c> (build-time
+/// helpers like <c>Avalonia.BuildServices</c>) don't ship in the
 /// user-facing binary and are excluded from this check on purpose.
 /// </summary>
 public class AboutDialogAcknowledgementsTests
@@ -35,48 +42,100 @@ public class AboutDialogAcknowledgementsTests
             ?? throw new InvalidOperationException("Could not locate repo root from " + System.AppContext.BaseDirectory);
     }
 
-    private static IEnumerable<(string Name, string Version)> RuntimePackageReferences(string csprojRelative)
+    /// <summary>
+    /// Reads the full resolved NuGet closure from a project's
+    /// <c>project.assets.json</c> (the lockfile written by <c>dotnet restore</c>),
+    /// skipping packages flagged as <c>developmentDependency</c> in their
+    /// nuspec — those are build-time helpers and never ship at runtime.
+    /// </summary>
+    private static IEnumerable<(string Name, string Version)> ResolvedRuntimeClosure(string projectRelativeDir)
     {
-        var path = Path.Combine(RepoRoot, csprojRelative);
-        File.Exists(path).Should().BeTrue($"{csprojRelative} must exist for the parity check to be meaningful");
+        var assetsPath = Path.Combine(RepoRoot, projectRelativeDir, "obj", "project.assets.json");
+        File.Exists(assetsPath).Should().BeTrue(
+            $"{projectRelativeDir}/obj/project.assets.json must exist — " +
+            "run `dotnet restore` (or `dotnet build`) before running this test");
 
-        var doc = XDocument.Load(path);
-        return doc.Descendants("PackageReference")
-            .Select(pr => (
-                Name: pr.Attribute("Include")?.Value ?? string.Empty,
-                Version: pr.Attribute("Version")?.Value ?? string.Empty))
-            .Where(p => !string.IsNullOrEmpty(p.Name));
+        using var doc = JsonDocument.Parse(File.ReadAllText(assetsPath));
+        if (!doc.RootElement.TryGetProperty("libraries", out var libraries))
+        {
+            yield break;
+        }
+
+        var nugetCache = Path.Combine(
+            Environment.GetEnvironmentVariable("NUGET_PACKAGES")
+                ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget", "packages"));
+
+        foreach (var lib in libraries.EnumerateObject())
+        {
+            if (!lib.Value.TryGetProperty("type", out var typeProp) || typeProp.GetString() != "package")
+            {
+                continue;
+            }
+
+            var key = lib.Name; // "PackageId/Version"
+            var slash = key.IndexOf('/');
+            if (slash < 0) continue;
+            var name = key[..slash];
+            var version = key[(slash + 1)..];
+
+            if (IsDevelopmentDependency(nugetCache, name, version))
+            {
+                continue;
+            }
+
+            yield return (name, version);
+        }
     }
 
+    private static bool IsDevelopmentDependency(string nugetCache, string name, string version)
+    {
+        // .nuspec lives at $NUGET_PACKAGES/<name-lower>/<version>/<name-lower>.nuspec
+        var nuspec = Path.Combine(nugetCache, name.ToLowerInvariant(), version, $"{name.ToLowerInvariant()}.nuspec");
+        if (!File.Exists(nuspec)) return false;
+
+        try
+        {
+            var x = XDocument.Load(nuspec);
+            var ns = x.Root?.GetDefaultNamespace() ?? XNamespace.None;
+            var dev = x.Descendants(ns + "developmentDependency").FirstOrDefault()?.Value;
+            return string.Equals(dev, "true", StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private static IEnumerable<(string Name, string Version)> EveryRuntimeProjectsClosure() =>
+        ResolvedRuntimeClosure("src/PromptResponse.Desktop")
+            .Concat(ResolvedRuntimeClosure("src/PromptResponse.Core"))
+            .Concat(ResolvedRuntimeClosure("src/PromptResponse.Cli"));
+
     [Fact]
-    public void EveryRuntimePackageReference_HasAnAcknowledgementEntry()
+    public void EveryRuntimePackage_HasAnAcknowledgementEntry()
     {
         var declared = AboutDialog.Acknowledgements
             .Select(a => a.Name)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-        var runtimeRefs = RuntimePackageReferences("src/PromptResponse.Desktop/PromptResponse.Desktop.csproj")
-            .Concat(RuntimePackageReferences("src/PromptResponse.Core/PromptResponse.Core.csproj"))
-            .Concat(RuntimePackageReferences("src/PromptResponse.Cli/PromptResponse.Cli.csproj"))
+        var shipped = EveryRuntimeProjectsClosure()
             .Select(p => p.Name)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
-        var missing = runtimeRefs.Where(r => !declared.Contains(r)).ToArray();
+        var missing = shipped.Where(s => !declared.Contains(s)).ToArray();
 
         missing.Should().BeEmpty(
-            "every runtime package shipping in the desktop binary must appear in AboutDialog.Acknowledgements — " +
+            "every runtime NuGet package shipping in the desktop binary must appear in AboutDialog.Acknowledgements — " +
             "otherwise the user-visible About dialog under-discloses third-party code. " +
             "Update src/PromptResponse.Desktop/Views/AboutDialog.axaml.cs to add the missing entries: " +
             string.Join(", ", missing));
     }
 
     [Fact]
-    public void EveryAcknowledgementEntry_VersionMatchesActualPackageReference()
+    public void EveryAcknowledgementEntry_RefersToAShippingPackage()
     {
-        var runtimeRefs = RuntimePackageReferences("src/PromptResponse.Desktop/PromptResponse.Desktop.csproj")
-            .Concat(RuntimePackageReferences("src/PromptResponse.Core/PromptResponse.Core.csproj"))
-            .Concat(RuntimePackageReferences("src/PromptResponse.Cli/PromptResponse.Cli.csproj"))
+        var shipped = EveryRuntimeProjectsClosure()
             .GroupBy(p => p.Name, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(g => g.Key, g => g.First().Version, StringComparer.OrdinalIgnoreCase);
 
@@ -85,13 +144,13 @@ public class AboutDialogAcknowledgementsTests
             // .NET Runtime is special — it's not a NuGet PackageReference, it's the SDK.
             if (string.Equals(ack.Name, ".NET Runtime", StringComparison.OrdinalIgnoreCase)) continue;
 
-            runtimeRefs.TryGetValue(ack.Name, out var actualVersion)
+            shipped.TryGetValue(ack.Name, out var actualVersion)
                 .Should().BeTrue($"acknowledgement entry '{ack.Name}' refers to a package that no longer ships at runtime — remove it from AboutDialog");
 
-            // We accept a version mismatch only if the .csproj uses a major-prefix that matches.
-            // That keeps the dialog stable across patch bumps without micro-managing it.
+            // Major-version match keeps the dialog stable across patch bumps without micro-managing it.
+            // For pre-release / dotted versions like "3.119.4-preview.1.1" we just compare the major.
             actualVersion.Should().StartWith(ack.Version[..ack.Version.IndexOf('.')],
-                $"acknowledgement '{ack.Name}' is pinned to {ack.Version} but .csproj uses {actualVersion} — the major-version mismatch suggests the dialog is stale");
+                $"acknowledgement '{ack.Name}' is pinned to {ack.Version} but the resolved package is {actualVersion} — the major-version mismatch suggests the dialog is stale");
         }
     }
 

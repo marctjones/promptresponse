@@ -48,27 +48,93 @@ public partial class AboutDialog : Window
         Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "0.1";
 
     /// <summary>
-    /// Open source runtime dependencies that ship with the desktop binary.
-    /// Update this list whenever a runtime <c>PackageReference</c> changes
-    /// (add / remove / version bump). The corresponding test
-    /// <c>AboutDialogAcknowledgementsTests</c> guards parity with the actual
-    /// .csproj entries so divergence is caught at build time.
+    /// Open source runtime components that ship with the desktop binary.
+    /// Covers the full transitive closure of NuGet packages resolved by
+    /// the runtime projects (Desktop / Core / Cli), not just the direct
+    /// <c>PackageReference</c> entries — so attribution is accurate even
+    /// when an upgrade pulls in a new transitive dep.
+    ///
+    /// License metadata sourced from each package's <c>.nuspec</c> and
+    /// cross-verified against a <c>scancode-toolkit</c> scan of the
+    /// published binary. Packages with <c>developmentDependency=true</c>
+    /// in their nuspec (build-time helpers like <c>Avalonia.BuildServices</c>)
+    /// don't ship at runtime and are intentionally excluded.
+    ///
+    /// Update this list whenever the transitive closure changes. The
+    /// drift-guard tests in <c>AboutDialogAcknowledgementsTests</c>
+    /// check parity against each project's <c>project.assets.json</c>
+    /// resolved package set so omissions fail at build time.
     /// </summary>
     public static IReadOnlyList<Acknowledgement> Acknowledgements { get; } = new[]
     {
-        new Acknowledgement(".NET Runtime", "10.0", "MIT License — © .NET Foundation and Contributors"),
+        // The runtime itself. Not a NuGet PackageReference — exempted from the parity check.
+        new Acknowledgement(".NET Runtime", "10.0", "MIT License — © .NET Foundation and Contributors",
+            Note: "https://dot.net/"),
+
+        // ─── Avalonia 12.0.2 — © The Avalonia Project, MIT ────────────────────────────
         new Acknowledgement("Avalonia", "12.0.2", "MIT License — © The Avalonia Project",
-            Note: "Cross-platform .NET UI framework."),
+            Note: "Cross-platform .NET UI framework. https://avaloniaui.net/"),
         new Acknowledgement("Avalonia.Desktop", "12.0.2", "MIT License — © The Avalonia Project",
-            Note: "Desktop platform backends (Win32, X11, macOS)."),
+            Note: "Desktop platform backends meta-package."),
         new Acknowledgement("Avalonia.Themes.Fluent", "12.0.2", "MIT License — © The Avalonia Project"),
         new Acknowledgement("Avalonia.Fonts.Inter", "12.0.2", "MIT License (package) — © The Avalonia Project",
             Note: "Bundles the Inter font family by Rasmus Andersson, distributed under the SIL Open Font License 1.1."),
+        new Acknowledgement("Avalonia.FreeDesktop", "12.0.2", "MIT License — © The Avalonia Project",
+            Note: "freedesktop.org desktop integration (Linux)."),
+        new Acknowledgement("Avalonia.FreeDesktop.AtSpi", "12.0.2", "MIT License — © The Avalonia Project",
+            Note: "Native Linux screen-reader (AT-SPI2) support."),
+        new Acknowledgement("Avalonia.HarfBuzz", "12.0.2", "MIT License — © The Avalonia Project"),
+        new Acknowledgement("Avalonia.Native", "12.0.2", "MIT License — © The Avalonia Project",
+            Note: "macOS native backend."),
+        new Acknowledgement("Avalonia.Remote.Protocol", "12.0.2", "MIT License — © The Avalonia Project"),
+        new Acknowledgement("Avalonia.Skia", "12.0.2", "MIT License — © The Avalonia Project"),
+        new Acknowledgement("Avalonia.Win32", "12.0.2", "MIT License — © The Avalonia Project",
+            Note: "Windows native backend."),
+        new Acknowledgement("Avalonia.X11", "12.0.2", "MIT License — © The Avalonia Project",
+            Note: "Linux X11 native backend."),
+
+        // ANGLE (Almost Native Graphics Layer Engine) — Windows-only OpenGL ES translator.
+        new Acknowledgement("Avalonia.Angle.Windows.Natives", "2.1.25547.20250602",
+            "BSD-3-Clause License — © The ANGLE Project Authors",
+            Note: "Google's ANGLE library, repackaged for Avalonia. Renders OpenGL ES on top of Direct3D on Windows."),
+
+        // ─── MVVM ─────────────────────────────────────────────────────────────────────
         new Acknowledgement("CommunityToolkit.Mvvm", "8.4.2", "MIT License — © .NET Foundation and Contributors",
             Note: "Source-generated MVVM helpers."),
+
+        // ─── Skia / HarfBuzz native + managed wrappers — © Microsoft, MIT ────────────
+        new Acknowledgement("SkiaSharp", "3.119.4-preview.1.1", "MIT License — © Microsoft Corporation",
+            Note: "Managed wrapper around Skia. The native libSkiaSharp.so embeds Skia (BSD-3-Clause, © Google LLC) and image codec components under their respective licenses (libpng, libwebp, libjpeg-turbo, etc.)."),
+        new Acknowledgement("SkiaSharp.NativeAssets.Linux", "3.119.4-preview.1.1", "MIT License — © Microsoft Corporation"),
+        new Acknowledgement("SkiaSharp.NativeAssets.macOS", "3.119.4-preview.1.1", "MIT License — © Microsoft Corporation"),
+        new Acknowledgement("SkiaSharp.NativeAssets.WebAssembly", "3.119.4-preview.1.1", "MIT License — © Microsoft Corporation"),
+        new Acknowledgement("SkiaSharp.NativeAssets.Win32", "3.119.4-preview.1.1", "MIT License — © Microsoft Corporation"),
+        new Acknowledgement("HarfBuzzSharp", "8.3.1.3", "MIT License — © Microsoft Corporation",
+            Note: "Managed wrapper around HarfBuzz (MIT, © Behdad Esfahbod and contributors)."),
+        new Acknowledgement("HarfBuzzSharp.NativeAssets.Linux", "8.3.1.3", "MIT License — © Microsoft Corporation"),
+        new Acknowledgement("HarfBuzzSharp.NativeAssets.macOS", "8.3.1.3", "MIT License — © Microsoft Corporation"),
+        new Acknowledgement("HarfBuzzSharp.NativeAssets.WebAssembly", "8.3.1.3", "MIT License — © Microsoft Corporation"),
+        new Acknowledgement("HarfBuzzSharp.NativeAssets.Win32", "8.3.1.3", "MIT License — © Microsoft Corporation"),
+
+        // ─── Microsoft.Extensions.* 10.0.7 — © .NET Foundation, MIT ──────────────────
+        new Acknowledgement("Microsoft.Extensions.Configuration", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
+        new Acknowledgement("Microsoft.Extensions.Configuration.Abstractions", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
+        new Acknowledgement("Microsoft.Extensions.Configuration.Binder", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
         new Acknowledgement("Microsoft.Extensions.DependencyInjection", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
+        new Acknowledgement("Microsoft.Extensions.DependencyInjection.Abstractions", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
+        new Acknowledgement("Microsoft.Extensions.Logging", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
         new Acknowledgement("Microsoft.Extensions.Logging.Abstractions", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
+        new Acknowledgement("Microsoft.Extensions.Logging.Configuration", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
         new Acknowledgement("Microsoft.Extensions.Logging.Console", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
+        new Acknowledgement("Microsoft.Extensions.Options", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
+        new Acknowledgement("Microsoft.Extensions.Options.ConfigurationExtensions", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
+        new Acknowledgement("Microsoft.Extensions.Primitives", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
+
+        // ─── Other ────────────────────────────────────────────────────────────────────
+        new Acknowledgement("MicroCom.Runtime", "0.11.4", "MIT License — © 2021 Nikita Tsukanov",
+            Note: "COM interop runtime used by Avalonia."),
+        new Acknowledgement("Tmds.DBus.Protocol", "0.92.0", "MIT License — © Tom Deseyn",
+            Note: "D-Bus protocol implementation used by AT-SPI2 on Linux."),
     };
 
 }
