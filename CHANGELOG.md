@@ -3,11 +3,48 @@
 All notable changes to PromptResponse are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
-once a release is tagged. The project is currently pre-1.0 / active
-development; entries are grouped by date rather than versioned releases.
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.2.0] - 2026-05-03
+
+Headline: capability-profile rendering system with five named presets,
+APRT structural editor with undo/redo + drag-drop, wizard mode,
+Linux native screen-reader support (AT-SPI2), polymorphic prompt views,
+hidden-character + mixed-script advisors, full bundle upgrade to
+.NET 10 + Avalonia 12 + xunit.v3, MIT/Apache-2.0-only test stack
+(NSubstitute + AwesomeAssertions), and ~95%+ line coverage gates
+across Core / CLI / Desktop. 75 commits since v0.1.0; the most
+significant changes are detailed below.
+
+### About dialog with open-source acknowledgements — 2026-05-02
+
+Replaces the inline 1-paragraph "About" window with a dedicated
+`AboutDialog` that surfaces every runtime third-party dependency with
+name, version, and license, so the user-facing binary doesn't
+under-disclose its open-source inheritance.
+
+The acknowledgements list is hand-maintained on `AboutDialog`. Three
+xUnit guards in `AboutDialogAcknowledgementsTests` fail the build if it
+drifts from the actual `<PackageReference>` entries in the runtime
+.csprojs (Desktop / Core / Cli):
+
+- every runtime `PackageReference` must have an entry,
+- every entry's major version must match the .csproj,
+- every entry must declare a non-empty license string.
+
+Test-only deps (xUnit, NSubstitute, AwesomeAssertions, coverlet,
+Avalonia headless harness) are intentionally excluded — they don't ship
+in the runtime binary.
+
+### Documentation: Expression parser correctly marked as planned — 2026-05-02
+
+The "Expression parser ✅" row in `docs/FEATURES.md` was misleading:
+there is no expression evaluator anywhere in `src/PromptResponse.Core`.
+Marked as ⏳ Planned and pointed readers to
+`APR_SPECIFICATION_v0.2.md`, which sketches the forward-looking
+CEL-style hint design.
 
 ### Test coverage: Desktop ViewModels gap closure — 2026-05-02
 

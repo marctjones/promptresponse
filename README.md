@@ -152,7 +152,8 @@ the corresponding `.csproj`).
 
 ## Project Status
 
-🚧 **Active Development**
+🚧 **Active Development** — current release: **v0.2.0** (2026-05-03).
+See [CHANGELOG.md](CHANGELOG.md) for what landed since v0.1.0.
 
 - [x] Core library (models, JSON serialization, advisory validation,
       hidden-character + mixed-script advisors)

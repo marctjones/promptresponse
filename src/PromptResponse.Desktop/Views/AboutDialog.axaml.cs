@@ -71,16 +71,19 @@ public partial class AboutDialog : Window
         new Acknowledgement("Microsoft.Extensions.Logging.Console", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
     };
 
-    /// <summary>
-    /// Display record for a single open source acknowledgement entry. Bound
-    /// to the acknowledgements list in the dialog template.
-    /// </summary>
-    public sealed record Acknowledgement(
-        string Name,
-        string Version,
-        string License,
-        string? Note = null)
-    {
-        public bool HasNote => !string.IsNullOrWhiteSpace(Note);
-    }
+}
+
+/// <summary>
+/// Display record for a single open source acknowledgement entry. Bound
+/// to the acknowledgements list in the dialog template. Top-level (not
+/// nested in <see cref="AboutDialog"/>) so Avalonia compiled bindings
+/// can resolve <c>x:DataType</c> against it.
+/// </summary>
+public sealed record Acknowledgement(
+    string Name,
+    string Version,
+    string License,
+    string? Note = null)
+{
+    public bool HasNote => !string.IsNullOrWhiteSpace(Note);
 }

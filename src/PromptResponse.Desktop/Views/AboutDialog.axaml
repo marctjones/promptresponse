@@ -1,28 +1,28 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:auto="clr-namespace:Avalonia.Automation;assembly=Avalonia.Base"
+        xmlns:views="clr-namespace:PromptResponse.Desktop.Views"
         x:Class="PromptResponse.Desktop.Views.AboutDialog"
         Title="About PromptResponse"
         Width="560" Height="600"
         WindowStartupLocation="CenterOwner"
         CanResize="True"
-        auto:AutomationProperties.Name="About PromptResponse">
+        AutomationProperties.Name="About PromptResponse">
 
     <Grid RowDefinitions="Auto,*,Auto" Margin="20">
         <!-- Header: app name, tagline, version, license -->
         <StackPanel Grid.Row="0" Spacing="6" Margin="0,0,0,16"
-                    auto:AutomationProperties.Name="Application information">
+                    AutomationProperties.Name="Application information">
             <TextBlock Text="PromptResponse"
                        FontSize="22" FontWeight="SemiBold"
-                       auto:AutomationProperties.Name="PromptResponse application name" />
+                       AutomationProperties.Name="PromptResponse application name" />
             <TextBlock Text="A semantic, accessible form designer and filler."
                        Opacity="0.85" />
             <TextBlock x:Name="VersionLine"
                        Opacity="0.85"
-                       auto:AutomationProperties.Name="Application version" />
+                       AutomationProperties.Name="Application version" />
             <TextBlock Text="Licensed under GPL-3.0-or-later."
                        Opacity="0.85"
-                       auto:AutomationProperties.Name="PromptResponse license" />
+                       AutomationProperties.Name="PromptResponse license" />
         </StackPanel>
 
         <!-- Scrollable third-party notices -->
@@ -30,7 +30,7 @@
                 BorderThickness="1" CornerRadius="4" Padding="12">
             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto"
-                          auto:AutomationProperties.Name="Open source acknowledgements">
+                          AutomationProperties.Name="Open source acknowledgements">
                 <StackPanel Spacing="10">
                     <TextBlock Text="Open source acknowledgements"
                                FontWeight="SemiBold" FontSize="14" />
@@ -39,9 +39,9 @@
 
                     <!-- Per-package entries -->
                     <ItemsControl x:Name="AcknowledgementsList"
-                                  auto:AutomationProperties.Name="Third-party packages and licenses">
+                                  AutomationProperties.Name="Third-party packages and licenses">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="views:Acknowledgement">
                                 <Border Padding="0,6,0,6"
                                         BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
                                         BorderThickness="0,0,0,1">
@@ -71,7 +71,7 @@
             <Button Content="Close" x:Name="CloseButton"
                     IsDefault="True" IsCancel="True"
                     Padding="20,6"
-                    auto:AutomationProperties.Name="Close About dialog" />
+                    AutomationProperties.Name="Close About dialog" />
         </StackPanel>
     </Grid>
 </Window>

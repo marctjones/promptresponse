@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <PackageId>PromptResponse.Core</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>PromptResponse Contributors</Authors>
     <Description>Core library for APR (Adaptive Prompt Response) form format</Description>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
