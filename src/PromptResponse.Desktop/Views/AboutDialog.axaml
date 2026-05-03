@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:auto="clr-namespace:Avalonia.Automation;assembly=Avalonia.Base"
+        x:Class="PromptResponse.Desktop.Views.AboutDialog"
+        Title="About PromptResponse"
+        Width="560" Height="600"
+        WindowStartupLocation="CenterOwner"
+        CanResize="True"
+        auto:AutomationProperties.Name="About PromptResponse">
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+        <!-- Header: app name, tagline, version, license -->
+        <StackPanel Grid.Row="0" Spacing="6" Margin="0,0,0,16"
+                    auto:AutomationProperties.Name="Application information">
+            <TextBlock Text="PromptResponse"
+                       FontSize="22" FontWeight="SemiBold"
+                       auto:AutomationProperties.Name="PromptResponse application name" />
+            <TextBlock Text="A semantic, accessible form designer and filler."
+                       Opacity="0.85" />
+            <TextBlock x:Name="VersionLine"
+                       Opacity="0.85"
+                       auto:AutomationProperties.Name="Application version" />
+            <TextBlock Text="Licensed under GPL-3.0-or-later."
+                       Opacity="0.85"
+                       auto:AutomationProperties.Name="PromptResponse license" />
+        </StackPanel>
+
+        <!-- Scrollable third-party notices -->
+        <Border Grid.Row="1" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                BorderThickness="1" CornerRadius="4" Padding="12">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          auto:AutomationProperties.Name="Open source acknowledgements">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Open source acknowledgements"
+                               FontWeight="SemiBold" FontSize="14" />
+                    <TextBlock TextWrapping="Wrap" Opacity="0.85"
+                               Text="PromptResponse is built with the following open source components. We're grateful to their authors and maintainers." />
+
+                    <!-- Per-package entries -->
+                    <ItemsControl x:Name="AcknowledgementsList"
+                                  auto:AutomationProperties.Name="Third-party packages and licenses">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="0,6,0,6"
+                                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                        BorderThickness="0,0,0,1">
+                                    <StackPanel Spacing="2">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding Version}" Opacity="0.7" />
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding License}" Opacity="0.85" FontSize="12" />
+                                        <TextBlock Text="{Binding Note}" Opacity="0.7" FontSize="12"
+                                                   IsVisible="{Binding HasNote}"
+                                                   TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock TextWrapping="Wrap" FontSize="12" Opacity="0.7" Margin="0,8,0,0"
+                               Text="Trademarks are the property of their respective owners. License texts for each component are included with the corresponding NuGet package and reproduced in the project's NOTICE files." />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Close button -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="Close" x:Name="CloseButton"
+                    IsDefault="True" IsCancel="True"
+                    Padding="20,6"
+                    auto:AutomationProperties.Name="Close About dialog" />
+        </StackPanel>
+    </Grid>
+</Window>
