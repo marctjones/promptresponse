@@ -71,3 +71,7 @@ logs/
 .idlergear/daemon.pid
 .idlergear/sync/
 .idlergear/runs/
+.idlergear/graph.db
+
+# Claude Code scheduler state
+.claude/scheduled_tasks.lock
