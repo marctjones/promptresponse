@@ -75,3 +75,4 @@ logs/
 
 # Claude Code scheduler state
 .claude/scheduled_tasks.lock
+.idlergear.retired/
