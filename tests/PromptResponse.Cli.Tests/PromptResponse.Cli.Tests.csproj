@@ -5,7 +5,7 @@
     <IsTestProject>true</IsTestProject>
 
     <!--
-      Coverage ratchet (idlergear #24). Resolved 2026-05-01.
+      Coverage ratchet. Resolved 2026-05-01.
       Per-class line coverage:
         ValidateCommand 100% · NewCommand 100% · StatsCommand 91.8% ·
         InfoCommand 90.6% · FormFillingApi 89.1% · ExportCommand 87.2% ·

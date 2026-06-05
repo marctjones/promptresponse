@@ -105,7 +105,7 @@ jobs:
           /p:ThresholdStat=total
           /p:Exclude="[xunit.*]*,[*.Tests]*,[*.Tests.*]*"
 
-      # Cli coverage is being ramped up — see idlergear task #24. The gate ratchets
+      # Cli coverage is being ramped up. The gate ratchets
       # up over successive PRs; do NOT lower it without a follow-up plan.
       - name: Cli coverage gate (ratcheting)
         run: >-

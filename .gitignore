@@ -66,13 +66,5 @@ test-forms/
 logs/
 *.log
 
-# IdlerGear daemon files (don't commit)
-.idlergear/daemon.sock
-.idlergear/daemon.pid
-.idlergear/sync/
-.idlergear/runs/
-.idlergear/graph.db
-
 # Claude Code scheduler state
 .claude/scheduled_tasks.lock
-.idlergear.retired/

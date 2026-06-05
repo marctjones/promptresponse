@@ -269,7 +269,7 @@ These predate this changelog file; see `git log` for full history.
 - 2026-04-29 Per-cell table editor + nested-section visual polish.
 - 2026-04-29 Default-on auto-formatters for sighted users + persisted
   capability profile.
-- 2026-04-28 CLI coverage ratchet from 28% to ~83% (idlergear #24).
+- 2026-04-28 CLI coverage ratchet from 28% to ~83%.
 - 2026-04-28 Comprehensive interactive GUI test coverage — menu bar +
   every prompt type.
 - 2026-04-27 `MixedScriptAdvisor` for url + email — browser-style
