@@ -34,20 +34,6 @@
             <version>${jackson.version}</version>
         </dependency>
 
-        <!-- Bouncy Castle for signatures (optional) -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.70</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcpkix-jdk15on</artifactId>
-            <version>1.70</version>
-            <optional>true</optional>
-        </dependency>
-
         <!-- JUnit for testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
