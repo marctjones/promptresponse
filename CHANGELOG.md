@@ -30,6 +30,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `{rowId}.{columnId}`. No third-party rendering dependency enters Core.
   (#32)
 
+### Changed
+
+- **CI builds on .NET 10.** The workflow installed only the .NET 8 SDK while the
+  solution targets `net10.0`, so CI could not build. Bumped `setup-dotnet` to
+  `10.0.x` across all three jobs (and corrected the ".NET 8" step names).
+- **`LangVersion` `preview` → `latest`** (stable C# 14, shipped with the .NET 10
+  SDK). The solution no longer opts into unreleased language features; verified
+  it builds unchanged.
+- **Dependency patch sweep** (latest stable within the same major lines):
+  Avalonia `12.0.2 → 12.0.4`, `Microsoft.Extensions.*` `10.0.7 → 10.0.8`,
+  `Microsoft.NET.Test.Sdk` `18.5.1 → 18.6.0`, `coverlet` `10.0.0 → 10.0.1`,
+  `Tmds.DBus` `0.93.0 → 0.94.1`. 1238 tests pass; About-dialog acknowledgements
+  drift-guard still green (majors unchanged).
+
 ## [0.2.0] - 2026-05-03
 
 Headline: capability-profile rendering system with five named presets,
