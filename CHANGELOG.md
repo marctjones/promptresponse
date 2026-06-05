@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Document rendering seam** (`PromptResponse.Core.Rendering`) — a single,
+  layout-free document traversal (`DocumentRenderModelBuilder`) that flattens an
+  `AprDocument` into an ordered `RenderModel` of semantic blocks (headings,
+  fields, tables), plus an `IDocumentRenderer` contract and a dependency-free
+  `PlainTextDocumentRenderer` reference implementation. This lets PDF / text /
+  HTML / print share one tree walk instead of each re-implementing traversal
+  (the export commands currently triplicate it). Foundation for PDF export.
+  Tables flatten to header + row/cell blocks with cells matched by
+  `{rowId}.{columnId}`. No third-party rendering dependency enters Core.
+  (#32)
+
 ## [0.2.0] - 2026-05-03
 
 Headline: capability-profile rendering system with five named presets,
