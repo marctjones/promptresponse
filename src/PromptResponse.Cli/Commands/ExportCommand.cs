@@ -1,5 +1,7 @@
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Rendering.Pdf;
 using System.Text;
 using System.Text.Json;
 
@@ -22,18 +24,23 @@ public class ExportCommand : ICommand
         if (args.Length == 0)
         {
             Console.Error.WriteLine("Error: File path required");
-            Console.Error.WriteLine("Usage: apr export <file> [--format=<csv|json|txt>] [--output=<file>]");
+            Console.Error.WriteLine("Usage: apr export <file> [--format=<csv|json|txt|pdf>] [--output=<file>] [--exclude-empty]");
             Console.Error.WriteLine();
             Console.Error.WriteLine("Formats:");
             Console.Error.WriteLine("  csv  - Comma-separated values (default)");
             Console.Error.WriteLine("  json - JSON format with prompt/response pairs");
             Console.Error.WriteLine("  txt  - Plain text format");
+            Console.Error.WriteLine("  pdf  - Flattened PDF (requires --output)");
+            Console.Error.WriteLine();
+            Console.Error.WriteLine("Options:");
+            Console.Error.WriteLine("  --exclude-empty  Omit unanswered fields (pdf)");
             return 1;
         }
 
         var filePath = args.FirstOrDefault(a => !a.StartsWith("--"));
         var format = GetArgValue(args, "--format") ?? "csv";
         var outputPath = GetArgValue(args, "--output");
+        var excludeEmpty = args.Contains("--exclude-empty");
 
         if (string.IsNullOrEmpty(filePath))
         {
@@ -47,10 +54,10 @@ public class ExportCommand : ICommand
             return 1;
         }
 
-        if (!new[] { "csv", "json", "txt" }.Contains(format.ToLowerInvariant()))
+        if (!new[] { "csv", "json", "txt", "pdf" }.Contains(format.ToLowerInvariant()))
         {
             Console.Error.WriteLine($"Error: Unsupported format: {format}");
-            Console.Error.WriteLine("Supported formats: csv, json, txt");
+            Console.Error.WriteLine("Supported formats: csv, json, txt, pdf");
             return 1;
         }
 
@@ -59,6 +66,12 @@ public class ExportCommand : ICommand
             // Load document
             var json = await File.ReadAllTextAsync(filePath);
             var document = _serializer.Deserialize(json);
+
+            // PDF is binary: render to a file via the shared IDocumentRenderer seam.
+            if (format.Equals("pdf", StringComparison.OrdinalIgnoreCase))
+            {
+                return await ExportToPdfAsync(document, outputPath, excludeEmpty);
+            }
 
             // Generate export
             string exportContent = format.ToLowerInvariant() switch
@@ -98,6 +111,27 @@ public class ExportCommand : ICommand
     {
         var arg = args.FirstOrDefault(a => a.StartsWith(prefix + "="));
         return arg?.Substring(prefix.Length + 1);
+    }
+
+    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty)
+    {
+        // A PDF is binary, so it must be written to a file rather than stdout.
+        if (string.IsNullOrEmpty(outputPath))
+        {
+            Console.Error.WriteLine("Error: PDF export requires an output file. Use --output=<file>.");
+            return 1;
+        }
+
+        var renderer = new PdfDocumentRenderer();
+        var options = new RenderOptions { IncludeEmptyFields = !excludeEmpty };
+
+        await using (var stream = File.Create(outputPath))
+        {
+            renderer.Render(document, options, stream);
+        }
+
+        Console.WriteLine($"Exported to: {outputPath}");
+        return 0;
     }
 
     private string ExportToCsv(AprDocument document)

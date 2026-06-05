@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **PDF export** — `apr export <file> --format=pdf --output=<file>` renders a
+  filled form (or template) to a flattened PDF. New `PromptResponse.Rendering.Pdf`
+  project implements the `IDocumentRenderer` seam on top of the
+  [pdfe](https://github.com/marctjones/pdfe) engine (`Pdfe.Core`, MIT, pure-managed,
+  consumed as a locally-packed NuGet to keep the repos decoupled). Includes a
+  top-down flow layout with word-wrap, automatic pagination, and table grids.
+  `--exclude-empty` omits unanswered fields. MVP scope: flattened, Latin-text
+  (base-14) output; Unicode font embedding, a fillable-AcroForm variant, and
+  tagged/accessible PDF are deferred (tracked upstream in pdfe #378/#380/#275).
+  (#31)
 - **Document rendering seam** (`PromptResponse.Core.Rendering`) — a single,
   layout-free document traversal (`DocumentRenderModelBuilder`) that flattens an
   `AprDocument` into an ordered `RenderModel` of semantic blocks (headings,

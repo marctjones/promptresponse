@@ -73,6 +73,62 @@ public class ExportCommandTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_PdfFormat_WritesValidPdfFile()
+    {
+        // Arrange
+        var document = CreateTestDocument();
+        var tempFile = Path.GetTempFileName();
+        var outputFile = Path.Combine(Path.GetTempPath(), $"export_{Guid.NewGuid():N}.pdf");
+
+        try
+        {
+            await File.WriteAllTextAsync(tempFile, _serializer.Serialize(document));
+
+            var args = new[] { tempFile, "--format=pdf", $"--output={outputFile}" };
+
+            // Act
+            var exitCode = await _command.ExecuteAsync(args);
+
+            // Assert
+            exitCode.Should().Be(0);
+            File.Exists(outputFile).Should().BeTrue();
+            var bytes = await File.ReadAllBytesAsync(outputFile);
+            bytes.Should().NotBeEmpty();
+            System.Text.Encoding.ASCII.GetString(bytes, 0, 5).Should().Be("%PDF-");
+        }
+        finally
+        {
+            if (File.Exists(tempFile)) File.Delete(tempFile);
+            if (File.Exists(outputFile)) File.Delete(outputFile);
+        }
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_PdfFormat_WithoutOutput_ShouldReturnError()
+    {
+        // Arrange — PDF is binary and must go to a file, not stdout.
+        var document = CreateTestDocument();
+        var tempFile = Path.GetTempFileName();
+
+        try
+        {
+            await File.WriteAllTextAsync(tempFile, _serializer.Serialize(document));
+
+            var args = new[] { tempFile, "--format=pdf" };
+
+            // Act
+            var exitCode = await _command.ExecuteAsync(args);
+
+            // Assert
+            exitCode.Should().Be(1);
+        }
+        finally
+        {
+            if (File.Exists(tempFile)) File.Delete(tempFile);
+        }
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WithCsvFormat_ShouldReturnSuccess()
     {
         // Arrange

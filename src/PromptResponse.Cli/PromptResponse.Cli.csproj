@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PromptResponse.Core\PromptResponse.Core.csproj" />
+    <ProjectReference Include="..\PromptResponse.Rendering.Pdf\PromptResponse.Rendering.Pdf.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -50,6 +50,9 @@ StrykerLogs/
 *.snupkg
 packages/
 .nuget/
+# Exception: the vendored local feed (pdfe) is intentionally tracked so the
+# build is reproducible without the pdfe source checked out. See local-nuget/.
+!local-nuget/*.nupkg
 
 # Rider
 .idea/

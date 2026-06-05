@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      pdfe (https://github.com/marctjones/pdfe) — pure-managed, MIT-licensed
+      PDF engine, consumed as a locally-packed NuGet package (see
+      ../../local-nuget/README.md). MIT is GPL-3.0-compatible.
+    -->
+    <PackageReference Include="Pdfe.Core" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PromptResponse.Core\PromptResponse.Core.csproj" />
+  </ItemGroup>
+
+</Project>
