@@ -74,6 +74,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Microsoft.NET.Test.Sdk` `18.5.1 → 18.6.0`, `coverlet` `10.0.0 → 10.0.1`,
   `Tmds.DBus` `0.93.0 → 0.94.1`. 1238 tests pass; About-dialog acknowledgements
   drift-guard still green (majors unchanged).
+- **pdfe `Pdfe.Core` `2.4.0 → 2.4.1`** — pure patch (no public-API change,
+  enforced upstream by a new public-API gate); adds SourceLink/symbols and
+  release-pipeline fixes. Vendored from the official v2.4.1 release `.nupkg`.
 
 ### Security
 

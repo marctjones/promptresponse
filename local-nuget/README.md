@@ -10,7 +10,7 @@ PromptResponse build is reproducible without the pdfe source checked out.
 
 | Package | Version | Purpose |
 |---------|---------|---------|
-| `Pdfe.Core` | 2.4.0 | Pure-managed PDF authoring engine (MIT). Used by `PromptResponse.Rendering.Pdf` for PDF export. |
+| `Pdfe.Core` | 2.4.1 | Pure-managed PDF authoring engine (MIT). Used by `PromptResponse.Rendering.Pdf` for PDF export. |
 
 ## Refreshing after a pdfe change
 
