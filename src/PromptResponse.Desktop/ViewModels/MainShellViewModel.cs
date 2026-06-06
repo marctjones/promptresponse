@@ -3,6 +3,7 @@ using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using PromptResponse.Core.Expressions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Validation;
@@ -454,6 +455,18 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             {
                 var (promptId, promptLabel) = ResolvePromptFromPath(doc, warning.PropertyPath);
                 _advisories.Add(new AdvisoryItem(promptId, promptLabel, warning.Message));
+            }
+
+            // Cross-field validation (exprValidation) — advisory, never blocking.
+            var fields = FormExpressions.BuildFields(doc);
+            var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
+            foreach (var prompt in FormExpressions.GetAllPrompts(doc))
+            {
+                var message = FormExpressions.Validate(prompt, fields, today);
+                if (message != null)
+                {
+                    _advisories.Add(new AdvisoryItem(prompt.Id, prompt.Label, message));
+                }
             }
         }
         OnPropertyChanged(nameof(AdvisoryCount));

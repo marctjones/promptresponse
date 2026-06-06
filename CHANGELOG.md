@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Cross-field validation in the advisory panel** — `exprValidation` results now
+  appear as advisories (clickable to the field), alongside the data-type /
+  hidden-character / mixed-script advisors. Advisory-only, never blocking. First
+  reactive surfacing of the Milestone 2 expression hints; live computed-value /
+  show-hide UI is the next phase.
 - **Expression hints + form evaluation** — `PromptHints` gains `exprHidden`,
   `exprValue`, `exprExpected`, `exprValidation`, `exprReadOnly` (CEL-subset
   strings; round-trip through JSON). `FormExpressions` (Core) evaluates them

@@ -145,6 +145,46 @@ public class MainShellViewModelTests
     }
 
     [Fact]
+    public void RefreshAdvisories_SurfacesCrossFieldValidationMessages()
+    {
+        var session = new DocumentSessionService();
+        var doc = new AprDocument
+        {
+            Metadata = new Metadata { Title = "T" },
+            Sections = new List<Section>
+            {
+                new()
+                {
+                    Id = "s", Title = "S",
+                    Prompts = new List<Prompt>
+                    {
+                        new() { Id = "start", Label = "Start", Response = "2021-01-01" },
+                        new()
+                        {
+                            Id = "end", Label = "End", Response = "2020-01-01",
+                            Hints = new PromptHints
+                            {
+                                ExprValidation = "_this == '' || start == '' ? '' : (timestamp(_this) > timestamp(start) ? '' : 'End must be after start')",
+                            },
+                        },
+                    },
+                },
+            },
+        };
+        session.Set(doc, null);
+        var shell = CreateShell(session: session);
+
+        shell.RefreshAdvisories();
+
+        shell.Advisories.Should().Contain(a => a.PromptId == "end" && a.Message == "End must be after start");
+
+        // Fix the value → the validation advisory clears.
+        doc.Sections[0].Prompts[1].Response = "2022-01-01";
+        shell.RefreshAdvisories();
+        shell.Advisories.Should().NotContain(a => a.Message == "End must be after start");
+    }
+
+    [Fact]
     public void FocusAdvisory_RaisesFocusPromptRequested_WithThePromptId()
     {
         var shell = CreateShell();
