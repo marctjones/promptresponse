@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Packaged, self-contained distribution** — `scripts/publish.sh` produces
+  single-file, self-contained `promptresponse` (GUI) and `apr` (CLI) binaries
+  that run with **no .NET runtime installed** (verified under a stripped
+  `env -i`). A `release.yml` workflow attaches a Linux tarball, a Windows
+  portable zip, and a Windows Inno Setup installer to the GitHub release on a
+  `v*` tag. File associations for `.apr` / `.aprt` / `.aprf`: a per-user Linux
+  installer (`packaging/linux/install-desktop.sh` — MIME types + desktop entry
+  + default handler) and Windows registry associations via the installer.
+  Docs: `docs/PACKAGING.md`. macOS packaging deferred (#41). (#33)
+
 ## [0.2.0] - 2026-05-03
 
 Headline: capability-profile rendering system with five named presets,

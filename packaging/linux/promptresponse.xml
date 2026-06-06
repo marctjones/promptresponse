@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Shared MIME-info for APR files. Installed to
+  ~/.local/share/mime/packages/ (or system-wide) and registered with
+  update-mime-database so the desktop knows .apr/.aprt/.aprf belong to
+  PromptResponse.
+-->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-apr">
+    <comment>APR form</comment>
+    <comment xml:lang="en">APR form</comment>
+    <glob pattern="*.apr"/>
+    <icon name="promptresponse"/>
+  </mime-type>
+  <mime-type type="application/x-aprt">
+    <comment>APR template</comment>
+    <comment xml:lang="en">APR template</comment>
+    <glob pattern="*.aprt"/>
+    <icon name="promptresponse"/>
+  </mime-type>
+  <mime-type type="application/x-aprf">
+    <comment>APR filled form</comment>
+    <comment xml:lang="en">APR filled form</comment>
+    <glob pattern="*.aprf"/>
+    <icon name="promptresponse"/>
+  </mime-type>
+</mime-info>

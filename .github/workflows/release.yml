@@ -1,0 +1,103 @@
+name: Release
+
+# Build self-contained, single-file artifacts (no .NET runtime needed on the
+# user's machine) and attach them to the GitHub release.
+#   • push a v* tag   → builds + attaches to that tag's release
+#   • workflow_dispatch → manual run against a supplied version
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version, e.g. 0.3.0 (workflow_dispatch only)'
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  DOTNET_VERSION: '10.0.x'
+
+jobs:
+  # ── Linux: self-contained tarball (binaries + desktop installer) ──────
+  linux:
+    name: Linux x64 (tarball)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Resolve version
+        id: ver
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            v="${{ github.event.inputs.version }}"
+          else
+            v="${GITHUB_REF#refs/tags/}"; v="${v#v}"
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+      - name: Publish (self-contained, single-file)
+        run: bash scripts/publish.sh --rid linux-x64 --version "${{ steps.ver.outputs.version }}"
+      - name: Attach to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          files: dist/*.tar.gz
+
+  # ── Windows: Inno Setup installer + portable zip ─────────────────────
+  windows:
+    name: Windows x64 (installer + zip)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Resolve version
+        id: ver
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            v="${{ github.event.inputs.version }}"
+          else
+            v="${GITHUB_REF#refs/tags/}"; v="${v#v}"
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+      - name: Publish Desktop + CLI (self-contained, single-file)
+        shell: pwsh
+        run: |
+          $common = @(
+            '-c','Release','-r','win-x64','--self-contained','true',
+            '-p:PublishSingleFile=true','-p:IncludeNativeLibrariesForSelfExtract=true',
+            '-p:DebugType=none','-p:DebugSymbols=false',
+            "-p:Version=${{ steps.ver.outputs.version }}",'--nologo','-o','publish/win-x64'
+          )
+          dotnet publish src/PromptResponse.Desktop @common
+          dotnet publish src/PromptResponse.Cli     @common
+      - name: Portable zip
+        shell: pwsh
+        run: |
+          $name = "promptresponse-${{ steps.ver.outputs.version }}-win-x64"
+          New-Item -ItemType Directory -Force -Path "dist/$name" | Out-Null
+          Copy-Item publish/win-x64/promptresponse.exe,publish/win-x64/apr.exe,LICENSE,README.md "dist/$name/"
+          Compress-Archive -Path "dist/$name/*" -DestinationPath "dist/$name.zip" -Force
+      - name: Build installer (Inno Setup)
+        shell: pwsh
+        run: |
+          choco install innosetup --no-progress -y
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" `
+            "/DMyAppVersion=${{ steps.ver.outputs.version }}" `
+            "/DPublishDir=publish\win-x64" "/DRepoRoot=." `
+            "/Odist" packaging\windows\promptresponse.iss
+      - name: Attach to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          files: |
+            dist/*.zip
+            dist/*-setup.exe

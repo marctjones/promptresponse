@@ -51,6 +51,9 @@ StrykerLogs/
 packages/
 .nuget/
 
+# Packaging / publish output
+/dist/
+
 # Rider
 .idea/
 *.sln.iml
