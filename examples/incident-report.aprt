@@ -1,0 +1,181 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Incident Report",
+    "description": "Document workplace incidents for safety and compliance purposes",
+    "created": "2026-06-06T00:00:00Z",
+    "modified": "2026-06-06T00:00:00Z",
+    "author": "PromptResponse Team",
+    "templateId": "incident-report",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_reporter_info",
+      "title": "Reporter Information",
+      "description": "Details about the person reporting the incident",
+      "prompts": [
+        {
+          "id": "prompt_reporter_name",
+          "label": "Reporter Name",
+          "response": "",
+          "hints": {
+            "placeholder": "John Smith",
+            "expectedDataType": "text",
+            "helpText": "Full name of the person filing this report"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_reporter_role",
+          "label": "Reporter Role",
+          "response": "",
+          "hints": {
+            "placeholder": "Employee, Manager, Contractor, Visitor",
+            "expectedDataType": "text",
+            "helpText": "Position or relationship to the organization"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_incident_timing",
+      "title": "Incident Timing",
+      "description": "When the incident occurred",
+      "prompts": [
+        {
+          "id": "prompt_incident_date",
+          "label": "Date of Incident",
+          "response": "",
+          "hints": {
+            "placeholder": "2026-06-06",
+            "expectedDataType": "date",
+            "helpText": "The date when the incident occurred"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_incident_time",
+          "label": "Time of Incident",
+          "response": "",
+          "hints": {
+            "placeholder": "14:30",
+            "expectedDataType": "text",
+            "helpText": "Time of day when the incident occurred (approximate time acceptable)"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_incident_location",
+      "title": "Location",
+      "description": "Where the incident took place",
+      "prompts": [
+        {
+          "id": "prompt_location",
+          "label": "Location of Incident",
+          "response": "",
+          "hints": {
+            "placeholder": "Building A, Floor 3, Conference Room B",
+            "expectedDataType": "text",
+            "helpText": "Specific location or area where the incident occurred"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_incident_classification",
+      "title": "Incident Classification",
+      "description": "Type and nature of the incident",
+      "prompts": [
+        {
+          "id": "prompt_incident_type",
+          "label": "Incident Type",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Injury", "Property Damage", "Near Miss", "Security", "Other"],
+            "helpText": "Category of the incident"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_incident_description",
+      "title": "Incident Description",
+      "description": "Detailed account of what happened",
+      "prompts": [
+        {
+          "id": "prompt_description",
+          "label": "Description of What Happened",
+          "response": "",
+          "hints": {
+            "placeholder": "Provide a clear and detailed account of the incident",
+            "expectedDataType": "multiline",
+            "helpText": "Include sequence of events, conditions, and any contributing factors"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_people_involved",
+      "title": "People Involved",
+      "description": "Those affected by or witnessing the incident",
+      "prompts": [
+        {
+          "id": "prompt_people_involved",
+          "label": "People Involved",
+          "response": "",
+          "hints": {
+            "placeholder": "List names and roles of all people involved or witnessing the incident",
+            "expectedDataType": "multiline",
+            "helpText": "Include names, titles, and their relationship to the incident"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_immediate_action",
+      "title": "Immediate Actions",
+      "description": "Response taken at the time of incident",
+      "prompts": [
+        {
+          "id": "prompt_immediate_action",
+          "label": "Immediate Action Taken",
+          "response": "",
+          "hints": {
+            "placeholder": "First aid provided, area secured, emergency personnel called, etc.",
+            "expectedDataType": "multiline",
+            "helpText": "Describe steps taken immediately after the incident"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_followup",
+      "title": "Follow-up",
+      "description": "Investigation and corrective actions needed",
+      "prompts": [
+        {
+          "id": "prompt_followup_required",
+          "label": "Follow-up Investigation Required",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Yes", "No"],
+            "helpText": "Does this incident require further investigation?"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Expense Report",
+    "description": "Document and request reimbursement for business expenses",
+    "created": "2026-06-06T00:00:00Z",
+    "modified": "2026-06-06T00:00:00Z",
+    "author": "PromptResponse Team",
+    "templateId": "expense-report",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_report_header",
+      "title": "Report Header",
+      "description": "General information about the expense report",
+      "prompts": [
+        {
+          "id": "prompt_employee_name",
+          "label": "Employee Name",
+          "response": "",
+          "hints": {
+            "placeholder": "John Smith",
+            "expectedDataType": "text",
+            "helpText": "Full name of the employee submitting expenses"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_department",
+          "label": "Department",
+          "response": "",
+          "hints": {
+            "placeholder": "Sales",
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Sales",
+              "Marketing",
+              "Engineering",
+              "Human Resources",
+              "Finance",
+              "Operations"
+            ],
+            "helpText": "Department responsible for these expenses"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_report_period",
+          "label": "Report Period",
+          "response": "",
+          "hints": {
+            "placeholder": "June 1-30, 2026",
+            "expectedDataType": "text",
+            "helpText": "The time period covered by this expense report"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_expenses",
+      "title": "Expense Details",
+      "description": "One expense line. Duplicate this form (or add rows) for additional expenses.",
+      "prompts": [
+        {
+          "id": "prompt_exp1_date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "placeholder": "2026-06-10",
+            "expectedDataType": "date",
+            "helpText": "Date of the expense"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_exp1_category",
+          "label": "Category",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Travel",
+              "Meals",
+              "Lodging",
+              "Supplies",
+              "Other"
+            ],
+            "helpText": "Type of business expense"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_exp1_description",
+          "label": "Description",
+          "response": "",
+          "hints": {
+            "placeholder": "Conference attendee lunch",
+            "expectedDataType": "text",
+            "helpText": "Brief description of what was purchased"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_exp1_amount",
+          "label": "Amount",
+          "response": "",
+          "hints": {
+            "placeholder": "45.50",
+            "expectedDataType": "currency",
+            "helpText": "Cost of the expense in dollars"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_exp1_reimbursable",
+          "label": "Reimbursable",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ],
+            "helpText": "Is this expense eligible for reimbursement?"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_summary",
+      "title": "Summary",
+      "description": "Total amount and additional notes",
+      "prompts": [
+        {
+          "id": "prompt_total_amount",
+          "label": "Total Amount",
+          "response": "",
+          "hints": {
+            "placeholder": "165.50",
+            "expectedDataType": "currency",
+            "helpText": "Sum of all reimbursable expenses"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_notes",
+          "label": "Additional Notes",
+          "response": "",
+          "hints": {
+            "placeholder": "Add any additional context or clarifications",
+            "expectedDataType": "multiline",
+            "helpText": "Optional comments about expenses or attached receipts"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}

@@ -61,12 +61,14 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Unsaved changes tracking | P1 | ✅ | Prompt before losing work |
 | Collapsible sections | P1 | ✅ | Expand/collapse in editor |
 | **Windows 11 UI redesign** | P0 | 🔄 | Modern Fluent design system |
-| Dashboard/home screen | P1 | ⏳ | Recent docs, quick actions |
+| Dashboard/home screen | P1 | ✅ | Home screen with recent files + starter-template gallery (#34, #36) |
 | Progress tracking | P1 | ⏳ | Visual % complete indicator |
 | Search & navigation | P1 | ⏳ | Find prompts, jump to section |
 | Validation panel | P2 | ⏳ | Dedicated error/warning panel |
 | Print preview | P2 | ⏳ | WYSIWYG print layout |
-| Recent files list | P2 | ⏳ | Quick access to recent docs |
+| Recent files list | P2 | ✅ | Recent files on the home screen, persisted (#34) |
+| PDF / fillable export (GUI) | P1 | ✅ | File → Export: flat PDF + fillable AcroForm (#31) |
+| Starter templates | P1 | ✅ | 6 bundled accessible templates, selectable on home (#36) |
 
 ---
 
@@ -75,7 +77,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Feature | Priority | Status | Notes |
 |---------|----------|--------|-------|
 | CSV/JSON/TXT export | P1 | ✅ | Via CLI export command |
-| **PDF export** | **P1** | **🔄** | Flattened PDF via `export --format=pdf` (pdfe engine). MVP: Latin-text/base-14; Unicode + tagged/accessible + fillable-AcroForm deferred (see CHANGELOG #31) |
+| **PDF export** | **P1** | **✅** | Flat **and** fillable-AcroForm PDF via CLI (`export --format=pdf [--fillable]`) and the desktop File → Export menu (pdfe engine); carries document metadata. Unicode text rendering through the builder is the remaining gap (pdfe#398) (#31) |
 | Word export (.docx) | P2 | ⏳ | Export to Word format |
 | Excel export (.xlsx) | P2 | ⏳ | Export to spreadsheet |
 
@@ -220,4 +222,4 @@ Track new feature requests here before adding to main list:
 
 ---
 
-*Feature tracker version 1.0 - Updated 2024-11-20*
+*Feature tracker updated 2026-06-06 — reflects the v0.3.0 MVP work (PDF export, home screen, starter templates, packaging). See `docs/MVP.md` and `CHANGELOG.md`.*

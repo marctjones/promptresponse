@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Starter templates** — 6 bundled, accessibility-validated office forms
+  (time-off request, expense report, IT access request, contact intake, event
+  registration, incident report) shipped in a `Templates/` folder next to the
+  binary and surfaced as a **"Start from a template"** gallery on the home
+  screen; selecting one opens a fresh unsaved copy. New `ITemplateCatalogService`.
+  Each template is hard-asserted accessible in CI (title, section/prompt labels,
+  help text, unique ids/labels). (#36)
+- **First-run onboarding** — a getting-started hint on the home screen (shown
+  until the user has opened or saved something) pointing new users to the
+  starter templates and F1 shortcuts. (#35)
 - **PDF exports carry document metadata** — generated PDFs (flat and fillable)
   now stamp the APR title / author / description onto the PDF Info dictionary
   (Title / Author / Subject) via pdfe v2.5.0's metadata authoring, for

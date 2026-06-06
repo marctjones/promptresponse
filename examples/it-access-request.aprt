@@ -1,0 +1,149 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "IT Access Request",
+    "description": "Request access to systems, applications, or resources for business purposes",
+    "created": "2026-06-06T00:00:00Z",
+    "modified": "2026-06-06T00:00:00Z",
+    "author": "PromptResponse Team",
+    "templateId": "it-access-request",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_requester_info",
+      "title": "Requester Information",
+      "description": "Details of the person requesting access",
+      "prompts": [
+        {
+          "id": "prompt_requester_name",
+          "label": "Requester Name",
+          "response": "",
+          "hints": {
+            "placeholder": "John Smith",
+            "expectedDataType": "text",
+            "helpText": "Full name of the employee requesting access"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_requester_email",
+          "label": "Requester Email",
+          "response": "",
+          "hints": {
+            "placeholder": "john.smith@company.com",
+            "expectedDataType": "email",
+            "helpText": "Work email address for contact"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_manager_info",
+      "title": "Manager Authorization",
+      "description": "Manager approval for the access request",
+      "prompts": [
+        {
+          "id": "prompt_manager_name",
+          "label": "Manager Name",
+          "response": "",
+          "hints": {
+            "placeholder": "Jane Doe",
+            "expectedDataType": "text",
+            "helpText": "Name of the employee's direct manager"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_access_request",
+      "title": "Access Request Details",
+      "description": "Specify what system access is needed",
+      "prompts": [
+        {
+          "id": "prompt_system_application",
+          "label": "System/Application Requested",
+          "response": "",
+          "hints": {
+            "placeholder": "Salesforce, GitHub, Jira, etc.",
+            "expectedDataType": "text",
+            "helpText": "Name of the system or application requiring access"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_access_level",
+          "label": "Access Level",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Read-only", "Standard", "Admin"],
+            "helpText": "Specify the level of permissions required"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_justification",
+          "label": "Business Justification",
+          "response": "",
+          "hints": {
+            "placeholder": "Explain why this access is needed for your job",
+            "expectedDataType": "multiline",
+            "helpText": "Describe the business need and how this access supports your role"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_duration",
+      "title": "Access Duration",
+      "description": "When the access should be active",
+      "prompts": [
+        {
+          "id": "prompt_start_date",
+          "label": "Start Date",
+          "response": "",
+          "hints": {
+            "placeholder": "2026-06-15",
+            "expectedDataType": "date",
+            "helpText": "When should access be granted?"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_end_date",
+          "label": "End Date (Optional)",
+          "response": "",
+          "hints": {
+            "placeholder": "2026-12-31",
+            "expectedDataType": "date",
+            "helpText": "When should access expire? Leave blank for permanent access."
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_approval",
+      "title": "Approval",
+      "description": "Manager approval of the access request",
+      "prompts": [
+        {
+          "id": "prompt_manager_approval",
+          "label": "Manager Approves This Request",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Approved", "Not Approved"],
+            "helpText": "Manager indicates approval or rejection"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}

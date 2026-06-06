@@ -1,0 +1,149 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Event Registration",
+    "description": "Register for an event with attendee information and preferences",
+    "created": "2026-06-06T00:00:00Z",
+    "modified": "2026-06-06T00:00:00Z",
+    "author": "PromptResponse Team",
+    "templateId": "event-registration",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_attendee_info",
+      "title": "Attendee Information",
+      "description": "Basic registration details",
+      "prompts": [
+        {
+          "id": "prompt_attendee_name",
+          "label": "Attendee Name",
+          "response": "",
+          "hints": {
+            "placeholder": "John Smith",
+            "expectedDataType": "text",
+            "helpText": "Full name of the event attendee"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_email",
+          "label": "Email Address",
+          "response": "",
+          "hints": {
+            "placeholder": "john.smith@example.com",
+            "expectedDataType": "email",
+            "helpText": "Event confirmation will be sent to this address"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_phone",
+          "label": "Phone Number",
+          "response": "",
+          "hints": {
+            "placeholder": "+1 (555) 123-4567",
+            "expectedDataType": "phone",
+            "helpText": "Contact number for event communication"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_organization_info",
+      "title": "Organization",
+      "description": "Attendee's organization details",
+      "prompts": [
+        {
+          "id": "prompt_organization",
+          "label": "Organization",
+          "response": "",
+          "hints": {
+            "placeholder": "ABC Corporation",
+            "expectedDataType": "text",
+            "helpText": "Name of your company or organization"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_ticket_info",
+      "title": "Ticket Information",
+      "description": "Ticket type and additional attendees",
+      "prompts": [
+        {
+          "id": "prompt_ticket_type",
+          "label": "Ticket Type",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["General", "Student", "VIP"],
+            "helpText": "Select your ticket category"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_num_guests",
+          "label": "Number of Guests",
+          "response": "",
+          "hints": {
+            "placeholder": "1",
+            "expectedDataType": "number",
+            "helpText": "How many additional guests will you bring?"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_accommodations",
+      "title": "Special Accommodations",
+      "description": "Dietary and accessibility needs",
+      "prompts": [
+        {
+          "id": "prompt_dietary_restrictions",
+          "label": "Dietary Restrictions",
+          "response": "",
+          "hints": {
+            "placeholder": "Vegetarian, gluten-free, nut allergy, etc.",
+            "expectedDataType": "text",
+            "helpText": "Let us know any dietary restrictions or allergies"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_accessibility",
+          "label": "Accessibility Accommodations",
+          "response": "",
+          "hints": {
+            "placeholder": "Wheelchair access, sign language interpreter, etc.",
+            "expectedDataType": "multiline",
+            "helpText": "Describe any accessibility accommodations you require"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_agreement",
+      "title": "Agreement",
+      "description": "Terms and conditions acceptance",
+      "prompts": [
+        {
+          "id": "prompt_agree_to_terms",
+          "label": "I Agree to the Event Terms and Conditions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["I Agree", "I Do Not Agree"],
+            "helpText": "You must agree to the terms to complete registration"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}

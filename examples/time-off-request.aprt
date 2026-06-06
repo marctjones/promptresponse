@@ -1,0 +1,153 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Time-Off Request",
+    "description": "Request time off for vacation, sick leave, personal time, or other approved leave types",
+    "created": "2026-06-06T00:00:00Z",
+    "modified": "2026-06-06T00:00:00Z",
+    "author": "PromptResponse Team",
+    "templateId": "time-off-request",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_employee_info",
+      "title": "Employee Information",
+      "description": "Basic employee details",
+      "prompts": [
+        {
+          "id": "prompt_employee_name",
+          "label": "Employee Name",
+          "response": "",
+          "hints": {
+            "placeholder": "John Smith",
+            "expectedDataType": "text",
+            "helpText": "Full legal name of the requesting employee"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_employee_id",
+          "label": "Employee ID",
+          "response": "",
+          "hints": {
+            "placeholder": "EMP-2024-001",
+            "expectedDataType": "text",
+            "helpText": "Your unique employee identification number"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_request_date",
+          "label": "Request Date",
+          "response": "",
+          "hints": {
+            "placeholder": "2026-06-06",
+            "expectedDataType": "date",
+            "helpText": "The date this request is being submitted"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_leave_details",
+      "title": "Leave Details",
+      "description": "Specify the type and duration of requested time off",
+      "prompts": [
+        {
+          "id": "prompt_leave_type",
+          "label": "Leave Type",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Vacation", "Sick", "Personal", "Bereavement", "Jury Duty"],
+            "helpText": "Select the reason for your time-off request"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_start_date",
+          "label": "Start Date",
+          "response": "",
+          "hints": {
+            "placeholder": "2026-07-01",
+            "expectedDataType": "date",
+            "helpText": "The first day of your requested time off"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_end_date",
+          "label": "End Date",
+          "response": "",
+          "hints": {
+            "placeholder": "2026-07-10",
+            "expectedDataType": "date",
+            "helpText": "The last day of your requested time off"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_total_days",
+          "label": "Total Days",
+          "response": "",
+          "hints": {
+            "placeholder": "10",
+            "expectedDataType": "number",
+            "helpText": "Number of business days requested (calculated automatically if possible)"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_justification",
+      "title": "Reason",
+      "description": "Provide details about your leave request",
+      "prompts": [
+        {
+          "id": "prompt_reason",
+          "label": "Reason for Time Off",
+          "response": "",
+          "hints": {
+            "placeholder": "Describe the purpose of your requested time off",
+            "expectedDataType": "multiline",
+            "helpText": "Provide any relevant details or context for your request"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_manager_approval",
+      "title": "Manager Review",
+      "description": "Manager approval and signature",
+      "prompts": [
+        {
+          "id": "prompt_manager_name",
+          "label": "Manager Name",
+          "response": "",
+          "hints": {
+            "placeholder": "Jane Doe",
+            "expectedDataType": "text",
+            "helpText": "Name of the employee's direct manager"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_manager_approval",
+          "label": "Manager Approves This Request",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": ["Approved", "Not Approved"],
+            "helpText": "Manager indicates approval or rejection of the request"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}
