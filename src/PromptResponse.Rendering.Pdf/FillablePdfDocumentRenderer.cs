@@ -104,8 +104,7 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
                 break;
 
             case TableBlock t:
-                // Read-only for now; per-cell fillable fields are a follow-up.
-                pdf.Table(PdfRenderHelpers.BuildTableRows(t), headerRow: true);
+                WriteFillableTable(pdf, t);
                 break;
         }
     }
@@ -134,5 +133,47 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
         {
             pdf.Paragraph(f.HelpText!, HelpStyle);
         }
+    }
+
+    /// <summary>
+    /// Renders a table section as a fillable grid: each (fixed-row) cell becomes a
+    /// live AcroForm field named by its cell id, so the table round-trips like the
+    /// rest of the form. A cell's accessible name (<c>/TU</c>) combines its row and
+    /// column headers. Dynamic tables have no rows, so this emits just the header.
+    /// </summary>
+    private static void WriteFillableTable(PdfDocumentBuilder pdf, TableBlock t)
+    {
+        var rows = new List<FillableTableRow>(t.Rows.Count);
+        foreach (var row in t.Rows)
+        {
+            var cells = new List<FillableTableCell>(row.Cells.Count);
+            for (var c = 0; c < row.Cells.Count; c++)
+            {
+                var cell = row.Cells[c];
+                var columnHeader = c < t.ColumnHeaders.Count ? t.ColumnHeaders[c] : string.Empty;
+                var fieldName = string.IsNullOrEmpty(cell.Id) ? $"cell_{row.Label}_{c}" : cell.Id;
+                var tooltip = $"{row.Label} {columnHeader}".Trim();
+                var value = cell.HasResponse ? cell.Value : null;
+                var dataType = cell.ExpectedDataType ?? string.Empty;
+
+                FillableTableCell spec;
+                if (dataType.Equals("boolean", StringComparison.OrdinalIgnoreCase))
+                {
+                    spec = new FillableTableCell(fieldName, FillableCellKind.CheckBox, value, Tooltip: tooltip);
+                }
+                else if (cell.Choices is { Count: > 0 })
+                {
+                    spec = new FillableTableCell(fieldName, FillableCellKind.Choice, value, cell.Choices, tooltip);
+                }
+                else
+                {
+                    spec = new FillableTableCell(fieldName, FillableCellKind.Text, value, Tooltip: tooltip);
+                }
+                cells.Add(spec);
+            }
+            rows.Add(new FillableTableRow(row.Label, cells));
+        }
+
+        pdf.FillableTable(t.ColumnHeaders, rows);
     }
 }
