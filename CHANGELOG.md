@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Live reactive expressions in the fill view** (Milestone 2, Phase 3b) — as the
+  user types, the desktop form now recomputes computed fields (`exprValue`,
+  read-only, fixpoint), shows/hides prompts (`exprHidden`), and toggles read-only
+  (`exprReadOnly`). `PromptViewModelBase` gains `IsVisible`/`IsReadOnly`; the shell
+  re-evaluates on every response change (re-entrancy-guarded) and on load; the
+  prompt container binds visibility/enablement. Cross-field validation already
+  surfaced in the advisory panel. Calculation engine + conditional logic are now
+  end-to-end.
+
 ## [0.4.0] - 2026-06-06
 
 Headline: **Milestone 2 foundations + polish.** A safe, pure-data **expression

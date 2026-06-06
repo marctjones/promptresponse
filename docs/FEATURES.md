@@ -45,8 +45,8 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Data type hints | P1 | ✅ | text, email, date, number, etc. |
 | Expression parser | P1 | ✅ | Safe CEL-subset evaluator in `PromptResponse.Core.Expressions` (no code execution) |
 | Undo/Redo system | P1 | ✅ | Command pattern implemented |
-| Calculation engine | P1 | 🔄 | Computed fields (`exprValue`) with fixpoint recompute — Core done (`FormExpressions`); reactive UI pending |
-| Conditional logic | P2 | 🔄 | `exprHidden`/`exprExpected`/`exprValidation` — Core done (`FormExpressions`); reactive UI pending |
+| Calculation engine | P1 | ✅ | Computed fields (`exprValue`) with fixpoint recompute; live read-only auto-update in the fill view |
+| Conditional logic | P2 | ✅ | `exprHidden` (live show/hide), `exprExpected`, `exprReadOnly`, `exprValidation` (advisory) — end-to-end |
 
 ---
 

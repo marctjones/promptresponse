@@ -144,6 +144,63 @@ public class MainShellViewModelTests
         }
     }
 
+    private static AprDocument ExprDoc() => new()
+    {
+        Metadata = new Metadata { Title = "T" },
+        Sections = new List<Section>
+        {
+            new()
+            {
+                Id = "s", Title = "S",
+                Prompts = new List<Prompt>
+                {
+                    new() { Id = "status", Label = "Status", Response = "Employed" },
+                    new() { Id = "employer", Label = "Employer", Hints = new PromptHints { ExprHidden = "status == 'Retired'" } },
+                    new() { Id = "qty", Label = "Qty", Response = "2" },
+                    new() { Id = "price", Label = "Price", Response = "3" },
+                    new() { Id = "total", Label = "Total", Hints = new PromptHints { ExprValue = "double(qty) * double(price)" } },
+                },
+            },
+        },
+    };
+
+    [Fact]
+    public void Expressions_ConditionalVisibility_UpdatesAsDriverChanges()
+    {
+        var session = new DocumentSessionService();
+        var shell = CreateShell(session: session);
+        session.Set(ExprDoc(), null);   // set after the shell subscribes to DocumentChanged
+
+        var status = shell.PromptViewModels.Single(p => p.Id == "status");
+        var employer = shell.PromptViewModels.Single(p => p.Id == "employer");
+
+        employer.IsVisible.Should().BeTrue("status is Employed at load");
+
+        status.Response = "Retired";
+        employer.IsVisible.Should().BeFalse("exprHidden becomes true");
+
+        status.Response = "Employed";
+        employer.IsVisible.Should().BeTrue("driver reverted");
+    }
+
+    [Fact]
+    public void Expressions_ComputedField_IsReadOnly_AndRecomputesLive()
+    {
+        var session = new DocumentSessionService();
+        var shell = CreateShell(session: session);
+        session.Set(ExprDoc(), null);   // set after the shell subscribes to DocumentChanged
+
+        var qty = shell.PromptViewModels.Single(p => p.Id == "qty");
+        var total = shell.PromptViewModels.Single(p => p.Id == "total");
+
+        total.Response.Should().Be("6", "2 * 3 computed at load");
+        total.IsReadOnly.Should().BeTrue("computed fields are read-only");
+        total.IsInputEnabled.Should().BeFalse();
+
+        qty.Response = "5";
+        total.Response.Should().Be("15", "recomputed live when a dependency changes");
+    }
+
     [Fact]
     public void RefreshAdvisories_SurfacesCrossFieldValidationMessages()
     {
