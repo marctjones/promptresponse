@@ -93,10 +93,13 @@ jobs:
         shell: pwsh
         run: |
           choco install innosetup --no-progress -y
+          # ISCC resolves relative paths against the .iss folder, so pass
+          # absolute paths for the publish output, repo root, and output dir.
+          $root = "${{ github.workspace }}"
           & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" `
             "/DMyAppVersion=${{ steps.ver.outputs.version }}" `
-            "/DPublishDir=publish\win-x64" "/DRepoRoot=." `
-            "/Odist" packaging\windows\promptresponse.iss
+            "/DPublishDir=$root\publish\win-x64" "/DRepoRoot=$root" `
+            "/O$root\dist" "$root\packaging\windows\promptresponse.iss"
       - name: Attach to release
         uses: softprops/action-gh-release@v2
         with:
