@@ -65,6 +65,45 @@ public class MainShellViewGuiTests
     }
 
     [AvaloniaFact]
+    public void Advisory_RendersAsClickableButton_AndRequestsFieldFocus()
+    {
+        var (view, vm, session, _) = Build();
+        var doc = new AprDocument
+        {
+            Metadata = new Metadata { Title = "T" },
+            Sections = new List<Section>
+            {
+                new()
+                {
+                    Id = "s", Title = "S",
+                    Prompts = new List<Prompt>
+                    {
+                        new() { Id = "age", Label = "Age", Response = "not a number",
+                                Hints = new PromptHints { ExpectedDataType = "number" } },
+                    },
+                },
+            },
+        };
+        session.Set(doc, null);
+        view.ShowInWindow(width: 1100, height: 700);
+        vm.RefreshAdvisories();
+        GuiTestExtensions.PumpDispatcher();
+
+        vm.Advisories.Should().NotBeEmpty("a number-hinted field holding non-numeric text yields an advisory");
+
+        string? focused = null;
+        vm.FocusPromptRequested += id => focused = id;
+
+        var advBtn = view.GetVisualDescendants().OfType<Button>().FirstOrDefault(b =>
+            b.GetValue(Avalonia.Automation.AutomationProperties.NameProperty) as string == "Age");
+        advBtn.Should().NotBeNull("advisories must render as accessible, clickable buttons named by the prompt label");
+
+        advBtn!.Command!.Execute(advBtn.CommandParameter);
+
+        focused.Should().Be("age", "clicking an advisory requests focus on the offending field");
+    }
+
+    [AvaloniaFact]
     public void Home_WithRecentFiles_RendersAccessibleRecentButtons()
     {
         var fs = Substitute.For<IFileService>();

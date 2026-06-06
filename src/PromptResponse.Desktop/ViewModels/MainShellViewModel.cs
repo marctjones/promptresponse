@@ -406,6 +406,22 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     public IReadOnlyList<AdvisoryItem> Advisories => _advisories;
 
     /// <summary>
+    /// Raised when the user activates an advisory to jump to the field it refers
+    /// to. The view handles the actual scroll + focus (it owns the visual tree).
+    /// </summary>
+    public event Action<string>? FocusPromptRequested;
+
+    /// <summary>Navigates to the field an advisory refers to (click-to-field).</summary>
+    [RelayCommand]
+    public void FocusAdvisory(string? promptId)
+    {
+        if (!string.IsNullOrEmpty(promptId))
+        {
+            FocusPromptRequested?.Invoke(promptId);
+        }
+    }
+
+    /// <summary>
     /// Re-runs the advisory inspection over the current document. Per the vision,
     /// these are never blocking — they're hints surfaced for the user's awareness
     /// (e.g., "five" in a number-hinted field renders an advisory but is still valid).

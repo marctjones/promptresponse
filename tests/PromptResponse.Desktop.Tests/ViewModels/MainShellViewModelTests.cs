@@ -145,6 +145,32 @@ public class MainShellViewModelTests
     }
 
     [Fact]
+    public void FocusAdvisory_RaisesFocusPromptRequested_WithThePromptId()
+    {
+        var shell = CreateShell();
+        string? requested = null;
+        shell.FocusPromptRequested += id => requested = id;
+
+        shell.FocusAdvisoryCommand.Execute("prompt_42");
+
+        requested.Should().Be("prompt_42");
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    public void FocusAdvisory_BlankId_IsNoOp(string? id)
+    {
+        var shell = CreateShell();
+        var raised = false;
+        shell.FocusPromptRequested += _ => raised = true;
+
+        shell.FocusAdvisoryCommand.Execute(id);
+
+        raised.Should().BeFalse();
+    }
+
+    [Fact]
     public void ExportCommands_AreDisabled_WithoutADocument()
     {
         var shell = CreateShell();
