@@ -13,6 +13,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   each top-level section's answered/total (with a ✓ when complete) under the
   overall progress bar; each row is accessibility-named. `FormProgressViewModel`
   exposes a `Sections` collection of `SectionProgress`. (#38)
+- **Advisory click-to-field** — advisories in the right-rail panel are now
+  accessible buttons; activating one requests focus on the offending field (the
+  view scrolls it into view and focuses its input). (#39)
+
+### Changed
+
+- **Profiles: consolidated the input-mask markers** — the 6 identical input-mask
+  marker classes now live in one `InputMaskProfiles.cs` behind a shared
+  `IInputMaskProfile` interface, with the types unchanged (so formatter gating,
+  Display Preferences toggles, and settings persistence are unaffected). The
+  deeper "single profile + strategy table" merge was intentionally not done —
+  those types are load-bearing gate identities. (#40)
 
 ## [0.3.0] - 2026-06-06
 

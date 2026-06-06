@@ -1,14 +1,20 @@
+using System;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.VisualTree;
 using PromptResponse.Desktop.ViewModels;
+using PromptResponse.Desktop.ViewModels.Prompts;
 using PromptResponse.Desktop.Views.Editor;
 
 namespace PromptResponse.Desktop.Views;
 
 public partial class MainShellView : UserControl
 {
+    private MainShellViewModel? _subscribedShell;
+
     public MainShellView()
     {
         InitializeComponent();
@@ -16,6 +22,44 @@ public partial class MainShellView : UserControl
     }
 
     private void InitializeComponent() => AvaloniaXamlLoader.Load(this);
+
+    protected override void OnDataContextChanged(EventArgs e)
+    {
+        base.OnDataContextChanged(e);
+
+        // Re-wire the "click an advisory → focus that field" bridge. The view
+        // owns the visual tree, so it does the scroll + focus; the VM just
+        // raises the request.
+        if (_subscribedShell != null)
+        {
+            _subscribedShell.FocusPromptRequested -= OnFocusPromptRequested;
+            _subscribedShell = null;
+        }
+        if (DataContext is MainShellViewModel shell)
+        {
+            shell.FocusPromptRequested += OnFocusPromptRequested;
+            _subscribedShell = shell;
+        }
+    }
+
+    private void OnFocusPromptRequested(string promptId)
+    {
+        // Find the realized prompt control whose VM has this id, bring it into
+        // view, and focus its first focusable input. Best-effort: if the control
+        // isn't realized (e.g. scrolled far off in a virtualized list), no-op.
+        var target = this.GetVisualDescendants()
+            .OfType<Control>()
+            .FirstOrDefault(c => c.DataContext is PromptViewModelBase p && p.Id == promptId);
+        if (target == null)
+        {
+            return;
+        }
+
+        target.BringIntoView();
+        var focusable = target.GetVisualDescendants().OfType<Control>().FirstOrDefault(c => c.Focusable)
+            ?? target;
+        focusable.Focus();
+    }
 
     /// <summary>Register the top-level edit-mode sections list as a drop target
     /// for "section" drags. A section dragged inside its own (top-level) list
