@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Fillable PDF form export** — `apr export <file> --format=pdf --fillable
+  --output=<file>` renders a template (or filled form) to an interactive
+  **AcroForm** PDF: each prompt becomes a live field — `boolean` → checkbox,
+  prompts with suggested values → dropdown, `multiline` → multi-line text, else
+  a text field — named by the prompt id, with any existing response as the
+  default. A blank template thus becomes a fillable PDF usable in any viewer
+  (`FillablePdfDocumentRenderer`, on pdfe v2.4.0's AcroForm authoring). Without
+  `--fillable`, `--format=pdf` still produces a flat PDF. Tables render
+  read-only for now (per-cell fields are a follow-up); field tooltips/tagging
+  deferred upstream (pdfe#380/#275). (#31)
 - **PDF export** — `apr export <file> --format=pdf --output=<file>` renders a
   filled form (or template) to a flattened PDF. New `PromptResponse.Rendering.Pdf`
   project implements the `IDocumentRenderer` seam on top of the

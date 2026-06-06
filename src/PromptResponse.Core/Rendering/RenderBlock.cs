@@ -33,12 +33,22 @@ public sealed record HeadingBlock(int Level, string Text, string? Description) :
 /// <param name="HasResponse">Whether the prompt actually has a non-blank response.</param>
 /// <param name="HelpText">Optional help text from the prompt's hints.</param>
 /// <param name="ExpectedDataType">Optional advisory data-type hint (e.g. "date", "email").</param>
+/// <param name="Id">
+/// The prompt's stable id, used as the form-field name when authoring a
+/// fillable PDF. Empty when not applicable.
+/// </param>
+/// <param name="Choices">
+/// Suggested values from the prompt's hints. When non-empty, a fillable
+/// renderer presents this field as a dropdown.
+/// </param>
 public sealed record FieldBlock(
     string Label,
     string Value,
     bool HasResponse,
     string? HelpText,
-    string? ExpectedDataType) : RenderBlock;
+    string? ExpectedDataType,
+    string Id = "",
+    IReadOnlyList<string>? Choices = null) : RenderBlock;
 
 /// <summary>
 /// A table section flattened into headers and rows.

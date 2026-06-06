@@ -109,6 +109,43 @@ public class DocumentRenderModelBuilderTests
     }
 
     [Fact]
+    public void Build_Field_CarriesPromptIdAndSuggestedValuesAsChoices()
+    {
+        var doc = Doc(new Section
+        {
+            Id = "s1",
+            Title = "S",
+            Prompts =
+            [
+                new Prompt
+                {
+                    Id = "color",
+                    Label = "Colour",
+                    Hints = new PromptHints { SuggestedValues = ["Red", "Green"] },
+                },
+            ],
+        });
+
+        var field = _builder.Build(doc, RenderOptions.Default).Blocks.OfType<FieldBlock>().Single();
+
+        field.Id.Should().Be("color");
+        field.Choices.Should().Equal("Red", "Green");
+    }
+
+    [Fact]
+    public void Build_Field_WithNoSuggestedValues_HasNullChoices()
+    {
+        var doc = Doc(new Section
+        {
+            Id = "s1", Title = "S",
+            Prompts = [new Prompt { Id = "name", Label = "Name", Response = "x" }],
+        });
+
+        _builder.Build(doc, RenderOptions.Default).Blocks.OfType<FieldBlock>().Single()
+            .Choices.Should().BeNull();
+    }
+
+    [Fact]
     public void Build_ExcludeEmptyFields_DropsUnansweredPrompts()
     {
         var doc = Doc(new Section

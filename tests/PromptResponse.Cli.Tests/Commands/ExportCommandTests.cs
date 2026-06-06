@@ -129,6 +129,36 @@ public class ExportCommandTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_PdfFormat_Fillable_WritesAcroFormPdf()
+    {
+        // Arrange
+        var document = CreateTestDocument();
+        var tempFile = Path.GetTempFileName();
+        var outputFile = Path.Combine(Path.GetTempPath(), $"form_{Guid.NewGuid():N}.pdf");
+
+        try
+        {
+            await File.WriteAllTextAsync(tempFile, _serializer.Serialize(document));
+
+            var args = new[] { tempFile, "--format=pdf", "--fillable", $"--output={outputFile}" };
+
+            // Act
+            var exitCode = await _command.ExecuteAsync(args);
+
+            // Assert — valid PDF that declares an interactive AcroForm.
+            exitCode.Should().Be(0);
+            var bytes = await File.ReadAllBytesAsync(outputFile);
+            System.Text.Encoding.ASCII.GetString(bytes, 0, 5).Should().Be("%PDF-");
+            System.Text.Encoding.Latin1.GetString(bytes).Should().Contain("/AcroForm");
+        }
+        finally
+        {
+            if (File.Exists(tempFile)) File.Delete(tempFile);
+            if (File.Exists(outputFile)) File.Delete(outputFile);
+        }
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WithCsvFormat_ShouldReturnSuccess()
     {
         // Arrange

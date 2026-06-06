@@ -24,7 +24,7 @@ public class ExportCommand : ICommand
         if (args.Length == 0)
         {
             Console.Error.WriteLine("Error: File path required");
-            Console.Error.WriteLine("Usage: apr export <file> [--format=<csv|json|txt|pdf>] [--output=<file>] [--exclude-empty]");
+            Console.Error.WriteLine("Usage: apr export <file> [--format=<csv|json|txt|pdf>] [--output=<file>] [--exclude-empty] [--fillable]");
             Console.Error.WriteLine();
             Console.Error.WriteLine("Formats:");
             Console.Error.WriteLine("  csv  - Comma-separated values (default)");
@@ -34,6 +34,7 @@ public class ExportCommand : ICommand
             Console.Error.WriteLine();
             Console.Error.WriteLine("Options:");
             Console.Error.WriteLine("  --exclude-empty  Omit unanswered fields (pdf)");
+            Console.Error.WriteLine("  --fillable       Export a fillable PDF form with live fields (pdf)");
             return 1;
         }
 
@@ -41,6 +42,7 @@ public class ExportCommand : ICommand
         var format = GetArgValue(args, "--format") ?? "csv";
         var outputPath = GetArgValue(args, "--output");
         var excludeEmpty = args.Contains("--exclude-empty");
+        var fillable = args.Contains("--fillable");
 
         if (string.IsNullOrEmpty(filePath))
         {
@@ -70,7 +72,7 @@ public class ExportCommand : ICommand
             // PDF is binary: render to a file via the shared IDocumentRenderer seam.
             if (format.Equals("pdf", StringComparison.OrdinalIgnoreCase))
             {
-                return await ExportToPdfAsync(document, outputPath, excludeEmpty);
+                return await ExportToPdfAsync(document, outputPath, excludeEmpty, fillable);
             }
 
             // Generate export
@@ -113,7 +115,7 @@ public class ExportCommand : ICommand
         return arg?.Substring(prefix.Length + 1);
     }
 
-    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty)
+    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty, bool fillable)
     {
         // A PDF is binary, so it must be written to a file rather than stdout.
         if (string.IsNullOrEmpty(outputPath))
@@ -122,7 +124,10 @@ public class ExportCommand : ICommand
             return 1;
         }
 
-        var renderer = new PdfDocumentRenderer();
+        // --fillable produces an interactive AcroForm; otherwise a flat PDF.
+        IDocumentRenderer renderer = fillable
+            ? new FillablePdfDocumentRenderer()
+            : new PdfDocumentRenderer();
         var options = new RenderOptions { IncludeEmptyFields = !excludeEmpty };
 
         await using (var stream = File.Create(outputPath))

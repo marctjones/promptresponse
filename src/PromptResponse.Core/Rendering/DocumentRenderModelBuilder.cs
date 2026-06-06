@@ -55,12 +55,18 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
                 continue;
             }
 
+            var choices = prompt.Hints.SuggestedValues.Count > 0
+                ? prompt.Hints.SuggestedValues.ToList()
+                : null;
+
             blocks.Add(new FieldBlock(
                 Label: prompt.Label,
                 Value: hasResponse ? prompt.Response : options.EmptyFieldText,
                 HasResponse: hasResponse,
                 HelpText: NullIfBlank(prompt.Hints.HelpText),
-                ExpectedDataType: NullIfBlank(prompt.Hints.ExpectedDataType)));
+                ExpectedDataType: NullIfBlank(prompt.Hints.ExpectedDataType),
+                Id: prompt.Id,
+                Choices: choices));
         }
 
         foreach (var child in section.Sections)
