@@ -127,6 +127,52 @@ public class FillableHtmlDocumentRendererTests
     }
 
     [Fact]
+    public void Render_FixedTableCells_BecomeLiveInputsKeyedByCellId()
+    {
+        var doc = new AprDocument
+        {
+            Metadata = new Metadata { Title = "Quarterly" },
+            Sections =
+            [
+                new Section
+                {
+                    Id = "q", Title = "By quarter",
+                    TableLayout = new TableDefinition
+                    {
+                        Columns =
+                        [
+                            new TableColumn { Id = "revenue", Label = "Revenue", Type = "currency" },
+                            new TableColumn { Id = "audited", Label = "Audited", Type = "boolean" },
+                            new TableColumn { Id = "status", Label = "Status", SuggestedValues = ["Draft", "Final"] },
+                        ],
+                        FixedRows = [new FixedRow { Id = "q1", Label = "Q1" }],
+                    },
+                    Sections =
+                    [
+                        new Section { Id = "q1", Title = "Q1", Prompts =
+                        [
+                            new Prompt { Id = "q1.revenue", Response = "5000" },
+                            new Prompt { Id = "q1.audited", Response = "true", Hints = new PromptHints { ExpectedDataType = "boolean" } },
+                            new Prompt { Id = "q1.status", Response = "Final" },
+                        ]},
+                    ],
+                },
+            ],
+        };
+
+        var html = Render(_renderer, doc);
+
+        // Each cell is a live input keyed by its "{rowId}.{columnId}" id.
+        html.Should().Contain("<th scope=\"row\">Q1</th>");
+        html.Should().Contain("data-prompt-id=\"q1.revenue\"").And.Contain("value=\"5000\"");
+        html.Should().Contain("data-prompt-id=\"q1.audited\"");
+        html.Should().MatchRegex("type=\"checkbox\"[^>]*data-prompt-id=\"q1.audited\"[^>]*checked"); // boolean column -> checked checkbox
+        html.Should().Contain("data-prompt-id=\"q1.status\"");
+        html.Should().Contain("<option value=\"Final\" selected>");                                   // suggested-values column -> dropdown
+        html.Should().Contain("aria-label=\"Q1 Revenue\"");                                           // accessible name from row + column
+    }
+
+    [Fact]
     public void Render_GoesThroughTheSharedBuilder()
     {
         var builder = Substitute.For<IDocumentRenderModelBuilder>();

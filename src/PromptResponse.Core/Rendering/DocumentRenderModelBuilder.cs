@@ -88,12 +88,23 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
                 var column = table.Columns[i];
                 // Cells carry the id "{rowId}.{columnId}"; match by id, then fall
                 // back to positional alignment for tolerance to malformed input.
+                var cellId = $"{rowSection.Id}.{column.Id}";
                 var cellPrompt =
-                    rowSection.Prompts.FirstOrDefault(p => p.Id == $"{rowSection.Id}.{column.Id}")
+                    rowSection.Prompts.FirstOrDefault(p => p.Id == cellId)
                     ?? (i < rowSection.Prompts.Count ? rowSection.Prompts[i] : null);
 
                 var value = cellPrompt?.Response ?? string.Empty;
-                cells.Add(new TableCellBlock(value, HasResponse: !string.IsNullOrWhiteSpace(value)));
+                var choices = column.SuggestedValues is { Count: > 0 }
+                    ? column.SuggestedValues.ToList()
+                    : null;
+                cells.Add(new TableCellBlock(
+                    value,
+                    HasResponse: !string.IsNullOrWhiteSpace(value),
+                    // Prefer the actual cell prompt's id; fall back to the convention
+                    // so a fillable renderer can still name the field for blank cells.
+                    Id: cellPrompt?.Id ?? cellId,
+                    ExpectedDataType: NullIfBlank(column.Type),
+                    Choices: choices));
             }
 
             rows.Add(new TableRowBlock(rowSection.Title, cells));

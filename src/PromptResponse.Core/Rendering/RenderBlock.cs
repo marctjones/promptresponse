@@ -71,4 +71,22 @@ public sealed record TableRowBlock(string Label, IReadOnlyList<TableCellBlock> C
 /// </summary>
 /// <param name="Value">The cell's response text (empty string when unanswered).</param>
 /// <param name="HasResponse">Whether the cell has a non-blank response.</param>
-public sealed record TableCellBlock(string Value, bool HasResponse);
+/// <param name="Id">
+/// The cell prompt's stable id (the <c>"{rowId}.{columnId}"</c> convention), used
+/// as the form-field name when a fillable renderer makes the cell editable. Empty
+/// when not applicable.
+/// </param>
+/// <param name="ExpectedDataType">
+/// The column's advisory data-type (e.g. "currency", "date", "boolean"); guides a
+/// fillable renderer's input choice. Null when unspecified.
+/// </param>
+/// <param name="Choices">
+/// The column's suggested values. When non-empty, a fillable renderer presents the
+/// cell as a dropdown.
+/// </param>
+public sealed record TableCellBlock(
+    string Value,
+    bool HasResponse,
+    string Id = "",
+    string? ExpectedDataType = null,
+    IReadOnlyList<string>? Choices = null);
