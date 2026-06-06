@@ -30,12 +30,12 @@ public class ExportCommand : ICommand
             Console.Error.WriteLine("  csv  - Comma-separated values (default)");
             Console.Error.WriteLine("  json - JSON format with prompt/response pairs");
             Console.Error.WriteLine("  txt  - Plain text format");
-            Console.Error.WriteLine("  html - Accessible HTML page");
+            Console.Error.WriteLine("  html - Accessible HTML page (--fillable: interactive form that downloads .aprf)");
             Console.Error.WriteLine("  pdf  - Flattened PDF (requires --output)");
             Console.Error.WriteLine();
             Console.Error.WriteLine("Options:");
             Console.Error.WriteLine("  --exclude-empty  Omit unanswered fields (pdf)");
-            Console.Error.WriteLine("  --fillable       Export a fillable PDF form with live fields (pdf)");
+            Console.Error.WriteLine("  --fillable       Export a fillable form with live fields (pdf, html)");
             return 1;
         }
 
@@ -82,7 +82,7 @@ public class ExportCommand : ICommand
                 "csv" => ExportToCsv(document),
                 "json" => ExportToJson(document),
                 "txt" => ExportToText(document),
-                "html" => ExportToHtml(document),
+                "html" => ExportToHtml(document, fillable),
                 _ => throw new InvalidOperationException($"Unsupported format: {format}")
             };
 
@@ -251,10 +251,14 @@ public class ExportCommand : ICommand
         }
     }
 
-    private static string ExportToHtml(AprDocument document)
+    private static string ExportToHtml(AprDocument document, bool fillable)
     {
+        // --fillable yields an interactive form that downloads an .aprf; otherwise a read-only page.
+        IDocumentRenderer renderer = fillable
+            ? new FillableHtmlDocumentRenderer()
+            : new HtmlDocumentRenderer();
         using var stream = new MemoryStream();
-        new HtmlDocumentRenderer().Render(document, RenderOptions.Default, stream);
+        renderer.Render(document, RenderOptions.Default, stream);
         return Encoding.UTF8.GetString(stream.ToArray());
     }
 
