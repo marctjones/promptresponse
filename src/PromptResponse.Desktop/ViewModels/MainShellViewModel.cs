@@ -4,11 +4,13 @@ using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Validation;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels.Editing;
 using PromptResponse.Desktop.ViewModels.Prompts;
+using PromptResponse.Rendering.Pdf;
 
 namespace PromptResponse.Desktop.ViewModels;
 
@@ -39,7 +41,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         IDocumentSessionService session,
         IProfileService profileService,
         PromptViewModelFactory factory,
-        EditHistory? editHistory = null)
+        EditHistory? editHistory = null,
+        IRecentFilesService? recentFiles = null)
     {
         _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
@@ -47,6 +50,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
         if (factory == null) throw new ArgumentNullException(nameof(factory));
         _editHistory = editHistory ?? new EditHistory();
+        _recentFiles = recentFiles ?? new RecentFilesService();
         // Reconstruct the factory locally so it threads the shell's edit history
         // into every prompt VM it creates. The injected factory's profile is the
         // same DI singleton — only its history binding differs.
@@ -59,6 +63,42 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _session.DirtyChanged += OnDirtyChanged;
         _profileService.ProfileChanged += (_, _) => OnAllProfileBrushesChanged();
         _editHistory.PropertyChanged += OnEditHistoryChanged;
+        _recentFiles.Changed += (_, _) => RefreshRecentFiles();
+        RefreshRecentFiles();
+    }
+
+    private readonly IRecentFilesService _recentFiles;
+
+    /// <summary>Recently opened/saved files shown on the home screen, most-recent-first.</summary>
+    public ObservableCollection<RecentFileViewModel> RecentFiles { get; } = new();
+
+    /// <summary>True when there is at least one recent file to offer on the home screen.</summary>
+    public bool HasRecentFiles => RecentFiles.Count > 0;
+
+    private void RefreshRecentFiles()
+    {
+        RecentFiles.Clear();
+        foreach (var entry in _recentFiles.Items)
+        {
+            RecentFiles.Add(new RecentFileViewModel(entry.Path, entry.Title));
+        }
+        OnPropertyChanged(nameof(HasRecentFiles));
+    }
+
+    private void AddToRecent(string? path, string? title) => _recentFiles.Add(path, title);
+
+    /// <summary>Opens a file chosen from the home screen's recent list.</summary>
+    [RelayCommand]
+    public async Task OpenRecent(string? path)
+    {
+        if (string.IsNullOrEmpty(path)) return;
+
+        var doc = await _fileService.LoadFileAsync(path);
+        if (doc == null) return;   // file moved/deleted or unreadable — leave the list as-is
+
+        _fileService.SetCurrentFilePath(path);
+        _session.Set(doc, path, dirty: false);
+        AddToRecent(path, doc.Metadata.Title);
     }
 
     /// <summary>The shell-owned undo/redo history. Cleared on document load so
@@ -596,6 +636,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         var doc = await _fileService.OpenFileAsync();
         if (doc == null) return;
         _session.Set(doc, _fileService.CurrentFilePath, dirty: false);
+        AddToRecent(_fileService.CurrentFilePath, doc.Metadata.Title);
     }
 
     /// <summary>
@@ -607,6 +648,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         var doc = await _fileService.LoadFileAsync(filePath);
         if (doc == null) return;
         _session.Set(doc, filePath, dirty: false);
+        AddToRecent(filePath, doc.Metadata.Title);
     }
 
     [RelayCommand(CanExecute = nameof(HasDocument))]
@@ -623,6 +665,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             await _fileService.SaveFileAsync(_session.CurrentDocument!, _fileService.CurrentFilePath);
         }
         _session.MarkClean();
+        AddToRecent(_fileService.CurrentFilePath, _session.CurrentDocument?.Metadata.Title);
     }
 
     [RelayCommand(CanExecute = nameof(HasDocument))]
@@ -631,6 +674,41 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         if (!_session.HasDocument) return;
         await _fileService.SaveFileAsAsync(_session.CurrentDocument!);
         _session.MarkClean();
+        AddToRecent(_fileService.CurrentFilePath, _session.CurrentDocument?.Metadata.Title);
+    }
+
+    /// <summary>Exports the currently open document — with its current values — to a flat PDF.</summary>
+    [RelayCommand(CanExecute = nameof(HasDocument))]
+    public Task ExportPdf() => ExportToPdfAsync(fillable: false);
+
+    /// <summary>Exports the currently open document to a fillable AcroForm PDF.</summary>
+    [RelayCommand(CanExecute = nameof(HasDocument))]
+    public Task ExportPdfForm() => ExportToPdfAsync(fillable: true);
+
+    private async Task ExportToPdfAsync(bool fillable)
+    {
+        var doc = _session.CurrentDocument;
+        if (doc is null) return;
+
+        var baseName = string.IsNullOrWhiteSpace(doc.Metadata.Title) ? "form" : doc.Metadata.Title;
+        var suggested = MakeSafeFileName(baseName) + (fillable ? "-form.pdf" : ".pdf");
+
+        var path = await _fileService.PickPdfExportPathAsync(suggested);
+        if (string.IsNullOrEmpty(path)) return;
+
+        IDocumentRenderer renderer = fillable
+            ? new FillablePdfDocumentRenderer()
+            : new PdfDocumentRenderer();
+
+        await using var stream = File.Create(path);
+        renderer.Render(doc, Core.Rendering.RenderOptions.Default, stream);
+    }
+
+    private static string MakeSafeFileName(string name)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        var cleaned = new string(name.Select(c => invalid.Contains(c) ? '_' : c).ToArray()).Trim();
+        return string.IsNullOrEmpty(cleaned) ? "form" : cleaned;
     }
 
     [RelayCommand(CanExecute = nameof(HasDocument))]
@@ -818,3 +896,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _promptViewModels.Clear();
     }
 }
+
+/// <summary>A recent-file item bound to the home-screen list.</summary>
+/// <param name="Path">Absolute file path (passed to <c>OpenRecentCommand</c>).</param>
+/// <param name="DisplayName">The label shown to the user.</param>
+public sealed record RecentFileViewModel(string Path, string DisplayName);

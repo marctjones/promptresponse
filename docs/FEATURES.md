@@ -75,7 +75,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Feature | Priority | Status | Notes |
 |---------|----------|--------|-------|
 | CSV/JSON/TXT export | P1 | ✅ | Via CLI export command |
-| **PDF export** | **P1** | **⏳** | **Generate printable PDFs from filled forms** |
+| **PDF export** | **P1** | **🔄** | Flattened PDF via `export --format=pdf` (pdfe engine). MVP: Latin-text/base-14; Unicode + tagged/accessible + fillable-AcroForm deferred (see CHANGELOG #31) |
 | Word export (.docx) | P2 | ⏳ | Export to Word format |
 | Excel export (.xlsx) | P2 | ⏳ | Export to spreadsheet |
 

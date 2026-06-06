@@ -102,6 +102,10 @@ public partial class AboutDialog : Window
         new Acknowledgement("CommunityToolkit.Mvvm", "8.4.2", "MIT License — © .NET Foundation and Contributors",
             Note: "Source-generated MVVM helpers."),
 
+        // ─── PDF engine — © Marc Jones, MIT ──────────────────────────────────────────
+        new Acknowledgement("Pdfe.Core", "2.4.0", "MIT License — © Marc Jones",
+            Note: "Pure-managed PDF authoring/parsing engine; powers PDF and fillable-form export. https://github.com/marctjones/pdfe"),
+
         // ─── Skia / HarfBuzz native + managed wrappers — © Microsoft, MIT ────────────
         new Acknowledgement("SkiaSharp", "3.119.4-preview.1.1", "MIT License — © Microsoft Corporation",
             Note: "Managed wrapper around Skia. The native libSkiaSharp.so embeds Skia (BSD-3-Clause, © Google LLC) and image codec components under their respective licenses (libpng, libwebp, libjpeg-turbo, etc.)."),

@@ -6,6 +6,7 @@
              xmlns:views="using:PromptResponse.Desktop.Views"
              xmlns:editor="using:PromptResponse.Desktop.Views.Editor"
              x:Class="PromptResponse.Desktop.Views.MainShellView"
+             x:Name="Root"
              x:DataType="vm:MainShellViewModel"
              AutomationProperties.Name="PromptResponse main shell"
              AutomationProperties.HelpText="Form designer and filler workspace">
@@ -53,6 +54,18 @@
                           HotKey="Ctrl+Shift+S"
                           InputGesture="Ctrl+Shift+S"
                           AutomationProperties.Name="Save as"/>
+                <Separator/>
+                <MenuItem Header="_Export"
+                          AutomationProperties.Name="Export menu">
+                    <MenuItem Header="Export as _PDF..."
+                              Command="{Binding ExportPdfCommand}"
+                              AutomationProperties.Name="Export as PDF"
+                              AutomationProperties.HelpText="Export the current form, with its values, to a flat PDF"/>
+                    <MenuItem Header="Export as fillable PDF _form..."
+                              Command="{Binding ExportPdfFormCommand}"
+                              AutomationProperties.Name="Export as fillable PDF form"
+                              AutomationProperties.HelpText="Export to an interactive PDF with fillable fields"/>
+                </MenuItem>
                 <Separator/>
                 <MenuItem Header="_Close"
                           Command="{Binding CloseCommand}"
@@ -210,6 +223,40 @@
                             AutomationProperties.HelpText="Open an existing APR template or filled form (Ctrl+O)">
                         <TextBlock Text="Open file" />
                     </Button>
+                </StackPanel>
+                <StackPanel IsVisible="{Binding HasRecentFiles}"
+                            Spacing="4"
+                            Margin="0,8,0,0"
+                            HorizontalAlignment="Stretch"
+                            AutomationProperties.Name="Recent files">
+                    <TextBlock Text="Recent"
+                               FontWeight="SemiBold"
+                               Opacity="0.8"
+                               Foreground="{Binding ActiveProfileOnSurfaceBrush}"/>
+                    <ItemsControl ItemsSource="{Binding RecentFiles}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:RecentFileViewModel">
+                                <Button Command="{Binding #Root.((vm:MainShellViewModel)DataContext).OpenRecentCommand}"
+                                        CommandParameter="{Binding Path}"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        Padding="8,6"
+                                        MinHeight="40"
+                                        CornerRadius="6"
+                                        AutomationProperties.Name="{Binding DisplayName}"
+                                        AutomationProperties.HelpText="{Binding Path}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding DisplayName}"/>
+                                        <TextBlock Text="{Binding Path}"
+                                                   Opacity="0.6"
+                                                   FontSize="11"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </StackPanel>
                 <TextBlock Text="Tip: press F1 anytime to see keyboard shortcuts. View → Display Preferences lets you configure visual formatting, large text, high contrast, and more."
                            FontSize="{Binding CaptionFontSize}"

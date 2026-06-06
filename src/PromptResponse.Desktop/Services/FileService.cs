@@ -151,6 +151,25 @@ public class FileService : IFileService
         return true;
     }
 
+    public async Task<string?> PickPdfExportPathAsync(string suggestedFileName)
+    {
+        var window = GetMainWindow();
+        if (window == null) return null;
+
+        var file = await window.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            Title = "Export PDF",
+            DefaultExtension = "pdf",
+            SuggestedFileName = suggestedFileName,
+            FileTypeChoices = new[]
+            {
+                new FilePickerFileType("PDF Document") { Patterns = new[] { "*.pdf" } }
+            }
+        });
+
+        return file?.Path.LocalPath;
+    }
+
     public async Task SaveFileAsync(AprDocument document, string filePath)
     {
         // Update DocumentType based on file extension (extension determines type)

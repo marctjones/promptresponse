@@ -7,6 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Desktop: home screen with recent files** — the empty state is now a real
+  entry point. It lists recently opened/saved documents (most-recent-first,
+  de-duplicated, capped, persisted in `settings.json`) as accessible buttons
+  that reopen the form in one click, alongside the existing New/Open actions.
+  New `IRecentFilesService`; recent files are recorded on open/save and survive
+  restarts. (#34)
+- **Desktop: File → Export menu** — export the currently open form, **with its
+  current values**, to a PDF without leaving the app: *Export as PDF…* (flat)
+  and *Export as fillable PDF form…* (interactive AcroForm). Both use a save
+  dialog and the shared `IDocumentRenderer` seam; menu items are
+  accessibility-named with help text. Previously PDF export was CLI-only.
+- **Fillable PDF form export** — `apr export <file> --format=pdf --fillable
+  --output=<file>` renders a template (or filled form) to an interactive
+  **AcroForm** PDF: each prompt becomes a live field — `boolean` → checkbox,
+  prompts with suggested values → dropdown, `multiline` → multi-line text, else
+  a text field — named by the prompt id, with any existing response as the
+  default. A blank template thus becomes a fillable PDF usable in any viewer
+  (`FillablePdfDocumentRenderer`, on pdfe v2.4.0's AcroForm authoring). Without
+  `--fillable`, `--format=pdf` still produces a flat PDF. Tables render
+  read-only for now (per-cell fields are a follow-up); field tooltips/tagging
+  deferred upstream (pdfe#380/#275). (#31)
+- **PDF export** — `apr export <file> --format=pdf --output=<file>` renders a
+  filled form (or template) to a flattened PDF. New `PromptResponse.Rendering.Pdf`
+  project implements the `IDocumentRenderer` seam on top of the
+  [pdfe](https://github.com/marctjones/pdfe) engine (`Pdfe.Core`, MIT, pure-managed,
+  consumed as a locally-packed NuGet to keep the repos decoupled). Layout
+  (word-wrap, pagination, tables) is handled by pdfe v2.4.0's high-level
+  `PdfDocumentBuilder` facade (pdfe#383), so the renderer is a thin map from the
+  shared `RenderModel`. `--exclude-empty` omits unanswered fields. MVP scope: flattened, Latin-text
+  (base-14) output; Unicode font embedding, a fillable-AcroForm variant, and
+  tagged/accessible PDF are deferred (tracked upstream in pdfe #378/#380/#275).
+  (#31)
+- **Document rendering seam** (`PromptResponse.Core.Rendering`) — a single,
+  layout-free document traversal (`DocumentRenderModelBuilder`) that flattens an
+  `AprDocument` into an ordered `RenderModel` of semantic blocks (headings,
+  fields, tables), plus an `IDocumentRenderer` contract and a dependency-free
+  `PlainTextDocumentRenderer` reference implementation. This lets PDF / text /
+  HTML / print share one tree walk instead of each re-implementing traversal
+  (the export commands currently triplicate it). Foundation for PDF export.
+  Tables flatten to header + row/cell blocks with cells matched by
+  `{rowId}.{columnId}`. No third-party rendering dependency enters Core.
+  (#32)
+
 ### Changed
 
 - **CI builds on .NET 10.** The workflow installed only the .NET 8 SDK while the

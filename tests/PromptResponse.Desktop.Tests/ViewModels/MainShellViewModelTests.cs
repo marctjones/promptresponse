@@ -31,14 +31,15 @@ public class MainShellViewModelTests
         IFileService? fileService = null,
         IDialogService? dialogService = null,
         IDocumentSessionService? session = null,
-        IProfileService? profile = null)
+        IProfileService? profile = null,
+        IRecentFilesService? recentFiles = null)
     {
         fileService ??= Substitute.For<IFileService>();
         dialogService ??= Substitute.For<IDialogService>();
         session ??= new DocumentSessionService();
         profile ??= new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
-        return new MainShellViewModel(fileService, dialogService, session, profile, factory);
+        return new MainShellViewModel(fileService, dialogService, session, profile, factory, recentFiles: recentFiles);
     }
 
     private static AprDocument MakeTemplate() => new()
@@ -69,6 +70,139 @@ public class MainShellViewModelTests
         shell.HasDocument.Should().BeFalse();
         shell.IsEmptyState.Should().BeTrue();
         shell.Title.Should().Be("PromptResponse");
+    }
+
+    [Fact]
+    public async Task ExportPdf_WritesPdfContainingCurrentValues()
+    {
+        var fs = Substitute.For<IFileService>();
+        var outPath = Path.Combine(Path.GetTempPath(), $"vm_export_{Guid.NewGuid():N}.pdf");
+        fs.PickPdfExportPathAsync(Arg.Any<string>()).Returns(outPath);
+
+        var session = new DocumentSessionService();
+        var doc = MakeTemplate();
+        doc.Sections[0].Prompts[0].Response = "Zaphod Beeblebrox";   // a current value
+        session.Set(doc, null);
+        var shell = CreateShell(fs, session: session);
+
+        try
+        {
+            await shell.ExportPdf();
+
+            File.Exists(outPath).Should().BeTrue();
+            var bytes = await File.ReadAllBytesAsync(outPath);
+            System.Text.Encoding.ASCII.GetString(bytes, 0, 5).Should().Be("%PDF-");
+
+            using var pdf = Pdfe.Core.Document.PdfDocument.Open(bytes);
+            var text = string.Concat(Enumerable.Range(1, pdf.Pages.Count).Select(i => pdf.GetPage(i).Text));
+            text.Should().Contain("Zaphod Beeblebrox", "the export must capture the form's current values");
+        }
+        finally
+        {
+            if (File.Exists(outPath)) File.Delete(outPath);
+        }
+    }
+
+    [Fact]
+    public async Task ExportPdf_WhenCancelled_WritesNothing()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.PickPdfExportPathAsync(Arg.Any<string>()).Returns((string?)null);
+        var session = new DocumentSessionService();
+        session.Set(MakeTemplate(), null);
+        var shell = CreateShell(fs, session: session);
+
+        await shell.ExportPdf();   // should be a no-op, not throw
+
+        await fs.Received(1).PickPdfExportPathAsync(Arg.Any<string>());
+    }
+
+    [Fact]
+    public async Task ExportPdfForm_WritesFillableAcroForm()
+    {
+        var fs = Substitute.For<IFileService>();
+        var outPath = Path.Combine(Path.GetTempPath(), $"vm_form_{Guid.NewGuid():N}.pdf");
+        fs.PickPdfExportPathAsync(Arg.Any<string>()).Returns(outPath);
+        var session = new DocumentSessionService();
+        session.Set(MakeTemplate(), null);
+        var shell = CreateShell(fs, session: session);
+
+        try
+        {
+            await shell.ExportPdfForm();
+
+            using var pdf = Pdfe.Core.Document.PdfDocument.Open(await File.ReadAllBytesAsync(outPath));
+            var form = pdf.GetAcroForm();
+            form.Should().NotBeNull();
+            form!.Fields.Should().NotBeEmpty();
+        }
+        finally
+        {
+            if (File.Exists(outPath)) File.Delete(outPath);
+        }
+    }
+
+    [Fact]
+    public void ExportCommands_AreDisabled_WithoutADocument()
+    {
+        var shell = CreateShell();
+
+        shell.ExportPdfCommand.CanExecute(null).Should().BeFalse();
+        shell.ExportPdfFormCommand.CanExecute(null).Should().BeFalse();
+    }
+
+    [Fact]
+    public void NewShell_WithRecentFiles_ExposesThemForTheHomeScreen()
+    {
+        var recent = new RecentFilesService();
+        recent.Add("/forms/intake.aprt", "Intake");
+
+        var shell = CreateShell(recentFiles: recent);
+
+        shell.HasRecentFiles.Should().BeTrue();
+        shell.RecentFiles.Should().ContainSingle()
+            .Which.Should().BeEquivalentTo(new { Path = "/forms/intake.aprt", DisplayName = "Intake" });
+    }
+
+    [Fact]
+    public async Task Open_AddsTheFileToRecent()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.OpenFileAsync().Returns(MakeTemplate());
+        fs.CurrentFilePath.Returns("/forms/test.aprt");
+        var shell = CreateShell(fs);
+
+        await shell.Open();
+
+        shell.RecentFiles.Select(r => r.Path).Should().Contain("/forms/test.aprt");
+        shell.HasRecentFiles.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task OpenRecent_LoadsDocumentAndSetsCurrentPath()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.LoadFileAsync("/forms/saved.aprf").Returns(MakeTemplate());
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, session: session);
+
+        await shell.OpenRecent("/forms/saved.aprf");
+
+        session.HasDocument.Should().BeTrue();
+        fs.Received(1).SetCurrentFilePath("/forms/saved.aprf");
+    }
+
+    [Fact]
+    public async Task OpenRecent_MissingFile_IsNoOp()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.LoadFileAsync(Arg.Any<string>()).Returns((AprDocument?)null);   // file gone
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, session: session);
+
+        await shell.OpenRecent("/forms/gone.aprf");
+
+        session.HasDocument.Should().BeFalse();
     }
 
     [Fact]

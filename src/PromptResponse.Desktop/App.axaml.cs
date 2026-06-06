@@ -146,6 +146,8 @@ public partial class App : Application
         // Desktop infrastructure
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<ISettingsService, SettingsService>();
+        services.AddSingleton<IRecentFilesService>(sp =>
+            new RecentFilesService(sp.GetRequiredService<ISettingsService>()));
         services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<IDocumentSessionService, DocumentSessionService>();
 
