@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **macOS release builds** — the release workflow now produces self-contained
+  tarballs for Apple Silicon (`osx-arm64`) and Intel (`osx-x64`) on a macOS
+  runner, alongside the Linux tarball and Windows installer/zip. Unsigned (first
+  launch needs a Gatekeeper approval); a notarized `.app` is a follow-up. (#41)
 - **Per-section completion progress** — the right-rail Progress panel now lists
   each top-level section's answered/total (with a ✓ when complete) under the
   overall progress bar; each row is accessibility-named. `FormProgressViewModel`

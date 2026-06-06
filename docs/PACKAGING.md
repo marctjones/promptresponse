@@ -12,7 +12,8 @@ scripts/publish.sh --version 0.3.0
 
 # Other targets
 scripts/publish.sh --rid win-x64   --version 0.3.0
-scripts/publish.sh --rid osx-x64   --version 0.3.0   # macOS (see issue #41)
+scripts/publish.sh --rid osx-arm64 --version 0.3.0   # macOS (Apple Silicon)
+scripts/publish.sh --rid osx-x64   --version 0.3.0   # macOS (Intel)
 ```
 
 Each run publishes both projects (self-contained, `PublishSingleFile`,
@@ -73,6 +74,9 @@ iscc /DMyAppVersion=0.3.0 /DPublishDir=publish\win-x64 /DRepoRoot=. packaging\wi
 
 ## Notes & follow-ups
 
-- **macOS** packaging (`.app` / notarization) is tracked as issue #41.
+- **macOS**: the release builds self-contained tarballs for Apple Silicon
+  (`osx-arm64`) and Intel (`osx-x64`) on a macOS runner (#41). They're unsigned,
+  so first launch needs a Gatekeeper approval; a notarized `.app` bundle (needs
+  an Apple signing identity) is a follow-up.
 - The portable zip on Windows requires no install but does not register file
   associations — use the installer for that.

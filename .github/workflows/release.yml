@@ -107,3 +107,35 @@ jobs:
           files: |
             dist/*.zip
             dist/*-setup.exe
+
+  # ── macOS: self-contained tarballs (Apple Silicon + Intel) ───────────
+  # Single-file binaries; a notarized .app bundle is a follow-up (needs an
+  # Apple signing identity). Users gatekeeper-approve on first launch.
+  macos:
+    name: macOS (tarballs)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Resolve version
+        id: ver
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            v="${{ github.event.inputs.version }}"
+          else
+            v="${GITHUB_REF#refs/tags/}"; v="${v#v}"
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+      - name: Publish (self-contained, single-file)
+        run: |
+          bash scripts/publish.sh --rid osx-arm64 --version "${{ steps.ver.outputs.version }}"
+          bash scripts/publish.sh --rid osx-x64   --version "${{ steps.ver.outputs.version }}"
+      - name: Attach to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          files: dist/*.tar.gz
