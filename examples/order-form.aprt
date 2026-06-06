@@ -1,0 +1,118 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "Order Form (computed + conditional demo)",
+    "description": "Demonstrates Milestone 2 expression hints: a computed line total that updates live, and fields that appear only when relevant.",
+    "created": "2026-06-06T00:00:00Z",
+    "modified": "2026-06-06T00:00:00Z",
+    "author": "PromptResponse Team",
+    "templateId": "order-form",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_order",
+      "title": "Order",
+      "description": "Enter the item, quantity, and unit price — the line total is calculated for you.",
+      "prompts": [
+        {
+          "id": "item",
+          "label": "Item",
+          "response": "",
+          "hints": {
+            "placeholder": "e.g. Widget, size M",
+            "expectedDataType": "text",
+            "helpText": "What you are ordering."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "quantity",
+          "label": "Quantity",
+          "response": "",
+          "hints": {
+            "placeholder": "1",
+            "expectedDataType": "number",
+            "helpText": "How many units."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "unit_price",
+          "label": "Unit Price",
+          "response": "",
+          "hints": {
+            "placeholder": "0.00",
+            "expectedDataType": "currency",
+            "helpText": "Price per unit."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "line_total",
+          "label": "Line Total",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency",
+            "helpText": "Calculated automatically as quantity x unit price.",
+            "exprValue": "quantity == '' || unit_price == '' ? '' : double(quantity) * double(unit_price)"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_delivery",
+      "title": "Delivery",
+      "description": "Some fields appear only when they apply.",
+      "prompts": [
+        {
+          "id": "is_gift",
+          "label": "Is this a gift?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Tick if this order is a gift."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "gift_message",
+          "label": "Gift message",
+          "response": "",
+          "hints": {
+            "placeholder": "Your message to include with the gift",
+            "expectedDataType": "multiline",
+            "helpText": "Shown only when the order is a gift.",
+            "exprHidden": "is_gift != 'true'"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "rush",
+          "label": "Rush delivery?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Tick to request expedited delivery."
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "rush_reason",
+          "label": "Reason for rush",
+          "response": "",
+          "hints": {
+            "placeholder": "Why is this order urgent?",
+            "expectedDataType": "text",
+            "helpText": "Shown and expected only when rush delivery is requested.",
+            "exprHidden": "rush != 'true'",
+            "exprExpected": "rush == 'true'"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}
