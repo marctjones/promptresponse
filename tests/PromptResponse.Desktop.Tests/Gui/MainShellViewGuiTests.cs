@@ -65,6 +65,45 @@ public class MainShellViewGuiTests
     }
 
     [AvaloniaFact]
+    public void Home_WithRecentFiles_RendersAccessibleRecentButtons()
+    {
+        var fs = Substitute.For<IFileService>();
+        var dlg = Substitute.For<IDialogService>();
+        var session = new DocumentSessionService();
+        var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
+        var factory = new PromptViewModelFactory(profile);
+        var recent = new RecentFilesService();
+        recent.Add("/forms/intake.aprt", "Intake Form");
+        var vm = new MainShellViewModel(fs, dlg, session, profile, factory, recentFiles: recent);
+        var view = new MainShellView { DataContext = vm };
+        view.ShowInWindow(width: 1100, height: 700);
+
+        vm.IsEmptyState.Should().BeTrue();
+        vm.HasRecentFiles.Should().BeTrue();
+
+        var recentBtn = view.FindDescendant<Button>(b =>
+            b.GetValue(Avalonia.Automation.AutomationProperties.NameProperty) as string == "Intake Form");
+        recentBtn.Should().NotBeNull("recent files must appear on the home screen as accessible buttons");
+        (recentBtn!.GetValue(Avalonia.Automation.AutomationProperties.HelpTextProperty) as string)
+            .Should().Be("/forms/intake.aprt", "the full path is the accessible help text");
+    }
+
+    [AvaloniaFact]
+    public void Home_ToEditor_ShowsEditorOnceADocumentOpens()
+    {
+        var (view, vm, session, _) = Build();
+        view.ShowInWindow(width: 1100, height: 700);
+
+        vm.IsEmptyState.Should().BeTrue("the app starts on the home screen, not an empty editor");
+
+        session.Set(MakeDocument(), "/x.aprt");
+        GuiTestExtensions.PumpDispatcher();
+
+        vm.HasDocument.Should().BeTrue();
+        vm.IsEmptyState.Should().BeFalse("the editor replaces the home screen once a document is open");
+    }
+
+    [AvaloniaFact]
     public void EmptyState_ShowsTwoLargePrimaryButtons_KeyboardReachable()
     {
         var (view, vm, _, _) = Build();

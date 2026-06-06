@@ -31,14 +31,15 @@ public class MainShellViewModelTests
         IFileService? fileService = null,
         IDialogService? dialogService = null,
         IDocumentSessionService? session = null,
-        IProfileService? profile = null)
+        IProfileService? profile = null,
+        IRecentFilesService? recentFiles = null)
     {
         fileService ??= Substitute.For<IFileService>();
         dialogService ??= Substitute.For<IDialogService>();
         session ??= new DocumentSessionService();
         profile ??= new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
-        return new MainShellViewModel(fileService, dialogService, session, profile, factory);
+        return new MainShellViewModel(fileService, dialogService, session, profile, factory, recentFiles: recentFiles);
     }
 
     private static AprDocument MakeTemplate() => new()
@@ -148,6 +149,60 @@ public class MainShellViewModelTests
 
         shell.ExportPdfCommand.CanExecute(null).Should().BeFalse();
         shell.ExportPdfFormCommand.CanExecute(null).Should().BeFalse();
+    }
+
+    [Fact]
+    public void NewShell_WithRecentFiles_ExposesThemForTheHomeScreen()
+    {
+        var recent = new RecentFilesService();
+        recent.Add("/forms/intake.aprt", "Intake");
+
+        var shell = CreateShell(recentFiles: recent);
+
+        shell.HasRecentFiles.Should().BeTrue();
+        shell.RecentFiles.Should().ContainSingle()
+            .Which.Should().BeEquivalentTo(new { Path = "/forms/intake.aprt", DisplayName = "Intake" });
+    }
+
+    [Fact]
+    public async Task Open_AddsTheFileToRecent()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.OpenFileAsync().Returns(MakeTemplate());
+        fs.CurrentFilePath.Returns("/forms/test.aprt");
+        var shell = CreateShell(fs);
+
+        await shell.Open();
+
+        shell.RecentFiles.Select(r => r.Path).Should().Contain("/forms/test.aprt");
+        shell.HasRecentFiles.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task OpenRecent_LoadsDocumentAndSetsCurrentPath()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.LoadFileAsync("/forms/saved.aprf").Returns(MakeTemplate());
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, session: session);
+
+        await shell.OpenRecent("/forms/saved.aprf");
+
+        session.HasDocument.Should().BeTrue();
+        fs.Received(1).SetCurrentFilePath("/forms/saved.aprf");
+    }
+
+    [Fact]
+    public async Task OpenRecent_MissingFile_IsNoOp()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.LoadFileAsync(Arg.Any<string>()).Returns((AprDocument?)null);   // file gone
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, session: session);
+
+        await shell.OpenRecent("/forms/gone.aprf");
+
+        session.HasDocument.Should().BeFalse();
     }
 
     [Fact]

@@ -18,6 +18,23 @@ public class AppSettings
     /// non-null and from then on the saved choice wins on every launch.
     /// </summary>
     public ProfileSettings? Profile { get; set; }
+
+    /// <summary>
+    /// Recently opened/saved files, most-recent-first, shown on the home screen.
+    /// </summary>
+    public List<RecentFileSetting> RecentFiles { get; set; } = new();
+}
+
+/// <summary>
+/// A persisted recent-file entry.
+/// </summary>
+public class RecentFileSetting
+{
+    /// <summary>Absolute path to the file.</summary>
+    public string Path { get; set; } = string.Empty;
+
+    /// <summary>A display label (the document title, or the file name as a fallback).</summary>
+    public string Title { get; set; } = string.Empty;
 }
 
 /// <summary>

@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Desktop: home screen with recent files** — the empty state is now a real
+  entry point. It lists recently opened/saved documents (most-recent-first,
+  de-duplicated, capped, persisted in `settings.json`) as accessible buttons
+  that reopen the form in one click, alongside the existing New/Open actions.
+  New `IRecentFilesService`; recent files are recorded on open/save and survive
+  restarts. (#34)
 - **Desktop: File → Export menu** — export the currently open form, **with its
   current values**, to a PDF without leaving the app: *Export as PDF…* (flat)
   and *Export as fillable PDF form…* (interactive AcroForm). Both use a save
