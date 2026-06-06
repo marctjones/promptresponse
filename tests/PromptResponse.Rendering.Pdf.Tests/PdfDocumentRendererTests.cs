@@ -154,6 +154,23 @@ public class PdfDocumentRendererTests
     }
 
     [Fact]
+    public void Render_StampsDocumentMetadata_OntoThePdf()
+    {
+        var doc = new AprDocument
+        {
+            Metadata = new Metadata { Title = "Intake Form", Author = "Ada Lovelace", Description = "Please complete" },
+            Sections = [new Section { Id = "s", Title = "S", Prompts = [new Prompt { Id = "p", Label = "Name" }] }],
+        };
+
+        var bytes = _renderer.RenderToBytes(doc);
+
+        using var reopened = PdfeDoc.Open(bytes);
+        reopened.Title.Should().Be("Intake Form");
+        reopened.Author.Should().Be("Ada Lovelace");
+        reopened.Subject.Should().Be("Please complete");
+    }
+
+    [Fact]
     public void Render_NullArgs_Throw()
     {
         var act = () => _renderer.RenderToBytes(null!);
