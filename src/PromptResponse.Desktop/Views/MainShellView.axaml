@@ -611,6 +611,29 @@
                                        FontSize="{Binding CaptionFontSize}"
                                        Foreground="{Binding ActiveProfileMutedTextBrush}"
                                        AutomationProperties.LiveSetting="Polite"/>
+                            <ItemsControl ItemsSource="{Binding Progress.Sections}"
+                                          IsVisible="{Binding HasDocument}"
+                                          AutomationProperties.Name="Section completion">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:SectionProgress">
+                                        <Grid ColumnDefinitions="*,Auto"
+                                              Margin="0,2"
+                                              AutomationProperties.Name="{Binding Title}"
+                                              AutomationProperties.HelpText="{Binding StatusText}">
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding Title}"
+                                                       FontSize="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).CaptionFontSize}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Foreground="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).ActiveProfileOnSurfaceBrush}"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding StatusText}"
+                                                       Margin="8,0,0,0"
+                                                       FontSize="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).CaptionFontSize}"
+                                                       Foreground="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).ActiveProfileMutedTextBrush}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
 
                         <!-- Advisories — never blocking, never error-styled -->
