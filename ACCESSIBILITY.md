@@ -46,8 +46,8 @@ The CI pipeline blocks merge on any of these regressions:
   - `KeyboardNavigationValidationTests` verifies keyboard shortcuts and
     menu mnemonics are present in the live shell.
 - **Coverage gate**: `PromptResponse.Core` line coverage ≥ 95% (currently
-  97.69% / 95.95% branch / 100% method). `PromptResponse.Cli` ratchets up
-  per `idlergear` task #24.
+  97.69% / 95.95% branch / 100% method). `PromptResponse.Cli` coverage
+  ratchets up over time.
 
 ## Accessibility Features
 

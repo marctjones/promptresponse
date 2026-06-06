@@ -60,8 +60,7 @@ Layer 3 currently **passes** against the live AT-SPI bus. PromptResponse
 registers on the bus as `PromptResponse` (set via `Application.Name` in
 `App.axaml`); every focusable interactive node carries a non-empty Name
 that screen readers can announce. The earlier registration bug
-(idlergear #26) is closed — fixed by upgrading to Avalonia 12, which
-ships the AT-SPI2 backend.
+is fixed by upgrading to Avalonia 12, which ships the AT-SPI2 backend.
 
 ## Not covered
 
