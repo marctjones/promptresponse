@@ -74,6 +74,3 @@ logs/
 
 # Claude Code scheduler state
 .claude/scheduled_tasks.lock
-
-# Packaging / publish output
-/dist/
