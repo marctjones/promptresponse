@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   HTML-encoded (an XSS boundary, since responses are arbitrary input). New
   dependency-free `HtmlDocumentRenderer` on the shared `IDocumentRenderer` seam —
   the foundation for a future browser fill/view path (Milestone 2 wedge, Path B).
+- **Fillable HTML (browser fill path)** — `apr export <file> --format=html --fillable`
+  produces a self-contained, **interactive** web form: prompts become live inputs
+  (boolean → checkbox, suggested values → dropdown, multiline → textarea, otherwise
+  a typed input), pre-filled from any existing responses, with a **Download filled
+  form** button that writes a valid `.aprf` JSON file — no server, no backend, no
+  toolchain. Open in any browser, fill, download. Accessible (associated labels,
+  `aria-describedby` help); the embedded document is unicode-escaped and all values
+  HTML-encoded (XSS boundary). New `FillableHtmlDocumentRenderer`. *(Desktop
+  File → Export menu entry is the next step.)*
 
 ## [0.4.1] - 2026-06-06
 

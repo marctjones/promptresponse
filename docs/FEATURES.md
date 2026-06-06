@@ -78,6 +78,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 |---------|----------|--------|-------|
 | CSV/JSON/TXT export | P1 | ✅ | Via CLI export command |
 | HTML export | P2 | ✅ | Accessible HTML page (`export --format=html`); foundation for a browser fill path |
+| Fillable HTML (browser fill) | P1 | ✅ | `export --format=html --fillable` → self-contained interactive web form that downloads `.aprf`; no server (GUI menu entry pending) |
 | **PDF export** | **P1** | **✅** | Flat **and** fillable-AcroForm PDF via CLI (`export --format=pdf [--fillable]`) and the desktop File → Export menu (pdfe engine); carries document metadata. Unicode text rendering through the builder is the remaining gap (pdfe#398) (#31) |
 | Word export (.docx) | P2 | ⏳ | Export to Word format |
 | Excel export (.xlsx) | P2 | ⏳ | Export to spreadsheet |

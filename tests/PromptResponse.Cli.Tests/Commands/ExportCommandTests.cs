@@ -184,6 +184,33 @@ public class ExportCommandTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_HtmlFillable_WritesInteractiveForm()
+    {
+        var document = CreateTestDocument();
+        var tempFile = Path.GetTempFileName();
+        var outputFile = Path.Combine(Path.GetTempPath(), $"form_{Guid.NewGuid():N}.html");
+
+        try
+        {
+            await File.WriteAllTextAsync(tempFile, _serializer.Serialize(document));
+
+            var exitCode = await _command.ExecuteAsync(new[] { tempFile, "--format=html", "--fillable", $"--output={outputFile}" });
+
+            exitCode.Should().Be(0);
+            var html = await File.ReadAllTextAsync(outputFile);
+            html.Should().Contain("<form id=\"apr-form\"");
+            html.Should().Contain("id=\"apr-download\"");
+            html.Should().Contain("data-prompt-id=\"prompt1\"");
+            html.Should().Contain(".aprf");
+        }
+        finally
+        {
+            if (File.Exists(tempFile)) File.Delete(tempFile);
+            if (File.Exists(outputFile)) File.Delete(outputFile);
+        }
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WithCsvFormat_ShouldReturnSuccess()
     {
         // Arrange
