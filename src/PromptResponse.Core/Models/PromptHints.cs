@@ -59,4 +59,39 @@ public class PromptHints
     /// </example>
     public string? ValidationPattern { get; set; }
 
+    // ── Expression hints (CEL subset; see docs/APR_SPECIFICATION_v0.2.md Appendix B/C) ──
+    // All are advisory and pure-data: they transform display/visibility/validation,
+    // never block input, and never execute code. Evaluated by PromptResponse.Core.Expressions.
+
+    /// <summary>
+    /// Expression that, when truthy, hides this prompt (conditional visibility).
+    /// </summary>
+    /// <example>"emp_status == 'Retired' || emp_status == 'Student'"</example>
+    public string? ExprHidden { get; set; }
+
+    /// <summary>
+    /// Expression for a computed (read-only) value. When set, the field's value
+    /// is derived from this expression and recomputed as its dependencies change.
+    /// </summary>
+    /// <example>"double(qty) * double(price)"</example>
+    public string? ExprValue { get; set; }
+
+    /// <summary>
+    /// Expression that, when truthy, marks this prompt as expected/required
+    /// (advisory only — never blocks submission).
+    /// </summary>
+    /// <example>"emp_status == 'Employed'"</example>
+    public string? ExprExpected { get; set; }
+
+    /// <summary>
+    /// Cross-field validation expression returning a message string; an empty
+    /// string means "valid". Surfaced as an advisory, never blocking.
+    /// </summary>
+    /// <example>"timestamp(_this) &gt; timestamp(start) ? '' : 'Must be after start'"</example>
+    public string? ExprValidation { get; set; }
+
+    /// <summary>
+    /// Expression that, when truthy, makes this prompt read-only.
+    /// </summary>
+    public string? ExprReadOnly { get; set; }
 }

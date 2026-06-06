@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Expression hints + form evaluation** — `PromptHints` gains `exprHidden`,
+  `exprValue`, `exprExpected`, `exprValidation`, `exprReadOnly` (CEL-subset
+  strings; round-trip through JSON). `FormExpressions` (Core) evaluates them
+  against live responses: conditional visibility, computed read-only values with
+  **fixpoint recompute** for chained totals (circular-safe), conditional-required,
+  and cross-field validation — all advisory, never blocking. Reactive desktop UI
+  wiring is the next phase. (Milestone 2)
 - **Expression engine** (`PromptResponse.Core.Expressions`) — a safe, pure-data
   evaluator for the spec's CEL subset (Appendix B/C): prompt ids are variables
   holding response strings, with `_this`/`_today` built-ins, `ctx.*` context, the

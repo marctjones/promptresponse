@@ -43,10 +43,10 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | JSON serialization | P0 | ✅ | camelCase, ISO 8601 dates |
 | Advisory validation | P0 | ✅ | Structural + data type |
 | Data type hints | P1 | ✅ | text, email, date, number, etc. |
-| Expression parser | P1 | ⏳ | Planned — not implemented; see `docs/APR_SPECIFICATION_v0.2.md` for forward-looking design |
+| Expression parser | P1 | ✅ | Safe CEL-subset evaluator in `PromptResponse.Core.Expressions` (no code execution) |
 | Undo/Redo system | P1 | ✅ | Command pattern implemented |
-| Calculation engine | P1 | ⏳ | Computed fields with formulas |
-| Conditional logic | P2 | ⏳ | Show/hide fields based on values |
+| Calculation engine | P1 | 🔄 | Computed fields (`exprValue`) with fixpoint recompute — Core done (`FormExpressions`); reactive UI pending |
+| Conditional logic | P2 | 🔄 | `exprHidden`/`exprExpected`/`exprValidation` — Core done (`FormExpressions`); reactive UI pending |
 
 ---
 
