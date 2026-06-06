@@ -766,6 +766,34 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         renderer.Render(doc, Core.Rendering.RenderOptions.Default, stream);
     }
 
+    /// <summary>Exports the current document — with its values — to a read-only HTML page.</summary>
+    [RelayCommand(CanExecute = nameof(HasDocument))]
+    public Task ExportHtml() => ExportToHtmlAsync(fillable: false);
+
+    /// <summary>Exports the current document to a self-contained, fillable HTML web form.</summary>
+    [RelayCommand(CanExecute = nameof(HasDocument))]
+    public Task ExportHtmlForm() => ExportToHtmlAsync(fillable: true);
+
+    private async Task ExportToHtmlAsync(bool fillable)
+    {
+        var doc = _session.CurrentDocument;
+        if (doc is null) return;
+
+        var baseName = string.IsNullOrWhiteSpace(doc.Metadata.Title) ? "form" : doc.Metadata.Title;
+        var suggested = MakeSafeFileName(baseName) + (fillable ? "-form.html" : ".html");
+
+        var title = fillable ? "Export web form" : "Export HTML";
+        var path = await _fileService.PickExportPathAsync(suggested, title, "HTML Page", "html");
+        if (string.IsNullOrEmpty(path)) return;
+
+        IDocumentRenderer renderer = fillable
+            ? new FillableHtmlDocumentRenderer()
+            : new HtmlDocumentRenderer();
+
+        await using var stream = File.Create(path);
+        renderer.Render(doc, Core.Rendering.RenderOptions.Default, stream);
+    }
+
     private static string MakeSafeFileName(string name)
     {
         var invalid = Path.GetInvalidFileNameChars();

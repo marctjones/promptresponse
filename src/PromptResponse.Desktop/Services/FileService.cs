@@ -151,19 +151,22 @@ public class FileService : IFileService
         return true;
     }
 
-    public async Task<string?> PickPdfExportPathAsync(string suggestedFileName)
+    public Task<string?> PickPdfExportPathAsync(string suggestedFileName) =>
+        PickExportPathAsync(suggestedFileName, "Export PDF", "PDF Document", "pdf");
+
+    public async Task<string?> PickExportPathAsync(string suggestedFileName, string title, string typeLabel, string extension)
     {
         var window = GetMainWindow();
         if (window == null) return null;
 
         var file = await window.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Export PDF",
-            DefaultExtension = "pdf",
+            Title = title,
+            DefaultExtension = extension,
             SuggestedFileName = suggestedFileName,
             FileTypeChoices = new[]
             {
-                new FilePickerFileType("PDF Document") { Patterns = new[] { "*.pdf" } }
+                new FilePickerFileType(typeLabel) { Patterns = new[] { "*." + extension } }
             }
         });
 

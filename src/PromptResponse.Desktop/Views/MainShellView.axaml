@@ -65,6 +65,15 @@
                               Command="{Binding ExportPdfFormCommand}"
                               AutomationProperties.Name="Export as fillable PDF form"
                               AutomationProperties.HelpText="Export to an interactive PDF with fillable fields"/>
+                    <Separator/>
+                    <MenuItem Header="Export as _HTML..."
+                              Command="{Binding ExportHtmlCommand}"
+                              AutomationProperties.Name="Export as HTML"
+                              AutomationProperties.HelpText="Export the current form, with its values, to a read-only HTML page"/>
+                    <MenuItem Header="Export as fillable _web form..."
+                              Command="{Binding ExportHtmlFormCommand}"
+                              AutomationProperties.Name="Export as fillable web form"
+                              AutomationProperties.HelpText="Export a self-contained HTML form that fills in the browser and downloads an .aprf file"/>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="_Close"
