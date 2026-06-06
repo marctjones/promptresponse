@@ -66,6 +66,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Tmds.DBus` `0.93.0 → 0.94.1`. 1238 tests pass; About-dialog acknowledgements
   drift-guard still green (majors unchanged).
 
+### Security
+
+- **Java SDK: removed the unused BouncyCastle dependency** (`bcprov-jdk15on` /
+  `bcpkix-jdk15on` 1.70), resolving 6 moderate Dependabot alerts
+  (GHSA-4h8f-2wvx-gg5w, -wg6q-6289-32hp, -4cx2-fc23-5wg6, -v435-xc8x-wvr9,
+  -8xfc-gm6g-vgpv, -hr8g-6v94-x4m9). No Java source ever imported
+  `org.bouncycastle.*` — `DigitalSignature` is a plain string POJO, consistent
+  with APR treating signatures as data, not computed crypto. (The `jdk15on`
+  artifacts were also discontinued after 1.70.) Aligns with the project's
+  decision to drop signature/certificate/encryption features. If signing is ever
+  implemented, re-add the current `jdk18on` artifacts (≥ 1.84).
+
 ## [0.2.0] - 2026-05-03
 
 Headline: capability-profile rendering system with five named presets,
