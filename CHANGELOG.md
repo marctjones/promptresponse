@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Fillable table cells** — fixed-row table cells are now interactive in both
+  fillable outputs: in the **HTML** web form each cell becomes a checkbox
+  (boolean column), dropdown (suggested values), or typed input keyed by its
+  `{rowId}.{columnId}` id (round-tripping through the download shim); in the
+  **PDF** form each cell becomes a live AcroForm field of the matching kind, via
+  pdfe 2.7.0's new `FillableTable`. Each cell's accessible name combines its row
+  and column headers. (Dynamic tables, which have no rows, render as headers.)
+
 - **HTML export** — `apr export <file> --format=html` renders a self-contained,
   accessible HTML page (semantic headings, labeled fields, real tables with
   row/column headers, `lang` attribute, minimal inline CSS). All dynamic text is

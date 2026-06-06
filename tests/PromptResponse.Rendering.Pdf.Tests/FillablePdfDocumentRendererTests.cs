@@ -108,6 +108,58 @@ public class FillablePdfDocumentRendererTests
     }
 
     [Fact]
+    public void Render_FixedTableCells_BecomeLiveFieldsNamedByCellId()
+    {
+        var doc = new AprDocument
+        {
+            DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = "Quarterly" },
+            Sections =
+            [
+                new Section
+                {
+                    Id = "q", Title = "By quarter",
+                    TableLayout = new TableDefinition
+                    {
+                        Columns =
+                        [
+                            new TableColumn { Id = "revenue", Label = "Revenue", Type = "currency" },
+                            new TableColumn { Id = "audited", Label = "Audited", Type = "boolean" },
+                            new TableColumn { Id = "status", Label = "Status", SuggestedValues = ["Draft", "Final"] },
+                        ],
+                        FixedRows = [new FixedRow { Id = "q1", Label = "Q1" }],
+                    },
+                    Sections =
+                    [
+                        new Section { Id = "q1", Title = "Q1", Prompts =
+                        [
+                            new Prompt { Id = "q1.revenue", Response = "5000" },
+                            new Prompt { Id = "q1.audited", Response = "true", Hints = new PromptHints { ExpectedDataType = "boolean" } },
+                            new Prompt { Id = "q1.status", Response = "Final" },
+                        ]},
+                    ],
+                },
+            ],
+        };
+
+        var fields = FieldsOf(_renderer.RenderToBytes(doc));
+
+        var revenue = fields.Should().ContainSingle(f => f.FullName == "q1.revenue").Subject;
+        revenue.FieldType.Should().Be(PdfFieldType.Text);
+        revenue.Value.Should().Be("5000");
+
+        fields.Should().ContainSingle(f => f.FullName == "q1.audited")
+            .Which.FieldType.Should().Be(PdfFieldType.Button);
+
+        var status = fields.Should().ContainSingle(f => f.FullName == "q1.status").Subject;
+        status.FieldType.Should().Be(PdfFieldType.Choice);
+        status.Options.Should().Contain(["Draft", "Final"]);
+
+        // Accessible name combines the row + column headers.
+        revenue.RawDictionary.GetStringOrNull("TU").Should().Be("Q1 Revenue");
+    }
+
+    [Fact]
     public void Render_GoesThroughTheSharedBuilder()
     {
         var builder = Substitute.For<IDocumentRenderModelBuilder>();

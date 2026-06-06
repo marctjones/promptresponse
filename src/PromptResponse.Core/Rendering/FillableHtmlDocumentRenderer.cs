@@ -154,7 +154,7 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
                 break;
 
             case TableBlock t:
-                AppendTable(sb, t);
+                AppendTable(sb, t, ref seq);
                 break;
         }
     }
@@ -231,9 +231,8 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
         _ => "text",
     };
 
-    private static void AppendTable(StringBuilder sb, TableBlock table)
+    private static void AppendTable(StringBuilder sb, TableBlock table, ref int seq)
     {
-        // Read-only for now (per-cell prompts carry no id through the model).
         sb.Append("<table>\n<thead>\n<tr><th></th>");
         foreach (var col in table.ColumnHeaders)
         {
@@ -243,13 +242,60 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
         foreach (var row in table.Rows)
         {
             sb.Append("<tr><th scope=\"row\">").Append(Enc(row.Label)).Append("</th>");
-            foreach (var cell in row.Cells)
+            for (var c = 0; c < row.Cells.Count; c++)
             {
-                sb.Append("<td>").Append(Enc(cell.Value)).Append("</td>");
+                var cell = row.Cells[c];
+                var columnHeader = c < table.ColumnHeaders.Count ? table.ColumnHeaders[c] : string.Empty;
+                sb.Append("<td>");
+                AppendCellInput(sb, cell, row.Label, columnHeader, ++seq);
+                sb.Append("</td>");
             }
             sb.Append("</tr>\n");
         }
         sb.Append("</tbody>\n</table>\n");
+    }
+
+    /// <summary>
+    /// Renders one table cell as a live input keyed by its prompt id so the
+    /// download shim round-trips it. A cell with no id stays read-only text.
+    /// The accessible name combines the row and column headers (the table's
+    /// <c>th</c> cells provide visual context but inputs still need their own name).
+    /// </summary>
+    private static void AppendCellInput(StringBuilder sb, TableCellBlock cell, string rowLabel, string columnHeader, int seq)
+    {
+        if (cell.Id.Length == 0)
+        {
+            sb.Append(Enc(cell.Value)); // not addressable — leave as read-only text
+            return;
+        }
+
+        var elementId = "f" + seq;
+        var value = cell.HasResponse ? cell.Value : string.Empty;
+        var dataType = cell.ExpectedDataType ?? string.Empty;
+        var ariaLabel = Enc((rowLabel + " " + columnHeader).Trim());
+        var common = " id=\"" + elementId + "\" data-prompt-id=\"" + Enc(cell.Id) + "\" aria-label=\"" + ariaLabel + "\"";
+
+        if (dataType.Equals("boolean", StringComparison.OrdinalIgnoreCase))
+        {
+            var isChecked = cell.HasResponse && TruthyValues.Contains(value);
+            sb.Append("<input type=\"checkbox\"").Append(common).Append(isChecked ? " checked" : string.Empty).Append('>');
+        }
+        else if (cell.Choices is { Count: > 0 })
+        {
+            sb.Append("<select").Append(common).Append('>');
+            sb.Append("<option value=\"\">").Append(cell.HasResponse ? string.Empty : "—").Append("</option>");
+            foreach (var choice in cell.Choices)
+            {
+                var selected = cell.HasResponse && string.Equals(choice, value, StringComparison.Ordinal) ? " selected" : string.Empty;
+                sb.Append("<option value=\"").Append(Enc(choice)).Append('"').Append(selected).Append('>').Append(Enc(choice)).Append("</option>");
+            }
+            sb.Append("</select>");
+        }
+        else
+        {
+            sb.Append("<input type=\"").Append(InputType(dataType)).Append('"').Append(common)
+              .Append(" value=\"").Append(Enc(value)).Append("\">");
+        }
     }
 
     private static string Enc(string s) => WebUtility.HtmlEncode(s);

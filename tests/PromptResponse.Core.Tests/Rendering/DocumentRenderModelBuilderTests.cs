@@ -264,6 +264,40 @@ public class DocumentRenderModelBuilderTests
     }
 
     [Fact]
+    public void Build_TableCells_CarryIdAndColumnTypeAndChoices_ForFillableRendering()
+    {
+        var doc = Doc(new Section
+        {
+            Id = "t",
+            Title = "T",
+            TableLayout = new TableDefinition
+            {
+                Columns =
+                [
+                    new TableColumn { Id = "amount", Label = "Amount", Type = "currency" },
+                    new TableColumn { Id = "status", Label = "Status", Type = "text", SuggestedValues = ["Open", "Closed"] },
+                ],
+            },
+            Sections =
+            [
+                new Section
+                {
+                    Id = "row1",
+                    Title = "Row 1",
+                    Prompts = [new Prompt { Id = "row1.amount", Response = "10" }], // status cell blank/absent
+                },
+            ],
+        });
+
+        var cells = _builder.Build(doc, RenderOptions.Default).Blocks.OfType<TableBlock>().Single().Rows[0].Cells;
+
+        cells[0].Id.Should().Be("row1.amount");
+        cells[0].ExpectedDataType.Should().Be("currency");
+        cells[1].Id.Should().Be("row1.status", "a blank cell still carries the conventional id so it can be made fillable");
+        cells[1].Choices.Should().Equal("Open", "Closed");
+    }
+
+    [Fact]
     public void Build_NullDocument_Throws()
     {
         var act = () => _builder.Build(null!, RenderOptions.Default);
