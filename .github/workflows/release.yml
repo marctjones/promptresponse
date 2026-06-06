@@ -79,6 +79,9 @@ jobs:
           )
           dotnet publish src/PromptResponse.Desktop @common
           dotnet publish src/PromptResponse.Cli     @common
+          # The Desktop assembly publishes as PromptResponse.Desktop.exe; the
+          # installer + zip expect promptresponse.exe (the CLI is already apr.exe).
+          Rename-Item publish/win-x64/PromptResponse.Desktop.exe promptresponse.exe
       - name: Portable zip
         shell: pwsh
         run: |
