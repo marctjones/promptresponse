@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-06
+
+Headline: the **shippable MVP**. PDF export — **flat and fillable AcroForm** —
+from both the CLI (`apr export --format=pdf [--fillable]`) and the desktop
+File → Export menu, on a new `IDocumentRenderer` seam over the pure-managed
+[pdfe](https://github.com/marctjones/pdfe) engine (fillable fields are
+screen-reader-named; PDFs carry document metadata). A real **home screen** with
+recent files + a **starter-template gallery** (6 bundled, accessibility-validated
+office forms) and first-run onboarding. **Self-contained, single-file packaging**
+with installers and `.apr`/`.aprt`/`.aprf` file associations. CI moved to
+.NET 10; dependency patch sweep; the unused Java BouncyCastle dependency removed
+(cleared 6 Dependabot alerts). ~1300 tests passing across Core / CLI / Desktop /
+Accessibility / Rendering.Pdf.
+
 ### Added
 
 - **Starter templates** — 6 bundled, accessibility-validated office forms
