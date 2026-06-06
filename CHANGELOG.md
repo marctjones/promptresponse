@@ -13,9 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   filled form (or template) to a flattened PDF. New `PromptResponse.Rendering.Pdf`
   project implements the `IDocumentRenderer` seam on top of the
   [pdfe](https://github.com/marctjones/pdfe) engine (`Pdfe.Core`, MIT, pure-managed,
-  consumed as a locally-packed NuGet to keep the repos decoupled). Includes a
-  top-down flow layout with word-wrap, automatic pagination, and table grids.
-  `--exclude-empty` omits unanswered fields. MVP scope: flattened, Latin-text
+  consumed as a locally-packed NuGet to keep the repos decoupled). Layout
+  (word-wrap, pagination, tables) is handled by pdfe v2.4.0's high-level
+  `PdfDocumentBuilder` facade (pdfe#383), so the renderer is a thin map from the
+  shared `RenderModel`. `--exclude-empty` omits unanswered fields. MVP scope: flattened, Latin-text
   (base-14) output; Unicode font embedding, a fillable-AcroForm variant, and
   tagged/accessible PDF are deferred (tracked upstream in pdfe #378/#380/#275).
   (#31)

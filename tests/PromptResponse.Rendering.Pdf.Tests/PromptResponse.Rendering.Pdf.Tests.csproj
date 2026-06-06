@@ -19,7 +19,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <!-- Direct reference so tests can reopen output via Pdfe.Core for round-trip asserts. -->
-    <PackageReference Include="Pdfe.Core" Version="2.3.1" />
+    <PackageReference Include="Pdfe.Core" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
