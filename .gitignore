@@ -54,6 +54,9 @@ packages/
 # build is reproducible without the pdfe source checked out. See local-nuget/.
 !local-nuget/*.nupkg
 
+# Packaging / publish output
+/dist/
+
 # Rider
 .idea/
 *.sln.iml

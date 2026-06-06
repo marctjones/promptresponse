@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=PromptResponse
+GenericName=Form Editor
+Comment=Create and fill accessible forms (.apr / .aprt / .aprf)
+# APP_EXEC is replaced with the installed binary path by install-desktop.sh.
+Exec=APP_EXEC %f
+Icon=promptresponse
+Terminal=false
+Categories=Office;Utility;
+MimeType=application/x-apr;application/x-aprt;application/x-aprf;
+Keywords=form;apr;template;fill;questionnaire;
+StartupNotify=true
+StartupWMClass=PromptResponse.Desktop
