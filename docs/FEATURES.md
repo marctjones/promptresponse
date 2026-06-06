@@ -109,6 +109,15 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 
 ---
 
+## Import Features
+
+| Feature | Priority | Status | Notes |
+|---------|----------|--------|-------|
+| Document → APR (AI skill) | P1 | ✅ | Portable skill (`.claude/skills/document-to-apr/`): an agent turns a PDF / Word / OpenDocument / **image** of a form into a valid `.aprt`. Works in Claude Code, Gemini CLI, Codex, etc. |
+| AcroForm PDF importer (code) | P3 | ⏳ | Possible deterministic complement for true fillable-PDF/DOCX form fields; deferred — the skill covers the common (flat/scanned) cases |
+
+---
+
 ## CLI Tool Features
 
 | Feature | Priority | Status | Notes |

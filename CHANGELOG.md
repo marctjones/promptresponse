@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Document → APR skill** (`.claude/skills/document-to-apr/`) — a portable AI
+  skill that turns an existing form into an APR template: point any capable agent
+  (Claude Code/workspace, Gemini CLI, Codex) at a PDF, Word (`.docx`),
+  OpenDocument (`.odt`/`.odp`), or even an **image/scan** of a paper form, and it
+  emits a valid `.aprt`. Chosen over a mechanical parser because most real forms
+  aren't machine-readable (flat PDFs, scans, photos) — an agent reads them the way
+  a person does. Includes a self-contained format spec, worked examples, and a
+  `apr validate` verification step.
+
 - **Fillable table cells** — fixed-row table cells are now interactive in both
   fillable outputs: in the **HTML** web form each cell becomes a checkbox
   (boolean column), dropdown (suggested values), or typed input keyed by its
