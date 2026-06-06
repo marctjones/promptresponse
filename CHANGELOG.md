@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **PDF exports carry document metadata** — generated PDFs (flat and fillable)
+  now stamp the APR title / author / description onto the PDF Info dictionary
+  (Title / Author / Subject) via pdfe v2.5.0's metadata authoring, for
+  provenance and search. (Unicode text rendering through the high-level builder
+  is still pending upstream — tracked in pdfe#398.)
 - **Packaged, self-contained distribution** — `scripts/publish.sh` produces
   single-file, self-contained `promptresponse` (GUI) and `apr` (CLI) binaries
   that run with **no .NET runtime installed** (verified under a stripped

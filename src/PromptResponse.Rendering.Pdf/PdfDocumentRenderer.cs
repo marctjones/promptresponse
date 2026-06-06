@@ -57,6 +57,7 @@ public sealed class PdfDocumentRenderer : IDocumentRenderer
 
         var model = _builder.Build(document, options);
         var pdf = PdfDocumentBuilder.Create();
+        PdfRenderHelpers.ApplyMetadata(pdf, document.Metadata);
 
         var title = string.IsNullOrWhiteSpace(model.Title) ? "(untitled)" : model.Title;
         pdf.Heading(title, level: 1);
@@ -95,31 +96,8 @@ public sealed class PdfDocumentRenderer : IDocumentRenderer
                 break;
 
             case TableBlock t:
-                pdf.Table(BuildTableRows(t), headerRow: true);
+                pdf.Table(PdfRenderHelpers.BuildTableRows(t), headerRow: true);
                 break;
         }
-    }
-
-    /// <summary>
-    /// Flattens a <see cref="TableBlock"/> into pdfe's row form: a header row
-    /// (empty cell for the row-label column, then the column headers) followed
-    /// by one row per <see cref="TableRowBlock"/> (label cell, then values).
-    /// </summary>
-    private static List<IReadOnlyList<string>> BuildTableRows(TableBlock table)
-    {
-        var rows = new List<IReadOnlyList<string>>(table.Rows.Count + 1);
-
-        var header = new List<string>(table.ColumnHeaders.Count + 1) { string.Empty };
-        header.AddRange(table.ColumnHeaders);
-        rows.Add(header);
-
-        foreach (var row in table.Rows)
-        {
-            var cells = new List<string>(row.Cells.Count + 1) { row.Label };
-            cells.AddRange(row.Cells.Select(c => c.Value));
-            rows.Add(cells);
-        }
-
-        return rows;
     }
 }
