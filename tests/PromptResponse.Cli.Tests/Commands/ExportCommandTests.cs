@@ -159,6 +159,31 @@ public class ExportCommandTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_HtmlFormat_WritesAccessibleHtml()
+    {
+        var document = CreateTestDocument();
+        var tempFile = Path.GetTempFileName();
+        var outputFile = Path.Combine(Path.GetTempPath(), $"export_{Guid.NewGuid():N}.html");
+
+        try
+        {
+            await File.WriteAllTextAsync(tempFile, _serializer.Serialize(document));
+
+            var exitCode = await _command.ExecuteAsync(new[] { tempFile, "--format=html", $"--output={outputFile}" });
+
+            exitCode.Should().Be(0);
+            var html = await File.ReadAllTextAsync(outputFile);
+            html.Should().StartWith("<!DOCTYPE html>");
+            html.Should().Contain("<html lang=\"en\">");
+        }
+        finally
+        {
+            if (File.Exists(tempFile)) File.Delete(tempFile);
+            if (File.Exists(outputFile)) File.Delete(outputFile);
+        }
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WithCsvFormat_ShouldReturnSuccess()
     {
         // Arrange

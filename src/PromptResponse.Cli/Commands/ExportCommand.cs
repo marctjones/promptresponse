@@ -24,12 +24,13 @@ public class ExportCommand : ICommand
         if (args.Length == 0)
         {
             Console.Error.WriteLine("Error: File path required");
-            Console.Error.WriteLine("Usage: apr export <file> [--format=<csv|json|txt|pdf>] [--output=<file>] [--exclude-empty] [--fillable]");
+            Console.Error.WriteLine("Usage: apr export <file> [--format=<csv|json|txt|html|pdf>] [--output=<file>] [--exclude-empty] [--fillable]");
             Console.Error.WriteLine();
             Console.Error.WriteLine("Formats:");
             Console.Error.WriteLine("  csv  - Comma-separated values (default)");
             Console.Error.WriteLine("  json - JSON format with prompt/response pairs");
             Console.Error.WriteLine("  txt  - Plain text format");
+            Console.Error.WriteLine("  html - Accessible HTML page");
             Console.Error.WriteLine("  pdf  - Flattened PDF (requires --output)");
             Console.Error.WriteLine();
             Console.Error.WriteLine("Options:");
@@ -56,10 +57,10 @@ public class ExportCommand : ICommand
             return 1;
         }
 
-        if (!new[] { "csv", "json", "txt", "pdf" }.Contains(format.ToLowerInvariant()))
+        if (!new[] { "csv", "json", "txt", "html", "pdf" }.Contains(format.ToLowerInvariant()))
         {
             Console.Error.WriteLine($"Error: Unsupported format: {format}");
-            Console.Error.WriteLine("Supported formats: csv, json, txt, pdf");
+            Console.Error.WriteLine("Supported formats: csv, json, txt, html, pdf");
             return 1;
         }
 
@@ -81,6 +82,7 @@ public class ExportCommand : ICommand
                 "csv" => ExportToCsv(document),
                 "json" => ExportToJson(document),
                 "txt" => ExportToText(document),
+                "html" => ExportToHtml(document),
                 _ => throw new InvalidOperationException($"Unsupported format: {format}")
             };
 
@@ -247,6 +249,13 @@ public class ExportCommand : ICommand
             var childPath = currentPath == null ? childSection.Title : $"{currentPath} / {childSection.Title}";
             ExtractResponsesFromSection(childSection, rootSectionTitle, childPath, responses);
         }
+    }
+
+    private static string ExportToHtml(AprDocument document)
+    {
+        using var stream = new MemoryStream();
+        new HtmlDocumentRenderer().Render(document, RenderOptions.Default, stream);
+        return Encoding.UTF8.GetString(stream.ToArray());
     }
 
     private string ExportToText(AprDocument document)

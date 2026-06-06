@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **HTML export** — `apr export <file> --format=html` renders a self-contained,
+  accessible HTML page (semantic headings, labeled fields, real tables with
+  row/column headers, `lang` attribute, minimal inline CSS). All dynamic text is
+  HTML-encoded (an XSS boundary, since responses are arbitrary input). New
+  dependency-free `HtmlDocumentRenderer` on the shared `IDocumentRenderer` seam —
+  the foundation for a future browser fill/view path (Milestone 2 wedge, Path B).
+
 ## [0.4.1] - 2026-06-06
 
 Completes **Milestone 2** end-to-end: live reactive expressions in the desktop
