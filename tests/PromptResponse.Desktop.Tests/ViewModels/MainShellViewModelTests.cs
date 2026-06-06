@@ -32,14 +32,16 @@ public class MainShellViewModelTests
         IDialogService? dialogService = null,
         IDocumentSessionService? session = null,
         IProfileService? profile = null,
-        IRecentFilesService? recentFiles = null)
+        IRecentFilesService? recentFiles = null,
+        ITemplateCatalogService? templateCatalog = null)
     {
         fileService ??= Substitute.For<IFileService>();
         dialogService ??= Substitute.For<IDialogService>();
         session ??= new DocumentSessionService();
         profile ??= new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
         var factory = new PromptViewModelFactory(profile);
-        return new MainShellViewModel(fileService, dialogService, session, profile, factory, recentFiles: recentFiles);
+        return new MainShellViewModel(fileService, dialogService, session, profile, factory,
+            recentFiles: recentFiles, templateCatalog: templateCatalog);
     }
 
     private static AprDocument MakeTemplate() => new()
@@ -190,6 +192,34 @@ public class MainShellViewModelTests
 
         session.HasDocument.Should().BeTrue();
         fs.Received(1).SetCurrentFilePath("/forms/saved.aprf");
+    }
+
+    [Fact]
+    public void NewShell_WithStarterTemplates_ExposesThemForTheHomeScreen()
+    {
+        var catalog = Substitute.For<ITemplateCatalogService>();
+        catalog.Templates.Returns(new[] { new StarterTemplate("Time-Off Request", "/t/time-off.aprt", "d") });
+
+        var shell = CreateShell(templateCatalog: catalog);
+
+        shell.HasStarterTemplates.Should().BeTrue();
+        shell.StarterTemplates.Should().ContainSingle()
+            .Which.DisplayName.Should().Be("Time-Off Request");
+    }
+
+    [Fact]
+    public async Task NewFromTemplate_LoadsAFreshUnsavedDocument()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.LoadFileAsync("/t/time-off.aprt").Returns(MakeTemplate());
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, session: session);
+
+        await shell.NewFromTemplate("/t/time-off.aprt");
+
+        session.HasDocument.Should().BeTrue();
+        // A fresh copy: the source path is cleared so the first save is "Save As".
+        fs.Received(1).ClearCurrentFilePath();
     }
 
     [Fact]

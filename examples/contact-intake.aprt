@@ -1,0 +1,131 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "New Contact Intake",
+    "description": "Collect information from new contacts or potential customers",
+    "created": "2026-06-06T00:00:00Z",
+    "modified": "2026-06-06T00:00:00Z",
+    "author": "PromptResponse Team",
+    "templateId": "contact-intake",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_basic_info",
+      "title": "Basic Information",
+      "description": "Personal and contact details",
+      "prompts": [
+        {
+          "id": "prompt_full_name",
+          "label": "Full Name",
+          "response": "",
+          "hints": {
+            "placeholder": "John Michael Smith",
+            "expectedDataType": "text",
+            "helpText": "Complete name of the contact"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_email",
+          "label": "Email Address",
+          "response": "",
+          "hints": {
+            "placeholder": "john.smith@example.com",
+            "expectedDataType": "email",
+            "helpText": "Primary email address"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_phone",
+          "label": "Phone Number",
+          "response": "",
+          "hints": {
+            "placeholder": "+1 (555) 123-4567",
+            "expectedDataType": "phone",
+            "helpText": "Best contact phone number"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_organization_info",
+      "title": "Organization Details",
+      "description": "Company or organization information",
+      "prompts": [
+        {
+          "id": "prompt_organization",
+          "label": "Organization",
+          "response": "",
+          "hints": {
+            "placeholder": "ABC Corporation",
+            "expectedDataType": "text",
+            "helpText": "Name of the contact's organization or company"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "placeholder": "123 Main Street\\nSuite 100\\nNew York, NY 10001",
+            "expectedDataType": "multiline",
+            "helpText": "Full business address including street, city, state, and ZIP"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_preferences",
+      "title": "Contact Preferences",
+      "description": "How you prefer to be contacted",
+      "prompts": [
+        {
+          "id": "prompt_preferred_method",
+          "label": "Preferred Contact Method",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": ["Email", "Phone", "Mail"],
+            "helpText": "Choose your preferred way to be contacted"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "prompt_how_heard",
+          "label": "How Did You Hear About Us?",
+          "response": "",
+          "hints": {
+            "placeholder": "Google search, referral, advertisement, etc.",
+            "expectedDataType": "text",
+            "helpText": "What led you to contact us?"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    },
+    {
+      "id": "section_additional_info",
+      "title": "Additional Information",
+      "description": "Any other relevant details",
+      "prompts": [
+        {
+          "id": "prompt_notes",
+          "label": "Notes",
+          "response": "",
+          "hints": {
+            "placeholder": "Add any additional information or context",
+            "expectedDataType": "multiline",
+            "helpText": "Any notes about this contact or their inquiry"
+          },
+          "responseMetadata": {}
+        }
+      ]
+    }
+  ]
+}

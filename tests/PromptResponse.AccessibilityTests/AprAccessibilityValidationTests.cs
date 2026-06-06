@@ -253,6 +253,51 @@ public class AprAccessibilityValidationTests
         }
     }
 
+    // ── Bundled starter templates (#36) — hard-asserted (no silent skip) ──
+
+    private static string RepoRoot => Path.Combine(
+        Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..");
+
+    [Theory]
+    [InlineData("time-off-request.aprt")]
+    [InlineData("expense-report.aprt")]
+    [InlineData("it-access-request.aprt")]
+    [InlineData("contact-intake.aprt")]
+    [InlineData("event-registration.aprt")]
+    [InlineData("incident-report.aprt")]
+    public async Task StarterTemplate_IsAccessible(string fileName)
+    {
+        var path = Path.Combine(RepoRoot, "examples", fileName);
+        File.Exists(path).Should().BeTrue($"the bundled starter template {fileName} must exist");
+
+        var document = _serializer.Deserialize(await File.ReadAllTextAsync(path));
+
+        document.Metadata.Title.Should().NotBeNullOrWhiteSpace("a template needs a title");
+
+        var labels = new List<string>();
+        var ids = new List<string>();
+        void Walk(Section section, string context)
+        {
+            section.Id.Should().NotBeNullOrWhiteSpace($"every section needs an id ({context})");
+            section.Title.Should().NotBeNullOrWhiteSpace($"every section needs a title ({context})");
+            ids.Add(section.Id);
+            foreach (var p in section.Prompts)
+            {
+                p.Id.Should().NotBeNullOrWhiteSpace($"every prompt needs an id (in {section.Title})");
+                p.Label.Should().NotBeNullOrWhiteSpace($"every prompt needs a label (in {section.Title})");
+                p.Hints.HelpText.Should().NotBeNullOrWhiteSpace(
+                    $"starter-template prompt '{p.Label}' should have help text for screen readers");
+                labels.Add(p.Label);
+                ids.Add(p.Id);
+            }
+            foreach (var child in section.Sections) Walk(child, $"{context} / {section.Title}");
+        }
+        foreach (var s in document.Sections) Walk(s, fileName);
+
+        labels.Should().OnlyHaveUniqueItems("duplicate labels confuse screen readers");
+        ids.Should().OnlyHaveUniqueItems("ids must be unique within a document");
+    }
+
     [Theory]
     [InlineData("examples/simple-contact-form.aprt")]
     [InlineData("examples/employment-application.apr")]

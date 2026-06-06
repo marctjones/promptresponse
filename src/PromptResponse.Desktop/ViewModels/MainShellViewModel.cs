@@ -42,7 +42,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         IProfileService profileService,
         PromptViewModelFactory factory,
         EditHistory? editHistory = null,
-        IRecentFilesService? recentFiles = null)
+        IRecentFilesService? recentFiles = null,
+        ITemplateCatalogService? templateCatalog = null)
     {
         _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
@@ -65,15 +66,46 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _editHistory.PropertyChanged += OnEditHistoryChanged;
         _recentFiles.Changed += (_, _) => RefreshRecentFiles();
         RefreshRecentFiles();
+
+        foreach (var t in (templateCatalog?.Templates ?? Array.Empty<StarterTemplate>()))
+        {
+            StarterTemplates.Add(new RecentFileViewModel(t.Path, t.Title));
+        }
     }
 
     private readonly IRecentFilesService _recentFiles;
+
+    /// <summary>Bundled starter templates shown on the home screen.</summary>
+    public ObservableCollection<RecentFileViewModel> StarterTemplates { get; } = new();
+
+    /// <summary>True when there is at least one starter template to offer.</summary>
+    public bool HasStarterTemplates => StarterTemplates.Count > 0;
+
+    /// <summary>Starts a new, unsaved document from a bundled starter template.</summary>
+    [RelayCommand]
+    public async Task NewFromTemplate(string? path)
+    {
+        if (string.IsNullOrEmpty(path)) return;
+
+        var doc = await _fileService.LoadFileAsync(path);
+        if (doc == null) return;
+
+        // A fresh copy — clear the source path so saving prompts "Save As".
+        _fileService.ClearCurrentFilePath();
+        _session.Set(doc, null, dirty: false);
+    }
 
     /// <summary>Recently opened/saved files shown on the home screen, most-recent-first.</summary>
     public ObservableCollection<RecentFileViewModel> RecentFiles { get; } = new();
 
     /// <summary>True when there is at least one recent file to offer on the home screen.</summary>
     public bool HasRecentFiles => RecentFiles.Count > 0;
+
+    /// <summary>
+    /// First-run onboarding hint: shown on the home screen until the user has
+    /// opened or saved something (i.e. while there are no recent files).
+    /// </summary>
+    public bool ShowGettingStarted => !HasRecentFiles;
 
     private void RefreshRecentFiles()
     {
@@ -83,6 +115,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             RecentFiles.Add(new RecentFileViewModel(entry.Path, entry.Title));
         }
         OnPropertyChanged(nameof(HasRecentFiles));
+        OnPropertyChanged(nameof(ShowGettingStarted));
     }
 
     private void AddToRecent(string? path, string? title) => _recentFiles.Add(path, title);

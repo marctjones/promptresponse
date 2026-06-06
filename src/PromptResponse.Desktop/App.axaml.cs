@@ -148,6 +148,8 @@ public partial class App : Application
         services.AddSingleton<ISettingsService, SettingsService>();
         services.AddSingleton<IRecentFilesService>(sp =>
             new RecentFilesService(sp.GetRequiredService<ISettingsService>()));
+        services.AddSingleton<ITemplateCatalogService>(sp =>
+            new TemplateCatalogService(sp.GetRequiredService<IAprSerializer>()));
         services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<IDocumentSessionService, DocumentSessionService>();
 

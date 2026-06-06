@@ -30,14 +30,19 @@ Every user has a capability profile — a set of sensory, motor, cognitive capab
 6. **Open format.** JSON fully documented. No vendor lock-in.
 7. **Stable, unique IDs.** IDs unique within scope; don't change on reorder.
 
-## Current state (0.1 baseline)
-**All 6 phases through visual design + integration are complete.** Live app uses:
+## Current state (v0.2.0 shipped; v0.3.0 MVP in progress)
+**v0.2.0 (2026-05-03)** delivered the capability-profile rendering system, the
+APRT structural editor (undo/redo + drag-drop), wizard mode, Linux AT-SPI2
+screen-reader support, and the full .NET 10 / Avalonia 12 / xunit.v3 upgrade.
+**v0.3.0 (in progress)** adds the shippable-MVP layer — see `docs/MVP.md`. Live app uses:
 - Capability-profile rendering (9 profile classes + CompositeProfile + ProfileService + OS auto-detect + Display Preferences UI)
-- Polymorphic prompt views (14 typed VMs + DataTemplateSelector + 6 dedicated views with text fallback for the rest)
-- New MainShell composition (DocumentSessionService, FormProgressViewModel, SearchViewModel) — all CommunityToolkit.Mvvm
-- Native menu, three-column layout, screen-reader-friendly status bar live region, empty state, F1 shortcuts dialog
-- WCAG-gated contrast tests + keyboard navigation tests + 11+ GUI automation tests using Avalonia.Headless
-- ~700 tests passing across Core / Cli / Desktop / Accessibility, 0 failing
+- Polymorphic prompt views (typed VMs + DataTemplateSelector + dedicated views with text fallback for the rest)
+- MainShell composition (DocumentSessionService, FormProgressViewModel, SearchViewModel, RecentFilesService, TemplateCatalogService) — all CommunityToolkit.Mvvm
+- **Home screen** with recent files + a starter-template gallery; native menu, three-column layout, screen-reader live region, F1 shortcuts dialog
+- **PDF export** (flat + fillable AcroForm) via the `IDocumentRenderer` seam on the pdfe engine, from both the CLI (`apr export --format=pdf [--fillable]`) and the desktop File → Export menu; PDFs carry document metadata
+- **Packaging**: self-contained single-file builds + installers + file associations (`docs/PACKAGING.md`)
+- WCAG-gated contrast tests + keyboard navigation tests + GUI automation tests using Avalonia.Headless
+- ~1300 tests passing across Core / Cli / Desktop / Accessibility / Rendering.Pdf, 0 failing; CI on .NET 10
 - Zero S3, signature, certificate, or template-update code
 
 ## Decision compass

@@ -30,4 +30,17 @@
     <AvaloniaResource Include="Assets\*.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Bundle the starter templates into a Templates/ folder next to the
+         binary so the home screen's "start from a template" gallery can load
+         them. Only the curated starters, not the larger demo files. -->
+    <_Starter Include="..\..\examples\time-off-request.aprt" />
+    <_Starter Include="..\..\examples\expense-report.aprt" />
+    <_Starter Include="..\..\examples\it-access-request.aprt" />
+    <_Starter Include="..\..\examples\contact-intake.aprt" />
+    <_Starter Include="..\..\examples\event-registration.aprt" />
+    <_Starter Include="..\..\examples\incident-report.aprt" />
+    <None Include="@(_Starter)" Link="Templates\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

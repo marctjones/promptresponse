@@ -193,6 +193,20 @@
                            HorizontalAlignment="Center"
                            TextAlignment="Center"
                            Foreground="{Binding ActiveProfileMutedTextBrush}"/>
+                <Border IsVisible="{Binding ShowGettingStarted}"
+                        Background="{Binding ActiveProfileElevatedSurfaceBrush}"
+                        BorderBrush="{Binding ActiveProfileBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="14,10"
+                        Margin="0,4,0,0"
+                        AutomationProperties.Name="Getting started">
+                    <TextBlock Text="New here? Pick a starter template below to see how a form is built, or create a blank template. Press F1 anytime for keyboard shortcuts."
+                               FontSize="{Binding CaptionFontSize}"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"
+                               Foreground="{Binding ActiveProfileOnSurfaceBrush}"/>
+                </Border>
                 <StackPanel Orientation="Horizontal"
                             Spacing="14"
                             HorizontalAlignment="Center"
@@ -253,6 +267,34 @@
                                                    FontSize="11"
                                                    TextTrimming="CharacterEllipsis"/>
                                     </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel IsVisible="{Binding HasStarterTemplates}"
+                            Spacing="4"
+                            Margin="0,8,0,0"
+                            HorizontalAlignment="Stretch"
+                            AutomationProperties.Name="Start from a template">
+                    <TextBlock Text="Start from a template"
+                               FontWeight="SemiBold"
+                               Opacity="0.8"
+                               Foreground="{Binding ActiveProfileOnSurfaceBrush}"/>
+                    <ItemsControl ItemsSource="{Binding StarterTemplates}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:RecentFileViewModel">
+                                <Button Command="{Binding #Root.((vm:MainShellViewModel)DataContext).NewFromTemplateCommand}"
+                                        CommandParameter="{Binding Path}"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        Padding="8,6"
+                                        MinHeight="40"
+                                        CornerRadius="6"
+                                        AutomationProperties.Name="{Binding DisplayName}"
+                                        AutomationProperties.HelpText="Create a new form from this template">
+                                    <TextBlock Text="{Binding DisplayName}"/>
                                 </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

@@ -1,6 +1,14 @@
 # MVP Cut-Line — v0.3.0 "Shippable"
 
-**Status:** planning · **Created:** 2026-06-05 · **Baseline:** v0.2.0
+**Status:** ~complete · **Created:** 2026-06-05 · **Updated:** 2026-06-06 · **Baseline:** v0.2.0
+
+> **Progress (2026-06-06):** all blockers and core P1s shipped on `main` —
+> #1 PDF export (✅, flat **+** fillable AcroForm), #2 renderer seam (✅),
+> #3 packaging/installers (✅), #4 home screen + recent files (✅),
+> #5 onboarding (✅), #6 starter templates (✅), #7 doc reconciliation (✅).
+> Bonus: GUI File → Export menu, document metadata in PDFs, pdfe upgraded to
+> v2.5.0 (fillable fields are screen-reader-named). Remaining P2s (#8 progress
+> UI, #9 validation panel, #10 profiles refactor, #11 macOS build) are optional.
 
 This is the concrete issue list for the first release a non-author can install,
 use, and get a presentable artifact out of — without a dev toolchain. See
