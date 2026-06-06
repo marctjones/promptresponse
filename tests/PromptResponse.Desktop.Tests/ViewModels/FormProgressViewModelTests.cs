@@ -23,6 +23,60 @@ public class FormProgressViewModelTests
     }
 
     [Fact]
+    public void SetDocument_PopulatesPerSectionProgress()
+    {
+        var doc = new AprDocument
+        {
+            Metadata = new Metadata { Title = "T" },
+            Sections = new()
+            {
+                new Section
+                {
+                    Id = "a", Title = "Personal",
+                    Prompts = new() { new() { Id = "n", Response = "x" }, new() { Id = "e", Response = "" } },
+                },
+                new Section
+                {
+                    Id = "b", Title = "Work",
+                    Prompts = new() { new() { Id = "w1", Response = "x" } },
+                    Sections = new() { new Section { Id = "b1", Title = "Sub", Prompts = new() { new() { Id = "w2", Response = "y" } } } },
+                },
+            },
+        };
+
+        var vm = new FormProgressViewModel();
+        vm.SetDocument(doc);
+
+        vm.Sections.Should().HaveCount(2);
+
+        var personal = vm.Sections[0];
+        personal.Title.Should().Be("Personal");
+        personal.Answered.Should().Be(1);
+        personal.Total.Should().Be(2);
+        personal.PercentComplete.Should().Be(50);
+        personal.IsComplete.Should().BeFalse();
+        personal.StatusText.Should().Be("1/2");
+
+        var work = vm.Sections[1];
+        work.Total.Should().Be(2);          // direct + nested
+        work.Answered.Should().Be(2);
+        work.IsComplete.Should().BeTrue();
+        work.StatusText.Should().Be("✓ 2/2");
+    }
+
+    [Fact]
+    public void SetDocument_Null_ClearsSections()
+    {
+        var vm = new FormProgressViewModel();
+        vm.SetDocument(BuildDocument(("a", "A", "x")));
+        vm.Sections.Should().NotBeEmpty();
+
+        vm.SetDocument(null);
+
+        vm.Sections.Should().BeEmpty();
+    }
+
+    [Fact]
     public void EmptyDocument_HasZeroPromptsAndZeroPercent()
     {
         var vm = new FormProgressViewModel();

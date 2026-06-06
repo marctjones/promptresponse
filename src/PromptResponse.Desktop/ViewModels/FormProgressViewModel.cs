@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using PromptResponse.Core.Models;
 
@@ -22,6 +23,9 @@ public sealed partial class FormProgressViewModel : ObservableObject
     [ObservableProperty]
     private string statusText = string.Empty;
 
+    /// <summary>Per-top-level-section completion, in document order.</summary>
+    public ObservableCollection<SectionProgress> Sections { get; } = new();
+
     private AprDocument? _document;
 
     /// <summary>Re-binds progress tracking to a new document. Pass null to clear.</summary>
@@ -41,6 +45,17 @@ public sealed partial class FormProgressViewModel : ObservableObject
         StatusText = total == 0
             ? "No prompts"
             : $"{answered} of {total} answered ({PercentComplete}%)";
+
+        Sections.Clear();
+        if (_document != null)
+        {
+            foreach (var section in _document.Sections)
+            {
+                int st = 0, sa = 0;
+                CountSection(section, ref st, ref sa);
+                Sections.Add(new SectionProgress(section.Title, sa, st));
+            }
+        }
     }
 
     private static (int total, int answered) Count(AprDocument? document)
@@ -70,3 +85,20 @@ public sealed partial class FormProgressViewModel : ObservableObject
         }
     }
 }
+
+/// <summary>Completion of a single top-level section.</summary>
+/// <param name="Title">The section title.</param>
+/// <param name="Answered">Answered prompts (including nested).</param>
+/// <param name="Total">Total prompts (including nested).</param>
+public sealed record SectionProgress(string Title, int Answered, int Total)
+{
+    /// <summary>Completion percentage (0 when the section has no prompts).</summary>
+    public int PercentComplete => Total == 0 ? 0 : (int)Math.Round(100.0 * Answered / Total);
+
+    /// <summary>True when every prompt in the section is answered.</summary>
+    public bool IsComplete => Total > 0 && Answered == Total;
+
+    /// <summary>Short "answered/total" label, with a check when complete.</summary>
+    public string StatusText => Total == 0 ? "—" : IsComplete ? $"✓ {Answered}/{Total}" : $"{Answered}/{Total}";
+}
+
