@@ -205,6 +205,8 @@ public class MenuBarInteractiveTests
         var fileMenu = menu.Items.OfType<MenuItem>().First(m => (m.Header as string) == "_File");
         var fileItems = WalkChildren(fileMenu)
             .Where(m => m.Header is string s && !string.IsNullOrEmpty(s))
+            // Skip submenu parents (e.g. "Export") — they open a submenu, not a command.
+            .Where(m => !m.Items.OfType<MenuItem>().Any())
             .ToList();
 
         fileItems.Should().HaveCountGreaterThan(0);

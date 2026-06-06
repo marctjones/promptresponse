@@ -35,6 +35,14 @@ public interface IFileService
     Task SaveFileAsync(AprDocument document, string filePath);
 
     /// <summary>
+    /// Shows a save-file dialog for exporting to a PDF and returns the chosen
+    /// path, or null if cancelled. Does not write anything — the caller renders
+    /// to the returned path.
+    /// </summary>
+    /// <param name="suggestedFileName">The default file name (e.g. "My Form.pdf").</param>
+    Task<string?> PickPdfExportPathAsync(string suggestedFileName);
+
+    /// <summary>
     /// Gets the last opened or saved file path.
     /// </summary>
     string? CurrentFilePath { get; }

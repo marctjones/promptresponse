@@ -54,6 +54,18 @@
                           InputGesture="Ctrl+Shift+S"
                           AutomationProperties.Name="Save as"/>
                 <Separator/>
+                <MenuItem Header="_Export"
+                          AutomationProperties.Name="Export menu">
+                    <MenuItem Header="Export as _PDF..."
+                              Command="{Binding ExportPdfCommand}"
+                              AutomationProperties.Name="Export as PDF"
+                              AutomationProperties.HelpText="Export the current form, with its values, to a flat PDF"/>
+                    <MenuItem Header="Export as fillable PDF _form..."
+                              Command="{Binding ExportPdfFormCommand}"
+                              AutomationProperties.Name="Export as fillable PDF form"
+                              AutomationProperties.HelpText="Export to an interactive PDF with fillable fields"/>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="_Close"
                           Command="{Binding CloseCommand}"
                           HotKey="Ctrl+W"

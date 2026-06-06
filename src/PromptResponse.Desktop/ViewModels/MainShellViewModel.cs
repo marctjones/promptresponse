@@ -4,11 +4,13 @@ using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Validation;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels.Editing;
 using PromptResponse.Desktop.ViewModels.Prompts;
+using PromptResponse.Rendering.Pdf;
 
 namespace PromptResponse.Desktop.ViewModels;
 
@@ -631,6 +633,40 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         if (!_session.HasDocument) return;
         await _fileService.SaveFileAsAsync(_session.CurrentDocument!);
         _session.MarkClean();
+    }
+
+    /// <summary>Exports the currently open document — with its current values — to a flat PDF.</summary>
+    [RelayCommand(CanExecute = nameof(HasDocument))]
+    public Task ExportPdf() => ExportToPdfAsync(fillable: false);
+
+    /// <summary>Exports the currently open document to a fillable AcroForm PDF.</summary>
+    [RelayCommand(CanExecute = nameof(HasDocument))]
+    public Task ExportPdfForm() => ExportToPdfAsync(fillable: true);
+
+    private async Task ExportToPdfAsync(bool fillable)
+    {
+        var doc = _session.CurrentDocument;
+        if (doc is null) return;
+
+        var baseName = string.IsNullOrWhiteSpace(doc.Metadata.Title) ? "form" : doc.Metadata.Title;
+        var suggested = MakeSafeFileName(baseName) + (fillable ? "-form.pdf" : ".pdf");
+
+        var path = await _fileService.PickPdfExportPathAsync(suggested);
+        if (string.IsNullOrEmpty(path)) return;
+
+        IDocumentRenderer renderer = fillable
+            ? new FillablePdfDocumentRenderer()
+            : new PdfDocumentRenderer();
+
+        await using var stream = File.Create(path);
+        renderer.Render(doc, Core.Rendering.RenderOptions.Default, stream);
+    }
+
+    private static string MakeSafeFileName(string name)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        var cleaned = new string(name.Select(c => invalid.Contains(c) ? '_' : c).ToArray()).Trim();
+        return string.IsNullOrEmpty(cleaned) ? "form" : cleaned;
     }
 
     [RelayCommand(CanExecute = nameof(HasDocument))]

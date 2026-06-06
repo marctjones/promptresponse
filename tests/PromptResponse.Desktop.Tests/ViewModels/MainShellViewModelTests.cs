@@ -72,6 +72,85 @@ public class MainShellViewModelTests
     }
 
     [Fact]
+    public async Task ExportPdf_WritesPdfContainingCurrentValues()
+    {
+        var fs = Substitute.For<IFileService>();
+        var outPath = Path.Combine(Path.GetTempPath(), $"vm_export_{Guid.NewGuid():N}.pdf");
+        fs.PickPdfExportPathAsync(Arg.Any<string>()).Returns(outPath);
+
+        var session = new DocumentSessionService();
+        var doc = MakeTemplate();
+        doc.Sections[0].Prompts[0].Response = "Zaphod Beeblebrox";   // a current value
+        session.Set(doc, null);
+        var shell = CreateShell(fs, session: session);
+
+        try
+        {
+            await shell.ExportPdf();
+
+            File.Exists(outPath).Should().BeTrue();
+            var bytes = await File.ReadAllBytesAsync(outPath);
+            System.Text.Encoding.ASCII.GetString(bytes, 0, 5).Should().Be("%PDF-");
+
+            using var pdf = Pdfe.Core.Document.PdfDocument.Open(bytes);
+            var text = string.Concat(Enumerable.Range(1, pdf.Pages.Count).Select(i => pdf.GetPage(i).Text));
+            text.Should().Contain("Zaphod Beeblebrox", "the export must capture the form's current values");
+        }
+        finally
+        {
+            if (File.Exists(outPath)) File.Delete(outPath);
+        }
+    }
+
+    [Fact]
+    public async Task ExportPdf_WhenCancelled_WritesNothing()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.PickPdfExportPathAsync(Arg.Any<string>()).Returns((string?)null);
+        var session = new DocumentSessionService();
+        session.Set(MakeTemplate(), null);
+        var shell = CreateShell(fs, session: session);
+
+        await shell.ExportPdf();   // should be a no-op, not throw
+
+        await fs.Received(1).PickPdfExportPathAsync(Arg.Any<string>());
+    }
+
+    [Fact]
+    public async Task ExportPdfForm_WritesFillableAcroForm()
+    {
+        var fs = Substitute.For<IFileService>();
+        var outPath = Path.Combine(Path.GetTempPath(), $"vm_form_{Guid.NewGuid():N}.pdf");
+        fs.PickPdfExportPathAsync(Arg.Any<string>()).Returns(outPath);
+        var session = new DocumentSessionService();
+        session.Set(MakeTemplate(), null);
+        var shell = CreateShell(fs, session: session);
+
+        try
+        {
+            await shell.ExportPdfForm();
+
+            using var pdf = Pdfe.Core.Document.PdfDocument.Open(await File.ReadAllBytesAsync(outPath));
+            var form = pdf.GetAcroForm();
+            form.Should().NotBeNull();
+            form!.Fields.Should().NotBeEmpty();
+        }
+        finally
+        {
+            if (File.Exists(outPath)) File.Delete(outPath);
+        }
+    }
+
+    [Fact]
+    public void ExportCommands_AreDisabled_WithoutADocument()
+    {
+        var shell = CreateShell();
+
+        shell.ExportPdfCommand.CanExecute(null).Should().BeFalse();
+        shell.ExportPdfFormCommand.CanExecute(null).Should().BeFalse();
+    }
+
+    [Fact]
     public void NewTemplate_CreatesBlankTemplate_AndExitsEmptyState()
     {
         var shell = CreateShell();

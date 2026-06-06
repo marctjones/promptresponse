@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Desktop: File → Export menu** — export the currently open form, **with its
+  current values**, to a PDF without leaving the app: *Export as PDF…* (flat)
+  and *Export as fillable PDF form…* (interactive AcroForm). Both use a save
+  dialog and the shared `IDocumentRenderer` seam; menu items are
+  accessibility-named with help text. Previously PDF export was CLI-only.
 - **Fillable PDF form export** — `apr export <file> --format=pdf --fillable
   --output=<file>` renders a template (or filled form) to an interactive
   **AcroForm** PDF: each prompt becomes a live field — `boolean` → checkbox,
