@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-    <Version>0.4.0</Version>
+    <Version>0.4.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,6 +40,7 @@
     <_Starter Include="..\..\examples\contact-intake.aprt" />
     <_Starter Include="..\..\examples\event-registration.aprt" />
     <_Starter Include="..\..\examples\incident-report.aprt" />
+    <_Starter Include="..\..\examples\order-form.aprt" />
     <None Include="@(_Starter)" Link="Templates\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 

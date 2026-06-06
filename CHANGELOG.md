@@ -7,8 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-06-06
+
+Completes **Milestone 2** end-to-end: live reactive expressions in the desktop
+fill view (computed fields auto-update, conditional show/hide, read-only) on top
+of the v0.4.0 engine, plus an **Order Form** starter template demonstrating a
+computed line total and conditional fields.
+
 ### Added
 
+- **Order Form demo template** — a bundled, accessibility-validated starter
+  showing a computed `line_total` (`exprValue`) that updates live, a gift message
+  that appears only for gifts (`exprHidden`), and a rush reason that becomes
+  expected when rush delivery is selected (`exprExpected`). Selectable from the
+  home screen; exercised end-to-end by a test.
 - **Live reactive expressions in the fill view** (Milestone 2, Phase 3b) — as the
   user types, the desktop form now recomputes computed fields (`exprValue`,
   read-only, fixpoint), shows/hides prompts (`exprHidden`), and toggles read-only

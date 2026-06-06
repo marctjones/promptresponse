@@ -118,6 +118,32 @@ public class FormExpressionsTests
     }
 
     [Fact]
+    public void DemoTemplate_ComputesTotal_AndHidesConditionalFields()
+    {
+        // The bundled order-form demo must actually behave as advertised.
+        var path = Path.Combine(
+            Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..", "examples", "order-form.aprt");
+        File.Exists(path).Should().BeTrue("the order-form demo template must exist");
+
+        var doc = new AprJsonSerializer().Deserialize(File.ReadAllText(path));
+        var byId = FormExpressions.GetAllPrompts(doc).ToDictionary(p => p.Id);
+
+        byId["quantity"].Response = "3";
+        byId["unit_price"].Response = "4.5";
+        FormExpressions.RecomputeComputedValues(doc);
+        byId["line_total"].Response.Should().Be("13.5", "computed line total = qty x price");
+
+        // Conditional gift message: hidden until is_gift is true.
+        FormExpressions.IsHidden(byId["gift_message"], FormExpressions.BuildFields(doc)).Should().BeTrue();
+        byId["is_gift"].Response = "true";
+        FormExpressions.IsHidden(byId["gift_message"], FormExpressions.BuildFields(doc)).Should().BeFalse();
+
+        // Rush reason becomes expected only when rush is requested.
+        byId["rush"].Response = "true";
+        FormExpressions.IsExpected(byId["rush_reason"], FormExpressions.BuildFields(doc)).Should().BeTrue();
+    }
+
+    [Fact]
     public void ExprHints_RoundTripThroughJson()
     {
         var serializer = new AprJsonSerializer();

@@ -265,6 +265,7 @@ public class AprAccessibilityValidationTests
     [InlineData("contact-intake.aprt")]
     [InlineData("event-registration.aprt")]
     [InlineData("incident-report.aprt")]
+    [InlineData("order-form.aprt")]
     public async Task StarterTemplate_IsAccessible(string fileName)
     {
         var path = Path.Combine(RepoRoot, "examples", fileName);
