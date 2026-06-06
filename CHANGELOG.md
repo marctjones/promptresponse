@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-06
+
+Headline: **Milestone 2 foundations + polish.** A safe, pure-data **expression
+engine** (CEL subset, no code execution) and `expr*` form hints power
+**computed fields** (with fixpoint recompute for chained totals),
+**conditional visibility / required**, and **cross-field validation** —
+evaluated by `FormExpressions` in Core, with validation already live in the
+advisory panel (live computed/show-hide UI lands next). Plus: **macOS release
+builds** (Apple Silicon + Intel), **per-section progress**, **advisory
+click-to-field**, and a **profiles consolidation**. ~1300 tests across the stack.
+
 ### Added
 
 - **Cross-field validation in the advisory panel** — `exprValidation` results now
