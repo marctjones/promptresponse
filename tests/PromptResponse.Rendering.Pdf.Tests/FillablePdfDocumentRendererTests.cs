@@ -123,6 +123,20 @@ public class FillablePdfDocumentRendererTests
     }
 
     [Fact]
+    public void Render_Fields_CarryAccessibleNames_ForScreenReaders()
+    {
+        // pdfe 2.5.0 defaults each field's /TU (the accessible name a screen
+        // reader announces) to the visible label — so fillable forms are
+        // accessible out of the box.
+        var fields = FieldsOf(_renderer.RenderToBytes(FormDoc()));
+
+        fields.Single(f => f.FullName == "name").RawDictionary.GetStringOrNull("TU")
+            .Should().Be("Full Name");
+        fields.Single(f => f.FullName == "agree").RawDictionary.GetStringOrNull("TU")
+            .Should().Be("I agree");
+    }
+
+    [Fact]
     public void Render_NullArgs_Throw()
     {
         var act = () => _renderer.RenderToBytes(null!);

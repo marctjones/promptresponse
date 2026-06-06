@@ -103,7 +103,7 @@ public partial class AboutDialog : Window
             Note: "Source-generated MVVM helpers."),
 
         // ─── PDF engine — © Marc Jones, MIT ──────────────────────────────────────────
-        new Acknowledgement("Pdfe.Core", "2.4.1", "MIT License — © Marc Jones",
+        new Acknowledgement("Pdfe.Core", "2.5.0", "MIT License — © Marc Jones",
             Note: "Pure-managed PDF authoring/parsing engine; powers PDF and fillable-form export. https://github.com/marctjones/pdfe"),
 
         // ─── Skia / HarfBuzz native + managed wrappers — © Microsoft, MIT ────────────

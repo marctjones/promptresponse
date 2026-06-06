@@ -74,9 +74,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Microsoft.NET.Test.Sdk` `18.5.1 → 18.6.0`, `coverlet` `10.0.0 → 10.0.1`,
   `Tmds.DBus` `0.93.0 → 0.94.1`. 1238 tests pass; About-dialog acknowledgements
   drift-guard still green (majors unchanged).
-- **pdfe `Pdfe.Core` `2.4.0 → 2.4.1`** — pure patch (no public-API change,
-  enforced upstream by a new public-API gate); adds SourceLink/symbols and
-  release-pipeline fixes. Vendored from the official v2.4.1 release `.nupkg`.
+- **pdfe `Pdfe.Core` `2.4.0 → 2.5.0`** — minor, additive (no breaking change,
+  enforced upstream by the public-API gate). v2.5.0 completes the writer epic
+  (pdfe#382). Immediate win with **no code change**: `PdfDocumentBuilder` now
+  defaults each fillable field's `/TU` accessible name to its label, so
+  **fillable-PDF form fields are screen-reader-named out of the box** (asserted
+  by a new renderer test). Newly available for future use: Unicode text +
+  embedded fonts (pdfe#378), `DrawText` word-wrap (#379), document
+  metadata/`/Lang` (#381), and `/MaxLen`/comb/date-field options (#380).
+  Vendored from the official v2.5.0 release `.nupkg`.
 
 ### Security
 
