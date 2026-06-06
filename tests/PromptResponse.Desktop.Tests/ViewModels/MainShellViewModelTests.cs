@@ -144,6 +144,73 @@ public class MainShellViewModelTests
         }
     }
 
+    [Fact]
+    public async Task ExportHtml_WritesPageContainingCurrentValues()
+    {
+        var fs = Substitute.For<IFileService>();
+        var outPath = Path.Combine(Path.GetTempPath(), $"vm_export_{Guid.NewGuid():N}.html");
+        fs.PickExportPathAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(outPath);
+
+        var session = new DocumentSessionService();
+        var doc = MakeTemplate();
+        doc.Sections[0].Prompts[0].Response = "Zaphod Beeblebrox";   // a current value
+        session.Set(doc, null);
+        var shell = CreateShell(fs, session: session);
+
+        try
+        {
+            await shell.ExportHtml();
+
+            File.Exists(outPath).Should().BeTrue();
+            var html = await File.ReadAllTextAsync(outPath);
+            html.Should().StartWith("<!DOCTYPE html>");
+            html.Should().Contain("Zaphod Beeblebrox", "the export must capture the form's current values");
+        }
+        finally
+        {
+            if (File.Exists(outPath)) File.Delete(outPath);
+        }
+    }
+
+    [Fact]
+    public async Task ExportHtmlForm_WritesInteractiveForm()
+    {
+        var fs = Substitute.For<IFileService>();
+        var outPath = Path.Combine(Path.GetTempPath(), $"vm_form_{Guid.NewGuid():N}.html");
+        fs.PickExportPathAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(outPath);
+        var session = new DocumentSessionService();
+        session.Set(MakeTemplate(), null);
+        var shell = CreateShell(fs, session: session);
+
+        try
+        {
+            await shell.ExportHtmlForm();
+
+            var html = await File.ReadAllTextAsync(outPath);
+            html.Should().Contain("<form id=\"apr-form\"");
+            html.Should().Contain("id=\"apr-download\"");
+            html.Should().Contain(".aprf");
+        }
+        finally
+        {
+            if (File.Exists(outPath)) File.Delete(outPath);
+        }
+    }
+
+    [Fact]
+    public async Task ExportHtml_WhenCancelled_WritesNothing()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.PickExportPathAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns((string?)null);
+        var session = new DocumentSessionService();
+        session.Set(MakeTemplate(), null);
+        var shell = CreateShell(fs, session: session);
+
+        await shell.ExportHtml();   // should be a no-op, not throw
+
+        await fs.Received(1).PickExportPathAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
+    }
+
     private static AprDocument ExprDoc() => new()
     {
         Metadata = new Metadata { Title = "T" },

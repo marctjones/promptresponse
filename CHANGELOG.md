@@ -22,8 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   form** button that writes a valid `.aprf` JSON file — no server, no backend, no
   toolchain. Open in any browser, fill, download. Accessible (associated labels,
   `aria-describedby` help); the embedded document is unicode-escaped and all values
-  HTML-encoded (XSS boundary). New `FillableHtmlDocumentRenderer`. *(Desktop
-  File → Export menu entry is the next step.)*
+  HTML-encoded (XSS boundary). New `FillableHtmlDocumentRenderer`.
+- **Desktop HTML export menu** — File → Export now offers **Export as HTML** and
+  **Export as fillable web form** alongside the PDF options (both with screen-reader
+  names and help text), so the browser fill path is reachable without the CLI.
 
 ## [0.4.1] - 2026-06-06
 

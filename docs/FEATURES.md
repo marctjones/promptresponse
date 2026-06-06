@@ -68,6 +68,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Print preview | P2 | ⏳ | WYSIWYG print layout |
 | Recent files list | P2 | ✅ | Recent files on the home screen, persisted (#34) |
 | PDF / fillable export (GUI) | P1 | ✅ | File → Export: flat PDF + fillable AcroForm (#31) |
+| HTML / web-form export (GUI) | P1 | ✅ | File → Export: read-only HTML page + self-contained fillable web form |
 | Starter templates | P1 | ✅ | 6 bundled accessible templates, selectable on home (#36) |
 
 ---
@@ -78,7 +79,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 |---------|----------|--------|-------|
 | CSV/JSON/TXT export | P1 | ✅ | Via CLI export command |
 | HTML export | P2 | ✅ | Accessible HTML page (`export --format=html`); foundation for a browser fill path |
-| Fillable HTML (browser fill) | P1 | ✅ | `export --format=html --fillable` → self-contained interactive web form that downloads `.aprf`; no server (GUI menu entry pending) |
+| Fillable HTML (browser fill) | P1 | ✅ | `export --format=html --fillable` → self-contained interactive web form that downloads `.aprf`; no server. CLI + desktop File → Export |
 | **PDF export** | **P1** | **✅** | Flat **and** fillable-AcroForm PDF via CLI (`export --format=pdf [--fillable]`) and the desktop File → Export menu (pdfe engine); carries document metadata. Unicode text rendering through the builder is the remaining gap (pdfe#398) (#31) |
 | Word export (.docx) | P2 | ⏳ | Export to Word format |
 | Excel export (.xlsx) | P2 | ⏳ | Export to spreadsheet |

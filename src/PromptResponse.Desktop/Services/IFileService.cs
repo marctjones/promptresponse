@@ -43,6 +43,17 @@ public interface IFileService
     Task<string?> PickPdfExportPathAsync(string suggestedFileName);
 
     /// <summary>
+    /// Shows a save-file dialog for exporting to an arbitrary format and returns
+    /// the chosen path, or null if cancelled. Does not write anything — the caller
+    /// renders to the returned path.
+    /// </summary>
+    /// <param name="suggestedFileName">The default file name (e.g. "My Form.html").</param>
+    /// <param name="title">The dialog title (e.g. "Export web form").</param>
+    /// <param name="typeLabel">The file-type label shown in the picker (e.g. "HTML Page").</param>
+    /// <param name="extension">The default extension without a dot (e.g. "html").</param>
+    Task<string?> PickExportPathAsync(string suggestedFileName, string title, string typeLabel, string extension);
+
+    /// <summary>
     /// Gets the last opened or saved file path.
     /// </summary>
     string? CurrentFilePath { get; }
