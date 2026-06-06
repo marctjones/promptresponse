@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Expression engine** (`PromptResponse.Core.Expressions`) — a safe, pure-data
+  evaluator for the spec's CEL subset (Appendix B/C): prompt ids are variables
+  holding response strings, with `_this`/`_today` built-ins, `ctx.*` context, the
+  `int`/`double`/`timestamp`/`size`/`matches`/`string` functions, and standard
+  operators. No code execution; bounded nesting + length and regex timeouts;
+  missing variables degrade to null. Foundation for Milestone 2 (computed fields,
+  conditional visibility, cross-field validation). 48 tests.
+
 - **macOS release builds** — the release workflow now produces self-contained
   tarballs for Apple Silicon (`osx-arm64`) and Intel (`osx-x64`) on a macOS
   runner, alongside the Linux tarball and Windows installer/zip. Unsigned (first
