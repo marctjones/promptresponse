@@ -133,6 +133,58 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
         }
     }
 
+    private bool _isVisible = true;
+
+    /// <summary>
+    /// Whether this prompt is shown. Driven by the document's <c>exprHidden</c>
+    /// hint (conditional visibility); defaults to visible. The view binds the
+    /// prompt container's visibility to this.
+    /// </summary>
+    public bool IsVisible
+    {
+        get => _isVisible;
+        set
+        {
+            if (_isVisible == value) return;
+            _isVisible = value;
+            Notify(nameof(IsVisible));
+        }
+    }
+
+    private bool _isReadOnly;
+
+    /// <summary>
+    /// Whether this prompt is read-only — true for computed fields (<c>exprValue</c>)
+    /// and when <c>exprReadOnly</c> is truthy. The view binds input editability to
+    /// <see cref="IsInputEnabled"/>.
+    /// </summary>
+    public bool IsReadOnly
+    {
+        get => _isReadOnly;
+        set
+        {
+            if (_isReadOnly == value) return;
+            _isReadOnly = value;
+            Notify(nameof(IsReadOnly));
+            Notify(nameof(IsInputEnabled));
+        }
+    }
+
+    /// <summary>Convenience inverse of <see cref="IsReadOnly"/> for binding input enablement.</summary>
+    public bool IsInputEnabled => !_isReadOnly;
+
+    /// <summary>
+    /// Re-reads the response from the underlying model and pulses the derived
+    /// display properties. Called after expression recompute writes a computed
+    /// value straight to the model (bypassing the VM setter).
+    /// </summary>
+    public void RefreshFromModel()
+    {
+        Notify(nameof(Response));
+        Notify(nameof(DisplayValue));
+        OnDerivedPropertiesShouldRefresh();
+    }
+
     /// <summary>
     /// Profile-aware rendered string for read-only display. Returns the raw response
     /// unchanged on the Default profile and on any non-formatting composition.

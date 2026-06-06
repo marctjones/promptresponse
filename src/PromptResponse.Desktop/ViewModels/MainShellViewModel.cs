@@ -836,6 +836,10 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             {
                 promptVm.PropertyChanged += OnPromptResponseChanged;
             }
+
+            // Apply expression hints once up-front so initial visibility,
+            // read-only, and computed values are correct before any edit.
+            ApplyExpressions();
         }
 
         // Templates default to edit mode (the user is authoring); filled forms
@@ -918,11 +922,59 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// Filtered to Response-only updates so other property pulses (DisplayValue,
     /// Show* derived bools) don't trigger redundant validation passes.
     /// </summary>
+    private bool _applyingExpressions;
+
     private void OnPromptResponseChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(PromptViewModelBase.Response)) return;
+        if (_applyingExpressions) return;   // ignore the cascade from ApplyExpressions itself
+        ApplyExpressions();
         Progress.Refresh();
         RefreshAdvisories();
+    }
+
+    /// <summary>
+    /// Evaluates the document's expression hints against the current responses:
+    /// recomputes computed (<c>exprValue</c>) fields, then sets each prompt VM's
+    /// visibility (<c>exprHidden</c>) and read-only (<c>exprValue</c>/<c>exprReadOnly</c>)
+    /// state. Re-entrancy-guarded since recompute writes back into the model.
+    /// </summary>
+    public void ApplyExpressions()
+    {
+        var doc = _session.CurrentDocument;
+        if (doc == null || _applyingExpressions) return;
+
+        _applyingExpressions = true;
+        try
+        {
+            var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
+            FormExpressions.RecomputeComputedValues(doc, today);
+            var fields = FormExpressions.BuildFields(doc);
+
+            var prompts = new Dictionary<string, Prompt>(StringComparer.Ordinal);
+            foreach (var p in FormExpressions.GetAllPrompts(doc))
+            {
+                if (!string.IsNullOrEmpty(p.Id))
+                {
+                    prompts[p.Id] = p;   // last wins on the rare duplicate id
+                }
+            }
+
+            foreach (var vm in _promptViewModels)
+            {
+                if (!prompts.TryGetValue(vm.Id, out var prompt))
+                {
+                    continue;
+                }
+                vm.IsVisible = !FormExpressions.IsHidden(prompt, fields, today);
+                vm.IsReadOnly = FormExpressions.IsReadOnly(prompt, fields, today);
+                vm.RefreshFromModel();   // pick up any recomputed value
+            }
+        }
+        finally
+        {
+            _applyingExpressions = false;
+        }
     }
 
     private void OnDirtyChanged(object? sender, bool isDirty)

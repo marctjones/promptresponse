@@ -44,6 +44,15 @@
                         <StackPanel Spacing="16"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
+                <ItemsControl.Styles>
+                    <!-- Conditional visibility (exprHidden) and read-only (exprValue/
+                         exprReadOnly) are driven per-prompt: bind the item container
+                         to the prompt VM's IsVisible / IsInputEnabled. -->
+                    <Style Selector="ContentPresenter">
+                        <Setter Property="IsVisible" Value="{ReflectionBinding IsVisible}"/>
+                        <Setter Property="IsEnabled" Value="{ReflectionBinding IsInputEnabled}"/>
+                    </Style>
+                </ItemsControl.Styles>
             </ItemsControl>
 
             <!-- Recursive nested sections, indented with a left rule. The left-rule
