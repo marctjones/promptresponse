@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Per-section completion progress** — the right-rail Progress panel now lists
+  each top-level section's answered/total (with a ✓ when complete) under the
+  overall progress bar; each row is accessibility-named. `FormProgressViewModel`
+  exposes a `Sections` collection of `SectionProgress`. (#38)
+
 ## [0.3.0] - 2026-06-06
 
 Headline: the **shippable MVP**. PDF export — **flat and fillable AcroForm** —
