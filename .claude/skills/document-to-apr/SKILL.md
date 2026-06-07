@@ -1,5 +1,6 @@
 ---
 name: document-to-apr
+version: 1.0.0
 description: >-
   Convert an existing form into a PromptResponse APR template (.aprt). Use when
   the user wants to import, recreate, or "turn into a fillable form" a PDF, Word

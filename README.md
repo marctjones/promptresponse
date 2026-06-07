@@ -22,6 +22,7 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 
 - **Template Creation**: Design reusable form templates without fighting layout tools
 - **Form Filling**: Fill out forms with intelligent input assistance
+- **Import Existing Forms**: Turn a fillable PDF into a template with `apr import`, or use the `document-to-apr` AI skill for flat/scanned PDFs, Word, OpenDocument, or images — see [docs/IMPORT.md](docs/IMPORT.md)
 - **Database-Ready**: JSON format imports directly into databases without parsing headaches
 - **Programmatic API**: Fill forms from scripts, batch processes, or other applications
 - **Type Hints**: Suggest data types without enforcing them

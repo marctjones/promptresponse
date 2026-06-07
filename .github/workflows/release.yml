@@ -139,3 +139,34 @@ jobs:
         with:
           tag_name: v${{ steps.ver.outputs.version }}
           files: dist/*.tar.gz
+
+  # ── document-to-apr skill: a portable Markdown bundle (versioned ──────
+  # independently of the app) so non-Claude-Code agents can download it.
+  skill:
+    name: document-to-apr skill (zip)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Resolve versions
+        id: ver
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            app="${{ github.event.inputs.version }}"
+          else
+            app="${GITHUB_REF#refs/tags/}"; app="${app#v}"
+          fi
+          # Skill carries its own SemVer in SKILL.md frontmatter.
+          skill="$(grep -m1 '^version:' .claude/skills/document-to-apr/SKILL.md | sed 's/version:[[:space:]]*//')"
+          echo "app=$app"     >> "$GITHUB_OUTPUT"
+          echo "skill=$skill" >> "$GITHUB_OUTPUT"
+      - name: Bundle skill
+        run: |
+          mkdir -p dist
+          ( cd .claude/skills && zip -r "../../dist/document-to-apr-skill-${{ steps.ver.outputs.skill }}.zip" document-to-apr )
+      - name: Attach to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.app }}
+          files: dist/document-to-apr-skill-*.zip

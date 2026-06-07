@@ -23,6 +23,7 @@ PRIORITY READING ORDER FOR AI ASSISTANTS:
 | Know current priorities | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) |
 | Create UI components | [/.claude/DESIGN_SYSTEM.md](../.claude/DESIGN_SYSTEM.md) |
 | Understand APR format | [specifications/FILE_FORMAT.md](specifications/FILE_FORMAT.md) |
+| Import an existing form (PDF/Word/image) | [IMPORT.md](IMPORT.md) |
 | Write tests | [guides/DEVELOPMENT.md](guides/DEVELOPMENT.md) |
 
 ---

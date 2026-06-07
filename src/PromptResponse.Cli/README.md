@@ -147,6 +147,29 @@ apr fill template.aprt --json-file=responses.json --validate --output=filled-for
 - Shows completion percentage
 - Optional validation results
 
+### import
+
+Imports a **fillable PDF** (one with AcroForm fields) into an APR template.
+
+```bash
+apr import <file.pdf> [--output=<file.aprt>] [--title=<title>]
+```
+
+**Options:**
+- `--output=<file>`: Output path (default: input name with `.aprt`)
+- `--title=<title>`: Document title (default: derived from the file name)
+
+**Examples:**
+```bash
+apr import form.pdf
+apr import form.pdf --output=intake.aprt --title="Intake Form"
+```
+
+Field kinds map to data-type hints (checkbox → `boolean`, dropdown →
+`suggestedValues`); the field tooltip becomes the label. Flat/scanned PDFs (no
+form fields) report an error — for those, plus Word/OpenDocument/images, use the
+`document-to-apr` skill. See [docs/IMPORT.md](../../docs/IMPORT.md).
+
 ### help
 
 Shows usage information.
