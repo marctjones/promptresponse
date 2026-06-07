@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Desktop File → Import from PDF…** — imports a fillable PDF into a new
+  untitled template via a file picker (parallel to the Export menu); flat/scanned
+  PDFs show a dialog pointing to the `document-to-apr` skill. Reachable without
+  the CLI.
 - **PDF AcroForm importer** — `apr import <file.pdf> [--output=<f.aprt>] [--title=…]`
   turns a *fillable* PDF into an APR template by reading its form fields (new
   `PdfFormImporter` in `Rendering.Pdf`, via pdfe). Field kinds map to data-type

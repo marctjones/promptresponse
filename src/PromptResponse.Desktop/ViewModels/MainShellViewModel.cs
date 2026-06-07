@@ -739,6 +739,31 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         AddToRecent(_fileService.CurrentFilePath, _session.CurrentDocument?.Metadata.Title);
     }
 
+    /// <summary>
+    /// Imports a fillable PDF (AcroForm) into a new untitled template and opens it.
+    /// The result is marked dirty so the user is prompted to Save As.
+    /// </summary>
+    [RelayCommand]
+    public async Task ImportPdf()
+    {
+        var path = await _fileService.PickPdfImportPathAsync();
+        if (string.IsNullOrEmpty(path)) return;
+
+        try
+        {
+            var doc = new PdfFormImporter().Import(path);
+            _session.Set(doc, filePath: null, dirty: true);
+        }
+        catch (PdfFormImporter.NoFormFieldsException ex)
+        {
+            await _dialogService.ShowConfirmationAsync("Nothing to import", ex.Message);
+        }
+        catch (Exception ex)
+        {
+            await _dialogService.ShowConfirmationAsync("Import failed", $"Could not import the PDF: {ex.Message}");
+        }
+    }
+
     /// <summary>Exports the currently open document — with its current values — to a flat PDF.</summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public Task ExportPdf() => ExportToPdfAsync(fillable: false);

@@ -1,7 +1,9 @@
 using AwesomeAssertions;
 using NSubstitute;
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Rendering.Pdf;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels;
@@ -209,6 +211,70 @@ public class MainShellViewModelTests
         await shell.ExportHtml();   // should be a no-op, not throw
 
         await fs.Received(1).PickExportPathAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
+    }
+
+    [Fact]
+    public async Task ImportPdf_FillablePdf_LoadsTemplateIntoSessionAsDirty()
+    {
+        var fs = Substitute.For<IFileService>();
+        var pdf = Path.Combine(Path.GetTempPath(), $"imp_{Guid.NewGuid():N}.pdf");
+        await File.WriteAllBytesAsync(pdf, new FillablePdfDocumentRenderer().RenderToBytes(MakeTemplate()));
+        fs.PickPdfImportPathAsync().Returns(pdf);
+
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, session: session);
+
+        try
+        {
+            await shell.ImportPdf();
+
+            session.CurrentDocument.Should().NotBeNull("the imported PDF should become the open document");
+            session.CurrentDocument!.DocumentType.Should().Be(DocumentType.Template);
+            session.IsDirty.Should().BeTrue("an import is unsaved until the user picks a path");
+        }
+        finally
+        {
+            if (File.Exists(pdf)) File.Delete(pdf);
+        }
+    }
+
+    [Fact]
+    public async Task ImportPdf_WhenCancelled_NoOp()
+    {
+        var fs = Substitute.For<IFileService>();
+        fs.PickPdfImportPathAsync().Returns((string?)null);
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, session: session);
+
+        await shell.ImportPdf();
+
+        session.CurrentDocument.Should().BeNull();
+        await fs.Received(1).PickPdfImportPathAsync();
+    }
+
+    [Fact]
+    public async Task ImportPdf_FlatPdf_ShowsDialog_AndDoesNotOpen()
+    {
+        var fs = Substitute.For<IFileService>();
+        var dlg = Substitute.For<IDialogService>();
+        var pdf = Path.Combine(Path.GetTempPath(), $"flat_{Guid.NewGuid():N}.pdf");
+        await File.WriteAllBytesAsync(pdf, new PdfDocumentRenderer().RenderToBytes(MakeTemplate()));
+        fs.PickPdfImportPathAsync().Returns(pdf);
+
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, dialogService: dlg, session: session);
+
+        try
+        {
+            await shell.ImportPdf();
+
+            session.CurrentDocument.Should().BeNull("a flat PDF has no fields to import");
+            await dlg.Received(1).ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>());
+        }
+        finally
+        {
+            if (File.Exists(pdf)) File.Delete(pdf);
+        }
     }
 
     private static AprDocument ExprDoc() => new()
