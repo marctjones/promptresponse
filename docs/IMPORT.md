@@ -1,0 +1,101 @@
+# Importing existing forms into APR
+
+You have a form already — a PDF, a Word/OpenDocument file, a scan, or a photo —
+and you want it as a PromptResponse template (`.aprt`) you can fill, export, and
+share. There are **two paths**; pick by what your source actually is.
+
+| Your source | Use | Why |
+|-------------|-----|-----|
+| A **fillable PDF** whose fields have tooltips | **`apr import`** (code) | Deterministic, instant, exact field extraction. |
+| A **flat / printed / scanned PDF**, an **image** (PNG/JPG), **Word**, or **OpenDocument** | **the `document-to-apr` skill** (AI) | No machine-readable fields to extract — an agent reads the form like a person. |
+| A fillable PDF with **no tooltips** (e.g. IRS Form 990) | the **skill** | `apr import` works but produces cryptic labels (`f1_1[0]`); the skill recovers real labels. |
+
+Not sure? Run `apr import` first — it tells you if there are no fields, and you
+can eyeball whether the labels came out human-readable. If not, use the skill.
+
+---
+
+## Path 1 — `apr import` (fillable PDFs)
+
+The deterministic importer reads a PDF's AcroForm fields and writes a template.
+
+```bash
+# CLI
+apr import form.pdf                       # -> form.aprt
+apr import form.pdf --output=intake.aprt  # explicit output
+apr import form.pdf --title="Intake Form" # set the document title
+```
+
+What it does:
+- Each form field becomes a prompt; fields are grouped **one section per page**.
+- Field kind → data-type hint: text, checkbox → `boolean`, dropdown → `suggestedValues`.
+- The field **tooltip** (`/TU`) becomes the label (the most valuable thing a form
+  carries); without one it falls back to the raw field name.
+- The result is a valid template with every `response` blank.
+
+If the PDF has no AcroForm (flat/scanned), the command stops with a clear message
+pointing you to the skill.
+
+**Desktop:** **File → Import from PDF…** does the same thing with a file picker,
+then opens the result as a new untitled template (use **Save As** to keep it).
+
+**Library** (programmatic):
+
+```csharp
+using PromptResponse.Rendering.Pdf;
+var doc = new PdfFormImporter().Import("form.pdf", title: "Intake Form");
+```
+
+### Known limits
+
+- Radio-button groups currently import as a generic `boolean` — review and change
+  to a dropdown where appropriate.
+- Sectioning is per-PDF-page, not the form's own Part/Section structure.
+- Long tooltips become long labels.
+
+---
+
+## Path 2 — the `document-to-apr` skill (everything else)
+
+A portable AI skill that turns a PDF / Word / OpenDocument / **image** of a form
+into a valid `.aprt`. It works in any agent that can see the document — Claude
+Code, Claude in the workspace, Gemini CLI, Codex — because it's just instructions
+plus the format spec.
+
+**In Claude Code** (this repo): the skill is auto-discovered. Just ask —
+*"turn `application.pdf` into an APR form"* — or invoke `/document-to-apr`.
+
+**In another agent:**
+1. Get the skill bundle — download `document-to-apr-skill-<version>.zip` from a
+   [GitHub Release](https://github.com/marctjones/promptresponse/releases), or
+   copy the `.claude/skills/document-to-apr/` folder from the repo.
+2. Point your agent at `SKILL.md` (and let it read the two `reference/` files).
+3. Give it the form and ask it to produce a `.aprt`.
+
+The skill is versioned independently of the app (see `version:` in its
+`SKILL.md`); its behavior spec lives in
+[`.claude/skills/document-to-apr/SKILL.md`](../.claude/skills/document-to-apr/SKILL.md).
+
+---
+
+## After importing
+
+Always validate, then use the template:
+
+```bash
+apr validate form.aprt                          # structural check
+apr export form.aprt --format=html --fillable   # interactive web form
+apr export form.aprt --format=pdf  --fillable   # fillable PDF
+```
+
+Or open `form.aprt` in the desktop app to refine labels, types, sections, and
+help text before sharing it.
+
+---
+
+## Real-world examples
+
+See `tests/Fixtures/import-corpus/` for both paths run against two real federal
+forms (IRS Form 990, SF-86), with a findings write-up — a concrete look at when
+each path shines. Tracked in
+[issue #64](https://github.com/marctjones/promptresponse/issues/64).
