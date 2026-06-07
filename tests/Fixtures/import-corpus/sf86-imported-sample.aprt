@@ -1,0 +1,1312 @@
+{
+  "version": "1.0",
+  "documentType": "template",
+  "metadata": {
+    "title": "SF-86 (importer, page 1 sample)",
+    "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
+    "templateId": "sf-86-questionnaire-for-national-security-positions",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "page-5",
+      "title": "Page 5",
+      "description": "Fields from page 5 of the source PDF.",
+      "sections": [],
+      "prompts": [
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[0]",
+          "label": "Middle Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2613604Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[1]",
+          "label": "First Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[1]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614599Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[2]",
+          "label": "Complete the following if you have responded 'Yes' to having used other names. Provide your other name(s) used and the period of time you used it/them [for example: your maiden name(s), name(s) by a former marriage, former name(s), alias(es), or nickname(es)]. If you have only initials in your name(s), provide them and indicate \"Initial only.\" If you do not have a middle name (s), indicate \"No Middle Name\" (NMN). If you are a \"Jr.,\" \"Sr.,\" etc. enter this under Suffix. #1. Last name.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[2]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614699Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[3]",
+          "label": "Provide the reason(s) why the name changed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[3]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614714Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#area[0].From_Datefield_Name_2[0]",
+          "label": "Time name used. From (month/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: From_Datefield_Name_2[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.261473Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#area[0].To_Datefield_Name_2[0]",
+          "label": "Time name used. To (month/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: To_Datefield_Name_2[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614745Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].RadioButtonList[0]",
+          "label": "RadioButtonList",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: RadioButtonList[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614757Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].suffix[0]",
+          "label": "Suffix",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Jr",
+              "Sr",
+              "II",
+              "III",
+              "IV",
+              "V",
+              "VI",
+              "VII",
+              "VIII",
+              "IX",
+              "X",
+              "Other"
+            ],
+            "helpText": "PDF field: suffix[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614767Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[7]",
+          "label": "Estimate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[7]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614776Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[8]",
+          "label": "Estimate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[8]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614783Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[9]",
+          "label": "Present",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[9]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614791Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].RadioButtonList[1]",
+          "label": "RadioButtonList",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: RadioButtonList[1]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.26148Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[4]",
+          "label": "Middle Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[4]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.261481Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[5]",
+          "label": "First Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[5]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.261482Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[6]",
+          "label": "#2. Last name.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[6]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.261483Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[7]",
+          "label": "Provide the reason(s) why the name changed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[7]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614844Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#area[1].From_Datefield_Name_2[1]",
+          "label": "Time name used. From (month/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: From_Datefield_Name_2[1]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614857Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#area[1].To_Datefield_Name_2[1]",
+          "label": "Time name used. To (month/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: To_Datefield_Name_2[1]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614872Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].RadioButtonList[2]",
+          "label": "RadioButtonList",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: RadioButtonList[2]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614885Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].suffix[1]",
+          "label": "Suffix",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Jr",
+              "Sr",
+              "II",
+              "III",
+              "IV",
+              "V",
+              "VI",
+              "VII",
+              "VIII",
+              "IX",
+              "X",
+              "Other"
+            ],
+            "helpText": "PDF field: suffix[1]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614894Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[17]",
+          "label": "Estimate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[17]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614902Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[18]",
+          "label": "Estimate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[18]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.261491Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[19]",
+          "label": "Present",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[19]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614917Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[8]",
+          "label": "Middle Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[8]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614926Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[9]",
+          "label": "First Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[9]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614935Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[10]",
+          "label": "#3. Last name.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[10]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614945Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[11]",
+          "label": "Provide the reason(s) why the name changed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[11]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2614973Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#area[2].From_Datefield_Name_2[2]",
+          "label": "Time name used. From (month/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: From_Datefield_Name_2[2]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.261499Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#area[2].To_Datefield_Name_2[2]",
+          "label": "Time name used. To (month/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: To_Datefield_Name_2[2]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615004Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].RadioButtonList[3]",
+          "label": "RadioButtonList",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: RadioButtonList[3]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615016Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].suffix[2]",
+          "label": "Suffix",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Jr",
+              "Sr",
+              "II",
+              "III",
+              "IV",
+              "V",
+              "VI",
+              "VII",
+              "VIII",
+              "IX",
+              "X",
+              "Other"
+            ],
+            "helpText": "PDF field: suffix[2]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615025Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[27]",
+          "label": "Estimate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[27]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615035Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[28]",
+          "label": "Estimate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[28]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615042Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[29]",
+          "label": "Present",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[29]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615051Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[12]",
+          "label": "Middle Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[12]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615059Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[13]",
+          "label": "First Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[13]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615068Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[14]",
+          "label": "#4. Last name.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[14]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615077Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].TextField11[15]",
+          "label": "Provide the reason(s) why the name changed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[15]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615094Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#area[3].From_Datefield_Name_2[3]",
+          "label": "Time name used. From (month/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: From_Datefield_Name_2[3]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615108Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#area[3].To_Datefield_Name_2[3]",
+          "label": "Time name used. To (month/year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: To_Datefield_Name_2[3]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615123Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].RadioButtonList[4]",
+          "label": "RadioButtonList",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: RadioButtonList[4]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615135Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].suffix[3]",
+          "label": "Suffix",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Jr",
+              "Sr",
+              "II",
+              "III",
+              "IV",
+              "V",
+              "VI",
+              "VII",
+              "VIII",
+              "IX",
+              "X",
+              "Other"
+            ],
+            "helpText": "PDF field: suffix[3]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615145Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[37]",
+          "label": "Estimate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[37]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615152Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[38]",
+          "label": "Estimate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[38]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.261516Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].section5[0].#field[39]",
+          "label": "Present",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[39]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615168Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].SSN[0]",
+          "label": "Your Social Security Number will auto-fill based on answer provided in section 4.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: SSN[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615189Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].RadioButtonList[0]",
+          "label": "RadioButtonList",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: RadioButtonList[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615197Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].TextField11[0]",
+          "label": "Section 1. Full Name. Provide your full name. If you have only initials in your name, provide them and indicate \"Initial only\". If you do not have a middle name, indicate \"No Middle Name\". If you are a \"Jr.,\" \"Sr.,\" etc. enter this under Suffix. Last Name.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615256Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].TextField11[1]",
+          "label": "First name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[1]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615265Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].TextField11[2]",
+          "label": "Middle name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[2]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615274Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].TextField11[3]",
+          "label": "Section 3. Place of Birth. Provide your place of birth. City.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[3]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615292Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].TextField11[4]",
+          "label": "County",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[4]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615301Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].DropDownList1[0]",
+          "label": "Country (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "United States",
+              "Afghanistan",
+              "Akrotiri Sovereign Base",
+              "Albania",
+              "Algeria",
+              "Andorra",
+              "Angola",
+              "Anguilla",
+              "Antarctica",
+              "Antigua and Barbuda",
+              "Argentina",
+              "Armenia",
+              "Aruba",
+              "Ashmore & Cartier Islands",
+              "Australia",
+              "Austria",
+              "Azerbaijan",
+              "Bahamas, The",
+              "Bahrain",
+              "Bangladesh",
+              "Barbados",
+              "Bassas da India",
+              "Belarus",
+              "Belgium",
+              "Belize",
+              "Benin",
+              "Bermuda",
+              "Bhutan",
+              "Bolivia",
+              "Bosnia and Herzegovina",
+              "Botswana",
+              "Bouvet Island",
+              "Brazil",
+              "British Indian Ocean Terr",
+              "British Virgin Islands",
+              "Brunei",
+              "Bulgaria",
+              "Burkina Faso",
+              "Burma",
+              "Burundi",
+              "Cambodia",
+              "Cameroon",
+              "Canada",
+              "Cape Verde",
+              "Cayman Islands",
+              "Central African Republic",
+              "Chad",
+              "Chile",
+              "China",
+              "Christmas Island",
+              "Clipperton Island",
+              "Cocos Keeling Islands",
+              "Colombia",
+              "Comoros",
+              "Congo",
+              "Congo, Democratic Repub",
+              "Cook Islands",
+              "Coral Sea Islands",
+              "Costa Rica",
+              "Cote d'Ivoire",
+              "Croatia",
+              "Cuba",
+              "Cyprus",
+              "Czech Republic",
+              "Denmark",
+              "Dhekelia Sovereign Base",
+              "Djibouti",
+              "Dominica",
+              "Dominican Republic",
+              "East Timor",
+              "Ecuador",
+              "Egypt",
+              "El Salvador",
+              "Equatorial Guinea",
+              "Eritrea",
+              "Estonia",
+              "Ethiopia",
+              "Etoro.Habom.Kunash.Shik.",
+              "Europa Island",
+              "Falkland Is. Islas Malvinas",
+              "Faroe Islands",
+              "Fiji",
+              "Finland",
+              "France",
+              "French Guiana",
+              "French Polynesia",
+              "French So. & Antarctic Ld",
+              "Gabon",
+              "Gambia, The",
+              "Gaza Strip",
+              "Georgia",
+              "Germany",
+              "Ghana",
+              "Gibraltar",
+              "Glorioso Islands",
+              "Greece",
+              "Greenland",
+              "Grenada",
+              "Guadeloupe",
+              "Guatemala",
+              "Guernsey",
+              "Guinea",
+              "Guinea-Bissau",
+              "Guyana",
+              "Haiti",
+              "Heard Is. & McDonald Is.",
+              "Honduras",
+              "Hong Kong",
+              "Hungary",
+              "Iceland",
+              "India",
+              "Indonesia",
+              "Iran",
+              "Iraq",
+              "Ireland",
+              "Isle of Man",
+              "Israel",
+              "Italy",
+              "Jamaica",
+              "Jan Mayen",
+              "Japan",
+              "Jersey",
+              "Jordan",
+              "Juan de Nova Island",
+              "Kazakhstan",
+              "Kenya",
+              "Kiribati",
+              "Kosovo",
+              "Kuwait",
+              "Kyrgyzstan",
+              "Laos",
+              "Latvia",
+              "Lebanon",
+              "Lesotho",
+              "Liberia",
+              "Libya",
+              "Liechtenstein",
+              "Lithuania",
+              "Luxembourg",
+              "Macau",
+              "Macedonia",
+              "Madagascar",
+              "Malawi",
+              "Malaysia",
+              "Maldives",
+              "Mali",
+              "Malta",
+              "Marshall Islands",
+              "Martinique",
+              "Mauritania",
+              "Mauritius",
+              "Mayotte",
+              "Mexico",
+              "Micronesia, Fed States of",
+              "Moldova",
+              "Monaco",
+              "Mongolia",
+              "Montenegro",
+              "Montserrat",
+              "Morocco",
+              "Mozambique",
+              "Namibia",
+              "Nauru",
+              "Nepal",
+              "Netherlands",
+              "Netherlands Antilles",
+              "New Caledonia",
+              "New Zealand",
+              "Nicaragua",
+              "Niger",
+              "Nigeria",
+              "Niue",
+              "Norfolk Island",
+              "North Korea",
+              "Norway",
+              "Oman",
+              "Pakistan",
+              "Palau",
+              "Panama",
+              "Papua New Guinea",
+              "Paracel Islands",
+              "Paraguay",
+              "Peru",
+              "Philippines",
+              "Pitcairn Islands",
+              "Poland",
+              "Portugal",
+              "Qatar",
+              "Reunion",
+              "Romania",
+              "Russia",
+              "Rwanda",
+              "Saint Barthelemy",
+              "Saint Helena",
+              "Saint Kitts and Nevis",
+              "Saint Lucia",
+              "Saint Martin",
+              "Saint Pierre and Miquelon",
+              "Saint Vincent & Grenadine",
+              "Samoa",
+              "San Marino",
+              "Sao Tome and Principe",
+              "Saudi Arabia",
+              "Senegal",
+              "Serbia",
+              "Seychelles",
+              "Sierra Leone",
+              "Singapore",
+              "Slovakia",
+              "Slovenia",
+              "Solomon Islands",
+              "Somalia",
+              "South Africa",
+              "So.Georgia/So.Sandwich Is",
+              "South Korea",
+              "Spain",
+              "Spratly Islands",
+              "Sri Lanka",
+              "Sudan",
+              "Suriname",
+              "Svalbard",
+              "Swaziland",
+              "Sweden",
+              "Switzerland",
+              "Syria",
+              "Taiwan",
+              "Tajikistan",
+              "Tanzania",
+              "Thailand",
+              "Togo",
+              "Tokelau",
+              "Tonga",
+              "Trinidad and Tobago",
+              "Tromelin Island",
+              "Tunisia",
+              "Turkey",
+              "Turkmenistan",
+              "Turks and Caicos Islands",
+              "Tuvalu",
+              "Uganda",
+              "Ukraine",
+              "United Arab Emirates",
+              "United Kingdom",
+              "Uruguay",
+              "Uzbekistan",
+              "Vanuatu",
+              "Vatican City",
+              "Venezuela",
+              "Vietnam",
+              "Wallis and Futuna",
+              "West Bank",
+              "Western Sahara",
+              "Yemen",
+              "Zambia",
+              "Zimbabwe"
+            ],
+            "helpText": "PDF field: DropDownList1[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615312Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].School6_State[0]",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "AK",
+              "AL",
+              "AR",
+              "AS",
+              "AZ",
+              "CA",
+              "CO",
+              "CT",
+              "DC",
+              "DE",
+              "FL",
+              "FM",
+              "GA",
+              "GU",
+              "HI",
+              "IA",
+              "ID",
+              "IL",
+              "IN",
+              "KS",
+              "KY",
+              "LA",
+              "MA",
+              "MD",
+              "ME",
+              "MH",
+              "MI",
+              "MN",
+              "MO",
+              "MP",
+              "MS",
+              "MT",
+              "NC",
+              "ND",
+              "NE",
+              "NH",
+              "NJ",
+              "NM",
+              "NV",
+              "NY",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "PR",
+              "PW",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VA",
+              "VI",
+              "VT",
+              "WA",
+              "WI",
+              "WV",
+              "WY",
+              "AS",
+              "FQ",
+              "GU",
+              "HQ",
+              "DQ",
+              "JQ",
+              "KQ",
+              "MH",
+              "FM",
+              "MQ",
+              "BQ",
+              "MP",
+              "PW",
+              "LQ",
+              "PR",
+              "VI",
+              "WQ"
+            ],
+            "helpText": "PDF field: School6_State[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615322Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].CheckBox1[0]",
+          "label": "Not applicable",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: CheckBox1[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615333Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].SSN[1]",
+          "label": "Section 4. Social Security Number. Provide your U.S. Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: SSN[1]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615354Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].p3-rb3b[0]",
+          "label": "p3-rb3b",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: p3-rb3b[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615361Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].TextField11[5]",
+          "label": "Weight (in pounds)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: TextField11[5]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.261537Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].DropDownList10[0]",
+          "label": "Hair color",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Bald",
+              "Black",
+              "Blonde or Strawberry",
+              "Brown",
+              "Gray or Partially Gray",
+              "Red or Auburn",
+              "Sandy",
+              "White",
+              "Blue",
+              "Green",
+              "Orange",
+              "Pink",
+              "Purple",
+              "Unspecified or Unknown"
+            ],
+            "helpText": "PDF field: DropDownList10[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615379Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].DropDownList9[0]",
+          "label": "Eye color",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Black",
+              "Blue",
+              "Brown",
+              "Gray",
+              "Green",
+              "Hazel",
+              "Maroon",
+              "Multicolored",
+              "Pink",
+              "Unknown"
+            ],
+            "helpText": "PDF field: DropDownList9[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.261539Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].suffix[0]",
+          "label": "Suffix",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Jr",
+              "Sr",
+              "II",
+              "III",
+              "IV",
+              "V",
+              "VI",
+              "VII",
+              "VIII",
+              "IX",
+              "X",
+              "Other"
+            ],
+            "helpText": "PDF field: suffix[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615399Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].DropDownList8[0]",
+          "label": "Section 6. Your Identifying Information. Provide your identifying information. Height (feet).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9"
+            ],
+            "helpText": "PDF field: DropDownList8[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615424Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].DropDownList7[0]",
+          "label": "Height (inches)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11"
+            ],
+            "helpText": "PDF field: DropDownList7[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615434Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].From_Datefield_Name_2[0]",
+          "label": "Section 2. Date of Birth. Provide your date of birth (month/day/year).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "PDF field: From_Datefield_Name_2[0]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615454Z"
+          }
+        },
+        {
+          "id": "form1[0].Sections1-6[0].#field[18]",
+          "label": "Estimate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [],
+            "helpText": "PDF field: #field[18]"
+          },
+          "responseMetadata": {
+            "lastModified": "2026-06-07T16:41:57.2615467Z"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -40,6 +40,7 @@ class Program
                 "stats" => await serviceProvider.GetRequiredService<StatsCommand>().ExecuteAsync(commandArgs),
                 "diff" => await serviceProvider.GetRequiredService<DiffCommand>().ExecuteAsync(commandArgs),
                 "export" => await serviceProvider.GetRequiredService<ExportCommand>().ExecuteAsync(commandArgs),
+                "import" => await serviceProvider.GetRequiredService<ImportCommand>().ExecuteAsync(commandArgs),
                 "help" or "--help" or "-h" => ShowHelp(),
                 "version" or "--version" or "-v" => ShowVersion(),
                 _ => ShowUnknownCommand(command)
@@ -77,6 +78,7 @@ class Program
         services.AddTransient<StatsCommand>();
         services.AddTransient<DiffCommand>();
         services.AddTransient<ExportCommand>();
+        services.AddTransient<ImportCommand>();
     }
 
     private static int ShowHelp()
