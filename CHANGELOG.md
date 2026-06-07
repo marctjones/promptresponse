@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-07
+
+Import + the web-fill wedge. Bring existing forms into APR two ways — a
+deterministic `apr import` for fillable PDFs and a portable `document-to-apr`
+AI skill for everything else (flat/scanned PDFs, Word, OpenDocument, images) —
+make table cells fillable in both PDF and HTML, and ship accessible HTML /
+self-contained web-form export. See [docs/IMPORT.md](docs/IMPORT.md).
+
 ### Added
 
 - **Desktop File → Import from PDF…** — imports a fillable PDF into a new
