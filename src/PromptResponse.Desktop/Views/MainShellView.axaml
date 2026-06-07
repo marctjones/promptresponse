@@ -43,6 +43,10 @@
                           InputGesture="Ctrl+O"
                           AutomationProperties.Name="Open file"
                           AutomationProperties.HelpText="Open an existing APR template or filled form (Ctrl+O)"/>
+                <MenuItem Header="_Import from PDF..."
+                          Command="{Binding ImportPdfCommand}"
+                          AutomationProperties.Name="Import from PDF"
+                          AutomationProperties.HelpText="Create a template from a fillable PDF's form fields"/>
                 <Separator/>
                 <MenuItem Header="_Save"
                           Command="{Binding SaveCommand}"

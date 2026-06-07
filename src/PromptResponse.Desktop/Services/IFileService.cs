@@ -54,6 +54,12 @@ public interface IFileService
     Task<string?> PickExportPathAsync(string suggestedFileName, string title, string typeLabel, string extension);
 
     /// <summary>
+    /// Shows an open-file dialog filtered to PDFs and returns the chosen path, or
+    /// null if cancelled. Does not read the file — the caller imports it.
+    /// </summary>
+    Task<string?> PickPdfImportPathAsync();
+
+    /// <summary>
     /// Gets the last opened or saved file path.
     /// </summary>
     string? CurrentFilePath { get; }

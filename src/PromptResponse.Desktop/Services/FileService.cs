@@ -154,6 +154,25 @@ public class FileService : IFileService
     public Task<string?> PickPdfExportPathAsync(string suggestedFileName) =>
         PickExportPathAsync(suggestedFileName, "Export PDF", "PDF Document", "pdf");
 
+    public async Task<string?> PickPdfImportPathAsync()
+    {
+        var window = GetMainWindow();
+        if (window == null) return null;
+
+        var files = await window.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Import from PDF",
+            AllowMultiple = false,
+            FileTypeFilter = new[]
+            {
+                new FilePickerFileType("PDF Document") { Patterns = new[] { "*.pdf" } },
+                new FilePickerFileType("All Files") { Patterns = new[] { "*" } }
+            }
+        });
+
+        return files.Count == 0 ? null : files[0].Path.LocalPath;
+    }
+
     public async Task<string?> PickExportPathAsync(string suggestedFileName, string title, string typeLabel, string extension)
     {
         var window = GetMainWindow();
