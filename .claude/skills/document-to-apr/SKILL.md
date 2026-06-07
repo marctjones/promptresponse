@@ -30,6 +30,13 @@ XML. A mechanical parser fails on all of these. You can *look at the form* the
 way a person does — read the labels, see the checkboxes, group the sections — and
 reconstruct it faithfully. That is the whole point of doing this as a skill.
 
+> **Shortcut for *fillable* PDFs:** if the PDF already has real AcroForm fields
+> *with tooltips*, the deterministic `apr import <file.pdf>` command extracts them
+> directly — try it first for those. But it only sees real widgets, and many
+> government PDFs ship without tooltips (e.g. IRS Form 990 → fields named
+> `f1_1[0]`), so its labels can be useless. When `apr import` produces cryptic
+> labels, or the PDF is flat/scanned/an image/Word, fall back to this skill.
+
 ## Procedure
 
 1. **Take in the source.** Open/look at the file the user pointed you to (PDF,

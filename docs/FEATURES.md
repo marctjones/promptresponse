@@ -114,7 +114,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Feature | Priority | Status | Notes |
 |---------|----------|--------|-------|
 | Document → APR (AI skill) | P1 | ✅ | Portable skill (`.claude/skills/document-to-apr/`): an agent turns a PDF / Word / OpenDocument / **image** of a form into a valid `.aprt`. Works in Claude Code, Gemini CLI, Codex, etc. |
-| AcroForm PDF importer (code) | P3 | ⏳ | Possible deterministic complement for true fillable-PDF/DOCX form fields; deferred — the skill covers the common (flat/scanned) cases |
+| AcroForm PDF importer (code) | P2 | ✅ | `apr import <file.pdf>` — deterministic extraction of fillable-PDF form fields → `.aprt` (`PdfFormImporter`, pdfe). Field quality depends on PDF tooltips (`/TU`): great when present (e.g. SF-86), cryptic when absent (e.g. IRS 990 → use the skill). Flat/scanned PDFs have no fields, so the skill is the path there. |
 
 ---
 
@@ -123,6 +123,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Feature | Priority | Status | Notes |
 |---------|----------|--------|-------|
 | validate | P0 | ✅ | Structural and data type validation |
+| import | P2 | ✅ | Fillable PDF (AcroForm) → `.aprt` template |
 | info | P1 | ✅ | Display document information |
 | new | P1 | ✅ | Interactive template creation |
 | stats | P1 | ✅ | Detailed statistics |

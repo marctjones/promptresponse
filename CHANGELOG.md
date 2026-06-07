@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **PDF AcroForm importer** — `apr import <file.pdf> [--output=<f.aprt>] [--title=…]`
+  turns a *fillable* PDF into an APR template by reading its form fields (new
+  `PdfFormImporter` in `Rendering.Pdf`, via pdfe). Field kinds map to data-type
+  hints (text / checkbox→boolean / dropdown→`suggestedValues`); the field tooltip
+  (`/TU`) becomes the label, fields are grouped one section per page, ids are
+  deduped, and the output is a valid template. Flat/scanned PDFs (no AcroForm)
+  report a clear error pointing to the `document-to-apr` skill. Tested on real
+  forms: **SF-86** (rich tooltips → 6,197 usable fields) and **IRS Form 990**
+  (no tooltips → cryptic field names; the skill is the better path there).
+
 - **Document → APR skill** (`.claude/skills/document-to-apr/`) — a portable AI
   skill that turns an existing form into an APR template: point any capable agent
   (Claude Code/workspace, Gemini CLI, Codex) at a PDF, Word (`.docx`),
