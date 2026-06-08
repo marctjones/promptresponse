@@ -1,4 +1,5 @@
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Signing;
 
 namespace PromptResponse.Core.Rendering;
 
@@ -28,11 +29,58 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
             AppendSection(section, level: 1, options, blocks);
         }
 
+        AppendSignatures(document, blocks);
+
         return new RenderModel(
             Title: document.Metadata.Title ?? string.Empty,
             Description: document.Metadata.Description,
             DocumentType: document.DocumentType,
             Blocks: blocks);
+    }
+
+    /// <summary>
+    /// Appends a signatures summary (verified with default trust) when the document
+    /// is signed, so every exported/printed copy shows who signed and whether it
+    /// verifies. Verification failures are surfaced, never thrown.
+    /// </summary>
+    private static void AppendSignatures(AprDocument document, List<RenderBlock> blocks)
+    {
+        if (document.Signatures is not { Count: > 0 } signatures)
+        {
+            return;
+        }
+
+        IReadOnlyList<SignatureVerification> results;
+        try
+        {
+            results = AprVerifier.VerifyAll(document);
+        }
+        catch
+        {
+            return; // a verification problem must not break rendering
+        }
+
+        var summaries = new List<SignatureSummary>(signatures.Count);
+        for (var i = 0; i < signatures.Count && i < results.Count; i++)
+        {
+            var sig = signatures[i];
+            var r = results[i];
+            var scope = sig.Scope == "template"
+                ? "form definition" + (string.IsNullOrEmpty(sig.SubmissionUrl) ? string.Empty : $" - submit to {sig.SubmissionUrl}")
+                : "fields: " + string.Join(", ", sig.Fields);
+            summaries.Add(new SignatureSummary(
+                Role: r.Role.ToString(),
+                Signer: string.IsNullOrWhiteSpace(r.SignerName) ? sig.Signer.Name : r.SignerName,
+                Scope: scope,
+                ContentValid: r.ContentValid,
+                Trust: r.Trust.ToString(),
+                Status: r.Status));
+        }
+
+        if (summaries.Count > 0)
+        {
+            blocks.Add(new SignatureBlock(summaries));
+        }
     }
 
     private static void AppendSection(Section section, int level, RenderOptions options, List<RenderBlock> blocks)

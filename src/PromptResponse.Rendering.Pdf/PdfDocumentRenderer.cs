@@ -104,6 +104,21 @@ public sealed class PdfDocumentRenderer : IDocumentRenderer
             case TableBlock t:
                 pdf.Table(PdfRenderHelpers.BuildTableRows(t), headerRow: true);
                 break;
+
+            case SignatureBlock s:
+                WriteSignatures(pdf, s);
+                break;
+        }
+    }
+
+    private static void WriteSignatures(PdfDocumentBuilder pdf, SignatureBlock block)
+    {
+        pdf.Heading("Signatures", level: 2);
+        foreach (var s in block.Signatures)
+        {
+            var badge = s.ContentValid ? "[verified]" : "[INVALID]";
+            pdf.KeyValue($"{badge} {s.Role}", $"{s.Signer} - {s.Scope}");
+            pdf.Paragraph($"trust: {s.Trust} - {s.Status}", HelpStyle);
         }
     }
 }

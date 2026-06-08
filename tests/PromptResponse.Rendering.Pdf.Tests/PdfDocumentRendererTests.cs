@@ -178,6 +178,22 @@ public class PdfDocumentRendererTests
     }
 
     [Fact]
+    public void Render_SignedDocument_ShowsSignaturesSection()
+    {
+        var doc = SampleDoc();
+        doc.Metadata.TemplateId = "permit";
+        using var cert = PromptResponse.Core.Signing.SignatureCertificates.CreateSelfSigned(
+            "Town of Bloomfield", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1));
+        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, "https://gov/submit", DateTime.UtcNow)];
+
+        var bytes = _renderer.RenderToBytes(doc);
+
+        using var pdf = PdfeDoc.Open(bytes);
+        var text = string.Concat(Enumerable.Range(1, pdf.PageCount).Select(i => pdf.GetPage(i).Text));
+        text.Should().Contain("Signatures").And.Contain("Town of Bloomfield").And.Contain("verified");
+    }
+
+    [Fact]
     public void Render_DrawsRunningFooter_WithPageNumbersAndGeneratedDate()
     {
         var renderer = new PdfDocumentRenderer(print: new PdfRenderOptions { GeneratedOn = "2026-01-01" });
