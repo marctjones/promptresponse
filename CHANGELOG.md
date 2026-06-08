@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **pdfe 2.7.0 → 2.9.0** (vendored). Additive/non-breaking; brings the new
+  `PdfDocumentBuilder.PdfA()` archival API (used to wire `--pdfa` export),
+  trailer `/ID` on all authored PDFs, dash-pattern rendering, and a continuous
+  reading-view in the viewer. Unblocks the PDF/A archival export (#80).
+
 ### Added
 
 - **Desktop signing actions** (Path A) — File → **Sign** → *Sign as publisher…*
