@@ -79,6 +79,17 @@
                               AutomationProperties.Name="Export as fillable web form"
                               AutomationProperties.HelpText="Export a self-contained HTML form that fills in the browser and downloads an .aprf file"/>
                 </MenuItem>
+                <MenuItem Header="Si_gn"
+                          AutomationProperties.Name="Sign menu">
+                    <MenuItem Header="Sign as _publisher..."
+                              Command="{Binding SignAsPublisherCommand}"
+                              AutomationProperties.Name="Sign as publisher"
+                              AutomationProperties.HelpText="Sign the form definition with a certificate and bind a submission URL"/>
+                    <MenuItem Header="Sign my _responses..."
+                              Command="{Binding SignMyResponsesCommand}"
+                              AutomationProperties.Name="Sign my responses"
+                              AutomationProperties.HelpText="Sign the fields you have filled in with a certificate"/>
+                </MenuItem>
                 <Separator/>
                 <MenuItem Header="_Close"
                           Command="{Binding CloseCommand}"

@@ -3,6 +3,7 @@ using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Security.Cryptography.X509Certificates;
 using PromptResponse.Core.Expressions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Signing;
@@ -467,6 +468,93 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// <summary>Re-verifies signatures on demand (e.g. after editing responses).</summary>
     [RelayCommand]
     public void RefreshSignaturesNow() => RefreshSignatures();
+
+    /// <summary>
+    /// Signs the open document as the publisher with a chosen X.509 certificate
+    /// (.pfx), binding a submission URL. Adds the signature and marks the document
+    /// dirty so the user saves it.
+    /// </summary>
+    [RelayCommand(CanExecute = nameof(HasDocument))]
+    public async Task SignAsPublisher()
+    {
+        var doc = _session.CurrentDocument;
+        if (doc is null) return;
+
+        var certPath = await _fileService.PickCertificateAsync();
+        if (string.IsNullOrEmpty(certPath)) return;
+
+        var password = await _dialogService.ShowInputAsync(
+            "Certificate password", "Enter the certificate password (leave blank if none):", string.Empty, isPassword: true);
+        if (password is null) return; // cancelled
+
+        var url = await _dialogService.ShowInputAsync(
+            "Submission URL", "Where is this form submitted? (bound into the signature)", doc.Metadata.SubmissionUrl ?? string.Empty);
+        if (url is null) return; // cancelled
+
+        await SignWith(certPath!, password, c =>
+        {
+            var sig = AprSigner.SignTemplate(doc, c, string.IsNullOrEmpty(url) ? null : url, DateTime.UtcNow);
+            doc.Metadata.Publisher ??= sig.Signer.Name;
+            if (!string.IsNullOrEmpty(url)) doc.Metadata.SubmissionUrl = url;
+            return sig;
+        });
+    }
+
+    /// <summary>
+    /// Signs the responses the user has filled in (all answered fields) with a
+    /// chosen X.509 certificate.
+    /// </summary>
+    [RelayCommand(CanExecute = nameof(HasDocument))]
+    public async Task SignMyResponses()
+    {
+        var doc = _session.CurrentDocument;
+        if (doc is null) return;
+
+        var answered = FormExpressions.GetAllPrompts(doc)
+            .Where(p => !string.IsNullOrEmpty(p.Id) && !string.IsNullOrWhiteSpace(p.Response))
+            .Select(p => p.Id)
+            .ToList();
+        if (answered.Count == 0)
+        {
+            await _dialogService.ShowConfirmationAsync(
+                "Nothing to sign", "Fill in some responses first — a filler signature covers the fields you've answered.");
+            return;
+        }
+
+        var certPath = await _fileService.PickCertificateAsync();
+        if (string.IsNullOrEmpty(certPath)) return;
+
+        var password = await _dialogService.ShowInputAsync(
+            "Certificate password", "Enter the certificate password (leave blank if none):", string.Empty, isPassword: true);
+        if (password is null) return;
+
+        var id = $"sig{(doc.Signatures?.Count ?? 0) + 1}";
+        await SignWith(certPath!, password, c => AprSigner.SignFields(doc, c, answered, DateTime.UtcNow, id));
+    }
+
+    private async Task SignWith(string certPath, string password, Func<X509Certificate2, Signature> sign)
+    {
+        var doc = _session.CurrentDocument;
+        if (doc is null) return;
+        try
+        {
+            using var cert = SignatureCertificates.LoadPfx(certPath, string.IsNullOrEmpty(password) ? null : password);
+            if (!cert.HasPrivateKey)
+            {
+                await _dialogService.ShowConfirmationAsync("Cannot sign", "That certificate has no private key — choose a .pfx that includes the key.");
+                return;
+            }
+            var signature = sign(cert);
+            doc.Signatures ??= new List<Signature>();
+            doc.Signatures.Add(signature);
+            _session.MarkDirty();
+            RefreshSignatures();
+        }
+        catch (Exception ex)
+        {
+            await _dialogService.ShowConfirmationAsync("Signing failed", ex.Message);
+        }
+    }
 
     /// <summary>
     /// Re-runs the advisory inspection over the current document. Per the vision,
@@ -985,6 +1073,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         ToggleEditModeCommand.NotifyCanExecuteChanged();
         RefreshAdvisories();
         RefreshSignatures();
+        SignAsPublisherCommand.NotifyCanExecuteChanged();
+        SignMyResponsesCommand.NotifyCanExecuteChanged();
         SaveCommand.NotifyCanExecuteChanged();
         SaveAsCommand.NotifyCanExecuteChanged();
         CloseCommand.NotifyCanExecuteChanged();

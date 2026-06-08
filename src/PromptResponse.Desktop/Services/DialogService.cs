@@ -111,6 +111,72 @@ public class DialogService : IDialogService
         return result;
     }
 
+    /// <inheritdoc/>
+    public async Task<string?> ShowInputAsync(string title, string message, string defaultValue = "", bool isPassword = false)
+    {
+        _logger.LogDebug("Showing input dialog: {Title}", title);
+
+        var window = GetMainWindow();
+        if (window == null) return null;
+
+        string? result = null;
+
+        var dialog = new Window
+        {
+            Title = title,
+            Width = 460,
+            Height = 210,
+            MinWidth = 360,
+            MinHeight = 170,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            CanResize = false,
+            ShowInTaskbar = false,
+        };
+        dialog.SetValue(AutomationProperties.NameProperty, $"Input dialog: {title}");
+        dialog.SetValue(AutomationProperties.HelpTextProperty, message);
+
+        var label = new TextBlock
+        {
+            Text = message,
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(0, 0, 0, 8),
+        };
+
+        var input = new TextBox
+        {
+            Text = defaultValue,
+            PasswordChar = isPassword ? '•' : '\0',
+            MinWidth = 300,
+        };
+        input.SetValue(AutomationProperties.NameProperty, title);
+        input.SetValue(AutomationProperties.HelpTextProperty, message);
+
+        var okButton = new Button { Content = "OK", MinWidth = 80, Margin = new Thickness(0, 0, 10, 0), IsDefault = true };
+        okButton.SetValue(AutomationProperties.NameProperty, "Confirm input");
+        okButton.Click += (_, _) => { result = input.Text ?? string.Empty; dialog.Close(); };
+
+        var cancelButton = new Button { Content = "Cancel", MinWidth = 80, IsCancel = true };
+        cancelButton.SetValue(AutomationProperties.NameProperty, "Cancel input");
+        cancelButton.Click += (_, _) => { result = null; dialog.Close(); };
+
+        var buttons = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            Margin = new Thickness(0, 12, 0, 0),
+            Children = { okButton, cancelButton },
+        };
+
+        dialog.Content = new StackPanel
+        {
+            Margin = new Thickness(20),
+            Children = { label, input, buttons },
+        };
+
+        await dialog.ShowDialog(window);
+        return result;
+    }
+
     private static Window? GetMainWindow()
     {
         return Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop

@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Desktop signing actions** (Path A) — File → **Sign** → *Sign as publisher…*
+  (pick a `.pfx`, enter the submission URL → signs the form definition and binds
+  the URL) and *Sign my responses…* (signs the fields you've answered). Adds a
+  text-input dialog (with password masking) and a certificate file picker; the
+  document is marked dirty and the Signatures panel refreshes. Completes the
+  in-GUI signing flow alongside the verify/trust panel. (#73)
+
 - **Desktop signatures panel** (Path A) — opening a signed form now shows a
   **Signatures** panel in the right rail: a one-line summary ("N signature(s) —
   all verify" / "… one or more INVALID") and a row per signature with role,

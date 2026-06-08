@@ -173,6 +173,25 @@ public class FileService : IFileService
         return files.Count == 0 ? null : files[0].Path.LocalPath;
     }
 
+    public async Task<string?> PickCertificateAsync()
+    {
+        var window = GetMainWindow();
+        if (window == null) return null;
+
+        var files = await window.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = "Select signing certificate",
+            AllowMultiple = false,
+            FileTypeFilter = new[]
+            {
+                new FilePickerFileType("PKCS#12 certificate") { Patterns = new[] { "*.pfx", "*.p12" } },
+                new FilePickerFileType("All Files") { Patterns = new[] { "*" } }
+            }
+        });
+
+        return files.Count == 0 ? null : files[0].Path.LocalPath;
+    }
+
     public async Task<string?> PickExportPathAsync(string suggestedFileName, string title, string typeLabel, string extension)
     {
         var window = GetMainWindow();
