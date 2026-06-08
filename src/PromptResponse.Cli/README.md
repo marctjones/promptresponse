@@ -175,6 +175,28 @@ recommendation. Flat/scanned PDFs (no form fields) report an error — for those
 plus Word/OpenDocument/images, use the `document-to-apr` skill. See
 [docs/IMPORT.md](../../docs/IMPORT.md).
 
+### keygen / sign / verify
+
+Digital signatures over APR content (industry-standard CMS/PKCS#7 + X.509).
+
+```bash
+# generate a self-signed signing cert (or use a CA-issued .pfx / PIV card)
+apr keygen --name="Town of Bloomfield" --output=publisher.pfx --cert-out=publisher.cer
+
+# publisher signs the template and binds the submission URL
+apr sign permit.aprt --publisher --cert=publisher.pfx --url="https://gov/permit/submit"
+
+# a filler signs the responses they completed
+apr sign permit.aprf --fields=applicant_name,dob --cert=ada.pfx --id=ada
+
+# verify, pinning the publisher's public cert as a trust anchor
+apr verify permit.aprf --trust=publisher.cer
+```
+
+`verify` reports each signature as `trusted` / `self-signed` / `untrusted` /
+`INVALID` and exits non-zero if signed content was altered. Full guide:
+[docs/SIGNING.md](../../docs/SIGNING.md).
+
 ### help
 
 Shows usage information.

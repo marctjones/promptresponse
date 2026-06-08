@@ -63,6 +63,10 @@ public static class SignatureCertificates
     public static X509Certificate2 LoadPfx(string path, string? password = null) =>
         X509CertificateLoader.LoadPkcs12FromFile(path, password);
 
+    /// <summary>Loads a public certificate (no private key) from a DER/PEM .cer/.crt file — used as a trust anchor.</summary>
+    public static X509Certificate2 LoadCertificate(string path) =>
+        X509CertificateLoader.LoadCertificateFromFile(path);
+
     /// <summary>The certificate's SHA-256 thumbprint as an uppercase hex string (for pinning).</summary>
     public static string Sha256Thumbprint(X509Certificate2 cert) =>
         Convert.ToHexString(SHA256.HashData(cert.RawData));

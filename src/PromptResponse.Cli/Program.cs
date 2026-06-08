@@ -41,6 +41,9 @@ class Program
                 "diff" => await serviceProvider.GetRequiredService<DiffCommand>().ExecuteAsync(commandArgs),
                 "export" => await serviceProvider.GetRequiredService<ExportCommand>().ExecuteAsync(commandArgs),
                 "import" => await serviceProvider.GetRequiredService<ImportCommand>().ExecuteAsync(commandArgs),
+                "keygen" => await serviceProvider.GetRequiredService<KeygenCommand>().ExecuteAsync(commandArgs),
+                "sign" => await serviceProvider.GetRequiredService<SignCommand>().ExecuteAsync(commandArgs),
+                "verify" => await serviceProvider.GetRequiredService<VerifyCommand>().ExecuteAsync(commandArgs),
                 "help" or "--help" or "-h" => ShowHelp(),
                 "version" or "--version" or "-v" => ShowVersion(),
                 _ => ShowUnknownCommand(command)
@@ -79,6 +82,9 @@ class Program
         services.AddTransient<DiffCommand>();
         services.AddTransient<ExportCommand>();
         services.AddTransient<ImportCommand>();
+        services.AddTransient<KeygenCommand>();
+        services.AddTransient<SignCommand>();
+        services.AddTransient<VerifyCommand>();
     }
 
     private static int ShowHelp()
@@ -95,6 +101,10 @@ class Program
         Console.WriteLine("  stats <file> [--json]          Show detailed statistics");
         Console.WriteLine("  diff <file1> <file2>           Compare two APR files");
         Console.WriteLine("  export <file> [options]        Export responses to various formats");
+        Console.WriteLine("  import <file.pdf> [options]    Import a fillable PDF into an APR template");
+        Console.WriteLine("  keygen [options]               Generate a self-signed signing certificate (.pfx)");
+        Console.WriteLine("  sign <file> [options]          Sign a document (publisher or filler) with an X.509 cert");
+        Console.WriteLine("  verify <file> [options]        Verify signatures and report trust");
         Console.WriteLine("  help                           Show this help message");
         Console.WriteLine("  version                        Show version information");
         Console.WriteLine();
