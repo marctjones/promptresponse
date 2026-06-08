@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.svg" alt="PromptResponse logo" width="120" height="120">
+</p>
+
 # PromptResponse
 
 A cross-platform form creation and filling application that makes it easy for office workers to create typical office forms without the hassle of editing PDFs, wrangling Word form fields and tables, or dealing with weird PDF form rendering issues.

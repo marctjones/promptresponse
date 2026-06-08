@@ -78,6 +78,49 @@ public class PdfFormImporterTests
     }
 
     [Fact]
+    public void ImportWithQuality_HumanLabels_ScoresHigh_UseDirectly()
+    {
+        var pdfBytes = new FillablePdfDocumentRenderer().RenderToBytes(SourceForm());
+
+        var (_, quality) = new PdfFormImporter().ImportWithQuality(pdfBytes, "Sign-up");
+
+        quality.Score.Should().BeGreaterThanOrEqualTo(70);
+        quality.Recommendation.Should().Be(ImportRecommendation.UseDirectly);
+        quality.CrypticLabelRatio.Should().Be(0);
+        quality.Flags.Should().NotContain(f => f.Kind == FieldFlagKind.CrypticLabel);
+    }
+
+    [Fact]
+    public void ImportWithQuality_CrypticLabels_ScoresLow_RecommendsSkill_WithFlags()
+    {
+        // A form whose labels are raw field names (what a tooltip-less PDF yields).
+        var doc = new AprDocument
+        {
+            DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = "Raw" },
+            Sections =
+            [
+                new Section { Id = "p1", Title = "Page 1", Prompts =
+                [
+                    new Prompt { Id = "f1_1", Label = "f1_1[0]", Hints = new PromptHints { ExpectedDataType = "text" } },
+                    new Prompt { Id = "f1_2", Label = "f1_2[0]", Hints = new PromptHints { ExpectedDataType = "text" } },
+                    new Prompt { Id = "c1_1", Label = "c1_1[0]", Hints = new PromptHints { ExpectedDataType = "boolean" } },
+                ]},
+            ],
+        };
+        var pdfBytes = new FillablePdfDocumentRenderer().RenderToBytes(doc);
+
+        var (_, quality) = new PdfFormImporter().ImportWithQuality(pdfBytes, "Raw");
+
+        quality.Score.Should().BeLessThan(40);
+        quality.Grade.Should().Be("F");
+        quality.Recommendation.Should().Be(ImportRecommendation.UseSkillInstead);
+        quality.CrypticLabelRatio.Should().BeGreaterThan(0.9);
+        quality.Flags.Should().Contain(f => f.Kind == FieldFlagKind.CrypticLabel);
+        quality.Summary.Should().Contain("document-to-apr skill");
+    }
+
+    [Fact]
     public void Import_FlatPdf_ThrowsNoFormFields()
     {
         // A flat (non-fillable) PDF has no AcroForm to import.

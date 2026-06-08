@@ -81,6 +81,34 @@ public class ImportCommandTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_Report_PrintsQualityVerdictAndBreakdown()
+    {
+        var pdf = Path.Combine(Path.GetTempPath(), $"in_{Guid.NewGuid():N}.pdf");
+        var outPath = Path.Combine(Path.GetTempPath(), $"out_{Guid.NewGuid():N}.aprt");
+        await File.WriteAllBytesAsync(pdf, new FillablePdfDocumentRenderer().RenderToBytes(SourceForm()));
+
+        var original = Console.Out;
+        var sw = new StringWriter();
+        Console.SetOut(sw);
+        try
+        {
+            var exit = await _command.ExecuteAsync(new[] { pdf, $"--output={outPath}", "--report" });
+
+            exit.Should().Be(0);
+            var output = sw.ToString();
+            output.Should().Contain("Quality:");
+            output.Should().Contain("Import quality report");
+            output.Should().Contain("Recommendation:");
+        }
+        finally
+        {
+            Console.SetOut(original);
+            if (File.Exists(pdf)) File.Delete(pdf);
+            if (File.Exists(outPath)) File.Delete(outPath);
+        }
+    }
+
+    [Fact]
     public async Task ExecuteAsync_FlatPdf_ReturnsError()
     {
         // A flat PDF has no AcroForm — the command should fail cleanly.
