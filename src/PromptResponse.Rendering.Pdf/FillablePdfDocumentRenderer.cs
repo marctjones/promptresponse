@@ -88,7 +88,7 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
         }
 
         var doc = pdf.Build();
-        PdfRenderHelpers.ApplyRunningFooter(doc, _print, title);
+        PdfRenderHelpers.ApplyRunningElements(doc, _print, title);
         doc.Save(output);
     }
 

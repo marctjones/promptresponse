@@ -20,20 +20,23 @@ internal static class PdfRenderHelpers
     };
 
     /// <summary>
-    /// Draws a running footer on every page of an already-built document: the
-    /// footer label on the left, a generated date in the centre, and "Page X of
-    /// Y" on the right, above a thin rule. Runs after layout (so the page total is
-    /// known) and appends to each page's content, sitting inside the bottom
-    /// margin so it never overlaps the form body.
+    /// Draws running page elements on every page of an already-built document:
+    /// an optional classification/handling banner (centered, bold, top and
+    /// bottom) and a footer (label left, generated date centre, "Page X of Y"
+    /// right, above a thin rule). Runs after layout (so the page total is known),
+    /// appends to each page's content, and sits inside the margins so nothing
+    /// overlaps the form body.
     /// </summary>
-    public static void ApplyRunningFooter(PdfDocument doc, PdfRenderOptions options, string title)
+    public static void ApplyRunningElements(PdfDocument doc, PdfRenderOptions options, string title)
     {
-        if (!options.ShowFooter)
+        var banner = string.IsNullOrWhiteSpace(options.BannerText) ? null : options.BannerText!.Trim();
+        if (!options.ShowFooter && banner is null)
         {
             return;
         }
 
         var font = PdfFont.Helvetica(8);
+        var bannerFont = PdfFont.HelveticaBold(9);
         var brush = PdfBrush.Black;
         var pen = new PdfPen(PdfColor.FromGray(0.75), 0.5);
 
@@ -43,7 +46,7 @@ internal static class PdfRenderHelpers
             : null;
 
         var total = doc.PageCount;
-        const double margin = 72, footerY = 30, ruleY = 46;
+        const double margin = 72, footerY = 30, ruleY = 46, bottomBannerY = 14;
 
         for (var i = 1; i <= total; i++)
         {
@@ -51,19 +54,28 @@ internal static class PdfRenderHelpers
             var g = page.GetGraphics();
             double left = margin, right = page.Width - margin, centre = page.Width / 2;
 
-            g.DrawLine(left, ruleY, right, ruleY, pen);
+            if (banner is not null)
+            {
+                // Top and bottom handling markings, in the page margins.
+                g.DrawString(banner, bannerFont, brush, centre, page.Height - 30, TextAlignment.Center);
+                g.DrawString(banner, bannerFont, brush, centre, bottomBannerY, TextAlignment.Center);
+            }
 
-            if (!string.IsNullOrWhiteSpace(label))
+            if (options.ShowFooter)
             {
-                g.DrawString(Truncate(label, 70), font, brush, left, footerY, TextAlignment.Left);
-            }
-            if (date != null)
-            {
-                g.DrawString($"Generated {date}", font, brush, centre, footerY, TextAlignment.Center);
-            }
-            if (options.ShowPageNumbers)
-            {
-                g.DrawString($"Page {i} of {total}", font, brush, right, footerY, TextAlignment.Right);
+                g.DrawLine(left, ruleY, right, ruleY, pen);
+                if (!string.IsNullOrWhiteSpace(label))
+                {
+                    g.DrawString(Truncate(label, 70), font, brush, left, footerY, TextAlignment.Left);
+                }
+                if (date != null)
+                {
+                    g.DrawString($"Generated {date}", font, brush, centre, footerY, TextAlignment.Center);
+                }
+                if (options.ShowPageNumbers)
+                {
+                    g.DrawString($"Page {i} of {total}", font, brush, right, footerY, TextAlignment.Right);
+                }
             }
 
             g.Flush();
