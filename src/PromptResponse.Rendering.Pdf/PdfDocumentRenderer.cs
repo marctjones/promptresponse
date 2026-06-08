@@ -32,14 +32,17 @@ public sealed class PdfDocumentRenderer : IDocumentRenderer
         TextStyle.Body.WithSize(8).WithColor(PdfColor.FromGray(0.4));
 
     private readonly IDocumentRenderModelBuilder _builder;
+    private readonly PdfRenderOptions _print;
 
     /// <summary>
     /// Initializes the renderer, optionally with a custom model builder
-    /// (defaults to <see cref="DocumentRenderModelBuilder"/>).
+    /// (defaults to <see cref="DocumentRenderModelBuilder"/>) and print options
+    /// (page size + running footer; defaults to <see cref="PdfRenderOptions.Default"/>).
     /// </summary>
-    public PdfDocumentRenderer(IDocumentRenderModelBuilder? builder = null)
+    public PdfDocumentRenderer(IDocumentRenderModelBuilder? builder = null, PdfRenderOptions? print = null)
     {
         _builder = builder ?? new DocumentRenderModelBuilder();
+        _print = print ?? PdfRenderOptions.Default;
     }
 
     /// <inheritdoc />
@@ -56,7 +59,7 @@ public sealed class PdfDocumentRenderer : IDocumentRenderer
         ArgumentNullException.ThrowIfNull(output);
 
         var model = _builder.Build(document, options);
-        var pdf = PdfDocumentBuilder.Create();
+        var pdf = PdfDocumentBuilder.Create(PdfRenderHelpers.ToPageSize(_print.PageSize));
         PdfRenderHelpers.ApplyMetadata(pdf, document.Metadata);
 
         var title = string.IsNullOrWhiteSpace(model.Title) ? "(untitled)" : model.Title;
@@ -71,7 +74,10 @@ public sealed class PdfDocumentRenderer : IDocumentRenderer
             WriteBlock(pdf, block);
         }
 
-        pdf.Save(output);
+        // Build, stamp the running footer (needs the final page count), then save.
+        var doc = pdf.Build();
+        PdfRenderHelpers.ApplyRunningFooter(doc, _print, title);
+        doc.Save(output);
     }
 
     private static void WriteBlock(PdfDocumentBuilder pdf, RenderBlock block)

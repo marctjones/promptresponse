@@ -64,20 +64,26 @@ Platform / quality baseline:
 
 ---
 
-## 3. Strategic question (open) — pick the wedge
+## 3. Strategic wedge — DECIDED: Path A (local-first / sovereignty / accessibility)
 
-The roadmap below is sequenced for the MVP regardless, but **who we optimize
-for after MVP is an unresolved decision** and should be made explicitly:
+> **Decision (2026-06-08): commit to Path A.** After shipping the MVP and a
+> foundation for both wedges, we optimize for the **local-first / sovereignty /
+> accessibility buyer** — public sector, compliance, and privacy-sensitive orgs.
+> It plays to the project's existing strengths (offline, open format, CI-gated
+> WCAG, no vendor lock-in) and competes with PDF/Word rather than entrenched SaaS.
 
-- **A. Local-first / sovereignty / accessibility buyer** — public sector,
-  compliance, privacy-sensitive orgs. Plays to our strengths (offline, open
-  format, CI-gated WCAG, no vendor lock-in). Competes with PDF/Word.
-- **B. Mass-market form builder** — competes with Google/Microsoft Forms,
-  Typeform, JotForm. Requires a web fill path and frictionless sharing; harder
-  fight, larger market.
+The two paths that were on the table:
 
-This choice changes whether Milestone 2 leans into **PDF/signatures/import**
-(A) or **web fill + sharing** (B). It does **not** change the MVP.
+- **A. Local-first / sovereignty / accessibility buyer** *(chosen)* — public
+  sector, compliance, privacy-sensitive orgs. Offline, open format, CI-gated
+  WCAG, no vendor lock-in. Competes with PDF/Word.
+- **B. Mass-market form builder** *(deferred)* — competes with Google/Microsoft
+  Forms, Typeform, JotForm. Requires a web fill path + frictionless sharing.
+  Its foundation (HTML renderer + self-contained fillable web form) is built and
+  kept warm, but we are **not** investing in a hosted/shareable app now.
+
+Path A means Milestone 2 leans into **richer print, a submission/signature
+story, and deeper import** (see Milestone 2 below), not web fill + sharing.
 
 ---
 
@@ -115,11 +121,22 @@ What makes APR competitive with advanced form systems, not just usable:
 - **Conditional logic** — show/hide and conditional-required rules; repeatable
   sections (e.g. multiple dependents). Advisory, never input-blocking.
 - **Validation panel** — dedicated warnings panel, click-to-field.
-- **Wedge-dependent (pick per §3):**
-  - *Path A:* import tooling (Word/PDF → APR), digital-signature story for
-    submission (decide in/out of format scope), richer print templates.
-  - *Path B:* browser fill path (Blazor/WASM or static HTML renderer — the
-    Python server proves the shape) + shareable form links.
+- **Wedge — Path A (chosen, §3):** the local-first / accessibility direction.
+  Sequenced by value × low risk:
+  1. **Richer print / PDF templates** *(in progress)* — running header/footer,
+     "Page X of Y", a document title block + generated date, A4/Letter page
+     size. The presentable, archival artifact gov/compliance actually submit and
+     file. Done in the PDF renderer (no format/layout added to `.apr`).
+  2. **Deeper import** — done: `apr import` (AcroForm → APR) with self-scoring
+     quality, the portable `document-to-apr` skill, and the importer→skill hybrid.
+     Follow-ups: radio-groups → choice, richer sectioning (see #64).
+  3. **Submission / signature story** — reintroduce a signature/attestation path
+     for submitted forms (was purged in #12 for the clean Phase-1 base). Decide
+     in-format vs out-of-format scope; pdfe can author AcroForm signature fields.
+  4. **PDF/A archival output** — long-term-preservation profile for records.
+
+  *Path B (deferred):* the browser fill path foundation (HTML renderer +
+  fillable web form) exists; a hosted/shareable app is not in the near-term plan.
 
 ### Milestone 3 — Reach (target: v0.5.x+)
 

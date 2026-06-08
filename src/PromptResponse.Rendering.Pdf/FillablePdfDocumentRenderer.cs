@@ -38,14 +38,17 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
         new(StringComparer.OrdinalIgnoreCase) { "true", "yes", "y", "1", "x", "checked", "on" };
 
     private readonly IDocumentRenderModelBuilder _builder;
+    private readonly PdfRenderOptions _print;
 
     /// <summary>
     /// Initializes the renderer, optionally with a custom model builder
-    /// (defaults to <see cref="DocumentRenderModelBuilder"/>).
+    /// (defaults to <see cref="DocumentRenderModelBuilder"/>) and print options
+    /// (page size + running footer; defaults to <see cref="PdfRenderOptions.Default"/>).
     /// </summary>
-    public FillablePdfDocumentRenderer(IDocumentRenderModelBuilder? builder = null)
+    public FillablePdfDocumentRenderer(IDocumentRenderModelBuilder? builder = null, PdfRenderOptions? print = null)
     {
         _builder = builder ?? new DocumentRenderModelBuilder();
+        _print = print ?? PdfRenderOptions.Default;
     }
 
     /// <inheritdoc />
@@ -69,7 +72,7 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
             EmptyFieldText = options.EmptyFieldText,
         };
         var model = _builder.Build(document, formOptions);
-        var pdf = PdfDocumentBuilder.Create();
+        var pdf = PdfDocumentBuilder.Create(PdfRenderHelpers.ToPageSize(_print.PageSize));
         PdfRenderHelpers.ApplyMetadata(pdf, document.Metadata);
 
         var title = string.IsNullOrWhiteSpace(model.Title) ? "(untitled)" : model.Title;
@@ -84,7 +87,9 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
             WriteBlock(pdf, block);
         }
 
-        pdf.Save(output);
+        var doc = pdf.Build();
+        PdfRenderHelpers.ApplyRunningFooter(doc, _print, title);
+        doc.Save(output);
     }
 
     private static void WriteBlock(PdfDocumentBuilder pdf, RenderBlock block)
