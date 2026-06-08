@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using AwesomeAssertions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
@@ -7,13 +8,18 @@ using Xunit;
 namespace PromptResponse.Core.Tests.Signing;
 
 /// <summary>
-/// Verifies the apr-sig-v1 signing protocol: publisher signs the template
-/// (binding the submission URL), fillers sign scoped responses, tampering is
-/// detected, scopes are isolated, and signatures survive JSON round-trips.
+/// Verifies apr-sig-v2: detached CMS/PKCS#7 signatures over canonical APR content
+/// with X.509 certificates. Covers tamper detection, scope isolation, URL binding,
+/// JSON round-trip, and both trust models (self-signed/pinned and CA-issued).
 /// </summary>
 public class AprSigningTests
 {
     private static readonly DateTime At = new(2026, 6, 8, 12, 0, 0, DateTimeKind.Utc);
+    private static readonly DateTimeOffset Before = DateTimeOffset.UtcNow.AddDays(-1);
+    private static readonly DateTimeOffset After = DateTimeOffset.UtcNow.AddYears(2);
+
+    private static X509Certificate2 SelfSigned(string cn = "Town of Bloomfield") =>
+        SignatureCertificates.CreateSelfSigned(cn, Before, After);
 
     private static AprDocument Template() => new()
     {
@@ -34,74 +40,69 @@ public class AprSigningTests
         ],
     };
 
-    // ── Publisher signs the template ────────────────────────────────────────
+    // ── Publisher ───────────────────────────────────────────────────────────
 
     [Fact]
-    public void Publisher_SignsTemplate_Verifies()
+    public void Publisher_SignsTemplate_ContentValid()
     {
         var doc = Template();
-        using var key = SignatureKeys.Generate();
-        doc.Signatures = [AprSigner.SignTemplate(doc, key, "Town of Bloomfield", "clerk@bloomfieldct.gov",
-            "https://bloomfieldct.gov/forms/permit/submit", At)];
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://bloomfieldct.gov/permit/submit", At)];
 
-        var result = AprVerifier.VerifyAll(doc).Single();
+        var r = AprVerifier.Verify(doc, doc.Signatures[0]);
 
-        result.IsValid.Should().BeTrue();
-        result.Role.Should().Be(SignatureRole.Publisher);
-        result.SignerName.Should().Be("Town of Bloomfield");
+        r.ContentValid.Should().BeTrue();
+        r.Role.Should().Be(SignatureRole.Publisher);
+        r.SignerName.Should().Be("Town of Bloomfield");
     }
 
     [Fact]
     public void Publisher_DetectsFormDefinitionTampering()
     {
         var doc = Template();
-        using var key = SignatureKeys.Generate();
-        doc.Signatures = [AprSigner.SignTemplate(doc, key, "Pub", null, "https://x/submit", At)];
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://x/submit", At)];
 
-        doc.Sections[0].Prompts[0].Label = "Full Name"; // alter the form definition
+        doc.Sections[0].Prompts[0].Label = "Full Name";
 
-        AprVerifier.Verify(doc, doc.Signatures[0]).IsValid
-            .Should().BeFalse("changing a label changes the signed form definition");
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse();
     }
 
     [Fact]
-    public void Publisher_Signature_BindsSubmissionUrl()
+    public void Publisher_BindsSubmissionUrl()
     {
         var doc = Template();
-        using var key = SignatureKeys.Generate();
-        doc.Signatures = [AprSigner.SignTemplate(doc, key, "Pub", null, "https://gov/submit", At)];
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://gov/submit", At)];
 
-        doc.Signatures[0].SubmissionUrl = "https://evil/submit"; // redirect attempt
+        doc.Signatures[0].SubmissionUrl = "https://evil/submit";
 
-        AprVerifier.Verify(doc, doc.Signatures[0]).IsValid
-            .Should().BeFalse("the submission URL is bound into the publisher signature");
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse();
     }
 
     [Fact]
-    public void Publisher_Signature_SurvivesFilling()
+    public void Publisher_SurvivesFilling()
     {
         var doc = Template();
-        using var key = SignatureKeys.Generate();
-        doc.Signatures = [AprSigner.SignTemplate(doc, key, "Pub", null, "https://gov/submit", At)];
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://gov/submit", At)];
 
-        doc.Sections[0].Prompts[0].Response = "Ada Lovelace"; // a filler enters a response
+        doc.Sections[0].Prompts[0].Response = "Ada Lovelace";
 
-        AprVerifier.Verify(doc, doc.Signatures[0]).IsValid
-            .Should().BeTrue("responses are not part of the signed form definition");
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeTrue();
     }
 
-    // ── Filler signs scoped responses ───────────────────────────────────────
+    // ── Filler scope ────────────────────────────────────────────────────────
 
     [Fact]
-    public void Filler_SignsScope_Verifies()
+    public void Filler_SignsScope_Valid()
     {
         var doc = Template();
         doc.Sections[0].Prompts[0].Response = "Ada";
-        doc.Sections[0].Prompts[1].Response = "1815-12-10";
-        using var key = SignatureKeys.Generate();
-        doc.Signatures = [AprSigner.SignFields(doc, key, "Ada", null, ["name", "dob"], At, "sig1")];
+        using var cert = SelfSigned("Ada Lovelace");
+        doc.Signatures = [AprSigner.SignFields(doc, cert, ["name"], At, "sig1")];
 
-        AprVerifier.Verify(doc, doc.Signatures[0]).IsValid.Should().BeTrue();
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeTrue();
     }
 
     [Fact]
@@ -109,49 +110,93 @@ public class AprSigningTests
     {
         var doc = Template();
         doc.Sections[0].Prompts[0].Response = "Ada";
-        using var key = SignatureKeys.Generate();
-        doc.Signatures = [AprSigner.SignFields(doc, key, "Ada", null, ["name"], At, "sig1")];
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignFields(doc, cert, ["name"], At, "sig1")];
 
-        doc.Sections[0].Prompts[0].Response = "Mallory"; // alter a covered response
+        doc.Sections[0].Prompts[0].Response = "Mallory";
 
-        AprVerifier.Verify(doc, doc.Signatures[0]).IsValid.Should().BeFalse();
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse();
     }
 
     [Fact]
-    public void Filler_ScopeIsolation_OutOfScopeEditDoesNotInvalidate()
+    public void Filler_ScopeIsolation_OutOfScopeEditIgnored()
     {
         var doc = Template();
         doc.Sections[0].Prompts[0].Response = "Ada";
-        using var key = SignatureKeys.Generate();
-        doc.Signatures = [AprSigner.SignFields(doc, key, "Ada", null, ["name"], At, "sig1")];
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignFields(doc, cert, ["name"], At, "sig1")];
 
-        doc.Sections[0].Prompts[2].Response = "edited later"; // "notes" is out of scope
+        doc.Sections[0].Prompts[2].Response = "edited later"; // notes is out of scope
 
-        AprVerifier.Verify(doc, doc.Signatures[0]).IsValid
-            .Should().BeTrue("editing a field outside the signature's scope must not invalidate it");
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeTrue();
     }
 
     [Fact]
-    public void MultipleFillers_EachSignTheirParts_Independently()
+    public void MultipleFillers_SignTheirParts_Independently()
     {
         var doc = Template();
-        doc.Sections[0].Prompts[0].Response = "Ada";   // signed by filler 1
-        doc.Sections[0].Prompts[1].Response = "1815";  // signed by filler 2
-        using var k1 = SignatureKeys.Generate();
-        using var k2 = SignatureKeys.Generate();
+        doc.Sections[0].Prompts[0].Response = "Ada";
+        doc.Sections[0].Prompts[1].Response = "1815";
+        using var k1 = SelfSigned("Ada");
+        using var k2 = SelfSigned("Reviewer");
         doc.Signatures =
         [
-            AprSigner.SignFields(doc, k1, "Ada", null, ["name"], At, "sig-ada"),
-            AprSigner.SignFields(doc, k2, "Reviewer", null, ["dob"], At, "sig-rev"),
+            AprSigner.SignFields(doc, k1, ["name"], At, "sig-ada"),
+            AprSigner.SignFields(doc, k2, ["dob"], At, "sig-rev"),
         ];
 
-        AprVerifier.VerifyAll(doc).Should().OnlyContain(r => r.IsValid);
+        AprVerifier.VerifyAll(doc).Should().OnlyContain(r => r.ContentValid);
 
-        doc.Sections[0].Prompts[0].Response = "Mallory"; // tamper only filler 1's field
+        doc.Sections[0].Prompts[0].Response = "Mallory";
 
         var after = AprVerifier.VerifyAll(doc);
-        after.Single(r => r.Id == "sig-ada").IsValid.Should().BeFalse();
-        after.Single(r => r.Id == "sig-rev").IsValid.Should().BeTrue("the reviewer's scope is untouched");
+        after.Single(r => r.Id == "sig-ada").ContentValid.Should().BeFalse();
+        after.Single(r => r.Id == "sig-rev").ContentValid.Should().BeTrue();
+    }
+
+    // ── Trust models ────────────────────────────────────────────────────────
+
+    [Fact]
+    public void SelfSigned_NotPinned_IsValidButSelfSignedTrust()
+    {
+        var doc = Template();
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://gov/submit", At)];
+
+        var r = AprVerifier.Verify(doc, doc.Signatures[0]);
+
+        r.ContentValid.Should().BeTrue();
+        r.Trust.Should().Be(SignatureTrust.SelfSigned);
+    }
+
+    [Fact]
+    public void SelfSigned_Pinned_IsTrusted()
+    {
+        var doc = Template();
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://gov/submit", At)];
+
+        var opts = new AprTrustOptions { TrustAnchors = [cert] };
+        AprVerifier.Verify(doc, doc.Signatures[0], opts).Trust.Should().Be(SignatureTrust.Trusted);
+    }
+
+    [Fact]
+    public void CaIssued_TrustedWhenChainsToConfiguredRoot_UntrustedOtherwise()
+    {
+        var doc = Template();
+        using var ca = SignatureCertificates.CreateCertificateAuthority("Town CA", Before, After);
+        using var leaf = SignatureCertificates.IssueSigningCertificate(ca, "Clerk", Before, After);
+        doc.Signatures = [AprSigner.SignTemplate(doc, leaf, "https://gov/submit", At)];
+
+        // Trusted when the CA is a configured anchor.
+        var trusted = AprVerifier.Verify(doc, doc.Signatures[0], new AprTrustOptions { TrustAnchors = [ca] });
+        trusted.ContentValid.Should().BeTrue();
+        trusted.Trust.Should().Be(SignatureTrust.Trusted);
+
+        // Untrusted when the CA is not trusted (and not a self-signed cert).
+        var untrusted = AprVerifier.Verify(doc, doc.Signatures[0], AprTrustOptions.Default);
+        untrusted.ContentValid.Should().BeTrue();
+        untrusted.Trust.Should().Be(SignatureTrust.Untrusted);
     }
 
     // ── Persistence ─────────────────────────────────────────────────────────
@@ -161,26 +206,25 @@ public class AprSigningTests
     {
         var doc = Template();
         doc.Sections[0].Prompts[0].Response = "Ada";
-        using var pubKey = SignatureKeys.Generate();
-        using var fillKey = SignatureKeys.Generate();
+        using var pub = SelfSigned("Publisher");
+        using var fill = SelfSigned("Ada");
         doc.Signatures =
         [
-            AprSigner.SignTemplate(doc, pubKey, "Pub", null, "https://gov/submit", At),
-            AprSigner.SignFields(doc, fillKey, "Ada", null, ["name"], At, "sig1"),
+            AprSigner.SignTemplate(doc, pub, "https://gov/submit", At),
+            AprSigner.SignFields(doc, fill, ["name"], At, "sig1"),
         ];
 
         var serializer = new AprJsonSerializer();
         var reloaded = serializer.Deserialize(serializer.Serialize(doc));
 
-        AprVerifier.VerifyAll(reloaded).Should().OnlyContain(r => r.IsValid,
-            "signatures must verify after a serialize/deserialize cycle");
+        AprVerifier.VerifyAll(reloaded).Should().OnlyContain(r => r.ContentValid);
         reloaded.Signatures.Should().HaveCount(2);
     }
 
     [Fact]
     public void UnsignedDocument_HasNoSignaturesField()
     {
-        var json = new AprJsonSerializer().Serialize(Template());
-        json.Should().NotContain("signatures", "an unsigned document should not carry a signatures field");
+        new AprJsonSerializer().Serialize(Template())
+            .Should().NotContain("signatures");
     }
 }

@@ -25,13 +25,16 @@ namespace PromptResponse.Core.Signing;
 public static class AprCanonicalizer
 {
     /// <summary>The canonical-payload scheme version.</summary>
-    public const string Scheme = "apr-sig-v1";
+    public const string Scheme = "apr-sig-v2";
 
-    /// <summary>The bytes a publisher signs: form definition + bound submission URL.</summary>
-    public static byte[] PublisherPayload(AprDocument document, Signer signer, string? submissionUrl, string signedAt)
+    /// <summary>
+    /// The bytes a publisher signs: form definition + bound submission URL. The
+    /// signer's identity is bound separately by the CMS certificate, so it is not
+    /// part of this content payload.
+    /// </summary>
+    public static byte[] PublisherPayload(AprDocument document, string? submissionUrl, string signedAt)
     {
         ArgumentNullException.ThrowIfNull(document);
-        ArgumentNullException.ThrowIfNull(signer);
 
         return new Writer()
             .Add("scheme", Scheme)
@@ -40,19 +43,15 @@ public static class AprCanonicalizer
             .Add("templateVersion", document.Metadata.TemplateVersion)
             .Add("submissionUrl", submissionUrl)
             .Add("formDefDigest", Sha256Hex(FormDefinition(document)))
-            .Add("signer.name", signer.Name)
-            .Add("signer.id", signer.Identifier)
-            .Add("signer.key", signer.PublicKey)
             .Add("signedAt", signedAt)
             .ToBytes();
     }
 
     /// <summary>The bytes a filler signs: the responses of the covered fields.</summary>
-    public static byte[] FillerPayload(AprDocument document, IEnumerable<string> fields, Signer signer, string signedAt)
+    public static byte[] FillerPayload(AprDocument document, IEnumerable<string> fields, string signedAt)
     {
         ArgumentNullException.ThrowIfNull(document);
         ArgumentNullException.ThrowIfNull(fields);
-        ArgumentNullException.ThrowIfNull(signer);
 
         var responses = ResponsesById(document);
         var w = new Writer()
@@ -67,12 +66,7 @@ public static class AprCanonicalizer
             w.Add("field." + id, responses.GetValueOrDefault(id, string.Empty));
         }
 
-        return w
-            .Add("signer.name", signer.Name)
-            .Add("signer.id", signer.Identifier)
-            .Add("signer.key", signer.PublicKey)
-            .Add("signedAt", signedAt)
-            .ToBytes();
+        return w.Add("signedAt", signedAt).ToBytes();
     }
 
     /// <summary>
