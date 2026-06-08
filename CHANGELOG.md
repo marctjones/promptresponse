@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Signature status in exports** (Path A) — a signed document's PDF, HTML, and
+  plain-text output now ends with a **Signatures** section listing each signature's
+  role, signer, scope, and verification (`[verified]`/`[INVALID]` + trust level), so
+  a printed or exported copy shows who signed and whether it holds. Rendered via a
+  new `SignatureBlock` on the shared seam (the builder verifies with default trust);
+  unsigned documents are unaffected.
+
 - **Signing CLI** (Path A) — the signature flow end-to-end from the command line:
   `apr keygen` (self-signed signing cert → `.pfx` + a public `.cer` to pin),
   `apr sign <file> --publisher --cert=… --url=…` (publisher signs the template +

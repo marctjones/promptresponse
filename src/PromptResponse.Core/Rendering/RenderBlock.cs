@@ -67,6 +67,23 @@ public sealed record TableBlock(
 public sealed record TableRowBlock(string Label, IReadOnlyList<TableCellBlock> Cells);
 
 /// <summary>
+/// A summary of the document's signatures and their verification status, rendered
+/// as a "Signatures" section at the end of the output.
+/// </summary>
+/// <param name="Signatures">One entry per signature, in document order.</param>
+public sealed record SignatureBlock(IReadOnlyList<SignatureSummary> Signatures) : RenderBlock;
+
+/// <summary>One signature's display summary for rendering.</summary>
+/// <param name="Role">"Publisher" or "Filler".</param>
+/// <param name="Signer">The signer's name (certificate subject).</param>
+/// <param name="Scope">A human description of what the signature covers.</param>
+/// <param name="ContentValid">Whether the covered content verifies (unaltered).</param>
+/// <param name="Trust">Trust level (e.g. "Trusted", "SelfSigned", "Untrusted", "Invalid").</param>
+/// <param name="Status">A human-readable status line.</param>
+public sealed record SignatureSummary(
+    string Role, string Signer, string Scope, bool ContentValid, string Trust, string Status);
+
+/// <summary>
 /// One cell of a <see cref="TableRowBlock"/>.
 /// </summary>
 /// <param name="Value">The cell's response text (empty string when unanswered).</param>

@@ -134,6 +134,10 @@ public partial class AboutDialog : Window
         new Acknowledgement("Microsoft.Extensions.Options.ConfigurationExtensions", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
         new Acknowledgement("Microsoft.Extensions.Primitives", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
 
+        // ─── System.* (BCL out-of-band) — © .NET Foundation, MIT ─────────────────────
+        new Acknowledgement("System.Security.Cryptography.Pkcs", "10.0.0", "MIT License — © .NET Foundation and Contributors",
+            Note: "CMS/PKCS#7 signing for verifiable APR signatures."),
+
         // ─── Other ────────────────────────────────────────────────────────────────────
         new Acknowledgement("MicroCom.Runtime", "0.11.4", "MIT License — © 2021 Nikita Tsukanov",
             Note: "COM interop runtime used by Avalonia."),

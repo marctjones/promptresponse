@@ -80,6 +80,17 @@ public sealed class PlainTextDocumentRenderer : IDocumentRenderer
                 case TableBlock t:
                     AppendTable(sb, t);
                     break;
+
+                case SignatureBlock s:
+                    sb.AppendLine("## Signatures");
+                    foreach (var sig in s.Signatures)
+                    {
+                        var badge = sig.ContentValid ? "[verified]" : "[INVALID]";
+                        sb.AppendLine($"{badge} {sig.Role}: {sig.Signer} - {sig.Scope}");
+                        sb.AppendLine($"  trust: {sig.Trust} - {sig.Status}");
+                    }
+                    sb.AppendLine();
+                    break;
             }
         }
 

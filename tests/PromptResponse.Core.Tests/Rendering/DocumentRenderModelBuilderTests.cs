@@ -298,6 +298,30 @@ public class DocumentRenderModelBuilderTests
     }
 
     [Fact]
+    public void Build_SignedDocument_AppendsSignatureBlock()
+    {
+        var doc = Doc(new Section { Id = "s", Title = "S", Prompts = [new Prompt { Id = "a", Label = "A" }] });
+        doc.Metadata.TemplateId = "t";
+        using var cert = PromptResponse.Core.Signing.SignatureCertificates.CreateSelfSigned(
+            "Publisher", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1));
+        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, "https://x/submit", DateTime.UtcNow)];
+
+        var block = _builder.Build(doc, RenderOptions.Default).Blocks.OfType<SignatureBlock>().Single();
+
+        block.Signatures.Should().ContainSingle();
+        block.Signatures[0].Role.Should().Be("Publisher");
+        block.Signatures[0].Signer.Should().Be("Publisher");
+        block.Signatures[0].ContentValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void Build_UnsignedDocument_HasNoSignatureBlock()
+    {
+        var doc = Doc(new Section { Id = "s", Title = "S", Prompts = [new Prompt { Id = "a", Label = "A" }] });
+        _builder.Build(doc, RenderOptions.Default).Blocks.OfType<SignatureBlock>().Should().BeEmpty();
+    }
+
+    [Fact]
     public void Build_NullDocument_Throws()
     {
         var act = () => _builder.Build(null!, RenderOptions.Default);
