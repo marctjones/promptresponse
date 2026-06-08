@@ -60,6 +60,12 @@ public interface IFileService
     Task<string?> PickPdfImportPathAsync();
 
     /// <summary>
+    /// Shows an open-file dialog filtered to PKCS#12 certificates (.pfx/.p12) and
+    /// returns the chosen path, or null if cancelled.
+    /// </summary>
+    Task<string?> PickCertificateAsync();
+
+    /// <summary>
     /// Gets the last opened or saved file path.
     /// </summary>
     string? CurrentFilePath { get; }

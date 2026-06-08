@@ -45,6 +45,17 @@ apr verify permit.aprf --trust=publisher.cer
 the certificate is trusted (`trusted` / `self-signed` / `untrusted` / `INVALID`),
 and exits non-zero if any signed content was altered.
 
+## Desktop
+
+With a form open, **File → Sign**:
+- **Sign as publisher…** — pick your `.pfx`, enter the submission URL; signs the
+  form definition and binds the URL.
+- **Sign my responses…** — signs the fields you've filled in.
+
+The right-rail **Signatures** panel shows each signature's role, signer, scope,
+and trust status (with a **Re-verify** button). (In-GUI trust pinning / CA
+configuration is a follow-up; self-signed certs show as such.)
+
 ## Commands
 
 ### `keygen`
