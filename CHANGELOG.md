@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Signing CLI** (Path A) — the signature flow end-to-end from the command line:
+  `apr keygen` (self-signed signing cert → `.pfx` + a public `.cer` to pin),
+  `apr sign <file> --publisher --cert=… --url=…` (publisher signs the template +
+  binds the submit URL), `apr sign <file> --fields=id1,id2 --cert=…` (filler signs
+  their responses), and `apr verify <file> [--trust=anchor.cer]` (reports per
+  signature: content-valid + trusted / self-signed / untrusted / invalid; exits
+  non-zero if any signed content was altered). Works with CA-issued or self-signed
+  `.pfx` certs.
+
 - **Verifiable signatures — foundation** (Path A) — `apr-sig-v2`: industry-standard
   **CMS / PKCS#7 `SignedData`** (RFC 5652) over APR's canonical *content*, signed by
   **X.509 certificates** (RFC 5280) with **FIPS-approved algorithms** (ECDSA P-256 +
