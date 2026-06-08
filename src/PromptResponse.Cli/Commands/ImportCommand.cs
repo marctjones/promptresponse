@@ -28,7 +28,7 @@ public class ImportCommand : ICommand
         if (args.Length == 0)
         {
             Console.Error.WriteLine("Error: PDF path required");
-            Console.Error.WriteLine("Usage: apr import <file.pdf> [--output=<file.aprt>] [--title=<title>]");
+            Console.Error.WriteLine("Usage: apr import <file.pdf> [--output=<file.aprt>] [--title=<title>] [--report]");
             Console.Error.WriteLine();
             Console.Error.WriteLine("Imports a fillable PDF (AcroForm) into an APR template.");
             Console.Error.WriteLine("For flat/scanned PDFs, Word, or images, use the document-to-apr skill.");
@@ -38,6 +38,7 @@ public class ImportCommand : ICommand
         var inputPath = args.FirstOrDefault(a => !a.StartsWith("--"));
         var outputPath = GetArgValue(args, "--output");
         var title = GetArgValue(args, "--title");
+        var report = args.Contains("--report");
 
         if (string.IsNullOrEmpty(inputPath))
         {
@@ -56,7 +57,7 @@ public class ImportCommand : ICommand
         try
         {
             var importer = new PdfFormImporter();
-            var document = importer.Import(inputPath, title);
+            var (document, quality) = importer.ImportWithQuality(inputPath, title);
 
             var promptCount = CountPrompts(document.Sections);
             Console.WriteLine($"Imported '{document.Metadata.Title}' from {inputPath}");
@@ -77,6 +78,13 @@ public class ImportCommand : ICommand
                 Console.WriteLine("  Validation: passed");
             }
 
+            // Always print the one-line quality verdict; --report adds the breakdown.
+            Console.WriteLine($"  Quality:    {quality.Summary}");
+            if (report)
+            {
+                PrintReport(quality);
+            }
+
             var json = _serializer.Serialize(document);
             await File.WriteAllTextAsync(outputPath, json);
             Console.WriteLine($"Wrote: {outputPath}");
@@ -91,6 +99,28 @@ public class ImportCommand : ICommand
         {
             Console.Error.WriteLine($"Error: failed to import PDF: {ex.Message}");
             return 1;
+        }
+    }
+
+    private static void PrintReport(PromptResponse.Rendering.Pdf.ImportQuality q)
+    {
+        Console.WriteLine();
+        Console.WriteLine("Import quality report");
+        Console.WriteLine($"  Score:             {q.Score}/100 ({q.Grade})");
+        Console.WriteLine($"  Recommendation:    {q.Recommendation}");
+        Console.WriteLine($"  Tooltip coverage:  {q.TooltipCoverage:P0}");
+        Console.WriteLine($"  Cryptic labels:    {q.CrypticLabelRatio:P0}");
+        Console.WriteLine($"  Duplicate labels:  {q.DuplicateLabelRatio:P0}");
+        Console.WriteLine($"  Flags:             {q.Flags.Count}");
+
+        const int show = 15;
+        foreach (var flag in q.Flags.Take(show))
+        {
+            Console.WriteLine($"    - [{flag.Kind}] {flag.PromptId}: {flag.Message}");
+        }
+        if (q.Flags.Count > show)
+        {
+            Console.WriteLine($"    … and {q.Flags.Count - show} more.");
         }
     }
 

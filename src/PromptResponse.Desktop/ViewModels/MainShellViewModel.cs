@@ -751,7 +751,18 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
         try
         {
-            var doc = new PdfFormImporter().Import(path);
+            var (doc, quality) = new PdfFormImporter().ImportWithQuality(path);
+
+            // When the import looks poor (cryptic labels — the PDF has no field
+            // tooltips), warn and let the user back out toward the skill.
+            if (quality.Recommendation == ImportRecommendation.UseSkillInstead)
+            {
+                var openAnyway = await _dialogService.ShowConfirmationAsync(
+                    "Low-quality import",
+                    $"{quality.Summary}\n\nOpen it anyway?");
+                if (!openAnyway) return;
+            }
+
             _session.Set(doc, filePath: null, dirty: true);
         }
         catch (PdfFormImporter.NoFormFieldsException ex)

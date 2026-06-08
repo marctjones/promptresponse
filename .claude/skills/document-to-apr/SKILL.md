@@ -1,6 +1,6 @@
 ---
 name: document-to-apr
-version: 1.0.0
+version: 1.1.0
 description: >-
   Convert an existing form into a PromptResponse APR template (.aprt). Use when
   the user wants to import, recreate, or "turn into a fillable form" a PDF, Word
@@ -37,6 +37,27 @@ reconstruct it faithfully. That is the whole point of doing this as a skill.
 > government PDFs ship without tooltips (e.g. IRS Form 990 → fields named
 > `f1_1[0]`), so its labels can be useless. When `apr import` produces cryptic
 > labels, or the PDF is flat/scanned/an image/Word, fall back to this skill.
+
+## Two modes
+
+- **Author from scratch** (the default) — you're given only the source form and
+  produce a fresh `.aprt`. Follow the Procedure below.
+- **Enrich an imported skeleton** (hybrid) — you're given **both** a source PDF
+  *and* an `.aprt` that `apr import` already produced from it (a complete, exactly
+  identified field list with cryptic labels and per-page grouping). This is the
+  best of both: the importer guarantees completeness and real field ids; you add
+  the meaning. In this mode:
+  - **Keep every prompt `id` exactly as imported.** Those ids are the real PDF
+    field names — preserving them lets filled values round-trip back into the
+    original PDF. Never rename or drop them; don't invent new ones.
+  - **Replace cryptic labels** (e.g. `f1_1[0]`) with the real question text you
+    read off the PDF page at that field's location.
+  - **Regroup** the flat per-page sections into the form's actual Parts/Sections,
+    and set sensible `expectedDataType`s.
+  - **Merge** sets of checkboxes that are really "choose one" into a single
+    dropdown (`suggestedValues`) where it's safe to do so.
+  - Treat the imported file as ground truth for *what fields exist* and use its
+    count as a checklist so you don't miss or duplicate any.
 
 ## Procedure
 

@@ -277,6 +277,72 @@ public class MainShellViewModelTests
         }
     }
 
+    private static byte[] CrypticFillablePdf() => new FillablePdfDocumentRenderer().RenderToBytes(new AprDocument
+    {
+        DocumentType = DocumentType.Template,
+        Metadata = new Metadata { Title = "Raw" },
+        Sections =
+        [
+            new Section { Id = "p1", Title = "Page 1", Prompts =
+            [
+                new Prompt { Id = "f1_1", Label = "f1_1[0]", Hints = new PromptHints { ExpectedDataType = "text" } },
+                new Prompt { Id = "f1_2", Label = "f1_2[0]", Hints = new PromptHints { ExpectedDataType = "text" } },
+            ]},
+        ],
+    });
+
+    [Fact]
+    public async Task ImportPdf_LowQuality_Declined_DoesNotOpen()
+    {
+        var fs = Substitute.For<IFileService>();
+        var dlg = Substitute.For<IDialogService>();
+        var pdf = Path.Combine(Path.GetTempPath(), $"raw_{Guid.NewGuid():N}.pdf");
+        await File.WriteAllBytesAsync(pdf, CrypticFillablePdf());
+        fs.PickPdfImportPathAsync().Returns(pdf);
+        dlg.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(false); // user backs out
+
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, dialogService: dlg, session: session);
+
+        try
+        {
+            await shell.ImportPdf();
+
+            await dlg.Received(1).ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>());
+            session.CurrentDocument.Should().BeNull("declining the low-quality warning must not open the import");
+        }
+        finally
+        {
+            if (File.Exists(pdf)) File.Delete(pdf);
+        }
+    }
+
+    [Fact]
+    public async Task ImportPdf_LowQuality_Accepted_Opens()
+    {
+        var fs = Substitute.For<IFileService>();
+        var dlg = Substitute.For<IDialogService>();
+        var pdf = Path.Combine(Path.GetTempPath(), $"raw_{Guid.NewGuid():N}.pdf");
+        await File.WriteAllBytesAsync(pdf, CrypticFillablePdf());
+        fs.PickPdfImportPathAsync().Returns(pdf);
+        dlg.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(true); // open anyway
+
+        var session = new DocumentSessionService();
+        var shell = CreateShell(fs, dialogService: dlg, session: session);
+
+        try
+        {
+            await shell.ImportPdf();
+
+            session.CurrentDocument.Should().NotBeNull();
+            session.IsDirty.Should().BeTrue();
+        }
+        finally
+        {
+            if (File.Exists(pdf)) File.Delete(pdf);
+        }
+    }
+
     private static AprDocument ExprDoc() => new()
     {
         Metadata = new Metadata { Title = "T" },

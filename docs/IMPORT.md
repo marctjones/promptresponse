@@ -24,7 +24,26 @@ The deterministic importer reads a PDF's AcroForm fields and writes a template.
 apr import form.pdf                       # -> form.aprt
 apr import form.pdf --output=intake.aprt  # explicit output
 apr import form.pdf --title="Intake Form" # set the document title
+apr import form.pdf --report              # print a quality score + per-field flags
 ```
+
+### It tells you how good the import is
+
+Quality hinges on whether the PDF's fields carry tooltips, which you can't know
+until you try — so the importer **scores itself** (no AI) and recommends what to
+do. Every run prints a one-line verdict; `--report` adds the breakdown and
+per-field flags:
+
+```
+Quality: Good (84/100, B). 99% of 6197 fields have human-readable labels — use directly.   # SF-86
+Quality: Poor (0/100, F). Only 0% of 1075 fields have readable labels … use the skill.      # IRS 990
+```
+
+The score comes from tooltip coverage, the ratio of cryptic (raw-field-name)
+labels, and duplicate labels; the recommendation is **use directly** (≥70),
+**review** (40–69), or **use the skill** (<40). In the desktop app a poor import
+asks before opening. Don't trust "it validated" as a proxy for quality — a 100%
+valid import can still be 100% useless labels.
 
 What it does:
 - Each form field becomes a prompt; fields are grouped **one section per page**.
@@ -75,6 +94,27 @@ plus the format spec.
 The skill is versioned independently of the app (see `version:` in its
 `SKILL.md`); its behavior spec lives in
 [`.claude/skills/document-to-apr/SKILL.md`](../.claude/skills/document-to-apr/SKILL.md).
+
+---
+
+## Best of both — the hybrid workflow
+
+The two paths aren't rivals; chained, they beat either alone. The importer
+guarantees **completeness and exact field identity** (every field, with its real
+PDF name as the prompt id — the hook for pushing values back into the original
+PDF). The skill is best at **meaning and structure** (real labels, sections,
+types, choices). So for an important fillable PDF, especially a tooltip-less one:
+
+1. `apr import form.pdf -o form.aprt` — get the complete, exactly-identified
+   skeleton (and its quality score).
+2. Hand **both** `form.aprt` and `form.pdf` to the `document-to-apr` skill and
+   ask it to **enrich the skeleton**: it fixes the cryptic labels, regroups the
+   per-page sections into the form's real structure, and sets types — while
+   **keeping every prompt id** so values still round-trip to the PDF.
+
+This gives you the importer's completeness + exact ids *and* the skill's
+human-quality labels and structure. The skill has an explicit "enrich an imported
+skeleton" mode for exactly this (see its `SKILL.md`).
 
 ---
 

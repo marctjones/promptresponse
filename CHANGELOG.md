@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Import quality score + recommendation** — `apr import` now assesses how good
+  an import is (no AI) from tooltip coverage, cryptic-label and duplicate-label
+  ratios, printing a one-line verdict (e.g. *"Poor (0/100) … use the skill"* for
+  IRS 990 vs *"Good (84/100) … use directly"* for SF-86) and a use-directly /
+  review / use-the-skill recommendation. `--report` adds the breakdown and
+  **per-field review flags** (cryptic label, duplicate label, likely radio group).
+  The desktop **Import from PDF…** flow warns before opening a poor import.
+  New `ImportQuality` / `ImportWithQuality`.
+- **Importer → skill hybrid workflow** — the `document-to-apr` skill gains an
+  *enrich-an-imported-skeleton* mode: feed it the `apr import` output plus the
+  PDF and it fixes labels, sections, and types while **keeping the imported field
+  ids** (so values still round-trip to the original PDF). Documented in
+  [docs/IMPORT.md](docs/IMPORT.md).
+
 ## [0.5.0] - 2026-06-07
 
 Import + the web-fill wedge. Bring existing forms into APR two ways — a

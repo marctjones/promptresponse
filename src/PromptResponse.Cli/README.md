@@ -158,17 +158,22 @@ apr import <file.pdf> [--output=<file.aprt>] [--title=<title>]
 **Options:**
 - `--output=<file>`: Output path (default: input name with `.aprt`)
 - `--title=<title>`: Document title (default: derived from the file name)
+- `--report`: Print a quality score, recommendation, and per-field review flags
 
 **Examples:**
 ```bash
 apr import form.pdf
 apr import form.pdf --output=intake.aprt --title="Intake Form"
+apr import form.pdf --report
 ```
 
 Field kinds map to data-type hints (checkbox → `boolean`, dropdown →
-`suggestedValues`); the field tooltip becomes the label. Flat/scanned PDFs (no
-form fields) report an error — for those, plus Word/OpenDocument/images, use the
-`document-to-apr` skill. See [docs/IMPORT.md](../../docs/IMPORT.md).
+`suggestedValues`); the field tooltip becomes the label. Every run prints a
+one-line **quality verdict** (the importer scores itself — high when the PDF has
+field tooltips, low when it doesn't) with a use-directly / review / use-the-skill
+recommendation. Flat/scanned PDFs (no form fields) report an error — for those,
+plus Word/OpenDocument/images, use the `document-to-apr` skill. See
+[docs/IMPORT.md](../../docs/IMPORT.md).
 
 ### help
 
