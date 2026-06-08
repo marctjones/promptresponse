@@ -38,6 +38,7 @@ public class ExportCommand : ICommand
             Console.Error.WriteLine("  --fillable            Export a fillable form with live fields (pdf, html)");
             Console.Error.WriteLine("  --page-size=<size>    letter (default), a4, or legal (pdf)");
             Console.Error.WriteLine("  --banner=<text>       Classification/handling banner on every page (pdf), e.g. \"OFFICIAL\"");
+            Console.Error.WriteLine("  --pdfa                Produce a PDF/A-2b archival file (flat, embedded font) (pdf)");
             return 1;
         }
 
@@ -77,7 +78,8 @@ public class ExportCommand : ICommand
             {
                 var pageSize = ParsePageSize(GetArgValue(args, "--page-size"));
                 var banner = GetArgValue(args, "--banner");
-                return await ExportToPdfAsync(document, outputPath, excludeEmpty, fillable, pageSize, banner);
+                var pdfa = args.Contains("--pdfa");
+                return await ExportToPdfAsync(document, outputPath, excludeEmpty, fillable, pageSize, banner, pdfa);
             }
 
             // Generate export
@@ -128,7 +130,7 @@ public class ExportCommand : ICommand
         _ => PdfPageSize.Letter,
     };
 
-    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty, bool fillable, PdfPageSize pageSize, string? banner)
+    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty, bool fillable, PdfPageSize pageSize, string? banner, bool archival)
     {
         // A PDF is binary, so it must be written to a file rather than stdout.
         if (string.IsNullOrEmpty(outputPath))
@@ -137,10 +139,16 @@ public class ExportCommand : ICommand
             return 1;
         }
 
-        var print = new PdfRenderOptions { PageSize = pageSize, BannerText = banner };
+        if (archival && fillable)
+        {
+            Console.Error.WriteLine("Note: --pdfa produces a flat archival PDF; --fillable is ignored.");
+        }
 
-        // --fillable produces an interactive AcroForm; otherwise a flat PDF.
-        IDocumentRenderer renderer = fillable
+        var print = new PdfRenderOptions { PageSize = pageSize, BannerText = banner, Archival = archival };
+
+        // --pdfa forces a flat (non-interactive) archival PDF; --fillable produces
+        // an interactive AcroForm; otherwise a flat PDF.
+        IDocumentRenderer renderer = fillable && !archival
             ? new FillablePdfDocumentRenderer(print: print)
             : new PdfDocumentRenderer(print: print);
         var options = new RenderOptions { IncludeEmptyFields = !excludeEmpty };

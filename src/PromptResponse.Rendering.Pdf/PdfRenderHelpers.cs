@@ -27,7 +27,7 @@ internal static class PdfRenderHelpers
     /// appends to each page's content, and sits inside the margins so nothing
     /// overlaps the form body.
     /// </summary>
-    public static void ApplyRunningElements(PdfDocument doc, PdfRenderOptions options, string title)
+    public static void ApplyRunningElements(PdfDocument doc, PdfRenderOptions options, string title, PdfFont? embeddedFont = null)
     {
         var banner = string.IsNullOrWhiteSpace(options.BannerText) ? null : options.BannerText!.Trim();
         if (!options.ShowFooter && banner is null)
@@ -35,8 +35,10 @@ internal static class PdfRenderHelpers
             return;
         }
 
-        var font = PdfFont.Helvetica(8);
-        var bannerFont = PdfFont.HelveticaBold(9);
+        // For PDF/A the footer must use the embedded font too (no base-14). Reuse
+        // the document's archival font at the footer/banner sizes.
+        var font = embeddedFont is not null ? embeddedFont.WithSize(8) : PdfFont.Helvetica(8);
+        var bannerFont = embeddedFont is not null ? embeddedFont.WithSize(9) : PdfFont.HelveticaBold(9);
         var brush = PdfBrush.Black;
         var pen = new PdfPen(PdfColor.FromGray(0.75), 0.5);
 

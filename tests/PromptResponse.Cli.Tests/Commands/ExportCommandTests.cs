@@ -104,6 +104,30 @@ public class ExportCommandTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_Pdfa_WritesArchivalPdfWithPdfAMarkers()
+    {
+        var document = CreateTestDocument();
+        var tempFile = Path.GetTempFileName();
+        var outputFile = Path.Combine(Path.GetTempPath(), $"archival_{Guid.NewGuid():N}.pdf");
+
+        try
+        {
+            await File.WriteAllTextAsync(tempFile, _serializer.Serialize(document));
+
+            var exitCode = await _command.ExecuteAsync(new[] { tempFile, "--format=pdf", "--pdfa", $"--output={outputFile}" });
+
+            exitCode.Should().Be(0);
+            var raw = System.Text.Encoding.Latin1.GetString(await File.ReadAllBytesAsync(outputFile));
+            raw.Should().Contain("pdfaid:part").And.Contain("/OutputIntents").And.Contain("DejaVuSans");
+        }
+        finally
+        {
+            if (File.Exists(tempFile)) File.Delete(tempFile);
+            if (File.Exists(outputFile)) File.Delete(outputFile);
+        }
+    }
+
+    [Fact]
     public async Task ExecuteAsync_PdfFormat_WithoutOutput_ShouldReturnError()
     {
         // Arrange — PDF is binary and must go to a file, not stdout.

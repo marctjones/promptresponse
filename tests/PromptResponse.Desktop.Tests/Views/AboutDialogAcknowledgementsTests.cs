@@ -141,8 +141,9 @@ public class AboutDialogAcknowledgementsTests
 
         foreach (var ack in AboutDialog.Acknowledgements)
         {
-            // .NET Runtime is special — it's not a NuGet PackageReference, it's the SDK.
-            if (string.Equals(ack.Name, ".NET Runtime", StringComparison.OrdinalIgnoreCase)) continue;
+            // Non-package entries: the SDK runtime, and bundled assets (fonts) that
+            // ship embedded rather than as NuGet PackageReferences.
+            if (ack.Name is ".NET Runtime" or "DejaVu Sans") continue;
 
             shipped.TryGetValue(ack.Name, out var actualVersion)
                 .Should().BeTrue($"acknowledgement entry '{ack.Name}' refers to a package that no longer ships at runtime — remove it from AboutDialog");

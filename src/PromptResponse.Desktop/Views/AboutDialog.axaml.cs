@@ -138,6 +138,10 @@ public partial class AboutDialog : Window
         new Acknowledgement("System.Security.Cryptography.Pkcs", "10.0.0", "MIT License — © .NET Foundation and Contributors",
             Note: "CMS/PKCS#7 signing for verifiable APR signatures."),
 
+        // ─── Bundled fonts (not NuGet packages) ─────────────────────────────────────
+        new Acknowledgement("DejaVu Sans", "2.37", "Bitstream Vera / public-domain (DejaVu changes) — GPL-compatible",
+            Note: "Embedded in PDF/A archival export (PDF/A forbids non-embedded base-14 fonts)."),
+
         // ─── Other ────────────────────────────────────────────────────────────────────
         new Acknowledgement("MicroCom.Runtime", "0.11.4", "MIT License — © 2021 Nikita Tsukanov",
             Note: "COM interop runtime used by Avalonia."),

@@ -80,7 +80,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | CSV/JSON/TXT export | P1 | ✅ | Via CLI export command |
 | HTML export | P2 | ✅ | Accessible HTML page (`export --format=html`); foundation for a browser fill path |
 | Fillable HTML (browser fill) | P1 | ✅ | `export --format=html --fillable` → self-contained interactive web form that downloads `.aprf`; no server. CLI + desktop File → Export |
-| **PDF export** | **P1** | **✅** | Flat **and** fillable-AcroForm PDF via CLI (`export --format=pdf [--fillable] [--page-size=a4]`) and the desktop File → Export menu (pdfe engine); carries document metadata, a running footer (title · generated date · "Page X of Y"), and a page-size option (Letter/A4/Legal). Unicode text rendering through the builder is the remaining gap (pdfe#398) (#31) |
+| **PDF export** | **P1** | **✅** | Flat **and** fillable-AcroForm PDF via CLI (`export --format=pdf [--fillable] [--page-size=a4] [--pdfa] [--banner=…]`) and the desktop File → Export menu (pdfe engine); carries document metadata, a running footer (title · generated date · "Page X of Y"), page size (Letter/A4/Legal), classification banners, and a **PDF/A-2b archival** mode (`--pdfa`, embedded font, veraPDF-validated) (#31, #80) |
 | Word export (.docx) | P2 | ⏳ | Export to Word format |
 | Excel export (.xlsx) | P2 | ⏳ | Export to spreadsheet |
 

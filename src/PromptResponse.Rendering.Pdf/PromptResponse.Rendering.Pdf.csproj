@@ -17,4 +17,15 @@
     <ProjectReference Include="..\PromptResponse.Core\PromptResponse.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!--
+      DejaVu Sans — embedded for PDF/A archival export (PDF/A forbids the
+      non-embedded base-14 fonts) and to render arbitrary Unicode. Bitstream
+      Vera / public-domain license (see Fonts/LICENSE-DejaVu.txt) — GPL-compatible.
+    -->
+    <EmbeddedResource Include="Fonts/DejaVuSans.ttf" />
+    <!-- Ship the font license alongside the binaries (license must travel with distribution). -->
+    <Content Include="Fonts/LICENSE-DejaVu.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

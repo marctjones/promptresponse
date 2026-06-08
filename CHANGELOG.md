@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **PDF/A archival export** (Path A) — `apr export <file> --format=pdf --pdfa`
+  produces a **PDF/A-2b** file for long-term records: embeds a Unicode font
+  (DejaVu Sans), adds the required XMP `pdfaid` metadata and an sRGB OutputIntent
+  (via pdfe 2.9.0's `PdfA()`). **Validated with veraPDF 1.30.2 (PDF/A-2b,
+  144/144 rules).** As a bonus, embedding the font fixes the em-dash/`·` mojibake
+  that affected base-14 PDF output. Flat (non-interactive) output; `--pdfa`
+  overrides `--fillable`. (#80)
+
 ### Changed
 
 - **pdfe 2.7.0 → 2.9.0** (vendored). Additive/non-breaking; brings the new
