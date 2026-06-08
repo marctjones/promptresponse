@@ -176,4 +176,39 @@ public class PdfDocumentRendererTests
         var act = () => _renderer.RenderToBytes(null!);
         act.Should().Throw<ArgumentNullException>();
     }
+
+    [Fact]
+    public void Render_DrawsRunningFooter_WithPageNumbersAndGeneratedDate()
+    {
+        var renderer = new PdfDocumentRenderer(print: new PdfRenderOptions { GeneratedOn = "2026-01-01" });
+
+        var bytes = renderer.RenderToBytes(SampleDoc());
+
+        using var doc = PdfeDoc.Open(bytes);
+        var text = doc.GetPage(1).Text;
+        text.Should().Contain("Page 1 of 1");
+        text.Should().Contain("Generated 2026-01-01");
+    }
+
+    [Fact]
+    public void Render_A4_ProducesA4SizedPages()
+    {
+        var renderer = new PdfDocumentRenderer(print: new PdfRenderOptions { PageSize = PdfPageSize.A4 });
+
+        var bytes = renderer.RenderToBytes(SampleDoc());
+
+        using var doc = PdfeDoc.Open(bytes);
+        doc.GetPage(1).Width.Should().BeApproximately(595.28, 1.0, "A4 is 595.28 pt wide");
+    }
+
+    [Fact]
+    public void Render_FooterDisabled_OmitsPageNumbers()
+    {
+        var renderer = new PdfDocumentRenderer(print: new PdfRenderOptions { ShowFooter = false });
+
+        var bytes = renderer.RenderToBytes(SampleDoc());
+
+        using var doc = PdfeDoc.Open(bytes);
+        doc.GetPage(1).Text.Should().NotContain("Page 1 of");
+    }
 }

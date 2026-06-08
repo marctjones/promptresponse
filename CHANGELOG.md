@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Richer PDF print** (Path A) — flat and fillable PDF export now carry a
+  professional running **footer** on every page (document title · "Generated
+  <date>" · **"Page X of Y"**, above a thin rule) and support a **page size**
+  (Letter / A4 / Legal). CLI: `export --format=pdf --page-size=a4`; the desktop
+  Export menu gets the footer by default. New `PdfRenderOptions`; layout stays in
+  the renderer (the `.apr` format still carries none). First item of the
+  committed **Path A** wedge (see ROADMAP §3).
+
 - **Import quality score + recommendation** — `apr import` now assesses how good
   an import is (no AI) from tooltip coverage, cryptic-label and duplicate-label
   ratios, printing a one-line verdict (e.g. *"Poor (0/100) … use the skill"* for

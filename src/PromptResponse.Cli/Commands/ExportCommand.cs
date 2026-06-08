@@ -34,8 +34,9 @@ public class ExportCommand : ICommand
             Console.Error.WriteLine("  pdf  - Flattened PDF (requires --output)");
             Console.Error.WriteLine();
             Console.Error.WriteLine("Options:");
-            Console.Error.WriteLine("  --exclude-empty  Omit unanswered fields (pdf)");
-            Console.Error.WriteLine("  --fillable       Export a fillable form with live fields (pdf, html)");
+            Console.Error.WriteLine("  --exclude-empty       Omit unanswered fields (pdf)");
+            Console.Error.WriteLine("  --fillable            Export a fillable form with live fields (pdf, html)");
+            Console.Error.WriteLine("  --page-size=<size>    letter (default), a4, or legal (pdf)");
             return 1;
         }
 
@@ -73,7 +74,8 @@ public class ExportCommand : ICommand
             // PDF is binary: render to a file via the shared IDocumentRenderer seam.
             if (format.Equals("pdf", StringComparison.OrdinalIgnoreCase))
             {
-                return await ExportToPdfAsync(document, outputPath, excludeEmpty, fillable);
+                var pageSize = ParsePageSize(GetArgValue(args, "--page-size"));
+                return await ExportToPdfAsync(document, outputPath, excludeEmpty, fillable, pageSize);
             }
 
             // Generate export
@@ -117,7 +119,14 @@ public class ExportCommand : ICommand
         return arg?.Substring(prefix.Length + 1);
     }
 
-    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty, bool fillable)
+    private static PdfPageSize ParsePageSize(string? value) => value?.ToLowerInvariant() switch
+    {
+        "a4" => PdfPageSize.A4,
+        "legal" => PdfPageSize.Legal,
+        _ => PdfPageSize.Letter,
+    };
+
+    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty, bool fillable, PdfPageSize pageSize)
     {
         // A PDF is binary, so it must be written to a file rather than stdout.
         if (string.IsNullOrEmpty(outputPath))
@@ -126,10 +135,12 @@ public class ExportCommand : ICommand
             return 1;
         }
 
+        var print = new PdfRenderOptions { PageSize = pageSize };
+
         // --fillable produces an interactive AcroForm; otherwise a flat PDF.
         IDocumentRenderer renderer = fillable
-            ? new FillablePdfDocumentRenderer()
-            : new PdfDocumentRenderer();
+            ? new FillablePdfDocumentRenderer(print: print)
+            : new PdfDocumentRenderer(print: print);
         var options = new RenderOptions { IncludeEmptyFields = !excludeEmpty };
 
         await using (var stream = File.Create(outputPath))
