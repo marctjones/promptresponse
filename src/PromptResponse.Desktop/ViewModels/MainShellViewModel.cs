@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PromptResponse.Core.Expressions;
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Signing;
 using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Validation;
 using PromptResponse.Desktop.Profiles;
@@ -35,6 +36,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
     private readonly ObservableCollection<SectionViewModel> _sections = new();
     private readonly ObservableCollection<AdvisoryItem> _advisories = new();
+    private readonly ObservableCollection<SignatureStatusItem> _signatures = new();
 
     public MainShellViewModel(
         IFileService fileService,
@@ -421,6 +423,50 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             FocusPromptRequested?.Invoke(promptId);
         }
     }
+
+    // ── signatures (verify / trust status) ───────────────────────────────────
+
+    /// <summary>The document's signatures with their verification + trust status.</summary>
+    public IReadOnlyList<SignatureStatusItem> Signatures => _signatures;
+
+    /// <summary>Whether the open document carries any signatures.</summary>
+    public bool HasSignatures => _signatures.Count > 0;
+
+    /// <summary>A one-line summary for the signatures panel.</summary>
+    public string SignatureSummary => _signatures.Count == 0
+        ? "Not signed"
+        : _signatures.Any(s => !s.ContentValid)
+            ? $"{_signatures.Count} signature(s) — one or more INVALID"
+            : $"{_signatures.Count} signature(s) — all verify";
+
+    /// <summary>
+    /// Re-verifies the document's signatures (default trust: certificates are
+    /// reported as trusted only if self-signed certs are pinned or CA certs chain
+    /// to a configured root — neither is wired in the GUI yet, so self-signed certs
+    /// show as "SelfSigned"). Cheap to call on load; not run on every keystroke.
+    /// </summary>
+    public void RefreshSignatures()
+    {
+        _signatures.Clear();
+        var doc = _session.CurrentDocument;
+        if (doc?.Signatures is { Count: > 0 } sigs)
+        {
+            var results = AprVerifier.VerifyAll(doc);
+            for (var i = 0; i < sigs.Count && i < results.Count; i++)
+            {
+                var r = results[i];
+                var scope = sigs[i].Scope == "template" ? "form definition" : string.Join(", ", sigs[i].Fields);
+                _signatures.Add(new SignatureStatusItem(r.Id, r.Role.ToString(), r.SignerName, scope, r.ContentValid, r.Trust.ToString(), r.Status));
+            }
+        }
+        OnPropertyChanged(nameof(Signatures));
+        OnPropertyChanged(nameof(HasSignatures));
+        OnPropertyChanged(nameof(SignatureSummary));
+    }
+
+    /// <summary>Re-verifies signatures on demand (e.g. after editing responses).</summary>
+    [RelayCommand]
+    public void RefreshSignaturesNow() => RefreshSignatures();
 
     /// <summary>
     /// Re-runs the advisory inspection over the current document. Per the vision,
@@ -938,6 +984,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(Metadata));
         ToggleEditModeCommand.NotifyCanExecuteChanged();
         RefreshAdvisories();
+        RefreshSignatures();
         SaveCommand.NotifyCanExecuteChanged();
         SaveAsCommand.NotifyCanExecuteChanged();
         CloseCommand.NotifyCanExecuteChanged();
