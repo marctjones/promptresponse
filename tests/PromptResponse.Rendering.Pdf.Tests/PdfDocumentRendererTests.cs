@@ -229,6 +229,25 @@ public class PdfDocumentRendererTests
     }
 
     [Fact]
+    public void Render_Archival_EmbedsFont_AndAddsPdfAStructures()
+    {
+        var renderer = new PdfDocumentRenderer(print: new PdfRenderOptions { Archival = true });
+
+        var bytes = renderer.RenderToBytes(SampleDoc());
+        var raw = System.Text.Encoding.Latin1.GetString(bytes);
+
+        // PDF/A markers: pdfaid XMP + sRGB OutputIntent.
+        raw.Should().Contain("pdfaid:part");
+        raw.Should().Contain("/OutputIntents");
+        // The Unicode font is embedded; no non-embedded base-14 leaks in.
+        raw.Should().Contain("DejaVuSans");
+        raw.Should().NotContain("Helvetica", "PDF/A forbids the non-embedded base-14 fonts");
+        // Reopens as a valid PDF.
+        using var doc = PdfeDoc.Open(bytes);
+        doc.PageCount.Should().BeGreaterThan(0);
+    }
+
+    [Fact]
     public void Render_Banner_AppearsTopAndBottomOfEveryPage()
     {
         var renderer = new PdfDocumentRenderer(print: new PdfRenderOptions

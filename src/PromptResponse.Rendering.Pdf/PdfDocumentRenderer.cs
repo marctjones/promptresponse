@@ -60,6 +60,17 @@ public sealed class PdfDocumentRenderer : IDocumentRenderer
 
         var model = _builder.Build(document, options);
         var pdf = PdfDocumentBuilder.Create(PdfRenderHelpers.ToPageSize(_print.PageSize));
+
+        // PDF/A archival: embed a Unicode font (base-14 is forbidden) and add the
+        // pdfaid/OutputIntent structures. The same font instance is reused for the
+        // running footer so no base-14 font leaks into the output.
+        Pdfe.Core.Graphics.PdfFont? archivalFont = null;
+        if (_print.Archival)
+        {
+            archivalFont = ArchivalFont.Load();
+            pdf.DefaultFont(archivalFont).PdfA(Pdfe.Core.Authoring.PdfAConformance.PdfA2B);
+        }
+
         PdfRenderHelpers.ApplyMetadata(pdf, document.Metadata);
 
         var title = string.IsNullOrWhiteSpace(model.Title) ? "(untitled)" : model.Title;
@@ -76,7 +87,7 @@ public sealed class PdfDocumentRenderer : IDocumentRenderer
 
         // Build, stamp running elements (footer/banner need the final page count), then save.
         var doc = pdf.Build();
-        PdfRenderHelpers.ApplyRunningElements(doc, _print, title);
+        PdfRenderHelpers.ApplyRunningElements(doc, _print, title, archivalFont);
         doc.Save(output);
     }
 

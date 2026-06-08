@@ -26,6 +26,13 @@ public sealed class PdfRenderOptions
     /// <summary>The page size. Defaults to US Letter.</summary>
     public PdfPageSize PageSize { get; init; } = PdfPageSize.Letter;
 
+    /// <summary>
+    /// Produce a PDF/A-2b archival file: embeds a Unicode font and adds the
+    /// required XMP/OutputIntent structures (pdfe <c>PdfA()</c>). Validated as
+    /// PDF/A-2b under veraPDF. Applies to flat (non-interactive) output.
+    /// </summary>
+    public bool Archival { get; init; }
+
     /// <summary>Whether to draw a running footer at the bottom of every page.</summary>
     public bool ShowFooter { get; init; } = true;
 
