@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Verifiable signatures — foundation** (Path A) — `apr-sig-v1`: detached ECDSA
+  P-256 / SHA-256 signatures over APR content, using only built-in .NET crypto
+  (no new dependency). A **publisher signs the template** (and the signature
+  **binds the submission URL** so it can't be redirected); **fillers sign the
+  responses in their scope**, and multiple signers can each cover the parts they
+  filled. Tamper-evident (editing a covered field invalidates its signatures),
+  scope-isolated (out-of-scope edits don't), and signatures survive JSON
+  round-trips. Pure data + pure-computation verification (consistent with "no
+  code execution"). New `PromptResponse.Core.Signing` (`AprSigner`,
+  `AprVerifier`, `AprCanonicalizer`, `SignatureKeys`), a `Signature`/`Signer`
+  model + `metadata.publisher`/`submissionUrl`. CLI (`keygen`/`sign`/`verify`),
+  desktop UI, and rendering of signature status follow. (Issue #73)
+
 - **Richer PDF print** (Path A) — flat and fillable PDF export now carry a
   professional running **footer** on every page (document title · "Generated
   <date>" · **"Page X of Y"**, above a thin rule) and support a **page size**
