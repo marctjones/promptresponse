@@ -37,6 +37,7 @@ public class ExportCommand : ICommand
             Console.Error.WriteLine("  --exclude-empty       Omit unanswered fields (pdf)");
             Console.Error.WriteLine("  --fillable            Export a fillable form with live fields (pdf, html)");
             Console.Error.WriteLine("  --page-size=<size>    letter (default), a4, or legal (pdf)");
+            Console.Error.WriteLine("  --banner=<text>       Classification/handling banner on every page (pdf), e.g. \"OFFICIAL\"");
             return 1;
         }
 
@@ -75,7 +76,8 @@ public class ExportCommand : ICommand
             if (format.Equals("pdf", StringComparison.OrdinalIgnoreCase))
             {
                 var pageSize = ParsePageSize(GetArgValue(args, "--page-size"));
-                return await ExportToPdfAsync(document, outputPath, excludeEmpty, fillable, pageSize);
+                var banner = GetArgValue(args, "--banner");
+                return await ExportToPdfAsync(document, outputPath, excludeEmpty, fillable, pageSize, banner);
             }
 
             // Generate export
@@ -126,7 +128,7 @@ public class ExportCommand : ICommand
         _ => PdfPageSize.Letter,
     };
 
-    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty, bool fillable, PdfPageSize pageSize)
+    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty, bool fillable, PdfPageSize pageSize, string? banner)
     {
         // A PDF is binary, so it must be written to a file rather than stdout.
         if (string.IsNullOrEmpty(outputPath))
@@ -135,7 +137,7 @@ public class ExportCommand : ICommand
             return 1;
         }
 
-        var print = new PdfRenderOptions { PageSize = pageSize };
+        var print = new PdfRenderOptions { PageSize = pageSize, BannerText = banner };
 
         // --fillable produces an interactive AcroForm; otherwise a flat PDF.
         IDocumentRenderer renderer = fillable

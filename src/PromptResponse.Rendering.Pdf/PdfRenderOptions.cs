@@ -47,6 +47,15 @@ public sealed class PdfRenderOptions
     /// </summary>
     public string? GeneratedOn { get; init; }
 
+    /// <summary>
+    /// An optional classification / handling banner marking drawn centered and
+    /// bold at the top <em>and</em> bottom of every page (in the margins, so it
+    /// never overlaps the form body). For public-sector / compliance handling
+    /// markings such as "CONTROLLED UNCLASSIFIED INFORMATION", "FOR OFFICIAL USE
+    /// ONLY", "OFFICIAL", "DRAFT", or "CONFIDENTIAL". Null/blank = no banner.
+    /// </summary>
+    public string? BannerText { get; init; }
+
     /// <summary>Default options: Letter, footer with page numbers and date.</summary>
     public static PdfRenderOptions Default { get; } = new();
 }

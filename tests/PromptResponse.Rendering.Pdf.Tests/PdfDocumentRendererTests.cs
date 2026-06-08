@@ -211,4 +211,22 @@ public class PdfDocumentRendererTests
         using var doc = PdfeDoc.Open(bytes);
         doc.GetPage(1).Text.Should().NotContain("Page 1 of");
     }
+
+    [Fact]
+    public void Render_Banner_AppearsTopAndBottomOfEveryPage()
+    {
+        var renderer = new PdfDocumentRenderer(print: new PdfRenderOptions
+        {
+            BannerText = "CONTROLLED UNCLASSIFIED INFORMATION",
+            ShowFooter = false,
+        });
+
+        var bytes = renderer.RenderToBytes(SampleDoc());
+
+        using var doc = PdfeDoc.Open(bytes);
+        var text = doc.GetPage(1).Text;
+        // Drawn at both the top and bottom margin → appears twice.
+        System.Text.RegularExpressions.Regex.Matches(text, "CONTROLLED UNCLASSIFIED INFORMATION")
+            .Count.Should().Be(2);
+    }
 }

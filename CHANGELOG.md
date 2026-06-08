@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Export menu gets the footer by default. New `PdfRenderOptions`; layout stays in
   the renderer (the `.apr` format still carries none). First item of the
   committed **Path A** wedge (see ROADMAP §3).
+- **Classification / handling banner markings** (Path A) — `export --format=pdf
+  --banner="CONTROLLED UNCLASSIFIED INFORMATION"` stamps a bold, centered banner
+  at the top **and** bottom of every page (in the margins, never overlapping the
+  body) — for public-sector / compliance handling markings (CUI, FOUO, OFFICIAL,
+  DRAFT, CONFIDENTIAL).
 
 - **Import quality score + recommendation** — `apr import` now assesses how good
   an import is (no AI) from tooltip coverage, cryptic-label and duplicate-label

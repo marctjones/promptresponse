@@ -74,9 +74,9 @@ public sealed class PdfDocumentRenderer : IDocumentRenderer
             WriteBlock(pdf, block);
         }
 
-        // Build, stamp the running footer (needs the final page count), then save.
+        // Build, stamp running elements (footer/banner need the final page count), then save.
         var doc = pdf.Build();
-        PdfRenderHelpers.ApplyRunningFooter(doc, _print, title);
+        PdfRenderHelpers.ApplyRunningElements(doc, _print, title);
         doc.Save(output);
     }
 
