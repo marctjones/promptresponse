@@ -701,6 +701,47 @@
                                        TextWrapping="Wrap"/>
                         </StackPanel>
 
+                        <!-- Signatures — verification + trust status (shown when signed) -->
+                        <StackPanel Spacing="8" IsVisible="{Binding HasSignatures}"
+                                    AutomationProperties.Name="Signatures panel">
+                            <TextBlock Text="Signatures"
+                                       FontWeight="SemiBold"
+                                       FontSize="{Binding CaptionFontSize}"
+                                       Foreground="{Binding ActiveProfileMutedTextBrush}"/>
+                            <Button Content="Re-verify"
+                                    Command="{Binding RefreshSignaturesNowCommand}"
+                                    HorizontalAlignment="Stretch"
+                                    MinHeight="32"
+                                    CornerRadius="6"
+                                    AutomationProperties.Name="Re-verify signatures"
+                                    AutomationProperties.HelpText="Re-check each signature against the current content"/>
+                            <TextBlock Text="{Binding SignatureSummary}"
+                                       FontSize="{Binding BodyFontSize}"
+                                       AutomationProperties.LiveSetting="Polite"/>
+                            <ItemsControl ItemsSource="{Binding Signatures}"
+                                          x:Name="SignatureList"
+                                          AutomationProperties.Name="Signature list">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="vm:SignatureStatusItem">
+                                        <Border Padding="8,6" Margin="0,2"
+                                                CornerRadius="4" BorderThickness="1"
+                                                BorderBrush="{Binding #Root.((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
+                                                AutomationProperties.Name="{Binding Headline}"
+                                                AutomationProperties.HelpText="{Binding Status}">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="{Binding Headline}"
+                                                           FontSize="12" FontWeight="SemiBold"/>
+                                                <TextBlock Text="{Binding Scope}"
+                                                           FontSize="11" Opacity="0.8" TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding Status}"
+                                                           FontSize="11" Opacity="0.8" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+
                     </StackPanel>
                 </ScrollViewer>
             </Border>

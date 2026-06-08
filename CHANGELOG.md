@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Desktop signatures panel** (Path A) — opening a signed form now shows a
+  **Signatures** panel in the right rail: a one-line summary ("N signature(s) —
+  all verify" / "… one or more INVALID") and a row per signature with role,
+  signer, scope, and trust status, plus a **Re-verify** button. Verifies on load
+  (default trust; self-signed certs show as such until pinning/CA trust is wired
+  into the GUI). Accessible (AutomationProperties throughout). In-GUI *signing*
+  actions are a follow-up. (#73)
+
 - **Signature status in exports** (Path A) — a signed document's PDF, HTML, and
   plain-text output now ends with a **Signatures** section listing each signature's
   role, signer, scope, and verification (`[verified]`/`[INVALID]` + trust level), so

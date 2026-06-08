@@ -343,6 +343,57 @@ public class MainShellViewModelTests
         }
     }
 
+    [Fact]
+    public void LoadingSignedDocument_PopulatesSignaturesPanel()
+    {
+        var doc = MakeTemplate();
+        using var cert = PromptResponse.Core.Signing.SignatureCertificates.CreateSelfSigned(
+            "Town of Bloomfield", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1));
+        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, "https://gov/submit", DateTime.UtcNow)];
+
+        var session = new DocumentSessionService();
+        var shell = CreateShell(session: session);
+        session.Set(doc, null);
+
+        shell.HasSignatures.Should().BeTrue();
+        shell.Signatures.Should().ContainSingle();
+        shell.Signatures[0].Role.Should().Be("Publisher");
+        shell.Signatures[0].Signer.Should().Be("Town of Bloomfield");
+        shell.SignatureSummary.Should().Contain("all verify");
+    }
+
+    [Fact]
+    public void LoadingUnsignedDocument_HasNoSignatures()
+    {
+        var session = new DocumentSessionService();
+        var shell = CreateShell(session: session);
+        session.Set(MakeTemplate(), null);
+
+        shell.HasSignatures.Should().BeFalse();
+        shell.SignatureSummary.Should().Be("Not signed");
+    }
+
+    [Fact]
+    public void RefreshSignatures_AfterTamperingASignedField_ReportsInvalid()
+    {
+        var doc = MakeTemplate();
+        doc.Sections[0].Prompts[0].Response = "Ada";
+        using var cert = PromptResponse.Core.Signing.SignatureCertificates.CreateSelfSigned(
+            "Ada", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1));
+        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignFields(doc, cert, ["p1"], DateTime.UtcNow, "f1")];
+
+        var session = new DocumentSessionService();
+        var shell = CreateShell(session: session);
+        session.Set(doc, null);
+        shell.Signatures[0].ContentValid.Should().BeTrue();
+
+        doc.Sections[0].Prompts[0].Response = "Mallory";
+        shell.RefreshSignatures();
+
+        shell.Signatures[0].ContentValid.Should().BeFalse();
+        shell.SignatureSummary.Should().Contain("INVALID");
+    }
+
     private static AprDocument ExprDoc() => new()
     {
         Metadata = new Metadata { Title = "T" },
