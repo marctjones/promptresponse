@@ -9,18 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Verifiable signatures — foundation** (Path A) — `apr-sig-v1`: detached ECDSA
-  P-256 / SHA-256 signatures over APR content, using only built-in .NET crypto
-  (no new dependency). A **publisher signs the template** (and the signature
-  **binds the submission URL** so it can't be redirected); **fillers sign the
-  responses in their scope**, and multiple signers can each cover the parts they
-  filled. Tamper-evident (editing a covered field invalidates its signatures),
-  scope-isolated (out-of-scope edits don't), and signatures survive JSON
-  round-trips. Pure data + pure-computation verification (consistent with "no
-  code execution"). New `PromptResponse.Core.Signing` (`AprSigner`,
-  `AprVerifier`, `AprCanonicalizer`, `SignatureKeys`), a `Signature`/`Signer`
-  model + `metadata.publisher`/`submissionUrl`. CLI (`keygen`/`sign`/`verify`),
-  desktop UI, and rendering of signature status follow. (Issue #73)
+- **Verifiable signatures — foundation** (Path A) — `apr-sig-v2`: industry-standard
+  **CMS / PKCS#7 `SignedData`** (RFC 5652) over APR's canonical *content*, signed by
+  **X.509 certificates** (RFC 5280) with **FIPS-approved algorithms** (ECDSA P-256 +
+  SHA-256) — the standards government demands — using only first-party .NET crypto.
+  Supports **both** trust models: **CA-issued** certs verified by chaining to a
+  configured trusted root (Federal PKI / org CA / eIDAS; PIV/CAC-compatible) and
+  **self-signed** certs trusted by pinning. A **publisher signs the template** and
+  **binds the submission URL** (can't be redirected); **fillers sign the responses
+  in their scope**, and multiple signers each cover the parts they filled.
+  Tamper-evident, scope-isolated, survives JSON round-trips; verification reports
+  trusted / self-signed / untrusted / invalid. Pure data + pure-computation
+  verification. New `PromptResponse.Core.Signing` (`AprSigner`, `AprVerifier`,
+  `AprCanonicalizer`, `SignatureCertificates`, `AprTrustOptions`), a
+  `Signature`/`Signer` model + `metadata.publisher`/`submissionUrl`. RFC 3161
+  timestamps and LTV are an additive follow-up; CLI/UI/rendering follow. (Issue #73)
 
 - **Richer PDF print** (Path A) — flat and fillable PDF export now carry a
   professional running **footer** on every page (document title · "Generated
