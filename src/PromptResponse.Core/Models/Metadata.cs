@@ -98,4 +98,27 @@ public class Metadata
     /// Should be UTC timestamp.
     /// </remarks>
     public DateTime? FilledDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the publisher of the form (the organization or person that
+    /// authored and stands behind the template).
+    /// </summary>
+    /// <remarks>
+    /// Distinct from <see cref="Author"/> (a person). When the template is signed
+    /// by the publisher, the publisher signature's signer identity is the
+    /// authoritative, verifiable form of this.
+    /// </remarks>
+    /// <example>"Town of Bloomfield, CT", "U.S. Office of Personnel Management"</example>
+    public string? Publisher { get; set; }
+
+    /// <summary>
+    /// Gets or sets the URL describing how to submit the completed form.
+    /// </summary>
+    /// <remarks>
+    /// When the template carries a publisher signature, this URL is bound into the
+    /// signed payload so it cannot be altered to redirect submissions without
+    /// invalidating the signature.
+    /// </remarks>
+    /// <example>"https://bloomfieldct.gov/forms/permit/submit"</example>
+    public string? SubmissionUrl { get; set; }
 }
