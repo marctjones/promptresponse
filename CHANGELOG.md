@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-06-09
+
+The **Path A (local-first / sovereignty / accessibility) wedge**, delivered:
+verifiable **digital signatures** (CMS/PKCS#7 + X.509 — publisher signs the
+template & binds the submission URL, fillers sign their scoped responses; CLI +
+desktop + status in exports), **PDF/A-2b archival** export (veraPDF-validated),
+**richer print** (running footer, page size, classification/handling banners),
+and **deeper import** (AcroForm importer with a self-scoring quality report + the
+portable `document-to-apr` skill + the importer→skill hybrid). Bundles the
+vendored pdfe bump to 2.9.0.
+
 ### Added
 
 - **PDF/A archival export** (Path A) — `apr export <file> --format=pdf --pdfa`
