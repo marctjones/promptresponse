@@ -49,12 +49,15 @@ def spec_sections_with_musts():
 
 
 def _declares(source: str, method: str) -> bool:
-    """Does this source declare a test method by that name?
+    """Does this source declare a test by that name?
 
-    Matches both "void Name(" and "Task Name(" - async tests are ordinary here, and a
-    checker that only knew "void" would report a perfectly good gate as missing.
+    The registry spans two languages now, so this knows both: C# "void Name(" and
+    "Task Name(" (async tests are ordinary), and Python "def name(". A checker that
+    only knew one would report a perfectly good gate in the other as missing.
     """
-    return f"void {method}(" in source or f"Task {method}(" in source
+    return any(
+        f"{prefix} {method}(" in source for prefix in ("void", "Task", "def")
+    )
 
 
 def main():

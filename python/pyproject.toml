@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "promptresponse"
+version = "1.0.0b1"
+description = "Reader and writer for the APR form format (core profile)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+# No runtime dependencies. The format is JSON and the standard library reads
+# JSON; a reader people are asked to trust with untrusted files should carry as
+# little third-party code as it can.
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+include = ["promptresponse*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

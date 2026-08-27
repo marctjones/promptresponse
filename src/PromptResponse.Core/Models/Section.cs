@@ -149,9 +149,19 @@ public class Section
     public string? MaxRows { get; set; }
 
     /// <summary>Whether this section's child sections are repeating instances.</summary>
+    /// <remarks>
+    /// Not serialized. It is derived from <see cref="Kind"/>, and System.Text.Json writes
+    /// public getters by default - so without this it reached the wire as a JSON boolean,
+    /// in a format whose strings-only rule permits exactly one (specification 3.2), and as
+    /// a second copy of a fact <c>kind</c> already carries. Two copies of one fact is a
+    /// correctness bug everywhere in this format; here it was also a conformance one.
+    /// </remarks>
+    [JsonIgnore]
     public bool IsTable => string.Equals(Kind, "table", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>Whether a filler may add or remove instances of this table.</summary>
+    /// <remarks>Not serialized, for the same reason as <see cref="IsTable"/>.</remarks>
+    [JsonIgnore]
     public bool AllowsAddingRows =>
         IsTable && string.Equals(CanAddRows, "true", StringComparison.OrdinalIgnoreCase);
 

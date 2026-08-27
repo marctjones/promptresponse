@@ -195,6 +195,21 @@
         "robustness": "partial"
       },
       "notes": "The suite had deep per-command coverage and a driver that activates every control, but nothing carried a task from beginning to end. These author a template, fill one, edit a saved form, build and fill a table, undo/redo a whole session, fill one party\u2019s share of a multi-party form, walk the wizard, and export a fillable PDF. Partial on completeness: signing and PDF import journeys are still covered only per command."
+    },
+    {
+      "id": "sdk.python",
+      "component": "Python SDK (core profile)",
+      "language": "python",
+      "path": "python",
+      "runsInCi": true,
+      "gate": "the shared conformance corpus, plus the core-only profile rules and the behavioural format rules a fixture cannot express",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "partial"
+      },
+      "notes": "Built against the corpus from the first commit. Implements the core profile deliberately, which is what lets it gate REQ-2.2 and REQ-2.3 \u2014 the two rules .NET structurally cannot test. Partial completeness: no expression engine and no signature verification, on purpose."
     }
   ],
   "testKinds": [
@@ -300,17 +315,39 @@
       "id": "REQ-2.2-coreonly-expr",
       "section": "2.2",
       "statement": "A core-only reader MUST NOT reject a document using expressions, and MUST preserve the expr* strings",
-      "strength": "none",
-      "gates": [],
-      "gap": "Untestable from inside this repo: the reference implementation implements every profile, so it can never exhibit core-only behaviour. Needs a second implementation, or a deliberately profile-restricted test harness."
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "python/tests/test_core_profile.py::test_a_document_using_expressions_is_accepted"
+        },
+        {
+          "type": "test",
+          "ref": "python/tests/test_core_profile.py::test_expression_strings_survive_a_round_trip_untouched"
+        }
+      ],
+      "notes": "Gated by the Python SDK, which implements the core profile only. This could never be tested from .NET: an implementation that provides every profile cannot exhibit core-only behaviour."
     },
     {
       "id": "REQ-2.3-coreonly-sig",
       "section": "2.3",
       "statement": "A core-only reader MUST NOT reject a signed document, MUST preserve the signatures array, and MUST NOT report it as verified",
-      "strength": "none",
-      "gates": [],
-      "gap": "Same as REQ-2.2. A profile-restricted harness would be the cheapest way to gate both."
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "python/tests/test_core_profile.py::test_a_signed_document_is_accepted_and_readable"
+        },
+        {
+          "type": "test",
+          "ref": "python/tests/test_core_profile.py::test_the_signatures_array_survives_a_round_trip"
+        },
+        {
+          "type": "test",
+          "ref": "python/tests/test_core_profile.py::test_nothing_reports_a_signature_as_verified"
+        }
+      ],
+      "notes": "Same reason as REQ-2.2. The reader carries signatures as opaque data, preserves them byte for byte, and has no verdict to give about them."
     },
     {
       "id": "REQ-3.1-encoding",

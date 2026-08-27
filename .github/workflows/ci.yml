@@ -91,6 +91,16 @@ jobs:
       - name: Install jsonschema
         run: pip install --disable-pip-version-check jsonschema
 
+      # The Python SDK runs the same corpus as the .NET one. A second
+      # implementation disagreeing is the cheapest signal that the corpus or the
+      # spec is ambiguous, and it is the only thing here that can exercise the
+      # core-only profile rules at all.
+      - name: Python SDK tests
+        working-directory: python
+        run: |
+          pip install --disable-pip-version-check -e ".[test]"
+          pytest -q
+
       - name: Verify the test registry agrees with the repository
         # tests/registry.json claims which spec requirements are gated. A coverage
         # registry nobody checks becomes a document describing a project that no longer
