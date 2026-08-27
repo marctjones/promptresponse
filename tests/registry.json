@@ -208,6 +208,21 @@
         "robustness": "gated"
       },
       "notes": "All 19 real form files - SF-86, IRS 990, IRS 1040, W-4, the bundled starter templates and two importer outputs. Enumerated from disk, so a new file is covered without being listed anywhere. The conformance corpus is synthetic by design, one rule per fixture; these catch what only shows up at the size and messiness of a real form. Found a shipped example that failed our own validator, and the editor bug that produced it."
+    },
+    {
+      "id": "review",
+      "component": "CLI + Core (receiving side)",
+      "language": "csharp",
+      "path": "tests/PromptResponse.Core.Tests/Review",
+      "runsInCi": true,
+      "gate": "processability findings, form-vs-template comparison, and the CLI exit-code contract (0 process / 2 route to a human / 1 unreadable)",
+      "dimensions": {
+        "completeness": "gated",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "gated"
+      },
+      "notes": "Implements specification 6.2 warnings as a receiver-facing report, plus a comparison against the claimed template. Covers the case no response-level check can: a prompt keeping its id while its label changes, so a pipeline files a truthful answer under a question nobody asked."
     }
   ],
   "testKinds": [

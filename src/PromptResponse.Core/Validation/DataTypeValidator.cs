@@ -58,6 +58,11 @@ public class DataTypeValidator
             "time" => ValidateTime(prompt.Response),
             "datetime" => ValidateDateTime(prompt.Response),
             "number" => ValidateNumber(prompt.Response),
+            // A range is a number chosen from bounds, so it is inspected as a number.
+            // Without this it fell through to the always-matches default, and a slider
+            // answered "as cold as it goes" drew no advisory at all - the one case where
+            // a receiver most needs telling, because their pipeline will try to parse it.
+            "range" => ValidateNumber(prompt.Response),
             "url" => ValidateUrl(prompt.Response),
             "phone" => ValidatePhone(prompt.Response),
             "currency" => ValidateCurrency(prompt.Response),

@@ -38,6 +38,7 @@ class Program
                 "new" => await serviceProvider.GetRequiredService<NewCommand>().ExecuteAsync(commandArgs),
                 "fill" => await serviceProvider.GetRequiredService<FillCommand>().ExecuteAsync(commandArgs),
                 "stats" => await serviceProvider.GetRequiredService<StatsCommand>().ExecuteAsync(commandArgs),
+                "review" => await serviceProvider.GetRequiredService<ReviewCommand>().ExecuteAsync(commandArgs),
                 "diff" => await serviceProvider.GetRequiredService<DiffCommand>().ExecuteAsync(commandArgs),
                 "export" => await serviceProvider.GetRequiredService<ExportCommand>().ExecuteAsync(commandArgs),
                 "import" => await serviceProvider.GetRequiredService<ImportCommand>().ExecuteAsync(commandArgs),
@@ -79,6 +80,7 @@ class Program
         services.AddTransient<NewCommand>();
         services.AddTransient<FillCommand>();
         services.AddTransient<StatsCommand>();
+        services.AddTransient<ReviewCommand>();
         services.AddTransient<DiffCommand>();
         services.AddTransient<ExportCommand>();
         services.AddTransient<ImportCommand>();
@@ -99,6 +101,10 @@ class Program
         Console.WriteLine("  new <file>                     Create a new template");
         Console.WriteLine("  fill <template> [options]      Fill out a form (interactive or programmatic)");
         Console.WriteLine("  stats <file> [--json]          Show detailed statistics");
+        Console.WriteLine("  review <file> [--json] [--strict]");
+        Console.WriteLine("                                 Report whether a submission can be");
+        Console.WriteLine("                                 processed automatically. Exit 0 = yes,");
+        Console.WriteLine("                                 2 = route to a person, 1 = unreadable");
         Console.WriteLine("  diff <file1> <file2>           Compare two APR files");
         Console.WriteLine("  export <file> [options]        Export responses to various formats");
         Console.WriteLine("  import <file.pdf> [options]    Import a fillable PDF into an APR template");

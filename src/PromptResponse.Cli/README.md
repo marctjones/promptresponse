@@ -349,3 +349,78 @@ Saved to: examples/contact-intake.aprf
 - See [FILE_FORMAT.md](../../docs/FILE_FORMAT.md) for the APR format specification
 - See [USAGE.md](../../docs/USAGE.md) for general usage guide
 - See [DEVELOPMENT.md](../../docs/DEVELOPMENT.md) for development guide
+
+## `review` — the receiving end
+
+Every other command here serves whoever is authoring or filling a form. `review` serves
+whoever is on the other side of a submission, holding a file somebody sent them.
+
+They cannot use `validate` for that. The format refuses, absolutely, to reject anything a
+person writes, so every submission that parses is valid — and validity therefore tells a
+receiver nothing about whether their pipeline can read it. `review` answers the question
+they actually have: **will a machine reading these fields get what the author intended?**
+
+```bash
+apr review submission.aprf                          # human-readable report
+apr review submission.aprf --json                   # for a pipeline
+apr review submission.aprf --template=form.aprt     # ...and is it even our form?
+apr review submission.aprf --strict                 # flag advisories too
+```
+
+### Exit codes
+
+The point of the command, because a routing script is usually what reads them.
+
+| Code | Meaning |
+|---|---|
+| `0` | Safe to process automatically |
+| `2` | Route to a person, a model, or back to the submitter |
+| `1` | The file could not be read at all |
+
+Advisories alone exit `0`: answering outside the suggested options is explicitly allowed
+by the format and is often exactly right. `--strict` exits `2` for any finding.
+
+### What it reports
+
+Findings carry a **stable code** — route on that, never on the wording.
+
+| Code | Severity | Meaning |
+|---|---|---|
+| `RULE_FAILED` | needs review | The form's own `exprValidation` rule says no. The strongest signal available: the author stating what they meant, not a guess. |
+| `TYPE_MISMATCH` | needs review | The response does not parse as its declared type. |
+| `PATTERN_MISMATCH` | needs review | The response does not match the author's `validationPattern`. |
+| `OUTSIDE_SUGGESTED` | advisory | Not one of the offered options — allowed, and often right. |
+| `OUTSIDE_BOUNDS` | advisory | Outside `min`/`max`. Bounds describe the control, not a limit. |
+| `BLANK` | advisory | No answer. The format has no required responses; whether it matters is your policy. |
+
+Fields the form itself is not asking for — hidden by `exprHidden`, or whose `exprExpected`
+is false — are skipped entirely. A conditional branch that does not apply is not a gap,
+and flagging it would bury the real findings.
+
+### Is this even our form?
+
+`--template=<file>` compares the submission against the template it claims to answer. A
+submission can be valid, parse cleanly, pass every check above, and still answer different
+questions.
+
+| Code | Meaning |
+|---|---|
+| `PROMPT_RELABELLED` | Same id, different question. **The dangerous one:** a pipeline maps by id, so a truthful answer gets filed under a question nobody asked. |
+| `PROMPT_MISSING` | The template asks it; the submission has no such field. |
+| `PROMPT_ADDED` | The submitter is answering something never published. |
+| `PROMPT_RETYPED` | The declared type differs from the template's. |
+| `PROMPT_OPTIONS_CHANGED` | Chosen from a different shortlist than the one published. |
+| `TEMPLATE_IDENTITY_MISMATCH` | `templateId`/`templateVersion` disagree. |
+
+The comparison uses the same canonical bytes a publisher signature binds, so responses
+never affect it — a faithfully filled form compares identical.
+
+**If the template was signed, you do not need this.** A publisher signature already binds
+the form definition and survives filling (spec §9), so verifying it proves the questions
+are untouched without needing the original file at all. `--template` is for when there is
+no signature but you do have the template. And note that `templateId` is self-asserted:
+it catches the wrong form sent by accident, never one sent deliberately.
+
+**Nothing this command reports means the document is invalid.** Every report says so
+explicitly, in both output formats, so no downstream system reads "review required" as
+"reject".
