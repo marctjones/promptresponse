@@ -137,13 +137,30 @@ demo_validate() {
         return 1
     fi
 
+    # Aggregate the results. Running the validator per file and ignoring every exit
+    # code meant an invalid example printed its error and the script still exited 0 -
+    # which is how examples/field-types-showcase.aprt sat in the repo with a duplicate
+    # section id, reported by this very command, with nothing treating it as a failure.
+    local failed=0
     for file in "${files[@]}"; do
         if [ -f "$file" ]; then
             echo ""
             print_info "Validating: $(basename "$file")"
-            dotnet run --project src/PromptResponse.Cli -- validate "$file"
+            if ! dotnet run --project src/PromptResponse.Cli -- validate "$file"; then
+                failed=$((failed + 1))
+            fi
         fi
     done
+
+    if [ "$failed" -ne 0 ]; then
+        echo ""
+        print_error "$failed of ${#files[@]} file(s) failed validation"
+        return 1
+    fi
+
+    echo ""
+    print_info "All ${#files[@]} file(s) valid"
+    return 0
 }
 
 # Function to show info about example files
@@ -166,14 +183,24 @@ demo_info() {
         return 1
     fi
 
+    # Same aggregation as demo_validate: a file the tool cannot read is a failure,
+    # not something to print past.
+    local failed=0
     for file in "${files[@]}"; do
         if [ -f "$file" ]; then
             echo ""
-            dotnet run --project src/PromptResponse.Cli -- info "$file"
+            if ! dotnet run --project src/PromptResponse.Cli -- info "$file"; then
+                failed=$((failed + 1))
+            fi
             echo ""
             read -p "Press Enter to continue to next file..."
         fi
     done
+    if [ "$failed" -ne 0 ]; then
+        print_error "$failed of ${#files[@]} file(s) could not be read"
+        return 1
+    fi
+    return 0
 }
 
 # Function to create a new template demo
