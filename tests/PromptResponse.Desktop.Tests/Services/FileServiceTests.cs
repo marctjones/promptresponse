@@ -99,7 +99,7 @@ public class FileServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task SaveFileAsync_WithAprtExtension_ShouldSetDocumentTypeToTemplate()
+    public async Task SaveFileAsync_WithAprtExtension_ShouldNotRedefineAFilledForm()
     {
         var service = CreateService();
         var document = CreateTestFilledForm();
@@ -107,12 +107,13 @@ public class FileServiceTests : IDisposable
 
         await service.SaveFileAsync(document, filePath);
 
-        document.DocumentType.Should().Be(DocumentType.Template, ".aprt overrides DocumentType to Template");
+        document.DocumentType.Should().Be(DocumentType.FilledForm,
+            "choosing a filename is naming a file, not redefining what the document is (specification section 5)");
         service.CurrentFilePath.Should().Be(filePath);
     }
 
     [Fact]
-    public async Task SaveFileAsync_WithAprfExtension_ShouldSetDocumentTypeToFilledForm()
+    public async Task SaveFileAsync_WithAprfExtension_ShouldNotRedefineATemplate()
     {
         var service = CreateService();
         var document = CreateTestTemplate();
@@ -120,24 +121,23 @@ public class FileServiceTests : IDisposable
 
         await service.SaveFileAsync(document, filePath);
 
-        document.DocumentType.Should().Be(DocumentType.FilledForm, ".aprf overrides DocumentType to FilledForm");
+        document.DocumentType.Should().Be(DocumentType.Template,
+            "documentType is authoritative; the extension is a desktop affordance");
         service.CurrentFilePath.Should().Be(filePath);
     }
 
     [Fact]
-    public async Task SaveFileAsync_WithAprExtension_ShouldKeepCurrentDocumentType()
+    public async Task SaveFileAsync_ShouldPreserveDocumentTypeForEveryExtension()
     {
         var service = CreateService();
         var templateDoc = CreateTestTemplate();
         var filledDoc = CreateTestFilledForm();
-        var templatePath = PathFor("template.apr");
-        var filledPath = PathFor("filled.apr");
 
-        await service.SaveFileAsync(templateDoc, templatePath);
-        templateDoc.DocumentType.Should().Be(DocumentType.Template, ".apr does not change Template");
+        await service.SaveFileAsync(templateDoc, PathFor("template.apr"));
+        templateDoc.DocumentType.Should().Be(DocumentType.Template);
 
-        await service.SaveFileAsync(filledDoc, filledPath);
-        filledDoc.DocumentType.Should().Be(DocumentType.FilledForm, ".apr does not change FilledForm");
+        await service.SaveFileAsync(filledDoc, PathFor("filled.apr"));
+        filledDoc.DocumentType.Should().Be(DocumentType.FilledForm);
     }
 
     [Fact]
@@ -187,28 +187,28 @@ public class FileServiceTests : IDisposable
     }
 
     [Theory]
-    [InlineData(".aprt", DocumentType.Template)]
-    [InlineData(".APRT", DocumentType.Template)]
-    [InlineData(".Aprt", DocumentType.Template)]
-    [InlineData(".aprf", DocumentType.FilledForm)]
-    [InlineData(".APRF", DocumentType.FilledForm)]
-    [InlineData(".Aprf", DocumentType.FilledForm)]
-    public async Task SaveFileAsync_WithVariousExtensionCases_ShouldSetCorrectDocumentType(string extension, DocumentType expectedType)
+    [InlineData(".aprt")]
+    [InlineData(".APRT")]
+    [InlineData(".Aprt")]
+    [InlineData(".aprf")]
+    [InlineData(".APRF")]
+    [InlineData(".Aprf")]
+    [InlineData(".apr")]
+    public async Task SaveFileAsync_NeverInfersDocumentTypeFromTheExtension(string extension)
     {
+        // The old rule - extension wins - cannot be implemented anywhere a filename does
+        // not exist: an HTTP body, a database column, a clipboard paste, a share intent.
+        // Under it a browser reader and this app reached different conclusions about
+        // identical bytes, which is the interoperability failure the format exists to
+        // prevent. Renaming a file must not silently change what it is.
         var service = CreateService();
-        var document = expectedType == DocumentType.FilledForm
-            ? CreateTestFilledForm()
-            : CreateTestTemplate();
-        // Flip the type so the extension-based override is exercised.
-        document.DocumentType = expectedType == DocumentType.FilledForm
-            ? DocumentType.Template
-            : DocumentType.FilledForm;
+        var document = CreateTestFilledForm();
+        var declared = document.DocumentType;
 
-        var filePath = PathFor($"document{extension}");
+        await service.SaveFileAsync(document, PathFor($"document{extension}"));
 
-        await service.SaveFileAsync(document, filePath);
-
-        document.DocumentType.Should().Be(expectedType, $"{extension} extension should set DocumentType to {expectedType}");
+        document.DocumentType.Should().Be(declared,
+            $"a {extension} filename must not redefine the document's declared type");
     }
 
     [Fact]
