@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace PromptResponse.Core.Models;
 
 /// <summary>
@@ -10,13 +12,29 @@ namespace PromptResponse.Core.Models;
 public class AprDocument
 {
     /// <summary>
+    /// Members present in the source JSON that this build does not recognise.
+    /// </summary>
+    /// <remarks>
+    /// Captured on read and written back out unchanged, so a document produced by a
+    /// newer minor version of the format survives a round-trip through this build
+    /// instead of being silently stripped. This is what makes additive format change
+    /// possible; see <see cref="AprFormat"/>.
+    ///
+    /// Not covered by signatures — the canonical payload enumerates known fields only,
+    /// so extension members on a signed document can be altered without invalidating
+    /// the signature. Not sanitised either: the text rules apply to known string fields.
+    /// </remarks>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? Extensions { get; set; }
+
+    /// <summary>
     /// Gets or sets the format version of this APR document.
     /// </summary>
     /// <remarks>
     /// Used to ensure compatibility when the format evolves.
-    /// Current version is "1.0".
+    /// Current version is <see cref="AprFormat.CurrentVersion"/>.
     /// </remarks>
-    public string Version { get; set; } = "1.0";
+    public string Version { get; set; } = AprFormat.CurrentVersion;
 
     /// <summary>
     /// Gets or sets the type of document (Template or FilledForm).

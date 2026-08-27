@@ -11,9 +11,12 @@ namespace PromptResponse.Core.Rendering;
 /// <remarks>
 /// Traversal order within a section mirrors the established CLI exporters
 /// (CSV / TXT / JSON): the section heading, then the section's direct prompts,
-/// then its child sections (recursively). A section carrying a
-/// <see cref="Section.TableLayout"/> is emitted as a single <see cref="TableBlock"/>
-/// rather than recursing into its row sub-sections.
+/// then its child sections (recursively). A section whose
+/// <see cref="Section.Kind"/> is "table" is emitted as a single
+/// <see cref="TableBlock"/> reporting the correspondence between its instances,
+/// rather than recursing into them. The block says what the rows mean, not how to
+/// draw them — a caller may present it as a grid, as cards, or as a flat run of
+/// prompts.
 /// </remarks>
 public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
 {
@@ -65,8 +68,11 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
         {
             var sig = signatures[i];
             var r = results[i];
+            // The submission URL comes from the document, which is the only place it
+            // lives and exactly what the signature is computed over.
+            var boundUrl = document.Metadata?.SubmissionUrl;
             var scope = sig.Scope == "template"
-                ? "form definition" + (string.IsNullOrEmpty(sig.SubmissionUrl) ? string.Empty : $" - submit to {sig.SubmissionUrl}")
+                ? "form definition" + (string.IsNullOrEmpty(boundUrl) ? string.Empty : $" - submit to {boundUrl}")
                 : "fields: " + string.Join(", ", sig.Fields);
             summaries.Add(new SignatureSummary(
                 Role: r.Role.ToString(),
@@ -89,9 +95,12 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
 
         // A table section renders as one table; its row sub-sections are cells,
         // not nested sections, so we do not recurse into them.
-        if (section.TableLayout is { Columns.Count: > 0 } table)
+        // A table's structure is a semantic claim, not a display instruction: the
+        // caller may render this block as a grid, as cards, or as a flat sequence of
+        // prompts. The model just reports the correspondence.
+        if (section.IsTable && section.Sections.Count > 0)
         {
-            blocks.Add(BuildTable(section, table));
+            blocks.Add(BuildTable(section));
             return;
         }
 
@@ -123,35 +132,37 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
         }
     }
 
-    private static TableBlock BuildTable(Section section, TableDefinition table)
+    /// <summary>
+    /// Derives the table from the sections and prompts themselves. There is no column
+    /// definition to consult: a column header is the corresponding prompt's label, and
+    /// cells correspond by position across instances. Nothing can drift out of step,
+    /// because nothing is stated twice.
+    /// </summary>
+    private static TableBlock BuildTable(Section section)
     {
-        var headers = table.Columns.Select(c => c.Label).ToList();
+        var rowSections = section.Sections;
 
-        var rows = new List<TableRowBlock>(section.Sections.Count);
-        foreach (var rowSection in section.Sections)
+        // Field names come from the first instance; ValidateTable warns when the
+        // others disagree, but rendering stays tolerant of a ragged table.
+        var headers = rowSections[0].Prompts.Select(p => p.Label).ToList();
+
+        var rows = new List<TableRowBlock>(rowSections.Count);
+        foreach (var rowSection in rowSections)
         {
-            var cells = new List<TableCellBlock>(table.Columns.Count);
-            for (var i = 0; i < table.Columns.Count; i++)
+            var cells = new List<TableCellBlock>(headers.Count);
+            for (var i = 0; i < headers.Count; i++)
             {
-                var column = table.Columns[i];
-                // Cells carry the id "{rowId}.{columnId}"; match by id, then fall
-                // back to positional alignment for tolerance to malformed input.
-                var cellId = $"{rowSection.Id}.{column.Id}";
-                var cellPrompt =
-                    rowSection.Prompts.FirstOrDefault(p => p.Id == cellId)
-                    ?? (i < rowSection.Prompts.Count ? rowSection.Prompts[i] : null);
-
+                var cellPrompt = i < rowSection.Prompts.Count ? rowSection.Prompts[i] : null;
                 var value = cellPrompt?.Response ?? string.Empty;
-                var choices = column.SuggestedValues is { Count: > 0 }
-                    ? column.SuggestedValues.ToList()
+                var choices = cellPrompt?.Hints.SuggestedValues is { Count: > 0 } suggested
+                    ? suggested.ToList()
                     : null;
+
                 cells.Add(new TableCellBlock(
                     value,
                     HasResponse: !string.IsNullOrWhiteSpace(value),
-                    // Prefer the actual cell prompt's id; fall back to the convention
-                    // so a fillable renderer can still name the field for blank cells.
-                    Id: cellPrompt?.Id ?? cellId,
-                    ExpectedDataType: NullIfBlank(column.Type),
+                    Id: cellPrompt?.Id ?? $"{rowSection.Id}.{i}",
+                    ExpectedDataType: NullIfBlank(cellPrompt?.Hints.ExpectedDataType),
                     Choices: choices));
             }
 

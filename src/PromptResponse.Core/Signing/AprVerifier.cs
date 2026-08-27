@@ -79,7 +79,7 @@ public static class AprVerifier
         try
         {
             var payload = signature.Scope == "template"
-                ? AprCanonicalizer.PublisherPayload(document, signature.SubmissionUrl, signature.SignedAt)
+                ? AprCanonicalizer.PublisherPayload(document, signature.SignedAt)
                 : AprCanonicalizer.FillerPayload(document, signature.Fields, signature.SignedAt);
 
             var cms = new SignedCms(new ContentInfo(payload), detached: true);

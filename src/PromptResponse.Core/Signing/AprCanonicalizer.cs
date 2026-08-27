@@ -28,13 +28,20 @@ public static class AprCanonicalizer
     public const string Scheme = "apr-sig-v2";
 
     /// <summary>
-    /// The bytes a publisher signs: form definition + bound submission URL. The
-    /// signer's identity is bound separately by the CMS certificate, so it is not
-    /// part of this content payload.
+    /// The bytes a publisher signs: form definition + the document's bound submission
+    /// URL. The signer's identity is bound separately by the CMS certificate, so it is
+    /// not part of this content payload.
     /// </summary>
-    public static byte[] PublisherPayload(AprDocument document, string? submissionUrl, string signedAt)
+    public static byte[] PublisherPayload(AprDocument document, string signedAt)
     {
         ArgumentNullException.ThrowIfNull(document);
+
+        // The URL is read from the document, never from a caller-supplied copy or from
+        // the signature object. Storing it twice was a real vulnerability: verification
+        // recomputed from the signature's own copy, so redirecting
+        // metadata.submissionUrl — the field a submitting client actually reads — left
+        // the signature verifying as valid. One fact, one place.
+        var submissionUrl = document.Metadata.SubmissionUrl;
 
         return new Writer()
             .Add("scheme", Scheme)
@@ -93,17 +100,10 @@ public static class AprCanonicalizer
     {
         w.Add("S.id", s.Id).Add("S.title", s.Title).Add("S.desc", s.Description);
 
-        if (s.TableLayout is { } table)
-        {
-            foreach (var c in table.Columns)
-            {
-                w.Add("S.col.id", c.Id).Add("S.col.label", c.Label).Add("S.col.type", c.Type);
-            }
-            foreach (var r in table.FixedRows ?? new List<FixedRow>())
-            {
-                w.Add("S.row.id", r.Id).Add("S.row.label", r.Label);
-            }
-        }
+        // A table adds no separate column or row declarations to sign: its structure
+        // IS the sections and prompts already covered below. Only the two facts that
+        // are not otherwise represented are bound here.
+        w.Add("S.kind", s.Kind).Add("S.canAddRows", s.CanAddRows).Add("S.maxRows", s.MaxRows);
 
         foreach (var p in s.Prompts)
         {

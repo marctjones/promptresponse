@@ -23,15 +23,26 @@ public static class AprSigner
     public static Signature SignTemplate(
         AprDocument document,
         X509Certificate2 certificate,
-        string? submissionUrl,
         DateTime signedAtUtc,
         string id = "publisher")
     {
         ArgumentNullException.ThrowIfNull(document);
         ArgumentNullException.ThrowIfNull(certificate);
 
+        // Signing binds the submission URL so it cannot be redirected without breaking
+        // the signature. Attesting to a URL carrying hidden characters would bind an
+        // address that renders as one host and resolves as another — the very
+        // substitution the binding exists to prevent. Refuse rather than clean it:
+        // choosing a replacement host is the author's decision, not this library's.
+        if (Text.StringSanitizer.ContainsHiddenCharacters(document.Metadata?.SubmissionUrl))
+        {
+            throw new InvalidOperationException(
+                "Refusing to sign: the submission URL contains hidden characters (zero-width, bidi, or similar), "
+                + "so it may display as a different address than it is. Retype the URL and sign again.");
+        }
+
         var signedAt = signedAtUtc.ToUniversalTime().ToString("o");
-        var payload = AprCanonicalizer.PublisherPayload(document, submissionUrl, signedAt);
+        var payload = AprCanonicalizer.PublisherPayload(document, signedAt);
 
         return new Signature
         {
@@ -39,7 +50,6 @@ public static class AprSigner
             Role = SignatureRole.Publisher,
             Signer = SignerFrom(certificate),
             Scope = "template",
-            SubmissionUrl = submissionUrl,
             Algorithm = AlgorithmId(certificate),
             Canonicalization = AprCanonicalizer.Scheme,
             SignedAt = signedAt,

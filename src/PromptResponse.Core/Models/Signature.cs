@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace PromptResponse.Core.Models;
 
 /// <summary>The role a signature plays in an APR document.</summary>
@@ -22,6 +24,22 @@ public enum SignatureRole
 /// </summary>
 public class Signer
 {
+    /// <summary>
+    /// Members present in the source JSON that this build does not recognise.
+    /// </summary>
+    /// <remarks>
+    /// Captured on read and written back out unchanged, so a document produced by a
+    /// newer minor version of the format survives a round-trip through this build
+    /// instead of being silently stripped. This is what makes additive format change
+    /// possible; see <see cref="AprFormat"/>.
+    ///
+    /// Not covered by signatures — the canonical payload enumerates known fields only,
+    /// so extension members on a signed document can be altered without invalidating
+    /// the signature. Not sanitised either: the text rules apply to known string fields.
+    /// </remarks>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? Extensions { get; set; }
+
     /// <summary>Display name (the certificate subject's common name, or a provided label).</summary>
     public string Name { get; set; } = string.Empty;
 
@@ -49,6 +67,22 @@ public class Signer
 /// </summary>
 public class Signature
 {
+    /// <summary>
+    /// Members present in the source JSON that this build does not recognise.
+    /// </summary>
+    /// <remarks>
+    /// Captured on read and written back out unchanged, so a document produced by a
+    /// newer minor version of the format survives a round-trip through this build
+    /// instead of being silently stripped. This is what makes additive format change
+    /// possible; see <see cref="AprFormat"/>.
+    ///
+    /// Not covered by signatures — the canonical payload enumerates known fields only,
+    /// so extension members on a signed document can be altered without invalidating
+    /// the signature. Not sanitised either: the text rules apply to known string fields.
+    /// </remarks>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? Extensions { get; set; }
+
     /// <summary>A stable id for this signature (unique within the document).</summary>
     public string Id { get; set; } = string.Empty;
 
@@ -67,10 +101,6 @@ public class Signature
     /// <summary>The prompt ids this signature covers when <see cref="Scope"/> is <c>"fields"</c>.</summary>
     public List<string> Fields { get; set; } = new();
 
-    /// <summary>
-    /// For a publisher signature, the submission URL bound into the signed content.
-    /// </summary>
-    public string? SubmissionUrl { get; set; }
 
     /// <summary>The signature algorithm (e.g. <c>cms/ecdsa-p256-sha256</c>).</summary>
     public string Algorithm { get; set; } = "cms/ecdsa-p256-sha256";

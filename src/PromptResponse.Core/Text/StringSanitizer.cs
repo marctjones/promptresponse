@@ -182,6 +182,20 @@ public static class StringSanitizer
         };
     }
 
+    /// <summary>
+    /// True when the value contains any character from the strict set — the
+    /// always-abusive characters plus the ones that are legitimate in prose but never
+    /// in a machine-consumed identifier (zero-width, soft hyphen, bidi marks,
+    /// variation selectors, word joiner, invisible operators).
+    /// </summary>
+    /// <remarks>
+    /// Used to <em>detect and report</em>, not to rewrite. A hidden character in a
+    /// submission URL is something an author must fix deliberately: silently cleaning
+    /// it would have this library choosing which host a form submits to.
+    /// </remarks>
+    public static bool ContainsHiddenCharacters(string? value) =>
+        !string.IsNullOrEmpty(value) && ContainsStrictAbusive(value);
+
     private static bool ContainsStrictAbusive(string value)
     {
         foreach (var rune in value.EnumerateRunes())

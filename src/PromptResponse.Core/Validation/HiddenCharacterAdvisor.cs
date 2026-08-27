@@ -35,11 +35,31 @@ public sealed class HiddenCharacterAdvisor : IValidator<AprDocument>
         var result = new ValidationResult();
         if (target == null) return result;
 
+        ScanSubmissionUrl(target, result);
+
         foreach (var section in target.Sections)
         {
             ScanSection(section, result);
         }
         return result;
+    }
+
+    /// <summary>
+    /// The submission URL is the one field where a hidden character is never
+    /// innocent: it is authored, machine-consumed, and bound into the publisher
+    /// signature so the target cannot be redirected silently. A zero-width space
+    /// inside a hostname renders to a reviewer as the host they expect while being a
+    /// different string, so it is surfaced here and blocks signing.
+    /// </summary>
+    private static void ScanSubmissionUrl(AprDocument document, ValidationResult result)
+    {
+        var url = document.Metadata?.SubmissionUrl;
+        if (!Text.StringSanitizer.ContainsHiddenCharacters(url)) return;
+
+        result.AddWarning(new ValidationWarning(
+            "The submission URL contains hidden characters (zero-width, bidi, or similar). "
+            + "It may display as a different address than it actually is. Retype it rather than editing it.",
+            "metadata.submissionUrl", "SUBMISSION_URL_HIDDEN_CHARS"));
     }
 
     private static void ScanSection(Section section, ValidationResult result)

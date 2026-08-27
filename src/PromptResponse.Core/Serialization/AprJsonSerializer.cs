@@ -1,3 +1,4 @@
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Text;
 using System.Text.Json;
@@ -148,12 +149,18 @@ public class AprJsonSerializer : IAprSerializer
     /// left untouched — they're internal identifiers, not user-typed responses.</summary>
     private static void SanitizeDocument(AprDocument document)
     {
+        AprFormat.DropRetiredMembers(document.Extensions);
         if (document.Metadata != null)
         {
+            AprFormat.DropRetiredMembers(document.Metadata.Extensions);
             document.Metadata.Title = StringSanitizer.NormalizeAndStrip(document.Metadata.Title) ?? string.Empty;
             document.Metadata.Description = StringSanitizer.NormalizeAndStrip(document.Metadata.Description);
             document.Metadata.Author = StringSanitizer.NormalizeAndStrip(document.Metadata.Author);
             document.Metadata.FilledBy = StringSanitizer.NormalizeAndStrip(document.Metadata.FilledBy);
+            document.Metadata.Publisher = StringSanitizer.NormalizeAndStrip(document.Metadata.Publisher);
+            // SubmissionUrl is deliberately NOT rewritten. It is machine-consumed and
+            // signature-bound, so a hidden character in it is reported and blocks
+            // signing rather than being quietly cleaned to some other host.
         }
         foreach (var section in document.Sections)
         {
@@ -163,6 +170,7 @@ public class AprJsonSerializer : IAprSerializer
 
     private static void SanitizeSection(Section section)
     {
+        AprFormat.DropRetiredMembers(section.Extensions);
         section.Title = StringSanitizer.NormalizeAndStrip(section.Title) ?? string.Empty;
         section.Description = StringSanitizer.NormalizeAndStrip(section.Description);
         foreach (var prompt in section.Prompts)
@@ -177,17 +185,15 @@ public class AprJsonSerializer : IAprSerializer
 
     private static void SanitizePrompt(Prompt prompt)
     {
+        AprFormat.DropRetiredMembers(prompt.Extensions);
+        AprFormat.DropRetiredMembers(prompt.Hints?.Extensions);
+        AprFormat.DropRetiredMembers(prompt.ResponseMetadata?.Extensions);
         prompt.Label = StringSanitizer.NormalizeAndStrip(prompt.Label) ?? string.Empty;
-        // Per-hint-type strict policy: url/email responses get the no-hidden-chars
-        // treatment because zero-width / bidi / variation-selector content has NO
-        // legitimate purpose in a URL or email. All other hints stay on the
-        // permissive sanitizer that preserves Persian ZWNJ, emoji ZWJ, etc.
-        var hint = prompt.Hints?.ExpectedDataType?.ToLowerInvariant();
-        prompt.Response = (hint switch
-        {
-            "url" or "email" => StringSanitizer.NormalizeAndStripStrict(prompt.Response),
-            _ => StringSanitizer.NormalizeAndStrip(prompt.Response),
-        }) ?? string.Empty;
+        // A response is filled data: it is never altered on the basis of a hint. The
+        // author's choice of expectedDataType says what they hoped to receive; it does
+        // not license editing what someone actually wrote. Suspicious characters are
+        // reported by HiddenCharacterAdvisor and left in place.
+        prompt.Response = StringSanitizer.NormalizeAndStrip(prompt.Response) ?? string.Empty;
         if (prompt.Hints != null)
         {
             prompt.Hints.HelpText = StringSanitizer.NormalizeAndStrip(prompt.Hints.HelpText);

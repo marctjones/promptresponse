@@ -14,8 +14,6 @@ namespace PromptResponse.Core.Validation;
 /// </remarks>
 public class DocumentValidator : IValidator<AprDocument>
 {
-    private const string SupportedVersion = "1.0";
-
     /// <inheritdoc />
     public ValidationResult Validate(AprDocument? document)
     {
@@ -45,9 +43,25 @@ public class DocumentValidator : IValidator<AprDocument>
         {
             result.AddError(new ValidationError("Version is required", "version", "REQUIRED_FIELD"));
         }
-        else if (document.Version != SupportedVersion)
+        else
         {
-            result.AddError(new ValidationError($"Unsupported version '{document.Version}'. Supported version: {SupportedVersion}", "version", "UNSUPPORTED_VERSION"));
+            switch (AprFormat.Classify(document.Version))
+            {
+                case VersionCompatibility.Unparseable:
+                case VersionCompatibility.UnsupportedMajor:
+                    result.AddError(new ValidationError(
+                        $"Unsupported version '{document.Version}'. Supported: {AprFormat.SupportedVersionsDescription}",
+                        "version", "UNSUPPORTED_VERSION"));
+                    break;
+
+                // A newer minor is readable, not an error: the document may carry members
+                // this build does not understand, which are ignored but preserved on write.
+                case VersionCompatibility.NewerMinor:
+                    result.AddWarning(new ValidationWarning(
+                        $"Document declares version '{document.Version}', newer than this build understands ({AprFormat.KnownMajor}.{AprFormat.KnownMinor}). It will be read, and members that are not recognised are preserved unchanged.",
+                        "version", "NEWER_MINOR_VERSION"));
+                    break;
+            }
         }
     }
 
@@ -107,17 +121,18 @@ public class DocumentValidator : IValidator<AprDocument>
             result.AddError(new ValidationError("Section title is required", $"{path}.title", "REQUIRED_FIELD"));
         }
 
-        // Section must have at least one prompt or child section.
-        // Exception: a dynamic table-section legitimately starts empty — rows are
-        // added by the user at fill time, so the structural "at least one child"
-        // rule would block templates from authoring an empty dynamic table.
+        // Every section must carry content, tables included. A table always has at
+        // least one instance: an "empty" table was never empty — a UI offering to add
+        // the first row is already presenting a row, so the row belongs in the data
+        // and how it is shown is the renderer's business.
         var hasContent = (section.Prompts != null && section.Prompts.Count > 0) ||
                        (section.Sections != null && section.Sections.Count > 0);
-        var isEmptyDynamicTable = section.TableLayout?.IsDynamicTable == true;
-        if (!hasContent && !isEmptyDynamicTable)
+        if (!hasContent)
         {
             result.AddError(new ValidationError("Section must have at least one prompt or child section", path, "EMPTY_SECTION"));
         }
+
+        ValidateTable(section, path, result);
 
         // Validate child sections (recursive)
         if (section.Sections != null)
@@ -135,6 +150,59 @@ public class DocumentValidator : IValidator<AprDocument>
             {
                 ValidatePrompt(section.Prompts[i], $"{path}.prompts[{i}]", allPromptIds, result);
             }
+        }
+    }
+
+    /// <summary>
+    /// Table rules are advisory. A ragged or over-capacity table is still a valid
+    /// document — the structure is unusual, not wrong, and refusing to open it would
+    /// lose whatever the filler had already written.
+    /// </summary>
+    private void ValidateTable(Section section, string path, ValidationResult result)
+    {
+        if (!section.IsTable)
+        {
+            return;
+        }
+
+        var rows = section.Sections ?? [];
+        if (rows.Count == 0)
+        {
+            result.AddWarning(new ValidationWarning(
+                "A table section has no instances. A table always has at least one row; an empty one cannot describe its own fields.",
+                path, "TABLE_NO_ROWS"));
+            return;
+        }
+
+        // Prompts at the same position correspond across instances. Disagreement is
+        // reported, never rejected.
+        var first = rows[0].Prompts ?? [];
+        foreach (var row in rows.Skip(1))
+        {
+            var prompts = row.Prompts ?? [];
+            if (prompts.Count != first.Count)
+            {
+                result.AddWarning(new ValidationWarning(
+                    $"Table instance '{row.Id}' has {prompts.Count} prompts but the first has {first.Count}; corresponding fields cannot be aligned by position.",
+                    $"{path}.sections", "TABLE_RAGGED"));
+                continue;
+            }
+            for (var i = 0; i < prompts.Count; i++)
+            {
+                if (!string.Equals(prompts[i].Label, first[i].Label, StringComparison.Ordinal))
+                {
+                    result.AddWarning(new ValidationWarning(
+                        $"Table instance '{row.Id}' names field {i} '{prompts[i].Label}' but the first instance names it '{first[i].Label}'; corresponding fields should share a label.",
+                        $"{path}.sections", "TABLE_LABEL_MISMATCH"));
+                }
+            }
+        }
+
+        if (int.TryParse(section.MaxRows, out var maxRows) && maxRows > 0 && rows.Count > maxRows)
+        {
+            result.AddWarning(new ValidationWarning(
+                $"Table has {rows.Count} instances, above the advisory maximum of {maxRows}.",
+                path, "TABLE_OVER_CAPACITY"));
         }
     }
 
