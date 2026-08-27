@@ -126,7 +126,18 @@ demo_validate() {
         return 1
     fi
 
-    for file in examples/*.apr; do
+    # Match .apr, .aprt and .aprf. This was "examples/*.apr", which matches none of
+    # the bundled examples - they are all .aprt - so this loop validated nothing and
+    # still exited 0.
+    shopt -s nullglob
+    local files=(examples/*.apr examples/*.aprt examples/*.aprf)
+    shopt -u nullglob
+    if [ ${#files[@]} -eq 0 ]; then
+        print_error "No APR files found in examples/"
+        return 1
+    fi
+
+    for file in "${files[@]}"; do
         if [ -f "$file" ]; then
             echo ""
             print_info "Validating: $(basename "$file")"
@@ -144,7 +155,18 @@ demo_info() {
         return 1
     fi
 
-    for file in examples/*.apr; do
+    # Match .apr, .aprt and .aprf. This was "examples/*.apr", which matches none of
+    # the bundled examples - they are all .aprt - so this loop validated nothing and
+    # still exited 0.
+    shopt -s nullglob
+    local files=(examples/*.apr examples/*.aprt examples/*.aprf)
+    shopt -u nullglob
+    if [ ${#files[@]} -eq 0 ]; then
+        print_error "No APR files found in examples/"
+        return 1
+    fi
+
+    for file in "${files[@]}"; do
         if [ -f "$file" ]; then
             echo ""
             dotnet run --project src/PromptResponse.Cli -- info "$file"
@@ -247,9 +269,9 @@ ${GREEN}Options:${NC}
 ${GREEN}Examples:${NC}
   ./run.sh                                      # Open Field Types Demo (default - shows all controls)
   ./run.sh --no-file                            # Launch GUI without opening any file
-  ./run.sh --open examples/simple-contact-form.aprt   # Open contact form for filling
-  ./run.sh --edit examples/sf-86-full-template.aprt   # Edit SF-86 template
-  ./run.sh examples/myform.aprf                 # Open filled form
+  ./run.sh --open examples/contact-intake.aprt        # Open contact form for filling
+  ./run.sh --edit examples/sf-86-background-check.aprt # Edit SF-86 template
+  ./run.sh examples/myform.aprf                       # Open a filled form
   ./run.sh --demo                               # Run full CLI demo
   ./run.sh --validate                           # Validate example files
   ./run.sh --help                               # Show CLI help
@@ -279,7 +301,7 @@ main() {
     fi
 
     # Default file to open when no arguments provided
-    local default_file="examples/field-types-demo.aprt"
+    local default_file="examples/field-types-showcase.aprt"
 
     # If no arguments, build and open default file in form mode
     if [ $# -eq 0 ]; then

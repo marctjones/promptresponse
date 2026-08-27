@@ -39,11 +39,11 @@ This builds the project (if needed) and launches the AvaloniaUI desktop applicat
 ./run.sh -g
 
 # Open a specific file for filling out
-./run.sh --open examples/simple-contact-form.aprt
+./run.sh --open examples/contact-intake.aprt
 ./run.sh examples/myform.aprf  # Shorthand (same as --open)
 
 # Open a template for editing
-./run.sh --edit examples/sf-86-full-template.aprt
+./run.sh --edit examples/sf-86-background-check.aprt
 ```
 
 ### CLI Demo Commands

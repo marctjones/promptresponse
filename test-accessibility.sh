@@ -72,7 +72,7 @@ Examples:
   ./test-accessibility.sh
 
   # Test specific file without audio
-  ./test-accessibility.sh --file examples/simple-contact-form.aprt --no-speech
+  ./test-accessibility.sh --file examples/contact-intake.aprt --no-speech
 
   # Custom log location
   ./test-accessibility.sh --output my-test.log

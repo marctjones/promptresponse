@@ -37,7 +37,7 @@ apr validate <file>
 
 **Example:**
 ```bash
-apr validate examples/employment-application.apr
+apr validate examples/expense-report.aprt
 ```
 
 **Output:**
@@ -55,7 +55,7 @@ apr info <file>
 
 **Example:**
 ```bash
-apr info examples/simple-contact-form.apr
+apr info examples/contact-intake.aprt
 ```
 
 **Output:**
@@ -114,10 +114,10 @@ apr fill <template> [options]
 
 ```bash
 # Interactive mode
-apr fill examples/simple-contact-form.aprt
+apr fill examples/contact-intake.aprt
 
 # Fill from JSON file
-apr fill examples/simple-contact-form.aprt --json-file=examples/responses-simple-contact.json
+apr fill examples/contact-intake.aprt --json-file=examples/responses-simple-contact.json
 
 # Fill from JSON string
 apr fill template.aprt --json='{"prompt_001":"John Doe","prompt_002":"john@example.com"}'
@@ -218,9 +218,9 @@ apr version
 ### Validate a Template
 
 ```bash
-$ apr validate examples/employment-application.apr
+$ apr validate examples/expense-report.aprt
 
-Validating: examples/employment-application.apr
+Validating: examples/expense-report.aprt
 ✓ Validation passed
   Document type: Template
   Title: Employment Application Form
@@ -231,7 +231,7 @@ Validating: examples/employment-application.apr
 ### View Form Information
 
 ```bash
-$ apr info examples/simple-contact-form.apr
+$ apr info examples/contact-intake.aprt
 
 ═══════════════════════════════════════
 File: simple-contact-form.apr
@@ -279,7 +279,7 @@ Edit the file to add more sections and prompts.
 ### Fill Out a Form Interactively
 
 ```bash
-$ apr fill examples/simple-contact-form.aprt
+$ apr fill examples/contact-intake.aprt
 
 Template: Simple Contact Form
 Template ID: simple-contact-v1
@@ -295,13 +295,13 @@ Message: I would like to inquire about your services.
 
 Form filling complete!
 Completion: 75.0%
-Saved to: examples/simple-contact-form.aprf
+Saved to: examples/contact-intake.aprf
 ```
 
 ### Fill From JSON File
 
 ```bash
-$ apr fill examples/employment-application.apr \
+$ apr fill examples/expense-report.aprt \
     --json-file=examples/responses-employment-app.json \
     --output=filled-employment.aprf \
     --validate
@@ -319,7 +319,7 @@ Validating...
 ### Fill Non-Interactively
 
 ```bash
-$ apr fill examples/simple-contact-form.aprt \
+$ apr fill examples/contact-intake.aprt \
     --non-interactive \
     --set-prompt_001="Jane Smith" \
     --set-prompt_002="jane@example.com" \
@@ -329,7 +329,7 @@ Filling form from command-line arguments
 
 Form filling complete!
 Completion: 50.0%
-Saved to: examples/simple-contact-form.aprf
+Saved to: examples/contact-intake.aprf
 ```
 
 ## Exit Codes

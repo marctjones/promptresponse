@@ -117,10 +117,10 @@ dotnet run --project src/PromptResponse.Desktop
 
 ```bash
 # Validate a form
-dotnet run --project src/PromptResponse.Cli -- validate examples/employment-application.apr
+dotnet run --project src/PromptResponse.Cli -- validate examples/expense-report.aprt
 
 # View form information
-dotnet run --project src/PromptResponse.Cli -- info examples/simple-contact-form.apr
+dotnet run --project src/PromptResponse.Cli -- info examples/contact-intake.aprt
 
 # Create a new template
 dotnet run --project src/PromptResponse.Cli -- new my-form.apr

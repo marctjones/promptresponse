@@ -77,8 +77,8 @@ dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 ```bash
 # Run CLI tool
 dotnet run --project src/PromptResponse.Cli -- help
-dotnet run --project src/PromptResponse.Cli -- validate examples/employment-application.apr
-dotnet run --project src/PromptResponse.Cli -- info examples/simple-contact-form.apr
+dotnet run --project src/PromptResponse.Cli -- validate examples/expense-report.aprt
+dotnet run --project src/PromptResponse.Cli -- info examples/contact-intake.aprt
 dotnet run --project src/PromptResponse.Cli -- new my-form.apr
 
 # Run Desktop application
