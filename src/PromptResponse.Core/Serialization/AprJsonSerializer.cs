@@ -193,7 +193,7 @@ public class AprJsonSerializer : IAprSerializer
         // author's choice of expectedDataType says what they hoped to receive; it does
         // not license editing what someone actually wrote. Suspicious characters are
         // reported by HiddenCharacterAdvisor and left in place.
-        prompt.Response = StringSanitizer.NormalizeAndStrip(prompt.Response) ?? string.Empty;
+        prompt.SetNormalizedResponse(StringSanitizer.NormalizeAndStrip(prompt.Response));
         if (prompt.Hints != null)
         {
             prompt.Hints.HelpText = StringSanitizer.NormalizeAndStrip(prompt.Hints.HelpText);

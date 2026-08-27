@@ -69,6 +69,23 @@ public class Prompt
     }
 
     /// <summary>
+    /// Replaces the response text without recording the write as an answer.
+    /// </summary>
+    /// <remarks>
+    /// Normalizing is not answering. Sanitization runs on every load and every save, and
+    /// it assigned through the Response setter above - so opening a file restamped
+    /// LastModified on every prompt and cleared Source on every prompt, whether or not
+    /// the text changed at all.
+    ///
+    /// Two things were lost. LastModified stopped meaning "when this answer changed" and
+    /// started meaning "when the file was last opened or saved". And Source - the marker
+    /// saying whether a value was computed or typed by a person - was erased, which is
+    /// what tells a recomputation to leave a hand-corrected value alone. A round trip
+    /// through disk would have made every corrected computed field look computed again.
+    /// </remarks>
+    internal void SetNormalizedResponse(string? value) => _response = value ?? string.Empty;
+
+    /// <summary>
     /// Gets or sets hints for how this prompt should be presented and validated.
     /// </summary>
     public PromptHints Hints { get; set; } = new();

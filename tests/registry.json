@@ -451,9 +451,14 @@
       "id": "REQ-4.4-namespaces",
       "section": "4.4",
       "statement": "A section and a prompt MAY share an id (separate namespaces)",
-      "strength": "none",
-      "gates": [],
-      "gap": "No fixture does this, so a shared-namespace implementation passes the whole corpus."
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/shared-id-namespaces.aprt"
+        }
+      ],
+      "notes": "A section and a prompt both use the id \"address\". Without this fixture an implementation that pooled sections and prompts into one id namespace passed the entire corpus."
     },
     {
       "id": "REQ-4.4-uniqueids",
@@ -856,9 +861,22 @@
       "id": "REQ-10.3-export",
       "section": "10.3",
       "statement": "Export layout MUST NOT be written back into the APR document",
-      "strength": "none",
-      "gates": [],
-      "gap": "Nothing asserts that a PDF/HTML export leaves the source document unmodified. A round-trip-after-export test would gate it cheaply."
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Rendering.Pdf.Tests/ExportImmutabilityTests.cs::Export_LeavesTheSourceDocumentByteIdentical"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Rendering.Pdf.Tests/ExportImmutabilityTests.cs::RepeatedExport_DoesNotAccumulateState"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Serialization/SanitizationPreservesProvenanceTests.cs::RoundTrip_PreservesLastModifiedAndSource"
+        }
+      ],
+      "notes": "Serializes, exports to both PDF renderers, serializes again and requires byte-identical output; repeated export must not accumulate state either. A control case asserts two serializations with no export in between match, which is what revealed that the first failures were the serializer mutating the document rather than the renderer."
     },
     {
       "id": "REQ-11-bounds",
