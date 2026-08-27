@@ -711,8 +711,12 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         {
             Id = $"section_{Guid.NewGuid():N}",
             Title = "New section",
-            Prompts = new List<Prompt>(),
         };
+            // A section must carry content (specification 4.3), so a new one arrives with
+            // a starter prompt rather than as an empty shell that makes the document
+            // invalid the moment it is added. The author renames it; they never have to
+            // repair it.
+        section.Prompts.Add(new Prompt { Id = $"{section.Id}.prompt_1", Label = "New prompt" });
         var vm = new SectionViewModel(section, _factory, depth: 0,
             onPromptAdded: AttachDynamicPromptVm,
             onPromptRemoved: DetachDynamicPromptVm,

@@ -185,6 +185,7 @@ public class EditingCommandUndoRedoTests
         var (vm, history) = NewSection();
         var c1 = vm.AddNestedSection(); c1.Title = "First";
         var c2 = vm.AddNestedSection(); c2.Title = "Middle"; c2.AddPrompt();
+        var c2PromptCount = c2.PromptViewModels.Count;   // starter prompt plus the added one
         var c3 = vm.AddNestedSection(); c3.Title = "Last";
         history.Clear();
 
@@ -195,7 +196,7 @@ public class EditingCommandUndoRedoTests
 
         history.Undo();
         vm.NestedSections.IndexOf(c2).Should().Be(1, "undo must reinsert at the original index");
-        c2.PromptViewModels.Should().HaveCount(1, "the prompt that lived inside the removed section must come back");
+        c2.PromptViewModels.Should().HaveCount(c2PromptCount, "the prompts that lived inside the removed section must come back");
 
         history.Redo();
         vm.NestedSections.Should().NotContain(c2);

@@ -168,10 +168,24 @@ public sealed class SectionViewModel : INotifyPropertyChanged
 
     /// <summary>Remove a prompt from this section and notify the shell so it
     /// unsubscribes/disposes the prompt VM. Undoable.</summary>
+    /// <summary>
+    /// Whether removing this many children would leave the section with no content.
+    /// </summary>
+    /// <remarks>
+    /// A section must carry at least one prompt or one child section (specification 4.3).
+    /// The editor must never be able to produce a document the validator rejects, so the
+    /// last item cannot be removed. Found by the exhaustive interaction driver, which
+    /// clicked every control and then checked the document was still valid.
+    /// </remarks>
+    private bool WouldLeaveSectionEmpty(int removingPrompts = 0, int removingNestedSections = 0) =>
+        _promptViewModels.Count - removingPrompts <= 0
+        && _nestedSections.Count - removingNestedSections <= 0;
+
     public void RemovePrompt(PromptViewModelBase? promptVm)
     {
         if (promptVm is null) return;
         if (!_promptViewModels.Contains(promptVm)) return;
+        if (WouldLeaveSectionEmpty(removingPrompts: 1)) return;   // see WouldLeaveSectionEmpty
 
         if (_history != null && !_history.IsApplying)
         {
@@ -184,13 +198,19 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         }
     }
 
-    /// <summary>Append a new empty nested section to this section. Undoable.</summary>
+    /// <summary>Append a new nested section to this section. Undoable.</summary>
     public SectionViewModel AddNestedSection()
     {
+        var sectionId = $"section_{Guid.NewGuid():N}";
         var child = new Section
         {
-            Id = $"section_{Guid.NewGuid():N}",
+            Id = sectionId,
             Title = "New section",
+            // A section must carry content (specification 4.3), so a new one arrives with
+            // a starter prompt rather than as an empty shell that makes the document
+            // invalid the moment it is added. The author renames it; they never have to
+            // repair it.
+            Prompts = [new Prompt { Id = $"{sectionId}.prompt_1", Label = "New prompt" }],
         };
         var vm = new SectionViewModel(child, _factory, _depth + 1, _onPromptAdded, _onPromptRemoved, _history);
         var index = _nestedSections.Count;
@@ -211,6 +231,13 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     {
         if (child is null) return;
         if (!_nestedSections.Contains(child)) return;
+
+        // A table's child sections are its instances, and a table always keeps at least
+        // one: it is what describes the table's own fields. Removing the last one leaves
+        // a section with no content, which is a structural error - the editor must not be
+        // able to produce a document the validator rejects. RemoveFixedRow already
+        // guarded this; the general nested-section path did not.
+        if (IsTableSection && _nestedSections.Count <= 1) return;
 
         if (_history != null && !_history.IsApplying)
         {
@@ -347,6 +374,15 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         _section.Sections.Insert(index, model);
         if (index > _nestedSections.Count) index = _nestedSections.Count;
         _nestedSections.Insert(index, vm);
+
+        // Announce the prompts the new section arrived with - its starter prompt, or
+        // whatever an undo is restoring. The view-model constructor materialises them
+        // without raising the callback, so without this the host never learns they exist
+        // and then receives removal events for prompts it was never told about.
+        foreach (var promptVm in vm._promptViewModels)
+        {
+            _onPromptAdded?.Invoke(promptVm);
+        }
     }
 
     internal void ApplyRemoveNestedSection(SectionViewModel child)

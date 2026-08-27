@@ -1,0 +1,342 @@
+[
+  {
+    "surface": "shell.fill",
+    "kind": "TextBox",
+    "label": "Search prompts"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Toggle edit mode"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Expander",
+    "label": "Document metadata"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Previous section"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Next section"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Previous section (bottom)"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Next section (bottom)"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Add top-level section"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "TextBox",
+    "label": "Text"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "TextBox",
+    "label": "Number"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "RadioButton",
+    "label": "Yes"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "RadioButton",
+    "label": "No"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "TextBox",
+    "label": "Free-text response"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Type any text for Boolean"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "TextBox",
+    "label": "Date"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Type any text for Date"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "ComboBox",
+    "label": "Select"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Type any text for Select"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "CheckBox",
+    "label": "X"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "CheckBox",
+    "label": "Y"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Type any text for Multi"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Add row"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Remove row"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "TextBox",
+    "label": "A"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Refresh advisories"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Re-verify signatures"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Use the suggested input for Boolean"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Use the suggested input for Date"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Use the suggested input for Select"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Use the suggested input for Multi"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "TextBox",
+    "label": "New prompt"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Number"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Boolean"
+  },
+  {
+    "surface": "shell.fill",
+    "kind": "Button",
+    "label": "Date"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "TextBox",
+    "label": "Search prompts"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Toggle edit mode"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Expander",
+    "label": "Document metadata"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "ToggleButton",
+    "label": "Document metadata"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Previous section"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Next section"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Previous section (bottom)"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Next section (bottom)"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "TextBox",
+    "label": "Section title"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "TextBox",
+    "label": "Section description"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Remove section"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "TextBox",
+    "label": "Prompt label"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "ComboBox",
+    "label": "Expected data type"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Remove prompt"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Expander",
+    "label": "Prompt hints"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "ToggleButton",
+    "label": "Hints (placeholder, help text, validation)"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Add prompt"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Add nested section"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Convert to fixed table"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Convert to dynamic table"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Add column"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Add row"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "TextBox",
+    "label": "Maximum rows"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Remove table layout"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "TextBox",
+    "label": "Column header"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "ComboBox",
+    "label": "Column type"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Remove column"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Add top-level section"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Refresh advisories"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Re-verify signatures"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "TextBox",
+    "label": "New prompt"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "TextBox",
+    "label": "Column 2"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "Button",
+    "label": "Remove row"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "TextBox",
+    "label": "N/A \u2014 typed by the exhaustive driver"
+  }
+]

@@ -304,9 +304,43 @@ These gaps apply to the whole project, not to any one component.
 | **Cross-implementation differential** | ❌ | Two conformant SDKs disagreeing. Impossible today — only one exists |
 | **Expression semantics** | ❌ | The largest named interop risk (§8.4), with nothing testing it |
 
-### 6.3 The machine-readable registry
+### 6.3 GUI element inventory and coverage
 
-`tests/registry.json` is the authoritative record; §6.1 and §6.4 are views of it.
+The interface enumerates itself. `GuiInventoryTests` walks the rendered visual tree
+headlessly and writes `tests/gui-inventory.json`: every interactive element on every
+surface, with its kind, accessible name, and enabled state. Enumerating an interface by
+hand goes stale the moment someone adds a button; driving a live application with
+synthetic clicks is unreliable and cannot report what it missed.
+
+`ExhaustiveInteractionTests` then activates them — every button clicked, every text box
+typed into, every combo, check, radio, and expander operated — in rounds, re-walking the
+tree each round because activating a control can rebuild it. It asserts two things that
+must hold whichever control was hit: **nothing throws**, and **the document stays
+structurally valid**. What it touched is written to `tests/gui-exercised.json`.
+
+```bash
+python3 scripts/check-gui-coverage.py     # cross-references the two
+```
+
+| | |
+|---|---|
+| Interactive elements discovered | **226** across 5 surfaces |
+| Addressable (excluding control-template parts) | 209 |
+| **Covered** | **173 (82.8%)** |
+| Untested | 36 |
+
+Coverage counts **runtime activation**, not whether a control's name appears in test
+source — a name can sit in a comment. `tests/gui-coverage.json` records which of the two
+applies per element.
+
+The remainder is control-template internals (a `ComboBox`'s editable text part is
+Avalonia's, not ours), dialog controls the driver does not open, and menu items. Right-click
+is uncovered because **the application defines no context menus at all** — worth knowing as
+a design fact rather than a coverage gap.
+
+### 6.4 The machine-readable registry
+
+`tests/registry.json` is the authoritative record; §6.1 and §6.6 are views of it.
 
 It holds three lists: **suites** (each component's four-dimension scores), **testKinds**
 (what kinds of testing exist project-wide), and **requirements** (one entry per normative
@@ -332,7 +366,7 @@ coverage it does not have, and cannot silently omit a rule the spec added.
 
 It found seven of its own gaps on first run.
 
-### 6.4 How to build a suite from the spec
+### 6.5 How to build a suite from the spec
 
 The method, repeatable after any spec change:
 
@@ -350,7 +384,7 @@ The method, repeatable after any spec change:
 Step 3's ordering is the load-bearing part. It is why the corpus grew from 5 fixtures to
 36 while the .NET-only test count grew far less.
 
-### 6.5 Spec alignment audit
+### 6.6 Spec alignment audit
 
 Normative statements in the specification: **79** MUST / MUST NOT / REQUIRED clauses
 across 32 sections. Spec areas with a **direct gate** (fixture or test that fails if the

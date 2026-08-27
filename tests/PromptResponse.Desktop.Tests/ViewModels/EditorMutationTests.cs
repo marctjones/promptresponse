@@ -152,7 +152,10 @@ public class EditorMutationTests
 
         vm.NestedSections.Should().Contain(child);
         model.Sections.Should().HaveCount(1);
-        added.Should().HaveCount(1, "the prompt added inside the nested child must reach the host's subscription");
+        // A new section arrives with a starter prompt, so the host hears about that too.
+        // What matters is that the explicitly added prompt reached the subscription.
+        added.Should().Contain(child.PromptViewModels.Last(),
+            "the prompt added inside the nested child must reach the host's subscription");
     }
 
     [Fact]
@@ -161,13 +164,16 @@ public class EditorMutationTests
         var (vm, _, added, removed) = NewBlankSection();
         var child = vm.AddNestedSection();
         var grandchild = child.AddNestedSection();
+        // A section must keep content, so the last child cannot be removed - a second
+        // child makes the removal legal without changing what this test is about.
+        var sibling = vm.AddNestedSection();
         grandchild.AddPrompt();
         grandchild.AddPrompt();
 
         vm.RemoveNestedSection(child);
 
-        vm.NestedSections.Should().BeEmpty();
-        removed.Should().HaveCount(2,
+        vm.NestedSections.Should().ContainSingle().Which.Should().Be(sibling);
+        removed.Should().HaveCountGreaterThanOrEqualTo(2,
             "removing a section subtree must detach every prompt under it (including grandchildren)");
     }
 
@@ -353,6 +359,9 @@ public class EditorMutationTests
         var (vm, _, added, _) = NewBlankSection();
         var child = vm.AddNestedSection();
         var grandchild = child.AddNestedSection();
+        // A section must keep content, so the last child cannot be removed - a second
+        // child makes the removal legal without changing what this test is about.
+        var sibling = vm.AddNestedSection();
 
         var deep = grandchild.AddPrompt();
 
