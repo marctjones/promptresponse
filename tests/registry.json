@@ -81,12 +81,12 @@
       "language": "csharp",
       "path": "tests/PromptResponse.Desktop.Tests",
       "runsInCi": true,
-      "gate": "none — excluded from the coverage gate",
-      "notes": "GUI suite runs (issue #30 fixed: the console logger provider's thread kept the testhost alive). Conformance is now direct rather than inherited from Core - the corpus runs through the view-model layer, where a capability profile, an input mask, or expression recompute could corrupt a document Core handles perfectly.",
+      "gate": "72% line coverage (measured 74.3%)",
+      "notes": "GUI suite runs (issue #30 fixed). Conformance is direct rather than inherited, and the project is now inside a coverage gate for the first time - it was excluded entirely while its GUI tests could not run, so there was nothing meaningful to measure.",
       "dimensions": {
         "completeness": "partial",
         "conformance": "gated",
-        "correctness": "partial",
+        "correctness": "gated",
         "robustness": "partial"
       }
     },

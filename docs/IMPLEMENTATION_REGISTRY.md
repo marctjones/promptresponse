@@ -281,7 +281,7 @@ can score well on one and badly on another, so they are tracked separately.
 |---|:--:|:--:|:--:|:--:|---|
 | **Core (C# SDK)** | ⚠️ | ✅ | ✅ | ⚠️ | 560 tests, **95% line-coverage gate**, 11 conformance methods over 35 fixtures |
 | **CLI** | ⚠️ | ⚠️ | ⚠️ | ❌ | 104 test methods; coverage gate is a **ratchet, not a bar**; conformance only indirect via Core |
-| **Desktop** | ⚠️ | ✅ | ⚠️ | ⚠️ | **759 tests, GUI included, now run** — issue #30 fixed. Conformance is **direct**, not inherited: the corpus runs through the view-model layer. Still **excluded from the coverage gate** |
+| **Desktop** | ⚠️ | ✅ | ✅ | ⚠️ | **759 tests, GUI included, now run** — issue #30 fixed. Conformance is **direct**, not inherited. **72% coverage gate** (measured 74.3%) |
 | **Accessibility** | ⚠️ | — | ✅ | ⚠️ | 54 methods in a **mandatory CI job**; two cases cite files that do not exist and silently skip; AT-SPI smoke test is manual, outside CI |
 | **PDF rendering** | ⚠️ | ✅ | ⚠️ | ⚠️ | 31 tests; **PDF/A externally validated by veraPDF (144/144)** — the only third-party conformance check in the project |
 | **Schema gate** | — | ✅ | ✅ | — | Language-neutral, runs in CI without .NET, so it fails the way a third party would |
@@ -444,4 +444,4 @@ Ordered by how much each unblocks.
    - **Fix mutation testing** (issue #29) — until it runs, the 95% coverage gate is unvalidated, and every other testing decision is made on a number nobody has checked
    - **Fuzz the parser** — "safe to open untrusted files" is a security claim currently backed by 4 hand-written malformed fixtures
    - **A performance fixture** — turns the 1000-prompt claim into a measurement
-   - **Raise the CLI coverage gate** from a ratchet to a bar, and bring Desktop into a gate at all
+   - **Raise the CLI coverage gate** from a ratchet to a bar — Desktop is now gated at 72%
