@@ -65,13 +65,15 @@
         "celType": "timestamp",
         "meaningfulHints": [
           "placeholder",
-          "helpText"
+          "helpText",
+          "min",
+          "max"
         ],
         "canonicalWriteForm": "YYYY-MM-DD (RFC 3339 full-date)",
         "alsoAcceptedOnRead": [
           "any string"
         ],
-        "notes": "A value that will not parse does not bind, so expressions degrade rather than defaulting."
+        "notes": "A value that will not parse does not bind, so expressions degrade rather than defaulting. min and max are the earliest and latest suggested values, written in the canonical form for this type. A response outside them is still valid."
       },
       {
         "id": "time",
@@ -79,12 +81,15 @@
         "celType": "timestamp",
         "meaningfulHints": [
           "placeholder",
-          "helpText"
+          "helpText",
+          "min",
+          "max"
         ],
         "canonicalWriteForm": "HH:MM or HH:MM:SS, 24-hour",
         "alsoAcceptedOnRead": [
           "any string"
-        ]
+        ],
+        "notes": "min and max are the earliest and latest suggested values, written in the canonical form for this type. A response outside them is still valid."
       },
       {
         "id": "datetime",
@@ -92,12 +97,15 @@
         "celType": "timestamp",
         "meaningfulHints": [
           "placeholder",
-          "helpText"
+          "helpText",
+          "min",
+          "max"
         ],
         "canonicalWriteForm": "RFC 3339, e.g. 2026-08-25T14:30:00Z",
         "alsoAcceptedOnRead": [
           "any string"
-        ]
+        ],
+        "notes": "min and max are the earliest and latest suggested values, written in the canonical form for this type. A response outside them is still valid."
       },
       {
         "id": "number",
@@ -106,7 +114,10 @@
         "meaningfulHints": [
           "placeholder",
           "helpText",
-          "validationPattern"
+          "validationPattern",
+          "min",
+          "max",
+          "step"
         ],
         "canonicalWriteForm": "digits with . as the decimal separator, no grouping",
         "alsoAcceptedOnRead": [
@@ -121,7 +132,10 @@
         "meaningfulHints": [
           "placeholder",
           "helpText",
-          "validationPattern"
+          "validationPattern",
+          "min",
+          "max",
+          "step"
         ],
         "canonicalWriteForm": "digits with . as the decimal separator, no grouping",
         "alsoAcceptedOnRead": [
@@ -224,7 +238,7 @@
           "max",
           "step"
         ],
-        "notes": "min, max and step describe the bounds a slider needs; they are type-specific hints, not additions to the universal vocabulary, and a reader that ignores them still renders a usable field. Any text remains a valid response, including one outside the bounds."
+        "notes": "min, max and step describe the slider a renderer should offer. They are advisory like every other hint: a response outside the bounds is valid, and a reader that ignores them offers a plain number field instead."
       },
       {
         "id": "color",

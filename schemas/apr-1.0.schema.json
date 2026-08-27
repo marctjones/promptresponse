@@ -283,6 +283,18 @@
         "exprReadOnly": {
           "type": "string",
           "description": "core+expressions. Truthy makes this prompt read-only in a renderer."
+        },
+        "min": {
+          "type": "string",
+          "description": "Suggested lower bound for an ordered field. An offer, not a limit: a response outside it is still valid and MUST NOT be rejected. Written as a string like every other value."
+        },
+        "max": {
+          "type": "string",
+          "description": "Suggested upper bound for an ordered field. An offer, not a limit."
+        },
+        "step": {
+          "type": "string",
+          "description": "Suggested increment for an ordered field. Advisory only."
         }
       },
       "$comment": "A core-only reader MUST ignore the expr* family and render the prompt as an ordinary editable field, preserving the hint strings on round-trip."

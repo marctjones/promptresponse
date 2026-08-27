@@ -146,8 +146,8 @@ Media type: `application/vnd.apr+json`. (Not yet IANA-registered.)
 ### 3.2 All values are strings
 
 Every value an APR document carries **MUST** be a JSON string, object, or array.
-Numbers, booleans, and nulls **MUST NOT** appear, with exactly two exceptions,
-both of which are authoring configuration rather than anything a user typed:
+Numbers, booleans, and nulls **MUST NOT** appear, with exactly one exception,
+which is derived configuration rather than anything a user typed:
 
 | Exception | Type | Why it is not user data |
 |---|---|---|
@@ -395,7 +395,8 @@ levels deep are difficult to navigate with any input method.
 All OPTIONAL, all advisory (§3.4).
 
 `placeholder`, `expectedDataType`, `suggestedValues[]`, `helpText`,
-`validationPattern`, and the `expr*` family (§8).
+`validationPattern`, the `expr*` family (§8), and the bounds family `min`, `max`,
+`step`.
 
 `expectedDataType` registry: `text`, `multiline`, `email`, `phone`, `url`,
 `date`, `time`, `datetime`, `number`, `currency`, `boolean`, `select`,
@@ -418,6 +419,19 @@ without breaking every existing reader. See `valid/unknown-fields.aprt`.
 `suggestedValues` offers options; a response outside the list is still valid. On a
 `boolean` it names the two options — `["Yes", "No"]`, `["Agree", "Disagree"]` — so a
 renderer can label them as the author intended without changing the CEL type.
+
+**Bounds are an offer, not a limit.** `min`, `max` and `step` describe the range a
+widget should offer: the ends of a slider, the increment of a spinner. They are
+written as strings like every other value (`"min": "0"`, `"step": "0.5"`), and they
+are meaningful only on ordered types — `schemas/apr-types-1.0.json` records which.
+On `date`, `time` and `datetime`, `min` and `max` are the earliest and latest
+suggested values.
+
+A response outside them is **still valid**, exactly as for `suggestedValues`. A slider
+that stops at 100 does not make `"120"` a wrong answer, and a validator **MUST NOT**
+reject one (§6.1). Bounds shape the affordance offered to someone who wants it; they
+never shrink what a person is allowed to say. A reader that ignores them entirely is
+still conformant — it simply offers a plainer control.
 `select` and `multichoice` are suggestions about presentation, not constraints on
 content.
 

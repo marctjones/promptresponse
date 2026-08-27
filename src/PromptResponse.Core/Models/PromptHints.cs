@@ -77,9 +77,35 @@ public class PromptHints
     /// </example>
     public string? ValidationPattern { get; set; }
 
-    // ── Expression hints (CEL subset; see docs/APR_SPECIFICATION_v0.2.md Appendix B/C) ──
-    // All are advisory and pure-data: they transform display/visibility/validation,
-    // never block input, and never execute code. Evaluated by PromptResponse.Core.Expressions.
+    // ── Bounds hints (specification 4.7) ──
+    // Advisory like every other hint: they describe the control to offer,
+    // never a rule the response must satisfy.
+
+    /// <summary>
+    /// Suggested lower bound for an ordered field, as a string.
+    /// </summary>
+    /// <remarks>
+    /// An offer, not a limit (specification 4.7). A slider that starts at 0 does not make
+    /// "-5" an invalid response, and a validator must never reject one. On date, time and
+    /// datetime this is the earliest suggested value.
+    ///
+    /// A string like every other value in the format, including the numeric ones - see the
+    /// strings-only rule (specification 3.2), which has exactly one exception and this is
+    /// not it.
+    /// </remarks>
+    public string? Min { get; set; }
+
+    /// <summary>Suggested upper bound for an ordered field, as a string. See <see cref="Min"/>.</summary>
+    public string? Max { get; set; }
+
+    /// <summary>Suggested increment for an ordered field, as a string. See <see cref="Min"/>.</summary>
+    public string? Step { get; set; }
+
+    // ── Expression hints (CEL; specification 8) ──
+    // Not a "CEL subset" and not defined in the retired v0.2 appendices: these are CEL,
+    // whose grammar and type rules come from cel-spec. All are advisory and pure data -
+    // they change what is shown, never what may be entered, and execute no code.
+    // A computed value stays editable (specification 8.6).
 
     /// <summary>
     /// Expression that, when truthy, hides this prompt (conditional visibility).

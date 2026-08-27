@@ -1,0 +1,63 @@
+{
+  "version": "1.0-beta",
+  "documentType": "filledForm",
+  "metadata": {
+    "title": "Bounds Are An Offer",
+    "description": "min, max and step describe the control a renderer should offer; they never constrain the response. Every answer here sits outside its stated bounds and the document is valid (spec 4.7, 3.3, 6.1). They are written as strings like every other value (spec 3.2).",
+    "templateId": "bounds-hints",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "bounds",
+      "title": "Answers outside their bounds",
+      "prompts": [
+        {
+          "id": "satisfaction",
+          "label": "Satisfaction",
+          "response": "11",
+          "hints": {
+            "expectedDataType": "range",
+            "min": "1",
+            "max": "10",
+            "step": "1",
+            "helpText": "A slider that stops at 10 does not make 11 a wrong answer."
+          }
+        },
+        {
+          "id": "temperature",
+          "label": "Preferred temperature",
+          "response": "as cold as it goes",
+          "hints": {
+            "expectedDataType": "range",
+            "min": "60",
+            "max": "80",
+            "step": "0.5",
+            "helpText": "Free text remains valid on a bounded field."
+          }
+        },
+        {
+          "id": "amount",
+          "label": "Amount claimed",
+          "response": "-40.00",
+          "hints": {
+            "expectedDataType": "currency",
+            "min": "0",
+            "helpText": "A negative claim is unusual, not invalid."
+          }
+        },
+        {
+          "id": "start",
+          "label": "Start date",
+          "response": "1066-10-14",
+          "hints": {
+            "expectedDataType": "date",
+            "min": "2026-01-01",
+            "max": "2026-12-31",
+            "helpText": "min and max are the earliest and latest suggested values."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -66,6 +66,30 @@ def check_type_registry():
         if missing or extra:
             problems.append(f"{label}: missing {missing}, unexpected {extra}")
         print(f"  {'PASS' if not (missing or extra) else 'FAIL'}  {label} ({len(other)} types)")
+    # Hint names, the same way. A hint the registry calls meaningful but the
+    # specification never names is a vocabulary only half-published: an implementer
+    # reading the spec would not know it exists. This check exists because exactly that
+    # happened -- min, max and step were added to the registry for `range` while 4.7
+    # still listed six hint names, and nothing noticed until someone asked.
+    hint_names = {h for t in registry["expectedDataType"]["types"] for h in t["meaningfulHints"]}
+    hint_names |= set(registry["universalHints"]["always"])
+    hint_names |= set(registry["universalHints"]["expressionProfile"])
+
+    hints_block = re.search(r"### 4\.7 Hints(.+?)###", spec, re.S)
+    named_in_spec = set(re.findall(r"`([a-zA-Z*]+)(?:\[\])?`", hints_block.group(1))) if hints_block else set()
+    # The expr* family is named collectively rather than one by one.
+    if "expr*" in named_in_spec:
+        named_in_spec |= set(registry["universalHints"]["expressionProfile"])
+
+    in_schema_hints = set(schema["$defs"]["promptHints"]["properties"])
+
+    print("hint vocabulary — every registered hint must be named in the specification")
+    for label, other in (("specification 4.7", named_in_spec), ("schema promptHints", in_schema_hints)):
+        missing = sorted(hint_names - other)
+        if missing:
+            problems.append(f"{label}: registered hints not present — {missing}")
+        print(f"  {'PASS' if not missing else 'FAIL'}  {label}")
+
     if problems:
         for p in problems:
             print(f"    - {p}")
