@@ -75,6 +75,37 @@ jobs:
         # Any failure here blocks merge regardless of other test status.
         run: dotnet test tests/PromptResponse.AccessibilityTests --configuration Release --logger "console;verbosity=normal"
 
+  format-schema-gate:
+    name: APR schema gate (language-neutral)
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install jsonschema
+        run: pip install --disable-pip-version-check jsonschema
+
+      - name: Verify the test registry agrees with the repository
+        # tests/registry.json claims which spec requirements are gated. A coverage
+        # registry nobody checks becomes a document describing a project that no longer
+        # exists, so the claim itself is verified: every named fixture and test must
+        # exist, every fixture must be claimed, and every normative spec section must
+        # have an entry.
+        run: python3 scripts/check-test-registry.py
+
+      - name: Validate the conformance corpus against the published JSON Schema
+        # The .NET conformance tests prove the reference implementation is correct;
+        # this proves schemas/apr-1.0.schema.json agrees with it. Without this gate the
+        # schema silently drifts, and the schema is what non-.NET SDKs implement from.
+        # Deliberately uses no .NET, so it fails the same way a third-party SDK would.
+        run: python3 scripts/check-schema.py
+
   coverage-gate:
     name: Coverage gate (≥95% on Core + Cli)
     runs-on: ubuntu-latest
