@@ -713,11 +713,23 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         return rowVm;
     }
 
+    /// <summary>The id for a new row, unique across the whole document.</summary>
+    /// <remarks>
+    /// Section ids share one namespace document-wide. This counted only within its own
+    /// table, so every dynamic table produced "row1", "row2", and any form with two of
+    /// them failed its own validator the moment a second row existed. That is how
+    /// examples/field-types-showcase.aprt came to ship invalid: two dynamic tables, two
+    /// starter rows, both called "row1".
+    ///
+    /// Scoping to the table also matches how cells are already named - "{rowId}.colN" -
+    /// so a cell in the new row reads "{tableId}.rowN.colM", and the table it belongs to
+    /// is legible from the id alone.
+    /// </remarks>
     private string NextRowId()
     {
         var n = _section.Sections.Count + 1;
-        while (_section.Sections.Any(r => r.Id == $"row{n}")) n++;
-        return $"row{n}";
+        while (_section.Sections.Any(r => r.Id == $"{_section.Id}.row{n}")) n++;
+        return $"{_section.Id}.row{n}";
     }
 
     /// <summary>The word existing instances are named with, so new ones match.</summary>

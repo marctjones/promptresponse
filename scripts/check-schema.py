@@ -72,6 +72,43 @@ def check_type_registry():
         raise SystemExit(1)
 
 
+def check_real_files(validator, failures):
+    """Hold the shipped examples and fixtures to the published schema.
+
+    The corpus is synthetic on purpose - one rule per fixture - but the files people
+    actually open are the examples, and a third-party reader built from the schema will
+    meet those first. An example that the schema rejects is worse than no example.
+
+    This is how examples/field-types-showcase.aprt was found shipping with two dynamic
+    tables whose rows shared an id.
+    """
+    roots = [ROOT / "examples", ROOT / "tests" / "Fixtures"]
+    files = sorted(
+        (f for root in roots if root.is_dir()
+           for f in root.rglob("*.apr*")
+           if "bin" not in f.parts and "obj" not in f.parts),
+        key=lambda f: str(f),
+    )
+
+    if not files:
+        failures.append("no real form files found under examples/ or tests/Fixtures/")
+        return
+
+    print("\nreal files — schema MUST accept every shipped example and fixture")
+    for path in files:
+        document, parse_error = load(path)
+        rel = path.relative_to(ROOT)
+        if parse_error:
+            print(f"  FAIL  {rel}  (not valid JSON)")
+            failures.append(f"{rel}: {parse_error}")
+            continue
+
+        errors = sorted(validator.iter_errors(document), key=lambda e: e.path)
+        print(f"  {'PASS' if not errors else 'FAIL'}  {rel}")
+        if errors:
+            failures.append(f"{rel}: {errors[0].message}")
+
+
 def main():
     validator = Draft202012Validator(json.loads(SCHEMA.read_text(encoding="utf-8")))
     Draft202012Validator.check_schema(json.loads(SCHEMA.read_text(encoding="utf-8")))
@@ -113,6 +150,7 @@ def main():
     check("signatures", True, "signatures/ — structurally valid; only verification fails")
     check("invalid", False, "invalid/ — schema catches all but the validator-only rules")
     check("malformed", False, "malformed/ — rejected at the JSON or type layer")
+    check_real_files(validator, failures)
 
     if failures:
         print(f"\n{len(failures)} failure(s):")
@@ -120,7 +158,7 @@ def main():
             print(f"  - {failure}")
         return 1
 
-    print("\nAll corpus fixtures agree with the schema.")
+    print("\nAll corpus fixtures and shipped files agree with the schema.")
     return 0
 
 

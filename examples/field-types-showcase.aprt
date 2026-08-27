@@ -694,10 +694,10 @@
         },
         {
           "id": "prompt_unicode",
-          "label": "Unicode Support (日本語, Русский, 中文, العربية)",
+          "label": "Unicode Support (\u65e5\u672c\u8a9e, \u0420\u0443\u0441\u0441\u043a\u0438\u0439, \u4e2d\u6587, \u0627\u0644\u0639\u0631\u0628\u064a\u0629)",
           "response": "",
           "hints": {
-            "placeholder": "こんにちは, Привет, 你好, مرحبا",
+            "placeholder": "\u3053\u3093\u306b\u3061\u306f, \u041f\u0440\u0438\u0432\u0435\u0442, \u4f60\u597d, \u0645\u0631\u062d\u0628\u0627",
             "expectedDataType": "text",
             "helpText": "The APR format fully supports Unicode characters"
           },
@@ -705,12 +705,12 @@
         },
         {
           "id": "prompt_emoji",
-          "label": "Emoji Support 🎉",
+          "label": "Emoji Support \ud83c\udf89",
           "response": "",
           "hints": {
-            "placeholder": "You can use emojis! 😀 🚀 ✅",
+            "placeholder": "You can use emojis! \ud83d\ude00 \ud83d\ude80 \u2705",
             "expectedDataType": "text",
-            "helpText": "Emojis work in labels, placeholders, and responses 👍"
+            "helpText": "Emojis work in labels, placeholders, and responses \ud83d\udc4d"
           },
           "responseMetadata": {}
         },
@@ -862,7 +862,7 @@
         {
           "id": "tbl_income",
           "title": "Income by Tax Year (Fixed Table)",
-          "description": "Enter income data for each tax year. Rows are fixed — you cannot add or remove years.",
+          "description": "Enter income data for each tax year. Rows are fixed \u2014 you cannot add or remove years.",
           "sections": [
             {
               "id": "year_2024",
@@ -999,11 +999,11 @@
           "description": "Add items to your order. You can add up to 20 items.",
           "sections": [
             {
-              "id": "row1",
+              "id": "tbl_lineitems.row1",
               "title": "Row 1",
               "prompts": [
                 {
-                  "id": "row1.item",
+                  "id": "tbl_lineitems.row1.item",
                   "label": "Item Description",
                   "response": "",
                   "hints": {
@@ -1012,7 +1012,7 @@
                   }
                 },
                 {
-                  "id": "row1.sku",
+                  "id": "tbl_lineitems.row1.sku",
                   "label": "SKU",
                   "response": "",
                   "hints": {
@@ -1021,7 +1021,7 @@
                   }
                 },
                 {
-                  "id": "row1.qty",
+                  "id": "tbl_lineitems.row1.qty",
                   "label": "Qty",
                   "response": "",
                   "hints": {
@@ -1029,7 +1029,7 @@
                   }
                 },
                 {
-                  "id": "row1.price",
+                  "id": "tbl_lineitems.row1.price",
                   "label": "Unit Price",
                   "response": "",
                   "hints": {
@@ -1050,11 +1050,11 @@
           "description": "List all addresses where you have lived in the past 5 years",
           "sections": [
             {
-              "id": "row1",
+              "id": "tbl_addresses.row1",
               "title": "Row 1",
               "prompts": [
                 {
-                  "id": "row1.street",
+                  "id": "tbl_addresses.row1.street",
                   "label": "Street Address",
                   "response": "",
                   "hints": {
@@ -1062,7 +1062,7 @@
                   }
                 },
                 {
-                  "id": "row1.city",
+                  "id": "tbl_addresses.row1.city",
                   "label": "City",
                   "response": "",
                   "hints": {
@@ -1070,7 +1070,7 @@
                   }
                 },
                 {
-                  "id": "row1.state",
+                  "id": "tbl_addresses.row1.state",
                   "label": "State",
                   "response": "",
                   "hints": {
@@ -1131,7 +1131,7 @@
                   }
                 },
                 {
-                  "id": "row1.zip",
+                  "id": "tbl_addresses.row1.zip",
                   "label": "ZIP",
                   "response": "",
                   "hints": {
@@ -1139,7 +1139,7 @@
                   }
                 },
                 {
-                  "id": "row1.from",
+                  "id": "tbl_addresses.row1.from",
                   "label": "From Date",
                   "response": "",
                   "hints": {
@@ -1147,7 +1147,7 @@
                   }
                 },
                 {
-                  "id": "row1.to",
+                  "id": "tbl_addresses.row1.to",
                   "label": "To Date",
                   "response": "",
                   "hints": {

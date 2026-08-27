@@ -193,6 +193,21 @@
         "correctness": "gated",
         "robustness": "partial"
       }
+    },
+    {
+      "id": "real-files",
+      "component": "Real documents (Core / Rendering.Pdf / Desktop)",
+      "language": "csharp",
+      "path": "tests/PromptResponse.Core.Tests/RealFormFilesTests.cs",
+      "runsInCi": true,
+      "gate": "every file under examples/ and tests/Fixtures/ must parse, validate, round-trip byte-stable, render through both PDF renderers unchanged, and satisfy the published schema",
+      "dimensions": {
+        "completeness": "gated",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "gated"
+      },
+      "notes": "All 19 real form files - SF-86, IRS 990, IRS 1040, W-4, the bundled starter templates and two importer outputs. Enumerated from disk, so a new file is covered without being listed anywhere. The conformance corpus is synthetic by design, one rule per fixture; these catch what only shows up at the size and messiness of a real form. Found a shipped example that failed our own validator, and the editor bug that produced it."
     }
   ],
   "testKinds": [

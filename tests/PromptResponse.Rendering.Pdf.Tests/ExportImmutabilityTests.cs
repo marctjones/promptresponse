@@ -1,3 +1,4 @@
+using System.Text;
 using AwesomeAssertions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
@@ -125,5 +126,68 @@ public class ExportImmutabilityTests
 
         Serializer.Serialize(document).Should().Be(before,
             $"three {name} exports must leave the document exactly as one did");
+    }
+
+    private static string RepoRoot => Path.GetFullPath(
+        Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", ".."));
+
+    /// <summary>Every real form in the repository, paired with every renderer.</summary>
+    public static IEnumerable<object[]> RealFilesByRenderer()
+    {
+        var roots = new[]
+        {
+            Path.Combine(RepoRoot, "examples"),
+            Path.Combine(RepoRoot, "tests", "Fixtures"),
+        };
+
+        var files = roots.Where(Directory.Exists)
+            .SelectMany(d => Directory.GetFiles(d, "*.apr*", SearchOption.AllDirectories))
+            .Where(f => !f.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}")
+                     && !f.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}"))
+            .OrderBy(f => f, StringComparer.Ordinal);
+
+        foreach (var file in files)
+        {
+            foreach (var renderer in Renderers())
+            {
+                yield return [Path.GetRelativePath(RepoRoot, file), renderer[0], renderer[1]];
+            }
+        }
+    }
+
+    /// <summary>Real forms must render, and rendering must not change them.</summary>
+    /// <remarks>
+    /// The hand-built form above is tidy by construction. These are not: SF-86 and IRS 990
+    /// run to hundreds of fields across deeply nested sections, two of them came out of the
+    /// PDF importer rather than a person, and between them they use every hint the format
+    /// has. If a renderer reaches for something that is usually present, this is where it
+    /// finds out otherwise.
+    /// </remarks>
+    [Theory]
+    [MemberData(nameof(RealFilesByRenderer))]
+    public void RealForm_RendersAndIsLeftUnchanged(
+        string relativePath, string rendererName, Func<AprDocument, byte[]> export)
+    {
+        var document = Serializer.Deserialize(File.ReadAllText(Path.Combine(RepoRoot, relativePath)));
+        var before = Serializer.Serialize(document);
+
+        byte[] pdf;
+        try
+        {
+            pdf = export(document);
+        }
+        catch (Exception ex)
+        {
+            throw new Xunit.Sdk.XunitException(
+                $"the {rendererName} renderer threw {ex.GetType().Name} on {relativePath}: " +
+                ex.Message.Split('\n')[0]);
+        }
+
+        pdf.Should().NotBeEmpty($"{relativePath} must produce {rendererName} output");
+        Encoding.ASCII.GetString(pdf, 0, Math.Min(5, pdf.Length)).Should().StartWith("%PDF",
+            $"{rendererName} output for {relativePath} must actually be a PDF");
+
+        Serializer.Serialize(document).Should().Be(before,
+            $"rendering {relativePath} to {rendererName} must not write anything back into it");
     }
 }
