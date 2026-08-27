@@ -304,9 +304,17 @@
     },
     "signature.canonicalization": {
       "values": [
-        "apr-sig-v2"
+        "apr-sig-v3"
       ],
-      "notes": "A verifier that does not recognise the value MUST report the signature unverifiable, never invalid."
+      "notes": "v2 is retired: it bound a filler to their answer without binding the question, so rewriting the question left the signature valid."
+    },
+    "section.role": {
+      "values": "open",
+      "notes": "Domain-specific (patient, nurse, office, notary). An unrecognised role degrades to no special treatment (specification 4.10)."
+    },
+    "prompt.role": {
+      "values": "open",
+      "notes": "Overrides the enclosing section role."
     }
   },
   "universalHints": {

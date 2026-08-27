@@ -1,6 +1,6 @@
 {
-  "$comment": "apr-sig-v2 canonicalization test vectors. Computed from input.aprt with the fixed parameters below. An implementation reproduces these byte-for-byte or its signatures will not interoperate, however correct its CMS code is.",
-  "scheme": "apr-sig-v2",
+  "$comment": "apr-sig-v3 canonicalization test vectors. Computed from input.aprt with the fixed parameters below. An implementation reproduces these byte-for-byte or its signatures will not interoperate, however correct its CMS code is.",
+  "scheme": "apr-sig-v3",
   "input": "input.aprt",
   "parameters": {
     "signedAt": "2026-01-01T00:00:00Z",
@@ -14,26 +14,26 @@
     "note": "fillerFields are given deliberately unsorted; the canonical payload MUST sort them ordinally by id."
   },
   "encoding": {
-    "lineFormat": "<label>=<base64(UTF-8 value)>",
-    "lineSeparator": "\\n (U+000A), including a trailing newline after the last line",
-    "emptyValue": "an empty string after '=', never omitted",
+    "lineFormat": "\u003Clabel\u003E=\u003Cbase64(UTF-8 value)\u003E",
+    "lineSeparator": "\\n (U\u002B000A), including a trailing newline after the last line",
+    "emptyValue": "an empty string after \u0027=\u0027, never omitted",
     "digestEncoding": "formDefDigest is the UPPERCASE hex SHA-256 of the formDefinition payload, then base64-encoded as an ordinary value"
   },
   "vectors": {
     "formDefinition": {
-      "sha256": "7a99f407c3fa98d965c1b5201ead5d9d12049af7ece4c403ad05c9b57ea81e95",
-      "byteLength": 972,
-      "canonicalText": "scheme=YXByLXNpZy12Mi9mb3JtZGVm\ntitle=Q2Fub25pY2FsaXphdGlvbiBWZWN0b3IgSW5wdXQ=\ntemplateId=Y29uZm9ybWFuY2UtY2Fub25pY2FsaXphdGlvbg==\ntemplateVersion=My4y\nS.id=YXBwbGljYW50\nS.title=QXBwbGljYW50\nS.desc=\nS.kind=\nS.canAddRows=\nS.maxRows=\nP.id=ZnVsbF9uYW1l\nP.label=RnVsbCBuYW1l\nP.type=dGV4dA==\nP.placeholder=\nP.help=\nP.suggested=\nP.pattern=\nP.exprHidden=\nP.exprValue=\nP.exprExpected=\nP.exprValidation=\nP.exprReadOnly=\nP.id=YW1vdW50\nP.label=QW1vdW50IHJlcXVlc3RlZA==\nP.type=Y3VycmVuY3k=\nP.placeholder=\nP.help=\nP.suggested=\nP.pattern=\nP.exprHidden=\nP.exprValue=\nP.exprExpected=\nP.exprValidation=\nP.exprReadOnly=\nP.id=dW5pY29kZV9ub3Rl\nP.label=Tm90ZQ==\nP.type=bXVsdGlsaW5l\nP.placeholder=\nP.help=\nP.suggested=\nP.pattern=\nP.exprHidden=\nP.exprValue=\nP.exprExpected=\nP.exprValidation=\nP.exprReadOnly=\nP.id=ZW1wdHlfZmllbGQ=\nP.label=RGVsaWJlcmF0ZWx5IGVtcHR5\nP.type=\nP.placeholder=\nP.help=\nP.suggested=\nP.pattern=\nP.exprHidden=\nP.exprValue=\nP.exprExpected=\nP.exprValidation=\nP.exprReadOnly=\n"
+      "sha256": "2f9fdce177b1141db4d25e7b703317767e97ecb17e8878bbcc9082061b499f63",
+      "byteLength": 1100,
+      "canonicalText": "scheme=YXByLXNpZy12My9mb3JtZGVm\ntitle=Q2Fub25pY2FsaXphdGlvbiBWZWN0b3IgSW5wdXQ=\ntemplateId=Y29uZm9ybWFuY2UtY2Fub25pY2FsaXphdGlvbg==\ntemplateVersion=My4y\nS.id=YXBwbGljYW50\nS.title=QXBwbGljYW50\nS.desc=\nS.kind=\nS.canAddRows=\nS.maxRows=\nS.role=\nP.id=ZnVsbF9uYW1l\nP.label=RnVsbCBuYW1l\nP.type=dGV4dA==\nP.placeholder=\nP.help=\nP.suggested=\nP.pattern=\nP.min=\nP.max=\nP.step=\nP.role=\nP.exprHidden=\nP.exprValue=\nP.exprExpected=\nP.exprValidation=\nP.exprReadOnly=\nP.id=YW1vdW50\nP.label=QW1vdW50IHJlcXVlc3RlZA==\nP.type=Y3VycmVuY3k=\nP.placeholder=\nP.help=\nP.suggested=\nP.pattern=\nP.min=\nP.max=\nP.step=\nP.role=\nP.exprHidden=\nP.exprValue=\nP.exprExpected=\nP.exprValidation=\nP.exprReadOnly=\nP.id=dW5pY29kZV9ub3Rl\nP.label=Tm90ZQ==\nP.type=bXVsdGlsaW5l\nP.placeholder=\nP.help=\nP.suggested=\nP.pattern=\nP.min=\nP.max=\nP.step=\nP.role=\nP.exprHidden=\nP.exprValue=\nP.exprExpected=\nP.exprValidation=\nP.exprReadOnly=\nP.id=ZW1wdHlfZmllbGQ=\nP.label=RGVsaWJlcmF0ZWx5IGVtcHR5\nP.type=\nP.placeholder=\nP.help=\nP.suggested=\nP.pattern=\nP.min=\nP.max=\nP.step=\nP.role=\nP.exprHidden=\nP.exprValue=\nP.exprExpected=\nP.exprValidation=\nP.exprReadOnly=\n"
     },
     "publisherPayload": {
-      "sha256": "ec75be2aad1afc93f17e12f44edf50f6d3e32c6a6f5d8b806311d53981d79b0a",
+      "sha256": "b2bcd0fd4919339b9497ef1214dc9cc89fe0041a431bb279cd8adbd50a1746b1",
       "byteLength": 331,
-      "canonicalText": "scheme=YXByLXNpZy12Mg==\nrole=cHVibGlzaGVy\ntemplateId=Y29uZm9ybWFuY2UtY2Fub25pY2FsaXphdGlvbg==\ntemplateVersion=My4y\nsubmissionUrl=aHR0cHM6Ly9leGFtcGxlLm9yZy9mb3Jtcy9jb25mb3JtYW5jZS9zdWJtaXQ=\nformDefDigest=N0E5OUY0MDdDM0ZBOThEOTY1QzFCNTIwMUVBRDVEOUQxMjA0OUFGN0VDRTRDNDAzQUQwNUM5QjU3RUE4MUU5NQ==\nsignedAt=MjAyNi0wMS0wMVQwMDowMDowMFo=\n"
+      "canonicalText": "scheme=YXByLXNpZy12Mw==\nrole=cHVibGlzaGVy\ntemplateId=Y29uZm9ybWFuY2UtY2Fub25pY2FsaXphdGlvbg==\ntemplateVersion=My4y\nsubmissionUrl=aHR0cHM6Ly9leGFtcGxlLm9yZy9mb3Jtcy9jb25mb3JtYW5jZS9zdWJtaXQ=\nformDefDigest=MkY5RkRDRTE3N0IxMTQxREI0RDI1RTdCNzAzMzE3NzY3RTk3RUNCMTdFODg3OEJCQ0M5MDgyMDYxQjQ5OUY2Mw==\nsignedAt=MjAyNi0wMS0wMVQwMDowMDowMFo=\n"
     },
     "fillerPayload": {
-      "sha256": "cc58607a7347fde346e8ef240d13749d76dc9c07819ed4bbae96f08fc0c3a9c5",
-      "byteLength": 295,
-      "canonicalText": "scheme=YXByLXNpZy12Mg==\nrole=ZmlsbGVy\ntemplateId=Y29uZm9ybWFuY2UtY2Fub25pY2FsaXphdGlvbg==\ntemplateVersion=My4y\nfield.amount=JDEsMjM0LjU2\nfield.empty_field=\nfield.full_name=QWRhIExvdmVsYWNl\nfield.unicode_note=Q2Fmw6kg4oCUIOaXpeacrOiqniDigJQg2YXYsdit2KjYpw==\nsignedAt=MjAyNi0wMS0wMVQwMDowMDowMFo=\n"
+      "sha256": "395ff91d9fc1e3d5774bd7dca3edcec345d856c869c466a8e5779df26b3e97e5",
+      "byteLength": 681,
+      "canonicalText": "scheme=YXByLXNpZy12Mw==\nrole=ZmlsbGVy\ntemplateId=Y29uZm9ybWFuY2UtY2Fub25pY2FsaXphdGlvbg==\ntemplateVersion=My4y\nfield.amount=JDEsMjM0LjU2\nfield.amount.label=QW1vdW50IHJlcXVlc3RlZA==\nfield.amount.type=Y3VycmVuY3k=\nfield.amount.options=\nfield.empty_field=\nfield.empty_field.label=RGVsaWJlcmF0ZWx5IGVtcHR5\nfield.empty_field.type=\nfield.empty_field.options=\nfield.full_name=QWRhIExvdmVsYWNl\nfield.full_name.label=RnVsbCBuYW1l\nfield.full_name.type=dGV4dA==\nfield.full_name.options=\nfield.unicode_note=Q2Fmw6kg4oCUIOaXpeacrOiqniDigJQg2YXYsdit2KjYpw==\nfield.unicode_note.label=Tm90ZQ==\nfield.unicode_note.type=bXVsdGlsaW5l\nfield.unicode_note.options=\nsignedAt=MjAyNi0wMS0wMVQwMDowMDowMFo=\n"
     }
   }
 }

@@ -79,6 +79,18 @@ public class AprDocument
     public List<Section> Sections { get; set; } = new();
 
     /// <summary>
+    /// The parties the author expects to fill parts of this form.
+    /// </summary>
+    /// <remarks>
+    /// Optional, and optional to be complete. Section and prompt <c>role</c> members may
+    /// reference an identifier that is not declared here; the vocabulary is open
+    /// (specification 4.10) and a reader shows the bare identifier rather than erroring.
+    /// Declaring a role gives it a name worth showing a person, which is what makes
+    /// "which role are you filling?" a usable question.
+    /// </remarks>
+    public List<RoleDefinition>? Roles { get; set; }
+
+    /// <summary>
     /// Gets or sets the detached cryptographic signatures over this document.
     /// </summary>
     /// <remarks>

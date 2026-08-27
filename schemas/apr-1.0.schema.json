@@ -40,6 +40,13 @@
         "$ref": "#/$defs/signature"
       },
       "description": "Optional. Absent on unsigned documents. Belongs to the core+signatures conformance profile; a core-only reader MUST preserve this array byte-for-intent on round-trip but is not required to verify it."
+    },
+    "roles": {
+      "type": "array",
+      "description": "The parties expected to fill parts of this form (spec 4.10).",
+      "items": {
+        "$ref": "#/$defs/roleDefinition"
+      }
     }
   },
   "allOf": [
@@ -164,6 +171,10 @@
         "maxRows": {
           "type": "string",
           "description": "Advisory upper bound on instance count, as a string like every other value. A table carrying more is still valid and is reported as a warning."
+        },
+        "role": {
+          "type": "string",
+          "description": "Who is meant to fill this in (\"patient\", \"nurse\", \"office\"). An open vocabulary and a statement of intent, never enforcement: a reader marks the field and still accepts any input. A prompt's role overrides the role of the section containing it."
         }
       },
       "anyOf": [
@@ -216,6 +227,10 @@
         },
         "responseMetadata": {
           "$ref": "#/$defs/responseMetadata"
+        },
+        "role": {
+          "type": "string",
+          "description": "Who is meant to fill this in (\"patient\", \"nurse\", \"office\"). An open vocabulary and a statement of intent, never enforcement: a reader marks the field and still accepts any input. A prompt's role overrides the role of the section containing it."
         }
       }
     },
@@ -365,8 +380,8 @@
         },
         "canonicalization": {
           "type": "string",
-          "const": "apr-sig-v2",
-          "description": "Canonical-payload scheme. A verifier that does not recognize this value MUST report the signature as unverifiable rather than invalid."
+          "const": "apr-sig-v3",
+          "description": "Canonical-payload scheme. A verifier that does not recognize this value MUST report the signature as unverifiable rather than invalid. v3 binds the question a filler answered, not only their answer, and brings bounds and roles under the publisher signature."
         },
         "signedAt": {
           "type": "string",
@@ -422,6 +437,27 @@
         "selfSigned": {
           "type": "boolean",
           "description": "DOCUMENTED EXCEPTION to the strings-only rule: a JSON boolean. Derived, not user data \u2014 a verifier recomputes it from the certificate and MUST NOT trust this field."
+        }
+      }
+    },
+    "roleDefinition": {
+      "type": "object",
+      "description": "A party the author expects to fill part of the form. Declaring a role gives its identifier a name worth showing a person. Declaring is optional and the vocabulary is open: a section or prompt may reference a role that is not declared here, and a reader shows the identifier.",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The identifier section and prompt role members reference."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name to show a person. Falls back to id."
+        },
+        "description": {
+          "type": "string",
+          "description": "Who this role is, when the name alone is not obvious."
         }
       }
     }

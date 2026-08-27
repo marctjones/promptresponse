@@ -91,6 +91,25 @@ public class Prompt
     public PromptHints Hints { get; set; } = new();
 
     /// <summary>
+    /// Who is meant to fill this in - "patient", "nurse", "office" - or null for anyone.
+    /// </summary>
+    /// <remarks>
+    /// Overrides the role of the section containing it, and is a statement of intent
+    /// rather than enforcement. The format has no idea who is at the keyboard, so a
+    /// reader marks a field as somebody else's and still lets it be typed
+    /// into (specification 4.10). Any string is a valid response, and that does not stop
+    /// being true because the field was labelled for the office.
+    ///
+    /// Accountability comes afterwards, from signatures: a scoped filler signature over
+    /// those fields, made with the nurse's certificate, is evidence the nurse filled them.
+    /// A greyed-out box is not evidence of anything.
+    ///
+    /// An open vocabulary. Roles are domain-specific and a reader that does not recognise
+    /// one shows the field normally rather than erroring.
+    /// </remarks>
+    public string? Role { get; set; }
+
+    /// <summary>
     /// Gets or sets metadata about the response.
     /// </summary>
     /// <remarks>

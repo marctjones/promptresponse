@@ -512,6 +512,62 @@ separation would silently split into two.
 
 ---
 
+### 4.10 Roles — who each part is for
+
+Most real forms are filled by more than one person. A patient completes an intake,
+a nurse records observations, the office stamps a reference. With nowhere to say
+so, all three arrive as one undifferentiated list and the patient is left guessing
+which questions are theirs.
+
+A section or a prompt **MAY** carry `role`: a short string naming who is meant to
+fill it in — `"patient"`, `"nurse"`, `"office"`. A prompt's role overrides the role
+of the section containing it, so a single field can be handed back to the patient
+without splitting the section in two. The vocabulary is **open**: roles are
+domain-specific, and a reader that does not recognise one **MUST** present the
+field normally rather than erroring.
+
+A document **MAY** declare its roles in a top-level `roles` array, so the
+identifiers have names worth showing:
+
+```json
+"roles": [
+  { "id": "patient", "name": "Patient",
+    "description": "The person receiving care" },
+  { "id": "nurse", "name": "Nurse",
+    "description": "Clinical staff recording observations" },
+  { "id": "office", "name": "Office use" }
+]
+```
+
+Each entry **MUST** carry `id`; `name` and `description` are OPTIONAL, and a
+reader with no `name` **MUST** fall back to the identifier. Declaring is itself
+optional and **MUST NOT** be required: a section or prompt **MAY** reference a role
+the document never declares, and a reader **MUST** show the identifier rather than
+erroring. A validator **MAY** warn about an undeclared role (§6.2); it **MUST NOT**
+reject one. Without this the vocabulary would not be open, and every industry with
+a party nobody enumerated in advance would be locked out.
+
+**A role says who a field is for. It never says who may type into it.** The format
+has no identity at fill time — nothing in a JSON document knows who is at the
+keyboard — so a reader **MUST NOT** refuse input to a field because of its role.
+Any string is a valid response (§3.3), and that does not stop being true because
+the field was labelled for the office.
+
+What a reader **SHOULD** do is make the answer obvious without being asked. Where a
+document declares roles, a reader **SHOULD** let the person say which role they are
+filling and then show plainly which fields are theirs, so *"is this one mine?"* is
+answered by the form rather than by a phone call. Fields belonging to others stay
+visible and stay editable; they are marked, not locked. A reader **SHOULD** also
+make a role legible to assistive technology, since a visual treatment alone
+communicates nothing to a screen reader.
+
+**Accountability comes from signatures, not from the widget.** A greyed-out box is
+evidence of nothing: whoever holds the file can edit the JSON directly. A scoped
+filler signature (§9.3) over those fields, made with the nurse's certificate, is
+evidence the nurse filled them. Roles describe intent; signatures establish fact.
+An implementation that treats a role as a security control has misread this
+section.
+
 ## 5. Document type and file extensions
 
 `documentType` in the JSON is **authoritative**. A reader **MUST** determine
@@ -855,7 +911,7 @@ Two roles:
 
 `id`, `role`, `signer`, `scope` (`"template"` or `"fields"`), `fields[]`,
 `algorithm` (default `cms/ecdsa-p256-sha256`), `canonicalization` (**MUST** be
-`"apr-sig-v2"`), `signedAt`, `cms` (base64).
+`"apr-sig-v3"`), `signedAt`, `cms` (base64).
 
 A signature **MUST NOT** carry its own copy of the submission URL. It binds
 `metadata.submissionUrl` by reading it from the document at both signing and
@@ -869,7 +925,7 @@ The `signer` object is a human-readable projection of the embedded certificate.
 The certificate is authoritative; a verifier **MUST NOT** trust `signer` fields
 over it, and **MUST** recompute `selfSigned`.
 
-### 9.3 Canonicalization (`apr-sig-v2`)
+### 9.3 Canonicalization (`apr-sig-v3`)
 
 The signed payload is **not** canonical JSON. It is a fixed, ordered sequence of
 `label=base64(value)` lines, deliberately chosen so that any language can
@@ -892,12 +948,37 @@ submitting client actually reads — at both signing and verification time. A ve
 > `signatures/tampered-metadata-url.aprt` pins the fix.
 
 **Filler payload:** `scheme`, `role`, `templateId`, `templateVersion`, then each
-covered field as `field.{id}=base64(response)` — **sorted by id, ordinal** — then
-`signedAt`. Sorting makes the payload independent of the order fields happen to
-be listed in.
+covered field — **sorted by id, ordinal** — as four lines:
+
+| Line | Covers |
+|---|---|
+| `field.{id}` | the response |
+| `field.{id}.label` | the question as it was worded |
+| `field.{id}.type` | `expectedDataType`, since `"10"` means something else when the field is money |
+| `field.{id}.options` | `suggestedValues`, joined with U+001F — the shortlist they chose from |
+
+then `signedAt`. Sorting makes the payload independent of the order fields happen
+to be listed in.
+
+**A filler signs the question, not only the answer.** Anything less is not a
+signature on a form. Only what the person could see and act on is covered —
+deliberately *not* the whole document, because a filler signs their part and
+someone else editing an unrelated section **MUST NOT** invalidate them.
+
+> **Why `apr-sig-v3` exists.** In `apr-sig-v2` the filler payload was the response
+> alone. Sign "No" to *"Have you ever been convicted of a felony?"*, let someone
+> afterwards change the label to *"Do you enjoy long walks?"*, and the signature
+> still verified — putting a person on record as having answered a question they
+> never saw. The same family of bug as the `submissionUrl` hole above: a signature
+> verifying over something other than what was presented. The bump also brought the
+> bounds family (§4.7) and `role` (§4.10) under the publisher signature; both were
+> added after the list of signed hints was written, so a signed template's slider
+> could be re-ranged, or a section reassigned from the patient to the office,
+> without breaking the signature.
 
 **Form definition digest** covers title, template ids, and the ordered
-section/prompt structure with labels, hints, and table layout. It excludes
+section/prompt structure with labels, hints (including bounds, §4.7), roles
+(§4.10), and table layout. It excludes
 responses, response metadata, and the `signatures` array — so filling a form does
 not break its publisher signature, and adding a second signature does not break
 the first.
@@ -954,7 +1035,7 @@ taken a choice away from every other consumer of the same file.
 
 The reasoning is the same one behind §3.3. A format that withheld data until a
 cryptographic condition was met would fail exactly when it is most needed: an
-expired certificate, a verifier that does not recognize `apr-sig-v2`, a corporate
+expired certificate, a verifier that does not recognize `apr-sig-v3`, a corporate
 proxy that re-encoded the bytes, an archived form whose signing authority no
 longer exists. In every one of those cases the answers a person wrote are still
 there, still true, and still the reason the file exists. **The data outlives the

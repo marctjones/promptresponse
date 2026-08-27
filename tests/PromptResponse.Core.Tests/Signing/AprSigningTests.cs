@@ -234,4 +234,122 @@ public class AprSigningTests
         new AprJsonSerializer().Serialize(Template())
             .Should().NotContain("signatures");
     }
+
+    // ── What a filler actually signs (apr-sig-v3) ──────────────────────────
+
+    /// <summary>A filler signs the question, not only the answer.</summary>
+    /// <remarks>
+    /// Under apr-sig-v2 the payload was "field.id = response" and nothing more, so this
+    /// exact edit left the signature verifying. Someone could sign "No" to "have you ever
+    /// been convicted of a felony", and the label could afterwards be changed to anything
+    /// at all, with their signature still reporting valid over it - putting a person on
+    /// record as having answered a question they never saw.
+    ///
+    /// The same family of bug as the submissionUrl one above: a signature verifying over
+    /// something other than what was actually presented.
+    /// </remarks>
+    [Fact]
+    public void Filler_DetectsTheQuestionBeingRewrittenAfterSigning()
+    {
+        var doc = Template();
+        doc.Sections[0].Prompts[0].Response = "No";
+        using var cert = SelfSigned("Ada Lovelace");
+        doc.Signatures = [AprSigner.SignFields(doc, cert, ["name"], At, "sig1")];
+
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeTrue("baseline");
+
+        // The answer is untouched. Only the question changes.
+        doc.Sections[0].Prompts[0].Label = "Do you enjoy long walks?";
+
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse(
+            "a filler signature binds the question as it was presented, so swapping the " +
+            "question must invalidate it");
+    }
+
+    [Fact]
+    public void Filler_DetectsTheOfferedOptionsBeingChangedAfterSigning()
+    {
+        var doc = Template();
+        doc.Sections[0].Prompts[0].Response = "Sales";
+        doc.Sections[0].Prompts[0].Hints.SuggestedValues = ["Sales", "Finance"];
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignFields(doc, cert, ["name"], At, "sig1")];
+
+        doc.Sections[0].Prompts[0].Hints.SuggestedValues = ["Sales", "Fraud"];
+
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse(
+            "the shortlist someone chose from is part of what they saw");
+    }
+
+    [Fact]
+    public void Filler_DetectsTheDeclaredTypeBeingChangedAfterSigning()
+    {
+        var doc = Template();
+        doc.Sections[0].Prompts[0].Response = "10";
+        doc.Sections[0].Prompts[0].Hints.ExpectedDataType = "number";
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignFields(doc, cert, ["name"], At, "sig1")];
+
+        doc.Sections[0].Prompts[0].Hints.ExpectedDataType = "currency";
+
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse(
+            "\"10\" means something different when the field is money");
+    }
+
+    /// <summary>Binding the question must not cost scope isolation.</summary>
+    /// <remarks>
+    /// A filler signs their part. Someone else editing an unrelated question afterwards -
+    /// which is the normal course of a multi-party form - must not invalidate them, or
+    /// nobody could sign until everybody had finished.
+    /// </remarks>
+    [Fact]
+    public void Filler_StillIgnoresQuestionsOutsideTheirScope()
+    {
+        var doc = Template();
+        doc.Sections[0].Prompts[0].Response = "Ada";
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignFields(doc, cert, ["name"], At, "sig1")];
+
+        doc.Sections[0].Prompts[2].Label = "Rewritten later by someone else";
+
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeTrue(
+            "notes is outside this signature's scope, so its wording is none of its business");
+    }
+
+    /// <summary>A publisher signature binds the bounds it published.</summary>
+    /// <remarks>
+    /// The bounds family was added after the list of signed hints was written, so on
+    /// apr-sig-v2 a signed template's slider could be re-ranged without breaking the
+    /// signature.
+    /// </remarks>
+    [Fact]
+    public void Publisher_DetectsBoundsBeingChangedAfterSigning()
+    {
+        var doc = Template();
+        doc.Sections[0].Prompts[1].Hints.ExpectedDataType = "range";
+        doc.Sections[0].Prompts[1].Hints.Min = "0";
+        doc.Sections[0].Prompts[1].Hints.Max = "10";
+        using var cert = SelfSigned();
+        doc.Signatures = [SigningTestHelper.SignTemplateWithUrl(doc, cert, "https://gov/submit", At)];
+
+        doc.Sections[0].Prompts[1].Hints.Max = "1000";
+
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse(
+            "the range a publisher offered is part of the form they published");
+    }
+
+    /// <summary>A publisher signature binds who each part was meant for.</summary>
+    [Fact]
+    public void Publisher_DetectsARoleBeingChangedAfterSigning()
+    {
+        var doc = Template();
+        doc.Sections[0].Role = "patient";
+        using var cert = SelfSigned();
+        doc.Signatures = [SigningTestHelper.SignTemplateWithUrl(doc, cert, "https://gov/submit", At)];
+
+        doc.Sections[0].Role = "office";
+
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse(
+            "reassigning a section to a different party changes the form that was published");
+    }
 }
