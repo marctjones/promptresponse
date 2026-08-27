@@ -69,7 +69,19 @@ def main():
                 if ref not in fixtures_on_disk and not (CORPUS / ref).exists():
                     problems.append(f"{req['id']}: fixture not found on disk — {ref}")
             elif kind == "test":
-                if f"void {ref}(" not in src:
+                # Two accepted forms. A bare method name is searched across every test
+                # source; "path/to/File.cs::Method" additionally pins which file it lives
+                # in, so moving or renaming the file breaks the gate loudly instead of
+                # silently matching a same-named method somewhere else.
+                if "::" in ref:
+                    rel, method = ref.split("::", 1)
+                    target = ROOT / rel
+                    if not target.exists():
+                        problems.append(f"{req['id']}: test file not found — {rel}")
+                    elif f"void {method}(" not in target.read_text(encoding="utf-8"):
+                        problems.append(
+                            f"{req['id']}: test method not found in {rel} — {method}")
+                elif f"void {ref}(" not in src:
                     problems.append(f"{req['id']}: test method not found in source — {ref}")
             elif kind == "suite":
                 if ref not in suite_ids:

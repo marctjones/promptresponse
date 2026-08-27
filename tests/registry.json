@@ -9,7 +9,7 @@
     "indirect": "Covered only through another component, not at this rule's own level.",
     "external": "Gated by a third-party suite this project does not maintain.",
     "none": "No test would fail if the rule were broken.",
-    "informative": "Not a testable rule — definitional or explanatory text."
+    "informative": "Not a testable rule \u2014 definitional or explanatory text."
   },
   "dimensions": {
     "completeness": "Does the component do everything it claims?",
@@ -233,8 +233,8 @@
     },
     {
       "kind": "fuzzing",
-      "status": "absent",
-      "notes": "'Safe to open untrusted files' is a security claim backed by 4 hand-written malformed fixtures."
+      "status": "present",
+      "notes": "Deterministic mutation fuzzing of the parser (ParserFuzzTests): every truncation and 200 seeded single-character corruptions per corpus fixture, plus hand-built exhaustion structures. Fixed seed so a failure reproduces. Not coverage-guided - a real fuzzer (SharpFuzz) would explore further."
     },
     {
       "kind": "property-based",
@@ -492,14 +492,18 @@
       "id": "REQ-4.6-depth",
       "section": "4.6",
       "statement": "At least 16 levels of section nesting MUST be supported",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "fixture",
           "ref": "valid/deep-nesting.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
         }
       ],
-      "gap": "Pins the floor. No test at the boundary where a parser gives out."
+      "notes": "Fixture pins the 16-level floor; the test walks up to the real ceiling (30 levels, set by System.Text.Json MaxDepth=64 at two JSON levels per section) and asserts the floor holds beneath it. The ceiling is recorded, not asserted - section 4.6 makes it an implementation detail that MUST NOT be relied upon."
     },
     {
       "id": "REQ-4.7-unknownhint",
@@ -844,17 +848,39 @@
       "id": "REQ-11-bounds",
       "section": "11",
       "statement": "A reader MUST bound nesting depth and SHOULD bound document size",
-      "strength": "none",
-      "gates": [],
-      "gap": "No fuzzing, no depth-boundary test, no size limit test. The 'safe to open untrusted files' claim is untested."
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::HostileStructures_AreRefusedCleanly"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::EveryTruncationOfAValidDocument_IsRefusedCleanly"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::SingleCharacterCorruption_IsRefusedCleanly"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
+        }
+      ],
+      "notes": "Fuzzed against every truncation and 200 single-character corruptions per corpus fixture, plus 50k-deep nesting, a 5MB string and 100k prompts. Contract asserted: parse either succeeds or throws SerializationException, within 5s - never an unexpected exception type to a caller told the format is safe to open."
     },
     {
       "id": "REQ-11-nonetwork",
       "section": "11",
       "statement": "Reading a document MUST NOT fetch anything",
-      "strength": "none",
-      "gates": [],
-      "gap": "Nothing asserts the absence of network access on open."
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::CoreCannotReachTheNetwork_ByConstruction"
+        }
+      ],
+      "notes": "Asserted structurally: the core library references no System.Net type and links no HTTP client, so no input can cause a fetch. A behavioural test could only cover the paths it happened to walk."
     }
   ]
 }

@@ -392,7 +392,7 @@ rule is broken): **21 of 24**.
 
 | Gated | Not gated |
 |---|---|
-| §1.3.1 version compatibility (both directions) · §3.2 strings-only · §3.3 any string valid · §3.4 / §7.3.1 hints never rewrite · §4.1–4.4 required fields · §4.5 tables · §4.6 depth floor · §4.7 unknown hint degrades · §4.8 unknown members preserved · §4.8.1 retired dropped · §4.9 canonical forms · §5 documentType precedence · §6.1 error list · §6.3 parse vs validate · §7.1–7.2 text handling · §7.3.2 submissionUrl · §9.2–9.3 canonical bytes · §9.4 tamper · §9.5 never gate data · §10.2 ordering | **§8.x expression semantics** — nothing · **§10.1 accessible name / label rules** — the accessibility suite tests the desktop app, not the rule as a format requirement · **§11 resource bounds on untrusted input** — no fuzzing, no depth-boundary test |
+| §1.3.1 version compatibility (both directions) · §3.2 strings-only · §3.3 any string valid · §3.4 / §7.3.1 hints never rewrite · §4.1–4.4 required fields · §4.5 tables · §4.6 depth floor and measured ceiling · §11 resource bounds and no-network · §4.7 unknown hint degrades · §4.8 unknown members preserved · §4.8.1 retired dropped · §4.9 canonical forms · §5 documentType precedence · §6.1 error list · §6.3 parse vs validate · §7.1–7.2 text handling · §7.3.2 submissionUrl · §9.2–9.3 canonical bytes · §9.4 tamper · §9.5 never gate data · §10.2 ordering | **§8.x expression semantics** — nothing · **§10.1 accessible name / label rules** — the accessibility suite tests the desktop app, not the rule as a format requirement | 
 
 Method: extract every emphasised MUST/REQUIRED from the spec, group by section, and
 check each area for a fixture or test that would fail if the rule were violated.
@@ -406,10 +406,19 @@ Three honest conclusions.
 order for a format project. The corpus, the schema gate, and the canonicalization vectors
 are real gates that a third party can run.
 
-**Robustness is the weakest across the board.** No fuzzing, no property tests, no
-performance measurement, and mutation testing broken — so the headline coverage number
-means less than it appears. For a format whose selling point is *safe to open files from
-untrusted senders*, the absence of fuzzing is the most conspicuous gap.
+**Robustness is the weakest across the board**, though no longer unmeasured at the
+parser. `ParserFuzzTests` now feeds it every truncation and 200 seeded single-character
+corruptions of each corpus fixture, plus 50,000-deep nesting, a 5 MB string and 100,000
+prompts, asserting one contract: parse either returns a document or throws
+`SerializationException`, within five seconds. It passed on the first run — the parser
+was already robust; what was missing was the evidence. §11's no-network rule is now
+asserted structurally (the core library links no HTTP client, so no input can cause a
+fetch), and §4.6's ceiling is measured at 30 levels rather than assumed.
+
+What remains missing: property-based tests, performance measurement, and mutation
+testing (issue #29, `Killed:0`) — so the headline coverage number still means less than
+it appears. The fuzzing is deterministic mutation, not coverage-guided; a real fuzzer
+would explore paths these mutations never reach.
 
 **Completeness is nowhere measured directly.** No component maps its tests to the spec
 sections or profile features it claims to implement. That is why §7's corpus gaps went
