@@ -130,12 +130,45 @@ See [CLI README](src/PromptResponse.Cli/README.md) for complete CLI documentatio
 
 ## Documentation
 
-- [APR Format Specification v0.2](docs/APR_SPECIFICATION_v0.2.md) - **Complete formal specification**
+- [APR Format Specification](docs/APR_SPECIFICATION.md) - **Complete formal specification** (spec `0.6.0`, describes format `1.0-beta`)
+
+> **The APR format is in BETA.** Files declare `"version": "1.0-beta"` and breaking
+> changes may still occur. At the 1.0 stable tag, `"1.0-beta"` stays readable
+> permanently — no file written today will be orphaned.
+- [JSON Schema](schemas/apr-1.0.schema.json) - machine-readable structural schema
+- [Conformance corpus](tests/Conformance/v1/README.md) - the executable definition of the format
+- [SDK Conformance](docs/SDK_CONFORMANCE.md) - what an implementation must do to claim conformance
+- [Implementation Registry](docs/IMPLEMENTATION_REGISTRY.md) - every app, SDK, and engine: language, status, and obligations
 - [CLI Tool Guide](src/PromptResponse.Cli/README.md) - Command-line tool usage
 - [Usage Guide](docs/USAGE.md) - Detailed usage instructions
 - [Development Guide](docs/DEVELOPMENT.md) - Contributing and development setup
 - [File Format Specification](docs/FILE_FORMAT.md) - .apr format documentation (legacy)
 - [Architecture](docs/ARCHITECTURE.md) - System design and architecture
+
+## Implementing APR
+
+APR is an open format, and the point of the specification, schema, and corpus is that
+you can build a reader or writer without asking us anything.
+
+```bash
+# The conformance corpus: 36 fixtures your implementation must agree with
+ls tests/Conformance/v1/
+
+# The language-neutral gates - no .NET required, so they fail the way your SDK would
+pip install jsonschema
+python3 scripts/check-schema.py          # schema agrees with every fixture
+python3 scripts/check-test-registry.py   # coverage claims match the repository
+```
+
+Only `core` is required — parse, validate, render, fill, write. That needs a JSON
+parser and nothing else. `core+expressions` and `core+signatures` are optional, and an
+implementation that skips them is fully conformant, not degraded — provided it
+**preserves** what it does not implement.
+
+Declare conformance as `APR 1.0-beta core, corpus/v1 @ <sha>`. See
+[docs/SDK_CONFORMANCE.md](docs/SDK_CONFORMANCE.md) for what each corpus category
+requires, and [docs/IMPLEMENTATION_REGISTRY.md](docs/IMPLEMENTATION_REGISTRY.md) for
+which implementations exist and what they are held to.
 
 ## Technology Stack
 
@@ -157,13 +190,13 @@ the corresponding `.csproj`).
 
 ## Project Status
 
-🚧 **Active Development** — current release: **v0.2.0** (2026-05-03).
-See [CHANGELOG.md](CHANGELOG.md) for what landed since v0.1.0.
+🚧 **Active Development** — current release: **v0.6.0**.
+See [CHANGELOG.md](CHANGELOG.md) for what landed in each release.
 
 - [x] Core library (models, JSON serialization, advisory validation,
       hidden-character + mixed-script advisors)
-- [x] CLI tool (validate, info, new, fill, stats, diff, export) with
-      ~83% line coverage gate
+- [x] CLI tool (validate, info, new, fill, stats, diff, export, import,
+      keygen, sign, verify) with CI coverage gates
 - [x] Capability-profile rendering system: Light / Dark / HighContrast,
       LargeText / ReducedMotion / ScreenReaderTuned / LargeHitTargets /
       WizardMode globals, plus 12 composable display + input-mask flags,
@@ -178,6 +211,17 @@ See [CHANGELOG.md](CHANGELOG.md) for what landed since v0.1.0.
 - [x] **Wizard mode**: section-at-a-time rendering with Previous/Next
       navigation; auto-on under the Cognitive preset (`View → Toggle
       Wizard Mode` / Ctrl+W)
+- [x] Home screen with recent files, starter templates, search, progress,
+      advisory panel, and signing status
+- [x] PDF export: flat, fillable AcroForm, PDF/A archival, page sizes,
+      running footer, and handling banners
+- [x] **Print preview**: in-app generated-content preview before PDF export
+- [x] HTML export: accessible read-only page and self-contained fillable web
+      form that downloads `.aprf`
+- [x] PDF import: AcroForm field extraction with import-quality scoring
+- [x] Calculation and conditional logic via safe expression hints
+- [x] Verifiable signatures: template publisher signatures, response
+      signatures, CLI signing/verification, and desktop signing/status UI
 - [x] **Linux accessibility (AT-SPI2)** — native screen-reader support
       via Avalonia 12; verified against Orca's AT-SPI bus
 - [x] Three-layer blind-user accessibility test stack: in-process
@@ -186,8 +230,9 @@ See [CHANGELOG.md](CHANGELOG.md) for what landed since v0.1.0.
 - [x] WCAG-gated CI: every theme contrast pair, every keyboard
       shortcut, every interactive control's accessible name
 - [ ] Mobile support (.NET MAUI) — future
-- [ ] Calculation engine (computed fields) — future
-- [ ] Conditional logic (show/hide based on responses) — future
+- [ ] Word/Excel export — future
+- [x] SDK conformance corpus: shared APR fixtures with .NET validation gate
+- [ ] Non-.NET SDK conformance runners — future
 
 ## Contributing
 
