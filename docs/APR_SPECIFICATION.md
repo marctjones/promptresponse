@@ -40,7 +40,7 @@ The v0.2 draft described a system that no longer exists. Substantive changes:
 | Version string | `"0.2"` | **`"1.0-beta"`** — one identifier for the wire format, not a per-release number (§1.3) |
 | Document type | Filename extension **overrides** `documentType` | **`documentType` is authoritative**; the extension is a desktop affordance (§5) |
 | Nesting | "Unlimited" | **At least 16 levels REQUIRED**; unbounded depth is not implementable (§4.6) |
-| Strings-only | Absolute | Two documented exceptions, both authoring config, never user data (§3.2) |
+| Strings-only | Absolute | **One documented exception** — `signer.selfSigned`, derived from a certificate rather than authored (§3.2). The table redesign removed the other two |
 | Tables | `tableLayout` with a `columns` array and a `fixedRows` list | **`kind: "table"` only.** Rows are sections, cells are prompts, headers are the prompts' own labels — no column records, no duplicated row list (§4.5) |
 | Table column widths | Specified | **Removed.** Presentation data has no place in APR |
 | Expressions | Absent (engine deleted) | A defined **optional profile** (§8) |

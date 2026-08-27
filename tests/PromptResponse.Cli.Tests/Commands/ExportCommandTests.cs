@@ -235,6 +235,70 @@ public class ExportCommandTests
         }
     }
 
+    /// <summary>
+    /// Exporting a table section through the CLI.
+    /// </summary>
+    /// <remarks>
+    /// The table redesign (kind=table) changed how tables reach a renderer: headers now
+    /// come from the first instance's prompt labels rather than a column array, and
+    /// cells correspond by position. CLI export walks the same render model, so this
+    /// path changed underneath a command that had no table coverage at all before or
+    /// after. Exercises the shape end to end and asserts the headers and cell values
+    /// actually reach the output.
+    /// </remarks>
+    [Theory]
+    [InlineData("csv")]
+    [InlineData("json")]
+    [InlineData("txt")]
+    public async Task ExecuteAsync_WithTableSection_ExportsHeadersAndCells(string format)
+    {
+        var document = new AprDocument
+        {
+            DocumentType = DocumentType.FilledForm,
+            Metadata = new Metadata { Title = "Quarterly", TemplateId = "t" },
+            Sections =
+            [
+                new Section
+                {
+                    Id = "totals", Title = "Quarterly totals", Kind = "table",
+                    Sections =
+                    [
+                        new Section
+                        {
+                            Id = "q1", Title = "Q1",
+                            Prompts =
+                            [
+                                new Prompt { Id = "q1.revenue", Label = "Revenue", Response = "125000.00",
+                                    Hints = new PromptHints { ExpectedDataType = "currency" } },
+                                // Free text in a currency column: still valid, still exported verbatim.
+                                new Prompt { Id = "q1.note", Label = "Note", Response = "about 130k" },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        };
+
+        var input = Path.GetTempFileName();
+        var output = Path.GetTempFileName();
+        try
+        {
+            await File.WriteAllTextAsync(input, _serializer.Serialize(document));
+
+            var exitCode = await _command.ExecuteAsync([input, $"--format={format}", $"--output={output}"]);
+
+            exitCode.Should().Be(0);
+            var text = await File.ReadAllTextAsync(output);
+            text.Should().Contain("125000.00", "a table cell value must reach the export");
+            text.Should().Contain("about 130k", "free text in a typed column is exported verbatim");
+        }
+        finally
+        {
+            if (File.Exists(input)) File.Delete(input);
+            if (File.Exists(output)) File.Delete(output);
+        }
+    }
+
     [Fact]
     public async Task ExecuteAsync_WithCsvFormat_ShouldReturnSuccess()
     {
