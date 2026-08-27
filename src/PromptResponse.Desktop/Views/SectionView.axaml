@@ -59,6 +59,28 @@
                         -->
                         <StackPanel Spacing="3"
                                     AutomationProperties.HelpText="{Binding RoleAnnouncement}">
+                            <!--
+                                Signature coverage, in the same place and the same shape
+                                as the role badge rather than a second vocabulary. Text
+                                always; the colour cue only where the active profile says
+                                colour carries meaning, and never as the sole channel.
+                            -->
+                            <Border IsVisible="{Binding ShowSignatureMark}"
+                                    Background="{DynamicResource SystemChromeMediumLowColor}"
+                                    CornerRadius="3"
+                                    Padding="6,1"
+                                    HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <Border Width="7" Height="7" CornerRadius="4"
+                                            VerticalAlignment="Center"
+                                            IsVisible="{Binding SignatureColorCue}"
+                                            Background="{DynamicResource SystemAccentColor}"/>
+                                    <TextBlock Text="{Binding SignatureLabel}"
+                                               FontSize="11"
+                                               Opacity="0.85"
+                                               AutomationProperties.Name="{Binding SignatureAnnouncement}"/>
+                                </StackPanel>
+                            </Border>
                             <Border IsVisible="{Binding RoleBadge, Converter={x:Static ObjectConverters.IsNotNull}}"
                                     Background="{DynamicResource SystemChromeMediumLowColor}"
                                     CornerRadius="3"

@@ -507,9 +507,31 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
                 _signatures.Add(new SignatureStatusItem(r.Id, r.Role.ToString(), r.SignerName, scope, r.ContentValid, r.Trust.ToString(), r.Status));
             }
         }
+        ApplyFieldCoverage(doc);
+
         OnPropertyChanged(nameof(Signatures));
         OnPropertyChanged(nameof(HasSignatures));
         OnPropertyChanged(nameof(SignatureSummary));
+    }
+
+    /// <summary>Tells each field which signatures cover it, and whether they still hold.</summary>
+    /// <remarks>
+    /// The panel in the sidebar answers "is Ada's signature valid". Somebody looking at a
+    /// particular field has a different question - is <em>this</em> value signed, by whom,
+    /// and does it still stand - and on a hundred-field form with one signature over
+    /// twelve of them, the document-level answer does not help them at all.
+    /// </remarks>
+    private void ApplyFieldCoverage(AprDocument? document)
+    {
+        var coverage = document is null
+            ? new Dictionary<string, IReadOnlyList<CoveringSignature>>(StringComparer.Ordinal)
+            : SignatureCoverage.ForDocument(document);
+
+        foreach (var promptVm in _promptViewModels)
+        {
+            promptVm.CoveringSignatures =
+                coverage.TryGetValue(promptVm.Id, out var covering) ? covering : [];
+        }
     }
 
     /// <summary>Re-verifies signatures on demand (e.g. after editing responses).</summary>
@@ -1307,6 +1329,12 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         ApplyExpressions();
         Progress.Refresh();
         RefreshAdvisories();
+
+        // Signatures too. Typing into a signed field is precisely what invalidates a
+        // signature, so this is the moment the status changes - and it used to refresh
+        // only when somebody pressed a button, which meant a field could keep reporting
+        // "signed" after the keystroke that broke it.
+        RefreshSignatures();
     }
 
     /// <summary>
