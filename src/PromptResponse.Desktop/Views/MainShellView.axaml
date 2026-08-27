@@ -86,6 +86,16 @@
                 </MenuItem>
                 <MenuItem Header="Si_gn"
                           AutomationProperties.Name="Sign menu">
+                    <!--
+                        Creation only, and it sits with the signing commands because that
+                        is when somebody discovers they need a key. Storing, rotating and
+                        revoking key material stays the platform's job.
+                    -->
+                    <MenuItem Header="_Create a signing key..."
+                              Command="{Binding CreateSigningKeyCommand}"
+                              AutomationProperties.Name="Create a signing key"
+                              AutomationProperties.HelpText="Make a self-signed key and save it to disk, for trying signing without a certificate authority"/>
+                    <Separator/>
                     <MenuItem Header="Sign as _publisher..."
                               Command="{Binding SignAsPublisherCommand}"
                               AutomationProperties.Name="Sign as publisher"

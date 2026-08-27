@@ -311,6 +311,9 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// <summary>Profile service exposed for the Display Preferences bindings.</summary>
     public IProfileService ProfileService => _profileService;
 
+    /// <summary>The file service, for dialogs the view owns that need a save picker.</summary>
+    public IFileService FileServiceForDialogs => _fileService;
+
     private ColorPalette Palette => ColorTokens.For(ActiveProfile.ColorScheme);
     private IBrush BrushFor(ColorRole role) => new SolidColorBrush(Palette[role]);
 
@@ -445,6 +448,19 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// to. The view handles the actual scroll + focus (it owns the visual tree).
     /// </summary>
     public event Action<string>? FocusPromptRequested;
+
+    /// <summary>Raised when the user asks to make a signing key.</summary>
+    /// <remarks>The view owns the dialog; the shell only asks for it.</remarks>
+    public event Action? CreateSigningKeyRequested;
+
+    /// <summary>File &gt; Sign &gt; Create a signing key.</summary>
+    /// <remarks>
+    /// Always available, with or without a document open: needing a key is usually what
+    /// somebody discovers when they first try to sign, and making them open a file first
+    /// would be arbitrary.
+    /// </remarks>
+    [RelayCommand]
+    private void CreateSigningKey() => CreateSigningKeyRequested?.Invoke();
 
     /// <summary>Raised when the user asks to leave the application.</summary>
     /// <remarks>

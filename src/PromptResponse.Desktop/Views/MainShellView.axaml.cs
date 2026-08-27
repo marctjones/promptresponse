@@ -39,6 +39,7 @@ public partial class MainShellView : UserControl
         {
             shell.FocusPromptRequested += OnFocusPromptRequested;
             shell.ExitRequested += OnExitRequested;
+            shell.CreateSigningKeyRequested += OnCreateSigningKeyRequested;
             _subscribedShell = shell;
         }
     }
@@ -108,6 +109,15 @@ public partial class MainShellView : UserControl
         };
         if (OwnerWindow is { } owner) window.ShowDialog(owner);
         else window.Show();
+    }
+
+    /// <summary>Opens the key-creation dialog.</summary>
+    private void OnCreateSigningKeyRequested()
+    {
+        var dialog = new CreateSigningKeyDialog(
+            (DataContext as MainShellViewModel)?.FileServiceForDialogs);
+        if (OwnerWindow is { } owner) dialog.ShowDialog(owner);
+        else dialog.Show();
     }
 
     private void OnKeyboardShortcutsClicked(object? sender, RoutedEventArgs e)

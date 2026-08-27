@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PromptResponse.Desktop.ViewModels"
+        x:Class="PromptResponse.Desktop.Views.CreateSigningKeyDialog"
+        x:DataType="vm:CreateSigningKeyViewModel"
+        Title="Create a signing key"
+        Width="520" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        AutomationProperties.Name="Create a signing key">
+
+    <StackPanel Margin="20" Spacing="14">
+        <TextBlock Text="Create a signing key"
+                   FontSize="17" FontWeight="SemiBold"/>
+
+        <!--
+            Said plainly and up front. A self-signed key proves the file has not changed
+            since it was signed; it proves nothing about who signed it unless whoever
+            verifies already holds the public certificate and pins it. A signing feature
+            that lets someone believe they have more assurance than they do is worse than
+            no signing feature.
+        -->
+        <SelectableTextBlock TextWrapping="Wrap" FontSize="12" Opacity="0.85"
+                   Text="This makes a self-signed key. It proves a file has not changed since you signed it. It does not prove who you are unless the person checking already has your public certificate and has chosen to trust it. For that, share the .cer file alongside."/>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="Your name, or your organisation&apos;s" FontSize="12"/>
+            <TextBox x:Name="SignerNameBox"
+                     Text="{Binding SignerName, Mode=TwoWay}"
+                     PlaceholderText="Town of Bloomfield"
+                     AutomationProperties.Name="Signer name"
+                     AutomationProperties.HelpText="Appears as the signer on every signature you make with this key"/>
+        </StackPanel>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="Password for the key file (optional)" FontSize="12"/>
+            <TextBox x:Name="PasswordBox"
+                     Text="{Binding Password, Mode=TwoWay}"
+                     PasswordChar="*"
+                     AutomationProperties.Name="Key file password"
+                     AutomationProperties.HelpText="Protects the private key on disk. Leave blank for no password."/>
+        </StackPanel>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="Valid for (years)" FontSize="12"/>
+            <NumericUpDown x:Name="ValidYearsBox"
+                           Value="{Binding ValidYears, Mode=TwoWay}"
+                           Minimum="1" Maximum="30" Increment="1"
+                           AutomationProperties.Name="Valid for, in years"
+                           AutomationProperties.HelpText="How long the key may be used. Signatures already made keep verifying after it expires."/>
+        </StackPanel>
+
+        <CheckBox x:Name="AlsoWriteCertBox"
+                  IsChecked="{Binding AlsoWritePublicCertificate, Mode=TwoWay}"
+                  Content="Also save the public certificate (.cer) to share"
+                  AutomationProperties.Name="Also save the public certificate to share"
+                  AutomationProperties.HelpText="This is the file other people need in order to verify your signatures"/>
+
+        <SelectableTextBlock x:Name="ResultText"
+                             IsVisible="False"
+                             TextWrapping="Wrap" FontSize="12"
+                             AutomationProperties.Name="Result"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button x:Name="CancelButton" Content="Cancel" Click="OnCancel"
+                    AutomationProperties.Name="Cancel"/>
+            <Button x:Name="CreateButton" Content="Create and save..." Click="OnCreate"
+                    IsEnabled="{Binding CanCreate}"
+                    AutomationProperties.Name="Create and save the signing key"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
