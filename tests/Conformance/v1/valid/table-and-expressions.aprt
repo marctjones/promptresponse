@@ -3,7 +3,7 @@
   "documentType": "template",
   "metadata": {
     "title": "Conformance Table and Expressions",
-    "description": "Fixed table layout plus expression hints.",
+    "description": "A fixed table plus the expr* hint family. Expressions are CEL, and each prompt's expectedDataType supplies the type environment: quantity is a double, rush is a bool, so an author writes what they mean rather than wrapping every field in a conversion.",
     "author": "PromptResponse Conformance",
     "templateId": "conformance-table-expressions",
     "templateVersion": "1.0"
@@ -37,7 +37,7 @@
           "response": "",
           "hints": {
             "expectedDataType": "currency",
-            "exprValue": "quantity == '' || unit_price == '' ? '' : double(quantity) * double(unit_price)",
+            "exprValue": "quantity * unit_price",
             "exprReadOnly": "true"
           }
         },
@@ -55,9 +55,9 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "exprHidden": "rush != 'true'",
-            "exprExpected": "rush == 'true'",
-            "exprValidation": "_this == '' && rush == 'true' ? 'Reason is expected for rush delivery' : ''"
+            "exprHidden": "!rush",
+            "exprExpected": "rush",
+            "exprValidation": "rush && _this == '' ? 'Reason is expected for rush delivery' : ''"
           }
         }
       ]

@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Celly" Version="1.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
     <!-- CMS/PKCS#7 (SignedCms) for industry-standard APR signatures. First-party
          Microsoft BCL package; ships with the runtime. -->

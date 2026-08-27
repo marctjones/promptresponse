@@ -64,7 +64,9 @@ def main():
             ref, kind = gate["ref"], gate["type"]
             if kind == "fixture":
                 claimed_fixtures.add(ref)
-                if ref not in fixtures_on_disk:
+                # Some gates reference data files that are not APR documents (the
+                # expression and canonicalization vectors), so check the path directly.
+                if ref not in fixtures_on_disk and not (CORPUS / ref).exists():
                     problems.append(f"{req['id']}: fixture not found on disk — {ref}")
             elif kind == "test":
                 if f"void {ref}(" not in src:

@@ -6,11 +6,11 @@
 > precedence that v1.0 deliberately inverts, documents table column widths that no
 > longer exist, and predates both the expression and signature profiles.
 >
-> Do not implement from this document — **with one carve-out**: **Appendix B and
-> Appendix C (the CEL expression-language reference) remain the normative
-> definition of the expression subset** until they are ported into v1.0. An
-> implementer of the `core+expressions` profile should read them. Everything else
-> here is superseded.
+> Do not implement from this document. The carve-out that once kept Appendix B and C
+> alive as the expression-language reference is gone: APR expressions are now CEL
+> (v1.0 §8), so the language is defined by
+> [cel-spec](https://github.com/cel-expr/cel-spec) and tested by its own conformance
+> suite. Nothing in this file is normative.
 
 # APR File Format Specification
 

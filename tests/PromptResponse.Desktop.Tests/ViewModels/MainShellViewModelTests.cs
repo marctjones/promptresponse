@@ -526,9 +526,11 @@ public class MainShellViewModelTests
                 {
                     new() { Id = "status", Label = "Status", Response = "Employed" },
                     new() { Id = "employer", Label = "Employer", Hints = new PromptHints { ExprHidden = "status == 'Retired'" } },
-                    new() { Id = "qty", Label = "Qty", Response = "2" },
-                    new() { Id = "price", Label = "Price", Response = "3" },
-                    new() { Id = "total", Label = "Total", Hints = new PromptHints { ExprValue = "double(qty) * double(price)" } },
+                    new() { Id = "qty", Label = "Qty", Response = "2", Hints = new PromptHints { ExpectedDataType = "number" } },
+                    new() { Id = "price", Label = "Price", Response = "3", Hints = new PromptHints { ExpectedDataType = "number" } },
+                    // expectedDataType declares these as doubles, so the expression is
+                    // the arithmetic an author means rather than a pile of conversions.
+                    new() { Id = "total", Label = "Total", Hints = new PromptHints { ExpectedDataType = "number", ExprValue = "qty * price" } },
                 },
             },
         },
@@ -585,13 +587,18 @@ public class MainShellViewModelTests
                     Id = "s", Title = "S",
                     Prompts = new List<Prompt>
                     {
-                        new() { Id = "start", Label = "Start", Response = "2021-01-01" },
+                        new() { Id = "start", Label = "Start", Response = "2021-01-01",
+                            Hints = new PromptHints { ExpectedDataType = "date" } },
                         new()
                         {
                             Id = "end", Label = "End", Response = "2020-01-01",
                             Hints = new PromptHints
                             {
-                                ExprValidation = "_this == '' || start == '' ? '' : (timestamp(_this) > timestamp(start) ? '' : 'End must be after start')",
+                                ExpectedDataType = "date",
+                                // Both fields bind as timestamps, so they compare directly.
+                                // An unparseable or empty date does not bind, the expression
+                                // errors, and the advisory simply does not appear.
+                                ExprValidation = "_this > start ? '' : 'End must be after start'",
                             },
                         },
                     },

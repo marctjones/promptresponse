@@ -43,7 +43,7 @@ The v0.2 draft described a system that no longer exists. Substantive changes:
 | Strings-only | Absolute | **One documented exception** — `signer.selfSigned`, derived from a certificate rather than authored (§3.2). The table redesign removed the other two |
 | Tables | `tableLayout` with a `columns` array and a `fixedRows` list | **`kind: "table"` only.** Rows are sections, cells are prompts, headers are the prompts' own labels — no column records, no duplicated row list (§4.5) |
 | Table column widths | Specified | **Removed.** Presentation data has no place in APR |
-| Expressions | Absent (engine deleted) | A defined **optional profile** (§8) |
+| Expressions | Absent (engine deleted) | **CEL**, an optional profile (§8). The language is borrowed with its conformance suite; only the binding is APR's |
 | Signatures | Absent | A defined **optional profile** (§9) |
 | Text handling | Unspecified | **Normative** (§7) — it was silently rewriting filler answers while leaving author-supplied URLs unchecked |
 
@@ -685,25 +685,64 @@ only when relevant, computing a total, flagging a cross-field inconsistency.
 
 ### 8.2 Language
 
-> **⚠️ This section describes the shipped engine, which is CEL-*flavoured* rather
-> than CEL, and it is being replaced. See §8.5.**
+**APR expressions are CEL** — the Common Expression Language. This specification does
+not define the language: grammar, operators, functions, and type rules come from
+[cel-spec](https://github.com/cel-expr/cel-spec) (Apache-2.0), and language conformance
+is that project's own test suite, which APR neither writes nor maintains.
 
-The shipped engine is a hand-written interpreter using CEL's surface syntax with
-**JavaScript-style truthiness**: a non-empty string is truthy in conditions, `!`,
-`&&`, and `||`. Real CEL requires `bool` there and treats a string operand as a
-type error. An unknown identifier yields null here and errors in CEL.
+CEL is non-Turing-complete, terminates by construction, and has no I/O or host access,
+which is why it is safe to evaluate on a document from an untrusted sender.
 
-Field values are referenced by prompt id and are **always strings**, so conversions
-(`double()`, `timestamp()`) must be written explicitly.
+#### 8.2.1 The type environment
 
-The language is **not Turing-complete**: no loops, no recursion, no user-defined
-functions, no I/O, no host access. Evaluation always terminates.
+CEL is statically typed. `expectedDataType` supplies the types:
 
-> **Language reference for the shipped engine.** Grammar, operators, and function
-> table are in **Appendix B and C of [`APR_SPECIFICATION_v0.2.md`](APR_SPECIFICATION_v0.2.md)**,
-> which survive that document's supersession for this purpose. Do not implement
-> `core+expressions` from them without reading §8.5 first: the engine they describe
-> is being replaced, and building against it now means building the wrong thing.
+| `expectedDataType` | CEL type |
+|---|---|
+| `number`, `currency` | `double` |
+| `boolean` | `bool` |
+| `date`, `time`, `datetime` | `timestamp` |
+| `multichoice` | `list<string>` |
+| everything else, or absent | `string` |
+
+Plus `_this` (the current prompt's response, typed by its own hint), `_today`
+(`timestamp`), and `ctx` (`map`).
+
+This is what lets an author write `quantity * unit_price` rather than
+`double(quantity) * double(unit_price)`, and what lets a type checker tell them an
+expression is wrong before a filler ever sees the form.
+
+#### 8.2.2 Values that will not bind
+
+A response that cannot be converted to its declared type — `"about twelve"` in a
+`number` field, an unparseable date, or an empty one — **MUST** be treated as an error,
+**never** as a default. The expression errors and degrades to the stored response
+(§8.3).
+
+Binding an empty number as `0` would make a blank field silently total as zero: a wrong
+answer rather than no answer.
+
+**Nothing about the response changes.** It is stored verbatim, displayed verbatim, and
+the document stays valid. It simply does not participate in a calculation — which is
+what "advisory" has meant all along. A hint never constrains what may be *stored*; here
+it determines what an optional feature can *compute with*. Expressions are themselves
+hints (§4.7), so one hint informing another stays inside the advisory layer.
+
+#### 8.2.3 Results
+
+A result is marshalled back to a stored string through the canonical write forms of
+§4.9, which serve both directions: `double` per the number rule, `bool` as
+`"true"`/`"false"`, `timestamp` as RFC 3339, `list` newline-separated.
+
+#### 8.2.4 Authoring-time checking
+
+An implementation **SHOULD** type-check expressions against the document's type
+environment when a template is authored, and report failures to the author with
+position information.
+
+This is exactly where §7.3 says strictness belongs. The **author** is stopped and asked
+to fix something before publication; the **filler** is never blocked, because at fill
+time the same expression degrades to the stored response.
 
 ### 8.3 Requirements
 
@@ -716,77 +755,30 @@ functions, no I/O, no host access. Evaluation always terminates.
 - A computed value is a **convenience, not an authority**. A consumer **MUST**
   read the stored `response` and **MUST NOT** assume it was recomputed.
 
-### 8.4 Interoperability warning
+### 8.4 Conformance
 
-Two implementations of `core+expressions` will agree on the structure of a
-document and **MAY** disagree on the computed value of a field, because they
-implement the CEL subset independently. This is the single largest interop risk
-in APR. Therefore:
+Conformance splits in two, and only half is APR's.
 
-- A stored `response` is always authoritative over any recomputation.
-- Templates using expressions **SHOULD** be tested against every implementation
-  intended to render them.
-- Anything that must be exact — a legally binding total — **SHOULD** be computed
-  by the receiving workflow, not trusted from the file.
-
-### 8.5 Planned: adopt CEL
-
-APR expressions will **be** CEL rather than resemble it, with `expectedDataType`
-supplying the type environment. The reasons are practical: a versioned specification
-this project does not maintain, a 2,456-test conformance suite it does not write, and
-existing implementations in Go, C++, Java, Rust, Python, JS, and C#.
-
-**Type environment.** CEL is statically typed, and the hint says what a field should
-be:
-
-| `expectedDataType` | CEL type |
+| Layer | Tested by |
 |---|---|
-| `number`, `currency` | `double` |
-| `boolean` | `bool` |
-| `date`, `time`, `datetime` | `timestamp` |
-| `multichoice` | `list<string>` (split on newline) |
-| everything else, or absent | `string` |
+| **Language** — grammar, operators, functions, type rules | cel-spec's own suite. Borrowed, not maintained here |
+| **Binding** — type environment, unbindable values, marshalling back, error degradation | `tests/Conformance/v1/expressions/vectors.json` |
 
-A response that will not bind to its declared type — `"about twelve"` in a `number`
-field, or an empty one — becomes an **error, never a default**. The expression errors,
-and §8.3 degrades it to the stored response. The answer is still stored verbatim, still
-displayed, still valid; it simply does not participate in a calculation.
+A stored `response` remains authoritative over any recomputation. A consumer **MUST**
+read the stored value and **MUST NOT** assume anything recomputed it.
 
-This is what "advisory" has always meant. A hint never constrains what may be
-*stored*; here it determines what an optional feature can *compute with*. Expressions
-are themselves hints (§4.7), so one hint informing another stays entirely inside the
-advisory layer and touches no data.
+### 8.5 Migrating from the pre-CEL engine
 
-**Consequences.** Expressions become what an author means: `quantity * unit_price`
-rather than `quantity == '' || unit_price == '' ? '' : double(quantity) * double(unit_price)`.
-The empty-guard is unnecessary, because an empty `number` field errors and the field
-keeps its stored value.
+Earlier revisions shipped a hand-written interpreter with JavaScript-style truthiness,
+where a non-empty string was true in a condition. CEL requires `bool` there.
 
-Results marshal back to strings through the canonical write forms of §4.9, which
-turn out to serve both directions.
-
-**Authoring-time checking.** A CEL type-checker validates an expression against the
-document's type environment when the template is authored, with positioned messages
-(`1:6: found no matching overload for '_?_:_' applied to '(string, string, string)'`).
-That lands exactly where §7.3 says strictness belongs: the **author** is caught before
-publication; the **filler** is never blocked.
-
-**Verified feasible.** A spike against Celly (Apache-2.0, .NET 8/9/10, zero
-dependencies, 100% of the official conformance suite) confirmed every piece:
-`VariableDecl(name, CelType)` builds the environment, `qty * price` evaluates to
-`37.5` with no conversion wrappers, `CelEnv.Check` reports type errors at authoring
-time, runtime failures arrive as error *values* rather than exceptions — matching
-§8.3's degrade-to-stored-response rule — and `EvalLimits` provides the bounded
-evaluation §8.3 requires.
-
-**Migration cost.** Bare field references used as conditions (`exprHidden: "some_field"`)
-become type errors, and string truthiness stops working. Under §8.3 those degrade to the
-stored response, so a form stops applying a hint rather than doing something wrong —
-detectable, not silent. Every comparison and ternary in the current fixtures survives.
-
-**Conformance splits in two.** Language conformance is cel-spec's own suite, borrowed.
-Binding conformance — type environment, unbindable values, marshalling back, error
-degradation — is APR's, and is the gap §8.4 describes.
+- Bare field references as conditions (`exprHidden: "some_field"`) become type errors.
+  Under §8.3 they degrade to the stored response, so a form stops applying a hint rather
+  than doing something wrong — detectable, not silent.
+- Conversion wrappers become unnecessary where a hint declares the type:
+  `quantity == '' || unit_price == '' ? '' : double(quantity) * double(unit_price)`
+  is now `quantity * unit_price`, because an empty `number` does not bind and the field
+  keeps its stored value.
 
 ---
 
@@ -1043,10 +1035,9 @@ Honest list of what 1.0 does not settle.
    tolerance (§1.3.1) now make additive change safe, but nothing coordinates *who*
    may add which member name. A reserved prefix or a registry is needed before
    independent parties start extending the format.
-2. **Expression interop** (§8.4) is unproven — one implementation exists. A
-   shared expression test corpus is needed before a second one is written, and
-   the language reference still lives in the superseded v0.2 appendices (§8.2)
-   rather than in this document.
+2. **Expression interop across implementations** is now testable but untested by a
+   second party: the language is CEL, with cel-spec's own suite, and the APR binding has
+   published vectors (§8.4). No non-.NET implementation has run either yet.
 3. **No submission protocol.** `submissionUrl` is a string with no defined
    request format, response, or receipt. Filling a form is solved; returning it
    is not.

@@ -198,8 +198,8 @@
     },
     {
       "kind": "external-conformance",
-      "status": "partial",
-      "notes": "veraPDF for PDF/A. CEL suite planned for expressions."
+      "status": "present",
+      "notes": "veraPDF for PDF/A; cel-spec's suite available for the expression language now that CEL is adopted."
     },
     {
       "kind": "accessibility-static",
@@ -658,16 +658,23 @@
     {
       "id": "REQ-8-expressions",
       "section": "8",
-      "statement": "Expression evaluation semantics",
-      "strength": "none",
-      "gates": [],
-      "gap": "Nothing tests expression results, and the shipped engine is CEL-flavoured rather than CEL: it uses JavaScript truthiness where CEL requires bool. Decision recorded in specification 8.5 - adopt CEL, with expectedDataType supplying the type environment. Verified feasible by spike: Celly builds the environment via VariableDecl(name, CelType), 'qty * price' evaluates without conversion wrappers, CelEnv.Check reports type errors at authoring time with positions, runtime failures arrive as error values matching 8.3's degrade rule, and EvalLimits provides bounded evaluation. Language conformance then comes from cel-spec's 2,456-test suite; only the binding vectors remain APR's to write.",
-      "planned": {
-        "decision": "specification 8.5",
-        "blocked": false,
-        "languageConformance": "cel-spec suite (borrowed)",
-        "bindingConformance": "APR vectors (to write)"
-      }
+      "statement": "Expression evaluation semantics: CEL, with expectedDataType supplying the type environment",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "expressions/vectors.json"
+        },
+        {
+          "type": "test",
+          "ref": "ExpressionBinding_MatchesThePublishedVectors"
+        },
+        {
+          "type": "fixture",
+          "ref": "valid/table-and-expressions.aprt"
+        }
+      ],
+      "notes": "Conformance splits in two. The LANGUAGE is CEL, tested by cel-spec's own 2,456-test suite, which this project does not maintain. The BINDING - type environment from hints, unbindable values degrading rather than defaulting, marshalling back through the section 4.9 canonical forms - is APR-specific and is pinned by 12 published vectors."
     },
     {
       "id": "REQ-9.2-sigobject",

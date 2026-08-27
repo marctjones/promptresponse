@@ -188,6 +188,68 @@ public class ConformanceCorpusTests
     }
 
     /// <summary>
+    /// The published expression binding vectors.
+    /// </summary>
+    /// <remarks>
+    /// The language is CEL and is conformance-tested by cel-spec's own suite, which this
+    /// project does not maintain. What is APR-specific is the binding: how
+    /// expectedDataType becomes a type environment, what happens to a response that will
+    /// not bind, and how a result marshals back to a stored string. That is what these
+    /// vectors pin, and they are what another SDK ports against.
+    /// </remarks>
+    [Fact]
+    public void ExpressionBinding_MatchesThePublishedVectors()
+    {
+        var path = Path.Combine(CorpusDir("expressions"), "vectors.json");
+        using var doc = System.Text.Json.JsonDocument.Parse(File.ReadAllText(path));
+
+        var failures = new List<string>();
+        foreach (var testCase in doc.RootElement.GetProperty("cases").EnumerateArray())
+        {
+            var name = testCase.GetProperty("name").GetString()!;
+            var expression = testCase.GetProperty("expr").GetString()!;
+            var expected = testCase.GetProperty("expect").ValueKind == System.Text.Json.JsonValueKind.Null
+                ? null
+                : testCase.GetProperty("expect").GetString();
+
+            var section = new Core.Models.Section { Id = "s", Title = "S" };
+            foreach (var field in testCase.GetProperty("fields").EnumerateArray())
+            {
+                section.Prompts.Add(new Core.Models.Prompt
+                {
+                    Id = field.GetProperty("id").GetString()!,
+                    Label = field.GetProperty("id").GetString()!,
+                    Response = field.GetProperty("response").GetString() ?? string.Empty,
+                    Hints = new Core.Models.PromptHints { ExpectedDataType = field.GetProperty("type").GetString() },
+                });
+            }
+            // The prompt carrying the expression is an ordinary string field.
+            var subject = new Core.Models.Prompt
+            {
+                Id = "_subject", Label = "Subject",
+                Hints = new Core.Models.PromptHints { ExprValue = expression },
+            };
+            section.Prompts.Add(subject);
+
+            var document = new Core.Models.AprDocument
+            {
+                Metadata = new Core.Models.Metadata { Title = "Vectors" },
+                Sections = [section],
+            };
+
+            var context = Core.Expressions.FormExpressions.BuildContext(document);
+            var actual = Core.Expressions.FormExpressions.ComputeValue(subject, context);
+
+            if (!string.Equals(actual, expected, StringComparison.Ordinal))
+            {
+                failures.Add($"{name}: `{expression}` expected {expected ?? "<degrade>"} but got {actual ?? "<degrade>"}");
+            }
+        }
+
+        failures.Should().BeEmpty("every published binding vector must reproduce exactly");
+    }
+
+    /// <summary>
     /// The published apr-sig-v2 vectors are the contract every other SDK ports against.
     /// If this drifts, signatures produced here stop verifying elsewhere — silently,
     /// because the CMS layer is still perfectly correct. Regenerating the vectors to

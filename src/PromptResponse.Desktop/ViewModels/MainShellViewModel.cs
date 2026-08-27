@@ -594,11 +594,11 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             }
 
             // Cross-field validation (exprValidation) — advisory, never blocking.
-            var fields = FormExpressions.BuildFields(doc);
             var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
+            var expressions = FormExpressions.BuildContext(doc, today);
             foreach (var prompt in FormExpressions.GetAllPrompts(doc))
             {
-                var message = FormExpressions.Validate(prompt, fields, today);
+                var message = FormExpressions.Validate(prompt, expressions);
                 if (message != null)
                 {
                     _advisories.Add(new AdvisoryItem(prompt.Id, prompt.Label, message));
@@ -1166,7 +1166,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         {
             var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
             FormExpressions.RecomputeComputedValues(doc, today);
-            var fields = FormExpressions.BuildFields(doc);
+            // Rebuilt after recomputation so dependent expressions see the new values.
+            var expressions = FormExpressions.BuildContext(doc, today);
 
             var prompts = new Dictionary<string, Prompt>(StringComparer.Ordinal);
             foreach (var p in FormExpressions.GetAllPrompts(doc))
@@ -1183,8 +1184,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
                 {
                     continue;
                 }
-                vm.IsVisible = !FormExpressions.IsHidden(prompt, fields, today);
-                vm.IsReadOnly = FormExpressions.IsReadOnly(prompt, fields, today);
+                vm.IsVisible = !FormExpressions.IsHidden(prompt, expressions);
+                vm.IsReadOnly = FormExpressions.IsReadOnly(prompt, expressions);
                 vm.RefreshFromModel();   // pick up any recomputed value
             }
         }

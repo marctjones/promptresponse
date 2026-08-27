@@ -3,158 +3,164 @@ using PromptResponse.Core.Models;
 namespace PromptResponse.Core.Expressions;
 
 /// <summary>
-/// Evaluates a document's <c>expr*</c> hints against the current responses:
-/// conditional visibility, computed (read-only) values, conditional-expected,
-/// and cross-field validation. Pure and side-effect-free except
-/// <see cref="RecomputeComputedValues"/>, which writes derived values back.
+/// Evaluates the advisory <c>expr*</c> hints over a document.
 /// </summary>
 /// <remarks>
-/// Per the vision these are advisory: a broken expression falls back to a safe
-/// default (visible, not required, valid, unchanged) and never blocks input.
+/// <para>
+/// Expressions are CEL (specification section 8), with each prompt's
+/// <c>expectedDataType</c> supplying the type environment. They are hints like any
+/// other: they never reject a response, never block saving, and never make a document
+/// invalid. Anything that cannot be evaluated degrades to the stored response, so a
+/// broken expression costs the author a correction and costs the filler nothing.
+/// </para>
 /// </remarks>
 public static class FormExpressions
 {
-    /// <summary>All prompts in the document, in document order (sections recursed).</summary>
+    /// <summary>Every prompt in the document, in document order.</summary>
     public static IReadOnlyList<Prompt> GetAllPrompts(AprDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
-        var list = new List<Prompt>();
-        foreach (var section in document.Sections)
+        var prompts = new List<Prompt>();
+        void Walk(Section section)
         {
-            Collect(section, list);
-        }
-        return list;
-    }
-
-    private static void Collect(Section section, List<Prompt> into)
-    {
-        into.AddRange(section.Prompts);
-        foreach (var child in section.Sections)
-        {
-            Collect(child, into);
-        }
-    }
-
-    /// <summary>Snapshot of prompt id → current response, the variable scope for expressions.</summary>
-    public static IReadOnlyDictionary<string, string> BuildFields(AprDocument document)
-    {
-        var fields = new Dictionary<string, string>(StringComparer.Ordinal);
-        foreach (var p in GetAllPrompts(document))
-        {
-            if (!string.IsNullOrEmpty(p.Id))
+            prompts.AddRange(section.Prompts);
+            foreach (var child in section.Sections)
             {
-                fields[p.Id] = p.Response;
+                Walk(child);
             }
         }
-        return fields;
+        foreach (var section in document.Sections)
+        {
+            Walk(section);
+        }
+        return prompts;
     }
 
-    /// <summary>True when the prompt's <c>exprHidden</c> evaluates truthy (default: visible).</summary>
-    public static bool IsHidden(Prompt prompt, IReadOnlyDictionary<string, string> fields, string? today = null, IReadOnlyDictionary<string, string>? ctx = null) =>
-        EvalBool(prompt, prompt.Hints.ExprHidden, fields, today, ctx, fallback: false);
+    /// <summary>Builds the evaluation environment for a document.</summary>
+    public static FormExpressionContext BuildContext(
+        AprDocument document,
+        string? today = null,
+        IReadOnlyDictionary<string, string>? ctx = null) =>
+        FormExpressionContext.Create(document, today, ctx);
 
-    /// <summary>True when the prompt's <c>exprExpected</c> evaluates truthy (default: not required).</summary>
-    public static bool IsExpected(Prompt prompt, IReadOnlyDictionary<string, string> fields, string? today = null, IReadOnlyDictionary<string, string>? ctx = null) =>
-        EvalBool(prompt, prompt.Hints.ExprExpected, fields, today, ctx, fallback: false);
+    /// <summary>Whether this prompt should be hidden.</summary>
+    public static bool IsHidden(Prompt prompt, FormExpressionContext context) =>
+        EvaluateCondition(prompt, prompt.Hints?.ExprHidden, context);
 
-    /// <summary>
-    /// True when the prompt is read-only: it has a computed value (<c>exprValue</c>)
-    /// or its <c>exprReadOnly</c> evaluates truthy.
-    /// </summary>
-    public static bool IsReadOnly(Prompt prompt, IReadOnlyDictionary<string, string> fields, string? today = null, IReadOnlyDictionary<string, string>? ctx = null) =>
-        !string.IsNullOrWhiteSpace(prompt.Hints.ExprValue)
-        || EvalBool(prompt, prompt.Hints.ExprReadOnly, fields, today, ctx, fallback: false);
+    /// <summary>Whether this prompt is marked as expected. Advisory; never blocks submission.</summary>
+    public static bool IsExpected(Prompt prompt, FormExpressionContext context) =>
+        EvaluateCondition(prompt, prompt.Hints?.ExprExpected, context);
 
-    /// <summary>
-    /// The cross-field validation message from <c>exprValidation</c>, or null when
-    /// there's no rule or the field is valid (empty result).
-    /// </summary>
-    public static string? Validate(Prompt prompt, IReadOnlyDictionary<string, string> fields, string? today = null, IReadOnlyDictionary<string, string>? ctx = null)
+    /// <summary>Whether this prompt should be presented read-only.</summary>
+    /// <remarks>
+    /// A computed field is read-only by definition — specification section 8.1 calls
+    /// <c>exprValue</c> a computed read-only value — so it needs no separate
+    /// <c>exprReadOnly</c> to say so.
+    /// </remarks>
+    public static bool IsReadOnly(Prompt prompt, FormExpressionContext context)
     {
-        if (string.IsNullOrWhiteSpace(prompt.Hints.ExprValidation))
+        ArgumentNullException.ThrowIfNull(prompt);
+        return !string.IsNullOrWhiteSpace(prompt.Hints?.ExprValue)
+            || EvaluateCondition(prompt, prompt.Hints?.ExprReadOnly, context);
+    }
+
+    private static bool EvaluateCondition(Prompt prompt, string? expression, FormExpressionContext context)
+    {
+        ArgumentNullException.ThrowIfNull(prompt);
+        ArgumentNullException.ThrowIfNull(context);
+        if (string.IsNullOrWhiteSpace(expression))
+        {
+            return false;
+        }
+        var result = context.Evaluate(expression, prompt);
+        // CEL requires bool in a condition, so an error or any other type is simply not
+        // true: an advisory hint that cannot be evaluated does not apply.
+        return result is not null && CelBinding.IsTrue(result);
+    }
+
+    /// <summary>
+    /// The cross-field validation message for this prompt, or null when it is fine.
+    /// </summary>
+    /// <remarks>Always advisory. A message never makes a document invalid.</remarks>
+    public static string? Validate(Prompt prompt, FormExpressionContext context)
+    {
+        ArgumentNullException.ThrowIfNull(prompt);
+        ArgumentNullException.ThrowIfNull(context);
+        var expression = prompt.Hints?.ExprValidation;
+        if (string.IsNullOrWhiteSpace(expression))
         {
             return null;
         }
-        var message = EvalString(prompt, prompt.Hints.ExprValidation!, fields, today, ctx, fallback: string.Empty);
+        var result = context.Evaluate(expression, prompt);
+        if (result is null)
+        {
+            return null;
+        }
+        var message = CelBinding.ToStoredString(result);
         return string.IsNullOrEmpty(message) ? null : message;
     }
 
     /// <summary>
-    /// The computed value from <c>exprValue</c>, or null when the prompt isn't
-    /// computed. Errors fall back to the prompt's current response.
+    /// The computed value for this prompt, or null when there is none or it cannot be
+    /// computed.
     /// </summary>
-    public static string? ComputeValue(Prompt prompt, IReadOnlyDictionary<string, string> fields, string? today = null, IReadOnlyDictionary<string, string>? ctx = null)
+    public static string? ComputeValue(Prompt prompt, FormExpressionContext context)
     {
-        if (string.IsNullOrWhiteSpace(prompt.Hints.ExprValue))
+        ArgumentNullException.ThrowIfNull(prompt);
+        ArgumentNullException.ThrowIfNull(context);
+        var expression = prompt.Hints?.ExprValue;
+        if (string.IsNullOrWhiteSpace(expression))
         {
             return null;
         }
-        return EvalString(prompt, prompt.Hints.ExprValue!, fields, today, ctx, fallback: prompt.Response);
+        var result = context.Evaluate(expression, prompt);
+        return result is null ? null : CelBinding.ToStoredString(result);
     }
 
     /// <summary>
-    /// Recomputes every computed field (<c>exprValue</c>) and writes the result
-    /// back to its response, iterating to a fixpoint so chained computations
-    /// (a total of subtotals) settle. Bounded to defuse circular references.
-    /// Returns true if any value changed.
+    /// Recomputes every computed field in the document. Returns true when anything
+    /// changed.
     /// </summary>
-    public static bool RecomputeComputedValues(AprDocument document, string? today = null, IReadOnlyDictionary<string, string>? ctx = null)
+    /// <remarks>
+    /// A computed value is a convenience, not an authority. An expression that cannot be
+    /// evaluated leaves the stored response alone rather than clearing it, so a filler
+    /// never loses an answer to a broken formula.
+    /// </remarks>
+    public static bool RecomputeComputedValues(
+        AprDocument document,
+        string? today = null,
+        IReadOnlyDictionary<string, string>? ctx = null)
     {
         ArgumentNullException.ThrowIfNull(document);
-        var computed = GetAllPrompts(document)
-            .Where(p => !string.IsNullOrWhiteSpace(p.Hints.ExprValue))
-            .ToList();
-        if (computed.Count == 0)
-        {
-            return false;
-        }
 
-        var anyChanged = false;
-        // At most computed.Count+1 passes: each pass can settle at least one more
-        // field in a non-circular dependency graph; the extra pass confirms stability.
-        for (var pass = 0; pass <= computed.Count; pass++)
+        var changed = false;
+        // Repeat so a computed field feeding another settles. Bounded, because a cycle
+        // must terminate rather than hang the caller.
+        for (var pass = 0; pass < 5; pass++)
         {
-            var fields = BuildFields(document);
+            var context = FormExpressionContext.Create(document, today, ctx);
             var changedThisPass = false;
-            foreach (var p in computed)
+
+            foreach (var prompt in GetAllPrompts(document))
             {
-                var value = EvalString(p, p.Hints.ExprValue!, fields, today, ctx, fallback: p.Response);
-                if (value != p.Response)
+                if (string.IsNullOrWhiteSpace(prompt.Hints?.ExprValue))
                 {
-                    p.Response = value;
+                    continue;
+                }
+                var computed = ComputeValue(prompt, context);
+                if (computed is not null && !string.Equals(computed, prompt.Response, StringComparison.Ordinal))
+                {
+                    prompt.Response = computed;
                     changedThisPass = true;
-                    anyChanged = true;
                 }
             }
+
+            changed |= changedThisPass;
             if (!changedThisPass)
             {
                 break;
             }
         }
-        return anyChanged;
-    }
-
-    private static IExpressionContext ContextFor(Prompt prompt, IReadOnlyDictionary<string, string> fields, string? today, IReadOnlyDictionary<string, string>? ctx) =>
-        new DictionaryExpressionContext(fields, thisValue: prompt.Response, today: today, ctx: ctx);
-
-    private static bool EvalBool(Prompt prompt, string? expr, IReadOnlyDictionary<string, string> fields, string? today, IReadOnlyDictionary<string, string>? ctx, bool fallback)
-    {
-        if (string.IsNullOrWhiteSpace(expr))
-        {
-            return fallback;
-        }
-        return ExpressionEvaluator.EvaluateBool(expr!, ContextFor(prompt, fields, today, ctx), fallback);
-    }
-
-    private static string EvalString(Prompt prompt, string expr, IReadOnlyDictionary<string, string> fields, string? today, IReadOnlyDictionary<string, string>? ctx, string fallback)
-    {
-        try
-        {
-            return ExpressionEvaluator.Compile(expr).EvaluateString(ContextFor(prompt, fields, today, ctx), fallback);
-        }
-        catch (ExpressionException)
-        {
-            return fallback;
-        }
+        return changed;
     }
 }

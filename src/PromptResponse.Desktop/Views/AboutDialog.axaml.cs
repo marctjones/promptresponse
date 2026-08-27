@@ -102,8 +102,12 @@ public partial class AboutDialog : Window
         new Acknowledgement("CommunityToolkit.Mvvm", "8.4.2", "MIT License — © .NET Foundation and Contributors",
             Note: "Source-generated MVVM helpers."),
 
+        // ─── Expression engine ───────────────────────────────────────────────────────
+        new Acknowledgement("Celly", "1.2.0", "Apache License 2.0",
+            Note: "Native C# implementation of Google's Common Expression Language (CEL). Evaluates the advisory expr* hints; passes the official cel-spec conformance suite."),
+
         // ─── PDF engine — © Marc Jones, MIT ──────────────────────────────────────────
-        new Acknowledgement("Pdfe.Core", "2.5.0", "MIT License — © Marc Jones",
+        new Acknowledgement("Pdfe.Core", "2.9.0", "MIT License — © Marc Jones",
             Note: "Pure-managed PDF authoring/parsing engine; powers PDF and fillable-form export. https://github.com/marctjones/pdfe"),
 
         // ─── Skia / HarfBuzz native + managed wrappers — © Microsoft, MIT ────────────
