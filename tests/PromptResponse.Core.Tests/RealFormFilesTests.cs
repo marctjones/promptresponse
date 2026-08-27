@@ -7,21 +7,40 @@ using Xunit;
 namespace PromptResponse.Core.Tests;
 
 /// <summary>
-/// Runs every real form file in the repository through the whole pipeline.
+/// Runs every transcribed form file in the repository through the whole pipeline.
 /// </summary>
 /// <remarks>
 /// <para>
-/// The conformance corpus is deliberately synthetic: each fixture isolates one rule so a
-/// failure names the rule it broke. That precision is also its limit. The fixtures are
-/// small and tidy, and the things that break in practice - a section nested five deep, a
-/// prompt with every hint set at once, a thousand fields, a label with an apostrophe in
-/// it - only appear at the size and messiness of a real form.
+/// <b>These files are samples, not oracles.</b> Every one was produced by reading a PDF of
+/// a government form and guessing at the APR that would represent it, and most were
+/// generated before the table redesign, the type registry and the canonical write forms
+/// existed. They are evidence of what documents look like in the wild. They are not
+/// evidence of what the format requires.
 /// </para>
 /// <para>
-/// These files are that: SF-86, IRS 990, IRS 1040, W-4 and the bundled starter templates,
-/// including two produced by the PDF importer rather than written by hand. Enumerated from
-/// disk, so a file added to either directory is picked up without anyone remembering to
-/// list it here.
+/// A synthetic corpus fixture is the opposite: it carries its own verdict.
+/// duplicate-section-id.aprt sits in invalid/ because it is <i>defined</i> to be invalid,
+/// and fixture-plus-verdict together are the specification. Nothing about a transcribed
+/// SF-86 defines anything.
+/// </para>
+/// <para>
+/// So the assertions here are deliberately confined to claims about <b>our code</b>, which
+/// any input is entitled to make: it must parse or fail cleanly, it must not be mutated by
+/// being read or written, it must round-trip without drift, and it must not produce
+/// duplicate ids. The one quality claim - that the document validates - is kept because
+/// these files ship as examples and a broken example is worse than none, and because it is
+/// a floor we control by fixing the file.
+/// </para>
+/// <para>
+/// Everything above that floor is <i>measured</i>, not asserted, by
+/// scripts/score-real-files.py. Drift from the current vocabulary belongs in a scorecard
+/// that says which files to regenerate, not in a red test that pressures the specification
+/// to bend back toward a stale guess.
+/// </para>
+/// <para>
+/// What these files are actually good for is shape: depth, size, and hint combinations no
+/// hand-written fixture would think to produce. Enumerated from disk, so a file added to
+/// either directory is picked up without anyone remembering to list it.
 /// </para>
 /// </remarks>
 public class RealFormFilesTests
@@ -70,10 +89,16 @@ public class RealFormFilesTests
             $"{relativePath} is a real form and must contain sections");
     }
 
-    /// <summary>Real files must be valid, not merely parseable.</summary>
+    /// <summary>These must be valid, not merely parseable.</summary>
     /// <remarks>
-    /// These are the files shipped as examples and used as fixtures. A form we hand people
-    /// as a model of the format failing our own validator would be worse than no example.
+    /// The one quality claim made here, and only because it is a floor we control: a form
+    /// handed to people as a model of the format must not fail the format's own validator.
+    /// When this goes red the answer is to fix the file or the code that produced it -
+    /// never to relax the validator, because these documents are transcriptions and have
+    /// no authority over the specification.
+    ///
+    /// Conformance beyond validity - registered types, marked tables, applicable hints -
+    /// is reported by scripts/score-real-files.py rather than asserted here.
     /// </remarks>
     [Theory]
     [MemberData(nameof(RealFiles))]
