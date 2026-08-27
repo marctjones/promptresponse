@@ -678,7 +678,7 @@ only when relevant, computing a total, flagging a cross-field inconsistency.
 | Hint | Effect when truthy |
 |---|---|
 | `exprHidden` | Hide this prompt |
-| `exprValue` | Computed read-only value |
+| `exprValue` | Computed value (still editable — §8.6) |
 | `exprExpected` | Mark as expected (advisory; never blocks) |
 | `exprValidation` | Returns a message; `""` means valid |
 | `exprReadOnly` | Make read-only |
@@ -766,6 +766,30 @@ Conformance splits in two, and only half is APR's.
 
 A stored `response` remains authoritative over any recomputation. A consumer **MUST**
 read the stored value and **MUST NOT** assume anything recomputed it.
+
+### 8.6 A computed value is a suggestion, not a lock
+
+**A computed field MUST remain editable.** Any string is a valid response (§3.3), and a
+renderer that refuses to accept typing into a computed field has stopped implementing
+the format. A total that is wrong — because the form's arithmetic does not match what
+was actually agreed — must be correctable by the person filling it in.
+
+Being computed does not make a field read-only. `exprReadOnly` asks for that
+*presentation*, and even then it is an affordance rather than a wall: a renderer
+**SHOULD** offer a way in.
+
+**A correction MUST survive recomputation.** `responseMetadata.source` is `"computed"`
+when an `exprValue` produced the current response, and absent when a person or an API
+wrote it. Recomputation **MUST NOT** overwrite a non-empty response whose `source` is
+absent.
+
+Without that distinction a stale computed value and a human correction are
+indistinguishable, and the next recompute silently reverts the correction — losing an
+answer, which is the one thing this format exists to prevent. Any write to a response
+clears `source`, so an authored answer is marked simply by being written.
+
+A reader that ignores `source` still holds a valid document; it will just overwrite
+corrections, which is why the rule is stated as a MUST for anything that recomputes.
 
 ### 8.5 Migrating from the pre-CEL engine
 

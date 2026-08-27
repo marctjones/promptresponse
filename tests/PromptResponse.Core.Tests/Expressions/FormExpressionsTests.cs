@@ -165,6 +165,54 @@ public class FormExpressionsTests
     }
 
     [Fact]
+    public void ComputedField_IsNotReadOnly_BecauseAnyStringIsAValidResponse()
+    {
+        // Read-only is a presentation hint, never a lock. A computed total that is wrong
+        // must be correctable, or the format has stopped accepting text.
+        var doc = Doc(P("n", "number", "2"), P("total", "number", hints: h => h.ExprValue = "n * 2.0"));
+        var context = FormExpressions.BuildContext(doc);
+        var total = doc.Sections[0].Prompts[1];
+
+        FormExpressions.IsComputed(total).Should().BeTrue();
+        FormExpressions.IsReadOnly(total, context).Should().BeFalse(
+            "being computed does not lock a field; only exprReadOnly asks for that presentation");
+    }
+
+    [Fact]
+    public void RecomputeComputedValues_DoesNotRevertAnAnswerSomeoneTypedOver()
+    {
+        var doc = Doc(P("n", "number", "2"), P("total", "number", hints: h => h.ExprValue = "n * 2.0"));
+
+        FormExpressions.RecomputeComputedValues(doc);
+        var total = doc.Sections[0].Prompts[1];
+        total.Response.Should().Be("4", "computed on the first pass");
+        total.ResponseMetadata.Source.Should().Be(FormExpressions.ComputedSource);
+
+        // A person corrects it. Setting Response clears the provenance.
+        total.Response = "4 (agreed with vendor)";
+        total.ResponseMetadata.Source.Should().BeNull("an authored answer is not a computed one");
+
+        doc.Sections[0].Prompts[0].Response = "10";
+        FormExpressions.RecomputeComputedValues(doc);
+
+        total.Response.Should().Be("4 (agreed with vendor)",
+            "a correction survives; reverting it would lose an answer the format promises to keep");
+    }
+
+    [Fact]
+    public void RecomputeComputedValues_StillUpdatesAValueItProducedItself()
+    {
+        var doc = Doc(P("n", "number", "2"), P("total", "number", hints: h => h.ExprValue = "n * 2.0"));
+
+        FormExpressions.RecomputeComputedValues(doc);
+        doc.Sections[0].Prompts[0].Response = "5";
+        FormExpressions.RecomputeComputedValues(doc);
+
+        doc.Sections[0].Prompts[1].Response.Should().Be("10",
+            "an untouched computed field keeps tracking its inputs");
+    }
+
+    [Fact]
     public void RecomputeComputedValues_SettlesChainedComputations()
     {
         var doc = Doc(

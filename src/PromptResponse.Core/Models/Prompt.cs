@@ -62,6 +62,9 @@ public class Prompt
         {
             _response = value ?? string.Empty;
             ResponseMetadata.LastModified = DateTime.UtcNow;
+            // Any write that is not a recomputation makes this an authored answer.
+            // FormExpressions re-marks it afterwards when it wrote the value itself.
+            ResponseMetadata.Source = null;
         }
     }
 

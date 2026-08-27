@@ -37,6 +37,22 @@ public class ResponseMetadata
     public string? InferredDataType { get; set; }
 
     /// <summary>
+    /// Gets or sets where the current response came from: <c>"computed"</c> when an
+    /// <c>exprValue</c> produced it, absent when a person or an API wrote it.
+    /// </summary>
+    /// <remarks>
+    /// Exists so recomputation can tell a stale computed value from an answer someone
+    /// typed. Without it the two are indistinguishable, and a computed field a person
+    /// corrected would silently revert on the next recompute — losing an answer, which
+    /// the format exists to prevent.
+    ///
+    /// Cleared automatically whenever <c>Response</c> is set, so any write that is not
+    /// a recomputation marks the value as authored. Advisory like everything else: a
+    /// reader that ignores it still holds a valid document.
+    /// </remarks>
+    public string? Source { get; set; }
+
+    /// <summary>
     /// Gets or sets the timestamp when the response was last modified.
     /// </summary>
     /// <remarks>

@@ -16,6 +16,9 @@ namespace PromptResponse.Core.Expressions;
 /// </remarks>
 public static class FormExpressions
 {
+    /// <summary>Marks a response as produced by <c>exprValue</c> rather than authored.</summary>
+    public const string ComputedSource = "computed";
+
     /// <summary>Every prompt in the document, in document order.</summary>
     public static IReadOnlyList<Prompt> GetAllPrompts(AprDocument document)
     {
@@ -53,15 +56,27 @@ public static class FormExpressions
 
     /// <summary>Whether this prompt should be presented read-only.</summary>
     /// <remarks>
-    /// A computed field is read-only by definition — specification section 8.1 calls
-    /// <c>exprValue</c> a computed read-only value — so it needs no separate
-    /// <c>exprReadOnly</c> to say so.
+    /// Read-only is a <em>presentation</em> hint, never a lock. Any string is a valid
+    /// response, so a renderer that refuses to accept typing has stopped implementing
+    /// the format — a computed total a person needs to correct must be correctable.
+    ///
+    /// Being computed does not make a field read-only. That is what
+    /// <see cref="PromptHints.ExprReadOnly"/> is for, and even then a renderer should
+    /// offer a way in rather than a wall.
     /// </remarks>
-    public static bool IsReadOnly(Prompt prompt, FormExpressionContext context)
+    public static bool IsReadOnly(Prompt prompt, FormExpressionContext context) =>
+        EvaluateCondition(prompt, prompt.Hints?.ExprReadOnly, context);
+
+    /// <summary>Whether this prompt's value is derived from an expression.</summary>
+    /// <remarks>
+    /// Separate from <see cref="IsReadOnly"/> on purpose: a renderer may want to show a
+    /// computed field differently — a badge, a subdued style, a "recalculate" affordance —
+    /// without preventing anyone from typing into it.
+    /// </remarks>
+    public static bool IsComputed(Prompt prompt)
     {
         ArgumentNullException.ThrowIfNull(prompt);
-        return !string.IsNullOrWhiteSpace(prompt.Hints?.ExprValue)
-            || EvaluateCondition(prompt, prompt.Hints?.ExprReadOnly, context);
+        return !string.IsNullOrWhiteSpace(prompt.Hints?.ExprValue);
     }
 
     private static bool EvaluateCondition(Prompt prompt, string? expression, FormExpressionContext context)
@@ -147,10 +162,23 @@ public static class FormExpressions
                 {
                     continue;
                 }
+                // Only overwrite a value this mechanism produced, or a blank. A person
+                // may correct a computed total — any string is a valid response, and a
+                // computed value is a convenience, not an authority. Reverting their
+                // correction on the next pass would lose the answer.
+                var authored = !string.IsNullOrEmpty(prompt.Response)
+                    && !string.Equals(prompt.ResponseMetadata?.Source, ComputedSource, StringComparison.Ordinal);
+                if (authored)
+                {
+                    continue;
+                }
+
                 var computed = ComputeValue(prompt, context);
                 if (computed is not null && !string.Equals(computed, prompt.Response, StringComparison.Ordinal))
                 {
                     prompt.Response = computed;
+                    prompt.ResponseMetadata ??= new ResponseMetadata();
+                    prompt.ResponseMetadata.Source = ComputedSource;
                     changedThisPass = true;
                 }
             }

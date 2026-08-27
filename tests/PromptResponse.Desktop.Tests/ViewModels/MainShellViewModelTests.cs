@@ -556,7 +556,7 @@ public class MainShellViewModelTests
     }
 
     [Fact]
-    public void Expressions_ComputedField_IsReadOnly_AndRecomputesLive()
+    public void Expressions_ComputedField_StaysEditable_AndRecomputesLive()
     {
         var session = new DocumentSessionService();
         var shell = CreateShell(session: session);
@@ -566,11 +566,14 @@ public class MainShellViewModelTests
         var total = shell.PromptViewModels.Single(p => p.Id == "total");
 
         total.Response.Should().Be("6", "2 * 3 computed at load");
-        total.IsReadOnly.Should().BeTrue("computed fields are read-only");
-        total.IsInputEnabled.Should().BeFalse();
+
+        // Being computed is not a lock. Any string is a valid response, so a total that
+        // does not match what was actually agreed has to be correctable.
+        total.IsReadOnly.Should().BeFalse("a computed field stays editable (specification section 8.6)");
+        total.IsInputEnabled.Should().BeTrue();
 
         qty.Response = "5";
-        total.Response.Should().Be("15", "recomputed live when a dependency changes");
+        total.Response.Should().Be("15", "an untouched computed field keeps tracking its inputs");
     }
 
     [Fact]

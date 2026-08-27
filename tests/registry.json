@@ -677,6 +677,27 @@
       "notes": "Conformance splits in two. The LANGUAGE is CEL, tested by cel-spec's own 2,456-test suite, which this project does not maintain. The BINDING - type environment from hints, unbindable values degrading rather than defaulting, marshalling back through the section 4.9 canonical forms - is APR-specific and is pinned by 12 published vectors."
     },
     {
+      "id": "REQ-8.6-override",
+      "section": "8.6",
+      "statement": "A computed field remains editable, and a correction MUST survive recomputation",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "ComputedField_IsNotReadOnly_BecauseAnyStringIsAValidResponse"
+        },
+        {
+          "type": "test",
+          "ref": "RecomputeComputedValues_DoesNotRevertAnAnswerSomeoneTypedOver"
+        },
+        {
+          "type": "test",
+          "ref": "RecomputeComputedValues_StillUpdatesAValueItProducedItself"
+        }
+      ],
+      "notes": "responseMetadata.source distinguishes a stale computed value from a human correction. Without it the two are indistinguishable and the next recompute silently reverts the correction."
+    },
+    {
       "id": "REQ-9.2-sigobject",
       "section": "9.2",
       "statement": "Signature required members; canonicalization MUST be apr-sig-v2; a signature MUST NOT carry its own copy of the submission URL",

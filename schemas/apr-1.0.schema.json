@@ -294,6 +294,13 @@
         "lastModified": {
           "type": "string",
           "format": "date-time"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "computed"
+          ],
+          "description": "Where the current response came from. \"computed\" when an exprValue produced it; absent when a person or an API wrote it. Exists so recomputation can tell a stale computed value from an answer someone typed - without it, correcting a computed field would silently revert on the next recompute. Advisory: a reader that ignores it still holds a valid document."
         }
       }
     },
