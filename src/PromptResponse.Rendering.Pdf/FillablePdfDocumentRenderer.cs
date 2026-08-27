@@ -129,19 +129,24 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
         var fieldName = string.IsNullOrEmpty(f.Id) ? null : f.Id;
         var defaultValue = f.HasResponse ? f.Value : null;
         var dataType = f.ExpectedDataType ?? string.Empty;
+        var tooltip = FieldTooltip(f);
 
         if (dataType.Equals("boolean", StringComparison.OrdinalIgnoreCase))
         {
-            pdf.CheckBox(f.Label, fieldName, checkedByDefault: defaultValue is not null && TruthyValues.Contains(defaultValue));
+            pdf.CheckBox(f.Label, fieldName,
+                checkedByDefault: defaultValue is not null && TruthyValues.Contains(defaultValue),
+                tooltip: tooltip);
         }
         else if (f.Choices is { Count: > 0 })
         {
-            pdf.Dropdown(f.Label, ChoicesIncluding(f.Choices, defaultValue), fieldName, defaultValue);
+            pdf.Dropdown(f.Label, ChoicesIncluding(f.Choices, defaultValue), fieldName, defaultValue,
+                tooltip: tooltip);
         }
         else
         {
             var multiline = dataType.Equals("multiline", StringComparison.OrdinalIgnoreCase);
-            pdf.TextField(f.Label, fieldName, multiline: multiline, lines: multiline ? 3 : 1, defaultValue: defaultValue);
+            pdf.TextField(f.Label, fieldName, multiline: multiline, lines: multiline ? 3 : 1,
+                defaultValue: defaultValue, tooltip: tooltip);
         }
 
         if (!string.IsNullOrWhiteSpace(f.HelpText))
@@ -206,6 +211,22 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
     /// would silently lose what someone wrote, which is the one thing this format exists
     /// to prevent.
     /// </remarks>
+    /// <summary>What a PDF reader announces and shows on hover for a field (<c>/TU</c>).</summary>
+    /// <remarks>
+    /// <para>
+    /// The label alone was going in, which told a hovering user the thing they could
+    /// already read beside the box. The APR document usually knows more: helpText is the
+    /// author's guidance, and it was reaching the printed page but not the field.
+    /// </para>
+    /// <para>
+    /// The label leads because /TU is the field's accessible name in every reader that
+    /// exposes one - dropping it in favour of the guidance would leave a screen-reader
+    /// user with advice about a field they can no longer identify.
+    /// </para>
+    /// </remarks>
+    private static string FieldTooltip(FieldBlock f) =>
+        string.IsNullOrWhiteSpace(f.HelpText) ? f.Label : $"{f.Label} — {f.HelpText!.Trim()}";
+
     private static IReadOnlyList<string> ChoicesIncluding(IReadOnlyList<string> offered, string? answer)
     {
         if (string.IsNullOrEmpty(answer) || offered.Contains(answer, StringComparer.Ordinal))
