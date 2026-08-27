@@ -123,49 +123,6 @@
       }
     },
     {
-      "id": "sdk.python",
-      "component": "Python SDK",
-      "language": "python",
-      "path": "python/",
-      "runsInCi": false,
-      "gate": "none",
-      "notes": "No tests of any kind. Implements a different schema.",
-      "dimensions": {
-        "completeness": "none",
-        "conformance": "none",
-        "correctness": "none",
-        "robustness": "none"
-      }
-    },
-    {
-      "id": "sdk.rust",
-      "component": "Rust SDK stub",
-      "language": "rust",
-      "path": "rust/",
-      "runsInCi": false,
-      "gate": "none",
-      "dimensions": {
-        "completeness": "none",
-        "conformance": "none",
-        "correctness": "none",
-        "robustness": "none"
-      }
-    },
-    {
-      "id": "sdk.java",
-      "component": "Java SDK stub",
-      "language": "java",
-      "path": "java/",
-      "runsInCi": false,
-      "gate": "none",
-      "dimensions": {
-        "completeness": "none",
-        "conformance": "none",
-        "correctness": "none",
-        "robustness": "none"
-      }
-    },
-    {
       "id": "sdk.cpp",
       "component": "C++ SDK stub",
       "language": "cpp",
