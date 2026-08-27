@@ -73,7 +73,9 @@
         "conformance": "indirect",
         "correctness": "partial",
         "robustness": "none"
-      }
+      },
+      "robustness": "present",
+      "robustnessNotes": "CliRobustnessTests points empty, truncated, non-JSON, UTF-16, 50k-nested, binary and wrong-shape files at validate/info/stats. Contract: non-zero exit, no throw, no stack trace in output. Found that `info` exited 0 on any JSON object at all."
     },
     {
       "id": "desktop.unit",

@@ -34,6 +34,18 @@ public class AprDocument
     /// Used to ensure compatibility when the format evolves.
     /// Current version is <see cref="AprFormat.CurrentVersion"/>.
     /// </remarks>
+    /// <remarks>
+    /// Required on the wire. The schema lists version, metadata and sections as required
+    /// top-level members, and specification section 6.3 makes a structurally wrong shape a
+    /// parse failure rather than a validation error - so an object carrying none of them
+    /// must not deserialize into an empty document. It did, which meant `apr info` reported
+    /// success on any JSON object at all, and a third-party implementation reading the
+    /// schema would have rejected files this one accepted.
+    ///
+    /// JsonRequired affects deserialization only; constructing an AprDocument in code still
+    /// uses the defaults below.
+    /// </remarks>
+    [JsonRequired]
     public string Version { get; set; } = AprFormat.CurrentVersion;
 
     /// <summary>
@@ -52,6 +64,7 @@ public class AprDocument
     /// Contains title, description, timestamps, and other document-level information.
     /// Different fields are relevant for templates vs filled forms.
     /// </remarks>
+    [JsonRequired]
     public Metadata Metadata { get; set; } = new();
 
     /// <summary>
@@ -62,6 +75,7 @@ public class AprDocument
     /// Sections are displayed in the order they appear in this list.
     /// A document must have at least one section (enforced by validation, not by this model).
     /// </remarks>
+    [JsonRequired]
     public List<Section> Sections { get; set; } = new();
 
     /// <summary>
