@@ -9,7 +9,7 @@
             <TextBox Grid.Column="0"
                      x:Name="ResponseTextBox"
                      Text="{Binding Response, Mode=TwoWay}"
-                     Watermark="{Binding Placeholder, FallbackValue='File path or description'}"
+                     PlaceholderText="{Binding Placeholder, FallbackValue='File path or description'}"
                      MinHeight="36"
                      CornerRadius="6"
                      AutomationProperties.Name="{Binding Label}"

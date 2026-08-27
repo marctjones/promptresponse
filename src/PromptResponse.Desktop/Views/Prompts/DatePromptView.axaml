@@ -12,7 +12,7 @@
             <TextBox Grid.Column="0"
                      x:Name="ResponseTextBox"
                      Text="{Binding Response, Mode=TwoWay}"
-                     Watermark="{Binding Placeholder, FallbackValue='YYYY-MM-DD or any text'}"
+                     PlaceholderText="{Binding Placeholder, FallbackValue='YYYY-MM-DD or any text'}"
                      MinHeight="36"
                      CornerRadius="6"
                      AutomationProperties.Name="{Binding Label}"

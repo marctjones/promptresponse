@@ -24,7 +24,7 @@
                          AutomationProperties.HelpText="{Binding HelpText}"/>
             <TextBox x:Name="FreeTextEntry"
                      Text="{Binding Response, Mode=TwoWay}"
-                     Watermark="Or type any answer"
+                     PlaceholderText="Or type any answer"
                      Width="240"
                      MinHeight="36"
                      AutomationProperties.Name="Free-text response"

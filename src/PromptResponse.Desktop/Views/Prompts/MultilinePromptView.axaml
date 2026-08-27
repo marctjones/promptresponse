@@ -9,7 +9,7 @@
                    AutomationProperties.Name="{Binding Label}"/>
         <TextBox x:Name="ResponseTextBox"
                  Text="{Binding Response, Mode=TwoWay}"
-                 Watermark="{Binding Placeholder}"
+                 PlaceholderText="{Binding Placeholder}"
                  MinHeight="96"
                  AcceptsReturn="True"
                  TextWrapping="Wrap"

@@ -1,14 +1,11 @@
 # PromptResponse Roadmap
 
-**Current version:** 0.2.0 (released 2026-05-03)
-**Last updated:** 2026-06-05
-**Status:** Active development — approaching a shippable MVP
+**Current version:** 0.6.0
+**Last updated:** 2026-06-10
+**Status:** Active development — post-MVP hardening toward a public beta
 
-> This roadmap was rewritten on 2026-06-05 to reflect the real v0.2.0 codebase.
-> The previous version (dated 2025-01-13) described aspirational quarterly
-> phases that have since lapsed; its targets and metrics were never met on
-> that timeline and have been replaced with milestone-based planning that
-> doesn't pretend to know calendar dates.
+> This roadmap reflects the current post-MVP codebase. Older planning docs
+> described v0.2.0 and v0.3.0 cut lines; those milestones have now shipped.
 
 ---
 
@@ -25,7 +22,7 @@ no code execution, open format, stable IDs).
 
 ---
 
-## 2. Current state (v0.2.0) — what actually works today
+## 2. Current state (v0.6.0) — what actually works today
 
 The core loop is **complete and tested end-to-end**:
 
@@ -35,9 +32,19 @@ The core loop is **complete and tested end-to-end**:
   SSN/phone/currency/zip/EIN inputs) and advisory, never-blocking validation.
 - **Save / open** `.aprt` / `.aprf` / `.apr` via a working file service with
   extension-based document-type inference.
-- **Export** responses to CSV / JSON / TXT from the CLI.
+- **Export** responses to CSV / JSON / TXT / HTML / PDF from the CLI.
 - **Automate** via a real CLI (`validate`, `info`, `new`, `fill`, `stats`,
-  `diff`, `export`) and a programmatic `FormFillingApi`.
+  `diff`, `export`, `import`, `keygen`, `sign`, `verify`) and a programmatic
+  `FormFillingApi`.
+- **Import** fillable PDFs into APRT templates with quality scoring and a
+  documented importer-to-skill workflow for difficult forms.
+- **Publish** self-contained release artifacts for Windows, Linux, and macOS.
+- **Generate presentable records** with flat PDF, fillable AcroForm PDF, and
+  PDF/A archival export.
+- **Use advanced form logic** through a safe CEL-subset expression engine for
+  computed fields, conditional visibility, read-only state, and validation.
+- **Sign and verify** publisher templates and filled responses through CLI and
+  desktop flows.
 
 Platform / quality baseline:
 
@@ -47,20 +54,23 @@ Platform / quality baseline:
 - **Wizard mode** (section-at-a-time filling).
 - **Accessibility is CI-gated**: WCAG 2.1 AA contrast on Light/Dark, AAA on
   HighContrast; keyboard-nav tests; Linux AT-SPI2 screen-reader support.
-- **~700 tests** across Core / CLI / Desktop / Accessibility, ~2:1 test:src.
+- **~1,400 tests** across Core / CLI / Desktop / PDF / Accessibility.
 - **Multi-language read/write SDKs**: Rust and Java (real), a Python Flask
   demo server (`aprt-server.py`), and a C++ skeleton.
 
 ### Known gaps (the honest list)
 
-- **No PDF / print path** — the single biggest functional hole.
-- **No packaged installers** — "install the .NET SDK and `dotnet run`" is not
-  a user-facing install; `.apr` files aren't OS-associated.
-- **No home screen / recent-files** — the app opens into an empty editor.
-- **No calculations or conditional logic** — needed for real tax/eligibility
-  forms; design sketched in `docs/APR_SPECIFICATION_v0.2.md`, unimplemented.
-- **No web/browser fill path** and **no mobile apps**.
-- **No import** — every form is authored from scratch (no Word/PDF → APR).
+- **No page-exact print preview** — the app has an in-app generated-content
+  preview before PDF export, but not a page-break-accurate renderer surface.
+- **Import cleanup still needs deeper editing tools** — the desktop now shows
+  import-quality review flags, but section cleanup and radio-group conversion
+  still need purpose-built editing shortcuts.
+- **Non-.NET SDK conformance runners are not wired yet** — a shared corpus now
+  exists and .NET gates it, but Rust/Java/Python/C++ runners still need CI.
+- **No Word/Excel export** — useful for office interoperability.
+- **No mobile apps**.
+- **No notarized macOS app bundle** — release tarballs exist; signing and
+  notarization remain packaging follow-ups.
 
 ---
 
@@ -89,62 +99,63 @@ story, and deeper import** (see Milestone 2 below), not web fill + sharing.
 
 ## 4. Milestones
 
-### Milestone 1 — Shippable MVP (target: v0.3.0)
+### Milestone 1 — Shippable MVP (shipped: v0.3.0)
 
 **Goal:** someone who isn't the author can install it, create a form, fill it,
 and produce a presentable artifact — without a dev toolchain.
 
 The full cut-line with acceptance criteria lives in [docs/MVP.md](docs/MVP.md).
-Headline items:
+The v0.3.0 cut line shipped: PDF export, renderer seam, packaged distribution,
+home screen/recent files, first-run authoring guidance, starter templates, and
+documentation reconciliation.
 
-- **PDF / print export** (P0) — generate a presentable PDF/printout from a
-  filled form. Resolves the central "no layout, but users still need paper"
-  tension. Introduce an `IDocumentRenderer` seam so PDF/HTML/print share one
-  document-tree traversal.
-- **Packaged distribution** (P0) — self-contained builds for Windows + Linux,
-  `.apr`/`.aprt`/`.aprf` file association, no SDK prerequisite.
-- **Home screen / recent files** (P1) — a real entry point with "new from
-  template", recent documents, and quick actions.
-- **First-run onboarding for authoring** (P1) — guided template creation; the
-  *create* side is the unproven half and needs hand-holding.
-- **Starter template library** (P1) — ship more than 3 examples; this is what
-  makes "create a form" feel like "pick and tweak."
-- **Documentation reconciliation** (P1) — align VISION / FEATURES / docs with
-  the real v0.2.0 baseline (this roadmap is step one).
-
-### Milestone 2 — Competitive (target: v0.4.x)
+### Milestone 2 — Competitive (shipped: v0.4.x-v0.6.0)
 
 What makes APR competitive with advanced form systems, not just usable:
 
-- **Calculation engine** — computed/read-only fields, safe expression eval
-  (CEL-style per the v0.2 spec), **no code execution**. Reactive in the UI.
-- **Conditional logic** — show/hide and conditional-required rules; repeatable
-  sections (e.g. multiple dependents). Advisory, never input-blocking.
-- **Validation panel** — dedicated warnings panel, click-to-field.
+- **Calculation engine** — shipped: computed/read-only fields, safe expression
+  eval (CEL-style per the v0.2 spec), **no code execution**, reactive in the UI.
+- **Conditional logic** — shipped: show/hide, conditional-required, read-only,
+  and cross-field validation. Advisory, never input-blocking.
+- **Validation panel** — shipped: advisories with click-to-field.
 - **Wedge — Path A (chosen, §3):** the local-first / accessibility direction.
   Sequenced by value × low risk:
-  1. **Richer print / PDF templates** *(in progress)* — running header/footer,
+  1. **Richer print / PDF templates** *(shipped foundation)* — running footer,
      "Page X of Y", a document title block + generated date, A4/Letter page
-     size. The presentable, archival artifact gov/compliance actually submit and
-     file. Done in the PDF renderer (no format/layout added to `.apr`).
+     size, Legal page size, handling banners, and PDF/A archival output. Done
+     in the PDF renderer (no format/layout added to `.apr`).
   2. **Deeper import** — done: `apr import` (AcroForm → APR) with self-scoring
      quality, the portable `document-to-apr` skill, and the importer→skill hybrid.
      Follow-ups: radio-groups → choice, richer sectioning (see #64).
-  3. **Submission / signature story** — reintroduce a signature/attestation path
-     for submitted forms (was purged in #12 for the clean Phase-1 base). Decide
-     in-format vs out-of-format scope; pdfe can author AcroForm signature fields.
-  4. **PDF/A archival output** — long-term-preservation profile for records.
+  3. **Submission / signature story** — shipped foundation: CMS/PKCS#7
+     certificate-backed signatures for publishers and fillers, CLI
+     sign/verify/keygen, desktop signing actions, and signature status in
+     exports. Follow-ups: timestamp/LTV, trust-store UX, and policy docs.
+  4. **PDF/A archival output** — shipped: PDF/A-2b export path.
 
   *Path B (deferred):* the browser fill path foundation (HTML renderer +
   fillable web form) exists; a hosted/shareable app is not in the near-term plan.
 
-### Milestone 3 — Reach (target: v0.5.x+)
+### Milestone 3 — Public Beta Hardening (target: v0.6.x)
+
+- **Doc and version reconciliation** — README / roadmap / feature tracker /
+  project versions must describe the shipped app, not old cut lines.
+- **Release smoke validation** — install and run release artifacts on Windows,
+  Linux, and macOS; verify open/fill/save/export/import/sign flows.
+- **Warning cleanup** — keep the solution build quiet enough that new warnings
+  matter.
+- **Import review UX** — shipped foundation: desktop review dialog for
+  low-quality imports with score, recommendation, flag summary, and sample
+  fields. Follow-ups: one-click fixes for section cleanup and radio groups.
+- **Print preview** — shipped foundation: preview generated print/PDF content
+  before export. Follow-up: page-break-accurate pagination preview.
+
+### Milestone 4 — Reach (target: v0.7.x+)
 
 - **Mobile** (.NET MAUI, shared Core) — touch-optimized fill.
-- **SDK conformance suite** — one shared format-conformance test corpus run
-  across .NET / Rust / Java (and gate C++/Python as reference/experimental).
-  Turns the multi-language SDKs from a maintenance liability into a real,
-  trustworthy ecosystem play.
+- **SDK conformance suite** — shipped foundation: shared v1 corpus plus .NET
+  gate. Follow-up: run the same corpus across Rust / Java / Python / C++, or
+  explicitly keep individual SDKs experimental.
 - **Office export** — `.docx` / `.xlsx`.
 - **Optional sync / collaboration** — only if the wedge demands it; must not
   compromise local-first defaults.
@@ -160,11 +171,10 @@ What makes APR competitive with advanced form systems, not just usable:
 - **Consolidate the Profiles module** — ~30 profile classes back ~5 visible
   modes; merge per-type input masks into one `InputMaskProfile` strategy
   table. ~1 day, no behavior change. *Do before adding more profiles.*
-- **Add the `IDocumentRenderer` seam** before PDF lands, so PDF/HTML/print
-  don't each grow their own document-tree walker.
-- **Reconcile stale docs** with the v0.2.0 reality (ongoing).
-- **Declare the SDK commitment** — keep Rust/Java in lockstep via the
-  conformance suite, or formally mark some SDKs experimental.
+- **Keep the shared renderer seam tight** so PDF/HTML/print do not drift.
+- **Reconcile stale docs** with the v0.6.0 reality (ongoing).
+- **Declare the SDK commitment** — a shared corpus exists; keep Rust/Java in
+  lockstep by adding runners, or formally mark some SDKs experimental.
 
 ---
 
@@ -191,5 +201,5 @@ being local-first and open.
 
 ---
 
-*This roadmap is milestone-driven, not date-driven, and will be revised as the
-strategic wedge (§3) is decided and the MVP ships.*
+*This roadmap is milestone-driven, not date-driven, and should be revised when
+the public-beta hardening work is complete.*

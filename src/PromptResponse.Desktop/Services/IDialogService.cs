@@ -1,5 +1,8 @@
 namespace PromptResponse.Desktop.Services;
 
+using PromptResponse.Core.Rendering;
+using PromptResponse.Rendering.Pdf;
+
 /// <summary>
 /// Service for displaying dialogs to the user.
 /// </summary>
@@ -23,4 +26,19 @@ public interface IDialogService
     /// <param name="defaultValue">The initial text in the input.</param>
     /// <param name="isPassword">Whether to mask the input (for passwords).</param>
     Task<string?> ShowInputAsync(string title, string message, string defaultValue = "", bool isPassword = false);
+
+    /// <summary>
+    /// Shows an in-app print preview of the semantic render model that PDF export
+    /// will consume. This is a preview of generated content/order, not an editor.
+    /// </summary>
+    /// <param name="model">The flattened document render model.</param>
+    /// <param name="includeEmptyFields">Whether blank fields are included in the preview.</param>
+    Task ShowPrintPreviewAsync(RenderModel model, bool includeEmptyFields);
+
+    /// <summary>
+    /// Shows a review dialog for a PDF import whose labels/types need attention.
+    /// Returns true when the user chooses to open the imported template anyway.
+    /// </summary>
+    /// <param name="quality">The import quality assessment and field-review flags.</param>
+    Task<bool> ShowImportReviewAsync(ImportQuality quality);
 }

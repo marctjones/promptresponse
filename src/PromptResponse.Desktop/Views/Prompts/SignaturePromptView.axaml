@@ -8,7 +8,7 @@
         <Border BorderThickness="1" CornerRadius="6" BorderBrush="#80808080" Padding="0">
             <TextBox x:Name="ResponseTextBox"
                      Text="{Binding Response, Mode=TwoWay}"
-                     Watermark="Type your full legal name as your signature"
+                     PlaceholderText="Type your full legal name as your signature"
                      MinHeight="56"
                      FontSize="20"
                      FontFamily="Cambria,Georgia,serif"

@@ -5,6 +5,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Microsoft.Extensions.Logging;
+using PromptResponse.Core.Rendering;
+using PromptResponse.Rendering.Pdf;
 
 namespace PromptResponse.Desktop.Services;
 
@@ -175,6 +177,394 @@ public class DialogService : IDialogService
 
         await dialog.ShowDialog(window);
         return result;
+    }
+
+    /// <inheritdoc/>
+    public async Task ShowPrintPreviewAsync(RenderModel model, bool includeEmptyFields)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        _logger.LogDebug("Showing print preview for {Title}", model.Title);
+
+        var window = GetMainWindow();
+        if (window == null) return;
+
+        var dialog = new Window
+        {
+            Title = "Print Preview",
+            Width = 820,
+            Height = 760,
+            MinWidth = 620,
+            MinHeight = 520,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            CanResize = true,
+            ShowInTaskbar = false,
+        };
+        dialog.SetValue(AutomationProperties.NameProperty, "Print preview");
+        dialog.SetValue(AutomationProperties.HelpTextProperty, "Preview generated print content before exporting to PDF");
+
+        var closeButton = new Button
+        {
+            Content = "Close",
+            MinWidth = 96,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            IsDefault = true,
+            IsCancel = true,
+        };
+        closeButton.SetValue(AutomationProperties.NameProperty, "Close print preview");
+        closeButton.Click += (_, _) => dialog.Close();
+
+        var preview = BuildPreviewContent(model, includeEmptyFields);
+        var scroll = new ScrollViewer
+        {
+            Content = preview,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+        };
+        scroll.SetValue(AutomationProperties.NameProperty, "Print preview content");
+
+        var buttonBar = new Border
+        {
+            Padding = new Thickness(16, 10),
+            BorderThickness = new Thickness(0, 1, 0, 0),
+            BorderBrush = Brushes.LightGray,
+            Child = closeButton,
+        };
+        DockPanel.SetDock(buttonBar, Dock.Bottom);
+
+        dialog.Content = new DockPanel
+        {
+            LastChildFill = true,
+            Children =
+            {
+                buttonBar,
+                scroll,
+            },
+        };
+
+        await dialog.ShowDialog(window);
+    }
+
+    /// <inheritdoc/>
+    public async Task<bool> ShowImportReviewAsync(ImportQuality quality)
+    {
+        ArgumentNullException.ThrowIfNull(quality);
+        _logger.LogDebug("Showing import review dialog: {Score}", quality.Score);
+
+        var window = GetMainWindow();
+        if (window == null) return false;
+
+        var result = false;
+        var dialog = new Window
+        {
+            Title = "Review PDF Import",
+            Width = 680,
+            Height = 560,
+            MinWidth = 560,
+            MinHeight = 420,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            CanResize = true,
+            ShowInTaskbar = false,
+        };
+        dialog.SetValue(AutomationProperties.NameProperty, "PDF import review");
+        dialog.SetValue(AutomationProperties.HelpTextProperty, quality.Summary);
+
+        var openButton = new Button
+        {
+            Content = "Open Anyway",
+            MinWidth = 120,
+            IsDefault = true,
+        };
+        openButton.SetValue(AutomationProperties.NameProperty, "Open imported template anyway");
+        openButton.SetValue(AutomationProperties.HelpTextProperty, "Open the imported template so you can fix labels and field types manually");
+        openButton.Click += (_, _) => { result = true; dialog.Close(); };
+
+        var cancelButton = new Button
+        {
+            Content = "Cancel",
+            MinWidth = 96,
+            IsCancel = true,
+            Margin = new Thickness(8, 0, 0, 0),
+        };
+        cancelButton.SetValue(AutomationProperties.NameProperty, "Cancel import");
+        cancelButton.SetValue(AutomationProperties.HelpTextProperty, "Do not open this low-quality import");
+        cancelButton.Click += (_, _) => { result = false; dialog.Close(); };
+
+        var buttons = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            Children = { openButton, cancelButton },
+        };
+
+        var buttonBar = new Border
+        {
+            Padding = new Thickness(16, 10),
+            BorderThickness = new Thickness(0, 1, 0, 0),
+            BorderBrush = Brushes.LightGray,
+            Child = buttons,
+        };
+        DockPanel.SetDock(buttonBar, Dock.Bottom);
+
+        var content = BuildImportReviewContent(quality);
+        var scroll = new ScrollViewer
+        {
+            Content = content,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+        };
+        scroll.SetValue(AutomationProperties.NameProperty, "PDF import review content");
+
+        dialog.Content = new DockPanel
+        {
+            LastChildFill = true,
+            Children = { buttonBar, scroll },
+        };
+
+        await dialog.ShowDialog(window);
+        return result;
+    }
+
+    private static Control BuildImportReviewContent(ImportQuality quality)
+    {
+        var panel = new StackPanel
+        {
+            Spacing = 10,
+            Margin = new Thickness(24),
+        };
+
+        panel.Children.Add(new TextBlock
+        {
+            Text = "PDF Import Needs Review",
+            FontSize = 22,
+            FontWeight = FontWeight.Bold,
+            TextWrapping = TextWrapping.Wrap,
+        });
+        panel.Children.Add(new TextBlock
+        {
+            Text = quality.Summary,
+            TextWrapping = TextWrapping.Wrap,
+        });
+
+        var readable = (int)Math.Round((1 - quality.CrypticLabelRatio) * 100);
+        var tooltip = (int)Math.Round(quality.TooltipCoverage * 100);
+        var duplicate = (int)Math.Round(quality.DuplicateLabelRatio * 100);
+        panel.Children.Add(new TextBlock
+        {
+            Text = $"Score: {quality.Score}/100 ({quality.Grade})  -  Fields: {quality.FieldCount}  -  Readable labels: {readable}%  -  Tooltips: {tooltip}%  -  Duplicate labels: {duplicate}%",
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+        });
+
+        panel.Children.Add(new TextBlock
+        {
+            Text = quality.Recommendation == ImportRecommendation.UseSkillInstead
+                ? "Recommended next step: use the document-to-apr skill or the importer-to-skill hybrid workflow to enrich labels and sections while preserving imported field IDs."
+                : "Recommended next step: open the template and review the flagged fields before sharing it.",
+            TextWrapping = TextWrapping.Wrap,
+        });
+
+        var counts = quality.Flags
+            .GroupBy(f => f.Kind)
+            .OrderBy(g => g.Key.ToString())
+            .Select(g => $"{LabelFor(g.Key)}: {g.Count()}");
+        panel.Children.Add(new TextBlock
+        {
+            Text = quality.Flags.Count == 0
+                ? "No field-level flags were reported."
+                : "Flag summary: " + string.Join("  |  ", counts),
+            TextWrapping = TextWrapping.Wrap,
+        });
+
+        if (quality.Flags.Count > 0)
+        {
+            panel.Children.Add(new TextBlock
+            {
+                Text = "Sample fields to review",
+                FontWeight = FontWeight.SemiBold,
+                Margin = new Thickness(0, 8, 0, 0),
+            });
+
+            foreach (var flag in quality.Flags.Take(12))
+            {
+                panel.Children.Add(new TextBlock
+                {
+                    Text = $"{LabelFor(flag.Kind)} - {flag.Label} ({flag.PromptId}): {flag.Message}",
+                    TextWrapping = TextWrapping.Wrap,
+                });
+            }
+
+            if (quality.Flags.Count > 12)
+            {
+                panel.Children.Add(new TextBlock
+                {
+                    Text = $"...and {quality.Flags.Count - 12} more flagged fields.",
+                    Foreground = Brushes.DimGray,
+                    TextWrapping = TextWrapping.Wrap,
+                });
+            }
+        }
+
+        return panel;
+    }
+
+    private static string LabelFor(FieldFlagKind kind) => kind switch
+    {
+        FieldFlagKind.CrypticLabel => "Cryptic label",
+        FieldFlagKind.DuplicateLabel => "Duplicate label",
+        FieldFlagKind.AmbiguousChoice => "Ambiguous choice",
+        _ => kind.ToString(),
+    };
+
+    private static Control BuildPreviewContent(RenderModel model, bool includeEmptyFields)
+    {
+        var page = new StackPanel
+        {
+            Spacing = 10,
+            Margin = new Thickness(28),
+            MaxWidth = 720,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
+
+        page.Children.Add(new TextBlock
+        {
+            Text = string.IsNullOrWhiteSpace(model.Title) ? "(untitled)" : model.Title,
+            FontSize = 24,
+            FontWeight = FontWeight.Bold,
+            TextWrapping = TextWrapping.Wrap,
+        });
+        if (!string.IsNullOrWhiteSpace(model.Description))
+        {
+            page.Children.Add(new TextBlock
+            {
+                Text = model.Description,
+                TextWrapping = TextWrapping.Wrap,
+                Foreground = Brushes.DimGray,
+            });
+        }
+
+        page.Children.Add(new TextBlock
+        {
+            Text = $"PDF export preview - Letter page size - {(includeEmptyFields ? "blank fields included" : "blank fields excluded")}",
+            FontSize = 12,
+            Foreground = Brushes.DimGray,
+            TextWrapping = TextWrapping.Wrap,
+        });
+
+        foreach (var block in model.Blocks)
+        {
+            AddBlock(page, block);
+        }
+
+        return page;
+    }
+
+    private static void AddBlock(StackPanel page, RenderBlock block)
+    {
+        switch (block)
+        {
+            case HeadingBlock h:
+                page.Children.Add(new TextBlock
+                {
+                    Text = h.Text,
+                    FontSize = h.Level == 1 ? 18 : 15,
+                    FontWeight = FontWeight.SemiBold,
+                    Margin = new Thickness(0, h.Level == 1 ? 14 : 8, 0, 0),
+                    TextWrapping = TextWrapping.Wrap,
+                });
+                if (!string.IsNullOrWhiteSpace(h.Description))
+                {
+                    page.Children.Add(new TextBlock
+                    {
+                        Text = h.Description,
+                        Foreground = Brushes.DimGray,
+                        TextWrapping = TextWrapping.Wrap,
+                    });
+                }
+                break;
+
+            case FieldBlock f:
+                page.Children.Add(new TextBlock
+                {
+                    Text = f.Label,
+                    FontWeight = FontWeight.SemiBold,
+                    TextWrapping = TextWrapping.Wrap,
+                });
+                page.Children.Add(new TextBlock
+                {
+                    Text = f.Value,
+                    Margin = new Thickness(14, -6, 0, 0),
+                    TextWrapping = TextWrapping.Wrap,
+                    Foreground = f.HasResponse ? Brushes.Black : Brushes.DimGray,
+                });
+                if (!string.IsNullOrWhiteSpace(f.HelpText))
+                {
+                    page.Children.Add(new TextBlock
+                    {
+                        Text = f.HelpText,
+                        Margin = new Thickness(14, -8, 0, 0),
+                        FontSize = 12,
+                        Foreground = Brushes.DimGray,
+                        TextWrapping = TextWrapping.Wrap,
+                    });
+                }
+                break;
+
+            case TableBlock t:
+                page.Children.Add(BuildTablePreview(t));
+                break;
+
+            case SignatureBlock s:
+                page.Children.Add(new TextBlock
+                {
+                    Text = "Signatures",
+                    FontSize = 16,
+                    FontWeight = FontWeight.SemiBold,
+                    Margin = new Thickness(0, 12, 0, 0),
+                });
+                foreach (var sig in s.Signatures)
+                {
+                    var status = sig.ContentValid ? "verified" : "INVALID";
+                    page.Children.Add(new TextBlock
+                    {
+                        Text = $"[{status}] {sig.Role}: {sig.Signer} - {sig.Scope}",
+                        TextWrapping = TextWrapping.Wrap,
+                    });
+                    page.Children.Add(new TextBlock
+                    {
+                        Text = $"trust: {sig.Trust} - {sig.Status}",
+                        FontSize = 12,
+                        Foreground = Brushes.DimGray,
+                        TextWrapping = TextWrapping.Wrap,
+                    });
+                }
+                break;
+        }
+    }
+
+    private static Control BuildTablePreview(TableBlock table)
+    {
+        var panel = new StackPanel { Spacing = 4, Margin = new Thickness(0, 8, 0, 8) };
+        var headers = table.ColumnHeaders.Count == 0
+            ? "(no columns)"
+            : string.Join(" | ", table.ColumnHeaders);
+        panel.Children.Add(new TextBlock
+        {
+            Text = headers,
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap,
+        });
+
+        foreach (var row in table.Rows)
+        {
+            var values = row.Cells.Select(c => string.IsNullOrWhiteSpace(c.Value) ? "[blank]" : c.Value);
+            panel.Children.Add(new TextBlock
+            {
+                Text = $"{row.Label}: {string.Join(" | ", values)}",
+                TextWrapping = TextWrapping.Wrap,
+            });
+        }
+
+        return panel;
     }
 
     private static Window? GetMainWindow()

@@ -23,7 +23,7 @@
             <TextBox Grid.Column="1"
                      x:Name="FreeTextEntry"
                      Text="{Binding Response, Mode=TwoWay}"
-                     Watermark="Or type any answer"
+                     PlaceholderText="Or type any answer"
                      Margin="8,0,0,0"
                      MinHeight="36"
                      AutomationProperties.Name="Free-text response"

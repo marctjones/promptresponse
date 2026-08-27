@@ -56,6 +56,7 @@ packages/
 
 # Packaging / publish output
 /dist/
+/dist-smoke/
 
 # Rider
 .idea/

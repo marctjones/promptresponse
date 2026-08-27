@@ -7,7 +7,7 @@
         <TextBlock Text="{Binding Label}" FontWeight="SemiBold"/>
         <TextBox x:Name="ResponseTextBox"
                  Text="{Binding Response, Mode=TwoWay}"
-                 Watermark="{Binding Placeholder, FallbackValue='(555) 555-5555'}"
+                 PlaceholderText="{Binding Placeholder, FallbackValue='(555) 555-5555'}"
                  MinHeight="36"
                  CornerRadius="6"
                  AutomationProperties.Name="{Binding Label}"

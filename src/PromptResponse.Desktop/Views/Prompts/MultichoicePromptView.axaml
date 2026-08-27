@@ -20,7 +20,7 @@
         </ItemsControl>
         <TextBox x:Name="FreeTextEntry"
                  Text="{Binding Response, Mode=TwoWay}"
-                 Watermark="Or type a comma-separated response"
+                 PlaceholderText="Or type a comma-separated response"
                  MinHeight="36"
                  CornerRadius="6"
                  AutomationProperties.Name="Free-text response"
