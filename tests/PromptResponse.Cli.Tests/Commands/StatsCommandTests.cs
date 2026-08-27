@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using PromptResponse.Cli.Commands;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using Xunit;
@@ -127,7 +128,7 @@ public class StatsCommandTests
     {
         return new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {

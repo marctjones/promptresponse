@@ -1,3 +1,4 @@
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 
 namespace PromptResponse.Cli.Tests.Fixtures;
@@ -14,7 +15,7 @@ public static class TestDocumentFactory
     {
         return new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {
@@ -56,7 +57,7 @@ public static class TestDocumentFactory
     {
         return new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {

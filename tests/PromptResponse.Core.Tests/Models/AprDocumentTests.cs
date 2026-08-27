@@ -1,4 +1,5 @@
 using AwesomeAssertions;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using Xunit;
 
@@ -16,7 +17,7 @@ public class AprDocumentTests
         var document = new AprDocument();
 
         // Assert
-        document.Version.Should().Be("1.0");
+        document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Should().NotBeNull();
         document.Sections.Should().NotBeNull().And.BeEmpty();
@@ -104,7 +105,7 @@ public class AprDocumentTests
         // Arrange & Act
         var document = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {
@@ -133,7 +134,7 @@ public class AprDocumentTests
         // Arrange & Act
         var document = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.FilledForm,
             Metadata = new Metadata
             {
@@ -232,13 +233,13 @@ public class AprDocumentTests
     }
 
     [Fact]
-    public void AprDocument_DefaultVersion_ShouldBe1_0()
+    public void AprDocument_DefaultVersion_ShouldBeCurrentFormatVersion()
     {
         // Arrange & Act
         var document = new AprDocument();
 
         // Assert
-        document.Version.Should().Be("1.0");
+        document.Version.Should().Be(AprFormat.CurrentVersion);
     }
 
     [Fact]

@@ -32,30 +32,20 @@ public class TableSectionViewGuiTests
 
     private static (SectionView view, SectionViewModel vm, Section model) BuildFixedTable()
     {
-        var def = new TableDefinition
+        // A table is a section marked kind=table: rows are child sections, cells are
+        // their prompts, and a column header is simply the corresponding prompt's label.
+        var columns = new[] { (Id: "revenue", Label: "Revenue"), (Id: "expenses", Label: "Expenses") };
+        var section = new Section { Id = "tbl", Title = "Quarterly", Kind = "table" };
+        foreach (var (rowId, rowTitle) in new[] { ("q1", "Q1"), ("q2", "Q2") })
         {
-            Columns = new List<TableColumn>
-            {
-                new() { Id = "revenue", Label = "Revenue", Type = "currency" },
-                new() { Id = "expenses", Label = "Expenses", Type = "currency" },
-            },
-            FixedRows = new List<FixedRow>
-            {
-                new() { Id = "q1", Label = "Q1" },
-                new() { Id = "q2", Label = "Q2" },
-            },
-        };
-        var section = new Section { Id = "tbl", Title = "Quarterly", TableLayout = def };
-        foreach (var row in def.FixedRows!)
-        {
-            var rowSection = new Section { Id = row.Id, Title = row.Label };
-            foreach (var col in def.Columns)
+            var rowSection = new Section { Id = rowId, Title = rowTitle };
+            foreach (var col in columns)
             {
                 rowSection.Prompts.Add(new Prompt
                 {
-                    Id = $"{row.Id}.{col.Id}",
+                    Id = $"{rowId}.{col.Id}",
                     Label = col.Label,
-                    Hints = new PromptHints { ExpectedDataType = col.Type },
+                    Hints = new PromptHints { ExpectedDataType = "currency" },
                 });
             }
             section.Sections.Add(rowSection);
@@ -151,11 +141,9 @@ public class TableSectionViewGuiTests
         {
             Id = "tbl",
             Title = "Items",
-            TableLayout = new TableDefinition
-            {
-                Columns = new List<TableColumn> { new() { Id = "desc", Label = "Description", Type = "text" } },
-                DynamicRows = new DynamicRowConfig { MinRows = 0, MaxRows = 5, RowLabel = "Item" },
-            },
+            Kind = "table",
+            CanAddRows = "true",
+            MaxRows = "5",
         };
         var vm = new SectionViewModel(section, factory, depth: 0);
         var view = new SectionView { DataContext = vm };

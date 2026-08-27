@@ -6,6 +6,7 @@ using Avalonia.Headless.XUnit;
 using Avalonia.VisualTree;
 using AwesomeAssertions;
 using NSubstitute;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -52,7 +53,7 @@ public class AutomationTreeTests
 
     private static AprDocument SmallDoc() => new()
     {
-        Version = "1.0",
+        Version = AprFormat.CurrentVersion,
         DocumentType = DocumentType.FilledForm,
         Metadata = new Metadata { Title = "AT Test" },
         Sections = new List<Section>

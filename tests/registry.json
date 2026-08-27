@@ -1,0 +1,798 @@
+{
+  "$comment": "Machine-readable registry of APR test suites and spec-requirement coverage. Verified by scripts/check-test-registry.py, which fails if a referenced fixture or test no longer exists, or if a requirement has no entry. The registry is a claim about coverage; the verifier is what makes the claim checkable.",
+  "specVersion": "0.6.0",
+  "formatVersion": "1.0-beta",
+  "corpusTag": "corpus/v1",
+  "gateStrength": {
+    "gated": "A test fails in CI if the rule is violated. The only level that actually holds an implementation.",
+    "partial": "Some aspect of the rule is gated; other aspects are not.",
+    "indirect": "Covered only through another component, not at this rule's own level.",
+    "external": "Gated by a third-party suite this project does not maintain.",
+    "none": "No test would fail if the rule were broken.",
+    "informative": "Not a testable rule — definitional or explanatory text."
+  },
+  "dimensions": {
+    "completeness": "Does the component do everything it claims?",
+    "conformance": "Does it agree with the format? (corpus + schema gates)",
+    "correctness": "Does it give right answers? (unit tests + coverage gate)",
+    "robustness": "Does it survive bad input and stay fixed? (edge cases, fuzz, mutation, regression)"
+  },
+  "suites": [
+    {
+      "id": "core.unit",
+      "component": "Core (C# SDK)",
+      "language": "csharp",
+      "path": "tests/PromptResponse.Core.Tests",
+      "runsInCi": true,
+      "gate": "95% line coverage on Core",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "partial"
+      }
+    },
+    {
+      "id": "core.conformance",
+      "component": "Conformance corpus runner",
+      "language": "csharp",
+      "path": "tests/PromptResponse.Core.Tests/Conformance/ConformanceCorpusTests.cs",
+      "runsInCi": true,
+      "gate": "all corpus fixtures",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "partial"
+      }
+    },
+    {
+      "id": "schema.gate",
+      "component": "JSON Schema gate",
+      "language": "python",
+      "path": "scripts/check-schema.py",
+      "runsInCi": true,
+      "gate": "schema agrees with every corpus fixture",
+      "notes": "Deliberately uses no .NET, so it fails the way a third-party SDK would.",
+      "dimensions": {
+        "completeness": "na",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "na"
+      }
+    },
+    {
+      "id": "cli.unit",
+      "component": "CLI",
+      "language": "csharp",
+      "path": "tests/PromptResponse.Cli.Tests",
+      "runsInCi": true,
+      "gate": "ratcheting coverage (a floor, not a bar)",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "indirect",
+        "correctness": "partial",
+        "robustness": "none"
+      }
+    },
+    {
+      "id": "desktop.unit",
+      "component": "Desktop",
+      "language": "csharp",
+      "path": "tests/PromptResponse.Desktop.Tests",
+      "runsInCi": true,
+      "gate": "none — excluded from the coverage gate",
+      "notes": "GUI subset cannot run to completion (issue #30, pre-existing shutdown deadlock).",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "indirect",
+        "correctness": "partial",
+        "robustness": "none"
+      }
+    },
+    {
+      "id": "accessibility",
+      "component": "Accessibility",
+      "language": "csharp",
+      "path": "tests/PromptResponse.AccessibilityTests",
+      "runsInCi": true,
+      "gate": "mandatory CI job",
+      "notes": "Two cases cite files that do not exist and silently skip. AT-SPI smoke test is manual, outside CI.",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "na",
+        "correctness": "gated",
+        "robustness": "partial"
+      }
+    },
+    {
+      "id": "pdf",
+      "component": "PDF rendering",
+      "language": "csharp",
+      "path": "tests/PromptResponse.Rendering.Pdf.Tests",
+      "runsInCi": true,
+      "gate": "PDF/A externally validated by veraPDF (144/144)",
+      "notes": "The only third-party conformance check in the project.",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "external",
+        "correctness": "partial",
+        "robustness": "partial"
+      }
+    },
+    {
+      "id": "sdk.python",
+      "component": "Python SDK",
+      "language": "python",
+      "path": "python/",
+      "runsInCi": false,
+      "gate": "none",
+      "notes": "No tests of any kind. Implements a different schema.",
+      "dimensions": {
+        "completeness": "none",
+        "conformance": "none",
+        "correctness": "none",
+        "robustness": "none"
+      }
+    },
+    {
+      "id": "sdk.rust",
+      "component": "Rust SDK stub",
+      "language": "rust",
+      "path": "rust/",
+      "runsInCi": false,
+      "gate": "none",
+      "dimensions": {
+        "completeness": "none",
+        "conformance": "none",
+        "correctness": "none",
+        "robustness": "none"
+      }
+    },
+    {
+      "id": "sdk.java",
+      "component": "Java SDK stub",
+      "language": "java",
+      "path": "java/",
+      "runsInCi": false,
+      "gate": "none",
+      "dimensions": {
+        "completeness": "none",
+        "conformance": "none",
+        "correctness": "none",
+        "robustness": "none"
+      }
+    },
+    {
+      "id": "sdk.cpp",
+      "component": "C++ SDK stub",
+      "language": "cpp",
+      "path": "cpp/",
+      "runsInCi": false,
+      "gate": "none",
+      "dimensions": {
+        "completeness": "none",
+        "conformance": "none",
+        "correctness": "none",
+        "robustness": "none"
+      }
+    }
+  ],
+  "testKinds": [
+    {
+      "kind": "unit",
+      "status": "present"
+    },
+    {
+      "kind": "conformance-corpus",
+      "status": "present"
+    },
+    {
+      "kind": "schema-validation",
+      "status": "present"
+    },
+    {
+      "kind": "golden-vectors",
+      "status": "present",
+      "notes": "apr-sig-v2 canonicalization"
+    },
+    {
+      "kind": "external-conformance",
+      "status": "partial",
+      "notes": "veraPDF for PDF/A. CEL suite planned for expressions."
+    },
+    {
+      "kind": "accessibility-static",
+      "status": "present"
+    },
+    {
+      "kind": "accessibility-runtime",
+      "status": "manual",
+      "notes": "AT-SPI smoke test, outside CI"
+    },
+    {
+      "kind": "mutation",
+      "status": "broken",
+      "issue": 29,
+      "notes": "Stryker.NET reports Killed:0. Until it runs, the 95% coverage gate is behaviourally unvalidated."
+    },
+    {
+      "kind": "fuzzing",
+      "status": "absent",
+      "notes": "'Safe to open untrusted files' is a security claim backed by 4 hand-written malformed fixtures."
+    },
+    {
+      "kind": "property-based",
+      "status": "absent"
+    },
+    {
+      "kind": "performance",
+      "status": "absent",
+      "notes": "Vision targets 1000+ prompts under 1s; largest fixture is 20."
+    },
+    {
+      "kind": "differential",
+      "status": "blocked",
+      "notes": "Requires two conformant implementations; only one exists."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-1.1-rfc2119",
+      "section": "1.1",
+      "statement": "MUST/SHOULD/MAY are interpreted per RFC 2119",
+      "strength": "informative",
+      "gates": [],
+      "gap": "Definitional. Nothing to test."
+    },
+    {
+      "id": "REQ-1.3.1-major",
+      "section": "1.3.1",
+      "statement": "A different MAJOR version MUST be rejected",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "invalid/unsupported-major.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "invalid/unsupported-version.aprt"
+        }
+      ]
+    },
+    {
+      "id": "REQ-1.3.1-minor",
+      "section": "1.3.1",
+      "statement": "A newer MINOR version is readable, with a warning",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/newer-minor-accepted.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "NewerMinorVersion_ValidatesWithAnAdvisoryWarning"
+        }
+      ]
+    },
+    {
+      "id": "REQ-2.2-coreonly-expr",
+      "section": "2.2",
+      "statement": "A core-only reader MUST NOT reject a document using expressions, and MUST preserve the expr* strings",
+      "strength": "none",
+      "gates": [],
+      "gap": "Untestable from inside this repo: the reference implementation implements every profile, so it can never exhibit core-only behaviour. Needs a second implementation, or a deliberately profile-restricted test harness."
+    },
+    {
+      "id": "REQ-2.3-coreonly-sig",
+      "section": "2.3",
+      "statement": "A core-only reader MUST NOT reject a signed document, MUST preserve the signatures array, and MUST NOT report it as verified",
+      "strength": "none",
+      "gates": [],
+      "gap": "Same as REQ-2.2. A profile-restricted harness would be the cheapest way to gate both."
+    },
+    {
+      "id": "REQ-3.1-encoding",
+      "section": "3.1",
+      "statement": "Files MUST be UTF-8; a reader SHOULD tolerate a leading BOM",
+      "strength": "none",
+      "gates": [],
+      "gap": "No BOM fixture and no non-UTF-8 rejection fixture. Cheap to add and a classic interop failure."
+    },
+    {
+      "id": "REQ-3.2-null",
+      "section": "3.2",
+      "statement": "JSON null is read as empty string and MUST NOT be written",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/null-response-coercion.aprf"
+        }
+      ]
+    },
+    {
+      "id": "REQ-3.2-strings",
+      "section": "3.2",
+      "statement": "A response given as a JSON number or boolean MUST be rejected at parse time",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "malformed/response-is-number.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "malformed/response-is-boolean.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "MalformedCorpus_IsRejectedAtParseTime"
+        }
+      ]
+    },
+    {
+      "id": "REQ-3.3-anystring",
+      "section": "3.3",
+      "statement": "Any string is a valid response, whatever the hint",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/hints-contradicted.aprf"
+        }
+      ]
+    },
+    {
+      "id": "REQ-3.4-noenforce",
+      "section": "3.4",
+      "statement": "A hint MUST NOT reject, alter, or block a response",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/hidden-characters-preserved.aprf"
+        },
+        {
+          "type": "test",
+          "ref": "TypeHints_NeverRewriteAResponse"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.1-document",
+      "section": "4.1",
+      "statement": "version and metadata are required; sections MUST contain at least one section",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "invalid/no-sections.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "invalid/unsupported-version.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "valid/minimal-template.aprt"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.2-templateid",
+      "section": "4.2",
+      "statement": "A filled form MUST record templateId",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "invalid/filledform-missing-templateid.aprf"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.3-section",
+      "section": "4.3",
+      "statement": "Section id and title are required; a section MUST carry content",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "invalid/missing-section-title.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "invalid/empty-section.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "invalid/blank-ids.aprt"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.4-label",
+      "section": "4.4",
+      "statement": "Prompt label is required; a placeholder is never a label",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "invalid/missing-prompt-label.aprt"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.4-namespaces",
+      "section": "4.4",
+      "statement": "A section and a prompt MAY share an id (separate namespaces)",
+      "strength": "none",
+      "gates": [],
+      "gap": "No fixture does this, so a shared-namespace implementation passes the whole corpus."
+    },
+    {
+      "id": "REQ-4.4-uniqueids",
+      "section": "4.4",
+      "statement": "Ids MUST be unique document-wide within their namespace",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "invalid/duplicate-prompt-id.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "invalid/duplicate-section-id.aprt"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.5-table",
+      "section": "4.5",
+      "statement": "kind=table: children are instances, prompts correspond by position",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/table-fixed-filled.aprf"
+        },
+        {
+          "type": "fixture",
+          "ref": "valid/table-dynamic-filled.aprf"
+        },
+        {
+          "type": "fixture",
+          "ref": "valid/dynamic-table.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "valid/table-and-expressions.aprt"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.6-depth",
+      "section": "4.6",
+      "statement": "At least 16 levels of section nesting MUST be supported",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/deep-nesting.aprt"
+        }
+      ],
+      "gap": "Pins the floor. No test at the boundary where a parser gives out."
+    },
+    {
+      "id": "REQ-4.7-unknownhint",
+      "section": "4.7",
+      "statement": "An unrecognized expectedDataType MUST degrade to text",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/unknown-fields.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "valid/all-hint-types.aprt"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.8-preserve",
+      "section": "4.8",
+      "statement": "Unknown members MUST be preserved across a round-trip",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "UnknownMembers_SurviveARoundTrip"
+        },
+        {
+          "type": "fixture",
+          "ref": "valid/unknown-fields.aprt"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.8.1-retired",
+      "section": "4.8.1",
+      "statement": "Retired members are dropped, not preserved",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "RoundTrip_DropsRetiredDisplayFields_ButKeepsTheStructure"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4.9-canonical",
+      "section": "4.9",
+      "statement": "Canonical write forms; every read form still accepted",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/canonical-values.aprf"
+        }
+      ]
+    },
+    {
+      "id": "REQ-5-documenttype",
+      "section": "5",
+      "statement": "documentType is authoritative over the file extension",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/documenttype-beats-extension.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "DocumentType_IsAuthoritative_OverTheFileExtension"
+        }
+      ]
+    },
+    {
+      "id": "REQ-6.1-errorlist",
+      "section": "6.1",
+      "statement": "The structural error list is exhaustive; no error from response content",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "invalid/no-sections.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "invalid/missing-metadata-title.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "InvalidCorpus_Deserializes_ButDoesNotValidate"
+        }
+      ]
+    },
+    {
+      "id": "REQ-6.3-stages",
+      "section": "6.3",
+      "statement": "Parse errors are not validation errors",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "malformed/truncated.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "malformed/sections-not-array.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "MalformedCorpus_IsRejectedAtParseTime"
+        }
+      ]
+    },
+    {
+      "id": "REQ-7.1-nfc",
+      "section": "7.1",
+      "statement": "Strings MUST be NFC-normalized on read and write",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/response-edge-cases.aprf"
+        },
+        {
+          "type": "fixture",
+          "ref": "valid/filled-unicode.aprf"
+        }
+      ],
+      "gap": "Preservation is asserted post-parse on both sides, so a read-time mutation of a fixture would not be caught for most characters."
+    },
+    {
+      "id": "REQ-7.2-strip",
+      "section": "7.2",
+      "statement": "The abusive set is stripped; everything else survives untouched",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/response-edge-cases.aprf"
+        }
+      ]
+    },
+    {
+      "id": "REQ-7.3.1-nofilleredit",
+      "section": "7.3.1",
+      "statement": "Filled data MUST NOT be rewritten on the basis of a hint",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/hidden-characters-preserved.aprf"
+        },
+        {
+          "type": "test",
+          "ref": "TypeHints_NeverRewriteAResponse"
+        }
+      ]
+    },
+    {
+      "id": "REQ-7.3.2-submissionurl",
+      "section": "7.3.2",
+      "statement": "submissionUrl hidden characters are reported, never rewritten, and block signing",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "SubmissionUrlWithHiddenCharacters_IsReportedAndBlocksSigning"
+        }
+      ]
+    },
+    {
+      "id": "REQ-8-expressions",
+      "section": "8",
+      "statement": "Expression evaluation semantics",
+      "strength": "none",
+      "gates": [],
+      "gap": "Nothing tests expression results. The spec itself names this the largest interop risk. Planned: adopt CEL, borrow its 2,456-test suite for the language, and add APR binding vectors."
+    },
+    {
+      "id": "REQ-9.2-sigobject",
+      "section": "9.2",
+      "statement": "Signature required members; canonicalization MUST be apr-sig-v2; a signature MUST NOT carry its own copy of the submission URL",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/signed-template.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "SignedFixture_VerifiesAsShipped"
+        }
+      ],
+      "notes": "The no-own-copy rule is enforced structurally: the field was removed from the model, and the re-signed fixture demonstrates its absence."
+    },
+    {
+      "id": "REQ-9.3-canonical",
+      "section": "9.3",
+      "statement": "The apr-sig-v2 canonical payload MUST be reproduced byte-for-byte",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "canonicalization/input.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "CanonicalPayload_MatchesThePublishedVector"
+        }
+      ]
+    },
+    {
+      "id": "REQ-9.3-urlsource",
+      "section": "9.3",
+      "statement": "The payload binds metadata.submissionUrl, read from the document",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "signatures/tampered-metadata-url.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "signatures/tampered-submission-url.aprt"
+        }
+      ],
+      "notes": "Closed a real vulnerability: verification once used a copy stored on the signature, so redirecting the metadata URL still verified."
+    },
+    {
+      "id": "REQ-9.4-tamper",
+      "section": "9.4",
+      "statement": "Editing covered content MUST invalidate the signature",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "TamperedSignatures_ValidateStructurally_ButFailVerification"
+        },
+        {
+          "type": "test",
+          "ref": "SignedFixture_VerifiesAsShipped"
+        }
+      ]
+    },
+    {
+      "id": "REQ-9.5-nogate",
+      "section": "9.5",
+      "statement": "Signature state MUST NOT gate parsing, validation, or data access",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "TamperedSignatures_ValidateStructurally_ButFailVerification"
+        }
+      ]
+    },
+    {
+      "id": "REQ-10.1-accessiblename",
+      "section": "10.1",
+      "statement": "Labels and titles MUST be the accessible name; helpText programmatically associated",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "accessibility"
+        }
+      ],
+      "gap": "The accessibility suite tests the desktop app, not the rule as a format requirement every renderer must meet."
+    },
+    {
+      "id": "REQ-10.2-order",
+      "section": "10.2",
+      "statement": "A section's own prompts render before its child sections",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/section-ordering.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "SectionOrdering_OwnPromptsRenderBeforeChildSections"
+        }
+      ]
+    },
+    {
+      "id": "REQ-10.3-export",
+      "section": "10.3",
+      "statement": "Export layout MUST NOT be written back into the APR document",
+      "strength": "none",
+      "gates": [],
+      "gap": "Nothing asserts that a PDF/HTML export leaves the source document unmodified. A round-trip-after-export test would gate it cheaply."
+    },
+    {
+      "id": "REQ-11-bounds",
+      "section": "11",
+      "statement": "A reader MUST bound nesting depth and SHOULD bound document size",
+      "strength": "none",
+      "gates": [],
+      "gap": "No fuzzing, no depth-boundary test, no size limit test. The 'safe to open untrusted files' claim is untested."
+    },
+    {
+      "id": "REQ-11-nonetwork",
+      "section": "11",
+      "statement": "Reading a document MUST NOT fetch anything",
+      "strength": "none",
+      "gates": [],
+      "gap": "Nothing asserts the absence of network access on open."
+    }
+  ]
+}

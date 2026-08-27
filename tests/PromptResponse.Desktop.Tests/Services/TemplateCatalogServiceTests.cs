@@ -18,7 +18,7 @@ public class TemplateCatalogServiceTests
         var path = Path.Combine(dir, fileName);
         File.WriteAllText(path,
             $$"""
-            { "version": "1.0", "documentType": "template",
+            { "version": "1.0-beta", "documentType": "template",
               "metadata": { "title": "{{title}}", "description": "d" },
               "sections": [ { "id": "s", "title": "S", "prompts": [] } ] }
             """);

@@ -47,7 +47,7 @@ public class AprSigningTests
     {
         var doc = Template();
         using var cert = SelfSigned();
-        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://bloomfieldct.gov/permit/submit", At)];
+        doc.Signatures = [SigningTestHelper.SignTemplateWithUrl(doc, cert, "https://bloomfieldct.gov/permit/submit", At)];
 
         var r = AprVerifier.Verify(doc, doc.Signatures[0]);
 
@@ -61,7 +61,7 @@ public class AprSigningTests
     {
         var doc = Template();
         using var cert = SelfSigned();
-        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://x/submit", At)];
+        doc.Signatures = [SigningTestHelper.SignTemplateWithUrl(doc, cert, "https://x/submit", At)];
 
         doc.Sections[0].Prompts[0].Label = "Full Name";
 
@@ -73,11 +73,18 @@ public class AprSigningTests
     {
         var doc = Template();
         using var cert = SelfSigned();
-        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://gov/submit", At)];
+        doc.Signatures = [SigningTestHelper.SignTemplateWithUrl(doc, cert, "https://gov/submit", At)];
 
-        doc.Signatures[0].SubmissionUrl = "https://evil/submit";
+        // Redirect the field a submitting client actually reads. This is the attack the
+        // URL binding exists to stop, and it must break verification.
+        //
+        // Verification used to recompute the payload from a copy of the URL stored on
+        // the signature itself, so this exact edit left the signature reporting VALID
+        // while the form submitted somewhere else entirely.
+        doc.Metadata.SubmissionUrl = "https://evil/submit";
 
-        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse();
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse(
+            "the signature binds metadata.submissionUrl, so redirecting it must invalidate the signature");
     }
 
     [Fact]
@@ -85,7 +92,7 @@ public class AprSigningTests
     {
         var doc = Template();
         using var cert = SelfSigned();
-        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://gov/submit", At)];
+        doc.Signatures = [SigningTestHelper.SignTemplateWithUrl(doc, cert, "https://gov/submit", At)];
 
         doc.Sections[0].Prompts[0].Response = "Ada Lovelace";
 
@@ -161,7 +168,7 @@ public class AprSigningTests
     {
         var doc = Template();
         using var cert = SelfSigned();
-        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://gov/submit", At)];
+        doc.Signatures = [SigningTestHelper.SignTemplateWithUrl(doc, cert, "https://gov/submit", At)];
 
         var r = AprVerifier.Verify(doc, doc.Signatures[0]);
 
@@ -174,7 +181,7 @@ public class AprSigningTests
     {
         var doc = Template();
         using var cert = SelfSigned();
-        doc.Signatures = [AprSigner.SignTemplate(doc, cert, "https://gov/submit", At)];
+        doc.Signatures = [SigningTestHelper.SignTemplateWithUrl(doc, cert, "https://gov/submit", At)];
 
         var opts = new AprTrustOptions { TrustAnchors = [cert] };
         AprVerifier.Verify(doc, doc.Signatures[0], opts).Trust.Should().Be(SignatureTrust.Trusted);
@@ -186,7 +193,7 @@ public class AprSigningTests
         var doc = Template();
         using var ca = SignatureCertificates.CreateCertificateAuthority("Town CA", Before, After);
         using var leaf = SignatureCertificates.IssueSigningCertificate(ca, "Clerk", Before, After);
-        doc.Signatures = [AprSigner.SignTemplate(doc, leaf, "https://gov/submit", At)];
+        doc.Signatures = [SigningTestHelper.SignTemplateWithUrl(doc, leaf, "https://gov/submit", At)];
 
         // Trusted when the CA is a configured anchor.
         var trusted = AprVerifier.Verify(doc, doc.Signatures[0], new AprTrustOptions { TrustAnchors = [ca] });
@@ -210,7 +217,7 @@ public class AprSigningTests
         using var fill = SelfSigned("Ada");
         doc.Signatures =
         [
-            AprSigner.SignTemplate(doc, pub, "https://gov/submit", At),
+            SigningTestHelper.SignTemplateWithUrl(doc, pub, "https://gov/submit", At),
             AprSigner.SignFields(doc, fill, ["name"], At, "sig1"),
         ];
 

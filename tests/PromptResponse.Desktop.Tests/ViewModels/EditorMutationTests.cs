@@ -185,7 +185,7 @@ public class EditorMutationTests
         vm.Columns.Should().HaveCount(1);
         vm.NestedSections.Should().HaveCount(1, "fixed tables start with one starter row");
         vm.NestedSections[0].PromptViewModels.Should().HaveCount(1, "starter row has one cell per starter column");
-        model.TableLayout.Should().NotBeNull();
+        model.Kind.Should().Be("table");
     }
 
     [Fact]
@@ -205,7 +205,7 @@ public class EditorMutationTests
     }
 
     [Fact]
-    public void ConvertToDynamicTable_StartsEmpty()
+    public void ConvertToDynamicTable_StartsWithOneInstance()
     {
         var (vm, _, _, _) = NewBlankSection();
 
@@ -213,7 +213,9 @@ public class EditorMutationTests
 
         vm.IsTableSection.Should().BeTrue();
         vm.IsDynamicTable.Should().BeTrue();
-        vm.NestedSections.Should().BeEmpty();
+        // A table always carries at least one instance — it is what names the fields.
+        vm.NestedSections.Should().HaveCount(1);
+        vm.Columns.Should().NotBeEmpty();
     }
 
     [Fact]
@@ -227,10 +229,13 @@ public class EditorMutationTests
         vm.RemoveTableLayout();
 
         vm.IsTableSection.Should().BeFalse();
-        model.TableLayout.Should().BeNull();
-        vm.NestedSections.Should().BeEmpty();
-        removed.Count.Should().BeGreaterThanOrEqualTo(2,
-            "every cell prompt across every row must be detached when the layout is dropped");
+        model.Kind.Should().BeNull();
+
+        // Dropping table-ness now costs nothing: rows were only ever ordinary child
+        // sections and cells only ever ordinary prompts, so they simply stop being
+        // presented as a grid. There is no layout object whose removal destroys data.
+        vm.NestedSections.Should().NotBeEmpty("rows survive as ordinary child sections");
+        removed.Should().BeEmpty("no prompt is detached — nothing was owned by a table layout");
     }
 
     [Fact]

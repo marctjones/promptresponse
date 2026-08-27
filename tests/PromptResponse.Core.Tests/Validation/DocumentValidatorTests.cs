@@ -1,4 +1,5 @@
 using AwesomeAssertions;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Validation;
 using Xunit;
@@ -23,7 +24,7 @@ public class DocumentValidatorTests
         // Arrange
         var document = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "Test Form" },
             Sections = new List<Section>
@@ -365,7 +366,7 @@ public class DocumentValidatorTests
         // Arrange
         var document = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {

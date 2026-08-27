@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using NSubstitute;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -153,7 +154,8 @@ public class ReorderTests
         vm.MoveFixedRow(0, 2);
 
         vm.NestedSections.Select(r => r.Title).Should().Equal(titlesBefore[1], titlesBefore[2], titlesBefore[0]);
-        section.TableLayout!.FixedRows!.Select(r => r.Label).Should().Equal(titlesBefore[1], titlesBefore[2], titlesBefore[0]);
+        // The rows ARE the child sections: there is no second list that could disagree.
+        section.Sections.Select(r => r.Title).Should().Equal(titlesBefore[1], titlesBefore[2], titlesBefore[0]);
     }
 
     [Fact]
@@ -168,7 +170,7 @@ public class ReorderTests
 
         var doc = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section>

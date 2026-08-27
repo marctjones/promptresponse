@@ -238,7 +238,7 @@ Minimum required structure:
 
 ```json
 {
-  "version": "1.0",
+  "version": "1.0-beta",
   "documentType": "template",
   "metadata": {
     "title": "My Form",

@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using NSubstitute;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -53,7 +54,7 @@ public class EditingCommandUndoRedoTests
 
         var doc = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section>(),
@@ -215,12 +216,10 @@ public class EditingCommandUndoRedoTests
         vm.RemoveTableLayout();
 
         vm.IsTableSection.Should().BeFalse();
-        vm.TableLayout.Should().BeNull();
 
         history.Undo();
 
         vm.IsTableSection.Should().BeTrue();
-        vm.TableLayout.Should().NotBeNull();
         vm.Columns.Should().HaveCount(columnCountBefore,
             "undo must restore every column, not collapse the layout to a starter");
         vm.NestedSections.Should().HaveCount(rowCountBefore,
@@ -228,7 +227,6 @@ public class EditingCommandUndoRedoTests
 
         history.Redo();
         vm.IsTableSection.Should().BeFalse();
-        vm.TableLayout.Should().BeNull();
     }
 
     [Fact]
@@ -377,21 +375,23 @@ public class EditingCommandUndoRedoTests
     [Fact]
     public void AddColumn_RedoAfterUndo_ReusesCapturedColumn_NotASynthFreshOne()
     {
-        // AddColumnCommand has two branches in Execute: first call synthesizes,
-        // subsequent calls (redo) reuse the captured column + cell VMs. The
-        // restore branch is the one we need to cover.
+        // Undo/redo is snapshot-based: the section tree is restored, so a redo brings
+        // back the column's data rather than the identical view-model object. What
+        // matters is that redo restores the column that was added, not a fresh default.
         var (vm, history) = NewSection();
         vm.ConvertToFixedTable();
         history.Clear();
 
         vm.AddColumn();
-        var colAfterAdd = vm.Columns.Last();
+        var columnCount = vm.Columns.Count;
+        var labelAfterAdd = vm.Columns.Last().Label;
 
         history.Undo();
         history.Redo();
 
-        vm.Columns.Last().Should().Be(colAfterAdd,
-            "redo must reuse the same captured column instance so any external references stay valid");
+        vm.Columns.Should().HaveCount(columnCount, "redo must restore the added column");
+        vm.Columns.Last().Label.Should().Be(labelAfterAdd,
+            "redo must restore the column that was added, not synthesize a fresh default");
     }
 
     [Fact]
@@ -402,13 +402,15 @@ public class EditingCommandUndoRedoTests
         history.Clear();
 
         vm.AddFixedRow();
-        var rowAfterAdd = vm.NestedSections.Last();
+        var rowCount = vm.NestedSections.Count;
+        var rowIdAfterAdd = vm.NestedSections.Last().Id;
 
         history.Undo();
         history.Redo();
 
-        vm.NestedSections.Last().Should().Be(rowAfterAdd,
-            "redo must reuse the captured row VM, not synthesize a fresh one");
+        vm.NestedSections.Should().HaveCount(rowCount, "redo must restore the added row");
+        vm.NestedSections.Last().Id.Should().Be(rowIdAfterAdd,
+            "redo must restore the row that was added, not synthesize a fresh one");
     }
 
     [Fact]

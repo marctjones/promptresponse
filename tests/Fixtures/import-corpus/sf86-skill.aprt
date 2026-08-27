@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.0-beta",
   "documentType": "template",
   "metadata": {
     "title": "SF-86 — Questionnaire for National Security Positions (Sections 1–6)",
@@ -13,7 +13,15 @@
       "id": "certification",
       "title": "Certification",
       "prompts": [
-        { "id": "cert_understand", "label": "I have read the instructions and understand the penalties for inaccurate or false statements", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Per U.S. Criminal Code, Title 18, section 1001." } }
+        {
+          "id": "cert_understand",
+          "label": "I have read the instructions and understand the penalties for inaccurate or false statements",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Per U.S. Criminal Code, Title 18, section 1001."
+          }
+        }
       ]
     },
     {
@@ -21,36 +29,125 @@
       "title": "Section 1 — Full Name",
       "description": "If you have only initials, indicate \"Initial only\". If no middle name, indicate \"No Middle Name\". Enter Jr./Sr. etc. under Suffix.",
       "prompts": [
-        { "id": "last_name", "label": "Last name", "response": "", "hints": { "expectedDataType": "text" } },
-        { "id": "first_name", "label": "First name", "response": "", "hints": { "expectedDataType": "text" } },
-        { "id": "middle_name", "label": "Middle name", "response": "", "hints": { "expectedDataType": "text" } },
-        { "id": "suffix", "label": "Suffix", "response": "", "hints": { "expectedDataType": "text", "placeholder": "Jr., Sr., III" } }
+        {
+          "id": "last_name",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first_name",
+          "label": "First name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle_name",
+          "label": "Middle name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "suffix",
+          "label": "Suffix",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "placeholder": "Jr., Sr., III"
+          }
+        }
       ]
     },
     {
       "id": "section2_dob",
       "title": "Section 2 — Date of Birth",
       "prompts": [
-        { "id": "dob", "label": "Date of birth", "response": "", "hints": { "expectedDataType": "date", "helpText": "Month/Day/Year." } },
-        { "id": "dob_estimated", "label": "Estimated", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Check if the date of birth is estimated." } }
+        {
+          "id": "dob",
+          "label": "Date of birth",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date",
+            "helpText": "Month/Day/Year."
+          }
+        },
+        {
+          "id": "dob_estimated",
+          "label": "Estimated",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Check if the date of birth is estimated."
+          }
+        }
       ]
     },
     {
       "id": "section3_pob",
       "title": "Section 3 — Place of Birth",
       "prompts": [
-        { "id": "pob_city", "label": "City", "response": "", "hints": { "expectedDataType": "text" } },
-        { "id": "pob_county", "label": "County", "response": "", "hints": { "expectedDataType": "text" } },
-        { "id": "pob_state", "label": "State", "response": "", "hints": { "expectedDataType": "text" } },
-        { "id": "pob_country", "label": "Country", "response": "", "hints": { "expectedDataType": "text", "helpText": "Required." } }
+        {
+          "id": "pob_city",
+          "label": "City",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "pob_county",
+          "label": "County",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "pob_state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "pob_country",
+          "label": "Country",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Required."
+          }
+        }
       ]
     },
     {
       "id": "section4_ssn",
       "title": "Section 4 — Social Security Number",
       "prompts": [
-        { "id": "ssn", "label": "U.S. Social Security Number", "response": "", "hints": { "expectedDataType": "text", "placeholder": "000-00-0000" } },
-        { "id": "ssn_not_applicable", "label": "Not applicable", "response": "", "hints": { "expectedDataType": "boolean" } }
+        {
+          "id": "ssn",
+          "label": "U.S. Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "placeholder": "000-00-0000"
+          }
+        },
+        {
+          "id": "ssn_not_applicable",
+          "label": "Not applicable",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
       ]
     },
     {
@@ -58,79 +155,360 @@
       "title": "Section 5 — Other Names Used",
       "description": "Maiden name, names by former marriage, former names, aliases, or nicknames. Complete the table only if you answered Yes.",
       "prompts": [
-        { "id": "used_other_names", "label": "Have you used any other names?", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "If No, proceed to Section 6." } }
+        {
+          "id": "used_other_names",
+          "label": "Have you used any other names?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "If No, proceed to Section 6."
+          }
+        }
       ]
     },
     {
       "id": "section5_names_table",
       "title": "Section 5 — Other names (up to 4)",
-      "tableLayout": {
-        "columns": [
-          { "id": "last", "label": "Last name", "type": "text" },
-          { "id": "first", "label": "First name", "type": "text" },
-          { "id": "middle", "label": "Middle name", "type": "text" },
-          { "id": "suffix", "label": "Suffix", "type": "text" },
-          { "id": "from", "label": "From (Month/Year)", "type": "text" },
-          { "id": "to", "label": "To (Month/Year)", "type": "text" },
-          { "id": "maiden", "label": "Maiden name?", "type": "boolean" },
-          { "id": "reason", "label": "Reason name changed", "type": "text" }
-        ],
-        "fixedRows": [
-          { "id": "name1", "label": "#1" },
-          { "id": "name2", "label": "#2" },
-          { "id": "name3", "label": "#3" },
-          { "id": "name4", "label": "#4" }
-        ]
-      },
       "sections": [
-        { "id": "name1", "title": "#1", "prompts": [
-          { "id": "name1.last", "label": "Last name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name1.first", "label": "First name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name1.middle", "label": "Middle name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name1.suffix", "label": "Suffix", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name1.from", "label": "From", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name1.to", "label": "To", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name1.maiden", "label": "Maiden name?", "response": "", "hints": { "expectedDataType": "boolean" } },
-          { "id": "name1.reason", "label": "Reason name changed", "response": "", "hints": { "expectedDataType": "text" } } ] },
-        { "id": "name2", "title": "#2", "prompts": [
-          { "id": "name2.last", "label": "Last name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name2.first", "label": "First name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name2.middle", "label": "Middle name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name2.suffix", "label": "Suffix", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name2.from", "label": "From", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name2.to", "label": "To", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name2.maiden", "label": "Maiden name?", "response": "", "hints": { "expectedDataType": "boolean" } },
-          { "id": "name2.reason", "label": "Reason name changed", "response": "", "hints": { "expectedDataType": "text" } } ] },
-        { "id": "name3", "title": "#3", "prompts": [
-          { "id": "name3.last", "label": "Last name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name3.first", "label": "First name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name3.middle", "label": "Middle name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name3.suffix", "label": "Suffix", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name3.from", "label": "From", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name3.to", "label": "To", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name3.maiden", "label": "Maiden name?", "response": "", "hints": { "expectedDataType": "boolean" } },
-          { "id": "name3.reason", "label": "Reason name changed", "response": "", "hints": { "expectedDataType": "text" } } ] },
-        { "id": "name4", "title": "#4", "prompts": [
-          { "id": "name4.last", "label": "Last name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name4.first", "label": "First name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name4.middle", "label": "Middle name", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name4.suffix", "label": "Suffix", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name4.from", "label": "From", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name4.to", "label": "To", "response": "", "hints": { "expectedDataType": "text" } },
-          { "id": "name4.maiden", "label": "Maiden name?", "response": "", "hints": { "expectedDataType": "boolean" } },
-          { "id": "name4.reason", "label": "Reason name changed", "response": "", "hints": { "expectedDataType": "text" } } ] }
-      ]
+        {
+          "id": "name1",
+          "title": "#1",
+          "prompts": [
+            {
+              "id": "name1.last",
+              "label": "Last name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name1.first",
+              "label": "First name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name1.middle",
+              "label": "Middle name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name1.suffix",
+              "label": "Suffix",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name1.from",
+              "label": "From (Month/Year)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name1.to",
+              "label": "To (Month/Year)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name1.maiden",
+              "label": "Maiden name?",
+              "response": "",
+              "hints": {
+                "expectedDataType": "boolean"
+              }
+            },
+            {
+              "id": "name1.reason",
+              "label": "Reason name changed",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "id": "name2",
+          "title": "#2",
+          "prompts": [
+            {
+              "id": "name2.last",
+              "label": "Last name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name2.first",
+              "label": "First name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name2.middle",
+              "label": "Middle name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name2.suffix",
+              "label": "Suffix",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name2.from",
+              "label": "From (Month/Year)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name2.to",
+              "label": "To (Month/Year)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name2.maiden",
+              "label": "Maiden name?",
+              "response": "",
+              "hints": {
+                "expectedDataType": "boolean"
+              }
+            },
+            {
+              "id": "name2.reason",
+              "label": "Reason name changed",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "id": "name3",
+          "title": "#3",
+          "prompts": [
+            {
+              "id": "name3.last",
+              "label": "Last name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name3.first",
+              "label": "First name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name3.middle",
+              "label": "Middle name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name3.suffix",
+              "label": "Suffix",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name3.from",
+              "label": "From (Month/Year)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name3.to",
+              "label": "To (Month/Year)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name3.maiden",
+              "label": "Maiden name?",
+              "response": "",
+              "hints": {
+                "expectedDataType": "boolean"
+              }
+            },
+            {
+              "id": "name3.reason",
+              "label": "Reason name changed",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            }
+          ]
+        },
+        {
+          "id": "name4",
+          "title": "#4",
+          "prompts": [
+            {
+              "id": "name4.last",
+              "label": "Last name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name4.first",
+              "label": "First name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name4.middle",
+              "label": "Middle name",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name4.suffix",
+              "label": "Suffix",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name4.from",
+              "label": "From (Month/Year)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name4.to",
+              "label": "To (Month/Year)",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "name4.maiden",
+              "label": "Maiden name?",
+              "response": "",
+              "hints": {
+                "expectedDataType": "boolean"
+              }
+            },
+            {
+              "id": "name4.reason",
+              "label": "Reason name changed",
+              "response": "",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            }
+          ]
+        }
+      ],
+      "kind": "table"
     },
     {
       "id": "section6_identifying",
       "title": "Section 6 — Your Identifying Information",
       "prompts": [
-        { "id": "height_feet", "label": "Height (feet)", "response": "", "hints": { "expectedDataType": "number" } },
-        { "id": "height_inches", "label": "Height (inches)", "response": "", "hints": { "expectedDataType": "number" } },
-        { "id": "weight", "label": "Weight (pounds)", "response": "", "hints": { "expectedDataType": "number" } },
-        { "id": "hair_color", "label": "Hair color", "response": "", "hints": { "expectedDataType": "text" } },
-        { "id": "eye_color", "label": "Eye color", "response": "", "hints": { "expectedDataType": "text" } },
-        { "id": "sex", "label": "Sex", "response": "", "hints": { "expectedDataType": "text", "suggestedValues": ["Female", "Male"] } }
+        {
+          "id": "height_feet",
+          "label": "Height (feet)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "height_inches",
+          "label": "Height (inches)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "weight",
+          "label": "Weight (pounds)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "hair_color",
+          "label": "Hair color",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "eye_color",
+          "label": "Eye color",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "sex",
+          "label": "Sex",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Female",
+              "Male"
+            ]
+          }
+        }
       ]
     }
   ]

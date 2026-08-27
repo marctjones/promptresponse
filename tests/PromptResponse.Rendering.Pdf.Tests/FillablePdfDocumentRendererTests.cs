@@ -119,23 +119,14 @@ public class FillablePdfDocumentRendererTests
                 new Section
                 {
                     Id = "q", Title = "By quarter",
-                    TableLayout = new TableDefinition
-                    {
-                        Columns =
-                        [
-                            new TableColumn { Id = "revenue", Label = "Revenue", Type = "currency" },
-                            new TableColumn { Id = "audited", Label = "Audited", Type = "boolean" },
-                            new TableColumn { Id = "status", Label = "Status", SuggestedValues = ["Draft", "Final"] },
-                        ],
-                        FixedRows = [new FixedRow { Id = "q1", Label = "Q1" }],
-                    },
+                    Kind = "table",
                     Sections =
                     [
                         new Section { Id = "q1", Title = "Q1", Prompts =
                         [
-                            new Prompt { Id = "q1.revenue", Response = "5000" },
-                            new Prompt { Id = "q1.audited", Response = "true", Hints = new PromptHints { ExpectedDataType = "boolean" } },
-                            new Prompt { Id = "q1.status", Response = "Final" },
+                            new Prompt { Id = "q1.revenue", Label = "Revenue", Response = "5000" },
+                            new Prompt { Id = "q1.audited", Label = "Audited", Response = "true", Hints = new PromptHints { ExpectedDataType = "boolean" } },
+                            new Prompt { Id = "q1.status", Label = "Status", Response = "Final", Hints = new PromptHints { SuggestedValues = ["Draft", "Final"] } },
                         ]},
                     ],
                 },

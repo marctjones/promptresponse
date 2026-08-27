@@ -188,7 +188,7 @@ public class UndoRedoTests
         history.Undo();
 
         vm.IsTableSection.Should().BeFalse();
-        model.TableLayout.Should().BeNull();
+        model.Kind.Should().BeNull();
         // The prompts that were on the section before conversion must come back.
         model.Prompts.Should().HaveCount(2);
         // We don't guarantee VM identity round-trip on table-snapshot restore,

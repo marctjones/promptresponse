@@ -1,4 +1,5 @@
 using AwesomeAssertions;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using Xunit;
@@ -29,7 +30,7 @@ public class DocumentIntegrationTests
 
         // Assert
         document.Should().NotBeNull();
-        document.Version.Should().Be("1.0");
+        document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Simple Contact Form");
         document.Metadata.TemplateId.Should().Be("simple-contact-v1");
@@ -50,7 +51,7 @@ public class DocumentIntegrationTests
 
         // Assert
         document.Should().NotBeNull();
-        document.Version.Should().Be("1.0");
+        document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Employment Application Form");
         document.Metadata.TemplateId.Should().Be("employment-app-v1");
@@ -240,7 +241,7 @@ public class DocumentIntegrationTests
 
         // Assert
         document.Should().NotBeNull();
-        document.Version.Should().Be("1.0");
+        document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Form W-4: Employee's Withholding Certificate (2024)");
         document.Metadata.TemplateId.Should().Be("irs-w4-2024-v1");
@@ -278,7 +279,7 @@ public class DocumentIntegrationTests
 
         // Assert
         document.Should().NotBeNull();
-        document.Version.Should().Be("1.0");
+        document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("SF-86: Questionnaire for National Security Positions");
         document.Metadata.TemplateId.Should().Be("gsa-sf86-2024-v1");
@@ -316,7 +317,7 @@ public class DocumentIntegrationTests
 
         // Assert
         document.Should().NotBeNull();
-        document.Version.Should().Be("1.0");
+        document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Form 1040: U.S. Individual Income Tax Return (Simplified)");
         document.Metadata.TemplateId.Should().Be("irs-1040-2024-simplified-v1");
@@ -357,7 +358,7 @@ public class DocumentIntegrationTests
         var forms = new[] { w4, sf86, form1040 };
         foreach (var form in forms)
         {
-            form.Version.Should().Be("1.0");
+            form.Version.Should().Be(AprFormat.CurrentVersion);
             form.DocumentType.Should().Be(DocumentType.Template);
             form.Metadata.Title.Should().NotBeNullOrEmpty();
             form.Metadata.Author.Should().NotBeNullOrEmpty();

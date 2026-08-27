@@ -1,5 +1,6 @@
 using System.Text;
 using AwesomeAssertions;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using Xunit;
@@ -16,7 +17,7 @@ public class AprJsonSerializerAsyncAndExceptionTests
     private static AprDocument MinimalTemplate() =>
         new()
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section> { new() { Id = "s1", Title = "S" } }

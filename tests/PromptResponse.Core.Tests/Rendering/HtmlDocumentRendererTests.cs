@@ -41,7 +41,7 @@ public class HtmlDocumentRendererTests
         var doc = SampleDoc();
         using var cert = PromptResponse.Core.Signing.SignatureCertificates.CreateSelfSigned(
             "Town of Bloomfield", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1));
-        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, "https://gov/submit", DateTime.UtcNow)];
+        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, DateTime.UtcNow)];
 
         var html = Render(_renderer, doc);
 
@@ -96,12 +96,8 @@ public class HtmlDocumentRendererTests
             Sections = [new Section
             {
                 Id = "t", Title = "Years",
-                TableLayout = new TableDefinition
-                {
-                    Columns = [new TableColumn { Id = "rev", Label = "Revenue" }],
-                    FixedRows = [new FixedRow { Id = "y2024", Label = "2024" }],
-                },
-                Sections = [new Section { Id = "y2024", Title = "2024", Prompts = [new Prompt { Id = "y2024.rev", Response = "5000" }] }],
+                Kind = "table",
+                Sections = [new Section { Id = "y2024", Title = "2024", Prompts = [new Prompt { Id = "y2024.rev", Label = "Revenue", Response = "5000" }] }],
             }],
         };
 

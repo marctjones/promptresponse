@@ -3,6 +3,7 @@ using Avalonia.Headless.XUnit;
 using Avalonia.VisualTree;
 using AwesomeAssertions;
 using NSubstitute;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -45,7 +46,7 @@ public class WizardModeGuiTests
     {
         var doc = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.FilledForm, // fill mode so we get the read-only-ish render
             Metadata = new Metadata { Title = "Test" },
             Sections = new List<Section>(),

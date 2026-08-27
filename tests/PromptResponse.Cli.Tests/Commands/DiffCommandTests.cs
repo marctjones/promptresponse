@@ -1,6 +1,7 @@
 using AwesomeAssertions;
 using PromptResponse.Cli.Commands;
 using PromptResponse.Cli.Tests.Fixtures;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using Xunit;
@@ -211,7 +212,7 @@ public class DiffCommandTests : IDisposable
     {
         return new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {
@@ -245,7 +246,7 @@ public class DiffCommandTests : IDisposable
     {
         var doc1 = new AprDocument
         {
-            Version = "1.0", DocumentType = DocumentType.Template,
+            Version = AprFormat.CurrentVersion, DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section>
             {
@@ -261,7 +262,7 @@ public class DiffCommandTests : IDisposable
         };
         var doc2 = new AprDocument
         {
-            Version = "1.0", DocumentType = DocumentType.Template,
+            Version = AprFormat.CurrentVersion, DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section>
             {
@@ -287,7 +288,7 @@ public class DiffCommandTests : IDisposable
     {
         var doc1 = new AprDocument
         {
-            Version = "1.0", DocumentType = DocumentType.Template,
+            Version = AprFormat.CurrentVersion, DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section>
             {
@@ -296,7 +297,7 @@ public class DiffCommandTests : IDisposable
         };
         var doc2 = new AprDocument
         {
-            Version = "1.0", DocumentType = DocumentType.Template,
+            Version = AprFormat.CurrentVersion, DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section>
             {
@@ -408,13 +409,13 @@ public class DiffCommandTests : IDisposable
     {
         var doc1 = new AprDocument
         {
-            Version = "1.0", DocumentType = DocumentType.Template,
+            Version = AprFormat.CurrentVersion, DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section>(),
         };
         var doc2 = new AprDocument
         {
-            Version = "1.0", DocumentType = DocumentType.Template,
+            Version = AprFormat.CurrentVersion, DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section>(),
         };

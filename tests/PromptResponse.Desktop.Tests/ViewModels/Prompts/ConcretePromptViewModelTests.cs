@@ -59,23 +59,23 @@ public class ConcretePromptViewModelTests
     }
 
     [Fact]
-    public void Boolean_SetIsTrueTrue_StoresYes()
+    public void Boolean_SetIsTrueTrue_StoresCanonicalTrue()
     {
         var vm = new BooleanPromptViewModel(P("p", "Q"), NewService());
 
         vm.IsTrue = true;
 
-        vm.Response.Should().Be("yes");
+        vm.Response.Should().Be("true", "canonical boolean write form (specification section 4.9)");
     }
 
     [Fact]
-    public void Boolean_SetIsTrueFalse_StoresNo()
+    public void Boolean_SetIsTrueFalse_StoresCanonicalFalse()
     {
         var vm = new BooleanPromptViewModel(P("p", "Q"), NewService());
 
         vm.IsTrue = false;
 
-        vm.Response.Should().Be("no");
+        vm.Response.Should().Be("false", "canonical boolean write form (specification section 4.9)");
     }
 
     [Fact]
@@ -151,7 +151,7 @@ public class ConcretePromptViewModelTests
     }
 
     [Fact]
-    public void Multichoice_SerializesAsCommaSeparatedString()
+    public void Multichoice_SerializesAsNewlineSeparatedString()
     {
         var vm = new MultichoicePromptViewModel(
             P("p", "Q", p => p.Hints.SuggestedValues = new List<string> { "X", "Y", "Z" }),
@@ -160,7 +160,7 @@ public class ConcretePromptViewModelTests
         vm.Select("X");
         vm.Select("Z");
 
-        vm.Response.Should().Be("X, Z");
+        vm.Response.Should().Be("X\nZ", "canonical multichoice write form is newline-separated: a suggested value may itself contain a comma");
     }
 
     [Fact]

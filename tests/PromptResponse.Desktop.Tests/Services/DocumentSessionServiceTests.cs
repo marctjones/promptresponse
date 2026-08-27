@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using NSubstitute;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Services;
 using Xunit;
@@ -16,7 +17,7 @@ public class DocumentSessionServiceTests
     private static AprDocument MakeDocument(DocumentType type = DocumentType.Template, string title = "T") =>
         new()
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = type,
             Metadata = new Metadata { Title = title },
             Sections = new List<Section> { new() { Id = "s1", Title = "S" } },

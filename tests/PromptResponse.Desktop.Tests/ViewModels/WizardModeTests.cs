@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using NSubstitute;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -40,7 +41,7 @@ public class WizardModeTests
     {
         var doc = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "T" },
             Sections = new List<Section>(),

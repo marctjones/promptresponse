@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.0-beta",
   "documentType": "template",
   "metadata": {
     "title": "IRS Form 990 — Return of Organization Exempt From Income Tax (2025)",
@@ -14,31 +14,244 @@
       "title": "Header & Identification",
       "description": "Boxes A through M at the top of the form.",
       "prompts": [
-        { "id": "tax_year_begin", "label": "For the calendar year, or tax year beginning", "response": "", "hints": { "expectedDataType": "date", "helpText": "Box A — start of the tax year (leave blank for calendar year)." } },
-        { "id": "tax_year_end", "label": "Tax year ending", "response": "", "hints": { "expectedDataType": "date", "helpText": "Box A — end of the tax year." } },
-        { "id": "address_change", "label": "Address change", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Box B — check if applicable." } },
-        { "id": "name_change", "label": "Name change", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Box B — check if applicable." } },
-        { "id": "initial_return", "label": "Initial return", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Box B — check if applicable." } },
-        { "id": "final_return", "label": "Final return / terminated", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Box B — check if applicable." } },
-        { "id": "amended_return", "label": "Amended return", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Box B — check if applicable." } },
-        { "id": "application_pending", "label": "Application pending", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Box B — check if applicable." } },
-        { "id": "org_name", "label": "Name of organization", "response": "", "hints": { "expectedDataType": "text", "helpText": "Box C." } },
-        { "id": "doing_business_as", "label": "Doing business as", "response": "", "hints": { "expectedDataType": "text", "helpText": "Box C." } },
-        { "id": "street_address", "label": "Number and street (or P.O. box)", "response": "", "hints": { "expectedDataType": "text", "helpText": "Box C." } },
-        { "id": "room_suite", "label": "Room/suite", "response": "", "hints": { "expectedDataType": "text", "helpText": "Box C." } },
-        { "id": "city_state_zip", "label": "City, state, ZIP or foreign postal code", "response": "", "hints": { "expectedDataType": "text", "helpText": "Box C." } },
-        { "id": "ein", "label": "Employer identification number (EIN)", "response": "", "hints": { "expectedDataType": "text", "placeholder": "00-0000000", "helpText": "Box D." } },
-        { "id": "telephone", "label": "Telephone number", "response": "", "hints": { "expectedDataType": "phone", "helpText": "Box E." } },
-        { "id": "gross_receipts", "label": "Gross receipts", "response": "", "hints": { "expectedDataType": "currency", "helpText": "Box G." } },
-        { "id": "principal_officer", "label": "Name and address of principal officer", "response": "", "hints": { "expectedDataType": "multiline", "helpText": "Box F." } },
-        { "id": "group_return", "label": "Is this a group return for subordinates?", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Box H(a)." } },
-        { "id": "subordinates_included", "label": "Are all subordinates included?", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Box H(b) — if 'No', attach a list." } },
-        { "id": "group_exemption_number", "label": "Group exemption number", "response": "", "hints": { "expectedDataType": "text", "helpText": "Box H(c)." } },
-        { "id": "tax_exempt_status", "label": "Tax-exempt status", "response": "", "hints": { "expectedDataType": "text", "suggestedValues": ["501(c)(3)", "501(c) (other)", "4947(a)(1)", "527"], "helpText": "Box I." } },
-        { "id": "website", "label": "Website", "response": "", "hints": { "expectedDataType": "url", "helpText": "Box J." } },
-        { "id": "form_of_organization", "label": "Form of organization", "response": "", "hints": { "expectedDataType": "text", "suggestedValues": ["Corporation", "Trust", "Association", "Other"], "helpText": "Box K." } },
-        { "id": "year_of_formation", "label": "Year of formation", "response": "", "hints": { "expectedDataType": "number", "helpText": "Box L." } },
-        { "id": "state_legal_domicile", "label": "State of legal domicile", "response": "", "hints": { "expectedDataType": "text", "helpText": "Box M." } }
+        {
+          "id": "tax_year_begin",
+          "label": "For the calendar year, or tax year beginning",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date",
+            "helpText": "Box A — start of the tax year (leave blank for calendar year)."
+          }
+        },
+        {
+          "id": "tax_year_end",
+          "label": "Tax year ending",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date",
+            "helpText": "Box A — end of the tax year."
+          }
+        },
+        {
+          "id": "address_change",
+          "label": "Address change",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Box B — check if applicable."
+          }
+        },
+        {
+          "id": "name_change",
+          "label": "Name change",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Box B — check if applicable."
+          }
+        },
+        {
+          "id": "initial_return",
+          "label": "Initial return",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Box B — check if applicable."
+          }
+        },
+        {
+          "id": "final_return",
+          "label": "Final return / terminated",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Box B — check if applicable."
+          }
+        },
+        {
+          "id": "amended_return",
+          "label": "Amended return",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Box B — check if applicable."
+          }
+        },
+        {
+          "id": "application_pending",
+          "label": "Application pending",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Box B — check if applicable."
+          }
+        },
+        {
+          "id": "org_name",
+          "label": "Name of organization",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Box C."
+          }
+        },
+        {
+          "id": "doing_business_as",
+          "label": "Doing business as",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Box C."
+          }
+        },
+        {
+          "id": "street_address",
+          "label": "Number and street (or P.O. box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Box C."
+          }
+        },
+        {
+          "id": "room_suite",
+          "label": "Room/suite",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Box C."
+          }
+        },
+        {
+          "id": "city_state_zip",
+          "label": "City, state, ZIP or foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Box C."
+          }
+        },
+        {
+          "id": "ein",
+          "label": "Employer identification number (EIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "placeholder": "00-0000000",
+            "helpText": "Box D."
+          }
+        },
+        {
+          "id": "telephone",
+          "label": "Telephone number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone",
+            "helpText": "Box E."
+          }
+        },
+        {
+          "id": "gross_receipts",
+          "label": "Gross receipts",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency",
+            "helpText": "Box G."
+          }
+        },
+        {
+          "id": "principal_officer",
+          "label": "Name and address of principal officer",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "Box F."
+          }
+        },
+        {
+          "id": "group_return",
+          "label": "Is this a group return for subordinates?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Box H(a)."
+          }
+        },
+        {
+          "id": "subordinates_included",
+          "label": "Are all subordinates included?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Box H(b) — if 'No', attach a list."
+          }
+        },
+        {
+          "id": "group_exemption_number",
+          "label": "Group exemption number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Box H(c)."
+          }
+        },
+        {
+          "id": "tax_exempt_status",
+          "label": "Tax-exempt status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "501(c)(3)",
+              "501(c) (other)",
+              "4947(a)(1)",
+              "527"
+            ],
+            "helpText": "Box I."
+          }
+        },
+        {
+          "id": "website",
+          "label": "Website",
+          "response": "",
+          "hints": {
+            "expectedDataType": "url",
+            "helpText": "Box J."
+          }
+        },
+        {
+          "id": "form_of_organization",
+          "label": "Form of organization",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Corporation",
+              "Trust",
+              "Association",
+              "Other"
+            ],
+            "helpText": "Box K."
+          }
+        },
+        {
+          "id": "year_of_formation",
+          "label": "Year of formation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number",
+            "helpText": "Box L."
+          }
+        },
+        {
+          "id": "state_legal_domicile",
+          "label": "State of legal domicile",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Box M."
+          }
+        }
       ]
     },
     {
@@ -46,50 +259,197 @@
       "title": "Part I — Summary",
       "description": "Activities & governance and the revenue summary.",
       "prompts": [
-        { "id": "mission", "label": "Briefly describe the organization's mission or most significant activities", "response": "", "hints": { "expectedDataType": "multiline", "helpText": "Line 1." } },
-        { "id": "discontinued", "label": "Organization discontinued operations or disposed of more than 25% of net assets", "response": "", "hints": { "expectedDataType": "boolean", "helpText": "Line 2 — check this box if it applies." } },
-        { "id": "voting_members", "label": "Number of voting members of the governing body", "response": "", "hints": { "expectedDataType": "number", "helpText": "Line 3 (Part VI, line 1a)." } },
-        { "id": "independent_voting_members", "label": "Number of independent voting members of the governing body", "response": "", "hints": { "expectedDataType": "number", "helpText": "Line 4 (Part VI, line 1b)." } },
-        { "id": "num_employees", "label": "Total number of individuals employed in calendar year", "response": "", "hints": { "expectedDataType": "number", "helpText": "Line 5 (Part V, line 2a)." } },
-        { "id": "num_volunteers", "label": "Total number of volunteers", "response": "", "hints": { "expectedDataType": "number", "helpText": "Line 6 (estimate if necessary)." } },
-        { "id": "unrelated_business_revenue", "label": "Total unrelated business revenue", "response": "", "hints": { "expectedDataType": "currency", "helpText": "Line 7a (Part VIII, column C, line 12)." } },
-        { "id": "net_unrelated_taxable_income", "label": "Net unrelated business taxable income", "response": "", "hints": { "expectedDataType": "currency", "helpText": "Line 7b (Form 990-T, Part I, line 11)." } }
+        {
+          "id": "mission",
+          "label": "Briefly describe the organization's mission or most significant activities",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "Line 1."
+          }
+        },
+        {
+          "id": "discontinued",
+          "label": "Organization discontinued operations or disposed of more than 25% of net assets",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "Line 2 — check this box if it applies."
+          }
+        },
+        {
+          "id": "voting_members",
+          "label": "Number of voting members of the governing body",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number",
+            "helpText": "Line 3 (Part VI, line 1a)."
+          }
+        },
+        {
+          "id": "independent_voting_members",
+          "label": "Number of independent voting members of the governing body",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number",
+            "helpText": "Line 4 (Part VI, line 1b)."
+          }
+        },
+        {
+          "id": "num_employees",
+          "label": "Total number of individuals employed in calendar year",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number",
+            "helpText": "Line 5 (Part V, line 2a)."
+          }
+        },
+        {
+          "id": "num_volunteers",
+          "label": "Total number of volunteers",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number",
+            "helpText": "Line 6 (estimate if necessary)."
+          }
+        },
+        {
+          "id": "unrelated_business_revenue",
+          "label": "Total unrelated business revenue",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency",
+            "helpText": "Line 7a (Part VIII, column C, line 12)."
+          }
+        },
+        {
+          "id": "net_unrelated_taxable_income",
+          "label": "Net unrelated business taxable income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency",
+            "helpText": "Line 7b (Form 990-T, Part I, line 11)."
+          }
+        }
       ]
     },
     {
       "id": "part1_revenue",
       "title": "Part I — Revenue (lines 8–12)",
       "description": "Prior year vs current year revenue.",
-      "tableLayout": {
-        "columns": [
-          { "id": "prior_year", "label": "Prior Year", "type": "currency" },
-          { "id": "current_year", "label": "Current Year", "type": "currency" }
-        ],
-        "fixedRows": [
-          { "id": "line8", "label": "8 — Contributions and grants" },
-          { "id": "line9", "label": "9 — Program service revenue" },
-          { "id": "line10", "label": "10 — Investment income" },
-          { "id": "line11", "label": "11 — Other revenue" },
-          { "id": "line12", "label": "12 — Total revenue" }
-        ]
-      },
       "sections": [
-        { "id": "line8", "title": "8 — Contributions and grants", "prompts": [
-          { "id": "line8.prior_year", "label": "Prior Year", "response": "", "hints": { "expectedDataType": "currency" } },
-          { "id": "line8.current_year", "label": "Current Year", "response": "", "hints": { "expectedDataType": "currency" } } ] },
-        { "id": "line9", "title": "9 — Program service revenue", "prompts": [
-          { "id": "line9.prior_year", "label": "Prior Year", "response": "", "hints": { "expectedDataType": "currency" } },
-          { "id": "line9.current_year", "label": "Current Year", "response": "", "hints": { "expectedDataType": "currency" } } ] },
-        { "id": "line10", "title": "10 — Investment income", "prompts": [
-          { "id": "line10.prior_year", "label": "Prior Year", "response": "", "hints": { "expectedDataType": "currency" } },
-          { "id": "line10.current_year", "label": "Current Year", "response": "", "hints": { "expectedDataType": "currency" } } ] },
-        { "id": "line11", "title": "11 — Other revenue", "prompts": [
-          { "id": "line11.prior_year", "label": "Prior Year", "response": "", "hints": { "expectedDataType": "currency" } },
-          { "id": "line11.current_year", "label": "Current Year", "response": "", "hints": { "expectedDataType": "currency" } } ] },
-        { "id": "line12", "title": "12 — Total revenue", "prompts": [
-          { "id": "line12.prior_year", "label": "Prior Year", "response": "", "hints": { "expectedDataType": "currency" } },
-          { "id": "line12.current_year", "label": "Current Year", "response": "", "hints": { "expectedDataType": "currency" } } ] }
-      ]
+        {
+          "id": "line8",
+          "title": "8 — Contributions and grants",
+          "prompts": [
+            {
+              "id": "line8.prior_year",
+              "label": "Prior Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            },
+            {
+              "id": "line8.current_year",
+              "label": "Current Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            }
+          ]
+        },
+        {
+          "id": "line9",
+          "title": "9 — Program service revenue",
+          "prompts": [
+            {
+              "id": "line9.prior_year",
+              "label": "Prior Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            },
+            {
+              "id": "line9.current_year",
+              "label": "Current Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            }
+          ]
+        },
+        {
+          "id": "line10",
+          "title": "10 — Investment income",
+          "prompts": [
+            {
+              "id": "line10.prior_year",
+              "label": "Prior Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            },
+            {
+              "id": "line10.current_year",
+              "label": "Current Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            }
+          ]
+        },
+        {
+          "id": "line11",
+          "title": "11 — Other revenue",
+          "prompts": [
+            {
+              "id": "line11.prior_year",
+              "label": "Prior Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            },
+            {
+              "id": "line11.current_year",
+              "label": "Current Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            }
+          ]
+        },
+        {
+          "id": "line12",
+          "title": "12 — Total revenue",
+          "prompts": [
+            {
+              "id": "line12.prior_year",
+              "label": "Prior Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            },
+            {
+              "id": "line12.current_year",
+              "label": "Current Year",
+              "response": "",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            }
+          ]
+        }
+      ],
+      "kind": "table"
     }
   ]
 }

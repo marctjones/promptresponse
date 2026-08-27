@@ -28,36 +28,29 @@ public class TableSectionViewModelTests
     private static IProfileService NewService() => new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
     private static PromptViewModelFactory NewFactory() => new(NewService());
 
-    // ── Helpers — build the post-migration shape (Section + rows + cell prompts) ──
+    // ── Helpers — a table is a section marked kind=table whose child sections are
+    // rows and whose prompts are cells. No column definition exists: a header is
+    // simply the corresponding prompt's label. ──
 
     private static Section FixedTableSection(Dictionary<string, Dictionary<string, string>>? cellValues = null)
     {
-        var def = new TableDefinition
+        var columns = new[]
         {
-            Columns = new List<TableColumn>
-            {
-                new() { Id = "revenue", Label = "Revenue", Type = "currency", Placeholder = "0.00" },
-                new() { Id = "expenses", Label = "Expenses", Type = "currency", Placeholder = "0.00" },
-            },
-            FixedRows = new List<FixedRow>
-            {
-                new() { Id = "q1", Label = "Q1" },
-                new() { Id = "q2", Label = "Q2" },
-            },
+            (Id: "revenue", Label: "Revenue", Type: "currency"),
+            (Id: "expenses", Label: "Expenses", Type: "currency"),
         };
-        var section = new Section { Id = "tbl", Title = "Quarterly results", TableLayout = def };
-        foreach (var row in def.FixedRows!)
+        var section = new Section { Id = "tbl", Title = "Quarterly results", Kind = "table" };
+        foreach (var (rowId, rowTitle) in new[] { ("q1", "Q1"), ("q2", "Q2") })
         {
-            var rowSection = new Section { Id = row.Id, Title = row.Label };
-            foreach (var col in def.Columns)
+            var rowSection = new Section { Id = rowId, Title = rowTitle };
+            foreach (var col in columns)
             {
-                var initial = cellValues?.GetValueOrDefault(row.Id)?.GetValueOrDefault(col.Id) ?? string.Empty;
                 rowSection.Prompts.Add(new Prompt
                 {
-                    Id = $"{row.Id}.{col.Id}",
+                    Id = $"{rowId}.{col.Id}",
                     Label = col.Label,
-                    Response = initial,
-                    Hints = new PromptHints { ExpectedDataType = col.Type, Placeholder = col.Placeholder },
+                    Response = cellValues?.GetValueOrDefault(rowId)?.GetValueOrDefault(col.Id) ?? string.Empty,
+                    Hints = new PromptHints { ExpectedDataType = col.Type, Placeholder = "0.00" },
                 });
             }
             section.Sections.Add(rowSection);
@@ -65,20 +58,24 @@ public class TableSectionViewModelTests
         return section;
     }
 
-    private static Section DynamicTableSection(int minRows = 0, int maxRows = 100, string rowLabel = "Item")
+    // A table always carries at least one instance: it is what describes the table's
+    // own fields, and an "empty" table was never empty.
+    private static Section DynamicTableSection(int maxRows = 0, string rowLabel = "Item")
     {
-        var def = new TableDefinition
+        var section = new Section
         {
-            Columns = new List<TableColumn>
-            {
-                new() { Id = "desc", Label = "Description", Type = "text" },
-                new() { Id = "qty", Label = "Qty", Type = "number" },
-            },
-            DynamicRows = new DynamicRowConfig { MinRows = minRows, MaxRows = maxRows, RowLabel = rowLabel },
+            Id = "tbl",
+            Title = "Line items",
+            Kind = "table",
+            CanAddRows = "true",
+            MaxRows = maxRows > 0 ? maxRows.ToString() : null,
         };
-        return new Section { Id = "tbl", Title = "Line items", TableLayout = def };
+        var row = new Section { Id = "row1", Title = $"{rowLabel} 1" };
+        row.Prompts.Add(new Prompt { Id = "row1.desc", Label = "Description", Hints = new PromptHints { ExpectedDataType = "text" } });
+        row.Prompts.Add(new Prompt { Id = "row1.qty", Label = "Qty", Hints = new PromptHints { ExpectedDataType = "number" } });
+        section.Sections.Add(row);
+        return section;
     }
-
     // ── Construction + flags ──
 
     [Fact]
@@ -164,12 +161,16 @@ public class TableSectionViewModelTests
     // ── Dynamic rows ──
 
     [Fact]
-    public void Dynamic_EmptyTable_StartsWithZeroRows()
+    public void Dynamic_Table_AlwaysCarriesAtLeastOneInstance()
     {
+        // An "empty" table was never empty. A UI offering to add the first row is
+        // already presenting a row, so the row belongs in the data and how it is shown
+        // is the renderer's business. The instance is also what names the fields.
         var vm = new SectionViewModel(DynamicTableSection(), NewFactory(), depth: 0);
 
         vm.IsDynamicTable.Should().BeTrue();
-        vm.NestedSections.Should().BeEmpty();
+        vm.NestedSections.Should().HaveCount(1);
+        vm.Columns.Should().NotBeEmpty("the instance is what describes the table's fields");
         vm.CanAddRow.Should().BeTrue();
         vm.CanRemoveRow.Should().BeFalse();
     }
@@ -182,15 +183,16 @@ public class TableSectionViewModelTests
 
         vm.AddRow();
 
-        vm.NestedSections.Should().HaveCount(1);
-        var row = vm.NestedSections[0];
-        row.Title.Should().Be("Item 1");
+        // The table already carried one instance, so adding gives two.
+        vm.NestedSections.Should().HaveCount(2);
+        var row = vm.NestedSections[1];
+        row.Title.Should().Be("Item 2", "a new instance follows the naming of those already present");
         row.Cells.Select(c => c.ColumnId).Should().Equal("desc", "qty");
 
         // The model gained a real Section + cell Prompts, addressable by id —
         // database imports iterate the prompt tree directly.
-        sectionModel.Sections.Should().HaveCount(1);
-        var rowSection = sectionModel.Sections[0];
+        sectionModel.Sections.Should().HaveCount(2);
+        var rowSection = sectionModel.Sections[1];
         rowSection.Prompts.Should().HaveCount(2);
         rowSection.Prompts[0].Id.Should().Be($"{row.Id}.desc");
         rowSection.Prompts[1].Id.Should().Be($"{row.Id}.qty");
@@ -212,8 +214,8 @@ public class TableSectionViewModelTests
     public void Dynamic_RemoveRow_DropsRow_AndRenumbersRemaining()
     {
         var sectionModel = DynamicTableSection();
-        var vm = new SectionViewModel(sectionModel, NewFactory(), depth: 0);
-        vm.AddRow(); vm.AddRow(); vm.AddRow();
+        var vm = new SectionViewModel(sectionModel, NewFactory(), depth: 0); vm.AddRow(); vm.AddRow();
+        // Three instances: the one the table came with, plus two added.
         vm.NestedSections[0].Cells.First(c => c.ColumnId == "desc").Value = "first";
         vm.NestedSections[1].Cells.First(c => c.ColumnId == "desc").Value = "second";
         vm.NestedSections[2].Cells.First(c => c.ColumnId == "desc").Value = "third";
@@ -228,11 +230,12 @@ public class TableSectionViewModelTests
     }
 
     [Fact]
-    public void Dynamic_AtMinRows_RemoveCommandCannotExecute()
+    public void Dynamic_AtLastRow_RemoveCommandCannotExecute()
     {
-        var sectionModel = DynamicTableSection(minRows: 1);
+        // A table always keeps at least one instance: it is what describes the
+        // table's own fields, so the last row is not removable.
+        var sectionModel = DynamicTableSection();
         var vm = new SectionViewModel(sectionModel, NewFactory(), depth: 0);
-        vm.AddRow();
 
         vm.CanRemoveRow.Should().BeFalse();
         vm.RemoveRowCommand.CanExecute(vm.NestedSections[0]).Should().BeFalse();
@@ -252,8 +255,8 @@ public class TableSectionViewModelTests
 
         added.Should().HaveCount(2, "one cell-prompt VM per column");
         added.Select(p => p.Id).Should().BeEquivalentTo(
-            new[] { vm.NestedSections[0].Cells[0].ColumnId, vm.NestedSections[0].Cells[1].ColumnId }
-                .Select(col => $"{vm.NestedSections[0].Id}.{col}"));
+            new[] { vm.NestedSections[1].Cells[0].ColumnId, vm.NestedSections[1].Cells[1].ColumnId }
+                .Select(col => $"{vm.NestedSections[1].Id}.{col}"));
     }
 
     [Fact]

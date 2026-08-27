@@ -5,6 +5,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using AwesomeAssertions;
 using NSubstitute;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -54,7 +55,7 @@ public class KeyboardFlowTests
 
     private static AprDocument MultiSectionDoc() => new()
     {
-        Version = "1.0",
+        Version = AprFormat.CurrentVersion,
         DocumentType = DocumentType.FilledForm,
         Metadata = new Metadata { Title = "Keyboard test" },
         Sections = new List<Section>

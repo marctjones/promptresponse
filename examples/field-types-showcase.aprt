@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.0-beta",
   "documentType": "template",
   "metadata": {
     "title": "Field Types Showcase - APR Format Demo",
@@ -289,7 +289,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"],
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ],
             "helpText": "A simple yes or no answer"
           },
           "responseMetadata": {}
@@ -300,7 +303,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["True", "False"],
+            "suggestedValues": [
+              "True",
+              "False"
+            ],
             "helpText": "Indicate if the statement is true or false"
           },
           "responseMetadata": {}
@@ -311,7 +317,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["I Agree", "I Do Not Agree"],
+            "suggestedValues": [
+              "I Agree",
+              "I Do Not Agree"
+            ],
             "helpText": "Indicate your agreement"
           },
           "responseMetadata": {}
@@ -329,7 +338,11 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Option A", "Option B", "Option C"],
+            "suggestedValues": [
+              "Option A",
+              "Option B",
+              "Option C"
+            ],
             "helpText": "Choose from a small set of options"
           },
           "responseMetadata": {}
@@ -340,7 +353,16 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Sales", "Marketing", "Engineering", "Human Resources", "Finance", "Operations", "Legal", "Customer Support"],
+            "suggestedValues": [
+              "Sales",
+              "Marketing",
+              "Engineering",
+              "Human Resources",
+              "Finance",
+              "Operations",
+              "Legal",
+              "Customer Support"
+            ],
             "helpText": "Select your department"
           },
           "responseMetadata": {}
@@ -351,7 +373,12 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Critical", "High", "Medium", "Low"],
+            "suggestedValues": [
+              "Critical",
+              "High",
+              "Medium",
+              "Low"
+            ],
             "helpText": "Select the priority level"
           },
           "responseMetadata": {}
@@ -362,7 +389,13 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Not Started", "In Progress", "On Hold", "Completed", "Cancelled"],
+            "suggestedValues": [
+              "Not Started",
+              "In Progress",
+              "On Hold",
+              "Completed",
+              "Cancelled"
+            ],
             "helpText": "Current status of the item"
           },
           "responseMetadata": {}
@@ -373,7 +406,19 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["United States", "Canada", "United Kingdom", "Germany", "France", "Japan", "Australia", "Brazil", "India", "China", "Other"],
+            "suggestedValues": [
+              "United States",
+              "Canada",
+              "United Kingdom",
+              "Germany",
+              "France",
+              "Japan",
+              "Australia",
+              "Brazil",
+              "India",
+              "China",
+              "Other"
+            ],
             "helpText": "Select a country from the list or type 'Other'"
           },
           "responseMetadata": {}
@@ -384,7 +429,59 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "District of Columbia"],
+            "suggestedValues": [
+              "Alabama",
+              "Alaska",
+              "Arizona",
+              "Arkansas",
+              "California",
+              "Colorado",
+              "Connecticut",
+              "Delaware",
+              "Florida",
+              "Georgia",
+              "Hawaii",
+              "Idaho",
+              "Illinois",
+              "Indiana",
+              "Iowa",
+              "Kansas",
+              "Kentucky",
+              "Louisiana",
+              "Maine",
+              "Maryland",
+              "Massachusetts",
+              "Michigan",
+              "Minnesota",
+              "Mississippi",
+              "Missouri",
+              "Montana",
+              "Nebraska",
+              "Nevada",
+              "New Hampshire",
+              "New Jersey",
+              "New Mexico",
+              "New York",
+              "North Carolina",
+              "North Dakota",
+              "Ohio",
+              "Oklahoma",
+              "Oregon",
+              "Pennsylvania",
+              "Rhode Island",
+              "South Carolina",
+              "South Dakota",
+              "Tennessee",
+              "Texas",
+              "Utah",
+              "Vermont",
+              "Virginia",
+              "Washington",
+              "West Virginia",
+              "Wisconsin",
+              "Wyoming",
+              "District of Columbia"
+            ],
             "helpText": "Select a US state"
           },
           "responseMetadata": {}
@@ -760,117 +857,437 @@
     {
       "id": "section_tables",
       "title": "Table Fields",
-      "description": "Demonstrating fixed and dynamic tables. Tables are sections with a tableLayout: rows are sub-sections, cells are prompts addressed by {rowId}.{columnId}.",
+      "description": "Demonstrating fixed and dynamic tables. A table is a section marked kind=table: its child sections are the rows and their prompts are the cells, so a column header is simply the corresponding prompt's label.",
       "sections": [
         {
           "id": "tbl_income",
           "title": "Income by Tax Year (Fixed Table)",
           "description": "Enter income data for each tax year. Rows are fixed — you cannot add or remove years.",
-          "tableLayout": {
-            "columns": [
-              { "id": "wages", "label": "Wages & Salary", "type": "currency", "placeholder": "0.00" },
-              { "id": "interest", "label": "Interest Income", "type": "currency", "placeholder": "0.00" },
-              { "id": "dividends", "label": "Dividend Income", "type": "currency", "placeholder": "0.00" },
-              { "id": "other", "label": "Other Income", "type": "currency", "placeholder": "0.00" }
-            ],
-            "fixedRows": [
-              { "id": "year_2024", "label": "2024" },
-              { "id": "year_2023", "label": "2023" },
-              { "id": "year_2022", "label": "2022" }
-            ]
-          },
           "sections": [
-            { "id": "year_2024", "title": "2024", "prompts": [
-              { "id": "year_2024.wages", "label": "Wages & Salary", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
-              { "id": "year_2024.interest", "label": "Interest Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
-              { "id": "year_2024.dividends", "label": "Dividend Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
-              { "id": "year_2024.other", "label": "Other Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } }
-            ]},
-            { "id": "year_2023", "title": "2023", "prompts": [
-              { "id": "year_2023.wages", "label": "Wages & Salary", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
-              { "id": "year_2023.interest", "label": "Interest Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
-              { "id": "year_2023.dividends", "label": "Dividend Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
-              { "id": "year_2023.other", "label": "Other Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } }
-            ]},
-            { "id": "year_2022", "title": "2022", "prompts": [
-              { "id": "year_2022.wages", "label": "Wages & Salary", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
-              { "id": "year_2022.interest", "label": "Interest Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
-              { "id": "year_2022.dividends", "label": "Dividend Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } },
-              { "id": "year_2022.other", "label": "Other Income", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "0.00" } }
-            ]}
-          ]
+            {
+              "id": "year_2024",
+              "title": "2024",
+              "prompts": [
+                {
+                  "id": "year_2024.wages",
+                  "label": "Wages & Salary",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                },
+                {
+                  "id": "year_2024.interest",
+                  "label": "Interest Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                },
+                {
+                  "id": "year_2024.dividends",
+                  "label": "Dividend Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                },
+                {
+                  "id": "year_2024.other",
+                  "label": "Other Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "year_2023",
+              "title": "2023",
+              "prompts": [
+                {
+                  "id": "year_2023.wages",
+                  "label": "Wages & Salary",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                },
+                {
+                  "id": "year_2023.interest",
+                  "label": "Interest Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                },
+                {
+                  "id": "year_2023.dividends",
+                  "label": "Dividend Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                },
+                {
+                  "id": "year_2023.other",
+                  "label": "Other Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "year_2022",
+              "title": "2022",
+              "prompts": [
+                {
+                  "id": "year_2022.wages",
+                  "label": "Wages & Salary",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                },
+                {
+                  "id": "year_2022.interest",
+                  "label": "Interest Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                },
+                {
+                  "id": "year_2022.dividends",
+                  "label": "Dividend Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                },
+                {
+                  "id": "year_2022.other",
+                  "label": "Other Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                }
+              ]
+            }
+          ],
+          "kind": "table"
         },
         {
           "id": "tbl_lineitems",
           "title": "Order Line Items (Dynamic Table)",
           "description": "Add items to your order. You can add up to 20 items.",
-          "tableLayout": {
-            "columns": [
-              { "id": "item", "label": "Item Description", "type": "text", "placeholder": "Enter item name" },
-              { "id": "sku", "label": "SKU", "type": "text", "placeholder": "ABC-123" },
-              { "id": "qty", "label": "Qty", "type": "number" },
-              { "id": "price", "label": "Unit Price", "type": "currency", "placeholder": "0.00" }
-            ],
-            "dynamicRows": { "minRows": 1, "maxRows": 20, "rowLabel": "Item" }
-          },
-          "sections": []
+          "sections": [
+            {
+              "id": "row1",
+              "title": "Row 1",
+              "prompts": [
+                {
+                  "id": "row1.item",
+                  "label": "Item Description",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "text",
+                    "placeholder": "Enter item name"
+                  }
+                },
+                {
+                  "id": "row1.sku",
+                  "label": "SKU",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "text",
+                    "placeholder": "ABC-123"
+                  }
+                },
+                {
+                  "id": "row1.qty",
+                  "label": "Qty",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "number"
+                  }
+                },
+                {
+                  "id": "row1.price",
+                  "label": "Unit Price",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency",
+                    "placeholder": "0.00"
+                  }
+                }
+              ]
+            }
+          ],
+          "kind": "table",
+          "canAddRows": "true",
+          "maxRows": "20"
         },
         {
           "id": "tbl_addresses",
           "title": "Previous Addresses (Dynamic Table)",
           "description": "List all addresses where you have lived in the past 5 years",
-          "tableLayout": {
-            "columns": [
-              { "id": "street", "label": "Street Address", "type": "text" },
-              { "id": "city", "label": "City", "type": "text" },
-              { "id": "state", "label": "State", "type": "text", "suggestedValues": ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "DC"] },
-              { "id": "zip", "label": "ZIP", "type": "text" },
-              { "id": "from", "label": "From Date", "type": "date" },
-              { "id": "to", "label": "To Date", "type": "date" }
-            ],
-            "dynamicRows": { "minRows": 0, "maxRows": 10, "rowLabel": "Address" }
-          },
-          "sections": []
+          "sections": [
+            {
+              "id": "row1",
+              "title": "Row 1",
+              "prompts": [
+                {
+                  "id": "row1.street",
+                  "label": "Street Address",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "text"
+                  }
+                },
+                {
+                  "id": "row1.city",
+                  "label": "City",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "text"
+                  }
+                },
+                {
+                  "id": "row1.state",
+                  "label": "State",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "text",
+                    "suggestedValues": [
+                      "AL",
+                      "AK",
+                      "AZ",
+                      "AR",
+                      "CA",
+                      "CO",
+                      "CT",
+                      "DE",
+                      "FL",
+                      "GA",
+                      "HI",
+                      "ID",
+                      "IL",
+                      "IN",
+                      "IA",
+                      "KS",
+                      "KY",
+                      "LA",
+                      "ME",
+                      "MD",
+                      "MA",
+                      "MI",
+                      "MN",
+                      "MS",
+                      "MO",
+                      "MT",
+                      "NE",
+                      "NV",
+                      "NH",
+                      "NJ",
+                      "NM",
+                      "NY",
+                      "NC",
+                      "ND",
+                      "OH",
+                      "OK",
+                      "OR",
+                      "PA",
+                      "RI",
+                      "SC",
+                      "SD",
+                      "TN",
+                      "TX",
+                      "UT",
+                      "VT",
+                      "VA",
+                      "WA",
+                      "WV",
+                      "WI",
+                      "WY",
+                      "DC"
+                    ]
+                  }
+                },
+                {
+                  "id": "row1.zip",
+                  "label": "ZIP",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "text"
+                  }
+                },
+                {
+                  "id": "row1.from",
+                  "label": "From Date",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "date"
+                  }
+                },
+                {
+                  "id": "row1.to",
+                  "label": "To Date",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "date"
+                  }
+                }
+              ]
+            }
+          ],
+          "kind": "table",
+          "canAddRows": "true",
+          "maxRows": "10"
         },
         {
           "id": "tbl_quarterly",
           "title": "Quarterly Revenue (Fixed Table)",
           "description": "Enter revenue figures for each quarter",
-          "tableLayout": {
-            "columns": [
-              { "id": "revenue", "label": "Gross Revenue", "type": "currency" },
-              { "id": "expenses", "label": "Expenses", "type": "currency" },
-              { "id": "net", "label": "Net Income", "type": "currency" }
-            ],
-            "fixedRows": [
-              { "id": "q1", "label": "Q1 (Jan-Mar)" },
-              { "id": "q2", "label": "Q2 (Apr-Jun)" },
-              { "id": "q3", "label": "Q3 (Jul-Sep)" },
-              { "id": "q4", "label": "Q4 (Oct-Dec)" }
-            ]
-          },
           "sections": [
-            { "id": "q1", "title": "Q1 (Jan-Mar)", "prompts": [
-              { "id": "q1.revenue", "label": "Gross Revenue", "response": "", "hints": { "expectedDataType": "currency" } },
-              { "id": "q1.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } },
-              { "id": "q1.net", "label": "Net Income", "response": "", "hints": { "expectedDataType": "currency" } }
-            ]},
-            { "id": "q2", "title": "Q2 (Apr-Jun)", "prompts": [
-              { "id": "q2.revenue", "label": "Gross Revenue", "response": "", "hints": { "expectedDataType": "currency" } },
-              { "id": "q2.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } },
-              { "id": "q2.net", "label": "Net Income", "response": "", "hints": { "expectedDataType": "currency" } }
-            ]},
-            { "id": "q3", "title": "Q3 (Jul-Sep)", "prompts": [
-              { "id": "q3.revenue", "label": "Gross Revenue", "response": "", "hints": { "expectedDataType": "currency" } },
-              { "id": "q3.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } },
-              { "id": "q3.net", "label": "Net Income", "response": "", "hints": { "expectedDataType": "currency" } }
-            ]},
-            { "id": "q4", "title": "Q4 (Oct-Dec)", "prompts": [
-              { "id": "q4.revenue", "label": "Gross Revenue", "response": "", "hints": { "expectedDataType": "currency" } },
-              { "id": "q4.expenses", "label": "Expenses", "response": "", "hints": { "expectedDataType": "currency" } },
-              { "id": "q4.net", "label": "Net Income", "response": "", "hints": { "expectedDataType": "currency" } }
-            ]}
-          ]
+            {
+              "id": "q1",
+              "title": "Q1 (Jan-Mar)",
+              "prompts": [
+                {
+                  "id": "q1.revenue",
+                  "label": "Gross Revenue",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                },
+                {
+                  "id": "q1.expenses",
+                  "label": "Expenses",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                },
+                {
+                  "id": "q1.net",
+                  "label": "Net Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "q2",
+              "title": "Q2 (Apr-Jun)",
+              "prompts": [
+                {
+                  "id": "q2.revenue",
+                  "label": "Gross Revenue",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                },
+                {
+                  "id": "q2.expenses",
+                  "label": "Expenses",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                },
+                {
+                  "id": "q2.net",
+                  "label": "Net Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "q3",
+              "title": "Q3 (Jul-Sep)",
+              "prompts": [
+                {
+                  "id": "q3.revenue",
+                  "label": "Gross Revenue",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                },
+                {
+                  "id": "q3.expenses",
+                  "label": "Expenses",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                },
+                {
+                  "id": "q3.net",
+                  "label": "Net Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "q4",
+              "title": "Q4 (Oct-Dec)",
+              "prompts": [
+                {
+                  "id": "q4.revenue",
+                  "label": "Gross Revenue",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                },
+                {
+                  "id": "q4.expenses",
+                  "label": "Expenses",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                },
+                {
+                  "id": "q4.net",
+                  "label": "Net Income",
+                  "response": "",
+                  "hints": {
+                    "expectedDataType": "currency"
+                  }
+                }
+              ]
+            }
+          ],
+          "kind": "table"
         }
       ]
     },
@@ -885,7 +1302,9 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes, I certify"],
+            "suggestedValues": [
+              "Yes, I certify"
+            ],
             "helpText": "Check to certify the accuracy of your responses"
           },
           "responseMetadata": {}
@@ -916,7 +1335,15 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Individual", "Owner", "Officer", "Director", "Manager", "Attorney", "Other"]
+            "suggestedValues": [
+              "Individual",
+              "Owner",
+              "Officer",
+              "Director",
+              "Manager",
+              "Attorney",
+              "Other"
+            ]
           },
           "responseMetadata": {}
         }
@@ -1047,7 +1474,18 @@
           "response": "",
           "hints": {
             "expectedDataType": "multichoice",
-            "suggestedValues": ["Python", "JavaScript", "TypeScript", "C#", "Java", "Go", "Rust", "C++", "Ruby", "PHP"],
+            "suggestedValues": [
+              "Python",
+              "JavaScript",
+              "TypeScript",
+              "C#",
+              "Java",
+              "Go",
+              "Rust",
+              "C++",
+              "Ruby",
+              "PHP"
+            ],
             "helpText": "Select all programming languages you are proficient in"
           },
           "responseMetadata": {}
@@ -1058,7 +1496,15 @@
           "response": "",
           "hints": {
             "expectedDataType": "multichoice",
-            "suggestedValues": ["Web Development", "Mobile Apps", "Machine Learning", "Cloud Computing", "DevOps", "Security", "Data Science"],
+            "suggestedValues": [
+              "Web Development",
+              "Mobile Apps",
+              "Machine Learning",
+              "Cloud Computing",
+              "DevOps",
+              "Security",
+              "Data Science"
+            ],
             "helpText": "Select all areas that interest you (multiple selections allowed)"
           },
           "responseMetadata": {}

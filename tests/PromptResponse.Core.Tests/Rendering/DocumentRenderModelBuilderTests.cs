@@ -190,15 +190,7 @@ public class DocumentRenderModelBuilderTests
         {
             Id = "tax",
             Title = "Tax years",
-            TableLayout = new TableDefinition
-            {
-                Columns =
-                [
-                    new TableColumn { Id = "year", Label = "Year" },
-                    new TableColumn { Id = "revenue", Label = "Revenue" },
-                ],
-                FixedRows = [new FixedRow { Id = "r2024", Label = "2024" }],
-            },
+            Kind = "table",
             Sections =
             [
                 new Section
@@ -228,21 +220,17 @@ public class DocumentRenderModelBuilderTests
     }
 
     [Fact]
-    public void Build_TableCells_MatchByIdNotPosition()
+    public void Build_TableCells_CorrespondByPosition()
     {
-        // Prompts deliberately stored out of column order; matching is by id.
+        // Correspondence across instances is positional. There is no column record to
+        // match ids against — a field's identity is "the nth prompt in each row", and
+        // its header is that prompt's own label. Ids stay free-form and are for
+        // addressing, not alignment.
         var doc = Doc(new Section
         {
             Id = "t",
             Title = "T",
-            TableLayout = new TableDefinition
-            {
-                Columns =
-                [
-                    new TableColumn { Id = "a", Label = "A" },
-                    new TableColumn { Id = "b", Label = "B" },
-                ],
-            },
+            Kind = "table",
             Sections =
             [
                 new Section
@@ -251,16 +239,29 @@ public class DocumentRenderModelBuilderTests
                     Title = "Row 1",
                     Prompts =
                     [
-                        new Prompt { Id = "row1.b", Response = "valB" },
-                        new Prompt { Id = "row1.a", Response = "valA" },
+                        new Prompt { Id = "row1.b", Label = "B", Response = "valB" },
+                        new Prompt { Id = "row1.a", Label = "A", Response = "valA" },
+                    ],
+                },
+                new Section
+                {
+                    Id = "row2",
+                    Title = "Row 2",
+                    Prompts =
+                    [
+                        new Prompt { Id = "row2.b", Label = "B", Response = "val2B" },
+                        new Prompt { Id = "row2.a", Label = "A", Response = "val2A" },
                     ],
                 },
             ],
         });
 
-        var table = _builder.Build(doc, RenderOptions.Default).Blocks.OfType<TableBlock>().Single();
+        var table = new DocumentRenderModelBuilder().Build(doc, RenderOptions.Default)
+            .Blocks.OfType<TableBlock>().Single();
 
-        table.Rows[0].Cells.Select(c => c.Value).Should().Equal("valA", "valB");
+        table.ColumnHeaders.Should().Equal("B", "A");
+        table.Rows[0].Cells.Select(c => c.Value).Should().Equal("valB", "valA");
+        table.Rows[1].Cells.Select(c => c.Value).Should().Equal("val2B", "val2A");
     }
 
     [Fact]
@@ -270,31 +271,27 @@ public class DocumentRenderModelBuilderTests
         {
             Id = "t",
             Title = "T",
-            TableLayout = new TableDefinition
-            {
-                Columns =
-                [
-                    new TableColumn { Id = "amount", Label = "Amount", Type = "currency" },
-                    new TableColumn { Id = "status", Label = "Status", Type = "text", SuggestedValues = ["Open", "Closed"] },
-                ],
-            },
+            Kind = "table",
             Sections =
             [
                 new Section
                 {
                     Id = "row1",
                     Title = "Row 1",
-                    Prompts = [new Prompt { Id = "row1.amount", Response = "10" }], // status cell blank/absent
+                    Prompts = [new Prompt { Id = "row1.amount", Label = "Amount", Response = "10",
+                        Hints = new PromptHints { ExpectedDataType = "currency", SuggestedValues = ["Draft", "Final"] } }],
                 },
             ],
         });
 
         var cells = _builder.Build(doc, RenderOptions.Default).Blocks.OfType<TableBlock>().Single().Rows[0].Cells;
 
+        // A cell carries its id, type hint, and suggestions from the prompt itself —
+        // there is no column record to read them from, so they cannot disagree.
+        cells.Should().HaveCount(1, "a field exists only where a prompt exists; there are no phantom columns");
         cells[0].Id.Should().Be("row1.amount");
         cells[0].ExpectedDataType.Should().Be("currency");
-        cells[1].Id.Should().Be("row1.status", "a blank cell still carries the conventional id so it can be made fillable");
-        cells[1].Choices.Should().Equal("Open", "Closed");
+        cells[0].Choices.Should().Equal("Draft", "Final");
     }
 
     [Fact]
@@ -304,7 +301,7 @@ public class DocumentRenderModelBuilderTests
         doc.Metadata.TemplateId = "t";
         using var cert = PromptResponse.Core.Signing.SignatureCertificates.CreateSelfSigned(
             "Publisher", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1));
-        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, "https://x/submit", DateTime.UtcNow)];
+        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, DateTime.UtcNow)];
 
         var block = _builder.Build(doc, RenderOptions.Default).Blocks.OfType<SignatureBlock>().Single();
 

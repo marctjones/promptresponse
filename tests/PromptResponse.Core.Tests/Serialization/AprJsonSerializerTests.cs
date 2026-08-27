@@ -1,4 +1,5 @@
 using AwesomeAssertions;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using System.Text.Json;
@@ -24,7 +25,7 @@ public class AprJsonSerializerTests
         // Arrange
         var document = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "Test Form" },
             Sections = new List<Section>
@@ -38,7 +39,7 @@ public class AprJsonSerializerTests
 
         // Assert
         json.Should().NotBeNullOrEmpty();
-        json.Should().Contain("\"version\": \"1.0\"");
+        json.Should().Contain("\"version\": \"1.0-beta\"");
         json.Should().Contain("\"documentType\": \"template\"");
         json.Should().Contain("\"title\": \"Test Form\"");
     }
@@ -53,7 +54,7 @@ public class AprJsonSerializerTests
         var json = _serializer.Serialize(document);
 
         // Assert
-        json.Should().Contain("\"version\": \"1.0\"");
+        json.Should().Contain("\"version\": \"1.0-beta\"");
         json.Should().Contain("\"documentType\": \"template\"");
         json.Should().Contain("\"sections\"");
         json.Should().Contain("\"prompts\"");
@@ -65,7 +66,7 @@ public class AprJsonSerializerTests
         // Arrange
         var json = """
         {
-            "version": "1.0",
+            "version": "1.0-beta",
             "documentType": "template",
             "metadata": {
                 "title": "Test Form"
@@ -79,7 +80,7 @@ public class AprJsonSerializerTests
 
         // Assert
         document.Should().NotBeNull();
-        document.Version.Should().Be("1.0");
+        document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Test Form");
     }
@@ -90,7 +91,7 @@ public class AprJsonSerializerTests
         // Arrange
         var json = """
         {
-            "version": "1.0",
+            "version": "1.0-beta",
             "documentType": "filledForm",
             "metadata": { "title": "Filled" },
             "sections": []
@@ -121,7 +122,7 @@ public class AprJsonSerializerTests
         // Arrange
         var original = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {
@@ -229,7 +230,7 @@ public class AprJsonSerializerTests
         // Arrange
         var json = """
         {
-            "version": "1.0",
+            "version": "1.0-beta",
             "documentType": "template",
             "metadata": {
                 "title": "Test",
@@ -284,7 +285,7 @@ public class AprJsonSerializerTests
         // Arrange
         var json = """
         {
-            "version": "1.0",
+            "version": "1.0-beta",
             "documentType": "template",
             "metadata": {
                 "title": "Test",
@@ -360,7 +361,7 @@ public class AprJsonSerializerTests
     {
         return new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {

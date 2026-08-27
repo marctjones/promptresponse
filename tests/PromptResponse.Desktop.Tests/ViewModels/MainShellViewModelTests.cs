@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using NSubstitute;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Serialization;
@@ -48,7 +49,7 @@ public class MainShellViewModelTests
 
     private static AprDocument MakeTemplate() => new()
     {
-        Version = "1.0",
+        Version = AprFormat.CurrentVersion,
         DocumentType = DocumentType.Template,
         Metadata = new Metadata { Title = "Test Template" },
         Sections = new List<Section>
@@ -119,6 +120,28 @@ public class MainShellViewModelTests
         await shell.ExportPdf();   // should be a no-op, not throw
 
         await fs.Received(1).PickPdfExportPathAsync(Arg.Any<string>());
+    }
+
+    [Fact]
+    public async Task PrintPreview_ShowsCurrentDocumentRenderModel()
+    {
+        var dialog = Substitute.For<IDialogService>();
+        var session = new DocumentSessionService();
+        var doc = MakeTemplate();
+        doc.Metadata.Description = "Preview description";
+        doc.Sections[0].Prompts[0].Response = "Zaphod Beeblebrox";
+        session.Set(doc, null);
+        var shell = CreateShell(dialogService: dialog, session: session);
+
+        await shell.PrintPreview();
+
+        await dialog.Received(1).ShowPrintPreviewAsync(
+            Arg.Is<RenderModel>(m =>
+                m.Title == "Test Template"
+                && m.Description == "Preview description"
+                && m.Blocks.OfType<FieldBlock>().Any(f =>
+                    f.Label == "Name" && f.Value == "Zaphod Beeblebrox")),
+            includeEmptyFields: true);
     }
 
     [Fact]
@@ -299,7 +322,7 @@ public class MainShellViewModelTests
         var pdf = Path.Combine(Path.GetTempPath(), $"raw_{Guid.NewGuid():N}.pdf");
         await File.WriteAllBytesAsync(pdf, CrypticFillablePdf());
         fs.PickPdfImportPathAsync().Returns(pdf);
-        dlg.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(false); // user backs out
+        dlg.ShowImportReviewAsync(Arg.Any<ImportQuality>()).Returns(false); // user backs out
 
         var session = new DocumentSessionService();
         var shell = CreateShell(fs, dialogService: dlg, session: session);
@@ -308,7 +331,9 @@ public class MainShellViewModelTests
         {
             await shell.ImportPdf();
 
-            await dlg.Received(1).ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>());
+            await dlg.Received(1).ShowImportReviewAsync(Arg.Is<ImportQuality>(q =>
+                q.Recommendation == ImportRecommendation.UseSkillInstead
+                && q.Flags.Any(f => f.Kind == FieldFlagKind.CrypticLabel)));
             session.CurrentDocument.Should().BeNull("declining the low-quality warning must not open the import");
         }
         finally
@@ -325,7 +350,7 @@ public class MainShellViewModelTests
         var pdf = Path.Combine(Path.GetTempPath(), $"raw_{Guid.NewGuid():N}.pdf");
         await File.WriteAllBytesAsync(pdf, CrypticFillablePdf());
         fs.PickPdfImportPathAsync().Returns(pdf);
-        dlg.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(true); // open anyway
+        dlg.ShowImportReviewAsync(Arg.Any<ImportQuality>()).Returns(true); // open anyway
 
         var session = new DocumentSessionService();
         var shell = CreateShell(fs, dialogService: dlg, session: session);
@@ -336,6 +361,9 @@ public class MainShellViewModelTests
 
             session.CurrentDocument.Should().NotBeNull();
             session.IsDirty.Should().BeTrue();
+            await dlg.Received(1).ShowImportReviewAsync(Arg.Is<ImportQuality>(q =>
+                q.Recommendation == ImportRecommendation.UseSkillInstead
+                && q.Flags.Any(f => f.Kind == FieldFlagKind.CrypticLabel)));
         }
         finally
         {
@@ -349,7 +377,7 @@ public class MainShellViewModelTests
         var doc = MakeTemplate();
         using var cert = PromptResponse.Core.Signing.SignatureCertificates.CreateSelfSigned(
             "Town of Bloomfield", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1));
-        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, "https://gov/submit", DateTime.UtcNow)];
+        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, DateTime.UtcNow)];
 
         var session = new DocumentSessionService();
         var shell = CreateShell(session: session);
@@ -614,8 +642,11 @@ public class MainShellViewModelTests
     {
         var shell = CreateShell();
 
+        shell.PrintPreviewCommand.CanExecute(null).Should().BeFalse();
         shell.ExportPdfCommand.CanExecute(null).Should().BeFalse();
         shell.ExportPdfFormCommand.CanExecute(null).Should().BeFalse();
+        shell.ExportHtmlCommand.CanExecute(null).Should().BeFalse();
+        shell.ExportHtmlFormCommand.CanExecute(null).Should().BeFalse();
     }
 
     [Fact]

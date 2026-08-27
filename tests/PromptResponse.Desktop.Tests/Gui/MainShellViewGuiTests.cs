@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.VisualTree;
 using AwesomeAssertions;
 using NSubstitute;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -44,7 +45,7 @@ public class MainShellViewGuiTests
     {
         return new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata { Title = "Customer Survey" },
             Sections = new List<Section>
