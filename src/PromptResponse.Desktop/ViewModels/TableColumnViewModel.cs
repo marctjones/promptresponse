@@ -16,11 +16,13 @@ public sealed partial class TableColumnViewModel : ObservableObject
 {
     private readonly SectionViewModel _table;
 
-    internal TableColumnViewModel(SectionViewModel table, int index, string label)
+    internal TableColumnViewModel(SectionViewModel table, int index, string label, string? type, string? helpText)
     {
         _table = table;
         Index = index;
         _label = label;
+        _type = type ?? "text";
+        HelpText = helpText;
     }
 
     /// <summary>Position of this column within each instance's prompt list.</summary>
@@ -44,4 +46,26 @@ public sealed partial class TableColumnViewModel : ObservableObject
             OnPropertyChanged();
         }
     }
+
+    private string _type;
+
+    /// <summary>
+    /// The column's type hint, which is the corresponding prompt's
+    /// <c>expectedDataType</c> — advisory, like every hint.
+    /// </summary>
+    public string Type
+    {
+        get => _type;
+        set
+        {
+            var v = string.IsNullOrWhiteSpace(value) ? "text" : value;
+            if (_type == v) return;
+            _type = v;
+            _table.RetypeColumn(Index, v);
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>Help text for the column, taken from the corresponding prompt.</summary>
+    public string? HelpText { get; }
 }

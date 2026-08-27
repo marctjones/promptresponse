@@ -466,6 +466,24 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         EditTable(() => ApplyRemoveColumn(column.Index));
     }
 
+    /// <summary>Retypes the prompt at this position in every instance.</summary>
+    internal void RetypeColumn(int index, string type)
+    {
+        if (!IsTableSection) return;
+        EditTable(() =>
+        {
+            foreach (var rowVm in _nestedSections)
+            {
+                if (index >= 0 && index < rowVm._section.Prompts.Count)
+                {
+                    (rowVm._section.Prompts[index].Hints ??= new PromptHints()).ExpectedDataType = type;
+                }
+            }
+            ReconfigureAllRowsAsTableRows();
+            NotifyTableShapeChanged();
+        });
+    }
+
     /// <summary>Renames the prompt at this position in every instance.</summary>
     internal void RenameColumn(int index, string label)
     {
@@ -775,7 +793,8 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         if (first == null) return;
         for (var i = 0; i < first.Count; i++)
         {
-            _columnsObservable.Add(new TableColumnViewModel(this, i, first[i].Label));
+            _columnsObservable.Add(new TableColumnViewModel(
+                this, i, first[i].Label, first[i].Hints?.ExpectedDataType, first[i].Hints?.HelpText));
         }
     }
 
