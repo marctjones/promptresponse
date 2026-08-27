@@ -133,7 +133,8 @@
         "description": "A yes-or-no answer.",
         "celType": "bool",
         "meaningfulHints": [
-          "helpText"
+          "helpText",
+          "suggestedValues"
         ],
         "canonicalWriteForm": "true or false",
         "alsoAcceptedOnRead": [
@@ -150,7 +151,7 @@
           "unchecked",
           "any other string"
         ],
-        "notes": "true/false rather than yes/no because yes is English, and this format renders to speech, to other languages, and into database columns."
+        "notes": "true/false rather than yes/no because yes is English, and this format renders to speech, to other languages, and into database columns. suggestedValues names the two options (\"Yes\"/\"No\", \"Agree\"/\"Disagree\") so a renderer can label them the way the author asked. It does not constrain the response, and the CEL type stays bool."
       },
       {
         "id": "select",
@@ -199,6 +200,42 @@
           "helpText"
         ],
         "notes": "Attachments have no defined representation yet - see specification 13."
+      },
+      {
+        "id": "password",
+        "description": "Text the renderer should mask while it is being typed.",
+        "celType": "string",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern"
+        ],
+        "notes": "A presentation request only. The response is stored as plain text like every other response - the format has no encryption, and masking on screen is not confidentiality at rest."
+      },
+      {
+        "id": "range",
+        "description": "A number chosen from a bounded range, typically a slider.",
+        "celType": "double",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern",
+          "min",
+          "max",
+          "step"
+        ],
+        "notes": "min, max and step describe the bounds a slider needs; they are type-specific hints, not additions to the universal vocabulary, and a reader that ignores them still renders a usable field. Any text remains a valid response, including one outside the bounds."
+      },
+      {
+        "id": "color",
+        "description": "A colour, canonically written as #RRGGBB.",
+        "celType": "string",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern"
+        ],
+        "notes": "Any text remains a valid response; \"the blue one from the brochure\" is a legitimate answer that no colour picker can express."
       }
     ]
   },

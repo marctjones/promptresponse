@@ -55,7 +55,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"],
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ],
             "helpText": "Check if this is an amended return"
           },
           "responseMetadata": {}
@@ -66,7 +69,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         }
@@ -105,8 +111,9 @@
           "response": "",
           "hints": {
             "placeholder": "XX-XXXXXXX",
-            "expectedDataType": "ein",
-            "helpText": "Nine-digit number assigned by IRS (auto-formats as you type)"
+            "expectedDataType": "text",
+            "helpText": "Nine-digit number assigned by IRS (auto-formats as you type)",
+            "validationPattern": "^\\d{2}-?\\d{7}$"
           },
           "responseMetadata": {}
         },
@@ -137,7 +144,59 @@
           "hints": {
             "placeholder": "DC",
             "expectedDataType": "text",
-            "suggestedValues": ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+            "suggestedValues": [
+              "AL",
+              "AK",
+              "AZ",
+              "AR",
+              "CA",
+              "CO",
+              "CT",
+              "DE",
+              "DC",
+              "FL",
+              "GA",
+              "HI",
+              "ID",
+              "IL",
+              "IN",
+              "IA",
+              "KS",
+              "KY",
+              "LA",
+              "ME",
+              "MD",
+              "MA",
+              "MI",
+              "MN",
+              "MS",
+              "MO",
+              "MT",
+              "NE",
+              "NV",
+              "NH",
+              "NJ",
+              "NM",
+              "NY",
+              "NC",
+              "ND",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VT",
+              "VA",
+              "WA",
+              "WV",
+              "WI",
+              "WY"
+            ]
           },
           "responseMetadata": {}
         },
@@ -147,8 +206,9 @@
           "response": "",
           "hints": {
             "placeholder": "XXXXX or XXXXX-XXXX",
-            "expectedDataType": "zipcode",
-            "helpText": "Auto-formats as you type"
+            "expectedDataType": "text",
+            "helpText": "Auto-formats as you type",
+            "validationPattern": "^\\d{5}(-\\d{4})?$"
           },
           "responseMetadata": {}
         },
@@ -199,7 +259,15 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["501(c)(3)", "501(c)(4)", "501(c)(5)", "501(c)(6)", "501(c)(7)", "527", "4947(a)(1)"],
+            "suggestedValues": [
+              "501(c)(3)",
+              "501(c)(4)",
+              "501(c)(5)",
+              "501(c)(6)",
+              "501(c)(7)",
+              "527",
+              "4947(a)(1)"
+            ],
             "helpText": "Section of the Internal Revenue Code under which the organization is exempt"
           },
           "responseMetadata": {}
@@ -793,7 +861,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         },
@@ -803,7 +874,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         },
@@ -813,7 +887,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         },
@@ -823,7 +900,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         },
@@ -833,7 +913,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         },
@@ -843,7 +926,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         }
@@ -870,7 +956,13 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["President", "Executive Director", "CEO", "Treasurer", "CFO"]
+            "suggestedValues": [
+              "President",
+              "Executive Director",
+              "CEO",
+              "Treasurer",
+              "CFO"
+            ]
           },
           "responseMetadata": {}
         },

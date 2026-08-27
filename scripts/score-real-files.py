@@ -78,6 +78,10 @@ def score(path, types, universal):
         if not (section.get("title") or "").strip():
             untitled += 1
         if looks_like_a_table(section) and section.get("kind") != "table":
+            # Advisory. Repeated sections with identical columns are usually a table
+            # written before kind existed, but not always: nesting sections without
+            # claiming tablehood is perfectly valid (4.5), and at least one showcase
+            # section does it deliberately. Reported for review, weighted lightly.
             unmarked_tables.append(f"{where} ({section.get('id')})")
 
         here_labels = []
@@ -119,7 +123,7 @@ def score(path, types, universal):
     )
 
     findings["unregistered-type-uses"] = sum(unregistered.values())
-    findings["unmarked-tables"] = len(unmarked_tables)
+    findings["table-shaped-but-unmarked"] = len(unmarked_tables)
     findings["inapplicable-hints"] = sum(inapplicable.values())
     findings["untitled-sections"] = untitled
     findings["duplicate-labels-in-one-section"] = len(duplicate_labels)
@@ -139,7 +143,7 @@ def score(path, types, universal):
     # missing help text only makes it poorer.
     weighted = (
         findings["unregistered-type-uses"] * 2
-        + findings["unmarked-tables"] * 5
+        + findings["table-shaped-but-unmarked"] * 1
         + findings["inapplicable-hints"] * 1
         + findings["untitled-sections"] * 5
         + findings["duplicate-labels-in-one-section"] * 3

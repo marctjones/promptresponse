@@ -114,8 +114,9 @@
           "response": "",
           "hints": {
             "placeholder": "XXX-XX-XXXX",
-            "expectedDataType": "ssn",
-            "helpText": "Auto-formats as XXX-XX-XXXX as you type"
+            "expectedDataType": "text",
+            "helpText": "Auto-formats as XXX-XX-XXXX as you type",
+            "validationPattern": "^\\d{3}-?\\d{2}-?\\d{4}$"
           },
           "responseMetadata": {}
         },
@@ -125,8 +126,9 @@
           "response": "",
           "hints": {
             "placeholder": "XX-XXXXXXX",
-            "expectedDataType": "ein",
-            "helpText": "Auto-formats as XX-XXXXXXX as you type"
+            "expectedDataType": "text",
+            "helpText": "Auto-formats as XX-XXXXXXX as you type",
+            "validationPattern": "^\\d{2}-?\\d{7}$"
           },
           "responseMetadata": {}
         },
@@ -136,8 +138,9 @@
           "response": "",
           "hints": {
             "placeholder": "XXXX XXXX XXXX XXXX",
-            "expectedDataType": "creditcard",
-            "helpText": "Auto-formats with spaces every 4 digits"
+            "expectedDataType": "text",
+            "helpText": "Auto-formats with spaces every 4 digits",
+            "validationPattern": "^[\\d ]{12,23}$"
           },
           "responseMetadata": {}
         },
@@ -147,8 +150,9 @@
           "response": "",
           "hints": {
             "placeholder": "XXXXX or XXXXX-XXXX",
-            "expectedDataType": "zipcode",
-            "helpText": "Auto-formats as XXXXX or XXXXX-XXXX (ZIP+4)"
+            "expectedDataType": "text",
+            "helpText": "Auto-formats as XXXXX or XXXXX-XXXX (ZIP+4)",
+            "validationPattern": "^\\d{5}(-\\d{4})?$"
           },
           "responseMetadata": {}
         }
@@ -1462,7 +1466,6 @@
           "label": "Digital Signature",
           "response": "",
           "hints": {
-            "placeholder": "Type your full legal name",
             "expectedDataType": "signature",
             "helpText": "Type your full legal name as an electronic signature. Text appears in cursive."
           },

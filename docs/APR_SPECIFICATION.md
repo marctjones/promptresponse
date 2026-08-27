@@ -399,7 +399,12 @@ All OPTIONAL, all advisory (§3.4).
 
 `expectedDataType` registry: `text`, `multiline`, `email`, `phone`, `url`,
 `date`, `time`, `datetime`, `number`, `currency`, `boolean`, `select`,
-`multichoice`, `signature`, `file`.
+`multichoice`, `signature`, `file`, `password`, `range`, `color`.
+
+Country-specific field types are deliberately absent. A postcode, a national
+identity number or a tax reference is `text` with a `validationPattern`: baking
+one country's formats into the vocabulary would oblige every reader everywhere to
+carry them.
 
 The machine-readable form, with each type's canonical write form, accepted read forms,
 CEL type, and meaningful hints, is
@@ -410,7 +415,9 @@ rather than the same facts restated here, in the schema, and in the code.
 field. It **MUST NOT** cause an error — that is what lets the registry grow
 without breaking every existing reader. See `valid/unknown-fields.aprt`.
 
-`suggestedValues` offers options; a response outside the list is still valid.
+`suggestedValues` offers options; a response outside the list is still valid. On a
+`boolean` it names the two options — `["Yes", "No"]`, `["Agree", "Disagree"]` — so a
+renderer can label them as the author intended without changing the CEL type.
 `select` and `multichoice` are suggestions about presentation, not constraints on
 content.
 

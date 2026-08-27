@@ -28,7 +28,7 @@ internal static class CelBinding
     public static CelType TypeFor(string? expectedDataType) =>
         (expectedDataType ?? string.Empty).ToLowerInvariant() switch
         {
-            "number" or "currency" => CelType.Double,
+            "number" or "currency" or "range" => CelType.Double,
             "boolean" => CelType.Bool,
             "date" or "time" or "datetime" => CelType.Timestamp,
             "multichoice" => CelType.ListDyn,

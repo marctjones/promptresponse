@@ -22,7 +22,11 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Initial Investigation", "Reinvestigation", "Upgrade"],
+            "suggestedValues": [
+              "Initial Investigation",
+              "Reinvestigation",
+              "Upgrade"
+            ],
             "helpText": "Select the type of investigation being conducted"
           },
           "responseMetadata": {}
@@ -84,7 +88,13 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["Jr.", "Sr.", "II", "III", "IV"]
+                "suggestedValues": [
+                  "Jr.",
+                  "Sr.",
+                  "II",
+                  "III",
+                  "IV"
+                ]
               },
               "responseMetadata": {}
             }
@@ -107,7 +117,7 @@
             },
             {
               "id": "prompt_other_name_1_dates",
-              "label": "Dates Used (From - To)",
+              "label": "Dates Used for Other Name 1 (From - To)",
               "response": "",
               "hints": {
                 "placeholder": "1990-2015",
@@ -126,7 +136,7 @@
             },
             {
               "id": "prompt_other_name_2_dates",
-              "label": "Dates Used (From - To)",
+              "label": "Dates Used for Other Name 2 (From - To)",
               "response": "",
               "hints": {
                 "placeholder": "2010-Present",
@@ -175,7 +185,15 @@
           "hints": {
             "placeholder": "United States",
             "expectedDataType": "text",
-            "suggestedValues": ["United States", "Canada", "Mexico", "United Kingdom", "Germany", "Japan", "Other"]
+            "suggestedValues": [
+              "United States",
+              "Canada",
+              "Mexico",
+              "United Kingdom",
+              "Germany",
+              "Japan",
+              "Other"
+            ]
           },
           "responseMetadata": {}
         },
@@ -185,8 +203,9 @@
           "response": "",
           "hints": {
             "placeholder": "XXX-XX-XXXX",
-            "expectedDataType": "ssn",
-            "helpText": "Enter your 9-digit Social Security Number (auto-formats as you type)"
+            "expectedDataType": "text",
+            "helpText": "Enter your 9-digit Social Security Number (auto-formats as you type)",
+            "validationPattern": "^\\d{3}-?\\d{2}-?\\d{4}$"
           },
           "responseMetadata": {}
         },
@@ -216,7 +235,15 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Black", "Brown", "Blonde", "Red", "Gray", "White", "Bald"]
+            "suggestedValues": [
+              "Black",
+              "Brown",
+              "Blonde",
+              "Red",
+              "Gray",
+              "White",
+              "Bald"
+            ]
           },
           "responseMetadata": {}
         },
@@ -226,7 +253,14 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Brown", "Blue", "Green", "Hazel", "Gray", "Black"]
+            "suggestedValues": [
+              "Brown",
+              "Blue",
+              "Green",
+              "Hazel",
+              "Gray",
+              "Black"
+            ]
           },
           "responseMetadata": {}
         },
@@ -236,7 +270,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["Male", "Female"]
+            "suggestedValues": [
+              "Male",
+              "Female"
+            ]
           },
           "responseMetadata": {}
         }
@@ -253,7 +290,13 @@
           "response": "",
           "hints": {
             "expectedDataType": "text",
-            "suggestedValues": ["U.S. Citizen by Birth", "Naturalized U.S. Citizen", "U.S. National", "Lawful Permanent Resident", "Other"],
+            "suggestedValues": [
+              "U.S. Citizen by Birth",
+              "Naturalized U.S. Citizen",
+              "U.S. National",
+              "Lawful Permanent Resident",
+              "Other"
+            ],
             "helpText": "Select your current citizenship status"
           },
           "responseMetadata": {}
@@ -283,7 +326,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         },
@@ -369,8 +415,9 @@
               "response": "",
               "hints": {
                 "placeholder": "XXXXX or XXXXX-XXXX",
-                "expectedDataType": "zipcode",
-                "helpText": "Auto-formats as you type"
+                "expectedDataType": "text",
+                "helpText": "Auto-formats as you type",
+                "validationPattern": "^\\d{5}(-\\d{4})?$"
               },
               "responseMetadata": {}
             },
@@ -380,7 +427,10 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["United States", "Other"]
+                "suggestedValues": [
+                  "United States",
+                  "Other"
+                ]
               },
               "responseMetadata": {}
             },
@@ -430,7 +480,13 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["Neighbor", "Landlord", "Roommate", "Friend", "Other"]
+                "suggestedValues": [
+                  "Neighbor",
+                  "Landlord",
+                  "Roommate",
+                  "Friend",
+                  "Other"
+                ]
               },
               "responseMetadata": {}
             }
@@ -473,8 +529,9 @@
               "response": "",
               "hints": {
                 "placeholder": "XXXXX or XXXXX-XXXX",
-                "expectedDataType": "zipcode",
-                "helpText": "Auto-formats as you type"
+                "expectedDataType": "text",
+                "helpText": "Auto-formats as you type",
+                "validationPattern": "^\\d{5}(-\\d{4})?$"
               },
               "responseMetadata": {}
             },
@@ -581,7 +638,14 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["Still Employed", "Resignation", "Laid Off", "Terminated", "Contract Ended", "Career Change"]
+                "suggestedValues": [
+                  "Still Employed",
+                  "Resignation",
+                  "Laid Off",
+                  "Terminated",
+                  "Contract Ended",
+                  "Career Change"
+                ]
               },
               "responseMetadata": {}
             },
@@ -591,7 +655,10 @@
               "response": "",
               "hints": {
                 "expectedDataType": "boolean",
-                "suggestedValues": ["Yes", "No"]
+                "suggestedValues": [
+                  "Yes",
+                  "No"
+                ]
               },
               "responseMetadata": {}
             }
@@ -676,7 +743,13 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["High School", "Trade/Vocational", "Community College", "College/University", "Graduate School"]
+                "suggestedValues": [
+                  "High School",
+                  "Trade/Vocational",
+                  "Community College",
+                  "College/University",
+                  "Graduate School"
+                ]
               },
               "responseMetadata": {}
             },
@@ -704,7 +777,16 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["High School Diploma", "GED", "Associate's Degree", "Bachelor's Degree", "Master's Degree", "Doctorate", "Certificate", "Did Not Graduate"]
+                "suggestedValues": [
+                  "High School Diploma",
+                  "GED",
+                  "Associate's Degree",
+                  "Bachelor's Degree",
+                  "Master's Degree",
+                  "Doctorate",
+                  "Certificate",
+                  "Did Not Graduate"
+                ]
               },
               "responseMetadata": {}
             },
@@ -746,7 +828,13 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["Friend", "Coworker", "Supervisor", "Neighbor", "Other"],
+                "suggestedValues": [
+                  "Friend",
+                  "Coworker",
+                  "Supervisor",
+                  "Neighbor",
+                  "Other"
+                ],
                 "helpText": "Cannot be a relative"
               },
               "responseMetadata": {}
@@ -809,7 +897,13 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["Friend", "Coworker", "Supervisor", "Neighbor", "Other"]
+                "suggestedValues": [
+                  "Friend",
+                  "Coworker",
+                  "Supervisor",
+                  "Neighbor",
+                  "Other"
+                ]
               },
               "responseMetadata": {}
             },
@@ -852,7 +946,13 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["Friend", "Coworker", "Supervisor", "Neighbor", "Other"]
+                "suggestedValues": [
+                  "Friend",
+                  "Coworker",
+                  "Supervisor",
+                  "Neighbor",
+                  "Other"
+                ]
               },
               "responseMetadata": {}
             },
@@ -894,7 +994,14 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["Never Married", "Married", "Separated", "Divorced", "Widowed", "Domestic Partnership"]
+                "suggestedValues": [
+                  "Never Married",
+                  "Married",
+                  "Separated",
+                  "Divorced",
+                  "Widowed",
+                  "Domestic Partnership"
+                ]
               },
               "responseMetadata": {}
             },
@@ -932,7 +1039,11 @@
               "response": "",
               "hints": {
                 "expectedDataType": "text",
-                "suggestedValues": ["U.S. Citizen", "Permanent Resident", "Foreign National"]
+                "suggestedValues": [
+                  "U.S. Citizen",
+                  "Permanent Resident",
+                  "Foreign National"
+                ]
               },
               "responseMetadata": {}
             },
@@ -993,7 +1104,10 @@
               "response": "",
               "hints": {
                 "expectedDataType": "boolean",
-                "suggestedValues": ["Yes", "No"]
+                "suggestedValues": [
+                  "Yes",
+                  "No"
+                ]
               },
               "responseMetadata": {}
             },
@@ -1039,7 +1153,10 @@
               "response": "",
               "hints": {
                 "expectedDataType": "boolean",
-                "suggestedValues": ["Yes", "No"]
+                "suggestedValues": [
+                  "Yes",
+                  "No"
+                ]
               },
               "responseMetadata": {}
             }
@@ -1059,7 +1176,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"],
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ],
             "helpText": "Include friends, business associates, or others"
           },
           "responseMetadata": {}
@@ -1070,7 +1190,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         },
@@ -1090,7 +1213,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"],
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ],
             "helpText": "Bank accounts, property, business interests in foreign countries"
           },
           "responseMetadata": {}
@@ -1101,7 +1227,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         }
@@ -1118,7 +1247,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"],
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ],
             "helpText": "Include all offenses, even if dismissed or expunged"
           },
           "responseMetadata": {}
@@ -1139,7 +1271,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         },
@@ -1149,7 +1284,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"],
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ],
             "helpText": "Includes taxes, student loans, etc."
           },
           "responseMetadata": {}
@@ -1160,7 +1298,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         }
@@ -1177,7 +1318,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"],
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ],
             "helpText": "Include marijuana even if legal in your state"
           },
           "responseMetadata": {}
@@ -1198,7 +1342,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"]
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
           },
           "responseMetadata": {}
         },
@@ -1208,7 +1355,10 @@
           "response": "",
           "hints": {
             "expectedDataType": "boolean",
-            "suggestedValues": ["Yes", "No"],
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ],
             "helpText": "DUI, public intoxication, etc."
           },
           "responseMetadata": {}

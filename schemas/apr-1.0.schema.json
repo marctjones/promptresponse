@@ -21,7 +21,7 @@
         "filledForm"
       ],
       "default": "template",
-      "description": "Authoritative declaration of document type. This field — NOT the filename extension — determines how the document is treated. Absent means \"template\"."
+      "description": "Authoritative declaration of document type. This field \u2014 NOT the filename extension \u2014 determines how the document is treated. Absent means \"template\"."
     },
     "metadata": {
       "$ref": "#/$defs/metadata"
@@ -155,11 +155,11 @@
             "table"
           ],
           "default": "section",
-          "description": "\"table\" declares that this section's child sections are repeating instances of one shape: prompts at the same position correspond across instances, each instance's title identifies it, and a prompt's label names the corresponding field. It is a claim about STRUCTURE, not appearance — a renderer may present it as a grid, as stacked cards, as a flat sequence of prompts, or as speech, all conformant. It licenses no layout data of any kind."
+          "description": "\"table\" declares that this section's child sections are repeating instances of one shape: prompts at the same position correspond across instances, each instance's title identifies it, and a prompt's label names the corresponding field. It is a claim about STRUCTURE, not appearance \u2014 a renderer may present it as a grid, as stacked cards, as a flat sequence of prompts, or as speech, all conformant. It licenses no layout data of any kind."
         },
         "canAddRows": {
           "type": "string",
-          "description": "\"true\" if a filler may add or remove instances. Absent means instances are fixed — the safe default, since a table that silently gained a row is a worse failure than one needing an explicit property. Independent of whether the instances hold values."
+          "description": "\"true\" if a filler may add or remove instances. Absent means instances are fixed \u2014 the safe default, since a table that silently gained a row is a worse failure than one needing an explicit property. Independent of whether the instances hold values."
         },
         "maxRows": {
           "type": "string",
@@ -188,7 +188,7 @@
           ]
         }
       ],
-      "$comment": "A section MUST carry content: at least one prompt, or at least one child section. Tables included — a table always has at least one instance, because an \"empty\" table was never empty: a UI offering to add the first row is already presenting a row, and an instance is what describes the table's own fields."
+      "$comment": "A section MUST carry content: at least one prompt, or at least one child section. Tables included \u2014 a table always has at least one instance, because an \"empty\" table was never empty: a UI offering to add the first row is already presenting a row, and an instance is what describes the table's own fields."
     },
     "prompt": {
       "type": "object",
@@ -209,7 +209,7 @@
             "string",
             "null"
           ],
-          "description": "ALWAYS a JSON string, in templates and filled forms alike. Never a JSON number, boolean, array, or object — those MUST be rejected at parse time. Absent means the empty string. JSON null is tolerated on READ and coerced to the empty string, but a conforming writer MUST NOT emit it; null is permitted here only so that lenient inbound documents validate."
+          "description": "ALWAYS a JSON string, in templates and filled forms alike. Never a JSON number, boolean, array, or object \u2014 those MUST be rejected at parse time. Absent means the empty string. JSON null is tolerated on READ and coerced to the empty string, but a conforming writer MUST NOT emit it; null is permitted here only so that lenient inbound documents validate."
         },
         "hints": {
           "$ref": "#/$defs/promptHints"
@@ -244,7 +244,10 @@
             "signature",
             "file",
             "select",
-            "multichoice"
+            "multichoice",
+            "password",
+            "range",
+            "color"
           ]
         },
         "suggestedValues": {
@@ -306,7 +309,7 @@
     },
     "signature": {
       "type": "object",
-      "description": "A detached CMS/PKCS#7 SignedData over a canonical payload. Pure data: verification is a side-effect-free computation, so a signed document is no less safe to open than an unsigned one. A publisher signature binds metadata.submissionUrl by reading it from the document — the signature stores no copy of its own, because a second copy is what let a redirected metadata URL still verify.",
+      "description": "A detached CMS/PKCS#7 SignedData over a canonical payload. Pure data: verification is a side-effect-free computation, so a signed document is no less safe to open than an unsigned one. A publisher signature binds metadata.submissionUrl by reading it from the document \u2014 the signature stores no copy of its own, because a second copy is what let a redirected metadata URL still verify.",
       "required": [
         "id",
         "role",
@@ -406,7 +409,7 @@
         },
         "selfSigned": {
           "type": "boolean",
-          "description": "DOCUMENTED EXCEPTION to the strings-only rule: a JSON boolean. Derived, not user data — a verifier recomputes it from the certificate and MUST NOT trust this field."
+          "description": "DOCUMENTED EXCEPTION to the strings-only rule: a JSON boolean. Derived, not user data \u2014 a verifier recomputes it from the certificate and MUST NOT trust this field."
         }
       }
     }
