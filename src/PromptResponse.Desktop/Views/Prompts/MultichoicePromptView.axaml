@@ -28,11 +28,14 @@
                  AutomationProperties.Name="Free-text response"
                  AutomationProperties.HelpText="Any text is a valid response — the comma-separated checkbox state is just a convenient default."/>
         <Button Content="{Binding RawToggleGlyph}"
+                    FontSize="{Binding ToggleGlyphSize}"
                 Command="{Binding ToggleRawEditingCommand}"
                 HorizontalAlignment="Left"
-                MinHeight="36"
-                MinWidth="36"
-                Padding="6,0"
+                Height="{Binding ToggleButtonSize}"
+                Width="{Binding ToggleButtonSize}"
+                Padding="0"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
                 ToolTip.Tip="{Binding RawToggleName}"
                 AutomationProperties.Name="{Binding RawToggleName}"
                 AutomationProperties.HelpText="Any text is a valid response. Switch to a plain text box to type something the suggested input cannot express."/>

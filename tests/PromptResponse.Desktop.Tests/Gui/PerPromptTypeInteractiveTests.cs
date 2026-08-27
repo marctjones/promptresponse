@@ -361,6 +361,14 @@ public class PerPromptTypeInteractiveTests
                 .Contains("Resident", StringComparison.Ordinal));
         toggle.Should().NotBeNull("the way through to raw text must be discoverable by name");
 
+        // The glyph must fill the button rather than sit as a speck in the middle of it.
+        window.UpdateLayout();
+        var glyphRatio = toggle!.FontSize / Math.Max(toggle.Bounds.Height, 1);
+        glyphRatio.Should().BeGreaterThan(0.45,
+            $"the glyph ({toggle.FontSize}pt) should fill its {toggle.Bounds.Height}px button, not float in it");
+        toggle.Bounds.Height.Should().BeGreaterThanOrEqualTo(36,
+            "and the button stays a comfortable hit target");
+
         vm.ToggleRawEditing();
         GuiTestExtensions.PumpDispatcher();
         window.UpdateLayout();

@@ -201,6 +201,8 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
             OnDerivedPropertiesShouldRefresh();
             Notify(nameof(RawToggleName));
             Notify(nameof(RawToggleGlyph));
+            Notify(nameof(ToggleGlyphSize));
+            Notify(nameof(ToggleButtonSize));
         }
     }
 
@@ -213,6 +215,20 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// alone is unreadable to a screen reader and ambiguous to everyone else.
     /// </summary>
     public string RawToggleGlyph => _isRawEditing ? "\u2611" : "\u270E";
+
+    /// <summary>
+    /// Point size for the toggle glyph, sized to fill its button rather than sit as a
+    /// speck in the middle of it.
+    /// </summary>
+    /// <remarks>
+    /// Derived from the profile's text scale rather than hard-coded, so the icon grows
+    /// with LargeText like everything else. A control that ignores the scale becomes the
+    /// one thing a low-vision user cannot read.
+    /// </remarks>
+    public double ToggleGlyphSize => 20.0 * ActiveProfile.TextScale;
+
+    /// <summary>Side length of the toggle button, kept proportional to its glyph.</summary>
+    public double ToggleButtonSize => Math.Max(36.0, ToggleGlyphSize * 1.7);
 
     /// <summary>Accessible name for the toggle, describing what activating it will do.</summary>
     public string RawToggleName => _isRawEditing
