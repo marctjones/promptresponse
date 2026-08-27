@@ -223,6 +223,21 @@
         "robustness": "gated"
       },
       "notes": "Implements specification 6.2 warnings as a receiver-facing report, plus a comparison against the claimed template. Covers the case no response-level check can: a prompt keeping its id while its label changes, so a pipeline files a truthful answer under a question nobody asked."
+    },
+    {
+      "id": "desktop.workflows",
+      "component": "Desktop (end-to-end journeys)",
+      "language": "csharp",
+      "path": "tests/PromptResponse.Desktop.Tests/Workflows",
+      "runsInCi": true,
+      "gate": "each workflow the GUI supports, carried start to finish through real files on disk and reloaded to check what was actually written",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "partial"
+      },
+      "notes": "The suite had deep per-command coverage and a driver that activates every control, but nothing carried a task from beginning to end. These author a template, fill one, edit a saved form, build and fill a table, undo/redo a whole session, fill one party\u2019s share of a multi-party form, walk the wizard, and export a fillable PDF. Partial on completeness: signing and PDF import journeys are still covered only per command."
     }
   ],
   "testKinds": [
