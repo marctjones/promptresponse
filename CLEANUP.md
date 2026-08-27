@@ -30,7 +30,7 @@ The PromptResponse codebase contains several items that should be cleaned up to 
 
 | Directory | Size | Description | Action |
 |-----------|------|-------------|--------|
-| `/cpp/` | 37 KB | C++ implementation | Archive to multilang repo |
+| `/cpp/` | — | C++ implementation | **Deleted** — untested stub, no consumer |
 | `/java/` | 67 KB | Java implementation | Archive to multilang repo |
 | `/python/` | 102 KB | Python implementation | Archive to multilang repo |
 | `/rust/` | 41 KB | Rust implementation | Archive to multilang repo |

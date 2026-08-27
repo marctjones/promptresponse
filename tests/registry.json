@@ -123,20 +123,6 @@
       }
     },
     {
-      "id": "sdk.cpp",
-      "component": "C++ SDK stub",
-      "language": "cpp",
-      "path": "cpp/",
-      "runsInCi": false,
-      "gate": "none",
-      "dimensions": {
-        "completeness": "none",
-        "conformance": "none",
-        "correctness": "none",
-        "robustness": "none"
-      }
-    },
-    {
       "id": "desktop.conformance",
       "component": "Desktop corpus conformance",
       "language": "csharp",

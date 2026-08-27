@@ -189,7 +189,7 @@ that genuinely warrants an SDK.
 |---|---|---|
 | **Go** | *(none)* | Services and single-binary tooling. Official CEL implementation available |
 | **Rust** | `rust/` stub | Could back Python, Node, and WASM bindings from one core — a force multiplier if SDK count becomes unsustainable |
-| **C++** | `cpp/` stub | Embedding only. No identified consumer |
+| **C++** | none | Embedding only. No identified consumer, so no stub either |
 
 Ruby, PHP: **won't build** until someone asks.
 
@@ -285,8 +285,8 @@ can score well on one and badly on another, so they are tracked separately.
 | **Accessibility** | ⚠️ | — | ✅ | ⚠️ | 54 methods in a **mandatory CI job**; two cases cite files that do not exist and silently skip; AT-SPI smoke test is manual, outside CI |
 | **PDF rendering** | ⚠️ | ✅ | ⚠️ | ⚠️ | 31 tests; **PDF/A externally validated by veraPDF (144/144)** — the only third-party conformance check in the project |
 | **Schema gate** | — | ✅ | ✅ | — | Language-neutral, runs in CI without .NET, so it fails the way a third party would |
-| **Python SDK** | ❌ | ❌ | ❌ | ❌ | **No tests of any kind.** Implements a different schema |
-| **Rust / Java / C++ stubs** | ❌ | ❌ | ❌ | ❌ | No test runners at all |
+
+| **Python SDK** | ⚠️ | ✅ | ✅ | ⚠️ | Core profile, corpus-gated from the first commit. Gates REQ-2.2/2.3, which .NET structurally cannot test |
 | **Web demo** *(planned)* | ❌ | ❌ | ❌ | ❌ | Must inherit the Python SDK's gates |
 | **TypeScript SDK / extension** *(planned)* | ❌ | ❌ | ❌ | ❌ | Must be corpus-gated from the first commit |
 | **Converters** *(planned)* | ❌ | ❌ | ❌ | ❌ | Round-trip tests needed: APR → fixed-width → APR |
@@ -488,3 +488,16 @@ Ordered by how much each unblocks.
    - **Fuzz the parser** — "safe to open untrusted files" is a security claim currently backed by 4 hand-written malformed fixtures
    - **A performance fixture** — turns the 1000-prompt claim into a measurement
    - **Raise the CLI coverage gate** from a ratchet to a bar — Desktop is now gated at 72%
+
+## Deleted implementations
+
+The Python, Java, Rust and C++ stubs were removed. None had a single test, and
+none knew `kind: "table"`, `role`, the bounds family or any signature scheme —
+they were written against roughly the 0.2-era model and every format decision
+since passed them by. A stub that cannot round-trip a current document is worse
+than no stub, because it looks like multi-language support while answering
+questions wrongly.
+
+Python was rebuilt from nothing against the conformance corpus. The others were
+not, because nothing needs them yet and an untested stub is a liability rather
+than a head start.
