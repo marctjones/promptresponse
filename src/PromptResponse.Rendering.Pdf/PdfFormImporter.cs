@@ -1,8 +1,8 @@
 using System.Text;
-using Pdfe.Core.Document;
+using Excise.Core.Document;
 using PromptResponse.Core;
 using PromptResponse.Core.Models;
-using PdfeDoc = Pdfe.Core.Document.PdfDocument;
+using PdfeDoc = Excise.Core.Document.PdfDocument;
 
 namespace PromptResponse.Rendering.Pdf;
 

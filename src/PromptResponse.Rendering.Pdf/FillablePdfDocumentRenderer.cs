@@ -1,5 +1,5 @@
-using Pdfe.Core.Authoring;
-using Pdfe.Core.Graphics;
+using Excise.Core.Authoring;
+using Excise.Core.Graphics;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 

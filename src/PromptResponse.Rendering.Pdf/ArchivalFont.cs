@@ -1,5 +1,5 @@
 using System.Reflection;
-using Pdfe.Core.Graphics;
+using Excise.Core.Graphics;
 
 namespace PromptResponse.Rendering.Pdf;
 

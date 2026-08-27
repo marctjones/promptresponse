@@ -98,7 +98,7 @@ public class MainShellViewModelTests
             var bytes = await File.ReadAllBytesAsync(outPath);
             System.Text.Encoding.ASCII.GetString(bytes, 0, 5).Should().Be("%PDF-");
 
-            using var pdf = Pdfe.Core.Document.PdfDocument.Open(bytes);
+            using var pdf = Excise.Core.Document.PdfDocument.Open(bytes);
             var text = string.Concat(Enumerable.Range(1, pdf.Pages.Count).Select(i => pdf.GetPage(i).Text));
             text.Should().Contain("Zaphod Beeblebrox", "the export must capture the form's current values");
         }
@@ -158,7 +158,7 @@ public class MainShellViewModelTests
         {
             await shell.ExportPdfForm();
 
-            using var pdf = Pdfe.Core.Document.PdfDocument.Open(await File.ReadAllBytesAsync(outPath));
+            using var pdf = Excise.Core.Document.PdfDocument.Open(await File.ReadAllBytesAsync(outPath));
             var form = pdf.GetAcroForm();
             form.Should().NotBeNull();
             form!.Fields.Should().NotBeEmpty();

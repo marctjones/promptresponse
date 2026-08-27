@@ -1,8 +1,8 @@
 using System.Text;
 using AwesomeAssertions;
 using NSubstitute;
-using Pdfe.Core.Document;
-using PdfeDoc = Pdfe.Core.Document.PdfDocument;
+using Excise.Core.Document;
+using PdfeDoc = Excise.Core.Document.PdfDocument;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 using Xunit;
@@ -12,7 +12,7 @@ namespace PromptResponse.Rendering.Pdf.Tests;
 /// <summary>
 /// Verifies the fillable-AcroForm renderer: prompts become live form fields
 /// (text / checkbox / dropdown) named by prompt id, with responses as defaults.
-/// Round-trip assertions reopen the output with Pdfe.Core and inspect the
+/// Round-trip assertions reopen the output with Excise.Core and inspect the
 /// AcroForm.
 /// </summary>
 public class FillablePdfDocumentRendererTests

@@ -107,8 +107,15 @@ public partial class AboutDialog : Window
             Note: "Native C# implementation of Google's Common Expression Language (CEL). Evaluates the advisory expr* hints; passes the official cel-spec conformance suite."),
 
         // ─── PDF engine — © Marc Jones, MIT ──────────────────────────────────────────
-        new Acknowledgement("Pdfe.Core", "2.9.0", "MIT License — © Marc Jones",
+        new Acknowledgement("Excise.Core", "3.8.0", "MIT License — © Marc Jones",
             Note: "Pure-managed PDF authoring/parsing engine; powers PDF and fillable-form export. https://github.com/marctjones/pdfe"),
+        new Acknowledgement("CSJ2K", "3.0.0",
+            "BSD License — © JJ2000 Partners; Jason S. Clary; Anders Gustafsson, Cureos AB",
+            Note: "JPEG 2000 codec, reached transitively through Excise.Core. https://github.com/cureos/csj2k"),
+        new Acknowledgement("NETStandard.Library", "1.6.1", "MIT License — © .NET Foundation and Contributors",
+            Note: "Transitive dependency of the JPEG 2000 codec."),
+        new Acknowledgement("Microsoft.NETCore.Platforms", "1.1.0", "MIT License — © .NET Foundation and Contributors",
+            Note: "Transitive dependency of the JPEG 2000 codec."),
 
         // ─── Skia / HarfBuzz native + managed wrappers — © Microsoft, MIT ────────────
         new Acknowledgement("SkiaSharp", "3.119.4-preview.1.1", "MIT License — © Microsoft Corporation",

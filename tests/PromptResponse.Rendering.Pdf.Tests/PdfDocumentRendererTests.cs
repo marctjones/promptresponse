@@ -1,7 +1,7 @@
 using System.Text;
 using AwesomeAssertions;
 using NSubstitute;
-using PdfeDoc = Pdfe.Core.Document.PdfDocument;
+using PdfeDoc = Excise.Core.Document.PdfDocument;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 using Xunit;
@@ -11,7 +11,7 @@ namespace PromptResponse.Rendering.Pdf.Tests;
 /// <summary>
 /// Verifies the pdfe-backed PDF renderer: it produces a valid PDF, the content
 /// is real (text-extractable on reopen), long forms paginate, and empty-field
-/// options are honored. Round-trip assertions reopen the output with Pdfe.Core.
+/// options are honored. Round-trip assertions reopen the output with Excise.Core.
 /// </summary>
 public class PdfDocumentRendererTests
 {
