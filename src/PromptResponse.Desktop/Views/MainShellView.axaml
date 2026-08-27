@@ -61,6 +61,11 @@
                 <Separator/>
                 <MenuItem Header="_Export"
                           AutomationProperties.Name="Export menu">
+                    <MenuItem Header="_Print Preview..."
+                              Command="{Binding PrintPreviewCommand}"
+                              AutomationProperties.Name="Print preview"
+                              AutomationProperties.HelpText="Preview the generated print and PDF content before exporting"/>
+                    <Separator/>
                     <MenuItem Header="Export as _PDF..."
                               Command="{Binding ExportPdfCommand}"
                               AutomationProperties.Name="Export as PDF"
@@ -352,7 +357,7 @@
                                    Foreground="{Binding ActiveProfileMutedTextBrush}"/>
                         <TextBox x:Name="SearchTextBox"
                                  Text="{Binding Search.Query, Mode=TwoWay}"
-                                 Watermark="Find a prompt..."
+                                 PlaceholderText="Find a prompt..."
                                  MinHeight="36"
                                  CornerRadius="6"
                                  FontSize="{Binding BodyFontSize}"
@@ -445,13 +450,13 @@
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Title" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="0" Grid.Column="2"
                                      Text="{Binding Metadata.Title, Mode=TwoWay, FallbackValue=''}"
-                                     Watermark="Document title"
+                                     PlaceholderText="Document title"
                                      AutomationProperties.Name="Document title"/>
 
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="Description" VerticalAlignment="Top"/>
                             <TextBox Grid.Row="2" Grid.Column="2"
                                      Text="{Binding Metadata.Description, Mode=TwoWay, FallbackValue=''}"
-                                     Watermark="Optional description"
+                                     PlaceholderText="Optional description"
                                      AcceptsReturn="True"
                                      TextWrapping="Wrap"
                                      MinHeight="48"
@@ -460,19 +465,19 @@
                             <TextBlock Grid.Row="4" Grid.Column="0" Text="Author" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="4" Grid.Column="2"
                                      Text="{Binding Metadata.Author, Mode=TwoWay, FallbackValue=''}"
-                                     Watermark="Template author"
+                                     PlaceholderText="Template author"
                                      AutomationProperties.Name="Author"/>
 
                             <TextBlock Grid.Row="6" Grid.Column="0" Text="Template ID" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="6" Grid.Column="2"
                                      Text="{Binding Metadata.TemplateId, Mode=TwoWay, FallbackValue=''}"
-                                     Watermark="Stable template identifier (e.g. employment-app-v1)"
+                                     PlaceholderText="Stable template identifier (e.g. employment-app-v1)"
                                      AutomationProperties.Name="Template id"/>
 
                             <TextBlock Grid.Row="8" Grid.Column="0" Text="Template version" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="8" Grid.Column="2"
                                      Text="{Binding Metadata.TemplateVersion, Mode=TwoWay, FallbackValue=''}"
-                                     Watermark="e.g. 1.0"
+                                     PlaceholderText="e.g. 1.0"
                                      AutomationProperties.Name="Template version"/>
                         </Grid>
                     </Expander>

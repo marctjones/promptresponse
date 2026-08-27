@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Security.Cryptography.X509Certificates;
 using PromptResponse.Core.Expressions;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Signing;
 using PromptResponse.Core.Rendering;
@@ -493,9 +494,10 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
         await SignWith(certPath!, password, c =>
         {
-            var sig = AprSigner.SignTemplate(doc, c, string.IsNullOrEmpty(url) ? null : url, DateTime.UtcNow);
-            doc.Metadata.Publisher ??= sig.Signer.Name;
+            // Set the URL before signing: the payload binds what the document says.
             if (!string.IsNullOrEmpty(url)) doc.Metadata.SubmissionUrl = url;
+            var sig = AprSigner.SignTemplate(doc, c, DateTime.UtcNow);
+            doc.Metadata.Publisher ??= sig.Signer.Name;
             return sig;
         });
     }
@@ -664,7 +666,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         // something to render. The user renames / adds prompts from there.
         var doc = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {
@@ -887,13 +889,11 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         {
             var (doc, quality) = new PdfFormImporter().ImportWithQuality(path);
 
-            // When the import looks poor (cryptic labels — the PDF has no field
-            // tooltips), warn and let the user back out toward the skill.
-            if (quality.Recommendation == ImportRecommendation.UseSkillInstead)
+            // When the import needs review, show field-level flags and let the
+            // user back out toward the document-to-apr enrichment workflow.
+            if (quality.Recommendation != ImportRecommendation.UseDirectly)
             {
-                var openAnyway = await _dialogService.ShowConfirmationAsync(
-                    "Low-quality import",
-                    $"{quality.Summary}\n\nOpen it anyway?");
+                var openAnyway = await _dialogService.ShowImportReviewAsync(quality);
                 if (!openAnyway) return;
             }
 
@@ -912,6 +912,17 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// <summary>Exports the currently open document — with its current values — to a flat PDF.</summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public Task ExportPdf() => ExportToPdfAsync(fillable: false);
+
+    /// <summary>Shows an in-app preview of the generated print/PDF content.</summary>
+    [RelayCommand(CanExecute = nameof(HasDocument))]
+    public async Task PrintPreview()
+    {
+        var doc = _session.CurrentDocument;
+        if (doc is null) return;
+
+        var model = new DocumentRenderModelBuilder().Build(doc, Core.Rendering.RenderOptions.Default);
+        await _dialogService.ShowPrintPreviewAsync(model, includeEmptyFields: true);
+    }
 
     /// <summary>Exports the currently open document to a fillable AcroForm PDF.</summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
@@ -1075,6 +1086,11 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         RefreshSignatures();
         SignAsPublisherCommand.NotifyCanExecuteChanged();
         SignMyResponsesCommand.NotifyCanExecuteChanged();
+        PrintPreviewCommand.NotifyCanExecuteChanged();
+        ExportPdfCommand.NotifyCanExecuteChanged();
+        ExportPdfFormCommand.NotifyCanExecuteChanged();
+        ExportHtmlCommand.NotifyCanExecuteChanged();
+        ExportHtmlFormCommand.NotifyCanExecuteChanged();
         SaveCommand.NotifyCanExecuteChanged();
         SaveAsCommand.NotifyCanExecuteChanged();
         CloseCommand.NotifyCanExecuteChanged();

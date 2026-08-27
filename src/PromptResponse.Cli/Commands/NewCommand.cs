@@ -1,3 +1,4 @@
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 
@@ -71,7 +72,7 @@ public class NewCommand : ICommand
             // Create minimal template
             var document = new AprDocument
             {
-                Version = "1.0",
+                Version = AprFormat.CurrentVersion,
                 DocumentType = DocumentType.Template,
                 Metadata = new Metadata
                 {
@@ -79,7 +80,7 @@ public class NewCommand : ICommand
                     Description = string.IsNullOrWhiteSpace(description) ? null : description,
                     Author = string.IsNullOrWhiteSpace(author) ? null : author,
                     TemplateId = string.IsNullOrWhiteSpace(templateId) ? null : templateId,
-                    TemplateVersion = "1.0",
+                    TemplateVersion = AprFormat.CurrentVersion,
                     Created = DateTime.UtcNow,
                     Modified = DateTime.UtcNow
                 },

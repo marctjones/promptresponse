@@ -58,9 +58,12 @@ public class SignCommand : ICommand
 
             if (publisher)
             {
-                signature = AprSigner.SignTemplate(document, cert, url, DateTime.UtcNow, id ?? "publisher");
-                document.Metadata.Publisher ??= signature.Signer.Name;
+                // The URL must be on the document BEFORE signing: the payload binds
+                // what the document says, so setting it afterwards would sign one URL
+                // and ship another.
                 if (!string.IsNullOrEmpty(url)) document.Metadata.SubmissionUrl = url;
+                signature = AprSigner.SignTemplate(document, cert, DateTime.UtcNow, id ?? "publisher");
+                document.Metadata.Publisher ??= signature.Signer.Name;
             }
             else
             {
@@ -75,7 +78,7 @@ public class SignCommand : ICommand
 
             Console.WriteLine($"Signed as {signature.Role}: {signature.Signer.Name}");
             Console.WriteLine($"  Scope:      {(signature.Scope == "template" ? "template (form definition)" : string.Join(", ", signature.Fields))}");
-            if (signature.SubmissionUrl is { Length: > 0 }) Console.WriteLine($"  Submit URL: {signature.SubmissionUrl} (bound)");
+            if (document.Metadata.SubmissionUrl is { Length: > 0 } bound) Console.WriteLine($"  Submit URL: {bound} (bound)");
             Console.WriteLine($"  Thumbprint: {signature.Signer.Thumbprint}");
             Console.WriteLine($"Wrote: {outPath}");
             return 0;

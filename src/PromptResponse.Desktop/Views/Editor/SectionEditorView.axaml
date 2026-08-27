@@ -30,12 +30,12 @@
 
                 <StackPanel Grid.Column="2" Spacing="6">
                     <TextBox Text="{Binding Title, Mode=TwoWay}"
-                             Watermark="Section title (required)"
+                             PlaceholderText="Section title (required)"
                              FontSize="16"
                              FontWeight="SemiBold"
                              AutomationProperties.Name="Section title"/>
                     <TextBox Text="{Binding Description, Mode=TwoWay}"
-                             Watermark="Optional description"
+                             PlaceholderText="Optional description"
                              AcceptsReturn="True"
                              TextWrapping="Wrap"
                              MinHeight="36"
@@ -126,7 +126,7 @@
                                     <Grid ColumnDefinitions="*,8,140,8,Auto">
                                         <TextBox Grid.Column="0"
                                                  Text="{Binding Label, Mode=TwoWay}"
-                                                 Watermark="Column header"
+                                                 PlaceholderText="Column header"
                                                  AutomationProperties.Name="Column header"/>
                                         <ComboBox Grid.Column="2"
                                                   SelectedItem="{Binding Type, Mode=TwoWay}"
@@ -178,7 +178,7 @@
                                     <Grid ColumnDefinitions="*,8,Auto">
                                         <TextBox Grid.Column="0"
                                                  Text="{Binding Title, Mode=TwoWay}"
-                                                 Watermark="Row label"
+                                                 PlaceholderText="Row label"
                                                  AutomationProperties.Name="Row label"/>
                                         <Button Grid.Column="2"
                                                 Content="✕"
@@ -199,47 +199,31 @@
                                 Command="{Binding AddFixedRowCommand}"
                                 AutomationProperties.Name="Add row"/>
 
-                        <!-- Dynamic table: row config (label prefix, min/max bounds) -->
+                        <!-- Dynamic table: advisory capacity -->
                         <StackPanel IsVisible="{Binding IsDynamicTable}" Spacing="6" Margin="0,4,0,0">
-                            <TextBlock Text="Dynamic-row settings" FontWeight="SemiBold"/>
-                            <Grid ColumnDefinitions="180,8,*"
-                                  RowDefinitions="Auto,6,Auto,6,Auto">
+                            <TextBlock Text="Row settings" FontWeight="SemiBold"/>
+                            <Grid ColumnDefinitions="180,8,*" RowDefinitions="Auto">
                                 <TextBlock Grid.Row="0" Grid.Column="0"
-                                           Text="Row label prefix"
-                                           VerticalAlignment="Center"
-                                           ToolTip.Tip="Used to auto-generate row labels when the user adds rows at fill time. Example: &quot;Item&quot; → &quot;Item 1&quot;, &quot;Item 2&quot;."/>
-                                <TextBox Grid.Row="0" Grid.Column="2"
-                                         Text="{Binding DynamicRowLabel, Mode=TwoWay}"
-                                         Watermark="Row"
-                                         AutomationProperties.Name="Row label prefix"/>
-
-                                <TextBlock Grid.Row="2" Grid.Column="0"
-                                           Text="Minimum rows"
-                                           VerticalAlignment="Center"
-                                           ToolTip.Tip="The form pads up to this many rows on open. Set to 0 to allow an empty table; set to 1 (or more) to require at least one row."/>
-                                <TextBox Grid.Row="2" Grid.Column="2"
-                                         Text="{Binding DynamicMinRows, Mode=TwoWay}"
-                                         Watermark="0"
-                                         AutomationProperties.Name="Minimum rows"/>
-
-                                <TextBlock Grid.Row="4" Grid.Column="0"
                                            Text="Maximum rows"
                                            VerticalAlignment="Center"
-                                           ToolTip.Tip="The user can't add more rows past this cap when filling. Default is 100."/>
-                                <TextBox Grid.Row="4" Grid.Column="2"
-                                         Text="{Binding DynamicMaxRows, Mode=TwoWay}"
-                                         Watermark="100"
-                                         AutomationProperties.Name="Maximum rows"/>
+                                           ToolTip.Tip="Advisory cap on how many rows a filler may add. Leave blank for no limit. A form carrying more rows than this is still valid."/>
+                                <TextBox Grid.Row="0" Grid.Column="2"
+                                         Text="{Binding MaxRowsText, Mode=TwoWay}"
+                                         PlaceholderText="No limit"
+                                         AutomationProperties.Name="Maximum rows"
+                                         AutomationProperties.HelpText="Advisory only. Leave blank for no limit."/>
                             </Grid>
+                            <TextBlock Text="New rows copy the shape and naming of the rows already present."
+                                       FontSize="11" Opacity="0.75" TextWrapping="Wrap"/>
                         </StackPanel>
 
-                        <Button Content="Remove table layout"
+                        <Button Content="Convert to regular section"
                                 HorizontalAlignment="Left"
                                 Margin="0,8,0,0"
                                 Command="{Binding RemoveTableLayoutCommand}"
-                                ToolTip.Tip="Strip the table layout and convert this section back to a regular section. All cell data is dropped."
+                                ToolTip.Tip="Convert this table back into a regular section. Its rows remain as ordinary child sections."
                                 AutomationProperties.Name="Remove table layout"
-                                AutomationProperties.HelpText="Convert this table back into a regular section. Cell data will be lost."/>
+                                AutomationProperties.HelpText="Convert this table back into a regular section. Its rows remain as ordinary child sections."/>
                     </StackPanel>
                 </Border>
             </StackPanel>

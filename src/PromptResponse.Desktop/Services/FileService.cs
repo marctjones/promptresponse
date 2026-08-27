@@ -41,11 +41,11 @@ public class FileService : IFileService
         var document = await _serializer.DeserializeAsync(stream);
         if (document == null) return null;
 
-        // Extension-based DocumentType override (extension takes precedence over content).
-        var extension = Path.GetExtension(filePath).ToLowerInvariant();
-        if (extension == ".aprt") document.DocumentType = DocumentType.Template;
-        else if (extension == ".aprf") document.DocumentType = DocumentType.FilledForm;
-
+        // documentType in the file is authoritative; the extension is a desktop
+        // affordance only (specification section 5). The old rule — extension wins —
+        // cannot be implemented anywhere a filename does not exist: an HTTP body, a
+        // database column, a clipboard paste, a share intent. Under it a browser reader
+        // and this app would reach different conclusions about identical bytes.
         _currentFilePath = filePath;
         return document;
     }
@@ -82,22 +82,8 @@ public class FileService : IFileService
         await using var stream = await file.OpenReadAsync();
         var document = await _serializer.DeserializeAsync(stream);
 
-        // Extension-based DocumentType override (extension takes precedence over content)
-        if (document != null)
-        {
-            var extension = Path.GetExtension(_currentFilePath).ToLowerInvariant();
-            if (extension == ".aprt")
-            {
-                // .aprt extension = always treat as template
-                document.DocumentType = DocumentType.Template;
-            }
-            else if (extension == ".aprf")
-            {
-                // .aprf extension = always treat as filled form
-                document.DocumentType = DocumentType.FilledForm;
-            }
-            // .apr extension = use DocumentType from file content (no override)
-        }
+        // documentType in the file is authoritative (specification section 5). The
+        // extension drives icons, file associations, and save dialogs — never meaning.
 
         return document;
     }
@@ -213,17 +199,10 @@ public class FileService : IFileService
 
     public async Task SaveFileAsync(AprDocument document, string filePath)
     {
-        // Update DocumentType based on file extension (extension determines type)
-        var extension = Path.GetExtension(filePath).ToLowerInvariant();
-        if (extension == ".aprt")
-        {
-            document.DocumentType = DocumentType.Template;
-        }
-        else if (extension == ".aprf")
-        {
-            document.DocumentType = DocumentType.FilledForm;
-        }
-        // .apr keeps current DocumentType
+        // The document's own documentType is preserved on save (specification section 5).
+        // Choosing a filename is naming a file, not redefining what the document is —
+        // converting a template into a filled form is an explicit act elsewhere, which
+        // sets documentType and records templateId.
 
         // Update modified timestamp
         document.Metadata.Modified = DateTime.UtcNow;

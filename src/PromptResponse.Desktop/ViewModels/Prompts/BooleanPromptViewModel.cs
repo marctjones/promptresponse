@@ -36,10 +36,14 @@ public sealed class BooleanPromptViewModel : PromptViewModelBase
         };
         set
         {
+            // Canonical write form is "true"/"false" (specification section 4.9).
+            // "yes" is English; a format that renders to speech, to other languages, and
+            // into database columns cannot make its boolean depend on one of them. The
+            // generous read set below still accepts yes/on/1/x and free text.
             Response = value switch
             {
-                true => "yes",
-                false => "no",
+                true => "true",
+                false => "false",
                 null => string.Empty,
             };
             Notify(nameof(IsTrue));

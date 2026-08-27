@@ -26,7 +26,7 @@
 
                 <TextBox Grid.Column="2"
                          Text="{Binding Label, Mode=TwoWay}"
-                         Watermark="Prompt label (required)"
+                         PlaceholderText="Prompt label (required)"
                          FontWeight="SemiBold"
                          AutomationProperties.Name="Prompt label"
                          AutomationProperties.HelpText="The user-visible label shown to whoever fills this form"/>
@@ -68,16 +68,16 @@
                       AutomationProperties.HelpText="Optional advisory hints for placeholder, help text, and pattern">
                 <StackPanel Spacing="6" Margin="0,6,0,0">
                     <TextBox Text="{Binding Placeholder, Mode=TwoWay}"
-                             Watermark="Placeholder text shown when the field is empty"
+                             PlaceholderText="Placeholder text shown when the field is empty"
                              AutomationProperties.Name="Placeholder text"/>
                     <TextBox Text="{Binding HelpText, Mode=TwoWay}"
-                             Watermark="Help text — additional guidance shown beneath the field"
+                             PlaceholderText="Help text — additional guidance shown beneath the field"
                              AutomationProperties.Name="Help text"
                              AcceptsReturn="True"
                              TextWrapping="Wrap"
                              MinHeight="48"/>
                     <TextBox Text="{Binding ValidationPattern, Mode=TwoWay}"
-                             Watermark="Optional regex (advisory only — never blocks)"
+                             PlaceholderText="Optional regex (advisory only — never blocks)"
                              FontFamily="Cascadia Mono,Consolas,monospace"
                              AutomationProperties.Name="Validation pattern"
                              AutomationProperties.HelpText="Optional regex pattern. Hint only — does not block free-text input."/>

@@ -61,7 +61,7 @@ public partial class SectionEditorView : UserControl
     private void OnRemoveColumnClick(object? sender, RoutedEventArgs e)
     {
         if (sender is not Control ctrl) return;
-        if (ctrl.DataContext is not PromptResponse.Core.Models.TableColumn column) return;
+        if (ctrl.DataContext is not ViewModels.TableColumnViewModel column) return;
         if (DataContext is not SectionViewModel section) return;
         if (section.RemoveColumnCommand.CanExecute(column))
         {

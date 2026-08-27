@@ -1,5 +1,6 @@
 using System.Text;
 using Pdfe.Core.Document;
+using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PdfeDoc = Pdfe.Core.Document.PdfDocument;
 
@@ -94,14 +95,14 @@ public sealed class PdfFormImporter
 
         var document = new AprDocument
         {
-            Version = "1.0",
+            Version = AprFormat.CurrentVersion,
             DocumentType = DocumentType.Template,
             Metadata = new Metadata
             {
                 Title = string.IsNullOrWhiteSpace(title) ? "Imported form" : title,
                 Description = "Imported from a fillable PDF (AcroForm). Review labels and field types.",
                 TemplateId = Slug(title),
-                TemplateVersion = "1.0",
+                TemplateVersion = AprFormat.CurrentVersion,
             },
             Sections = sections,
         };

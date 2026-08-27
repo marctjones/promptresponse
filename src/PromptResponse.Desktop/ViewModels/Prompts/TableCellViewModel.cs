@@ -23,13 +23,22 @@ public sealed partial class TableCellViewModel : ObservableObject, IDisposable
     private readonly PromptViewModelBase _vm;
     private bool _disposed;
 
-    public TableCellViewModel(PromptViewModelBase wrappedPromptVm, TableColumn column)
+    /// <remarks>
+    /// The column's identity, header, and type hint all come from the cell prompt
+    /// itself — there is no separate column definition to consult, so a cell and its
+    /// header cannot disagree.
+    /// </remarks>
+    public TableCellViewModel(PromptViewModelBase wrappedPromptVm)
     {
         _vm = wrappedPromptVm ?? throw new ArgumentNullException(nameof(wrappedPromptVm));
-        ColumnId = column.Id;
-        ColumnLabel = column.Label;
-        ColumnType = column.Type;
-        Placeholder = column.Placeholder;
+        // The conventional column key: the part of the cell id after the dot. Purely
+        // for addressing — correspondence between instances is positional.
+        var id = _vm.Model.Id;
+        var dot = id.LastIndexOf('.');
+        ColumnId = dot >= 0 ? id[(dot + 1)..] : id;
+        ColumnLabel = _vm.Model.Label;
+        ColumnType = _vm.Model.Hints.ExpectedDataType ?? "text";
+        Placeholder = _vm.Model.Hints.Placeholder;
         _vm.PropertyChanged += OnVmPropertyChanged;
     }
 

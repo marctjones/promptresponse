@@ -88,141 +88,11 @@ internal sealed class RemoveNestedSectionCommand : IEditCommand
     public void MergeWith(IEditCommand next) { }
 }
 
-/// <summary>Snapshot of a section's table layout so a destructive convert /
-/// strip operation can be fully reversed.</summary>
-internal sealed class TableLayoutSnapshot
-{
-    public TableDefinition? Layout { get; init; }
-    public List<Section> Rows { get; init; } = new();
-    public List<Prompt> DirectPrompts { get; init; } = new();
-}
 
-internal sealed class ConvertToTableCommand : IEditCommand
-{
-    private readonly SectionViewModel _section;
-    private readonly bool _fixedRows;
-    private TableLayoutSnapshot? _before;
 
-    public ConvertToTableCommand(SectionViewModel section, bool fixedRows)
-    {
-        _section = section; _fixedRows = fixedRows;
-    }
 
-    public string Description => _fixedRows ? "Convert to fixed table" : "Convert to dynamic table";
-    public void Execute()
-    {
-        _before ??= _section.SnapshotTableState();
-        if (_fixedRows) _section.ApplyConvertToFixedTable(); else _section.ApplyConvertToDynamicTable();
-    }
-    public void Undo() => _section.ApplyRestoreTableSnapshot(_before!);
-    public bool CanMergeWith(IEditCommand next) => false;
-    public void MergeWith(IEditCommand next) { }
-}
 
-internal sealed class RemoveTableLayoutCommand : IEditCommand
-{
-    private readonly SectionViewModel _section;
-    private TableLayoutSnapshot? _before;
 
-    public RemoveTableLayoutCommand(SectionViewModel section)
-    {
-        _section = section;
-    }
-
-    public string Description => "Remove table layout";
-    public void Execute()
-    {
-        _before ??= _section.SnapshotTableState();
-        _section.ApplyRemoveTableLayout();
-    }
-    public void Undo() => _section.ApplyRestoreTableSnapshot(_before!);
-    public bool CanMergeWith(IEditCommand next) => false;
-    public void MergeWith(IEditCommand next) { }
-}
-
-internal sealed class AddColumnCommand : IEditCommand
-{
-    private readonly SectionViewModel _section;
-    private TableColumn? _column;
-    private List<PromptViewModelBase> _addedCellVms = new();
-
-    public AddColumnCommand(SectionViewModel section) { _section = section; }
-
-    public string Description => "Add column";
-    public void Execute()
-    {
-        if (_column == null)
-        {
-            // First execute: synthesize the new column + cell prompts.
-            (_column, _addedCellVms) = _section.ApplyAddColumn();
-        }
-        else
-        {
-            // Redo: reuse the captured column + cell vm list.
-            _section.ApplyAddColumnRestore(_column, _addedCellVms);
-        }
-    }
-    public void Undo()
-    {
-        if (_column != null) _section.ApplyRemoveColumn(_column, _addedCellVms);
-    }
-    public bool CanMergeWith(IEditCommand next) => false;
-    public void MergeWith(IEditCommand next) { }
-}
-
-internal sealed class RemoveColumnCommand : IEditCommand
-{
-    private readonly SectionViewModel _section;
-    private readonly TableColumn _column;
-    private readonly int _index;
-    private List<PromptViewModelBase> _droppedCellVms = new();
-
-    public RemoveColumnCommand(SectionViewModel section, TableColumn column, int index)
-    {
-        _section = section; _column = column; _index = index;
-    }
-
-    public string Description => "Remove column";
-    public void Execute()
-    {
-        _droppedCellVms = _section.ApplyRemoveColumnAndCapture(_column);
-    }
-    public void Undo()
-    {
-        _section.ApplyAddColumnAtRestore(_index, _column, _droppedCellVms);
-    }
-    public bool CanMergeWith(IEditCommand next) => false;
-    public void MergeWith(IEditCommand next) { }
-}
-
-internal sealed class AddFixedRowCommand : IEditCommand
-{
-    private readonly SectionViewModel _section;
-    private FixedRow? _row;
-    private SectionViewModel? _rowVm;
-    private int _vmIndex;
-
-    public AddFixedRowCommand(SectionViewModel section) { _section = section; }
-
-    public string Description => "Add fixed row";
-    public void Execute()
-    {
-        if (_row == null)
-        {
-            (_row, _rowVm, _vmIndex) = _section.ApplyAddFixedRow();
-        }
-        else
-        {
-            _section.ApplyAddFixedRowRestore(_row, _rowVm!, _vmIndex);
-        }
-    }
-    public void Undo()
-    {
-        if (_row != null && _rowVm != null) _section.ApplyRemoveFixedRow(_rowVm);
-    }
-    public bool CanMergeWith(IEditCommand next) => false;
-    public void MergeWith(IEditCommand next) { }
-}
 
 internal sealed class MovePromptCommand : IEditCommand
 {
@@ -256,37 +126,7 @@ internal sealed class MoveNestedSectionCommand : IEditCommand
     public void MergeWith(IEditCommand next) { }
 }
 
-internal sealed class MoveColumnCommand : IEditCommand
-{
-    private readonly SectionViewModel _section;
-    private readonly int _from;
-    private readonly int _to;
 
-    public MoveColumnCommand(SectionViewModel section, int from, int to)
-    { _section = section; _from = from; _to = to; }
-
-    public string Description => "Reorder column";
-    public void Execute() => _section.ApplyMoveColumn(_from, _to);
-    public void Undo() => _section.ApplyMoveColumn(_to, _from);
-    public bool CanMergeWith(IEditCommand next) => false;
-    public void MergeWith(IEditCommand next) { }
-}
-
-internal sealed class MoveFixedRowCommand : IEditCommand
-{
-    private readonly SectionViewModel _section;
-    private readonly int _from;
-    private readonly int _to;
-
-    public MoveFixedRowCommand(SectionViewModel section, int from, int to)
-    { _section = section; _from = from; _to = to; }
-
-    public string Description => "Reorder row";
-    public void Execute() => _section.ApplyMoveFixedRow(_from, _to);
-    public void Undo() => _section.ApplyMoveFixedRow(_to, _from);
-    public bool CanMergeWith(IEditCommand next) => false;
-    public void MergeWith(IEditCommand next) { }
-}
 
 internal sealed class MoveTopLevelSectionCommand : IEditCommand
 {
@@ -342,22 +182,51 @@ internal sealed class RemoveTopLevelSectionCommand : IEditCommand
     public void MergeWith(IEditCommand next) { }
 }
 
-internal sealed class RemoveFixedRowCommand : IEditCommand
+/// <summary>
+/// The state of a table section: its markers plus its whole subtree.
+/// </summary>
+public sealed record TableSnapshot(
+    string? Kind,
+    string? CanAddRows,
+    string? MaxRows,
+    List<Section> Rows,
+    List<Prompt> DirectPrompts);
+
+/// <summary>
+/// One undoable table edit, recorded as before/after snapshots.
+/// </summary>
+/// <remarks>
+/// Every table operation — converting a section, adding or removing a column, adding
+/// or removing a row, renaming a header — is a mutation of the section tree, because
+/// a table has no separate layout object to mutate. So a single command covers all of
+/// them, replacing the per-operation apply/restore pairs the old shape required. Less
+/// undo bookkeeping is not just shorter; it is one fewer thing that can fall out of
+/// step with the model.
+/// </remarks>
+public sealed class TableEditCommand : IEditCommand
 {
     private readonly SectionViewModel _section;
-    private readonly SectionViewModel _rowVm;
-    private readonly FixedRow _row;
-    private readonly int _vmIndex;
-    private readonly int _layoutIndex;
+    private readonly TableSnapshot _before;
+    private readonly TableSnapshot _after;
 
-    public RemoveFixedRowCommand(SectionViewModel section, SectionViewModel rowVm, FixedRow row, int vmIndex, int layoutIndex)
+    public TableEditCommand(SectionViewModel section, TableSnapshot before, TableSnapshot after)
     {
-        _section = section; _rowVm = rowVm; _row = row; _vmIndex = vmIndex; _layoutIndex = layoutIndex;
+        _section = section;
+        _before = before;
+        _after = after;
     }
 
-    public string Description => "Remove fixed row";
-    public void Execute() => _section.ApplyRemoveFixedRow(_rowVm);
-    public void Undo() => _section.ApplyAddFixedRowAtRestore(_layoutIndex, _row, _rowVm, _vmIndex);
+    public string Description => "Edit table";
+
+    // Restoring a snapshot is idempotent, so applying "after" immediately following
+    // the mutation that produced it is a no-op in effect, and redo replays correctly.
+    public void Execute() => _section.RestoreTableSnapshot(_after);
+
+    public void Undo() => _section.RestoreTableSnapshot(_before);
+
+    // Every table edit is its own undo step; none of them fold together.
     public bool CanMergeWith(IEditCommand next) => false;
-    public void MergeWith(IEditCommand next) { }
+
+    public void MergeWith(IEditCommand next) =>
+        throw new NotSupportedException("Table edits never merge.");
 }

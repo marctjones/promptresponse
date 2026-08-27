@@ -40,7 +40,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     private readonly EditHistory? _history;
     private readonly ObservableCollection<SectionViewModel> _nestedSections;
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels;
-    private readonly ObservableCollection<TableColumn> _columnsObservable = new();
+    private readonly ObservableCollection<TableColumnViewModel> _columnsObservable = new();
     private IReadOnlyList<TableCellViewModel> _cells = Array.Empty<TableCellViewModel>();
 
     public SectionViewModel(
@@ -72,12 +72,12 @@ public sealed class SectionViewModel : INotifyPropertyChanged
 
         // If this section is a table, configure each row child with the column
         // layout so its cells can be rendered in column order.
-        if (TableLayout != null)
+        if (_section.IsTable)
         {
             SyncColumnsObservable();
             foreach (var rowVm in _nestedSections)
             {
-                rowVm.ConfigureAsTableRow(TableLayout.Columns);
+                rowVm.ConfigureAsTableRow();
             }
         }
 
@@ -91,7 +91,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         ConvertToDynamicTableCommand = new RelayCommand(ConvertToDynamicTable);
         RemoveTableLayoutCommand = new RelayCommand(RemoveTableLayout);
         AddColumnCommand = new RelayCommand(AddColumn);
-        RemoveColumnCommand = new RelayCommand<TableColumn>(RemoveColumn);
+        RemoveColumnCommand = new RelayCommand<TableColumnViewModel>(RemoveColumn);
         AddFixedRowCommand = new RelayCommand(AddFixedRow);
         RemoveFixedRowCommand = new RelayCommand<SectionViewModel>(RemoveFixedRow);
     }
@@ -249,37 +249,26 @@ public sealed class SectionViewModel : INotifyPropertyChanged
             ApplyMoveNestedSection(fromIndex, toIndex);
     }
 
-    /// <summary>Reorder a column in the table layout. Cell prompts in every row
-    /// are not moved — they're keyed by id, so column visual order is the only
-    /// thing that changes. Undoable.</summary>
+    /// <summary>
+    /// Reorder a column. A column is a position in every instance's prompt list, so
+    /// reordering one moves that prompt in every row — the cells travel with their
+    /// header, because they are the same thing. Undoable.
+    /// </summary>
     public void MoveColumn(int fromIndex, int toIndex)
     {
-        if (!IsTableSection) return;
-        var def = _section.TableLayout!;
-        if (fromIndex == toIndex) return;
-        if (fromIndex < 0 || fromIndex >= def.Columns.Count) return;
-        if (toIndex < 0 || toIndex >= def.Columns.Count) return;
-
-        if (_history != null && !_history.IsApplying)
-            _history.Execute(new MoveColumnCommand(this, fromIndex, toIndex));
-        else
-            ApplyMoveColumn(fromIndex, toIndex);
+        if (!IsTableSection || fromIndex == toIndex) return;
+        var count = _columnsObservable.Count;
+        if (fromIndex < 0 || fromIndex >= count || toIndex < 0 || toIndex >= count) return;
+        EditTable(() => ApplyMoveColumn(fromIndex, toIndex));
     }
 
-    /// <summary>Reorder a fixed row. Undoable.</summary>
+    /// <summary>Reorder an instance. Undoable.</summary>
     public void MoveFixedRow(int fromIndex, int toIndex)
     {
-        if (!IsTableSection) return;
-        var def = _section.TableLayout!;
-        if (def.FixedRows == null) return;
-        if (fromIndex == toIndex) return;
-        if (fromIndex < 0 || fromIndex >= def.FixedRows.Count) return;
-        if (toIndex < 0 || toIndex >= def.FixedRows.Count) return;
-
-        if (_history != null && !_history.IsApplying)
-            _history.Execute(new MoveFixedRowCommand(this, fromIndex, toIndex));
-        else
-            ApplyMoveFixedRow(fromIndex, toIndex);
+        if (!IsTableSection || fromIndex == toIndex) return;
+        var count = _nestedSections.Count;
+        if (fromIndex < 0 || fromIndex >= count || toIndex < 0 || toIndex >= count) return;
+        EditTable(() => ApplyMoveFixedRow(fromIndex, toIndex));
     }
 
     // ── Apply* methods: raw mutations used by both public methods and command Execute/Undo. ──
@@ -306,28 +295,31 @@ public sealed class SectionViewModel : INotifyPropertyChanged
 
     internal void ApplyMoveColumn(int fromIndex, int toIndex)
     {
-        var def = _section.TableLayout!;
-        var col = def.Columns[fromIndex];
-        def.Columns.RemoveAt(fromIndex);
-        def.Columns.Insert(toIndex, col);
-        ReconfigureAllRowsAsTableRows();
+        foreach (var rowVm in _nestedSections)
+        {
+            var prompts = rowVm._section.Prompts;
+            if (fromIndex >= prompts.Count || toIndex >= prompts.Count) continue;
+            var cell = prompts[fromIndex];
+            prompts.RemoveAt(fromIndex);
+            prompts.Insert(toIndex, cell);
+
+            var vm = rowVm._promptViewModels[fromIndex];
+            rowVm._promptViewModels.RemoveAt(fromIndex);
+            rowVm._promptViewModels.Insert(toIndex, vm);
+        }
         NotifyTableShapeChanged();
     }
 
     internal void ApplyMoveFixedRow(int fromIndex, int toIndex)
     {
-        var def = _section.TableLayout!;
-        var rows = def.FixedRows!;
-        var row = rows[fromIndex];
-        rows.RemoveAt(fromIndex);
-        rows.Insert(toIndex, row);
-        // Also move the corresponding row sub-section so the rendered order matches.
         var rowVm = _nestedSections[fromIndex];
         _nestedSections.RemoveAt(fromIndex);
         _nestedSections.Insert(toIndex, rowVm);
+
         var rowSec = _section.Sections[fromIndex];
         _section.Sections.RemoveAt(fromIndex);
         _section.Sections.Insert(toIndex, rowSec);
+        NotifyTableShapeChanged();
     }
 
 
@@ -373,90 +365,57 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     }
 
     // ── Table mode ──
+    //
+    // A table introduces no new primitive: rows are ordinary child sections and cells
+    // are ordinary prompts. A "column" is simply the prompt at a given position,
+    // repeated across every instance — so every table edit here is a mutation of the
+    // section tree, and one snapshot-based undo covers all of them.
 
-    /// <summary>Layout for tabular rendering, or null when this is a regular section.</summary>
-    public TableDefinition? TableLayout => _section.TableLayout;
+    /// <summary>True when this section's child sections are repeating instances.</summary>
+    public bool IsTableSection => _section.IsTable;
+    public bool IsRegularSection => !_section.IsTable;
 
-    /// <summary>True when this section should render as a table grid.</summary>
-    public bool IsTableSection => _section.TableLayout != null;
-    public bool IsRegularSection => _section.TableLayout == null;
+    /// <summary>A table whose instances cannot be added to or removed at fill time.</summary>
+    public bool IsFixedTable => IsTableSection && !_section.AllowsAddingRows;
 
-    public bool IsFixedTable => TableLayout?.IsFixedTable ?? false;
-    public bool IsDynamicTable => TableLayout?.IsDynamicTable ?? false;
+    /// <summary>A table whose instances a filler may add to or remove.</summary>
+    public bool IsDynamicTable => _section.AllowsAddingRows;
 
-    /// <summary>Dynamic-row config: minimum rows the user must keep at fill time.
-    /// Bound by the editor when this section is a dynamic table.</summary>
-    public int DynamicMinRows
+    /// <summary>Advisory maximum instance count, as text. Blank means no advisory cap.</summary>
+    public string MaxRowsText
     {
-        get => TableLayout?.DynamicRows?.MinRows ?? 0;
+        get => _section.MaxRows ?? string.Empty;
         set
         {
-            var d = TableLayout?.DynamicRows;
-            if (d == null) return;
-            var v = Math.Max(0, value);
-            if (d.MinRows == v) return;
-            d.MinRows = v;
+            var v = string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+            if (_section.MaxRows == v) return;
+            _section.MaxRows = v;
             OnPropertyChanged();
             NotifyTableMembershipChanged();
         }
     }
 
-    /// <summary>Dynamic-row config: maximum rows the user can add at fill time.</summary>
-    public int DynamicMaxRows
-    {
-        get => TableLayout?.DynamicRows?.MaxRows ?? 100;
-        set
-        {
-            var d = TableLayout?.DynamicRows;
-            if (d == null) return;
-            var v = Math.Max(1, value);
-            if (d.MaxRows == v) return;
-            d.MaxRows = v;
-            OnPropertyChanged();
-            NotifyTableMembershipChanged();
-        }
-    }
+    /// <summary>
+    /// Column headers, derived from the first instance's prompts. Backed by an
+    /// ObservableCollection so the editor refreshes as the shape changes.
+    /// </summary>
+    public ObservableCollection<TableColumnViewModel> Columns => _columnsObservable;
 
-    /// <summary>Dynamic-row config: prefix used for auto-generated row labels
-    /// at fill time (e.g. "Item" → "Item 1", "Item 2", …).</summary>
-    public string DynamicRowLabel
-    {
-        get => TableLayout?.DynamicRows?.RowLabel ?? "Row";
-        set
-        {
-            var d = TableLayout?.DynamicRows;
-            if (d == null) return;
-            var v = string.IsNullOrWhiteSpace(value) ? "Row" : value;
-            if (d.RowLabel == v) return;
-            d.RowLabel = v;
-            OnPropertyChanged();
-        }
-    }
-
-    /// <summary>Column headers from the table layout. Backed by an
-    /// ObservableCollection so live edits (Add/Remove/Move column) refresh
-    /// the editor's column list automatically. The underlying model list
-    /// (<c>TableLayout.Columns</c>) is the source of truth for serialization;
-    /// this collection mirrors it at every Apply* op.</summary>
-    public ObservableCollection<TableColumn> Columns => _columnsObservable;
-
-    /// <summary>Cells in column order — populated only when this section is a row of a parent table-section.</summary>
+    /// <summary>Cells in column order — populated only when this section is an instance of a parent table.</summary>
     public IReadOnlyList<TableCellViewModel> Cells
     {
         get => _cells;
         private set { _cells = value; OnPropertyChanged(); }
     }
 
-    public bool CanAddRow =>
-        IsDynamicTable
-        && TableLayout!.DynamicRows is { } d
-        && _nestedSections.Count < d.MaxRows;
+    public bool CanAddRow => IsDynamicTable && _nestedSections.Count < EffectiveMaxRows;
 
-    public bool CanRemoveRow =>
-        IsDynamicTable
-        && TableLayout!.DynamicRows is { } d
-        && _nestedSections.Count > d.MinRows
-        && _nestedSections.Count > 0;
+    // A table always keeps at least one instance: an "empty" table was never empty,
+    // and an instance is what describes the table's own fields.
+    public bool CanRemoveRow => IsDynamicTable && _nestedSections.Count > 1;
+
+    private int EffectiveMaxRows =>
+        int.TryParse(_section.MaxRows, out var max) && max > 0 ? max : int.MaxValue;
 
     public IRelayCommand AddRowCommand { get; }
     public IRelayCommand<SectionViewModel> RemoveRowCommand { get; }
@@ -467,153 +426,274 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     public IRelayCommand ConvertToDynamicTableCommand { get; }
     public IRelayCommand RemoveTableLayoutCommand { get; }
     public IRelayCommand AddColumnCommand { get; }
-    public IRelayCommand<TableColumn> RemoveColumnCommand { get; }
+    public IRelayCommand<TableColumnViewModel> RemoveColumnCommand { get; }
     public IRelayCommand AddFixedRowCommand { get; }
     public IRelayCommand<SectionViewModel> RemoveFixedRowCommand { get; }
 
-    public void ConvertToFixedTable()
+    /// <summary>
+    /// Runs a table mutation, recording it as a single undoable step. Every table edit
+    /// reduces to "the section tree looked like X, now it looks like Y", so one command
+    /// type covers converting, adding and removing columns, and adding and removing
+    /// rows — there is no per-operation undo bookkeeping to keep in step.
+    /// </summary>
+    private void EditTable(Action mutate)
     {
-        if (IsTableSection) return;
-        if (_history != null && !_history.IsApplying)
-            _history.Execute(new ConvertToTableCommand(this, fixedRows: true));
-        else
-            ApplyConvertToFixedTable();
-    }
-
-    public void ConvertToDynamicTable()
-    {
-        if (IsTableSection) return;
-        if (_history != null && !_history.IsApplying)
-            _history.Execute(new ConvertToTableCommand(this, fixedRows: false));
-        else
-            ApplyConvertToDynamicTable();
-    }
-
-    public void RemoveTableLayout()
-    {
-        if (!IsTableSection) return;
-        if (_history != null && !_history.IsApplying)
-            _history.Execute(new RemoveTableLayoutCommand(this));
-        else
-            ApplyRemoveTableLayout();
-    }
-
-    public void AddColumn()
-    {
-        if (!IsTableSection) return;
-        if (_history != null && !_history.IsApplying)
-            _history.Execute(new AddColumnCommand(this));
-        else
-            ApplyAddColumn();
-    }
-
-    public void RemoveColumn(TableColumn? column)
-    {
-        if (column is null) return;
-        if (!IsTableSection) return;
-        var def = _section.TableLayout!;
-        if (!def.Columns.Contains(column)) return;
-        if (def.Columns.Count <= 1) return;
-
         if (_history != null && !_history.IsApplying)
         {
-            var index = def.Columns.IndexOf(column);
-            _history.Execute(new RemoveColumnCommand(this, column, index));
+            var before = SnapshotTableState();
+            mutate();
+            var after = SnapshotTableState();
+            _history.Execute(new TableEditCommand(this, before, after));
         }
         else
         {
-            ApplyRemoveColumnAndCapture(column);
+            mutate();
         }
     }
 
-    public void AddFixedRow()
+    public void ConvertToFixedTable() { if (!IsTableSection) EditTable(() => ApplyConvertToTable(canAddRows: false)); }
+
+    public void ConvertToDynamicTable() { if (!IsTableSection) EditTable(() => ApplyConvertToTable(canAddRows: true)); }
+
+    public void RemoveTableLayout() { if (IsTableSection) EditTable(ApplyRemoveTable); }
+
+    public void AddColumn() { if (IsTableSection) EditTable(ApplyAddColumn); }
+
+    public void RemoveColumn(TableColumnViewModel? column)
+    {
+        if (column is null || !IsTableSection) return;
+        if (_columnsObservable.Count <= 1) return;
+        EditTable(() => ApplyRemoveColumn(column.Index));
+    }
+
+    /// <summary>Renames the prompt at this position in every instance.</summary>
+    internal void RenameColumn(int index, string label)
     {
         if (!IsTableSection) return;
-        if (_section.TableLayout!.FixedRows == null) return;
-        if (_history != null && !_history.IsApplying)
-            _history.Execute(new AddFixedRowCommand(this));
-        else
-            ApplyAddFixedRow();
+        EditTable(() =>
+        {
+            foreach (var rowVm in _nestedSections)
+            {
+                if (index >= 0 && index < rowVm._section.Prompts.Count)
+                {
+                    rowVm._section.Prompts[index].Label = label;
+                }
+            }
+            ReconfigureAllRowsAsTableRows();
+            NotifyTableShapeChanged();
+        });
     }
+
+    public void AddFixedRow() { if (IsTableSection) EditTable(() => ApplyAddRow()); }
 
     public void RemoveFixedRow(SectionViewModel? row)
     {
-        if (row is null) return;
-        if (!IsTableSection) return;
-        var def = _section.TableLayout!;
-        if (def.FixedRows == null) return;
+        if (row is null || !IsTableSection) return;
         if (!_nestedSections.Contains(row)) return;
         if (_nestedSections.Count <= 1) return;
+        EditTable(() => ApplyRemoveRow(row));
+    }
 
-        if (_history != null && !_history.IsApplying)
+    /// <summary>Append an instance at fill time. Not part of the authoring history.</summary>
+    public void AddRow()
+    {
+        if (!IsDynamicTable || !CanAddRow) return;
+        ApplyAddRow();
+    }
+
+    public void RemoveRow(SectionViewModel? row)
+    {
+        if (row is null || !IsDynamicTable || !CanRemoveRow) return;
+        if (!_nestedSections.Contains(row)) return;
+        ApplyRemoveRow(row);
+    }
+
+    // ── Apply helpers ──
+
+    internal void ApplyConvertToTable(bool canAddRows)
+    {
+        // A table's structure lives in its instances, so any free-floating prompts on
+        // the section itself become the first instance's cells rather than being lost.
+        var seedPrompts = new List<Prompt>(_section.Prompts);
+        foreach (var p in _promptViewModels.ToList()) _onPromptRemoved?.Invoke(p);
+        _section.Prompts.Clear();
+        _promptViewModels.Clear();
+
+        _section.Kind = "table";
+        _section.CanAddRows = canAddRows ? "true" : null;
+
+        if (_section.Sections.Count == 0)
         {
-            var fixedRow = def.FixedRows.FirstOrDefault(r => r.Id == row.Id);
-            if (fixedRow == null) return;
-            var vmIndex = _nestedSections.IndexOf(row);
-            var layoutIndex = def.FixedRows.IndexOf(fixedRow);
-            _history.Execute(new RemoveFixedRowCommand(this, row, fixedRow, vmIndex, layoutIndex));
+            var row = new Section { Id = NextRowId(), Title = "Row 1" };
+            row.Prompts.AddRange(seedPrompts.Count > 0
+                ? seedPrompts.Select(p => Rekey(p, row.Id))
+                : [new Prompt { Id = $"{row.Id}.col1", Label = "Column 1", Hints = new PromptHints { ExpectedDataType = "text" } }]);
+            AttachRow(row);
         }
-        else
+        NotifyTableShapeChanged();
+    }
+
+    internal void ApplyRemoveTable()
+    {
+        _section.Kind = null;
+        _section.CanAddRows = null;
+        _section.MaxRows = null;
+        NotifyTableShapeChanged();
+    }
+
+    internal void ApplyAddColumn()
+    {
+        var ordinal = _columnsObservable.Count + 1;
+        foreach (var rowVm in _nestedSections)
         {
-            ApplyRemoveFixedRow(row);
+            var cell = new Prompt
+            {
+                Id = $"{rowVm._section.Id}.col{ordinal}",
+                Label = $"Column {ordinal}",
+                Hints = new PromptHints { ExpectedDataType = "text" },
+            };
+            rowVm._section.Prompts.Add(cell);
+            var vm = _factory.Create(cell);
+            rowVm._promptViewModels.Add(vm);
+            _onPromptAdded?.Invoke(vm);
+        }
+        ReconfigureAllRowsAsTableRows();
+        NotifyTableShapeChanged();
+    }
+
+    internal void ApplyRemoveColumn(int index)
+    {
+        foreach (var rowVm in _nestedSections)
+        {
+            if (index < 0 || index >= rowVm._section.Prompts.Count) continue;
+            var model = rowVm._section.Prompts[index];
+            var vm = rowVm._promptViewModels.FirstOrDefault(v => ReferenceEquals(v.Model, model));
+            if (vm != null)
+            {
+                _onPromptRemoved?.Invoke(vm);
+                rowVm._promptViewModels.Remove(vm);
+            }
+            rowVm._section.Prompts.RemoveAt(index);
+        }
+        ReconfigureAllRowsAsTableRows();
+        NotifyTableShapeChanged();
+    }
+
+    internal SectionViewModel ApplyAddRow()
+    {
+        var rowId = NextRowId();
+        var ordinal = _nestedSections.Count + 1;
+        var row = new Section { Id = rowId, Title = $"{RowTitlePrefix()} {ordinal}" };
+
+        // A new instance takes its shape from the ones already there — which is why no
+        // separate column definition or row-label template is needed.
+        var shape = _nestedSections.FirstOrDefault()?._section.Prompts ?? [];
+        foreach (var cell in shape)
+        {
+            row.Prompts.Add(new Prompt
+            {
+                Id = $"{rowId}.{SuffixOf(cell.Id)}",
+                Label = cell.Label,
+                Hints = new PromptHints
+                {
+                    ExpectedDataType = cell.Hints.ExpectedDataType,
+                    Placeholder = cell.Hints.Placeholder,
+                    HelpText = cell.Hints.HelpText,
+                    SuggestedValues = new List<string>(cell.Hints.SuggestedValues),
+                },
+            });
+        }
+        var rowVm = AttachRow(row);
+        NotifyTableShapeChanged();
+        return rowVm;
+    }
+
+    internal void ApplyRemoveRow(SectionViewModel row)
+    {
+        foreach (var p in row._promptViewModels) _onPromptRemoved?.Invoke(p);
+        _section.Sections.Remove(row._section);
+        _nestedSections.Remove(row);
+        RenumberGeneratedRowTitles();
+        NotifyTableShapeChanged();
+    }
+
+    /// <summary>
+    /// Tidies auto-generated instance titles after a removal — but only those still
+    /// matching the generated "&lt;prefix&gt; &lt;n&gt;" pattern. A title a person edited
+    /// ("Consulting fees") is data, and renumbering must never overwrite it.
+    /// </summary>
+    private void RenumberGeneratedRowTitles()
+    {
+        var prefix = RowTitlePrefix();
+        var ordinal = 1;
+        foreach (var rowVm in _nestedSections)
+        {
+            var title = rowVm._section.Title?.TrimEnd() ?? string.Empty;
+            var cut = title.LastIndexOf(' ');
+            var isGenerated = cut > 0
+                && title[..cut] == prefix
+                && int.TryParse(title[(cut + 1)..], out _);
+            if (isGenerated)
+            {
+                rowVm._section.Title = $"{prefix} {ordinal}";
+                rowVm.OnPropertyChanged(nameof(Title));
+            }
+            ordinal++;
         }
     }
 
-    // ── Apply helpers for table commands ──
-
-    internal TableLayoutSnapshot SnapshotTableState() => new()
+    private SectionViewModel AttachRow(Section row)
     {
-        Layout = _section.TableLayout,
-        Rows = new List<Section>(_section.Sections),
-        DirectPrompts = new List<Prompt>(_section.Prompts),
+        _section.Sections.Add(row);
+        var rowVm = new SectionViewModel(row, _factory, _depth + 1, _onPromptAdded, _onPromptRemoved, _history);
+        rowVm.ConfigureAsTableRow();
+        _nestedSections.Add(rowVm);
+        foreach (var p in rowVm._promptViewModels) _onPromptAdded?.Invoke(p);
+        return rowVm;
+    }
+
+    private string NextRowId()
+    {
+        var n = _section.Sections.Count + 1;
+        while (_section.Sections.Any(r => r.Id == $"row{n}")) n++;
+        return $"row{n}";
+    }
+
+    /// <summary>The word existing instances are named with, so new ones match.</summary>
+    private string RowTitlePrefix()
+    {
+        var first = _nestedSections.FirstOrDefault()?._section.Title;
+        if (string.IsNullOrWhiteSpace(first)) return "Row";
+        var trimmed = first.TrimEnd();
+        var cut = trimmed.LastIndexOf(' ');
+        return cut > 0 && int.TryParse(trimmed[(cut + 1)..], out _) ? trimmed[..cut] : trimmed;
+    }
+
+    private static string SuffixOf(string id)
+    {
+        var dot = id.LastIndexOf('.');
+        return dot >= 0 ? id[(dot + 1)..] : id;
+    }
+
+    private static Prompt Rekey(Prompt p, string rowId) => new()
+    {
+        Id = $"{rowId}.{SuffixOf(p.Id)}",
+        Label = p.Label,
+        Response = p.Response,
+        Hints = p.Hints,
     };
 
-    internal void ApplyConvertToFixedTable()
+    // ── Snapshot / restore (the whole table undo story) ──
+
+    internal TableSnapshot SnapshotTableState() => new(
+        _section.Kind,
+        _section.CanAddRows,
+        _section.MaxRows,
+        _section.Sections.Select(CloneSection).ToList(),
+        _section.Prompts.Select(ClonePrompt).ToList());
+
+    internal void RestoreTableSnapshot(TableSnapshot snap)
     {
-        // Drop any preexisting prompts directly on the section — table sections
-        // hold structure, not free-floating prompts.
-        foreach (var p in _promptViewModels.ToList()) _onPromptRemoved?.Invoke(p);
-        _section.Prompts.Clear();
-        _promptViewModels.Clear();
-
-        _section.TableLayout = new TableDefinition
-        {
-            Columns = new List<TableColumn> { new() { Id = "col1", Label = "Column 1", Type = "text" } },
-            FixedRows = new List<FixedRow> { new() { Id = "row1", Label = "Row 1" } },
-        };
-        RebuildRowSubSectionsFromTableLayout();
-        NotifyTableShapeChanged();
-    }
-
-    internal void ApplyConvertToDynamicTable()
-    {
-        foreach (var p in _promptViewModels.ToList()) _onPromptRemoved?.Invoke(p);
-        _section.Prompts.Clear();
-        _promptViewModels.Clear();
-
-        _section.TableLayout = new TableDefinition
-        {
-            Columns = new List<TableColumn> { new() { Id = "col1", Label = "Column 1", Type = "text" } },
-            DynamicRows = new DynamicRowConfig { MinRows = 0, MaxRows = 100, RowLabel = "Row" },
-        };
-        NotifyTableShapeChanged();
-    }
-
-    internal void ApplyRemoveTableLayout()
-    {
-        foreach (var rowVm in _nestedSections.ToList())
-        {
-            foreach (var p in rowVm._promptViewModels) _onPromptRemoved?.Invoke(p);
-        }
-        _section.Sections.Clear();
-        _nestedSections.Clear();
-        _section.TableLayout = null;
-        NotifyTableShapeChanged();
-    }
-
-    internal void ApplyRestoreTableSnapshot(TableLayoutSnapshot snap)
-    {
-        // Tear down current state.
         foreach (var rowVm in _nestedSections.ToList())
         {
             foreach (var p in rowVm._promptViewModels) _onPromptRemoved?.Invoke(p);
@@ -624,363 +704,101 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         _nestedSections.Clear();
         _promptViewModels.Clear();
 
-        // Restore prompts on the section directly.
-        _section.TableLayout = snap.Layout;
-        foreach (var prompt in snap.DirectPrompts)
+        _section.Kind = snap.Kind;
+        _section.CanAddRows = snap.CanAddRows;
+        _section.MaxRows = snap.MaxRows;
+
+        foreach (var prompt in snap.DirectPrompts.Select(ClonePrompt))
         {
             _section.Prompts.Add(prompt);
             var vm = _factory.Create(prompt);
             _promptViewModels.Add(vm);
             _onPromptAdded?.Invoke(vm);
         }
-        // Restore rows.
-        foreach (var rowModel in snap.Rows)
+        foreach (var row in snap.Rows.Select(CloneSection))
         {
-            _section.Sections.Add(rowModel);
-            var rowVm = new SectionViewModel(rowModel, _factory, _depth + 1, _onPromptAdded, _onPromptRemoved, _history);
-            if (_section.TableLayout != null) rowVm.ConfigureAsTableRow(_section.TableLayout.Columns);
-            _nestedSections.Add(rowVm);
-            foreach (var p in rowVm._promptViewModels) _onPromptAdded?.Invoke(p);
+            AttachRow(row);
         }
         NotifyTableShapeChanged();
     }
 
-    internal (TableColumn, List<PromptViewModelBase>) ApplyAddColumn()
+    private static Section CloneSection(Section s) => new()
     {
-        var def = _section.TableLayout!;
-        var ordinal = def.Columns.Count + 1;
-        var col = new TableColumn { Id = $"col{ordinal}", Label = $"Column {ordinal}", Type = "text" };
-        def.Columns.Add(col);
-        var added = new List<PromptViewModelBase>();
-        foreach (var rowVm in _nestedSections)
-        {
-            var cellPrompt = new Prompt
-            {
-                Id = $"{rowVm._section.Id}.{col.Id}",
-                Label = col.Label,
-                Hints = new PromptHints { ExpectedDataType = col.Type },
-            };
-            rowVm._section.Prompts.Add(cellPrompt);
-            var promptVm = _factory.Create(cellPrompt);
-            rowVm._promptViewModels.Add(promptVm);
-            _onPromptAdded?.Invoke(promptVm);
-            added.Add(promptVm);
-        }
-        ReconfigureAllRowsAsTableRows();
-        NotifyTableShapeChanged();
-        return (col, added);
-    }
+        Id = s.Id,
+        Title = s.Title,
+        Description = s.Description,
+        Kind = s.Kind,
+        CanAddRows = s.CanAddRows,
+        MaxRows = s.MaxRows,
+        Prompts = s.Prompts.Select(ClonePrompt).ToList(),
+        Sections = s.Sections.Select(CloneSection).ToList(),
+    };
 
-    internal void ApplyAddColumnRestore(TableColumn col, List<PromptViewModelBase> cellVms)
+    private static Prompt ClonePrompt(Prompt p) => new()
     {
-        var def = _section.TableLayout!;
-        def.Columns.Add(col);
-        for (var i = 0; i < _nestedSections.Count && i < cellVms.Count; i++)
+        Id = p.Id,
+        Label = p.Label,
+        Response = p.Response,
+        Hints = new PromptHints
         {
-            var rowVm = _nestedSections[i];
-            var promptVm = cellVms[i];
-            rowVm._section.Prompts.Add(promptVm.Model);
-            rowVm._promptViewModels.Add(promptVm);
-            _onPromptAdded?.Invoke(promptVm);
-        }
-        ReconfigureAllRowsAsTableRows();
-        NotifyTableShapeChanged();
-    }
+            ExpectedDataType = p.Hints.ExpectedDataType,
+            Placeholder = p.Hints.Placeholder,
+            HelpText = p.Hints.HelpText,
+            ValidationPattern = p.Hints.ValidationPattern,
+            SuggestedValues = new List<string>(p.Hints.SuggestedValues),
+            ExprHidden = p.Hints.ExprHidden,
+            ExprValue = p.Hints.ExprValue,
+            ExprExpected = p.Hints.ExprExpected,
+            ExprValidation = p.Hints.ExprValidation,
+            ExprReadOnly = p.Hints.ExprReadOnly,
+        },
+    };
 
-    internal void ApplyAddColumnAtRestore(int index, TableColumn col, List<PromptViewModelBase> cellVms)
+    /// <summary>Builds this section's cells, when it is an instance of a parent table.</summary>
+    internal void ConfigureAsTableRow()
     {
-        var def = _section.TableLayout!;
-        if (index < 0 || index > def.Columns.Count) index = def.Columns.Count;
-        def.Columns.Insert(index, col);
-        for (var i = 0; i < _nestedSections.Count && i < cellVms.Count; i++)
-        {
-            var rowVm = _nestedSections[i];
-            var promptVm = cellVms[i];
-            rowVm._section.Prompts.Add(promptVm.Model);
-            rowVm._promptViewModels.Add(promptVm);
-            _onPromptAdded?.Invoke(promptVm);
-        }
-        ReconfigureAllRowsAsTableRows();
-        NotifyTableShapeChanged();
-    }
-
-    internal List<PromptViewModelBase> ApplyRemoveColumnAndCapture(TableColumn column)
-    {
-        var def = _section.TableLayout!;
-        def.Columns.Remove(column);
-        var dropped = new List<PromptViewModelBase>();
-        foreach (var rowVm in _nestedSections)
-        {
-            var matching = rowVm._promptViewModels.FirstOrDefault(vm => vm.Id == $"{rowVm._section.Id}.{column.Id}");
-            if (matching != null)
-            {
-                _onPromptRemoved?.Invoke(matching);
-                rowVm._section.Prompts.Remove(matching.Model);
-                rowVm._promptViewModels.Remove(matching);
-                dropped.Add(matching);
-            }
-        }
-        ReconfigureAllRowsAsTableRows();
-        NotifyTableShapeChanged();
-        return dropped;
-    }
-
-    internal void ApplyRemoveColumn(TableColumn column, List<PromptViewModelBase> droppedCellVms)
-    {
-        // Used by AddColumn.Undo: drop the column we previously added.
-        var def = _section.TableLayout!;
-        def.Columns.Remove(column);
-        foreach (var vm in droppedCellVms)
-        {
-            var rowVm = _nestedSections.FirstOrDefault(r => r._promptViewModels.Contains(vm));
-            if (rowVm == null) continue;
-            _onPromptRemoved?.Invoke(vm);
-            rowVm._section.Prompts.Remove(vm.Model);
-            rowVm._promptViewModels.Remove(vm);
-        }
-        ReconfigureAllRowsAsTableRows();
-        NotifyTableShapeChanged();
-    }
-
-    internal (FixedRow, SectionViewModel, int) ApplyAddFixedRow()
-    {
-        var def = _section.TableLayout!;
-        var ordinal = def.FixedRows!.Count + 1;
-        var rowId = $"row{ordinal}";
-        while (def.FixedRows.Any(r => r.Id == rowId))
-        {
-            ordinal++;
-            rowId = $"row{ordinal}";
-        }
-        var fixedRow = new FixedRow { Id = rowId, Label = $"Row {ordinal}" };
-        def.FixedRows.Add(fixedRow);
-
-        var rowSection = new Section { Id = rowId, Title = $"Row {ordinal}" };
-        foreach (var col in def.Columns)
-        {
-            rowSection.Prompts.Add(new Prompt
-            {
-                Id = $"{rowId}.{col.Id}",
-                Label = col.Label,
-                Hints = new PromptHints { ExpectedDataType = col.Type },
-            });
-        }
-        _section.Sections.Add(rowSection);
-        var rowVm = new SectionViewModel(rowSection, _factory, _depth + 1, _onPromptAdded, _onPromptRemoved, _history);
-        rowVm.ConfigureAsTableRow(def.Columns);
-        _nestedSections.Add(rowVm);
-        foreach (var p in rowVm._promptViewModels) _onPromptAdded?.Invoke(p);
-        NotifyTableShapeChanged();
-        return (fixedRow, rowVm, _nestedSections.Count - 1);
-    }
-
-    internal void ApplyAddFixedRowRestore(FixedRow row, SectionViewModel rowVm, int vmIndex)
-    {
-        var def = _section.TableLayout!;
-        def.FixedRows!.Add(row);
-        _section.Sections.Add(rowVm._section);
-        if (vmIndex < 0 || vmIndex > _nestedSections.Count) vmIndex = _nestedSections.Count;
-        _nestedSections.Insert(vmIndex, rowVm);
-        foreach (var p in rowVm._promptViewModels) _onPromptAdded?.Invoke(p);
-        rowVm.ConfigureAsTableRow(def.Columns);
-        NotifyTableShapeChanged();
-    }
-
-    internal void ApplyAddFixedRowAtRestore(int layoutIndex, FixedRow row, SectionViewModel rowVm, int vmIndex)
-    {
-        var def = _section.TableLayout!;
-        var fixedRows = def.FixedRows!;
-        if (layoutIndex < 0 || layoutIndex > fixedRows.Count) layoutIndex = fixedRows.Count;
-        fixedRows.Insert(layoutIndex, row);
-        _section.Sections.Add(rowVm._section);
-        if (vmIndex < 0 || vmIndex > _nestedSections.Count) vmIndex = _nestedSections.Count;
-        _nestedSections.Insert(vmIndex, rowVm);
-        foreach (var p in rowVm._promptViewModels) _onPromptAdded?.Invoke(p);
-        rowVm.ConfigureAsTableRow(def.Columns);
-        NotifyTableShapeChanged();
-    }
-
-    internal void ApplyRemoveFixedRow(SectionViewModel row)
-    {
-        var def = _section.TableLayout!;
-        if (def.FixedRows == null) return;
-        if (!_nestedSections.Contains(row)) return;
-        foreach (var p in row._promptViewModels) _onPromptRemoved?.Invoke(p);
-        def.FixedRows.RemoveAll(r => r.Id == row.Id);
-        _section.Sections.Remove(row.Model);
-        _nestedSections.Remove(row);
-        NotifyTableShapeChanged();
-    }
-
-    /// <summary>Builds the cell view-models for this section's prompts in the order
-    /// declared by <paramref name="columns"/>. Called by the parent table-section
-    /// during construction, and again on every dynamic add/remove so labels stay
-    /// renumbered.</summary>
-    internal void ConfigureAsTableRow(IReadOnlyList<TableColumn> columns)
-    {
-        var built = new List<TableCellViewModel>(columns.Count);
-        foreach (var col in columns)
-        {
-            var cellId = $"{_section.Id}.{col.Id}";
-            var promptVm = _promptViewModels.FirstOrDefault(vm => vm.Id == cellId);
-            if (promptVm == null) continue;
-            built.Add(new TableCellViewModel(promptVm, col));
-        }
-        Cells = built;
-    }
-
-    /// <summary>Append a new dynamic row at fill time. Builds a fresh row sub-section
-    /// with one cell-prompt per column, wires it into the model and VM trees, and
-    /// notifies the host so the shell can subscribe to the new prompts' Response
-    /// events. Not undoable — fill-time dynamic add/remove is not part of the
-    /// authoring history.</summary>
-    public void AddRow()
-    {
-        if (TableLayout?.DynamicRows is null) return;
-        if (_nestedSections.Count >= TableLayout.DynamicRows.MaxRows) return;
-
-        var def = TableLayout;
-        var rowId = Guid.NewGuid().ToString("N");
-        var ordinal = _nestedSections.Count + 1;
-        var rowSection = new Section
-        {
-            Id = rowId,
-            Title = $"{def.DynamicRows!.RowLabel} {ordinal}",
-            Prompts = def.Columns.Select(col => new Prompt
-            {
-                Id = $"{rowId}.{col.Id}",
-                Label = col.Label,
-                Hints = new PromptHints
-                {
-                    ExpectedDataType = col.Type,
-                    Placeholder = col.Placeholder,
-                    HelpText = col.HelpText,
-                    SuggestedValues = col.SuggestedValues?.ToList() ?? new List<string>(),
-                },
-            }).ToList(),
-        };
-        _section.Sections.Add(rowSection);
-
-        var rowVm = new SectionViewModel(rowSection, _factory, _depth + 1, _onPromptAdded, _onPromptRemoved, _history);
-        rowVm.ConfigureAsTableRow(def.Columns);
-        _nestedSections.Add(rowVm);
-
-        foreach (var promptVm in rowVm.PromptViewModels)
-        {
-            _onPromptAdded?.Invoke(promptVm);
-        }
-
-        NotifyTableMembershipChanged();
-    }
-
-    /// <summary>Remove a dynamic row at fill time. Renumbers remaining row labels.</summary>
-    public void RemoveRow(SectionViewModel? row)
-    {
-        if (row is null) return;
-        if (TableLayout?.DynamicRows is null) return;
-        if (_nestedSections.Count <= TableLayout.DynamicRows.MinRows) return;
-        if (!_nestedSections.Contains(row)) return;
-
-        foreach (var promptVm in row._promptViewModels)
-        {
-            _onPromptRemoved?.Invoke(promptVm);
-        }
-
-        _section.Sections.Remove(row._section);
-        _nestedSections.Remove(row);
-
-        var rowLabel = TableLayout.DynamicRows.RowLabel;
-        for (var i = 0; i < _nestedSections.Count; i++)
-        {
-            var sib = _nestedSections[i];
-            sib._section.Title = $"{rowLabel} {i + 1}";
-            sib.OnPropertyChanged(nameof(Title));
-        }
-
-        NotifyTableMembershipChanged();
-    }
-
-    private void RebuildRowSubSectionsFromTableLayout()
-    {
-        foreach (var rowVm in _nestedSections.ToList())
-        {
-            foreach (var p in rowVm._promptViewModels) _onPromptRemoved?.Invoke(p);
-        }
-        _section.Sections.Clear();
-        _nestedSections.Clear();
-
-        var def = _section.TableLayout!;
-        if (def.FixedRows != null)
-        {
-            foreach (var fixedRow in def.FixedRows)
-            {
-                var rowSection = new Section { Id = fixedRow.Id, Title = fixedRow.Label };
-                foreach (var col in def.Columns)
-                {
-                    rowSection.Prompts.Add(new Prompt
-                    {
-                        Id = $"{fixedRow.Id}.{col.Id}",
-                        Label = col.Label,
-                        Hints = new PromptHints { ExpectedDataType = col.Type },
-                    });
-                }
-                _section.Sections.Add(rowSection);
-                var rowVm = new SectionViewModel(rowSection, _factory, _depth + 1, _onPromptAdded, _onPromptRemoved, _history);
-                rowVm.ConfigureAsTableRow(def.Columns);
-                _nestedSections.Add(rowVm);
-                foreach (var p in rowVm._promptViewModels) _onPromptAdded?.Invoke(p);
-            }
-        }
+        Cells = _promptViewModels.Select(vm => new TableCellViewModel(vm)).ToList();
     }
 
     private void ReconfigureAllRowsAsTableRows()
     {
         if (!IsTableSection) return;
-        foreach (var rowVm in _nestedSections)
-        {
-            rowVm.ConfigureAsTableRow(TableLayout!.Columns);
-        }
+        foreach (var rowVm in _nestedSections) rowVm.ConfigureAsTableRow();
     }
 
-    /// <summary>Re-syncs the observable Columns mirror to the underlying
-    /// <c>TableLayout.Columns</c> list. Called after any Apply* op that adds,
-    /// removes, or reorders columns, and after table-layout state changes
-    /// (convert / strip / restore-from-snapshot).</summary>
+    /// <summary>Re-derives the column headers from the first instance's prompts.</summary>
     private void SyncColumnsObservable()
     {
         _columnsObservable.Clear();
-        var layoutColumns = _section.TableLayout?.Columns;
-        if (layoutColumns != null)
+        if (!IsTableSection) return;
+        var first = _nestedSections.FirstOrDefault()?._section.Prompts;
+        if (first == null) return;
+        for (var i = 0; i < first.Count; i++)
         {
-            foreach (var c in layoutColumns) _columnsObservable.Add(c);
+            _columnsObservable.Add(new TableColumnViewModel(this, i, first[i].Label));
         }
     }
 
     private void NotifyTableShapeChanged()
     {
-        // Re-sync the observable column mirror first so listeners that
-        // re-fetch Columns in response to PropertyChanged see the new state.
         SyncColumnsObservable();
+        ReconfigureAllRowsAsTableRows();
         OnPropertyChanged(nameof(IsTableSection));
         OnPropertyChanged(nameof(IsRegularSection));
         OnPropertyChanged(nameof(IsFixedTable));
         OnPropertyChanged(nameof(IsDynamicTable));
-        OnPropertyChanged(nameof(TableLayout));
         OnPropertyChanged(nameof(Columns));
+        OnPropertyChanged(nameof(MaxRowsText));
         NotifyTableMembershipChanged();
     }
 
     private void NotifyTableMembershipChanged()
     {
+        OnPropertyChanged(nameof(NestedSections));
         OnPropertyChanged(nameof(CanAddRow));
         OnPropertyChanged(nameof(CanRemoveRow));
-        AddRowCommand.NotifyCanExecuteChanged();
-        RemoveRowCommand.NotifyCanExecuteChanged();
     }
 
-    /// <summary>Helper for property setters. Routes the mutation through the
-    /// edit history (when one is configured and not currently applying) so the
-    /// edit is undoable + mergeable, otherwise applies it directly.</summary>
     private void SetWithUndo<T>(string propertyName, Func<T> getter, Action<T> applySetter, T newValue)
     {
         var oldValue = getter();

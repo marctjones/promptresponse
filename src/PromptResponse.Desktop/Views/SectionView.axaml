@@ -163,7 +163,7 @@
                                                     BorderThickness="0,0,1,1"
                                                     Background="#08000000">
                                                 <TextBox Text="{Binding Value, Mode=TwoWay}"
-                                                         Watermark="{Binding Placeholder}"
+                                                         PlaceholderText="{Binding Placeholder}"
                                                          Background="Transparent"
                                                          BorderThickness="0"
                                                          CornerRadius="0"
