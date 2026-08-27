@@ -320,4 +320,51 @@ public class MainShellViewGuiTests
                 .Should().BeTrue($"button '{btn.Name ?? btn.Content?.ToString() ?? "?"}' must have an accessible label");
         }
     }
+
+    /// <summary>
+    /// At the smallest supported window size the document column stays usable.
+    /// </summary>
+    /// <remarks>
+    /// Found by opening SF-86 in the editor at the persisted 900x700, which was exactly
+    /// the declared MinWidth. Two fixed side panels of 260 and 320 left roughly 320px for
+    /// the form, the wizard bar's Previous and Next buttons took most of it, and the step
+    /// label wrapped one character per line - "Sec / tion / 1 of / 12:". A minimum window
+    /// size that cannot render the layout is not a minimum.
+    /// </remarks>
+    [AvaloniaFact]
+    public void AtMinimumWindowWidth_TheDocumentColumnAndWizardLabelStayUsable()
+    {
+        var (view, vm, session, profile) = Build();
+        var doc = new AprDocument
+        {
+            Metadata = new Metadata { Title = "Minimum width check" },
+            Sections =
+            [
+                new Section { Id = "s1", Title = "Section one", Prompts = [new Prompt { Id = "a", Label = "A" }] },
+                new Section { Id = "s2", Title = "Section two", Prompts = [new Prompt { Id = "b", Label = "B" }] },
+            ],
+        };
+        session.Set(doc, null);
+        profile.Enable<PromptResponse.Desktop.Profiles.WizardModeProfile>();
+
+        var window = view.ShowInWindow(width: 1040, height: 700);
+        window.UpdateLayout();
+        GuiTestExtensions.PumpDispatcher();
+
+        var label = view.GetVisualDescendants().OfType<TextBlock>()
+            .FirstOrDefault(t => t.Text == vm.WizardStepLabel && !string.IsNullOrEmpty(t.Text));
+
+        if (label is not null)
+        {
+            label.Bounds.Width.Should().BeGreaterThan(100,
+                "the wizard step label must keep enough width to wrap into words rather than characters");
+        }
+
+        // The document column itself is what everything else depends on.
+        var grid = view.GetVisualDescendants().OfType<Grid>()
+            .FirstOrDefault(g => g.ColumnDefinitions.Count == 3 && g.ColumnDefinitions[0].Width.Value == 260);
+        grid.Should().NotBeNull("the three-column shell layout must be present");
+        grid!.ColumnDefinitions[1].MinWidth.Should().BeGreaterThanOrEqualTo(460,
+            "the document column needs a floor or the form is crushed at the minimum window size");
+    }
 }

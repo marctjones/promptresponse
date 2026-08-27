@@ -340,8 +340,15 @@
         </Panel>
 
         <!-- ============= Main 3-column layout ============= -->
-        <Grid IsVisible="{Binding HasDocument}"
-              ColumnDefinitions="260,*,320">
+        <!-- The side panels are fixed, so the document column is whatever is left. Its
+             MinWidth stops the form being crushed to nothing at the smallest window size,
+             which used to wrap the wizard step label one character per line. -->
+        <Grid IsVisible="{Binding HasDocument}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*" MinWidth="460"/>
+                <ColumnDefinition Width="320"/>
+            </Grid.ColumnDefinitions>
 
             <!-- Left rail: section navigation + search -->
             <Border Grid.Column="0"
@@ -491,7 +498,14 @@
                             CornerRadius="8"
                             Padding="14,10"
                             Margin="0,0,0,16">
-                        <Grid ColumnDefinitions="*,Auto">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <!-- Without a minimum the Auto button column takes the
+                                     width first and leaves the label a few pixels, which
+                                     Wrap then breaks one character per line. -->
+                                <ColumnDefinition Width="*" MinWidth="140"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                                        Text="{Binding WizardStepLabel}"
                                        VerticalAlignment="Center"

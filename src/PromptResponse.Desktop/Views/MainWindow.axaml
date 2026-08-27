@@ -8,7 +8,7 @@
         Title="{Binding Title}"
         Width="1180"
         Height="760"
-        MinWidth="900"
+        MinWidth="1040"
         MinHeight="560"
         Background="{Binding ActiveProfileSurfaceBrush}"
         RequestedThemeVariant="{Binding ActiveThemeVariant}"
