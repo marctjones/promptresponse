@@ -12,23 +12,34 @@
                          Content="Yes"
                          GroupName="{Binding Id}"
                          MinHeight="36"
-                         IsVisible="{Binding ShowRadios}"
+                         IsVisible="{Binding ShowRadiosNow}"
                          AutomationProperties.Name="Yes"
                          AutomationProperties.HelpText="{Binding HelpText}"/>
             <RadioButton x:Name="NoRadio"
                          Content="No"
                          GroupName="{Binding Id}"
                          MinHeight="36"
-                         IsVisible="{Binding ShowRadios}"
+                         IsVisible="{Binding ShowRadiosNow}"
                          AutomationProperties.Name="No"
                          AutomationProperties.HelpText="{Binding HelpText}"/>
             <TextBox x:Name="FreeTextEntry"
                      Text="{Binding Response, Mode=TwoWay}"
-                     PlaceholderText="Or type any answer"
+                     PlaceholderText="Type any answer"
                      Width="240"
                      MinHeight="36"
+                     IsVisible="{Binding IsRawEditing}"
                      AutomationProperties.Name="Free-text response"
                      AutomationProperties.HelpText="Any text is a valid response, including 'maybe' or 'depends'"/>
+            <Button Content="{Binding RawToggleGlyph}"
+                    Command="{Binding ToggleRawEditingCommand}"
+                    MinHeight="36"
+                    MinWidth="36"
+                    Padding="6,0"
+                    VerticalAlignment="Center"
+                    ToolTip.Tip="{Binding RawToggleName}"
+                    AutomationProperties.Name="{Binding RawToggleName}"
+                    AutomationProperties.HelpText="Any text is a valid response. Switch to a plain text box to type something the suggested input cannot express."/>
+
         </StackPanel>
         <TextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"

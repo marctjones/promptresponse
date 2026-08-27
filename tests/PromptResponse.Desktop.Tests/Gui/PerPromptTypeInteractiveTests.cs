@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.VisualTree;
 using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using AwesomeAssertions;
@@ -51,6 +52,8 @@ public class PerPromptTypeInteractiveTests
     {
         var view = new TView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+        GuiTestExtensions.PumpDispatcher();
         var tb = view.FindDescendant<TextBox>(t => t.Name == "ResponseTextBox");
         tb.Focus();
         GuiTestExtensions.PumpDispatcher();
@@ -102,6 +105,8 @@ public class PerPromptTypeInteractiveTests
         var view = new NumberPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
         var hint = view.FindDescendant<TextBlock>(t => t.Name == "DisplayHint");
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+        GuiTestExtensions.PumpDispatcher();
         var tb = view.FindDescendant<TextBox>(t => t.Name == "ResponseTextBox");
         tb.Focus();
         GuiTestExtensions.PumpDispatcher();
@@ -182,6 +187,8 @@ public class PerPromptTypeInteractiveTests
         var vm = new BooleanPromptViewModel(P("p", "Resident", "boolean"), NewService());
         var view = new BooleanPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+        GuiTestExtensions.PumpDispatcher();
         var ft = view.FindDescendant<TextBox>(t => t.Name == "FreeTextEntry");
         ft.Focus();
         GuiTestExtensions.PumpDispatcher();
@@ -278,6 +285,8 @@ public class PerPromptTypeInteractiveTests
         var vm = new SelectPromptViewModel(prompt, NewService());
         var view = new SelectPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+        GuiTestExtensions.PumpDispatcher();
         var ft = view.FindDescendant<TextBox>(t => t.Name == "FreeTextEntry");
         ft.Focus();
         GuiTestExtensions.PumpDispatcher();
@@ -324,5 +333,45 @@ public class PerPromptTypeInteractiveTests
         window.TypeText("123456789");
         tb.Text.Should().Be("123456789",
             "text hint has no mask — even with PhoneInputMask flag on, no reshape happens");
+    }
+
+    /// <summary>
+    /// A hinted widget is shown alone, with the plain text field one activation away.
+    /// </summary>
+    /// <remarks>
+    /// Showing the widget and a raw box side by side made "any string is a valid response"
+    /// visible, but put a box on every field that most people never need. The guarantee is
+    /// that raw text is always *reachable*, not that it is always on screen - so the
+    /// toggle carries the promise, and this test holds it to that.
+    /// </remarks>
+    [AvaloniaFact]
+    public void HintedWidgetIsShownAlone_AndRawTextIsOneToggleAway()
+    {
+        var vm = new BooleanPromptViewModel(P("p", "Resident", "boolean"), NewService());
+        var view = new BooleanPromptView { DataContext = vm };
+        var window = view.ShowInWindow(width: 600, height: 200);
+
+        var raw = view.FindDescendant<TextBox>(t => t.Name == "FreeTextEntry");
+        raw.IsVisible.Should().BeFalse("the plain text box is not permanent furniture");
+        vm.ShowHintedWidget.Should().BeTrue();
+
+        // The toggle must be a real, named control - a glyph alone is unreadable.
+        var toggle = view.GetVisualDescendants().OfType<Button>().FirstOrDefault(b =>
+            (b.GetValue(Avalonia.Automation.AutomationProperties.NameProperty) as string ?? "")
+                .Contains("Resident", StringComparison.Ordinal));
+        toggle.Should().NotBeNull("the way through to raw text must be discoverable by name");
+
+        vm.ToggleRawEditing();
+        GuiTestExtensions.PumpDispatcher();
+        window.UpdateLayout();
+
+        raw.IsVisible.Should().BeTrue("one activation reaches the plain text box");
+        vm.ShowHintedWidget.Should().BeFalse();
+
+        raw.Focus();
+        GuiTestExtensions.PumpDispatcher();
+        window.TypeText("depends on the lease");
+        vm.Response.Should().Be("depends on the lease",
+            "whatever the hint suggests, any string remains a valid response");
     }
 }

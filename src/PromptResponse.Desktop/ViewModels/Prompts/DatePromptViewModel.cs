@@ -19,7 +19,15 @@ public sealed class DatePromptViewModel : PromptViewModelBase
     /// <summary>True when the active capability profile includes the calendar-picker
     /// affordance. Bound to the picker's IsVisible — universal-core (no flag active)
     /// shows just the text field.</summary>
+    /// <summary>The picker is shown when its affordance is on and the user has not asked
+    /// for the plain text box instead.</summary>
+    public bool ShowCalendarPickerNow => ShowCalendarPicker && ShowHintedWidget;
+
     public bool ShowCalendarPicker => ProfileService.IsActive(typeof(CalendarPickerProfile));
 
-    protected override void OnDerivedPropertiesShouldRefresh() => Notify(nameof(ShowCalendarPicker));
+    protected override void OnDerivedPropertiesShouldRefresh()
+    {
+        Notify(nameof(ShowCalendarPicker));
+        Notify(nameof(ShowCalendarPickerNow));
+    }
 }

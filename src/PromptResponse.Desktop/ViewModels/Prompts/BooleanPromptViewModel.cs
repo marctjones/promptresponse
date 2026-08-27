@@ -19,7 +19,15 @@ public sealed class BooleanPromptViewModel : PromptViewModelBase
     /// shows just the free-text field.</summary>
     public bool ShowRadios => ProfileService.IsActive(typeof(BooleanRadiosProfile));
 
-    protected override void OnDerivedPropertiesShouldRefresh() => Notify(nameof(ShowRadios));
+    /// <summary>Radios are shown when the affordance is on and the user has not asked
+    /// for the plain text box instead.</summary>
+    public bool ShowRadiosNow => ShowRadios && ShowHintedWidget;
+
+    protected override void OnDerivedPropertiesShouldRefresh()
+    {
+        Notify(nameof(ShowRadios));
+        Notify(nameof(ShowRadiosNow));
+    }
 
     /// <summary>
     /// Three-state boolean view: true if response parses as a yes-equivalent,

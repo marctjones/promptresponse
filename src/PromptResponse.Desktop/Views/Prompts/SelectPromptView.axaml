@@ -8,26 +8,41 @@
                    FontWeight="SemiBold"
                    AutomationProperties.Name="{Binding Label}"/>
         <!--
-            ComboBox + free-text TextBox: the user can pick from suggestions OR
-            type any value. Per the vision, the suggestions are a hint, not a constraint.
+            The suggestions are a hint, not a constraint. The dropdown is shown by
+            default and the toggle switches to a plain text box, so any answer remains
+            typeable without a second field permanently on screen.
         -->
-        <Grid ColumnDefinitions="Auto,*">
+        <Grid ColumnDefinitions="Auto,*,Auto">
             <ComboBox Grid.Column="0"
                       x:Name="SuggestionsCombo"
                       ItemsSource="{Binding SuggestedValues}"
                       SelectedItem="{Binding Response, Mode=TwoWay}"
                       MinHeight="36"
                       MinWidth="200"
+                      IsVisible="{Binding ShowHintedWidget}"
                       AutomationProperties.Name="{Binding Label}"
                       AutomationProperties.HelpText="Choose a suggested answer"/>
             <TextBox Grid.Column="1"
                      x:Name="FreeTextEntry"
                      Text="{Binding Response, Mode=TwoWay}"
-                     PlaceholderText="Or type any answer"
+                     PlaceholderText="Type any answer"
                      Margin="8,0,0,0"
                      MinHeight="36"
+                     IsVisible="{Binding IsRawEditing}"
                      AutomationProperties.Name="Free-text response"
                      AutomationProperties.HelpText="Type any answer; not limited to the suggestion list"/>
+            <Button Grid.Column="2"
+                    Content="{Binding RawToggleGlyph}"
+                    Command="{Binding ToggleRawEditingCommand}"
+                    MinHeight="36"
+                    MinWidth="36"
+                    Padding="6,0"
+                    Margin="8,0,0,0"
+                    VerticalAlignment="Center"
+                    ToolTip.Tip="{Binding RawToggleName}"
+                    AutomationProperties.Name="{Binding RawToggleName}"
+                    AutomationProperties.HelpText="Any text is a valid response. Switch to a plain text box to type something the suggested input cannot express."/>
+
         </Grid>
         <TextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"

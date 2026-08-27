@@ -6,6 +6,7 @@
     <StackPanel Spacing="6">
         <TextBlock Text="{Binding Label}" FontWeight="SemiBold"/>
         <ItemsControl x:Name="ChoicesHost"
+                      IsVisible="{Binding ShowHintedWidget}"
                       ItemsSource="{Binding SuggestedValues}"
                       AutomationProperties.Name="{Binding Label}">
             <ItemsControl.ItemTemplate>
@@ -19,12 +20,22 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <TextBox x:Name="FreeTextEntry"
+                 IsVisible="{Binding IsRawEditing}"
                  Text="{Binding Response, Mode=TwoWay}"
                  PlaceholderText="Or type a comma-separated response"
                  MinHeight="36"
                  CornerRadius="6"
                  AutomationProperties.Name="Free-text response"
                  AutomationProperties.HelpText="Any text is a valid response — the comma-separated checkbox state is just a convenient default."/>
+        <Button Content="{Binding RawToggleGlyph}"
+                Command="{Binding ToggleRawEditingCommand}"
+                HorizontalAlignment="Left"
+                MinHeight="36"
+                MinWidth="36"
+                Padding="6,0"
+                ToolTip.Tip="{Binding RawToggleName}"
+                AutomationProperties.Name="{Binding RawToggleName}"
+                AutomationProperties.HelpText="Any text is a valid response. Switch to a plain text box to type something the suggested input cannot express."/>
         <TextBlock Text="{Binding HelpText}"
                    FontSize="12" Opacity="0.7"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>

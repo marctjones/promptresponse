@@ -44,6 +44,10 @@ public class PromptViewsGuiTests
         var view = new TextPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
 
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+
+        GuiTestExtensions.PumpDispatcher();
+
         var textBox = view.FindDescendant<TextBox>(t => t.Name == "ResponseTextBox");
         textBox.Focus();
         GuiTestExtensions.PumpDispatcher();
@@ -62,6 +66,10 @@ public class PromptViewsGuiTests
         var view = new TextPromptView { DataContext = vm };
         view.ShowInWindow(width: 400, height: 200);
 
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+
+        GuiTestExtensions.PumpDispatcher();
+
         var textBox = view.FindDescendant<TextBox>(t => t.Name == "ResponseTextBox");
 
         textBox.GetValue(Avalonia.Automation.AutomationProperties.NameProperty).Should().Be("Full Name");
@@ -76,6 +84,10 @@ public class PromptViewsGuiTests
         var vm = new NumberPromptViewModel(P("p", "Age", "number"), NewService());
         var view = new NumberPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 400, height: 200);
+
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+
+        GuiTestExtensions.PumpDispatcher();
 
         var textBox = view.FindDescendant<TextBox>(t => t.Name == "ResponseTextBox");
         textBox.Focus();
@@ -109,6 +121,10 @@ public class PromptViewsGuiTests
         var vm = new MultilinePromptViewModel(P("p", "Notes", "multiline"), NewService());
         var view = new MultilinePromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 300);
+
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+
+        GuiTestExtensions.PumpDispatcher();
 
         var textBox = view.FindDescendant<TextBox>(t => t.Name == "ResponseTextBox");
         textBox.Focus();
@@ -146,6 +162,10 @@ public class PromptViewsGuiTests
         var view = new BooleanPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
 
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+
+        GuiTestExtensions.PumpDispatcher();
+
         var freeText = view.FindDescendant<TextBox>(t => t.Name == "FreeTextEntry");
         freeText.Focus();
         GuiTestExtensions.PumpDispatcher();
@@ -163,6 +183,10 @@ public class PromptViewsGuiTests
         var vm = new SelectPromptViewModel(prompt, NewService());
         var view = new SelectPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
+
+        vm.ToggleRawEditing();   // the raw field is reachable, not permanently on screen
+
+        GuiTestExtensions.PumpDispatcher();
 
         var freeText = view.FindDescendant<TextBox>(t => t.Name == "FreeTextEntry");
         freeText.Focus();

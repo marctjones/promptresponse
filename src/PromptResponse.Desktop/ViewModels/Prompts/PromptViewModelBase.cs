@@ -173,6 +173,61 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// <summary>Convenience inverse of <see cref="IsReadOnly"/> for binding input enablement.</summary>
     public bool IsInputEnabled => !_isReadOnly;
 
+    private bool _isRawEditing;
+
+    /// <summary>
+    /// Whether this prompt is currently showing the plain text field instead of the
+    /// widget its type hint suggests.
+    /// </summary>
+    /// <remarks>
+    /// A hint suggests an affordance; it never restricts what may be entered. Showing the
+    /// widget and a raw text box side by side made that promise visible but cluttered
+    /// every field with a box most people never need. Showing the widget alone with a way
+    /// through to raw text keeps the promise and the calm: a date picker for the common
+    /// case, and "the summer of 1985" still typeable by anyone who needs it.
+    ///
+    /// This is per-prompt and per-session. It is a view state, never stored - nothing
+    /// about how someone chose to enter an answer belongs in the document.
+    /// </remarks>
+    public bool IsRawEditing
+    {
+        get => _isRawEditing;
+        private set
+        {
+            if (_isRawEditing == value) return;
+            _isRawEditing = value;
+            Notify(nameof(IsRawEditing));
+            Notify(nameof(ShowHintedWidget));
+            OnDerivedPropertiesShouldRefresh();
+            Notify(nameof(RawToggleName));
+            Notify(nameof(RawToggleGlyph));
+        }
+    }
+
+    /// <summary>Whether the type-hinted widget should be shown rather than the text field.</summary>
+    public bool ShowHintedWidget => !_isRawEditing;
+
+    /// <summary>
+    /// Glyph for the toggle. Deliberately not the only signal: the button also carries an
+    /// accessible name and tooltip describing what activating it will do, because a glyph
+    /// alone is unreadable to a screen reader and ambiguous to everyone else.
+    /// </summary>
+    public string RawToggleGlyph => _isRawEditing ? "\u2611" : "\u270E";
+
+    /// <summary>Accessible name for the toggle, describing what activating it will do.</summary>
+    public string RawToggleName => _isRawEditing
+        ? $"Use the suggested input for {Label}"
+        : $"Type any text for {Label}";
+
+    /// <summary>Flips between the hinted widget and the plain text field.</summary>
+    public void ToggleRawEditing() => IsRawEditing = !_isRawEditing;
+
+    /// <summary>Command form of <see cref="ToggleRawEditing"/> for view binding.</summary>
+    public System.Windows.Input.ICommand ToggleRawEditingCommand =>
+        _toggleRawEditingCommand ??= new CommunityToolkit.Mvvm.Input.RelayCommand(ToggleRawEditing);
+
+    private System.Windows.Input.ICommand? _toggleRawEditingCommand;
+
     /// <summary>
     /// Re-reads the response from the underlying model and pulses the derived
     /// display properties. Called after expression recompute writes a computed

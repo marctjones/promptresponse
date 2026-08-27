@@ -7,10 +7,11 @@
         <TextBlock Text="{Binding Label}"
                    FontWeight="SemiBold"
                    AutomationProperties.Name="{Binding Label}"/>
-        <Grid ColumnDefinitions="*,Auto">
+        <Grid ColumnDefinitions="*,Auto,Auto">
             <!-- Universal core: free-text input. Any visible text is a valid response. -->
             <TextBox Grid.Column="0"
                      x:Name="ResponseTextBox"
+                     IsVisible="{Binding IsRawEditing}"
                      Text="{Binding Response, Mode=TwoWay}"
                      PlaceholderText="{Binding Placeholder, FallbackValue='YYYY-MM-DD or any text'}"
                      MinHeight="36"
@@ -28,11 +29,22 @@
                                 Margin="8,0,0,0"
                                 MinHeight="36"
                                 MinWidth="160"
-                                IsVisible="{Binding ShowCalendarPicker}"
+                                IsVisible="{Binding ShowCalendarPickerNow}"
                                 SelectedDateChanged="OnSelectedDateChanged"
                                 AutomationProperties.Name="Pick a date"
                                 AutomationProperties.HelpText="Calendar picker; you can also type any text in the field on the left"/>
-        </Grid>
+            <Button Grid.Column="2"
+                    Content="{Binding RawToggleGlyph}"
+                    Command="{Binding ToggleRawEditingCommand}"
+                    MinHeight="36"
+                    MinWidth="36"
+                    Padding="6,0"
+                    Margin="8,0,0,0"
+                    VerticalAlignment="Center"
+                    ToolTip.Tip="{Binding RawToggleName}"
+                    AutomationProperties.Name="{Binding RawToggleName}"
+                    AutomationProperties.HelpText="Any text is a valid response. Switch to a plain text box to type something the suggested input cannot express."/>
+</Grid>
         <TextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                    FontSize="12"
