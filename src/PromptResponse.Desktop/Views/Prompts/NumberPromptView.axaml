@@ -25,9 +25,9 @@
                    FontSize="12"
                    Opacity="0.7"
                    AutomationProperties.LiveSetting="Polite"/>
-        <TextBlock Text="{Binding HelpText}"
+        <SelectableTextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                    FontSize="12"
-                   Opacity="0.7"/>
+                   Opacity="0.7" TextWrapping="Wrap"/>
     </StackPanel>
 </UserControl>

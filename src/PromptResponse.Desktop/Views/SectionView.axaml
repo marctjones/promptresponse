@@ -27,7 +27,7 @@
                     </MultiBinding>
                 </TextBlock.FontSize>
             </TextBlock>
-            <TextBlock Text="{Binding Description}"
+            <SelectableTextBlock Text="{Binding Description}"
                        FontSize="13"
                        Opacity="0.7"
                        TextWrapping="Wrap"
@@ -155,10 +155,10 @@
                                 <Border MinWidth="160"
                                         Padding="10,8"
                                         BorderThickness="0,0,1,1">
-                                    <TextBlock Text="{Binding Label}"
+                                    <SelectableTextBlock Text="{Binding Label}"
                                                FontWeight="SemiBold"
                                                FontSize="13"
-                                               AutomationProperties.HelpText="{Binding HelpText}"/>
+                                               AutomationProperties.HelpText="{Binding HelpText}" TextWrapping="Wrap"/>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

@@ -83,6 +83,14 @@ public partial class MainShellView : UserControl
             ? desktop.MainWindow
             : null;
 
+    /// <summary>File &gt; Exit.</summary>
+    /// <remarks>
+    /// Closes the window rather than calling Shutdown so the window's own Closing
+    /// handling still runs; shutting down directly would skip it.
+    /// </remarks>
+    private void OnExitClicked(object? sender, RoutedEventArgs e) =>
+        (TopLevel.GetTopLevel(this) as Window)?.Close();
+
     private void OnDisplayPreferencesClicked(object? sender, RoutedEventArgs e)
     {
         if (DataContext is not MainShellViewModel shell) return;

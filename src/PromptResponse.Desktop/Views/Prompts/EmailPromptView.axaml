@@ -12,8 +12,8 @@
                  CornerRadius="3"
                  AutomationProperties.Name="{Binding Label}"
                  AutomationProperties.HelpText="{Binding HelpText}"/>
-        <TextBlock Text="{Binding HelpText}"
+        <SelectableTextBlock Text="{Binding HelpText}"
                    FontSize="12" Opacity="0.7"
-                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}" TextWrapping="Wrap"/>
     </StackPanel>
 </UserControl>

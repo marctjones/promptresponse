@@ -16,9 +16,9 @@
                  VerticalContentAlignment="Top"
                  AutomationProperties.Name="{Binding Label}"
                  AutomationProperties.HelpText="{Binding HelpText}"/>
-        <TextBlock Text="{Binding HelpText}"
+        <SelectableTextBlock Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                    FontSize="12"
-                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                   Foreground="{DynamicResource SystemBaseMediumColor}" TextWrapping="Wrap"/>
     </StackPanel>
 </UserControl>

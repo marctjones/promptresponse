@@ -40,8 +40,8 @@
                 ToolTip.Tip="{Binding RawToggleName}"
                 AutomationProperties.Name="{Binding RawToggleName}"
                 AutomationProperties.HelpText="Any text is a valid response. Switch to a plain text box to type something the suggested input cannot express."/>
-        <TextBlock Text="{Binding HelpText}"
+        <SelectableTextBlock Text="{Binding HelpText}"
                    FontSize="12" Opacity="0.7"
-                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                   IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}" TextWrapping="Wrap"/>
     </StackPanel>
 </UserControl>

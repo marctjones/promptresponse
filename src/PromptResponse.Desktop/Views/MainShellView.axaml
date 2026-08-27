@@ -100,7 +100,21 @@
                           Command="{Binding CloseCommand}"
                           HotKey="Ctrl+W"
                           InputGesture="Ctrl+W"
-                          AutomationProperties.Name="Close"/>
+                          AutomationProperties.Name="Close"
+                          AutomationProperties.HelpText="Close the open document. The application stays open."/>
+                <Separator/>
+                <!--
+                    Closes the window rather than shutting down directly, so the window's
+                    own Closing handling - including anything unsaved - still runs.
+                    macOS also offers Quit on the application menu; File > Exit is what
+                    Windows and Linux users reach for, and this is a cross-platform app.
+                -->
+                <MenuItem Header="E_xit"
+                          Click="OnExitClicked"
+                          HotKey="Ctrl+Q"
+                          InputGesture="Ctrl+Q"
+                          AutomationProperties.Name="Exit"
+                          AutomationProperties.HelpText="Close PromptResponse"/>
             </MenuItem>
             <MenuItem Header="_Edit" AutomationProperties.Name="Edit menu">
                 <MenuItem Header="_Undo"

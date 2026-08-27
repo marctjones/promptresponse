@@ -14,10 +14,10 @@
                  MinHeight="36"
                  AutomationProperties.Name="{Binding Label}"
                  AutomationProperties.HelpText="{Binding HelpText}"/>
-        <TextBlock x:Name="HelpText"
+        <SelectableTextBlock x:Name="HelpText"
                    Text="{Binding HelpText}"
                    IsVisible="{Binding HelpText, Converter={x:Static ObjectConverters.IsNotNull}}"
                    FontSize="12"
-                   Foreground="{DynamicResource SystemBaseMediumColor}"/>
+                   Foreground="{DynamicResource SystemBaseMediumColor}" TextWrapping="Wrap"/>
     </StackPanel>
 </UserControl>
