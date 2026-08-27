@@ -1,0 +1,407 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/marctjones/promptresponse/main/schemas/apr-1.0.schema.json",
+  "title": "APR (Adaptive Prompt Response) Document, format generation 1.0",
+  "description": "Structural schema for .aprt (template) and .aprf (filled form) documents. Covers format generation 1.0: today that means the single accepted version \"1.0-beta\"; at the stable tag \"1.0\" is added and \"1.0-beta\" is kept permanently. The filename and $id stay fixed across that transition on purpose, because the $id is a URL that implementations resolve. This schema is NORMATIVE for structure and NON-NORMATIVE for the rules it cannot express (see $comment on 'Rules this schema cannot express'). Unknown properties are permitted everywhere by design: the reference implementation ignores them, and forward-compatible extension depends on it.",
+  "$comment": "Rules this schema cannot express, which a conforming validator MUST still enforce: (1) section ids are unique document-wide; (2) prompt ids are unique document-wide (a section id and a prompt id MAY coincide); (3) canonical signature payloads verify; (4) within a kind=table section, prompts at the same position across instances should correspond (a ragged or mislabelled table is advisory, never invalid). Rules this schema deliberately does NOT express because they are advisory: every hint under prompt.hints, including validationPattern and the expr* family, never constrains 'response'. Any JSON string is a valid response.",
+  "type": "object",
+  "required": [
+    "version",
+    "metadata",
+    "sections"
+  ],
+  "properties": {
+    "version": {
+      "pattern": "^1\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.]+)?$",
+      "description": "APR format version, MAJOR.MINOR with an optional informational pre-release suffix. Compatibility is decided by MAJOR.MINOR alone: a different MAJOR is incompatible and MUST be rejected, while a NEWER MINOR is readable (ignore members you do not know, but preserve them). This schema therefore accepts any 1.x. The -beta suffix travels inside the file on purpose: a specification document does not accompany an emailed form, so the file itself must say the format is not yet frozen. A document declaring any version not in this list MUST be rejected. At the 1.0 stable tag, \"1.0\" is ADDED to this list and \"1.0-beta\" is kept permanently so beta-era files keep opening."
+    },
+    "documentType": {
+      "enum": [
+        "template",
+        "filledForm"
+      ],
+      "default": "template",
+      "description": "Authoritative declaration of document type. This field — NOT the filename extension — determines how the document is treated. Absent means \"template\"."
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/section"
+      },
+      "description": "A document MUST have at least one section."
+    },
+    "signatures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/signature"
+      },
+      "description": "Optional. Absent on unsigned documents. Belongs to the core+signatures conformance profile; a core-only reader MUST preserve this array byte-for-intent on round-trip but is not required to verify it."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "documentType": {
+            "const": "filledForm"
+          }
+        },
+        "required": [
+          "documentType"
+        ]
+      },
+      "then": {
+        "properties": {
+          "metadata": {
+            "required": [
+              "title",
+              "templateId"
+            ]
+          }
+        },
+        "$comment": "A filled form MUST record which template it came from."
+      }
+    }
+  ],
+  "$defs": {
+    "nonBlankString": {
+      "type": "string",
+      "pattern": "\\S",
+      "description": "A string containing at least one non-whitespace character. Whitespace-only is treated as absent."
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "author": {
+          "type": "string",
+          "description": "A person."
+        },
+        "publisher": {
+          "type": "string",
+          "description": "The organization standing behind the template. When a publisher signature is present, the certificate identity is authoritative over this field."
+        },
+        "templateId": {
+          "type": "string"
+        },
+        "templateVersion": {
+          "type": "string"
+        },
+        "filledBy": {
+          "type": "string"
+        },
+        "filledDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "submissionUrl": {
+          "type": "string",
+          "description": "Where a completed form is sent. Bound into the publisher signature payload when signed, so it cannot be redirected without invalidating that signature."
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "required": [
+        "id",
+        "title"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "title": {
+          "$ref": "#/$defs/nonBlankString",
+          "description": "Required, never optional. Section titles carry the document outline that assistive technology navigates by."
+        },
+        "description": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          }
+        },
+        "prompts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/prompt"
+          }
+        },
+        "kind": {
+          "enum": [
+            "section",
+            "table"
+          ],
+          "default": "section",
+          "description": "\"table\" declares that this section's child sections are repeating instances of one shape: prompts at the same position correspond across instances, each instance's title identifies it, and a prompt's label names the corresponding field. It is a claim about STRUCTURE, not appearance — a renderer may present it as a grid, as stacked cards, as a flat sequence of prompts, or as speech, all conformant. It licenses no layout data of any kind."
+        },
+        "canAddRows": {
+          "type": "string",
+          "description": "\"true\" if a filler may add or remove instances. Absent means instances are fixed — the safe default, since a table that silently gained a row is a worse failure than one needing an explicit property. Independent of whether the instances hold values."
+        },
+        "maxRows": {
+          "type": "string",
+          "description": "Advisory upper bound on instance count, as a string like every other value. A table carrying more is still valid and is reported as a warning."
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "prompts": {
+              "minItems": 1
+            }
+          },
+          "required": [
+            "prompts"
+          ]
+        },
+        {
+          "properties": {
+            "sections": {
+              "minItems": 1
+            }
+          },
+          "required": [
+            "sections"
+          ]
+        }
+      ],
+      "$comment": "A section MUST carry content: at least one prompt, or at least one child section. Tables included — a table always has at least one instance, because an \"empty\" table was never empty: a UI offering to add the first row is already presenting a row, and an instance is what describes the table's own fields."
+    },
+    "prompt": {
+      "type": "object",
+      "required": [
+        "id",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonBlankString"
+        },
+        "label": {
+          "$ref": "#/$defs/nonBlankString",
+          "description": "Required, never optional, and never substituted by placeholder text. This is the accessible name."
+        },
+        "response": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "ALWAYS a JSON string, in templates and filled forms alike. Never a JSON number, boolean, array, or object — those MUST be rejected at parse time. Absent means the empty string. JSON null is tolerated on READ and coerced to the empty string, but a conforming writer MUST NOT emit it; null is permitted here only so that lenient inbound documents validate."
+        },
+        "hints": {
+          "$ref": "#/$defs/promptHints"
+        },
+        "responseMetadata": {
+          "$ref": "#/$defs/responseMetadata"
+        }
+      }
+    },
+    "promptHints": {
+      "type": "object",
+      "description": "Every member of this object is ADVISORY. A hint MUST NOT cause a response to be rejected, altered, or blocked from being saved.",
+      "properties": {
+        "placeholder": {
+          "type": "string"
+        },
+        "expectedDataType": {
+          "type": "string",
+          "description": "Suggests an input affordance. Known values below are a registry, not a closed set; an unrecognized value MUST degrade to \"text\" rather than error.",
+          "examples": [
+            "text",
+            "multiline",
+            "email",
+            "phone",
+            "url",
+            "date",
+            "time",
+            "datetime",
+            "number",
+            "currency",
+            "boolean",
+            "signature",
+            "file",
+            "select",
+            "multichoice"
+          ]
+        },
+        "suggestedValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Offered as autocomplete or menu options. A response outside this list is still valid."
+        },
+        "helpText": {
+          "type": "string"
+        },
+        "validationPattern": {
+          "type": "string",
+          "description": "Advisory regex. A non-matching response is still a valid document; surface it as a warning, never a block."
+        },
+        "exprHidden": {
+          "type": "string",
+          "description": "core+expressions. Truthy hides this prompt."
+        },
+        "exprValue": {
+          "type": "string",
+          "description": "core+expressions. Computed read-only value."
+        },
+        "exprExpected": {
+          "type": "string",
+          "description": "core+expressions. Truthy marks the prompt as expected. Advisory; never blocks submission."
+        },
+        "exprValidation": {
+          "type": "string",
+          "description": "core+expressions. Returns a message; empty string means valid. Advisory."
+        },
+        "exprReadOnly": {
+          "type": "string",
+          "description": "core+expressions. Truthy makes this prompt read-only in a renderer."
+        }
+      },
+      "$comment": "A core-only reader MUST ignore the expr* family and render the prompt as an ordinary editable field, preserving the hint strings on round-trip."
+    },
+    "responseMetadata": {
+      "type": "object",
+      "properties": {
+        "inferredDataType": {
+          "type": "string",
+          "description": "What a reader detected in the response. Never authoritative, never a constraint."
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "description": "A detached CMS/PKCS#7 SignedData over a canonical payload. Pure data: verification is a side-effect-free computation, so a signed document is no less safe to open than an unsigned one. A publisher signature binds metadata.submissionUrl by reading it from the document — the signature stores no copy of its own, because a second copy is what let a redirected metadata URL still verify.",
+      "required": [
+        "id",
+        "role",
+        "scope",
+        "algorithm",
+        "canonicalization",
+        "signedAt",
+        "cms"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonBlankString",
+          "description": "Unique within the document."
+        },
+        "role": {
+          "enum": [
+            "publisher",
+            "filler"
+          ]
+        },
+        "signer": {
+          "$ref": "#/$defs/signer"
+        },
+        "scope": {
+          "enum": [
+            "template",
+            "fields"
+          ],
+          "description": "\"template\" covers the whole form definition; \"fields\" covers the prompt ids listed in \"fields\"."
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Prompt ids covered when scope is \"fields\"."
+        },
+        "algorithm": {
+          "type": "string",
+          "default": "cms/ecdsa-p256-sha256"
+        },
+        "canonicalization": {
+          "type": "string",
+          "const": "apr-sig-v2",
+          "description": "Canonical-payload scheme. A verifier that does not recognize this value MUST report the signature as unverifiable rather than invalid."
+        },
+        "signedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 UTC, bound into the signed payload."
+        },
+        "cms": {
+          "type": "string",
+          "contentEncoding": "base64",
+          "description": "Base64 detached CMS SignedData including the signer certificate chain."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "scope": {
+                "const": "fields"
+              }
+            },
+            "required": [
+              "scope"
+            ]
+          },
+          "then": {
+            "required": [
+              "fields"
+            ]
+          }
+        }
+      ]
+    },
+    "signer": {
+      "type": "object",
+      "description": "A human-readable projection of the X.509 certificate embedded in \"cms\". The certificate is authoritative; a verifier MUST NOT trust these fields over it.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "issuer": {
+          "type": "string"
+        },
+        "thumbprint": {
+          "type": "string",
+          "description": "SHA-256 hex, for pinning."
+        },
+        "selfSigned": {
+          "type": "boolean",
+          "description": "DOCUMENTED EXCEPTION to the strings-only rule: a JSON boolean. Derived, not user data — a verifier recomputes it from the certificate and MUST NOT trust this field."
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,17 @@
+> ## ⚠️ SUPERSEDED
+>
+> This draft is **superseded by [`APR_SPECIFICATION.md`](APR_SPECIFICATION.md)**
+> and is retained for history only. It describes a format version (`"0.2"`) that no
+> shipped file or validator has ever accepted, mandates extension-over-`documentType`
+> precedence that v1.0 deliberately inverts, documents table column widths that no
+> longer exist, and predates both the expression and signature profiles.
+>
+> Do not implement from this document — **with one carve-out**: **Appendix B and
+> Appendix C (the CEL expression-language reference) remain the normative
+> definition of the expression subset** until they are ported into v1.0. An
+> implementer of the `core+expressions` profile should read them. Everything else
+> here is superseded.
+
 # APR File Format Specification
 
 **Version:** 0.2

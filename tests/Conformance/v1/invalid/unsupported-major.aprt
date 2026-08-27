@@ -1,0 +1,8 @@
+{
+  "version": "2.0",
+  "documentType": "template",
+  "metadata": { "title": "Conformance Unsupported Major", "templateId": "conformance-unsupported-major" },
+  "sections": [
+    { "id": "s1", "title": "A section", "prompts": [ { "id": "p1", "label": "A field", "response": "" } ] }
+  ]
+}

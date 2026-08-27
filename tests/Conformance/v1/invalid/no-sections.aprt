@@ -1,0 +1,6 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": { "title": "Conformance No Sections", "templateId": "conformance-no-sections" },
+  "sections": []
+}

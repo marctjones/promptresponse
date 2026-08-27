@@ -1,0 +1,25 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": {
+    "title": "Canonicalization Vector Input",
+    "description": "Fixed input for the apr-sig-v2 canonical payload vectors. Do not edit — the published vectors are computed from these exact bytes.",
+    "author": "PromptResponse Conformance",
+    "publisher": "PromptResponse Conformance Corpus",
+    "templateId": "conformance-canonicalization",
+    "templateVersion": "3.2",
+    "submissionUrl": "https://example.org/forms/conformance/submit"
+  },
+  "sections": [
+    {
+      "id": "applicant",
+      "title": "Applicant",
+      "prompts": [
+        { "id": "full_name", "label": "Full name", "response": "Ada Lovelace", "hints": { "expectedDataType": "text" } },
+        { "id": "amount", "label": "Amount requested", "response": "$1,234.56", "hints": { "expectedDataType": "currency" } },
+        { "id": "unicode_note", "label": "Note", "response": "Café — 日本語 — مرحبا", "hints": { "expectedDataType": "multiline" } },
+        { "id": "empty_field", "label": "Deliberately empty", "response": "" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": { "title": "Conformance Sections Not Array", "templateId": "conformance-sections-not-array" },
+  "sections": { "id": "s1", "title": "A section object where an array is required" }
+}

@@ -1,0 +1,8 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": { "title": "Conformance Blank Ids", "templateId": "conformance-blank-ids" },
+  "sections": [
+    { "id": "  ", "title": "Section with a whitespace id", "prompts": [ { "id": "", "label": "Prompt with an empty id", "response": "" } ] }
+  ]
+}

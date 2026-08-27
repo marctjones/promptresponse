@@ -1,0 +1,117 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": {
+    "title": "Conformance Deep Nesting",
+    "description": "16 levels of section nesting: the interop floor every conforming implementation MUST support.",
+    "templateId": "conformance-deep-nesting",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "depth_1",
+      "title": "Level 1",
+      "sections": [
+        {
+          "id": "depth_2",
+          "title": "Level 2",
+          "sections": [
+            {
+              "id": "depth_3",
+              "title": "Level 3",
+              "sections": [
+                {
+                  "id": "depth_4",
+                  "title": "Level 4",
+                  "sections": [
+                    {
+                      "id": "depth_5",
+                      "title": "Level 5",
+                      "sections": [
+                        {
+                          "id": "depth_6",
+                          "title": "Level 6",
+                          "sections": [
+                            {
+                              "id": "depth_7",
+                              "title": "Level 7",
+                              "sections": [
+                                {
+                                  "id": "depth_8",
+                                  "title": "Level 8",
+                                  "sections": [
+                                    {
+                                      "id": "depth_9",
+                                      "title": "Level 9",
+                                      "sections": [
+                                        {
+                                          "id": "depth_10",
+                                          "title": "Level 10",
+                                          "sections": [
+                                            {
+                                              "id": "depth_11",
+                                              "title": "Level 11",
+                                              "sections": [
+                                                {
+                                                  "id": "depth_12",
+                                                  "title": "Level 12",
+                                                  "sections": [
+                                                    {
+                                                      "id": "depth_13",
+                                                      "title": "Level 13",
+                                                      "sections": [
+                                                        {
+                                                          "id": "depth_14",
+                                                          "title": "Level 14",
+                                                          "sections": [
+                                                            {
+                                                              "id": "depth_15",
+                                                              "title": "Level 15",
+                                                              "sections": [
+                                                                {
+                                                                  "id": "depth_16",
+                                                                  "title": "Level 16 (deepest)",
+                                                                  "prompts": [
+                                                                    {
+                                                                      "id": "deepest_field",
+                                                                      "label": "Field at the deepest level",
+                                                                      "response": "",
+                                                                      "hints": {
+                                                                        "expectedDataType": "text",
+                                                                        "helpText": "Reachable only through 16 levels of nesting."
+                                                                      }
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": {
+    "title": "Conformance Signed Template",
+    "description": "Publisher-signed template. The signature covers the form definition and binds submissionUrl.",
+    "created": "2026-06-10T00:00:00Z",
+    "modified": "2026-06-10T00:00:00Z",
+    "author": "PromptResponse Conformance",
+    "templateId": "conformance-signed-template",
+    "templateVersion": "1.0",
+    "publisher": "PromptResponse Conformance Corpus",
+    "submissionUrl": "https://attacker.example/collect"
+  },
+  "sections": [
+    {
+      "id": "contact",
+      "title": "Contact",
+      "sections": [],
+      "prompts": [
+        {
+          "id": "full_name",
+          "label": "Full name",
+          "response": "",
+          "hints": {
+            "placeholder": "Ada Lovelace",
+            "expectedDataType": "text",
+            "suggestedValues": [],
+            "helpText": "Use the name the respondent prefers."
+          },
+          "responseMetadata": {
+            "lastModified": "2026-08-26T04:31:35.583184Z"
+          }
+        }
+      ],
+      "isTable": false,
+      "allowsAddingRows": false
+    }
+  ],
+  "signatures": [
+    {
+      "id": "publisher-1",
+      "role": "publisher",
+      "signer": {
+        "name": "PromptResponse Conformance Corpus",
+        "subject": "CN=PromptResponse Conformance Corpus",
+        "issuer": "CN=PromptResponse Conformance Corpus",
+        "thumbprint": "4ED3B588563F6F2651D494DF299435E290692F014155675C54B02A4C3A2A31BC",
+        "selfSigned": true
+      },
+      "scope": "template",
+      "fields": [],
+      "algorithm": "cms/ecdsa-sha256",
+      "canonicalization": "apr-sig-v2",
+      "signedAt": "2026-08-26T04:31:35.5572750Z",
+      "cms": "MIICvAYJKoZIhvcNAQcCoIICrTCCAqkCAQExDTALBglghkgBZQMEAgEwCwYJKoZIhvcNAQcBoIIBczCCAW8wggEUoAMCAQICCQCt4kALgWiZFjAKBggqhkjOPQQDAjAsMSowKAYDVQQDEyFQcm9tcHRSZXNwb25zZSBDb25mb3JtYW5jZSBDb3JwdXMwIBcNMjYwODI1MjMwNDQ5WhgPMjEyNjA4MjUyMzA0NDlaMCwxKjAoBgNVBAMTIVByb21wdFJlc3BvbnNlIENvbmZvcm1hbmNlIENvcnB1czBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJ7oFJSFWfqh24NEjADKR2kpvMJGpjn6q1kkWXxrdT22VnsAxi6C/BiUKGBy8gzTbW0pJFfgpdTbicTHTOUdnKijHTAbMA4GA1UdDwEB/wQEAwIGwDAJBgNVHRMEAjAAMAoGCCqGSM49BAMCA0kAMEYCIQCHzFCvSZYDFb/8AtRtH0Qb4stoXc6VVaeIuUGLMLRxFQIhAKJrI\u002Bvkt1sNa4rDsPaAgAXLi1\u002BvGbC9I8xeLPElBgrkMYIBDzCCAQsCAQEwOTAsMSowKAYDVQQDEyFQcm9tcHRSZXNwb25zZSBDb25mb3JtYW5jZSBDb3JwdXMCCQCt4kALgWiZFjALBglghkgBZQMEAgGgaTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yNjA4MjYwNDMxMzVaMC8GCSqGSIb3DQEJBDEiBCDDDM5WPQ9R3f\u002BG\u002BVQr47Wunk\u002BwEa\u002B29Hyy5EexT40Y0zAKBggqhkjOPQQDAgRHMEUCIECORu\u002BdCLAlozaFJapR\u002BiQGmffwf9ksTaa7GXC\u002BpvIMAiEAiHI5kE6Mi\u002B9CgdBmlklM54V76IjfO\u002BrG02LLN2I4qs0="
+    }
+  ]
+}

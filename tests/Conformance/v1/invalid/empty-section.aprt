@@ -1,0 +1,9 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": { "title": "Conformance Empty Section", "templateId": "conformance-empty-section" },
+  "sections": [
+    { "id": "has_content", "title": "Section with content", "prompts": [ { "id": "p1", "label": "A field", "response": "" } ] },
+    { "id": "empty", "title": "Section with neither prompts nor child sections" }
+  ]
+}

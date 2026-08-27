@@ -1,0 +1,21 @@
+{
+  "version": "1.0-beta",
+  "documentType": "filledForm",
+  "metadata": {
+    "title": "Conformance Null Response Coercion",
+    "description": "JSON null is accepted on READ and coerced to the empty string. A conforming writer MUST NOT emit null; after a round-trip these fields are \"\".",
+    "templateId": "conformance-null-coercion",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "coercion",
+      "title": "Null coercion on read",
+      "prompts": [
+        { "id": "null_response", "label": "Response given as JSON null", "response": null },
+        { "id": "absent_response", "label": "Response key absent entirely" },
+        { "id": "explicit_empty", "label": "Response explicitly empty", "response": "" }
+      ]
+    }
+  ]
+}

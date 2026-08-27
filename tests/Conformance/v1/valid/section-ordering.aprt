@@ -1,0 +1,36 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": {
+    "title": "Conformance Section Ordering",
+    "description": "Pins the normative presentation order: a section's own prompts come BEFORE its child sections. Order is data.",
+    "templateId": "conformance-section-ordering",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "employment",
+      "title": "Employment history",
+      "prompts": [
+        { "id": "own_first",  "label": "Own prompt 1 (must render first)",  "response": "a" },
+        { "id": "own_second", "label": "Own prompt 2 (must render second)", "response": "b" }
+      ],
+      "sections": [
+        {
+          "id": "position_1",
+          "title": "Position 1",
+          "prompts": [
+            { "id": "child_first", "label": "Child prompt 1 (must render third)", "response": "c" }
+          ]
+        },
+        {
+          "id": "position_2",
+          "title": "Position 2",
+          "prompts": [
+            { "id": "child_second", "label": "Child prompt 2 (must render fourth)", "response": "d" }
+          ]
+        }
+      ]
+    }
+  ]
+}

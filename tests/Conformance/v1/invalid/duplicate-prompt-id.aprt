@@ -1,0 +1,31 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": {
+    "title": "Invalid Duplicate Prompt ID"
+  },
+  "sections": [
+    {
+      "id": "a",
+      "title": "A",
+      "prompts": [
+        {
+          "id": "same_id",
+          "label": "First prompt",
+          "response": ""
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "title": "B",
+      "prompts": [
+        {
+          "id": "same_id",
+          "label": "Second prompt",
+          "response": ""
+        }
+      ]
+    }
+  ]
+}

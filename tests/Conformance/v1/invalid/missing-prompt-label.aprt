@@ -1,0 +1,14 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": { "title": "Conformance Missing Prompt Label", "templateId": "conformance-missing-prompt-label" },
+  "sections": [
+    {
+      "id": "s1", "title": "A section",
+      "prompts": [
+        { "id": "labelled", "label": "A labelled field", "response": "" },
+        { "id": "unlabelled", "label": "", "response": "", "hints": { "placeholder": "Placeholder is NOT a label" } }
+      ]
+    }
+  ]
+}

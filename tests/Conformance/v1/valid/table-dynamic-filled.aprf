@@ -1,0 +1,65 @@
+{
+  "version": "1.0-beta",
+  "documentType": "filledForm",
+  "metadata": {
+    "title": "Conformance Dynamic Table, Filled",
+    "description": "Case 2: rows carry values AND more rows may still be added or removed. Being filled does not freeze a dynamic table.",
+    "templateId": "conformance-table-dynamic-filled",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "expenses",
+      "title": "Expense line items",
+      "sections": [
+        {
+          "id": "item_1",
+          "title": "Item 1",
+          "prompts": [
+            {
+              "id": "item_1.description",
+              "label": "Description",
+              "response": "Train fare",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "item_1.amount",
+              "label": "Amount",
+              "response": "42.50",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            }
+          ]
+        },
+        {
+          "id": "item_2",
+          "title": "Item 2",
+          "prompts": [
+            {
+              "id": "item_2.description",
+              "label": "Description",
+              "response": "Lodging",
+              "hints": {
+                "expectedDataType": "text"
+              }
+            },
+            {
+              "id": "item_2.amount",
+              "label": "Amount",
+              "response": "reimbursed",
+              "hints": {
+                "expectedDataType": "currency"
+              }
+            }
+          ]
+        }
+      ],
+      "kind": "table",
+      "canAddRows": "true",
+      "maxRows": "25"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "version": "1.0-beta",
+  "documentType": "filledForm",
+  "metadata": {
+    "title": "Conformance Canonical Values",
+    "description": "Canonical write forms alongside non-canonical equivalents. Every value here is valid; the canonical column is what a writer SHOULD emit, never what a reader may require.",
+    "templateId": "conformance-canonical-values",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "canonical",
+      "title": "Canonical forms",
+      "prompts": [
+        { "id": "date_canon",     "label": "Date, canonical",        "response": "2026-08-25",           "hints": { "expectedDataType": "date" } },
+        { "id": "time_canon",     "label": "Time, canonical",        "response": "14:30",                "hints": { "expectedDataType": "time" } },
+        { "id": "datetime_canon", "label": "Datetime, canonical",    "response": "2026-08-25T14:30:00Z", "hints": { "expectedDataType": "datetime" } },
+        { "id": "bool_true",      "label": "Boolean true, canonical","response": "true",                 "hints": { "expectedDataType": "boolean" } },
+        { "id": "bool_false",     "label": "Boolean false, canonical","response": "false",               "hints": { "expectedDataType": "boolean" } },
+        { "id": "number_canon",   "label": "Number, canonical",      "response": "1234.56",              "hints": { "expectedDataType": "number" } },
+        { "id": "multi_canon",    "label": "Multichoice, canonical (newline separated)", "response": "Red\nBlue", "hints": { "expectedDataType": "multichoice", "suggestedValues": ["Red", "Green", "Blue"] } },
+        { "id": "select_canon",   "label": "Select, canonical",      "response": "Green",                "hints": { "expectedDataType": "select", "suggestedValues": ["Red", "Green", "Blue"] } }
+      ]
+    },
+    {
+      "id": "non_canonical",
+      "title": "Non-canonical but equally valid",
+      "description": "A reader MUST accept all of these. None of them makes the document invalid.",
+      "prompts": [
+        { "id": "bool_yes",      "label": "Boolean as yes",            "response": "yes",              "hints": { "expectedDataType": "boolean" } },
+        { "id": "bool_on",       "label": "Boolean as on",             "response": "ON",               "hints": { "expectedDataType": "boolean" } },
+        { "id": "bool_freetext", "label": "Boolean as free text",      "response": "sort of",          "hints": { "expectedDataType": "boolean" } },
+        { "id": "date_us",       "label": "Date in US format",         "response": "08/25/2026",       "hints": { "expectedDataType": "date" } },
+        { "id": "date_words",    "label": "Date in words",             "response": "the summer of 85", "hints": { "expectedDataType": "date" } },
+        { "id": "number_symbol", "label": "Number with symbol/grouping","response": "$1,234.56",       "hints": { "expectedDataType": "currency" } },
+        { "id": "multi_legacy",  "label": "Multichoice, legacy comma form", "response": "Red, Blue",   "hints": { "expectedDataType": "multichoice", "suggestedValues": ["Red", "Green", "Blue"] } },
+        { "id": "multi_comma_value", "label": "Multichoice whose option contains a comma", "response": "Bloomfield, CT", "hints": { "expectedDataType": "multichoice", "suggestedValues": ["Bloomfield, CT", "Hartford, CT"], "helpText": "One selection, not two. Comma separation would corrupt this; newline separation does not." } },
+        { "id": "select_other",  "label": "Select, value outside the list", "response": "Something else", "hints": { "expectedDataType": "select", "suggestedValues": ["Red", "Green", "Blue"] } }
+      ]
+    }
+  ]
+}

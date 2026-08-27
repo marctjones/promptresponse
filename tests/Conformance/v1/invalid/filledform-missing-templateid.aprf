@@ -1,0 +1,8 @@
+{
+  "version": "1.0-beta",
+  "documentType": "filledForm",
+  "metadata": { "title": "Conformance FilledForm Without TemplateId" },
+  "sections": [
+    { "id": "s1", "title": "A section", "prompts": [ { "id": "p1", "label": "A field", "response": "answered" } ] }
+  ]
+}

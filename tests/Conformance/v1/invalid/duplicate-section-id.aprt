@@ -1,0 +1,9 @@
+{
+  "version": "1.0-beta",
+  "documentType": "template",
+  "metadata": { "title": "Conformance Duplicate Section Id", "templateId": "conformance-duplicate-section-id" },
+  "sections": [
+    { "id": "repeated", "title": "First section",  "prompts": [ { "id": "p1", "label": "Field one", "response": "" } ] },
+    { "id": "repeated", "title": "Second section", "prompts": [ { "id": "p2", "label": "Field two", "response": "" } ] }
+  ]
+}

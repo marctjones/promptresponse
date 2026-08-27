@@ -1,0 +1,29 @@
+{
+  "version": "1.0-beta",
+  "documentType": "filledForm",
+  "metadata": {
+    "title": "Conformance Hints Contradicted",
+    "description": "Every response contradicts its own type hint. This document MUST validate cleanly. This is the format's central rule: hints are advisory and any string is a valid response.",
+    "templateId": "conformance-hints-contradicted",
+    "templateVersion": "1.0",
+    "filledBy": "Conformance Corpus"
+  },
+  "sections": [
+    {
+      "id": "contradictions",
+      "title": "Responses that contradict their hints",
+      "prompts": [
+        { "id": "a_number",   "label": "Age",              "response": "about twelve",        "hints": { "expectedDataType": "number" } },
+        { "id": "a_email",    "label": "Email address",    "response": "call me instead",     "hints": { "expectedDataType": "email" } },
+        { "id": "a_date",     "label": "Date of birth",    "response": "the summer of 1985",  "hints": { "expectedDataType": "date" } },
+        { "id": "a_url",      "label": "Website",          "response": "no website",          "hints": { "expectedDataType": "url" } },
+        { "id": "a_phone",    "label": "Phone number",     "response": "ask my daughter",     "hints": { "expectedDataType": "phone" } },
+        { "id": "a_currency", "label": "Amount requested", "response": "whatever it costs",   "hints": { "expectedDataType": "currency" } },
+        { "id": "a_boolean",  "label": "Are you a member?","response": "sort of",             "hints": { "expectedDataType": "boolean" } },
+        { "id": "a_pattern",  "label": "Postal code",      "response": "N/A",                 "hints": { "expectedDataType": "text", "validationPattern": "^[0-9]{5}$" } },
+        { "id": "a_suggest",  "label": "Department",       "response": "Something else",      "hints": { "expectedDataType": "text", "suggestedValues": ["Finance", "Legal", "HR"] } },
+        { "id": "a_blank",    "label": "Required in the workflow, left blank here", "response": "", "hints": { "expectedDataType": "text" } }
+      ]
+    }
+  ]
+}
