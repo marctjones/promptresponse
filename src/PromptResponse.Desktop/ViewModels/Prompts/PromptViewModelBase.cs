@@ -289,6 +289,8 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
             _isRawEditing = value;
             Notify(nameof(IsRawEditing));
             Notify(nameof(ShowHintedWidget));
+            Notify(nameof(ShowRawEditor));
+            Notify(nameof(ShowRawToggle));
             OnDerivedPropertiesShouldRefresh();
             Notify(nameof(RawToggleName));
             Notify(nameof(RawToggleGlyph));
@@ -298,14 +300,47 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     }
 
     /// <summary>Whether the type-hinted widget should be shown rather than the text field.</summary>
-    public bool ShowHintedWidget => !_isRawEditing;
+    /// <summary>Whether this prompt's suggested widget can actually be shown right now.</summary>
+    /// <remarks>
+    /// Some widgets are affordance-gated: a calendar picker, boolean radios and the
+    /// preview formats only appear when the matching capability profile is on. Overridden
+    /// by those view models so the base can tell the difference between "the user asked
+    /// for the plain box" and "there is no widget to show them".
+    /// </remarks>
+    protected virtual bool HintedWidgetAvailable => true;
+
+    /// <summary>Whether the suggested widget is on screen.</summary>
+    public bool ShowHintedWidget => !_isRawEditing && HintedWidgetAvailable;
+
+    /// <summary>Whether the plain text box is on screen.</summary>
+    /// <remarks>
+    /// The text box is the universal core, not one of two alternatives: any string is a
+    /// valid response, and typing one must always be possible. So it appears whenever the
+    /// suggested widget is not there - because the user asked for it, or because the
+    /// widget was never available.
+    ///
+    /// Binding it to IsRawEditing alone left a date field with a hidden text box, a hidden
+    /// picker and nothing to type into whenever the calendar affordance was off. Only
+    /// visible by looking at a rendered frame; every test passed.
+    /// </remarks>
+    public bool ShowRawEditor => _isRawEditing || !HintedWidgetAvailable;
+
+    /// <summary>Whether to offer the widget/text toggle at all.</summary>
+    /// <remarks>With no widget to switch to, the button would do nothing worth doing.</remarks>
+    public bool ShowRawToggle => HintedWidgetAvailable;
 
     /// <summary>
     /// Glyph for the toggle. Deliberately not the only signal: the button also carries an
     /// accessible name and tooltip describing what activating it will do, because a glyph
     /// alone is unreadable to a screen reader and ambiguous to everyone else.
     /// </summary>
-    public string RawToggleGlyph => _isRawEditing ? "\u2611" : "\u270E";
+    /// <summary>The toggle's glyph, pinned to text presentation.</summary>
+    /// <remarks>
+    /// U+FE0E is the variation selector that asks for the monochrome text form. Without
+    /// it macOS renders both of these as full-colour emoji, which is the single most
+    /// toy-looking element in an otherwise plain interface.
+    /// </remarks>
+    public string RawToggleGlyph => _isRawEditing ? "\u2611\uFE0E" : "\u270E\uFE0E";
 
     /// <summary>
     /// Point size for the toggle glyph, sized to fill its button rather than sit as a

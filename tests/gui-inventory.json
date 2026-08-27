@@ -154,7 +154,7 @@
           "Surface": "shell.fill",
           "Kind": "Button",
           "Name": "Type any text for Boolean",
-          "Text": "\u270E",
+          "Text": "\u270E\uFE0E",
           "Enabled": true,
           "CanFocus": true
         },
@@ -162,7 +162,7 @@
           "Surface": "shell.fill",
           "Kind": "Button",
           "Name": "Type any text for Date",
-          "Text": "\u270E",
+          "Text": "\u270E\uFE0E",
           "Enabled": true,
           "CanFocus": true
         },
@@ -170,7 +170,7 @@
           "Surface": "shell.fill",
           "Kind": "Button",
           "Name": "Type any text for Multichoice",
-          "Text": "\u270E",
+          "Text": "\u270E\uFE0E",
           "Enabled": true,
           "CanFocus": true
         },
@@ -178,7 +178,7 @@
           "Surface": "shell.fill",
           "Kind": "Button",
           "Name": "Type any text for Select",
-          "Text": "\u270E",
+          "Text": "\u270E\uFE0E",
           "Enabled": true,
           "CanFocus": true
         },

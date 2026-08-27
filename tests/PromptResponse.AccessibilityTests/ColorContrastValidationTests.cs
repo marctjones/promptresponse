@@ -1,4 +1,5 @@
 using AwesomeAssertions;
+using PromptResponse.Desktop.Profiles;
 using Xunit;
 
 namespace PromptResponse.AccessibilityTests;
@@ -210,6 +211,94 @@ public class ColorContrastValidationTests
                 "because color contrast should be discussed");
         }
     }
+
+    // ── The real palette, not a transcription of it ───────────────────────────
+
+    /// <summary>Every component outline must identify its control against its surface.</summary>
+    /// <remarks>
+    /// <para>
+    /// WCAG 2.1 SC 1.4.11 asks 3:1 for the visual information that identifies a user
+    /// interface component. This reads the shipped palette rather than repeating its
+    /// values, because the hardcoded cases above did exactly what hardcoded values do:
+    /// they said the light border was 118,118,118 while ColorTokens.cs had drifted to
+    /// 74,74,74. The test passed throughout, describing a colour the application had
+    /// stopped using.
+    /// </para>
+    /// <para>
+    /// Drift in this direction was harmless - 74 is darker, so the contrast was higher
+    /// than claimed - but the same gap would have hidden a regression the other way, and
+    /// the heavy outline it produced was a real visual cost nobody was measuring.
+    /// </para>
+    /// </remarks>
+    [Theory]
+    [InlineData("Light")]
+    [InlineData("Dark")]
+    [InlineData("HighContrast")]
+    public void ComponentOutlines_InTheShippedPalette_Meet3To1(string paletteName)
+    {
+        var palette = paletteName switch
+        {
+            "Light" => ColorTokens.Light,
+            "Dark" => ColorTokens.Dark,
+            _ => ColorTokens.HighContrast,
+        };
+
+        foreach (var surface in new[] { ColorRole.Surface, ColorRole.SubtleSurface, ColorRole.ElevatedSurface })
+        {
+            var ratio = CalculateContrastRatio(Rgb(palette[ColorRole.Border]), Rgb(palette[surface]));
+
+            ratio.Should().BeGreaterThanOrEqualTo(3.0,
+                $"because a {paletteName} component outline must identify its control " +
+                $"against {surface} (WCAG 1.4.11). Actual: {ratio:F2}:1");
+        }
+    }
+
+    /// <summary>Focus must be unmistakable on every surface it can appear over.</summary>
+    [Theory]
+    [InlineData("Light")]
+    [InlineData("Dark")]
+    [InlineData("HighContrast")]
+    public void TheFocusIndicator_InTheShippedPalette_Meets3To1(string paletteName)
+    {
+        var palette = paletteName switch
+        {
+            "Light" => ColorTokens.Light,
+            "Dark" => ColorTokens.Dark,
+            _ => ColorTokens.HighContrast,
+        };
+
+        foreach (var surface in new[] { ColorRole.Surface, ColorRole.SubtleSurface, ColorRole.ElevatedSurface })
+        {
+            var ratio = CalculateContrastRatio(Rgb(palette[ColorRole.Focus]), Rgb(palette[surface]));
+
+            ratio.Should().BeGreaterThanOrEqualTo(3.0,
+                $"because focus must be visible on {surface} in the {paletteName} palette. " +
+                $"Actual: {ratio:F2}:1");
+        }
+    }
+
+    /// <summary>A divider is allowed to be quiet — except where quiet is the wrong answer.</summary>
+    /// <remarks>
+    /// Dividers carry no contrast duty: the structure they hint at is already conveyed by
+    /// headings, grouping and spacing, and drawing them at component strength is what
+    /// makes an interface look boxed in. The exception is the high-contrast palette, where
+    /// somebody has explicitly asked for every edge to be visible, so there the divider
+    /// must be as strong as any component outline.
+    /// </remarks>
+    [Fact]
+    public void InHighContrast_EvenDividersAreFullStrength()
+    {
+        var ratio = CalculateContrastRatio(
+            Rgb(ColorTokens.HighContrast[ColorRole.Divider]),
+            Rgb(ColorTokens.HighContrast[ColorRole.Surface]));
+
+        ratio.Should().BeGreaterThanOrEqualTo(3.0,
+            "someone who asked for high contrast wants every edge visible, including the " +
+            $"ones other palettes draw as hairlines. Actual: {ratio:F2}:1");
+    }
+
+    private static RgbColor Rgb(Avalonia.Media.Color color) => new(color.R, color.G, color.B);
+
 }
 
 /// <summary>

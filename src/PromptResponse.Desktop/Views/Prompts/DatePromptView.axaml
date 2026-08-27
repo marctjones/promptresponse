@@ -11,11 +11,11 @@
             <!-- Universal core: free-text input. Any visible text is a valid response. -->
             <TextBox Grid.Column="0"
                      x:Name="ResponseTextBox"
-                     IsVisible="{Binding IsRawEditing}"
+                     IsVisible="{Binding ShowRawEditor}"
                      Text="{Binding Response, Mode=TwoWay}"
                      PlaceholderText="{Binding Placeholder, FallbackValue='YYYY-MM-DD or any text'}"
                      MinHeight="36"
-                     CornerRadius="6"
+                     CornerRadius="3"
                      AutomationProperties.Name="{Binding Label}"
                      AutomationProperties.HelpText="{Binding HelpText}"/>
             <!--
@@ -37,6 +37,7 @@
                     Content="{Binding RawToggleGlyph}"
                     FontSize="{Binding ToggleGlyphSize}"
                     Command="{Binding ToggleRawEditingCommand}"
+                    IsVisible="{Binding ShowRawToggle}"
                     Height="{Binding ToggleButtonSize}"
                     Width="{Binding ToggleButtonSize}"
                     Padding="0"

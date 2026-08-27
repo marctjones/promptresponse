@@ -28,7 +28,7 @@
             <!-- Active enhancements summary — always visible at the top so users
                  can see what's on without scanning a long checkbox list. -->
             <Border BorderThickness="1"
-                    CornerRadius="8"
+                    CornerRadius="4"
                     Padding="14,12"
                     Background="#10000000"
                     AutomationProperties.Name="Active enhancements"
@@ -37,7 +37,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock Text="Active enhancements" FontWeight="SemiBold"/>
                         <Border Background="{DynamicResource SystemAccentColor}"
-                                CornerRadius="10"
+                                CornerRadius="4"
                                 Padding="8,1"
                                 MinWidth="24"
                                 IsVisible="{Binding ActiveCount}">

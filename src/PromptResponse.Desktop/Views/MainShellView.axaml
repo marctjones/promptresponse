@@ -182,7 +182,7 @@
                 Background="{Binding ActiveProfileSubtleSurfaceBrush}"
                 Padding="14,8"
                 BorderThickness="0,1,0,0"
-                BorderBrush="{Binding ActiveProfileBorderBrush}"
+                BorderBrush="{Binding ActiveProfileDividerBrush}"
                 AutomationProperties.Name="Status"
                 AutomationProperties.LiveSetting="Polite">
             <Grid ColumnDefinitions="*,Auto">
@@ -224,9 +224,9 @@
                            Foreground="{Binding ActiveProfileMutedTextBrush}"/>
                 <Border IsVisible="{Binding ShowGettingStarted}"
                         Background="{Binding ActiveProfileElevatedSurfaceBrush}"
-                        BorderBrush="{Binding ActiveProfileBorderBrush}"
+                        BorderBrush="{Binding ActiveProfileDividerBrush}"
                         BorderThickness="1"
-                        CornerRadius="8"
+                        CornerRadius="4"
                         Padding="14,10"
                         Margin="0,4,0,0"
                         AutomationProperties.Name="Getting started">
@@ -247,7 +247,7 @@
                             Padding="20,10"
                             FontSize="{Binding BodyFontSize}"
                             FontWeight="SemiBold"
-                            CornerRadius="8"
+                            CornerRadius="4"
                             AutomationProperties.Name="Create new template"
                             AutomationProperties.HelpText="Start designing a new APR template (Ctrl+N)">
                         <TextBlock Text="New template" />
@@ -255,13 +255,13 @@
                     <Button Command="{Binding OpenCommand}"
                             Background="{Binding ActiveProfileElevatedSurfaceBrush}"
                             Foreground="{Binding ActiveProfileOnSurfaceBrush}"
-                            BorderBrush="{Binding ActiveProfileBorderBrush}"
+                            BorderBrush="{Binding ActiveProfileDividerBrush}"
                             BorderThickness="1"
                             MinHeight="44" MinWidth="180"
                             Padding="20,10"
                             FontSize="{Binding BodyFontSize}"
                             FontWeight="SemiBold"
-                            CornerRadius="8"
+                            CornerRadius="4"
                             AutomationProperties.Name="Open existing file"
                             AutomationProperties.HelpText="Open an existing APR template or filled form (Ctrl+O)">
                         <TextBlock Text="Open file" />
@@ -286,7 +286,7 @@
                                         Background="Transparent"
                                         Padding="8,6"
                                         MinHeight="40"
-                                        CornerRadius="6"
+                                        CornerRadius="3"
                                         AutomationProperties.Name="{Binding DisplayName}"
                                         AutomationProperties.HelpText="{Binding Path}">
                                     <StackPanel>
@@ -320,7 +320,7 @@
                                         Background="Transparent"
                                         Padding="8,6"
                                         MinHeight="40"
-                                        CornerRadius="6"
+                                        CornerRadius="3"
                                         AutomationProperties.Name="{Binding DisplayName}"
                                         AutomationProperties.HelpText="Create a new form from this template">
                                     <TextBlock Text="{Binding DisplayName}"/>
@@ -354,7 +354,7 @@
             <Border Grid.Column="0"
                     Background="{Binding ActiveProfileSubtleSurfaceBrush}"
                     BorderThickness="0,0,1,0"
-                    BorderBrush="{Binding ActiveProfileBorderBrush}"
+                    BorderBrush="{Binding ActiveProfileDividerBrush}"
                     AutomationProperties.Name="Sections sidebar">
                 <DockPanel>
                     <!--
@@ -380,11 +380,20 @@
                                   AutomationProperties.HelpText="Marks which fields are yours. Every field stays answerable whichever role you pick.">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Display}"
+                                    <!-- Name only: the closed box is narrow, and
+                                         "Patient — The person receivi…" tells nobody
+                                         anything. The description sits below the picker,
+                                         where it has room to be read. -->
+                                    <TextBlock Text="{Binding Name}"
                                                AutomationProperties.Name="{Binding Display}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
+                        <TextBlock Text="{Binding ActiveRoleDescription}"
+                                   FontSize="{Binding CaptionFontSize}"
+                                   TextWrapping="Wrap"
+                                   Foreground="{Binding ActiveProfileMutedTextBrush}"
+                                   IsVisible="{Binding ActiveRoleDescription, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
                         <TextBlock Text="{Binding ActiveRoleSummary}"
                                    FontSize="{Binding CaptionFontSize}"
                                    TextWrapping="Wrap"
@@ -401,7 +410,7 @@
                                  Text="{Binding Search.Query, Mode=TwoWay}"
                                  PlaceholderText="Find a prompt..."
                                  MinHeight="36"
-                                 CornerRadius="6"
+                                 CornerRadius="3"
                                  FontSize="{Binding BodyFontSize}"
                                  AutomationProperties.Name="Search prompts"
                                  AutomationProperties.HelpText="Type to find prompts by label or response"/>
@@ -423,7 +432,7 @@
                                        FontSize="{Binding BodyFontSize}"
                                        TextWrapping="Wrap"
                                        Foreground="{Binding ActiveProfileOnSurfaceBrush}"/>
-                            <TextBlock Text="{Binding Mode}"
+                            <TextBlock Text="{Binding ModeDescription}"
                                        FontSize="{Binding CaptionFontSize}"
                                        Foreground="{Binding ActiveProfileMutedTextBrush}"/>
                         </StackPanel>
@@ -458,8 +467,8 @@
                     <Border IsVisible="{Binding IsEditingTemplate}"
                             Background="{Binding ActiveProfileSubtleSurfaceBrush}"
                             BorderThickness="1"
-                            BorderBrush="{Binding ActiveProfileBorderBrush}"
-                            CornerRadius="8"
+                            BorderBrush="{Binding ActiveProfileDividerBrush}"
+                            CornerRadius="4"
                             Padding="14,10"
                             Margin="0,0,0,16">
                         <StackPanel Orientation="Horizontal" Spacing="12">
@@ -529,8 +538,8 @@
                     <Border IsVisible="{Binding IsWizardMode}"
                             Background="{Binding ActiveProfileSubtleSurfaceBrush}"
                             BorderThickness="1"
-                            BorderBrush="{Binding ActiveProfileBorderBrush}"
-                            CornerRadius="8"
+                            BorderBrush="{Binding ActiveProfileDividerBrush}"
+                            CornerRadius="4"
                             Padding="14,10"
                             Margin="0,0,0,16">
                         <Grid>
@@ -569,7 +578,7 @@
                             <!-- Edit-mode wizard cell -->
                             <DataTemplate DataType="vm:SectionViewModel">
                                 <Border Padding="20"
-                                        CornerRadius="12"
+                                        CornerRadius="4"
                                         BorderThickness="1"
                                         Background="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileElevatedSurfaceBrush}"
                                         BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
@@ -612,7 +621,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="vm:SectionViewModel">
                                 <Border Padding="20"
-                                        CornerRadius="12"
+                                        CornerRadius="4"
                                         BorderThickness="1"
                                         Background="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileElevatedSurfaceBrush}"
                                         BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
@@ -645,7 +654,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="vm:SectionViewModel">
                                 <Border Padding="24"
-                                        CornerRadius="12"
+                                        CornerRadius="4"
                                         BorderThickness="1"
                                         Background="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileElevatedSurfaceBrush}"
                                         BorderBrush="{Binding $parent[Window].((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
@@ -667,7 +676,7 @@
             <Border Grid.Column="2"
                     Background="{Binding ActiveProfileSubtleSurfaceBrush}"
                     BorderThickness="1,0,0,0"
-                    BorderBrush="{Binding ActiveProfileBorderBrush}"
+                    BorderBrush="{Binding ActiveProfileDividerBrush}"
                     AutomationProperties.Name="Form progress and advisories">
                 <ScrollViewer>
                     <StackPanel Margin="20" Spacing="24">
@@ -724,7 +733,7 @@
                                     Click="OnRefreshAdvisoriesClicked"
                                     HorizontalAlignment="Stretch"
                                     MinHeight="32"
-                                    CornerRadius="6"
+                                    CornerRadius="3"
                                     AutomationProperties.Name="Refresh advisories"
                                     AutomationProperties.HelpText="Re-run the type-hint inspection across the form"/>
                             <TextBlock Text="{Binding AdvisorySummary}"
@@ -777,7 +786,7 @@
                                     Command="{Binding RefreshSignaturesNowCommand}"
                                     HorizontalAlignment="Stretch"
                                     MinHeight="32"
-                                    CornerRadius="6"
+                                    CornerRadius="3"
                                     AutomationProperties.Name="Re-verify signatures"
                                     AutomationProperties.HelpText="Re-check each signature against the current content"/>
                             <TextBlock Text="{Binding SignatureSummary}"

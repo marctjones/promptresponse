@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Avalonia;
 using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -329,6 +330,22 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     public IBrush ActiveProfileOnPrimaryBrush => BrushFor(ColorRole.OnPrimary);
     /// <summary>Hairline / separator brush.</summary>
     public IBrush ActiveProfileBorderBrush => BrushFor(ColorRole.Border);
+
+    /// <summary>Hairline between regions. Quieter than a component outline.</summary>
+    public IBrush ActiveProfileDividerBrush => BrushFor(ColorRole.Divider);
+
+    // ── Shape and density tokens ──
+    //
+    // Radii lived inline in the XAML and had drifted to six different values, the largest
+    // of them 12. Large radii read as consumer software; desktop applications people work
+    // in all day sit at two to four. Named here so the answer is in one place and the
+    // views stop each choosing their own.
+
+    /// <summary>Corner radius for inputs, buttons and other controls.</summary>
+    public CornerRadius ControlCornerRadius { get; } = new(3);
+
+    /// <summary>Corner radius for cards and grouped regions.</summary>
+    public CornerRadius SurfaceCornerRadius { get; } = new(4);
     /// <summary>Focus-indicator brush (3px ring under HighContrast, 2px otherwise).</summary>
     public IBrush ActiveProfileFocusBrush => BrushFor(ColorRole.Focus);
 
@@ -363,6 +380,19 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     public bool IsEditingTemplate => _session.Mode == DocumentMode.EditingTemplate;
     public bool IsEmptyState => !HasDocument;
     public DocumentMode Mode => _session.Mode;
+
+    /// <summary>The mode, in words rather than as an enum member name.</summary>
+    /// <remarks>
+    /// The sidebar bound DocumentMode directly and displayed "EditingTemplate" to the
+    /// user — an identifier from the source leaking into the interface. Only visible by
+    /// looking at a rendered frame.
+    /// </remarks>
+    public string ModeDescription => _session.Mode switch
+    {
+        DocumentMode.EditingTemplate => "Editing template",
+        DocumentMode.FillingForm => "Filling in",
+        _ => string.Empty,
+    };
     public string Title => _session.Title;
 
     /// <summary>
@@ -1076,6 +1106,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(HasDocument));
         OnPropertyChanged(nameof(IsEmptyState));
         OnPropertyChanged(nameof(Mode));
+        OnPropertyChanged(nameof(ModeDescription));
         OnPropertyChanged(nameof(Title));
         OnPropertyChanged(nameof(CurrentDocumentTitle));
         OnPropertyChanged(nameof(DocumentDescription));
@@ -1140,8 +1171,12 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             }
             OnPropertyChanged();
             OnPropertyChanged(nameof(ActiveRoleSummary));
+            OnPropertyChanged(nameof(ActiveRoleDescription));
         }
     }
+
+    /// <summary>The author's sentence about the selected role, when they wrote one.</summary>
+    public string? ActiveRoleDescription => ActiveRoleChoice?.Description;
 
     /// <summary>What the shell says about the current selection.</summary>
     public string ActiveRoleSummary

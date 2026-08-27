@@ -347,7 +347,12 @@ public class PerPromptTypeInteractiveTests
     [AvaloniaFact]
     public void HintedWidgetIsShownAlone_AndRawTextIsOneToggleAway()
     {
-        var vm = new BooleanPromptViewModel(P("p", "Resident", "boolean"), NewService());
+        // The radios affordance must actually be on. Without it this test built a prompt
+        // with no radios AND no text box - a labelled field nobody could answer - and
+        // passed anyway, because ShowHintedWidget then meant "raw editing is off" rather
+        // than "a widget is on screen". It was asserting the bug.
+        var vm = new BooleanPromptViewModel(
+            P("p", "Resident", "boolean"), NewService(typeof(BooleanRadiosProfile)));
         var view = new BooleanPromptView { DataContext = vm };
         var window = view.ShowInWindow(width: 600, height: 200);
 

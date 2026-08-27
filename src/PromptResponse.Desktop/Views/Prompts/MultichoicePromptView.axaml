@@ -20,16 +20,17 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <TextBox x:Name="FreeTextEntry"
-                 IsVisible="{Binding IsRawEditing}"
+                 IsVisible="{Binding ShowRawEditor}"
                  Text="{Binding Response, Mode=TwoWay}"
                  PlaceholderText="Or type a comma-separated response"
                  MinHeight="36"
-                 CornerRadius="6"
+                 CornerRadius="3"
                  AutomationProperties.Name="Free-text response"
                  AutomationProperties.HelpText="Any text is a valid response — the comma-separated checkbox state is just a convenient default."/>
         <Button Content="{Binding RawToggleGlyph}"
                     FontSize="{Binding ToggleGlyphSize}"
                 Command="{Binding ToggleRawEditingCommand}"
+                    IsVisible="{Binding ShowRawToggle}"
                 HorizontalAlignment="Left"
                 Height="{Binding ToggleButtonSize}"
                 Width="{Binding ToggleButtonSize}"

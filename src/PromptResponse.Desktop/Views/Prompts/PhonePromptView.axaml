@@ -9,7 +9,7 @@
                  Text="{Binding Response, Mode=TwoWay}"
                  PlaceholderText="{Binding Placeholder, FallbackValue='(555) 555-5555'}"
                  MinHeight="36"
-                 CornerRadius="6"
+                 CornerRadius="3"
                  AutomationProperties.Name="{Binding Label}"
                  AutomationProperties.HelpText="{Binding HelpText}"/>
         <TextBlock Text="{Binding HelpText}"

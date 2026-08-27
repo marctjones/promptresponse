@@ -23,8 +23,13 @@ public sealed class BooleanPromptViewModel : PromptViewModelBase
     /// for the plain text box instead.</summary>
     public bool ShowRadiosNow => ShowRadios && ShowHintedWidget;
 
+    /// <summary>Without the affordance profile there is no widget, so the text box stands in.</summary>
+    protected override bool HintedWidgetAvailable => ShowRadios;
+
     protected override void OnDerivedPropertiesShouldRefresh()
     {
+        Notify(nameof(ShowRawEditor));
+        Notify(nameof(ShowRawToggle));
         Notify(nameof(ShowRadios));
         Notify(nameof(ShowRadiosNow));
     }

@@ -8,75 +8,82 @@
         <FluentTheme />
 
         <!--
-            App-wide control polish on top of FluentTheme. Anything profile-aware
-            renders through ColorTokens.cs + the per-profile shell, not styles —
-            keep this section profile-agnostic.
+            App-wide control shape and density on top of FluentTheme. Anything
+            profile-aware renders through ColorTokens.cs + the per-profile shell, not
+            styles — keep this section profile-agnostic.
+
+            The house style is a desktop application somebody works in all day, not a
+            consumer app they visit. Three things follow from that and are why these
+            values are what they are:
+
+              Small radii. Controls sit at 3, grouped surfaces at 4, structural panels
+              at 0. Large radii read as consumer software, and a global rounding on
+              Border rounds panel edges and dividers too, which is what made every
+              region look like a card.
+
+              No web conventions. A hand cursor means "hyperlink"; on a desktop button
+              it is simply wrong, and it was applied to every button in the app.
+
+              No motion for its own sake. A button that scales when pressed is a
+              flourish; in a form somebody fills forty times a day it is friction.
+              State changes are immediate. Colour transitions stay, because they help
+              a change of state register without drawing attention to themselves.
         -->
 
-        <!-- Button Styling - Modern rounded with smooth interactions -->
+        <!-- Buttons: flat, dense, no bounce, native cursor. -->
         <Style Selector="Button">
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Padding" Value="12,5"/>
             <Setter Property="FontWeight" Value="Medium"/>
-            <Setter Property="Cursor" Value="Hand"/>
+            <!-- MinHeight is the accessible touch target and must not shrink with the
+                 padding above (IRenderingProfile.MinimumTouchTarget). -->
             <Setter Property="MinHeight" Value="36"/>
-            <Setter Property="Transitions">
-                <Transitions>
-                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15"/>
-                </Transitions>
-            </Setter>
         </Style>
 
-        <Style Selector="Button:pressed">
-            <Setter Property="RenderTransform" Value="scale(0.98)"/>
-        </Style>
-
-        <!-- TextBox Styling - Rounded corners and enhanced focus -->
+        <!-- Text inputs: dense, square-ish, with the focus ring intact. -->
         <Style Selector="TextBox">
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Padding" Value="8,5"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="MinHeight" Value="36"/>
             <Setter Property="Transitions">
                 <Transitions>
-                    <ThicknessTransition Property="BorderThickness" Duration="0:0:0.15"/>
+                    <ThicknessTransition Property="BorderThickness" Duration="0:0:0.12"/>
                 </Transitions>
             </Setter>
         </Style>
 
+        <!-- A visible focus indicator is not decoration; keep it emphatic. -->
         <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
             <Setter Property="BorderThickness" Value="2"/>
         </Style>
 
-        <!-- ComboBox Styling -->
         <Style Selector="ComboBox">
-            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="CornerRadius" Value="3"/>
             <Setter Property="MinHeight" Value="36"/>
         </Style>
 
-        <!-- AutoCompleteBox Styling -->
         <Style Selector="AutoCompleteBox">
             <Setter Property="MinHeight" Value="36"/>
         </Style>
 
-        <!-- Expander Styling - Smoother animations -->
         <Style Selector="Expander">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
         </Style>
 
-        <!-- CheckBox modern spacing -->
         <Style Selector="CheckBox">
             <Setter Property="MinHeight" Value="32"/>
         </Style>
 
-        <!-- RadioButton modern spacing -->
         <Style Selector="RadioButton">
             <Setter Property="MinHeight" Value="32"/>
         </Style>
 
-        <!-- Border Styling - Default rounded corners -->
-        <Style Selector="Border">
-            <Setter Property="CornerRadius" Value="8"/>
-        </Style>
+        <!--
+            Deliberately NOT a global Border radius. Border is used for panel edges,
+            dividers, table rules and grouped cards alike, so rounding all of them
+            rounded the application's structure. A Border that wants a radius asks for
+            one; the rest stay square.
+        -->
     </Application.Styles>
 </Application>

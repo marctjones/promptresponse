@@ -35,7 +35,11 @@
         </StackPanel>
 
         <!-- ── Regular section layout: prompts + nested sub-sections ── -->
-        <StackPanel Spacing="14" IsVisible="{Binding IsRegularSection}">
+        <!-- A capped measure: a name field stretched across a wide window reads as a
+             wireframe. MaxWidth without an alignment change, so children still stretch
+             to the cap instead of shrinking to their content. -->
+        <StackPanel Spacing="12" MaxWidth="760"
+                    IsVisible="{Binding IsRegularSection}">
             <ItemsControl ItemsSource="{Binding PromptViewModels}"
                           AutomationProperties.Name="Prompts">
                 <!--
@@ -68,7 +72,7 @@
                             <Border BorderBrush="{DynamicResource SystemAccentColor}"
                                     BorderThickness="3,0,0,0"
                                     Padding="9,0,0,0"
-                                    Margin="0,0,0,0">
+                                    HorizontalAlignment="Stretch">
                                 <Border.IsVisible>
                                     <Binding Path="ShowsMineAccent"/>
                                 </Border.IsVisible>
@@ -129,7 +133,7 @@
              (header + cells + remove button per row). -->
         <Border IsVisible="{Binding IsTableSection}"
                 BorderThickness="1"
-                CornerRadius="6"
+                CornerRadius="3"
                 Padding="0">
             <StackPanel Spacing="0">
                 <!-- Header row: leading blank cell aligns with the row-label

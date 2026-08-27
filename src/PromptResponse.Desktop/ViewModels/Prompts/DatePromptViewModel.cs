@@ -25,8 +25,13 @@ public sealed class DatePromptViewModel : PromptViewModelBase
 
     public bool ShowCalendarPicker => ProfileService.IsActive(typeof(CalendarPickerProfile));
 
+    /// <summary>Without the affordance profile there is no widget, so the text box stands in.</summary>
+    protected override bool HintedWidgetAvailable => ShowCalendarPicker;
+
     protected override void OnDerivedPropertiesShouldRefresh()
     {
+        Notify(nameof(ShowRawEditor));
+        Notify(nameof(ShowRawToggle));
         Notify(nameof(ShowCalendarPicker));
         Notify(nameof(ShowCalendarPickerNow));
     }

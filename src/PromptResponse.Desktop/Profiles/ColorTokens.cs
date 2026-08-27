@@ -22,8 +22,30 @@ public enum ColorRole
     OnPrimary,
     /// <summary>Soft accent tint used for selection highlights / hover states.</summary>
     Accent,
-    /// <summary>Subtle separator / outline color between regions.</summary>
+    /// <summary>
+    /// Outline of an interactive component: a text box, a button, a combo box.
+    /// </summary>
+    /// <remarks>
+    /// WCAG 2.1 asks 3:1 for the visual information that identifies a component
+    /// (1.4.11), not the 4.5:1 that text needs. The light palette used to sit at 8.6:1,
+    /// far past the requirement, and the result was a heavy outline around everything
+    /// that read as a wireframe rather than an application. It now sits near 4.5:1 -
+    /// comfortably above the bar, and quiet enough that structure comes from spacing and
+    /// type rather than from boxes.
+    /// </remarks>
     Border,
+
+    /// <summary>
+    /// A hairline between regions: panel edges, list separators, table rules.
+    /// </summary>
+    /// <remarks>
+    /// Not a component boundary, so no contrast minimum applies: the structure it hints
+    /// at is already carried by headings, spacing and grouping. Drawing these at
+    /// component strength is what makes an interface look boxed-in. The high-contrast
+    /// palette deliberately collapses this back onto <see cref="Border"/>, because a
+    /// user who asked for high contrast wants every edge visible.
+    /// </remarks>
+    Divider,
     /// <summary>Visible focus indicator. Must contrast strongly with all surfaces.</summary>
     Focus,
     /// <summary>Error / destructive accent.</summary>
@@ -85,7 +107,8 @@ public static class ColorTokens
         [ColorRole.Primary]         = Color.FromRgb(0x06, 0x4D, 0xA8),
         [ColorRole.OnPrimary]       = Color.FromRgb(0xFF, 0xFF, 0xFF),
         [ColorRole.Accent]          = Color.FromRgb(0xE5, 0xEE, 0xF8),
-        [ColorRole.Border]          = Color.FromRgb(0x4A, 0x4A, 0x4A),
+        [ColorRole.Border]          = Color.FromRgb(0x76, 0x76, 0x76),
+        [ColorRole.Divider]         = Color.FromRgb(0xDD, 0xDD, 0xDD),
         [ColorRole.Focus]           = Color.FromRgb(0x00, 0x52, 0xCC),
         [ColorRole.Error]           = Color.FromRgb(0xB0, 0x00, 0x20),
         [ColorRole.Warning]         = Color.FromRgb(0x70, 0x44, 0x00),
@@ -102,7 +125,8 @@ public static class ColorTokens
         [ColorRole.Primary]         = Color.FromRgb(0x6E, 0xB6, 0xFF),
         [ColorRole.OnPrimary]       = Color.FromRgb(0x0A, 0x10, 0x18),
         [ColorRole.Accent]          = Color.FromRgb(0x33, 0x4D, 0x6B),
-        [ColorRole.Border]          = Color.FromRgb(0xC8, 0xC8, 0xC8),
+        [ColorRole.Border]          = Color.FromRgb(0x8A, 0x8A, 0x90),
+        [ColorRole.Divider]         = Color.FromRgb(0x3A, 0x3A, 0x3E),
         [ColorRole.Focus]           = Color.FromRgb(0xFF, 0xC8, 0x4D),
         [ColorRole.Error]           = Color.FromRgb(0xFF, 0x9B, 0x9B),
         [ColorRole.Warning]         = Color.FromRgb(0xFF, 0xC8, 0x4D),
@@ -120,6 +144,9 @@ public static class ColorTokens
         [ColorRole.OnPrimary]       = Color.FromRgb(0x00, 0x00, 0x00),
         [ColorRole.Accent]          = Color.FromRgb(0x00, 0x00, 0x00),
         [ColorRole.Border]          = Color.FromRgb(0xFF, 0xFF, 0xFF),
+        // Collapsed onto Border on purpose: someone who asked for high contrast wants
+        // every edge visible, including the ones other palettes draw as hairlines.
+        [ColorRole.Divider]         = Color.FromRgb(0xFF, 0xFF, 0xFF),
         [ColorRole.Focus]           = Color.FromRgb(0xFF, 0xFF, 0x00),
         [ColorRole.Error]           = Color.FromRgb(0xFF, 0x66, 0x66),
         [ColorRole.Warning]         = Color.FromRgb(0xFF, 0xFF, 0x00),

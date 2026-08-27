@@ -4,7 +4,7 @@
              x:Class="PromptResponse.Desktop.Views.Editor.PromptEditorView"
              x:DataType="vmp:PromptViewModelBase">
     <Border BorderThickness="1"
-            CornerRadius="6"
+            CornerRadius="3"
             Padding="10"
             Margin="0,2">
         <StackPanel Spacing="8">
