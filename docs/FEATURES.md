@@ -40,6 +40,13 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 
 | Feature | Priority | Status | Notes |
 |---------|----------|--------|-------|
+| Roles (§4.10) | P1 | ✅ | Who each part is for; marked in the reader, never enforced |
+| Bounds hints (min/max/step) | P2 | ✅ | Advisory; a response outside them stays valid |
+| apr-sig-v3 | P0 | ✅ | A filler signs the question they saw, not only their answer |
+| Per-field signature coverage | P1 | ✅ | Signed / broken / unsigned, live and profile-aware |
+| Create a signing key | P2 | ✅ | Self-signed, creation only; management stays the platform's |
+| `review` command | P1 | ✅ | Processability triage for whoever receives a submission |
+| Python SDK (core profile) | P1 | ✅ | Corpus-gated; gates the core-only rules .NET cannot |
 | Document model (Section/Subsection/Prompt) | P0 | ✅ | Complete with tests |
 | JSON serialization | P0 | ✅ | camelCase, ISO 8601 dates |
 | Advisory validation | P0 | ✅ | Structural + data type |

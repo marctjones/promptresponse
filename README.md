@@ -22,6 +22,25 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 - **Semantic**: Organized by sections and prompts for meaningful structure
 - **Safe**: Pure data format - no code execution, safe to open untrusted files
 
+## Implementations
+
+| | Profile | Tests |
+|---|---|---|
+| **.NET** — `src/` | every profile: expressions, signatures, rendering, PDF | 1,994 |
+| **Python** — `python/` | core only, on purpose | 89 |
+
+Both run the same conformance corpus. The Python one implements the **core
+profile** deliberately: it parses expression hints and signatures, preserves
+them untouched, and evaluates or verifies neither. That is what lets it test
+what a core-only reader must do — a rule the .NET implementation structurally
+cannot check, because an implementation providing every profile can never
+behave like one that does not.
+
+It also earns its keep as a second opinion. Within an hour of existing it found
+a conformance bug in .NET that had been invisible since tables were redesigned:
+two computed properties were reaching the wire as JSON booleans, in a format
+that permits exactly one.
+
 ## Key Features
 
 - **Template Creation**: Design reusable form templates without fighting layout tools
@@ -47,6 +66,11 @@ cd promptresponse
 Open http://localhost:8080 in your browser to see a form. Fill it out and submit - the JSON data prints to your terminal.
 
 **Requirements:** Python 3 (Flask is auto-installed)
+
+The demo reads the file through the Python SDK in [`python/`](python/), so it
+enforces the format rather than having its own opinion about it: a response
+given as a JSON number is refused, and a document that parses but does not
+validate still opens with its problems printed.
 
 ## Installation (Full .NET Application)
 
@@ -116,17 +140,28 @@ dotnet run --project src/PromptResponse.Desktop
 ## Quick Start with CLI
 
 ```bash
-# Validate a form
+# Is this a valid document?
 dotnet run --project src/PromptResponse.Cli -- validate examples/expense-report.aprt
 
-# View form information
+# What is in it?
 dotnet run --project src/PromptResponse.Cli -- info examples/contact-intake.aprt
 
-# Create a new template
-dotnet run --project src/PromptResponse.Cli -- new my-form.apr
+# Start a new template
+dotnet run --project src/PromptResponse.Cli -- new my-form
+
+# Can a machine process this submission, or does it need a person?
+dotnet run --project src/PromptResponse.Cli -- review submission.aprf --json
 ```
 
-See [CLI README](src/PromptResponse.Cli/README.md) for complete CLI documentation.
+Twelve commands: `validate`, `info`, `new`, `fill`, `diff`, `stats`, `import`,
+`export`, `review`, `keygen`, `sign`, `verify`. See
+[the CLI README](src/PromptResponse.Cli/README.md).
+
+`review` is the one built for the receiving end. The format never rejects what a
+person writes, so every submission that parses is valid — which tells whoever
+receives it nothing about whether their pipeline can read it. `review` answers
+that instead, and exits `0` to process, `2` to route to a person, `1` if the
+file could not be read at all.
 
 ## Documentation
 

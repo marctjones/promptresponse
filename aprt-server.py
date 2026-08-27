@@ -12,9 +12,15 @@ Dependencies:
 
 import argparse
 import json
+import pathlib
 import sys
 from datetime import datetime
 from flask import Flask, request, render_template_string
+
+# The SDK lives beside this script. Added to the path so a fresh clone runs
+# without an install step, which is the point of a 30-second demo.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / "python"))
+import promptresponse as pr
 
 app = Flask(__name__)
 
@@ -456,28 +462,38 @@ def submit():
     '''
 
 def load_template(path):
-    """Load and validate an APRT file."""
+    """Load an APR file through the SDK rather than parsing it here.
+
+    This demo used to read the JSON itself, which made it a third APR parser in
+    the repository alongside .NET and the Python SDK - and the only one nothing
+    checked. It hand-rolled its own idea of validity ("Warning: No version
+    field") and had never heard of tables or roles.
+
+    Going through promptresponse means the demo agrees with the corpus by
+    construction: strings-only enforcement, real parse errors, the exhaustive
+    error list, and unknown members preserved. The rendering below still works
+    on plain dictionaries, so the document is handed back as one.
+    """
     try:
-        with open(path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-
-        # Basic validation
-        if 'version' not in data:
-            print(f"Warning: No version field in {path}", file=sys.stderr)
-        if 'sections' not in data:
-            print(f"Error: No sections found in {path}", file=sys.stderr)
-            sys.exit(1)
-
-        return data
-    except json.JSONDecodeError as e:
-        print(f"Error: Invalid JSON in {path}: {e}", file=sys.stderr)
+        document = pr.load(path)
+    except pr.AprParseError as exc:
+        print(f"Error: {path} is not a readable APR document: {exc}", file=sys.stderr)
         sys.exit(1)
     except FileNotFoundError:
         print(f"Error: File not found: {path}", file=sys.stderr)
         sys.exit(1)
-    except Exception as e:
-        print(f"Error loading {path}: {e}", file=sys.stderr)
-        sys.exit(1)
+
+    # Reported, never refused. A flawed document still opens so somebody can be
+    # shown what is wrong with it (specification 6.3).
+    result = pr.validate(document)
+    for error in result.errors:
+        print(f"  invalid: {error.code} at {error.path}: {error.message}", file=sys.stderr)
+    for warning in result.warnings[:10]:
+        print(f"  advisory: {warning.code} at {warning.path}: {warning.message}", file=sys.stderr)
+    if result.warnings[10:]:
+        print(f"  ... and {len(result.warnings) - 10} more advisories", file=sys.stderr)
+
+    return json.loads(pr.dumps(document))
 
 def main():
     parser = argparse.ArgumentParser(
