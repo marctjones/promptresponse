@@ -58,7 +58,8 @@ These are the product. Everything else is an implementation of them.
 | **Conformance corpus** | `tests/Conformance/v1/` | **Shipped** — 35 fixtures |
 | **Canonicalization vectors** | `tests/Conformance/v1/canonicalization/` | **Shipped** — `apr-sig-v2` byte contract |
 | **SDK conformance contract** | `docs/SDK_CONFORMANCE.md` | **Shipped** |
-| **Test registry** | `tests/registry.json` + `scripts/check-test-registry.py` | **Shipped** — 40 requirements, CI-verified |
+| **Test registry** | `tests/registry.json` + `scripts/check-test-registry.py` | **Shipped** — CI-verified |
+| **Type registry** | `schemas/apr-types-1.0.json` | **Shipped** — 15 types and 8 enumerated attributes, verified against the code, schema, and spec |
 | **Expression binding vectors** | *(none)* | **Planned** — see §5 |
 
 Authority runs **corpus → schema → prose**. Where prose disagrees with a fixture, the

@@ -503,6 +503,19 @@
       ]
     },
     {
+      "id": "REQ-4.7-vocabulary",
+      "section": "4.7",
+      "statement": "The expectedDataType registry and every enumerated attribute value are published and consistent",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "TypeRegistry_AgreesWithTheImplementation"
+        }
+      ],
+      "notes": "schemas/apr-types-1.0.json is the single published vocabulary. The .NET test asserts each type maps to the CEL type it claims; scripts/check-schema.py asserts the schema's examples and specification 4.7 name the same set. Previously these facts lived in five places."
+    },
+    {
       "id": "REQ-4.8-preserve",
       "section": "4.8",
       "statement": "Unknown members MUST be preserved across a round-trip",

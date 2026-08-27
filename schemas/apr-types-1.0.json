@@ -1,0 +1,274 @@
+{
+  "$comment": "The vocabulary of the APR format: every registered expectedDataType and every enumerated attribute value, in one machine-readable place. Previously these facts lived in five: the JSON Schema's examples, specification 4.7, 4.9 and 8.2.1, and CelBinding.cs. Anything stated in more than one place can disagree with itself, which this project has had to fix twice already - once as a security hole.",
+  "formatVersion": "1.0-beta",
+  "specification": "docs/APR_SPECIFICATION.md",
+  "expectedDataType": {
+    "$comment": "An OPEN registry (specification 4.7). An unrecognised value MUST degrade to a text field rather than error - that is what lets this list grow without breaking existing readers. Every hint here is advisory: it never constrains what may be stored, only how a renderer presents the field, what it writes when it controls the value, and what the expression profile can compute with.",
+    "types": [
+      {
+        "id": "text",
+        "description": "A single line of free text.",
+        "celType": "string",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern",
+          "suggestedValues"
+        ],
+        "notes": "The fallback for any unrecognised type."
+      },
+      {
+        "id": "multiline",
+        "description": "Free text over several lines.",
+        "celType": "string",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern"
+        ]
+      },
+      {
+        "id": "email",
+        "description": "An email address.",
+        "celType": "string",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern"
+        ],
+        "notes": "Hidden characters are reported as advisories, never stripped (specification 7.3.1)."
+      },
+      {
+        "id": "phone",
+        "description": "A telephone number.",
+        "celType": "string",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern"
+        ]
+      },
+      {
+        "id": "url",
+        "description": "A web address.",
+        "celType": "string",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern"
+        ],
+        "notes": "As with email, suspicious characters are surfaced rather than removed."
+      },
+      {
+        "id": "date",
+        "description": "A calendar date.",
+        "celType": "timestamp",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText"
+        ],
+        "canonicalWriteForm": "YYYY-MM-DD (RFC 3339 full-date)",
+        "alsoAcceptedOnRead": [
+          "any string"
+        ],
+        "notes": "A value that will not parse does not bind, so expressions degrade rather than defaulting."
+      },
+      {
+        "id": "time",
+        "description": "A time of day.",
+        "celType": "timestamp",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText"
+        ],
+        "canonicalWriteForm": "HH:MM or HH:MM:SS, 24-hour",
+        "alsoAcceptedOnRead": [
+          "any string"
+        ]
+      },
+      {
+        "id": "datetime",
+        "description": "A date and time.",
+        "celType": "timestamp",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText"
+        ],
+        "canonicalWriteForm": "RFC 3339, e.g. 2026-08-25T14:30:00Z",
+        "alsoAcceptedOnRead": [
+          "any string"
+        ]
+      },
+      {
+        "id": "number",
+        "description": "A numeric quantity.",
+        "celType": "double",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern"
+        ],
+        "canonicalWriteForm": "digits with . as the decimal separator, no grouping",
+        "alsoAcceptedOnRead": [
+          "any string, including words and symbols"
+        ],
+        "notes": "An empty or unparseable value is an error to the expression profile, never zero."
+      },
+      {
+        "id": "currency",
+        "description": "A monetary amount.",
+        "celType": "double",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText",
+          "validationPattern"
+        ],
+        "canonicalWriteForm": "digits with . as the decimal separator, no grouping",
+        "alsoAcceptedOnRead": [
+          "symbols and grouping, e.g. $1,234.56"
+        ]
+      },
+      {
+        "id": "boolean",
+        "description": "A yes-or-no answer.",
+        "celType": "bool",
+        "meaningfulHints": [
+          "helpText"
+        ],
+        "canonicalWriteForm": "true or false",
+        "alsoAcceptedOnRead": [
+          "yes",
+          "y",
+          "1",
+          "on",
+          "x",
+          "checked",
+          "no",
+          "n",
+          "0",
+          "off",
+          "unchecked",
+          "any other string"
+        ],
+        "notes": "true/false rather than yes/no because yes is English, and this format renders to speech, to other languages, and into database columns."
+      },
+      {
+        "id": "select",
+        "description": "One choice from an offered list.",
+        "celType": "string",
+        "meaningfulHints": [
+          "suggestedValues",
+          "helpText",
+          "placeholder"
+        ],
+        "canonicalWriteForm": "exactly one value, verbatim from suggestedValues",
+        "alsoAcceptedOnRead": [
+          "any string, including values not offered"
+        ],
+        "notes": "suggestedValues offers options; a response outside the list is still valid."
+      },
+      {
+        "id": "multichoice",
+        "description": "Several choices from an offered list.",
+        "celType": "list<string>",
+        "meaningfulHints": [
+          "suggestedValues",
+          "helpText"
+        ],
+        "canonicalWriteForm": "selections separated by \\n (U+000A), one per line",
+        "alsoAcceptedOnRead": [
+          "a single line separated by ', ' (legacy)"
+        ],
+        "notes": "Newline rather than comma because a suggested value may itself contain a comma - 'Bloomfield, CT' is an ordinary option on a municipal form, and comma separation would split one selection into two."
+      },
+      {
+        "id": "signature",
+        "description": "A hand-written or drawn signature.",
+        "celType": "string",
+        "meaningfulHints": [
+          "helpText"
+        ],
+        "notes": "What the response contains is not yet specified - see specification 13."
+      },
+      {
+        "id": "file",
+        "description": "A reference to an attached file.",
+        "celType": "string",
+        "meaningfulHints": [
+          "placeholder",
+          "helpText"
+        ],
+        "notes": "Attachments have no defined representation yet - see specification 13."
+      }
+    ]
+  },
+  "enumeratedValues": {
+    "$comment": "Closed vocabularies. Unlike expectedDataType, an unrecognised value here is an error.",
+    "document.documentType": {
+      "values": [
+        "template",
+        "filledForm"
+      ],
+      "default": "template",
+      "notes": "Authoritative over the filename extension (specification 5)."
+    },
+    "document.version": {
+      "pattern": "MAJOR.MINOR with an optional pre-release suffix",
+      "current": "1.0-beta",
+      "notes": "A newer MINOR is readable; a different MAJOR is rejected (specification 1.3.1)."
+    },
+    "section.kind": {
+      "values": [
+        "section",
+        "table"
+      ],
+      "default": "section",
+      "notes": "table is a claim about structure, not appearance (specification 4.5)."
+    },
+    "section.canAddRows": {
+      "values": [
+        "true"
+      ],
+      "default": "absent, meaning fixed",
+      "notes": "Whether a filler may add or remove instances. Fixed is the safe default."
+    },
+    "responseMetadata.source": {
+      "values": [
+        "computed"
+      ],
+      "default": "absent, meaning authored",
+      "notes": "Distinguishes a stale computed value from a correction someone typed (specification 8.6)."
+    },
+    "signature.role": {
+      "values": [
+        "publisher",
+        "filler"
+      ]
+    },
+    "signature.scope": {
+      "values": [
+        "template",
+        "fields"
+      ]
+    },
+    "signature.canonicalization": {
+      "values": [
+        "apr-sig-v2"
+      ],
+      "notes": "A verifier that does not recognise the value MUST report the signature unverifiable, never invalid."
+    }
+  },
+  "universalHints": {
+    "$comment": "Meaningful on any prompt, whatever its type.",
+    "always": [
+      "helpText"
+    ],
+    "expressionProfile": [
+      "exprHidden",
+      "exprValue",
+      "exprExpected",
+      "exprValidation",
+      "exprReadOnly"
+    ]
+  }
+}

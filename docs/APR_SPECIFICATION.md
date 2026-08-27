@@ -401,6 +401,11 @@ All OPTIONAL, all advisory (§3.4).
 `date`, `time`, `datetime`, `number`, `currency`, `boolean`, `select`,
 `multichoice`, `signature`, `file`.
 
+The machine-readable form, with each type's canonical write form, accepted read forms,
+CEL type, and meaningful hints, is
+[`schemas/apr-types-1.0.json`](../schemas/apr-types-1.0.json) — one published vocabulary
+rather than the same facts restated here, in the schema, and in the code.
+
 **This registry is open.** An unrecognized value **MUST** degrade to a plain text
 field. It **MUST NOT** cause an error — that is what lets the registry grow
 without breaking every existing reader. See `valid/unknown-fields.aprt`.

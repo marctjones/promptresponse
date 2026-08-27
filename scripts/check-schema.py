@@ -12,6 +12,7 @@ Exits non-zero if any fixture disagrees with the schema.
 """
 import json
 import pathlib
+import re
 import sys
 
 try:
@@ -34,6 +35,41 @@ def load(path):
         return json.loads(path.read_text(encoding="utf-8")), None
     except json.JSONDecodeError as exc:
         return None, str(exc)
+
+
+def check_type_registry():
+    """The type registry, the schema, and the specification must name the same types.
+
+    The vocabulary of a format is the classic thing to state in several places and then
+    let drift. Here it is stated once in schemas/apr-types-1.0.json; this confirms the
+    other two copies still agree with it.
+    """
+    registry_path = ROOT / "schemas" / "apr-types-1.0.json"
+    if not registry_path.is_file():
+        return
+
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registered = [t["id"] for t in registry["expectedDataType"]["types"]]
+
+    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    in_schema = schema["$defs"]["promptHints"]["properties"]["expectedDataType"].get("examples", [])
+
+    spec = (ROOT / "docs" / "APR_SPECIFICATION.md").read_text(encoding="utf-8")
+    block = re.search(r"`expectedDataType` registry:(.+?)\n\n", spec, re.S)
+    in_spec = re.findall(r"`([a-z]+)`", block.group(1)) if block else []
+
+    print("type registry — schema and specification must name the same types")
+    problems = []
+    for label, other in (("schema examples", in_schema), ("specification 4.7", in_spec)):
+        missing = sorted(set(registered) - set(other))
+        extra = sorted(set(other) - set(registered))
+        if missing or extra:
+            problems.append(f"{label}: missing {missing}, unexpected {extra}")
+        print(f"  {'PASS' if not (missing or extra) else 'FAIL'}  {label} ({len(other)} types)")
+    if problems:
+        for p in problems:
+            print(f"    - {p}")
+        raise SystemExit(1)
 
 
 def main():
@@ -71,6 +107,7 @@ def main():
                 detail = errors[0].message if errors else "unexpectedly passed the schema"
                 failures.append(f"{path.name}: {detail}")
 
+    check_type_registry()
     check("valid", True, "valid/ — schema MUST accept every file")
     check("canonicalization", True, "canonicalization/ — signing vector input")
     check("signatures", True, "signatures/ — structurally valid; only verification fails")

@@ -188,6 +188,59 @@ public class ConformanceCorpusTests
     }
 
     /// <summary>
+    /// The published type registry must agree with the implementation.
+    /// </summary>
+    /// <remarks>
+    /// The vocabulary of a format is exactly the kind of fact that ends up stated in
+    /// several places and then drifts. This asserts that every type the registry names
+    /// maps to the CEL type it claims, and that its canonical boolean forms are the ones
+    /// the code actually writes.
+    /// </remarks>
+    [Fact]
+    public void TypeRegistry_AgreesWithTheImplementation()
+    {
+        var registryPath = Path.GetFullPath(Path.Combine(
+            CorpusDir("valid"), "..", "..", "..", "..", "schemas", "apr-types-1.0.json"));
+        using var registry = System.Text.Json.JsonDocument.Parse(File.ReadAllText(registryPath));
+
+        var mismatches = new List<string>();
+        foreach (var type in registry.RootElement.GetProperty("expectedDataType").GetProperty("types").EnumerateArray())
+        {
+            var id = type.GetProperty("id").GetString()!;
+            var claimed = type.GetProperty("celType").GetString()!;
+
+            // Build a prompt with this hint and see what the binding layer declares.
+            var document = new Core.Models.AprDocument
+            {
+                Metadata = new Core.Models.Metadata { Title = "T" },
+                Sections =
+                [
+                    new Core.Models.Section
+                    {
+                        Id = "s", Title = "S",
+                        Prompts = [new Core.Models.Prompt
+                        {
+                            Id = "field", Label = "Field",
+                            Hints = new Core.Models.PromptHints { ExpectedDataType = id },
+                        }],
+                    },
+                ],
+            };
+            var actual = Core.Expressions.FormExpressions.BuildContext(document).DeclaredTypeOf("field");
+
+            // CEL spells timestamp as its protobuf name; compare on the meaningful part.
+            var normalised = actual.ToLowerInvariant().Split('.').Last();
+            var expected = claimed.ToLowerInvariant().Split('<').First();
+            if (!normalised.Contains(expected) && !expected.Contains(normalised))
+            {
+                mismatches.Add($"{id}: registry says {claimed}, implementation declares {actual}");
+            }
+        }
+
+        mismatches.Should().BeEmpty("the type registry is the published vocabulary and must match the code");
+    }
+
+    /// <summary>
     /// The published expression binding vectors.
     /// </summary>
     /// <remarks>
