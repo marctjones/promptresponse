@@ -999,7 +999,7 @@ public class FormManagementService : IFormManagementService
             <!-- Toolbar -->
             <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10" Margin="10">
                 <TextBox Text="{Binding SearchText}"
-                         Watermark="Search forms..."
+                         PlaceholderText="Search forms..."
                          Width="300"/>
                 <Button Content="Refresh" Command="{Binding RefreshCommand}"/>
                 <Button Content="Generate Report" Command="{Binding GenerateReportCommand}"/>

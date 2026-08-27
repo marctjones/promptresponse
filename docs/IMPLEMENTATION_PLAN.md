@@ -1,73 +1,80 @@
 # PromptResponse Implementation Plan
 
 <!-- AI-ASSISTANT-README -->
-This document contains the phased implementation roadmap for PromptResponse.
-AI assistants should reference this when planning work and estimating scope.
-Tasks should align with the current phase priorities.
+This document contains the phased implementation notes for PromptResponse.
+AI assistants should prefer ROADMAP.md and docs/FEATURES.md for current
+planning, then use this file for historical implementation context.
 <!-- END-AI-ASSISTANT-README -->
 
 ## Current Status
 
-**Phase**: Foundation (Year 1)
-**Focus**: Capability profiles, accessibility, UI polish
+**Phase**: Public-beta hardening (v0.6.x)
+**Focus**: release reliability, documentation/version reconciliation, import
+review UX, packaging validation, and warning cleanup
 
 ### What's Built
 
 - ✅ Core library (models, serialization, validation)
-- ✅ Desktop application (basic template editing, form filling)
-- ✅ CLI tool (validate, info, new, export, diff)
-- ✅ Capability-profile architecture (universal core + composable per-feature flags)
-- ✅ Modern Win11 / macOS-aligned shell with theme switching
+- ✅ Desktop application (home screen, recent files, starter templates,
+  template editing, form filling, search, progress, advisory panel, signatures)
+- ✅ CLI tool (validate, info, new, fill, stats, diff, export, import, keygen,
+  sign, verify)
+- ✅ Capability-profile architecture and accessible rendering profiles
+- ✅ PDF export (flat, fillable, PDF/A archival), HTML export, and PDF import
+- ✅ Safe expression engine for calculations and conditional logic
+- ✅ Certificate-backed publisher/filler signatures
+- ✅ Cross-platform release workflows for Windows, Linux, and macOS artifacts
 
 ### What's In Progress
 
-- 🔄 Capability-profile flag split (one flag per affordance) + 5 named presets
-- 🔄 Form submission workflow (optional webhook only)
-- 🔄 Accessibility audit + screen-reader tuning
+- 🔄 Documentation/version reconciliation against the v0.6.0 codebase
+- 🔄 Solution/build hygiene so default commands cover the full project set
+- 🔄 Release hardening: smoke validation of install/open/fill/export/import/sign
 
 ### What's Planned
 
-- ⏳ Cognitive / motor capability flags (DyslexiaFont, SectionFocusMode, HitMarginPadding, …)
-- ⏳ CLI coverage ratchet toward 95%
-- ⏳ Performance optimization
+- ✅ Import review UX for low-quality PDFs
+- ✅ In-app print preview before export
+- ✅ Shared SDK conformance corpus with .NET validation gate
+- ⏳ Non-.NET SDK conformance runners or explicit experimental labels
+- ⏳ macOS signing/notarization plan
 
-> **Removed from scope:** S3 / cloud-storage submission, cryptographic template/form
-> signing, certificate management, template-update service. PromptResponse stays
-> local-first; submission is optional and limited to webhook endpoints owned by the
-> template publisher.
+> **Scope guard:** PromptResponse stays local-first. Cloud-by-default workflows,
+> RBAC, analytics, hosted collaboration, and SSO remain deferred until there is
+> validated demand and an explicit product decision.
 
 ---
 
-## Immediate Actions (Week 1-2)
+## Immediate Actions
 
-### Day 1-3: Codebase Cleanup
+### Release Hardening
 
-**Files to Archive** (move to `promptresponse-multilang` repository):
+- [x] Align project versions with current release (`0.6.0`)
+- [x] Fix solution configuration gaps so default `dotnet test PromptResponse.sln`
+      includes the expected project set
+- [x] Replace obsolete Avalonia `TextBox.Watermark` usage with `PlaceholderText`
+- [ ] Run full local test suite after hardening changes
+- [ ] Run release smoke tests from published artifacts on Windows, Linux, macOS
+- [ ] Document any release-blocking issues in a dedicated known-issues section
 
-```
-/cpp/           → Archive (C++ implementation)
-/java/          → Archive (Java implementation)
-/python/        → Archive (Python implementation)
-/rust/          → Archive (Rust implementation)
-```
+### Product Polish
 
-**Files to Clean**:
+- [x] Add import review UX for cryptic labels, duplicate labels, and likely
+      radio groups
+- [ ] Add purpose-built cleanup tools for weak sectioning and radio-group
+      conversion
+- [x] Add in-app print preview over the shared render model
+- [ ] Add page-break-accurate preview over the existing PDF renderer
+- [x] Add a shared APR conformance corpus
+- [x] Gate the corpus in .NET tests
+- [ ] Decide whether non-.NET SDKs are supported or experimental, then add
+      runners for the SDKs that stay supported
 
-- [ ] Move `Screenshot From 2025-11-12 23-09-30.png` to `docs/images/`
-- [ ] Delete `tests/PromptResponse.AccessibilityTests/UnitTest1.cs`
-- [ ] Review and clean example files with malformed names
+### Historical Plan
 
-**Update .gitignore**:
-
-```gitignore
-# Archived language implementations
-/cpp/
-/java/
-/python/
-/rust/
-```
-
-### Day 4-7: Documentation Reorganization
+The sections below this point are retained as historical planning material from
+the earlier foundation phase. Treat ROADMAP.md and docs/FEATURES.md as the
+current source of truth.
 
 **Create New Structure**:
 
@@ -425,11 +432,13 @@ promptresponse-cli batch fill GLOB --csv  # Batch-fill forms from CSV
 
 ## Immediate Next Steps
 
-1. **Review and approve** this implementation plan
-2. **Archive language implementations** to separate repository
-3. **Create documentation structure** per this plan
-4. **Begin Week 3 tasks** (Main Window Redesign)
-5. **Schedule weekly standups**
+1. Finish documentation/version reconciliation against v0.6.0.
+2. Run `dotnet test PromptResponse.sln` and confirm no projects are skipped by
+   solution configuration.
+3. Run release smoke tests from packaged artifacts on all supported desktop
+   platforms.
+4. Start import review UX.
+5. Plan page-exact print preview and SDK conformance work.
 
 ---
 
@@ -438,6 +447,7 @@ promptresponse-cli batch fill GLOB --csv  # Batch-fill forms from CSV
 | Date | Version | Changes |
 |------|---------|---------|
 | 2024-11-20 | 1.0 | Initial implementation plan |
+| 2026-06-10 | 1.1 | Reframed current phase around v0.6.0 public-beta hardening |
 
 ---
 

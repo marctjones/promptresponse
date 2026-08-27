@@ -26,10 +26,11 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 
 | Category | Complete | In Progress | Planned | Total |
 |----------|----------|-------------|---------|-------|
-| Core Library | 6 | 0 | 2 | 8 |
-| Desktop UI | 6 | 1 | 6 | 13 |
-| Export & Print | 1 | 0 | 3 | 4 |
-| CLI Tool | 6 | 0 | 0 | 6 |
+| Core Library | 8 | 0 | 0 | 8 |
+| Desktop UI | 16 | 1 | 1 | 18 |
+| Export & Print | 5 | 0 | 2 | 7 |
+| Import | 2 | 0 | 1 | 3 |
+| CLI Tool | 10 | 0 | 0 | 10 |
 | Mobile | 0 | 0 | 4 | 4 |
 | Enterprise | 0 | 0 | 6 | 6 |
 
@@ -62,14 +63,15 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | Collapsible sections | P1 | ✅ | Expand/collapse in editor |
 | **Windows 11 UI redesign** | P0 | 🔄 | Modern Fluent design system |
 | Dashboard/home screen | P1 | ✅ | Home screen with recent files + starter-template gallery (#34, #36) |
-| Progress tracking | P1 | ⏳ | Visual % complete indicator |
-| Search & navigation | P1 | ⏳ | Find prompts, jump to section |
-| Validation panel | P2 | ⏳ | Dedicated error/warning panel |
-| Print preview | P2 | ⏳ | WYSIWYG print layout |
+| Progress tracking | P1 | ✅ | Right-rail total and per-section completion |
+| Search & navigation | P1 | ✅ | Find prompts and matches across nested sections |
+| Validation panel | P2 | ✅ | Advisory list with click-to-field |
+| Print preview | P2 | ✅ | In-app generated-content preview before PDF export |
 | Recent files list | P2 | ✅ | Recent files on the home screen, persisted (#34) |
 | PDF / fillable export (GUI) | P1 | ✅ | File → Export: flat PDF + fillable AcroForm (#31) |
 | HTML / web-form export (GUI) | P1 | ✅ | File → Export: read-only HTML page + self-contained fillable web form |
 | Starter templates | P1 | ✅ | 6 bundled accessible templates, selectable on home (#36) |
+| Signatures panel/actions | P1 | ✅ | Verify signatures, re-verify, sign as publisher, sign responses |
 
 ---
 
@@ -81,6 +83,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | HTML export | P2 | ✅ | Accessible HTML page (`export --format=html`); foundation for a browser fill path |
 | Fillable HTML (browser fill) | P1 | ✅ | `export --format=html --fillable` → self-contained interactive web form that downloads `.aprf`; no server. CLI + desktop File → Export |
 | **PDF export** | **P1** | **✅** | Flat **and** fillable-AcroForm PDF via CLI (`export --format=pdf [--fillable] [--page-size=a4] [--pdfa] [--banner=…]`) and the desktop File → Export menu (pdfe engine); carries document metadata, a running footer (title · generated date · "Page X of Y"), page size (Letter/A4/Legal), classification banners, and a **PDF/A-2b archival** mode (`--pdfa`, embedded font, veraPDF-validated) (#31, #80) |
+| Print preview | P2 | ✅ | Preview generated print/PDF content before writing a PDF |
 | Word export (.docx) | P2 | ⏳ | Export to Word format |
 | Excel export (.xlsx) | P2 | ⏳ | Export to spreadsheet |
 
@@ -115,6 +118,7 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 |---------|----------|--------|-------|
 | Document → APR (AI skill) | P1 | ✅ | Portable skill (`.claude/skills/document-to-apr/`): an agent turns a PDF / Word / OpenDocument / **image** of a form into a valid `.aprt`. Works in Claude Code, Gemini CLI, Codex, etc. |
 | AcroForm PDF importer (code) | P2 | ✅ | `apr import <file.pdf>` — deterministic extraction of fillable-PDF form fields → `.aprt` (`PdfFormImporter`, pdfe). Field quality depends on PDF tooltips (`/TU`): great when present (e.g. SF-86), cryptic when absent (e.g. IRS 990 → use the skill). Flat/scanned PDFs have no fields, so the skill is the path there. |
+| Import review UX | P1 | ✅ | Desktop review dialog shows score, recommendation, flag summary, and sample cryptic/duplicate/ambiguous fields before opening a weak import |
 
 ---
 
@@ -126,9 +130,13 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 | import | P2 | ✅ | Fillable PDF (AcroForm) → `.aprt` template |
 | info | P1 | ✅ | Display document information |
 | new | P1 | ✅ | Interactive template creation |
+| fill | P1 | ✅ | Programmatic response filling |
 | stats | P1 | ✅ | Detailed statistics |
 | diff | P1 | ✅ | Compare two APR files |
-| export | P1 | ✅ | Export to CSV/JSON/TXT |
+| export | P1 | ✅ | Export to CSV/JSON/TXT/HTML/PDF |
+| keygen | P1 | ✅ | Generate signing certificate material |
+| sign | P1 | ✅ | Sign publisher templates or filled responses |
+| verify | P1 | ✅ | Verify content signatures and trust status |
 
 ---
 
@@ -156,26 +164,28 @@ Cross-reference with ROADMAP.md for detailed descriptions.
 
 ---
 
-## Current Sprint (Phase 1)
+## Current Sprint
 
-**Focus**: Foundation polish — clean up the basic core implementation before any Phase 2 work.
+**Focus**: Public-beta hardening — keep the shipped v0.6.0 feature set reliable,
+documented, and releasable before adding larger features.
 
 ### High Priority (P0-P1)
 
 | Feature | Status | Owner | Target |
 |---------|--------|-------|--------|
-| Windows 11 UI redesign | 🔄 | - | Month 1 |
-| Dashboard/home screen | ⏳ | - | Month 1 |
-| Form filling experience | ⏳ | - | Month 2 |
-| **PDF export** | ⏳ | - | Month 2 |
+| Documentation/version reconciliation | 🔄 | - | v0.6.x |
+| Release smoke validation | ⏳ | - | v0.6.x |
+| Import review UX | ✅ | - | v0.6.x |
+| macOS signing/notarization plan | ⏳ | - | v0.6.x |
 
 ### Nice to Have (P2)
 
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Progress tracking | ⏳ | Visual indicator |
-| Print preview | ⏳ | After PDF export |
-| Word/Excel export | ⏳ | After PDF export |
+| Page-exact print preview | ⏳ | Follow-up over the existing PDF renderer |
+| Word/Excel export | ⏳ | Office interoperability |
+| SDK conformance corpus | ✅ | Shared v1 APR fixtures with .NET validation/round-trip gate |
+| Non-.NET SDK conformance runners | ⏳ | Run the shared corpus across Rust / Java / Python / C++ |
 
 ---
 
@@ -185,7 +195,7 @@ Track new feature requests here before adding to main list:
 
 | Request | Requester | Date | Priority | Notes |
 |---------|-----------|------|----------|-------|
-| PDF export | User | 2024-11-20 | P1 | Added to Export features |
+| PDF export | User | 2024-11-20 | P1 | Shipped; kept for historical context |
 
 ---
 
@@ -198,6 +208,10 @@ Track new feature requests here before adding to main list:
 | CLI tools | 2024-Q4 | 6 commands |
 | Template editor | 2024-Q4 | Basic functionality |
 | Form filling | 2024-Q4 | With response tracking |
+| Shippable MVP | 2026-06 | PDF export, packaging, home screen, starter templates |
+| Competitive form logic | 2026-06 | Expressions, calculations, conditional logic, advisory panel |
+| Import/export expansion | 2026-06 | PDF import, HTML/fillable web export, PDF/A |
+| Signatures | 2026-06 | Publisher and filler signing, verification, desktop status/actions |
 
 ---
 
@@ -235,4 +249,4 @@ Track new feature requests here before adding to main list:
 
 ---
 
-*Feature tracker updated 2026-06-06 — reflects the v0.3.0 MVP work (PDF export, home screen, starter templates, packaging). See `docs/MVP.md` and `CHANGELOG.md`.*
+*Feature tracker updated 2026-06-10 — reflects the v0.6.0 post-MVP hardening baseline. See `ROADMAP.md`, `docs/MVP.md`, and `CHANGELOG.md`.*

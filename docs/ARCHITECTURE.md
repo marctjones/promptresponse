@@ -310,7 +310,7 @@ public class PromptViewModel : ViewModelBase
 **XAML Binding**:
 ```xml
 <TextBox Text="{Binding Response, Mode=TwoWay}"
-         Watermark="{Binding Hints.Placeholder}"
+         PlaceholderText="{Binding Hints.Placeholder}"
          AutoCompleteSource="{Binding Hints.SuggestedValues}" />
 ```
 

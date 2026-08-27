@@ -40,6 +40,8 @@ PRIORITY READING ORDER FOR AI ASSISTANTS:
 | `/DEBUGGING.md` | Debug logging configuration | Developers |
 | `/LAUNCHER.md` | Running with launcher scripts | Users/Devs |
 | `/ROADMAP.md` | High-level project roadmap | All |
+| `/docs/RELEASE_SMOKE_TEST.md` | Release artifact smoke-test checklist | Release validation |
+| `/docs/SDK_CONFORMANCE.md` | Shared APR compatibility corpus rules | SDK and format work |
 | `/LICENSE` | GPL-3.0 license | Legal |
 
 ### /.claude/ Directory

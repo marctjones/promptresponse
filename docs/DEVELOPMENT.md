@@ -247,12 +247,12 @@ git commit -m "feat: add accessible MyView component"
 **❌ Using placeholder as only label:**
 ```xml
 <!-- BAD: Placeholder disappears when typing -->
-<TextBox Watermark="Enter your name"/>
+<TextBox PlaceholderText="Enter your name"/>
 
 <!-- GOOD: Proper label always visible to screen readers -->
 <TextBlock Text="Full Name"/>
 <TextBox Text="{Binding Name}"
-         Watermark="e.g., John Smith"
+         PlaceholderText="e.g., John Smith"
          AutomationProperties.Name="Full Name"/>
 ```
 

@@ -72,6 +72,11 @@ var doc = new PdfFormImporter().Import("form.pdf", title: "Intake Form");
 - Sectioning is per-PDF-page, not the form's own Part/Section structure.
 - Long tooltips become long labels.
 
+The desktop importer shows a review dialog when quality is weak: it includes the
+score, recommendation, flag counts, and sample fields with cryptic labels,
+duplicate labels, or likely radio-group ambiguity before you decide whether to
+open the imported template anyway.
+
 ---
 
 ## Path 2 — the `document-to-apr` skill (everything else)

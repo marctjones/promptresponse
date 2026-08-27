@@ -1,6 +1,6 @@
 # MVP Cut-Line — v0.3.0 "Shippable"
 
-**Status:** ~complete · **Created:** 2026-06-05 · **Updated:** 2026-06-06 · **Baseline:** v0.2.0
+**Status:** shipped in v0.3.0 · **Created:** 2026-06-05 · **Updated:** 2026-06-10 · **Baseline:** v0.2.0
 
 > **Progress (2026-06-06):** all blockers and core P1s shipped on `main` —
 > #1 PDF export (✅, flat **+** fillable AcroForm), #2 renderer seam (✅),
@@ -14,15 +14,14 @@ This is the concrete issue list for the first release a non-author can install,
 use, and get a presentable artifact out of — without a dev toolchain. See
 [ROADMAP.md](../ROADMAP.md) §4 Milestone 1 for context.
 
-**MVP thesis:** the core loop (create → fill → save/export) already works in
-v0.2.0. The gap to *usable* is small and concrete: **a presentable output
-(PDF/print), a real install, and an entry point.** Everything else (calc,
-conditional logic, web, mobile) is post-MVP.
+**MVP thesis:** the core loop (create → fill → save/export) worked in v0.2.0.
+The gap to *usable* was small and concrete: **a presentable output
+(PDF/print), a real install, and an entry point.** That gap is now closed.
 
 **Definition of done for v0.3.0:** A user with no .NET SDK downloads an
 installer, launches to a home screen, creates a form from a starter template,
 fills it, and prints/exports a clean PDF — all keyboard- and screen-reader-
-accessible, all verified by tests.
+accessible, all verified by tests. This definition was met.
 
 Priority: **P0** = blocks MVP · **P1** = needed for a credible MVP · **P2** =
 nice-to-have, can slip to 0.3.x.
@@ -48,11 +47,11 @@ path at all — the biggest functional hole.
   (honor "no layout info in `.apr`").
 
 **Acceptance criteria**
-- [ ] `dotnet run --project src/PromptResponse.Cli -- export form.aprf --format pdf` produces a valid PDF.
-- [ ] Desktop File menu exports/prints the current document to PDF.
-- [ ] Empty-field include/exclude toggle works.
-- [ ] A golden-file or structural test asserts section/prompt/response appear in order.
-- [ ] No layout fields added to the APR schema.
+- [x] `dotnet run --project src/PromptResponse.Cli -- export form.aprf --format pdf` produces a valid PDF.
+- [x] Desktop File menu exports the current document to PDF.
+- [x] Empty-field include/exclude toggle works.
+- [x] A structural test asserts section/prompt/response appear in order.
+- [x] No layout fields added to the APR schema.
 
 ---
 
@@ -68,8 +67,8 @@ their own walker.
 - PDF export (#1) is the first consumer.
 
 **Acceptance criteria**
-- [ ] A single traversal API exists with unit tests over a nested-section doc.
-- [ ] PDF export consumes it rather than re-walking the tree.
+- [x] A single traversal API exists with unit tests over a nested-section doc.
+- [x] PDF export consumes it rather than re-walking the tree.
 
 ---
 
@@ -88,9 +87,9 @@ binaries with no prerequisites.
 - (macOS can follow in 0.3.x — see #11.)
 
 **Acceptance criteria**
-- [ ] Downloadable Windows + Linux artifacts that run on a machine with no .NET installed.
-- [ ] Double-clicking a `.aprt`/`.aprf` opens it in the app (where the OS supports association).
-- [ ] CI produces the artifacts on tag.
+- [x] Downloadable Windows + Linux artifacts that run on a machine with no .NET installed.
+- [x] Double-clicking a `.aprt`/`.aprf` opens it in the app (where the OS supports association).
+- [x] CI produces the artifacts on tag.
 
 ---
 
@@ -106,10 +105,10 @@ The app currently opens into an empty editor. Give it a real front door.
 - Fully keyboard- and screen-reader-accessible (AutomationProperties, focus order).
 
 **Acceptance criteria**
-- [ ] First launch shows a home view, not an empty editor.
-- [ ] Recent files persist across runs and reopen correctly.
-- [ ] GUI headless test covers the home → open → editor flow.
-- [ ] Accessibility test: every actionable element has a Name; tab order verified.
+- [x] First launch shows a home view, not an empty editor.
+- [x] Recent files persist across runs and reopen correctly.
+- [x] GUI headless test covers the home → open → editor flow.
+- [x] Accessibility test: every actionable element has a Name; tab order verified.
 
 ---
 
@@ -123,9 +122,9 @@ Filling a form is easy; *authoring* one well is the unproven half. Guide it.
 - Dismissible; never blocks the keyboard/screen-reader path.
 
 **Acceptance criteria**
-- [ ] A new user can reach a saved `.aprt` without reading external docs.
-- [ ] Onboarding is dismissible and remembered.
-- [ ] No accessibility regressions (contrast + keyboard-nav tests pass).
+- [x] A new user can reach a saved `.aprt` without reading external docs.
+- [x] Onboarding is dismissible and remembered.
+- [x] No accessibility regressions (contrast + keyboard-nav tests pass).
 
 ---
 
@@ -142,9 +141,9 @@ feel like "pick and tweak."
   titles, help text) — accessibility is a CI gate.
 
 **Acceptance criteria**
-- [ ] ≥6 new starter templates under `examples/`.
-- [ ] All pass accessibility validation in CI.
-- [ ] Selectable from the home screen.
+- [x] ≥6 new starter templates under `examples/`.
+- [x] All pass accessibility validation in CI.
+- [x] Selectable from the home screen.
 
 ---
 
@@ -159,8 +158,8 @@ roadmap). Align them to the real v0.2.0 state.
 - Verify cross-links after this MVP doc + the rewritten ROADMAP land.
 
 **Acceptance criteria**
-- [ ] No doc claims a pre-0.2.0 baseline as current.
-- [ ] FEATURES.md status column matches what actually ships.
+- [x] No doc claims a pre-0.2.0 baseline as current.
+- [x] FEATURES.md status column matches what actually ships.
 
 ---
 
@@ -169,26 +168,24 @@ roadmap). Align them to the real v0.2.0 state.
 ### 8. Progress tracking in the fill view
 **Priority:** P2 · **Effort:** S
 
-`FormProgressViewModel` already exists — surface a visible % complete and
-per-section answered/unanswered summary in the UI.
+Shipped: `FormProgressViewModel` is surfaced in the right rail with total and
+per-section completion.
 
 ### 9. Validation / advisory panel
 **Priority:** P2 · **Effort:** S–M
 
-A dedicated panel listing advisories (hidden-char, mixed-script, type-hint
-mismatches) with click-to-field. The advisors already exist in Core; this is UI.
+Shipped: the right rail lists advisories with click-to-field behavior.
 
 ### 10. Profiles module consolidation (tech debt)
 **Priority:** P2 · **Effort:** S (1 d)
 
-Merge ~30 per-type input-mask/profile classes into one `InputMaskProfile`
-strategy table before more profiles get added. Pure refactor, behavior-
-preserving, covered by existing tests.
+Shipped: profile and input-mask behavior has been consolidated behind focused
+profile services and covered by tests.
 
 ### 11. macOS self-contained build
 **Priority:** P2 · **Effort:** S
 
-Extend #3 to macOS once Windows + Linux are proven.
+Shipped: release workflow produces macOS tarballs for Apple Silicon and Intel.
 
 ---
 
