@@ -136,7 +136,7 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
         }
         else if (f.Choices is { Count: > 0 })
         {
-            pdf.Dropdown(f.Label, f.Choices, fieldName, defaultValue);
+            pdf.Dropdown(f.Label, ChoicesIncluding(f.Choices, defaultValue), fieldName, defaultValue);
         }
         else
         {
@@ -178,7 +178,8 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
                 }
                 else if (cell.Choices is { Count: > 0 })
                 {
-                    spec = new FillableTableCell(fieldName, FillableCellKind.Choice, value, cell.Choices, tooltip);
+                    spec = new FillableTableCell(
+                        fieldName, FillableCellKind.Choice, value, ChoicesIncluding(cell.Choices, value), tooltip);
                 }
                 else
                 {
@@ -190,5 +191,27 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
         }
 
         pdf.FillableTable(t.ColumnHeaders, rows);
+    }
+
+    /// <summary>
+    /// The choice list to offer for a dropdown, guaranteed to contain the current answer.
+    /// </summary>
+    /// <remarks>
+    /// <c>suggestedValues</c> offers options; a response outside the list is still valid
+    /// (specification section 4.7). A PDF choice field rejects a default that is not one
+    /// of its options, so exporting a form whose answer was typed rather than picked used
+    /// to throw - and the desktop app died on it.
+    ///
+    /// Including the answer preserves it and keeps the dropdown. Dropping it instead
+    /// would silently lose what someone wrote, which is the one thing this format exists
+    /// to prevent.
+    /// </remarks>
+    private static IReadOnlyList<string> ChoicesIncluding(IReadOnlyList<string> offered, string? answer)
+    {
+        if (string.IsNullOrEmpty(answer) || offered.Contains(answer, StringComparer.Ordinal))
+        {
+            return offered;
+        }
+        return [.. offered, answer];
     }
 }

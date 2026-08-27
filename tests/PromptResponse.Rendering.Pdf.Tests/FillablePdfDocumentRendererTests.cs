@@ -185,4 +185,66 @@ public class FillablePdfDocumentRendererTests
         var act = () => _renderer.RenderToBytes(null!);
         act.Should().Throw<ArgumentNullException>();
     }
+
+    /// <summary>
+    /// A response outside its offered choices must not break a fillable-PDF export.
+    /// </summary>
+    /// <remarks>
+    /// Found by running the desktop app: typing a value into a table cell that offered
+    /// suggestedValues and exporting a fillable PDF threw ArgumentException from the PDF
+    /// layer ("Default value 'sf' is not one of the supplied options") and took the whole
+    /// application down.
+    ///
+    /// Specification section 4.7 is explicit that suggestedValues offers options and a
+    /// response outside the list is still valid, so this was the format's central rule
+    /// crashing the app that implements it.
+    /// </remarks>
+    [Fact]
+    public void FillableExport_AcceptsAResponseOutsideItsSuggestedValues()
+    {
+        var document = new AprDocument
+        {
+            DocumentType = DocumentType.FilledForm,
+            Metadata = new Metadata { Title = "Choices", TemplateId = "t" },
+            Sections =
+            [
+                new Section
+                {
+                    Id = "plain", Title = "Plain",
+                    Prompts =
+                    [
+                        new Prompt
+                        {
+                            Id = "status", Label = "Status", Response = "Something else entirely",
+                            Hints = new PromptHints { SuggestedValues = ["Draft", "Final"] },
+                        },
+                    ],
+                },
+                new Section
+                {
+                    Id = "tbl", Title = "Quarterly", Kind = "table",
+                    Sections =
+                    [
+                        new Section
+                        {
+                            Id = "q1", Title = "Q1",
+                            Prompts =
+                            [
+                                new Prompt { Id = "q1.revenue", Label = "Revenue", Response = "125000.00",
+                                    Hints = new PromptHints { ExpectedDataType = "currency" } },
+                                new Prompt { Id = "q1.status", Label = "Status", Response = "sf",
+                                    Hints = new PromptHints { SuggestedValues = ["Draft", "Final"] } },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        };
+
+        using var output = new MemoryStream();
+        var render = () => new FillablePdfDocumentRenderer().Render(document, RenderOptions.Default, output);
+
+        render.Should().NotThrow("a response outside suggestedValues is valid and must still export");
+        output.Length.Should().BeGreaterThan(0);
+    }
 }
