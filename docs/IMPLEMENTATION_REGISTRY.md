@@ -280,7 +280,7 @@ can score well on one and badly on another, so they are tracked separately.
 | Component | Complete | Conform | Correct | Robust | Evidence |
 |---|:--:|:--:|:--:|:--:|---|
 | **Core (C# SDK)** | ⚠️ | ✅ | ✅ | ⚠️ | 560 tests, **95% line-coverage gate**, 11 conformance methods over 35 fixtures |
-| **CLI** | ⚠️ | ⚠️ | ⚠️ | ❌ | 104 test methods; coverage gate is a **ratchet, not a bar**; conformance only indirect via Core |
+| **CLI** | ⚠️ | ⚠️ | ⚠️ | ✅ | 125 test methods; coverage gate is a **ratchet, not a bar**; conformance only indirect via Core. Robustness gated by `CliRobustnessTests` — hostile files at `validate`/`info`/`stats`, requiring non-zero exit, no throw, no stack trace |
 | **Desktop** | ⚠️ | ✅ | ✅ | ⚠️ | **759 tests, GUI included, now run** — issue #30 fixed. Conformance is **direct**, not inherited. **72% coverage gate** (measured 74.3%) |
 | **Accessibility** | ⚠️ | — | ✅ | ⚠️ | 54 methods in a **mandatory CI job**; two cases cite files that do not exist and silently skip; AT-SPI smoke test is manual, outside CI |
 | **PDF rendering** | ⚠️ | ✅ | ⚠️ | ⚠️ | 31 tests; **PDF/A externally validated by veraPDF (144/144)** — the only third-party conformance check in the project |
@@ -298,7 +298,7 @@ These gaps apply to the whole project, not to any one component.
 | Kind | Status | What it would catch |
 |---|:--:|---|
 | **Mutation testing** | ❌ broken | Issue #29 — Stryker.NET reports `Killed: 0`. **Until it runs, the 95% coverage figure is unvalidated**: it proves lines execute, not that assertions would notice if they broke |
-| **Fuzzing** | ❌ | Parser crashes and hangs on hostile input — directly relevant to "safe to open untrusted files" |
+| **Fuzzing** | ⚠️ | `ParserFuzzTests` and `CliRobustnessTests`: every truncation and 200 seeded single-character corruptions per fixture, byte-level encoding hazards, and exhaustion structures, through both `Deserialize(string)` and `DeserializeAsync(Stream)`. Deterministic mutation, **not coverage-guided** — a real fuzzer (SharpFuzz) would reach paths these do not |
 | **Property-based testing** | ❌ | Round-trip invariants over generated documents, rather than the 35 hand-written cases |
 | **Performance** | ❌ | The vision targets **1000+ prompts in under a second**. Largest fixture: 20 prompts. The claim is untested |
 | **Cross-implementation differential** | ❌ | Two conformant SDKs disagreeing. Impossible today — only one exists |
