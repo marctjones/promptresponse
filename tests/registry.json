@@ -82,12 +82,12 @@
       "path": "tests/PromptResponse.Desktop.Tests",
       "runsInCi": true,
       "gate": "none — excluded from the coverage gate",
-      "notes": "GUI subset cannot run to completion (issue #30, pre-existing shutdown deadlock).",
+      "notes": "GUI suite runs. Issue #30 was the console logger provider's thread keeping the testhost alive after every test passed.",
       "dimensions": {
         "completeness": "partial",
         "conformance": "indirect",
         "correctness": "partial",
-        "robustness": "none"
+        "robustness": "partial"
       }
     },
     {
@@ -208,7 +208,7 @@
     {
       "kind": "accessibility-runtime",
       "status": "manual",
-      "notes": "AT-SPI smoke test, outside CI"
+      "notes": "AT-SPI smoke test still manual and outside CI, but the headless GUI suite (AutomationTreeTests, KeyboardFlowTests) now runs."
     },
     {
       "kind": "mutation",

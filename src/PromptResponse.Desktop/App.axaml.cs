@@ -28,10 +28,20 @@ public partial class App : Application
     {
         try
         {
+            // Console logging is only meaningful when running as a desktop application.
+            // Its provider starts a background processing thread, and under the headless
+            // test harness nothing disposes the container, so that thread kept the
+            // testhost alive after every test had passed - the shutdown deadlock in
+            // issue #30, which made the entire GUI suite unrunnable and hid real failures.
+            var isDesktop = ApplicationLifetime is IClassicDesktopStyleApplicationLifetime;
+
             var services = new ServiceCollection();
             services.AddLogging(builder =>
             {
-                builder.AddConsole();
+                if (isDesktop)
+                {
+                    builder.AddConsole();
+                }
                 builder.SetMinimumLevel(LogLevel.Information);
             });
             ConfigureServices(services);
@@ -43,6 +53,9 @@ public partial class App : Application
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                // Release logger threads and other container-owned resources on exit.
+                desktop.Exit += (_, _) => serviceProvider.Dispose();
+
                 var settingsService = serviceProvider.GetRequiredService<ISettingsService>();
                 settingsService.Load();
 

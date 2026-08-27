@@ -212,7 +212,7 @@ public class PerPromptTypeInteractiveTests
         var window = view.ShowInWindow(width: 600, height: 200);
         window.Activate(view.FindDescendant<RadioButton>(r => r.Name == "YesRadio"));
         vm.IsTrue.Should().BeTrue();
-        vm.Response.Should().Be("yes");
+        vm.Response.Should().Be("true", "canonical boolean write form (specification section 4.9)");
     }
 
     [AvaloniaFact]
@@ -223,7 +223,7 @@ public class PerPromptTypeInteractiveTests
         var window = view.ShowInWindow(width: 600, height: 200);
         window.Activate(view.FindDescendant<RadioButton>(r => r.Name == "NoRadio"));
         vm.IsTrue.Should().BeFalse();
-        vm.Response.Should().Be("no");
+        vm.Response.Should().Be("false", "canonical boolean write form (specification section 4.9)");
     }
 
     // ── PhonePromptView ──

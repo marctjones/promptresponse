@@ -136,7 +136,7 @@ public class PromptViewsGuiTests
         window.Activate(yes);
 
         vm.IsTrue.Should().BeTrue();
-        vm.Response.Should().Be("yes");
+        vm.Response.Should().Be("true", "canonical boolean write form (specification section 4.9)");
     }
 
     [AvaloniaFact]

@@ -606,6 +606,13 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         // A new instance takes its shape from the ones already there — which is why no
         // separate column definition or row-label template is needed.
         var shape = _nestedSections.FirstOrDefault()?._section.Prompts ?? [];
+        if (shape.Count == 0)
+        {
+            // Nothing to copy: a table that somehow has no instances cannot describe its
+            // own fields (the validator reports TABLE_NO_ROWS). Seed one cell so the row
+            // is usable rather than an empty shell the filler cannot type into.
+            shape = [new Prompt { Id = "col1", Label = "Column 1", Hints = new PromptHints { ExpectedDataType = "text" } }];
+        }
         foreach (var cell in shape)
         {
             row.Prompts.Add(new Prompt
