@@ -949,6 +949,104 @@
         }
       ],
       "notes": "Asserted structurally: the core library references no System.Net type and links no HTTP client, so no input can cause a fetch. A behavioural test could only cover the paths it happened to walk."
+    },
+    {
+      "id": "REQ-4.7-bounds",
+      "section": "4.7",
+      "statement": "min, max and step are advisory; a response outside them is still valid",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/bounds-hints.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/BoundsHintsTests.cs::AResponseOutsideItsBounds_IsStillValid"
+        }
+      ],
+      "notes": "Every response in the fixture sits outside its stated bounds and the document is valid. Bounds describe the control offered, never a limit on the answer."
+    },
+    {
+      "id": "REQ-4.10-advisory",
+      "section": "4.10",
+      "statement": "A reader MUST NOT refuse input to a field because of its role",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs::SomeoneElsesFields_StayAnswerable"
+        }
+      ],
+      "notes": "The load-bearing rule. A disabled box is evidence of nothing, since whoever holds the file can edit the JSON; accountability comes from signatures instead."
+    },
+    {
+      "id": "REQ-4.10-inherit",
+      "section": "4.10",
+      "statement": "A prompt's role overrides the role of the section containing it",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "valid/roles.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Models/FormRolesTests.cs::APromptsOwnRoleOverridesItsSections"
+        }
+      ],
+      "notes": "Lets one question go back to the patient without splitting the nurse's section in two."
+    },
+    {
+      "id": "REQ-4.10-open",
+      "section": "4.10",
+      "statement": "An unrecognised or undeclared role MUST be presented normally, not rejected",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Models/FormRolesTests.cs::AnUnrecognisedRole_IsStillValid"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Models/FormRolesTests.cs::AnUndeclaredRole_IsValidAndReported"
+        }
+      ],
+      "notes": "The vocabulary must stay open or every industry with a party nobody enumerated in advance is locked out."
+    },
+    {
+      "id": "REQ-4.10-announce",
+      "section": "4.10",
+      "statement": "A reader SHOULD make a role legible to assistive technology",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs::WhoseFieldItIs_ReachesAssistiveTechnology"
+        }
+      ],
+      "notes": "A visual accent communicates nothing to a screen reader, and the whole point is that nobody has to ask whether a field is theirs."
+    },
+    {
+      "id": "REQ-9.3-fillerbinds",
+      "section": "9.3",
+      "statement": "A filler signature MUST bind the question as presented, not only the response",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Signing/AprSigningTests.cs::Filler_DetectsTheQuestionBeingRewrittenAfterSigning"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Signing/AprSigningTests.cs::Filler_DetectsTheOfferedOptionsBeingChangedAfterSigning"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Signing/AprSigningTests.cs::Filler_StillIgnoresQuestionsOutsideTheirScope"
+        }
+      ],
+      "notes": "Closed in apr-sig-v3. Under v2 a signature over \"No\" survived the question being rewritten to anything at all, putting a person on record as having answered something they never saw."
     }
   ]
 }

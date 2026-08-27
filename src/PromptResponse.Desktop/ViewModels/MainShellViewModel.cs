@@ -1050,6 +1050,9 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
                 promptVm.PropertyChanged += OnPromptResponseChanged;
             }
 
+            // Resolve who each field is for, so the person filling never has to ask.
+            ApplyRoles(document);
+
             // Apply expression hints once up-front so initial visibility,
             // read-only, and computed values are correct before any edit.
             ApplyExpressions();
@@ -1098,6 +1101,107 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         SaveCommand.NotifyCanExecuteChanged();
         SaveAsCommand.NotifyCanExecuteChanged();
         CloseCommand.NotifyCanExecuteChanged();
+    }
+
+    // ── Roles (specification 4.10) ──
+
+    private readonly ObservableCollection<RoleChoice> _availableRoles = new();
+    private RoleChoice? _activeRoleChoice;
+
+    /// <summary>The roles this form uses, plus "everyone" for showing the whole thing.</summary>
+    /// <remarks>
+    /// Empty for a single-party form, which is most of them, so the picker never appears
+    /// where it would only be clutter.
+    /// </remarks>
+    public ObservableCollection<RoleChoice> AvailableRoles => _availableRoles;
+
+    /// <summary>Whether this form is filled by more than one party.</summary>
+    public bool HasRoles => _availableRoles.Count > 1;
+
+    /// <summary>
+    /// Which role the person at the keyboard says they are filling.
+    /// </summary>
+    /// <remarks>
+    /// Choosing a role changes only what is emphasised. Nothing is hidden and nothing is
+    /// disabled: the format cannot know who is actually there, and a nurse filling in for
+    /// reception must not be stopped by a dropdown. The point is that "is this one mine?"
+    /// is answered by the form rather than by asking somebody.
+    /// </remarks>
+    public RoleChoice? ActiveRoleChoice
+    {
+        get => _activeRoleChoice;
+        set
+        {
+            if (_activeRoleChoice == value) return;
+            _activeRoleChoice = value;
+            foreach (var promptVm in _promptViewModels)
+            {
+                promptVm.ActiveRole = value?.Id;
+            }
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(ActiveRoleSummary));
+        }
+    }
+
+    /// <summary>What the shell says about the current selection.</summary>
+    public string ActiveRoleSummary
+    {
+        get
+        {
+            if (!HasRoles) return string.Empty;
+            if (ActiveRoleChoice?.Id is null)
+            {
+                return "Showing every part of this form.";
+            }
+
+            var mine = _promptViewModels.Count(p => p.IsMine);
+            return $"{mine} of {_promptViewModels.Count} fields are for " +
+                   $"{ActiveRoleChoice.Name}. The rest are marked, and still answerable.";
+        }
+    }
+
+    private void ApplyRoles(AprDocument document)
+    {
+        // Tolerant of duplicate ids: a document with two prompts sharing an id is
+        // invalid, and it must still open so the editor can show the person what is
+        // wrong (specification 6.3). ToDictionary threw here, which turned a fixable
+        // document into an unopenable one.
+        var resolved = new Dictionary<string, string?>(StringComparer.Ordinal);
+        foreach (var (prompt, role) in FormRoles.Resolve(document))
+        {
+            resolved.TryAdd(prompt.Id, role);
+        }
+
+        foreach (var promptVm in _promptViewModels)
+        {
+            var role = resolved.GetValueOrDefault(promptVm.Model.Id);
+            promptVm.Role = role;
+            promptVm.RoleDisplayName = FormRoles.DisplayName(document, role);
+        }
+
+        _availableRoles.Clear();
+        var used = FormRoles.Used(document);
+        if (used.Count > 0)
+        {
+            // "Everyone" first, and selected, so a form opens looking exactly as it did
+            // before roles existed until someone says who they are.
+            _availableRoles.Add(new RoleChoice(null, "Everyone", "Show every part of this form"));
+            foreach (var id in used)
+            {
+                var definition = FormRoles.Definition(document, id);
+                _availableRoles.Add(new RoleChoice(id, definition?.DisplayName ?? id, definition?.Description));
+            }
+        }
+
+        _activeRoleChoice = _availableRoles.FirstOrDefault();
+        foreach (var promptVm in _promptViewModels)
+        {
+            promptVm.ActiveRole = _activeRoleChoice?.Id;
+        }
+
+        OnPropertyChanged(nameof(HasRoles));
+        OnPropertyChanged(nameof(ActiveRoleChoice));
+        OnPropertyChanged(nameof(ActiveRoleSummary));
     }
 
     private void CollectPrompts(SectionViewModel section)

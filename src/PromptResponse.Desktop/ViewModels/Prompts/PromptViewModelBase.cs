@@ -115,6 +115,97 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// (e.g. SuggestedValues list) directly. Fill-mode rendering should not use this.</summary>
     internal Prompt Model => _prompt;
 
+    // ── Roles: whose field is this? (specification 4.10) ──
+
+    private string? _activeRole;
+    private string? _roleDisplayName;
+
+    /// <summary>The role this field is for, or null when it is for whoever is filling.</summary>
+    /// <remarks>
+    /// Set by the shell after resolution, because a prompt inherits its section's role and
+    /// a prompt view model cannot see its ancestors.
+    /// </remarks>
+    public string? Role { get; internal set; }
+
+    /// <summary>The role's declared name, or its identifier when the form declares none.</summary>
+    public string? RoleDisplayName
+    {
+        get => _roleDisplayName;
+        internal set
+        {
+            if (_roleDisplayName == value) return;
+            _roleDisplayName = value;
+            Notify();
+            Notify(nameof(RoleBadge));
+            Notify(nameof(RoleAnnouncement));
+        }
+    }
+
+    /// <summary>Which role the person at the keyboard says they are filling.</summary>
+    public string? ActiveRole
+    {
+        get => _activeRole;
+        internal set
+        {
+            if (_activeRole == value) return;
+            _activeRole = value;
+            Notify();
+            Notify(nameof(IsMine));
+            Notify(nameof(IsSomeoneElses));
+            Notify(nameof(ShowsMineAccent));
+            Notify(nameof(RoleBadge));
+            Notify(nameof(RoleAnnouncement));
+        }
+    }
+
+    /// <summary>True when this field is one the active role is meant to fill.</summary>
+    /// <remarks>
+    /// A field with no role belongs to whoever is filling, so it is always theirs. With no
+    /// active role chosen, every field is "mine" - nobody has said otherwise, and the form
+    /// should look exactly as it did before roles existed.
+    /// </remarks>
+    public bool IsMine =>
+        string.IsNullOrWhiteSpace(ActiveRole)
+        || string.IsNullOrWhiteSpace(Role)
+        || string.Equals(Role, ActiveRole, StringComparison.Ordinal);
+
+    /// <summary>True when this field is marked for a different party.</summary>
+    /// <remarks>
+    /// Marked, never locked. <see cref="IsInputEnabled"/> is deliberately untouched: the
+    /// format has no idea who is at the keyboard, and a disabled box is evidence of
+    /// nothing since whoever holds the file can edit the JSON directly. The point is to
+    /// answer "is this one mine?" without anybody having to ask, not to stop them.
+    /// </remarks>
+    public bool IsSomeoneElses => !IsMine;
+
+    /// <summary>Whether to draw the "this one is yours" accent.</summary>
+    /// <remarks>
+    /// Only once somebody has said which role they are filling. Before that every field is
+    /// unmarked and the form looks exactly as it did before roles existed, which is right:
+    /// accenting everything says nothing.
+    /// </remarks>
+    public bool ShowsMineAccent => !string.IsNullOrWhiteSpace(ActiveRole) && IsMine;
+
+    /// <summary>A short badge for a field belonging to someone else, else null.</summary>
+    public string? RoleBadge =>
+        IsSomeoneElses && !string.IsNullOrWhiteSpace(RoleDisplayName)
+            ? $"For {RoleDisplayName}"
+            : null;
+
+    /// <summary>What a screen reader should say about whose field this is.</summary>
+    /// <remarks>
+    /// A visual treatment communicates nothing to someone using a screen reader, so the
+    /// same fact goes into the accessible description. Specification 4.10 asks for this
+    /// explicitly; the whole point of a role is that nobody has to ask whether a field is
+    /// theirs, and that has to hold for everyone.
+    /// </remarks>
+    public string? RoleAnnouncement =>
+        string.IsNullOrWhiteSpace(RoleDisplayName)
+            ? null
+            : IsSomeoneElses
+                ? $"For {RoleDisplayName}. You can still answer it if you need to."
+                : $"For {RoleDisplayName}.";
+
     /// <summary>
     /// Raw response string. Setting this updates the underlying <see cref="Prompt"/> model.
     /// Any visible text is a valid response (vision invariant).

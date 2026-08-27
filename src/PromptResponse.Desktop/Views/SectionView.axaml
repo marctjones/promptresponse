@@ -37,8 +37,50 @@
         <!-- ── Regular section layout: prompts + nested sub-sections ── -->
         <StackPanel Spacing="14" IsVisible="{Binding IsRegularSection}">
             <ItemsControl ItemsSource="{Binding PromptViewModels}"
-                          ItemTemplate="{StaticResource PromptTemplate}"
                           AutomationProperties.Name="Prompts">
+                <!--
+                    Wrapped once here rather than in each of the thirteen prompt views:
+                    a role badge above the field, then the field itself via the type
+                    selector. A field belonging to someone else is marked and de-emphasised
+                    but never disabled — the format has no idea who is at the keyboard, and
+                    a nurse covering reception must not be stopped by a dropdown (spec 4.10).
+                -->
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!--
+                            Yours is marked by an accent rule, not by dimming everyone
+                            else's. Reducing opacity on the other party's fields would cut
+                            text contrast to make an ownership point, which is the wrong
+                            trade in a form somebody has to read.
+                        -->
+                        <StackPanel Spacing="3"
+                                    AutomationProperties.HelpText="{Binding RoleAnnouncement}">
+                            <Border IsVisible="{Binding RoleBadge, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                    Background="{DynamicResource SystemChromeMediumLowColor}"
+                                    CornerRadius="3"
+                                    Padding="6,1"
+                                    HorizontalAlignment="Left">
+                                <TextBlock Text="{Binding RoleBadge}"
+                                           FontSize="11"
+                                           Opacity="0.85"
+                                           AutomationProperties.Name="{Binding RoleAnnouncement}"/>
+                            </Border>
+                            <Border BorderBrush="{DynamicResource SystemAccentColor}"
+                                    BorderThickness="3,0,0,0"
+                                    Padding="9,0,0,0"
+                                    Margin="0,0,0,0">
+                                <Border.IsVisible>
+                                    <Binding Path="ShowsMineAccent"/>
+                                </Border.IsVisible>
+                                <ContentControl Content="{Binding}"
+                                                ContentTemplate="{StaticResource PromptTemplate}"/>
+                            </Border>
+                            <ContentControl Content="{Binding}"
+                                            IsVisible="{Binding !ShowsMineAccent}"
+                                            ContentTemplate="{StaticResource PromptTemplate}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Spacing="16"/>
@@ -52,6 +94,7 @@
                         <Setter Property="IsVisible" Value="{ReflectionBinding IsVisible}"/>
                         <Setter Property="IsEnabled" Value="{ReflectionBinding IsInputEnabled}"/>
                     </Style>
+
                 </ItemsControl.Styles>
             </ItemsControl>
 

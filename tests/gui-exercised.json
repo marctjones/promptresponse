@@ -1,6 +1,11 @@
 [
   {
     "surface": "shell.fill",
+    "kind": "ComboBox",
+    "label": "I am filling this form as"
+  },
+  {
+    "surface": "shell.fill",
     "kind": "TextBox",
     "label": "Search prompts"
   },
@@ -168,6 +173,11 @@
     "surface": "shell.fill",
     "kind": "Button",
     "label": "Date"
+  },
+  {
+    "surface": "shell.edit",
+    "kind": "ComboBox",
+    "label": "I am filling this form as"
   },
   {
     "surface": "shell.edit",

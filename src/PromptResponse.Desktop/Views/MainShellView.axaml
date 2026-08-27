@@ -357,6 +357,41 @@
                     BorderBrush="{Binding ActiveProfileBorderBrush}"
                     AutomationProperties.Name="Sections sidebar">
                 <DockPanel>
+                    <!--
+                        Which role am I filling? Present only when the form actually has
+                        more than one party, so a single-party form is unchanged. Choosing
+                        one accents your fields and marks everyone else's; it never hides
+                        or disables anything, because the app cannot know who is really at
+                        the keyboard (spec 4.10).
+                    -->
+                    <StackPanel DockPanel.Dock="Top" Margin="16,16,16,8" Spacing="6"
+                                IsVisible="{Binding HasRoles}">
+                        <TextBlock Text="I am filling this as"
+                                   FontWeight="SemiBold"
+                                   FontSize="{Binding CaptionFontSize}"
+                                   Foreground="{Binding ActiveProfileMutedTextBrush}"/>
+                        <ComboBox x:Name="RolePicker"
+                                  ItemsSource="{Binding AvailableRoles}"
+                                  SelectedItem="{Binding ActiveRoleChoice, Mode=TwoWay}"
+                                  MinHeight="36"
+                                  HorizontalAlignment="Stretch"
+                                  FontSize="{Binding BodyFontSize}"
+                                  AutomationProperties.Name="I am filling this form as"
+                                  AutomationProperties.HelpText="Marks which fields are yours. Every field stays answerable whichever role you pick.">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Display}"
+                                               AutomationProperties.Name="{Binding Display}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="{Binding ActiveRoleSummary}"
+                                   FontSize="{Binding CaptionFontSize}"
+                                   TextWrapping="Wrap"
+                                   Foreground="{Binding ActiveProfileMutedTextBrush}"
+                                   IsVisible="{Binding ActiveRoleSummary, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                    </StackPanel>
+
                     <StackPanel DockPanel.Dock="Top" Margin="16,16,16,8" Spacing="6">
                         <TextBlock Text="Search"
                                    FontWeight="SemiBold"
