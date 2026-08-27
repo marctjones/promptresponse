@@ -244,6 +244,11 @@ Adopt **CEL** (Common Expression Language) rather than defining a language.
   official conformance suite). *Young and low-adoption — the bus-factor risk is real,
   mitigated by zero dependencies and by CEL being a standard, so implementations are
   swappable*
+- **Spike completed — the design is verified, not assumed.** `VariableDecl(name, CelType)`
+  builds the type environment from hints; `qty * price` evaluates to `37.5` with no
+  conversion wrappers; `CelEnv.Check` reports type errors at authoring time with
+  positions; runtime failures arrive as error *values* rather than exceptions, matching
+  the degrade-to-stored-response rule; `EvalLimits` supplies bounded evaluation
 - Type environment comes from `expectedDataType`: `number`/`currency` → `double`,
   `boolean` → `bool`, `date`/`time`/`datetime` → `timestamp`, `multichoice` →
   `list<string>`, everything else → `string`

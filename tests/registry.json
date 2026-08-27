@@ -661,7 +661,13 @@
       "statement": "Expression evaluation semantics",
       "strength": "none",
       "gates": [],
-      "gap": "Nothing tests expression results. The spec itself names this the largest interop risk. Planned: adopt CEL, borrow its 2,456-test suite for the language, and add APR binding vectors."
+      "gap": "Nothing tests expression results, and the shipped engine is CEL-flavoured rather than CEL: it uses JavaScript truthiness where CEL requires bool. Decision recorded in specification 8.5 - adopt CEL, with expectedDataType supplying the type environment. Verified feasible by spike: Celly builds the environment via VariableDecl(name, CelType), 'qty * price' evaluates without conversion wrappers, CelEnv.Check reports type errors at authoring time with positions, runtime failures arrive as error values matching 8.3's degrade rule, and EvalLimits provides bounded evaluation. Language conformance then comes from cel-spec's 2,456-test suite; only the binding vectors remain APR's to write.",
+      "planned": {
+        "decision": "specification 8.5",
+        "blocked": false,
+        "languageConformance": "cel-spec suite (borrowed)",
+        "bindingConformance": "APR vectors (to write)"
+      }
     },
     {
       "id": "REQ-9.2-sigobject",
