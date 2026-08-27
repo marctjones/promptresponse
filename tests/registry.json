@@ -82,7 +82,7 @@
       "path": "tests/PromptResponse.Desktop.Tests",
       "runsInCi": true,
       "gate": "72% line coverage (measured 74.3%)",
-      "notes": "GUI suite runs (issue #30 fixed). Conformance is direct rather than inherited, and the project is now inside a coverage gate for the first time - it was excluded entirely while its GUI tests could not run, so there was nothing meaningful to measure.",
+      "notes": "GUI suite runs (issue #30 fixed). Conformance is direct rather than inherited, and the project is now inside a coverage gate for the first time - it was excluded entirely while its GUI tests could not run, so there was nothing meaningful to measure. No tests are skipped anywhere in the solution.",
       "dimensions": {
         "completeness": "partial",
         "conformance": "gated",
@@ -97,7 +97,7 @@
       "path": "tests/PromptResponse.AccessibilityTests",
       "runsInCi": true,
       "gate": "mandatory CI job",
-      "notes": "Two cases cite files that do not exist and silently skip. AT-SPI smoke test is manual, outside CI.",
+      "notes": "AT-SPI smoke test is manual, outside CI. No tests are skipped anywhere in the solution.",
       "dimensions": {
         "completeness": "partial",
         "conformance": "na",
@@ -222,8 +222,8 @@
     },
     {
       "kind": "accessibility-runtime",
-      "status": "manual",
-      "notes": "AT-SPI smoke test still manual and outside CI, but the headless GUI suite (AutomationTreeTests, KeyboardFlowTests) now runs."
+      "status": "partial",
+      "notes": "In-process automation-tree assertions run headlessly (AutomationTreeTests). External AT-SPI verification against a live application is still the manual script at tests/at-spi/run_at_spi_smoke.sh, outside CI. Two stubs that claimed to cover this were removed rather than left permanently skipped - a skip hides a gap instead of recording it."
     },
     {
       "kind": "mutation",

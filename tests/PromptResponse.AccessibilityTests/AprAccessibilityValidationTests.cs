@@ -174,84 +174,7 @@ public class AprAccessibilityValidationTests
         }
     }
 
-    [Fact(Skip = "Requires running application - integration test")]
-    public async Task RunningApplication_ShouldExpose_FormTitleToScreenReader()
-    {
-        // This test requires the application to be running
-        // It would launch the app, query the accessibility tree, and verify the title
 
-        var inspector = AccessibilityInspectorFactory.CreateInspector();
-
-        if (!await inspector.IsAvailableAsync())
-        {
-            // Skip if accessibility inspector not available
-            return;
-        }
-
-        // TODO: Launch application
-        // TODO: Load test APR file
-        // TODO: Query accessibility tree
-        // TODO: Verify title is exposed
-
-        var tree = await inspector.GetAccessibilityTreeAsync("PromptResponse");
-        tree.Should().NotBeNull("because application should be accessible");
-
-        // Find the form title
-        var titleElement = await inspector.FindElementByNameAsync("Simple Contact Form");
-        titleElement.Should().NotBeNull("because form title should be accessible");
-        titleElement!.Role.Should().Be("heading", "because title should be marked as heading");
-    }
-
-    [Fact(Skip = "Requires running application - integration test")]
-    public async Task RunningApplication_AllFormFields_ShouldBeAccessible()
-    {
-        // This test would:
-        // 1. Load APR file
-        // 2. Launch app with that file
-        // 3. Query accessibility tree
-        // 4. Verify each prompt in APR has corresponding accessible element
-        // 5. Verify labels match
-        // 6. Verify help text is exposed
-
-        var inspector = AccessibilityInspectorFactory.CreateInspector();
-
-        if (!await inspector.IsAvailableAsync())
-        {
-            return;
-        }
-
-        var aprFile = "examples/simple-contact-form.aprt";
-        var json = await File.ReadAllTextAsync(aprFile);
-        var document = _serializer.Deserialize(json);
-
-        // TODO: Launch app with this file
-
-        var allPrompts = GetAllPrompts(document);
-
-        foreach (var prompt in allPrompts)
-        {
-            // Find corresponding accessible element
-            var element = await inspector.FindElementByNameAsync(prompt.Label, "text field");
-
-            element.Should().NotBeNull(
-                $"because prompt '{prompt.Label}' should be accessible to screen readers");
-
-            element!.Name.Should().Be(prompt.Label,
-                "because accessible name should match the prompt label");
-
-            if (!string.IsNullOrWhiteSpace(prompt.Hints.HelpText))
-            {
-                element.Description.Should().Be(prompt.Hints.HelpText,
-                    "because help text should be exposed as accessible description");
-            }
-
-            // Validate the element
-            var validation = await inspector.ValidateElementAsync(element);
-            validation.IsValid.Should().BeTrue(
-                $"because '{prompt.Label}' should have proper accessibility properties. " +
-                $"Issues: {string.Join(", ", validation.Issues.Select(i => i.Message))}");
-        }
-    }
 
     // ── Bundled starter templates (#36) — hard-asserted (no silent skip) ──
 
@@ -386,4 +309,14 @@ public class AprAccessibilityValidationTests
             CollectPromptsFromSection(childSection, prompts);
         }
     }
+
+    // Two stubs that required a running application and an external accessibility
+    // inspector were removed rather than left skipped. They were never implemented -
+    // their bodies were TODOs - and a permanent skip hides a gap instead of recording it.
+    //
+    // Their intent is covered runnably by the headless GUI suite:
+    // AutomationTreeTests.EveryPromptInForm_HasAccessibleNameMatchingItsLabel and
+    // Menu_BarAndItems_AppearInAutomationTree_WithNames query the real automation tree
+    // in-process. External AT-SPI verification against a live app remains the manual
+    // script at tests/at-spi/run_at_spi_smoke.sh, recorded as a gap in tests/registry.json.
 }

@@ -42,10 +42,7 @@ public class FullStackPhoneMaskTest
         public ColorScheme PreferredColorScheme => ColorScheme.Light;
     }
 
-    [AvaloniaFact(Skip = "Hangs in headless rendering of the fully-loaded showcase document. " +
-                          "The narrower LiveAppFlowTests.PhoneMask_ThroughSectionViewItemsControl_StillReshapesOnTyping " +
-                          "covers the same flow end-to-end without rendering MainShellView. " +
-                          "Re-enable once we identify the layout-loop / measure-pass issue.")]
+    [AvaloniaFact]
     public void LoadShowcase_ApplyExcellentPreset_TypeIntoPhoneField_VisibleTextReshapes()
     {
         // ── 1. DI container that mirrors App.axaml.cs ──
@@ -66,13 +63,23 @@ public class FullStackPhoneMaskTest
         var workspaceRoot = FindWorkspaceRoot();
         var showcasePath = Path.Combine(workspaceRoot, "examples", "field-types-showcase.aprt");
         File.Exists(showcasePath).Should().BeTrue($"sample file at {showcasePath}");
-        var doc = fileService.LoadFileAsync(showcasePath).GetAwaiter().GetResult();
+        // Deserialize synchronously. Blocking on LoadFileAsync with GetAwaiter().GetResult()
+        // deadlocks here: this runs on the Avalonia dispatcher thread, the continuation
+        // needs that thread to resume, and the blocking call never releases it. That was
+        // the "hang" this test was skipped for - not a layout loop at all.
+        var doc = new AprJsonSerializer().Deserialize(File.ReadAllText(showcasePath));
         doc.Should().NotBeNull();
 
         // ── 3. Render through MainShellView ──
         var shell = sp.GetRequiredService<MainShellViewModel>();
         var session = sp.GetRequiredService<IDocumentSessionService>();
         session.Set(doc!, showcasePath);
+
+        // The showcase is a template, so it opens in edit mode and renders the structural
+        // editor - PromptEditorView, not PhonePromptView. Switch to filling, which is the
+        // flow this test is about and what a person choosing "fill out" would get.
+        shell.ToggleEditModeCommand.Execute(null);
+        shell.IsEditMode.Should().BeFalse("this test exercises the fill flow, not the editor");
 
         var view = new MainShellView { DataContext = shell };
         var window = view.ShowInWindow(width: 1200, height: 800);
