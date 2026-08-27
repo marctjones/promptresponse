@@ -632,10 +632,19 @@
           "ref": "malformed/sections-not-array.aprt"
         },
         {
+          "type": "fixture",
+          "ref": "malformed/missing-required-members.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "malformed/not-an-object.aprt"
+        },
+        {
           "type": "test",
           "ref": "MalformedCorpus_IsRejectedAtParseTime"
         }
-      ]
+      ],
+      "notes": "missing-required-members pins the shape the reference parser used to accept: an object with none of the required top-level members deserialized into a document of defaults, so `apr info` exited 0 on any JSON object at all while the schema rejected the same file."
     },
     {
       "id": "REQ-7.1-nfc",
