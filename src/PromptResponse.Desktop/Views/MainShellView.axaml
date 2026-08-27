@@ -110,7 +110,7 @@
                     Windows and Linux users reach for, and this is a cross-platform app.
                 -->
                 <MenuItem Header="E_xit"
-                          Click="OnExitClicked"
+                          Command="{Binding ExitCommand}"
                           HotKey="Ctrl+Q"
                           InputGesture="Ctrl+Q"
                           AutomationProperties.Name="Exit"

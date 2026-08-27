@@ -38,9 +38,17 @@ public partial class MainShellView : UserControl
         if (DataContext is MainShellViewModel shell)
         {
             shell.FocusPromptRequested += OnFocusPromptRequested;
+            shell.ExitRequested += OnExitRequested;
             _subscribedShell = shell;
         }
     }
+
+    /// <summary>Leaves the application when the shell asks.</summary>
+    /// <remarks>
+    /// Closes the window rather than calling Shutdown so the window's own Closing
+    /// handling still runs; shutting down directly would skip it.
+    /// </remarks>
+    private void OnExitRequested() => (TopLevel.GetTopLevel(this) as Window)?.Close();
 
     private void OnFocusPromptRequested(string promptId)
     {
@@ -82,14 +90,6 @@ public partial class MainShellView : UserControl
         Avalonia.Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
             ? desktop.MainWindow
             : null;
-
-    /// <summary>File &gt; Exit.</summary>
-    /// <remarks>
-    /// Closes the window rather than calling Shutdown so the window's own Closing
-    /// handling still runs; shutting down directly would skip it.
-    /// </remarks>
-    private void OnExitClicked(object? sender, RoutedEventArgs e) =>
-        (TopLevel.GetTopLevel(this) as Window)?.Close();
 
     private void OnDisplayPreferencesClicked(object? sender, RoutedEventArgs e)
     {

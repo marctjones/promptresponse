@@ -446,6 +446,22 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </summary>
     public event Action<string>? FocusPromptRequested;
 
+    /// <summary>Raised when the user asks to leave the application.</summary>
+    /// <remarks>
+    /// The view closes the window in response rather than the model shutting down
+    /// directly, so the window's own Closing handling still runs.
+    /// </remarks>
+    public event Action? ExitRequested;
+
+    /// <summary>File &gt; Exit.</summary>
+    /// <remarks>
+    /// A command rather than a Click handler, because a menu item wired to a handler is
+    /// invisible to anything that inspects the menu - which is exactly what
+    /// EveryFileMenuItem_HasACommandBinding checks, and it caught the first attempt.
+    /// </remarks>
+    [RelayCommand]
+    private void Exit() => ExitRequested?.Invoke();
+
     /// <summary>Navigates to the field an advisory refers to (click-to-field).</summary>
     [RelayCommand]
     public void FocusAdvisory(string? promptId)
