@@ -82,10 +82,10 @@
       "path": "tests/PromptResponse.Desktop.Tests",
       "runsInCi": true,
       "gate": "none — excluded from the coverage gate",
-      "notes": "GUI suite runs. Issue #30 was the console logger provider's thread keeping the testhost alive after every test passed.",
+      "notes": "GUI suite runs (issue #30 fixed: the console logger provider's thread kept the testhost alive). Conformance is now direct rather than inherited from Core - the corpus runs through the view-model layer, where a capability profile, an input mask, or expression recompute could corrupt a document Core handles perfectly.",
       "dimensions": {
         "completeness": "partial",
-        "conformance": "indirect",
+        "conformance": "gated",
         "correctness": "partial",
         "robustness": "partial"
       }
@@ -175,6 +175,21 @@
         "conformance": "none",
         "correctness": "none",
         "robustness": "none"
+      }
+    },
+    {
+      "id": "desktop.conformance",
+      "component": "Desktop corpus conformance",
+      "language": "csharp",
+      "path": "tests/PromptResponse.Desktop.Tests/Conformance",
+      "runsInCi": true,
+      "gate": "the shared corpus, through the desktop view-model layer",
+      "notes": "Opening changes no response; a round-trip preserves documentType, version and unknown members; every prompt accepts any string whatever its hint; an invalid document still opens so the problem can be shown; a malformed one is refused; a tampered signature does not withhold the data.",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "partial"
       }
     }
   ],
