@@ -47,6 +47,16 @@ def spec_sections_with_musts():
     return sections
 
 
+
+def _declares(source: str, method: str) -> bool:
+    """Does this source declare a test method by that name?
+
+    Matches both "void Name(" and "Task Name(" - async tests are ordinary here, and a
+    checker that only knew "void" would report a perfectly good gate as missing.
+    """
+    return f"void {method}(" in source or f"Task {method}(" in source
+
+
 def main():
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
     src = source_text()
@@ -78,10 +88,10 @@ def main():
                     target = ROOT / rel
                     if not target.exists():
                         problems.append(f"{req['id']}: test file not found — {rel}")
-                    elif f"void {method}(" not in target.read_text(encoding="utf-8"):
+                    elif not _declares(target.read_text(encoding="utf-8"), method):
                         problems.append(
                             f"{req['id']}: test method not found in {rel} — {method}")
-                elif f"void {ref}(" not in src:
+                elif not _declares(src, ref):
                     problems.append(f"{req['id']}: test method not found in source — {ref}")
             elif kind == "suite":
                 if ref not in suite_ids:

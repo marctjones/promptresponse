@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Text;
 using AwesomeAssertions;
+using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
 using Xunit;
@@ -38,14 +39,39 @@ public class ParserFuzzTests
         "tests", "Conformance", "v1", kind);
 
     /// <summary>Parse must end in one of two states, within a bounded time.</summary>
-    private static void MustSurvive(string input, string what)
+    /// <remarks>
+    /// Exercised through both entry points. DeserializeAsync(Stream) is what actually opens
+    /// a file in production, and it is a different code path from the string overload -
+    /// fuzzing only the convenience overload would leave the real one untested.
+    /// </remarks>
+    private static async Task MustSurviveAsync(string input, string what)
+    {
+        await MustSurviveAsync(Encoding.UTF8.GetBytes(input), what);
+        await AttemptAsync(() => Task.FromResult<AprDocument?>(Serializer.Deserialize(input)),
+            $"{what} [string]");
+    }
+
+    /// <summary>The byte-level contract, which is the one a file actually meets.</summary>
+    private static Task MustSurviveAsync(byte[] input, string what) =>
+        AttemptAsync(
+            async () =>
+            {
+                using var stream = new MemoryStream(input, writable: false);
+                return await Serializer.DeserializeAsync(stream);
+            },
+            $"{what} [stream]");
+
+    private static async Task AttemptAsync(Func<Task<AprDocument?>> parse, string what)
     {
         var stopwatch = Stopwatch.StartNew();
         try
         {
-            var document = Serializer.Deserialize(input);
+            var document = await parse();
             // A parsed document must also validate without throwing, whatever it contains.
-            new DocumentValidator().Validate(document);
+            if (document is not null)
+            {
+                new DocumentValidator().Validate(document);
+            }
         }
         catch (SerializationException)
         {
@@ -76,18 +102,18 @@ public class ParserFuzzTests
     /// </remarks>
     [Theory]
     [MemberData(nameof(CorpusFiles))]
-    public void EveryTruncationOfAValidDocument_IsRefusedCleanly(string name, string json)
+    public async Task EveryTruncationOfAValidDocument_IsRefusedCleanly(string name, string json)
     {
         for (var length = 0; length < json.Length; length += Math.Max(1, json.Length / 200))
         {
-            MustSurvive(json[..length], $"{name} truncated to {length} chars");
+            await MustSurviveAsync(json[..length], $"{name} truncated to {length} chars");
         }
     }
 
     /// <summary>Single-byte corruption at points spread through a valid document.</summary>
     [Theory]
     [MemberData(nameof(CorpusFiles))]
-    public void SingleCharacterCorruption_IsRefusedCleanly(string name, string json)
+    public async Task SingleCharacterCorruption_IsRefusedCleanly(string name, string json)
     {
         const string poison = "\"{}[],:\\\u0000\uFFFF";
         var rng = new Random(20260827);   // fixed seed: a failure must reproduce
@@ -96,7 +122,7 @@ public class ParserFuzzTests
             var at = rng.Next(json.Length);
             var replacement = poison[rng.Next(poison.Length)];
             var mutated = string.Concat(json.AsSpan(0, at), replacement.ToString(), json.AsSpan(at + 1));
-            MustSurvive(mutated, $"{name} with '{(int)replacement:X4}' at {at}");
+            await MustSurviveAsync(mutated, $"{name} with '{(int)replacement:X4}' at {at}");
         }
     }
 
@@ -113,7 +139,7 @@ public class ParserFuzzTests
     [InlineData("null bytes")]
     [InlineData("bom and whitespace only")]
     [InlineData("empty input")]
-    public void HostileStructures_AreRefusedCleanly(string shape)
+    public async Task HostileStructures_AreRefusedCleanly(string shape)
     {
         var input = shape switch
         {
@@ -137,7 +163,7 @@ public class ParserFuzzTests
             _ => throw new ArgumentOutOfRangeException(nameof(shape)),
         };
 
-        MustSurvive(input, shape);
+        await MustSurviveAsync(input, shape);
     }
 
     private static string DeepSections(int depth)
@@ -186,9 +212,11 @@ public class ParserFuzzTests
         networkTypes.Should().BeEmpty(
             "opening a document must not be able to fetch anything (specification section 11)");
 
+        // The whole System.Net surface, not just HTTP: a socket opened in a method body
+        // would leave no trace in the type scan above, but the assembly reference remains.
         core.GetReferencedAssemblies().Select(a => a.Name ?? string.Empty)
-            .Should().NotContain(n => n.StartsWith("System.Net.Http", StringComparison.Ordinal),
-                "the core library has no business linking an HTTP client");
+            .Should().NotContain(n => n.StartsWith("System.Net", StringComparison.Ordinal),
+                "the core library has no business linking anything that can reach a network");
     }
 
     /// <summary>Measures where nesting actually gives out and pins the floor beneath it.</summary>
@@ -234,6 +262,49 @@ public class ParserFuzzTests
         File.WriteAllText(
             Path.Combine(Path.GetTempPath(), "apr-nesting-ceiling.txt"),
             deepest.ToString());
+    }
+
+    /// <summary>Encoding hazards that only exist at the byte level.</summary>
+    /// <remarks>
+    /// Specification section 3.1: files MUST be UTF-8 and a reader SHOULD tolerate a
+    /// leading byte-order mark. These cases cannot be written as C# strings - a string is
+    /// already decoded, so truncating one can never split a multi-byte codepoint the way a
+    /// half-copied file does. Classic interop failures: a BOM written by a Windows editor,
+    /// a file transcoded to UTF-16 by a mail gateway, a transfer cut mid-character.
+    /// </remarks>
+    [Theory]
+    [MemberData(nameof(CorpusFiles))]
+    public async Task EncodingHazards_AreToleratedOrRefusedCleanly(string name, string json)
+    {
+        var utf8 = Encoding.UTF8.GetBytes(json);
+
+        // A leading BOM SHOULD be tolerated: the document must still parse.
+        var withBom = Encoding.UTF8.GetPreamble().Concat(utf8).ToArray();
+        using (var stream = new MemoryStream(withBom, writable: false))
+        {
+            var parsed = await Serializer.DeserializeAsync(stream);
+            parsed.Should().NotBeNull(
+                $"{name}: a leading byte-order mark must be tolerated (section 3.1), " +
+                "because editors on Windows add one without being asked");
+        }
+
+        // Not UTF-8 at all. Must be refused cleanly, never silently mis-decoded.
+        await MustSurviveAsync(Encoding.Unicode.GetBytes(json), $"{name} as UTF-16LE");
+        await MustSurviveAsync(Encoding.BigEndianUnicode.GetBytes(json), $"{name} as UTF-16BE");
+
+        // Truncated mid-codepoint, and arbitrary byte corruption.
+        for (var cut = 1; cut < utf8.Length; cut += Math.Max(1, utf8.Length / 50))
+        {
+            await MustSurviveAsync(utf8[..cut], $"{name} cut at byte {cut}");
+        }
+
+        var rng = new Random(20260827);
+        for (var i = 0; i < 100; i++)
+        {
+            var mutated = (byte[])utf8.Clone();
+            mutated[rng.Next(mutated.Length)] = (byte)rng.Next(256);
+            await MustSurviveAsync(mutated, $"{name} with a corrupted byte");
+        }
     }
 
     private static string NestedDocument(int depth)

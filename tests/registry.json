@@ -312,9 +312,14 @@
       "id": "REQ-3.1-encoding",
       "section": "3.1",
       "statement": "Files MUST be UTF-8; a reader SHOULD tolerate a leading BOM",
-      "strength": "none",
-      "gates": [],
-      "gap": "No BOM fixture and no non-UTF-8 rejection fixture. Cheap to add and a classic interop failure."
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::EncodingHazards_AreToleratedOrRefusedCleanly"
+        }
+      ],
+      "notes": "Byte-level, because a C# string is already decoded and cannot express these cases. Asserts a leading BOM still parses, that UTF-16LE/BE are refused cleanly rather than mis-decoded, and that truncation mid-codepoint and arbitrary byte corruption are survived."
     },
     {
       "id": "REQ-3.2-null",
@@ -865,9 +870,13 @@
         {
           "type": "test",
           "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::EncodingHazards_AreToleratedOrRefusedCleanly"
         }
       ],
-      "notes": "Fuzzed against every truncation and 200 single-character corruptions per corpus fixture, plus 50k-deep nesting, a 5MB string and 100k prompts. Contract asserted: parse either succeeds or throws SerializationException, within 5s - never an unexpected exception type to a caller told the format is safe to open."
+      "notes": "Fuzzed against every truncation and 200 single-character corruptions per corpus fixture, plus 50k-deep nesting, a 5MB string and 100k prompts. Exercised through both entry points, including DeserializeAsync(Stream) which is what actually opens a file. Contract asserted: parse either succeeds or throws SerializationException, within 5s - never an unexpected exception type to a caller told the format is safe to open."
     },
     {
       "id": "REQ-11-nonetwork",
