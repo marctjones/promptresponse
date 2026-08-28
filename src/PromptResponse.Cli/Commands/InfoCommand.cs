@@ -145,6 +145,10 @@ public class InfoCommand : ICommand
                 }
             }
 
+            // Anyone opening a document should be told a signature has broken,
+            // without having to already suspect it and run `verify`.
+            SignatureNotice.Write(document);
+
             Console.WriteLine();
             Console.WriteLine("═══════════════════════════════════════");
 

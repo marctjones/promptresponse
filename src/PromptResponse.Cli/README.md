@@ -424,3 +424,29 @@ it catches the wrong form sent by accident, never one sent deliberately.
 **Nothing this command reports means the document is invalid.** Every report says so
 explicitly, in both output formats, so no downstream system reads "review required" as
 "reject".
+
+## Signature status, everywhere
+
+`info`, `validate`, `stats` and `review` all report a document's signatures. You
+do not have to already suspect a problem and reach for `verify` in order to be
+told about one.
+
+| State | What is said |
+|---|---|
+| unsigned | nothing at all |
+| signed and valid | one line per signature, with the signer and how far they are trusted |
+| signed and broken | which signature broke, and that the data is still readable |
+
+**Unsigned is not a warning.** Signing is optional and most documents are never
+signed; treating that as suspicious would make the common case look alarming and
+teach people to dismiss the message, which disarms it for the case that matters.
+
+**`validate` still exits 0 on a broken signature.** Specification §6.1 is
+explicit that no validation error may arise from the state of a signature, and
+that a validator rejecting a document because a signature is missing or invalid
+is not implementing APR. The break is reported loudly and the command succeeds.
+
+**`review` does exit 2**, because it answers a different question: not "is this
+document valid" but "can a machine handle this submission unattended". Somebody
+attested to the form and it no longer matches, so it needs a person — whatever
+the answers themselves look like.

@@ -70,9 +70,11 @@ public class ReviewCommand
 
         DocumentReview review;
         FormComparison? comparison = null;
+        Core.Models.AprDocument? submissionForNotice = null;
         try
         {
             var submission = _serializer.Deserialize(await File.ReadAllTextAsync(path));
+            submissionForNotice = submission;
             review = FormReviewer.Review(submission);
 
             if (templatePath is not null)
@@ -86,6 +88,13 @@ public class ReviewCommand
             Console.Error.WriteLine($"Could not read {path}: {ex.Message}");
             return 1;
         }
+
+        // A broken signature is a routing signal here, unlike in `validate`. The
+        // question this command answers is not "is this document valid" - it is - but
+        // "can a machine handle this submission unattended". Somebody attested to this
+        // form and it no longer matches: that needs a person, whatever the answers look
+        // like.
+        var signaturesBroken = submissionForNotice is not null && SignatureNotice.Write(submissionForNotice);
 
         var strict = args.Contains("--strict");
         if (args.Contains("--json") || args.Contains("-j"))
@@ -103,8 +112,8 @@ public class ReviewCommand
         // the responses themselves look like.
         var formChanged = comparison is { DefinitionIdentical: false };
         var blocked = strict
-            ? review.Findings.Count > 0 || formChanged
-            : review.Verdict == ReviewVerdict.ReviewRequired || formChanged;
+            ? review.Findings.Count > 0 || formChanged || signaturesBroken
+            : review.Verdict == ReviewVerdict.ReviewRequired || formChanged || signaturesBroken;
         return blocked ? 2 : 0;
     }
 
