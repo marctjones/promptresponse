@@ -162,52 +162,91 @@ def _is_number(value: str) -> bool:
         return False
 
 
+def advisories_for(prompt) -> List[ValidationWarning]:
+    """Advisories for a single prompt, for checking as somebody types.
+
+    The same rules the whole-document pass applies, per field, so an interactive
+    caller and a batch one can never disagree about whether an answer looks
+    right. Every one is advisory: none of them makes a document invalid.
+    """
+    warnings: List[ValidationWarning] = []
+    if not prompt.response:
+        return warnings
+
+    pattern = prompt.hints.validation_pattern
+    if pattern:
+        try:
+            if not re.search(pattern, prompt.response):
+                warnings.append(
+                    ValidationWarning(
+                        "PATTERN_MISMATCH",
+                        f"{prompt.response!r} does not match the suggested pattern.",
+                        prompt.id,
+                    )
+                )
+                return warnings
+        except re.error:
+            warnings.append(
+                ValidationWarning(
+                    "PATTERN_MISMATCH", "The suggested pattern is not a valid regex.", prompt.id
+                )
+            )
+            return warnings
+
+    expected = prompt.hints.expected_data_type
+    if expected and not _looks_like(prompt.response, expected):
+        warnings.append(
+            ValidationWarning(
+                "TYPE_MISMATCH",
+                f"{prompt.response!r} does not look like {expected!r} (advisory).",
+                prompt.id,
+            )
+        )
+
+    offered = prompt.hints.suggested_values
+    if offered and prompt.response not in offered:
+        warnings.append(
+            ValidationWarning(
+                "OUTSIDE_SUGGESTED",
+                "Not one of the suggested options, which the format allows.",
+                prompt.id,
+            )
+        )
+
+    for code, message in _out_of_bounds(prompt):
+        warnings.append(ValidationWarning(code, message, prompt.id))
+
+    return warnings
+
+
+def _out_of_bounds(prompt):
+    """min and max are an offer, so falling outside one is advisory (specification 4.7)."""
+    hints = prompt.hints
+    if not (hints.min or hints.max):
+        return
+
+    try:
+        value = float(prompt.response)
+    except ValueError:
+        return   # Not a number; the type advisory above already covers that.
+
+    for bound, name, worse in ((hints.min, "minimum", lambda a, b: a < b),
+                               (hints.max, "maximum", lambda a, b: a > b)):
+        if not bound:
+            continue
+        try:
+            limit = float(bound)
+        except ValueError:
+            continue
+        if worse(value, limit):
+            yield ("OUTSIDE_BOUNDS",
+                   f"Outside the suggested {name} of {bound}. Bounds describe the control "
+                   "offered, not a limit on the answer.")
+
+
 def _advisories(document: AprDocument) -> List[ValidationWarning]:
     """Specification 6.2. Advisory in every case; none of these is an error."""
     warnings: List[ValidationWarning] = []
-
     for prompt in document.all_prompts():
-        if not prompt.response:
-            continue
-
-        pattern = prompt.hints.validation_pattern
-        if pattern:
-            try:
-                if not re.search(pattern, prompt.response):
-                    warnings.append(
-                        ValidationWarning(
-                            "PATTERN_MISMATCH",
-                            f"{prompt.response!r} does not match the suggested pattern.",
-                            prompt.id,
-                        )
-                    )
-                    continue
-            except re.error:
-                warnings.append(
-                    ValidationWarning(
-                        "PATTERN_MISMATCH", "The suggested pattern is not a valid regex.", prompt.id
-                    )
-                )
-                continue
-
-        expected = prompt.hints.expected_data_type
-        if expected and not _looks_like(prompt.response, expected):
-            warnings.append(
-                ValidationWarning(
-                    "TYPE_MISMATCH",
-                    f"{prompt.response!r} does not look like {expected!r} (advisory).",
-                    prompt.id,
-                )
-            )
-
-        offered = prompt.hints.suggested_values
-        if offered and prompt.response not in offered:
-            warnings.append(
-                ValidationWarning(
-                    "OUTSIDE_SUGGESTED",
-                    "Not one of the suggested options, which the format allows.",
-                    prompt.id,
-                )
-            )
-
+        warnings.extend(advisories_for(prompt))
     return warnings

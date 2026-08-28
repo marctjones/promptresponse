@@ -26,6 +26,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / "python"))
 
 import promptresponse as pr
 from promptresponse import roles as role_api
+from promptresponse import validation
 
 try:
     from flask import Flask, request
@@ -36,6 +37,9 @@ app = Flask(__name__)
 
 DOCUMENT = None
 SOURCE_PATH = None
+OUTPUT_PATH = None      # the file this session keeps updating
+OUTPUT_DIR = None       # where submissions are written
+UPDATE_IN_PLACE = True  # keep updating that same file for the rest of the session
 
 
 # ── Rendering ────────────────────────────────────────────────────────────────
@@ -235,6 +239,9 @@ PAGE = """<!doctype html>
  th, td {{ border: 1px solid #8884; padding: .3rem; text-align: left; vertical-align: top; }}
  td .field {{ margin: 0; }} td label {{ font-weight: 400; font-size: .8rem; opacity: .7; }}
  button {{ font: inherit; padding: .5rem 1rem; border-radius: 3px; cursor: pointer; }}
+ .live {{ font-size: .8rem; margin: .25rem 0 0; min-height: 1em; }}
+ .live.advisory {{ color: #a60; }}
+ .live.clear {{ opacity: .55; }}
 </style></head>
 <body>
 <h1>{title}</h1>
@@ -244,6 +251,44 @@ PAGE = """<!doctype html>
 <form method="post" action="/submit">{sections}
 <button type="submit">Submit</button>
 </form>
+<script>
+// Ask the server what it makes of a value as it is typed. The page never
+// decides anything itself: it shows what the library says, and the library's
+// answer here is the same one the submitted document will get. Advisory in
+// every case - nothing below can stop you typing or stop you submitting.
+const debounce = new Map();
+document.querySelectorAll("input, select, textarea").forEach(el => {{
+  const line = document.createElement("p");
+  line.className = "live";
+  el.closest(".field")?.appendChild(line);
+
+  const check = async () => {{
+    const value = el.type === "checkbox" ? (el.checked ? "Yes" : "No") : el.value;
+    if (!value) {{ line.textContent = ""; line.className = "live"; return; }}
+    try {{
+      const res = await fetch("/check", {{
+        method: "POST",
+        headers: {{ "Content-Type": "application/json" }},
+        body: JSON.stringify({{ id: el.name, value }}),
+      }});
+      const data = await res.json();
+      if (data.advisories.length === 0) {{
+        line.textContent = data.expected ? "looks like " + data.expected : "";
+        line.className = "live clear";
+      }} else {{
+        line.textContent = data.advisories.map(a => a.code + ": " + a.message).join(" · ");
+        line.className = "live advisory";
+      }}
+    }} catch (e) {{ /* the demo is not worth breaking the page over */ }}
+  }};
+
+  el.addEventListener("input", () => {{
+    clearTimeout(debounce.get(el));
+    debounce.set(el, setTimeout(check, 250));
+  }});
+  el.addEventListener("change", check);
+}});
+</script>
 </body></html>
 """
 
@@ -268,6 +313,37 @@ def index():
     )
 
 
+@app.route("/check", methods=["POST"])
+def check():
+    """Advisories for one field, as somebody types it.
+
+    The same rules the whole-document pass uses, from the same function, so the
+    live view and the submitted verdict can never disagree. Every one of them is
+    advisory: this endpoint has no way to say "no" and the page has no way to
+    act on it as though it had.
+    """
+    field_id = request.json.get("id", "")
+    value = request.json.get("value", "")
+
+    prompt = next((p for p in DOCUMENT.all_prompts() if p.id == field_id), None)
+    if prompt is None:
+        return {"id": field_id, "advisories": []}
+
+    # Check against the typed value without committing it to the document; the
+    # answer is not saved until submit.
+    previous, prompt.response = prompt.response, value
+    try:
+        found = validation.advisories_for(prompt)
+    finally:
+        prompt.response = previous
+
+    return {
+        "id": field_id,
+        "expected": prompt.hints.expected_data_type,
+        "advisories": [{"code": w.code, "message": w.message} for w in found],
+    }
+
+
 @app.route("/submit", methods=["POST"])
 def submit():
     """Writes the answers back into the document and saves it beside the source.
@@ -289,7 +365,11 @@ def submit():
         # A filled form records the template it answers (specification 6.1).
         DOCUMENT.metadata.template_id = SOURCE_PATH.stem
 
-    out = SOURCE_PATH.with_suffix(".aprf")
+    global OUTPUT_PATH
+    if OUTPUT_PATH is None or not UPDATE_IN_PLACE:
+        OUTPUT_PATH = _next_output_path()
+    out = OUTPUT_PATH
+    out.parent.mkdir(parents=True, exist_ok=True)
     pr.dump(DOCUMENT, out)
 
     result = pr.validate(DOCUMENT)
@@ -310,6 +390,24 @@ def submit():
     )
 
 
+def _next_output_path():
+    """Where this submission goes.
+
+    With --update-in-place (the default) the first submission fixes the path and
+    every later one overwrites it, so editing and resubmitting in one session
+    keeps updating the same document rather than littering a directory with
+    near-identical files. --new-file-each-time gives the opposite, for anyone
+    collecting separate submissions.
+    """
+    directory = OUTPUT_DIR or SOURCE_PATH.parent
+    stem = SOURCE_PATH.stem
+    if UPDATE_IN_PLACE:
+        return directory / f"{stem}.aprf"
+
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    return directory / f"{stem}-{stamp}.aprf"
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Render an APR document as a web form, using the Python SDK."
@@ -318,7 +416,17 @@ def main():
     parser.add_argument("--port", type=int, default=8080)
     parser.add_argument("--host", default="127.0.0.1",
                         help="loopback by default; this demo has no authentication")
+    parser.add_argument("--output-dir", type=pathlib.Path,
+                        help="where submitted .aprf documents are written "
+                             "(default: beside the source file)")
+    parser.add_argument("--new-file-each-time", action="store_true",
+                        help="write a timestamped file per submission instead of "
+                             "updating one document for the session")
     args = parser.parse_args()
+
+    global OUTPUT_DIR, UPDATE_IN_PLACE
+    OUTPUT_DIR = args.output_dir
+    UPDATE_IN_PLACE = not args.new_file_each_time
 
     global DOCUMENT, SOURCE_PATH
     SOURCE_PATH = pathlib.Path(args.file)
