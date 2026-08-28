@@ -39,6 +39,7 @@ class Program
                 "fill" => await serviceProvider.GetRequiredService<FillCommand>().ExecuteAsync(commandArgs),
                 "stats" => await serviceProvider.GetRequiredService<StatsCommand>().ExecuteAsync(commandArgs),
                 "review" => await serviceProvider.GetRequiredService<ReviewCommand>().ExecuteAsync(commandArgs),
+                "eval" => await serviceProvider.GetRequiredService<EvalCommand>().ExecuteAsync(commandArgs),
                 "diff" => await serviceProvider.GetRequiredService<DiffCommand>().ExecuteAsync(commandArgs),
                 "export" => await serviceProvider.GetRequiredService<ExportCommand>().ExecuteAsync(commandArgs),
                 "import" => await serviceProvider.GetRequiredService<ImportCommand>().ExecuteAsync(commandArgs),
@@ -81,6 +82,7 @@ class Program
         services.AddTransient<FillCommand>();
         services.AddTransient<StatsCommand>();
         services.AddTransient<ReviewCommand>();
+        services.AddTransient<EvalCommand>();
         services.AddTransient<DiffCommand>();
         services.AddTransient<ExportCommand>();
         services.AddTransient<ImportCommand>();
@@ -101,6 +103,7 @@ class Program
         Console.WriteLine("  new <file>                     Create a new template");
         Console.WriteLine("  fill <template> [options]      Fill out a form (interactive or programmatic)");
         Console.WriteLine("  stats <file> [--json]          Show detailed statistics");
+        Console.WriteLine("  eval <file> [--json]           Evaluate the form's own expressions");
         Console.WriteLine("  review <file> [--json] [--strict]");
         Console.WriteLine("                                 Report whether a submission can be");
         Console.WriteLine("                                 processed automatically. Exit 0 = yes,");
