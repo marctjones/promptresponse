@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using PromptResponse.Core.Expressions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Signing;
 using PromptResponse.Desktop.Profiles;
@@ -115,6 +116,68 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// <summary>Underlying model — exposed for the editor surface to access fields
     /// (e.g. SuggestedValues list) directly. Fill-mode rendering should not use this.</summary>
     internal Prompt Model => _prompt;
+
+    // ── Provenance: did the form work this out, or did you? (specification 8.6) ──
+
+    /// <summary>Whether this field's value is derived from an expression.</summary>
+    public bool IsComputedField => !string.IsNullOrWhiteSpace(_prompt.Hints?.ExprValue);
+
+    /// <summary>Whether the value on screen is the one the expression produced.</summary>
+    public bool ValueIsCalculated =>
+        IsComputedField
+        && string.Equals(_prompt.ResponseMetadata?.Source, FormExpressions.ComputedSource,
+            StringComparison.Ordinal);
+
+    /// <summary>Whether somebody typed over a value the form had worked out.</summary>
+    /// <remarks>
+    /// The state that most needs saying. A person who corrects a computed total needs to
+    /// know two things they cannot otherwise see: that they have overridden something,
+    /// and that recomputation will now leave their answer alone rather than reverting it.
+    /// Without a mark for it, the override behaviour the format guarantees is invisible,
+    /// and somebody who does not trust it will keep re-checking a number that is not
+    /// going to change back.
+    /// </remarks>
+    public bool ValueWasOverridden =>
+        IsComputedField && !ValueIsCalculated && !string.IsNullOrEmpty(_prompt.Response);
+
+    /// <summary>Whether to show anything about where this value came from.</summary>
+    /// <remarks>
+    /// Nothing on an ordinary field. Most fields are ordinary, and marking them all
+    /// "typed by you" would say nothing while burying the marks that mean something.
+    /// </remarks>
+    public bool ShowProvenanceMark => ValueIsCalculated || ValueWasOverridden;
+
+    /// <summary>The text beside the field. Text, never colour alone.</summary>
+    public string? ProvenanceLabel =>
+        ValueWasOverridden ? "You changed this"
+        : ValueIsCalculated ? "Calculated"
+        : null;
+
+    /// <summary>What assistive technology should say about where this value came from.</summary>
+    /// <remarks>
+    /// Fuller than the visible mark, and in both states it says the thing the mark cannot
+    /// fit: that the field is yours to change, and what happens if you do.
+    /// </remarks>
+    public string? ProvenanceAnnouncement
+    {
+        get
+        {
+            if (!ShowProvenanceMark) return null;
+            var terse = ActiveProfile.LiveRegions == LiveRegionVerbosity.Quiet;
+
+            return ValueWasOverridden
+                ? terse
+                    ? "You changed this from the calculated value."
+                    : "You changed this from the calculated value. The form will not " +
+                      "calculate over it again."
+                : terse
+                    ? "Calculated by the form."
+                    : "Calculated by the form. You can type over it if it is wrong.";
+        }
+    }
+
+    /// <summary>Whether the mark may carry a colour cue as well as its text.</summary>
+    public bool ProvenanceColorCue => ShowProvenanceMark && ActiveProfile.ColorCuesEnabled;
 
     // ── Signature coverage: is this value signed? (specification 9.3) ──
 
@@ -327,9 +390,13 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
         {
             var newValue = value ?? string.Empty;
             if (_prompt.Response == newValue) return;
+            // The model's setter clears responseMetadata.source, which is what makes
+            // this an authored value rather than a calculated one - so provenance has
+            // just changed and must be announced.
             _prompt.Response = newValue;
             Notify(nameof(Response));
             Notify(nameof(DisplayValue));
+            NotifyProvenance();
             OnDerivedPropertiesShouldRefresh();
         }
     }
@@ -489,7 +556,24 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     {
         Notify(nameof(Response));
         Notify(nameof(DisplayValue));
+        NotifyProvenance();
         OnDerivedPropertiesShouldRefresh();
+    }
+
+    /// <summary>Announces where the value came from.</summary>
+    /// <remarks>
+    /// Called from both directions, because provenance changes both ways: recomputation
+    /// makes a value calculated, and typing over it makes it yours. A mark that only
+    /// updated one way would be right half the time, which is worse than absent.
+    /// </remarks>
+    private void NotifyProvenance()
+    {
+        Notify(nameof(ValueIsCalculated));
+        Notify(nameof(ValueWasOverridden));
+        Notify(nameof(ShowProvenanceMark));
+        Notify(nameof(ProvenanceLabel));
+        Notify(nameof(ProvenanceAnnouncement));
+        Notify(nameof(ProvenanceColorCue));
     }
 
     /// <summary>

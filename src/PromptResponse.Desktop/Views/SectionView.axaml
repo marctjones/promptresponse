@@ -60,6 +60,29 @@
                         <StackPanel Spacing="3"
                                     AutomationProperties.HelpText="{Binding RoleAnnouncement}">
                             <!--
+                                Where this value came from. Only shown when the form
+                                worked it out, or when somebody typed over what it worked
+                                out - an ordinary field says nothing, because marking
+                                every one "typed by you" would bury the marks that mean
+                                something.
+                            -->
+                            <Border IsVisible="{Binding ShowProvenanceMark}"
+                                    Background="{DynamicResource SystemChromeMediumLowColor}"
+                                    CornerRadius="3"
+                                    Padding="6,1"
+                                    HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <Border Width="7" Height="7" CornerRadius="4"
+                                            VerticalAlignment="Center"
+                                            IsVisible="{Binding ProvenanceColorCue}"
+                                            Background="{DynamicResource SystemAccentColor}"/>
+                                    <TextBlock Text="{Binding ProvenanceLabel}"
+                                               FontSize="11"
+                                               Opacity="0.85"
+                                               AutomationProperties.Name="{Binding ProvenanceAnnouncement}"/>
+                                </StackPanel>
+                            </Border>
+                            <!--
                                 Signature coverage, in the same place and the same shape
                                 as the role badge rather than a second vocabulary. Text
                                 always; the colour cue only where the active profile says

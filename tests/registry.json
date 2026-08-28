@@ -771,9 +771,13 @@
         {
           "type": "test",
           "ref": "RecomputeComputedValues_StillUpdatesAValueItProducedItself"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Desktop.Tests/ViewModels/ProvenanceDisplayTests.cs::ACorrectionSurvivesRecomputation_AndKeepsSayingSo"
         }
       ],
-      "notes": "responseMetadata.source distinguishes a stale computed value from a human correction. Without it the two are indistinguishable and the next recompute silently reverts the correction."
+      "notes": "responseMetadata.source distinguishes a stale computed value from a human correction. Without it the two are indistinguishable and the next recompute silently reverts the correction. The guarantee is now also visible: a field says whether the form calculated the value or somebody typed over it, and the override mark persists across a recompute. An invisible guarantee is not much of a guarantee."
     },
     {
       "id": "REQ-9.2-sigobject",
