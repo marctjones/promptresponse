@@ -120,7 +120,7 @@ systems and four JSON libraries.
 
 ### 2.3 Web demo — **Planned**
 
-**Language: Python / FastAPI** · Profile: `core`
+**Language: Python / Flask** · Profile: `core` · **Shipped** as `web-demo.py`
 
 Runs locally over `http://localhost`, no install beyond Python 3, and scales to a
 real deployment unchanged.
@@ -128,8 +128,11 @@ real deployment unchanged.
 - **MUST** be built on the Python SDK (§3.3), not re-implement parsing inline
 - Server-rendered HTML inherits the browser's accessibility stack — the strongest and
   most portable there is
-- **Replaces** `aprt-server.py` (532 lines, legacy, parses APR inline — the exact
-  pattern that produced the Python SDK's drift)
+- **Replaced** `aprt-server.py` (532 lines, parsed APR inline — the exact pattern
+  that produced the old Python SDK's drift). Now `web-demo.py`, 345 lines, which
+  parses nothing: the SDK loads, validates and writes, and this only renders.
+  Rendering less code gained it tables, roles and bounds, none of which the
+  inline parser had heard of
 
 ### 2.4 Browser extension — **Planned**
 
@@ -476,8 +479,9 @@ Recorded so they are not relitigated.
 Ordered by how much each unblocks.
 
 1. **TypeScript renderer + SDK** — unblocks the extension, improves the demo, and is the most accessible surface available
-2. **Python SDK rebuilt** against the corpus — unblocks the web demo, and replaces an implementation that currently contradicts the format
-3. **Web demo** on that SDK; retire `aprt-server.py`
+2. ~~**Python SDK rebuilt** against the corpus~~ — **done.** Core profile,
+   89 tests, gates REQ-2.2/2.3 which .NET structurally cannot
+3. ~~**Web demo** on that SDK; retire `aprt-server.py`~~ — **done.** `web-demo.py`
 4. **Browser extension**
 5. **CEL adoption** + expression binding vectors — closes the largest named interop risk
 6. **SDK contributor contract** — converts the remaining list into work others can do

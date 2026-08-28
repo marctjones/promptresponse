@@ -60,10 +60,16 @@ Try PromptResponse in 30 seconds with just Python:
 # Clone and run
 git clone https://github.com/marctjones/promptresponse.git
 cd promptresponse
-./run-aprt-server.sh
+./run-web-demo.sh
 ```
 
-Open http://localhost:8080 in your browser to see a form. Fill it out and submit - the JSON data prints to your terminal.
+Open http://localhost:8080 to see the form. Fill it in and submit: the answers
+are written to a `.aprf` beside the source and printed to your terminal.
+
+Point it at any APR document — `./run-web-demo.sh path/to/form.aprt`. Tables
+render as tables, roles are marked, and a document that fails validation still
+renders with its problems listed, because a flawed form must open or nobody can
+be shown what is wrong with it.
 
 **Requirements:** Python 3 (Flask is auto-installed)
 

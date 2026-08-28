@@ -67,4 +67,4 @@ echo "Template: $TEMPLATE"
 echo "URL: http://localhost:$PORT"
 echo ""
 
-$PYTHON "$SCRIPT_DIR/aprt-server.py" --port "$PORT" "$TEMPLATE"
+$PYTHON "$SCRIPT_DIR/web-demo.py" --port "$PORT" "$TEMPLATE"
