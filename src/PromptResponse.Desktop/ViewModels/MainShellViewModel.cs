@@ -524,10 +524,168 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             }
         }
         ApplyFieldCoverage(doc);
+        AnnounceNewBreakages(doc?.Signatures is { Count: > 0 }
+            ? AprVerifier.VerifyAll(doc)
+            : []);
 
         OnPropertyChanged(nameof(Signatures));
         OnPropertyChanged(nameof(HasSignatures));
         OnPropertyChanged(nameof(SignatureSummary));
+    }
+
+    // ── Telling somebody when their edit has broken a signature ──────────────
+
+    private readonly HashSet<string> _brokenAlreadyAnnounced = new(StringComparer.Ordinal);
+    private HashSet<string> _validLastTime = new(StringComparer.Ordinal);
+    private string? _signatureBreakageNotice;
+
+    /// <summary>Responses as they stood while every signature still verified.</summary>
+    /// <remarks>
+    /// Kept so the notice can offer to put a value back. The obvious implementation was to
+    /// call Undo, and it would not have worked: the edit history records authoring
+    /// changes, not somebody filling a form in, so CanExecute is false in exactly the
+    /// situation the offer appears. A button that does nothing where it is most needed is
+    /// worse than no button.
+    /// </remarks>
+    private Dictionary<string, string> _responsesWhileValid = new(StringComparer.Ordinal);
+
+    /// <summary>What to say when an edit has just invalidated somebody's signature.</summary>
+    /// <remarks>
+    /// <para>
+    /// Said at the moment it happens, and never by preventing the edit. Any string is a
+    /// valid response and a person may need to correct a signed field — the format's
+    /// answer to that is not to stop them, it is to make sure they know what it cost.
+    /// </para>
+    /// <para>
+    /// A signature is <em>never</em> removed to tidy this up. Doing so would turn
+    /// "somebody signed this and it was altered" into "nobody ever signed this", which is
+    /// strictly less informative and would make this editor the easiest tampering tool
+    /// available. Removing one is a separate, deliberate command.
+    /// </para>
+    /// <para>
+    /// Announced once per signature. A message that reappears on every keystroke is a
+    /// message people learn to dismiss without reading.
+    /// </para>
+    /// </remarks>
+    public string? SignatureBreakageNotice
+    {
+        get => _signatureBreakageNotice;
+        private set
+        {
+            if (_signatureBreakageNotice == value) return;
+            _signatureBreakageNotice = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(HasSignatureBreakageNotice));
+        }
+    }
+
+    /// <summary>Whether there is a breakage to tell somebody about.</summary>
+    public bool HasSignatureBreakageNotice => !string.IsNullOrEmpty(SignatureBreakageNotice);
+
+    /// <summary>Removes one signature, on purpose and after asking.</summary>
+    /// <remarks>
+    /// <para>
+    /// The only way a signature leaves a document in this application. Editing a signed
+    /// field never removes one, however broken it becomes: a broken signature is evidence
+    /// that somebody signed and the document changed afterwards, and discarding it would
+    /// convert that into "nobody ever signed this" — strictly less informative, and it
+    /// would make this editor the easiest tampering tool anyone could reach for.
+    /// </para>
+    /// <para>
+    /// So removal exists, because it is the person's own file and they can edit the JSON
+    /// regardless, but it is a decision they make rather than a convenience they trip
+    /// over.
+    /// </para>
+    /// </remarks>
+    [RelayCommand]
+    private async Task RemoveSignature(string? signatureId)
+    {
+        var document = _session.CurrentDocument;
+        if (document?.Signatures is not { Count: > 0 } signatures || signatureId is null)
+        {
+            return;
+        }
+
+        var target = signatures.FirstOrDefault(s => s.Id == signatureId);
+        if (target is null) return;
+
+        var signer = target.Signer?.Name ?? "someone";
+        var confirmed = await _dialogService.ShowConfirmationAsync(
+            "Remove this signature?",
+            $"This deletes {signer}'s signature from the document.\n\n" +
+            "If it no longer verifies, that fact is itself evidence — that somebody " +
+            "signed this and it changed afterwards. Removing it leaves no trace that " +
+            "they ever signed.\n\nRemove it anyway?");
+
+        if (!confirmed) return;
+
+        signatures.Remove(target);
+        if (signatures.Count == 0) document.Signatures = null;
+
+        _session.MarkDirty();
+        _brokenAlreadyAnnounced.Remove(signatureId);
+        SignatureBreakageNotice = null;
+        RefreshSignatures();
+    }
+
+    /// <summary>Dismisses the notice without undoing anything.</summary>
+    [RelayCommand]
+    private void DismissSignatureNotice() => SignatureBreakageNotice = null;
+
+    /// <summary>Undoes the edit that broke it, and clears the notice.</summary>
+    /// <remarks>
+    /// Offered because the usual reason to break a signature is not meaning to. The edit
+    /// is ordinary undo history, so this is the same action the Edit menu already has —
+    /// put next to the message so it is reachable when it is relevant.
+    /// </remarks>
+    [RelayCommand]
+    private void RestoreSignedValues()
+    {
+        foreach (var promptVm in _promptViewModels)
+        {
+            if (_responsesWhileValid.TryGetValue(promptVm.Id, out var previous)
+                && promptVm.Response != previous)
+            {
+                promptVm.Response = previous;
+            }
+        }
+
+        RefreshSignatures();
+        SignatureBreakageNotice = null;
+    }
+
+    /// <summary>Notices a signature that has just gone from valid to broken.</summary>
+    private void AnnounceNewBreakages(IReadOnlyList<SignatureVerification> results)
+    {
+        var validNow = results.Where(r => r.ContentValid).Select(r => r.Id)
+            .ToHashSet(StringComparer.Ordinal);
+
+        var justBroke = results
+            .Where(r => !r.ContentValid
+                        && _validLastTime.Contains(r.Id)
+                        && _brokenAlreadyAnnounced.Add(r.Id))
+            .ToList();
+
+        if (justBroke.Count > 0)
+        {
+            var who = string.Join(" and ", justBroke.Select(r => r.SignerName).Distinct(StringComparer.Ordinal));
+            SignatureBreakageNotice =
+                $"That edit means {who}'s signature no longer verifies. The document is " +
+                "still valid and still saves — but what they signed off on is not what it " +
+                "says now.";
+        }
+
+        // While everything verifies, remember the answers, so a later breakage can offer
+        // to put them back.
+        if (results.Count > 0 && results.All(r => r.ContentValid))
+        {
+            _responsesWhileValid = _promptViewModels.ToDictionary(
+                p => p.Id, p => p.Response, StringComparer.Ordinal);
+        }
+
+        // A signature that verifies again may be announced afresh.
+        _brokenAlreadyAnnounced.ExceptWith(validNow);
+        _validLastTime = validNow;
     }
 
     /// <summary>Tells each field which signatures cover it, and whether they still hold.</summary>

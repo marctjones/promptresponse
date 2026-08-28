@@ -100,6 +100,12 @@
                               Command="{Binding SignAsPublisherCommand}"
                               AutomationProperties.Name="Sign as publisher"
                               AutomationProperties.HelpText="Sign the form definition with a certificate and bind a submission URL"/>
+                    <MenuItem Header="_Remove a signature..."
+                              Command="{Binding RemoveSignatureCommand}"
+                              CommandParameter="{Binding Signatures[0].Id, FallbackValue={x:Null}}"
+                              IsEnabled="{Binding HasSignatures}"
+                              AutomationProperties.Name="Remove a signature"
+                              AutomationProperties.HelpText="Deletes a signature from the document. Editing never removes one; this is the only way, and it asks first."/>
                     <MenuItem Header="Sign my _responses..."
                               Command="{Binding SignMyResponsesCommand}"
                               AutomationProperties.Name="Sign my responses"
