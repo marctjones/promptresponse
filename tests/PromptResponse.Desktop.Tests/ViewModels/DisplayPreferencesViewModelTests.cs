@@ -1,6 +1,7 @@
 using AwesomeAssertions;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.ViewModels;
+using System.Globalization;
 using Xunit;
 
 namespace PromptResponse.Desktop.Tests.ViewModels;
@@ -114,7 +115,9 @@ public class DisplayPreferencesViewModelTests
         var vm = CreateVm();
         vm.CurrencyDisplay = true;
 
-        vm.ActiveProfile.FormatDisplay("1234.56", "currency").Should().StartWith("$");
+        vm.ActiveProfile.FormatDisplay("1234.56", "currency")
+            .Should().Contain(CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol,
+                "the currency display profile uses the active culture");
         vm.ActiveProfile.FormatDisplay("42000", "number").Should().Be("42000",
             "currency flag must not affect non-currency hints");
     }
