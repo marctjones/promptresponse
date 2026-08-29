@@ -336,7 +336,7 @@ To contribute new example templates:
 
 ## License
 
-All example templates in this directory are provided under the GPL-3.0 license, same as the PromptResponse project.
+All example templates in this directory are provided under the AGPL-3.0-or-later license, same as the PromptResponse project.
 
 ## Support
 

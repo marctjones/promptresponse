@@ -11,7 +11,7 @@
     <Version>1.0.0-beta.3</Version>
     <Authors>PromptResponse Contributors</Authors>
     <Description>Command-line tool for working with APR (Adaptive Prompt Response) files</Description>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/marctjones/promptresponse</RepositoryUrl>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>apr</ToolCommandName>

@@ -6,6 +6,13 @@
   <groupId>org.promptresponse</groupId>
   <artifactId>promptresponse-java</artifactId>
   <version>1.0.0-beta.3</version>
+  <licenses>
+    <license>
+      <name>GNU Affero General Public License v3.0 or later</name>
+      <url>https://www.gnu.org/licenses/agpl-3.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <properties>
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -110,4 +110,4 @@ Potential icon variations to consider:
 
 ## License
 
-This icon design is part of the PromptResponse project and follows the same GPL-3.0 license.
+This icon design is part of the PromptResponse project and follows the same AGPL-3.0-or-later license.

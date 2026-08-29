@@ -8,7 +8,8 @@
     <!--
       pdfe (https://github.com/marctjones/pdfe) — pure-managed, MIT-licensed
       PDF engine, consumed as a locally-packed NuGet package (see
-      ../../local-nuget/README.md). MIT is GPL-3.0-compatible.
+      ../../local-nuget/README.md). MIT is compatible with the project's
+      AGPL-3.0-or-later license.
     -->
     <PackageReference Include="Excise.Core" Version="3.8.0" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 {
   "name": "promptresponse-browser-demo",
   "private": true,
+  "license": "AGPL-3.0-or-later",
   "version": "1.0.0-beta.3",
   "type": "module",
   "scripts": {

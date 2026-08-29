@@ -215,7 +215,7 @@ function Show-Usage {
     Write-Host "Project Information:" -ForegroundColor Green
     Write-Host "  PromptResponse - A cross-platform form creation and filling application"
     Write-Host "  Technology: .NET 8.0, C# 12, AvaloniaUI 11"
-    Write-Host "  License: GPL-3.0"
+    Write-Host "  License: AGPL-3.0-or-later"
     Write-Host ""
 }
 

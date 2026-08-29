@@ -228,8 +228,10 @@ which implementations exist and what they are held to.
 
 ## License
 
-GPL-3.0-or-later (see each project's `<PackageLicenseExpression>` in
-the corresponding `.csproj`).
+PromptResponse is licensed under AGPL-3.0-or-later. Its third-party
+dependencies and bundled assets are restricted to permissively licensed
+components; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the
+manually maintained inventory and policy.
 
 ## Project Status
 

@@ -42,7 +42,8 @@ PRIORITY READING ORDER FOR AI ASSISTANTS:
 | `/ROADMAP.md` | High-level project roadmap | All |
 | `/docs/RELEASE_SMOKE_TEST.md` | Release artifact smoke-test checklist | Release validation |
 | `/docs/SDK_CONFORMANCE.md` | Shared APR compatibility corpus rules | SDK and format work |
-| `/LICENSE` | GPL-3.0 license | Legal |
+| `/LICENSE` | AGPL-3.0-or-later license | Legal |
+| [`/THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md) | Permissive-only third-party policy and notices | Legal |
 
 ### /.claude/ Directory
 

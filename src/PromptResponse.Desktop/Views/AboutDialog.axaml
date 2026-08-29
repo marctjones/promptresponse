@@ -20,7 +20,7 @@
             <TextBlock x:Name="VersionLine"
                        Opacity="0.85"
                        AutomationProperties.Name="Application version" />
-            <TextBlock Text="Licensed under GPL-3.0-or-later."
+            <TextBlock Text="Licensed under AGPL-3.0-or-later."
                        Opacity="0.85"
                        AutomationProperties.Name="PromptResponse license" />
         </StackPanel>

@@ -9,7 +9,7 @@
     <Version>1.0.0-beta.3</Version>
     <Authors>PromptResponse Contributors</Authors>
     <Description>Core library for APR (Adaptive Prompt Response) form format</Description>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/marctjones/promptresponse</RepositoryUrl>
   </PropertyGroup>
 
