@@ -183,7 +183,9 @@ jobs:
           /p:Threshold=95
           /p:ThresholdType=line
           /p:ThresholdStat=total
-          /p:Exclude="[xunit.*]*,[*.Tests]*,[*.Tests.*]*"
+          # MSBuild treats literal commas in /p values as property separators.
+          # Coverlet decodes %2c back to its filter separator.
+          /p:Exclude="[xunit.*]*%2c[*.Tests]*%2c[*.Tests.*]*"
 
       # Cli coverage is being ramped up. The gate ratchets
       # up over successive PRs; do NOT lower it without a follow-up plan.
@@ -203,7 +205,7 @@ jobs:
           /p:ThresholdType=line
           /p:ThresholdStat=total
           /p:Include="[PromptResponse.Desktop]*"
-          /p:Exclude="[xunit.*]*,[*.Tests]*,[*.Tests.*]*"
+          /p:Exclude="[xunit.*]*%2c[*.Tests]*%2c[*.Tests.*]*"
 
       - name: Cli coverage gate (ratcheting)
         run: >-
@@ -214,4 +216,4 @@ jobs:
           /p:Threshold=28
           /p:ThresholdType=line
           /p:ThresholdStat=total
-          /p:Exclude="[xunit.*]*,[*.Tests]*,[*.Tests.*]*,[PromptResponse.Cli]PromptResponse.Cli.Program"
+          /p:Exclude="[xunit.*]*%2c[*.Tests]*%2c[*.Tests.*]*%2c[PromptResponse.Cli]PromptResponse.Cli.Program"
