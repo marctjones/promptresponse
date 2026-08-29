@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-beta.2] - 2026-08-29
+
+### Fixed
+
+- **Cross-platform release reproducibility** — release packaging now restores
+  the required runtime graph before its no-restore publish. CI and release
+  packaging use the repository's pinned .NET SDK `10.0.300`, preventing an
+  SDK update from silently changing a locked release build.
+
 ## [1.0.0-beta.1] - 2026-08-29
 
 The first `1.0` public-beta application release. The on-wire APR identifier

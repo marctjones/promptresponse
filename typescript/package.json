@@ -1,6 +1,6 @@
 {
   "name": "@promptresponse/core",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Core reader, writer, validator, and CEL expression evaluator for APR forms",
   "type": "module",
   "main": "./dist/index.js",

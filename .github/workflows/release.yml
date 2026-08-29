@@ -17,7 +17,8 @@ permissions:
   contents: write
 
 env:
-  DOTNET_VERSION: '10.0.x'
+  # Must match global.json and the committed NuGet lock graphs.
+  DOTNET_VERSION: '10.0.300'
 
 jobs:
   # ── Linux: self-contained tarball (binaries + desktop installer) ──────
@@ -82,8 +83,10 @@ jobs:
             '-c','Release','-r','win-x64','--self-contained','true',
             '-p:PublishSingleFile=true','-p:IncludeNativeLibrariesForSelfExtract=true',
             '-p:DebugType=none','-p:DebugSymbols=false',
-            "-p:Version=${{ steps.ver.outputs.version }}",'--nologo','-o','publish/win-x64'
+            "-p:Version=${{ steps.ver.outputs.version }}",'--nologo','--no-restore','-o','publish/win-x64'
           )
+          dotnet restore src/PromptResponse.Desktop -r win-x64 -p:RestoreLockedMode=false --nologo
+          dotnet restore src/PromptResponse.Cli -r win-x64 -p:RestoreLockedMode=false --nologo
           dotnet publish src/PromptResponse.Desktop @common
           dotnet publish src/PromptResponse.Cli     @common
           # The Desktop assembly publishes as PromptResponse.Desktop.exe; the

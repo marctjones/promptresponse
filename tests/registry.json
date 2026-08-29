@@ -1,6 +1,6 @@
 {
   "$comment": "Machine-readable registry of APR test suites and spec-requirement coverage. Verified by scripts/check-test-registry.py, which fails if a referenced fixture or test no longer exists, or if a requirement has no entry. The registry is a claim about coverage; the verifier is what makes the claim checkable.",
-  "specVersion": "1.0.0-beta.1",
+  "specVersion": "1.0.0-beta.2",
   "formatVersion": "1.0-beta",
   "corpusTag": "corpus/v1",
   "gateStrength": {

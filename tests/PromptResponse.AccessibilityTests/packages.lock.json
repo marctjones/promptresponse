@@ -553,7 +553,7 @@
           "CommunityToolkit.Mvvm": "[8.4.2, )",
           "Microsoft.Extensions.DependencyInjection": "[10.0.8, )",
           "Microsoft.Extensions.Logging.Console": "[10.0.8, )",
-          "PromptResponse.Core": "[0.6.0, )",
+          "PromptResponse.Core": "[1.0.0-beta.2, )",
           "PromptResponse.Rendering.Pdf": "[1.0.0, )"
         }
       },
@@ -561,7 +561,7 @@
         "type": "Project",
         "dependencies": {
           "Excise.Core": "[3.8.0, )",
-          "PromptResponse.Core": "[0.6.0, )"
+          "PromptResponse.Core": "[1.0.0-beta.2, )"
         }
       }
     }

@@ -53,7 +53,7 @@ These are the product. Everything else is an implementation of them.
 
 | Artifact | Path | Status |
 |---|---|---|
-| **Specification** | `docs/APR_SPECIFICATION.md` | **Shipped** — spec v1.0.0-beta.1, describes format `1.0-beta` |
+| **Specification** | `docs/APR_SPECIFICATION.md` | **Shipped** — spec v1.0.0-beta.2, describes format `1.0-beta` |
 | **JSON Schema** | `schemas/apr-1.0.schema.json` | **Shipped** — Draft 2020-12 |
 | **Conformance corpus** | `tests/Conformance/v1/` | **Shipped** — 41 fixtures |
 | **Canonicalization vectors** | `tests/Conformance/v1/canonicalization/` | **Shipped** — `apr-sig-v3` byte contract |

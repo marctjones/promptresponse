@@ -68,7 +68,11 @@ publish_one() {
   local project="$1" srcname="$2" destname="$3" tmp
   tmp="$(mktemp -d)"
   echo "  • $project → $destname$EXE"
-  dotnet publish "$project" "${COMMON[@]}" -o "$tmp" >/dev/null
+  # A NuGet lock file records one runtime graph.  Create the target graph in
+  # this disposable release workspace, then publish without another restore.
+  # Package versions remain constrained by the committed lock and global.json.
+  dotnet restore "$project" -r "$RID" -p:RestoreLockedMode=false --nologo >/dev/null
+  dotnet publish "$project" "${COMMON[@]}" --no-restore -o "$tmp" >/dev/null
   cp "$tmp/${srcname}${EXE}" "$STAGE/${destname}${EXE}"
   rm -rf "$tmp"
 }

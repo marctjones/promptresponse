@@ -268,7 +268,7 @@
         "type": "Project",
         "dependencies": {
           "Excise.Core": "[3.8.0, )",
-          "PromptResponse.Core": "[0.6.0, )"
+          "PromptResponse.Core": "[1.0.0-beta.2, )"
         }
       }
     }

@@ -24,12 +24,6 @@
           "Microsoft.Extensions.Options": "10.0.8"
         }
       },
-      "Microsoft.NET.ILLink.Tasks": {
-        "type": "Direct",
-        "requested": "[10.0.8, )",
-        "resolved": "10.0.8",
-        "contentHash": "dVbSXGIFNR5nZcv2tOLoWI+a9T4jtFd77IYjuND+QVe360qWgAF7H0WtoopYhRw/+SgpGUTyrkrh+65+ClNnfw=="
-      },
       "Celly": {
         "type": "Transitive",
         "resolved": "1.2.0",
@@ -171,15 +165,8 @@
         "type": "Project",
         "dependencies": {
           "Excise.Core": "[3.8.0, )",
-          "PromptResponse.Core": "[1.0.0-beta.1, )"
+          "PromptResponse.Core": "[1.0.0-beta.2, )"
         }
-      }
-    },
-    "net10.0/osx-arm64": {
-      "System.Security.Cryptography.Pkcs": {
-        "type": "Transitive",
-        "resolved": "10.0.0",
-        "contentHash": "UPWqLSygJlFerRi9XNIuM0a1VC8gHUIufyP24xQ0sc+XimqUAEcjpOz9DhKpyDjH+5B/wO3RpC0KpkEeDj/ddg=="
       }
     }
   }

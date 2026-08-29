@@ -2,7 +2,7 @@
 # Package a signed, testable macOS .app. Release automation supplies signing and notarization.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-RID="osx-arm64"; VERSION="1.0.0-beta.1"; OUTPUT="$ROOT/dist/PromptResponse.app"
+RID="osx-arm64"; VERSION="1.0.0-beta.2"; OUTPUT="$ROOT/dist/PromptResponse.app"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --rid) RID="$2"; shift 2 ;;
@@ -16,7 +16,8 @@ done
 [[ ! -e "$OUTPUT" ]] || { echo "Refusing to overwrite existing bundle: $OUTPUT" >&2; exit 2; }
 mkdir -p "$(dirname "$OUTPUT")" "$OUTPUT/Contents/MacOS" "$OUTPUT/Contents/Resources"
 PUBLISH="$(mktemp -d)"; trap 'rm -rf "$PUBLISH"' EXIT
-dotnet publish "$ROOT/src/PromptResponse.Desktop/PromptResponse.Desktop.csproj" -c Release -r "$RID" --self-contained true -o "$PUBLISH" /p:Version="$VERSION"
+dotnet restore "$ROOT/src/PromptResponse.Desktop/PromptResponse.Desktop.csproj" -r "$RID" -p:RestoreLockedMode=false --nologo
+dotnet publish "$ROOT/src/PromptResponse.Desktop/PromptResponse.Desktop.csproj" -c Release -r "$RID" --self-contained true --no-restore -o "$PUBLISH" /p:Version="$VERSION"
 ditto "$PUBLISH" "$OUTPUT/Contents/MacOS"
 cp "$ROOT/packaging/macos/Info.plist" "$OUTPUT/Contents/Info.plist"
 plutil -replace CFBundleShortVersionString -string "$VERSION" "$OUTPUT/Contents/Info.plist"

@@ -173,7 +173,7 @@ file could not be read at all.
 
 ## Documentation
 
-- [APR Format Specification](docs/APR_SPECIFICATION.md) - **Complete formal specification** (spec `1.0.0-beta.1`, describes format `1.0-beta`)
+- [APR Format Specification](docs/APR_SPECIFICATION.md) - **Complete formal specification** (spec `1.0.0-beta.2`, describes format `1.0-beta`)
 
 > **The APR format is in BETA.** Files declare `"version": "1.0-beta"` and breaking
 > changes may still occur. At the 1.0 stable tag, `"1.0-beta"` stays readable
@@ -233,7 +233,7 @@ the corresponding `.csproj`).
 
 ## Project Status
 
-🚧 **Public beta** — current release: **v1.0.0-beta.1**.
+🚧 **Public beta** — current release: **v1.0.0-beta.2**.
 See [CHANGELOG.md](CHANGELOG.md) for what landed in each release.
 
 - [x] Core library (models, JSON serialization, advisory validation,
