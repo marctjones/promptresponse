@@ -13,22 +13,23 @@ on:
         description: 'Version, e.g. 0.3.0 (workflow_dispatch only)'
         required: true
 
-permissions:
-  contents: write
+permissions: {}
 
 env:
   # Must match global.json and the committed NuGet lock graphs.
-  DOTNET_VERSION: '10.0.300'
+  DOTNET_VERSION: '10.0.400'
 
 jobs:
   # ── Linux: self-contained tarball (binaries + desktop installer) ──────
   linux:
     name: Linux x64 (tarball)
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0 }
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Resolve version
@@ -51,7 +52,7 @@ jobs:
           --stage "dist/promptresponse-${{ steps.ver.outputs.version }}-linux-x64"
           --skip-publish
       - name: Attach to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
         with:
           tag_name: v${{ steps.ver.outputs.version }}
           files: dist/*.tar.gz
@@ -60,10 +61,12 @@ jobs:
   windows:
     name: Windows x64 (installer + zip)
     runs-on: windows-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0 }
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Resolve version
@@ -119,7 +122,7 @@ jobs:
             "/DPublishDir=$root\publish\win-x64" "/DRepoRoot=$root" `
             "/O$root\dist" "$root\packaging\windows\promptresponse.iss"
       - name: Attach to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
         with:
           tag_name: v${{ steps.ver.outputs.version }}
           files: |
@@ -132,10 +135,12 @@ jobs:
   macos:
     name: macOS (tarballs)
     runs-on: macos-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0 }
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Resolve version
@@ -169,7 +174,7 @@ jobs:
           --stage "dist/promptresponse-${{ steps.ver.outputs.version }}-osx-x64"
           --skip-publish
       - name: Attach to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
         with:
           tag_name: v${{ steps.ver.outputs.version }}
           files: dist/*.tar.gz
@@ -179,8 +184,10 @@ jobs:
   skill:
     name: document-to-apr skill (zip)
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with: { fetch-depth: 0 }
       - name: Resolve versions
         id: ver
@@ -200,7 +207,7 @@ jobs:
           mkdir -p dist
           ( cd .claude/skills && zip -r "../../dist/document-to-apr-skill-${{ steps.ver.outputs.skill }}.zip" document-to-apr )
       - name: Attach to release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
         with:
           tag_name: v${{ steps.ver.outputs.app }}
           files: dist/document-to-apr-skill-*.zip

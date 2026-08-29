@@ -1,6 +1,6 @@
 # APR File Format Specification
 
-**Specification document version:** 1.0.0-beta.2 (tracks the PromptResponse release)
+**Specification document version:** 1.0.0-beta.3 (tracks the PromptResponse release)
 **Status:** 🚧 **BETA — the format is not frozen and breaking changes may still occur**
 **Describes format version:** `1.0-beta`
 **Supersedes:** `APR_SPECIFICATION_v0.2.md`

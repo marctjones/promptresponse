@@ -18,7 +18,7 @@
       configured in coverlet.runsettings).
   -->
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="10.0.0" Condition="'$(IsTestProject)' == 'true'">
+    <PackageReference Include="coverlet.msbuild" Version="10.0.1" Condition="'$(IsTestProject)' == 'true'">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

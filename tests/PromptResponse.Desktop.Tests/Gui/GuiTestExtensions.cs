@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Input;
+using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 
@@ -53,7 +54,7 @@ public static class GuiTestExtensions
         {
             throw new InvalidOperationException("Headless harness did not produce a frame; ensure UseSkia + UseHeadlessDrawing=false.");
         }
-        bitmap.Save(ms);
+        bitmap.Save(ms, PngBitmapEncoderOptions.Default);
         return ms.ToArray();
     }
 
@@ -74,7 +75,7 @@ public static class GuiTestExtensions
         // The PNG is compressed so this isn't exact, but it's a strong signal: an
         // all-one-color render produces a tiny PNG dominated by repeats.
         using var ms = new MemoryStream();
-        bitmap.Save(ms);
+        bitmap.Save(ms, PngBitmapEncoderOptions.Default);
         var bytes = ms.ToArray();
         for (int i = 0; i + 3 < bytes.Length; i += sampleStride)
         {

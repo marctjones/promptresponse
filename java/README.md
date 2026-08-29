@@ -1,6 +1,6 @@
 # PromptResponse Java SDK
 
-A Java 17+ implementation of APR **core+expressions**. It is
+A Java 21+ implementation of APR **core+expressions**. It is
 intended for lightweight backend processing: read, structurally validate,
 change responses, and write APR JSON while preserving unknown members,
 signatures. It evaluates APR's CEL expression hints through the official CEL-Java

@@ -5,7 +5,22 @@ All notable changes to PromptResponse are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0-beta.3] - 2026-08-29
+
+### Changed
+
+- Updated the supported .NET 10 SDK/runtime and Microsoft package family to
+  `10.0.400` / `10.0.11`, the Avalonia family to `12.1.1`, and Java to the
+  Temurin/OpenJDK 21 LTS baseline.
+- Updated TypeScript and Node typings to their current stable major releases;
+  action pins, and CI permissions; package licensing metadata remains unchanged.
+- Pinned CI and release actions to reviewed immutable commits and upgraded CI to
+  Node 24 LTS, Python setup action v7, uv setup action v10, and Java setup action v6.
+
+### Security
+
+- Moved release permissions to the individual artifact-publishing jobs; normal
+  CI jobs now receive read-only repository contents access.
 
 ## [1.0.0-beta.2] - 2026-08-29
 
@@ -13,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Cross-platform release reproducibility** — release packaging now restores
   the required runtime graph before its no-restore publish. CI and release
-  packaging use the repository's pinned .NET SDK `10.0.300`, preventing an
+  packaging use the repository's pinned .NET SDK `10.0.400`, preventing an
   SDK update from silently changing a locked release build.
 
 ## [1.0.0-beta.1] - 2026-08-29

@@ -53,7 +53,7 @@ These are the product. Everything else is an implementation of them.
 
 | Artifact | Path | Status |
 |---|---|---|
-| **Specification** | `docs/APR_SPECIFICATION.md` | **Shipped** — spec v1.0.0-beta.2, describes format `1.0-beta` |
+| **Specification** | `docs/APR_SPECIFICATION.md` | **Shipped** — spec v1.0.0-beta.3, describes format `1.0-beta` |
 | **JSON Schema** | `schemas/apr-1.0.schema.json` | **Shipped** — Draft 2020-12 |
 | **Conformance corpus** | `tests/Conformance/v1/` | **Shipped** — 41 fixtures |
 | **Canonicalization vectors** | `tests/Conformance/v1/canonicalization/` | **Shipped** — `apr-sig-v3` byte contract |
@@ -186,7 +186,7 @@ findings for safe hosts.
 
 `java/` · Profile: `core+expressions`
 
-A Java 17+ SDK for backend processing: parse, structurally validate, edit responses,
+A Java 21+ SDK for backend processing: parse, structurally validate, edit responses,
 evaluate CEL, and write APR JSON while preserving unknown members and signatures.
 Its checksum-pinned project-local Maven wrapper resolves the official CEL runtime.
 `java/run-tests.sh` runs the shared corpus. The companion
@@ -300,7 +300,7 @@ can score well on one and badly on another, so they are tracked separately.
 | **Web demo** | ⚠️ | ✅ | ✅ | ⚠️ | Python SDK-backed; local demo and live advisory endpoint use the same SDK rules. Deployment/authentication are deliberately out of scope |
 | **TypeScript SDK** | ⚠️ | ✅ | ✅ | ⚠️ | Core package has corpus round-trip tests and safe HTML projection; #104 tracks the public package split |
 | **Browser demo** | ⚠️ | ✅ | ✅ | ⚠️ | Local file open/fill/validation/download path; its tests run in CI. It intentionally never uploads or follows submission URLs |
-| **Java SDK + local demo** | ⚠️ | ✅ | ✅ | ⚠️ | Java 17 dependency-free core runner executes the shared corpus in CI; its JDK server demo writes completed APRFs locally |
+| **Java SDK + local demo** | ⚠️ | ✅ | ✅ | ⚠️ | Java 21 dependency-free core runner executes the shared corpus in CI; its JDK server demo writes completed APRFs locally |
 | **Browser extension** *(planned)* | ❌ | ❌ | ❌ | ❌ | Will consume the TypeScript browser-facing package |
 | **Converters** *(planned)* | ❌ | ❌ | ❌ | ❌ | Round-trip tests needed: APR → fixed-width → APR |
 

@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.promptresponse</groupId>
   <artifactId>promptresponse-java</artifactId>
-  <version>1.0.0-beta.2</version>
+  <version>1.0.0-beta.3</version>
   <properties>
-    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <cel.version>0.14.0</cel.version>
   </properties>
@@ -36,13 +36,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.14.1</version>
+        <version>3.15.0</version>
         <configuration><compilerArgs><arg>--add-modules</arg><arg>jdk.httpserver</arg></compilerArgs></configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
       </plugin>
     </plugins>
   </build>

@@ -145,7 +145,7 @@ public partial class AboutDialog : Window
         new Acknowledgement("Microsoft.Extensions.Primitives", "10.0.7", "MIT License — © .NET Foundation and Contributors"),
 
         // ─── System.* (BCL out-of-band) — © .NET Foundation, MIT ─────────────────────
-        new Acknowledgement("System.Security.Cryptography.Pkcs", "10.0.0", "MIT License — © .NET Foundation and Contributors",
+        new Acknowledgement("System.Security.Cryptography.Pkcs", "10.0.11", "MIT License — © .NET Foundation and Contributors",
             Note: "CMS/PKCS#7 signing for verifiable APR signatures."),
 
         // ─── Bundled fonts (not NuGet packages) ─────────────────────────────────────

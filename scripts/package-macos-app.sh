@@ -2,7 +2,7 @@
 # Package a signed, testable macOS .app. Release automation supplies signing and notarization.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-RID="osx-arm64"; VERSION="1.0.0-beta.2"; OUTPUT="$ROOT/dist/PromptResponse.app"
+RID="osx-arm64"; VERSION="1.0.0-beta.3"; OUTPUT="$ROOT/dist/PromptResponse.app"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --rid) RID="$2"; shift 2 ;;

@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <PackageId>PromptResponse.Core</PackageId>
-    <Version>1.0.0-beta.2</Version>
+    <Version>1.0.0-beta.3</Version>
     <Authors>PromptResponse Contributors</Authors>
     <Description>Core library for APR (Adaptive Prompt Response) form format</Description>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
@@ -15,10 +15,10 @@
 
   <ItemGroup>
     <PackageReference Include="Celly" Version="1.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.11" />
     <!-- CMS/PKCS#7 (SignedCms) for industry-standard APR signatures. First-party
          Microsoft BCL package; ships with the runtime. -->
-    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.11" />
   </ItemGroup>
 
 </Project>
