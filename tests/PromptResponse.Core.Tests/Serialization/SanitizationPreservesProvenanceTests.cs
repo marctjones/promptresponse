@@ -134,27 +134,25 @@ public class SanitizationPreservesProvenanceTests
             "recomputation leaves it alone");
     }
 
-    /// <summary>Normalization must still happen - it just must not be recorded as an edit.</summary>
+    /// <summary>Responses must survive exactly - including their normalization form.</summary>
     /// <remarks>
-    /// NFC composition is applied, so the same text typed on two keyboards compares equal.
-    /// What is not applied to a response is character removal: an earlier draft of this
-    /// test expected a zero-width space to be stripped and was wrong. Responses are what a
-    /// person typed, and the serializer deliberately leaves odd characters in place for
-    /// HiddenCharacterAdvisor to report rather than quietly rewriting someone's answer.
+    /// An earlier draft normalized this response, but that changes evidence just as
+    /// surely as stripping a zero-width space. Responses are what a person typed;
+    /// the serializer leaves normalization and suspicious characters intact for
+    /// HiddenCharacterAdvisor to report rather than quietly rewriting an answer.
     /// </remarks>
     [Fact]
-    public void SanitizationStillNormalizes_WithoutRewritingWhatSomeoneTyped()
+    public void SanitizationPreservesExactResponseWithoutRewritingWhatSomeoneTyped()
     {
         var document = Filled();
-        // "Cafe" + combining acute: the decomposed form NFC composes to "Café".
+        // "Cafe" + combining acute: deliberately preserve this decomposed spelling.
         document.Sections[0].Prompts[0].Response = "Café receipt​";
 
         var reloaded = Serializer.Deserialize(Serializer.Serialize(document));
         var response = reloaded.Sections[0].Prompts[0].Response;
 
-        response.Should().StartWith("Café",
-            "NFC composition must still be applied, so the same word typed on two different " +
-            "keyboards compares equal");
+        response.Should().Be("Café receipt​",
+            "a response is exact evidence, including its original normalization form");
         response.Should().Contain("​",
             "a zero-width space in a response is left alone and reported, not silently " +
             "removed; a response is what a person typed, not something to correct");

@@ -8,7 +8,7 @@
     "publisher": "PromptResponse Conformance Corpus",
     "templateId": "conformance-canonicalization",
     "templateVersion": "3.2",
-    "submissionUrl": "https://example.org/forms/conformance/submit"
+    "submissionUrls": ["https://example.org/forms/conformance/submit"]
   },
   "sections": [
     {

@@ -71,7 +71,7 @@ public class SigningCommandsTests : IDisposable
         // The signature + bound URL landed in the file.
         var signed = _serializer.Deserialize(await File.ReadAllTextAsync(form));
         signed.Signatures.Should().ContainSingle();
-        signed.Metadata.SubmissionUrl.Should().Be("https://gov/submit");
+        signed.Metadata.SubmissionUrls.Should().Equal("https://gov/submit");
 
         var verify = await new VerifyCommand(_serializer).ExecuteAsync(new[] { form, $"--trust={cer}" });
         verify.Should().Be(0, "a pinned publisher signature over unaltered content verifies");

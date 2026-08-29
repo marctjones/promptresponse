@@ -10,7 +10,7 @@
     "templateId": "conformance-signed-template",
     "templateVersion": "1.0",
     "publisher": "PromptResponse Conformance Corpus",
-    "submissionUrl": "https://example.org/forms/conformance/submit"
+    "submissionUrls": ["https://example.org/forms/conformance/submit"]
   },
   "sections": [
     {

@@ -97,6 +97,11 @@ IMPORTED="$WORK/imported.aprt"
 
 echo "▶ Smoke-testing staged artifact: $STAGE"
 
+# The GUI itself needs a desktop session, but --help is handled before Avalonia
+# starts. This proves the staged desktop executable is runnable and retained its
+# documented form-filling command-line contract without opening a window in CI.
+"$APP" --help | grep -q -- '--open <file>'
+
 "$APR" validate "$TEMPLATE" >/dev/null
 "$APR" info "$TEMPLATE" >/dev/null
 "$APR" stats "$TEMPLATE" >/dev/null

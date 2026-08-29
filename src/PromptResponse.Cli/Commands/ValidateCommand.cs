@@ -51,9 +51,15 @@ public class ValidateCommand : ICommand
 
             // Inspect data types (advisory only — warnings, never errors)
             var hintInspection = _dataTypeValidator.ValidateDocument(document);
+            var hiddenInspection = new HiddenCharacterAdvisor().Validate(document);
+            var mixedScriptInspection = new MixedScriptAdvisor().Validate(document);
+            var advisories = hintInspection.Warnings
+                .Concat(hiddenInspection.Warnings)
+                .Concat(mixedScriptInspection.Warnings)
+                .ToList();
 
             // Report results
-            if (structureResult.IsValid && !hintInspection.HasWarnings)
+            if (structureResult.IsValid && advisories.Count == 0)
             {
                 Console.WriteLine("✓ Validation passed");
                 Console.WriteLine($"  Document type: {document.DocumentType}");
@@ -80,11 +86,11 @@ public class ValidateCommand : ICommand
                 }
             }
 
-            if (hintInspection.HasWarnings)
+            if (advisories.Count > 0)
             {
                 Console.WriteLine();
                 Console.WriteLine("⚠ Advisory warnings (responses are still valid — any text is accepted):");
-                foreach (var warning in hintInspection.Warnings)
+                foreach (var warning in advisories)
                 {
                     Console.WriteLine($"  - {warning}");
                 }

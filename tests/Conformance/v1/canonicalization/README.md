@@ -1,4 +1,4 @@
-# apr-sig-v2 Canonicalization Vectors
+# apr-sig-v3 Canonicalization Vectors
 
 The canonical payload is the hardest part of APR to port, and the only part that is
 **silently wrong until it is catastrophically wrong**: an implementation with flawless

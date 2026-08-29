@@ -60,7 +60,7 @@ public class Signer
 }
 
 /// <summary>
-/// A detached signature over part of an APR document (scheme <c>apr-sig-v2</c>):
+/// A detached signature over part of an APR document (scheme <c>apr-sig-v3</c>):
 /// an industry-standard CMS/PKCS#7 <c>SignedData</c> over the document's canonical
 /// <em>content</em>, with the signer's X.509 certificate (chain) embedded. Pure
 /// data; produced and verified by <c>PromptResponse.Core.Signing</c>.
@@ -106,7 +106,7 @@ public class Signature
     public string Algorithm { get; set; } = "cms/ecdsa-p256-sha256";
 
     /// <summary>The canonical-payload scheme version.</summary>
-    public string Canonicalization { get; set; } = "apr-sig-v2";
+    public string Canonicalization { get; set; } = "apr-sig-v3";
 
     /// <summary>When the signature was produced (ISO-8601 UTC), bound into the content.</summary>
     public string SignedAt { get; set; } = string.Empty;

@@ -26,10 +26,14 @@ SPEC = ROOT / "docs" / "APR_SPECIFICATION.md"
 
 
 def source_text():
-    """All C# test source, concatenated, for locating test-method references."""
+    """All registered test source, concatenated, for locating named gates."""
     return "\n".join(
         p.read_text(encoding="utf-8", errors="ignore")
-        for p in (ROOT / "tests").rglob("*.cs")
+        for root, pattern in ((ROOT / "tests", "*.cs"),
+                              (ROOT / "python" / "tests", "*.py"),
+                              (ROOT / "typescript" / "src" / "test", "*.ts"))
+        if root.exists()
+        for p in root.rglob(pattern)
     )
 
 
@@ -55,9 +59,8 @@ def _declares(source: str, method: str) -> bool:
     "Task Name(" (async tests are ordinary), and Python "def name(". A checker that
     only knew one would report a perfectly good gate in the other as missing.
     """
-    return any(
-        f"{prefix} {method}(" in source for prefix in ("void", "Task", "def")
-    )
+    return any(f"{prefix} {method}(" in source
+               for prefix in ("void", "Task", "def", "function"))
 
 
 def main():

@@ -6,7 +6,8 @@ namespace PromptResponse.Desktop.Profiles;
 /// </summary>
 /// <remarks>
 /// On Windows reads SystemParameters.HighContrast / EnableEffects / Narrator state.
-/// On macOS reads NSWorkspace accessibility preferences.
+/// On macOS reads the relevant user defaults and detects VoiceOver processes on a
+/// best-effort basis. Users can always explicitly select a capability profile.
 /// On Linux reads GTK / GNOME settings.
 /// Mocked in tests via a stub implementation.
 /// </remarks>

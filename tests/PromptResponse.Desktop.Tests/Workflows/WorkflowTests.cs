@@ -102,6 +102,9 @@ public class WorkflowTests : IDisposable
 
     private string Path_(string name) => Path.Combine(_dir, name);
 
+    private static string RepositoryPath(params string[] parts) =>
+        Path.Combine([Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")), .. parts]);
+
     /// <summary>Reads back what actually landed on disk.</summary>
     private AprDocument Reload(string path)
     {
@@ -281,6 +284,36 @@ public class WorkflowTests : IDisposable
             .Should().Equal("Ada Lovelace", "ada@example.com");
         reloaded.Metadata.TemplateId.Should().Be("intake",
             "a filled form remembers which template it answers");
+    }
+
+    /// <summary>Launch-path equivalent for the largest public template: open it
+    /// to fill, answer a field, save a filled copy, and reopen the answer.</summary>
+    [Fact]
+    public async Task FillSf86Template_SaveFilledCopy_AndReopenIt()
+    {
+        var source = RepositoryPath("examples", "sf-86-background-check.aprt");
+        var filledPath = Path_("sf-86-filled.aprf");
+
+        await _shell.OpenFromPath(source, openForFilling: true);
+
+        _shell.IsEditMode.Should().BeFalse("--open is the form-filling entry point");
+        _shell.ShowFullFillList.Should().BeTrue();
+        _shell.PromptViewModels.Should().HaveCount(111);
+        _shell.PromptViewModels.Single(p => p.Id == "prompt_investigation_type").Response =
+            "Initial Investigation";
+
+        _session.CurrentDocument!.DocumentType = DocumentType.FilledForm;
+        await _files.SaveFileAsync(_session.CurrentDocument, filledPath);
+
+        var reloaded = Reload(filledPath);
+        MustBeValid(reloaded, "filling the SF-86 template");
+        reloaded.DocumentType.Should().Be(DocumentType.FilledForm);
+        reloaded.Metadata.TemplateId.Should().Be("sf-86-2024");
+        reloaded.Sections.SelectMany(Flatten).Single(p => p.Id == "prompt_investigation_type").Response
+            .Should().Be("Initial Investigation");
+
+        static IEnumerable<Prompt> Flatten(Section s) =>
+            s.Prompts.Concat(s.Sections.SelectMany(Flatten));
     }
 
     /// <summary>Free text is accepted on a typed field, all the way to disk.</summary>

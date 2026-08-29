@@ -180,6 +180,62 @@ public class DialogService : IDialogService
     }
 
     /// <inheritdoc/>
+    public async Task<int?> ShowChoiceAsync(string title, string message, IReadOnlyList<string> choices)
+    {
+        ArgumentNullException.ThrowIfNull(choices);
+        if (choices.Count == 0) return null;
+
+        var window = GetMainWindow();
+        if (window == null) return null;
+        int? result = null;
+        var dialog = new Window
+        {
+            Title = title,
+            Width = 560,
+            Height = 280,
+            MinWidth = 400,
+            MinHeight = 220,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            CanResize = true,
+            ShowInTaskbar = false,
+        };
+        dialog.SetValue(AutomationProperties.NameProperty, title);
+        dialog.SetValue(AutomationProperties.HelpTextProperty, message);
+
+        var options = new StackPanel { Spacing = 6 };
+        for (var index = 0; index < choices.Count; index++)
+        {
+            var captured = index;
+            var option = new RadioButton
+            {
+                Content = choices[index],
+                GroupName = "dialog-choice",
+                IsChecked = index == 0,
+            };
+            option.SetValue(AutomationProperties.NameProperty, choices[index]);
+            option.SetValue(AutomationProperties.HelpTextProperty, $"Submission destination {index + 1} of {choices.Count}");
+            option.IsCheckedChanged += (_, _) => { if (option.IsChecked == true) result = captured; };
+            options.Children.Add(option);
+        }
+        result = 0;
+
+        var select = new Button { Content = "Continue", MinWidth = 96, IsDefault = true };
+        select.SetValue(AutomationProperties.NameProperty, "Continue with selected destination");
+        select.Click += (_, _) => dialog.Close();
+        var cancel = new Button { Content = "Cancel", MinWidth = 80, IsCancel = true, Margin = new Thickness(10, 0, 0, 0) };
+        cancel.SetValue(AutomationProperties.NameProperty, "Cancel submission");
+        cancel.Click += (_, _) => { result = null; dialog.Close(); };
+        var buttons = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 12, 0, 0), Children = { select, cancel } };
+        var content = new StackPanel { Margin = new Thickness(20), Spacing = 8 };
+        content.Children.Add(new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap });
+        content.Children.Add(new ScrollViewer { Content = options, VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto });
+        content.Children.Add(buttons);
+        dialog.Content = content;
+        await dialog.ShowDialog(window);
+        return result;
+    }
+
+    /// <inheritdoc/>
     public async Task ShowPrintPreviewAsync(RenderModel model, bool includeEmptyFields)
     {
         ArgumentNullException.ThrowIfNull(model);

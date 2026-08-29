@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-beta.1] - 2026-08-29
+
+The first `1.0` public-beta application release. The on-wire APR identifier
+remains `1.0-beta`: it is intentionally distinct from the application release
+number and will remain readable when the format is stabilized.
+
+### Added
+
+- **Submission targets** — `metadata.submissionUrls` is an ordered array even
+  for one target. The schema, canonical signing payload, examples, CLI, and
+  desktop workflows recognize explicit local save, email handoff, and HTTPS
+  submission paths; no client silently sends data.
+- **SDK and demo coverage** — corpus-gated Python, TypeScript, and Java SDK
+  work, a local TypeScript browser demo, and a minimal loopback Java form demo.
+  The experimental APR CEL Binding v1 note and decision vectors are included as
+  design material only; they are not normative conformance claims.
+- **Unicode safety guidance** — response-preserving advisory detection for
+  hidden and deceptive characters, with safe presentation support in clients.
+- **macOS release evidence tooling** — packaged-app accessibility-tree capture
+  and a VoiceOver/keyboard smoke checklist.
+
+### Changed
+
+- **Release metadata** — .NET, Java, TypeScript, browser-demo, macOS bundle,
+  specification document, registry, README, and release tooling now identify
+  `1.0.0-beta.1` consistently.
+- **Quality gates** — committed .NET lock files, Python `uv.lock`, Java
+  wrapper/build scripts, TypeScript locks, cross-language corpus checks, and
+  documentation-registry checks make the beta implementation easier to
+  reproduce.
+
+### Security
+
+- **Signed submission intent** — ordered submission targets participate in the
+  publisher-signature canonical payload, so a modified target invalidates that
+  signature rather than redirecting a completed form silently.
+
+## [0.6.0] - 2026-06-09
+
 ### Added
 
 - **PDF/A archival export** (Path A) — `apr export <file> --format=pdf --pdfa`

@@ -1,0 +1,16 @@
+{
+  "version": "1.0-beta",
+  "metadata": {
+    "title": "Scalar submission URL is not a valid APR shape",
+    "submissionUrl": "mailto:marc@joneslaw.io"
+  },
+  "sections": [
+    {
+      "id": "contact",
+      "title": "Contact",
+      "prompts": [
+        { "id": "name", "label": "Name", "response": "" }
+      ]
+    }
+  ]
+}

@@ -130,13 +130,13 @@ public class Metadata
     public string? Publisher { get; set; }
 
     /// <summary>
-    /// Gets or sets the URL describing how to submit the completed form.
+    /// Gets or sets the ordered URLs describing how to submit the completed form.
     /// </summary>
     /// <remarks>
-    /// When the template carries a publisher signature, this URL is bound into the
+    /// When the template carries a publisher signature, every URL is bound into the
     /// signed payload so it cannot be altered to redirect submissions without
     /// invalidating the signature.
     /// </remarks>
-    /// <example>"https://bloomfieldct.gov/forms/permit/submit"</example>
-    public string? SubmissionUrl { get; set; }
+    /// <example>["https://bloomfieldct.gov/forms/permit/submit"]</example>
+    public List<string>? SubmissionUrls { get; set; }
 }

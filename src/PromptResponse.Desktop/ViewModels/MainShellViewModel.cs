@@ -11,6 +11,7 @@ using PromptResponse.Core.Models;
 using PromptResponse.Core.Signing;
 using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Validation;
+using PromptResponse.Core.Serialization;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels.Editing;
@@ -31,6 +32,9 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly IDocumentSessionService _session;
     private readonly IProfileService _profileService;
     private readonly PromptViewModelFactory _factory;
+    private readonly IAprSerializer _serializer;
+    private readonly IMailHandoffService _mailHandoff;
+    private readonly IHttpsSubmissionService _httpsSubmission;
     private readonly EditHistory _editHistory;
     private readonly DataTypeValidator _dataTypeValidator = new();
     private readonly HiddenCharacterAdvisor _hiddenCharAdvisor = new();
@@ -49,7 +53,10 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         PromptViewModelFactory factory,
         EditHistory? editHistory = null,
         IRecentFilesService? recentFiles = null,
-        ITemplateCatalogService? templateCatalog = null)
+        ITemplateCatalogService? templateCatalog = null,
+        IAprSerializer? serializer = null,
+        IMailHandoffService? mailHandoff = null,
+        IHttpsSubmissionService? httpsSubmission = null)
     {
         _fileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
         _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
@@ -62,6 +69,9 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         // into every prompt VM it creates. The injected factory's profile is the
         // same DI singleton — only its history binding differs.
         _factory = new PromptViewModelFactory(profileService, _editHistory);
+        _serializer = serializer ?? new AprJsonSerializer();
+        _mailHandoff = mailHandoff ?? new MailHandoffService();
+        _httpsSubmission = httpsSubmission ?? new HttpsSubmissionService();
 
         Progress = new FormProgressViewModel();
         Search = new SearchViewModel();
@@ -247,6 +257,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     {
         OnPropertyChanged(nameof(ShowFullEditList));
         OnPropertyChanged(nameof(ShowFullFillList));
+        SubmitViaEmailCommand.NotifyCanExecuteChanged();
     }
 
     /// <summary>One-click capability-profile preset switch. Bound to the View →
@@ -731,13 +742,13 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         if (password is null) return; // cancelled
 
         var url = await _dialogService.ShowInputAsync(
-            "Submission URL", "Where is this form submitted? (bound into the signature)", doc.Metadata.SubmissionUrl ?? string.Empty);
+            "Submission URLs", "Where is this form submitted? Separate choices with commas (all are bound into the signature)", string.Join(", ", doc.Metadata.SubmissionUrls ?? []));
         if (url is null) return; // cancelled
 
         await SignWith(certPath!, password, c =>
         {
             // Set the URL before signing: the payload binds what the document says.
-            if (!string.IsNullOrEmpty(url)) doc.Metadata.SubmissionUrl = url;
+            if (!string.IsNullOrEmpty(url)) doc.Metadata.SubmissionUrls = url.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
             var sig = AprSigner.SignTemplate(doc, c, DateTime.UtcNow);
             doc.Metadata.Publisher ??= sig.Signer.Name;
             return sig;
@@ -1087,11 +1098,16 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// Loads a document directly from disk without showing the file picker. Used by
     /// the command-line "--open path" flag and demo flows.
     /// </summary>
-    public async Task OpenFromPath(string filePath)
+    public async Task OpenFromPath(string filePath, bool openForFilling = false)
     {
         var doc = await _fileService.LoadFileAsync(filePath);
         if (doc == null) return;
         _session.Set(doc, filePath, dirty: false);
+        // A template normally opens in its editor, but command-line --open is
+        // explicitly the form-filling entry point. Keep the document a template
+        // until saved while presenting its prompts as fields rather than authoring
+        // controls.
+        if (openForFilling) IsEditMode = false;
         AddToRecent(filePath, doc.Metadata.Title);
     }
 
@@ -1119,6 +1135,74 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         await _fileService.SaveFileAsAsync(_session.CurrentDocument!);
         _session.MarkClean();
         AddToRecent(_fileService.CurrentFilePath, _session.CurrentDocument?.Metadata.Title);
+    }
+
+    /// <summary>
+    /// Saves a filled copy and opens a draft addressed to one explicit mailto: target.
+    /// This never sends mail and never changes the currently open document's path.
+    /// </summary>
+    public bool CanSubmitViaEmail() => HasDocument && !IsEditMode &&
+        _session.CurrentDocument?.Metadata.SubmissionUrls?.Any(url => MailHandoffService.TryGetRecipient(url, out _)) == true;
+
+    [RelayCommand(CanExecute = nameof(CanSubmitViaEmail))]
+    public async Task SubmitViaEmail()
+    {
+        var source = _session.CurrentDocument;
+        if (source?.Metadata.SubmissionUrls is not { Count: > 0 } targets) return;
+
+        var choices = targets
+            .Where(url => MailHandoffService.TryGetRecipient(url, out _))
+            .ToList();
+        if (choices.Count == 0) return;
+
+        var selectedIndex = await _dialogService.ShowChoiceAsync(
+            "Submit via email",
+            "Choose the email destination. This opens a draft only; you review and send it yourself.",
+            choices);
+        if (selectedIndex is null) return;
+
+        var outputPath = await _fileService.PickExportPathAsync(
+            SuggestedSubmissionFileName(source.Metadata.Title), "Save completed APR file", "APR Filled Form", "aprf");
+        if (string.IsNullOrWhiteSpace(outputPath)) return;
+
+        if (!await _dialogService.ShowConfirmationAsync(
+                "Open email draft",
+                $"A completed APR copy will be saved as {Path.GetFileName(outputPath)} and an email draft addressed to {choices[selectedIndex.Value]} will be opened. PromptResponse will not send the email. Continue?")) return;
+
+        // Clone through the format serializer. The open template stays a template; the
+        // outgoing artifact is explicitly a filled form and has its own save location.
+        var completedCopy = _serializer.Deserialize(_serializer.Serialize(source));
+        completedCopy.DocumentType = DocumentType.FilledForm;
+        var previousPath = _fileService.CurrentFilePath;
+        await _fileService.SaveFileAsync(completedCopy, outputPath);
+        if (string.IsNullOrEmpty(previousPath)) _fileService.ClearCurrentFilePath();
+        else _fileService.SetCurrentFilePath(previousPath);
+
+        var result = await _mailHandoff.ComposeAsync(new MailHandoffRequest(
+            choices[selectedIndex.Value], outputPath,
+            $"Completed APR form: {source.Metadata.Title ?? "Untitled form"}",
+            "Please find the completed APR form attached."));
+        AddToRecent(outputPath, completedCopy.Metadata.Title);
+        await _dialogService.ShowConfirmationAsync("Email handoff", result.Message + Environment.NewLine + outputPath);
+    }
+
+    private static string SuggestedSubmissionFileName(string? title) =>
+        string.IsNullOrWhiteSpace(title) ? "completed-form.aprf" : $"{title}-completed.aprf";
+
+    public bool CanSubmitViaHttps() => HasDocument && !IsEditMode && _session.CurrentDocument?.Metadata.SubmissionUrls?.Any(url => Uri.TryCreate(url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps) == true;
+
+    [RelayCommand(CanExecute = nameof(CanSubmitViaHttps))]
+    public async Task SubmitViaHttps()
+    {
+        var source = _session.CurrentDocument;
+        var targets = source?.Metadata.SubmissionUrls?.Where(url => Uri.TryCreate(url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps).ToList() ?? [];
+        if (targets.Count == 0) return;
+        var selected = await _dialogService.ShowChoiceAsync("Submit via HTTPS", "Choose one destination. PromptResponse will POST only after you confirm; it never follows redirects or falls back.", targets);
+        if (selected is null || !await _dialogService.ShowConfirmationAsync("Submit completed APR", $"POST this completed APR to {targets[selected.Value]}?")) return;
+        var completed = _serializer.Deserialize(_serializer.Serialize(source!));
+        completed.DocumentType = DocumentType.FilledForm;
+        var result = await _httpsSubmission.SubmitAsync(targets[selected.Value], _serializer.Serialize(completed));
+        await _dialogService.ShowConfirmationAsync("HTTPS submission", result.Message);
     }
 
     /// <summary>
@@ -1343,6 +1427,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         ExportHtmlFormCommand.NotifyCanExecuteChanged();
         SaveCommand.NotifyCanExecuteChanged();
         SaveAsCommand.NotifyCanExecuteChanged();
+        SubmitViaEmailCommand.NotifyCanExecuteChanged();
         CloseCommand.NotifyCanExecuteChanged();
     }
 

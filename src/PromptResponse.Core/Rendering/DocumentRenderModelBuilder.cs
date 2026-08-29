@@ -70,7 +70,8 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
             var r = results[i];
             // The submission URL comes from the document, which is the only place it
             // lives and exactly what the signature is computed over.
-            var boundUrl = document.Metadata?.SubmissionUrl;
+            var boundUrls = document.Metadata?.SubmissionUrls;
+            var boundUrl = boundUrls is { Count: > 0 } ? string.Join(", ", boundUrls) : null;
             var scope = sig.Scope == "template"
                 ? "form definition" + (string.IsNullOrEmpty(boundUrl) ? string.Empty : $" - submit to {boundUrl}")
                 : "fields: " + string.Join(", ", sig.Fields);

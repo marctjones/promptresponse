@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+# Minimal project-local Maven wrapper. It never installs Maven system-wide.
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+MAVEN_VERSION=3.9.11
+MAVEN_SHA512=bcfe4fe305c962ace56ac7b5fc7a08b87d5abd8b7e89027ab251069faebee516b0ded8961445d6d91ec1985dfe30f8153268843c89aa392733d1a3ec956c9978
+ARCHIVE="$ROOT/.maven/apache-maven-$MAVEN_VERSION-bin.tar.gz"
+HOME_DIR="$ROOT/.maven/apache-maven-$MAVEN_VERSION"
+
+# CI supplies JAVA_HOME. Homebrew's OpenJDK is a useful local fallback only.
+if [ -z "${JAVA_HOME:-}" ] && [ -x /opt/homebrew/opt/openjdk/bin/java ]; then
+  JAVA_HOME=/opt/homebrew/opt/openjdk
+  export JAVA_HOME
+fi
+
+if [ ! -x "$HOME_DIR/bin/mvn" ]; then
+  mkdir -p "$ROOT/.maven"
+  if [ ! -f "$ARCHIVE" ]; then
+    curl --fail --location --retry 3 --output "$ARCHIVE" \
+      "https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz"
+  fi
+  actual=$(shasum -a 512 "$ARCHIVE" | awk '{print $1}')
+  [ "$actual" = "$MAVEN_SHA512" ] || { echo "Maven checksum mismatch" >&2; exit 1; }
+  tar -xzf "$ARCHIVE" -C "$ROOT/.maven"
+fi
+
+exec "$HOME_DIR/bin/mvn" -Dmaven.repo.local="$ROOT/.maven/repository" "$@"

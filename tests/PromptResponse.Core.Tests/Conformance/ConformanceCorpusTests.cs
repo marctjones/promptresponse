@@ -171,7 +171,7 @@ public class ConformanceCorpusTests
         var document = _serializer.Deserialize(
             File.ReadAllText(Path.Combine(CorpusDir("valid"), "signed-template.aprt")));
         document.Signatures = null;
-        document.Metadata.SubmissionUrl = "https://bloomfield\u200bct.gov/submit";
+        document.Metadata.SubmissionUrls = ["https://bloomfield\u200bct.gov/submit"];
 
         // Still a valid document — this is an advisory, not a structural error.
         _validator.Validate(document).IsValid.Should().BeTrue();
@@ -322,7 +322,6 @@ public class ConformanceCorpusTests
 
         var document = _serializer.Deserialize(File.ReadAllText(Path.Combine(dir, "input.aprt")));
         var signedAt = parameters.GetProperty("signedAt").GetString()!;
-        var submissionUrl = parameters.GetProperty("submissionUrl").GetString()!;
         var fields = parameters.GetProperty("fillerFields")
             .EnumerateArray().Select(f => f.GetString()!).ToArray();
 

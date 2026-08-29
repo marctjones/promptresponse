@@ -53,10 +53,10 @@ These are the product. Everything else is an implementation of them.
 
 | Artifact | Path | Status |
 |---|---|---|
-| **Specification** | `docs/APR_SPECIFICATION.md` | **Shipped** — 1,028 lines, spec v0.6.0, describes format `1.0-beta` |
+| **Specification** | `docs/APR_SPECIFICATION.md` | **Shipped** — spec v1.0.0-beta.1, describes format `1.0-beta` |
 | **JSON Schema** | `schemas/apr-1.0.schema.json` | **Shipped** — Draft 2020-12 |
-| **Conformance corpus** | `tests/Conformance/v1/` | **Shipped** — 35 fixtures |
-| **Canonicalization vectors** | `tests/Conformance/v1/canonicalization/` | **Shipped** — `apr-sig-v2` byte contract |
+| **Conformance corpus** | `tests/Conformance/v1/` | **Shipped** — 41 fixtures |
+| **Canonicalization vectors** | `tests/Conformance/v1/canonicalization/` | **Shipped** — `apr-sig-v3` byte contract |
 | **SDK conformance contract** | `docs/SDK_CONFORMANCE.md` | **Shipped** |
 | **Test registry** | `tests/registry.json` + `scripts/check-test-registry.py` | **Shipped** — CI-verified |
 | **Type registry** | `schemas/apr-types-1.0.json` | **Shipped** — 15 types and 8 enumerated attributes, verified against the code, schema, and spec |
@@ -89,8 +89,9 @@ multiplies drift without reaching anyone new.
 The only surface where accessibility can be proven end to end, which is why it is the
 one that must not be rewritten casually.
 
-- Accessibility across Windows (UIA), macOS (NSAccessibility), Linux (AT-SPI2),
-  verified against Orca
+- Accessibility through Avalonia automation peers on every desktop platform; Linux
+  AT-SPI smoke coverage exists. macOS has an opt-in System Events/NSAccessibility
+  inspector and a VoiceOver smoke checklist; release-candidate evidence is still required.
 - Capability profiles: Light/Dark/HighContrast, LargeText, ReducedMotion,
   ScreenReaderTuned, LargeHitTargets, WizardMode, plus composable display flags
 - APRT structural editor with undo/redo and drag-drop reorder
@@ -118,7 +119,7 @@ The value a second implementation would have provided — finding spec ambiguiti
 forcing different assumptions — comes instead from the SDKs (§3), which span four type
 systems and four JSON libraries.
 
-### 2.3 Web demo — **Planned**
+### 2.3 Web demo — **Shipped**
 
 **Language: Python / Flask** · Profile: `core` · **Shipped** as `web-demo.py`
 
@@ -159,32 +160,38 @@ the others cannot.
 
 The conformance benchmark. Gated by `ConformanceCorpusTests` (11 test methods) in CI.
 
-### 3.2 TypeScript — **Planned** *(highest leverage)*
+### 3.2 TypeScript — **Shipped (core), package split pending** *(highest leverage)*
 
-Profile: `core`, later `core+signatures`
+`typescript/` · Profile: `core+expressions` (timestamp binding currently partial), later `core+signatures`
 
 Reaches browsers, the extension, Node, Chromebooks, phones, and every locked-down
 desktop where nothing installs.
 
-**Includes extracting the renderer.** A JavaScript renderer already exists — inlined as
-string concatenation inside `FillableHtmlDocumentRenderer.cs`, where it is untestable
-and unreusable. Extracting it to a real package means Core, the extension, and the web
-SDK share one accessible renderer instead of three.
+The initial package provides parsing, structural/advisory validation, exact response
+round trips, a non-destructive Unicode safety inspector, and an accessible HTML
+projection. It is locally corpus-tested. Issue #104 tracks splitting this into
+`core`, `html`, and browser-facing packages; issue #105 tracks CI and the shared test
+register before it is represented as a released package.
 
-### 3.3 Python — **Partial → rebuild**
+### 3.3 Python — **Shipped (core)**
 
-`python/` · Currently **non-conformant**
+`python/` · Profile: `core+expressions`
 
-Exports `Subsection`, `DigitalSignature`, and `SubmissionConfig` — types with no
-counterpart in the format. It implements a **different schema** and must be rebuilt
-against the corpus. Blocks the web demo (§2.3).
+Corpus-gated reader/writer/validator with CEL evaluation used directly by
+`web-demo.py`. Its `uv.lock` and project-local `.venv` make the environment
+reproducible. It preserves responses exactly and exposes advisory-only Unicode
+findings for safe hosts.
 
-Reaches data pipelines, government scripting, and database import.
+### 3.4 Java — **Shipped (core + local demo)**
 
-### 3.4 Java — **Planned**
+`java/` · Profile: `core+expressions`
 
-Reaches enterprise and government integration, and Android. The enterprise language
-that genuinely warrants an SDK.
+A Java 17+ SDK for backend processing: parse, structurally validate, edit responses,
+evaluate CEL, and write APR JSON while preserving unknown members and signatures.
+Its checksum-pinned project-local Maven wrapper resolves the official CEL runtime.
+`java/run-tests.sh` runs the shared corpus. The companion
+minimal JDK `HttpServer` demo renders a local form and saves a completed `.aprf`; it
+does not implement a browser rendering profile or network submission.
 
 ### 3.5 Deferred
 
@@ -290,8 +297,11 @@ can score well on one and badly on another, so they are tracked separately.
 | **Schema gate** | — | ✅ | ✅ | — | Language-neutral, runs in CI without .NET, so it fails the way a third party would |
 
 | **Python SDK** | ⚠️ | ✅ | ✅ | ⚠️ | Core profile, corpus-gated from the first commit. Gates REQ-2.2/2.3, which .NET structurally cannot test |
-| **Web demo** *(planned)* | ❌ | ❌ | ❌ | ❌ | Must inherit the Python SDK's gates |
-| **TypeScript SDK / extension** *(planned)* | ❌ | ❌ | ❌ | ❌ | Must be corpus-gated from the first commit |
+| **Web demo** | ⚠️ | ✅ | ✅ | ⚠️ | Python SDK-backed; local demo and live advisory endpoint use the same SDK rules. Deployment/authentication are deliberately out of scope |
+| **TypeScript SDK** | ⚠️ | ✅ | ✅ | ⚠️ | Core package has corpus round-trip tests and safe HTML projection; #104 tracks the public package split |
+| **Browser demo** | ⚠️ | ✅ | ✅ | ⚠️ | Local file open/fill/validation/download path; its tests run in CI. It intentionally never uploads or follows submission URLs |
+| **Java SDK + local demo** | ⚠️ | ✅ | ✅ | ⚠️ | Java 17 dependency-free core runner executes the shared corpus in CI; its JDK server demo writes completed APRFs locally |
+| **Browser extension** *(planned)* | ❌ | ❌ | ❌ | ❌ | Will consume the TypeScript browser-facing package |
 | **Converters** *(planned)* | ❌ | ❌ | ❌ | ❌ | Round-trip tests needed: APR → fixed-width → APR |
 
 ### 6.2 Test kinds absent everywhere
@@ -395,7 +405,7 @@ rule is broken): **21 of 24**.
 
 | Gated | Not gated |
 |---|---|
-| §1.3.1 version compatibility (both directions) · §3.2 strings-only · §3.3 any string valid · §3.4 / §7.3.1 hints never rewrite · §4.1–4.4 required fields · §4.5 tables · §4.6 depth floor and measured ceiling · §11 resource bounds and no-network · §4.7 unknown hint degrades · §4.8 unknown members preserved · §4.8.1 retired dropped · §4.9 canonical forms · §5 documentType precedence · §6.1 error list · §6.3 parse vs validate · §7.1–7.2 text handling · §7.3.2 submissionUrl · §9.2–9.3 canonical bytes · §9.4 tamper · §9.5 never gate data · §10.2 ordering | **§8.x expression semantics** — nothing · **§10.1 accessible name / label rules** — the accessibility suite tests the desktop app, not the rule as a format requirement | 
+| §1.3.1 version compatibility (both directions) · §3.2 responses strings · §3.3 any string valid · §3.4 / §7.3.1 hints never rewrite · §4.1–4.4 required fields · §4.5 tables · §4.6 depth floor and measured ceiling · §11 resource bounds and no-network · §4.7 unknown hint degrades · §4.8 unknown members preserved · §4.8.1 retired dropped · §4.9 canonical forms · §5 documentType precedence · §6.1 error list · §6.3 parse vs validate · §7 response preservation · §7.3.2 submissionUrls · §9.2–9.3 canonical bytes · §9.4 tamper · §9.5 never gate data · §10.2 ordering | **§8.x expression semantics** — nothing · **§10.1 accessible name / label rules** — the accessibility suite tests the desktop app, not the rule as a format requirement |
 
 Method: extract every emphasised MUST/REQUIRED from the spec, group by section, and
 check each area for a fixture or test that would fail if the rule were violated.
@@ -482,12 +492,13 @@ Ordered by how much each unblocks.
 2. ~~**Python SDK rebuilt** against the corpus~~ — **done.** Core profile,
    89 tests, gates REQ-2.2/2.3 which .NET structurally cannot
 3. ~~**Web demo** on that SDK; retire `aprt-server.py`~~ — **done.** `web-demo.py`
-4. **Browser extension**
-5. **CEL adoption** + expression binding vectors — closes the largest named interop risk
-6. **SDK contributor contract** — converts the remaining list into work others can do
-7. **Converters** (copybook, fixed-width, relational), then **Java SDK**
-8. **Corpus and example gaps** from §7 — cheap, and two of them hide real holes
-9. **Test-kind gaps** from §6.2, in this order:
+4. **Stable-beta submission profile** — explicit HTTPS POST with clear receipts and no silent fallback
+5. **TypeScript package split** — stable `core`, HTML, and browser-facing boundaries
+6. **CEL adoption** + expression binding vectors — closes the largest named interop risk
+7. **SDK contributor contract** — converts the remaining list into work others can do
+8. **Converters** (copybook, fixed-width, relational)
+9. **Browser extension** — explicitly outside the stable-beta scope
+10. **Test-kind gaps** from §6.2, in this order:
    - **Fix mutation testing** (issue #29) — until it runs, the 95% coverage gate is unvalidated, and every other testing decision is made on a number nobody has checked
    - **Fuzz the parser** — "safe to open untrusted files" is a security claim currently backed by 4 hand-written malformed fixtures
    - **A performance fixture** — turns the 1000-prompt claim into a measurement

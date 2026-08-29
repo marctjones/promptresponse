@@ -125,10 +125,17 @@ def render_field(prompt, role_label):
     help_text = (
         f'<p class="help">{esc(hints.help_text)}</p>' if hints.help_text else ""
     )
+    unicode_findings = pr.inspect_text(prompt.response)
+    unicode_warning = (
+        '<p class="security-warning" role="status">Suspicious Unicode: '
+        + esc(", ".join(f"{finding.code} (U+{finding.codepoint:04X})" for finding in unicode_findings))
+        + ". The stored response was not changed.</p>"
+        if unicode_findings else ""
+    )
     return (
         f'<div class="field">{badge}'
         f'<label for="{field_id}">{esc(prompt.label)}</label>'
-        f"{control}{help_text}</div>"
+        f"{control}{help_text}{unicode_warning}</div>"
     )
 
 
@@ -241,6 +248,7 @@ PAGE = """<!doctype html>
  button {{ font: inherit; padding: .5rem 1rem; border-radius: 3px; cursor: pointer; }}
  .live {{ font-size: .8rem; margin: .25rem 0 0; min-height: 1em; }}
  .live.advisory {{ color: #a60; }}
+ .security-warning {{ color: #a60; font-size: .85rem; margin: .25rem 0 0; }}
  .live.clear {{ opacity: .55; }}
 </style></head>
 <body>
@@ -358,6 +366,10 @@ def submit():
         elif (DOCUMENT.metadata and prompt.hints.expected_data_type == "boolean"):
             # An unchecked box submits nothing at all.
             prompt.response = "No"
+
+    # CEL is advisory: successful exprValue hints populate only blank or previously
+    # computed fields; a human correction remains authoritative.
+    pr.recompute_computed_values(DOCUMENT)
 
     DOCUMENT.document_type = "filledForm"
     DOCUMENT.metadata.filled_date = datetime.now(timezone.utc).isoformat(timespec="seconds")

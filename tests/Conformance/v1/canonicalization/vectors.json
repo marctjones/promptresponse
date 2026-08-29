@@ -4,7 +4,7 @@
   "input": "input.aprt",
   "parameters": {
     "signedAt": "2026-01-01T00:00:00Z",
-    "submissionUrl": "taken from input.aprt metadata.submissionUrl - the payload reads the document, never a caller-supplied copy",
+    "submissionUrls": "taken from input.aprt metadata.submissionUrls, joined in order with U+001F - the payload reads the document, never a caller-supplied copy",
     "fillerFields": [
       "amount",
       "full_name",

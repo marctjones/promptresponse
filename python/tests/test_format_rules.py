@@ -141,15 +141,15 @@ def test_labels_are_nfc_normalised():
     )
 
 
-def test_a_bidi_override_is_stripped_even_from_a_response():
-    """Specification 7.2. These change how text renders rather than what it
-    says, which is a spoofing tool rather than a typo."""
+def test_a_bidi_override_is_preserved_and_reported_in_a_response():
+    """Responses are evidence: safety presentation warns without rewriting it."""
     document = pr.loads(
         '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","prompts":'
         '[{"id":"p","label":"L","response":"safe\\u202etxt.exe"}]}]}'
     )
-    assert "\u202e" not in next(document.all_prompts()).response
+    assert "\u202e" in next(document.all_prompts()).response
+    assert any(w.code == "BIDI_OVERRIDE" for w in pr.validate(document).warnings)
 
 
 def test_an_odd_but_harmless_character_is_left_alone_in_a_response():

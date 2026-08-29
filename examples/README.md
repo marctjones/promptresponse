@@ -16,16 +16,21 @@ These templates showcase the flexibility and power of the APR format for represe
 
 ### Simple Examples
 
+#### `contact-intake-filled.aprf`
+- **Purpose**: A completed, fictional form showing the template-to-filled lifecycle
+- **Features**: `filledForm`, template provenance, filled-by/date metadata, and a suggested single choice
+- **Use Case**: Safe fixture for testing save/reopen and import pipelines without real personal data
+
 #### `simple-contact-form.apr`
 - **Purpose**: Basic contact form demonstration
 - **Complexity**: Simple (1 section, 3 prompts)
 - **Features**: Email validation, text fields, multiline text area
 - **Use Case**: Contact forms, feedback forms, simple data collection
 
-#### `field-types-demo.aprt`
+#### `field-types-showcase.aprt`
 - **Purpose**: Demonstrates all supported data types
 - **Complexity**: Simple (examples of each data type)
-- **Features**: Showcases text, email, date, number, URL, phone validation
+- **Features**: Every registered type hint, including `select`, `multichoice`, range, file, color, and signature
 - **Use Case**: Reference for data type validation and hints
 
 ### Business Forms
@@ -196,6 +201,14 @@ The format supports these data type hints (all advisory, never enforced):
 - **url**: Web URLs
 - **phone**: Phone numbers (various formats accepted)
 - **multiline**: Multi-line text
+- **select**: One suggested choice
+- **multichoice**: Multiple suggested choices
+- **currency**, **range**, **time**, **datetime**, **password**, **file**, **color**, **signature**: host-affordance hints demonstrated in `field-types-showcase.aprt`
+
+For a cryptographically signed, non-sensitive example, see
+[`tests/Conformance/v1/valid/signed-template.aprt`](../tests/Conformance/v1/valid/signed-template.aprt).
+It is also verified by the conformance suite; do not copy its private test
+certificate material because none is published.
 - Custom types are allowed and will be ignored by validation
 
 ### 5. Validation

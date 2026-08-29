@@ -7,6 +7,13 @@ not the rendered bytes — so a signature survives re-serialization and re-expor
 is **field-scoped**, and supports **multiple signers** who each sign the part they
 filled.
 
+> **Beta boundary.** `apr-sig-v3` verifies that covered content has not changed,
+> but it does not record a complete manifest of fields visible when a signer
+> acted. Until the `apr-sig-v4` witnessed-manifest profile is specified and
+> implemented ([#88](https://github.com/marctjones/promptresponse/issues/88)),
+> use APR signatures for integrity and provenance experiments, not as the sole
+> evidence for an external high-stakes workflow.
+
 Two signature roles:
 - **Publisher** signs the *template* (the form definition) and **binds the
   submission URL**, so it can't be redirected without invalidating the signature.
@@ -68,11 +75,11 @@ card.)
 
 ### `sign`
 ```
-apr sign <file> --publisher --cert=<file.pfx> [--password=<pw>] --url=<submitUrl> [--id=<id>] [--output=<file>]
+apr sign <file> --publisher --cert=<file.pfx> [--password=<pw>] --url=<submitUrl[,submitUrl...]> [--id=<id>] [--output=<file>]
 apr sign <file> --fields=<id1,id2,...> --cert=<file.pfx> [--password=<pw>] [--id=<id>] [--output=<file>]
 ```
 Appends a signature to the document. Publisher signing also records
-`metadata.submissionUrl` (and binds it into the signature). Writes in place unless
+`metadata.submissionUrls` (and binds every entry into the signature). Writes in place unless
 `--output` is given.
 
 ### `verify`
@@ -87,7 +94,8 @@ CA roots and/or pinned self-signed certs; `--check-revocation` enables OCSP/CRL
 
 ```csharp
 using PromptResponse.Core.Signing;
-var sig = AprSigner.SignTemplate(doc, cert, submissionUrl, DateTime.UtcNow);
+doc.Metadata.SubmissionUrls = ["https://example.org/submit"];
+var sig = AprSigner.SignTemplate(doc, cert, DateTime.UtcNow);
 doc.Signatures = [sig];
 var results = AprVerifier.VerifyAll(doc, new AprTrustOptions { TrustAnchors = [publisherCert] });
 ```

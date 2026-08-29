@@ -1,6 +1,6 @@
 # APR File Format Specification
 
-**Specification document version:** 0.6.0 (tracks the PromptResponse release)
+**Specification document version:** 1.0.0-beta.1 (tracks the PromptResponse release)
 **Status:** 🚧 **BETA — the format is not frozen and breaking changes may still occur**
 **Describes format version:** `1.0-beta`
 **Supersedes:** `APR_SPECIFICATION_v0.2.md`
@@ -98,18 +98,20 @@ required.
 
 ### 2.1 `core` — REQUIRED of every implementation
 
-Parse, validate, render, fill, and write documents per §3–§7. A core
-implementation is fully conformant. It is not a degraded one.
+Parse, validate, fill, and write documents per §3–§7. A core implementation is
+fully conformant. It is not a degraded one, and it need not emit HTML, PDF, or
+native controls. It exposes the semantic document and its advisory hints for a
+host application or renderer to use.
 
 ### 2.2 `core+expressions` — OPTIONAL
 
 Additionally evaluates the `expr*` hint family (§8).
 
 A core-only implementation **MUST NOT** reject a document that uses expressions.
-It **MUST** render such prompts as ordinary editable fields and **MUST** preserve
-the expression strings when writing the document back. A computed field simply
-becomes a field the user can type into — degraded, but never broken, and never
-lost.
+It **MUST** preserve the expression strings when writing the document back. If a
+host renders the document, it presents those prompts as ordinary editable fields:
+a computed field simply becomes a field the user can type into — degraded, but
+never broken, and never lost.
 
 ### 2.3 `core+signatures` — OPTIONAL
 
@@ -143,20 +145,10 @@ An APR file **MUST** be UTF-8-encoded JSON (RFC 8259). A byte-order mark
 
 Media type: `application/vnd.apr+json`. (Not yet IANA-registered.)
 
-### 3.2 All values are strings
+### 3.2 Responses are strings
 
-Every value an APR document carries **MUST** be a JSON string, object, or array.
-Numbers, booleans, and nulls **MUST NOT** appear, with exactly one exception,
-which is derived configuration rather than anything a user typed:
-
-| Exception | Type | Why it is not user data |
-|---|---|---|
-| `signer.selfSigned` | boolean | Derived from a certificate. A verifier recomputes it and **MUST NOT** trust the stored value. |
-
-That is the only one, and it is derived rather than authored. New fields **MUST** be
-strings — including advisory numbers such as `maxRows` (§4.5).
-
-A response given as a JSON number or boolean **MUST** be rejected at parse time.
+A `prompt.response` **MUST** be a JSON string. A response given as a JSON number or
+boolean **MUST** be rejected at parse time.
 It **MUST NOT** be coerced to `"42"` or `"true"`. Silent coercion is worse than
 rejection: it produces a file that looks conformant while having invented data
 that no user entered. See `malformed/response-is-number.aprt`.
@@ -211,7 +203,7 @@ An implementation **MAY** surface a hint mismatch as an advisory warning. It
 
 ```json
 {
-  "version": "1.0",
+  "version": "1.0-beta",
   "documentType": "template",
   "metadata": { "title": "Permit Application" },
   "sections": [ ... ],
@@ -221,7 +213,7 @@ An implementation **MAY** surface a hint mismatch as an advisory warning. It
 
 | Member | Type | Required | Notes |
 |---|---|---|---|
-| `version` | string | **Yes** | **MUST** be exactly `"1.0"`. Any other value is an error. |
+| `version` | string | **Yes** | A compatible `1.MINOR` value per §1.3.1; current writers emit `"1.0-beta"`. |
 | `documentType` | string | No | `"template"` or `"filledForm"`. Absent means `"template"`. Authoritative — see §5. |
 | `metadata` | object | **Yes** | §4.2 |
 | `sections` | array | **Yes** | **MUST** contain at least one section. |
@@ -230,17 +222,21 @@ An implementation **MAY** surface a hint mismatch as an advisory warning. It
 ### 4.2 Metadata
 
 `title` is **REQUIRED** and **MUST** contain a non-whitespace character.
-All other members are OPTIONAL strings; timestamps are ISO-8601.
+All other scalar members are OPTIONAL strings; timestamps are ISO-8601.
+`submissionUrls`, when present, is an ordered array of strings. Even one delivery
+choice is represented as a one-element array; a scalar `submissionUrl` is not valid.
+Order is the author's preferred display order, never permission for a client to choose
+or fall back to a target automatically; submitting remains an explicit user action.
 
 `created`, `modified`, `author` (a person), `publisher` (the organization
 standing behind the form), `templateId`, `templateVersion`, `filledBy`,
-`filledDate`, `submissionUrl`.
+`filledDate`, `submissionUrls`.
 
 When `documentType` is `"filledForm"`, `templateId` is **REQUIRED**: a completed
 form that cannot name the form it completes is not traceable.
 
 When a publisher signature is present, the certificate identity is authoritative
-over the `publisher` string, and `submissionUrl` is bound into the signed payload
+over the `publisher` string, and `submissionUrls` is bound into the signed payload
 so it cannot be redirected without breaking the signature (§9.3).
 
 ### 4.3 Section
@@ -611,7 +607,7 @@ if it has zero errors. Warnings never affect validity.
 |---|---|
 | `NULL_DOCUMENT` | No document. |
 | `REQUIRED_FIELD` | `version`, `metadata.title`, section `id`/`title`, prompt `id`/`label` blank; `sections` empty; `templateId` absent on a filled form. |
-| `UNSUPPORTED_VERSION` | `version` is not `"1.0"`. |
+| `UNSUPPORTED_VERSION` | `version` has an incompatible major version or is unparseable (§1.3.1). |
 | `DUPLICATE_ID` | A section or prompt id repeats within its namespace. |
 | `EMPTY_SECTION` | A section has no prompts and no child sections, and is not a dynamic table. |
 
@@ -645,34 +641,10 @@ rather than refusing to open it.
 
 ## 7. Text handling
 
-Text handling is **normative** because it changes stored user data. Two
-implementations that disagree here produce different bytes from the same input
-and break every signature over it.
-
-### 7.1 Normalization
-
-On both read and write, every string **MUST** be normalized to **Unicode NFC**.
-Strings that look identical then store identically, which is what makes
-comparison, search, and signature verification behave the same everywhere.
-
-### 7.2 Stripped characters
-
-On both read and write, the following **MUST** be removed from every string:
-
-- Control characters, **except** tab (U+0009), line feed (U+000A), and carriage return (U+000D)
-- Byte-order marks appearing mid-string (U+FEFF)
-- Bidirectional **overrides**: U+202A–U+202E, U+2066–U+2069
-- Unicode non-characters, including U+FFFE and U+FFFF
-- Unpaired surrogates
-
-These have no legitimate use in a form response and every use in disguising one:
-a bidi override can make a response render as something other than what it says.
-Stripping them is a data-safety rule, not a formatting preference.
-
-**Everything else survives untouched**, including emoji ZWJ sequences, Persian
-and Arabic ZWNJ, combining marks, RTL text, and CJK. See
-`valid/response-edge-cases.aprf`, which asserts byte-exact preservation of all of
-them across a round-trip.
+Responses are evidence supplied by a person. A reader **MUST** preserve a response
+exactly on read and write: it MUST NOT normalize, strip, or otherwise rewrite it.
+Escaping and visibly marking deceptive text are rendering responsibilities, not
+licences to alter stored data. See `valid/response-edge-cases.aprf`.
 
 ### 7.3 Authoring data and filled data are governed differently
 
@@ -693,8 +665,7 @@ are least able to notice.
 
 #### 7.3.1 Filled data — never rewritten
 
-A response **MUST NOT** be altered beyond §7.1–§7.2, and **MUST NOT** be altered
-on the basis of any hint. A `url` or `email` hint describes what the author
+A response **MUST NOT** be altered on the basis of any hint. A `url` or `email` hint describes what the author
 *hoped* to receive; it does not license editing what was actually written.
 
 Suspicious characters in a response **MUST** be surfaced as a warning (§6.2) and
@@ -702,10 +673,11 @@ Suspicious characters in a response **MUST** be surfaced as a warning (§6.2) an
 exactly as entered. The consuming workflow decides what to do about them; it is
 the only party that knows what the answer is for.
 
-`valid/hidden-characters-preserved.aprf` pins this: the same hidden character
-survives in a response hinted `url`, `email`, and `text` alike, alongside a
-legitimate Persian ZWNJ. A reader that "cleans" any of them has let a hint enforce
-something, which §3.4 forbids.
+`valid/hidden-characters-preserved.aprf` and
+`valid/unicode-security-advisories.aprf` pin this: hidden and bidi characters
+survive in responses hinted `url`, `email`, and `text` alike, alongside a
+legitimate Persian ZWNJ and emoji ZWJ sequence. A reader that "cleans" any of
+them has let a hint enforce something, which §3.4 forbids.
 
 #### 7.3.2 Authoring data — strictness is appropriate
 
@@ -718,18 +690,19 @@ stopped and asked to fix something, while a filler must never be blocked. Rewrit
 authored value is not the strict option; it is the same silent edit wearing a different
 hat.
 
-`metadata.submissionUrl` is the strongest case in the format. It is author-supplied,
+`metadata.submissionUrls` is the strongest case in the format. It is an ordered,
+author-supplied array of explicit delivery choices,
 machine-consumed, security-critical, and bound into the publisher signature payload
 (§9.3) specifically so a submission cannot be redirected. An implementation:
 
-- **MUST NOT** rewrite `submissionUrl` to remove hidden characters. Cleaning
+- **MUST NOT** rewrite any `submissionUrls` entry to remove hidden characters. Cleaning
   `https://bloomfield<U+200B>ct.gov/submit` to `bloomfieldct.gov` picks a destination
   host on the author's behalf, which is precisely the decision that must not be made
   automatically.
 - **SHOULD** report hidden characters in it as an advisory
   (`SUBMISSION_URL_HIDDEN_CHARS`), since such a URL renders to a reviewer as one host
   while being another.
-- **MUST NOT** produce a publisher signature over a `submissionUrl` containing them.
+- **MUST NOT** produce a publisher signature over `submissionUrls` containing them.
   Binding an address that displays as one host and resolves as another defeats the
   binding.
 
@@ -849,7 +822,7 @@ Conformance splits in two, and only half is APR's.
 A stored `response` remains authoritative over any recomputation. A consumer **MUST**
 read the stored value and **MUST NOT** assume anything recomputed it.
 
-### 8.6 A computed value is a suggestion, not a lock
+### 8.5 A computed value is a suggestion, not a lock
 
 **A computed field MUST remain editable.** Any string is a valid response (§3.3), and a
 renderer that refuses to accept typing into a computed field has stopped implementing
@@ -873,7 +846,7 @@ clears `source`, so an authored answer is marked simply by being written.
 A reader that ignores `source` still holds a valid document; it will just overwrite
 corrections, which is why the rule is stated as a MUST for anything that recomputes.
 
-### 8.5 Migrating from the pre-CEL engine
+### 8.6 Migrating from the pre-CEL engine
 
 Earlier revisions shipped a hand-written interpreter with JavaScript-style truthiness,
 where a non-empty string was true in a condition. CEL requires `bool` there.
@@ -895,6 +868,14 @@ as unchecked.
 
 ### 9.1 Model
 
+> **BETA profile boundary.** `apr-sig-v3` binds covered content and detects a
+> subsequent edit to that content. It does not yet carry the `apr-sig-v4`
+> witnessed manifest proposed in [issue #88](https://github.com/marctjones/promptresponse/issues/88),
+> which would report fields that appeared or changed outside a signer's scope.
+> Implementations and workflows **MUST NOT** represent v3 alone as complete
+> attestation history. It remains a useful integrity/provenance profile, but an
+> external high-stakes workflow needs its own policy and evidence trail.
+
 Detached CMS/PKCS#7 `SignedData` over a canonical payload, with the signer's
 X.509 certificate chain embedded. Verification is a pure computation over bytes
 already in the file: **a signed APR document is exactly as safe to open as an
@@ -903,7 +884,7 @@ unsigned one.** APR never executes anything.
 Two roles:
 
 - **Publisher** — the organization attesting "this is our form, unaltered, and it
-  submits here." Covers the form definition and binds `submissionUrl`.
+  submits here." Covers the form definition and binds `submissionUrls`.
 - **Filler** — a person attesting to the responses in their scope. Covers a
   listed set of prompt ids.
 
@@ -914,7 +895,7 @@ Two roles:
 `"apr-sig-v3"`), `signedAt`, `cms` (base64).
 
 A signature **MUST NOT** carry its own copy of the submission URL. It binds
-`metadata.submissionUrl` by reading it from the document at both signing and
+`metadata.submissionUrls` by reading it from the document at both signing and
 verification time (§9.3).
 
 A verifier that does not recognize `canonicalization` **MUST** report the
@@ -936,13 +917,14 @@ signatures survive re-serialization, re-indentation, and key reordering.
 `submissionUrl`, `formDefDigest` (SHA-256 over the canonical form definition),
 `signedAt`.
 
-`submissionUrl` here is **read from `metadata.submissionUrl`** — the field a
-submitting client actually reads — at both signing and verification time. A verifier
-**MUST NOT** recompute it from any other source.
+`submissionUrl` here is the ordered `metadata.submissionUrls` array joined with U+001F
+(an ASCII control character not permitted in a URI). This preserves the `apr-sig-v3`
+payload for an existing one-element array while binding every choice and its order.
+A verifier **MUST NOT** recompute it from any other source.
 
 > **Why this is stated so firmly.** An earlier revision stored the URL a second time on
 > the signature object and verified against *that* copy. Redirecting
-> `metadata.submissionUrl` to another host therefore left the signature reporting
+> `metadata.submissionUrls` to another host therefore left the signature reporting
 > **valid**, defeating the binding entirely. Two copies of one fact is a correctness
 > bug everywhere in this format; here it was a security hole.
 > `signatures/tampered-metadata-url.aprt` pins the fix.
@@ -995,7 +977,7 @@ vouches for it.
 ### 9.4 What signatures do and do not mean
 
 A valid publisher signature means the form definition and the document's
-`metadata.submissionUrl` are unaltered since signing. Editing a covered field invalidates the signatures
+`metadata.submissionUrls` are unaltered since signing. Editing a covered field invalidates the signatures
 covering it — by design; that is the detection working.
 
 Signature validity is **independent of certificate trust**. A self-signed
@@ -1048,7 +1030,7 @@ signature, and the format must let it.**
 APR carries no presentation data. A renderer decides everything, and a GUI, web
 page, terminal, voice system, and API client are equally legitimate.
 
-### 10.1 Requirements
+### 10.1 Requirements for renderers
 
 - Section titles and prompt labels **MUST** be presented as the accessible name.
 - A placeholder **MUST NOT** be the only label.
@@ -1099,19 +1081,17 @@ executes nothing. This is the format's most important security property and
 non-Turing-complete; they are not an exception to this rule.
 
 **No network access on open.** Reading a document **MUST NOT** fetch anything.
-`submissionUrl` is data — it **MUST NOT** be contacted without an explicit user
+`submissionUrls` is data — no entry **MUST** be contacted without an explicit user
 action.
 
 **Resource bounds.** A reader **MUST** bound nesting depth (§4.6) and **SHOULD**
 bound document size, and fail cleanly rather than exhausting memory.
 
-**Deceptive text.** §7.2 stripping removes the characters usable to disguise
-content everywhere. Beyond that, §7.3 splits the policy by origin: author-supplied
-fields a machine acts on — above all `metadata.submissionUrl` — are checked and
-**refused** at authoring time, while a filler's response **MUST** be preserved exactly
-and rendered defensively instead. Neither is ever silently rewritten. Spending
-strictness on the answer rather than the submission target protects nothing and
-destroys data.
+**Deceptive text.** §7 requires a filler's response to be preserved and rendered
+defensively instead of silently cleaned. Author-supplied fields a machine acts on —
+above all `metadata.submissionUrls` — are checked and **refused** at authoring time.
+Spending strictness on the answer rather than the submission target protects nothing
+and destroys data.
 
 **Signatures are not authorization.** A valid signature proves bytes are
 unaltered. It does not establish that the signer is who they claim, that they
@@ -1133,7 +1113,7 @@ An implementation claiming **APR 1.0 core** MUST:
 - [ ] Parse UTF-8 JSON; reject malformed input rather than coercing it
 - [ ] Reject a `response` given as a JSON number or boolean
 - [ ] Read `null`/absent `response` as `""`; never write null
-- [ ] Accept `"version": "1.0"`; reject every other value
+- [ ] Apply the compatibility rules in §1.3.1; current writers emit `"1.0-beta"`
 - [ ] Treat `documentType` as authoritative; never infer type from a filename
 - [ ] Require `metadata.title`, section `id`/`title`, prompt `id`/`label`
 - [ ] Enforce document-wide id uniqueness in both namespaces
@@ -1145,9 +1125,8 @@ An implementation claiming **APR 1.0 core** MUST:
 - [ ] Ignore unknown members without rejecting them
 - [ ] Degrade an unrecognized `expectedDataType` to text
 - [ ] **Never reject, alter, or block a response because of a hint**
-- [ ] Normalize to NFC and strip the §7.2 set — and nothing else
 - [ ] Never alter a response on the basis of a hint (§7.3.1)
-- [ ] Report — never rewrite — hidden characters in `submissionUrl`, and refuse to sign one (§7.3.2)
+- [ ] Report — never rewrite — hidden characters in every `submissionUrls` entry, and refuse to sign one (§7.3.2)
 - [ ] Preserve every response byte-for-byte across a round-trip
 - [ ] Preserve `signatures` and `expr*` strings even when not implementing them
 - [ ] Never gate parsing, validation, rendering, or data extraction on signature state (§9.5)
@@ -1169,9 +1148,11 @@ Honest list of what 1.0 does not settle.
 2. **Expression interop across implementations** is now testable but untested by a
    second party: the language is CEL, with cel-spec's own suite, and the APR binding has
    published vectors (§8.4). No non-.NET implementation has run either yet.
-3. **No submission protocol.** `submissionUrl` is a string with no defined
-   request format, response, or receipt. Filling a form is solved; returning it
-   is not.
+3. **Submission profiles are deliberately narrow.** `submissionUrls` names explicit
+   choices. The stable-beta HTTPS profile POSTs the completed APR JSON as
+   `application/vnd.apr+json` to a user-selected `https:` entry, accepts only a 2xx
+   response, follows no redirects, has a 30-second client timeout, and never falls
+   back to another target. Other transports remain out of scope.
 4. **Media type unregistered.** `application/vnd.apr+json` has not been filed
    with IANA.
 5. **No governance.** A format used by public institutions eventually needs
@@ -1185,7 +1166,7 @@ Honest list of what 1.0 does not settle.
 
 ```json
 {
-  "version": "1.0",
+  "version": "1.0-beta",
   "documentType": "template",
   "metadata": { "title": "Contact" },
   "sections": [

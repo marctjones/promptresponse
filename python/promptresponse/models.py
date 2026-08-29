@@ -110,7 +110,7 @@ class Metadata:
     filled_by: Optional[str] = None
     filled_date: Optional[str] = None
     publisher: Optional[str] = None
-    submission_url: Optional[str] = None
+    submission_urls: Optional[List[str]] = None
     extra: Dict[str, Any] = field(default_factory=dict)
 
 

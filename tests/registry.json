@@ -1,6 +1,6 @@
 {
   "$comment": "Machine-readable registry of APR test suites and spec-requirement coverage. Verified by scripts/check-test-registry.py, which fails if a referenced fixture or test no longer exists, or if a requirement has no entry. The registry is a claim about coverage; the verifier is what makes the claim checkable.",
-  "specVersion": "0.6.0",
+  "specVersion": "1.0.0-beta.1",
   "formatVersion": "1.0-beta",
   "corpusTag": "corpus/v1",
   "gateStrength": {
@@ -184,18 +184,78 @@
     },
     {
       "id": "sdk.python",
-      "component": "Python SDK (core profile)",
+      "component": "Python SDK (core + expressions profile)",
       "language": "python",
       "path": "python",
       "runsInCi": true,
-      "gate": "the shared conformance corpus, plus the core-only profile rules and the behavioural format rules a fixture cannot express",
+      "gate": "the shared conformance corpus plus APR CEL binding tests in a locked uv environment",
       "dimensions": {
         "completeness": "partial",
         "conformance": "gated",
         "correctness": "gated",
         "robustness": "partial"
       },
-      "notes": "Built against the corpus from the first commit. Implements the core profile deliberately, which is what lets it gate REQ-2.2 and REQ-2.3 \u2014 the two rules .NET structurally cannot test. Partial completeness: no expression engine and no signature verification, on purpose."
+      "notes": "Locked with uv and corpus-gated. Evaluates APR CEL bindings; signatures remain opaque and unchecked."
+    },
+    {
+      "id": "sdk.typescript.core",
+      "component": "TypeScript SDK (core + expressions profile)",
+      "language": "typescript",
+      "path": "typescript/src/test/conformance.test.ts",
+      "runsInCi": true,
+      "gate": "npm ci && npm test: valid, invalid, malformed, unknown-member, expression-preservation, signature-preservation, and exact-response corpus coverage",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "partial"
+      },
+      "notes": "Evaluates APR CEL bindings for numeric, boolean, string, list, and dynamic date/time values; signatures remain preserved but unchecked."
+    },
+    {
+      "id": "renderer.typescript.html",
+      "component": "TypeScript HTML renderer",
+      "language": "typescript",
+      "path": "typescript/src/test/render.test.ts",
+      "runsInCi": true,
+      "gate": "npm ci && npm test: semantic order, widget mapping, escaping, accessible help, unknown-type fallback, bidi isolation, and no-network rendering",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "partial"
+      },
+      "notes": "The renderer is an optional host package, not part of the format-only core. Browser-extension tests are added when that product exists."
+    },
+    {
+      "id": "demo.browser",
+      "component": "TypeScript browser demo",
+      "language": "typescript",
+      "path": "demos/web/src/test/browser-demo.test.ts",
+      "runsInCi": true,
+      "gate": "npm ci && npm test: local load, safe render, response update, and APRF download workflow",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "partial"
+      },
+      "notes": "The demo is intentionally local-only: it does not upload a document or follow submission URLs."
+    },
+    {
+      "id": "sdk.java.core",
+      "component": "Java SDK (core + expressions profile)",
+      "language": "java",
+      "path": "java/run-tests.sh",
+      "runsInCi": true,
+      "gate": "the shared valid, invalid, and malformed corpus under Java 17",
+      "dimensions": {
+        "completeness": "partial",
+        "conformance": "gated",
+        "correctness": "gated",
+        "robustness": "partial"
+      },
+      "notes": "Project-local Maven wrapper resolves official CEL-Java. Expressions are evaluated; signatures remain preserved but unchecked."
     }
   ],
   "testKinds": [
@@ -214,7 +274,7 @@
     {
       "kind": "golden-vectors",
       "status": "present",
-      "notes": "apr-sig-v2 canonicalization"
+      "notes": "apr-sig-v3 canonicalization"
     },
     {
       "kind": "external-conformance",
@@ -694,14 +754,22 @@
       "gap": "Preservation is asserted post-parse on both sides, so a read-time mutation of a fixture would not be caught for most characters."
     },
     {
-      "id": "REQ-7.2-strip",
+      "id": "REQ-7.2-preserve",
       "section": "7.2",
-      "statement": "The abusive set is stripped; everything else survives untouched",
+      "statement": "Responses MUST be preserved exactly; suspicious Unicode is advisory-only",
       "strength": "gated",
       "gates": [
         {
           "type": "fixture",
-          "ref": "valid/response-edge-cases.aprf"
+          "ref": "valid/unicode-security-advisories.aprf"
+        },
+        {
+          "type": "test",
+          "ref": "tests/PromptResponse.Core.Tests/Validation/HiddenCharacterAdvisorTests.cs::SharedUnicodeSafetyFixture_PreservesResponsesAndEmitsAdvisories"
+        },
+        {
+          "type": "test",
+          "ref": "python/tests/test_unicode_security.py::test_shared_unicode_security_fixture_is_preserved_and_advised"
         }
       ]
     },
@@ -722,9 +790,9 @@
       ]
     },
     {
-      "id": "REQ-7.3.2-submissionurl",
+      "id": "REQ-7.3.2-submissionurls",
       "section": "7.3.2",
-      "statement": "submissionUrl hidden characters are reported, never rewritten, and block signing",
+      "statement": "every submissionUrls entry with hidden characters is reported, never rewritten, and blocks signing",
       "strength": "gated",
       "gates": [
         {
@@ -780,9 +848,17 @@
       "notes": "responseMetadata.source distinguishes a stale computed value from a human correction. Without it the two are indistinguishable and the next recompute silently reverts the correction. The guarantee is now also visible: a field says whether the form calculated the value or somebody typed over it, and the override mark persists across a recompute. An invisible guarantee is not much of a guarantee."
     },
     {
+      "id": "REQ-9.1-signature-boundary",
+      "section": "9.1",
+      "statement": "apr-sig-v3 MUST NOT be represented as complete attestation history; the witnessed-manifest profile remains v4 work",
+      "strength": "partial",
+      "gates": [],
+      "gap": "This is an honest product and workflow boundary until the v4 witnessed-manifest design in issue #88 has vectors and an implementation."
+    },
+    {
       "id": "REQ-9.2-sigobject",
       "section": "9.2",
-      "statement": "Signature required members; canonicalization MUST be apr-sig-v2; a signature MUST NOT carry its own copy of the submission URL",
+      "statement": "Signature required members; canonicalization MUST be apr-sig-v3; a signature MUST NOT carry its own copy of the submission URL",
       "strength": "gated",
       "gates": [
         {
@@ -799,7 +875,7 @@
     {
       "id": "REQ-9.3-canonical",
       "section": "9.3",
-      "statement": "The apr-sig-v2 canonical payload MUST be reproduced byte-for-byte",
+      "statement": "The apr-sig-v3 canonical payload MUST be reproduced byte-for-byte",
       "strength": "gated",
       "gates": [
         {
@@ -815,9 +891,17 @@
     {
       "id": "REQ-9.3-urlsource",
       "section": "9.3",
-      "statement": "The payload binds metadata.submissionUrl, read from the document",
+      "statement": "The payload binds ordered metadata.submissionUrls, read from the document",
       "strength": "gated",
       "gates": [
+        {
+          "type": "fixture",
+          "ref": "malformed/submission-url-scalar.aprt"
+        },
+        {
+          "type": "fixture",
+          "ref": "valid/multiple-submission-urls.aprt"
+        },
         {
           "type": "fixture",
           "ref": "signatures/tampered-metadata-url.aprt"
@@ -825,6 +909,10 @@
         {
           "type": "fixture",
           "ref": "signatures/tampered-submission-url.aprt"
+        },
+        {
+          "type": "test",
+          "ref": "Publisher_BindsEverySubmissionUrlAndTheirOrder"
         }
       ],
       "notes": "Closed a real vulnerability: verification once used a copy stored on the signature, so redirecting the metadata URL still verified."
@@ -861,14 +949,17 @@
       "id": "REQ-10.1-accessiblename",
       "section": "10.1",
       "statement": "Labels and titles MUST be the accessible name; helpText programmatically associated",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "suite",
           "ref": "accessibility"
+        },
+        {
+          "type": "test",
+          "ref": "typescript/src/test/render.test.ts::htmlRendererPreservesAccessibleStructureAndEscapesContent"
         }
-      ],
-      "gap": "The accessibility suite tests the desktop app, not the rule as a format requirement every renderer must meet."
+      ]
     },
     {
       "id": "REQ-10.2-order",
@@ -883,6 +974,10 @@
         {
           "type": "test",
           "ref": "SectionOrdering_OwnPromptsRenderBeforeChildSections"
+        },
+        {
+          "type": "test",
+          "ref": "typescript/src/test/render.test.ts::htmlRendererPreservesAccessibleStructureAndEscapesContent"
         }
       ]
     },
@@ -945,6 +1040,10 @@
         {
           "type": "test",
           "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::CoreCannotReachTheNetwork_ByConstruction"
+        },
+        {
+          "type": "test",
+          "ref": "typescript/src/test/render.test.ts::htmlRendererFallsBackSafelyAndNeverContactsNetwork"
         }
       ],
       "notes": "Asserted structurally: the core library references no System.Net type and links no HTTP client, so no input can cause a fetch. A behavioural test could only cover the paths it happened to walk."

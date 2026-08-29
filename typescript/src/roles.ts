@@ -1,0 +1,5 @@
+import { AprDocument, Prompt, RoleDefinition, Section } from "./model.js";
+export function* resolveRoles(document: AprDocument): Generator<[Prompt, string | undefined]> { function* walk(section: Section, inherited?: string): Generator<[Prompt, string | undefined]> { const role = section.role?.trim() ? section.role : inherited; for (const prompt of section.prompts) yield [prompt, prompt.role?.trim() ? prompt.role : role]; for (const child of section.sections) yield* walk(child, role); } for (const section of document.sections) yield* walk(section); }
+export function usedRoles(document: AprDocument): string[] { return [...new Set([...resolveRoles(document)].map(([, role]) => role).filter((role): role is string => Boolean(role)))]; }
+export function roleDefinition(document: AprDocument, id: string | undefined): RoleDefinition | undefined { return id ? document.roles?.find(role => role.id === id) : undefined; }
+export function displayRoleName(document: AprDocument, id: string | undefined): string | undefined { return id ? roleDefinition(document, id)?.name?.trim() || id : undefined; }

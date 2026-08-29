@@ -1,8 +1,8 @@
 # PromptResponse Roadmap
 
-**Current version:** 0.6.0
-**Last updated:** 2026-06-10
-**Status:** Active development — post-MVP hardening toward a public beta
+**Current version:** 1.0.0-beta.1
+**Last updated:** 2026-08-29
+**Status:** Public beta — stable core APR lifecycle with planned platform and CEL hardening
 
 > This roadmap reflects the current post-MVP codebase. Older planning docs
 > described v0.2.0 and v0.3.0 cut lines; those milestones have now shipped.
@@ -22,7 +22,7 @@ no code execution, open format, stable IDs).
 
 ---
 
-## 2. Current state (v0.6.0) — what actually works today
+## 2. Current state (v1.0.0-beta.1) — what actually works today
 
 The core loop is **complete and tested end-to-end**:
 

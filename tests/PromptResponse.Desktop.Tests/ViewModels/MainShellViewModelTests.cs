@@ -78,6 +78,27 @@ public class MainShellViewModelTests
     }
 
     [Fact]
+    public async Task OpenFromPath_ForFilling_ShowsTemplateAsFormInsteadOfEditor()
+    {
+        var file = Path.GetTempFileName();
+        try
+        {
+            await File.WriteAllTextAsync(file,
+                "{\"version\":\"1.0-beta\",\"documentType\":\"template\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"Name\",\"response\":\"\"}]}]}");
+            var shell = CreateShell();
+
+            await shell.OpenFromPath(file, openForFilling: true);
+
+            shell.IsEditMode.Should().BeFalse();
+            shell.ShowFullFillList.Should().BeTrue();
+        }
+        finally
+        {
+            File.Delete(file);
+        }
+    }
+
+    [Fact]
     public async Task ExportPdf_WritesPdfContainingCurrentValues()
     {
         var fs = Substitute.For<IFileService>();
@@ -439,7 +460,7 @@ public class MainShellViewModelTests
         var dlg = Substitute.For<IDialogService>();
         fs.PickCertificateAsync().Returns(pfx);
         dlg.ShowInputAsync("Certificate password", Arg.Any<string>(), Arg.Any<string>(), true).Returns("");
-        dlg.ShowInputAsync("Submission URL", Arg.Any<string>(), Arg.Any<string>(), false).Returns("https://gov/submit");
+        dlg.ShowInputAsync("Submission URLs", Arg.Any<string>(), Arg.Any<string>(), false).Returns("https://gov/submit");
 
         var session = new DocumentSessionService();
         var shell = CreateShell(fs, dialogService: dlg, session: session);
@@ -451,7 +472,7 @@ public class MainShellViewModelTests
 
             var doc = session.CurrentDocument!;
             doc.Signatures.Should().ContainSingle().Which.Role.Should().Be(SignatureRole.Publisher);
-            doc.Metadata.SubmissionUrl.Should().Be("https://gov/submit");
+            doc.Metadata.SubmissionUrls.Should().Equal("https://gov/submit");
             session.IsDirty.Should().BeTrue();
             shell.HasSignatures.Should().BeTrue();
         }
@@ -619,6 +640,24 @@ public class MainShellViewModelTests
         doc.Sections[0].Prompts[1].Response = "2022-01-01";
         shell.RefreshAdvisories();
         shell.Advisories.Should().NotContain(a => a.Message == "End must be after start");
+    }
+
+    [Fact]
+    public void RefreshAdvisories_SurfacesBidiOverrideWithoutChangingResponse()
+    {
+        var session = new DocumentSessionService();
+        var doc = MakeTemplate();
+        doc.Sections[0].Prompts[0].Response = "safe\u202Etxt.exe";
+        session.Set(doc, null);
+        var shell = CreateShell(session: session);
+
+        shell.RefreshAdvisories();
+
+        shell.Advisories.Should().Contain(a => a.PromptId == "p1"
+            && a.Message.Contains("bidirectional override")
+            && a.Message.Contains("U+202E")
+            && a.Message.Contains("offset 4"), "the advisory is the visible codepoint/offset inspector linked to its prompt");
+        doc.Sections[0].Prompts[0].Response.Should().Be("safe\u202Etxt.exe");
     }
 
     [Fact]
@@ -993,5 +1032,39 @@ public class MainShellViewModelTests
         c.Should().Throw<ArgumentNullException>();
         d.Should().Throw<ArgumentNullException>();
         e.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public async Task SubmitViaEmail_SavesFilledCopyAndHandsItToSelectedMailTarget()
+    {
+        var fileService = Substitute.For<IFileService>();
+        var dialogs = Substitute.For<IDialogService>();
+        var handoff = Substitute.For<IMailHandoffService>();
+        var session = new DocumentSessionService();
+        var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
+        var document = MakeTemplate();
+        document.DocumentType = DocumentType.FilledForm;
+        document.Metadata.SubmissionUrls = ["mailto:forms@example.com"];
+        session.Set(document, null, dirty: true);
+        fileService.PickExportPathAsync(Arg.Any<string>(), "Save completed APR file", "APR Filled Form", "aprf")
+            .Returns(Task.FromResult<string?>(Path.Combine(Path.GetTempPath(), "completed.aprf")));
+        dialogs.ShowChoiceAsync("Submit via email", Arg.Any<string>(), Arg.Any<IReadOnlyList<string>>()).Returns(Task.FromResult<int?>(0));
+        dialogs.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(Task.FromResult(true));
+        handoff.ComposeAsync(Arg.Any<MailHandoffRequest>(), Arg.Any<CancellationToken>())
+            .Returns(Task.FromResult(new MailHandoffResult(true, false, "Draft opened.")));
+
+        var shell = new MainShellViewModel(fileService, dialogs, session, profile,
+            new PromptViewModelFactory(profile), serializer: new AprJsonSerializer(), mailHandoff: handoff);
+
+        shell.CanSubmitViaEmail().Should().BeTrue();
+        await shell.SubmitViaEmail();
+
+        await fileService.Received(1).SaveFileAsync(
+            Arg.Is<AprDocument>(copy => copy.DocumentType == DocumentType.FilledForm && !ReferenceEquals(copy, document)),
+            Arg.Any<string>());
+        await handoff.Received(1).ComposeAsync(
+            Arg.Is<MailHandoffRequest>(request => request.MailtoTarget == "mailto:forms@example.com" && request.AttachmentPath.EndsWith("completed.aprf")),
+            Arg.Any<CancellationToken>());
+        document.DocumentType.Should().Be(DocumentType.FilledForm, "the outgoing copy must not mutate the open document");
     }
 }

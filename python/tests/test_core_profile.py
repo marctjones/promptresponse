@@ -1,13 +1,12 @@
-"""What a core-only reader must do with features it does not implement.
+"""What the Python expression profile must preserve when it does not verify.
 
 Specification 2.2 and 2.3. These two rules cannot be tested from inside the
 .NET implementation at all, because it implements every profile and can
 therefore never exhibit core-only behaviour - they have sat ungated in
 tests/registry.json for exactly that reason.
 
-This implementation is core-only on purpose. It parses expression hints and
-signatures, carries them through untouched, and evaluates or verifies neither.
-So it is the first thing in the repository that can actually check the rules.
+This implementation evaluates expressions but deliberately does not verify
+signatures. Expression hints and signatures still round-trip without loss.
 """
 
 import json
@@ -21,18 +20,7 @@ CORPUS = pathlib.Path(__file__).resolve().parents[2] / "tests" / "Conformance" /
 
 
 def test_the_package_declares_the_profile_it_implements():
-    assert pr.PROFILE == "core", (
-        "these tests are only meaningful for a core-only reader; if this ever "
-        "implements expressions or signatures, they stop proving 2.2 and 2.3"
-    )
-
-
-def test_no_expression_engine_is_reachable():
-    """The absence is the point, so it is asserted rather than assumed."""
-    for forbidden in ("evaluate", "celly", "cel", "expressions"):
-        assert not hasattr(pr, forbidden), (
-            f"promptresponse.{forbidden} exists, so this is no longer a core-only reader"
-        )
+    assert pr.PROFILE == "core+expressions"
 
 
 def test_no_verification_is_reachable():
@@ -49,20 +37,18 @@ EXPRESSION_FIXTURE = CORPUS / "table-and-expressions.aprt"
 
 
 def test_a_document_using_expressions_is_accepted():
-    """A core reader must not reject a document because it uses a profile."""
+    """An expression-capable reader still accepts expression-bearing forms."""
     document = pr.load(EXPRESSION_FIXTURE)
     assert pr.validate(document).is_valid, (
-        "a core-only reader must not reject a document for using expressions "
+        "an expression-capable reader must not reject a document for using expressions "
         "(specification 2.2)"
     )
 
 
 def test_expression_strings_survive_a_round_trip_untouched():
-    """Carried through exactly, not evaluated and not normalised away.
+    """Expression source is carried through exactly, not normalised away.
 
-    If a core reader dropped these, a form would lose its logic the first time
-    somebody opened it in a simpler tool and saved it - which is the failure the
-    profile rule exists to prevent.
+    If a reader dropped these, a form would lose its logic on its next save.
     """
     source = json.loads(EXPRESSION_FIXTURE.read_text(encoding="utf-8-sig"))
     written = json.loads(pr.dumps(pr.load(EXPRESSION_FIXTURE)))

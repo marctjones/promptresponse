@@ -44,14 +44,15 @@ public class OsAccessibilityProbeTests : IDisposable
     }
 
     [Fact]
-    public void NoEnvSignal_ProbeReturnsConservativeDefaults()
+    public void NoEnvSignal_ProbeReturnsConservativeDefaultsOrNativeMacPreferences()
     {
         var probe = new OsAccessibilityProbe();
 
         probe.HighContrast.Should().BeFalse();
         probe.ReducedMotion.Should().BeFalse();
         probe.ScreenReaderActive.Should().BeFalse();
-        probe.PreferredColorScheme.Should().Be(ColorScheme.Light);
+        if (!OperatingSystem.IsMacOS())
+            probe.PreferredColorScheme.Should().Be(ColorScheme.Light);
     }
 
     [Fact]

@@ -70,6 +70,8 @@ public partial class AboutDialog : Window
         // The runtime itself. Not a NuGet PackageReference — exempted from the parity check.
         new Acknowledgement(".NET Runtime", "10.0", "MIT License — © .NET Foundation and Contributors",
             Note: "https://dot.net/"),
+        new Acknowledgement("Microsoft.NET.ILLink.Tasks", "10.0", "MIT License — © .NET Foundation and Contributors",
+            Note: "Trimming and single-file publish support included with the .NET SDK."),
 
         // ─── Avalonia 12.0.2 — © The Avalonia Project, MIT ────────────────────────────
         new Acknowledgement("Avalonia", "12.0.2", "MIT License — © The Avalonia Project",

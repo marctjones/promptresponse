@@ -5,7 +5,7 @@ using PromptResponse.Core.Models;
 namespace PromptResponse.Core.Signing;
 
 /// <summary>
-/// Produces detached APR signatures (scheme <c>apr-sig-v2</c>) as industry-standard
+/// Produces detached APR signatures (scheme <c>apr-sig-v3</c>) as industry-standard
 /// CMS/PKCS#7 <c>SignedData</c> over the document's canonical content, signed by an
 /// X.509 certificate. A publisher signs the template (binding the submission URL);
 /// a filler signs the responses in a scope. The returned <see cref="Signature"/> is
@@ -34,7 +34,7 @@ public static class AprSigner
         // address that renders as one host and resolves as another — the very
         // substitution the binding exists to prevent. Refuse rather than clean it:
         // choosing a replacement host is the author's decision, not this library's.
-        if (Text.StringSanitizer.ContainsHiddenCharacters(document.Metadata?.SubmissionUrl))
+        if (document.Metadata?.SubmissionUrls?.Any(Text.StringSanitizer.ContainsHiddenCharacters) == true)
         {
             throw new InvalidOperationException(
                 "Refusing to sign: the submission URL contains hidden characters (zero-width, bidi, or similar), "

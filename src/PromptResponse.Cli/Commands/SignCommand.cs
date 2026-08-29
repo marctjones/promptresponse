@@ -31,7 +31,7 @@ public class SignCommand : ICommand
         {
             Console.Error.WriteLine("Error: an APR file and --cert are required");
             Console.Error.WriteLine("Usage:");
-            Console.Error.WriteLine("  apr sign <file> --publisher --cert=<file.pfx> [--password=<pw>] --url=<submitUrl> [--id=<id>] [--output=<file>]");
+            Console.Error.WriteLine("  apr sign <file> --publisher --cert=<file.pfx> [--password=<pw>] --url=<submitUrl[,submitUrl...]> [--id=<id>] [--output=<file>]");
             Console.Error.WriteLine("  apr sign <file> --fields=<id1,id2,...> --cert=<file.pfx> [--password=<pw>] [--id=<id>] [--output=<file>]");
             return 1;
         }
@@ -61,7 +61,7 @@ public class SignCommand : ICommand
                 // The URL must be on the document BEFORE signing: the payload binds
                 // what the document says, so setting it afterwards would sign one URL
                 // and ship another.
-                if (!string.IsNullOrEmpty(url)) document.Metadata.SubmissionUrl = url;
+                if (!string.IsNullOrEmpty(url)) document.Metadata.SubmissionUrls = url.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
                 signature = AprSigner.SignTemplate(document, cert, DateTime.UtcNow, id ?? "publisher");
                 document.Metadata.Publisher ??= signature.Signer.Name;
             }
@@ -78,7 +78,7 @@ public class SignCommand : ICommand
 
             Console.WriteLine($"Signed as {signature.Role}: {signature.Signer.Name}");
             Console.WriteLine($"  Scope:      {(signature.Scope == "template" ? "template (form definition)" : string.Join(", ", signature.Fields))}");
-            if (document.Metadata.SubmissionUrl is { Length: > 0 } bound) Console.WriteLine($"  Submit URL: {bound} (bound)");
+            if (document.Metadata.SubmissionUrls is { Count: > 0 } bound) Console.WriteLine($"  Submit URLs: {string.Join(", ", bound)} (bound)");
             Console.WriteLine($"  Thumbprint: {signature.Signer.Thumbprint}");
             Console.WriteLine($"Wrote: {outPath}");
             return 0;

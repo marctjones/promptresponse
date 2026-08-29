@@ -59,6 +59,15 @@ def _rest(node, taken):
     return {k: v for k, v in node.items() if k not in taken and k not in RETIRED_MEMBERS}
 
 
+def _strings(node, key, what):
+    if key not in node or node[key] is None:
+        return None
+    value = node[key]
+    if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
+        raise AprParseError(f"{what}.{key} must be an array of strings")
+    return value
+
+
 def _parse_hints(node) -> PromptHints:
     node = _require_object(node, "hints")
     suggested = node.get("suggestedValues", [])
@@ -107,7 +116,9 @@ def _parse_prompt(node) -> Prompt:
     return Prompt(
         id=_string(node, "id", "prompt") or "",
         label=normalize(_string(node, "label", "prompt")) or "",
-        response=normalize(_string(node, "response", "prompt")) or "",
+        # Responses are evidence supplied by a person. Preserve their exact bytes;
+        # safe display is the renderer's responsibility, not a parser rewrite.
+        response=_string(node, "response", "prompt") or "",
         role=_string(node, "role", "prompt"),
         hints=_parse_hints(node["hints"]) if node.get("hints") else PromptHints(),
         response_metadata=(
@@ -148,9 +159,11 @@ def _parse_section(node) -> Section:
 
 def _parse_metadata(node) -> Metadata:
     node = _require_object(node, "metadata")
+    if "submissionUrl" in node:
+        raise AprParseError("metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings")
     known = {
         "title", "description", "author", "created", "modified", "templateId",
-        "templateVersion", "filledBy", "filledDate", "publisher", "submissionUrl",
+        "templateVersion", "filledBy", "filledDate", "publisher", "submissionUrls",
     }
     return Metadata(
         title=normalize(_string(node, "title", "metadata")) or "",
@@ -165,7 +178,7 @@ def _parse_metadata(node) -> Metadata:
         publisher=normalize(_string(node, "publisher", "metadata")),
         # Deliberately not normalised: machine-consumed and signature-bound, so a
         # hidden character is reported rather than quietly cleaned to another host.
-        submission_url=_string(node, "submissionUrl", "metadata"),
+        submission_urls=_strings(node, "submissionUrls", "metadata"),
         extra=_rest(node, known),
     )
 
@@ -322,7 +335,7 @@ def dumps(document: AprDocument, indent: int = 2) -> str:
         "filledBy": document.metadata.filled_by,
         "filledDate": document.metadata.filled_date,
         "publisher": document.metadata.publisher,
-        "submissionUrl": document.metadata.submission_url,
+        "submissionUrls": document.metadata.submission_urls,
     }))
     metadata.update(document.metadata.extra)
 

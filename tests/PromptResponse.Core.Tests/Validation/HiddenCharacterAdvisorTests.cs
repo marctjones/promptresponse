@@ -75,6 +75,18 @@ public class HiddenCharacterAdvisorTests
         result.Warnings[0].WarningCode.Should().Be("HIDDEN_BIDI_MARK");
     }
 
+    [Theory]
+    [InlineData("a\u202Eb", "BIDI_OVERRIDE")]
+    [InlineData("a\u2066b", "BIDI_ISOLATE")]
+    [InlineData("a\u0001b", "CONTROL_CHARACTER")]
+    [InlineData("a\uFEFFb", "TEXT_BOM")]
+    public void DangerousControlOrBidiCharacter_AdvisoryEmitted(string response, string code)
+    {
+        var result = _advisor.Validate(DocWithResponse(response));
+
+        result.Warnings.Should().ContainSingle().Which.WarningCode.Should().Be(code);
+    }
+
     [Fact]
     public void EmojiZwjSequence_StillAdvisedButFlaggedSoUserCanVerify()
     {
@@ -150,5 +162,24 @@ public class HiddenCharacterAdvisorTests
         var doc = DocWithResponse("a​b");
         var result = _advisor.Validate(doc);
         result.IsValid.Should().BeTrue("hidden-char advisories never make a document invalid — vision invariant");
+    }
+
+    [Fact]
+    public void SharedUnicodeSafetyFixture_PreservesResponsesAndEmitsAdvisories()
+    {
+        var root = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", ".."));
+        var fixture = Path.Combine(root, "tests", "Conformance", "v1", "valid", "unicode-security-advisories.aprf");
+        var document = new PromptResponse.Core.Serialization.AprJsonSerializer().Deserialize(File.ReadAllText(fixture));
+
+        var responses = document.Sections.SelectMany(Flatten).ToDictionary(prompt => prompt.Id, prompt => prompt.Response);
+        var codes = _advisor.Validate(document).Warnings.Select(warning => warning.WarningCode).ToHashSet();
+
+        responses["bidi_override"].Should().Be("safe\u202Etxt.exe");
+        responses["persian_zwnj"].Should().Be("می‌روم");
+        responses["emoji_zwj"].Should().Be("👨‍👩‍👧");
+        codes.Should().Contain(new[] { "BIDI_OVERRIDE", "BIDI_ISOLATE", "HIDDEN_ZWNJ", "HIDDEN_ZWJ" });
+
+        static IEnumerable<Prompt> Flatten(Section section) =>
+            section.Prompts.Concat(section.Sections.SelectMany(Flatten));
     }
 }

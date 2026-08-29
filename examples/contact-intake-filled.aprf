@@ -1,0 +1,33 @@
+{
+  "version": "1.0-beta",
+  "documentType": "filledForm",
+  "metadata": {
+    "title": "Contact Intake — completed example",
+    "description": "Fictional data demonstrating a filled APR form without personal information.",
+    "author": "PromptResponse Team",
+    "templateId": "contact-intake",
+    "templateVersion": "1.0",
+    "filledBy": "Example Respondent",
+    "filledDate": "2026-08-29T00:00:00Z"
+  },
+  "sections": [
+    {
+      "id": "contact",
+      "title": "Contact",
+      "prompts": [
+        {
+          "id": "name",
+          "label": "Full name",
+          "response": "Ada Example",
+          "hints": { "expectedDataType": "text", "helpText": "Fictional demonstration value." }
+        },
+        {
+          "id": "contact_method",
+          "label": "Preferred contact method",
+          "response": "Email",
+          "hints": { "expectedDataType": "select", "suggestedValues": ["Email", "Phone"] }
+        }
+      ]
+    }
+  ]
+}

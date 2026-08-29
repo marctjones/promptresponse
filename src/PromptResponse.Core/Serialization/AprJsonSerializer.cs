@@ -75,6 +75,7 @@ public class AprJsonSerializer : IAprSerializer
             {
                 throw new SerializationException("Deserialization returned null");
             }
+            RejectRetiredSubmissionUrl(document);
             SanitizeDocument(document);
             return document;
         }
@@ -105,6 +106,7 @@ public class AprJsonSerializer : IAprSerializer
             {
                 throw new SerializationException("Deserialization returned null");
             }
+            RejectRetiredSubmissionUrl(document);
             SanitizeDocument(document);
             return document;
         }
@@ -158,13 +160,22 @@ public class AprJsonSerializer : IAprSerializer
             document.Metadata.Author = StringSanitizer.NormalizeAndStrip(document.Metadata.Author);
             document.Metadata.FilledBy = StringSanitizer.NormalizeAndStrip(document.Metadata.FilledBy);
             document.Metadata.Publisher = StringSanitizer.NormalizeAndStrip(document.Metadata.Publisher);
-            // SubmissionUrl is deliberately NOT rewritten. It is machine-consumed and
+            // SubmissionUrls are deliberately NOT rewritten. They are machine-consumed and
             // signature-bound, so a hidden character in it is reported and blocks
             // signing rather than being quietly cleaned to some other host.
         }
         foreach (var section in document.Sections)
         {
             SanitizeSection(section);
+        }
+    }
+
+    private static void RejectRetiredSubmissionUrl(AprDocument document)
+    {
+        if (document.Metadata?.Extensions?.ContainsKey("submissionUrl") == true)
+        {
+            throw new SerializationException(
+                "metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings");
         }
     }
 
@@ -193,7 +204,10 @@ public class AprJsonSerializer : IAprSerializer
         // author's choice of expectedDataType says what they hoped to receive; it does
         // not license editing what someone actually wrote. Suspicious characters are
         // reported by HiddenCharacterAdvisor and left in place.
-        prompt.SetNormalizedResponse(StringSanitizer.NormalizeAndStrip(prompt.Response));
+        // A response is the person's evidence, not authoring metadata. Preserve it
+        // exactly: hostile/control characters are an advisory and rendering concern,
+        // never a licence to rewrite what the person entered.
+        prompt.SetNormalizedResponse(prompt.Response);
         if (prompt.Hints != null)
         {
             prompt.Hints.HelpText = StringSanitizer.NormalizeAndStrip(prompt.Hints.HelpText);

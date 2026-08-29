@@ -1,0 +1,122 @@
+{
+  "$comment": "EXPERIMENTAL ONLY. This is the decision corpus proposed by issue #113, not the normative APR conformance corpus. Each implementation must report the stated status and value/fallback before CEL Binding v1 can be ratified.",
+  "binding": "apr-cel-binding-v1-draft",
+  "evaluationDate": "2026-08-29",
+  "cases": [
+    {
+      "name": "typed direct bindings make ordinary form arithmetic natural",
+      "fields": [
+        { "id": "quantity", "type": "number", "response": "3" },
+        { "id": "unitPrice", "type": "currency", "response": "12.50" }
+      ],
+      "hint": "exprValue",
+      "targetType": "currency",
+      "expression": "quantity * unitPrice",
+      "expect": { "status": "success", "stored": "37.5" }
+    },
+    {
+      "name": "unbound numeric value does not become zero",
+      "fields": [
+        { "id": "quantity", "type": "number", "response": "about twelve" },
+        { "id": "unitPrice", "type": "currency", "response": "12.50" }
+      ],
+      "hint": "exprValue",
+      "targetType": "currency",
+      "expression": "quantity * unitPrice",
+      "expect": { "status": "runtimeError", "fallback": "preserveStoredResponse" }
+    },
+    {
+      "name": "short circuit avoids an unbound operand",
+      "fields": [
+        { "id": "rush", "type": "boolean", "response": "no" },
+        { "id": "amount", "type": "currency", "response": "about twelve" }
+      ],
+      "hint": "exprHidden",
+      "targetType": "text",
+      "expression": "rush && amount > 1000.0",
+      "expect": { "status": "success", "value": false }
+    },
+    {
+      "name": "arbitrary APR IDs work through the responses map",
+      "fields": [
+        { "id": "unit-price", "type": "currency", "response": "10" },
+        { "id": "quantity", "type": "number", "response": "4" }
+      ],
+      "hint": "exprValue",
+      "targetType": "currency",
+      "expression": "responses['unit-price'] * quantity",
+      "expect": { "status": "success", "stored": "40" }
+    },
+    {
+      "name": "a missing map key is guarded explicitly",
+      "fields": [],
+      "hint": "exprHidden",
+      "targetType": "text",
+      "expression": "('optional-value' in responses) && responses['optional-value'] == 'hide'",
+      "expect": { "status": "success", "value": false }
+    },
+    {
+      "name": "this is typed as the owning prompt",
+      "this": { "id": "confirmEmail", "type": "email", "response": "other@example.test" },
+      "fields": [
+        { "id": "email", "type": "email", "response": "person@example.test" }
+      ],
+      "hint": "exprValidation",
+      "targetType": "email",
+      "expression": "_this == email ? '' : 'Email addresses must match'",
+      "expect": { "status": "success", "value": "Email addresses must match" }
+    },
+    {
+      "name": "condition hints require bool rather than truthy strings",
+      "fields": [],
+      "hint": "exprHidden",
+      "targetType": "text",
+      "expression": "'yes'",
+      "expect": { "status": "compileError", "fallback": false }
+    },
+    {
+      "name": "validation hints require string rather than coercion",
+      "fields": [],
+      "hint": "exprValidation",
+      "targetType": "text",
+      "expression": "true",
+      "expect": { "status": "compileError", "fallback": "" }
+    },
+    {
+      "name": "computed output must match the target type",
+      "fields": [],
+      "hint": "exprValue",
+      "targetType": "number",
+      "expression": "'not a number'",
+      "expect": { "status": "compileError", "fallback": "preserveStoredResponse" }
+    },
+    {
+      "name": "today is injected once per evaluation pass",
+      "fields": [],
+      "hint": "exprExpected",
+      "targetType": "text",
+      "expression": "_today == timestamp('2026-08-29T00:00:00Z')",
+      "expect": { "status": "success", "value": true }
+    },
+    {
+      "name": "unknown identifier is an author diagnostic and a safe fill fallback",
+      "fields": [],
+      "hint": "exprReadOnly",
+      "targetType": "text",
+      "expression": "doesNotExist == 1",
+      "expect": { "status": "compileError", "fallback": false }
+    },
+    {
+      "name": "human correction survives recomputation",
+      "fields": [
+        { "id": "quantity", "type": "number", "response": "3" },
+        { "id": "unitPrice", "type": "currency", "response": "12.50" }
+      ],
+      "hint": "exprValue",
+      "targetType": "currency",
+      "storedTarget": { "response": "40", "source": null },
+      "expression": "quantity * unitPrice",
+      "expect": { "status": "success", "write": false, "stored": "40" }
+    }
+  ]
+}

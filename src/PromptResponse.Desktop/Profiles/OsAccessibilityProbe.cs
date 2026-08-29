@@ -10,7 +10,9 @@ namespace PromptResponse.Desktop.Profiles;
 /// Detection mechanisms:
 ///   - Windows: environment / registry probes (current implementation
 ///     deliberately conservative — full SystemParametersInfo wiring is future work).
-///   - macOS: NSUserDefaults probes via environment variables exposed by AppKit.
+///   - macOS: user defaults for interface appearance, contrast and motion, plus a
+///     best-effort VoiceOver-process check. The display preferences remain the
+///     authoritative explicit user choice when detection is unavailable.
 ///   - Linux: GTK / GNOME settings via environment variables; if unavailable, no signal.
 ///   - All platforms: AVALONIA_HIGH_CONTRAST, AVALONIA_REDUCED_MOTION, AVALONIA_DARK
 ///     environment overrides honoured (useful for CI snapshots and manual testing).
@@ -38,6 +40,7 @@ public sealed class OsAccessibilityProbe : IOsAccessibilityProbe
             var gtkTheme = Environment.GetEnvironmentVariable("GTK_THEME") ?? string.Empty;
             return gtkTheme.Contains("HighContrast", StringComparison.OrdinalIgnoreCase);
         }
+        if (OperatingSystem.IsMacOS()) return MacDefaultIsTrue("increaseContrast");
         return false;
     }
 
@@ -49,6 +52,7 @@ public sealed class OsAccessibilityProbe : IOsAccessibilityProbe
             var gnomePreference = Environment.GetEnvironmentVariable("GNOME_REDUCED_MOTION");
             return gnomePreference == "1" || string.Equals(gnomePreference, "true", StringComparison.OrdinalIgnoreCase);
         }
+        if (OperatingSystem.IsMacOS()) return MacDefaultIsTrue("reduceMotion");
         return false;
     }
 
@@ -58,6 +62,15 @@ public sealed class OsAccessibilityProbe : IOsAccessibilityProbe
         // Falls back to false; users opt in via Display Preferences if auto-detect missed them.
         if (EnvFlag("ORCA_RUNNING")) return true;
         if (EnvFlag("AVALONIA_SCREEN_READER")) return true;
+        if (OperatingSystem.IsMacOS())
+        {
+            try
+            {
+                return System.Diagnostics.Process.GetProcesses().Any(process =>
+                    process.ProcessName.Contains("voiceover", StringComparison.OrdinalIgnoreCase));
+            }
+            catch { return false; }
+        }
         return false;
     }
 
@@ -72,8 +85,31 @@ public sealed class OsAccessibilityProbe : IOsAccessibilityProbe
             if (gtkTheme.Contains("HighContrast", StringComparison.OrdinalIgnoreCase)) return ColorScheme.HighContrast;
             if (gtkTheme.Contains("dark", StringComparison.OrdinalIgnoreCase)) return ColorScheme.Dark;
         }
+        if (OperatingSystem.IsMacOS() && MacDefaultHasValue("AppleInterfaceStyle", "Dark")) return ColorScheme.Dark;
 
         return ColorScheme.Light;
+    }
+
+    private static bool MacDefaultIsTrue(string key) => MacDefaultHasValue(key, "1") || MacDefaultHasValue(key, "true");
+
+    private static bool MacDefaultHasValue(string key, string expected)
+    {
+        try
+        {
+            var start = new System.Diagnostics.ProcessStartInfo("/usr/bin/defaults")
+            {
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+            };
+            start.ArgumentList.Add("read");
+            start.ArgumentList.Add("-g");
+            start.ArgumentList.Add(key);
+            using var process = System.Diagnostics.Process.Start(start);
+            if (process is null || !process.WaitForExit(250) || process.ExitCode != 0) return false;
+            return string.Equals(process.StandardOutput.ReadToEnd().Trim(), expected, StringComparison.OrdinalIgnoreCase);
+        }
+        catch { return false; }
     }
 
     private static bool EnvFlag(string name)

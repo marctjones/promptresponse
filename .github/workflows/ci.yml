@@ -88,6 +88,24 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: |
+            typescript/package-lock.json
+            demos/web/package-lock.json
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
       - name: Install jsonschema
         run: pip install --disable-pip-version-check jsonschema
 
@@ -98,8 +116,23 @@ jobs:
       - name: Python SDK tests
         working-directory: python
         run: |
-          pip install --disable-pip-version-check -e ".[test]"
-          pytest -q
+          uv sync --all-extras --locked
+          uv run pytest -q
+
+      - name: TypeScript SDK and HTML renderer tests
+        working-directory: typescript
+        run: |
+          npm ci
+          npm test
+
+      - name: Browser demo tests
+        working-directory: demos/web
+        run: |
+          npm ci
+          npm test
+
+      - name: Java SDK shared-corpus tests
+        run: java/run-tests.sh
 
       - name: Verify the test registry agrees with the repository
         # tests/registry.json claims which spec requirements are gated. A coverage
@@ -108,6 +141,9 @@ jobs:
         # exist, every fixture must be claimed, and every normative spec section must
         # have an entry.
         run: python3 scripts/check-test-registry.py
+
+      - name: Verify release-status documentation agrees with the repository
+        run: python3 scripts/check-docs.py
 
       - name: Validate the conformance corpus against the published JSON Schema
         # The .NET conformance tests prove the reference implementation is correct;

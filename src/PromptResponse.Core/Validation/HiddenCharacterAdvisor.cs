@@ -35,7 +35,7 @@ public sealed class HiddenCharacterAdvisor : IValidator<AprDocument>
         var result = new ValidationResult();
         if (target == null) return result;
 
-        ScanSubmissionUrl(target, result);
+        ScanSubmissionUrls(target, result);
 
         foreach (var section in target.Sections)
         {
@@ -51,15 +51,18 @@ public sealed class HiddenCharacterAdvisor : IValidator<AprDocument>
     /// inside a hostname renders to a reviewer as the host they expect while being a
     /// different string, so it is surfaced here and blocks signing.
     /// </summary>
-    private static void ScanSubmissionUrl(AprDocument document, ValidationResult result)
+    private static void ScanSubmissionUrls(AprDocument document, ValidationResult result)
     {
-        var url = document.Metadata?.SubmissionUrl;
-        if (!Text.StringSanitizer.ContainsHiddenCharacters(url)) return;
-
-        result.AddWarning(new ValidationWarning(
-            "The submission URL contains hidden characters (zero-width, bidi, or similar). "
-            + "It may display as a different address than it actually is. Retype it rather than editing it.",
-            "metadata.submissionUrl", "SUBMISSION_URL_HIDDEN_CHARS"));
+        var urls = document.Metadata?.SubmissionUrls;
+        if (urls is null) return;
+        for (var i = 0; i < urls.Count; i++)
+        {
+            if (!Text.StringSanitizer.ContainsHiddenCharacters(urls[i])) continue;
+            result.AddWarning(new ValidationWarning(
+                "The submission URL contains hidden characters (zero-width, bidi, or similar). "
+                + "It may display as a different address than it actually is. Retype it rather than editing it.",
+                $"metadata.submissionUrls[{i}]", "SUBMISSION_URL_HIDDEN_CHARS"));
+        }
     }
 
     private static void ScanSection(Section section, ValidationResult result)
@@ -132,6 +135,29 @@ public sealed class HiddenCharacterAdvisor : IValidator<AprDocument>
                 case 0x2060:
                     code = "HIDDEN_WORD_JOINER";
                     description = "word joiner U+2060";
+                    break;
+                case >= 0x202A and <= 0x202E:
+                    code = "BIDI_OVERRIDE";
+                    description = $"bidirectional override U+{v:X4}";
+                    break;
+                case >= 0x2066 and <= 0x2069:
+                    code = "BIDI_ISOLATE";
+                    description = $"bidirectional isolate U+{v:X4}";
+                    break;
+                case 0xFEFF:
+                    code = "TEXT_BOM";
+                    description = "byte-order mark U+FEFF inside text";
+                    break;
+                case 0xFFFE or 0xFFFF:
+                    code = "NONCHARACTER";
+                    description = $"Unicode noncharacter U+{v:X4}";
+                    break;
+                case >= 0x00 and <= 0x08:
+                case 0x0B or 0x0C:
+                case >= 0x0E and <= 0x1F:
+                case >= 0x7F and <= 0x9F:
+                    code = "CONTROL_CHARACTER";
+                    description = $"control character U+{v:X4}";
                     break;
                 case 0x2061:
                 case 0x2062:

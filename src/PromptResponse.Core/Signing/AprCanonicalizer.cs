@@ -6,7 +6,7 @@ namespace PromptResponse.Core.Signing;
 
 /// <summary>
 /// Produces the canonical byte payloads that APR signatures are computed over
-/// (scheme <c>apr-sig-v1</c>). The format is deliberately simple and
+/// (scheme <c>apr-sig-v3</c>). The format is deliberately simple and
 /// language-portable — a fixed, ordered list of <c>label=base64(value)</c> lines —
 /// rather than full JSON canonicalization, so other SDKs can reproduce it exactly
 /// and signatures survive re-serialization.
@@ -24,7 +24,6 @@ namespace PromptResponse.Core.Signing;
 /// </remarks>
 public static class AprCanonicalizer
 {
-    /// <summary>The canonical-payload scheme version.</summary>
     /// <summary>The canonicalization scheme these payloads implement.</summary>
     /// <remarks>
     /// v3 closed two holes in v2, both of which left a signature verifying over something
@@ -58,16 +57,20 @@ public static class AprCanonicalizer
         // The URL is read from the document, never from a caller-supplied copy or from
         // the signature object. Storing it twice was a real vulnerability: verification
         // recomputed from the signature's own copy, so redirecting
-        // metadata.submissionUrl — the field a submitting client actually reads — left
+        // metadata.submissionUrls — the ordered choices a submitting client reads — left
         // the signature verifying as valid. One fact, one place.
-        var submissionUrl = document.Metadata.SubmissionUrl;
+        // U+001F is not permitted in a URI and gives the ordered list an unambiguous,
+        // language-neutral representation while preserving the v3 bytes for one URL.
+        var submissionUrls = document.Metadata.SubmissionUrls is { Count: > 0 } urls
+            ? string.Join("\u001f", urls)
+            : null;
 
         return new Writer()
             .Add("scheme", Scheme)
             .Add("role", "publisher")
             .Add("templateId", document.Metadata.TemplateId)
             .Add("templateVersion", document.Metadata.TemplateVersion)
-            .Add("submissionUrl", submissionUrl)
+            .Add("submissionUrl", submissionUrls)
             .Add("formDefDigest", Sha256Hex(FormDefinition(document)))
             .Add("signedAt", signedAt)
             .ToBytes();

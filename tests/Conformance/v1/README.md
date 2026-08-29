@@ -50,6 +50,7 @@ validate again. All response strings MUST survive the round-trip unchanged.
 | `section-ordering.aprt` | Presentation order is normative: a section's own prompts render **before** its child sections. |
 | `table-fixed-filled.aprf` / `table-dynamic-filled.aprf` / `dynamic-table.aprt` | The table matrix. Mutability (`canAddRows`) and population (do the cells hold values) are **independent axes**, so all four combinations are expressible — and none of them needs a table-specific representation, because population falls out of the sections and responses that are already there. |
 | `hidden-characters-preserved.aprf` | A hidden character survives in a response hinted `url`, `email`, and `text` alike, alongside a legitimate Persian ZWNJ. The strictness that once cleaned url/email answers now lives on the submission URL instead, where it **refuses** rather than rewrites. |
+| `unicode-security-advisories.aprf` | Bidi override/isolate and legitimate Persian ZWNJ/emoji ZWJ responses remain valid and byte-preserved. Shared advisors expose stable findings without rejecting or changing them. |
 | `newer-minor-accepted.aprt` | Declares version `1.7`. A `1.0` reader **MUST** read it, warn `NEWER_MINOR_VERSION`, and preserve its unrecognised members. This plus `unknown-fields.aprt` is what makes the format extensible. |
 | `signed-template.aprt` | A real publisher signature that MUST verify over its own unmodified content. Not a placeholder blob — it was produced by `apr sign` and is checked cryptographically on every test run. |
 
@@ -75,7 +76,7 @@ implementation these raise `SerializationException`.
 Covers: `"response": 42`, `"response": true`, `sections` as an object instead of
 an array, and truncated bytes.
 
-### `canonicalization/` — the apr-sig-v2 byte contract
+### `canonicalization/` — the apr-sig-v3 byte contract
 
 `input.aprt` plus `vectors.json`: the exact canonical payload text, byte length, and
 SHA-256 for the publisher, filler, and form-definition payloads. An implementation
@@ -90,7 +91,7 @@ another host. They still validate structurally, because tampering is a verificat
 result and not a schema error — but the publisher signature MUST fail.
 
 `tampered-metadata-url.aprt` is the one that matters. It changes **only**
-`metadata.submissionUrl`, the field a submitting client actually reads. An earlier
+`metadata.submissionUrls`, the ordered field a submitting client actually reads. An earlier
 revision stored the URL a second time on the signature object and verified against
 that private copy, so this exact edit left the signature reporting **valid** while the
 form submitted somewhere else. Two copies of one fact is a correctness bug everywhere

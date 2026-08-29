@@ -46,6 +46,7 @@ class Program
                 "keygen" => await serviceProvider.GetRequiredService<KeygenCommand>().ExecuteAsync(commandArgs),
                 "sign" => await serviceProvider.GetRequiredService<SignCommand>().ExecuteAsync(commandArgs),
                 "verify" => await serviceProvider.GetRequiredService<VerifyCommand>().ExecuteAsync(commandArgs),
+                "submit" => await serviceProvider.GetRequiredService<SubmitCommand>().ExecuteAsync(commandArgs),
                 "help" or "--help" or "-h" => ShowHelp(),
                 "version" or "--version" or "-v" => ShowVersion(),
                 _ => ShowUnknownCommand(command)
@@ -89,6 +90,7 @@ class Program
         services.AddTransient<KeygenCommand>();
         services.AddTransient<SignCommand>();
         services.AddTransient<VerifyCommand>();
+        services.AddTransient<SubmitCommand>();
     }
 
     private static int ShowHelp()
@@ -114,6 +116,7 @@ class Program
         Console.WriteLine("  keygen [options]               Generate a self-signed signing certificate (.pfx)");
         Console.WriteLine("  sign <file> [options]          Sign a document (publisher or filler) with an X.509 cert");
         Console.WriteLine("  verify <file> [options]        Verify signatures and report trust");
+        Console.WriteLine("  submit <file.aprf> --yes       Explicitly HTTPS POST a completed APRF");
         Console.WriteLine("  help                           Show this help message");
         Console.WriteLine("  version                        Show version information");
         Console.WriteLine();
@@ -146,9 +149,16 @@ class Program
 
     private static int ShowVersion()
     {
-        var version = typeof(Program).Assembly.GetName().Version;
+        var assembly = typeof(Program).Assembly;
+        var version = assembly
+            .GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), inherit: false)
+            .OfType<System.Reflection.AssemblyInformationalVersionAttribute>()
+            .FirstOrDefault()?.InformationalVersion?
+            .Split('+', 2)[0]
+            ?? assembly.GetName().Version?.ToString()
+            ?? "unknown";
         Console.WriteLine($"APR CLI version {version}");
-        Console.WriteLine("APR Format version 1.0");
+        Console.WriteLine("APR Format version 1.0-beta");
         return 0;
     }
 

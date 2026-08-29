@@ -81,10 +81,24 @@ public class AprSigningTests
         // Verification used to recompute the payload from a copy of the URL stored on
         // the signature itself, so this exact edit left the signature reporting VALID
         // while the form submitted somewhere else entirely.
-        doc.Metadata.SubmissionUrl = "https://evil/submit";
+        doc.Metadata.SubmissionUrls = ["https://evil/submit"];
 
         AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse(
-            "the signature binds metadata.submissionUrl, so redirecting it must invalidate the signature");
+            "the signature binds metadata.submissionUrls, so redirecting one must invalidate the signature");
+    }
+
+    [Fact]
+    public void Publisher_BindsEverySubmissionUrlAndTheirOrder()
+    {
+        var doc = Template();
+        doc.Metadata.SubmissionUrls = ["mailto:forms@example.org", "https://example.org/submit"];
+        using var cert = SelfSigned();
+        doc.Signatures = [AprSigner.SignTemplate(doc, cert, At)];
+
+        doc.Metadata.SubmissionUrls.Reverse();
+
+        AprVerifier.Verify(doc, doc.Signatures[0]).ContentValid.Should().BeFalse(
+            "a publisher signature binds every delivery choice and their displayed order");
     }
 
     [Fact]

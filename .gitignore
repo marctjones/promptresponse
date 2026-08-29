@@ -65,6 +65,21 @@ packages/
 # macOS
 .DS_Store
 
+# Python virtual environments, caches, and build products
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+
+# Node and Java project-local dependency/build caches
+.npm-cache/
+.maven/
+target/
+java/build/
+
 # APR test files (for testing only)
 *.apr.test
 test-forms/

@@ -121,10 +121,12 @@
           "type": "string",
           "format": "date-time"
         },
-        "submissionUrl": {
-          "type": "string",
-          "description": "Where a completed form is sent. Bound into the publisher signature payload when signed, so it cannot be redirected without invalidating that signature."
-        }
+        "submissionUrls": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Ordered explicit delivery choices for a completed form. Bound into the publisher signature payload when signed, so a destination cannot be added, removed, or redirected without invalidating that signature."
+        },
+        "submissionUrl": false
       }
     },
     "section": {
@@ -312,7 +314,7 @@
           "description": "Suggested increment for an ordered field. Advisory only."
         }
       },
-      "$comment": "A core-only reader MUST ignore the expr* family and render the prompt as an ordinary editable field, preserving the hint strings on round-trip."
+      "$comment": "A core-only reader MUST preserve the expr* family without evaluating it. A host that renders the prompt presents it as an ordinary editable field."
     },
     "responseMetadata": {
       "type": "object",
@@ -336,7 +338,7 @@
     },
     "signature": {
       "type": "object",
-      "description": "A detached CMS/PKCS#7 SignedData over a canonical payload. Pure data: verification is a side-effect-free computation, so a signed document is no less safe to open than an unsigned one. A publisher signature binds metadata.submissionUrl by reading it from the document \u2014 the signature stores no copy of its own, because a second copy is what let a redirected metadata URL still verify.",
+      "description": "A detached CMS/PKCS#7 SignedData over a canonical payload. Pure data: verification is a side-effect-free computation, so a signed document is no less safe to open than an unsigned one. A publisher signature binds metadata.submissionUrls by reading them from the document \u2014 the signature stores no copy of its own, because a second copy is what let a redirected metadata URL still verify.",
       "required": [
         "id",
         "role",

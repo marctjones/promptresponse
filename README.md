@@ -26,10 +26,12 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 
 | | Profile | Tests |
 |---|---|---|
-| **.NET** — `src/` | every profile: expressions, signatures, rendering, PDF | 1,994 |
-| **Python** — `python/` | core only, on purpose | 89 |
+| **.NET** — `src/` | core, expressions, beta signatures, desktop/HTML/PDF rendering | gated in CI |
+| **Python** — `python/` | core plus CEL-expression prototype | shared corpus + SDK tests in CI |
+| **TypeScript** — `typescript/` | core plus optional HTML projection | shared corpus + renderer tests in CI |
+| **Java** — `java/` | core plus CEL expressions; includes a local JDK form demo | shared corpus in CI |
 
-Both run the same conformance corpus. The Python one implements the **core
+The Python and TypeScript SDKs run the same conformance corpus as .NET. The Python one implements the **core
 profile** deliberately: it parses expression hints and signatures, preserves
 them untouched, and evaluates or verifies neither. That is what lets it test
 what a core-only reader must do — a rule the .NET implementation structurally
@@ -49,7 +51,7 @@ that permits exactly one.
 - **Database-Ready**: JSON format imports directly into databases without parsing headaches
 - **Programmatic API**: Fill forms from scripts, batch processes, or other applications
 - **Type Hints**: Suggest data types without enforcing them
-- **Cross-Platform**: Linux, Windows (macOS, Android, iOS planned)
+- **Cross-Platform**: Linux, Windows, and macOS desktop clients; browser demos
 - **Open Format**: JSON subset for maximum interoperability
 
 ## Quick Start Demo
@@ -159,8 +161,8 @@ dotnet run --project src/PromptResponse.Cli -- new my-form
 dotnet run --project src/PromptResponse.Cli -- review submission.aprf --json
 ```
 
-Twelve commands: `validate`, `info`, `new`, `fill`, `diff`, `stats`, `import`,
-`export`, `review`, `keygen`, `sign`, `verify`. See
+Fourteen commands: `validate`, `info`, `new`, `fill`, `stats`, `review`, `eval`,
+`diff`, `export`, `import`, `keygen`, `sign`, `verify`, `submit`. See
 [the CLI README](src/PromptResponse.Cli/README.md).
 
 `review` is the one built for the receiving end. The format never rejects what a
@@ -171,7 +173,7 @@ file could not be read at all.
 
 ## Documentation
 
-- [APR Format Specification](docs/APR_SPECIFICATION.md) - **Complete formal specification** (spec `0.6.0`, describes format `1.0-beta`)
+- [APR Format Specification](docs/APR_SPECIFICATION.md) - **Complete formal specification** (spec `1.0.0-beta.1`, describes format `1.0-beta`)
 
 > **The APR format is in BETA.** Files declare `"version": "1.0-beta"` and breaking
 > changes may still occur. At the 1.0 stable tag, `"1.0-beta"` stays readable
@@ -192,7 +194,7 @@ APR is an open format, and the point of the specification, schema, and corpus is
 you can build a reader or writer without asking us anything.
 
 ```bash
-# The conformance corpus: 36 fixtures your implementation must agree with
+# The conformance corpus: 41 fixtures your implementation must agree with
 ls tests/Conformance/v1/
 
 # The language-neutral gates - no .NET required, so they fail the way your SDK would
@@ -201,7 +203,7 @@ python3 scripts/check-schema.py          # schema agrees with every fixture
 python3 scripts/check-test-registry.py   # coverage claims match the repository
 ```
 
-Only `core` is required — parse, validate, render, fill, write. That needs a JSON
+Only `core` is required — parse, validate, fill, write. That needs a JSON
 parser and nothing else. `core+expressions` and `core+signatures` are optional, and an
 implementation that skips them is fully conformant, not degraded — provided it
 **preserves** what it does not implement.
@@ -214,7 +216,7 @@ which implementations exist and what they are held to.
 ## Technology Stack
 
 - **.NET 10.0** (LTS, supported through Nov 2028) — cross-platform runtime
-- **C# 14** (preview) — modern language features
+- **C# 14** — modern language features
 - **AvaloniaUI 12** — cross-platform UI framework, first .NET UI framework
   with a native Linux accessibility (AT-SPI2) backend
 - **CommunityToolkit.Mvvm 8.4** — MVVM source generators (`[ObservableProperty]`,
@@ -231,7 +233,7 @@ the corresponding `.csproj`).
 
 ## Project Status
 
-🚧 **Active Development** — current release: **v0.6.0**.
+🚧 **Public beta** — current release: **v1.0.0-beta.1**.
 See [CHANGELOG.md](CHANGELOG.md) for what landed in each release.
 
 - [x] Core library (models, JSON serialization, advisory validation,
@@ -273,7 +275,7 @@ See [CHANGELOG.md](CHANGELOG.md) for what landed in each release.
 - [ ] Mobile support (.NET MAUI) — future
 - [ ] Word/Excel export — future
 - [x] SDK conformance corpus: shared APR fixtures with .NET validation gate
-- [ ] Non-.NET SDK conformance runners — future
+- [x] Python, TypeScript, and Java core SDK conformance runners
 
 ## Contributing
 

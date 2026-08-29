@@ -1,0 +1,992 @@
+{
+  "capturedAt": "2026-08-29T07:12:28.246Z",
+  "processName": "PromptResponse.Desktop",
+  "required": [
+    "File menu",
+    "Open file",
+    "Save"
+  ],
+  "missing": [
+    "Open file",
+    "Save"
+  ],
+  "tree": {
+    "name": "PromptResponse.Desktop",
+    "role": "AXApplication",
+    "description": "application",
+    "focused": false,
+    "children": [
+      {
+        "name": "SF-86 - Questionnaire for National Security Positions — PromptResponse",
+        "role": "AXWindow",
+        "description": "standard window",
+        "focused": false,
+        "children": [
+          {
+            "name": "WindowChrome",
+            "role": "AXGroup",
+            "description": "group",
+            "focused": false,
+            "children": []
+          },
+          {
+            "name": "null",
+            "role": "AXGroup",
+            "description": "group",
+            "focused": false,
+            "children": [
+              {
+                "name": "null",
+                "role": "AXGroup",
+                "description": "group",
+                "focused": false,
+                "children": []
+              },
+              {
+                "name": "null",
+                "role": "AXGroup",
+                "description": "group",
+                "focused": false,
+                "children": []
+              },
+              {
+                "name": "null",
+                "role": "AXGroup",
+                "description": "group",
+                "focused": false,
+                "children": []
+              },
+              {
+                "name": "null",
+                "role": "AXGroup",
+                "description": "group",
+                "focused": false,
+                "children": [
+                  {
+                    "name": "null",
+                    "role": "AXGroup",
+                    "description": "group",
+                    "focused": false,
+                    "children": [
+                      {
+                        "name": "PromptResponse main shell",
+                        "role": "AXUnknown",
+                        "description": "unknown",
+                        "focused": false,
+                        "children": [
+                          {
+                            "name": "null",
+                            "role": "AXGroup",
+                            "description": "group",
+                            "focused": false,
+                            "children": [
+                              {
+                                "name": "null",
+                                "role": "AXGroup",
+                                "description": "group",
+                                "focused": false,
+                                "children": [
+                                  {
+                                    "name": "Main menu",
+                                    "role": "AXMenuBar",
+                                    "description": "menu bar",
+                                    "focused": false,
+                                    "children": [
+                                      {
+                                        "name": "null",
+                                        "role": "AXGroup",
+                                        "description": "group",
+                                        "focused": false,
+                                        "children": [
+                                          {
+                                            "name": "null",
+                                            "role": "AXGroup",
+                                            "description": "group",
+                                            "focused": false,
+                                            "children": [
+                                              {
+                                                "name": "null",
+                                                "role": "AXGroup",
+                                                "description": "group",
+                                                "focused": false,
+                                                "children": [
+                                                  {
+                                                    "name": "File menu",
+                                                    "role": "AXMenuItem",
+                                                    "description": "menu item",
+                                                    "focused": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "name": "Edit menu",
+                                                    "role": "AXMenuItem",
+                                                    "description": "menu item",
+                                                    "focused": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "name": "View menu",
+                                                    "role": "AXMenuItem",
+                                                    "description": "menu item",
+                                                    "focused": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "name": "Help menu",
+                                                    "role": "AXMenuItem",
+                                                    "description": "menu item",
+                                                    "focused": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Status",
+                                    "role": "AXGroup",
+                                    "description": "group",
+                                    "focused": false,
+                                    "children": [
+                                      {
+                                        "name": "null",
+                                        "role": "AXGroup",
+                                        "description": "group",
+                                        "focused": false,
+                                        "children": [
+                                          {
+                                            "name": "SF-86 - Questionnaire for National Security Positions — 0 of 111 answered (0%)",
+                                            "role": "AXStaticText",
+                                            "description": "text",
+                                            "focused": false,
+                                            "children": []
+                                          },
+                                          {
+                                            "name": "0 of 111 answered (0%)",
+                                            "role": "AXStaticText",
+                                            "description": "text",
+                                            "focused": false,
+                                            "children": []
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "null",
+                                    "role": "AXGroup",
+                                    "description": "group",
+                                    "focused": false,
+                                    "children": [
+                                      {
+                                        "name": "Sections sidebar",
+                                        "role": "AXGroup",
+                                        "description": "group",
+                                        "focused": false,
+                                        "children": [
+                                          {
+                                            "name": "null",
+                                            "role": "AXGroup",
+                                            "description": "group",
+                                            "focused": false,
+                                            "children": [
+                                              {
+                                                "name": "null",
+                                                "role": "AXGroup",
+                                                "description": "group",
+                                                "focused": false,
+                                                "children": [
+                                                  {
+                                                    "name": "Search",
+                                                    "role": "AXStaticText",
+                                                    "description": "text",
+                                                    "focused": false,
+                                                    "children": []
+                                                  },
+                                                  {
+                                                    "name": "Search prompts",
+                                                    "role": "AXTextField",
+                                                    "description": "text field",
+                                                    "focused": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "name": "Document",
+                                                "role": "AXStaticText",
+                                                "description": "text",
+                                                "focused": false,
+                                                "children": []
+                                              },
+                                              {
+                                                "name": "null",
+                                                "role": "AXGroup",
+                                                "description": "group",
+                                                "focused": false,
+                                                "children": [
+                                                  {
+                                                    "name": "null",
+                                                    "role": "AXGroup",
+                                                    "description": "group",
+                                                    "focused": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Form content",
+                                        "role": "AXGroup",
+                                        "description": "group",
+                                        "focused": false,
+                                        "children": [
+                                          {
+                                            "name": "null",
+                                            "role": "AXGroup",
+                                            "description": "group",
+                                            "focused": false,
+                                            "children": [
+                                              {
+                                                "name": "null",
+                                                "role": "AXGroup",
+                                                "description": "group",
+                                                "focused": false,
+                                                "children": [
+                                                  {
+                                                    "name": "null",
+                                                    "role": "AXGroup",
+                                                    "description": "group",
+                                                    "focused": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      },
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "name": "null",
+                                                "role": "AXGroup",
+                                                "description": "group",
+                                                "focused": false,
+                                                "children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Form progress and advisories",
+                                        "role": "AXGroup",
+                                        "description": "group",
+                                        "focused": false,
+                                        "children": [
+                                          {
+                                            "name": "null",
+                                            "role": "AXGroup",
+                                            "description": "group",
+                                            "focused": false,
+                                            "children": [
+                                              {
+                                                "name": "null",
+                                                "role": "AXGroup",
+                                                "description": "group",
+                                                "focused": false,
+                                                "children": [
+                                                  {
+                                                    "name": "null",
+                                                    "role": "AXGroup",
+                                                    "description": "group",
+                                                    "focused": false,
+                                                    "children": [
+                                                      {
+                                                        "name": "",
+                                                        "role": "truncated",
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "name": "null",
+                                                    "role": "AXGroup",
+                                                    "description": "group",
+                                                    "focused": false,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "null",
+            "role": "AXButton",
+            "description": "close button",
+            "focused": false,
+            "children": []
+          },
+          {
+            "name": "null",
+            "role": "AXButton",
+            "description": "full screen button",
+            "focused": false,
+            "children": [
+              {
+                "name": "null",
+                "role": "AXGroup",
+                "description": "group",
+                "focused": false,
+                "children": [
+                  {
+                    "name": "null",
+                    "role": "AXGroup",
+                    "description": "group",
+                    "focused": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "null",
+            "role": "AXButton",
+            "description": "minimize button",
+            "focused": false,
+            "children": []
+          },
+          {
+            "name": "SF-86 - Questionnaire for National Security Positions — PromptResponse",
+            "role": "AXStaticText",
+            "description": "text",
+            "focused": false,
+            "children": []
+          }
+        ]
+      },
+      {
+        "name": "null",
+        "role": "AXMenuBar",
+        "description": "null",
+        "focused": false,
+        "children": [
+          {
+            "name": "Apple",
+            "role": "AXMenuBarItem",
+            "description": "null",
+            "focused": false,
+            "children": [
+              {
+                "name": "Apple",
+                "role": "AXMenu",
+                "description": "null",
+                "focused": false,
+                "children": [
+                  {
+                    "name": "About This Mac",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "System Information",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "null",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "System Settings…, 1 update",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "App Store",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "null",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Recent Items",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": [
+                      {
+                        "name": "Recent Items",
+                        "role": "AXMenu",
+                        "description": "null",
+                        "focused": false,
+                        "children": [
+                          {
+                            "name": "Applications",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "ChatGPT",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “ChatGPT” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Claude",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “Claude” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “Finder” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Google Chrome",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “Google Chrome” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Preview",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “Preview” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "PromptResponse-accessibility",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “PromptResponse-accessibility” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Python",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “Python” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Safari",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “Safari” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "System Settings",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “System Settings” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Terminal",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “Terminal” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "null",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Documents",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "amenity-report.html",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “amenity-report.html” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "deck-provenance-leadership.pptx",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “deck-provenance-leadership.pptx” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "deck-provenance-mechanisms.pptx",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “deck-provenance-mechanisms.pptx” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "explorer-built.html",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “explorer-built.html” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Interactive Check — Tables and Expressions-form.pdf",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “Interactive Check — Tables and Expressions-form.pdf” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "irs-w9.pdf",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “irs-w9.pdf” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "SF-86 - Questionnaire for National Security Positions-form.pdf",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “SF-86 - Questionnaire for National Security Positions-form.pdf” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "SF-86 - Questionnaire for National Security Positions.pdf",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “SF-86 - Questionnaire for National Security Positions.pdf” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "three-tool-comparison.md",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “three-tool-comparison.md” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "three-tool-comparison.pdf",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Show “three-tool-comparison.pdf” in Finder",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "null",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Servers",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Macintosh HD",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "null",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          },
+                          {
+                            "name": "Clear Menu",
+                            "role": "AXMenuItem",
+                            "description": "null",
+                            "focused": false,
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "null",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Force Quit…",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Force Quit PromptResponse",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "null",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Sleep",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Restart…",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Restart",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Shut Down…",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Shut Down",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "null",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Lock Screen",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Log Out Marc Jones…",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "Log Out Marc Jones",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  },
+                  {
+                    "name": "null",
+                    "role": "AXMenuItem",
+                    "description": "null",
+                    "focused": false,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "PromptResponse",
+            "role": "AXMenuBarItem",
+            "description": "",
+            "focused": false,
+            "children": [
+              {
+                "name": "",
+                "role": "",
+                "description": "",
+                "focused": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -3,7 +3,7 @@
   "documentType": "template",
   "metadata": {
     "title": "Order Form (computed + conditional demo)",
-    "description": "Demonstrates Milestone 2 expression hints: a computed line total that updates live, and fields that appear only when relevant.",
+    "description": "Demonstrates every expr* hint. A computed total remains correctable by a person; visibility, expectedness, validation, and read-only presentation remain advisory workflow behavior.",
     "created": "2026-06-06T00:00:00Z",
     "modified": "2026-06-06T00:00:00Z",
     "author": "PromptResponse Team",
@@ -108,7 +108,19 @@
             "expectedDataType": "text",
             "helpText": "Shown and expected only when rush delivery is requested.",
             "exprHidden": "rush != 'true'",
-            "exprExpected": "rush == 'true'"
+            "exprExpected": "rush == 'true'",
+            "exprValidation": "rush == 'true' && _this == '' ? 'Explain why rush delivery is needed.' : ''"
+          },
+          "responseMetadata": {}
+        },
+        {
+          "id": "dispatch_code",
+          "label": "Dispatch approval code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "Shown as read-only once a rush order is approved; a person can still use raw response editing if the workflow requires a correction.",
+            "exprReadOnly": "rush != 'true'"
           },
           "responseMetadata": {}
         }

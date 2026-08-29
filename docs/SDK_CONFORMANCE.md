@@ -34,7 +34,7 @@ pip install jsonschema && python3 scripts/check-schema.py
 | `invalid/` | Deserialize successfully, then report **at least one structural error**. Parsing and validation are separate stages. |
 | `malformed/` | **Reject at parse time.** A response given as a JSON number or boolean **MUST NOT** be coerced to a string. |
 | `signatures/` | Validate structurally, but **fail signature verification**. Tampering is a verification result, not a schema error. |
-| `canonicalization/` | Reproduce the published `apr-sig-v2` payloads **byte-for-byte**. Port this before writing any CMS code — it is the only part of signing that fails silently. |
+| `canonicalization/` | Reproduce the published `apr-sig-v3` payloads **byte-for-byte**. Port this before writing any CMS code — it is the only part of signing that fails silently. |
 
 An SDK **MUST** also preserve unrecognised members across a round-trip
 (`valid/newer-minor-accepted.aprt`), accept a newer *minor* version while rejecting a
@@ -42,7 +42,7 @@ different *major* (§1.3.1), and present a section's own prompts before its chil
 sections (`valid/section-ordering.aprt`).
 
 Additionally, `valid/signed-template.aprt` **MUST** verify over its own
-unmodified content — proving the `apr-sig-v2` canonical payload is reproducible
+unmodified content — proving the `apr-sig-v3` canonical payload is reproducible
 rather than merely well-formed.
 
 ## Rules no schema can express
@@ -60,7 +60,7 @@ array on round-trip rather than dropping features it does not implement.
 
 | Profile | Adds | Corpus coverage |
 |---|---|---|
-| `core` | Parse, validate, render, fill, write | `valid/`, `invalid/`, `malformed/` |
+| `core` | Parse, validate, fill, write | `valid/`, `invalid/`, `malformed/` |
 | `core+expressions` | `expr*` evaluation | `valid/table-and-expressions.aprt` |
 | `core+signatures` | CMS verification | `valid/signed-template.aprt`, `signatures/` |
 
@@ -77,10 +77,8 @@ changes.
 
 | SDK | Status |
 |---|---|
-| .NET | **Conformant** — gated in CI by `ConformanceCorpusTests` |
-| Rust / Java / Python / C++ | **Experimental** — no corpus runner yet; treat as non-conformant until one exists |
-
-> The Python SDK currently exports types (`Subsection`, `DigitalSignature`,
-> `SubmissionConfig`) with no counterpart in the format defined here. It
-> implements a different schema and needs reconciling against the corpus before
-> it can claim conformance.
+| .NET | **Conformant** — corpus, schema, desktop, and release gates run in CI |
+| Python | **Core + expressions** — shared corpus, APR CEL binding, and locked `uv` environment run in CI; signatures are preserved but unchecked |
+| TypeScript | **Core + expressions (partial)** — shared corpus, HTML renderer, and CEL numeric/boolean/string bindings run in CI; timestamp declarations remain `dyn` pending a runtime with typed timestamp support |
+| Java | **Core + expressions** — shared corpus and APR CEL binding run in CI through the project-local Maven wrapper; signatures are preserved but unchecked |
+| Java / Rust / C++ | Not implemented; no conformance claim |

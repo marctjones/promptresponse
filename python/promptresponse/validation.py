@@ -16,6 +16,7 @@ from typing import List
 
 from .models import AprDocument, Section
 from .serialization import is_supported_version
+from .unicode_security import inspect_text
 
 # Sections whose child sections are repeating instances may legitimately start
 # empty, because a dynamic table with no rows yet is still a table.
@@ -170,6 +171,16 @@ def advisories_for(prompt) -> List[ValidationWarning]:
     right. Every one is advisory: none of them makes a document invalid.
     """
     warnings: List[ValidationWarning] = []
+    warnings.extend(
+        ValidationWarning(
+            finding.code,
+            "Response contains a hidden or visually deceptive character "
+            f"({finding.description}) at offset {finding.offset}. It was preserved; verify it "
+            "was intentional.",
+            prompt.id,
+        )
+        for finding in inspect_text(prompt.response)
+    )
     if not prompt.response:
         return warnings
 

@@ -36,7 +36,8 @@ These tests launch the application and inspect the actual accessibility tree tha
 - **Accessibility tree validation**: Verifies UI properly exposes accessibility properties
 - **AutomationProperties validation**: Confirms XAML properties map correctly
 - **Screen reader compatibility**: Tests what screen readers actually see
-- **Cross-platform**: Works on Linux (AT-SPI2), Windows (UI Automation)
+- **Cross-platform**: macOS has an opt-in System Events AX capture; Linux and
+  Windows runtime backends remain incomplete.
 
 **Status:**
 - ✅ Framework implemented
@@ -77,7 +78,7 @@ dotnet watch test --project tests/PromptResponse.AccessibilityTests
 |----------|-----------|--------|-----------------|
 | **Linux** | AT-SPI2 | 🟡 Partial | Static tests work, runtime inspection pending |
 | **Windows** | UI Automation | 🔴 Planned | Static tests work, runtime planned |
-| **macOS** | NSAccessibility | 🔴 Planned | Static tests work, runtime planned |
+| **macOS** | System Events / AX | 🟡 Opt-in | `scripts/verify-macos-accessibility.sh` captures a live tree from a packaged app; requires Accessibility permission |
 
 ### Linux (AT-SPI2)
 
@@ -106,14 +107,19 @@ echo $AT_SPI_BUS
 
 **Contribution welcome!**
 
-### macOS (NSAccessibility) - Future
+### macOS (System Events / AX)
 
-**Planned implementation:**
-- Use NSAccessibility API via P/Invoke
-- Or Xamarin.Mac bindings
-- Map NSAccessibility to `AccessibleElement`
+Package the app, grant the invoking Terminal or CI runner Accessibility
+permission, then run:
 
-**Contribution welcome!**
+```bash
+scripts/package-macos-app.sh --output dist/PromptResponse.app
+scripts/verify-macos-accessibility.sh dist/PromptResponse.app
+```
+
+The capture writes a timestamped JSON accessibility tree and fails when core
+menu controls are unnamed. Complete `docs/MACOS_ACCESSIBILITY_SMOKE.md` as the
+human VoiceOver evidence for that same build.
 
 ## Architecture
 

@@ -58,6 +58,16 @@
                           HotKey="Ctrl+Shift+S"
                           InputGesture="Ctrl+Shift+S"
                           AutomationProperties.Name="Save as"/>
+                <MenuItem Header="Submit via _email..."
+                          Command="{Binding SubmitViaEmailCommand}"
+                          IsEnabled="{Binding CanSubmitViaEmail}"
+                          AutomationProperties.Name="Submit via email"
+                          AutomationProperties.HelpText="Save a completed APR file and open an email draft; PromptResponse never sends email"/>
+                <MenuItem Header="Submit via _HTTPS..."
+                          Command="{Binding SubmitViaHttpsCommand}"
+                          IsEnabled="{Binding CanSubmitViaHttps}"
+                          AutomationProperties.Name="Submit via HTTPS"
+                          AutomationProperties.HelpText="POST a completed APR file only after confirmation; redirects are never followed"/>
                 <Separator/>
                 <MenuItem Header="_Export"
                           AutomationProperties.Name="Export menu">

@@ -28,6 +28,12 @@ public interface IDialogService
     Task<string?> ShowInputAsync(string title, string message, string defaultValue = "", bool isPassword = false);
 
     /// <summary>
+    /// Shows one explicit, keyboard- and screen-reader-accessible choice. Returns
+    /// the zero-based selected index, or <c>null</c> when cancelled.
+    /// </summary>
+    Task<int?> ShowChoiceAsync(string title, string message, IReadOnlyList<string> choices);
+
+    /// <summary>
     /// Shows an in-app print preview of the semantic render model that PDF export
     /// will consume. This is a preview of generated content/order, not an editor.
     /// </summary>

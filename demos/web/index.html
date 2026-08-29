@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PromptResponse browser demo</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">PromptResponse · browser reference demo</p>
+        <h1>Open, fill, and save an APR form</h1>
+        <p>This local, browser-only demo uses <code>@promptresponse/core</code>. It does not upload a form or contact a submission URL.</p>
+      </header>
+
+      <section class="loader" aria-labelledby="open-heading">
+        <h2 id="open-heading">Open a form</h2>
+        <label class="file-picker" for="apr-file">Choose an <code>.apr</code>, <code>.aprt</code>, or <code>.aprf</code> file</label>
+        <input id="apr-file" type="file" accept=".apr,.aprt,.aprf,application/json">
+        <p id="load-status" class="status" role="status">No document is open.</p>
+      </section>
+
+      <section id="document-panel" hidden aria-live="polite">
+        <div class="toolbar">
+          <div>
+            <strong id="document-name"></strong>
+            <p id="document-summary" class="muted"></p>
+          </div>
+          <button id="save-button" type="button">Save completed .aprf</button>
+        </div>
+        <div id="validation" aria-live="polite"></div>
+        <div id="form-host"></div>
+      </section>
+    </main>
+    <script type="module" src="./dist/main.js"></script>
+  </body>
+</html>

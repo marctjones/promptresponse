@@ -19,6 +19,10 @@
 
     <!-- Deterministic build for reproducibility -->
     <Deterministic>true</Deterministic>
+
+    <!-- Commit package locks. Restore then has an explicit, reviewable dependency graph. -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition="'$(CI)' == 'true'">true</RestoreLockedMode>
   </PropertyGroup>
 
 </Project>

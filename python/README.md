@@ -1,6 +1,7 @@
 # promptresponse (Python)
 
-A reader and writer for the APR form format. Implements the **core profile**.
+A reader, writer, and CEL expression evaluator for APR. Implements
+**`core+expressions`**; signatures remain opaque data.
 
 ```python
 import promptresponse as pr
@@ -17,13 +18,12 @@ if not result.is_valid:
 pr.dump(document, "intake-answered.aprf")
 ```
 
-## What "core profile" means here
+## Expression profile
 
-Expression hints (`exprValue`, `exprValidation`, …) and signatures are **parsed,
-preserved and written back untouched**. This library never evaluates an
-expression and never reports a signature as verified — which is exactly what
-specification §2.2 and §2.3 require of a core reader, and is asserted rather
-than assumed in `tests/test_core_profile.py`.
+Expression hints (`exprValue`, `exprValidation`, …) are evaluated with CEL using
+APR's typed binding. A failed expression is advisory and leaves a stored response
+unchanged. Signatures are parsed, preserved, and written back untouched; the Python
+SDK never reports one as verified.
 
 That is also why this implementation exists. Those two rules cannot be tested
 from inside the .NET implementation at all, because it implements every profile
@@ -43,11 +43,11 @@ and can never exhibit core-only behaviour.
 - **Parse failures are not validation errors.** A flawed document still opens,
   so a reader can show somebody what is wrong with it.
 
-## Tests
+## Isolated development environment and tests
 
 ```bash
-pip install -e ".[test]"
-pytest
+uv sync --all-extras
+uv run pytest
 ```
 
 The suite runs the shared conformance corpus at `../tests/Conformance/v1`

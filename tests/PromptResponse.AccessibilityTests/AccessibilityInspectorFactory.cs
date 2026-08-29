@@ -26,9 +26,7 @@ public static class AccessibilityInspectorFactory
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            throw new PlatformNotSupportedException(
-                "macOS accessibility inspector not yet implemented. " +
-                "Would use NSAccessibility API. Contributions welcome!");
+            return new MacAccessibilityInspector();
         }
 
         throw new PlatformNotSupportedException(

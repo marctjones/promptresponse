@@ -1472,6 +1472,17 @@
           "responseMetadata": {}
         },
         {
+          "id": "prompt_select",
+          "label": "Preferred Contact Method",
+          "response": "",
+          "hints": {
+            "expectedDataType": "select",
+            "suggestedValues": ["Email", "Phone", "Postal mail"],
+            "helpText": "A single-choice list; a different response remains valid APR."
+          },
+          "responseMetadata": {}
+        },
+        {
           "id": "prompt_multichoice",
           "label": "Programming Languages Known",
           "response": "",

@@ -115,7 +115,9 @@ public partial class App : Application
                     {
                         try
                         {
-                            await shellVm.OpenFromPath(startupFile);
+                            await shellVm.OpenFromPath(
+                                startupFile,
+                                openForFilling: !Program.StartupOptions!.EditMode);
                             _logger?.LogInformation("Auto-opened startup file: {File}", startupFile);
                         }
                         catch (Exception ex)
@@ -164,6 +166,8 @@ public partial class App : Application
         services.AddSingleton<ITemplateCatalogService>(sp =>
             new TemplateCatalogService(sp.GetRequiredService<IAprSerializer>()));
         services.AddSingleton<IDialogService, DialogService>();
+        services.AddSingleton<IMailHandoffService, MailHandoffService>();
+        services.AddSingleton<IHttpsSubmissionService, HttpsSubmissionService>();
         services.AddSingleton<IDocumentSessionService, DocumentSessionService>();
 
         // Rendering profile system
