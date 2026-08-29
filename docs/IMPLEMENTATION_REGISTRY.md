@@ -289,7 +289,7 @@ can score well on one and badly on another, so they are tracked separately.
 
 | Component | Complete | Conform | Correct | Robust | Evidence |
 |---|:--:|:--:|:--:|:--:|---|
-| **Core (C# SDK)** | ⚠️ | ✅ | ✅ | ⚠️ | 560 tests, **95% line-coverage gate**, 11 conformance methods over 35 fixtures |
+| **Core (C# SDK)** | ⚠️ | ✅ | ✅ | ⚠️ | 819 tests, **90% line-coverage gate** (90.43% verified baseline), 11 conformance methods over 35 fixtures |
 | **CLI** | ⚠️ | ⚠️ | ⚠️ | ✅ | 125 test methods; coverage gate is a **ratchet, not a bar**; conformance only indirect via Core. Robustness gated by `CliRobustnessTests` — hostile files at `validate`/`info`/`stats`, requiring non-zero exit, no throw, no stack trace |
 | **Desktop** | ⚠️ | ✅ | ✅ | ⚠️ | **759 tests, GUI included, now run** — issue #30 fixed. Conformance is **direct**, not inherited. **72% coverage gate** (measured 74.3%) |
 | **Accessibility** | ⚠️ | — | ✅ | ⚠️ | 54 methods in a **mandatory CI job**; two cases cite files that do not exist and silently skip; AT-SPI smoke test is manual, outside CI |
@@ -310,7 +310,7 @@ These gaps apply to the whole project, not to any one component.
 
 | Kind | Status | What it would catch |
 |---|:--:|---|
-| **Mutation testing** | ❌ broken | Issue #29 — Stryker.NET reports `Killed: 0`. **Until it runs, the 95% coverage figure is unvalidated**: it proves lines execute, not that assertions would notice if they broke |
+| **Mutation testing** | ❌ broken | Issue #29 — Stryker.NET reports `Killed: 0`. **Until it runs, the line-coverage figure is unvalidated**: it proves lines execute, not that assertions would notice if they broke |
 | **Fuzzing** | ⚠️ | `ParserFuzzTests` and `CliRobustnessTests`: every truncation and 200 seeded single-character corruptions per fixture, byte-level encoding hazards, and exhaustion structures, through both `Deserialize(string)` and `DeserializeAsync(Stream)`. Deterministic mutation, **not coverage-guided** — a real fuzzer (SharpFuzz) would reach paths these do not |
 | **Property-based testing** | ❌ | Round-trip invariants over generated documents, rather than the 35 hand-written cases |
 | **Performance** | ❌ | The vision targets **1000+ prompts in under a second**. Largest fixture: 20 prompts. The claim is untested |
@@ -499,7 +499,7 @@ Ordered by how much each unblocks.
 8. **Converters** (copybook, fixed-width, relational)
 9. **Browser extension** — explicitly outside the stable-beta scope
 10. **Test-kind gaps** from §6.2, in this order:
-   - **Fix mutation testing** (issue #29) — until it runs, the 95% coverage gate is unvalidated, and every other testing decision is made on a number nobody has checked
+   - **Fix mutation testing** (issue #29) — until it runs, the coverage gate is unvalidated, and every other testing decision is made on a number nobody has checked
    - **Fuzz the parser** — "safe to open untrusted files" is a security claim currently backed by 4 hand-written malformed fixtures
    - **A performance fixture** — turns the 1000-prompt claim into a measurement
    - **Raise the CLI coverage gate** from a ratchet to a bar — Desktop is now gated at 72%
