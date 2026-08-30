@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using PromptResponse.Core.Review;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Cli.Commands.Reporting;
 
 namespace PromptResponse.Cli.Commands;
 
@@ -99,12 +100,12 @@ public class ReviewCommand
         var strict = args.Contains("--strict");
         if (args.Contains("--json") || args.Contains("-j"))
         {
-            WriteJson(path, review, comparison, strict);
+            ReviewReportWriter.WriteJson(path, review, comparison, strict);
         }
         else
         {
-            WriteComparison(comparison);
-            WriteReport(review);
+            ReviewReportWriter.WriteComparison(comparison);
+            ReviewReportWriter.WriteReport(review);
         }
 
         // A form whose questions were edited is not a borderline call: the responses
@@ -117,114 +118,4 @@ public class ReviewCommand
         return blocked ? 2 : 0;
     }
 
-    private static void WriteComparison(FormComparison? comparison)
-    {
-        if (comparison is null)
-        {
-            return;
-        }
-
-        Console.WriteLine("Form comparison");
-        Console.WriteLine("═══════════════");
-        Console.WriteLine();
-
-        if (comparison.DefinitionIdentical)
-        {
-            Console.WriteLine("  The submission answers exactly the questions the template asks.");
-            Console.WriteLine("  (Compared as canonical form definition — the same bytes a publisher");
-            Console.WriteLine("   signature binds, so responses do not affect the comparison.)");
-            Console.WriteLine();
-            return;
-        }
-
-        Console.WriteLine("  ⚠ The submitted form is NOT the template's form.");
-        Console.WriteLine();
-        foreach (var f in comparison.Findings)
-        {
-            Console.WriteLine($"    [{f.Code}] {f.PromptLabel}  ({f.SectionPath})");
-            Console.WriteLine($"        {f.Message}");
-            if (!string.IsNullOrEmpty(f.Response))
-            {
-                Console.WriteLine($"        answered: \"{Truncate(f.Response)}\"");
-            }
-            Console.WriteLine();
-        }
-    }
-
-    private static void WriteJson(string path, DocumentReview review, FormComparison? comparison, bool strict)
-    {
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) },
-        };
-
-        Console.WriteLine(JsonSerializer.Serialize(new
-        {
-            file = path,
-            verdict = review.Verdict,
-            // Restated in every report so no downstream system mistakes "reviewRequired"
-            // for "invalid". The content of a response can never make a document invalid.
-            contentIsAlwaysValid = review.ContentIsAlwaysValid,
-            strict,
-            promptsConsidered = review.PromptsConsidered,
-            needsReview = review.NeedsReviewCount,
-            advisory = review.AdvisoryCount,
-            blank = review.BlankCount,
-            findings = review.Findings,
-            formComparison = comparison is null ? null : new
-            {
-                definitionIdentical = comparison.DefinitionIdentical,
-                identityMatches = comparison.IdentityMatches,
-                findings = comparison.Findings,
-            },
-        }, options));
-    }
-
-    private static void WriteReport(DocumentReview review)
-    {
-        Console.WriteLine("Processability review");
-        Console.WriteLine("═════════════════════");
-        Console.WriteLine();
-        Console.WriteLine($"  Verdict:   {Describe(review.Verdict)}");
-        Console.WriteLine($"  Considered: {review.PromptsConsidered} field(s) the form actually asks for");
-        Console.WriteLine($"  Flagged:   {review.NeedsReviewCount} needing review, {review.AdvisoryCount} advisory");
-        Console.WriteLine();
-
-        if (review.Findings.Count == 0)
-        {
-            Console.WriteLine("  Every answered field matches what the form asked for.");
-            return;
-        }
-
-        foreach (var group in review.Findings.GroupBy(f => f.Severity).OrderBy(g => g.Key == ReviewSeverity.Advisory))
-        {
-            Console.WriteLine(group.Key == ReviewSeverity.NeedsReview
-                ? "  Needs review — a machine will not read these as intended:"
-                : "  Advisory — unusual, but the format allows it and it may be correct:");
-            Console.WriteLine();
-            foreach (var f in group)
-            {
-                Console.WriteLine($"    [{f.Code}] {f.PromptLabel}  ({f.SectionPath})");
-                Console.WriteLine($"        answered: \"{Truncate(f.Response)}\"");
-                Console.WriteLine($"        {f.Message}");
-                Console.WriteLine();
-            }
-        }
-
-        Console.WriteLine("  The document is valid. Any text is a valid response (spec 3.3);");
-        Console.WriteLine("  this report is about automatic processing, not about correctness.");
-    }
-
-    private static string Describe(ReviewVerdict verdict) => verdict switch
-    {
-        ReviewVerdict.Processable => "processable — safe to handle automatically",
-        ReviewVerdict.ReviewRecommended => "review recommended — advisories only",
-        ReviewVerdict.ReviewRequired => "review required — a person or model should look",
-        _ => verdict.ToString(),
-    };
-
-    private static string Truncate(string value) =>
-        value.Length <= 60 ? value : value[..57] + "...";
 }
