@@ -5,6 +5,7 @@ namespace PromptResponse.Core.Validation;
 /// <summary>Assembles APR structural validation results from independent rule boundaries.</summary>
 public class DocumentValidator : IValidator<AprDocument>
 {
+    /// <summary>Validates an APR document and returns every structural error and advisory.</summary>
     public ValidationResult Validate(AprDocument? document)
     {
         var result = new ValidationResult();
