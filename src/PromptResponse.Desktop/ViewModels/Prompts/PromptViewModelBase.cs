@@ -29,6 +29,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     private readonly EditHistory? _history;
     private readonly PromptProfileRefreshCoordinator _profileRefresh;
     private readonly PromptResponseState _responseState;
+    private readonly PromptSignatureState _signatureState;
     private bool _disposed;
 
     protected PromptViewModelBase(Prompt prompt, IProfileService profileService, EditHistory? history = null)
@@ -41,6 +42,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
             propertyName => Notify(propertyName),
             OnDerivedPropertiesShouldRefresh);
         _responseState = new PromptResponseState(_prompt, Notify, OnDerivedPropertiesShouldRefresh);
+        _signatureState = new PromptSignatureState(Notify);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -148,8 +150,6 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
 
     // ── Signature coverage: is this value signed? (specification 9.3) ──
 
-    private IReadOnlyList<CoveringSignature> _covering = [];
-
     /// <summary>The signatures covering this field's value, set by the shell after verifying.</summary>
     /// <remarks>
     /// Recomputed on every edit, not cached from load. Signature state that can go stale
@@ -159,21 +159,12 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// </remarks>
     public IReadOnlyList<CoveringSignature> CoveringSignatures
     {
-        get => _covering;
-        internal set
-        {
-            _covering = value ?? [];
-            Notify();
-            Notify(nameof(SignatureState));
-            Notify(nameof(ShowSignatureMark));
-            Notify(nameof(SignatureLabel));
-            Notify(nameof(SignatureAnnouncement));
-            Notify(nameof(SignatureIsBroken));
-        }
+        get => _signatureState.CoveringSignatures;
+        internal set => _signatureState.CoveringSignatures = value;
     }
 
     /// <summary>Whether this value is signed, and whether that still holds.</summary>
-    public FieldSignatureState SignatureState => SignatureCoverage.StateOf(_covering);
+    public FieldSignatureState SignatureState => SignatureCoverage.StateOf(CoveringSignatures);
 
     /// <summary>Whether to show anything at all about signatures on this field.</summary>
     /// <remarks>
@@ -194,7 +185,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// off, a reader may be colour-blind, and a printout has no state at all. Anyone who
     /// can see the field can read the word.
     /// </remarks>
-    public string? SignatureLabel => PromptSignaturePresentation.Label(_covering);
+    public string? SignatureLabel => PromptSignaturePresentation.Label(CoveringSignatures);
 
     /// <summary>
     /// What assistive technology should say about this field's signatures.
@@ -209,7 +200,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     {
         get
         {
-            return PromptSignaturePresentation.Announcement(_covering, ActiveProfile.LiveRegions);
+            return PromptSignaturePresentation.Announcement(CoveringSignatures, ActiveProfile.LiveRegions);
         }
     }
 
