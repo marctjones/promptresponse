@@ -2,6 +2,7 @@ using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
 using Microsoft.Extensions.Logging;
+using PromptResponse.Cli.Api.Filling;
 
 namespace PromptResponse.Cli.Api;
 
@@ -17,6 +18,9 @@ public class FormFillingApi
     private readonly IAprSerializer _serializer;
     private readonly DocumentValidator _validator;
     private readonly ILogger<FormFillingApi> _logger;
+    private readonly FilledFormFactory _filledFormFactory;
+    private readonly FormResponseApplicator _responseApplicator = new();
+    private readonly FilledFormWriter _filledFormWriter;
 
     public FormFillingApi(
         IAprSerializer serializer,
@@ -26,6 +30,8 @@ public class FormFillingApi
         _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
         _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _filledFormFactory = new FilledFormFactory(_serializer);
+        _filledFormWriter = new FilledFormWriter(_serializer);
     }
 
     /// <summary>
@@ -75,36 +81,22 @@ public class FormFillingApi
 
         _logger.LogInformation("Filling form with {Count} responses", responses.Count);
 
-        // Clone template to filled form
-        var filledForm = CloneAsFilledForm(template, filledBy);
-
-        // Apply responses
-        var appliedCount = 0;
-        var missingPrompts = new List<string>();
-
-        foreach (var (promptId, response) in responses)
-        {
-            if (TrySetResponse(filledForm, promptId, response))
-            {
-                appliedCount++;
-            }
-            else
-            {
-                missingPrompts.Add(promptId);
-                _logger.LogWarning("Prompt ID not found: {PromptId}", promptId);
-            }
-        }
+        var filledForm = _filledFormFactory.Create(template, filledBy);
+        var result = _responseApplicator.Apply(filledForm, responses);
 
         _logger.LogInformation(
             "Applied {Applied}/{Total} responses",
-            appliedCount,
+            result.AppliedCount,
             responses.Count);
 
-        if (missingPrompts.Count > 0)
+        foreach (var promptId in result.MissingPromptIds)
         {
-            _logger.LogWarning(
-                "Missing prompts: {Missing}",
-                string.Join(", ", missingPrompts));
+            _logger.LogWarning("Prompt ID not found: {PromptId}", promptId);
+        }
+
+        if (result.MissingPromptIds.Count > 0)
+        {
+            _logger.LogWarning("Missing prompts: {Missing}", string.Join(", ", result.MissingPromptIds));
         }
 
         return filledForm;
@@ -121,13 +113,7 @@ public class FormFillingApi
         string jsonResponses,
         string? filledBy = null)
     {
-        var responses = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(jsonResponses);
-        if (responses == null)
-        {
-            throw new InvalidOperationException("Invalid JSON format");
-        }
-
-        return FillForm(template, responses, filledBy);
+        return FillForm(template, FormResponseJsonParser.Parse(jsonResponses), filledBy);
     }
 
     /// <summary>
@@ -142,14 +128,7 @@ public class FormFillingApi
 
         _logger.LogInformation("Saving filled form to {Path}", outputPath);
 
-        // Ensure .aprf extension
-        if (!outputPath.EndsWith(".aprf", StringComparison.OrdinalIgnoreCase))
-        {
-            outputPath = Path.ChangeExtension(outputPath, ".aprf");
-        }
-
-        var json = _serializer.Serialize(filledForm);
-        await File.WriteAllTextAsync(outputPath, json);
+        await _filledFormWriter.WriteAsync(filledForm, outputPath);
 
         _logger.LogInformation("Filled form saved successfully");
     }
@@ -167,27 +146,7 @@ public class FormFillingApi
     /// </summary>
     public List<string> GetPromptIds(AprDocument template)
     {
-        var promptIds = new List<string>();
-
-        foreach (var section in template.Sections)
-        {
-            CollectPromptIdsFromSection(section, promptIds);
-        }
-
-        return promptIds;
-    }
-
-    private void CollectPromptIdsFromSection(Section section, List<string> promptIds)
-    {
-        foreach (var prompt in section.Prompts)
-        {
-            promptIds.Add(prompt.Id);
-        }
-
-        foreach (var childSection in section.Sections)
-        {
-            CollectPromptIdsFromSection(childSection, promptIds);
-        }
+        return FormPromptMetrics.GetPromptIds(template);
     }
 
     /// <summary>
@@ -195,82 +154,6 @@ public class FormFillingApi
     /// </summary>
     public double GetCompletionPercentage(AprDocument document)
     {
-        var totalPrompts = 0;
-        var filledPrompts = 0;
-
-        foreach (var section in document.Sections)
-        {
-            CountCompletionInSection(section, ref totalPrompts, ref filledPrompts);
-        }
-
-        return totalPrompts > 0 ? (double)filledPrompts / totalPrompts * 100 : 0;
-    }
-
-    private void CountCompletionInSection(Section section, ref int totalPrompts, ref int filledPrompts)
-    {
-        foreach (var prompt in section.Prompts)
-        {
-            totalPrompts++;
-            if (!string.IsNullOrWhiteSpace(prompt.Response))
-            {
-                filledPrompts++;
-            }
-        }
-
-        foreach (var childSection in section.Sections)
-        {
-            CountCompletionInSection(childSection, ref totalPrompts, ref filledPrompts);
-        }
-    }
-
-    private AprDocument CloneAsFilledForm(AprDocument template, string? filledBy)
-    {
-        // Serialize and deserialize to clone
-        var json = _serializer.Serialize(template);
-        var cloned = _serializer.Deserialize(json);
-
-        // Convert to filled form
-        cloned.DocumentType = DocumentType.FilledForm;
-        cloned.Metadata.FilledBy = filledBy ?? Environment.UserName;
-        cloned.Metadata.FilledDate = DateTime.UtcNow;
-        cloned.Metadata.Modified = DateTime.UtcNow;
-
-        return cloned;
-    }
-
-    private bool TrySetResponse(AprDocument document, string promptId, string response)
-    {
-        foreach (var section in document.Sections)
-        {
-            if (TrySetResponseInSection(section, promptId, response))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private bool TrySetResponseInSection(Section section, string promptId, string response)
-    {
-        foreach (var prompt in section.Prompts)
-        {
-            if (prompt.Id == promptId)
-            {
-                prompt.Response = response;
-                prompt.ResponseMetadata.LastModified = DateTime.UtcNow;
-                return true;
-            }
-        }
-
-        foreach (var childSection in section.Sections)
-        {
-            if (TrySetResponseInSection(childSection, promptId, response))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return FormPromptMetrics.GetCompletionPercentage(document);
     }
 }
