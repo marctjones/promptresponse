@@ -1,10 +1,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using PromptResponse.Core.Expressions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Signing;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.ViewModels.Editing;
+using PromptResponse.Desktop.ViewModels.Prompts.Presentation;
 
 namespace PromptResponse.Desktop.ViewModels.Prompts;
 
@@ -120,13 +120,10 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     // ── Provenance: did the form work this out, or did you? (specification 8.6) ──
 
     /// <summary>Whether this field's value is derived from an expression.</summary>
-    public bool IsComputedField => !string.IsNullOrWhiteSpace(_prompt.Hints?.ExprValue);
+    public bool IsComputedField => PromptProvenancePresentation.IsComputed(_prompt);
 
     /// <summary>Whether the value on screen is the one the expression produced.</summary>
-    public bool ValueIsCalculated =>
-        IsComputedField
-        && string.Equals(_prompt.ResponseMetadata?.Source, FormExpressions.ComputedSource,
-            StringComparison.Ordinal);
+    public bool ValueIsCalculated => PromptProvenancePresentation.IsCalculated(_prompt);
 
     /// <summary>Whether somebody typed over a value the form had worked out.</summary>
     /// <remarks>
@@ -137,8 +134,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// and somebody who does not trust it will keep re-checking a number that is not
     /// going to change back.
     /// </remarks>
-    public bool ValueWasOverridden =>
-        IsComputedField && !ValueIsCalculated && !string.IsNullOrEmpty(_prompt.Response);
+    public bool ValueWasOverridden => PromptProvenancePresentation.WasOverridden(_prompt);
 
     /// <summary>Whether to show anything about where this value came from.</summary>
     /// <remarks>
@@ -149,9 +145,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
 
     /// <summary>The text beside the field. Text, never colour alone.</summary>
     public string? ProvenanceLabel =>
-        ValueWasOverridden ? "You changed this"
-        : ValueIsCalculated ? "Calculated"
-        : null;
+        PromptProvenancePresentation.Label(ValueIsCalculated, ValueWasOverridden);
 
     /// <summary>What assistive technology should say about where this value came from.</summary>
     /// <remarks>
@@ -162,17 +156,8 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     {
         get
         {
-            if (!ShowProvenanceMark) return null;
-            var terse = ActiveProfile.LiveRegions == LiveRegionVerbosity.Quiet;
-
-            return ValueWasOverridden
-                ? terse
-                    ? "You changed this from the calculated value."
-                    : "You changed this from the calculated value. The form will not " +
-                      "calculate over it again."
-                : terse
-                    ? "Calculated by the form."
-                    : "Calculated by the form. You can type over it if it is wrong.";
+            return PromptProvenancePresentation.Announcement(
+                ValueIsCalculated, ValueWasOverridden, ActiveProfile.LiveRegions);
         }
     }
 
@@ -227,14 +212,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// off, a reader may be colour-blind, and a printout has no state at all. Anyone who
     /// can see the field can read the word.
     /// </remarks>
-    public string? SignatureLabel => SignatureState switch
-    {
-        FieldSignatureState.Signed when _covering.Count(c => c.ContentValid) > 1 =>
-            $"Signed by {_covering.Count(c => c.ContentValid)} people",
-        FieldSignatureState.Signed => $"Signed by {SignerNames(valid: true)}",
-        FieldSignatureState.Broken => "Signature broken",
-        _ => null,
-    };
+    public string? SignatureLabel => PromptSignaturePresentation.Label(_covering);
 
     /// <summary>
     /// What assistive technology should say about this field's signatures.
@@ -249,18 +227,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     {
         get
         {
-            if (!ShowSignatureMark) return null;
-            var terse = ActiveProfile.LiveRegions == LiveRegionVerbosity.Quiet;
-
-            return SignatureState switch
-            {
-                FieldSignatureState.Broken when terse => "Signature broken.",
-                FieldSignatureState.Broken =>
-                    $"Signed by {SignerNames(valid: false)}, but this answer has changed since. " +
-                    "Their signature no longer verifies. You can still edit this field.",
-                _ when terse => $"Signed by {SignerNames(valid: true)}.",
-                _ => $"Signed by {SignerNames(valid: true)}. Editing it will break their signature.",
-            };
+            return PromptSignaturePresentation.Announcement(_covering, ActiveProfile.LiveRegions);
         }
     }
 
@@ -270,23 +237,6 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// nothing useful to the person. The text stays either way.
     /// </remarks>
     public bool SignatureColorCue => ShowSignatureMark && ActiveProfile.ColorCuesEnabled;
-
-    private string SignerNames(bool valid)
-    {
-        var names = _covering.Where(c => c.ContentValid == valid)
-            .Select(c => c.SignerName)
-            .Where(n => !string.IsNullOrWhiteSpace(n))
-            .Distinct(StringComparer.Ordinal)
-            .ToList();
-
-        return names.Count switch
-        {
-            0 => "someone",
-            1 => names[0],
-            2 => $"{names[0]} and {names[1]}",
-            _ => $"{names[0]} and {names.Count - 1} others",
-        };
-    }
 
     // ── Roles: whose field is this? (specification 4.10) ──
 
@@ -337,10 +287,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// active role chosen, every field is "mine" - nobody has said otherwise, and the form
     /// should look exactly as it did before roles existed.
     /// </remarks>
-    public bool IsMine =>
-        string.IsNullOrWhiteSpace(ActiveRole)
-        || string.IsNullOrWhiteSpace(Role)
-        || string.Equals(Role, ActiveRole, StringComparison.Ordinal);
+    public bool IsMine => PromptRolePresentation.IsMine(Role, ActiveRole);
 
     /// <summary>True when this field is marked for a different party.</summary>
     /// <remarks>
@@ -360,10 +307,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     public bool ShowsMineAccent => !string.IsNullOrWhiteSpace(ActiveRole) && IsMine;
 
     /// <summary>A short badge for a field belonging to someone else, else null.</summary>
-    public string? RoleBadge =>
-        IsSomeoneElses && !string.IsNullOrWhiteSpace(RoleDisplayName)
-            ? $"For {RoleDisplayName}"
-            : null;
+    public string? RoleBadge => PromptRolePresentation.Badge(IsMine, RoleDisplayName);
 
     /// <summary>What a screen reader should say about whose field this is.</summary>
     /// <remarks>
@@ -372,12 +316,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// explicitly; the whole point of a role is that nobody has to ask whether a field is
     /// theirs, and that has to hold for everyone.
     /// </remarks>
-    public string? RoleAnnouncement =>
-        string.IsNullOrWhiteSpace(RoleDisplayName)
-            ? null
-            : IsSomeoneElses
-                ? $"For {RoleDisplayName}. You can still answer it if you need to."
-                : $"For {RoleDisplayName}.";
+    public string? RoleAnnouncement => PromptRolePresentation.Announcement(IsMine, RoleDisplayName);
 
     /// <summary>
     /// Raw response string. Setting this updates the underlying <see cref="Prompt"/> model.
