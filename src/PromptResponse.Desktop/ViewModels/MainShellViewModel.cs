@@ -36,6 +36,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly EditHistory _editHistory;
     private readonly DocumentTreeWorkflow _documentTreeWorkflow;
     private readonly DocumentLifecycleCoordinator _documentLifecycle;
+    private readonly ProfilePresentationState _profilePresentation;
     private readonly AdvisoryWorkflow _advisoryWorkflow = new();
     private readonly ExpressionWorkflow _expressionWorkflow;
     private readonly RoleSelectionWorkflow _roleSelectionWorkflow;
@@ -59,6 +60,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _dialogService = dialogService ?? throw new ArgumentNullException(nameof(dialogService));
         _session = session ?? throw new ArgumentNullException(nameof(session));
         _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
+        _profilePresentation = new ProfilePresentationState(_profileService);
         if (factory == null) throw new ArgumentNullException(nameof(factory));
         _editHistory = editHistory ?? new EditHistory();
         _recentFiles = recentFiles ?? new RecentFilesService();
@@ -307,7 +309,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>The active profile, exposed for view bindings (e.g., font scale, contrast).</summary>
-    public IRenderingProfile ActiveProfile => _profileService.ActiveProfile;
+    public IRenderingProfile ActiveProfile => _profilePresentation.ActiveProfile;
 
     /// <summary>Profile service exposed for the Display Preferences bindings.</summary>
     public IProfileService ProfileService => _profileService;
@@ -315,28 +317,25 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// <summary>The file service, for dialogs the view owns that need a save picker.</summary>
     public IFileService FileServiceForDialogs => _fileService;
 
-    private ColorPalette Palette => ColorTokens.For(ActiveProfile.ColorScheme);
-    private IBrush BrushFor(ColorRole role) => new SolidColorBrush(Palette[role]);
-
     /// <summary>Window background — base surface for the active profile.</summary>
-    public IBrush ActiveProfileSurfaceBrush => BrushFor(ColorRole.Surface);
+    public IBrush ActiveProfileSurfaceBrush => _profilePresentation.SurfaceBrush;
     /// <summary>Sidebar / status-bar tint, subtly distinct from the main surface.</summary>
-    public IBrush ActiveProfileSubtleSurfaceBrush => BrushFor(ColorRole.SubtleSurface);
+    public IBrush ActiveProfileSubtleSurfaceBrush => _profilePresentation.SubtleSurfaceBrush;
     /// <summary>Card / dialog background — sits visually above the main surface.</summary>
-    public IBrush ActiveProfileElevatedSurfaceBrush => BrushFor(ColorRole.ElevatedSurface);
+    public IBrush ActiveProfileElevatedSurfaceBrush => _profilePresentation.ElevatedSurfaceBrush;
     /// <summary>Body-text foreground.</summary>
-    public IBrush ActiveProfileOnSurfaceBrush => BrushFor(ColorRole.OnSurface);
+    public IBrush ActiveProfileOnSurfaceBrush => _profilePresentation.OnSurfaceBrush;
     /// <summary>Secondary / muted text foreground.</summary>
-    public IBrush ActiveProfileMutedTextBrush => BrushFor(ColorRole.MutedText);
+    public IBrush ActiveProfileMutedTextBrush => _profilePresentation.MutedTextBrush;
     /// <summary>Action-affordance accent (system blue / system tint).</summary>
-    public IBrush ActiveProfilePrimaryBrush => BrushFor(ColorRole.Primary);
+    public IBrush ActiveProfilePrimaryBrush => _profilePresentation.PrimaryBrush;
     /// <summary>Foreground rendered on Primary.</summary>
-    public IBrush ActiveProfileOnPrimaryBrush => BrushFor(ColorRole.OnPrimary);
+    public IBrush ActiveProfileOnPrimaryBrush => _profilePresentation.OnPrimaryBrush;
     /// <summary>Hairline / separator brush.</summary>
-    public IBrush ActiveProfileBorderBrush => BrushFor(ColorRole.Border);
+    public IBrush ActiveProfileBorderBrush => _profilePresentation.BorderBrush;
 
     /// <summary>Hairline between regions. Quieter than a component outline.</summary>
-    public IBrush ActiveProfileDividerBrush => BrushFor(ColorRole.Divider);
+    public IBrush ActiveProfileDividerBrush => _profilePresentation.DividerBrush;
 
     // ── Shape and density tokens ──
     //
@@ -346,31 +345,26 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     // views stop each choosing their own.
 
     /// <summary>Corner radius for inputs, buttons and other controls.</summary>
-    public CornerRadius ControlCornerRadius { get; } = new(3);
+    public CornerRadius ControlCornerRadius => _profilePresentation.ControlCornerRadius;
 
     /// <summary>Corner radius for cards and grouped regions.</summary>
-    public CornerRadius SurfaceCornerRadius { get; } = new(4);
+    public CornerRadius SurfaceCornerRadius => _profilePresentation.SurfaceCornerRadius;
     /// <summary>Focus-indicator brush (3px ring under HighContrast, 2px otherwise).</summary>
-    public IBrush ActiveProfileFocusBrush => BrushFor(ColorRole.Focus);
+    public IBrush ActiveProfileFocusBrush => _profilePresentation.FocusBrush;
 
     /// <summary>
     /// FluentTheme variant matching the active profile's color scheme. Bound to
     /// Window.RequestedThemeVariant so child controls (RadioButton, CheckBox,
     /// MenuItem) inherit FluentTheme colors that contrast with our profile palette.
     /// </summary>
-    public ThemeVariant ActiveThemeVariant => ActiveProfile.ColorScheme switch
-    {
-        ColorScheme.Dark => ThemeVariant.Dark,
-        ColorScheme.HighContrast => ThemeVariant.Dark, // FluentTheme has no HighContrast; Dark is the closer base
-        _ => ThemeVariant.Light,
-    };
+    public ThemeVariant ActiveThemeVariant => _profilePresentation.ThemeVariant;
 
     /// <summary>Typography scale, profile-aware. LargeText profile multiplies all sizes by 1.5.</summary>
-    public double CaptionFontSize  => 12 * ActiveProfile.TextScale;
-    public double BodyFontSize     => 14 * ActiveProfile.TextScale;
-    public double SubtitleFontSize => 18 * ActiveProfile.TextScale;
-    public double TitleFontSize    => 22 * ActiveProfile.TextScale;
-    public double DisplayFontSize  => 32 * ActiveProfile.TextScale;
+    public double CaptionFontSize => _profilePresentation.CaptionFontSize;
+    public double BodyFontSize => _profilePresentation.BodyFontSize;
+    public double SubtitleFontSize => _profilePresentation.SubtitleFontSize;
+    public double TitleFontSize => _profilePresentation.TitleFontSize;
+    public double DisplayFontSize => _profilePresentation.DisplayFontSize;
 
     public FormProgressViewModel Progress { get; }
     public SearchViewModel Search { get; }
