@@ -1,4 +1,3 @@
-using System.Net;
 using System.Text;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
@@ -6,54 +5,17 @@ using PromptResponse.Core.Serialization;
 namespace PromptResponse.Core.Rendering;
 
 /// <summary>
-/// Renders an <see cref="AprDocument"/> to a <em>fillable</em>, self-contained
-/// HTML page: a real <c>&lt;form&gt;</c> whose prompts become live inputs, with a
-/// "Download filled form" button that writes a valid <c>.aprf</c> JSON file —
-/// no server, no backend, no toolchain. Open it in any browser, fill, download.
+/// Renders an <see cref="AprDocument"/> to a self-contained fillable HTML page.
+/// The page embeds the original document and downloads a filled <c>.aprf</c>
+/// without a server or backend.
 /// </summary>
 /// <remarks>
-/// <para>
-/// This is the browser fill path the static <see cref="HtmlDocumentRenderer"/>
-/// laid the foundation for. It mirrors <c>FillablePdfDocumentRenderer</c>'s field
-/// mapping (boolean → checkbox, suggested values → dropdown, multiline → textarea,
-/// otherwise a typed text input) over the shared <see cref="RenderModel"/>.
-/// </para>
-/// <para>
-/// The round-trip is data-driven: the original document is embedded verbatim as
-/// JSON, and a small vanilla-JS shim copies each input's value back into that tree
-/// by prompt id, flips <c>documentType</c> to <c>filledForm</c>, and downloads the
-/// result. The embedded JSON is unicode-escaped so it cannot break out of its
-/// <c>&lt;script&gt;</c> container, and every dynamic value is HTML-encoded — the
-/// same XSS boundary the static renderer enforces (responses are arbitrary input).
-/// </para>
-/// <para>
-/// Table sections are rendered read-only for now (their per-cell prompts carry no
-/// id through the render model, so they cannot round-trip yet) — the same scope
-/// boundary the fillable PDF draws.
-/// </para>
+/// The renderer owns model construction and composition. Document structure,
+/// editable controls, and the download transport live in dedicated markup helpers
+/// so their independent security boundaries remain apparent.
 /// </remarks>
 public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
 {
-    private static readonly HashSet<string> TruthyValues =
-        new(StringComparer.OrdinalIgnoreCase) { "true", "yes", "y", "1", "x", "checked", "on" };
-
-    private const string Css =
-        "body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5;max-width:48rem;margin:2rem auto;padding:0 1rem;color:#1a1a1a}" +
-        "h1{font-weight:600}h2,h3,h4,h5,h6{margin-top:1.5rem}" +
-        ".muted{color:#666}.field{margin:1rem 0}.field>label{display:block;font-weight:600;margin-bottom:.25rem}" +
-        ".help{font-size:.85em;color:#666;margin:.15rem 0 0}" +
-        "input[type=text],input[type=email],input[type=number],input[type=date],input[type=tel],input[type=url],textarea,select" +
-        "{width:100%;box-sizing:border-box;padding:.4rem .5rem;font:inherit;border:1px solid #aaa;border-radius:4px}" +
-        "input[type=checkbox]{width:auto;margin-right:.4rem}.check>label{font-weight:600}" +
-        "textarea{min-height:4.5rem;resize:vertical}" +
-        "table{border-collapse:collapse;width:100%;margin:.75rem 0}" +
-        "th,td{border:1px solid #ccc;padding:.4rem .6rem;text-align:left;vertical-align:top}th{background:#f5f5f5}" +
-        ".signatures{list-style:none;padding:0}.sig{border-left:3px solid #2e7d32;padding:.4rem .6rem;margin:.5rem 0;background:#f6f9f6}" +
-        ".sig.bad{border-left-color:#b00;background:#fbf0f0}.sig-badge{font-weight:600}.sig.bad .sig-badge{color:#b00}.sig-status{font-size:.85em;color:#555}" +
-        ".bar{position:sticky;bottom:0;background:#fff;border-top:1px solid #ddd;padding:1rem 0;margin-top:2rem}" +
-        ".bar button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border:0;border-radius:6px;background:#0b5fff;color:#fff;cursor:pointer}" +
-        ".bar button:hover{background:#0848c4}";
-
     private readonly IDocumentRenderModelBuilder _builder;
     private readonly IAprSerializer _serializer;
 
@@ -91,8 +53,7 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
             EmptyFieldText = options.EmptyFieldText,
         };
         var model = _builder.Build(document, formOptions);
-        var embeddedJson = _serializer.Serialize(document);
-        var html = BuildHtml(model, embeddedJson);
+        var html = BuildHtml(model, _serializer.Serialize(document));
 
         var writer = new StreamWriter(output, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false), leaveOpen: true);
         writer.Write(html);
@@ -102,219 +63,37 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
     private static string BuildHtml(RenderModel model, string embeddedJson)
     {
         var title = string.IsNullOrWhiteSpace(model.Title) ? "(untitled)" : model.Title;
-        var sb = new StringBuilder();
+        var output = new StringBuilder();
 
-        AppendDocumentStart(sb, title);
-        AppendForm(sb, model, title);
-        AppendDownloadSupport(sb, embeddedJson);
-        sb.Append("</body>\n</html>\n");
-        return sb.ToString();
+        FillableHtmlDocumentMarkup.AppendStart(output, title);
+        FillableHtmlDocumentMarkup.AppendFormStart(output, model, title);
+        AppendBlocks(output, model.Blocks);
+        FillableHtmlDocumentMarkup.AppendFormEnd(output);
+        FillableHtmlDownloadSupport.Append(output, embeddedJson);
+        output.Append("</body>\n</html>\n");
+        return output.ToString();
     }
 
-    private static void AppendDocumentStart(StringBuilder sb, string title)
+    private static void AppendBlocks(StringBuilder output, IReadOnlyList<RenderBlock> blocks)
     {
-        sb.Append("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n");
-        sb.Append("<meta charset=\"utf-8\">\n");
-        sb.Append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
-        sb.Append("<title>").Append(Enc(title)).Append("</title>\n");
-        sb.Append("<style>").Append(Css).Append("</style>\n");
-        sb.Append("</head>\n<body>\n");
-    }
-
-    private static void AppendForm(StringBuilder sb, RenderModel model, string title)
-    {
-        sb.Append("<h1>").Append(Enc(title)).Append("</h1>\n");
-        if (!string.IsNullOrWhiteSpace(model.Description))
+        var fieldSequence = 0;
+        foreach (var block in blocks)
         {
-            sb.Append("<p class=\"muted\">").Append(Enc(model.Description!)).Append("</p>\n");
-        }
-
-        sb.Append("<form id=\"apr-form\" onsubmit=\"return false\">\n");
-        var fieldSeq = 0;
-        foreach (var block in model.Blocks)
-        {
-            AppendBlock(sb, block, ref fieldSeq);
-        }
-        sb.Append("</form>\n");
-    }
-
-    private static void AppendDownloadSupport(StringBuilder sb, string embeddedJson)
-    {
-        FillableHtmlDownloadSupport.Append(sb, embeddedJson);
-    }
-
-    private static void AppendBlock(StringBuilder sb, RenderBlock block, ref int seq)
-    {
-        switch (block)
-        {
-            case HeadingBlock h:
-                var tag = "h" + Math.Clamp(h.Level + 1, 2, 6); // document title is h1
-                sb.Append('<').Append(tag).Append('>').Append(Enc(h.Text)).Append("</").Append(tag).Append(">\n");
-                if (!string.IsNullOrWhiteSpace(h.Description))
-                {
-                    sb.Append("<p class=\"muted\">").Append(Enc(h.Description!)).Append("</p>\n");
-                }
-                break;
-
-            case FieldBlock f:
-                AppendField(sb, f, ++seq);
-                break;
-
-            case TableBlock t:
-                AppendTable(sb, t, ref seq);
-                break;
-
-            case SignatureBlock sig:
-                HtmlDocumentRenderer.AppendSignatures(sb, sig);
-                break;
-        }
-    }
-
-    private static void AppendField(StringBuilder sb, FieldBlock f, int seq)
-    {
-        // A stable, valid element id; the prompt id is the round-trip key.
-        var elementId = "f" + seq;
-        var promptId = f.Id;
-        var value = f.HasResponse ? f.Value : string.Empty;
-        var dataType = f.ExpectedDataType ?? string.Empty;
-        var help = !string.IsNullOrWhiteSpace(f.HelpText);
-        var helpId = help ? elementId + "-help" : null;
-        var describedBy = help ? " aria-describedby=\"" + helpId + "\"" : string.Empty;
-        var dataAttr = promptId.Length == 0 ? string.Empty : " data-prompt-id=\"" + Enc(promptId) + "\"";
-
-        if (dataType.Equals("boolean", StringComparison.OrdinalIgnoreCase))
-        {
-            var isChecked = f.HasResponse && TruthyValues.Contains(value);
-            sb.Append("<div class=\"field check\">");
-            sb.Append("<input type=\"checkbox\" id=\"").Append(elementId).Append('"').Append(dataAttr)
-              .Append(isChecked ? " checked" : string.Empty).Append(describedBy).Append(">");
-            sb.Append("<label for=\"").Append(elementId).Append("\">").Append(Enc(f.Label)).Append("</label>");
-            AppendHelp(sb, f, helpId);
-            sb.Append("</div>\n");
-            return;
-        }
-
-        sb.Append("<div class=\"field\">");
-        sb.Append("<label for=\"").Append(elementId).Append("\">").Append(Enc(f.Label)).Append("</label>");
-
-        if (f.Choices is { Count: > 0 })
-        {
-            sb.Append("<select id=\"").Append(elementId).Append('"').Append(dataAttr).Append(describedBy).Append(">");
-            AppendSelectOptions(sb, f.Choices, value, f.HasResponse, "— choose —");
-            sb.Append("</select>");
-        }
-        else if (dataType.Equals("multiline", StringComparison.OrdinalIgnoreCase))
-        {
-            sb.Append("<textarea id=\"").Append(elementId).Append('"').Append(dataAttr).Append(describedBy).Append('>')
-              .Append(Enc(value)).Append("</textarea>");
-        }
-        else
-        {
-            sb.Append("<input type=\"").Append(InputType(dataType)).Append("\" id=\"").Append(elementId).Append('"')
-              .Append(dataAttr).Append(" value=\"").Append(Enc(value)).Append('"').Append(describedBy).Append(">");
-        }
-
-        AppendHelp(sb, f, helpId);
-        sb.Append("</div>\n");
-    }
-
-    private static void AppendHelp(StringBuilder sb, FieldBlock f, string? helpId)
-    {
-        if (helpId is null) return;
-        sb.Append("<p class=\"help\" id=\"").Append(helpId).Append("\">").Append(Enc(f.HelpText!)).Append("</p>");
-    }
-
-    /// <summary>Maps an advisory APR data-type hint to an HTML input type.</summary>
-    private static string InputType(string dataType) => dataType.ToLowerInvariant() switch
-    {
-        "email" => "email",
-        "number" or "integer" or "decimal" or "currency" => "number",
-        "date" => "date",
-        "datetime" => "datetime-local",
-        "time" => "time",
-        "phone" or "tel" => "tel",
-        "url" => "url",
-        _ => "text",
-    };
-
-    private static void AppendTable(StringBuilder sb, TableBlock table, ref int seq)
-    {
-        sb.Append("<table>\n<thead>\n<tr><th></th>");
-        foreach (var col in table.ColumnHeaders)
-        {
-            sb.Append("<th scope=\"col\">").Append(Enc(col)).Append("</th>");
-        }
-        sb.Append("</tr>\n</thead>\n<tbody>\n");
-        foreach (var row in table.Rows)
-        {
-            sb.Append("<tr><th scope=\"row\">").Append(Enc(row.Label)).Append("</th>");
-            for (var c = 0; c < row.Cells.Count; c++)
+            switch (block)
             {
-                var cell = row.Cells[c];
-                var columnHeader = c < table.ColumnHeaders.Count ? table.ColumnHeaders[c] : string.Empty;
-                sb.Append("<td>");
-                AppendCellInput(sb, cell, row.Label, columnHeader, ++seq);
-                sb.Append("</td>");
+                case HeadingBlock heading:
+                    FillableHtmlDocumentMarkup.AppendHeading(output, heading);
+                    break;
+                case FieldBlock field:
+                    FillableHtmlFieldMarkup.AppendField(output, field, ++fieldSequence);
+                    break;
+                case TableBlock table:
+                    FillableHtmlFieldMarkup.AppendTable(output, table, ref fieldSequence);
+                    break;
+                case SignatureBlock signature:
+                    HtmlDocumentRenderer.AppendSignatures(output, signature);
+                    break;
             }
-            sb.Append("</tr>\n");
-        }
-        sb.Append("</tbody>\n</table>\n");
-    }
-
-    /// <summary>
-    /// Renders one table cell as a live input keyed by its prompt id so the
-    /// download shim round-trips it. A cell with no id stays read-only text.
-    /// The accessible name combines the row and column headers (the table's
-    /// <c>th</c> cells provide visual context but inputs still need their own name).
-    /// </summary>
-    private static void AppendCellInput(StringBuilder sb, TableCellBlock cell, string rowLabel, string columnHeader, int seq)
-    {
-        if (cell.Id.Length == 0)
-        {
-            sb.Append(Enc(cell.Value)); // not addressable — leave as read-only text
-            return;
-        }
-
-        var elementId = "f" + seq;
-        var value = cell.HasResponse ? cell.Value : string.Empty;
-        var dataType = cell.ExpectedDataType ?? string.Empty;
-        var ariaLabel = Enc((rowLabel + " " + columnHeader).Trim());
-        var common = " id=\"" + elementId + "\" data-prompt-id=\"" + Enc(cell.Id) + "\" aria-label=\"" + ariaLabel + "\"";
-
-        if (dataType.Equals("boolean", StringComparison.OrdinalIgnoreCase))
-        {
-            var isChecked = cell.HasResponse && TruthyValues.Contains(value);
-            sb.Append("<input type=\"checkbox\"").Append(common).Append(isChecked ? " checked" : string.Empty).Append('>');
-        }
-        else if (cell.Choices is { Count: > 0 })
-        {
-            sb.Append("<select").Append(common).Append('>');
-            AppendSelectOptions(sb, cell.Choices, value, cell.HasResponse, "—");
-            sb.Append("</select>");
-        }
-        else
-        {
-            sb.Append("<input type=\"").Append(InputType(dataType)).Append('"').Append(common)
-              .Append(" value=\"").Append(Enc(value)).Append("\">");
         }
     }
-
-    /// <summary>Writes the shared empty option and choices for a fillable select element.</summary>
-    private static void AppendSelectOptions(
-        StringBuilder sb,
-        IReadOnlyList<string> choices,
-        string value,
-        bool hasResponse,
-        string emptyOptionText)
-    {
-        sb.Append("<option value=\"\">").Append(hasResponse ? string.Empty : emptyOptionText).Append("</option>");
-        foreach (var choice in choices)
-        {
-            var selected = hasResponse && string.Equals(choice, value, StringComparison.Ordinal) ? " selected" : string.Empty;
-            sb.Append("<option value=\"").Append(Enc(choice)).Append('"').Append(selected).Append('>').Append(Enc(choice)).Append("</option>");
-        }
-    }
-
-    private static string Enc(string s) => WebUtility.HtmlEncode(s);
-
 }
