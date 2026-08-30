@@ -65,7 +65,7 @@ public static class AprCanonicalizer
             ? string.Join("\u001f", urls)
             : null;
 
-        return new Writer()
+        return new CanonicalPayloadWriter()
             .Add("scheme", Scheme)
             .Add("role", "publisher")
             .Add("templateId", document.Metadata.TemplateId)
@@ -83,7 +83,7 @@ public static class AprCanonicalizer
         ArgumentNullException.ThrowIfNull(fields);
 
         var prompts = PromptsById(document);
-        var w = new Writer()
+        var w = new CanonicalPayloadWriter()
             .Add("scheme", Scheme)
             .Add("role", "filler")
             .Add("templateId", document.Metadata.TemplateId)
@@ -120,7 +120,7 @@ public static class AprCanonicalizer
     public static byte[] FormDefinition(AprDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
-        var w = new Writer()
+        var w = new CanonicalPayloadWriter()
             .Add("scheme", Scheme + "/formdef")
             .Add("title", document.Metadata.Title)
             .Add("templateId", document.Metadata.TemplateId)
@@ -141,7 +141,7 @@ public static class AprCanonicalizer
         return w.ToBytes();
     }
 
-    private static void AppendSection(Writer w, Section s)
+    private static void AppendSection(CanonicalPayloadWriter w, Section s)
     {
         w.Add("S.id", s.Id).Add("S.title", s.Title).Add("S.desc", s.Description);
 
@@ -161,7 +161,7 @@ public static class AprCanonicalizer
         }
     }
 
-    private static void AppendPrompt(Writer w, Prompt p)
+    private static void AppendPrompt(CanonicalPayloadWriter w, Prompt p)
     {
         var h = p.Hints;
         w.Add("P.id", p.Id)
@@ -211,24 +211,4 @@ public static class AprCanonicalizer
 
     private static string Sha256Hex(byte[] bytes) => Convert.ToHexString(SHA256.HashData(bytes));
 
-    /// <summary>
-    /// Builds the canonical payload: ordered <c>label=base64(utf8(value))</c> lines.
-    /// Base64-encoding the values makes the encoding unambiguous (no delimiter
-    /// injection) and the line order is fixed by the caller.
-    /// </summary>
-    private sealed class Writer
-    {
-        private readonly StringBuilder _sb = new();
-
-        public Writer Add(string label, string? value)
-        {
-            _sb.Append(label)
-               .Append('=')
-               .Append(Convert.ToBase64String(Encoding.UTF8.GetBytes(value ?? string.Empty)))
-               .Append('\n');
-            return this;
-        }
-
-        public byte[] ToBytes() => Encoding.UTF8.GetBytes(_sb.ToString());
-    }
 }
