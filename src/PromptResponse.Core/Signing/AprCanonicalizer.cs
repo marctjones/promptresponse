@@ -120,68 +120,7 @@ public static class AprCanonicalizer
     public static byte[] FormDefinition(AprDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
-        var w = new CanonicalPayloadWriter()
-            .Add("scheme", Scheme + "/formdef")
-            .Add("title", document.Metadata.Title)
-            .Add("templateId", document.Metadata.TemplateId)
-            .Add("templateVersion", document.Metadata.TemplateVersion);
-
-        // Who each part is for is part of what was published. A section reassigned from
-        // the patient to the office is a different form, and so is one whose role
-        // definitions were rewritten under the same identifiers.
-        foreach (var role in document.Roles ?? [])
-        {
-            w.Add("R.id", role.Id).Add("R.name", role.Name).Add("R.desc", role.Description);
-        }
-
-        foreach (var section in document.Sections)
-        {
-            AppendSection(w, section);
-        }
-        return w.ToBytes();
-    }
-
-    private static void AppendSection(CanonicalPayloadWriter w, Section s)
-    {
-        w.Add("S.id", s.Id).Add("S.title", s.Title).Add("S.desc", s.Description);
-
-        // A table adds no separate column or row declarations to sign: its structure
-        // IS the sections and prompts already covered below. Only the two facts that
-        // are not otherwise represented are bound here.
-        w.Add("S.kind", s.Kind).Add("S.canAddRows", s.CanAddRows).Add("S.maxRows", s.MaxRows)
-         .Add("S.role", s.Role);
-
-        foreach (var p in s.Prompts)
-        {
-            AppendPrompt(w, p);
-        }
-        foreach (var child in s.Sections)
-        {
-            AppendSection(w, child);
-        }
-    }
-
-    private static void AppendPrompt(CanonicalPayloadWriter w, Prompt p)
-    {
-        var h = p.Hints;
-        w.Add("P.id", p.Id)
-         .Add("P.label", p.Label)
-         .Add("P.type", h.ExpectedDataType)
-         .Add("P.placeholder", h.Placeholder)
-         .Add("P.help", h.HelpText)
-         .Add("P.suggested", string.Join("", h.SuggestedValues))
-         .Add("P.pattern", h.ValidationPattern)
-         .Add("P.min", h.Min)
-         .Add("P.max", h.Max)
-         .Add("P.step", h.Step)
-         .Add("P.role", p.Role)
-         .Add("P.exprHidden", h.ExprHidden)
-         .Add("P.exprValue", h.ExprValue)
-         .Add("P.exprExpected", h.ExprExpected)
-         .Add("P.exprValidation", h.ExprValidation)
-         .Add("P.exprReadOnly", h.ExprReadOnly);
-        // Intentionally excludes Response and ResponseMetadata: a publisher signs
-        // the blank form, so a filler entering responses does not break it.
+        return FormDefinitionPayloadBuilder.Build(document);
     }
 
     private static string Sha256Hex(byte[] bytes) => Convert.ToHexString(SHA256.HashData(bytes));
