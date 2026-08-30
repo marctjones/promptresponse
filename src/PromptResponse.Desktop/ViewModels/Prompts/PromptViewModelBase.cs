@@ -27,6 +27,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     private readonly Prompt _prompt;
     private readonly IProfileService _profileService;
     private readonly EditHistory? _history;
+    private readonly PromptProfileRefreshCoordinator _profileRefresh;
     private bool _disposed;
 
     protected PromptViewModelBase(Prompt prompt, IProfileService profileService, EditHistory? history = null)
@@ -34,7 +35,10 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
         _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
         _profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
         _history = history;
-        _profileService.ProfileChanged += OnProfileChanged;
+        _profileRefresh = new PromptProfileRefreshCoordinator(
+            _profileService,
+            propertyName => Notify(propertyName),
+            OnDerivedPropertiesShouldRefresh);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -403,7 +407,8 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     protected virtual bool HintedWidgetAvailable => true;
 
     /// <summary>Whether the suggested widget is on screen.</summary>
-    public bool ShowHintedWidget => !_isRawEditing && HintedWidgetAvailable;
+    public bool ShowHintedWidget =>
+        RawEditorPresentation.ShowHintedWidget(_isRawEditing, HintedWidgetAvailable);
 
     /// <summary>Whether the plain text box is on screen.</summary>
     /// <remarks>
@@ -416,11 +421,12 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// picker and nothing to type into whenever the calendar affordance was off. Only
     /// visible by looking at a rendered frame; every test passed.
     /// </remarks>
-    public bool ShowRawEditor => _isRawEditing || !HintedWidgetAvailable;
+    public bool ShowRawEditor =>
+        RawEditorPresentation.ShowRawEditor(_isRawEditing, HintedWidgetAvailable);
 
     /// <summary>Whether to offer the widget/text toggle at all.</summary>
     /// <remarks>With no widget to switch to, the button would do nothing worth doing.</remarks>
-    public bool ShowRawToggle => HintedWidgetAvailable;
+    public bool ShowRawToggle => RawEditorPresentation.ShowRawToggle(HintedWidgetAvailable);
 
     /// <summary>
     /// Glyph for the toggle. Deliberately not the only signal: the button also carries an
@@ -433,7 +439,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// it macOS renders both of these as full-colour emoji, which is the single most
     /// toy-looking element in an otherwise plain interface.
     /// </remarks>
-    public string RawToggleGlyph => _isRawEditing ? "\u2611\uFE0E" : "\u270E\uFE0E";
+    public string RawToggleGlyph => RawEditorPresentation.ToggleGlyph(_isRawEditing);
 
     /// <summary>
     /// Point size for the toggle glyph, sized to fill its button rather than sit as a
@@ -444,15 +450,13 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// with LargeText like everything else. A control that ignores the scale becomes the
     /// one thing a low-vision user cannot read.
     /// </remarks>
-    public double ToggleGlyphSize => 20.0 * ActiveProfile.TextScale;
+    public double ToggleGlyphSize => RawEditorPresentation.ToggleGlyphSize(ActiveProfile.TextScale);
 
     /// <summary>Side length of the toggle button, kept proportional to its glyph.</summary>
-    public double ToggleButtonSize => Math.Max(36.0, ToggleGlyphSize * 1.7);
+    public double ToggleButtonSize => RawEditorPresentation.ToggleButtonSize(ToggleGlyphSize);
 
     /// <summary>Accessible name for the toggle, describing what activating it will do.</summary>
-    public string RawToggleName => _isRawEditing
-        ? $"Use the suggested input for {Label}"
-        : $"Type any text for {Label}";
+    public string RawToggleName => RawEditorPresentation.ToggleName(_isRawEditing, Label);
 
     /// <summary>Flips between the hinted widget and the plain text field.</summary>
     public void ToggleRawEditing() => IsRawEditing = !_isRawEditing;
@@ -518,34 +522,6 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// changes OR the response changes. The base raises this on both events.</summary>
     protected virtual void OnDerivedPropertiesShouldRefresh() { }
 
-    private void OnProfileChanged(object? sender, EventArgs e)
-    {
-        Notify(nameof(DisplayValue));
-        NotifyProfileDependentPresentation();
-        OnDerivedPropertiesShouldRefresh();
-    }
-
-    /// <summary>
-    /// Refreshes bindings whose value is derived from accessibility dimensions of the
-    /// active profile rather than from the prompt model.
-    /// </summary>
-    /// <remarks>
-    /// Live-region verbosity changes the provenance and signature descriptions;
-    /// colour-cue capability changes their redundant visual cues; and text scale
-    /// changes the raw-editor toggle geometry. These properties must re-bind as one
-    /// profile transition so an accessibility preference never waits for an unrelated
-    /// response edit to appear on screen.
-    /// </remarks>
-    private void NotifyProfileDependentPresentation()
-    {
-        Notify(nameof(ProvenanceAnnouncement));
-        Notify(nameof(ProvenanceColorCue));
-        Notify(nameof(SignatureAnnouncement));
-        Notify(nameof(SignatureColorCue));
-        Notify(nameof(ToggleGlyphSize));
-        Notify(nameof(ToggleButtonSize));
-    }
-
     protected void Notify([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -555,7 +531,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     {
         if (_disposed) return;
         _disposed = true;
-        _profileService.ProfileChanged -= OnProfileChanged;
+        _profileRefresh.Dispose();
         GC.SuppressFinalize(this);
     }
 }
