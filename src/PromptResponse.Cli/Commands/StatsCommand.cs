@@ -1,5 +1,6 @@
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Cli.Commands.Reporting;
 using System.Text.Json;
 
 namespace PromptResponse.Cli.Commands;
@@ -41,7 +42,7 @@ public class StatsCommand : ICommand
             var document = _serializer.Deserialize(json);
 
             // Gather statistics
-            var stats = GatherStatistics(document, filePath);
+            var stats = DocumentStatisticsCollector.Collect(document, filePath);
 
             // Output
             if (jsonOutput)
@@ -70,89 +71,6 @@ public class StatsCommand : ICommand
         {
             Console.Error.WriteLine($"Error: {ex.Message}");
             return 1;
-        }
-    }
-
-    private DocumentStatistics GatherStatistics(AprDocument document, string filePath)
-    {
-        var stats = new DocumentStatistics
-        {
-            FileName = Path.GetFileName(filePath),
-            FileSize = new FileInfo(filePath).Length,
-            DocumentType = document.DocumentType.ToString(),
-            Title = document.Metadata.Title,
-            SectionCount = document.Sections.Count
-        };
-
-        var allPrompts = new List<Prompt>();
-        var sectionStats = new List<SectionStatistics>();
-
-        foreach (var section in document.Sections)
-        {
-            var sectionPrompts = new List<Prompt>();
-            CollectPromptsFromSection(section, sectionPrompts, stats);
-
-            allPrompts.AddRange(sectionPrompts);
-
-            var answered = sectionPrompts.Count(p => !string.IsNullOrWhiteSpace(p.Response));
-            sectionStats.Add(new SectionStatistics
-            {
-                Title = section.Title,
-                PromptCount = sectionPrompts.Count,
-                AnsweredCount = answered,
-                CompletionPercentage = sectionPrompts.Count > 0 ? (answered * 100.0 / sectionPrompts.Count) : 0
-            });
-        }
-
-        stats.TotalPrompts = allPrompts.Count;
-        stats.AnsweredPrompts = allPrompts.Count(p => !string.IsNullOrWhiteSpace(p.Response));
-        stats.UnansweredPrompts = stats.TotalPrompts - stats.AnsweredPrompts;
-        stats.CompletionPercentage = stats.TotalPrompts > 0
-            ? (stats.AnsweredPrompts * 100.0 / stats.TotalPrompts)
-            : 0;
-
-        // Data type distribution
-        var dataTypes = allPrompts
-            .Where(p => !string.IsNullOrWhiteSpace(p.Hints.ExpectedDataType))
-            .GroupBy(p => p.Hints.ExpectedDataType)
-            .ToDictionary(g => g.Key!, g => g.Count());
-
-        stats.DataTypeDistribution = dataTypes;
-
-        // Response length statistics (for answered prompts only)
-        var answeredResponses = allPrompts
-            .Where(p => !string.IsNullOrWhiteSpace(p.Response))
-            .Select(p => p.Response.Length)
-            .ToList();
-
-        if (answeredResponses.Any())
-        {
-            stats.AverageResponseLength = answeredResponses.Average();
-            stats.MinResponseLength = answeredResponses.Min();
-            stats.MaxResponseLength = answeredResponses.Max();
-        }
-
-        // Prompts with suggested values
-        stats.PromptsWithSuggestedValues = allPrompts.Count(p =>
-            p.Hints.SuggestedValues != null && p.Hints.SuggestedValues.Any());
-
-        // Prompts with help text
-        stats.PromptsWithHelpText = allPrompts.Count(p =>
-            !string.IsNullOrWhiteSpace(p.Hints.HelpText));
-
-        stats.SectionStatistics = sectionStats;
-
-        return stats;
-    }
-
-    private void CollectPromptsFromSection(Section section, List<Prompt> prompts, DocumentStatistics stats)
-    {
-        prompts.AddRange(section.Prompts);
-
-        foreach (var childSection in section.Sections)
-        {
-            stats.SubsectionCount++;
-            CollectPromptsFromSection(childSection, prompts, stats);
         }
     }
 
@@ -240,32 +158,4 @@ public class StatsCommand : ICommand
         return new string('█', filled) + new string('░', empty);
     }
 
-    private class DocumentStatistics
-    {
-        public string FileName { get; set; } = "";
-        public long FileSize { get; set; }
-        public string DocumentType { get; set; } = "";
-        public string Title { get; set; } = "";
-        public int SectionCount { get; set; }
-        public int SubsectionCount { get; set; }
-        public int TotalPrompts { get; set; }
-        public int AnsweredPrompts { get; set; }
-        public int UnansweredPrompts { get; set; }
-        public double CompletionPercentage { get; set; }
-        public double AverageResponseLength { get; set; }
-        public int MinResponseLength { get; set; }
-        public int MaxResponseLength { get; set; }
-        public Dictionary<string, int> DataTypeDistribution { get; set; } = new();
-        public int PromptsWithSuggestedValues { get; set; }
-        public int PromptsWithHelpText { get; set; }
-        public List<SectionStatistics> SectionStatistics { get; set; } = new();
-    }
-
-    private class SectionStatistics
-    {
-        public string Title { get; set; } = "";
-        public int PromptCount { get; set; }
-        public int AnsweredCount { get; set; }
-        public double CompletionPercentage { get; set; }
-    }
 }
