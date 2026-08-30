@@ -40,6 +40,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
     private readonly ObservableCollection<SectionViewModel> _sections = new();
     private readonly AdvisoryWorkflow _advisoryWorkflow = new();
+    private readonly RoleSelectionWorkflow _roleSelectionWorkflow;
     private readonly SignatureWorkflow _signatureWorkflow;
 
     public MainShellViewModel(
@@ -72,8 +73,10 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _outputWorkflow = new DocumentOutputWorkflow(_session, _fileService, _dialogService);
         _sessionWorkflow = new DocumentSessionWorkflow(_session, _fileService, _dialogService, AddToRecent);
         _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _promptViewModels);
+        _roleSelectionWorkflow = new RoleSelectionWorkflow(() => _promptViewModels);
         _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
         _advisoryWorkflow.StateChanged += OnAdvisoryWorkflowStateChanged;
+        _roleSelectionWorkflow.StateChanged += OnRoleSelectionWorkflowStateChanged;
 
         Progress = new FormProgressViewModel();
         Search = new SearchViewModel();
@@ -1015,7 +1018,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             }
 
             // Resolve who each field is for, so the person filling never has to ask.
-            ApplyRoles(document);
+            _roleSelectionWorkflow.Apply(document);
 
             // Apply expression hints once up-front so initial visibility,
             // read-only, and computed values are correct before any edit.
@@ -1071,18 +1074,15 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
     // ── Roles (specification 4.10) ──
 
-    private readonly ObservableCollection<RoleChoice> _availableRoles = new();
-    private RoleChoice? _activeRoleChoice;
-
     /// <summary>The roles this form uses, plus "everyone" for showing the whole thing.</summary>
     /// <remarks>
     /// Empty for a single-party form, which is most of them, so the picker never appears
     /// where it would only be clutter.
     /// </remarks>
-    public ObservableCollection<RoleChoice> AvailableRoles => _availableRoles;
+    public ObservableCollection<RoleChoice> AvailableRoles => _roleSelectionWorkflow.AvailableRoles;
 
     /// <summary>Whether this form is filled by more than one party.</summary>
-    public bool HasRoles => _availableRoles.Count > 1;
+    public bool HasRoles => _roleSelectionWorkflow.HasRoles;
 
     /// <summary>
     /// Which role the person at the keyboard says they are filling.
@@ -1095,82 +1095,21 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </remarks>
     public RoleChoice? ActiveRoleChoice
     {
-        get => _activeRoleChoice;
-        set
-        {
-            if (_activeRoleChoice == value) return;
-            _activeRoleChoice = value;
-            foreach (var promptVm in _promptViewModels)
-            {
-                promptVm.ActiveRole = value?.Id;
-            }
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(ActiveRoleSummary));
-            OnPropertyChanged(nameof(ActiveRoleDescription));
-        }
+        get => _roleSelectionWorkflow.ActiveRoleChoice;
+        set => _roleSelectionWorkflow.ActiveRoleChoice = value;
     }
 
     /// <summary>The author's sentence about the selected role, when they wrote one.</summary>
-    public string? ActiveRoleDescription => ActiveRoleChoice?.Description;
+    public string? ActiveRoleDescription => _roleSelectionWorkflow.ActiveRoleDescription;
 
     /// <summary>What the shell says about the current selection.</summary>
-    public string ActiveRoleSummary
+    public string ActiveRoleSummary => _roleSelectionWorkflow.ActiveRoleSummary;
+
+    private void OnRoleSelectionWorkflowStateChanged()
     {
-        get
-        {
-            if (!HasRoles) return string.Empty;
-            if (ActiveRoleChoice?.Id is null)
-            {
-                return "Showing every part of this form.";
-            }
-
-            var mine = _promptViewModels.Count(p => p.IsMine);
-            return $"{mine} of {_promptViewModels.Count} fields are for " +
-                   $"{ActiveRoleChoice.Name}. The rest are marked, and still answerable.";
-        }
-    }
-
-    private void ApplyRoles(AprDocument document)
-    {
-        // Tolerant of duplicate ids: a document with two prompts sharing an id is
-        // invalid, and it must still open so the editor can show the person what is
-        // wrong (specification 6.3). ToDictionary threw here, which turned a fixable
-        // document into an unopenable one.
-        var resolved = new Dictionary<string, string?>(StringComparer.Ordinal);
-        foreach (var (prompt, role) in FormRoles.Resolve(document))
-        {
-            resolved.TryAdd(prompt.Id, role);
-        }
-
-        foreach (var promptVm in _promptViewModels)
-        {
-            var role = resolved.GetValueOrDefault(promptVm.Model.Id);
-            promptVm.Role = role;
-            promptVm.RoleDisplayName = FormRoles.DisplayName(document, role);
-        }
-
-        _availableRoles.Clear();
-        var used = FormRoles.Used(document);
-        if (used.Count > 0)
-        {
-            // "Everyone" first, and selected, so a form opens looking exactly as it did
-            // before roles existed until someone says who they are.
-            _availableRoles.Add(new RoleChoice(null, "Everyone", "Show every part of this form"));
-            foreach (var id in used)
-            {
-                var definition = FormRoles.Definition(document, id);
-                _availableRoles.Add(new RoleChoice(id, definition?.DisplayName ?? id, definition?.Description));
-            }
-        }
-
-        _activeRoleChoice = _availableRoles.FirstOrDefault();
-        foreach (var promptVm in _promptViewModels)
-        {
-            promptVm.ActiveRole = _activeRoleChoice?.Id;
-        }
-
         OnPropertyChanged(nameof(HasRoles));
         OnPropertyChanged(nameof(ActiveRoleChoice));
+        OnPropertyChanged(nameof(ActiveRoleDescription));
         OnPropertyChanged(nameof(ActiveRoleSummary));
     }
 

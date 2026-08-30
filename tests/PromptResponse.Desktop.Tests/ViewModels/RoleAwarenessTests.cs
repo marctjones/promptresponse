@@ -169,6 +169,18 @@ public class RoleAwarenessTests
     }
 
     [Fact]
+    public void ChoosingARole_RefreshesTheShellRoleSummaryAndDescription()
+    {
+        var shell = Intake();
+
+        shell.ActiveRoleChoice = shell.AvailableRoles.Single(r => r.Id == "nurse");
+
+        shell.ActiveRoleDescription.Should().Be("Clinical staff recording observations.");
+        shell.ActiveRoleSummary.Should().Be(
+            "3 of 8 fields are for Nurse. The rest are marked, and still answerable.");
+    }
+
+    [Fact]
     public void ASinglePartyForm_ShowsNoPicker()
     {
         var shell = ShellOver(new AprDocument
