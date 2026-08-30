@@ -6,6 +6,7 @@ using PromptResponse.Core.Serialization;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using PromptResponse.Cli.Api;
+using PromptResponse.Core.Models;
 using Xunit;
 
 namespace PromptResponse.Cli.Tests.Commands;
@@ -90,6 +91,34 @@ public class FillCommandTests : IDisposable
             ["name"] = "Ada",
             ["empty"] = ""
         });
+    }
+
+    [Fact]
+    public void InteractiveResponseCollector_CollectsNestedAnswersAndSkipsBlankResponses()
+    {
+        var original = Console.In;
+        try
+        {
+            Console.SetIn(new StringReader("  Ada  \n\n  42 \n"));
+            var template = new AprDocument
+            {
+                Sections =
+                [
+                    new Section
+                    {
+                        Id = "root", Title = "Root",
+                        Prompts = [new Prompt { Id = "name", Label = "Name" }, new Prompt { Id = "skip", Label = "Skip" }],
+                        Sections = [new Section { Id = "child", Title = "Child", Prompts = [new Prompt { Id = "age", Label = "Age" }] }]
+                    }
+                ]
+            };
+
+            var result = InteractiveResponseCollector.Collect(template, "Operator");
+
+            result.FilledBy.Should().Be("Operator");
+            result.Responses.Should().BeEquivalentTo(new Dictionary<string, string> { ["name"] = "Ada", ["age"] = "42" });
+        }
+        finally { Console.SetIn(original); }
     }
 
     public void Dispose() => _tempHelper?.Dispose();

@@ -93,47 +93,8 @@ public class FillCommand : ICommand
         AprDocument template,
         FillCommandOptions options)
     {
-        Console.WriteLine("=== Interactive Form Filling ===");
-        Console.WriteLine("(Press Enter to skip a field, Ctrl+C to cancel)");
-        Console.WriteLine();
-
-        var responses = new Dictionary<string, string>();
-        var filledBy = options.FilledBy ??
-                       PromptForValue("Filled by", Environment.UserName);
-
-        foreach (var section in template.Sections)
-        {
-            FillSectionInteractive(section, responses, 0);
-        }
-
-        return _api.FillForm(template, responses, filledBy);
-    }
-
-    private void FillSectionInteractive(Section section, Dictionary<string, string> responses, int depth)
-    {
-        var indent = new string(' ', depth * 2);
-        var marker = depth == 0 ? "---" : "--";
-
-        Console.WriteLine($"\n{indent}{marker} {section.Title} {marker}");
-        if (!string.IsNullOrWhiteSpace(section.Description))
-        {
-            Console.WriteLine($"{indent}    {section.Description}");
-        }
-        Console.WriteLine();
-
-        foreach (var prompt in section.Prompts)
-        {
-            var response = PromptForResponse(prompt);
-            if (!string.IsNullOrEmpty(response))
-            {
-                responses[prompt.Id] = response;
-            }
-        }
-
-        foreach (var childSection in section.Sections)
-        {
-            FillSectionInteractive(childSection, responses, depth + 1);
-        }
+        var input = InteractiveResponseCollector.Collect(template, options.FilledBy);
+        return _api.FillForm(template, input.Responses, input.FilledBy);
     }
 
     private async Task<AprDocument> FillFromJsonFileAsync(
@@ -182,46 +143,6 @@ public class FillCommand : ICommand
         return _api.FillForm(template, responses, filledBy);
     }
 
-    private string PromptForResponse(Prompt prompt)
-    {
-        Console.Write($"{prompt.Label}: ");
-
-        // Show placeholder if available
-        var placeholder = prompt.Hints?.Placeholder;
-        if (!string.IsNullOrWhiteSpace(placeholder))
-        {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write($"[{placeholder}] ");
-            Console.ResetColor();
-        }
-
-        // Show help text if available
-        if (!string.IsNullOrWhiteSpace(prompt.Hints?.HelpText))
-        {
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine($"  ℹ {prompt.Hints.HelpText}");
-            Console.ResetColor();
-            Console.Write("  > ");
-        }
-
-        var response = Console.ReadLine() ?? string.Empty;
-
-        // If empty and placeholder exists, ask if user wants to use placeholder
-        if (string.IsNullOrWhiteSpace(response) && !string.IsNullOrWhiteSpace(placeholder))
-        {
-            return string.Empty; // User skipped
-        }
-
-        return response.Trim();
-    }
-
-    private string PromptForValue(string label, string defaultValue)
-    {
-        Console.Write($"{label} [{defaultValue}]: ");
-        var value = Console.ReadLine() ?? string.Empty;
-        return string.IsNullOrWhiteSpace(value) ? defaultValue : value.Trim();
-    }
 
     private void ShowHelp()
     {
