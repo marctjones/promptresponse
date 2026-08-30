@@ -19,7 +19,6 @@ internal sealed class DocumentTreeWorkflow : ITopLevelSectionEditor, IDisposable
     private readonly EditHistory _history;
     private readonly Action<PromptViewModelBase, PropertyChangedEventArgs> _onPromptChanged;
     private readonly Action _onTreeChanged;
-    private readonly Action _refreshWizardSections;
     private bool _isRebuilding;
 
     public DocumentTreeWorkflow(
@@ -27,16 +26,17 @@ internal sealed class DocumentTreeWorkflow : ITopLevelSectionEditor, IDisposable
         PromptViewModelFactory factory,
         EditHistory history,
         Action<PromptViewModelBase, PropertyChangedEventArgs> onPromptChanged,
-        Action onTreeChanged,
-        Action refreshWizardSections)
+        Action onTreeChanged)
     {
         _session = session ?? throw new ArgumentNullException(nameof(session));
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         _history = history ?? throw new ArgumentNullException(nameof(history));
         _onPromptChanged = onPromptChanged ?? throw new ArgumentNullException(nameof(onPromptChanged));
         _onTreeChanged = onTreeChanged ?? throw new ArgumentNullException(nameof(onTreeChanged));
-        _refreshWizardSections = refreshWizardSections ?? throw new ArgumentNullException(nameof(refreshWizardSections));
     }
+
+    /// <summary>Raised after the visible tree has changed, including rebuilds.</summary>
+    public event Action? TreeChanged;
 
     public ObservableCollection<PromptViewModelBase> Prompts { get; } = new();
     public ObservableCollection<SectionViewModel> Sections { get; } = new();
@@ -59,7 +59,7 @@ internal sealed class DocumentTreeWorkflow : ITopLevelSectionEditor, IDisposable
         finally
         {
             _isRebuilding = false;
-            _onTreeChanged();
+            NotifyTreeChanged(includeRebuild: true);
         }
     }
 
@@ -112,7 +112,6 @@ internal sealed class DocumentTreeWorkflow : ITopLevelSectionEditor, IDisposable
         Sections.RemoveAt(fromIndex);
         Sections.Insert(toIndex, viewModel);
         _session.MarkDirty();
-        _refreshWizardSections();
         NotifyTreeChanged();
     }
 
@@ -126,7 +125,6 @@ internal sealed class DocumentTreeWorkflow : ITopLevelSectionEditor, IDisposable
         Sections.Insert(index, viewModel);
         TrackPromptTree(viewModel);
         _session.MarkDirty();
-        _refreshWizardSections();
         NotifyTreeChanged();
     }
 
@@ -138,7 +136,6 @@ internal sealed class DocumentTreeWorkflow : ITopLevelSectionEditor, IDisposable
         document.Sections.Remove(viewModel.Model);
         Sections.Remove(viewModel);
         _session.MarkDirty();
-        _refreshWizardSections();
         NotifyTreeChanged();
     }
 
@@ -180,9 +177,11 @@ internal sealed class DocumentTreeWorkflow : ITopLevelSectionEditor, IDisposable
         if (sender is PromptViewModelBase prompt) _onPromptChanged(prompt, args);
     }
 
-    private void NotifyTreeChanged()
+    private void NotifyTreeChanged(bool includeRebuild = false)
     {
-        if (!_isRebuilding) _onTreeChanged();
+        if (_isRebuilding && !includeRebuild) return;
+        TreeChanged?.Invoke();
+        _onTreeChanged();
     }
 
     private void Clear()

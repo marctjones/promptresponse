@@ -82,22 +82,20 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             AddToRecent);
         _outputWorkflow = new DocumentOutputWorkflow(_session, _fileService, _dialogService);
         _sessionWorkflow = new DocumentSessionWorkflow(_session, _fileService, _dialogService, AddToRecent);
-        DocumentTreeWorkflow? documentTree = null;
-        _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => documentTree!.Prompts);
-        _expressionWorkflow = new ExpressionWorkflow(() => documentTree!.Prompts);
-        _roleSelectionWorkflow = new RoleSelectionWorkflow(() => documentTree!.Prompts);
-        _wizardProfileWorkflow = new WizardProfileWorkflow(
-            _profileService,
-            () => documentTree!.Sections.Count,
-            index => index >= 0 && index < documentTree!.Sections.Count ? documentTree.Sections[index].Title : null);
-        documentTree = new DocumentTreeWorkflow(
+        _documentTreeWorkflow = new DocumentTreeWorkflow(
             _session,
             _factory,
             _editHistory,
             OnPromptResponseChanged,
-            OnDocumentTreeChanged,
-            _wizardProfileWorkflow.RefreshSections);
-        _documentTreeWorkflow = documentTree;
+            OnDocumentTreeChanged);
+        _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _documentTreeWorkflow.Prompts);
+        _expressionWorkflow = new ExpressionWorkflow(() => _documentTreeWorkflow.Prompts);
+        _roleSelectionWorkflow = new RoleSelectionWorkflow(() => _documentTreeWorkflow.Prompts);
+        _wizardProfileWorkflow = new WizardProfileWorkflow(
+            _profileService,
+            () => _documentTreeWorkflow.Sections.Count,
+            index => index >= 0 && index < _documentTreeWorkflow.Sections.Count ? _documentTreeWorkflow.Sections[index].Title : null);
+        _documentTreeWorkflow.TreeChanged += _wizardProfileWorkflow.RefreshSections;
         _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
         _advisoryWorkflow.StateChanged += OnAdvisoryWorkflowStateChanged;
         _roleSelectionWorkflow.StateChanged += OnRoleSelectionWorkflowStateChanged;
@@ -954,6 +952,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _documentLifecycle.Dispose();
         _signatureWorkflow.StateChanged -= OnSignatureWorkflowStateChanged;
         _wizardProfileWorkflow.StateChanged -= OnWizardProfileWorkflowStateChanged;
+        _documentTreeWorkflow.TreeChanged -= _wizardProfileWorkflow.RefreshSections;
         _wizardProfileWorkflow.Dispose();
         _documentTreeWorkflow.Dispose();
     }
