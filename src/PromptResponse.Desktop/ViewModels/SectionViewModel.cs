@@ -42,6 +42,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels;
     private readonly TablePresentationSynchronizer _tablePresentation;
     private readonly TableMutationCoordinator _tableMutation;
+    private readonly SectionStructureCoordinator _structure;
     private IReadOnlyList<TableCellViewModel> _cells = Array.Empty<TableCellViewModel>();
 
     public SectionViewModel(
@@ -73,6 +74,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
 
         _tablePresentation = new TablePresentationSynchronizer(this, _nestedSections);
         _tableMutation = new TableMutationCoordinator(this);
+        _structure = new SectionStructureCoordinator(this);
 
         // If this section is a table, configure each row child with the column
         // layout so its cells can be rendered in column order.
@@ -145,136 +147,28 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     /// <summary>Append a new default prompt to this section. Routes through the
     /// edit history if one is configured so the operation is undoable.</summary>
     public PromptViewModelBase AddPrompt()
-    {
-        var prompt = new Prompt
-        {
-            Id = $"prompt_{Guid.NewGuid():N}",
-            Label = "New prompt",
-            Hints = new PromptHints { ExpectedDataType = "text" },
-        };
-        var vm = _factory.Create(prompt);
-        var index = _promptViewModels.Count;
-
-        if (_history != null && !_history.IsApplying)
-        {
-            _history.Execute(new AddPromptCommand(this, prompt, vm, index));
-        }
-        else
-        {
-            ApplyAddPromptAt(index, prompt, vm);
-        }
-        return vm;
-    }
+        => _structure.AddPrompt();
 
     /// <summary>Remove a prompt from this section and notify the shell so it
     /// unsubscribes/disposes the prompt VM. Undoable.</summary>
-    /// <summary>
-    /// Whether removing this many children would leave the section with no content.
-    /// </summary>
-    /// <remarks>
-    /// A section must carry at least one prompt or one child section (specification 4.3).
-    /// The editor must never be able to produce a document the validator rejects, so the
-    /// last item cannot be removed. Found by the exhaustive interaction driver, which
-    /// clicked every control and then checked the document was still valid.
-    /// </remarks>
-    private bool WouldLeaveSectionEmpty(int removingPrompts = 0, int removingNestedSections = 0) =>
-        _promptViewModels.Count - removingPrompts <= 0
-        && _nestedSections.Count - removingNestedSections <= 0;
-
     public void RemovePrompt(PromptViewModelBase? promptVm)
-    {
-        if (promptVm is null) return;
-        if (!_promptViewModels.Contains(promptVm)) return;
-        if (WouldLeaveSectionEmpty(removingPrompts: 1)) return;   // see WouldLeaveSectionEmpty
-
-        if (_history != null && !_history.IsApplying)
-        {
-            var index = _promptViewModels.IndexOf(promptVm);
-            _history.Execute(new RemovePromptCommand(this, promptVm, index));
-        }
-        else
-        {
-            ApplyRemovePrompt(promptVm);
-        }
-    }
+        => _structure.RemovePrompt(promptVm);
 
     /// <summary>Append a new nested section to this section. Undoable.</summary>
     public SectionViewModel AddNestedSection()
-    {
-        var sectionId = $"section_{Guid.NewGuid():N}";
-        var child = new Section
-        {
-            Id = sectionId,
-            Title = "New section",
-            // A section must carry content (specification 4.3), so a new one arrives with
-            // a starter prompt rather than as an empty shell that makes the document
-            // invalid the moment it is added. The author renames it; they never have to
-            // repair it.
-            Prompts = [new Prompt { Id = $"{sectionId}.prompt_1", Label = "New prompt" }],
-        };
-        var vm = new SectionViewModel(child, _factory, _depth + 1, _onPromptAdded, _onPromptRemoved, _history);
-        var index = _nestedSections.Count;
-
-        if (_history != null && !_history.IsApplying)
-        {
-            _history.Execute(new AddNestedSectionCommand(this, vm, index));
-        }
-        else
-        {
-            ApplyAddNestedSectionAt(index, child, vm);
-        }
-        return vm;
-    }
+        => _structure.AddNestedSection();
 
     /// <summary>Remove a nested section (and all its prompts) from this section. Undoable.</summary>
     public void RemoveNestedSection(SectionViewModel? child)
-    {
-        if (child is null) return;
-        if (!_nestedSections.Contains(child)) return;
-
-        // A table's child sections are its instances, and a table always keeps at least
-        // one: it is what describes the table's own fields. Removing the last one leaves
-        // a section with no content, which is a structural error - the editor must not be
-        // able to produce a document the validator rejects. RemoveFixedRow already
-        // guarded this; the general nested-section path did not.
-        if (IsTableSection && _nestedSections.Count <= 1) return;
-
-        if (_history != null && !_history.IsApplying)
-        {
-            var index = _nestedSections.IndexOf(child);
-            _history.Execute(new RemoveNestedSectionCommand(this, child, index));
-        }
-        else
-        {
-            ApplyRemoveNestedSection(child);
-        }
-    }
+        => _structure.RemoveNestedSection(child);
 
     /// <summary>Move a prompt within this section from one index to another. Undoable.</summary>
     public void MovePrompt(int fromIndex, int toIndex)
-    {
-        if (fromIndex == toIndex) return;
-        if (fromIndex < 0 || fromIndex >= _promptViewModels.Count) return;
-        if (toIndex < 0 || toIndex >= _promptViewModels.Count) return;
-
-        if (_history != null && !_history.IsApplying)
-            _history.Execute(new MovePromptCommand(this, fromIndex, toIndex));
-        else
-            ApplyMovePrompt(fromIndex, toIndex);
-    }
+        => _structure.MovePrompt(fromIndex, toIndex);
 
     /// <summary>Move a nested section within this section from one index to another. Undoable.</summary>
     public void MoveNestedSection(int fromIndex, int toIndex)
-    {
-        if (fromIndex == toIndex) return;
-        if (fromIndex < 0 || fromIndex >= _nestedSections.Count) return;
-        if (toIndex < 0 || toIndex >= _nestedSections.Count) return;
-
-        if (_history != null && !_history.IsApplying)
-            _history.Execute(new MoveNestedSectionCommand(this, fromIndex, toIndex));
-        else
-            ApplyMoveNestedSection(fromIndex, toIndex);
-    }
+        => _structure.MoveNestedSection(fromIndex, toIndex);
 
     /// <summary>
     /// Reorder a column. A column is a position in every instance's prompt list, so
@@ -301,24 +195,10 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     // ── Apply* methods: raw mutations used by both public methods and command Execute/Undo. ──
 
     internal void ApplyMovePrompt(int fromIndex, int toIndex)
-    {
-        var prompt = _section.Prompts[fromIndex];
-        _section.Prompts.RemoveAt(fromIndex);
-        _section.Prompts.Insert(toIndex, prompt);
-        var vm = _promptViewModels[fromIndex];
-        _promptViewModels.RemoveAt(fromIndex);
-        _promptViewModels.Insert(toIndex, vm);
-    }
+        => _structure.ApplyMovePrompt(fromIndex, toIndex);
 
     internal void ApplyMoveNestedSection(int fromIndex, int toIndex)
-    {
-        var sec = _section.Sections[fromIndex];
-        _section.Sections.RemoveAt(fromIndex);
-        _section.Sections.Insert(toIndex, sec);
-        var vm = _nestedSections[fromIndex];
-        _nestedSections.RemoveAt(fromIndex);
-        _nestedSections.Insert(toIndex, vm);
-    }
+        => _structure.ApplyMoveNestedSection(fromIndex, toIndex);
 
     internal void ApplyMoveColumn(int fromIndex, int toIndex)
         => _tableMutation.MoveColumn(fromIndex, toIndex);
@@ -329,53 +209,16 @@ public sealed class SectionViewModel : INotifyPropertyChanged
 
 
     internal void ApplyAddPromptAt(int index, Prompt prompt, PromptViewModelBase vm)
-    {
-        if (index < 0 || index > _section.Prompts.Count) index = _section.Prompts.Count;
-        _section.Prompts.Insert(index, prompt);
-        if (index > _promptViewModels.Count) index = _promptViewModels.Count;
-        _promptViewModels.Insert(index, vm);
-        _onPromptAdded?.Invoke(vm);
-    }
+        => _structure.ApplyAddPromptAt(index, prompt, vm);
 
     internal void ApplyRemovePrompt(PromptViewModelBase vm)
-    {
-        if (!_promptViewModels.Contains(vm)) return;
-        _onPromptRemoved?.Invoke(vm);
-        _section.Prompts.Remove(vm.Model);
-        _promptViewModels.Remove(vm);
-    }
+        => _structure.ApplyRemovePrompt(vm);
 
     internal void ApplyAddNestedSectionAt(int index, Section model, SectionViewModel vm)
-    {
-        if (index < 0 || index > _section.Sections.Count) index = _section.Sections.Count;
-        _section.Sections.Insert(index, model);
-        if (index > _nestedSections.Count) index = _nestedSections.Count;
-        _nestedSections.Insert(index, vm);
-
-        // Announce the prompts the new section arrived with - its starter prompt, or
-        // whatever an undo is restoring. The view-model constructor materialises them
-        // without raising the callback, so without this the host never learns they exist
-        // and then receives removal events for prompts it was never told about.
-        foreach (var promptVm in vm._promptViewModels)
-        {
-            _onPromptAdded?.Invoke(promptVm);
-        }
-    }
+        => _structure.ApplyAddNestedSectionAt(index, model, vm);
 
     internal void ApplyRemoveNestedSection(SectionViewModel child)
-    {
-        if (!_nestedSections.Contains(child)) return;
-        // Pull every prompt under the removed subtree out of the shell-tracked list.
-        WalkPromptsRecursively(child, vm => _onPromptRemoved?.Invoke(vm));
-        _section.Sections.Remove(child._section);
-        _nestedSections.Remove(child);
-    }
-
-    private static void WalkPromptsRecursively(SectionViewModel s, Action<PromptViewModelBase> visit)
-    {
-        foreach (var p in s._promptViewModels) visit(p);
-        foreach (var child in s._nestedSections) WalkPromptsRecursively(child, visit);
-    }
+        => _structure.ApplyRemoveNestedSection(child);
 
     // ── Table mode ──
     //
