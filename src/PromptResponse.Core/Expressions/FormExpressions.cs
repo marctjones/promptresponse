@@ -132,47 +132,6 @@ public static class FormExpressions
     {
         ArgumentNullException.ThrowIfNull(document);
 
-        var changed = false;
-        // Repeat so a computed field feeding another settles. Bounded, because a cycle
-        // must terminate rather than hang the caller.
-        for (var pass = 0; pass < 5; pass++)
-        {
-            var context = FormExpressionContext.Create(document, today, ctx);
-            var changedThisPass = false;
-
-            foreach (var prompt in GetAllPrompts(document))
-            {
-                if (string.IsNullOrWhiteSpace(prompt.Hints?.ExprValue))
-                {
-                    continue;
-                }
-                // Only overwrite a value this mechanism produced, or a blank. A person
-                // may correct a computed total — any string is a valid response, and a
-                // computed value is a convenience, not an authority. Reverting their
-                // correction on the next pass would lose the answer.
-                var authored = !string.IsNullOrEmpty(prompt.Response)
-                    && !string.Equals(prompt.ResponseMetadata?.Source, ComputedSource, StringComparison.Ordinal);
-                if (authored)
-                {
-                    continue;
-                }
-
-                var computed = ComputeValue(prompt, context);
-                if (computed is not null && !string.Equals(computed, prompt.Response, StringComparison.Ordinal))
-                {
-                    prompt.Response = computed;
-                    prompt.ResponseMetadata ??= new ResponseMetadata();
-                    prompt.ResponseMetadata.Source = ComputedSource;
-                    changedThisPass = true;
-                }
-            }
-
-            changed |= changedThisPass;
-            if (!changedThisPass)
-            {
-                break;
-            }
-        }
-        return changed;
+        return ComputedValueRecalculator.Recompute(document, today, ctx);
     }
 }
