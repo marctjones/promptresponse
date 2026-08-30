@@ -30,9 +30,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly IDocumentSessionService _session;
     private readonly IProfileService _profileService;
     private readonly PromptViewModelFactory _factory;
-    private readonly IAprSerializer _serializer;
-    private readonly IMailHandoffService _mailHandoff;
-    private readonly IHttpsSubmissionService _httpsSubmission;
+    private readonly DocumentDeliveryWorkflow _deliveryWorkflow;
     private readonly DocumentOutputWorkflow _outputWorkflow;
     private readonly DocumentSessionWorkflow _sessionWorkflow;
     private readonly EditHistory _editHistory;
@@ -67,9 +65,14 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         // into every prompt VM it creates. The injected factory's profile is the
         // same DI singleton — only its history binding differs.
         _factory = new PromptViewModelFactory(profileService, _editHistory);
-        _serializer = serializer ?? new AprJsonSerializer();
-        _mailHandoff = mailHandoff ?? new MailHandoffService();
-        _httpsSubmission = httpsSubmission ?? new HttpsSubmissionService();
+        _deliveryWorkflow = new DocumentDeliveryWorkflow(
+            _session,
+            _fileService,
+            _dialogService,
+            serializer ?? new AprJsonSerializer(),
+            mailHandoff ?? new MailHandoffService(),
+            httpsSubmission ?? new HttpsSubmissionService(),
+            AddToRecent);
         _outputWorkflow = new DocumentOutputWorkflow(_session, _fileService, _dialogService);
         _sessionWorkflow = new DocumentSessionWorkflow(_session, _fileService, _dialogService, AddToRecent);
         DocumentTreeWorkflow? documentTree = null;
@@ -745,69 +748,15 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// Saves a filled copy and opens a draft addressed to one explicit mailto: target.
     /// This never sends mail and never changes the currently open document's path.
     /// </summary>
-    public bool CanSubmitViaEmail() => HasDocument && !IsEditMode &&
-        _session.CurrentDocument?.Metadata.SubmissionUrls?.Any(url => MailHandoffService.TryGetRecipient(url, out _)) == true;
+    public bool CanSubmitViaEmail() => _deliveryWorkflow.CanSubmitViaEmail(IsEditMode);
 
     [RelayCommand(CanExecute = nameof(CanSubmitViaEmail))]
-    public async Task SubmitViaEmail()
-    {
-        var source = _session.CurrentDocument;
-        if (source?.Metadata.SubmissionUrls is not { Count: > 0 } targets) return;
+    public Task SubmitViaEmail() => _deliveryWorkflow.SubmitViaEmailAsync();
 
-        var choices = targets
-            .Where(url => MailHandoffService.TryGetRecipient(url, out _))
-            .ToList();
-        if (choices.Count == 0) return;
-
-        var selectedIndex = await _dialogService.ShowChoiceAsync(
-            "Submit via email",
-            "Choose the email destination. This opens a draft only; you review and send it yourself.",
-            choices);
-        if (selectedIndex is null) return;
-
-        var outputPath = await _fileService.PickExportPathAsync(
-            SuggestedSubmissionFileName(source.Metadata.Title), "Save completed APR file", "APR Filled Form", "aprf");
-        if (string.IsNullOrWhiteSpace(outputPath)) return;
-
-        if (!await _dialogService.ShowConfirmationAsync(
-                "Open email draft",
-                $"A completed APR copy will be saved as {Path.GetFileName(outputPath)} and an email draft addressed to {choices[selectedIndex.Value]} will be opened. PromptResponse will not send the email. Continue?")) return;
-
-        // Clone through the format serializer. The open template stays a template; the
-        // outgoing artifact is explicitly a filled form and has its own save location.
-        var completedCopy = _serializer.Deserialize(_serializer.Serialize(source));
-        completedCopy.DocumentType = DocumentType.FilledForm;
-        var previousPath = _fileService.CurrentFilePath;
-        await _fileService.SaveFileAsync(completedCopy, outputPath);
-        if (string.IsNullOrEmpty(previousPath)) _fileService.ClearCurrentFilePath();
-        else _fileService.SetCurrentFilePath(previousPath);
-
-        var result = await _mailHandoff.ComposeAsync(new MailHandoffRequest(
-            choices[selectedIndex.Value], outputPath,
-            $"Completed APR form: {source.Metadata.Title ?? "Untitled form"}",
-            "Please find the completed APR form attached."));
-        AddToRecent(outputPath, completedCopy.Metadata.Title);
-        await _dialogService.ShowConfirmationAsync("Email handoff", result.Message + Environment.NewLine + outputPath);
-    }
-
-    private static string SuggestedSubmissionFileName(string? title) =>
-        string.IsNullOrWhiteSpace(title) ? "completed-form.aprf" : $"{title}-completed.aprf";
-
-    public bool CanSubmitViaHttps() => HasDocument && !IsEditMode && _session.CurrentDocument?.Metadata.SubmissionUrls?.Any(url => Uri.TryCreate(url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps) == true;
+    public bool CanSubmitViaHttps() => _deliveryWorkflow.CanSubmitViaHttps(IsEditMode);
 
     [RelayCommand(CanExecute = nameof(CanSubmitViaHttps))]
-    public async Task SubmitViaHttps()
-    {
-        var source = _session.CurrentDocument;
-        var targets = source?.Metadata.SubmissionUrls?.Where(url => Uri.TryCreate(url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps).ToList() ?? [];
-        if (targets.Count == 0) return;
-        var selected = await _dialogService.ShowChoiceAsync("Submit via HTTPS", "Choose one destination. PromptResponse will POST only after you confirm; it never follows redirects or falls back.", targets);
-        if (selected is null || !await _dialogService.ShowConfirmationAsync("Submit completed APR", $"POST this completed APR to {targets[selected.Value]}?")) return;
-        var completed = _serializer.Deserialize(_serializer.Serialize(source!));
-        completed.DocumentType = DocumentType.FilledForm;
-        var result = await _httpsSubmission.SubmitAsync(targets[selected.Value], _serializer.Serialize(completed));
-        await _dialogService.ShowConfirmationAsync("HTTPS submission", result.Message);
-    }
+    public Task SubmitViaHttps() => _deliveryWorkflow.SubmitViaHttpsAsync();
 
     /// <summary>
     /// Imports a fillable PDF (AcroForm) into a new untitled template and opens it.
@@ -916,6 +865,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         SaveCommand.NotifyCanExecuteChanged();
         SaveAsCommand.NotifyCanExecuteChanged();
         SubmitViaEmailCommand.NotifyCanExecuteChanged();
+        SubmitViaHttpsCommand.NotifyCanExecuteChanged();
         CloseCommand.NotifyCanExecuteChanged();
     }
 

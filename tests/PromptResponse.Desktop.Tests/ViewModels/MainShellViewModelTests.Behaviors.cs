@@ -133,4 +133,27 @@ public partial class MainShellViewModelTests
         var fileService = Substitute.For<IFileService>(); var dialogs = Substitute.For<IDialogService>(); var handoff = Substitute.For<IMailHandoffService>(); var session = new DocumentSessionService(); var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false); var document = MakeTemplate(); document.DocumentType = DocumentType.FilledForm; document.Metadata.SubmissionUrls = ["mailto:forms@example.com"]; session.Set(document, null, dirty: true); fileService.PickExportPathAsync(Arg.Any<string>(), "Save completed APR file", "APR Filled Form", "aprf").Returns(Task.FromResult<string?>(Path.Combine(Path.GetTempPath(), "completed.aprf"))); dialogs.ShowChoiceAsync("Submit via email", Arg.Any<string>(), Arg.Any<IReadOnlyList<string>>()).Returns(Task.FromResult<int?>(0)); dialogs.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(Task.FromResult(true)); handoff.ComposeAsync(Arg.Any<MailHandoffRequest>(), Arg.Any<CancellationToken>()).Returns(Task.FromResult(new MailHandoffResult(true, false, "Draft opened.")));
         var shell = new MainShellViewModel(fileService, dialogs, session, profile, new PromptViewModelFactory(profile), serializer: new AprJsonSerializer(), mailHandoff: handoff); shell.CanSubmitViaEmail().Should().BeTrue(); await shell.SubmitViaEmail(); await fileService.Received(1).SaveFileAsync(Arg.Is<AprDocument>(copy => copy.DocumentType == DocumentType.FilledForm && !ReferenceEquals(copy, document)), Arg.Any<string>()); await handoff.Received(1).ComposeAsync(Arg.Is<MailHandoffRequest>(request => request.MailtoTarget == "mailto:forms@example.com" && request.AttachmentPath.EndsWith("completed.aprf")), Arg.Any<CancellationToken>()); document.DocumentType.Should().Be(DocumentType.FilledForm, "the outgoing copy must not mutate the open document");
     }
+
+    [Fact]
+    public async Task SubmitViaHttps_PostsACompletedCopy_ToTheConfirmedHttpsTarget()
+    {
+        var fileService = Substitute.For<IFileService>(); var dialogs = Substitute.For<IDialogService>(); var submission = Substitute.For<IHttpsSubmissionService>(); var session = new DocumentSessionService(); var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false); var document = MakeTemplate(); document.Metadata.SubmissionUrls = ["https://example.com/submit", "mailto:forms@example.com"]; session.Set(document, null, dirty: true); dialogs.ShowChoiceAsync("Submit via HTTPS", Arg.Any<string>(), Arg.Any<IReadOnlyList<string>>()).Returns(Task.FromResult<int?>(0)); dialogs.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(Task.FromResult(true)); submission.SubmitAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>()).Returns(Task.FromResult(new HttpsSubmissionResult(true, "Submitted.")));
+        var shell = new MainShellViewModel(fileService, dialogs, session, profile, new PromptViewModelFactory(profile), serializer: new AprJsonSerializer(), httpsSubmission: submission);
+
+        shell.CanSubmitViaHttps().Should().BeTrue(); await shell.SubmitViaHttps();
+
+        await submission.Received(1).SubmitAsync("https://example.com/submit", Arg.Is<string>(json => new AprJsonSerializer().Deserialize(json).DocumentType == DocumentType.FilledForm), Arg.Any<CancellationToken>());
+        document.DocumentType.Should().Be(DocumentType.Template, "the submitted copy must not mutate the open document");
+    }
+
+    [Fact]
+    public async Task SubmitViaHttps_IgnoresAnOutOfRangeDestinationChoice()
+    {
+        var fileService = Substitute.For<IFileService>(); var dialogs = Substitute.For<IDialogService>(); var submission = Substitute.For<IHttpsSubmissionService>(); var session = new DocumentSessionService(); var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false); var document = MakeTemplate(); document.Metadata.SubmissionUrls = ["https://example.com/submit"]; session.Set(document, null, dirty: true); dialogs.ShowChoiceAsync("Submit via HTTPS", Arg.Any<string>(), Arg.Any<IReadOnlyList<string>>()).Returns(Task.FromResult<int?>(4));
+        var shell = new MainShellViewModel(fileService, dialogs, session, profile, new PromptViewModelFactory(profile), httpsSubmission: submission);
+
+        await shell.SubmitViaHttps();
+
+        await submission.DidNotReceive().SubmitAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>());
+    }
 }
