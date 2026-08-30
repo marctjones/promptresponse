@@ -24,29 +24,10 @@ namespace PromptResponse.Desktop.Tests.Gui;
 /// </summary>
 public class RenderFrameRegressionTests
 {
-    private sealed class StubProbe : IOsAccessibilityProbe
-    {
-        public bool HighContrast => false;
-        public bool ReducedMotion => false;
-        public bool ScreenReaderActive => false;
-        public ColorScheme PreferredColorScheme => ColorScheme.Light;
-    }
-
     private static (MainShellView view, MainShellViewModel vm) Build(ColorScheme scheme = ColorScheme.Light)
     {
-        var fs = Substitute.For<IFileService>();
-        var dlg = Substitute.For<IDialogService>();
-        var session = new DocumentSessionService();
-        var probe = new StubProbe();
-        var profile = new ProfileService(probe, applyAffordanceDefaults: false);
-        if (scheme != ColorScheme.Light)
-        {
-            profile.SetColorScheme(scheme);
-        }
-        var factory = new PromptViewModelFactory(profile);
-        var vm = new MainShellViewModel(fs, dlg, session, profile, factory);
-        var view = new MainShellView { DataContext = vm };
-        return (view, vm);
+        var shell = GuiShellHarness.Create(scheme);
+        return (shell.View, shell.ViewModel);
     }
 
     // ============== "everything is black" regression ==============

@@ -21,25 +21,11 @@ namespace PromptResponse.Desktop.Tests.Gui;
 /// </summary>
 public class MenuBarInteractiveTests
 {
-    private sealed class FixedProbe : IOsAccessibilityProbe
-    {
-        public bool HighContrast => false;
-        public bool ReducedMotion => false;
-        public bool ScreenReaderActive => false;
-        public ColorScheme PreferredColorScheme => ColorScheme.Light;
-    }
-
     private static (MainShellView view, MainShellViewModel vm, IFileService fs, IDialogService dlg)
         BuildShell()
     {
-        var fs = Substitute.For<IFileService>();
-        var dlg = Substitute.For<IDialogService>();
-        var session = new DocumentSessionService();
-        var profile = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);
-        var factory = new PromptViewModelFactory(profile);
-        var vm = new MainShellViewModel(fs, dlg, session, profile, factory);
-        var view = new MainShellView { DataContext = vm };
-        return (view, vm, fs, dlg);
+        var shell = GuiShellHarness.Create();
+        return (shell.View, shell.ViewModel, shell.Files, shell.Dialogs);
     }
 
     /// <summary>Walks Menu.Items logically — child MenuItems are not in the visual

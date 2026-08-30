@@ -32,25 +32,11 @@ namespace PromptResponse.Desktop.Tests.Gui;
 /// </remarks>
 public class KeyboardFlowTests
 {
-    private sealed class StubProbe : IOsAccessibilityProbe
-    {
-        public bool HighContrast => false;
-        public bool ReducedMotion => false;
-        public bool ScreenReaderActive => false;
-        public ColorScheme PreferredColorScheme => ColorScheme.Light;
-    }
-
     private static (MainShellView view, MainShellViewModel vm, IDocumentSessionService session, Window window) Build()
     {
-        var fs = Substitute.For<IFileService>();
-        var dlg = Substitute.For<IDialogService>();
-        var session = new DocumentSessionService();
-        var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false);
-        var factory = new PromptViewModelFactory(profile);
-        var vm = new MainShellViewModel(fs, dlg, session, profile, factory);
-        var view = new MainShellView { DataContext = vm };
-        var window = view.ShowInWindow(width: 1200, height: 800);
-        return (view, vm, session, window);
+        var shell = GuiShellHarness.Create();
+        var window = shell.View.ShowInWindow(width: 1200, height: 800);
+        return (shell.View, shell.ViewModel, shell.Session, window);
     }
 
     private static AprDocument MultiSectionDoc() => new()
