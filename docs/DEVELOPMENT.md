@@ -8,6 +8,23 @@ python3 scripts/check-test-registry.py
 python3 scripts/check-docs.py
 ```
 
+For a focused .NET suite while another local build or test may be running, use
+the output-isolated launcher instead of directing two `dotnet test` commands at
+the checkout's shared `obj/` folders:
+
+```bash
+scripts/test-focused.sh tests/PromptResponse.Core.Tests --filter 'FullyQualifiedName~Conformance'
+```
+
+Pass any normal `dotnet test` project, solution, filter, or configuration
+arguments after the script name. It creates a unique temporary intermediate
+build, output, and test-results root for that invocation, disables the shared
+compiler server, uses one MSBuild worker per invocation, and omits XML
+documentation only for this local focused-check mode. The temporary output root
+mirrors the normal repository-relative layout, so corpus tests continue to find
+their fixtures. Do not use it for release verification: CI retains normal
+output paths and generates XML documentation during its release build.
+
 Use corpus/schema/specification for format behavior and product, architecture, and UX documents for product behavior.
 
 1. Add or update the focused test before changing behavior.

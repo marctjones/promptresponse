@@ -25,4 +25,28 @@
     <RestoreLockedMode Condition="'$(CI)' == 'true'">true</RestoreLockedMode>
   </PropertyGroup>
 
+  <!--
+    A normal build deliberately uses each project's local bin/ and obj/ folders.
+    That is ideal for IDE and CI builds, but two independently launched focused
+    `dotnet test` commands otherwise write the same intermediate assemblies.
+
+    scripts/test-focused.sh supplies a unique PromptResponseBuildIsolationRoot
+    for each local invocation.  Put the project name beneath that root because
+    a solution build contains several projects with the same target framework.
+    This is opt-in so CI continues to generate the canonical XML documentation
+    and uses its existing restore/build/test pipeline unchanged.
+  -->
+  <PropertyGroup Condition="'$(PromptResponseBuildIsolationRoot)' != ''">
+    <PromptResponseProjectPath>$([MSBuild]::MakeRelative('$(MSBuildThisFileDirectory)', '$(MSBuildProjectDirectory)'))</PromptResponseProjectPath>
+    <BaseIntermediateOutputPath>$(PromptResponseBuildIsolationRoot)/obj/$(MSBuildProjectName)/</BaseIntermediateOutputPath>
+    <!-- The launcher creates $(PromptResponseBuildIsolationRoot)/repo as a
+         symlink to this checkout. Mirroring the project path below it preserves
+         the normal five-level test-output-to-repository relationship used by
+         corpus tests while avoiding concurrent bin-file writers. -->
+    <BaseOutputPath>$(PromptResponseBuildIsolationRoot)/repo/$(PromptResponseProjectPath)/bin/</BaseOutputPath>
+    <!-- Keep generated files in the checkout's conventional obj/bin folders
+         out of default Compile globs after BaseIntermediateOutputPath moves. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildThisFileDirectory)**/obj/**;$(MSBuildThisFileDirectory)**/bin/**</DefaultItemExcludes>
+  </PropertyGroup>
+
 </Project>
