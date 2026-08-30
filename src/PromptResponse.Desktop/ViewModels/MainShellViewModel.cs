@@ -35,6 +35,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly DocumentSessionWorkflow _sessionWorkflow;
     private readonly EditHistory _editHistory;
     private readonly DocumentTreeWorkflow _documentTreeWorkflow;
+    private readonly DocumentLifecycleCoordinator _documentLifecycle;
     private readonly AdvisoryWorkflow _advisoryWorkflow = new();
     private readonly ExpressionWorkflow _expressionWorkflow;
     private readonly RoleSelectionWorkflow _roleSelectionWorkflow;
@@ -98,6 +99,17 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
         Progress = new FormProgressViewModel();
         Search = new SearchViewModel();
+        _documentLifecycle = new DocumentLifecycleCoordinator(
+            _session,
+            _editHistory,
+            _documentTreeWorkflow,
+            Progress,
+            Search,
+            _roleSelectionWorkflow,
+            _wizardProfileWorkflow,
+            _ => ApplyExpressions(),
+            editMode => IsEditMode = editMode);
+        _documentLifecycle.StateChanged += OnDocumentLifecycleStateChanged;
 
         _session.DocumentChanged += OnDocumentChanged;
         _session.DirtyChanged += OnDirtyChanged;
@@ -415,7 +427,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// the edit-mode metadata panel; null when no document is open. When the user
     /// types in any metadata field, this VM raises Changed so the shell marks
     /// the document dirty and refreshes derived display properties.</summary>
-    public DocumentMetadataViewModel? Metadata { get; private set; }
+    public DocumentMetadataViewModel? Metadata => _documentLifecycle.Metadata;
 
     /// <summary>Count of advisory warnings from the data-type validator (never errors — vision invariant).</summary>
     public int AdvisoryCount => _advisoryWorkflow.Count;
@@ -799,42 +811,19 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
     private void OnDocumentChanged(object? sender, AprDocument? document)
     {
-        Progress.SetDocument(document);
-        Search.SetDocument(document);
+        _documentLifecycle.HandleDocumentChanged(document);
+    }
 
-        if (Metadata != null)
+    private void OnDocumentLifecycleStateChanged(DocumentLifecycleChange change)
+    {
+        if (change.HasFlag(DocumentLifecycleChange.Metadata))
         {
-            Metadata.Changed -= OnMetadataChanged;
+            OnPropertyChanged(nameof(CurrentDocumentTitle));
+            OnPropertyChanged(nameof(DocumentDescription));
+            OnPropertyChanged(nameof(HasDocumentDescription));
+            OnPropertyChanged(nameof(Title));
+            return;
         }
-        Metadata = null;
-
-        // Drop any undo history from the previous document — edits in one
-        // document must never resurface as undo steps in another.
-        _editHistory.Clear();
-
-        _documentTreeWorkflow.Rebuild(document);
-
-        if (document != null)
-        {
-            Metadata = new DocumentMetadataViewModel(document.Metadata, _editHistory);
-            Metadata.Changed += OnMetadataChanged;
-
-            // Resolve who each field is for, so the person filling never has to ask.
-            _roleSelectionWorkflow.Apply(document);
-
-            // Apply expression hints once up-front so initial visibility,
-            // read-only, and computed values are correct before any edit.
-            ApplyExpressions();
-        }
-
-        // Templates default to edit mode (the user is authoring); filled forms
-        // are never in edit mode. The user can toggle templates to preview-fill
-        // via the View menu.
-        IsEditMode = _session.Mode == DocumentMode.EditingTemplate;
-
-        // Reset wizard navigation to the first section on document load so a
-        // fresh document doesn't open mid-wizard from a previous document.
-        _wizardProfileWorkflow.ResetForDocument();
 
         OnPropertyChanged(nameof(HasDocument));
         OnPropertyChanged(nameof(IsEmptyState));
@@ -910,17 +899,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(ActiveRoleSummary));
     }
 
-    /// <summary>Mark dirty + refresh derived display properties whenever the user
-    /// edits any metadata field via the edit-mode metadata panel.</summary>
-    private void OnMetadataChanged(object? sender, EventArgs e)
-    {
-        _session.MarkDirty();
-        OnPropertyChanged(nameof(CurrentDocumentTitle));
-        OnPropertyChanged(nameof(DocumentDescription));
-        OnPropertyChanged(nameof(HasDocumentDescription));
-        OnPropertyChanged(nameof(Title));
-    }
-
     private void OnDocumentTreeChanged()
     {
         OnPropertyChanged(nameof(PromptViewModels));
@@ -986,6 +964,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     {
         _session.DocumentChanged -= OnDocumentChanged;
         _session.DirtyChanged -= OnDirtyChanged;
+        _documentLifecycle.StateChanged -= OnDocumentLifecycleStateChanged;
+        _documentLifecycle.Dispose();
         _signatureWorkflow.StateChanged -= OnSignatureWorkflowStateChanged;
         _wizardProfileWorkflow.StateChanged -= OnWizardProfileWorkflowStateChanged;
         _wizardProfileWorkflow.Dispose();
