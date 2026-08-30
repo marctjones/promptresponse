@@ -3,7 +3,7 @@
 **Specification document version:** 1.0.0-beta.3 (tracks the PromptResponse release)
 **Status:** 🚧 **BETA — the format is not frozen and breaking changes may still occur**
 **Describes format version:** `1.0-beta`
-**Supersedes:** `APR_SPECIFICATION_v0.2.md`
+**History:** pre-1.0 drafts are preserved in Git history and are not implementation references.
 **Machine-readable schema:** [`schemas/apr-1.0.schema.json`](../schemas/apr-1.0.schema.json)
 **Conformance corpus:** [`tests/Conformance/v1/`](../tests/Conformance/v1/)
 

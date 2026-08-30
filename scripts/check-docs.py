@@ -13,8 +13,24 @@ readme = (ROOT / "README.md").read_text(encoding="utf-8")
 sdk = (ROOT / "docs/SDK_CONFORMANCE.md").read_text(encoding="utf-8")
 signing = (ROOT / "docs/SIGNING.md").read_text(encoding="utf-8")
 canonical = (ROOT / "tests/Conformance/v1/canonicalization/README.md").read_text(encoding="utf-8")
-
 problems = []
+
+for path in (
+    "docs/README.md", "docs/PRODUCT.md", "docs/ARCHITECTURE.md",
+    "docs/UX_ACCESSIBILITY.md", "docs/CONCEPT_REGISTRY.md",
+    "docs/IMPLEMENTATION_REGISTRY.md", "docs/USER_GUIDE.md",
+):
+    if not (ROOT / path).is_file():
+        problems.append(f"missing canonical documentation: {path}")
+
+for path in (
+    "VISION.md", "ACCESSIBILITY.md", "LAUNCHER.md", "CLEANUP.md",
+    "docs/FILE_FORMAT.md", "docs/APR_SPECIFICATION_v0.2.md",
+    "docs/FEATURES.md", "docs/IMPLEMENTATION_PLAN.md",
+):
+    if (ROOT / path).exists():
+        problems.append(f"superseded documentation must not return: {path}")
+
 match = re.search(r"Specification document version:\*\* ([^\s]+)", spec)
 if not match or match.group(1) != registry["specVersion"]:
     problems.append("APR specification document version must equal tests/registry.json specVersion")

@@ -24,7 +24,7 @@ for _ in {1..15}; do
   fi
   if wait "$CAPTURE_PID" 2>/dev/null && [[ -s "$OUTPUT" ]]; then
     echo "✓ Live AX evidence captured in $EVIDENCE"
-    echo "Now complete and sign off $ROOT/docs/MACOS_ACCESSIBILITY_SMOKE.md"
+    echo "Now complete and sign off $ROOT/docs/release/MACOS_ACCESSIBILITY.md"
     exit 0
   fi
   sleep 1

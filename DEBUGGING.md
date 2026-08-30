@@ -333,4 +333,4 @@ For production, switch to `Information` level or higher.
 
 - `docs/ARCHITECTURE.md` - Application architecture
 - `docs/DEVELOPMENT.md` - Development guidelines
-- `LAUNCHER.md` - Running the application
+- `docs/USER_GUIDE.md` - Running the application and launcher scripts

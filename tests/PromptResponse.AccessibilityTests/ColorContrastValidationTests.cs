@@ -193,18 +193,18 @@ public class ColorContrastValidationTests
     [Fact]
     public void ApplicationThemes_Documentation_ShouldExist()
     {
-        // Verify ACCESSIBILITY.md documents our theme support
+        // Verify UX_ACCESSIBILITY.md documents our theme support.
         var accessibilityDoc = Path.Combine(
             Directory.GetCurrentDirectory(),
             "..", "..", "..", "..", "..",
-            "ACCESSIBILITY.md");
+            "docs", "UX_ACCESSIBILITY.md");
 
         if (File.Exists(accessibilityDoc))
         {
             var content = File.ReadAllText(accessibilityDoc);
 
             content.Should().Contain("Light Theme",
-                "because ACCESSIBILITY.md should document theme support");
+                "because UX_ACCESSIBILITY.md should document theme support");
             content.Should().Contain("Dark Theme",
                 "because dark theme should be documented");
             content.Should().Contain("contrast",

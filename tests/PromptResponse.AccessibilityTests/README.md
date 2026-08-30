@@ -118,7 +118,7 @@ scripts/verify-macos-accessibility.sh dist/PromptResponse.app
 ```
 
 The capture writes a timestamped JSON accessibility tree and fails when core
-menu controls are unnamed. Complete `docs/MACOS_ACCESSIBILITY_SMOKE.md` as the
+menu controls are unnamed. Complete `docs/release/MACOS_ACCESSIBILITY.md` as the
 human VoiceOver evidence for that same build.
 
 ## Architecture
@@ -370,7 +370,7 @@ prompt.Label = "email_addr_001";  // Bad - looks like ID
 
 ### Contributions Welcome
 
-See `ACCESSIBILITY.md` in project root for contribution guidelines.
+See `docs/UX_ACCESSIBILITY.md` for contribution guidelines.
 
 **Priority areas:**
 1. Windows UI Automation implementation
@@ -380,7 +380,7 @@ See `ACCESSIBILITY.md` in project root for contribution guidelines.
 
 ## Resources
 
-- [ACCESSIBILITY.md](../../ACCESSIBILITY.md) - Comprehensive accessibility guide
+- [UX_ACCESSIBILITY.md](../../docs/UX_ACCESSIBILITY.md) - Accessibility design and evidence
 - [IAccessibilityInspector.cs](./IAccessibilityInspector.cs) - Core interface
 - [AprAccessibilityValidationTests.cs](./AprAccessibilityValidationTests.cs) - Test examples
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
@@ -390,7 +390,7 @@ See `ACCESSIBILITY.md` in project root for contribution guidelines.
 
 **Questions? Issues?**
 - Check test output for specific failure messages
-- Review `ACCESSIBILITY.md` for accessibility requirements
+- Review `docs/UX_ACCESSIBILITY.md` for accessibility requirements
 - Run `./test-accessibility.sh` for interactive testing
 - File issues with specific test failures and platform info
 

@@ -181,11 +181,12 @@ file could not be read at all.
 - [JSON Schema](schemas/apr-1.0.schema.json) - machine-readable structural schema
 - [Conformance corpus](tests/Conformance/v1/README.md) - the executable definition of the format
 - [SDK Conformance](docs/SDK_CONFORMANCE.md) - what an implementation must do to claim conformance
-- [Implementation Registry](docs/IMPLEMENTATION_REGISTRY.md) - every app, SDK, and engine: language, status, and obligations
+- [Documentation map](docs/README.md) - authoritative product, architecture, UX, format, registry, and guide documents
+- [Implementation Registry](docs/IMPLEMENTATION_REGISTRY.md) - every app, SDK, and engine: status and obligations
 - [CLI Tool Guide](src/PromptResponse.Cli/README.md) - Command-line tool usage
-- [Usage Guide](docs/USAGE.md) - Detailed usage instructions
+- [User Guide](docs/USER_GUIDE.md) - Desktop, CLI, export, import, and signing workflows
 - [Development Guide](docs/DEVELOPMENT.md) - Contributing and development setup
-- [File Format Specification](docs/FILE_FORMAT.md) - .apr format documentation (legacy)
+- [Concept Registry](docs/CONCEPT_REGISTRY.md) - intended behavior, code owner, and regression evidence
 - [Architecture](docs/ARCHITECTURE.md) - System design and architecture
 
 ## Implementing APR

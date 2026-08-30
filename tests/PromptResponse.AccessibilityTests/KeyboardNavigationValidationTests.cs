@@ -189,11 +189,11 @@ public class KeyboardNavigationValidationTests
     public void KeyboardShortcuts_ShouldBe_Documented()
     {
         // Arrange
-        var accessibilityDoc = Path.Combine(_projectRoot, "ACCESSIBILITY.md");
+        var accessibilityDoc = Path.Combine(_projectRoot, "docs", "UX_ACCESSIBILITY.md");
 
         if (!File.Exists(accessibilityDoc))
         {
-            // Skip if ACCESSIBILITY.md doesn't exist
+            // Documentation is optional in unusual test layouts.
             return;
         }
 
@@ -213,7 +213,7 @@ public class KeyboardNavigationValidationTests
         foreach (var shortcut in expectedShortcuts)
         {
             content.Should().Contain(shortcut,
-                $"because keyboard shortcut {shortcut} should be documented in ACCESSIBILITY.md " +
+                $"because keyboard shortcut {shortcut} should be documented in UX_ACCESSIBILITY.md " +
                 "so users know how to navigate without a mouse");
         }
     }
@@ -378,7 +378,7 @@ public class KeyboardNavigationValidationTests
     public void AccessibilityGuide_ShouldDocument_KeyboardTesting()
     {
         // Arrange
-        var accessibilityDoc = Path.Combine(_projectRoot, "ACCESSIBILITY.md");
+        var accessibilityDoc = Path.Combine(_projectRoot, "docs", "UX_ACCESSIBILITY.md");
 
         if (!File.Exists(accessibilityDoc))
         {
@@ -389,7 +389,7 @@ public class KeyboardNavigationValidationTests
 
         // Act & Assert
         content.Should().Contain("Keyboard Navigation",
-            "because ACCESSIBILITY.md should document keyboard navigation testing");
+            "because UX_ACCESSIBILITY.md should document keyboard navigation testing");
 
         content.Should().Contain("Tab",
             "because Tab key usage should be documented for testers");
@@ -401,6 +401,6 @@ public class KeyboardNavigationValidationTests
                                     (content.Contains("checklist") || content.Contains("- [ ]"));
 
         hasKeyboardChecklist.Should().BeTrue(
-            "because ACCESSIBILITY.md should include a keyboard testing checklist");
+            "because UX_ACCESSIBILITY.md should include a keyboard testing checklist");
     }
 }

@@ -346,8 +346,8 @@ Saved to: examples/contact-intake.aprf
 
 ## Related
 
-- See [FILE_FORMAT.md](../../docs/FILE_FORMAT.md) for the APR format specification
-- See [USAGE.md](../../docs/USAGE.md) for general usage guide
+- See [APR_SPECIFICATION.md](../../docs/APR_SPECIFICATION.md) for the APR format specification
+- See [USER_GUIDE.md](../../docs/USER_GUIDE.md) for general usage guidance
 - See [DEVELOPMENT.md](../../docs/DEVELOPMENT.md) for development guide
 
 ## `review` — the receiving end

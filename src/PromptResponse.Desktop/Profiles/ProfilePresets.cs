@@ -7,7 +7,7 @@ namespace PromptResponse.Desktop.Profiles;
 /// exposes every flag individually for users whose needs don't match a preset.
 /// </summary>
 /// <remarks>
-/// See <c>docs/CAPABILITY_PROFILES.md</c> for the design rationale and the table of
+/// See <c>docs/UX_ACCESSIBILITY.md</c> for the design rationale and the table of
 /// which flags each preset composes.
 ///
 /// Presets are *imperative* in the sense that <see cref="Apply"/> takes the service's

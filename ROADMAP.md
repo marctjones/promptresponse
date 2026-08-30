@@ -16,7 +16,7 @@ Replace rigid PDF/Word forms with a flexible, semantic, JSON-based format
 fill forms without fighting layout tools; downstream systems get clean
 structured data without parsing PDFs.
 
-See [VISION.md](VISION.md) for the full vision and non-negotiable principles
+See [Product](docs/PRODUCT.md) for the full vision and non-negotiable principles
 (string-only responses, accessibility as a CI gate, local-first, pure-data /
 no code execution, open format, stable IDs).
 
@@ -104,7 +104,6 @@ story, and deeper import** (see Milestone 2 below), not web fill + sharing.
 **Goal:** someone who isn't the author can install it, create a form, fill it,
 and produce a presentable artifact — without a dev toolchain.
 
-The full cut-line with acceptance criteria lives in [docs/MVP.md](docs/MVP.md).
 The v0.3.0 cut line shipped: PDF export, renderer seam, packaged distribution,
 home screen/recent files, first-run authoring guidance, starter templates, and
 documentation reconciliation.
@@ -192,8 +191,7 @@ These are deliberate non-goals; revisit only with explicit approval:
 
 ## 7. Comparison snapshot
 
-See [docs/COMPARISON_TO_TRADITIONAL_FORMS.md](docs/COMPARISON_TO_TRADITIONAL_FORMS.md)
-for the full analysis. In one line: PromptResponse trades pixel-perfect layout
+In one line: PromptResponse trades pixel-perfect layout
 and a few advanced features for **simplicity, portability, data liberation,
 real accessibility, and zero lock-in** — strongest against Word/Excel/PDF
 forms and bespoke CRUD apps, and differentiated from cloud form builders by
