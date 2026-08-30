@@ -39,63 +39,10 @@ public class DialogService : IDialogService
 
         var dialog = DialogWindowFactory.Create(title, 450, 200, 350, 150, false, $"Confirmation Dialog: {title}", message);
 
-        var yesButton = new Button
-        {
-            Content = "Yes",
-            MinWidth = 80,
-            Margin = new Thickness(0, 0, 10, 0),
-        };
-        yesButton.SetValue(AutomationProperties.NameProperty, "Confirm action");
-        yesButton.SetValue(AutomationProperties.HelpTextProperty, "Click to confirm and proceed");
-        yesButton.Click += (s, e) =>
-        {
-            result = true;
-            dialog.Close();
-        };
-
-        var noButton = new Button
-        {
-            Content = "No",
-            MinWidth = 80,
-        };
-        noButton.SetValue(AutomationProperties.NameProperty, "Cancel action");
-        noButton.SetValue(AutomationProperties.HelpTextProperty, "Click to cancel and go back");
-        noButton.Click += (s, e) =>
-        {
-            result = false;
-            dialog.Close();
-        };
-
-        var buttonPanel = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = new Thickness(0, 10, 0, 0),
-            Children = { yesButton, noButton },
-        };
-
-        var messageText = new TextBlock
-        {
-            Text = message,
-            TextWrapping = TextWrapping.Wrap,
-            VerticalAlignment = VerticalAlignment.Top,
-            HorizontalAlignment = HorizontalAlignment.Left,
-            Margin = new Thickness(0, 0, 0, 10),
-        };
-        messageText.SetValue(AutomationProperties.NameProperty, "Confirmation message");
-        messageText.SetValue(AutomationProperties.HelpTextProperty, message);
-
-        var contentPanel = new StackPanel
-        {
-            Margin = new Thickness(20),
-            Children =
-            {
-                messageText,
-                buttonPanel,
-            },
-        };
-
-        dialog.Content = contentPanel;
+        dialog.Content = InteractiveDialogContentBuilder.BuildConfirmation(
+            message,
+            () => { result = true; dialog.Close(); },
+            () => { result = false; dialog.Close(); });
 
         await dialog.ShowDialog(window);
         return result;
@@ -113,43 +60,13 @@ public class DialogService : IDialogService
 
         var dialog = DialogWindowFactory.Create(title, 460, 210, 360, 170, false, $"Input dialog: {title}", message);
 
-        var label = new TextBlock
-        {
-            Text = message,
-            TextWrapping = TextWrapping.Wrap,
-            Margin = new Thickness(0, 0, 0, 8),
-        };
-
-        var input = new TextBox
-        {
-            Text = defaultValue,
-            PasswordChar = isPassword ? '•' : '\0',
-            MinWidth = 300,
-        };
-        input.SetValue(AutomationProperties.NameProperty, title);
-        input.SetValue(AutomationProperties.HelpTextProperty, message);
-
-        var okButton = new Button { Content = "OK", MinWidth = 80, Margin = new Thickness(0, 0, 10, 0), IsDefault = true };
-        okButton.SetValue(AutomationProperties.NameProperty, "Confirm input");
-        okButton.Click += (_, _) => { result = input.Text ?? string.Empty; dialog.Close(); };
-
-        var cancelButton = new Button { Content = "Cancel", MinWidth = 80, IsCancel = true };
-        cancelButton.SetValue(AutomationProperties.NameProperty, "Cancel input");
-        cancelButton.Click += (_, _) => { result = null; dialog.Close(); };
-
-        var buttons = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            Margin = new Thickness(0, 12, 0, 0),
-            Children = { okButton, cancelButton },
-        };
-
-        dialog.Content = new StackPanel
-        {
-            Margin = new Thickness(20),
-            Children = { label, input, buttons },
-        };
+        dialog.Content = InteractiveDialogContentBuilder.BuildInput(
+            title,
+            message,
+            defaultValue,
+            isPassword,
+            value => { result = value; dialog.Close(); },
+            () => { result = null; dialog.Close(); });
 
         await dialog.ShowDialog(window);
         return result;
@@ -166,35 +83,16 @@ public class DialogService : IDialogService
         int? result = null;
         var dialog = DialogWindowFactory.Create(title, 560, 280, 400, 220, true, title, message);
 
-        var options = new StackPanel { Spacing = 6 };
-        for (var index = 0; index < choices.Count; index++)
-        {
-            var captured = index;
-            var option = new RadioButton
-            {
-                Content = choices[index],
-                GroupName = "dialog-choice",
-                IsChecked = index == 0,
-            };
-            option.SetValue(AutomationProperties.NameProperty, choices[index]);
-            option.SetValue(AutomationProperties.HelpTextProperty, $"Submission destination {index + 1} of {choices.Count}");
-            option.IsCheckedChanged += (_, _) => { if (option.IsChecked == true) result = captured; };
-            options.Children.Add(option);
-        }
         result = 0;
-
-        var select = new Button { Content = "Continue", MinWidth = 96, IsDefault = true };
-        select.SetValue(AutomationProperties.NameProperty, "Continue with selected destination");
-        select.Click += (_, _) => dialog.Close();
-        var cancel = new Button { Content = "Cancel", MinWidth = 80, IsCancel = true, Margin = new Thickness(10, 0, 0, 0) };
-        cancel.SetValue(AutomationProperties.NameProperty, "Cancel submission");
-        cancel.Click += (_, _) => { result = null; dialog.Close(); };
-        var buttons = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 12, 0, 0), Children = { select, cancel } };
-        var content = new StackPanel { Margin = new Thickness(20), Spacing = 8 };
-        content.Children.Add(new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap });
-        content.Children.Add(new ScrollViewer { Content = options, VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto });
-        content.Children.Add(buttons);
-        dialog.Content = content;
+        dialog.Content = InteractiveDialogContentBuilder.BuildChoice(
+            message,
+            choices,
+            index =>
+            {
+                if (index >= 0) result = index;
+                else dialog.Close();
+            },
+            () => { result = null; dialog.Close(); });
         await dialog.ShowDialog(window);
         return result;
     }

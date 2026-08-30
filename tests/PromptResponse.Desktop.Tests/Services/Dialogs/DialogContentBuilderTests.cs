@@ -56,4 +56,71 @@ public class DialogContentBuilderTests
         text.Should().NotContain("Cryptic label - Field 13 (field-13): Needs a human label");
         text.Should().Contain("...and 1 more flagged fields.");
     }
+
+    [AvaloniaFact]
+    public void Confirmation_PreservesAccessibleActionsAndInvokesTheSelectedCallback()
+    {
+        var confirmed = false;
+        var cancelled = false;
+
+        var content = InteractiveDialogContentBuilder.BuildConfirmation(
+            "Delete this draft?",
+            () => confirmed = true,
+            () => cancelled = true).Should().BeOfType<StackPanel>().Subject;
+
+        var buttons = content.Children.OfType<StackPanel>().Single().Children.OfType<Button>().ToArray();
+        buttons.Select(button => button.Content).Should().Equal("Yes", "No");
+        buttons[0].GetValue(Avalonia.Automation.AutomationProperties.NameProperty).Should().Be("Confirm action");
+        buttons[1].GetValue(Avalonia.Automation.AutomationProperties.NameProperty).Should().Be("Cancel action");
+
+        buttons[0].RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+        confirmed.Should().BeTrue();
+        cancelled.Should().BeFalse();
+    }
+
+    [AvaloniaFact]
+    public void Input_SubmitsTheCurrentValueAndKeepsPasswordConfiguration()
+    {
+        string? submitted = null;
+        var cancelled = false;
+
+        var content = InteractiveDialogContentBuilder.BuildInput(
+            "Certificate password",
+            "Enter password",
+            "initial",
+            isPassword: true,
+            value => submitted = value,
+            () => cancelled = true).Should().BeOfType<StackPanel>().Subject;
+
+        var input = content.Children.OfType<TextBox>().Single();
+        input.PasswordChar.Should().Be('•');
+        input.Text = "updated";
+        var submit = content.Children.OfType<StackPanel>().Single().Children.OfType<Button>().First();
+        submit.RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+
+        submitted.Should().Be("updated");
+        cancelled.Should().BeFalse();
+    }
+
+    [AvaloniaFact]
+    public void Choice_TracksRadioSelectionAndUsesContinueToClose()
+    {
+        var selected = new List<int>();
+        var cancelled = false;
+        var content = InteractiveDialogContentBuilder.BuildChoice(
+            "Choose destination",
+            ["Mail", "Web"],
+            selected.Add,
+            () => cancelled = true).Should().BeOfType<StackPanel>().Subject;
+
+        var options = content.Children.OfType<ScrollViewer>().Single().Content.Should().BeOfType<StackPanel>().Subject;
+        var choices = options.Children.OfType<RadioButton>().ToArray();
+        choices[1].IsChecked = true;
+        var continueButton = content.Children.OfType<StackPanel>().Single().Children.OfType<Button>().First();
+        continueButton.RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+
+        selected.Should().Contain(1);
+        selected.Should().EndWith(-1);
+        cancelled.Should().BeFalse();
+    }
 }
