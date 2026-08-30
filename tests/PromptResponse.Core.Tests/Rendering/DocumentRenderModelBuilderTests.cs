@@ -295,6 +295,51 @@ public class DocumentRenderModelBuilderTests
     }
 
     [Fact]
+    public void Build_TableAndOrdinaryFields_UseTheSameBlankAndHintPolicy()
+    {
+        var hints = new PromptHints
+        {
+            HelpText = "   ",
+            ExpectedDataType = "  ",
+            SuggestedValues = ["Draft", "Final"],
+        };
+        var doc = Doc(
+            new Section
+            {
+                Id = "ordinary",
+                Title = "Ordinary",
+                Prompts = [new Prompt { Id = "ordinary.status", Label = "Status", Response = "   ", Hints = hints }],
+            },
+            new Section
+            {
+                Id = "table",
+                Title = "Table",
+                Kind = "table",
+                Sections =
+                [
+                    new Section
+                    {
+                        Id = "row",
+                        Title = "Row",
+                        Prompts = [new Prompt { Id = "row.status", Label = "Status", Response = "   ", Hints = hints }],
+                    },
+                ],
+            });
+
+        var model = _builder.Build(doc, RenderOptions.Default);
+        var field = model.Blocks.OfType<FieldBlock>().Single();
+        var cell = model.Blocks.OfType<TableBlock>().Single().Rows.Single().Cells.Single();
+
+        field.HasResponse.Should().BeFalse();
+        field.HelpText.Should().BeNull();
+        field.ExpectedDataType.Should().BeNull();
+        field.Choices.Should().Equal("Draft", "Final");
+        cell.HasResponse.Should().BeFalse();
+        cell.ExpectedDataType.Should().BeNull();
+        cell.Choices.Should().Equal("Draft", "Final");
+    }
+
+    [Fact]
     public void Build_SignedDocument_AppendsSignatureBlock()
     {
         var doc = Doc(new Section { Id = "s", Title = "S", Prompts = [new Prompt { Id = "a", Label = "A" }] });

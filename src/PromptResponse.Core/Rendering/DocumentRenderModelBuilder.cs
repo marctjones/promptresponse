@@ -107,24 +107,12 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
 
         foreach (var prompt in section.Prompts)
         {
-            var hasResponse = !string.IsNullOrWhiteSpace(prompt.Response);
-            if (!hasResponse && !options.IncludeEmptyFields)
+            if (!PromptRenderBlockFactory.HasResponse(prompt.Response) && !options.IncludeEmptyFields)
             {
                 continue;
             }
 
-            var choices = prompt.Hints.SuggestedValues.Count > 0
-                ? prompt.Hints.SuggestedValues.ToList()
-                : null;
-
-            blocks.Add(new FieldBlock(
-                Label: prompt.Label,
-                Value: hasResponse ? prompt.Response : options.EmptyFieldText,
-                HasResponse: hasResponse,
-                HelpText: NullIfBlank(prompt.Hints.HelpText),
-                ExpectedDataType: NullIfBlank(prompt.Hints.ExpectedDataType),
-                Id: prompt.Id,
-                Choices: choices));
+            blocks.Add(PromptRenderBlockFactory.CreateField(prompt, options));
         }
 
         foreach (var child in section.Sections)
@@ -154,17 +142,7 @@ public sealed class DocumentRenderModelBuilder : IDocumentRenderModelBuilder
             for (var i = 0; i < headers.Count; i++)
             {
                 var cellPrompt = i < rowSection.Prompts.Count ? rowSection.Prompts[i] : null;
-                var value = cellPrompt?.Response ?? string.Empty;
-                var choices = cellPrompt?.Hints.SuggestedValues is { Count: > 0 } suggested
-                    ? suggested.ToList()
-                    : null;
-
-                cells.Add(new TableCellBlock(
-                    value,
-                    HasResponse: !string.IsNullOrWhiteSpace(value),
-                    Id: cellPrompt?.Id ?? $"{rowSection.Id}.{i}",
-                    ExpectedDataType: NullIfBlank(cellPrompt?.Hints.ExpectedDataType),
-                    Choices: choices));
+                cells.Add(PromptRenderBlockFactory.CreateTableCell(cellPrompt, $"{rowSection.Id}.{i}"));
             }
 
             rows.Add(new TableRowBlock(rowSection.Title, cells));
