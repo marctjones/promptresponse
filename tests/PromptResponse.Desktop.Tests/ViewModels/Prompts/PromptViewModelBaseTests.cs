@@ -1,6 +1,7 @@
 using AwesomeAssertions;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.Profiles;
+using PromptResponse.Desktop.ViewModels.Editing;
 using PromptResponse.Desktop.ViewModels.Prompts;
 using Xunit;
 
@@ -79,6 +80,24 @@ public class PromptViewModelBaseTests
         vm.Response = "42";
 
         changed.Should().Be(0, "idempotent set must not pulse PropertyChanged");
+    }
+
+    [Fact]
+    public void MetadataEdit_UsesHistoryAndPreservesPromptAsTheUndoTarget()
+    {
+        var prompt = MakePrompt("p1", "Before");
+        var history = new EditHistory();
+        var vm = new TextPromptViewModel(prompt, NewService(), history);
+
+        vm.Label = "After";
+        history.CanUndo.Should().BeTrue();
+        history.UndoDescription.Should().Be("Edit Label");
+
+        history.Undo();
+        vm.Label.Should().Be("Before");
+
+        history.Redo();
+        prompt.Label.Should().Be("After");
     }
 
     [Fact]

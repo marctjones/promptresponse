@@ -85,33 +85,10 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
         set => SetWithUndo(nameof(ValidationPattern), () => _prompt.Hints.ValidationPattern, v => _prompt.Hints.ValidationPattern = v, value);
     }
 
-    /// <summary>Helper for property setters: routes through edit history when one
-    /// is configured (and not currently applying) so the change is undoable +
-    /// keystroke-mergeable; otherwise applies it directly.</summary>
+    /// <summary>Routes scalar prompt metadata edits through the shared edit-history
+    /// coordinator while preserving this view model as the merge target.</summary>
     private void SetWithUndo<T>(string propertyName, Func<T> getter, Action<T> applySetter, T newValue)
-    {
-        var oldValue = getter();
-        if (EqualityComparer<T>.Default.Equals(oldValue, newValue)) return;
-
-        if (_history?.IsApplying == true)
-        {
-            applySetter(newValue);
-            Notify(propertyName);
-            return;
-        }
-        if (_history != null)
-        {
-            _history.Execute(new PropertyEditCommand<T>(
-                this, propertyName,
-                v => { applySetter(v); Notify(propertyName); },
-                oldValue, newValue));
-        }
-        else
-        {
-            applySetter(newValue);
-            Notify(propertyName);
-        }
-    }
+        => PropertyEditCoordinator.Apply(this, propertyName, _history, getter, applySetter, newValue, Notify);
 
     /// <summary>Underlying model — exposed for the editor surface to access fields
     /// (e.g. SuggestedValues list) directly. Fill-mode rendering should not use this.</summary>
