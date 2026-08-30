@@ -36,6 +36,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly EditHistory _editHistory;
     private readonly DocumentTreeWorkflow _documentTreeWorkflow;
     private readonly DocumentLifecycleCoordinator _documentLifecycle;
+    private readonly DocumentHeaderPresentation _documentHeader;
     private readonly ProfilePresentationState _profilePresentation;
     private readonly HomePresentationWorkflow _homePresentation;
     private readonly AdvisoryWorkflow _advisoryWorkflow = new();
@@ -103,6 +104,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
         Progress = new FormProgressViewModel();
         Search = new SearchViewModel();
+        _documentHeader = new DocumentHeaderPresentation(_session, Progress);
         _documentLifecycle = new DocumentLifecycleCoordinator(
             _session,
             _editHistory,
@@ -117,6 +119,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
         _session.DocumentChanged += OnDocumentChanged;
         _session.DirtyChanged += OnDirtyChanged;
+        Progress.PropertyChanged += OnProgressPropertyChanged;
         _editHistory.PropertyChanged += OnEditHistoryChanged;
     }
 
@@ -361,11 +364,11 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// <summary>Top-level sections (each carries nested sections + typed prompt VMs).</summary>
     public IReadOnlyList<SectionViewModel> Sections => _documentTreeWorkflow.Sections;
 
-    public bool HasDocument => _session.HasDocument;
-    public bool IsFilledForm => _session.Mode == DocumentMode.FillingForm;
-    public bool IsEditingTemplate => _session.Mode == DocumentMode.EditingTemplate;
-    public bool IsEmptyState => !HasDocument;
-    public DocumentMode Mode => _session.Mode;
+    public bool HasDocument => _documentHeader.HasDocument;
+    public bool IsFilledForm => _documentHeader.IsFilledForm;
+    public bool IsEditingTemplate => _documentHeader.IsEditingTemplate;
+    public bool IsEmptyState => _documentHeader.IsEmptyState;
+    public DocumentMode Mode => _documentHeader.Mode;
 
     /// <summary>The mode, in words rather than as an enum member name.</summary>
     /// <remarks>
@@ -373,13 +376,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// user — an identifier from the source leaking into the interface. Only visible by
     /// looking at a rendered frame.
     /// </remarks>
-    public string ModeDescription => _session.Mode switch
-    {
-        DocumentMode.EditingTemplate => "Editing template",
-        DocumentMode.FillingForm => "Filling in",
-        _ => string.Empty,
-    };
-    public string Title => _session.Title;
+    public string ModeDescription => _documentHeader.ModeDescription;
+    public string Title => _documentHeader.Title;
 
     /// <summary>
     /// Template authoring mode. When true, the shell renders the structural editor
@@ -401,9 +399,9 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         if (!CanToggleEditMode) return;
         IsEditMode = !IsEditMode;
     }
-    public string CurrentDocumentTitle => _session.CurrentDocument?.Metadata.Title ?? string.Empty;
-    public string? DocumentDescription => _session.CurrentDocument?.Metadata.Description;
-    public bool HasDocumentDescription => !string.IsNullOrWhiteSpace(DocumentDescription);
+    public string CurrentDocumentTitle => _documentHeader.CurrentDocumentTitle;
+    public string? DocumentDescription => _documentHeader.DocumentDescription;
+    public bool HasDocumentDescription => _documentHeader.HasDocumentDescription;
 
     /// <summary>Editable wrapper around the active document's metadata. Bound by
     /// the edit-mode metadata panel; null when no document is open. When the user
@@ -614,27 +612,9 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// "Filled by Alex Doe on 2025-04-29" style summary — null when the document is
     /// a template or doesn't carry FilledBy metadata.
     /// </summary>
-    public string? FilledByDisplay
-    {
-        get
-        {
-            var meta = _session.CurrentDocument?.Metadata;
-            if (meta == null || _session.Mode != DocumentMode.FillingForm) return null;
-            var by = string.IsNullOrWhiteSpace(meta.FilledBy) ? null : meta.FilledBy;
-            var when = meta.FilledDate?.ToString("MMMM d, yyyy");
-            return (by, when) switch
-            {
-                (not null, not null) => $"Filled by {by} on {when}",
-                (not null, null) => $"Filled by {by}",
-                (null, not null) => $"Filled on {when}",
-                _ => null,
-            };
-        }
-    }
+    public string? FilledByDisplay => _documentHeader.FilledByDisplay;
 
-    public string StatusMessage => _session.HasDocument
-        ? $"{_session.CurrentDocument!.Metadata.Title} — {Progress.StatusText}"
-        : "No document open. Use File → New, or File → Open to get started.";
+    public string StatusMessage => _documentHeader.StatusMessage;
 
     [RelayCommand]
     private void NewTemplate()
@@ -925,6 +905,12 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(Title));
     }
 
+    private void OnProgressPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(FormProgressViewModel.StatusText))
+            OnPropertyChanged(nameof(StatusMessage));
+    }
+
     private static IEnumerable<Prompt> EnumeratePrompts(AprDocument document)
     {
         foreach (var section in document.Sections)
@@ -946,6 +932,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     {
         _session.DocumentChanged -= OnDocumentChanged;
         _session.DirtyChanged -= OnDirtyChanged;
+        Progress.PropertyChanged -= OnProgressPropertyChanged;
         _homePresentation.StateChanged -= OnHomePresentationStateChanged;
         _homePresentation.Dispose();
         _documentLifecycle.StateChanged -= OnDocumentLifecycleStateChanged;
