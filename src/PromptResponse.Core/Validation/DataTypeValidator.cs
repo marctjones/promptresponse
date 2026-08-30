@@ -1,6 +1,4 @@
 using PromptResponse.Core.Models;
-using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace PromptResponse.Core.Validation;
 
@@ -32,7 +30,7 @@ public class DataTypeValidator
         // Inspect against custom pattern first (if present)
         if (!string.IsNullOrWhiteSpace(prompt.Hints.ValidationPattern))
         {
-            var (patternMatches, patternProblem) = ValidatePattern(prompt.Response, prompt.Hints.ValidationPattern);
+            var (patternMatches, patternProblem) = DataTypeHintRules.MatchesPattern(prompt.Response, prompt.Hints.ValidationPattern);
             if (!patternMatches)
             {
                 result.AddWarning(new ValidationWarning(
@@ -51,26 +49,7 @@ public class DataTypeValidator
         }
 
         // Inspect against known data type hints
-        var matchesHint = expectedType.ToLowerInvariant() switch
-        {
-            "email" => ValidateEmail(prompt.Response),
-            "date" => ValidateDate(prompt.Response),
-            "time" => ValidateTime(prompt.Response),
-            "datetime" => ValidateDateTime(prompt.Response),
-            "number" => ValidateNumber(prompt.Response),
-            // A range is a number chosen from bounds, so it is inspected as a number.
-            // Without this it fell through to the always-matches default, and a slider
-            // answered "as cold as it goes" drew no advisory at all - the one case where
-            // a receiver most needs telling, because their pipeline will try to parse it.
-            "range" => ValidateNumber(prompt.Response),
-            "url" => ValidateUrl(prompt.Response),
-            "phone" => ValidatePhone(prompt.Response),
-            "currency" => ValidateCurrency(prompt.Response),
-            "boolean" => ValidateBoolean(prompt.Response),
-            "text" => true, // Always matches
-            "multiline" => true, // Always matches
-            _ => true // Unknown types: no advisory
-        };
+        var matchesHint = DataTypeHintRules.Matches(expectedType, prompt.Response);
 
         if (!matchesHint)
         {
@@ -120,130 +99,6 @@ public class DataTypeValidator
     /// <returns>The inferred data type.</returns>
     public string InferDataType(string response)
     {
-        if (string.IsNullOrWhiteSpace(response))
-        {
-            return "text";
-        }
-
-        // Check for multiline first
-        if (response.Contains('\n') || response.Contains('\r'))
-        {
-            return "multiline";
-        }
-
-        // Try specific types in order of specificity
-        if (ValidateEmail(response)) return "email";
-        if (ValidateUrl(response)) return "url";
-        if (ValidateDate(response)) return "date";
-        if (ValidateDateTime(response)) return "datetime";
-        if (ValidateNumber(response)) return "number";
-        if (ValidateCurrency(response)) return "currency";
-        if (ValidateTime(response)) return "time";
-        if (ValidateBoolean(response)) return "boolean";
-
-        return "text";
+        return DataTypeHintRules.Infer(response);
     }
-
-    private bool ValidateEmail(string value)
-    {
-        // Reject emails with consecutive dots
-        if (value.Contains(".."))
-        {
-            return false;
-        }
-
-        // Simple email validation: local@domain.tld
-        // - No spaces
-        // - Must have @ symbol
-        // - Must have at least one dot after @
-        // - No @ or spaces in local and domain parts
-        var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-        return Regex.IsMatch(value, emailPattern);
-    }
-
-    private bool ValidateDate(string value)
-    {
-        // Accept ISO 8601 date format (YYYY-MM-DD)
-        return DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture,
-            DateTimeStyles.None, out _);
-    }
-
-    private bool ValidateTime(string value)
-    {
-        // Accept time formats like HH:mm:ss or HH:mm
-        return TimeSpan.TryParse(value, out _);
-    }
-
-    private bool ValidateDateTime(string value)
-    {
-        // Accept ISO 8601 datetime
-        return DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out _);
-    }
-
-    private bool ValidateNumber(string value)
-    {
-        // Reject numbers with commas (not proper decimal separator in invariant culture)
-        if (value.Contains(','))
-        {
-            return false;
-        }
-
-        // Try to parse as double
-        if (!double.TryParse(value, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out var result))
-        {
-            return false;
-        }
-
-        // Reject NaN and Infinity
-        if (double.IsNaN(result) || double.IsInfinity(result))
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    private bool ValidateUrl(string value)
-    {
-        return Uri.TryCreate(value, UriKind.Absolute, out var uri) &&
-               (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps ||
-                uri.Scheme == Uri.UriSchemeFtp);
-    }
-
-    private bool ValidatePhone(string value)
-    {
-        // Lenient phone validation - just check for digits and common separators
-        var phonePattern = @"^[\d\s\-\(\)\+\.]+$";
-        return Regex.IsMatch(value, phonePattern) && value.Any(char.IsDigit);
-    }
-
-    private bool ValidateCurrency(string value)
-    {
-        // Remove common currency symbols and try to parse as decimal
-        var cleaned = value.Replace("$", "").Replace("£", "").Replace("€", "").Replace(",", "").Trim();
-        return decimal.TryParse(cleaned, NumberStyles.Currency, CultureInfo.InvariantCulture, out _);
-    }
-
-    private bool ValidateBoolean(string value)
-    {
-        var lower = value.ToLowerInvariant().Trim();
-        return lower == "true" || lower == "false" ||
-               lower == "yes" || lower == "no" ||
-               lower == "1" || lower == "0";
-    }
-
-    private (bool isValid, string? errorMessage) ValidatePattern(string value, string pattern)
-    {
-        try
-        {
-            var isMatch = Regex.IsMatch(value, pattern);
-            return (isMatch, null);
-        }
-        catch (ArgumentException ex)
-        {
-            // Invalid regex pattern - report as validation error
-            return (false, $"Invalid validation pattern: {ex.Message}");
-        }
-    }
-
 }
