@@ -21,23 +21,7 @@ public static class FormExpressions
 
     /// <summary>Every prompt in the document, in document order.</summary>
     public static IReadOnlyList<Prompt> GetAllPrompts(AprDocument document)
-    {
-        ArgumentNullException.ThrowIfNull(document);
-        var prompts = new List<Prompt>();
-        void Walk(Section section)
-        {
-            prompts.AddRange(section.Prompts);
-            foreach (var child in section.Sections)
-            {
-                Walk(child);
-            }
-        }
-        foreach (var section in document.Sections)
-        {
-            Walk(section);
-        }
-        return prompts;
-    }
+        => PromptTreeTraversal.GetAll(document);
 
     /// <summary>Builds the evaluation environment for a document.</summary>
     public static FormExpressionContext BuildContext(
