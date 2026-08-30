@@ -130,11 +130,11 @@ internal sealed class MoveNestedSectionCommand : IEditCommand
 
 internal sealed class MoveTopLevelSectionCommand : IEditCommand
 {
-    private readonly MainShellViewModel _shell;
+    private readonly ITopLevelSectionEditor _shell;
     private readonly int _from;
     private readonly int _to;
 
-    public MoveTopLevelSectionCommand(MainShellViewModel shell, int from, int to)
+    public MoveTopLevelSectionCommand(ITopLevelSectionEditor shell, int from, int to)
     { _shell = shell; _from = from; _to = to; }
 
     public string Description => "Reorder top-level section";
@@ -146,12 +146,12 @@ internal sealed class MoveTopLevelSectionCommand : IEditCommand
 
 internal sealed class AddTopLevelSectionCommand : IEditCommand
 {
-    private readonly MainShellViewModel _shell;
+    private readonly ITopLevelSectionEditor _shell;
     private readonly Section _model;
     private readonly SectionViewModel _vm;
     private readonly int _index;
 
-    public AddTopLevelSectionCommand(MainShellViewModel shell, Section model, SectionViewModel vm, int index)
+    public AddTopLevelSectionCommand(ITopLevelSectionEditor shell, Section model, SectionViewModel vm, int index)
     {
         _shell = shell; _model = model; _vm = vm; _index = index;
     }
@@ -165,12 +165,12 @@ internal sealed class AddTopLevelSectionCommand : IEditCommand
 
 internal sealed class RemoveTopLevelSectionCommand : IEditCommand
 {
-    private readonly MainShellViewModel _shell;
+    private readonly ITopLevelSectionEditor _shell;
     private readonly SectionViewModel _vm;
     private readonly Section _model;
     private readonly int _index;
 
-    public RemoveTopLevelSectionCommand(MainShellViewModel shell, SectionViewModel vm, int index)
+    public RemoveTopLevelSectionCommand(ITopLevelSectionEditor shell, SectionViewModel vm, int index)
     {
         _shell = shell; _vm = vm; _model = vm.Model; _index = index;
     }

@@ -36,8 +36,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly DocumentOutputWorkflow _outputWorkflow;
     private readonly DocumentSessionWorkflow _sessionWorkflow;
     private readonly EditHistory _editHistory;
-    private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
-    private readonly ObservableCollection<SectionViewModel> _sections = new();
+    private readonly DocumentTreeWorkflow _documentTreeWorkflow;
     private readonly AdvisoryWorkflow _advisoryWorkflow = new();
     private readonly ExpressionWorkflow _expressionWorkflow;
     private readonly RoleSelectionWorkflow _roleSelectionWorkflow;
@@ -73,13 +72,22 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _httpsSubmission = httpsSubmission ?? new HttpsSubmissionService();
         _outputWorkflow = new DocumentOutputWorkflow(_session, _fileService, _dialogService);
         _sessionWorkflow = new DocumentSessionWorkflow(_session, _fileService, _dialogService, AddToRecent);
-        _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _promptViewModels);
-        _expressionWorkflow = new ExpressionWorkflow(() => _promptViewModels);
-        _roleSelectionWorkflow = new RoleSelectionWorkflow(() => _promptViewModels);
+        DocumentTreeWorkflow? documentTree = null;
+        _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => documentTree!.Prompts);
+        _expressionWorkflow = new ExpressionWorkflow(() => documentTree!.Prompts);
+        _roleSelectionWorkflow = new RoleSelectionWorkflow(() => documentTree!.Prompts);
         _wizardProfileWorkflow = new WizardProfileWorkflow(
             _profileService,
-            () => _sections.Count,
-            index => index >= 0 && index < _sections.Count ? _sections[index].Title : null);
+            () => documentTree!.Sections.Count,
+            index => index >= 0 && index < documentTree!.Sections.Count ? documentTree.Sections[index].Title : null);
+        documentTree = new DocumentTreeWorkflow(
+            _session,
+            _factory,
+            _editHistory,
+            OnPromptResponseChanged,
+            OnDocumentTreeChanged,
+            _wizardProfileWorkflow.RefreshSections);
+        _documentTreeWorkflow = documentTree;
         _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
         _advisoryWorkflow.StateChanged += OnAdvisoryWorkflowStateChanged;
         _roleSelectionWorkflow.StateChanged += OnRoleSelectionWorkflowStateChanged;
@@ -176,7 +184,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// document is open / no sections exist. Bound by the wizard content area.</summary>
     public SectionViewModel? WizardCurrentSection =>
         _wizardProfileWorkflow.HasCurrentSection
-            ? _sections[WizardSectionIndex]
+            ? _documentTreeWorkflow.Sections[WizardSectionIndex]
             : null;
 
     /// <summary>"Section 3 of 12: Employment History" header for the wizard
@@ -351,10 +359,10 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
     public FormProgressViewModel Progress { get; }
     public SearchViewModel Search { get; }
-    public IReadOnlyList<PromptViewModelBase> PromptViewModels => _promptViewModels;
+    public IReadOnlyList<PromptViewModelBase> PromptViewModels => _documentTreeWorkflow.Prompts;
 
     /// <summary>Top-level sections (each carries nested sections + typed prompt VMs).</summary>
-    public IReadOnlyList<SectionViewModel> Sections => _sections;
+    public IReadOnlyList<SectionViewModel> Sections => _documentTreeWorkflow.Sections;
 
     public bool HasDocument => _session.HasDocument;
     public bool IsFilledForm => _session.Mode == DocumentMode.FillingForm;
@@ -676,113 +684,18 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </summary>
     [RelayCommand]
     public void AddTopLevelSection()
-    {
-        var doc = _session.CurrentDocument;
-        if (doc == null) return;
-        var section = new Section
-        {
-            Id = $"section_{Guid.NewGuid():N}",
-            Title = "New section",
-        };
-            // A section must carry content (specification 4.3), so a new one arrives with
-            // a starter prompt rather than as an empty shell that makes the document
-            // invalid the moment it is added. The author renames it; they never have to
-            // repair it.
-        section.Prompts.Add(new Prompt { Id = $"{section.Id}.prompt_1", Label = "New prompt" });
-        var vm = new SectionViewModel(section, _factory, depth: 0,
-            onPromptAdded: AttachDynamicPromptVm,
-            onPromptRemoved: DetachDynamicPromptVm,
-            history: _editHistory);
-        var index = _sections.Count;
-
-        if (!_editHistory.IsApplying)
-        {
-            _editHistory.Execute(new AddTopLevelSectionCommand(this, section, vm, index));
-        }
-        else
-        {
-            ApplyAddTopLevelSectionAt(index, section, vm);
-        }
-    }
+        => _documentTreeWorkflow.AddTopLevelSection();
 
     /// <summary>Remove a top-level section from the current document. The user
     /// triggers this via the editor's section-list ✕ button. Disposes any prompt
     /// VMs under the removed subtree so subscriptions and resources are released.</summary>
     [RelayCommand]
     public void RemoveTopLevelSection(SectionViewModel? sectionVm)
-    {
-        if (sectionVm is null) return;
-        var doc = _session.CurrentDocument;
-        if (doc == null) return;
-        if (!_sections.Contains(sectionVm)) return;
-
-        if (!_editHistory.IsApplying)
-        {
-            var index = _sections.IndexOf(sectionVm);
-            _editHistory.Execute(new RemoveTopLevelSectionCommand(this, sectionVm, index));
-        }
-        else
-        {
-            ApplyRemoveTopLevelSection(sectionVm);
-        }
-    }
+        => _documentTreeWorkflow.RemoveTopLevelSection(sectionVm);
 
     /// <summary>Reorder a top-level section. Undoable.</summary>
     public void MoveTopLevelSection(int fromIndex, int toIndex)
-    {
-        if (fromIndex == toIndex) return;
-        var doc = _session.CurrentDocument;
-        if (doc == null) return;
-        if (fromIndex < 0 || fromIndex >= _sections.Count) return;
-        if (toIndex < 0 || toIndex >= _sections.Count) return;
-
-        if (!_editHistory.IsApplying)
-            _editHistory.Execute(new MoveTopLevelSectionCommand(this, fromIndex, toIndex));
-        else
-            ApplyMoveTopLevelSection(fromIndex, toIndex);
-    }
-
-    internal void ApplyMoveTopLevelSection(int fromIndex, int toIndex)
-    {
-        var doc = _session.CurrentDocument;
-        if (doc == null) return;
-        var sec = doc.Sections[fromIndex];
-        doc.Sections.RemoveAt(fromIndex);
-        doc.Sections.Insert(toIndex, sec);
-        var vm = _sections[fromIndex];
-        _sections.RemoveAt(fromIndex);
-        _sections.Insert(toIndex, vm);
-        _session.MarkDirty();
-    }
-
-    /// <summary>Raw mutation: insert a top-level section at the given index. Used
-    /// by both the public AddTopLevelSection and undo of RemoveTopLevelSection.</summary>
-    internal void ApplyAddTopLevelSectionAt(int index, Section section, SectionViewModel vm)
-    {
-        var doc = _session.CurrentDocument;
-        if (doc == null) return;
-        if (index < 0 || index > doc.Sections.Count) index = doc.Sections.Count;
-        doc.Sections.Insert(index, section);
-        if (index > _sections.Count) index = _sections.Count;
-        _sections.Insert(index, vm);
-        _session.MarkDirty();
-        _wizardProfileWorkflow.RefreshSections();
-    }
-
-    /// <summary>Raw mutation: remove a top-level section. Used by both the
-    /// public RemoveTopLevelSection and undo of AddTopLevelSection.</summary>
-    internal void ApplyRemoveTopLevelSection(SectionViewModel sectionVm)
-    {
-        var doc = _session.CurrentDocument;
-        if (doc == null) return;
-        if (!_sections.Contains(sectionVm)) return;
-        WalkAndDetachPrompts(sectionVm);
-        doc.Sections.Remove(sectionVm.Model);
-        _sections.Remove(sectionVm);
-        _session.MarkDirty();
-        // Clamp wizard index in case it pointed past the last remaining section.
-        _wizardProfileWorkflow.RefreshSections();
-    }
+        => _documentTreeWorkflow.MoveTopLevelSection(fromIndex, toIndex);
 
     private void RefreshWizardDerived()
     {
@@ -795,11 +708,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         WizardNextCommand.NotifyCanExecuteChanged();
     }
 
-    private void WalkAndDetachPrompts(SectionViewModel s)
-    {
-        foreach (var p in s.PromptViewModels) DetachDynamicPromptVm(p);
-        foreach (var child in s.NestedSections) WalkAndDetachPrompts(child);
-    }
 
     [RelayCommand]
     public async Task Open()
@@ -945,15 +853,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         Progress.SetDocument(document);
         Search.SetDocument(document);
 
-        // Dispose the previous prompt VMs (also unsubscribes our PropertyChanged
-        // handler) and rebuild the section tree.
-        foreach (var vm in _promptViewModels)
-        {
-            vm.PropertyChanged -= OnPromptResponseChanged;
-            vm.Dispose();
-        }
-        _promptViewModels.Clear();
-        _sections.Clear();
         if (Metadata != null)
         {
             Metadata.Changed -= OnMetadataChanged;
@@ -964,31 +863,12 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         // document must never resurface as undo steps in another.
         _editHistory.Clear();
 
+        _documentTreeWorkflow.Rebuild(document);
+
         if (document != null)
         {
             Metadata = new DocumentMetadataViewModel(document.Metadata, _editHistory);
             Metadata.Changed += OnMetadataChanged;
-
-            foreach (var section in document.Sections)
-            {
-                // onPromptAdded/onPromptRemoved fire when dynamic table rows are
-                // added or removed at runtime — keep the shell-tracked prompt VM
-                // list in sync so progress + advisories pick up the new cells.
-                var sectionVm = new SectionViewModel(
-                    section, _factory, depth: 0,
-                    onPromptAdded: AttachDynamicPromptVm,
-                    onPromptRemoved: DetachDynamicPromptVm,
-                    history: _editHistory);
-                _sections.Add(sectionVm);
-                CollectPrompts(sectionVm);
-            }
-            // Subscribe to every prompt's Response changes so the progress bar and
-            // advisory list refresh as the user types — fixes the "progress never
-            // updates / advisories require Refresh button" live-app bugs.
-            foreach (var promptVm in _promptViewModels)
-            {
-                promptVm.PropertyChanged += OnPromptResponseChanged;
-            }
 
             // Resolve who each field is for, so the person filling never has to ask.
             _roleSelectionWorkflow.Apply(document);
@@ -1080,12 +960,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(ActiveRoleSummary));
     }
 
-    private void CollectPrompts(SectionViewModel section)
-    {
-        foreach (var prompt in section.PromptViewModels) _promptViewModels.Add(prompt);
-        foreach (var nested in section.NestedSections) CollectPrompts(nested);
-    }
-
     /// <summary>Mark dirty + refresh derived display properties whenever the user
     /// edits any metadata field via the edit-mode metadata panel.</summary>
     private void OnMetadataChanged(object? sender, EventArgs e)
@@ -1097,23 +971,10 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(Title));
     }
 
-    /// <summary>Wire a newly-added dynamic cell prompt (from AddRow) into the shell's
-    /// tracked list so its Response changes drive progress + advisory refresh.</summary>
-    private void AttachDynamicPromptVm(PromptViewModelBase promptVm)
+    private void OnDocumentTreeChanged()
     {
-        _promptViewModels.Add(promptVm);
-        promptVm.PropertyChanged += OnPromptResponseChanged;
-        Progress.Refresh();
-        RefreshAdvisories();
-    }
-
-    /// <summary>Detach a removed dynamic cell prompt (from RemoveRow), unsubscribe,
-    /// and dispose so the rendering profile event handler is released.</summary>
-    private void DetachDynamicPromptVm(PromptViewModelBase promptVm)
-    {
-        promptVm.PropertyChanged -= OnPromptResponseChanged;
-        _promptViewModels.Remove(promptVm);
-        promptVm.Dispose();
+        OnPropertyChanged(nameof(PromptViewModels));
+        OnPropertyChanged(nameof(Sections));
         Progress.Refresh();
         RefreshAdvisories();
     }
@@ -1123,7 +984,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// Filtered to Response-only updates so other property pulses (DisplayValue,
     /// Show* derived bools) don't trigger redundant validation passes.
     /// </summary>
-    private void OnPromptResponseChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    private void OnPromptResponseChanged(PromptViewModelBase _, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(PromptViewModelBase.Response)) return;
         if (_expressionWorkflow.IsApplying) return;   // ignore the cascade from ApplyExpressions itself
@@ -1178,11 +1039,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _signatureWorkflow.StateChanged -= OnSignatureWorkflowStateChanged;
         _wizardProfileWorkflow.StateChanged -= OnWizardProfileWorkflowStateChanged;
         _wizardProfileWorkflow.Dispose();
-        foreach (var vm in _promptViewModels)
-        {
-            vm.Dispose();
-        }
-        _promptViewModels.Clear();
+        _documentTreeWorkflow.Dispose();
     }
 }
 
