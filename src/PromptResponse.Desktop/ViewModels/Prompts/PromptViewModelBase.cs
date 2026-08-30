@@ -544,7 +544,29 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     private void OnProfileChanged(object? sender, EventArgs e)
     {
         Notify(nameof(DisplayValue));
+        NotifyProfileDependentPresentation();
         OnDerivedPropertiesShouldRefresh();
+    }
+
+    /// <summary>
+    /// Refreshes bindings whose value is derived from accessibility dimensions of the
+    /// active profile rather than from the prompt model.
+    /// </summary>
+    /// <remarks>
+    /// Live-region verbosity changes the provenance and signature descriptions;
+    /// colour-cue capability changes their redundant visual cues; and text scale
+    /// changes the raw-editor toggle geometry. These properties must re-bind as one
+    /// profile transition so an accessibility preference never waits for an unrelated
+    /// response edit to appear on screen.
+    /// </remarks>
+    private void NotifyProfileDependentPresentation()
+    {
+        Notify(nameof(ProvenanceAnnouncement));
+        Notify(nameof(ProvenanceColorCue));
+        Notify(nameof(SignatureAnnouncement));
+        Notify(nameof(SignatureColorCue));
+        Notify(nameof(ToggleGlyphSize));
+        Notify(nameof(ToggleButtonSize));
     }
 
     protected void Notify([CallerMemberName] string? propertyName = null)
