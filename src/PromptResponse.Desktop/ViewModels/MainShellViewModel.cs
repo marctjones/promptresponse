@@ -5,7 +5,6 @@ using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PromptResponse.Core;
-using PromptResponse.Core.Expressions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Serialization;
@@ -40,6 +39,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
     private readonly ObservableCollection<SectionViewModel> _sections = new();
     private readonly AdvisoryWorkflow _advisoryWorkflow = new();
+    private readonly ExpressionWorkflow _expressionWorkflow;
     private readonly RoleSelectionWorkflow _roleSelectionWorkflow;
     private readonly SignatureWorkflow _signatureWorkflow;
 
@@ -73,6 +73,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _outputWorkflow = new DocumentOutputWorkflow(_session, _fileService, _dialogService);
         _sessionWorkflow = new DocumentSessionWorkflow(_session, _fileService, _dialogService, AddToRecent);
         _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _promptViewModels);
+        _expressionWorkflow = new ExpressionWorkflow(() => _promptViewModels);
         _roleSelectionWorkflow = new RoleSelectionWorkflow(() => _promptViewModels);
         _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
         _advisoryWorkflow.StateChanged += OnAdvisoryWorkflowStateChanged;
@@ -1156,12 +1157,10 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// Filtered to Response-only updates so other property pulses (DisplayValue,
     /// Show* derived bools) don't trigger redundant validation passes.
     /// </summary>
-    private bool _applyingExpressions;
-
     private void OnPromptResponseChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(PromptViewModelBase.Response)) return;
-        if (_applyingExpressions) return;   // ignore the cascade from ApplyExpressions itself
+        if (_expressionWorkflow.IsApplying) return;   // ignore the cascade from ApplyExpressions itself
         ApplyExpressions();
         Progress.Refresh();
         RefreshAdvisories();
@@ -1181,41 +1180,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </summary>
     public void ApplyExpressions()
     {
-        var doc = _session.CurrentDocument;
-        if (doc == null || _applyingExpressions) return;
-
-        _applyingExpressions = true;
-        try
-        {
-            var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
-            FormExpressions.RecomputeComputedValues(doc, today);
-            // Rebuilt after recomputation so dependent expressions see the new values.
-            var expressions = FormExpressions.BuildContext(doc, today);
-
-            var prompts = new Dictionary<string, Prompt>(StringComparer.Ordinal);
-            foreach (var p in FormExpressions.GetAllPrompts(doc))
-            {
-                if (!string.IsNullOrEmpty(p.Id))
-                {
-                    prompts[p.Id] = p;   // last wins on the rare duplicate id
-                }
-            }
-
-            foreach (var vm in _promptViewModels)
-            {
-                if (!prompts.TryGetValue(vm.Id, out var prompt))
-                {
-                    continue;
-                }
-                vm.IsVisible = !FormExpressions.IsHidden(prompt, expressions);
-                vm.IsReadOnly = FormExpressions.IsReadOnly(prompt, expressions);
-                vm.RefreshFromModel();   // pick up any recomputed value
-            }
-        }
-        finally
-        {
-            _applyingExpressions = false;
-        }
+        _expressionWorkflow.Apply(_session.CurrentDocument);
     }
 
     private void OnDirtyChanged(object? sender, bool isDirty)
