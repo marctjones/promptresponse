@@ -28,6 +28,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     private readonly IProfileService _profileService;
     private readonly EditHistory? _history;
     private readonly PromptProfileRefreshCoordinator _profileRefresh;
+    private readonly PromptResponseState _responseState;
     private bool _disposed;
 
     protected PromptViewModelBase(Prompt prompt, IProfileService profileService, EditHistory? history = null)
@@ -39,6 +40,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
             _profileService,
             propertyName => Notify(propertyName),
             OnDerivedPropertiesShouldRefresh);
+        _responseState = new PromptResponseState(_prompt, Notify, OnDerivedPropertiesShouldRefresh);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -76,8 +78,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
             v =>
             {
                 _prompt.Hints.ExpectedDataType = v;
-                Notify(nameof(DisplayValue));
-                OnDerivedPropertiesShouldRefresh();
+                _responseState.RefreshDisplayAndDerivedState();
             },
             value);
     }
@@ -305,20 +306,8 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// </summary>
     public string Response
     {
-        get => _prompt.Response ?? string.Empty;
-        set
-        {
-            var newValue = value ?? string.Empty;
-            if (_prompt.Response == newValue) return;
-            // The model's setter clears responseMetadata.source, which is what makes
-            // this an authored value rather than a calculated one - so provenance has
-            // just changed and must be announced.
-            _prompt.Response = newValue;
-            Notify(nameof(Response));
-            Notify(nameof(DisplayValue));
-            NotifyProvenance();
-            OnDerivedPropertiesShouldRefresh();
-        }
+        get => _responseState.Response;
+        set => _responseState.Response = value;
     }
 
     private bool _isVisible = true;
@@ -474,26 +463,7 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     /// </summary>
     public void RefreshFromModel()
     {
-        Notify(nameof(Response));
-        Notify(nameof(DisplayValue));
-        NotifyProvenance();
-        OnDerivedPropertiesShouldRefresh();
-    }
-
-    /// <summary>Announces where the value came from.</summary>
-    /// <remarks>
-    /// Called from both directions, because provenance changes both ways: recomputation
-    /// makes a value calculated, and typing over it makes it yours. A mark that only
-    /// updated one way would be right half the time, which is worse than absent.
-    /// </remarks>
-    private void NotifyProvenance()
-    {
-        Notify(nameof(ValueIsCalculated));
-        Notify(nameof(ValueWasOverridden));
-        Notify(nameof(ShowProvenanceMark));
-        Notify(nameof(ProvenanceLabel));
-        Notify(nameof(ProvenanceAnnouncement));
-        Notify(nameof(ProvenanceColorCue));
+        _responseState.RefreshFromModel();
     }
 
     /// <summary>

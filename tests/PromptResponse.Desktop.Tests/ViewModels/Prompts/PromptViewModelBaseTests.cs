@@ -70,6 +70,23 @@ public class PromptViewModelBaseTests
     }
 
     [Fact]
+    public void SettingResponse_RefreshesProvenanceBeforeTypeSpecificDerivedState()
+    {
+        var prompt = MakePrompt("p1", "Age");
+        var vm = new NumberPromptViewModel(prompt, NewService());
+        var changed = new List<string?>();
+        vm.PropertyChanged += (_, e) => changed.Add(e.PropertyName);
+
+        vm.Response = "42";
+
+        changed.Should().ContainInOrder(
+            nameof(vm.Response),
+            nameof(vm.DisplayValue),
+            nameof(vm.ProvenanceColorCue),
+            nameof(NumberPromptViewModel.ShowDisplaysAs));
+    }
+
+    [Fact]
     public void SettingResponse_ToSameValue_DoesNotRaisePropertyChanged()
     {
         var prompt = MakePrompt("p1", "Age", response: "42");
