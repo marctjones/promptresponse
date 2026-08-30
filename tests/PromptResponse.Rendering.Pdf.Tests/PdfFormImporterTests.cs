@@ -130,4 +130,50 @@ public class PdfFormImporterTests
 
         act.Should().Throw<PdfFormImporter.NoFormFieldsException>();
     }
+
+    [Fact]
+    public void QualityAssessor_DuplicateReadableLabels_AppliesPenaltyAndFlagsEveryPrompt()
+    {
+        var mappings = new[]
+        {
+            Mapping("first", "Email address", hadTooltip: true),
+            Mapping("second", "Email address", hadTooltip: true),
+            Mapping("third", "Phone number", hadTooltip: true),
+        };
+
+        var quality = PdfImportQualityAssessor.Assess(mappings);
+
+        quality.Score.Should().Be(85);
+        quality.Recommendation.Should().Be(ImportRecommendation.UseDirectly);
+        quality.DuplicateLabelRatio.Should().BeApproximately(2d / 3, 0.0001);
+        quality.Flags.Where(flag => flag.Kind == FieldFlagKind.DuplicateLabel)
+            .Select(flag => flag.PromptId).Should().BeEquivalentTo(["first", "second"]);
+    }
+
+    [Fact]
+    public void DocumentBuilder_GroupsMappedPromptsByPageAndCreatesStableMetadata()
+    {
+        var document = PdfImportDocumentBuilder.Build("  Tax form 2026! ",
+        [
+            Mapping("unknown", "Unpaged", pageNumber: 0),
+            Mapping("page-two", "Second page", pageNumber: 2),
+            Mapping("page-one", "First page", pageNumber: 1),
+        ]);
+
+        document.Metadata.TemplateId.Should().Be("tax-form-2026");
+        document.Sections.Select(section => section.Id).Should().Equal("fields", "page-1", "page-2");
+        document.Sections[2].Description.Should().Be("Fields from page 2 of the source PDF.");
+        document.Sections[1].Prompts.Single().Id.Should().Be("page-one");
+    }
+
+    private static PdfImportFieldMapping Mapping(
+        string id,
+        string label,
+        bool hadTooltip = false,
+        int pageNumber = 1) => new(
+            new Prompt { Id = id, Label = label, Hints = new PromptHints() },
+            pageNumber,
+            hadTooltip,
+            IsButton: false,
+            OptionCount: 0);
 }
