@@ -75,7 +75,7 @@ public class AprJsonSerializer : IAprSerializer
             {
                 throw new SerializationException("Deserialization returned null");
             }
-            RejectRetiredSubmissionUrl(document);
+            AprCompatibilityGuard.Validate(document);
             SanitizeDocument(document);
             return document;
         }
@@ -106,7 +106,7 @@ public class AprJsonSerializer : IAprSerializer
             {
                 throw new SerializationException("Deserialization returned null");
             }
-            RejectRetiredSubmissionUrl(document);
+            AprCompatibilityGuard.Validate(document);
             SanitizeDocument(document);
             return document;
         }
@@ -167,15 +167,6 @@ public class AprJsonSerializer : IAprSerializer
         foreach (var section in document.Sections)
         {
             SanitizeSection(section);
-        }
-    }
-
-    private static void RejectRetiredSubmissionUrl(AprDocument document)
-    {
-        if (document.Metadata?.Extensions?.ContainsKey("submissionUrl") == true)
-        {
-            throw new SerializationException(
-                "metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings");
         }
     }
 
