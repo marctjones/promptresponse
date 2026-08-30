@@ -1,5 +1,6 @@
 using AwesomeAssertions;
 using PromptResponse.Cli.Commands;
+using PromptResponse.Cli.Commands.Fill;
 using PromptResponse.Cli.Tests.Fixtures;
 using PromptResponse.Core.Serialization;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,7 @@ public class FillCommandTests : IDisposable
         var serializer = new AprJsonSerializer();
         var api = new FormFillingApi(serializer, new Core.Validation.DocumentValidator(), Substitute.For<ILogger<FormFillingApi>>());
         var logger = Substitute.For<ILogger<FillCommand>>();
-        _command = new FillCommand(api, serializer, logger);
+        _command = new FillCommand(api, logger);
         _tempHelper = new TempFileHelper(serializer);
     }
 
@@ -62,6 +63,33 @@ public class FillCommandTests : IDisposable
         var templatePath = _tempHelper.CreateTemplateFile();
         var result = await _command.ExecuteAsync(new[] { templatePath, "--filled-by=Test User" });
         result.Should().BeOneOf(0, 1);
+    }
+
+    [Fact]
+    public void FillCommandOptions_Parse_PreservesValuesWithEqualsSigns()
+    {
+        var options = FillCommandOptions.Parse(new[] { "ignored", "--json={\"url\":\"a=b\"}", "--validate" });
+
+        options.Json.Should().Be("{\"url\":\"a=b\"}");
+        options.Validate.Should().BeTrue();
+    }
+
+    [Fact]
+    public void CommandLineResponseCollector_Collect_OnlyIncludesSetOptions()
+    {
+        var responses = CommandLineResponseCollector.Collect(new Dictionary<string, string>
+        {
+            ["--set-name"] = "Ada",
+            ["--set-empty"] = "",
+            ["--filled-by"] = "Operator",
+            ["--output"] = "filled.aprf"
+        });
+
+        responses.Should().BeEquivalentTo(new Dictionary<string, string>
+        {
+            ["name"] = "Ada",
+            ["empty"] = ""
+        });
     }
 
     public void Dispose() => _tempHelper?.Dispose();

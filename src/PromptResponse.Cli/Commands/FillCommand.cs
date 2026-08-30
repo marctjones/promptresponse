@@ -1,6 +1,6 @@
 using PromptResponse.Cli.Api;
+using PromptResponse.Cli.Commands.Fill;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Serialization;
 using Microsoft.Extensions.Logging;
 
 namespace PromptResponse.Cli.Commands;
@@ -11,16 +11,13 @@ namespace PromptResponse.Cli.Commands;
 public class FillCommand : ICommand
 {
     private readonly FormFillingApi _api;
-    private readonly IAprSerializer _serializer;
     private readonly ILogger<FillCommand> _logger;
 
     public FillCommand(
         FormFillingApi api,
-        IAprSerializer serializer,
         ILogger<FillCommand> logger)
     {
         _api = api ?? throw new ArgumentNullException(nameof(api));
-        _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -35,7 +32,7 @@ public class FillCommand : ICommand
         try
         {
             var templatePath = args[0];
-            var options = ParseOptions(args.Skip(1).ToArray());
+            var options = FillCommandOptions.Parse(args.Skip(1));
 
             // Load template
             var template = await _api.LoadTemplateAsync(templatePath);
@@ -46,17 +43,17 @@ public class FillCommand : ICommand
 
             AprDocument filledForm;
 
-            if (options.ContainsKey("--json-file"))
+            if (options.JsonFilePath is not null)
             {
                 // Programmatic mode: Fill from JSON file
-                filledForm = await FillFromJsonFileAsync(template, options["--json-file"], options);
+                filledForm = await FillFromJsonFileAsync(template, options.JsonFilePath, options);
             }
-            else if (options.ContainsKey("--json"))
+            else if (options.Json is not null)
             {
                 // Programmatic mode: Fill from JSON string
-                filledForm = FillFromJsonString(template, options["--json"], options);
+                filledForm = FillFromJsonString(template, options.Json, options);
             }
-            else if (options.ContainsKey("--non-interactive"))
+            else if (options.IsNonInteractive)
             {
                 // Non-interactive mode with command-line args
                 filledForm = FillFromCommandLine(template, options);
@@ -68,7 +65,7 @@ public class FillCommand : ICommand
             }
 
             // Output file
-            var outputPath = options.GetValueOrDefault("--output") ??
+            var outputPath = options.OutputPath ??
                              Path.ChangeExtension(templatePath, ".aprf");
 
             await _api.SaveFilledFormAsync(filledForm, outputPath);
@@ -81,7 +78,7 @@ public class FillCommand : ICommand
             Console.WriteLine($"Saved to: {outputPath}");
 
             // Validate if requested
-            if (options.ContainsKey("--validate"))
+            if (options.Validate)
             {
                 Console.WriteLine();
                 Console.WriteLine("Validating...");
@@ -112,14 +109,14 @@ public class FillCommand : ICommand
 
     private async Task<AprDocument> FillInteractiveAsync(
         AprDocument template,
-        Dictionary<string, string> options)
+        FillCommandOptions options)
     {
         Console.WriteLine("=== Interactive Form Filling ===");
         Console.WriteLine("(Press Enter to skip a field, Ctrl+C to cancel)");
         Console.WriteLine();
 
         var responses = new Dictionary<string, string>();
-        var filledBy = options.GetValueOrDefault("--filled-by") ??
+        var filledBy = options.FilledBy ??
                        PromptForValue("Filled by", Environment.UserName);
 
         foreach (var section in template.Sections)
@@ -160,7 +157,7 @@ public class FillCommand : ICommand
     private async Task<AprDocument> FillFromJsonFileAsync(
         AprDocument template,
         string jsonFilePath,
-        Dictionary<string, string> options)
+        FillCommandOptions options)
     {
         Console.WriteLine($"Loading responses from: {jsonFilePath}");
 
@@ -170,7 +167,7 @@ public class FillCommand : ICommand
         }
 
         var jsonContent = await File.ReadAllTextAsync(jsonFilePath);
-        var filledBy = options.GetValueOrDefault("--filled-by");
+        var filledBy = options.FilledBy;
 
         return _api.FillFormFromJson(template, jsonContent, filledBy);
     }
@@ -178,38 +175,28 @@ public class FillCommand : ICommand
     private AprDocument FillFromJsonString(
         AprDocument template,
         string json,
-        Dictionary<string, string> options)
+        FillCommandOptions options)
     {
         Console.WriteLine("Filling form from JSON string");
 
-        var filledBy = options.GetValueOrDefault("--filled-by");
+        var filledBy = options.FilledBy;
         return _api.FillFormFromJson(template, json, filledBy);
     }
 
     private AprDocument FillFromCommandLine(
         AprDocument template,
-        Dictionary<string, string> options)
+        FillCommandOptions options)
     {
         Console.WriteLine("Filling form from command-line arguments");
 
-        var responses = new Dictionary<string, string>();
-
-        // Extract all --set-{promptId}=value options
-        foreach (var (key, value) in options)
-        {
-            if (key.StartsWith("--set-"))
-            {
-                var promptId = key.Substring(6); // Remove "--set-" prefix
-                responses[promptId] = value;
-            }
-        }
+        var responses = CommandLineResponseCollector.Collect(options.Values);
 
         if (responses.Count == 0)
         {
             Console.WriteLine("Warning: No responses provided. Use --set-{promptId}=value");
         }
 
-        var filledBy = options.GetValueOrDefault("--filled-by");
+        var filledBy = options.FilledBy;
         return _api.FillForm(template, responses, filledBy);
     }
 
@@ -252,29 +239,6 @@ public class FillCommand : ICommand
         Console.Write($"{label} [{defaultValue}]: ");
         var value = Console.ReadLine() ?? string.Empty;
         return string.IsNullOrWhiteSpace(value) ? defaultValue : value.Trim();
-    }
-
-    private Dictionary<string, string> ParseOptions(string[] args)
-    {
-        var options = new Dictionary<string, string>();
-
-        foreach (var arg in args)
-        {
-            if (arg.StartsWith("--"))
-            {
-                var parts = arg.Split('=', 2);
-                if (parts.Length == 2)
-                {
-                    options[parts[0]] = parts[1];
-                }
-                else
-                {
-                    options[parts[0]] = "true";
-                }
-            }
-        }
-
-        return options;
     }
 
     private void ShowHelp()
