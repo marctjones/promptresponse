@@ -762,8 +762,8 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         _section.Kind,
         _section.CanAddRows,
         _section.MaxRows,
-        _section.Sections.Select(CloneSection).ToList(),
-        _section.Prompts.Select(ClonePrompt).ToList());
+        _section.Sections.Select(TableSnapshotCloner.CloneSection).ToList(),
+        _section.Prompts.Select(TableSnapshotCloner.ClonePrompt).ToList());
 
     internal void RestoreTableSnapshot(TableSnapshot snap)
     {
@@ -781,51 +781,19 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         _section.CanAddRows = snap.CanAddRows;
         _section.MaxRows = snap.MaxRows;
 
-        foreach (var prompt in snap.DirectPrompts.Select(ClonePrompt))
+        foreach (var prompt in snap.DirectPrompts.Select(TableSnapshotCloner.ClonePrompt))
         {
             _section.Prompts.Add(prompt);
             var vm = _factory.Create(prompt);
             _promptViewModels.Add(vm);
             _onPromptAdded?.Invoke(vm);
         }
-        foreach (var row in snap.Rows.Select(CloneSection))
+        foreach (var row in snap.Rows.Select(TableSnapshotCloner.CloneSection))
         {
             AttachRow(row);
         }
         NotifyTableShapeChanged();
     }
-
-    private static Section CloneSection(Section s) => new()
-    {
-        Id = s.Id,
-        Title = s.Title,
-        Description = s.Description,
-        Kind = s.Kind,
-        CanAddRows = s.CanAddRows,
-        MaxRows = s.MaxRows,
-        Prompts = s.Prompts.Select(ClonePrompt).ToList(),
-        Sections = s.Sections.Select(CloneSection).ToList(),
-    };
-
-    private static Prompt ClonePrompt(Prompt p) => new()
-    {
-        Id = p.Id,
-        Label = p.Label,
-        Response = p.Response,
-        Hints = new PromptHints
-        {
-            ExpectedDataType = p.Hints.ExpectedDataType,
-            Placeholder = p.Hints.Placeholder,
-            HelpText = p.Hints.HelpText,
-            ValidationPattern = p.Hints.ValidationPattern,
-            SuggestedValues = new List<string>(p.Hints.SuggestedValues),
-            ExprHidden = p.Hints.ExprHidden,
-            ExprValue = p.Hints.ExprValue,
-            ExprExpected = p.Hints.ExprExpected,
-            ExprValidation = p.Hints.ExprValidation,
-            ExprReadOnly = p.Hints.ExprReadOnly,
-        },
-    };
 
     /// <summary>Builds this section's cells, when it is an instance of a parent table.</summary>
     internal void ConfigureAsTableRow()
