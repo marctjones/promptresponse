@@ -15,6 +15,7 @@ using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels.Editing;
 using PromptResponse.Desktop.ViewModels.Prompts;
 using PromptResponse.Desktop.ViewModels.Signing;
+using PromptResponse.Desktop.ViewModels.Workflows;
 using PromptResponse.Rendering.Pdf;
 
 namespace PromptResponse.Desktop.ViewModels;
@@ -34,6 +35,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly IAprSerializer _serializer;
     private readonly IMailHandoffService _mailHandoff;
     private readonly IHttpsSubmissionService _httpsSubmission;
+    private readonly DocumentOutputWorkflow _outputWorkflow;
     private readonly EditHistory _editHistory;
     private readonly DataTypeValidator _dataTypeValidator = new();
     private readonly HiddenCharacterAdvisor _hiddenCharAdvisor = new();
@@ -71,6 +73,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _serializer = serializer ?? new AprJsonSerializer();
         _mailHandoff = mailHandoff ?? new MailHandoffService();
         _httpsSubmission = httpsSubmission ?? new HttpsSubmissionService();
+        _outputWorkflow = new DocumentOutputWorkflow(_session, _fileService, _dialogService);
         _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _promptViewModels);
         _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
 
@@ -1051,76 +1054,26 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
     /// <summary>Exports the currently open document — with its current values — to a flat PDF.</summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
-    public Task ExportPdf() => ExportToPdfAsync(fillable: false);
+    public Task ExportPdf() => _outputWorkflow.ExportPdfAsync(fillable: false);
 
     /// <summary>Shows an in-app preview of the generated print/PDF content.</summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task PrintPreview()
     {
-        var doc = _session.CurrentDocument;
-        if (doc is null) return;
-
-        var model = new DocumentRenderModelBuilder().Build(doc, Core.Rendering.RenderOptions.Default);
-        await _dialogService.ShowPrintPreviewAsync(model, includeEmptyFields: true);
+        await _outputWorkflow.ShowPrintPreviewAsync();
     }
 
     /// <summary>Exports the currently open document to a fillable AcroForm PDF.</summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
-    public Task ExportPdfForm() => ExportToPdfAsync(fillable: true);
-
-    private async Task ExportToPdfAsync(bool fillable)
-    {
-        var doc = _session.CurrentDocument;
-        if (doc is null) return;
-
-        var baseName = string.IsNullOrWhiteSpace(doc.Metadata.Title) ? "form" : doc.Metadata.Title;
-        var suggested = MakeSafeFileName(baseName) + (fillable ? "-form.pdf" : ".pdf");
-
-        var path = await _fileService.PickPdfExportPathAsync(suggested);
-        if (string.IsNullOrEmpty(path)) return;
-
-        IDocumentRenderer renderer = fillable
-            ? new FillablePdfDocumentRenderer()
-            : new PdfDocumentRenderer();
-
-        await using var stream = File.Create(path);
-        renderer.Render(doc, Core.Rendering.RenderOptions.Default, stream);
-    }
+    public Task ExportPdfForm() => _outputWorkflow.ExportPdfAsync(fillable: true);
 
     /// <summary>Exports the current document — with its values — to a read-only HTML page.</summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
-    public Task ExportHtml() => ExportToHtmlAsync(fillable: false);
+    public Task ExportHtml() => _outputWorkflow.ExportHtmlAsync(fillable: false);
 
     /// <summary>Exports the current document to a self-contained, fillable HTML web form.</summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
-    public Task ExportHtmlForm() => ExportToHtmlAsync(fillable: true);
-
-    private async Task ExportToHtmlAsync(bool fillable)
-    {
-        var doc = _session.CurrentDocument;
-        if (doc is null) return;
-
-        var baseName = string.IsNullOrWhiteSpace(doc.Metadata.Title) ? "form" : doc.Metadata.Title;
-        var suggested = MakeSafeFileName(baseName) + (fillable ? "-form.html" : ".html");
-
-        var title = fillable ? "Export web form" : "Export HTML";
-        var path = await _fileService.PickExportPathAsync(suggested, title, "HTML Page", "html");
-        if (string.IsNullOrEmpty(path)) return;
-
-        IDocumentRenderer renderer = fillable
-            ? new FillableHtmlDocumentRenderer()
-            : new HtmlDocumentRenderer();
-
-        await using var stream = File.Create(path);
-        renderer.Render(doc, Core.Rendering.RenderOptions.Default, stream);
-    }
-
-    private static string MakeSafeFileName(string name)
-    {
-        var invalid = Path.GetInvalidFileNameChars();
-        var cleaned = new string(name.Select(c => invalid.Contains(c) ? '_' : c).ToArray()).Trim();
-        return string.IsNullOrEmpty(cleaned) ? "form" : cleaned;
-    }
+    public Task ExportHtmlForm() => _outputWorkflow.ExportHtmlAsync(fillable: true);
 
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task Close()
