@@ -4,11 +4,9 @@ using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PromptResponse.Core.Expressions;
 using PromptResponse.Core;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
-using PromptResponse.Core.Validation;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
@@ -38,13 +36,9 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly DocumentOutputWorkflow _outputWorkflow;
     private readonly DocumentSessionWorkflow _sessionWorkflow;
     private readonly EditHistory _editHistory;
-    private readonly DataTypeValidator _dataTypeValidator = new();
-    private readonly HiddenCharacterAdvisor _hiddenCharAdvisor = new();
-    private readonly MixedScriptAdvisor _mixedScriptAdvisor = new();
-
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
     private readonly ObservableCollection<SectionViewModel> _sections = new();
-    private readonly ObservableCollection<AdvisoryItem> _advisories = new();
+    private readonly AdvisoryWorkflow _advisoryWorkflow = new();
     private readonly SignatureWorkflow _signatureWorkflow;
 
     public MainShellViewModel(
@@ -78,6 +72,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _sessionWorkflow = new DocumentSessionWorkflow(_session, _fileService, _dialogService, AddToRecent);
         _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _promptViewModels);
         _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
+        _advisoryWorkflow.StateChanged += OnAdvisoryWorkflowStateChanged;
 
         Progress = new FormProgressViewModel();
         Search = new SearchViewModel();
@@ -432,19 +427,19 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     public DocumentMetadataViewModel? Metadata { get; private set; }
 
     /// <summary>Count of advisory warnings from the data-type validator (never errors — vision invariant).</summary>
-    public int AdvisoryCount => _advisories.Count;
-    public bool HasAdvisories => _advisories.Count > 0;
-    public string AdvisorySummary => _advisories.Count switch
+    public int AdvisoryCount => _advisoryWorkflow.Count;
+    public bool HasAdvisories => _advisoryWorkflow.Count > 0;
+    public string AdvisorySummary => _advisoryWorkflow.Count switch
     {
         0 => "No advisories",
         1 => "1 advisory",
-        _ => $"{_advisories.Count} advisories",
+        _ => $"{_advisoryWorkflow.Count} advisories",
     };
 
     /// <summary>Itemized list of advisories. Each entry links back to the prompt that
     /// triggered it (PromptId, PromptLabel) and explains why (Message). Pinned in the
     /// right rail so the user can see which fields need attention without hunting.</summary>
-    public IReadOnlyList<AdvisoryItem> Advisories => _advisories;
+    public IReadOnlyList<AdvisoryItem> Advisories => _advisoryWorkflow.Items;
 
     /// <summary>
     /// Raised when the user activates an advisory to jump to the field it refers
@@ -619,72 +614,15 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </summary>
     public void RefreshAdvisories()
     {
-        _advisories.Clear();
-        var doc = _session.CurrentDocument;
-        if (doc != null)
-        {
-            // Data-type hint mismatches ("five" in a number-hinted field, etc.)
-            var typeResult = _dataTypeValidator.ValidateDocument(doc);
-            foreach (var warning in typeResult.Warnings)
-            {
-                var (promptId, promptLabel) = ResolvePromptFromPath(doc, warning.PropertyPath);
-                _advisories.Add(new AdvisoryItem(promptId, promptLabel, warning.Message));
-            }
-            // Hidden-character findings (ZWSP, soft hyphen, bidi marks, variation
-            // selectors) — preserved on save but flagged so the user can confirm intent.
-            var hiddenResult = _hiddenCharAdvisor.Validate(doc);
-            foreach (var warning in hiddenResult.Warnings)
-            {
-                var (promptId, promptLabel) = ResolvePromptFromPath(doc, warning.PropertyPath);
-                _advisories.Add(new AdvisoryItem(promptId, promptLabel, warning.Message));
-            }
-            // Mixed-script findings on URL hosts and email domains (homoglyph attack
-            // vector — Cyrillic 'а' in аpple.com).
-            var mixedResult = _mixedScriptAdvisor.Validate(doc);
-            foreach (var warning in mixedResult.Warnings)
-            {
-                var (promptId, promptLabel) = ResolvePromptFromPath(doc, warning.PropertyPath);
-                _advisories.Add(new AdvisoryItem(promptId, promptLabel, warning.Message));
-            }
+        _advisoryWorkflow.Refresh(_session.CurrentDocument);
+    }
 
-            // Cross-field validation (exprValidation) — advisory, never blocking.
-            var today = DateTime.UtcNow.ToString("yyyy-MM-dd");
-            var expressions = FormExpressions.BuildContext(doc, today);
-            foreach (var prompt in FormExpressions.GetAllPrompts(doc))
-            {
-                var message = FormExpressions.Validate(prompt, expressions);
-                if (message != null)
-                {
-                    _advisories.Add(new AdvisoryItem(prompt.Id, prompt.Label, message));
-                }
-            }
-        }
+    private void OnAdvisoryWorkflowStateChanged()
+    {
         OnPropertyChanged(nameof(AdvisoryCount));
         OnPropertyChanged(nameof(HasAdvisories));
         OnPropertyChanged(nameof(AdvisorySummary));
         OnPropertyChanged(nameof(Advisories));
-    }
-
-    /// <summary>
-    /// Resolves a validator's PropertyPath (which is the prompt's Id) to the
-    /// prompt's user-visible label. Falls back to the id when the prompt can't
-    /// be located so the advisory remains informative.
-    /// </summary>
-    private static (string id, string label) ResolvePromptFromPath(AprDocument doc, string propertyPath)
-    {
-        var prompt = FindPromptById(doc.Sections, propertyPath);
-        return prompt != null ? (prompt.Id, prompt.Label) : (propertyPath, propertyPath);
-    }
-
-    private static Prompt? FindPromptById(IList<Section> sections, string id)
-    {
-        foreach (var section in sections)
-        {
-            foreach (var p in section.Prompts) if (p.Id == id) return p;
-            var nested = FindPromptById(section.Sections, id);
-            if (nested != null) return nested;
-        }
-        return null;
     }
 
     /// <summary>
