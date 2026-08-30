@@ -1,7 +1,7 @@
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Serialization;
-using PromptResponse.Rendering.Pdf;
+using PromptResponse.Cli.Commands.Export;
 using System.Text;
 using System.Text.Json;
 
@@ -42,67 +42,43 @@ public class ExportCommand : ICommand
             return 1;
         }
 
-        var filePath = args.FirstOrDefault(a => !a.StartsWith("--"));
-        var format = GetArgValue(args, "--format") ?? "csv";
-        var outputPath = GetArgValue(args, "--output");
-        var excludeEmpty = args.Contains("--exclude-empty");
-        var fillable = args.Contains("--fillable");
-
-        if (string.IsNullOrEmpty(filePath))
+        if (!ExportRequest.TryParse(args, out var request, out var parseError))
         {
-            Console.Error.WriteLine("Error: File path required");
+            Console.Error.WriteLine(parseError);
+            if (parseError!.Contains("Unsupported format", StringComparison.Ordinal))
+            {
+                Console.Error.WriteLine("Supported formats: csv, json, txt, html, pdf");
+            }
             return 1;
         }
 
-        if (!File.Exists(filePath))
+        if (!File.Exists(request!.InputPath))
         {
-            Console.Error.WriteLine($"Error: File not found: {filePath}");
-            return 1;
-        }
-
-        if (!new[] { "csv", "json", "txt", "html", "pdf" }.Contains(format.ToLowerInvariant()))
-        {
-            Console.Error.WriteLine($"Error: Unsupported format: {format}");
-            Console.Error.WriteLine("Supported formats: csv, json, txt, html, pdf");
+            Console.Error.WriteLine($"Error: File not found: {request.InputPath}");
             return 1;
         }
 
         try
         {
             // Load document
-            var json = await File.ReadAllTextAsync(filePath);
+            var json = await File.ReadAllTextAsync(request.InputPath);
             var document = _serializer.Deserialize(json);
 
-            // PDF is binary: render to a file via the shared IDocumentRenderer seam.
-            if (format.Equals("pdf", StringComparison.OrdinalIgnoreCase))
+            if (request.Format == ExportFormat.Pdf)
             {
-                var pageSize = ParsePageSize(GetArgValue(args, "--page-size"));
-                var banner = GetArgValue(args, "--banner");
-                var pdfa = args.Contains("--pdfa");
-                return await ExportToPdfAsync(document, outputPath, excludeEmpty, fillable, pageSize, banner, pdfa);
+                return await PdfExportWriter.WriteAsync(document, request);
             }
 
-            // Generate export
-            string exportContent = format.ToLowerInvariant() switch
+            var exportContent = request.Format switch
             {
-                "csv" => ExportToCsv(document),
-                "json" => ExportToJson(document),
-                "txt" => ExportToText(document),
-                "html" => ExportToHtml(document, fillable),
-                _ => throw new InvalidOperationException($"Unsupported format: {format}")
+                ExportFormat.Csv => ExportToCsv(document),
+                ExportFormat.Json => ExportToJson(document),
+                ExportFormat.Text => ExportToText(document),
+                ExportFormat.Html => ExportToHtml(document, request.Fillable),
+                _ => throw new InvalidOperationException($"Unsupported format: {request.Format}")
             };
 
-            // Output
-            if (string.IsNullOrEmpty(outputPath))
-            {
-                Console.WriteLine(exportContent);
-            }
-            else
-            {
-                await File.WriteAllTextAsync(outputPath, exportContent);
-                Console.WriteLine($"Exported to: {outputPath}");
-            }
-
+            await ExportOutputWriter.WriteAsync(exportContent, request.OutputPath);
             return 0;
         }
         catch (SerializationException ex)
@@ -115,51 +91,6 @@ public class ExportCommand : ICommand
             Console.Error.WriteLine($"Error: {ex.Message}");
             return 1;
         }
-    }
-
-    private string? GetArgValue(string[] args, string prefix)
-    {
-        var arg = args.FirstOrDefault(a => a.StartsWith(prefix + "="));
-        return arg?.Substring(prefix.Length + 1);
-    }
-
-    private static PdfPageSize ParsePageSize(string? value) => value?.ToLowerInvariant() switch
-    {
-        "a4" => PdfPageSize.A4,
-        "legal" => PdfPageSize.Legal,
-        _ => PdfPageSize.Letter,
-    };
-
-    private static async Task<int> ExportToPdfAsync(AprDocument document, string? outputPath, bool excludeEmpty, bool fillable, PdfPageSize pageSize, string? banner, bool archival)
-    {
-        // A PDF is binary, so it must be written to a file rather than stdout.
-        if (string.IsNullOrEmpty(outputPath))
-        {
-            Console.Error.WriteLine("Error: PDF export requires an output file. Use --output=<file>.");
-            return 1;
-        }
-
-        if (archival && fillable)
-        {
-            Console.Error.WriteLine("Note: --pdfa produces a flat archival PDF; --fillable is ignored.");
-        }
-
-        var print = new PdfRenderOptions { PageSize = pageSize, BannerText = banner, Archival = archival };
-
-        // --pdfa forces a flat (non-interactive) archival PDF; --fillable produces
-        // an interactive AcroForm; otherwise a flat PDF.
-        IDocumentRenderer renderer = fillable && !archival
-            ? new FillablePdfDocumentRenderer(print: print)
-            : new PdfDocumentRenderer(print: print);
-        var options = new RenderOptions { IncludeEmptyFields = !excludeEmpty };
-
-        await using (var stream = File.Create(outputPath))
-        {
-            renderer.Render(document, options, stream);
-        }
-
-        Console.WriteLine($"Exported to: {outputPath}");
-        return 0;
     }
 
     private string ExportToCsv(AprDocument document)

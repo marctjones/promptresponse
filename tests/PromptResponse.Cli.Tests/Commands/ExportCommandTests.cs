@@ -209,6 +209,52 @@ public class ExportCommandTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_WithMixedCaseFormat_WritesRequestedFormat()
+    {
+        var document = CreateTestDocument();
+        var inputFile = Path.GetTempFileName();
+        var outputFile = Path.Combine(Path.GetTempPath(), $"export_{Guid.NewGuid():N}.html");
+
+        try
+        {
+            await File.WriteAllTextAsync(inputFile, _serializer.Serialize(document));
+
+            var exitCode = await _command.ExecuteAsync([inputFile, "--format=HtMl", $"--output={outputFile}"]);
+
+            exitCode.Should().Be(0);
+            (await File.ReadAllTextAsync(outputFile)).Should().StartWith("<!DOCTYPE html>");
+        }
+        finally
+        {
+            if (File.Exists(inputFile)) File.Delete(inputFile);
+            if (File.Exists(outputFile)) File.Delete(outputFile);
+        }
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_TextAlias_WritesTextExport()
+    {
+        var document = CreateTestDocument();
+        var inputFile = Path.GetTempFileName();
+        var outputFile = Path.GetTempFileName();
+
+        try
+        {
+            await File.WriteAllTextAsync(inputFile, _serializer.Serialize(document));
+
+            var exitCode = await _command.ExecuteAsync([inputFile, "--format=TXT", $"--output={outputFile}"]);
+
+            exitCode.Should().Be(0);
+            (await File.ReadAllTextAsync(outputFile)).Should().Contain("Responses: Test Form");
+        }
+        finally
+        {
+            if (File.Exists(inputFile)) File.Delete(inputFile);
+            if (File.Exists(outputFile)) File.Delete(outputFile);
+        }
+    }
+
+    [Fact]
     public async Task ExecuteAsync_HtmlFillable_WritesInteractiveForm()
     {
         var document = CreateTestDocument();
