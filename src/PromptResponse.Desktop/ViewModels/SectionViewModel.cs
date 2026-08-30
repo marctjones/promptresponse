@@ -40,7 +40,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     private readonly EditHistory? _history;
     private readonly ObservableCollection<SectionViewModel> _nestedSections;
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels;
-    private readonly ObservableCollection<TableColumnViewModel> _columnsObservable = new();
+    private readonly TablePresentationSynchronizer _tablePresentation;
     private IReadOnlyList<TableCellViewModel> _cells = Array.Empty<TableCellViewModel>();
 
     public SectionViewModel(
@@ -70,15 +70,13 @@ public sealed class SectionViewModel : INotifyPropertyChanged
             _nestedSections.Add(new SectionViewModel(child, _factory, _depth + 1, _onPromptAdded, _onPromptRemoved, _history));
         }
 
+        _tablePresentation = new TablePresentationSynchronizer(this, _nestedSections);
+
         // If this section is a table, configure each row child with the column
         // layout so its cells can be rendered in column order.
         if (_section.IsTable)
         {
-            SyncColumnsObservable();
-            foreach (var rowVm in _nestedSections)
-            {
-                rowVm.ConfigureAsTableRow();
-            }
+            _tablePresentation.Refresh();
         }
 
         AddRowCommand = new RelayCommand(AddRow, () => CanAddRow);
@@ -284,7 +282,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     public void MoveColumn(int fromIndex, int toIndex)
     {
         if (!IsTableSection || fromIndex == toIndex) return;
-        var count = _columnsObservable.Count;
+        var count = Columns.Count;
         if (fromIndex < 0 || fromIndex >= count || toIndex < 0 || toIndex >= count) return;
         EditTable(() => ApplyMoveColumn(fromIndex, toIndex));
     }
@@ -435,7 +433,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     /// Column headers, derived from the first instance's prompts. Backed by an
     /// ObservableCollection so the editor refreshes as the shape changes.
     /// </summary>
-    public ObservableCollection<TableColumnViewModel> Columns => _columnsObservable;
+    public ObservableCollection<TableColumnViewModel> Columns => _tablePresentation.Columns;
 
     /// <summary>Cells in column order — populated only when this section is an instance of a parent table.</summary>
     public IReadOnlyList<TableCellViewModel> Cells
@@ -498,7 +496,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     public void RemoveColumn(TableColumnViewModel? column)
     {
         if (column is null || !IsTableSection) return;
-        if (_columnsObservable.Count <= 1) return;
+        if (Columns.Count <= 1) return;
         EditTable(() => ApplyRemoveColumn(column.Index));
     }
 
@@ -515,7 +513,6 @@ public sealed class SectionViewModel : INotifyPropertyChanged
                     (rowVm._section.Prompts[index].Hints ??= new PromptHints()).ExpectedDataType = type;
                 }
             }
-            ReconfigureAllRowsAsTableRows();
             NotifyTableShapeChanged();
         });
     }
@@ -533,7 +530,6 @@ public sealed class SectionViewModel : INotifyPropertyChanged
                     rowVm._section.Prompts[index].Label = label;
                 }
             }
-            ReconfigureAllRowsAsTableRows();
             NotifyTableShapeChanged();
         });
     }
@@ -594,7 +590,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
 
     internal void ApplyAddColumn()
     {
-        var ordinal = _columnsObservable.Count + 1;
+        var ordinal = Columns.Count + 1;
         foreach (var rowVm in _nestedSections)
         {
             var cell = new Prompt
@@ -608,7 +604,6 @@ public sealed class SectionViewModel : INotifyPropertyChanged
             rowVm._promptViewModels.Add(vm);
             _onPromptAdded?.Invoke(vm);
         }
-        ReconfigureAllRowsAsTableRows();
         NotifyTableShapeChanged();
     }
 
@@ -626,7 +621,6 @@ public sealed class SectionViewModel : INotifyPropertyChanged
             }
             rowVm._section.Prompts.RemoveAt(index);
         }
-        ReconfigureAllRowsAsTableRows();
         NotifyTableShapeChanged();
     }
 
@@ -734,30 +728,9 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         Cells = _promptViewModels.Select(vm => new TableCellViewModel(vm)).ToList();
     }
 
-    private void ReconfigureAllRowsAsTableRows()
-    {
-        if (!IsTableSection) return;
-        foreach (var rowVm in _nestedSections) rowVm.ConfigureAsTableRow();
-    }
-
-    /// <summary>Re-derives the column headers from the first instance's prompts.</summary>
-    private void SyncColumnsObservable()
-    {
-        _columnsObservable.Clear();
-        if (!IsTableSection) return;
-        var first = _nestedSections.FirstOrDefault()?._section.Prompts;
-        if (first == null) return;
-        for (var i = 0; i < first.Count; i++)
-        {
-            _columnsObservable.Add(new TableColumnViewModel(
-                this, i, first[i].Label, first[i].Hints?.ExpectedDataType, first[i].Hints?.HelpText));
-        }
-    }
-
     private void NotifyTableShapeChanged()
     {
-        SyncColumnsObservable();
-        ReconfigureAllRowsAsTableRows();
+        _tablePresentation.Refresh();
         OnPropertyChanged(nameof(IsTableSection));
         OnPropertyChanged(nameof(IsRegularSection));
         OnPropertyChanged(nameof(IsFixedTable));

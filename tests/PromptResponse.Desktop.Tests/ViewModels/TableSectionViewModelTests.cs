@@ -117,6 +117,24 @@ public class TableSectionViewModelTests
     }
 
     [Fact]
+    public void TableShapeEdit_RefreshesColumnAndCellProjections()
+    {
+        var vm = new SectionViewModel(FixedTableSection(), NewFactory(), depth: 0);
+        var row = vm.NestedSections[0];
+        var tableChanges = new List<string?>();
+        var rowChanges = new List<string?>();
+        vm.PropertyChanged += (_, eventArgs) => tableChanges.Add(eventArgs.PropertyName);
+        row.PropertyChanged += (_, eventArgs) => rowChanges.Add(eventArgs.PropertyName);
+
+        vm.AddColumn();
+
+        vm.Columns.Should().HaveCount(3);
+        row.Cells.Should().HaveCount(3);
+        tableChanges.Should().Contain(nameof(SectionViewModel.Columns));
+        rowChanges.Should().Contain(nameof(SectionViewModel.Cells));
+    }
+
+    [Fact]
     public void Fixed_HydratedCellValues_ExposedThroughCellViewModelValue()
     {
         var initial = new Dictionary<string, Dictionary<string, string>>
