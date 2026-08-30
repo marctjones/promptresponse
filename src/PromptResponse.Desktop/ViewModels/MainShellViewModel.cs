@@ -42,6 +42,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly ExpressionWorkflow _expressionWorkflow;
     private readonly RoleSelectionWorkflow _roleSelectionWorkflow;
     private readonly SignatureWorkflow _signatureWorkflow;
+    private readonly WizardProfileWorkflow _wizardProfileWorkflow;
 
     public MainShellViewModel(
         IFileService fileService,
@@ -75,16 +76,20 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _promptViewModels);
         _expressionWorkflow = new ExpressionWorkflow(() => _promptViewModels);
         _roleSelectionWorkflow = new RoleSelectionWorkflow(() => _promptViewModels);
+        _wizardProfileWorkflow = new WizardProfileWorkflow(
+            _profileService,
+            () => _sections.Count,
+            index => index >= 0 && index < _sections.Count ? _sections[index].Title : null);
         _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
         _advisoryWorkflow.StateChanged += OnAdvisoryWorkflowStateChanged;
         _roleSelectionWorkflow.StateChanged += OnRoleSelectionWorkflowStateChanged;
+        _wizardProfileWorkflow.StateChanged += OnWizardProfileWorkflowStateChanged;
 
         Progress = new FormProgressViewModel();
         Search = new SearchViewModel();
 
         _session.DocumentChanged += OnDocumentChanged;
         _session.DirtyChanged += OnDirtyChanged;
-        _profileService.ProfileChanged += (_, _) => OnAllProfileBrushesChanged();
         _editHistory.PropertyChanged += OnEditHistoryChanged;
         _recentFiles.Changed += (_, _) => RefreshRecentFiles();
         RefreshRecentFiles();
@@ -157,36 +162,29 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// the WizardModeProfile capability flag — toggling either the View menu
     /// item or the underlying profile keeps both in sync. Auto-on for the
     /// Cognitive preset; user-overridable any time.</summary>
-    public bool IsWizardMode => _profileService.IsActive(typeof(Profiles.WizardModeProfile));
+    public bool IsWizardMode => _wizardProfileWorkflow.IsWizardMode;
 
     /// <summary>Active section index in wizard mode. Reset to 0 on every
     /// document load so a fresh document starts at section 1.</summary>
-    [ObservableProperty]
-    private int _wizardSectionIndex;
+    public int WizardSectionIndex
+    {
+        get => _wizardProfileWorkflow.SectionIndex;
+        set => _wizardProfileWorkflow.SetSectionIndex(value);
+    }
 
     /// <summary>The currently-visible section in wizard mode, or null if no
     /// document is open / no sections exist. Bound by the wizard content area.</summary>
     public SectionViewModel? WizardCurrentSection =>
-        WizardSectionIndex >= 0 && WizardSectionIndex < _sections.Count
+        _wizardProfileWorkflow.HasCurrentSection
             ? _sections[WizardSectionIndex]
             : null;
 
     /// <summary>"Section 3 of 12: Employment History" header for the wizard
     /// nav bar. Empty string when no document is open.</summary>
-    public string WizardStepLabel
-    {
-        get
-        {
-            if (_sections.Count == 0) return string.Empty;
-            var idx = Math.Clamp(WizardSectionIndex, 0, _sections.Count - 1);
-            var section = _sections[idx];
-            var title = string.IsNullOrWhiteSpace(section.Title) ? "(untitled)" : section.Title;
-            return $"Section {idx + 1} of {_sections.Count}: {title}";
-        }
-    }
+    public string WizardStepLabel => _wizardProfileWorkflow.StepLabel;
 
-    public bool CanWizardPrevious => WizardSectionIndex > 0;
-    public bool CanWizardNext => WizardSectionIndex < _sections.Count - 1;
+    public bool CanWizardPrevious => _wizardProfileWorkflow.CanPrevious;
+    public bool CanWizardNext => _wizardProfileWorkflow.CanNext;
 
     /// <summary>True when the full-list edit-mode view should render — edit
     /// mode AND wizard mode off.</summary>
@@ -197,19 +195,16 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     public bool ShowFullFillList => !IsEditMode && !IsWizardMode;
 
     [RelayCommand(CanExecute = nameof(CanWizardPrevious))]
-    private void WizardPrevious() => MoveWizard(WizardSectionIndex - 1);
+    private void WizardPrevious() => _wizardProfileWorkflow.MovePrevious();
 
     [RelayCommand(CanExecute = nameof(CanWizardNext))]
-    private void WizardNext() => MoveWizard(WizardSectionIndex + 1);
+    private void WizardNext() => _wizardProfileWorkflow.MoveNext();
 
     /// <summary>Jump directly to a specific section index (used by sidebar +
     /// programmatic moves). Out-of-range values are clamped.</summary>
     public void JumpToWizardSection(int index)
     {
-        var clamped = Math.Clamp(index, 0, Math.Max(0, _sections.Count - 1));
-        if (clamped == WizardSectionIndex) return;
-        WizardSectionIndex = clamped;
-        // OnWizardSectionIndexChanged fires the dependent-property notifications.
+        _wizardProfileWorkflow.SetSectionIndex(index);
     }
 
     /// <summary>Toggle wizard mode via the View menu. Flips the underlying
@@ -218,31 +213,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private void ToggleWizardMode()
     {
-        if (_profileService.IsActive(typeof(Profiles.WizardModeProfile)))
-        {
-            _profileService.Disable<Profiles.WizardModeProfile>();
-        }
-        else
-        {
-            _profileService.Enable<Profiles.WizardModeProfile>();
-        }
-    }
-
-    private void MoveWizard(int toIndex)
-    {
-        var clamped = Math.Clamp(toIndex, 0, Math.Max(0, _sections.Count - 1));
-        if (clamped == WizardSectionIndex) return;
-        WizardSectionIndex = clamped;
-    }
-
-    partial void OnWizardSectionIndexChanged(int value)
-    {
-        OnPropertyChanged(nameof(WizardCurrentSection));
-        OnPropertyChanged(nameof(WizardStepLabel));
-        OnPropertyChanged(nameof(CanWizardPrevious));
-        OnPropertyChanged(nameof(CanWizardNext));
-        WizardPreviousCommand.NotifyCanExecuteChanged();
-        WizardNextCommand.NotifyCanExecuteChanged();
+        _wizardProfileWorkflow.ToggleWizardMode();
     }
 
     partial void OnIsEditModeChanged(bool value)
@@ -260,11 +231,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private void ApplyPreset(string? presetName)
     {
-        if (string.IsNullOrWhiteSpace(presetName)) return;
-        if (Enum.TryParse<ProfilePresets.Preset>(presetName, out var preset))
-        {
-            ProfilePresets.Apply(preset, _profileService);
-        }
+        _wizardProfileWorkflow.ApplyPreset(presetName);
     }
 
     [RelayCommand(CanExecute = nameof(CanUndo))]
@@ -281,6 +248,14 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(RedoLabel));
         UndoCommand.NotifyCanExecuteChanged();
         RedoCommand.NotifyCanExecuteChanged();
+    }
+
+    private void OnWizardProfileWorkflowStateChanged(WizardProfileChange change)
+    {
+        if (change.HasFlag(WizardProfileChange.Navigation))
+            RefreshWizardDerived();
+        if (change.HasFlag(WizardProfileChange.ProfilePresentation))
+            OnAllProfileBrushesChanged();
     }
 
     private void OnAllProfileBrushesChanged()
@@ -791,7 +766,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         if (index > _sections.Count) index = _sections.Count;
         _sections.Insert(index, vm);
         _session.MarkDirty();
-        RefreshWizardDerived();
+        _wizardProfileWorkflow.RefreshSections();
     }
 
     /// <summary>Raw mutation: remove a top-level section. Used by both the
@@ -806,15 +781,12 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _sections.Remove(sectionVm);
         _session.MarkDirty();
         // Clamp wizard index in case it pointed past the last remaining section.
-        if (WizardSectionIndex >= _sections.Count && _sections.Count > 0)
-        {
-            WizardSectionIndex = _sections.Count - 1;
-        }
-        RefreshWizardDerived();
+        _wizardProfileWorkflow.RefreshSections();
     }
 
     private void RefreshWizardDerived()
     {
+        OnPropertyChanged(nameof(WizardSectionIndex));
         OnPropertyChanged(nameof(WizardCurrentSection));
         OnPropertyChanged(nameof(WizardStepLabel));
         OnPropertyChanged(nameof(CanWizardPrevious));
@@ -1033,13 +1005,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
 
         // Reset wizard navigation to the first section on document load so a
         // fresh document doesn't open mid-wizard from a previous document.
-        WizardSectionIndex = 0;
-        OnPropertyChanged(nameof(WizardCurrentSection));
-        OnPropertyChanged(nameof(WizardStepLabel));
-        OnPropertyChanged(nameof(CanWizardPrevious));
-        OnPropertyChanged(nameof(CanWizardNext));
-        WizardPreviousCommand.NotifyCanExecuteChanged();
-        WizardNextCommand.NotifyCanExecuteChanged();
+        _wizardProfileWorkflow.ResetForDocument();
 
         OnPropertyChanged(nameof(HasDocument));
         OnPropertyChanged(nameof(IsEmptyState));
@@ -1210,6 +1176,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _session.DocumentChanged -= OnDocumentChanged;
         _session.DirtyChanged -= OnDirtyChanged;
         _signatureWorkflow.StateChanged -= OnSignatureWorkflowStateChanged;
+        _wizardProfileWorkflow.StateChanged -= OnWizardProfileWorkflowStateChanged;
+        _wizardProfileWorkflow.Dispose();
         foreach (var vm in _promptViewModels)
         {
             vm.Dispose();
