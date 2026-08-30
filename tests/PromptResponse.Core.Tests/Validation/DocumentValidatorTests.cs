@@ -22,24 +22,9 @@ public class DocumentValidatorTests
     public void Validate_ValidDocument_ShouldReturnValid()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Version = AprFormat.CurrentVersion,
-            DocumentType = DocumentType.Template,
-            Metadata = new Metadata { Title = "Test Form" },
-            Sections = new List<Section>
-            {
-                new()
-                {
-                    Id = "section_001",
-                    Title = "Section 1",
-                    Prompts = new List<Prompt>
-                    {
-                        new() { Id = "prompt_001", Label = "Question 1", Response = "" }
-                    }
-                }
-            }
-        };
+        var document = CreateDocument(
+            "Test Form",
+            CreateSection(prompts: [new Prompt { Id = "prompt_001", Label = "Question 1", Response = "" }]));
 
         // Act
         var result = _validator.Validate(document);
@@ -65,11 +50,7 @@ public class DocumentValidatorTests
     public void Validate_MissingVersion_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Version = "",
-            Metadata = new Metadata { Title = "Test" }
-        };
+        var document = CreateDocument("Test", version: "");
 
         // Act
         var result = _validator.Validate(document);
@@ -83,11 +64,7 @@ public class DocumentValidatorTests
     public void Validate_UnsupportedVersion_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Version = "99.0",
-            Metadata = new Metadata { Title = "Test" }
-        };
+        var document = CreateDocument("Test", version: "99.0");
 
         // Act
         var result = _validator.Validate(document);
@@ -101,10 +78,7 @@ public class DocumentValidatorTests
     public void Validate_EmptyTitle_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "" }
-        };
+        var document = CreateDocument("");
 
         // Act
         var result = _validator.Validate(document);
@@ -118,11 +92,7 @@ public class DocumentValidatorTests
     public void Validate_NoSections_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "Test" },
-            Sections = new List<Section>()
-        };
+        var document = CreateDocument("Test");
 
         // Act
         var result = _validator.Validate(document);
@@ -136,14 +106,7 @@ public class DocumentValidatorTests
     public void Validate_SectionWithEmptyId_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "Test" },
-            Sections = new List<Section>
-            {
-                new() { Id = "", Title = "Section 1" }
-            }
-        };
+        var document = CreateDocument("Test", CreateSection(id: ""));
 
         // Act
         var result = _validator.Validate(document);
@@ -157,14 +120,7 @@ public class DocumentValidatorTests
     public void Validate_SectionWithEmptyTitle_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "Test" },
-            Sections = new List<Section>
-            {
-                new() { Id = "section_001", Title = "" }
-            }
-        };
+        var document = CreateDocument("Test", CreateSection(title: ""));
 
         // Act
         var result = _validator.Validate(document);
@@ -178,15 +134,8 @@ public class DocumentValidatorTests
     public void Validate_DuplicateSectionIds_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "Test" },
-            Sections = new List<Section>
-            {
-                new() { Id = "section_001", Title = "Section 1" },
-                new() { Id = "section_001", Title = "Section 2" }
-            }
-        };
+        var document = CreateDocument("Test", CreateSection());
+        document.Sections.Add(CreateSection(title: "Section 2"));
 
         // Act
         var result = _validator.Validate(document);
@@ -200,22 +149,9 @@ public class DocumentValidatorTests
     public void Validate_PromptWithEmptyId_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "Test" },
-            Sections = new List<Section>
-            {
-                new()
-                {
-                    Id = "section_001",
-                    Title = "Section 1",
-                    Prompts = new List<Prompt>
-                    {
-                        new() { Id = "", Label = "Question" }
-                    }
-                }
-            }
-        };
+        var document = CreateDocument(
+            "Test",
+            CreateSection(prompts: [new Prompt { Id = "", Label = "Question" }]));
 
         // Act
         var result = _validator.Validate(document);
@@ -229,22 +165,9 @@ public class DocumentValidatorTests
     public void Validate_PromptWithEmptyLabel_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "Test" },
-            Sections = new List<Section>
-            {
-                new()
-                {
-                    Id = "section_001",
-                    Title = "Section 1",
-                    Prompts = new List<Prompt>
-                    {
-                        new() { Id = "prompt_001", Label = "" }
-                    }
-                }
-            }
-        };
+        var document = CreateDocument(
+            "Test",
+            CreateSection(prompts: [new Prompt { Id = "prompt_001", Label = "" }]));
 
         // Act
         var result = _validator.Validate(document);
@@ -258,23 +181,13 @@ public class DocumentValidatorTests
     public void Validate_DuplicatePromptIds_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "Test" },
-            Sections = new List<Section>
-            {
-                new()
-                {
-                    Id = "section_001",
-                    Title = "Section 1",
-                    Prompts = new List<Prompt>
-                    {
-                        new() { Id = "prompt_001", Label = "Q1" },
-                        new() { Id = "prompt_001", Label = "Q2" }
-                    }
-                }
-            }
-        };
+        var document = CreateDocument(
+            "Test",
+            CreateSection(prompts:
+            [
+                new Prompt { Id = "prompt_001", Label = "Q1" },
+                new Prompt { Id = "prompt_001", Label = "Q2" }
+            ]));
 
         // Act
         var result = _validator.Validate(document);
@@ -288,22 +201,9 @@ public class DocumentValidatorTests
     public void Validate_ChildSectionWithEmptyId_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "Test" },
-            Sections = new List<Section>
-            {
-                new()
-                {
-                    Id = "section_001",
-                    Title = "Section 1",
-                    Sections = new List<Section>
-                    {
-                        new() { Id = "", Title = "Child Section" }
-                    }
-                }
-            }
-        };
+        var document = CreateDocument(
+            "Test",
+            CreateSection(childSections: [CreateSection(id: "", title: "Child Section")]));
 
         // Act
         var result = _validator.Validate(document);
@@ -317,14 +217,7 @@ public class DocumentValidatorTests
     public void Validate_SectionWithNoPromptsOrChildSections_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Metadata = new Metadata { Title = "Test" },
-            Sections = new List<Section>
-            {
-                new() { Id = "section_001", Title = "Empty Section" }
-            }
-        };
+        var document = CreateDocument("Test", CreateSection(title: "Empty Section"));
 
         // Act
         var result = _validator.Validate(document);
@@ -338,19 +231,10 @@ public class DocumentValidatorTests
     public void Validate_FilledFormWithoutTemplateId_ShouldReturnError()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            DocumentType = DocumentType.FilledForm,
-            Metadata = new Metadata
-            {
-                Title = "Test",
-                TemplateId = null
-            },
-            Sections = new List<Section>
-            {
-                new() { Id = "section_001", Title = "Section" }
-            }
-        };
+        var document = CreateDocument(
+            "Test",
+            CreateSection(title: "Section"),
+            documentType: DocumentType.FilledForm);
 
         // Act
         var result = _validator.Validate(document);
@@ -419,12 +303,7 @@ public class DocumentValidatorTests
     public void Validate_MultipleErrors_ShouldReturnAll()
     {
         // Arrange
-        var document = new AprDocument
-        {
-            Version = "",
-            Metadata = new Metadata { Title = "" },
-            Sections = new List<Section>()
-        };
+        var document = CreateDocument("", version: "");
 
         // Act
         var result = _validator.Validate(document);
@@ -437,52 +316,19 @@ public class DocumentValidatorTests
     [Fact]
     public void Validate_IrsFormW4Template_ShouldPassValidation()
     {
-        // Arrange
-        var examplePath = GetExampleFilePath("irs-form-w4-2024.aprt");
-        var json = File.ReadAllText(examplePath);
-        var serializer = new Core.Serialization.AprJsonSerializer();
-        var document = serializer.Deserialize(json);
-
-        // Act
-        var result = _validator.Validate(document);
-
-        // Assert
-        result.IsValid.Should().BeTrue();
-        result.Errors.Should().BeEmpty();
+        ValidateFixtureShouldPass("irs-form-w4-2024.aprt");
     }
 
     [Fact]
     public void Validate_GsaSf86Template_ShouldPassValidation()
     {
-        // Arrange
-        var examplePath = GetExampleFilePath("gsa-sf86-sections.aprt");
-        var json = File.ReadAllText(examplePath);
-        var serializer = new Core.Serialization.AprJsonSerializer();
-        var document = serializer.Deserialize(json);
-
-        // Act
-        var result = _validator.Validate(document);
-
-        // Assert
-        result.IsValid.Should().BeTrue();
-        result.Errors.Should().BeEmpty();
+        ValidateFixtureShouldPass("gsa-sf86-sections.aprt");
     }
 
     [Fact]
     public void Validate_IrsForm1040Template_ShouldPassValidation()
     {
-        // Arrange
-        var examplePath = GetExampleFilePath("irs-form-1040-simplified.aprt");
-        var json = File.ReadAllText(examplePath);
-        var serializer = new Core.Serialization.AprJsonSerializer();
-        var document = serializer.Deserialize(json);
-
-        // Act
-        var result = _validator.Validate(document);
-
-        // Assert
-        result.IsValid.Should().BeTrue();
-        result.Errors.Should().BeEmpty();
+        ValidateFixtureShouldPass("irs-form-1040-simplified.aprt");
     }
 
     [Fact]
@@ -496,19 +342,51 @@ public class DocumentValidatorTests
             "irs-form-1040-simplified.aprt"
         };
 
-        var serializer = new Core.Serialization.AprJsonSerializer();
-
         // Act & Assert
         foreach (var formFile in formFiles)
         {
-            var examplePath = GetExampleFilePath(formFile);
-            var json = File.ReadAllText(examplePath);
-            var document = serializer.Deserialize(json);
-            var result = _validator.Validate(document);
-
-            result.IsValid.Should().BeTrue($"{formFile} should pass validation");
-            result.Errors.Should().BeEmpty($"{formFile} should have no validation errors");
+            ValidateFixtureShouldPass(formFile);
         }
+    }
+
+    private void ValidateFixtureShouldPass(string filename)
+    {
+        var json = File.ReadAllText(GetExampleFilePath(filename));
+        var document = new Core.Serialization.AprJsonSerializer().Deserialize(json);
+        var result = _validator.Validate(document);
+
+        result.IsValid.Should().BeTrue($"{filename} should pass validation");
+        result.Errors.Should().BeEmpty($"{filename} should have no validation errors");
+    }
+
+    private static AprDocument CreateDocument(
+        string title,
+        Section? section = null,
+        DocumentType documentType = DocumentType.Template,
+        string version = AprFormat.CurrentVersion)
+    {
+        return new AprDocument
+        {
+            Version = version,
+            DocumentType = documentType,
+            Metadata = new Metadata { Title = title },
+            Sections = section is null ? [] : [section]
+        };
+    }
+
+    private static Section CreateSection(
+        string id = "section_001",
+        string title = "Section 1",
+        List<Prompt>? prompts = null,
+        List<Section>? childSections = null)
+    {
+        return new Section
+        {
+            Id = id,
+            Title = title,
+            Prompts = prompts ?? [],
+            Sections = childSections ?? []
+        };
     }
 
     private static string GetExampleFilePath(string filename)
