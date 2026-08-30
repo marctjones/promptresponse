@@ -349,6 +349,27 @@ public class EditorMutationTests
         (added.Count - addedBefore).Should().Be(2, "two new cell prompt VMs reach the host");
     }
 
+    [Fact]
+    public void AddFixedRow_CopiesColumnShapeWithoutSharingMutableSuggestedValues()
+    {
+        var (vm, model, _, _) = NewBlankSection();
+        vm.ConvertToFixedTable();
+        var source = model.Sections[0].Prompts[0];
+        source.Label = "Service";
+        source.Hints.Placeholder = "Describe the service";
+        source.Hints.SuggestedValues.Add("Consulting");
+
+        vm.AddFixedRow();
+
+        var copied = model.Sections[1].Prompts[0];
+        copied.Id.Should().Be("s1.row2.col1");
+        copied.Label.Should().Be("Service");
+        copied.Hints.Placeholder.Should().Be("Describe the service");
+        copied.Hints.SuggestedValues.Should().ContainSingle().Which.Should().Be("Consulting");
+        copied.Hints.SuggestedValues.Should().NotBeSameAs(source.Hints.SuggestedValues,
+            "each row owns its mutable choices after inheriting the table column shape");
+    }
+
     // ── Top-level section management (via shell-style direct list mutation) ──
 
     [Fact]

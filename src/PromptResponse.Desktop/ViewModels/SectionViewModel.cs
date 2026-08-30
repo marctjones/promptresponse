@@ -578,10 +578,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
 
         if (_section.Sections.Count == 0)
         {
-            var row = new Section { Id = NextRowId(), Title = "Row 1" };
-            row.Prompts.AddRange(seedPrompts.Count > 0
-                ? seedPrompts.Select(p => Rekey(p, row.Id))
-                : [new Prompt { Id = $"{row.Id}.col1", Label = "Column 1", Hints = new PromptHints { ExpectedDataType = "text" } }]);
+            var row = TableRowFactory.CreateFirstRow(_section.Id, seedPrompts);
             AttachRow(row);
         }
         NotifyTableShapeChanged();
@@ -635,35 +632,14 @@ public sealed class SectionViewModel : INotifyPropertyChanged
 
     internal SectionViewModel ApplyAddRow()
     {
-        var rowId = NextRowId();
-        var ordinal = _nestedSections.Count + 1;
-        var row = new Section { Id = rowId, Title = $"{RowTitlePrefix()} {ordinal}" };
-
         // A new instance takes its shape from the ones already there — which is why no
         // separate column definition or row-label template is needed.
         var shape = _nestedSections.FirstOrDefault()?._section.Prompts ?? [];
-        if (shape.Count == 0)
-        {
-            // Nothing to copy: a table that somehow has no instances cannot describe its
-            // own fields (the validator reports TABLE_NO_ROWS). Seed one cell so the row
-            // is usable rather than an empty shell the filler cannot type into.
-            shape = [new Prompt { Id = "col1", Label = "Column 1", Hints = new PromptHints { ExpectedDataType = "text" } }];
-        }
-        foreach (var cell in shape)
-        {
-            row.Prompts.Add(new Prompt
-            {
-                Id = $"{rowId}.{SuffixOf(cell.Id)}",
-                Label = cell.Label,
-                Hints = new PromptHints
-                {
-                    ExpectedDataType = cell.Hints.ExpectedDataType,
-                    Placeholder = cell.Hints.Placeholder,
-                    HelpText = cell.Hints.HelpText,
-                    SuggestedValues = new List<string>(cell.Hints.SuggestedValues),
-                },
-            });
-        }
+        var row = TableRowFactory.CreateRow(
+            _section.Id,
+            _section.Sections,
+            shape,
+            TableRowFactory.TitlePrefix(_nestedSections.FirstOrDefault()?._section));
         var rowVm = AttachRow(row);
         NotifyTableShapeChanged();
         return rowVm;
@@ -685,7 +661,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     /// </summary>
     private void RenumberGeneratedRowTitles()
     {
-        var prefix = RowTitlePrefix();
+        var prefix = TableRowFactory.TitlePrefix(_nestedSections.FirstOrDefault()?._section);
         var ordinal = 1;
         foreach (var rowVm in _nestedSections)
         {
@@ -712,49 +688,6 @@ public sealed class SectionViewModel : INotifyPropertyChanged
         foreach (var p in rowVm._promptViewModels) _onPromptAdded?.Invoke(p);
         return rowVm;
     }
-
-    /// <summary>The id for a new row, unique across the whole document.</summary>
-    /// <remarks>
-    /// Section ids share one namespace document-wide. This counted only within its own
-    /// table, so every dynamic table produced "row1", "row2", and any form with two of
-    /// them failed its own validator the moment a second row existed. That is how
-    /// examples/field-types-showcase.aprt came to ship invalid: two dynamic tables, two
-    /// starter rows, both called "row1".
-    ///
-    /// Scoping to the table also matches how cells are already named - "{rowId}.colN" -
-    /// so a cell in the new row reads "{tableId}.rowN.colM", and the table it belongs to
-    /// is legible from the id alone.
-    /// </remarks>
-    private string NextRowId()
-    {
-        var n = _section.Sections.Count + 1;
-        while (_section.Sections.Any(r => r.Id == $"{_section.Id}.row{n}")) n++;
-        return $"{_section.Id}.row{n}";
-    }
-
-    /// <summary>The word existing instances are named with, so new ones match.</summary>
-    private string RowTitlePrefix()
-    {
-        var first = _nestedSections.FirstOrDefault()?._section.Title;
-        if (string.IsNullOrWhiteSpace(first)) return "Row";
-        var trimmed = first.TrimEnd();
-        var cut = trimmed.LastIndexOf(' ');
-        return cut > 0 && int.TryParse(trimmed[(cut + 1)..], out _) ? trimmed[..cut] : trimmed;
-    }
-
-    private static string SuffixOf(string id)
-    {
-        var dot = id.LastIndexOf('.');
-        return dot >= 0 ? id[(dot + 1)..] : id;
-    }
-
-    private static Prompt Rekey(Prompt p, string rowId) => new()
-    {
-        Id = $"{rowId}.{SuffixOf(p.Id)}",
-        Label = p.Label,
-        Response = p.Response,
-        Hints = p.Hints,
-    };
 
     // ── Snapshot / restore (the whole table undo story) ──
 
