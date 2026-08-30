@@ -37,9 +37,7 @@ public class FillCommand : ICommand
             // Load template
             var template = await _api.LoadTemplateAsync(templatePath);
 
-            Console.WriteLine($"Template: {template.Metadata?.Title ?? "Untitled"}");
-            Console.WriteLine($"Template ID: {template.Metadata?.TemplateId ?? "N/A"}");
-            Console.WriteLine();
+            FillCommandPresentation.WriteTemplate(template);
 
             AprDocument filledForm;
 
@@ -72,29 +70,13 @@ public class FillCommand : ICommand
 
             // Show completion stats
             var completion = _api.GetCompletionPercentage(filledForm);
-            Console.WriteLine();
-            Console.WriteLine($"Form filling complete!");
-            Console.WriteLine($"Completion: {completion:F1}%");
-            Console.WriteLine($"Saved to: {outputPath}");
+            FillCommandPresentation.WriteCompletion(completion, outputPath);
 
             // Validate if requested
             if (options.Validate)
             {
-                Console.WriteLine();
-                Console.WriteLine("Validating...");
                 var validation = _api.ValidateFilledForm(filledForm);
-                if (validation.IsValid)
-                {
-                    Console.WriteLine("✓ Validation passed");
-                }
-                else
-                {
-                    Console.WriteLine("⚠ Validation warnings:");
-                    foreach (var error in validation.Errors)
-                    {
-                        Console.WriteLine($"  - {error.Message}");
-                    }
-                }
+                FillCommandPresentation.WriteValidation(validation);
             }
 
             return 0;
