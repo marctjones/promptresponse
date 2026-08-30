@@ -86,6 +86,34 @@ public class FillableHtmlDocumentRendererTests
     }
 
     [Fact]
+    public void Render_UsesTheRightEmptyChoicePrompt_ForFieldsAndTableCells()
+    {
+        var doc = new AprDocument
+        {
+            Metadata = new Metadata { Title = "Choices" },
+            Sections =
+            [
+                new Section
+                {
+                    Id = "s", Title = "Fields",
+                    Prompts = [new Prompt { Id = "field", Label = "Field", Hints = new PromptHints { SuggestedValues = ["A"] } }],
+                },
+                new Section
+                {
+                    Id = "t", Title = "Table", Kind = "table",
+                    Sections = [new Section { Id = "row", Title = "Row", Prompts =
+                    [new Prompt { Id = "cell", Label = "Cell", Hints = new PromptHints { SuggestedValues = ["A"] } }] }],
+                },
+            ],
+        };
+
+        var html = Render(_renderer, doc);
+
+        html.Should().Contain("<option value=\"\">— choose —</option>");
+        html.Should().Contain("<option value=\"\">—</option>");
+    }
+
+    [Fact]
     public void Render_AssociatesLabelsAndHelpForAccessibility()
     {
         var html = Render(_renderer, SampleDoc());

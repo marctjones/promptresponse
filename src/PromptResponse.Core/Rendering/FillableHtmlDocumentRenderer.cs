@@ -104,13 +104,25 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
         var title = string.IsNullOrWhiteSpace(model.Title) ? "(untitled)" : model.Title;
         var sb = new StringBuilder();
 
+        AppendDocumentStart(sb, title);
+        AppendForm(sb, model, title);
+        AppendDownloadSupport(sb, embeddedJson);
+        sb.Append("</body>\n</html>\n");
+        return sb.ToString();
+    }
+
+    private static void AppendDocumentStart(StringBuilder sb, string title)
+    {
         sb.Append("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n");
         sb.Append("<meta charset=\"utf-8\">\n");
         sb.Append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
         sb.Append("<title>").Append(Enc(title)).Append("</title>\n");
         sb.Append("<style>").Append(Css).Append("</style>\n");
         sb.Append("</head>\n<body>\n");
+    }
 
+    private static void AppendForm(StringBuilder sb, RenderModel model, string title)
+    {
         sb.Append("<h1>").Append(Enc(title)).Append("</h1>\n");
         if (!string.IsNullOrWhiteSpace(model.Description))
         {
@@ -124,7 +136,10 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
             AppendBlock(sb, block, ref fieldSeq);
         }
         sb.Append("</form>\n");
+    }
 
+    private static void AppendDownloadSupport(StringBuilder sb, string embeddedJson)
+    {
         sb.Append("<div class=\"bar\"><button type=\"button\" id=\"apr-download\">Download filled form</button></div>\n");
 
         // The original document, embedded verbatim for the JS round-trip. Unicode-
@@ -133,9 +148,6 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
           .Append(EncodeForScript(embeddedJson))
           .Append("</script>\n");
         sb.Append("<script>\n").Append(DownloadScript).Append("</script>\n");
-
-        sb.Append("</body>\n</html>\n");
-        return sb.ToString();
     }
 
     private static void AppendBlock(StringBuilder sb, RenderBlock block, ref int seq)
@@ -195,12 +207,7 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
         if (f.Choices is { Count: > 0 })
         {
             sb.Append("<select id=\"").Append(elementId).Append('"').Append(dataAttr).Append(describedBy).Append(">");
-            sb.Append("<option value=\"\">").Append(f.HasResponse ? string.Empty : "— choose —").Append("</option>");
-            foreach (var choice in f.Choices)
-            {
-                var selected = f.HasResponse && string.Equals(choice, value, StringComparison.Ordinal) ? " selected" : string.Empty;
-                sb.Append("<option value=\"").Append(Enc(choice)).Append('"').Append(selected).Append('>').Append(Enc(choice)).Append("</option>");
-            }
+            AppendSelectOptions(sb, f.Choices, value, f.HasResponse, "— choose —");
             sb.Append("</select>");
         }
         else if (dataType.Equals("multiline", StringComparison.OrdinalIgnoreCase))
@@ -289,18 +296,29 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
         else if (cell.Choices is { Count: > 0 })
         {
             sb.Append("<select").Append(common).Append('>');
-            sb.Append("<option value=\"\">").Append(cell.HasResponse ? string.Empty : "—").Append("</option>");
-            foreach (var choice in cell.Choices)
-            {
-                var selected = cell.HasResponse && string.Equals(choice, value, StringComparison.Ordinal) ? " selected" : string.Empty;
-                sb.Append("<option value=\"").Append(Enc(choice)).Append('"').Append(selected).Append('>').Append(Enc(choice)).Append("</option>");
-            }
+            AppendSelectOptions(sb, cell.Choices, value, cell.HasResponse, "—");
             sb.Append("</select>");
         }
         else
         {
             sb.Append("<input type=\"").Append(InputType(dataType)).Append('"').Append(common)
               .Append(" value=\"").Append(Enc(value)).Append("\">");
+        }
+    }
+
+    /// <summary>Writes the shared empty option and choices for a fillable select element.</summary>
+    private static void AppendSelectOptions(
+        StringBuilder sb,
+        IReadOnlyList<string> choices,
+        string value,
+        bool hasResponse,
+        string emptyOptionText)
+    {
+        sb.Append("<option value=\"\">").Append(hasResponse ? string.Empty : emptyOptionText).Append("</option>");
+        foreach (var choice in choices)
+        {
+            var selected = hasResponse && string.Equals(choice, value, StringComparison.Ordinal) ? " selected" : string.Empty;
+            sb.Append("<option value=\"").Append(Enc(choice)).Append('"').Append(selected).Append('>').Append(Enc(choice)).Append("</option>");
         }
     }
 
