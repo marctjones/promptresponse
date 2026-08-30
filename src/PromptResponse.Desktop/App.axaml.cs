@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
 using PromptResponse.Desktop.Profiles;
+using PromptResponse.Desktop.Composition;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels;
 using PromptResponse.Desktop.ViewModels.Prompts;
@@ -44,7 +45,7 @@ public partial class App : Application
                 }
                 builder.SetMinimumLevel(LogLevel.Information);
             });
-            ConfigureServices(services);
+            services.AddPromptResponseDesktop();
 
             var serviceProvider = services.BuildServiceProvider();
             ServiceProvider = serviceProvider;
@@ -149,35 +150,6 @@ public partial class App : Application
             Console.WriteLine(ex.StackTrace);
             throw;
         }
-    }
-
-    private void ConfigureServices(IServiceCollection services)
-    {
-        // Core
-        services.AddSingleton<IAprSerializer, AprJsonSerializer>();
-        services.AddSingleton<DocumentValidator>();
-        services.AddSingleton<DataTypeValidator>();
-
-        // Desktop infrastructure
-        services.AddSingleton<IFileService, FileService>();
-        services.AddSingleton<ISettingsService, SettingsService>();
-        services.AddSingleton<IRecentFilesService>(sp =>
-            new RecentFilesService(sp.GetRequiredService<ISettingsService>()));
-        services.AddSingleton<ITemplateCatalogService>(sp =>
-            new TemplateCatalogService(sp.GetRequiredService<IAprSerializer>()));
-        services.AddSingleton<IDialogService, DialogService>();
-        services.AddSingleton<IMailHandoffService, MailHandoffService>();
-        services.AddSingleton<IHttpsSubmissionService, HttpsSubmissionService>();
-        services.AddSingleton<IDocumentSessionService, DocumentSessionService>();
-
-        // Rendering profile system
-        services.AddSingleton<IOsAccessibilityProbe, OsAccessibilityProbe>();
-        services.AddSingleton<IProfileService, ProfileService>();
-
-        // View-models
-        services.AddSingleton<PromptViewModelFactory>();
-        services.AddTransient<MainShellViewModel>();
-        services.AddTransient<DisplayPreferencesViewModel>();
     }
 
     private static void ApplyWindowSettings(Avalonia.Controls.Window window, ISettingsService settingsService)
