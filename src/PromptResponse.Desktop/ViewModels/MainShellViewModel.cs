@@ -37,6 +37,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly DocumentTreeWorkflow _documentTreeWorkflow;
     private readonly DocumentLifecycleCoordinator _documentLifecycle;
     private readonly ProfilePresentationState _profilePresentation;
+    private readonly HomePresentationWorkflow _homePresentation;
     private readonly AdvisoryWorkflow _advisoryWorkflow = new();
     private readonly ExpressionWorkflow _expressionWorkflow;
     private readonly RoleSelectionWorkflow _roleSelectionWorkflow;
@@ -63,11 +64,14 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _profilePresentation = new ProfilePresentationState(_profileService);
         if (factory == null) throw new ArgumentNullException(nameof(factory));
         _editHistory = editHistory ?? new EditHistory();
-        _recentFiles = recentFiles ?? new RecentFilesService();
+        _homePresentation = new HomePresentationWorkflow(
+            recentFiles ?? new RecentFilesService(),
+            templateCatalog);
         // Reconstruct the factory locally so it threads the shell's edit history
         // into every prompt VM it creates. The injected factory's profile is the
         // same DI singleton — only its history binding differs.
         _factory = new PromptViewModelFactory(profileService, _editHistory);
+        _homePresentation.StateChanged += OnHomePresentationStateChanged;
         _deliveryWorkflow = new DocumentDeliveryWorkflow(
             _session,
             _fileService,
@@ -116,22 +120,13 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _session.DocumentChanged += OnDocumentChanged;
         _session.DirtyChanged += OnDirtyChanged;
         _editHistory.PropertyChanged += OnEditHistoryChanged;
-        _recentFiles.Changed += (_, _) => RefreshRecentFiles();
-        RefreshRecentFiles();
-
-        foreach (var t in (templateCatalog?.Templates ?? Array.Empty<StarterTemplate>()))
-        {
-            StarterTemplates.Add(new RecentFileViewModel(t.Path, t.Title));
-        }
     }
 
-    private readonly IRecentFilesService _recentFiles;
-
     /// <summary>Bundled starter templates shown on the home screen.</summary>
-    public ObservableCollection<RecentFileViewModel> StarterTemplates { get; } = new();
+    public ObservableCollection<RecentFileViewModel> StarterTemplates => _homePresentation.StarterTemplates;
 
     /// <summary>True when there is at least one starter template to offer.</summary>
-    public bool HasStarterTemplates => StarterTemplates.Count > 0;
+    public bool HasStarterTemplates => _homePresentation.HasStarterTemplates;
 
     /// <summary>Starts a new, unsaved document from a bundled starter template.</summary>
     [RelayCommand]
@@ -141,29 +136,24 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>Recently opened/saved files shown on the home screen, most-recent-first.</summary>
-    public ObservableCollection<RecentFileViewModel> RecentFiles { get; } = new();
+    public ObservableCollection<RecentFileViewModel> RecentFiles => _homePresentation.RecentFiles;
 
     /// <summary>True when there is at least one recent file to offer on the home screen.</summary>
-    public bool HasRecentFiles => RecentFiles.Count > 0;
+    public bool HasRecentFiles => _homePresentation.HasRecentFiles;
 
     /// <summary>
     /// First-run onboarding hint: shown on the home screen until the user has
     /// opened or saved something (i.e. while there are no recent files).
     /// </summary>
-    public bool ShowGettingStarted => !HasRecentFiles;
+    public bool ShowGettingStarted => _homePresentation.ShowGettingStarted;
 
-    private void RefreshRecentFiles()
+    private void OnHomePresentationStateChanged()
     {
-        RecentFiles.Clear();
-        foreach (var entry in _recentFiles.Items)
-        {
-            RecentFiles.Add(new RecentFileViewModel(entry.Path, entry.Title));
-        }
         OnPropertyChanged(nameof(HasRecentFiles));
         OnPropertyChanged(nameof(ShowGettingStarted));
     }
 
-    private void AddToRecent(string? path, string? title) => _recentFiles.Add(path, title);
+    private void AddToRecent(string? path, string? title) => _homePresentation.AddToRecent(path, title);
 
     /// <summary>Opens a file chosen from the home screen's recent list.</summary>
     [RelayCommand]
@@ -958,6 +948,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     {
         _session.DocumentChanged -= OnDocumentChanged;
         _session.DirtyChanged -= OnDirtyChanged;
+        _homePresentation.StateChanged -= OnHomePresentationStateChanged;
+        _homePresentation.Dispose();
         _documentLifecycle.StateChanged -= OnDocumentLifecycleStateChanged;
         _documentLifecycle.Dispose();
         _signatureWorkflow.StateChanged -= OnSignatureWorkflowStateChanged;
