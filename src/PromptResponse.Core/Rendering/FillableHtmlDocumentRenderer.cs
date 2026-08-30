@@ -140,14 +140,7 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
 
     private static void AppendDownloadSupport(StringBuilder sb, string embeddedJson)
     {
-        sb.Append("<div class=\"bar\"><button type=\"button\" id=\"apr-download\">Download filled form</button></div>\n");
-
-        // The original document, embedded verbatim for the JS round-trip. Unicode-
-        // escaped so no value can break out of the <script> container.
-        sb.Append("<script type=\"application/json\" id=\"apr-document\">")
-          .Append(EncodeForScript(embeddedJson))
-          .Append("</script>\n");
-        sb.Append("<script>\n").Append(DownloadScript).Append("</script>\n");
+        FillableHtmlDownloadSupport.Append(sb, embeddedJson);
     }
 
     private static void AppendBlock(StringBuilder sb, RenderBlock block, ref int seq)
@@ -324,53 +317,4 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
 
     private static string Enc(string s) => WebUtility.HtmlEncode(s);
 
-    /// <summary>
-    /// Escapes the embedded JSON so it cannot terminate its <c>&lt;script&gt;</c>
-    /// container (<c>&lt;/script&gt;</c>, <c>&lt;!--</c>) while staying valid JSON.
-    /// </summary>
-    private static string EncodeForScript(string json) =>
-        json.Replace("<", "\\u003c").Replace(">", "\\u003e").Replace("&", "\\u0026");
-
-    // Vanilla JS, no dependencies: copy inputs back into the embedded document by
-    // prompt id, mark it filled, and download as <title>.aprf.
-    private const string DownloadScript = """
-(function () {
-  var raw = document.getElementById('apr-document').textContent;
-  function collect() {
-    var map = {};
-    document.querySelectorAll('[data-prompt-id]').forEach(function (el) {
-      var id = el.getAttribute('data-prompt-id');
-      map[id] = el.type === 'checkbox' ? (el.checked ? 'true' : 'false') : el.value;
-    });
-    return map;
-  }
-  function apply(section, map, stamp) {
-    (section.prompts || []).forEach(function (p) {
-      if (Object.prototype.hasOwnProperty.call(map, p.id)) {
-        p.response = map[p.id];
-        p.responseMetadata = p.responseMetadata || {};
-        p.responseMetadata.lastModified = stamp;
-      }
-    });
-    (section.sections || []).forEach(function (s) { apply(s, map, stamp); });
-  }
-  document.getElementById('apr-download').addEventListener('click', function () {
-    var doc = JSON.parse(raw);
-    var map = collect();
-    var stamp = new Date().toISOString();
-    (doc.sections || []).forEach(function (s) { apply(s, map, stamp); });
-    doc.documentType = 'filledForm';
-    var name = (doc.metadata && doc.metadata.title ? doc.metadata.title : 'form').replace(/[\\/:*?"<>|]+/g, '_');
-    var blob = new Blob([JSON.stringify(doc, null, 2)], { type: 'application/json' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = name + '.aprf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(function () { URL.revokeObjectURL(url); }, 0);
-  });
-})();
-""";
 }
