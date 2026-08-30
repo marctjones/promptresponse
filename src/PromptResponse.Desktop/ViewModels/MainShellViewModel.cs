@@ -36,6 +36,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly IMailHandoffService _mailHandoff;
     private readonly IHttpsSubmissionService _httpsSubmission;
     private readonly DocumentOutputWorkflow _outputWorkflow;
+    private readonly DocumentSessionWorkflow _sessionWorkflow;
     private readonly EditHistory _editHistory;
     private readonly DataTypeValidator _dataTypeValidator = new();
     private readonly HiddenCharacterAdvisor _hiddenCharAdvisor = new();
@@ -74,6 +75,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _mailHandoff = mailHandoff ?? new MailHandoffService();
         _httpsSubmission = httpsSubmission ?? new HttpsSubmissionService();
         _outputWorkflow = new DocumentOutputWorkflow(_session, _fileService, _dialogService);
+        _sessionWorkflow = new DocumentSessionWorkflow(_session, _fileService, _dialogService, AddToRecent);
         _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _promptViewModels);
         _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
 
@@ -105,14 +107,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand]
     public async Task NewFromTemplate(string? path)
     {
-        if (string.IsNullOrEmpty(path)) return;
-
-        var doc = await _fileService.LoadFileAsync(path);
-        if (doc == null) return;
-
-        // A fresh copy — clear the source path so saving prompts "Save As".
-        _fileService.ClearCurrentFilePath();
-        _session.Set(doc, null, dirty: false);
+        await _sessionWorkflow.NewFromTemplateAsync(path);
     }
 
     /// <summary>Recently opened/saved files shown on the home screen, most-recent-first.</summary>
@@ -144,14 +139,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand]
     public async Task OpenRecent(string? path)
     {
-        if (string.IsNullOrEmpty(path)) return;
-
-        var doc = await _fileService.LoadFileAsync(path);
-        if (doc == null) return;   // file moved/deleted or unreadable — leave the list as-is
-
-        _fileService.SetCurrentFilePath(path);
-        _session.Set(doc, path, dirty: false);
-        AddToRecent(path, doc.Metadata.Title);
+        await _sessionWorkflow.OpenRecentAsync(path);
     }
 
     /// <summary>The shell-owned undo/redo history. Cleared on document load so
@@ -901,10 +889,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand]
     public async Task Open()
     {
-        var doc = await _fileService.OpenFileAsync();
-        if (doc == null) return;
-        _session.Set(doc, _fileService.CurrentFilePath, dirty: false);
-        AddToRecent(_fileService.CurrentFilePath, doc.Metadata.Title);
+        await _sessionWorkflow.OpenAsync();
     }
 
     /// <summary>
@@ -913,41 +898,24 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </summary>
     public async Task OpenFromPath(string filePath, bool openForFilling = false)
     {
-        var doc = await _fileService.LoadFileAsync(filePath);
-        if (doc == null) return;
-        _session.Set(doc, filePath, dirty: false);
+        if (!await _sessionWorkflow.OpenFromPathAsync(filePath)) return;
         // A template normally opens in its editor, but command-line --open is
         // explicitly the form-filling entry point. Keep the document a template
         // until saved while presenting its prompts as fields rather than authoring
         // controls.
         if (openForFilling) IsEditMode = false;
-        AddToRecent(filePath, doc.Metadata.Title);
     }
 
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task Save()
     {
-        if (!_session.HasDocument) return;
-
-        if (string.IsNullOrEmpty(_fileService.CurrentFilePath))
-        {
-            await _fileService.SaveFileAsAsync(_session.CurrentDocument!);
-        }
-        else
-        {
-            await _fileService.SaveFileAsync(_session.CurrentDocument!, _fileService.CurrentFilePath);
-        }
-        _session.MarkClean();
-        AddToRecent(_fileService.CurrentFilePath, _session.CurrentDocument?.Metadata.Title);
+        await _sessionWorkflow.SaveAsync();
     }
 
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task SaveAs()
     {
-        if (!_session.HasDocument) return;
-        await _fileService.SaveFileAsAsync(_session.CurrentDocument!);
-        _session.MarkClean();
-        AddToRecent(_fileService.CurrentFilePath, _session.CurrentDocument?.Metadata.Title);
+        await _sessionWorkflow.SaveAsAsync();
     }
 
     /// <summary>
@@ -1025,31 +993,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand]
     public async Task ImportPdf()
     {
-        var path = await _fileService.PickPdfImportPathAsync();
-        if (string.IsNullOrEmpty(path)) return;
-
-        try
-        {
-            var (doc, quality) = new PdfFormImporter().ImportWithQuality(path);
-
-            // When the import needs review, show field-level flags and let the
-            // user back out toward the document-to-apr enrichment workflow.
-            if (quality.Recommendation != ImportRecommendation.UseDirectly)
-            {
-                var openAnyway = await _dialogService.ShowImportReviewAsync(quality);
-                if (!openAnyway) return;
-            }
-
-            _session.Set(doc, filePath: null, dirty: true);
-        }
-        catch (PdfFormImporter.NoFormFieldsException ex)
-        {
-            await _dialogService.ShowConfirmationAsync("Nothing to import", ex.Message);
-        }
-        catch (Exception ex)
-        {
-            await _dialogService.ShowConfirmationAsync("Import failed", $"Could not import the PDF: {ex.Message}");
-        }
+        await _sessionWorkflow.ImportPdfAsync();
     }
 
     /// <summary>Exports the currently open document — with its current values — to a flat PDF.</summary>
@@ -1078,15 +1022,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task Close()
     {
-        if (_session.IsDirty)
-        {
-            var ok = await _dialogService.ShowConfirmationAsync(
-                "Unsaved changes",
-                "You have unsaved changes. Close anyway?");
-            if (!ok) return;
-        }
-        _session.Close();
-        _fileService.ClearCurrentFilePath();
+        await _sessionWorkflow.CloseAsync();
     }
 
     private void OnDocumentChanged(object? sender, AprDocument? document)
