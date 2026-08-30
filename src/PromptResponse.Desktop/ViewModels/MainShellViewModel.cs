@@ -5,6 +5,7 @@ using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PromptResponse.Core;
+using PromptResponse.Core.Expressions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Serialization;

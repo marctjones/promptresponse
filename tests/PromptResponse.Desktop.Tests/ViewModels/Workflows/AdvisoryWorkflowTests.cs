@@ -1,6 +1,7 @@
-using FluentAssertions;
+using AwesomeAssertions;
 using PromptResponse.Core.Models;
 using PromptResponse.Desktop.ViewModels.Workflows;
+using Xunit;
 
 namespace PromptResponse.Desktop.Tests.ViewModels.Workflows;
 
