@@ -14,11 +14,13 @@ namespace PromptResponse.Desktop.Services;
 public class FileService : IFileService
 {
     private readonly IAprSerializer _serializer;
+    private readonly AprDocumentPersistence _persistence;
     private string? _currentFilePath;
 
     public FileService(IAprSerializer serializer)
     {
         _serializer = serializer;
+        _persistence = new AprDocumentPersistence(serializer);
     }
 
     public string? CurrentFilePath => _currentFilePath;
@@ -35,10 +37,7 @@ public class FileService : IFileService
 
     public async Task<AprDocument?> LoadFileAsync(string filePath)
     {
-        if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath)) return null;
-
-        await using var stream = File.OpenRead(filePath);
-        var document = await _serializer.DeserializeAsync(stream);
+        var document = await _persistence.LoadAsync(filePath);
         if (document == null) return null;
 
         // documentType in the file is authoritative; the extension is a desktop
@@ -204,12 +203,7 @@ public class FileService : IFileService
         // converting a template into a filled form is an explicit act elsewhere, which
         // sets documentType and records templateId.
 
-        // Update modified timestamp
-        document.Metadata.Modified = DateTime.UtcNow;
-
-        // Serialize and save
-        await using var stream = File.Create(filePath);
-        await _serializer.SerializeAsync(document, stream);
+        await _persistence.SaveAsync(document, filePath);
 
         _currentFilePath = filePath;
     }
