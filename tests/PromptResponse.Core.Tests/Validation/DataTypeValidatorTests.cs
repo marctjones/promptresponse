@@ -35,13 +35,7 @@ public class DataTypeValidatorTests
     [InlineData("currency", "varies")]
     public void ValidateResponse_AnyVisibleTextResponse_ShouldBeValid(string expectedType, string response)
     {
-        var prompt = new Prompt
-        {
-            Id = "p1",
-            Label = "x",
-            Response = response,
-            Hints = new PromptHints { ExpectedDataType = expectedType }
-        };
+        var prompt = CreatePrompt(response, expectedType, "p1", "x");
 
         var result = _validator.ValidateResponse(prompt);
 
@@ -51,13 +45,7 @@ public class DataTypeValidatorTests
     [Fact]
     public void ValidateResponse_FiveAsNumberResponse_ShouldProduceAdvisoryWarning()
     {
-        var prompt = new Prompt
-        {
-            Id = "p1",
-            Label = "Age",
-            Response = "five",
-            Hints = new PromptHints { ExpectedDataType = "number" }
-        };
+        var prompt = CreatePrompt("five", "number", "p1", "Age");
 
         var result = _validator.ValidateResponse(prompt);
 
@@ -71,13 +59,7 @@ public class DataTypeValidatorTests
     [Fact]
     public void ValidateResponse_PatternMismatch_ShouldProduceWarning_NotError()
     {
-        var prompt = new Prompt
-        {
-            Id = "p1",
-            Label = "Code",
-            Response = "ABC",
-            Hints = new PromptHints { ValidationPattern = @"^\d{3}$" }
-        };
+        var prompt = CreatePrompt("ABC", validationPattern: @"^\d{3}$", id: "p1", label: "Code");
 
         var result = _validator.ValidateResponse(prompt);
 
@@ -90,13 +72,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_EmptyResponse_ShouldBeValid()
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Id = "prompt_001",
-            Label = "Email",
-            Response = "",
-            Hints = new PromptHints { ExpectedDataType = "email" }
-        };
+        var prompt = CreatePrompt("", "email", "prompt_001", "Email");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -109,13 +85,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_NoExpectedType_ShouldBeValid()
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Id = "prompt_001",
-            Label = "Any Text",
-            Response = "whatever",
-            Hints = new PromptHints { ExpectedDataType = null }
-        };
+        var prompt = CreatePrompt("whatever", null, "prompt_001", "Any Text");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -131,11 +101,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_ValidEmail_ShouldBeValid(string email)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = email,
-            Hints = new PromptHints { ExpectedDataType = "email" }
-        };
+        var prompt = CreatePrompt(email, "email");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -151,11 +117,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_InvalidEmail_ShouldReturnWarning(string email)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = email,
-            Hints = new PromptHints { ExpectedDataType = "email" }
-        };
+        var prompt = CreatePrompt(email, "email");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -173,11 +135,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_ValidDate_ShouldBeValid(string date)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = date,
-            Hints = new PromptHints { ExpectedDataType = "date" }
-        };
+        var prompt = CreatePrompt(date, "date");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -193,11 +151,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_InvalidDate_ShouldReturnWarning(string date)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = date,
-            Hints = new PromptHints { ExpectedDataType = "date" }
-        };
+        var prompt = CreatePrompt(date, "date");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -215,11 +169,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_ValidNumber_ShouldBeValid(string number)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = number,
-            Hints = new PromptHints { ExpectedDataType = "number" }
-        };
+        var prompt = CreatePrompt(number, "number");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -235,11 +185,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_InvalidNumber_ShouldReturnWarning(string number)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = number,
-            Hints = new PromptHints { ExpectedDataType = "number" }
-        };
+        var prompt = CreatePrompt(number, "number");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -255,11 +201,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_ValidUrl_ShouldBeValid(string url)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = url,
-            Hints = new PromptHints { ExpectedDataType = "url" }
-        };
+        var prompt = CreatePrompt(url, "url");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -275,11 +217,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_Phone_ShouldAcceptVariousFormats(string phone)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = phone,
-            Hints = new PromptHints { ExpectedDataType = "phone" }
-        };
+        var prompt = CreatePrompt(phone, "phone");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -292,14 +230,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_WithValidationPattern_ShouldMatch()
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = "2025-11-12",
-            Hints = new PromptHints
-            {
-                ValidationPattern = @"^\d{4}-\d{2}-\d{2}$"
-            }
-        };
+        var prompt = CreatePrompt("2025-11-12", validationPattern: @"^\d{4}-\d{2}-\d{2}$");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -312,14 +243,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_WithValidationPattern_NotMatching_ShouldReturnWarning()
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = "invalid-format",
-            Hints = new PromptHints
-            {
-                ValidationPattern = @"^\d{4}-\d{2}-\d{2}$"
-            }
-        };
+        var prompt = CreatePrompt("invalid-format", validationPattern: @"^\d{4}-\d{2}-\d{2}$");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -333,11 +257,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_UnknownDataType_ShouldBeValid()
     {
         // Arrange - Unknown types should not cause validation failures
-        var prompt = new Prompt
-        {
-            Response = "anything",
-            Hints = new PromptHints { ExpectedDataType = "custom-unknown-type" }
-        };
+        var prompt = CreatePrompt("anything", "custom-unknown-type");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -501,11 +421,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_EdgeCaseDates_ShouldBeValid(string date)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = date,
-            Hints = new PromptHints { ExpectedDataType = "date" }
-        };
+        var prompt = CreatePrompt(date, "date");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -523,11 +439,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_InvalidEdgeCaseDates_ShouldReturnWarning(string date)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = date,
-            Hints = new PromptHints { ExpectedDataType = "date" }
-        };
+        var prompt = CreatePrompt(date, "date");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -546,11 +458,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_EdgeCaseNumbers_ShouldBeValid(string number)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = number,
-            Hints = new PromptHints { ExpectedDataType = "number" }
-        };
+        var prompt = CreatePrompt(number, "number");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -569,11 +477,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_InvalidNumbers_ShouldReturnWarning(string number)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = number,
-            Hints = new PromptHints { ExpectedDataType = "number" }
-        };
+        var prompt = CreatePrompt(number, "number");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -591,11 +495,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_ComplexValidEmails_ShouldBeValid(string email)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = email,
-            Hints = new PromptHints { ExpectedDataType = "email" }
-        };
+        var prompt = CreatePrompt(email, "email");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -615,11 +515,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_InvalidEdgeCaseEmails_ShouldReturnWarning(string email)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = email,
-            Hints = new PromptHints { ExpectedDataType = "email" }
-        };
+        var prompt = CreatePrompt(email, "email");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -637,11 +533,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_ComplexValidUrls_ShouldBeValid(string url)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = url,
-            Hints = new PromptHints { ExpectedDataType = "url" }
-        };
+        var prompt = CreatePrompt(url, "url");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -659,11 +551,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_PhoneNumbers_ShouldBeLenient(string phone)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = phone,
-            Hints = new PromptHints { ExpectedDataType = "phone" }
-        };
+        var prompt = CreatePrompt(phone, "phone");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -680,14 +568,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_ComplexPatterns_ShouldMatchCorrectly(string pattern)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = "ABC1234",
-            Hints = new PromptHints
-            {
-                ValidationPattern = pattern
-            }
-        };
+        var prompt = CreatePrompt("ABC1234", validationPattern: pattern);
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -711,14 +592,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_InvalidRegexPattern_ShouldHandleGracefully()
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = "test",
-            Hints = new PromptHints
-            {
-                ValidationPattern = "["  // Invalid regex
-            }
-        };
+        var prompt = CreatePrompt("test", validationPattern: "["); // Invalid regex
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -737,11 +611,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_CaseInsensitiveDataTypes_ShouldWork(string dataType)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = "some value",
-            Hints = new PromptHints { ExpectedDataType = dataType }
-        };
+        var prompt = CreatePrompt("some value", dataType);
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -758,11 +628,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_WhitespaceOnlyResponse_ShouldBeValid()
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = "   ",
-            Hints = new PromptHints { ExpectedDataType = "text" }
-        };
+        var prompt = CreatePrompt("   ", "text");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -779,11 +645,7 @@ public class DataTypeValidatorTests
     public void ValidateResponse_DateTimeFormats_ShouldBeValidated(string datetime)
     {
         // Arrange
-        var prompt = new Prompt
-        {
-            Response = datetime,
-            Hints = new PromptHints { ExpectedDataType = "date" }
-        };
+        var prompt = CreatePrompt(datetime, "date");
 
         // Act
         var result = _validator.ValidateResponse(prompt);
@@ -822,4 +684,22 @@ public class DataTypeValidatorTests
     // Per-cell type advisories are emitted on the cell prompts directly — each
     // cell is a regular Prompt with its own ExpectedDataType. Table structure
     // lives on Section.TableLayout, not on individual prompts.
+
+    private static Prompt CreatePrompt(
+        string response,
+        string? expectedDataType = null,
+        string id = "prompt_001",
+        string label = "Test prompt",
+        string? validationPattern = null) =>
+        new()
+        {
+            Id = id,
+            Label = label,
+            Response = response,
+            Hints = new PromptHints
+            {
+                ExpectedDataType = expectedDataType,
+                ValidationPattern = validationPattern
+            }
+        };
 }
