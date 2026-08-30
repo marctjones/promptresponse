@@ -16,6 +16,22 @@ This is the human inventory of shipped and planned PromptResponse surfaces. For 
 | Browser extension and mobile | New clients | Planned | roadmap decision required |
 | Hosted collaboration, RBAC, analytics, SSO | Enterprise platform features | Deferred | outside current scope |
 
+## Desktop composition boundaries
+
+This map records the current ownership boundaries inside the desktop client. It is
+updated with refactors so file size is never the only indicator of architectural
+health.
+
+| Component | Owns | Must not own | Evidence |
+| --- | --- | --- | --- |
+| `MainShellViewModel` | composition, document/tree lifecycle, command compatibility, screen-level derived state | certificate/signature workflow details, renderer implementation, file-format semantics | desktop shell, GUI, and accessibility tests |
+| `ViewModels/Signing/SignatureWorkflow` | signature verification/status, field coverage, breakage notice, deliberate removal, certificate-backed signing | XAML ownership, document-tree construction, trust/key-store product expansion | signature, coverage, and breakage tests |
+| `SectionViewModel` | section tree projection and structural editing | a second application shell or unrelated document I/O | section/table and undo/redo tests; further split tracked by #177 |
+
+The next extraction is document I/O/export/delivery (#176); table-shape editing is
+tracked separately (#177). New product features remain deferred while these
+boundaries and their regression evidence are stabilized.
+
 | Gate | What it prevents |
 | --- | --- |
 | Three-OS .NET build/test | platform-specific drift |

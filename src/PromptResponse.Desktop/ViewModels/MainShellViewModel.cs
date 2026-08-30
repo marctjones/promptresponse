@@ -4,11 +4,9 @@ using Avalonia.Media;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Security.Cryptography.X509Certificates;
 using PromptResponse.Core.Expressions;
 using PromptResponse.Core;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Signing;
 using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Validation;
 using PromptResponse.Core.Serialization;
@@ -16,6 +14,7 @@ using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels.Editing;
 using PromptResponse.Desktop.ViewModels.Prompts;
+using PromptResponse.Desktop.ViewModels.Signing;
 using PromptResponse.Rendering.Pdf;
 
 namespace PromptResponse.Desktop.ViewModels;
@@ -43,7 +42,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly ObservableCollection<PromptViewModelBase> _promptViewModels = new();
     private readonly ObservableCollection<SectionViewModel> _sections = new();
     private readonly ObservableCollection<AdvisoryItem> _advisories = new();
-    private readonly ObservableCollection<SignatureStatusItem> _signatures = new();
+    private readonly SignatureWorkflow _signatureWorkflow;
 
     public MainShellViewModel(
         IFileService fileService,
@@ -72,6 +71,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _serializer = serializer ?? new AprJsonSerializer();
         _mailHandoff = mailHandoff ?? new MailHandoffService();
         _httpsSubmission = httpsSubmission ?? new HttpsSubmissionService();
+        _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _promptViewModels);
+        _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
 
         Progress = new FormProgressViewModel();
         Search = new SearchViewModel();
@@ -502,17 +503,13 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     // ── signatures (verify / trust status) ───────────────────────────────────
 
     /// <summary>The document's signatures with their verification + trust status.</summary>
-    public IReadOnlyList<SignatureStatusItem> Signatures => _signatures;
+    public IReadOnlyList<SignatureStatusItem> Signatures => _signatureWorkflow.Signatures;
 
     /// <summary>Whether the open document carries any signatures.</summary>
-    public bool HasSignatures => _signatures.Count > 0;
+    public bool HasSignatures => _signatureWorkflow.HasSignatures;
 
     /// <summary>A one-line summary for the signatures panel.</summary>
-    public string SignatureSummary => _signatures.Count == 0
-        ? "Not signed"
-        : _signatures.Any(s => !s.ContentValid)
-            ? $"{_signatures.Count} signature(s) — one or more INVALID"
-            : $"{_signatures.Count} signature(s) — all verify";
+    public string SignatureSummary => _signatureWorkflow.SignatureSummary;
 
     /// <summary>
     /// Re-verifies the document's signatures (default trust: certificates are
@@ -522,43 +519,19 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </summary>
     public void RefreshSignatures()
     {
-        _signatures.Clear();
-        var doc = _session.CurrentDocument;
-        if (doc?.Signatures is { Count: > 0 } sigs)
-        {
-            var results = AprVerifier.VerifyAll(doc);
-            for (var i = 0; i < sigs.Count && i < results.Count; i++)
-            {
-                var r = results[i];
-                var scope = sigs[i].Scope == "template" ? "form definition" : string.Join(", ", sigs[i].Fields);
-                _signatures.Add(new SignatureStatusItem(r.Id, r.Role.ToString(), r.SignerName, scope, r.ContentValid, r.Trust.ToString(), r.Status));
-            }
-        }
-        ApplyFieldCoverage(doc);
-        AnnounceNewBreakages(doc?.Signatures is { Count: > 0 }
-            ? AprVerifier.VerifyAll(doc)
-            : []);
+        _signatureWorkflow.Refresh();
+    }
 
+    private void OnSignatureWorkflowStateChanged()
+    {
         OnPropertyChanged(nameof(Signatures));
         OnPropertyChanged(nameof(HasSignatures));
         OnPropertyChanged(nameof(SignatureSummary));
+        OnPropertyChanged(nameof(SignatureBreakageNotice));
+        OnPropertyChanged(nameof(HasSignatureBreakageNotice));
     }
 
     // ── Telling somebody when their edit has broken a signature ──────────────
-
-    private readonly HashSet<string> _brokenAlreadyAnnounced = new(StringComparer.Ordinal);
-    private HashSet<string> _validLastTime = new(StringComparer.Ordinal);
-    private string? _signatureBreakageNotice;
-
-    /// <summary>Responses as they stood while every signature still verified.</summary>
-    /// <remarks>
-    /// Kept so the notice can offer to put a value back. The obvious implementation was to
-    /// call Undo, and it would not have worked: the edit history records authoring
-    /// changes, not somebody filling a form in, so CanExecute is false in exactly the
-    /// situation the offer appears. A button that does nothing where it is most needed is
-    /// worse than no button.
-    /// </remarks>
-    private Dictionary<string, string> _responsesWhileValid = new(StringComparer.Ordinal);
 
     /// <summary>What to say when an edit has just invalidated somebody's signature.</summary>
     /// <remarks>
@@ -580,18 +553,11 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </remarks>
     public string? SignatureBreakageNotice
     {
-        get => _signatureBreakageNotice;
-        private set
-        {
-            if (_signatureBreakageNotice == value) return;
-            _signatureBreakageNotice = value;
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(HasSignatureBreakageNotice));
-        }
+        get => _signatureWorkflow.BreakageNotice;
     }
 
     /// <summary>Whether there is a breakage to tell somebody about.</summary>
-    public bool HasSignatureBreakageNotice => !string.IsNullOrEmpty(SignatureBreakageNotice);
+    public bool HasSignatureBreakageNotice => _signatureWorkflow.HasBreakageNotice;
 
     /// <summary>Removes one signature, on purpose and after asking.</summary>
     /// <remarks>
@@ -611,37 +577,12 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task RemoveSignature(string? signatureId)
     {
-        var document = _session.CurrentDocument;
-        if (document?.Signatures is not { Count: > 0 } signatures || signatureId is null)
-        {
-            return;
-        }
-
-        var target = signatures.FirstOrDefault(s => s.Id == signatureId);
-        if (target is null) return;
-
-        var signer = target.Signer?.Name ?? "someone";
-        var confirmed = await _dialogService.ShowConfirmationAsync(
-            "Remove this signature?",
-            $"This deletes {signer}'s signature from the document.\n\n" +
-            "If it no longer verifies, that fact is itself evidence — that somebody " +
-            "signed this and it changed afterwards. Removing it leaves no trace that " +
-            "they ever signed.\n\nRemove it anyway?");
-
-        if (!confirmed) return;
-
-        signatures.Remove(target);
-        if (signatures.Count == 0) document.Signatures = null;
-
-        _session.MarkDirty();
-        _brokenAlreadyAnnounced.Remove(signatureId);
-        SignatureBreakageNotice = null;
-        RefreshSignatures();
+        await _signatureWorkflow.RemoveAsync(signatureId);
     }
 
     /// <summary>Dismisses the notice without undoing anything.</summary>
     [RelayCommand]
-    private void DismissSignatureNotice() => SignatureBreakageNotice = null;
+    private void DismissSignatureNotice() => _signatureWorkflow.DismissBreakageNotice();
 
     /// <summary>Undoes the edit that broke it, and clears the notice.</summary>
     /// <remarks>
@@ -652,71 +593,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private void RestoreSignedValues()
     {
-        foreach (var promptVm in _promptViewModels)
-        {
-            if (_responsesWhileValid.TryGetValue(promptVm.Id, out var previous)
-                && promptVm.Response != previous)
-            {
-                promptVm.Response = previous;
-            }
-        }
-
-        RefreshSignatures();
-        SignatureBreakageNotice = null;
-    }
-
-    /// <summary>Notices a signature that has just gone from valid to broken.</summary>
-    private void AnnounceNewBreakages(IReadOnlyList<SignatureVerification> results)
-    {
-        var validNow = results.Where(r => r.ContentValid).Select(r => r.Id)
-            .ToHashSet(StringComparer.Ordinal);
-
-        var justBroke = results
-            .Where(r => !r.ContentValid
-                        && _validLastTime.Contains(r.Id)
-                        && _brokenAlreadyAnnounced.Add(r.Id))
-            .ToList();
-
-        if (justBroke.Count > 0)
-        {
-            var who = string.Join(" and ", justBroke.Select(r => r.SignerName).Distinct(StringComparer.Ordinal));
-            SignatureBreakageNotice =
-                $"That edit means {who}'s signature no longer verifies. The document is " +
-                "still valid and still saves — but what they signed off on is not what it " +
-                "says now.";
-        }
-
-        // While everything verifies, remember the answers, so a later breakage can offer
-        // to put them back.
-        if (results.Count > 0 && results.All(r => r.ContentValid))
-        {
-            _responsesWhileValid = _promptViewModels.ToDictionary(
-                p => p.Id, p => p.Response, StringComparer.Ordinal);
-        }
-
-        // A signature that verifies again may be announced afresh.
-        _brokenAlreadyAnnounced.ExceptWith(validNow);
-        _validLastTime = validNow;
-    }
-
-    /// <summary>Tells each field which signatures cover it, and whether they still hold.</summary>
-    /// <remarks>
-    /// The panel in the sidebar answers "is Ada's signature valid". Somebody looking at a
-    /// particular field has a different question - is <em>this</em> value signed, by whom,
-    /// and does it still stand - and on a hundred-field form with one signature over
-    /// twelve of them, the document-level answer does not help them at all.
-    /// </remarks>
-    private void ApplyFieldCoverage(AprDocument? document)
-    {
-        var coverage = document is null
-            ? new Dictionary<string, IReadOnlyList<CoveringSignature>>(StringComparer.Ordinal)
-            : SignatureCoverage.ForDocument(document);
-
-        foreach (var promptVm in _promptViewModels)
-        {
-            promptVm.CoveringSignatures =
-                coverage.TryGetValue(promptVm.Id, out var covering) ? covering : [];
-        }
+        _signatureWorkflow.RestoreSignedValues();
     }
 
     /// <summary>Re-verifies signatures on demand (e.g. after editing responses).</summary>
@@ -731,28 +608,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task SignAsPublisher()
     {
-        var doc = _session.CurrentDocument;
-        if (doc is null) return;
-
-        var certPath = await _fileService.PickCertificateAsync();
-        if (string.IsNullOrEmpty(certPath)) return;
-
-        var password = await _dialogService.ShowInputAsync(
-            "Certificate password", "Enter the certificate password (leave blank if none):", string.Empty, isPassword: true);
-        if (password is null) return; // cancelled
-
-        var url = await _dialogService.ShowInputAsync(
-            "Submission URLs", "Where is this form submitted? Separate choices with commas (all are bound into the signature)", string.Join(", ", doc.Metadata.SubmissionUrls ?? []));
-        if (url is null) return; // cancelled
-
-        await SignWith(certPath!, password, c =>
-        {
-            // Set the URL before signing: the payload binds what the document says.
-            if (!string.IsNullOrEmpty(url)) doc.Metadata.SubmissionUrls = url.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
-            var sig = AprSigner.SignTemplate(doc, c, DateTime.UtcNow);
-            doc.Metadata.Publisher ??= sig.Signer.Name;
-            return sig;
-        });
+        await _signatureWorkflow.SignAsPublisherAsync();
     }
 
     /// <summary>
@@ -762,53 +618,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task SignMyResponses()
     {
-        var doc = _session.CurrentDocument;
-        if (doc is null) return;
-
-        var answered = FormExpressions.GetAllPrompts(doc)
-            .Where(p => !string.IsNullOrEmpty(p.Id) && !string.IsNullOrWhiteSpace(p.Response))
-            .Select(p => p.Id)
-            .ToList();
-        if (answered.Count == 0)
-        {
-            await _dialogService.ShowConfirmationAsync(
-                "Nothing to sign", "Fill in some responses first — a filler signature covers the fields you've answered.");
-            return;
-        }
-
-        var certPath = await _fileService.PickCertificateAsync();
-        if (string.IsNullOrEmpty(certPath)) return;
-
-        var password = await _dialogService.ShowInputAsync(
-            "Certificate password", "Enter the certificate password (leave blank if none):", string.Empty, isPassword: true);
-        if (password is null) return;
-
-        var id = $"sig{(doc.Signatures?.Count ?? 0) + 1}";
-        await SignWith(certPath!, password, c => AprSigner.SignFields(doc, c, answered, DateTime.UtcNow, id));
-    }
-
-    private async Task SignWith(string certPath, string password, Func<X509Certificate2, Signature> sign)
-    {
-        var doc = _session.CurrentDocument;
-        if (doc is null) return;
-        try
-        {
-            using var cert = SignatureCertificates.LoadPfx(certPath, string.IsNullOrEmpty(password) ? null : password);
-            if (!cert.HasPrivateKey)
-            {
-                await _dialogService.ShowConfirmationAsync("Cannot sign", "That certificate has no private key — choose a .pfx that includes the key.");
-                return;
-            }
-            var signature = sign(cert);
-            doc.Signatures ??= new List<Signature>();
-            doc.Signatures.Add(signature);
-            _session.MarkDirty();
-            RefreshSignatures();
-        }
-        catch (Exception ex)
-        {
-            await _dialogService.ShowConfirmationAsync("Signing failed", ex.Message);
-        }
+        await _signatureWorkflow.SignMyResponsesAsync();
     }
 
     /// <summary>
@@ -1667,6 +1477,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     {
         _session.DocumentChanged -= OnDocumentChanged;
         _session.DirtyChanged -= OnDirtyChanged;
+        _signatureWorkflow.StateChanged -= OnSignatureWorkflowStateChanged;
         foreach (var vm in _promptViewModels)
         {
             vm.Dispose();
