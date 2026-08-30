@@ -82,7 +82,7 @@ public static class AprCanonicalizer
         ArgumentNullException.ThrowIfNull(document);
         ArgumentNullException.ThrowIfNull(fields);
 
-        var prompts = PromptsById(document);
+        var prompts = CanonicalPromptIndex.Build(document);
         var w = new CanonicalPayloadWriter()
             .Add("scheme", Scheme)
             .Add("role", "filler")
@@ -182,31 +182,6 @@ public static class AprCanonicalizer
          .Add("P.exprReadOnly", h.ExprReadOnly);
         // Intentionally excludes Response and ResponseMetadata: a publisher signs
         // the blank form, so a filler entering responses does not break it.
-    }
-
-    private static Dictionary<string, Prompt> PromptsById(AprDocument document)
-    {
-        var map = new Dictionary<string, Prompt>(StringComparer.Ordinal);
-        foreach (var section in document.Sections)
-        {
-            CollectPrompts(section, map);
-        }
-        return map;
-    }
-
-    private static void CollectPrompts(Section s, Dictionary<string, Prompt> into)
-    {
-        foreach (var p in s.Prompts)
-        {
-            if (!string.IsNullOrEmpty(p.Id))
-            {
-                into[p.Id] = p;
-            }
-        }
-        foreach (var child in s.Sections)
-        {
-            CollectPrompts(child, into);
-        }
     }
 
     private static string Sha256Hex(byte[] bytes) => Convert.ToHexString(SHA256.HashData(bytes));
