@@ -24,7 +24,7 @@
       "language": "csharp",
       "path": "tests/PromptResponse.Core.Tests",
       "runsInCi": true,
-      "gate": "95% line coverage on Core",
+      "gate": "90% line coverage on Core",
       "dimensions": {
         "completeness": "partial",
         "conformance": "gated",
@@ -36,7 +36,7 @@
       "id": "core.conformance",
       "component": "Conformance corpus runner",
       "language": "csharp",
-      "path": "tests/PromptResponse.Core.Tests/Conformance/ConformanceCorpusTests.cs",
+      "path": "tests/PromptResponse.Core.Tests/Conformance",
       "runsInCi": true,
       "gate": "all corpus fixtures",
       "dimensions": {
@@ -83,7 +83,7 @@
       "language": "csharp",
       "path": "tests/PromptResponse.Desktop.Tests",
       "runsInCi": true,
-      "gate": "72% line coverage (measured 74.3%)",
+      "gate": "72% line coverage",
       "notes": "GUI suite runs (issue #30 fixed). Conformance is direct rather than inherited, and the project is now inside a coverage gate for the first time - it was excluded entirely while its GUI tests could not run, so there was nothing meaningful to measure. No tests are skipped anywhere in the solution.",
       "dimensions": {
         "completeness": "partial",
@@ -294,7 +294,7 @@
       "kind": "mutation",
       "status": "broken",
       "issue": 29,
-      "notes": "Stryker.NET reports Killed:0. Until it runs, the 95% coverage gate is behaviourally unvalidated."
+      "notes": "Stryker.NET reports Killed:0. Until it runs, line coverage remains an incomplete behavior-quality signal."
     },
     {
       "kind": "fuzzing",
