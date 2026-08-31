@@ -18,12 +18,15 @@ scripts/test-focused.sh tests/PromptResponse.Core.Tests --filter 'FullyQualified
 
 Pass any normal `dotnet test` project, solution, filter, or configuration
 arguments after the script name. It creates a unique temporary intermediate
-build, output, and test-results root for that invocation, disables the shared
-compiler server, uses one MSBuild worker per invocation, and omits XML
-documentation only for this local focused-check mode. The temporary output root
-mirrors the normal repository-relative layout, so corpus tests continue to find
-their fixtures. Do not use it for release verification: CI retains normal
-output paths and generates XML documentation during its release build.
+build, output, test-results, and NuGet HTTP-cache root for that invocation,
+disables the shared compiler server, uses one MSBuild worker per invocation,
+and omits XML documentation only for this local focused-check mode. The private
+NuGet cache preserves vulnerability-audit checks while preventing parallel
+focused restores from racing on the atomic advisory-cache update. The temporary
+output root mirrors the normal repository-relative layout, so corpus tests
+continue to find their fixtures. Do not use it for release verification: CI
+retains normal output paths and generates XML documentation during its release
+build.
 
 Use corpus/schema/specification for format behavior and product, architecture, and UX documents for product behavior.
 

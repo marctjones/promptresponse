@@ -17,6 +17,14 @@ results_root="$test_root/TestResults"
 restore_target="$1"
 ln -s "$repo_root" "$test_root/repo"
 
+# NuGet refreshes vulnerability advisories through its HTTP cache.  A shared
+# cache is not safe for independently launched focused restores: each uses an
+# atomic *-new write and can collide with another writer.  Keep this
+# invocation's advisory cache beside its already isolated obj/bin outputs.
+# Do not disable audit or use --no-http-cache; the restore still fetches and
+# evaluates vulnerability data, just without sharing its mutable cache.
+export NUGET_HTTP_CACHE_PATH="$test_root/nuget-http-cache"
+
 echo "Using isolated local build outputs: $test_root" >&2
 
 cd "$repo_root"
