@@ -24,6 +24,13 @@ public class InputFormatterRegistryTests
         f!.GetType().Should().Be(expected);
     }
 
+    [Fact]
+    public void ForHint_AliasLookup_ReusesTheSharedFormatterStrategy()
+    {
+        InputFormatterRegistry.ForHint("zip")
+            .Should().BeSameAs(InputFormatterRegistry.ForHint("postalcode"));
+    }
+
     [Theory]
     [InlineData(null)]
     [InlineData("")]
