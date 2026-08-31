@@ -14,15 +14,8 @@ from .models import (
     RoleDefinition,
     Section,
 )
-from .serialization import (
-    CURRENT_VERSION,
-    KNOWN_MAJOR,
-    KNOWN_MINOR,
-    dump,
-    dumps,
-    load,
-    loads,
-)
+from .serialization import dump, dumps, load, loads
+from .versioning import CURRENT_VERSION, KNOWN_MAJOR, KNOWN_MINOR
 from .validation import ValidationError, ValidationResult, ValidationWarning, validate
 from .unicode_security import UnicodeFinding, inspect_text
 from .expressions import (

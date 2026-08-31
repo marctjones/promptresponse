@@ -12,11 +12,10 @@ by an older reader (specification 4.8).
 """
 
 import json
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict
 
-from .errors import AprParseError, AprVersionError
+from .errors import AprParseError
 from .models import (
-    RETIRED_MEMBERS,
     AprDocument,
     Metadata,
     Prompt,
@@ -26,46 +25,14 @@ from .models import (
     Section,
 )
 from .text import normalize
-
-#: The format version this reader implements. Same major, so a newer minor is
-#: accepted and its unknown members preserved (specification 1.3.1).
-KNOWN_MAJOR = 1
-KNOWN_MINOR = 0
-CURRENT_VERSION = "1.0-beta"
-
-
-def _require_object(value, what):
-    if not isinstance(value, dict):
-        raise AprParseError(f"{what} must be a JSON object, got {type(value).__name__}")
-    return value
-
-
-def _string(node, key, what):
-    """A string member, or a parse failure. Numbers and booleans are refused."""
-    if key not in node or node[key] is None:
-        return None
-    value = node[key]
-    if not isinstance(value, str):
-        raise AprParseError(
-            f"{what}.{key} must be a string; got {type(value).__name__}. "
-            "Every value in an APR document is a string (specification 3.2), and a "
-            "reader must refuse rather than coerce."
-        )
-    return value
-
-
-def _rest(node, taken):
-    """Members this reader did not recognise, minus anything retired."""
-    return {k: v for k, v in node.items() if k not in taken and k not in RETIRED_MEMBERS}
-
-
-def _strings(node, key, what):
-    if key not in node or node[key] is None:
-        return None
-    value = node[key]
-    if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
-        raise AprParseError(f"{what}.{key} must be an array of strings")
-    return value
+from .versioning import CURRENT_VERSION, KNOWN_MAJOR, KNOWN_MINOR, is_supported_version
+from .wire import (
+    compact_members as _compact,
+    require_object as _require_object,
+    string_list_member as _strings,
+    string_member as _string,
+    unknown_members as _rest,
+)
 
 
 def _parse_hints(node) -> PromptHints:
@@ -183,24 +150,6 @@ def _parse_metadata(node) -> Metadata:
     )
 
 
-def is_supported_version(version: Optional[str]) -> bool:
-    """Whether this reader implements the document's major version.
-
-    Not a parse question. Specification 6.1 lists UNSUPPORTED_VERSION among the
-    validation errors, and the corpus files unsupported-major.aprt under
-    invalid/ - so such a document parses, and then fails validation. Refusing it
-    at parse time would be the same mistake as refusing to open any flawed
-    document: the reader could no longer show anybody what was wrong with it.
-    """
-    if not version:
-        return False
-    core = version.split("-", 1)[0]
-    parts = core.split(".")
-    if len(parts) != 2 or not all(p.isdigit() for p in parts):
-        return False
-    return int(parts[0]) == KNOWN_MAJOR
-
-
 def loads(text: str) -> AprDocument:
     """Parses APR JSON. Raises :class:`AprParseError` if it is not a document."""
     try:
@@ -256,11 +205,6 @@ def load(path) -> AprDocument:
     """Reads a document from a file. UTF-8, tolerating a byte-order mark."""
     with open(path, "r", encoding="utf-8-sig") as handle:
         return loads(handle.read())
-
-
-def _compact(node: Dict[str, Any]) -> Dict[str, Any]:
-    """Drops absent members so a document does not carry empty noise."""
-    return {k: v for k, v in node.items() if v is not None and v != [] and v != {}}
 
 
 def _hints_json(hints: PromptHints) -> Dict[str, Any]:
