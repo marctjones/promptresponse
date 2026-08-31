@@ -11,7 +11,8 @@ nothing mentions is certainly untested.
 
     python3 scripts/check-gui-coverage.py [--json]
 
-Writes tests/gui-coverage.json and prints a summary.
+Writes generated evidence under TestResults/gui-evidence (or
+PROMPTRESPONSE_GUI_EVIDENCE_DIR) and prints a summary.
 """
 import json
 import os

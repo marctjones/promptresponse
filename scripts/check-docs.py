@@ -10,6 +10,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 registry = json.loads((ROOT / "tests/registry.json").read_text(encoding="utf-8"))
 spec = (ROOT / "docs/APR_SPECIFICATION.md").read_text(encoding="utf-8")
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
+roadmap = (ROOT / "ROADMAP.md").read_text(encoding="utf-8")
 sdk = (ROOT / "docs/SDK_CONFORMANCE.md").read_text(encoding="utf-8")
 signing = (ROOT / "docs/SIGNING.md").read_text(encoding="utf-8")
 canonical = (ROOT / "tests/Conformance/v1/canonicalization/README.md").read_text(encoding="utf-8")
@@ -38,6 +39,15 @@ if not match or match.group(1) != registry["specVersion"]:
 for name in (".NET", "Python", "TypeScript"):
     if name not in readme or name not in sdk:
         problems.append(f"README and SDK conformance status must name {name}")
+
+if "Planning authority:" not in roadmap or "GitHub milestones and issues" not in roadmap:
+    problems.append("ROADMAP.md must identify GitHub issues and milestones as planning authority")
+for retired_surface in ("Rust and Java (real)", "C++ skeleton", "Rust/Java/Python/C++ runners"):
+    if retired_surface in roadmap:
+        problems.append(f"ROADMAP.md retains retired SDK status claim: {retired_surface}")
+
+if "WCAG 2.1 Level AA compliance built-in" in readme:
+    problems.append("README overstates accessibility evidence; link to UX_ACCESSIBILITY.md instead")
 
 for path, text in {
     "docs/SIGNING.md": signing,

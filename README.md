@@ -18,7 +18,7 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 **Better by Design:**
 - **Flexible**: No fixed layouts or styling - forms adapt to any screen
 - **Portable**: Simple JSON that's easy to parse and transform
-- **Accessible**: WCAG 2.1 Level AA compliance built-in
+- **Accessible**: accessibility-oriented interaction and automated regression checks
 - **Semantic**: Organized by sections and prompts for meaningful structure
 - **Safe**: Pure data format - no code execution, safe to open untrusted files
 
@@ -273,8 +273,9 @@ See [CHANGELOG.md](CHANGELOG.md) for what landed in each release.
 - [x] Three-layer blind-user accessibility test stack: in-process
       AutomationPeer tree + keyboard flow tests + external AT-SPI smoke
       test (`./tests/at-spi/run_at_spi_smoke.sh`)
-- [x] WCAG-gated CI: every theme contrast pair, every keyboard
-      shortcut, every interactive control's accessible name
+- [x] CI accessibility evidence: theme contrast, keyboard behavior, and
+      accessible-name checks; see [UX and accessibility](docs/UX_ACCESSIBILITY.md)
+      for the remaining live assistive-technology evidence
 - [ ] Mobile support (.NET MAUI) — future
 - [ ] Word/Excel export — future
 - [x] SDK conformance corpus: shared APR fixtures with .NET validation gate
