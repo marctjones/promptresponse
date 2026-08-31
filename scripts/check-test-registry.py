@@ -51,6 +51,11 @@ def spec_sections_with_musts():
     return sections
 
 
+def placeholder_test_files():
+    """Template test files indicate a test project was scaffolded but not finished."""
+    return sorted((ROOT / "tests").rglob("UnitTest*.cs"))
+
+
 
 def _declares(source: str, method: str) -> bool:
     """Does this source declare a test by that name?
@@ -125,6 +130,10 @@ def main():
         if not any(c == section or c.startswith(section + ".") or section.startswith(c + ".")
                    for c in covered):
             problems.append(f"specification §{section} has normative clauses but no registry entry")
+
+    # 7. Do not retain IDE-generated empty test scaffolding as apparent coverage.
+    for placeholder in placeholder_test_files():
+        problems.append(f"placeholder test scaffold must be removed — {placeholder.relative_to(ROOT)}")
 
     # Report.
     by_strength = {}
