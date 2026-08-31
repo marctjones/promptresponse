@@ -30,3 +30,28 @@ Readers parse UTF-8 JSON, reject malformed wire types, then validate structure. 
 Constraints: no executable document content or implicit network access on open; no layout/styling fields in APR; preserve unknown members unless the specification explicitly retires them; keep feature-specific presentation outside the Core model.
 
 See the [concept registry](CONCEPT_REGISTRY.md) for code and test ownership.
+
+## Repository ownership
+
+The tree mirrors the architectural layers. Source and durable evidence are tracked;
+build output, package-manager caches, test results, and locally generated release
+artifacts are not source of truth.
+
+| Location | Ownership | Tracked role | Not a source of truth |
+| --- | --- | --- | --- |
+| `src/PromptResponse.Core` | APR model and profiles | reference .NET implementation | desktop or transport policy |
+| `src/PromptResponse.Desktop` | Avalonia client | interactive author/fill host | APR semantics or renderer internals |
+| `src/PromptResponse.Cli` | deterministic automation | explicit command host | hidden background delivery |
+| `src/PromptResponse.Rendering.Pdf` | PDF export and AcroForm import | derived document renderer/importer | APR layout model |
+| `tests/` and `tests/Conformance/` | regression and format evidence | executable behavior contract | generated test results |
+| `schemas/` | structural APR contract | machine-readable format authority | application defaults |
+| `python/`, `typescript/`, `java/` | independent SDKs and local demos | cross-language corpus evidence | a second format definition |
+| `docs/` | canonical product, design, operations, and registry records | human-facing authority map | historical plans |
+| `examples/` and `tests/Fixtures/` | user and regression inputs | supported representative documents | mutable test output |
+| `packaging/`, `docker/`, `scripts/`, `.github/` | build, release, and verification machinery | reproducible operational sources | release binaries |
+| `local-nuget/` | vendored PDF-engine package feed | intentionally tracked reproducibility input | a general package cache |
+
+Ignored directories such as `bin/`, `obj/`, `TestResults/`, `dist/`,
+`dist-smoke/`, Python/Node/Java dependency caches, and temporary evidence are
+regenerated. A change belongs in the source owner above, never in a generated
+copy.

@@ -81,4 +81,4 @@ new corpus folder only when the format version changes.
 | Python | **Core + expressions** — shared corpus, APR CEL binding, and locked `uv` environment run in CI; signatures are preserved but unchecked |
 | TypeScript | **Core + expressions (partial)** — shared corpus, HTML renderer, and CEL numeric/boolean/string bindings run in CI; timestamp declarations remain `dyn` pending a runtime with typed timestamp support |
 | Java | **Core + expressions** — shared corpus and APR CEL binding run in CI through the project-local Maven wrapper; signatures are preserved but unchecked |
-| Java / Rust / C++ | Not implemented; no conformance claim |
+| Rust / C++ | Not implemented; no conformance claim |

@@ -20,6 +20,7 @@ for path in (
     "docs/README.md", "docs/PRODUCT.md", "docs/ARCHITECTURE.md",
     "docs/UX_ACCESSIBILITY.md", "docs/CONCEPT_REGISTRY.md",
     "docs/IMPLEMENTATION_REGISTRY.md", "docs/USER_GUIDE.md",
+    "docs/DEVELOPMENT.md", "docs/IMPORT.md", "docs/SIGNING.md",
 ):
     if not (ROOT / path).is_file():
         problems.append(f"missing canonical documentation: {path}")
@@ -48,6 +49,9 @@ for retired_surface in ("Rust and Java (real)", "C++ skeleton", "Rust/Java/Pytho
 
 if "WCAG 2.1 Level AA compliance built-in" in readme:
     problems.append("README overstates accessibility evidence; link to UX_ACCESSIBILITY.md instead")
+
+if "Java / Rust / C++ | Not implemented" in sdk:
+    problems.append("SDK conformance status contradicts the shipped Java SDK")
 
 for path, text in {
     "docs/SIGNING.md": signing,
