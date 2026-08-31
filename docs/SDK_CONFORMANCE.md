@@ -68,10 +68,10 @@ Declare conformance as e.g. `APR 1.0 core, corpus v1 @ <sha>`.
 
 ## Versioning
 
-`v1/` maps to APR document `version: "1.0"`. Do not rewrite existing fixtures in
-ways that change their meaning — downstream SDKs pin against these bytes. Add new
-fixtures for new cases; create a new corpus folder only when the format version
-changes.
+`v1/` maps to APR document major/minor version `1.0`; current writers declare
+`"1.0-beta"`. Do not rewrite existing fixtures in ways that change their meaning —
+downstream SDKs pin against these bytes. Add new fixtures for new cases; create a
+new corpus folder only when the format version changes.
 
 ## Current SDK status
 

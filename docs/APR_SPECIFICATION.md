@@ -25,6 +25,24 @@ disagree the order of authority is:
 
 If prose contradicts a fixture, the prose is a bug. Report it.
 
+### Navigation
+
+Read the specification in this order when implementing APR:
+
+1. [Conformance profiles](#2-conformance-profiles) identify the required and
+   optional behavior.
+2. [Encoding and strings-only responses](#3-encoding-and-the-strings-only-rule),
+   [document structure](#4-document-structure), [document type](#5-document-type-and-file-extensions),
+   [validation](#6-validation), and [text handling](#7-text-handling) define core.
+3. [Expressions](#8-profile-expressions) and [signatures](#9-profile-signatures)
+   are optional profiles.
+4. [Rendering](#10-rendering), [security](#11-security-considerations), and the
+   [conformance checklist](#12-conformance-checklist) constrain hosts and verify
+   an implementation.
+
+This navigation section is informative. The requirement language in the sections
+it links to remains authoritative.
+
 ### 1.1 Requirement language
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHOULD**,
@@ -58,7 +76,7 @@ strictly apart.
 | Number | Changes | Lives in | Today |
 |---|---|---|---|
 | **Format version** | only on a **breaking change to the wire format** | the `version` field of every file | `1.0-beta` |
-| **Specification document version** | **every release** | this document's header | `0.6.0` |
+| **Specification document version** | **every release** | this document's header | `1.0.0-beta.3` |
 | **Conformance corpus tag** | **every release** | `tests/Conformance/v1/` + a git tag | `corpus/v1 @ <sha>` |
 
 **The format version MUST NOT track releases.** Two releases that do not change the
@@ -641,10 +659,17 @@ rather than refusing to open it.
 
 ## 7. Text handling
 
+### 7.1 Scope
+
 Responses are evidence supplied by a person. A reader **MUST** preserve a response
 exactly on read and write: it MUST NOT normalize, strip, or otherwise rewrite it.
 Escaping and visibly marking deceptive text are rendering responsibilities, not
 licences to alter stored data. See `valid/response-edge-cases.aprf`.
+
+### 7.2 Why responses and authoring data differ
+
+The following distinction explains where strictness is appropriate; it does not
+override the response and hint rules in §3.
 
 ### 7.3 Authoring data and filled data are governed differently
 
