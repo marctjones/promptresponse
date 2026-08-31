@@ -31,7 +31,7 @@ def _validate_document_fields(document: AprDocument, result: ValidationResult) -
     if not (document.version or "").strip():
         result.errors.append(ValidationError("REQUIRED_FIELD", "version is required.", "version"))
     elif not is_supported_version(document.version):
-        result.errors.append(ValidationError("UNSUPPORTED_VERSION", f"version {document.version!r} declares a major version this reader does not implement. A different major may mean anything (specification 1.3.1).", "version"))
+        result.errors.append(ValidationError("UNSUPPORTED_VERSION", f"Unsupported APR version {document.version!r}; this build accepts only 1.0-beta.6.", "version"))
     if not (document.metadata.title or "").strip():
         result.errors.append(ValidationError("REQUIRED_FIELD", "metadata.title is required.", "metadata.title"))
     if not document.sections:

@@ -1,8 +1,6 @@
 # PromptResponse roadmap
 
-**Current release:** [v1.0.0-beta.3](CHANGELOG.md)
-
-**Format status:** APR `1.0-beta`
+**Current format target:** APR `1.0-beta.6`
 **Planning authority:** GitHub milestones and issues; this document states product
 direction, not an alternate delivery tracker.
 
@@ -20,30 +18,32 @@ keeps responses as strings, and does not store presentation layout.
 For the full product boundary, see [Product](docs/PRODUCT.md). For present shipped
 surfaces and their evidence, see the [implementation registry](docs/IMPLEMENTATION_REGISTRY.md).
 
-## Current focus: public-beta stabilization
+## Current focus: APR `1.0-beta.6` migration and stabilization
 
-New feature delivery is frozen while the following work improves the reliability
-and maintainability of what already ships:
+APR has not been publicly released. The beta.3 wire contract is therefore not a
+compatibility target: beta.6 may make the required breaking changes once, before
+we stabilize the implementation around it. In particular, beta.6 replaces the
+embedded `signatures` / `apr-sig-v3` model with independent attestation records,
+adds JSONC and YAML representations, and introduces representation-neutral
+streams.
 
-1. **Code architecture** — keep the Core, desktop shell, renderer/importer, CLI,
-   and SDK boundaries cohesive; split oversized responsibilities without changing
-   APR meaning or observable behavior.
-2. **Regression confidence** — preserve corpus compatibility and improve focused
-   unit, integration, GUI, package-smoke, and accessibility evidence. Coverage is
-   a guardrail, not a substitute for risk-based testing.
-3. **Documentation and registries** — maintain one truthful map of product,
-   architecture, development workflow, concepts, implementations, and release
-   evidence. Superseded plans belong in Git history.
-4. **Release provenance and local reproducibility** — make it possible to connect
-   release artifacts to validated source and to run the supported development path
-   predictably on macOS, Linux, and Windows.
+Stabilization is part of this migration, not work that precedes it:
 
-The active work is tracked in GitHub:
+1. **Contract first** — settle the beta.6 specification, schema, semantic-digest
+   and attestation vectors, and language-neutral conformance corpus.
+2. **Reference core and SDKs** — implement the settled core contract, then bring
+   Python, TypeScript, and Java through the same executable corpus.
+3. **Clients** — upgrade CLI before desktop and the web demo; clients consume
+   stream and attestation APIs and must not invent their own semantics.
+4. **Evidence while migrating** — add focused core, SDK, CLI, GUI, accessibility,
+   and package-smoke coverage as each layer moves. Only after every surface is on
+   beta.6 do cross-platform release and maintainability gates become the final
+   stabilization pass.
 
-- [Code refactoring](https://github.com/marctjones/promptresponse/milestone/13)
-- [Test and CI refactoring](https://github.com/marctjones/promptresponse/milestone/14)
-- [Documentation and registry refactoring](https://github.com/marctjones/promptresponse/milestone/15)
-- [Host architecture refactoring](https://github.com/marctjones/promptresponse/milestone/8)
+The active work is [APR 1.0 beta.6 upgrade — streams and
+attestations](https://github.com/marctjones/promptresponse/milestone/18). Existing
+refactoring and dependency milestones support this work; they must not stabilize
+the retired beta.3 contract.
 
 ## Deferred, explicit decisions
 
@@ -52,7 +52,8 @@ changes their priority:
 
 - hosted collaboration, RBAC, analytics, SSO, and cloud-by-default workflows;
 - browser extension and mobile clients;
-- explicit submission transports and APR streams/attestations;
+- explicit submission transports beyond the beta.6 stream and attestation
+  contract;
 - native print, trust-store, encryption, notarization, and richer document import;
 - Word/Excel export.
 

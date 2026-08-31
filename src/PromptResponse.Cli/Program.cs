@@ -33,8 +33,8 @@ class Program
         {
             return command switch
             {
-                "validate" => await serviceProvider.GetRequiredService<ValidateCommand>().ExecuteAsync(commandArgs),
-                "info" => await serviceProvider.GetRequiredService<InfoCommand>().ExecuteAsync(commandArgs),
+                "validate" => await serviceProvider.GetRequiredService<Beta6Command>().ExecuteAsync(["validate", .. commandArgs]),
+                "info" => await serviceProvider.GetRequiredService<Beta6Command>().ExecuteAsync(["inspect", .. commandArgs]),
                 "new" => await serviceProvider.GetRequiredService<NewCommand>().ExecuteAsync(commandArgs),
                 "fill" => await serviceProvider.GetRequiredService<FillCommand>().ExecuteAsync(commandArgs),
                 "stats" => await serviceProvider.GetRequiredService<StatsCommand>().ExecuteAsync(commandArgs),
@@ -43,10 +43,10 @@ class Program
                 "diff" => await serviceProvider.GetRequiredService<DiffCommand>().ExecuteAsync(commandArgs),
                 "export" => await serviceProvider.GetRequiredService<ExportCommand>().ExecuteAsync(commandArgs),
                 "import" => await serviceProvider.GetRequiredService<ImportCommand>().ExecuteAsync(commandArgs),
-                "keygen" => await serviceProvider.GetRequiredService<KeygenCommand>().ExecuteAsync(commandArgs),
-                "sign" => await serviceProvider.GetRequiredService<SignCommand>().ExecuteAsync(commandArgs),
-                "verify" => await serviceProvider.GetRequiredService<VerifyCommand>().ExecuteAsync(commandArgs),
+                "attest" => await serviceProvider.GetRequiredService<AttestCommand>().ExecuteAsync(commandArgs),
+                "keygen" or "sign" or "verify" => RetiredBeta3Command(command),
                 "submit" => await serviceProvider.GetRequiredService<SubmitCommand>().ExecuteAsync(commandArgs),
+                "beta6" => await serviceProvider.GetRequiredService<Beta6Command>().ExecuteAsync(commandArgs),
                 "help" or "--help" or "-h" => ShowHelp(),
                 "version" or "--version" or "-v" => ShowVersion(),
                 _ => ShowUnknownCommand(command)
@@ -69,7 +69,7 @@ class Program
         });
 
         // Core services
-        services.AddSingleton<IAprSerializer, AprJsonSerializer>();
+        services.AddSingleton<IAprSerializer, Beta6AprSerializer>();
         services.AddSingleton<DocumentValidator>();
         services.AddSingleton<DataTypeValidator>();
 
@@ -87,10 +87,9 @@ class Program
         services.AddTransient<DiffCommand>();
         services.AddTransient<ExportCommand>();
         services.AddTransient<ImportCommand>();
-        services.AddTransient<KeygenCommand>();
-        services.AddTransient<SignCommand>();
-        services.AddTransient<VerifyCommand>();
+        services.AddTransient<AttestCommand>();
         services.AddTransient<SubmitCommand>();
+        services.AddTransient<Beta6Command>();
     }
 
     private static int ShowHelp()
@@ -100,8 +99,8 @@ class Program
         Console.WriteLine("Usage: apr <command> [options]");
         Console.WriteLine();
         Console.WriteLine("Commands:");
-        Console.WriteLine("  validate <file>                Validate an APR file");
-        Console.WriteLine("  info <file>                    Show information about an APR file");
+        Console.WriteLine("  validate <file>                Validate a beta.6 JSONC/YAML stream");
+        Console.WriteLine("  info <file>                    Inspect beta.6 stream forms and attestations");
         Console.WriteLine("  new <file>                     Create a new template");
         Console.WriteLine("  fill <template> [options]      Fill out a form (interactive or programmatic)");
         Console.WriteLine("  stats <file> [--json]          Show detailed statistics");
@@ -113,10 +112,12 @@ class Program
         Console.WriteLine("  diff <file1> <file2>           Compare two APR files");
         Console.WriteLine("  export <file> [options]        Export responses to various formats");
         Console.WriteLine("  import <file.pdf> [options]    Import a fillable PDF into an APR template");
-        Console.WriteLine("  keygen [options]               Generate a self-signed signing certificate (.pfx)");
-        Console.WriteLine("  sign <file> [options]          Sign a document (publisher or filler) with an X.509 cert");
-        Console.WriteLine("  verify <file> [options]        Verify signatures and report trust");
+        Console.WriteLine("  attest <stream> --cert=<pfx> --output=<stream>");
+        Console.WriteLine("                                 Append an independent beta.6 CMS attestation");
         Console.WriteLine("  submit <file.aprf> --yes       Explicitly HTTPS POST a completed APRF");
+        Console.WriteLine("  beta6 <validate|inspect|normalize> <file> [--yaml|--jsonc] [--json] [--output=<file>]");
+        Console.WriteLine("                                 Validate, inspect, or normalize a beta.6 JSONC/YAML stream");
+        Console.WriteLine("                                 `inspect` reports attestations; it never blocks form data.");
         Console.WriteLine("  help                           Show this help message");
         Console.WriteLine("  version                        Show version information");
         Console.WriteLine();
@@ -158,7 +159,7 @@ class Program
             ?? assembly.GetName().Version?.ToString()
             ?? "unknown";
         Console.WriteLine($"APR CLI version {version}");
-        Console.WriteLine("APR Format version 1.0-beta");
+        Console.WriteLine("APR Format target 1.0-beta.6");
         return 0;
     }
 
@@ -166,6 +167,13 @@ class Program
     {
         Console.Error.WriteLine($"Unknown command: {command}");
         Console.Error.WriteLine("Run 'apr help' for usage information.");
+        return 1;
+    }
+
+    private static int RetiredBeta3Command(string command)
+    {
+        Console.Error.WriteLine($"Error: '{command}' is retired with APR beta.3 embedded signatures.");
+        Console.Error.WriteLine("Use 'apr attest <stream> --cert=<pfx> --output=<stream>' for beta.6 independent attestations.");
         return 1;
     }
 }

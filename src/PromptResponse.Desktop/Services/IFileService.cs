@@ -1,4 +1,6 @@
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Beta6;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PromptResponse.Desktop.Services;
 
@@ -80,4 +82,13 @@ public interface IFileService
     /// </summary>
     /// <param name="filePath">The file path to set.</param>
     void SetCurrentFilePath(string filePath);
+
+    /// <summary>Records which form occurrence was selected from a beta.6 stream.</summary>
+    void TrackBeta6FormSelection(string filePath, int formIndex) { }
+
+    /// <summary>Appends a beta.6 independent CMS attestation to the open stream.</summary>
+    Task<bool> AppendBeta6AttestationAsync(AprDocument document, X509Certificate2 certificate, IReadOnlyList<string>? fields = null) => Task.FromResult(false);
+
+    /// <summary>Resolves independent beta.6 attestations in the open stream.</summary>
+    IReadOnlyList<AprAttestationResolution> GetBeta6Attestations() => [];
 }

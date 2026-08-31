@@ -2,6 +2,8 @@ using AwesomeAssertions;
 using NSubstitute;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Core.Beta6;
+using PromptResponse.Core.Signing;
 using PromptResponse.Desktop.Services;
 using Xunit;
 
@@ -156,22 +158,70 @@ public class FileServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task SaveFileAsync_ShouldCallSerializerWithDocument()
+    public async Task Beta6_SaveFileAsync_WritesDocumentWithoutLegacySerializer()
     {
         var service = CreateService();
         var document = CreateTestTemplate();
         var filePath = PathFor("document.aprt");
 
-        AprDocument? captured = null;
-        _mockSerializer
-            .SerializeAsync(Arg.Any<AprDocument>(), Arg.Any<Stream>(), Arg.Any<CancellationToken>())
-            .Returns(Task.CompletedTask)
-            .AndDoes(call => captured = call.Arg<AprDocument>());
-
         await service.SaveFileAsync(document, filePath);
 
-        _ = _mockSerializer.Received(1).SerializeAsync(Arg.Any<AprDocument>(), Arg.Any<Stream>(), Arg.Any<CancellationToken>());
-        captured.Should().BeSameAs(document);
+        await _mockSerializer.DidNotReceive().SerializeAsync(Arg.Any<AprDocument>(), Arg.Any<Stream>(), Arg.Any<CancellationToken>());
+        (await File.ReadAllTextAsync(filePath)).Should().Contain("\"version\": \"1.0-beta.6\"");
+    }
+
+    [Fact]
+    public async Task Beta6_SaveFileAsync_PreservesOtherStreamRecords()
+    {
+        var service = CreateService();
+        var path = PathFor("stream.apr");
+        var source = Path.Combine(Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")),
+            "tests", "Conformance", "beta6", "streams", "out-of-order.apr.jsonc");
+        await File.WriteAllTextAsync(path, await File.ReadAllTextAsync(source));
+
+        var document = await service.LoadFileAsync(path);
+        document.Should().NotBeNull();
+        document!.Metadata.Title = "Edited permit";
+        await service.SaveFileAsync(document, path);
+
+        var records = new AprBeta6Reader().ReadStream(await File.ReadAllTextAsync(path), AprRepresentation.Jsonc);
+        records.Should().HaveCount(3);
+        records.OfType<AprAttestationRecord>().Should().ContainSingle();
+        records.OfType<AprFormRecord>().Should().HaveCount(2);
+        records.OfType<AprFormRecord>().First().Form.Metadata.Title.Should().Be("Edited permit");
+    }
+
+    [Fact]
+    public async Task Beta6_AppendAttestation_PreservesStreamAndAddsValidCmsRecord()
+    {
+        var service = CreateService();
+        var path = PathFor("stream.apr");
+        var source = Path.Combine(Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")),
+            "tests", "Conformance", "beta6", "streams", "out-of-order.apr.jsonc");
+        await File.WriteAllTextAsync(path, await File.ReadAllTextAsync(source));
+        var document = await service.LoadFileAsync(path);
+        document.Should().NotBeNull();
+        using var certificate = SignatureCertificates.CreateSelfSigned("Desktop attestation", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddDays(1));
+
+        (await service.AppendBeta6AttestationAsync(document!, certificate)).Should().BeTrue();
+
+        var records = new AprBeta6Reader().ReadStream(await File.ReadAllTextAsync(path), AprRepresentation.Jsonc);
+        records.Should().HaveCount(4);
+        records.OfType<AprAttestationRecord>().Should().HaveCount(2);
+        AprAttestationResolver.Resolve(records).Should().Contain(result => result.State == AprAttestationState.Valid);
+    }
+
+    [Fact]
+    public async Task Beta6_SaveThenAppendAttestation_CreatesAnAttestableStream()
+    {
+        var service = CreateService();
+        var document = CreateTestTemplate();
+        var path = PathFor("new-document.aprt");
+        await service.SaveFileAsync(document, path);
+        using var certificate = SignatureCertificates.CreateSelfSigned("Desktop attestation", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddDays(1));
+
+        (await service.AppendBeta6AttestationAsync(document, certificate)).Should().BeTrue();
+        service.GetBeta6Attestations().Should().ContainSingle(result => result.State == AprAttestationState.Valid);
     }
 
     [Fact]

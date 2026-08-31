@@ -2,8 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { loads, renderHtml } from "../index.js";
 
+test("generic loader rejects a retired APR version", () => {
+  assert.throws(() => loads('{"version":"1.0-beta","metadata":{"title":"T"},"sections":[]}'), /1\.0-beta\.6/);
+});
+
 function htmlRendererPreservesAccessibleStructureAndEscapesContent(): void {
-  const document = loads('{"version":"1.0-beta","metadata":{"title":"<Unsafe>"},"sections":[{"id":"first","title":"First","prompts":[{"id":"email","label":"Email","response":"<answer>","hints":{"expectedDataType":"email","helpText":"We will not <share> this"}},{"id":"notes","label":"Notes","response":"line one","hints":{"expectedDataType":"multiline"}}]}]}');
+  const document = loads('{"version":"1.0-beta.6","metadata":{"title":"<Unsafe>"},"sections":[{"id":"first","title":"First","prompts":[{"id":"email","label":"Email","response":"<answer>","hints":{"expectedDataType":"email","helpText":"We will not <share> this"}},{"id":"notes","label":"Notes","response":"line one","hints":{"expectedDataType":"multiline"}}]}]}');
   const html = renderHtml(document);
 
   assert.match(html, /<h1>&lt;Unsafe&gt;<\/h1>/, "document title is escaped");
@@ -18,7 +22,7 @@ function htmlRendererPreservesAccessibleStructureAndEscapesContent(): void {
 }
 
 function htmlRendererFallsBackSafelyAndNeverContactsNetwork(): void {
-  const document = loads('{"version":"1.0-beta","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"future","label":"Future","response":"x","hints":{"expectedDataType":"made-up-type"}}]}]}');
+  const document = loads('{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"future","label":"Future","response":"x","hints":{"expectedDataType":"made-up-type"}}]}]}');
   const originalFetch = globalThis.fetch;
   let contactedNetwork = false;
   globalThis.fetch = (async () => {

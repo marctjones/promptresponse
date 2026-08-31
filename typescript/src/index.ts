@@ -1,4 +1,6 @@
 export * from "./errors.js";
+export * from "./beta6.js";
+export * from "./beta6-integrity.js";
 export * from "./expressions.js";
 export * from "./model.js";
 export * from "./roles.js";

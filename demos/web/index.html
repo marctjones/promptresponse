@@ -16,9 +16,12 @@
 
       <section class="loader" aria-labelledby="open-heading">
         <h2 id="open-heading">Open a form</h2>
-        <label class="file-picker" for="apr-file">Choose an <code>.apr</code>, <code>.aprt</code>, or <code>.aprf</code> file</label>
-        <input id="apr-file" type="file" accept=".apr,.aprt,.aprf,application/json">
+        <label class="file-picker" for="apr-file">Choose a beta.6 <code>.apr</code>, <code>.aprt</code>, <code>.aprf</code>, <code>.yaml</code>, or <code>.yml</code> file</label>
+        <input id="apr-file" type="file" accept=".apr,.aprt,.aprf,.yaml,.yml,application/json,application/yaml,text/yaml">
         <p id="load-status" class="status" role="status">No document is open.</p>
+        <label id="stream-picker-label" for="stream-form" hidden>Form occurrence in stream</label>
+        <select id="stream-form" hidden></select>
+        <div id="stream-status" class="status" role="status" hidden></div>
       </section>
 
       <section id="document-panel" hidden aria-live="polite">

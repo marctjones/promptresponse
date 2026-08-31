@@ -118,15 +118,11 @@ class Metadata:
 class AprDocument:
     """An APR document."""
 
-    version: str = "1.0-beta"
+    version: str = "1.0-beta.6"
     document_type: Optional[str] = None
     metadata: Metadata = field(default_factory=Metadata)
     sections: List[Section] = field(default_factory=list)
     roles: Optional[List[RoleDefinition]] = None
-    # Carried through untouched and never verified: this reader implements the
-    # core profile, so it must preserve signatures and must not report them as
-    # verified (specification 2.3).
-    signatures: Optional[List[Dict[str, Any]]] = None
     extra: Dict[str, Any] = field(default_factory=dict)
 
     def all_prompts(self):

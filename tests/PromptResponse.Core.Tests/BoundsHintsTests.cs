@@ -93,7 +93,7 @@ public class BoundsHintsTests
     /// <summary>A reader that has never heard of bounds must still work.</summary>
     /// <remarks>
     /// Specification 4.7: an unrecognised hint degrades rather than erroring. Bounds were
-    /// added after 1.0-beta shipped, so a reader older than they are must load this
+    /// added after 1.0-beta.6 shipped, so a reader older than they are must load this
     /// document and offer a plain field.
     /// </remarks>
     [Fact]

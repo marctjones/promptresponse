@@ -13,8 +13,8 @@ readme = (ROOT / "README.md").read_text(encoding="utf-8")
 roadmap = (ROOT / "ROADMAP.md").read_text(encoding="utf-8")
 sdk = (ROOT / "docs/SDK_CONFORMANCE.md").read_text(encoding="utf-8")
 signing = (ROOT / "docs/SIGNING.md").read_text(encoding="utf-8")
-canonical = (ROOT / "tests/Conformance/v1/canonicalization/README.md").read_text(encoding="utf-8")
 problems = []
+migrating_beta6 = "**Specification document version:** 1.0.0-beta.6-draft" in spec
 
 for path in (
     "docs/README.md", "docs/PRODUCT.md", "docs/ARCHITECTURE.md",
@@ -34,8 +34,18 @@ for path in (
         problems.append(f"superseded documentation must not return: {path}")
 
 match = re.search(r"Specification document version:\*\* ([^\s]+)", spec)
-if not match or match.group(1) != registry["specVersion"]:
+if not match:
+    problems.append("APR specification document version is missing")
+elif not migrating_beta6 and match.group(1) != registry["specVersion"]:
     problems.append("APR specification document version must equal tests/registry.json specVersion")
+elif migrating_beta6:
+    for path in (
+        "schemas/apr-1.0-beta.6.schema.json",
+        "tests/Conformance/beta6/README.md",
+        "tests/Conformance/beta6/digests/permit.json",
+    ):
+        if not (ROOT / path).is_file():
+            problems.append(f"beta.6 migration is missing its contract artifact: {path}")
 
 for name in (".NET", "Python", "TypeScript"):
     if name not in readme or name not in sdk:
@@ -52,19 +62,6 @@ if "WCAG 2.1 Level AA compliance built-in" in readme:
 
 if "Java / Rust / C++ | Not implemented" in sdk:
     problems.append("SDK conformance status contradicts the shipped Java SDK")
-
-for path, text in {
-    "docs/SIGNING.md": signing,
-    "docs/SDK_CONFORMANCE.md": sdk,
-    "canonicalization README": canonical,
-}.items():
-    if "apr-sig-v3" not in text:
-        problems.append(f"{path} must identify the current apr-sig-v3 payload")
-    if "apr-sig-v2" in text:
-        problems.append(f"{path} still calls apr-sig-v2 current")
-
-if "issue #88" not in spec or "Beta boundary" not in signing:
-    problems.append("signature documents must disclose the apr-sig-v3 beta boundary and v4 follow-up")
 
 if problems:
     print("Documentation consistency check failed:", *[f"- {p}" for p in problems], sep="\n")

@@ -5,14 +5,15 @@ using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PromptResponse.Core;
+using PromptResponse.Core.Beta6;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Rendering;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Core.Signing;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels.Editing;
 using PromptResponse.Desktop.ViewModels.Prompts;
-using PromptResponse.Desktop.ViewModels.Signing;
 using PromptResponse.Desktop.ViewModels.Workflows;
 using PromptResponse.Rendering.Pdf;
 
@@ -42,7 +43,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     private readonly AdvisoryWorkflow _advisoryWorkflow = new();
     private readonly ExpressionWorkflow _expressionWorkflow;
     private readonly RoleSelectionWorkflow _roleSelectionWorkflow;
-    private readonly SignatureWorkflow _signatureWorkflow;
+    private IReadOnlyList<AprAttestationResolution> _beta6Attestations = [];
     private readonly WizardProfileWorkflow _wizardProfileWorkflow;
 
     public MainShellViewModel(
@@ -89,7 +90,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             _editHistory,
             OnPromptResponseChanged,
             OnDocumentTreeChanged);
-        _signatureWorkflow = new SignatureWorkflow(_session, _fileService, _dialogService, () => _documentTreeWorkflow.Prompts);
         _expressionWorkflow = new ExpressionWorkflow(() => _documentTreeWorkflow.Prompts);
         _roleSelectionWorkflow = new RoleSelectionWorkflow(() => _documentTreeWorkflow.Prompts);
         _wizardProfileWorkflow = new WizardProfileWorkflow(
@@ -97,7 +97,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             () => _documentTreeWorkflow.Sections.Count,
             index => index >= 0 && index < _documentTreeWorkflow.Sections.Count ? _documentTreeWorkflow.Sections[index].Title : null);
         _documentTreeWorkflow.TreeChanged += _wizardProfileWorkflow.RefreshSections;
-        _signatureWorkflow.StateChanged += OnSignatureWorkflowStateChanged;
         _advisoryWorkflow.StateChanged += OnAdvisoryWorkflowStateChanged;
         _roleSelectionWorkflow.StateChanged += OnRoleSelectionWorkflowStateChanged;
         _wizardProfileWorkflow.StateChanged += OnWizardProfileWorkflowStateChanged;
@@ -469,125 +468,68 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         }
     }
 
-    // ── signatures (verify / trust status) ───────────────────────────────────
+    /// <summary>Whether the open beta.6 stream carries independent attestations.</summary>
+    public bool HasBeta6Attestations => _beta6Attestations.Count > 0;
 
-    /// <summary>The document's signatures with their verification + trust status.</summary>
-    public IReadOnlyList<SignatureStatusItem> Signatures => _signatureWorkflow.Signatures;
+    /// <summary>One-line verification summary for the independent beta.6 records.</summary>
+    public string Beta6AttestationSummary => _beta6Attestations.Count == 0 ? "No independent attestations" :
+        $"{_beta6Attestations.Count} independent attestation(s): {string.Join(", ", _beta6Attestations.GroupBy(item => item.State).OrderBy(group => group.Key).Select(group => $"{group.Count()} {group.Key.ToString().ToLowerInvariant()}"))}";
 
-    /// <summary>Whether the open document carries any signatures.</summary>
-    public bool HasSignatures => _signatureWorkflow.HasSignatures;
-
-    /// <summary>A one-line summary for the signatures panel.</summary>
-    public string SignatureSummary => _signatureWorkflow.SignatureSummary;
+    private void RefreshBeta6Attestations()
+    {
+        _beta6Attestations = _fileService.GetBeta6Attestations();
+        OnPropertyChanged(nameof(HasBeta6Attestations));
+        OnPropertyChanged(nameof(Beta6AttestationSummary));
+    }
 
     /// <summary>
-    /// Re-verifies the document's signatures (default trust: certificates are
-    /// reported as trusted only if self-signed certs are pinned or CA certs chain
-    /// to a configured root — neither is wired in the GUI yet, so self-signed certs
-    /// show as "SelfSigned"). Cheap to call on load; not run on every keystroke.
-    /// </summary>
-    public void RefreshSignatures()
-    {
-        _signatureWorkflow.Refresh();
-    }
-
-    private void OnSignatureWorkflowStateChanged()
-    {
-        OnPropertyChanged(nameof(Signatures));
-        OnPropertyChanged(nameof(HasSignatures));
-        OnPropertyChanged(nameof(SignatureSummary));
-        OnPropertyChanged(nameof(SignatureBreakageNotice));
-        OnPropertyChanged(nameof(HasSignatureBreakageNotice));
-    }
-
-    // ── Telling somebody when their edit has broken a signature ──────────────
-
-    /// <summary>What to say when an edit has just invalidated somebody's signature.</summary>
-    /// <remarks>
-    /// <para>
-    /// Said at the moment it happens, and never by preventing the edit. Any string is a
-    /// valid response and a person may need to correct a signed field — the format's
-    /// answer to that is not to stop them, it is to make sure they know what it cost.
-    /// </para>
-    /// <para>
-    /// A signature is <em>never</em> removed to tidy this up. Doing so would turn
-    /// "somebody signed this and it was altered" into "nobody ever signed this", which is
-    /// strictly less informative and would make this editor the easiest tampering tool
-    /// available. Removing one is a separate, deliberate command.
-    /// </para>
-    /// <para>
-    /// Announced once per signature. A message that reappears on every keystroke is a
-    /// message people learn to dismiss without reading.
-    /// </para>
-    /// </remarks>
-    public string? SignatureBreakageNotice
-    {
-        get => _signatureWorkflow.BreakageNotice;
-    }
-
-    /// <summary>Whether there is a breakage to tell somebody about.</summary>
-    public bool HasSignatureBreakageNotice => _signatureWorkflow.HasBreakageNotice;
-
-    /// <summary>Removes one signature, on purpose and after asking.</summary>
-    /// <remarks>
-    /// <para>
-    /// The only way a signature leaves a document in this application. Editing a signed
-    /// field never removes one, however broken it becomes: a broken signature is evidence
-    /// that somebody signed and the document changed afterwards, and discarding it would
-    /// convert that into "nobody ever signed this" — strictly less informative, and it
-    /// would make this editor the easiest tampering tool anyone could reach for.
-    /// </para>
-    /// <para>
-    /// So removal exists, because it is the person's own file and they can edit the JSON
-    /// regardless, but it is a decision they make rather than a convenience they trip
-    /// over.
-    /// </para>
-    /// </remarks>
-    [RelayCommand]
-    private async Task RemoveSignature(string? signatureId)
-    {
-        await _signatureWorkflow.RemoveAsync(signatureId);
-    }
-
-    /// <summary>Dismisses the notice without undoing anything.</summary>
-    [RelayCommand]
-    private void DismissSignatureNotice() => _signatureWorkflow.DismissBreakageNotice();
-
-    /// <summary>Undoes the edit that broke it, and clears the notice.</summary>
-    /// <remarks>
-    /// Offered because the usual reason to break a signature is not meaning to. The edit
-    /// is ordinary undo history, so this is the same action the Edit menu already has —
-    /// put next to the message so it is reachable when it is relevant.
-    /// </remarks>
-    [RelayCommand]
-    private void RestoreSignedValues()
-    {
-        _signatureWorkflow.RestoreSignedValues();
-    }
-
-    /// <summary>Re-verifies signatures on demand (e.g. after editing responses).</summary>
-    [RelayCommand]
-    public void RefreshSignaturesNow() => RefreshSignatures();
-
-    /// <summary>
-    /// Signs the open document as the publisher with a chosen X.509 certificate
-    /// (.pfx), binding a submission URL. Adds the signature and marks the document
-    /// dirty so the user saves it.
+    /// Appends a detached beta.6 document attestation using a chosen PFX certificate.
     /// </summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task SignAsPublisher()
     {
-        await _signatureWorkflow.SignAsPublisherAsync();
+        await AppendBeta6AttestationAsync(null);
     }
 
     /// <summary>
-    /// Signs the responses the user has filled in (all answered fields) with a
-    /// chosen X.509 certificate.
+    /// Appends a detached beta.6 fields attestation for answered responses.
     /// </summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
     public async Task SignMyResponses()
     {
-        await _signatureWorkflow.SignMyResponsesAsync();
+        var fields = _documentTreeWorkflow.Prompts.Where(prompt => !string.IsNullOrWhiteSpace(prompt.Response))
+            .Select(prompt => prompt.Id).ToList();
+        if (fields.Count == 0)
+        {
+            await _dialogService.ShowConfirmationAsync("Nothing to attest", "Fill in at least one response before creating a fields attestation.");
+            return;
+        }
+        await AppendBeta6AttestationAsync(fields);
+    }
+
+    private async Task AppendBeta6AttestationAsync(IReadOnlyList<string>? fields)
+    {
+        var document = _session.CurrentDocument;
+        if (document is null) return;
+        var certificatePath = await _fileService.PickCertificateAsync();
+        if (string.IsNullOrEmpty(certificatePath)) return;
+        var password = await _dialogService.ShowInputAsync("Certificate password", "Enter the certificate password (leave blank if none):", string.Empty, isPassword: true);
+        if (password is null) return;
+        try
+        {
+            using var certificate = SignatureCertificates.LoadPfx(certificatePath, string.IsNullOrEmpty(password) ? null : password);
+            if (!await _fileService.AppendBeta6AttestationAsync(document, certificate, fields))
+            {
+                await _dialogService.ShowConfirmationAsync("Save the form first", "Beta.6 attestations are appended to a saved stream. Save this form, then try again.");
+                return;
+            }
+            await _dialogService.ShowConfirmationAsync("Attestation added", "A detached beta.6 CMS attestation was appended to the stream. It does not modify the form.");
+            RefreshBeta6Attestations();
+        }
+        catch (Exception exception)
+        {
+            await _dialogService.ShowConfirmationAsync("Attestation failed", exception.Message);
+        }
     }
 
     /// <summary>
@@ -805,7 +747,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(Metadata));
         ToggleEditModeCommand.NotifyCanExecuteChanged();
         RefreshAdvisories();
-        RefreshSignatures();
+        RefreshBeta6Attestations();
         SignAsPublisherCommand.NotifyCanExecuteChanged();
         SignMyResponsesCommand.NotifyCanExecuteChanged();
         PrintPreviewCommand.NotifyCanExecuteChanged();
@@ -882,11 +824,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         Progress.Refresh();
         RefreshAdvisories();
 
-        // Signatures too. Typing into a signed field is precisely what invalidates a
-        // signature, so this is the moment the status changes - and it used to refresh
-        // only when somebody pressed a button, which meant a field could keep reporting
-        // "signed" after the keystroke that broke it.
-        RefreshSignatures();
     }
 
     /// <summary>
@@ -937,7 +874,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         _homePresentation.Dispose();
         _documentLifecycle.StateChanged -= OnDocumentLifecycleStateChanged;
         _documentLifecycle.Dispose();
-        _signatureWorkflow.StateChanged -= OnSignatureWorkflowStateChanged;
         _wizardProfileWorkflow.StateChanged -= OnWizardProfileWorkflowStateChanged;
         _documentTreeWorkflow.TreeChanged -= _wizardProfileWorkflow.RefreshSections;
         _wizardProfileWorkflow.Dispose();

@@ -1,4 +1,5 @@
 using PromptResponse.Core;
+using PromptResponse.Core.Beta6;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 
@@ -33,5 +34,14 @@ public partial class DocumentIntegrationTests
         var projectRoot = Path.GetFullPath(Path.Combine(testDir, "..", "..", "..", "..", ".."));
         var fixturesDir = Path.Combine(projectRoot, "tests", "Fixtures");
         return Path.Combine(fixturesDir, filename);
+    }
+
+    private AprDocument ReadBeta6Fixture(string filename)
+    {
+        // Fixtures are normalized through the active beta.6 reader/writer boundary.
+        var document = _serializer.Deserialize(File.ReadAllText(GetExampleFilePath(filename)));
+        document.Version = "1.0-beta.6";
+        var reader = new AprBeta6Reader();
+        return reader.ReadForm(reader.WriteForm(document, AprRepresentation.Jsonc), AprRepresentation.Jsonc);
     }
 }

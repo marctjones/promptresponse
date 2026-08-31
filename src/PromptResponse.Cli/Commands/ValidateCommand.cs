@@ -68,12 +68,6 @@ public class ValidateCommand : ICommand
                 var promptCount = CountPrompts(document);
                 Console.WriteLine($"  Prompts: {promptCount}");
 
-                // Reported, and deliberately not folded into the exit code.
-                // Specification 6.1: no validation error may arise from the state of a
-                // signature, and a validator that rejects a document because a signature
-                // is missing or invalid is not implementing APR. So a broken signature is
-                // said loudly here and `validate` still succeeds.
-                SignatureNotice.Write(document);
                 return 0;
             }
 

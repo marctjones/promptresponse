@@ -1,6 +1,0 @@
-{
-  "version": "1.0-beta",
-  "documentType": "template",
-  "metadata": { "title": "Conformance Truncated", "templateId": "conformance-truncated" },
-  "sections": [
-    { "id": "s1", "title": "A section", "prompts": [ { "id": "p1", "label": "A field", "response": "

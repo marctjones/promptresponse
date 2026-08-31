@@ -23,7 +23,7 @@ public partial class MainShellViewModelTests
     public async Task OpenFromPath_ForFilling_ShowsTemplateAsFormInsteadOfEditor()
     {
         var file = Path.GetTempFileName();
-        try { await File.WriteAllTextAsync(file, "{\"version\":\"1.0-beta\",\"documentType\":\"template\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"Name\",\"response\":\"\"}]}]}"); var shell = CreateShell(); await shell.OpenFromPath(file, openForFilling: true); shell.IsEditMode.Should().BeFalse(); shell.ShowFullFillList.Should().BeTrue(); } finally { File.Delete(file); }
+        try { await File.WriteAllTextAsync(file, "{\"version\":\"1.0-beta.6\",\"documentType\":\"template\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"Name\",\"response\":\"\"}]}]}"); var shell = CreateShell(); await shell.OpenFromPath(file, openForFilling: true); shell.IsEditMode.Should().BeFalse(); shell.ShowFullFillList.Should().BeTrue(); } finally { File.Delete(file); }
     }
 
     private static AprDocument ExprDoc() => new()

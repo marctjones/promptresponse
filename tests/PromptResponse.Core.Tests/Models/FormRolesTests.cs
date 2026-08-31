@@ -18,7 +18,7 @@ public class FormRolesTests
 {
     private static string CorpusFixture => Path.Combine(
         Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")),
-        "tests", "Conformance", "v1", "valid", "roles.aprt");
+        "tests", "Conformance", "beta6", "forms", "roles.apr.jsonc");
 
     private static AprDocument Intake() =>
         new AprJsonSerializer().Deserialize(File.ReadAllText(CorpusFixture));

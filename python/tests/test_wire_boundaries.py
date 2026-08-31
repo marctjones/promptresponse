@@ -17,6 +17,6 @@ def test_wire_helpers_preserve_extensions_and_omit_retired_or_empty_members():
     assert compact_members({"kept": "value", "none": None, "empty": [], "object": {}}) == {"kept": "value"}
 
 
-@pytest.mark.parametrize(("version", "expected"), [("1.0-beta", True), ("1.7", True), ("2.0", False), ("not-a-version", False)])
-def test_version_policy_is_independent_of_model_parsing(version, expected):
+@pytest.mark.parametrize(("version", "expected"), [("1.0-beta.6", True), ("1.0-beta", False), ("1.7", False), ("2.0", False), ("not-a-version", False)])
+def test_version_policy_accepts_only_beta6(version, expected):
     assert is_supported_version(version) is expected

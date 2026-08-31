@@ -178,12 +178,8 @@ public class PromptViewModelBaseTests
 
         changed.Should().Contain(nameof(vm.ProvenanceAnnouncement),
             "live-region verbosity controls the provenance description");
-        changed.Should().Contain(nameof(vm.SignatureAnnouncement),
-            "live-region verbosity controls the signature description");
         changed.Should().Contain(nameof(vm.ProvenanceColorCue),
             "the active profile controls whether provenance may use a redundant colour cue");
-        changed.Should().Contain(nameof(vm.SignatureColorCue),
-            "the active profile controls whether signature state may use a redundant colour cue");
         changed.Should().Contain(nameof(vm.ToggleGlyphSize),
             "toggle geometry follows the profile text scale");
         changed.Should().Contain(nameof(vm.ToggleButtonSize),

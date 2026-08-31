@@ -9,7 +9,7 @@ public partial class WorkflowTests
     [Fact]
     public async Task FillOnlyYourOwnPartOfAMultiPartyForm()
     {
-        var corpus = RepositoryPath("tests", "Conformance", "v1", "valid", "roles.aprt");
+        var corpus = await Beta6CopyAsync(RepositoryPath("tests", "Conformance", "beta6", "forms", "roles.apr.jsonc"), "roles.apr");
         _session.Set((await _files.LoadFileAsync(corpus))!, corpus);
         _shell.HasRoles.Should().BeTrue();
         _shell.ActiveRoleChoice = _shell.AvailableRoles.Single(r => r.Id == "patient");

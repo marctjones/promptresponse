@@ -1,0 +1,34 @@
+---
+recordType: attestation
+version: "1.0-beta.6"
+subject:
+  digest: "sha256:d06b9720c44d64b368e93bd6765cad81bfa1e8ea9b767b4acd1ffc57c26b0253"
+  canonicalization: jcs-sha256
+scope: { kind: document }
+manifest:
+  root: "sha256:d06b9720c44d64b368e93bd6765cad81bfa1e8ea9b767b4acd1ffc57c26b0253"
+  entries: []
+proofs: []
+witnesses: []
+---
+version: "1.0-beta.6"
+documentType: template
+metadata: { title: Beta 6 permit }
+sections:
+  - id: applicant
+    title: Applicant
+    prompts:
+      - id: name
+        label: Name
+        response: Ada
+---
+version: "1.0-beta.6"
+documentType: template
+metadata: { title: Beta 6 permit }
+sections:
+  - id: applicant
+    title: Applicant
+    prompts:
+      - id: name
+        label: Name
+        response: Ada

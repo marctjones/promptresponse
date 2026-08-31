@@ -7,15 +7,17 @@ namespace PromptResponse.Desktop.InputFormatters;
 /// </summary>
 public static class InputFormatterRegistry
 {
+    private static readonly IInputFormatter ZipCode = new ZipCodeInputFormatter();
+
     private static readonly IReadOnlyDictionary<string, IInputFormatter> Formatters =
         new Dictionary<string, IInputFormatter>(StringComparer.OrdinalIgnoreCase)
         {
             ["phone"] = new PhoneInputFormatter(),
             ["ssn"] = new SsnInputFormatter(),
             ["ein"] = new EinInputFormatter(),
-            ["zipcode"] = new ZipCodeInputFormatter(),
-            ["zip"] = new ZipCodeInputFormatter(),
-            ["postalcode"] = new ZipCodeInputFormatter(),
+            ["zipcode"] = ZipCode,
+            ["zip"] = ZipCode,
+            ["postalcode"] = ZipCode,
             ["currency"] = new CurrencyInputFormatter(),
             ["percentage"] = new PercentageInputFormatter(),
             ["percent"] = new PercentageInputFormatter(),

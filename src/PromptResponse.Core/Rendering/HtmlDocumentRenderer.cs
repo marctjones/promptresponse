@@ -25,10 +25,7 @@ public sealed class HtmlDocumentRenderer : IDocumentRenderer
         ".value{white-space:pre-wrap}.help{font-size:.85em;color:#666;margin:.1rem 0 0}" +
         "table{border-collapse:collapse;width:100%;margin:.75rem 0}" +
         "th,td{border:1px solid #ccc;padding:.4rem .6rem;text-align:left;vertical-align:top}" +
-        "th{background:#f5f5f5}" +
-        ".signatures{list-style:none;padding:0}.sig{border-left:3px solid #2e7d32;padding:.4rem .6rem;margin:.5rem 0;background:#f6f9f6}" +
-        ".sig.bad{border-left-color:#b00;background:#fbf0f0}.sig-badge{font-weight:600}.sig.bad .sig-badge{color:#b00}" +
-        ".sig-status{font-size:.85em;color:#555}";
+        "th{background:#f5f5f5}";
 
     private readonly IDocumentRenderModelBuilder _builder;
 
@@ -118,28 +115,7 @@ public sealed class HtmlDocumentRenderer : IDocumentRenderer
                 AppendTable(sb, t);
                 break;
 
-            case SignatureBlock sig:
-                AppendSignatures(sb, sig);
-                break;
         }
-    }
-
-    /// <summary>Renders the signatures summary with a verified/invalid badge per signature.</summary>
-    internal static void AppendSignatures(StringBuilder sb, SignatureBlock block)
-    {
-        sb.Append("<h2>Signatures</h2>\n<ul class=\"signatures\">\n");
-        foreach (var s in block.Signatures)
-        {
-            var badge = s.ContentValid ? "✓ verified" : "✗ INVALID";
-            var cls = s.ContentValid ? "sig" : "sig bad";
-            sb.Append("<li class=\"").Append(cls).Append("\">")
-              .Append("<span class=\"sig-badge\">").Append(badge).Append("</span> ")
-              .Append("<strong>").Append(Enc(s.Role)).Append("</strong>: ").Append(Enc(s.Signer))
-              .Append(" — ").Append(Enc(s.Scope))
-              .Append("<br><span class=\"sig-status\">trust: ").Append(Enc(s.Trust)).Append(" · ").Append(Enc(s.Status)).Append("</span>")
-              .Append("</li>\n");
-        }
-        sb.Append("</ul>\n");
     }
 
     private static void AppendTable(StringBuilder sb, TableBlock table)

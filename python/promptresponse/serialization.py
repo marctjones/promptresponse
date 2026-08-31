@@ -6,9 +6,8 @@ Responses are strings. A response given as a JSON number or boolean is a parse
 failure and is never coerced to "42" - silent coercion would make the reader
 disagree with the bytes it was handed (specification 3.2).
 
-Unknown members survive. Anything this reader does not recognise is kept and
-written back, so a document from a newer minor version is not quietly stripped
-by an older reader (specification 4.8).
+Unknown members in a beta.6 document survive. This reader does not accept other
+APR versions.
 """
 
 import json
@@ -25,7 +24,7 @@ from .models import (
     Section,
 )
 from .text import normalize
-from .versioning import CURRENT_VERSION, KNOWN_MAJOR, KNOWN_MINOR, is_supported_version
+from .versioning import CURRENT_VERSION, is_supported_version
 from .wire import (
     compact_members as _compact,
     require_object as _require_object,
@@ -178,7 +177,7 @@ def loads(text: str) -> AprDocument:
         raise AprParseError("roles must be an array")
 
     known = {"version", "documentType", "metadata", "sections", "roles", "signatures"}
-    return AprDocument(
+    document = AprDocument(
         version=node["version"],
         document_type=_string(node, "documentType", "document"),
         metadata=_parse_metadata(node["metadata"]),
@@ -196,9 +195,13 @@ def loads(text: str) -> AprDocument:
             if roles is not None
             else None
         ),
-        signatures=node.get("signatures"),
         extra=_rest(node, known),
     )
+    if not is_supported_version(document.version):
+        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}")
+    if "signatures" in node:
+        raise AprParseError("RETIRED_EMBEDDED_SIGNATURES")
+    return document
 
 
 def load(path) -> AprDocument:
@@ -268,6 +271,8 @@ def _section_json(section: Section) -> Dict[str, Any]:
 
 def dumps(document: AprDocument, indent: int = 2) -> str:
     """Writes APR JSON, preserving every member this reader did not recognise."""
+    if not is_supported_version(document.version):
+        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}")
     metadata = {"title": document.metadata.title}
     metadata.update(_compact({
         "description": document.metadata.description,
@@ -293,8 +298,6 @@ def dumps(document: AprDocument, indent: int = 2) -> str:
             for r in document.roles
         ]
     node["sections"] = [_section_json(s) for s in document.sections]
-    if document.signatures:
-        node["signatures"] = document.signatures
     node.update(document.extra)
 
     return json.dumps(node, indent=indent, ensure_ascii=False)

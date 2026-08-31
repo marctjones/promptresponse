@@ -94,8 +94,8 @@
                               AutomationProperties.Name="Export as fillable web form"
                               AutomationProperties.HelpText="Export a self-contained HTML form that fills in the browser and downloads an .aprf file"/>
                 </MenuItem>
-                <MenuItem Header="Si_gn"
-                          AutomationProperties.Name="Sign menu">
+                <MenuItem Header="At_test"
+                          AutomationProperties.Name="Attestation menu">
                     <!--
                         Creation only, and it sits with the signing commands because that
                         is when somebody discovers they need a key. Storing, rotating and
@@ -106,20 +106,14 @@
                               AutomationProperties.Name="Create a signing key"
                               AutomationProperties.HelpText="Make a self-signed key and save it to disk, for trying signing without a certificate authority"/>
                     <Separator/>
-                    <MenuItem Header="Sign as _publisher..."
+                    <MenuItem Header="Attest _document..."
                               Command="{Binding SignAsPublisherCommand}"
-                              AutomationProperties.Name="Sign as publisher"
-                              AutomationProperties.HelpText="Sign the form definition with a certificate and bind a submission URL"/>
-                    <MenuItem Header="_Remove a signature..."
-                              Command="{Binding RemoveSignatureCommand}"
-                              CommandParameter="{Binding Signatures[0].Id, FallbackValue={x:Null}}"
-                              IsEnabled="{Binding HasSignatures}"
-                              AutomationProperties.Name="Remove a signature"
-                              AutomationProperties.HelpText="Deletes a signature from the document. Editing never removes one; this is the only way, and it asks first."/>
-                    <MenuItem Header="Sign my _responses..."
+                              AutomationProperties.Name="Attest document"
+                              AutomationProperties.HelpText="Append an independent beta.6 CMS attestation for this document"/>
+                    <MenuItem Header="Attest my _responses..."
                               Command="{Binding SignMyResponsesCommand}"
-                              AutomationProperties.Name="Sign my responses"
-                              AutomationProperties.HelpText="Sign the fields you have filled in with a certificate"/>
+                              AutomationProperties.Name="Attest my responses"
+                              AutomationProperties.HelpText="Append an independent beta.6 CMS fields attestation for the responses you filled in"/>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="_Close"
@@ -815,45 +809,15 @@
                                        TextWrapping="Wrap"/>
                         </StackPanel>
 
-                        <!-- Signatures — verification + trust status (shown when signed) -->
-                        <StackPanel Spacing="8" IsVisible="{Binding HasSignatures}"
-                                    AutomationProperties.Name="Signatures panel">
-                            <TextBlock Text="Signatures"
+                        <StackPanel Spacing="4" IsVisible="{Binding HasBeta6Attestations}"
+                                    AutomationProperties.Name="Beta.6 attestations panel">
+                            <TextBlock Text="Beta.6 attestations"
                                        FontWeight="SemiBold"
                                        FontSize="{Binding CaptionFontSize}"
                                        Foreground="{Binding ActiveProfileMutedTextBrush}"/>
-                            <Button Content="Re-verify"
-                                    Command="{Binding RefreshSignaturesNowCommand}"
-                                    HorizontalAlignment="Stretch"
-                                    MinHeight="32"
-                                    CornerRadius="3"
-                                    AutomationProperties.Name="Re-verify signatures"
-                                    AutomationProperties.HelpText="Re-check each signature against the current content"/>
-                            <TextBlock Text="{Binding SignatureSummary}"
+                            <TextBlock Text="{Binding Beta6AttestationSummary}"
                                        FontSize="{Binding BodyFontSize}"
                                        AutomationProperties.LiveSetting="Polite"/>
-                            <ItemsControl ItemsSource="{Binding Signatures}"
-                                          x:Name="SignatureList"
-                                          AutomationProperties.Name="Signature list">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="vm:SignatureStatusItem">
-                                        <Border Padding="8,6" Margin="0,2"
-                                                CornerRadius="4" BorderThickness="1"
-                                                BorderBrush="{Binding #Root.((vm:MainShellViewModel)DataContext).ActiveProfileBorderBrush}"
-                                                AutomationProperties.Name="{Binding Headline}"
-                                                AutomationProperties.HelpText="{Binding Status}">
-                                            <StackPanel Spacing="2">
-                                                <TextBlock Text="{Binding Headline}"
-                                                           FontSize="12" FontWeight="SemiBold"/>
-                                                <TextBlock Text="{Binding Scope}"
-                                                           FontSize="11" Opacity="0.8" TextWrapping="Wrap"/>
-                                                <TextBlock Text="{Binding Status}"
-                                                           FontSize="11" Opacity="0.8" TextWrapping="Wrap"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
                         </StackPanel>
 
                     </StackPanel>

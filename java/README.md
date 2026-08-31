@@ -2,9 +2,9 @@
 
 A Java 21+ implementation of APR **core+expressions**. It is
 intended for lightweight backend processing: read, structurally validate,
-change responses, and write APR JSON while preserving unknown members,
-signatures. It evaluates APR's CEL expression hints through the official CEL-Java
-runtime, but neither verifies signatures nor emits HTML.
+change responses, write APR JSON, and inspect independent attestation records.
+It evaluates APR's CEL expression hints through the official CEL-Java runtime,
+but leaves trust decisions to the caller and emits no HTML.
 
 ```java
 AprDocument form = Apr.read(Path.of("intake.aprt"));

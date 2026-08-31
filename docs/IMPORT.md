@@ -140,7 +140,6 @@ help text before sharing it.
 
 ## Real-world examples
 
-See `tests/Fixtures/import-corpus/` for both paths run against two real federal
-forms (IRS Form 990, SF-86), with a findings write-up — a concrete look at when
-each path shines. Tracked in
+See `examples/irs-form-990.aprt` and `examples/sf-86-background-check.aprt` for
+current beta.6-shaped federal-form examples. Tracked in
 [issue #64](https://github.com/marctjones/promptresponse/issues/64).

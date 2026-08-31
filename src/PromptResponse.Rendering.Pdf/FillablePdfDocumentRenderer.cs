@@ -112,15 +112,6 @@ public sealed class FillablePdfDocumentRenderer : IDocumentRenderer
                 WriteFillableTable(pdf, t);
                 break;
 
-            case SignatureBlock s:
-                pdf.Heading("Signatures", level: 2);
-                foreach (var sig in s.Signatures)
-                {
-                    var badge = sig.ContentValid ? "[verified]" : "[INVALID]";
-                    pdf.KeyValue($"{badge} {sig.Role}", $"{sig.Signer} - {sig.Scope}");
-                    pdf.Paragraph($"trust: {sig.Trust} - {sig.Status}", HelpStyle);
-                }
-                break;
         }
     }
 

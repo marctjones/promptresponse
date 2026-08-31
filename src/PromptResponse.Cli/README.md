@@ -175,27 +175,20 @@ recommendation. Flat/scanned PDFs (no form fields) report an error — for those
 plus Word/OpenDocument/images, use the `document-to-apr` skill. See
 [docs/IMPORT.md](../../docs/IMPORT.md).
 
-### keygen / sign / verify
+### attest
 
-Digital signatures over APR content (industry-standard CMS/PKCS#7 + X.509).
+Beta.6 carries CMS signatures as independent attestation records, never as a
+member embedded in a form. Supply an ECDSA P-256 PKCS#12 certificate and write a
+new stream containing the unchanged form plus its attestation:
 
 ```bash
-# generate a self-signed signing cert (or use a CA-issued .pfx / PIV card)
-apr keygen --name="Town of Bloomfield" --output=publisher.pfx --cert-out=publisher.cer
-
-# publisher signs the template and binds the submission URL
-apr sign permit.aprt --publisher --cert=publisher.pfx --url="https://gov/permit/submit"
-
-# a filler signs the responses they completed
-apr sign permit.aprf --fields=applicant_name,dob --cert=ada.pfx --id=ada
-
-# verify, pinning the publisher's public cert as a trust anchor
-apr verify permit.aprf --trust=publisher.cer
+apr attest permit.apr --cert=ada.pfx --password=secret --output=permit.attested.apr
+apr attest permit.apr --cert=ada.pfx --password=secret --fields=name --output=permit.attested.apr
+apr info permit.attested.apr --json
 ```
 
-`verify` reports each signature as `trusted` / `self-signed` / `untrusted` /
-`INVALID` and exits non-zero if signed content was altered. Full guide:
-[docs/SIGNING.md](../../docs/SIGNING.md).
+`info` reports cryptographic content status independently from certificate trust;
+an attestation never blocks form extraction. See [docs/SIGNING.md](../../docs/SIGNING.md).
 
 ### help
 
@@ -412,41 +405,28 @@ questions.
 | `PROMPT_OPTIONS_CHANGED` | Chosen from a different shortlist than the one published. |
 | `TEMPLATE_IDENTITY_MISMATCH` | `templateId`/`templateVersion` disagree. |
 
-The comparison uses the same canonical bytes a publisher signature binds, so responses
-never affect it — a faithfully filled form compares identical.
-
-**If the template was signed, you do not need this.** A publisher signature already binds
-the form definition and survives filling (spec §9), so verifying it proves the questions
-are untouched without needing the original file at all. `--template` is for when there is
-no signature but you do have the template. And note that `templateId` is self-asserted:
-it catches the wrong form sent by accident, never one sent deliberately.
+The comparison concerns the form definition, so responses never affect it — a
+faithfully filled form compares identical. `templateId` is self-asserted: it
+catches the wrong form sent by accident, never one sent deliberately.
 
 **Nothing this command reports means the document is invalid.** Every report says so
 explicitly, in both output formats, so no downstream system reads "review required" as
 "reject".
 
-## Signature status, everywhere
+## Beta.6 streams and attestations
 
-`info`, `validate`, `stats` and `review` all report a document's signatures. You
-do not have to already suspect a problem and reach for `verify` in order to be
-told about one.
+`validate` and `info` are beta.6-first aliases for JSONC/YAML forms or streams;
+the explicit namespace remains available for normalization:
 
-| State | What is said |
-|---|---|
-| unsigned | nothing at all |
-| signed and valid | one line per signature, with the signer and how far they are trusted |
-| signed and broken | which signature broke, and that the data is still readable |
+```bash
+apr validate form.apr
+apr info stream.apr --json
+apr beta6 normalize form.yaml --yaml --output=canonical.yaml
+```
 
-**Unsigned is not a warning.** Signing is optional and most documents are never
-signed; treating that as suspicious would make the common case look alarming and
-teach people to dismiss the message, which disarms it for the case that matters.
-
-**`validate` still exits 0 on a broken signature.** Specification §6.1 is
-explicit that no validation error may arise from the state of a signature, and
-that a validator rejecting a document because a signature is missing or invalid
-is not implementing APR. The break is reported loudly and the command succeeds.
-
-**`review` does exit 2**, because it answers a different question: not "is this
-document valid" but "can a machine handle this submission unattended". Somebody
-attested to the form and it no longer matches, so it needs a person — whatever
-the answers themselves look like.
+`inspect` enumerates every form and independent attestation, reporting
+`valid`, `invalid`, `unresolved`, or `unverifiable` where supported. An
+attestation result never prevents the CLI from reading or extracting a form.
+APR beta.6 retires the older `keygen`, `sign`, and `verify` commands with
+embedded root signatures. Use `attest` to append an independent CMS
+attestation to a beta.6 stream; inspect its non-gating result with `info`.

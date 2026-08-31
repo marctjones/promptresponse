@@ -1,101 +1,46 @@
-# Signing APR forms
+# APR beta.6 attestations
 
-APR documents can carry **verifiable digital signatures** using industry-standard
-**CMS / PKCS#7** over X.509 certificates (the same cryptographic standards PDF and
-government PKI use). Unlike PDF signing, APR signs the form's **content/meaning**,
-not the rendered bytes — so a signature survives re-serialization and re-export,
-is **field-scoped**, and supports **multiple signers** who each sign the part they
-filled.
+APR beta.6 does not embed signatures in a form. A form remains complete semantic
+data on its own; a separate attestation stream record can make a CMS assertion
+about that form. This lets clients carry multiple attestations without changing
+the form they verify.
 
-> **Beta boundary.** `apr-sig-v3` verifies that covered content has not changed,
-> but it does not record a complete manifest of fields visible when a signer
-> acted. Until the `apr-sig-v4` witnessed-manifest profile is specified and
-> implemented ([#88](https://github.com/marctjones/promptresponse/issues/88)),
-> use APR signatures for integrity and provenance experiments, not as the sole
-> evidence for an external high-stakes workflow.
+An attestation contains the subject form digest, an integrity manifest, optional
+field scope, CMS proofs, and witness envelope digests. Its CMS proof signs the
+JCS serialization of the attestation after omitting `proofs`. The supported
+proof type is `cms/ecdsa-p256-sha256`: detached CMS SignedData, ECDSA P-256, and
+SHA-256 with the signer certificate chain included.
 
-Two signature roles:
-- **Publisher** signs the *template* (the form definition) and **binds the
-  submission URL**, so it can't be redirected without invalidating the signature.
-- **Filler** signs the *responses* in a chosen scope. Multiple fillers can each
-  sign their own fields; editing a covered field invalidates only the signatures
-  that cover it.
+Cryptographic validity and certificate trust are deliberately separate. A valid
+self-signed proof says its content was signed by that certificate; it does not
+establish a trusted identity. Attestation results never prevent parsing,
+rendering, export, or data extraction.
 
-Trust works two ways, matching real deployments:
-- **CA-issued certificate** (Federal PKI / PIV-CAC / org CA / eIDAS) — trusted by
-  chaining to a configured root.
-- **Self-signed certificate** — trusted by **pinning** its public cert.
+## CLI
 
-> Crypto: ECDSA P-256 + SHA-256 (FIPS-approved), built-in .NET. This is the
-> CAdES-BES tier; trusted timestamps (RFC 3161) and long-term validation are
-> planned additive layers. See [issue #73](https://github.com/marctjones/promptresponse/issues/73).
-
-## End-to-end (CLI)
+Use an existing ECDSA P-256 PKCS#12 certificate to append an independent
+attestation. The input stream must contain exactly one subject form and the
+output path is required so the original data remains available unchanged.
 
 ```bash
-# 1) Publisher: make a signing certificate (or use a CA-issued .pfx / PIV card)
-apr keygen --name="Town of Bloomfield" --output=publisher.pfx --cert-out=publisher.cer
-
-# 2) Publisher signs the template and binds the submission URL
-apr sign permit.aprt --publisher --cert=publisher.pfx \
-    --url="https://bloomfieldct.gov/permit/submit"
-
-# 3) A person fills the form, then signs the fields they completed
-apr keygen --name="Ada Lovelace" --output=ada.pfx
-apr sign permit.aprf --fields=applicant_name,dob --cert=ada.pfx --id=ada
-
-# 4) Verify — pin the publisher's public cert as a trust anchor
-apr verify permit.aprf --trust=publisher.cer
+apr attest permit.apr --cert=signer.pfx --password=secret --output=permit.attested.apr
+apr attest permit.apr --cert=signer.pfx --password=secret --fields=name --output=permit.attested.apr
+apr info permit.attested.apr --json
 ```
 
-`verify` prints, per signature, whether the covered content is intact and how far
-the certificate is trusted (`trusted` / `self-signed` / `untrusted` / `INVALID`),
-and exits non-zero if any signed content was altered.
+The `--fields` form records selected prompt ids. Its manifest still contains the
+required prompt and ancestor-section context; callers can inspect the result
+with `info` without selecting a form occurrence by position.
 
-## Desktop
+## Desktop and web
 
-With a form open, **File → Sign**:
-- **Sign as publisher…** — pick your `.pfx`, enter the submission URL; signs the
-  form definition and binds the URL.
-- **Sign my responses…** — signs the fields you've filled in.
+The desktop client reads beta.6 JSONC/YAML streams, lets the user select a form
+occurrence, and displays non-gating attestation status. The local web demo does
+the same and verifies the content of supported CMS proofs asynchronously in the
+browser. Certificate trust policy is intentionally external to both clients.
 
-The right-rail **Signatures** panel shows each signature's role, signer, scope,
-and trust status (with a **Re-verify** button). (In-GUI trust pinning / CA
-configuration is a follow-up; self-signed certs show as such.)
+## Historical beta.3 signing
 
-## Commands
-
-### `keygen`
-```
-apr keygen --name="<signer>" --output=<file.pfx> [--password=<pw>] [--cert-out=<file.cer>] [--years=<n>]
-```
-Generates a self-signed ECDSA P-256 signing certificate. Share the `.cer` so
-others can pin it. (For real PKI, skip this and use a CA-issued `.pfx` or a smart
-card.)
-
-### `sign`
-```
-apr sign <file> --publisher --cert=<file.pfx> [--password=<pw>] --url=<submitUrl[,submitUrl...]> [--id=<id>] [--output=<file>]
-apr sign <file> --fields=<id1,id2,...> --cert=<file.pfx> [--password=<pw>] [--id=<id>] [--output=<file>]
-```
-Appends a signature to the document. Publisher signing also records
-`metadata.submissionUrls` (and binds every entry into the signature). Writes in place unless
-`--output` is given.
-
-### `verify`
-```
-apr verify <file> [--trust=<anchor1.cer,anchor2.cer>] [--check-revocation]
-```
-Verifies all signatures against the document's current content. `--trust` supplies
-CA roots and/or pinned self-signed certs; `--check-revocation` enables OCSP/CRL
-(needs network). Exit code is non-zero if any signature is invalid.
-
-## Library
-
-```csharp
-using PromptResponse.Core.Signing;
-doc.Metadata.SubmissionUrls = ["https://example.org/submit"];
-var sig = AprSigner.SignTemplate(doc, cert, DateTime.UtcNow);
-doc.Signatures = [sig];
-var results = AprVerifier.VerifyAll(doc, new AprTrustOptions { TrustAnchors = [publisherCert] });
-```
+The previous `apr-sig-v3` model and the `apr keygen`, `apr sign`, and `apr
+verify` commands are retired. They are not compatible with beta.6 forms and are
+not instructions for creating or verifying beta.6 data.

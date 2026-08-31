@@ -1,8 +1,0 @@
-{
-  "version": "1.0-beta",
-  "documentType": "template",
-  "metadata": { "title": "Conformance Response Is Number", "templateId": "conformance-response-is-number" },
-  "sections": [
-    { "id": "s1", "title": "A section", "prompts": [ { "id": "p1", "label": "Age", "response": 42, "hints": { "expectedDataType": "number" } } ] }
-  ]
-}

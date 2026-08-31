@@ -36,7 +36,7 @@ public partial class WorkflowTests
     [Fact]
     public async Task FillSf86Template_SaveFilledCopy_AndReopenIt()
     {
-        var source = RepositoryPath("examples", "sf-86-background-check.aprt");
+        var source = await Beta6CopyAsync(RepositoryPath("examples", "sf-86-background-check.aprt"), "sf-86.apr");
         var filledPath = Path_("sf-86-filled.aprf");
         await _shell.OpenFromPath(source, openForFilling: true);
         _shell.IsEditMode.Should().BeFalse("--open is the form-filling entry point");

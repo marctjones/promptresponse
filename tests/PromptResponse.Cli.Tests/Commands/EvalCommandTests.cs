@@ -37,7 +37,7 @@ public class EvalCommandTests : IDisposable
 
     private static string Claim(string total) => $$"""
         {
-          "version": "1.0-beta", "documentType": "filledForm",
+          "version": "1.0-beta.6", "documentType": "filledForm",
           "metadata": { "title": "Claim", "templateId": "c", "templateVersion": "1.0" },
           "sections": [{ "id": "s", "title": "Claim", "prompts": [
             { "id": "subtotal", "label": "Subtotal", "response": "100.00",
@@ -109,7 +109,7 @@ public class EvalCommandTests : IDisposable
     {
         var path = Write("""
             {
-              "version": "1.0-beta", "documentType": "filledForm",
+              "version": "1.0-beta.6", "documentType": "filledForm",
               "metadata": { "title": "T", "templateId": "t", "templateVersion": "1.0" },
               "sections": [{ "id": "s", "title": "S", "prompts": [
                 { "id": "qty", "label": "Qty", "response": "",
@@ -131,7 +131,7 @@ public class EvalCommandTests : IDisposable
     public async Task ADocumentWithNoExpressions_SaysSo()
     {
         var path = Write("""
-            {"version":"1.0-beta","metadata":{"title":"T"},"sections":
+            {"version":"1.0-beta.6","metadata":{"title":"T"},"sections":
              [{"id":"s","title":"S","prompts":[{"id":"p","label":"L","response":"x"}]}]}
             """);
 

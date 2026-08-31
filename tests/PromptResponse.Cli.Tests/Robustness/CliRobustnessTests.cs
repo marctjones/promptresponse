@@ -39,7 +39,7 @@ public class CliRobustnessTests : IDisposable
 
     private static string CorpusDir => Path.Combine(
         Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")),
-        "tests", "Conformance", "v1");
+        "tests", "Conformance", "beta6", "forms");
 
     public static IEnumerable<object[]> HostileInputs()
     {
@@ -47,7 +47,7 @@ public class CliRobustnessTests : IDisposable
         var sample = Directory.Exists(valid)
             ? Directory.GetFiles(valid, "*.apr*").OrderBy(Path.GetFileName, StringComparer.Ordinal).FirstOrDefault()
             : null;
-        var json = sample is null ? "{\"version\":\"1.0-beta\",\"sections\":[]}" : File.ReadAllText(sample);
+        var json = sample is null ? "{\"version\":\"1.0-beta.6\",\"sections\":[]}" : File.ReadAllText(sample);
 
         yield return ["empty file", Array.Empty<byte>()];
         yield return ["not json at all", Encoding.UTF8.GetBytes("this is a text file, not a form")];

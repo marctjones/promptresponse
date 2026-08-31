@@ -4,16 +4,17 @@ This is the human inventory of shipped and planned PromptResponse surfaces. For 
 
 | Surface | Responsibility | Status | Gate or evidence |
 | --- | --- | --- | --- |
-| APR specification and schema | Format definition | Beta | corpus/schema CI gates |
-| Conformance corpus | Cross-implementation behavior | Shipped | .NET, Python, TypeScript, Java CI |
-| .NET Core | Reference core, CEL, CMS signatures | Shipped beta | Core + corpus tests |
-| Desktop | Author, fill, review, export, import, signing | Shipped beta | GUI/accessibility/desktop tests |
-| CLI | Validate, fill, review, eval, import/export, sign/verify, submit | Shipped beta | CLI tests + release smoke |
+| APR specification and schema | Format definition | Beta.6 draft, schema, and schema gate implemented | `scripts/check-schema.py` |
+| Conformance corpus | Cross-implementation behavior | Paired JSONC/YAML forms and streams, digests/manifests, CMS and unsupported proofs, fields scope, witness chains, changed forms, and malformed representations | beta.6 corpus + SDK tests |
+| .NET Core | Reference core, CEL, representations, streams, attestations | Beta.6 core+attestations, manifest resolution, CMS verification, and independent attestation creation | focused beta.6 core tests |
+| Desktop | Author, fill, review, export, import, attestation display | Beta.6 JSONC/YAML form I/O plus stream-occurrence browser; attestation states are non-gating and trust remains external by design | GUI/accessibility/desktop tests |
+| CLI | Validate, fill, review, eval, import/export, stream and attestation inspection | Every runtime command uses beta.6-only form I/O; validate/info/normalize/attest use stream APIs, and retired embedded-signature commands are rejected | CLI tests + release smoke |
 | PDF renderer/importer | Flat/fillable/PDF-A export and AcroForm import | Shipped with limits | PDF tests |
-| Python SDK and local web demo | Core reading/writing and local demo | Shipped | shared corpus CI |
-| TypeScript SDK/HTML projection | Browser-capable core and renderer | Shipped, package split pending | shared corpus CI |
-| Java SDK and local demo | Core processing and local JDK demo | Shipped | shared corpus CI |
+| Python SDK and local web demo | Core reading/writing and local demo | Beta.6 core+attestations with digest/manifest/witness resolution and detached CMS content verification; trust is supplied by the caller | Python beta.6 corpus tests + schema gate |
+| TypeScript SDK/HTML projection | Browser-capable core and renderer | Beta.6 core+attestations with async detached CMS content verification and resolution; trust is supplied by the caller | shared corpus CI |
+| Java SDK and local demo | Core processing and local JDK demo | Beta.6 core+attestations with digest/manifest/witness resolution and detached CMS content verification; trust is supplied by the caller | 41 Java conformance cases |
 | Browser extension and mobile | New clients | Planned | roadmap decision required |
+| Browser demo | Local beta.6 JSONC/YAML stream viewer | Selects every form occurrence; shows non-gating resolution plus async CMS content verification where available; trust policy remains external | `demos/web` test |
 | Hosted collaboration, RBAC, analytics, SSO | Enterprise platform features | Deferred | outside current scope |
 
 ## Desktop composition boundaries
@@ -24,12 +25,11 @@ health.
 
 | Component | Owns | Must not own | Evidence |
 | --- | --- | --- | --- |
-| `MainShellViewModel` | composition, document/tree lifecycle, command compatibility, screen-level derived state | certificate/signature workflow details, renderer implementation, file-format semantics | desktop shell, GUI, and accessibility tests |
-| `ViewModels/Signing/SignatureWorkflow` | signature verification/status, field coverage, breakage notice, deliberate removal, certificate-backed signing | XAML ownership, document-tree construction, trust/key-store product expansion | signature, coverage, and breakage tests |
+| `MainShellViewModel` | composition, document/tree lifecycle, command compatibility, screen-level derived state | renderer implementation, file-format semantics, trust policy | desktop shell, GUI, and accessibility tests |
 | `SectionViewModel` | section tree projection and structural editing | a second application shell or unrelated document I/O | section/table and undo/redo tests |
 
-Document I/O/export/delivery, table-shape editing, and signature workflow are
-separate services. `MainShellViewModel` remains their composition boundary; a new
+Document I/O/export/delivery and table-shape editing are separate services.
+`MainShellViewModel` remains their composition boundary; a new
 feature must extend the owning service rather than reintroduce those concerns into
 the shell.
 

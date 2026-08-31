@@ -1,6 +1,7 @@
 using AwesomeAssertions;
 using NSubstitute;
 using PromptResponse.Core.Models;
+using PromptResponse.Core.Beta6;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
 using PromptResponse.Desktop.Profiles;
@@ -102,6 +103,15 @@ public partial class WorkflowTests : IDisposable
 
     private string Path_(string name) => Path.Combine(_dir, name);
 
+    private async Task<string> Beta6CopyAsync(string source, string name)
+    {
+        var document = _serializer.Deserialize(await File.ReadAllTextAsync(source));
+        document.Version = "1.0-beta.6";
+        var path = Path_(name);
+        await File.WriteAllTextAsync(path, new AprBeta6Reader().WriteForm(document, AprRepresentation.Jsonc));
+        return path;
+    }
+
     private static string RepositoryPath(params string[] parts) =>
         Path.Combine([Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")), .. parts]);
 
@@ -109,7 +119,8 @@ public partial class WorkflowTests : IDisposable
     private AprDocument Reload(string path)
     {
         File.Exists(path).Should().BeTrue($"the workflow claimed to save {Path.GetFileName(path)}");
-        return _serializer.Deserialize(File.ReadAllText(path));
+        return new AprBeta6Reader().ReadStream(File.ReadAllText(path), AprRepresentation.Jsonc)
+            .OfType<AprFormRecord>().Single().Form;
     }
 
     /// <summary>The parts of a document a user would notice changing.</summary>

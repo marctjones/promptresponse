@@ -4,6 +4,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
+using PromptResponse.Core.Beta6;
+using System.Security.Cryptography.X509Certificates;
 using System.Linq;
 
 namespace PromptResponse.Desktop.Services;
@@ -15,12 +17,13 @@ public class FileService : IFileService
 {
     private readonly IAprSerializer _serializer;
     private readonly AprDocumentPersistence _persistence;
+    private readonly Dictionary<string, (IReadOnlyList<AprStreamRecord> Records, int FormRecordIndex)> _openStreams = new(StringComparer.Ordinal);
     private string? _currentFilePath;
 
     public FileService(IAprSerializer serializer)
     {
         _serializer = serializer;
-        _persistence = new AprDocumentPersistence(serializer);
+        _persistence = new AprDocumentPersistence();
     }
 
     public string? CurrentFilePath => _currentFilePath;
@@ -37,6 +40,10 @@ public class FileService : IFileService
 
     public async Task<AprDocument?> LoadFileAsync(string filePath)
     {
+        var records = await _persistence.LoadStreamAsync(filePath);
+        var first = records.Select((record, index) => (record, index)).FirstOrDefault(item => item.record is AprFormRecord);
+        if (first.record is AprFormRecord)
+            _openStreams[filePath] = (records, first.index);
         var document = await _persistence.LoadAsync(filePath);
         if (document == null) return null;
 
@@ -62,7 +69,7 @@ public class FileService : IFileService
             AllowMultiple = false,
             FileTypeFilter = new[]
             {
-                new FilePickerFileType("APR Files") { Patterns = new[] { "*.apr", "*.aprt", "*.aprf" } },
+                new FilePickerFileType("APR Files") { Patterns = new[] { "*.apr", "*.aprt", "*.aprf", "*.yaml", "*.yml" } },
                 new FilePickerFileType("APR Templates") { Patterns = new[] { "*.aprt" } },
                 new FilePickerFileType("APR Filled Forms") { Patterns = new[] { "*.aprf" } },
                 new FilePickerFileType("All Files") { Patterns = new[] { "*" } }
@@ -74,17 +81,7 @@ public class FileService : IFileService
             return null;
         }
 
-        var file = files[0];
-        _currentFilePath = file.Path.LocalPath;
-
-        // Load and deserialize
-        await using var stream = await file.OpenReadAsync();
-        var document = await _serializer.DeserializeAsync(stream);
-
-        // documentType in the file is authoritative (specification section 5). The
-        // extension drives icons, file associations, and save dialogs — never meaning.
-
-        return document;
+        return await LoadFileAsync(files[0].Path.LocalPath);
     }
 
     public async Task<bool> SaveFileAsAsync(AprDocument document)
@@ -203,10 +200,51 @@ public class FileService : IFileService
         // converting a template into a filled form is an explicit act elsewhere, which
         // sets documentType and records templateId.
 
-        await _persistence.SaveAsync(document, filePath);
+        if (_openStreams.TryGetValue(filePath, out var stream))
+        {
+            var records = stream.Records.ToList();
+            records[stream.FormRecordIndex] = new AprFormRecord(document, default);
+            await _persistence.SaveStreamAsync(records, filePath);
+            _openStreams[filePath] = (records, stream.FormRecordIndex);
+        }
+        else
+        {
+            await _persistence.SaveAsync(document, filePath);
+            var records = await _persistence.LoadStreamAsync(filePath);
+            var formIndex = records.Select((record, index) => (record, index)).First(item => item.record is AprFormRecord).index;
+            _openStreams[filePath] = (records, formIndex);
+        }
 
         _currentFilePath = filePath;
     }
+
+    public void TrackBeta6FormSelection(string filePath, int formIndex)
+    {
+        if (!_openStreams.TryGetValue(filePath, out var stream)) return;
+        var recordIndexes = stream.Records.Select((record, index) => (record, index))
+            .Where(item => item.record is AprFormRecord).Select(item => item.index).ToList();
+        if (formIndex >= 0 && formIndex < recordIndexes.Count)
+            _openStreams[filePath] = (stream.Records, recordIndexes[formIndex]);
+    }
+
+    public async Task<bool> AppendBeta6AttestationAsync(AprDocument document, X509Certificate2 certificate, IReadOnlyList<string>? fields = null)
+    {
+        if (string.IsNullOrWhiteSpace(_currentFilePath) || !_openStreams.TryGetValue(_currentFilePath, out var stream)) return false;
+        var reader = new AprBeta6Reader();
+        var subject = reader.ReadForm(reader.WriteForm(document, AprRepresentation.Jsonc), AprRepresentation.Jsonc);
+        var value = reader.ReadStream(reader.WriteForm(subject, AprRepresentation.Jsonc), AprRepresentation.Jsonc).OfType<AprFormRecord>().Single().Value;
+        var records = stream.Records.ToList();
+        records[stream.FormRecordIndex] = new AprFormRecord(document, value);
+        records.Add(AprAttestationFactory.Create(value, certificate, fields));
+        await _persistence.SaveStreamAsync(records, _currentFilePath);
+        _openStreams[_currentFilePath] = (records, stream.FormRecordIndex);
+        return true;
+    }
+
+    public IReadOnlyList<AprAttestationResolution> GetBeta6Attestations() =>
+        !string.IsNullOrWhiteSpace(_currentFilePath) && _openStreams.TryGetValue(_currentFilePath, out var stream)
+            ? AprAttestationResolver.Resolve(stream.Records)
+            : [];
 
     private static Window? GetMainWindow()
     {

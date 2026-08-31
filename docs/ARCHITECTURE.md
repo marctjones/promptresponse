@@ -7,7 +7,7 @@ Corpus + schema + specification
              │
      PromptResponse.Core
   model · parse/write · validation
-  expressions · signing · rendering model
+  expressions · attestation records · rendering model
       │             │             │
  Desktop (Avalonia) CLI       PDF renderer/importer
       │             │             │
@@ -19,7 +19,7 @@ Python, TypeScript, and Java SDKs independently exercise the shared corpus. Loca
 | Layer | Owns | Must not own |
 | --- | --- | --- |
 | Format artifacts | APR meaning and compatibility | UI policy or hosted workflows |
-| Core | model, serialization, validation, expressions, signatures, render model | Avalonia, file dialogs, network UI |
+| Core | model, serialization, validation, expressions, attestations, render model | Avalonia, file dialogs, network UI |
 | Renderers/importers | derived PDF/HTML and controlled import | APR layout fields |
 | Desktop | interactive author/fill workflow and local services | new format semantics |
 | CLI | deterministic automation and explicit operations | hidden background submission |
@@ -47,7 +47,7 @@ artifacts are not source of truth.
 | `schemas/` | structural APR contract | machine-readable format authority | application defaults |
 | `python/`, `typescript/`, `java/` | independent SDKs and local demos | cross-language corpus evidence | a second format definition |
 | `docs/` | canonical product, design, operations, and registry records | human-facing authority map | historical plans |
-| `examples/` and `tests/Fixtures/` | user and regression inputs | supported representative documents | mutable test output |
+| `examples/` and `tests/Conformance/beta6/` | user and regression inputs | supported beta.6 documents | mutable test output |
 | `packaging/`, `docker/`, `scripts/`, `.github/` | build, release, and verification machinery | reproducible operational sources | release binaries |
 | `local-nuget/` | vendored PDF-engine package feed | intentionally tracked reproducibility input | a general package cache |
 

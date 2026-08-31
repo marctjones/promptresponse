@@ -26,7 +26,7 @@ def test_a_response_given_as_a_json_scalar_is_refused(literal):
     than one that declines it (specification 3.2)."""
     with pytest.raises(pr.AprParseError):
         pr.loads(
-            '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
+            '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
             '[{"id":"s","title":"S","prompts":[{"id":"p","label":"L","response":'
             + literal + "}]}]}"
         )
@@ -42,7 +42,7 @@ def test_json_null_is_accepted_on_read_and_becomes_the_empty_string():
     careless generator still be opened.
     """
     document = pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
+        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","prompts":[{"id":"p","label":"L","response":null}]}]}'
     )
     assert next(document.all_prompts()).response == ""
@@ -51,7 +51,7 @@ def test_json_null_is_accepted_on_read_and_becomes_the_empty_string():
 
 def test_a_response_that_is_a_string_of_a_number_is_fine():
     document = pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
+        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","prompts":[{"id":"p","label":"L","response":"42"}]}]}'
     )
     assert next(document.all_prompts()).response == "42"
@@ -64,7 +64,7 @@ def test_a_response_that_is_a_string_of_a_number_is_fine():
 ])
 def test_any_text_is_a_valid_response_whatever_the_hint_asked_for(answer):
     document = pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
+        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","prompts":[{"id":"p","label":"When?","response":'
         + pr.serialization.json.dumps(answer)
         + ',"hints":{"expectedDataType":"date"}}]}]}'
@@ -77,25 +77,14 @@ def test_any_text_is_a_valid_response_whatever_the_hint_asked_for(answer):
 
 # ── 4.8 unknown members ──────────────────────────────────────────────────────
 
-def test_a_member_from_a_newer_minor_version_survives_being_saved():
-    source = (
-        '{"version":"1.1","metadata":{"title":"T","futureThing":"kept"},"sections":'
-        '[{"id":"s","title":"S","somethingNew":"also kept","prompts":'
-        '[{"id":"p","label":"L","response":"","inventedLater":"kept too"}]}]}'
-    )
-    written = pr.dumps(pr.loads(source))
-
-    for expected in ("futureThing", "somethingNew", "inventedLater", "kept"):
-        assert expected in written, (
-            f"{expected} was dropped. Without preservation every additive change to "
-            "the format is destructive: an older reader silently strips what it does "
-            "not recognise the first time somebody saves (specification 4.8)"
-        )
+def test_an_old_version_is_rejected():
+    with pytest.raises(pr.AprParseError, match="1.0-beta.6"):
+        pr.loads('{"version":"1.1","metadata":{"title":"T"},"sections":[]}')
 
 
 def test_retired_members_are_dropped_rather_than_carried_forward():
     written = pr.dumps(pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
+        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","tableLayout":{"columns":[]},"prompts":'
         '[{"id":"p","label":"L","response":""}]}]}'
     ))
@@ -107,21 +96,11 @@ def test_retired_members_are_dropped_rather_than_carried_forward():
 
 # ── 6.1 the error list is exhaustive ─────────────────────────────────────────
 
-def test_no_error_ever_arises_from_a_signature():
-    """Specification 6.1 and 9.5: a validator that rejects a document because a
-    signature is missing or broken is not implementing APR."""
-    document = pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
-        '[{"id":"s","title":"S","prompts":[{"id":"p","label":"L","response":""}]}],'
-        '"signatures":[{"id":"x","role":"filler","cms":"not-even-base64"}]}'
-    )
-    assert pr.validate(document).is_valid
-
 
 def test_a_section_and_a_prompt_may_share_an_id():
     """Separate namespaces (specification 4.4)."""
     document = pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
+        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"address","title":"Address","prompts":'
         '[{"id":"address","label":"Street","response":""}]}]}'
     )
@@ -132,7 +111,7 @@ def test_a_section_and_a_prompt_may_share_an_id():
 
 def test_labels_are_nfc_normalised():
     document = pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
+        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"Cafe\\u0301","prompts":'
         '[{"id":"p","label":"L","response":""}]}]}'
     )
@@ -144,7 +123,7 @@ def test_labels_are_nfc_normalised():
 def test_a_bidi_override_is_preserved_and_reported_in_a_response():
     """Responses are evidence: safety presentation warns without rewriting it."""
     document = pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
+        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","prompts":'
         '[{"id":"p","label":"L","response":"safe\\u202etxt.exe"}]}]}'
     )
@@ -156,7 +135,7 @@ def test_an_odd_but_harmless_character_is_left_alone_in_a_response():
     """A response is what a person typed. Zero-width spaces are reported by a
     tool that looks for them, never silently removed (specification 3.3)."""
     document = pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},"sections":'
+        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","prompts":'
         '[{"id":"p","label":"L","response":"a\\u200bb"}]}]}'
     )
@@ -169,7 +148,7 @@ def test_a_prompt_role_overrides_its_sections():
     from promptresponse import roles
 
     document = pr.loads(
-        '{"version":"1.0-beta","metadata":{"title":"T"},'
+        '{"version":"1.0-beta.6","metadata":{"title":"T"},'
         '"roles":[{"id":"nurse","name":"Nurse"}],"sections":'
         '[{"id":"s","title":"S","role":"nurse","prompts":['
         '{"id":"a","label":"A","response":""},'

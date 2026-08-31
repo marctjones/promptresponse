@@ -11,11 +11,7 @@ public partial class DocumentIntegrationTests
     public void LoadSimpleContactForm_ShouldDeserializeCorrectly()
     {
         // Arrange
-        var examplePath = GetExampleFilePath("simple-contact-form.apr");
-        var json = File.ReadAllText(examplePath);
-
-        // Act
-        var document = _serializer.Deserialize(json);
+        var document = ReadBeta6Fixture("simple-contact-form.apr");
 
         // Assert
         document.Should().NotBeNull();
@@ -32,11 +28,7 @@ public partial class DocumentIntegrationTests
     public void LoadEmploymentApplication_ShouldDeserializeCompleteStructure()
     {
         // Arrange
-        var examplePath = GetExampleFilePath("employment-application.apr");
-        var json = File.ReadAllText(examplePath);
-
-        // Act
-        var document = _serializer.Deserialize(json);
+        var document = ReadBeta6Fixture("employment-application.apr");
 
         // Assert
         document.Should().NotBeNull();

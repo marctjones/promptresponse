@@ -1,8 +1,0 @@
-{
-  "version": "1.0-beta",
-  "documentType": "template",
-  "metadata": { "title": "Conformance Missing Section Title", "templateId": "conformance-missing-section-title" },
-  "sections": [
-    { "id": "untitled", "title": "", "prompts": [ { "id": "p1", "label": "A field", "response": "" } ] }
-  ]
-}
