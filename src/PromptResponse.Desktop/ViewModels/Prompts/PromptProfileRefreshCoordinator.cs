@@ -34,8 +34,6 @@ internal sealed class PromptProfileRefreshCoordinator : IDisposable
         _notify(nameof(PromptViewModelBase.DisplayValue));
         _notify(nameof(PromptViewModelBase.ProvenanceAnnouncement));
         _notify(nameof(PromptViewModelBase.ProvenanceColorCue));
-        _notify(nameof(PromptViewModelBase.SignatureAnnouncement));
-        _notify(nameof(PromptViewModelBase.SignatureColorCue));
         _notify(nameof(PromptViewModelBase.ToggleGlyphSize));
         _notify(nameof(PromptViewModelBase.ToggleButtonSize));
         _refreshDerivedProperties();

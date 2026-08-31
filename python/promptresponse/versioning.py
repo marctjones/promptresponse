@@ -1,16 +1,10 @@
-"""APR version compatibility independent of model parsing."""
+"""APR beta.6 wire-version policy independent of model parsing."""
 
 from typing import Optional
 
-KNOWN_MAJOR = 1
-KNOWN_MINOR = 0
-CURRENT_VERSION = "1.0-beta"
+CURRENT_VERSION = "1.0-beta.6"
 
 
 def is_supported_version(version: Optional[str]) -> bool:
-    """Whether a document uses this reader's compatible major version."""
-    if not version:
-        return False
-    core = version.split("-", 1)[0]
-    parts = core.split(".")
-    return len(parts) == 2 and all(part.isdigit() for part in parts) and int(parts[0]) == KNOWN_MAJOR
+    """Whether a document declares the sole supported APR wire version."""
+    return version == CURRENT_VERSION

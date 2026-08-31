@@ -6,4 +6,4 @@ cd "$ROOT/java"
 JAVA_BIN="${JAVA_HOME:+$JAVA_HOME/bin/}java"
 if [ -z "${JAVA_HOME:-}" ] && [ -x /opt/homebrew/opt/openjdk/bin/java ]; then JAVA_BIN=/opt/homebrew/opt/openjdk/bin/java; fi
 exec "$JAVA_BIN" -ea -cp "target/test-classes:target/classes:$(cat target/classpath.txt)" \
-  org.promptresponse.AprConformanceTest "$ROOT/tests/Conformance/v1"
+  org.promptresponse.AprConformanceTest "$ROOT/tests/Conformance/beta6"

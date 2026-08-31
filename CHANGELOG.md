@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PromptResponse is now licensed under AGPL-3.0-or-later. The repository has a
   permissive-only third-party dependency and asset policy, documented in
   `THIRD_PARTY_NOTICES.md`.
+- Began the breaking APR `1.0-beta.6` migration before public release. Beta.6
+  replaces embedded `signatures` / `apr-sig-v3` with independent stream
+  attestations and adds JSONC/YAML representation parity; beta.3 is not a
+  compatibility target.
 
 ## [1.0.0-beta.3] - 2026-08-29
 

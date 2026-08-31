@@ -54,6 +54,7 @@ public class AprJsonSerializer : IAprSerializer
 
         try
         {
+            AprCompatibilityGuard.Validate(document);
             AprDocumentSanitizer.Sanitize(document);
             return JsonSerializer.Serialize(document, _options);
         }
@@ -133,6 +134,7 @@ public class AprJsonSerializer : IAprSerializer
 
         try
         {
+            AprCompatibilityGuard.Validate(document);
             AprDocumentSanitizer.Sanitize(document);
             await JsonSerializer.SerializeAsync(stream, document, _options, cancellationToken);
         }

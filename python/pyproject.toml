@@ -4,15 +4,23 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "promptresponse"
-version = "1.0.0b3"
+version = "1.0.0b6"
 description = "Reader, writer, and CEL expression evaluator for the APR form format"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "AGPL-3.0-or-later"
-dependencies = ["cel-python==0.5.0"]
+dependencies = [
+    "asn1crypto>=1.5.1",
+    "cel-python==0.5.0",
+    "cryptography>=50.0.1",
+    "PyYAML==6.0.3",
+]
 
 [project.optional-dependencies]
-test = ["pytest==9.1.1"]
+test = [
+    "jsonschema==4.26.0",
+    "pytest==9.1.1",
+]
 
 [tool.setuptools.packages.find]
 include = ["promptresponse*"]

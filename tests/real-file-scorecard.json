@@ -22,6 +22,29 @@
   ],
   "files": [
     {
+      "file": "examples/contact-intake-filled.aprf",
+      "grade": "A",
+      "driftPerPrompt": 0.0,
+      "findings": {
+        "unregistered-type-uses": 0,
+        "table-shaped-but-unmarked": 0,
+        "inapplicable-hints": 0,
+        "untitled-sections": 0,
+        "duplicate-labels-in-one-section": 0,
+        "prompts-without-help-text": 1
+      },
+      "detail": {
+        "unregisteredTypes": {},
+        "unmarkedTables": [],
+        "inapplicableHints": {},
+        "duplicateLabelsInOneSection": [],
+        "labelsRepeatedAcrossSections": 0,
+        "prompts": 2,
+        "version": "1.0-beta.6",
+        "documentType": "filledForm"
+      }
+    },
+    {
       "file": "examples/contact-intake.aprt",
       "grade": "A",
       "driftPerPrompt": 0.0,
@@ -40,7 +63,7 @@
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 0,
         "prompts": 8,
-        "version": "1.0-beta",
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     },
@@ -63,7 +86,7 @@
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 0,
         "prompts": 9,
-        "version": "1.0-beta",
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     },
@@ -86,7 +109,7 @@
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 0,
         "prompts": 10,
-        "version": "1.0-beta",
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     },
@@ -110,8 +133,8 @@
         "inapplicableHints": {},
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 14,
-        "prompts": 109,
-        "version": "1.0-beta",
+        "prompts": 110,
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     },
@@ -134,7 +157,7 @@
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 0,
         "prompts": 10,
-        "version": "1.0-beta",
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     },
@@ -157,7 +180,7 @@
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 0,
         "prompts": 78,
-        "version": "1.0-beta",
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     },
@@ -180,7 +203,7 @@
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 0,
         "prompts": 9,
-        "version": "1.0-beta",
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     },
@@ -202,8 +225,8 @@
         "inapplicableHints": {},
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 0,
-        "prompts": 8,
-        "version": "1.0-beta",
+        "prompts": 9,
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     },
@@ -226,7 +249,7 @@
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 15,
         "prompts": 111,
-        "version": "1.0-beta",
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     },
@@ -249,226 +272,7 @@
         "duplicateLabelsInOneSection": [],
         "labelsRepeatedAcrossSections": 0,
         "prompts": 10,
-        "version": "1.0-beta",
-        "documentType": "template"
-      }
-    },
-    {
-      "file": "tests/Fixtures/employment-application.apr",
-      "grade": "A",
-      "driftPerPrompt": 0.0,
-      "findings": {
-        "unregistered-type-uses": 0,
-        "table-shaped-but-unmarked": 0,
-        "inapplicable-hints": 0,
-        "untitled-sections": 0,
-        "duplicate-labels-in-one-section": 0,
-        "prompts-without-help-text": 6
-      },
-      "detail": {
-        "unregisteredTypes": {},
-        "unmarkedTables": [],
-        "inapplicableHints": {},
-        "duplicateLabelsInOneSection": [],
-        "labelsRepeatedAcrossSections": 0,
-        "prompts": 6,
-        "version": "1.0-beta",
-        "documentType": "template"
-      }
-    },
-    {
-      "file": "tests/Fixtures/gsa-sf86-sections.aprt",
-      "grade": "A",
-      "driftPerPrompt": 0.0,
-      "findings": {
-        "unregistered-type-uses": 0,
-        "table-shaped-but-unmarked": 0,
-        "inapplicable-hints": 0,
-        "untitled-sections": 0,
-        "duplicate-labels-in-one-section": 0,
-        "prompts-without-help-text": 7
-      },
-      "detail": {
-        "unregisteredTypes": {},
-        "unmarkedTables": [],
-        "inapplicableHints": {},
-        "duplicateLabelsInOneSection": [],
-        "labelsRepeatedAcrossSections": 0,
-        "prompts": 7,
-        "version": "1.0-beta",
-        "documentType": "template"
-      }
-    },
-    {
-      "file": "tests/Fixtures/import-corpus/irs-990-imported-sample.aprt",
-      "grade": "B",
-      "driftPerPrompt": 0.011,
-      "findings": {
-        "unregistered-type-uses": 0,
-        "table-shaped-but-unmarked": 0,
-        "inapplicable-hints": 1,
-        "untitled-sections": 0,
-        "duplicate-labels-in-one-section": 0,
-        "prompts-without-help-text": 87
-      },
-      "detail": {
-        "unregisteredTypes": {},
-        "unmarkedTables": [],
-        "inapplicableHints": {
-          "suggestedValues on multiline": 1
-        },
-        "duplicateLabelsInOneSection": [],
-        "labelsRepeatedAcrossSections": 0,
-        "prompts": 87,
-        "version": "1.0-beta",
-        "documentType": "template"
-      }
-    },
-    {
-      "file": "tests/Fixtures/import-corpus/irs-990-skill.aprt",
-      "grade": "A",
-      "driftPerPrompt": 0.0,
-      "findings": {
-        "unregistered-type-uses": 0,
-        "table-shaped-but-unmarked": 0,
-        "inapplicable-hints": 0,
-        "untitled-sections": 0,
-        "duplicate-labels-in-one-section": 0,
-        "prompts-without-help-text": 10
-      },
-      "detail": {
-        "unregisteredTypes": {},
-        "unmarkedTables": [],
-        "inapplicableHints": {},
-        "duplicateLabelsInOneSection": [],
-        "labelsRepeatedAcrossSections": 2,
-        "prompts": 43,
-        "version": "1.0-beta",
-        "documentType": "template"
-      }
-    },
-    {
-      "file": "tests/Fixtures/import-corpus/sf86-imported-sample.aprt",
-      "grade": "D",
-      "driftPerPrompt": 0.415,
-      "findings": {
-        "unregistered-type-uses": 0,
-        "table-shaped-but-unmarked": 0,
-        "inapplicable-hints": 0,
-        "untitled-sections": 0,
-        "duplicate-labels-in-one-section": 9,
-        "prompts-without-help-text": 0
-      },
-      "detail": {
-        "unregisteredTypes": {},
-        "unmarkedTables": [],
-        "inapplicableHints": {},
-        "duplicateLabelsInOneSection": [
-          "page-5: Middle Name",
-          "page-5: First Name",
-          "page-5: Provide the reason(s) why the name changed",
-          "page-5: Time name used. From (month/year)",
-          "page-5: Time name used. To (month/year)",
-          "page-5: RadioButtonList",
-          "page-5: Suffix",
-          "page-5: Estimate",
-          "page-5: Present"
-        ],
-        "labelsRepeatedAcrossSections": 9,
-        "prompts": 65,
-        "version": "1.0-beta",
-        "documentType": "template"
-      }
-    },
-    {
-      "file": "tests/Fixtures/import-corpus/sf86-skill.aprt",
-      "grade": "A",
-      "driftPerPrompt": 0.0,
-      "findings": {
-        "unregistered-type-uses": 0,
-        "table-shaped-but-unmarked": 0,
-        "inapplicable-hints": 0,
-        "untitled-sections": 0,
-        "duplicate-labels-in-one-section": 0,
-        "prompts-without-help-text": 47
-      },
-      "detail": {
-        "unregisteredTypes": {},
-        "unmarkedTables": [],
-        "inapplicableHints": {},
-        "duplicateLabelsInOneSection": [],
-        "labelsRepeatedAcrossSections": 8,
-        "prompts": 52,
-        "version": "1.0-beta",
-        "documentType": "template"
-      }
-    },
-    {
-      "file": "tests/Fixtures/irs-form-1040-simplified.aprt",
-      "grade": "A",
-      "driftPerPrompt": 0.0,
-      "findings": {
-        "unregistered-type-uses": 0,
-        "table-shaped-but-unmarked": 0,
-        "inapplicable-hints": 0,
-        "untitled-sections": 0,
-        "duplicate-labels-in-one-section": 0,
-        "prompts-without-help-text": 16
-      },
-      "detail": {
-        "unregisteredTypes": {},
-        "unmarkedTables": [],
-        "inapplicableHints": {},
-        "duplicateLabelsInOneSection": [],
-        "labelsRepeatedAcrossSections": 0,
-        "prompts": 16,
-        "version": "1.0-beta",
-        "documentType": "template"
-      }
-    },
-    {
-      "file": "tests/Fixtures/irs-form-w4-2024.aprt",
-      "grade": "A",
-      "driftPerPrompt": 0.0,
-      "findings": {
-        "unregistered-type-uses": 0,
-        "table-shaped-but-unmarked": 0,
-        "inapplicable-hints": 0,
-        "untitled-sections": 0,
-        "duplicate-labels-in-one-section": 0,
-        "prompts-without-help-text": 16
-      },
-      "detail": {
-        "unregisteredTypes": {},
-        "unmarkedTables": [],
-        "inapplicableHints": {},
-        "duplicateLabelsInOneSection": [],
-        "labelsRepeatedAcrossSections": 0,
-        "prompts": 16,
-        "version": "1.0-beta",
-        "documentType": "template"
-      }
-    },
-    {
-      "file": "tests/Fixtures/simple-contact-form.apr",
-      "grade": "A",
-      "driftPerPrompt": 0.0,
-      "findings": {
-        "unregistered-type-uses": 0,
-        "table-shaped-but-unmarked": 0,
-        "inapplicable-hints": 0,
-        "untitled-sections": 0,
-        "duplicate-labels-in-one-section": 0,
-        "prompts-without-help-text": 3
-      },
-      "detail": {
-        "unregisteredTypes": {},
-        "unmarkedTables": [],
-        "inapplicableHints": {},
-        "duplicateLabelsInOneSection": [],
-        "labelsRepeatedAcrossSections": 0,
-        "prompts": 3,
-        "version": "1.0-beta",
+        "version": "1.0-beta.6",
         "documentType": "template"
       }
     }

@@ -8,6 +8,7 @@ import java.util.*;
 /** Entry point for reading, writing, and structurally validating APR documents. */
 public final class Apr {
     public static final String PROFILE = "core";
+    public static final String VERSION = "1.0-beta.6";
     private Apr() { }
     public static AprDocument parse(String json) {
         Object parsed = Json.parse(json);
@@ -15,8 +16,10 @@ public final class Apr {
         @SuppressWarnings("unchecked") Map<String,Object> root = (Map<String,Object>) map;
         for (String required : List.of("version", "metadata", "sections")) if (!root.containsKey(required)) throw new AprException(required + " is required");
         if (!(root.get("version") instanceof String)) throw new AprException("version must be a string");
+        if (!VERSION.equals(root.get("version"))) throw new AprException("Unsupported APR version " + root.get("version") + "; this build accepts only " + VERSION);
         if (!(root.get("metadata") instanceof Map<?, ?>)) throw new AprException("metadata must be an object");
         if (!(root.get("sections") instanceof List<?>)) throw new AprException("sections must be an array");
+        if (root.containsKey("signatures")) throw new AprException("RETIRED_EMBEDDED_SIGNATURES");
         rejectBadShape(root);
         return new AprDocument(root);
     }
@@ -24,11 +27,14 @@ public final class Apr {
         String json = Files.readString(path, StandardCharsets.UTF_8);
         return parse(json.startsWith("\uFEFF") ? json.substring(1) : json);
     }
-    public static void write(AprDocument document, Path path) throws IOException { Files.writeString(path, document.toJson(), StandardCharsets.UTF_8); }
+    public static void write(AprDocument document, Path path) throws IOException {
+        if (!VERSION.equals(document.version())) throw new AprException("Unsupported APR version " + document.version() + "; this build accepts only " + VERSION);
+        Files.writeString(path, document.toJson(), StandardCharsets.UTF_8);
+    }
     public static ValidationResult validate(AprDocument document) {
         List<ValidationIssue> errors = new ArrayList<>();
         if (blank(document.version())) issue(errors,"REQUIRED_FIELD","version","version is required.");
-        else if (!document.version().split("-",2)[0].startsWith("1.")) issue(errors,"UNSUPPORTED_VERSION","version","Unsupported APR major version.");
+        else if (!VERSION.equals(document.version())) issue(errors,"UNSUPPORTED_VERSION","version","Unsupported APR version; this build accepts only " + VERSION + ".");
         String title = AprDocument.string(document.metadata().get("title")); if(blank(title)) issue(errors,"REQUIRED_FIELD","metadata.title","metadata.title is required.");
         if(document.sections().isEmpty()) issue(errors,"REQUIRED_FIELD","sections","A document must have at least one section.");
         if("filledForm".equals(document.documentType()) && blank(AprDocument.string(document.metadata().get("templateId")))) issue(errors,"REQUIRED_FIELD","metadata.templateId","A filled form must record templateId.");

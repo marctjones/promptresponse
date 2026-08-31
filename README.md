@@ -26,10 +26,10 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 
 | | Profile | Tests |
 |---|---|---|
-| **.NET** — `src/` | core, expressions, beta signatures, desktop/HTML/PDF rendering | gated in CI |
-| **Python** — `python/` | core plus CEL-expression prototype | shared corpus + SDK tests in CI |
-| **TypeScript** — `typescript/` | core plus optional HTML projection | shared corpus + renderer tests in CI |
-| **Java** — `java/` | core plus CEL expressions; includes a local JDK form demo | shared corpus in CI |
+| **.NET** — `src/` | beta.6 JSONC/YAML, streams, manifests, and CMS attestation verification | beta.6 focused core tests |
+| **Python** — `python/` | beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and detached CMS content verification | beta.6 shared-corpus tests; trust is caller policy |
+| **TypeScript** — `typescript/` | browser-safe beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and async detached CMS content verification | beta.6 shared-corpus tests; trust is caller policy |
+| **Java** — `java/` | beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and detached CMS content verification | beta.6 shared-corpus tests; trust is caller policy |
 
 The Python and TypeScript SDKs run the same conformance corpus as .NET. The Python one implements the **core
 profile** deliberately: it parses expression hints and signatures, preserves
@@ -161,8 +161,9 @@ dotnet run --project src/PromptResponse.Cli -- new my-form
 dotnet run --project src/PromptResponse.Cli -- review submission.aprf --json
 ```
 
-Fourteen commands: `validate`, `info`, `new`, `fill`, `stats`, `review`, `eval`,
-`diff`, `export`, `import`, `keygen`, `sign`, `verify`, `submit`. See
+Primary commands are `validate`, `info`, `new`, `fill`, `stats`, `review`,
+`eval`, `diff`, `export`, `import`, `attest`, and `submit`; the explicit
+`beta6` namespace remains available for normalization. See
 [the CLI README](src/PromptResponse.Cli/README.md).
 
 `review` is the one built for the receiving end. The format never rejects what a
@@ -173,13 +174,12 @@ file could not be read at all.
 
 ## Documentation
 
-- [APR Format Specification](docs/APR_SPECIFICATION.md) - **Complete formal specification** (spec `1.0.0-beta.3`, describes format `1.0-beta`)
+- [APR Format Specification](docs/APR_SPECIFICATION.md) - **beta.6 format target** (breaking migration in progress)
 
-> **The APR format is in BETA.** Files declare `"version": "1.0-beta"` and breaking
-> changes may still occur. At the 1.0 stable tag, `"1.0-beta"` stays readable
-> permanently — no file written today will be orphaned.
-- [JSON Schema](schemas/apr-1.0.schema.json) - machine-readable structural schema
-- [Conformance corpus](tests/Conformance/v1/README.md) - the executable definition of the format
+> **APR has not been publicly released.** The active migration intentionally replaces
+> beta.3 with `"version": "1.0-beta.6"`; beta.3 files are not a compatibility target.
+- [JSON Schema](schemas/apr-1.0-beta.6.schema.json) - machine-readable beta.6 schema
+- [beta.6 conformance corpus](tests/Conformance/beta6/README.md) - the executable format contract
 - [SDK Conformance](docs/SDK_CONFORMANCE.md) - what an implementation must do to claim conformance
 - [Documentation map](docs/README.md) - authoritative product, architecture, UX, format, registry, and guide documents
 - [Implementation Registry](docs/IMPLEMENTATION_REGISTRY.md) - every app, SDK, and engine: status and obligations
@@ -195,21 +195,18 @@ APR is an open format, and the point of the specification, schema, and corpus is
 you can build a reader or writer without asking us anything.
 
 ```bash
-# The conformance corpus: 41 fixtures your implementation must agree with
-ls tests/Conformance/v1/
+# The conformance corpus: beta.6 vectors your implementation must agree with
+ls tests/Conformance/beta6/
 
 # The language-neutral gates - no .NET required, so they fail the way your SDK would
 pip install jsonschema
 python3 scripts/check-schema.py          # schema agrees with every fixture
 python3 scripts/check-test-registry.py   # coverage claims match the repository
+./scripts/benchmark-beta6-compliance.sh  # beta.6 SDK and desktop compliance gates
 ```
 
-Only `core` is required — parse, validate, fill, write. That needs a JSON
-parser and nothing else. `core+expressions` and `core+signatures` are optional, and an
-implementation that skips them is fully conformant, not degraded — provided it
-**preserves** what it does not implement.
-
-Declare conformance as `APR 1.0-beta core, corpus/v1 @ <sha>`. See
+Declare conformance as `APR 1.0-beta.6 core+attestations`. Older APR versions are
+rejected. See
 [docs/SDK_CONFORMANCE.md](docs/SDK_CONFORMANCE.md) for what each corpus category
 requires, and [docs/IMPLEMENTATION_REGISTRY.md](docs/IMPLEMENTATION_REGISTRY.md) for
 which implementations exist and what they are held to.
@@ -236,13 +233,14 @@ manually maintained inventory and policy.
 
 ## Project Status
 
-🚧 **Public beta** — current release: **v1.0.0-beta.3**.
-See [CHANGELOG.md](CHANGELOG.md) for what landed in each release.
+🚧 **Pre-public beta migration** — beta.3 is the implementation baseline and
+`1.0-beta.6` is the active format target. See [ROADMAP.md](ROADMAP.md) for the
+dependency order; do not publish or stabilize beta.3 as a public contract.
 
 - [x] Core library (models, JSON serialization, advisory validation,
       hidden-character + mixed-script advisors)
 - [x] CLI tool (validate, info, new, fill, stats, diff, export, import,
-      keygen, sign, verify) with CI coverage gates
+      attest) with CI coverage gates
 - [x] Capability-profile rendering system: Light / Dark / HighContrast,
       LargeText / ReducedMotion / ScreenReaderTuned / LargeHitTargets /
       WizardMode globals, plus 12 composable display + input-mask flags,
@@ -266,8 +264,8 @@ See [CHANGELOG.md](CHANGELOG.md) for what landed in each release.
       form that downloads `.aprf`
 - [x] PDF import: AcroForm field extraction with import-quality scoring
 - [x] Calculation and conditional logic via safe expression hints
-- [x] Verifiable signatures: template publisher signatures, response
-      signatures, CLI signing/verification, and desktop signing/status UI
+- [x] Verifiable beta.6 CMS attestations: independent document/field assertions,
+      CLI creation/verification, and desktop attestation UI
 - [x] **Linux accessibility (AT-SPI2)** — native screen-reader support
       via Avalonia 12; verified against Orca's AT-SPI bus
 - [x] Three-layer blind-user accessibility test stack: in-process

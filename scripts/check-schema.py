@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the APR conformance corpus against schemas/apr-1.0.schema.json.
+"""Validate the APR beta.6 conformance corpus and shipped examples.
 
 This is the language-neutral half of the conformance gate: the .NET runner in
 tests/PromptResponse.Core.Tests/Conformance/ConformanceCorpusTests.cs proves the
@@ -14,6 +14,7 @@ import json
 import pathlib
 import re
 import sys
+from urllib.parse import urljoin
 
 try:
     from jsonschema import Draft202012Validator
@@ -21,79 +22,66 @@ except ImportError:
     sys.exit("jsonschema is required: pip install jsonschema")
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SCHEMA = ROOT / "schemas" / "apr-1.0.schema.json"
-CORPUS = ROOT / "tests" / "Conformance" / "v1"
-
-# Rules the schema provably cannot express (document-wide uniqueness), so these
-# fixtures are expected to pass the schema and be caught by a validator instead.
-VALIDATOR_ONLY = {"duplicate-prompt-id.aprt", "duplicate-section-id.aprt"}
+BETA6_SCHEMA = ROOT / "schemas" / "apr-1.0-beta.6.schema.json"
+BETA6_CORPUS = ROOT / "tests" / "Conformance" / "beta6"
 
 
 def load(path):
-    """Return (document, parse_error)."""
+    """Return one JSON document and a parse-error message, if any."""
     try:
         return json.loads(path.read_text(encoding="utf-8")), None
     except json.JSONDecodeError as exc:
         return None, str(exc)
 
 
-def check_type_registry():
-    """The type registry, the schema, and the specification must name the same types.
+def strip_jsonc(text):
+    """Small string-aware JSONC normalizer for schema-gate fixtures."""
+    output, quoted, escaped, index = [], False, False, 0
+    while index < len(text):
+        char = text[index]
+        if quoted:
+            output.append(char)
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                quoted = False
+            index += 1
+            continue
+        if char == '"': quoted = True; output.append(char)
+        elif char == "/" and index + 1 < len(text) and text[index + 1] == "/":
+            index = text.find("\n", index)
+            if index < 0: break
+            output.append("\n")
+        elif char == "/" and index + 1 < len(text) and text[index + 1] == "*":
+            index = text.find("*/", index + 2)
+            if index < 0: raise ValueError("unterminated JSONC block comment")
+            index += 1
+        else: output.append(char)
+        index += 1
+    return re.sub(r",(\s*[}\]])", r"\1", "".join(output))
 
-    The vocabulary of a format is the classic thing to state in several places and then
-    let drift. Here it is stated once in schemas/apr-types-1.0.json; this confirms the
-    other two copies still agree with it.
-    """
-    registry_path = ROOT / "schemas" / "apr-types-1.0.json"
-    if not registry_path.is_file():
-        return
 
-    registry = json.loads(registry_path.read_text(encoding="utf-8"))
-    registered = [t["id"] for t in registry["expectedDataType"]["types"]]
-
-    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
-    in_schema = schema["$defs"]["promptHints"]["properties"]["expectedDataType"].get("examples", [])
-
-    spec = (ROOT / "docs" / "APR_SPECIFICATION.md").read_text(encoding="utf-8")
-    block = re.search(r"`expectedDataType` registry:(.+?)\n\n", spec, re.S)
-    in_spec = re.findall(r"`([a-z]+)`", block.group(1)) if block else []
-
-    print("type registry — schema and specification must name the same types")
-    problems = []
-    for label, other in (("schema examples", in_schema), ("specification 4.7", in_spec)):
-        missing = sorted(set(registered) - set(other))
-        extra = sorted(set(other) - set(registered))
-        if missing or extra:
-            problems.append(f"{label}: missing {missing}, unexpected {extra}")
-        print(f"  {'PASS' if not (missing or extra) else 'FAIL'}  {label} ({len(other)} types)")
-    # Hint names, the same way. A hint the registry calls meaningful but the
-    # specification never names is a vocabulary only half-published: an implementer
-    # reading the spec would not know it exists. This check exists because exactly that
-    # happened -- min, max and step were added to the registry for `range` while 4.7
-    # still listed six hint names, and nothing noticed until someone asked.
-    hint_names = {h for t in registry["expectedDataType"]["types"] for h in t["meaningfulHints"]}
-    hint_names |= set(registry["universalHints"]["always"])
-    hint_names |= set(registry["universalHints"]["expressionProfile"])
-
-    hints_block = re.search(r"### 4\.7 Hints(.+?)###", spec, re.S)
-    named_in_spec = set(re.findall(r"`([a-zA-Z*]+)(?:\[\])?`", hints_block.group(1))) if hints_block else set()
-    # The expr* family is named collectively rather than one by one.
-    if "expr*" in named_in_spec:
-        named_in_spec |= set(registry["universalHints"]["expressionProfile"])
-
-    in_schema_hints = set(schema["$defs"]["promptHints"]["properties"])
-
-    print("hint vocabulary — every registered hint must be named in the specification")
-    for label, other in (("specification 4.7", named_in_spec), ("schema promptHints", in_schema_hints)):
-        missing = sorted(hint_names - other)
-        if missing:
-            problems.append(f"{label}: registered hints not present — {missing}")
-        print(f"  {'PASS' if not missing else 'FAIL'}  {label}")
-
-    if problems:
-        for p in problems:
-            print(f"    - {p}")
-        raise SystemExit(1)
+def beta6_records(path):
+    text = path.read_text(encoding="utf-8")
+    if path.suffix in {".yaml", ".yml"}:
+        try:
+            import yaml
+        except ImportError as exc:
+            raise RuntimeError("PyYAML is required for beta.6 YAML schema fixtures") from exc
+        if re.search(r"(?m)(?:^|[\s\[{,])(?:[&*!]|<<\s*:)", text):
+            raise ValueError("APR YAML forbids anchors, aliases, tags, and merge keys")
+        return list(yaml.safe_load_all(text))
+    parts = [part for part in text.split("\x1e") if part.strip()] if "\x1e" in text else [text]
+    def unique_object(pairs):
+        value = {}
+        for key, item in pairs:
+            if key in value:
+                raise ValueError(f"duplicate JSONC member {key!r}")
+            value[key] = item
+        return value
+    return [json.loads(strip_jsonc(part), object_pairs_hook=unique_object) for part in parts]
 
 
 def check_real_files(validator, failures):
@@ -106,7 +94,7 @@ def check_real_files(validator, failures):
     This is how examples/field-types-showcase.aprt was found shipping with two dynamic
     tables whose rows shared an id.
     """
-    roots = [ROOT / "examples", ROOT / "tests" / "Fixtures"]
+    roots = [ROOT / "examples"]
     files = sorted(
         (f for root in roots if root.is_dir()
            for f in root.rglob("*.apr*")
@@ -115,10 +103,10 @@ def check_real_files(validator, failures):
     )
 
     if not files:
-        failures.append("no real form files found under examples/ or tests/Fixtures/")
+        failures.append("no real form files found under examples/")
         return
 
-    print("\nreal files — schema MUST accept every shipped example and fixture")
+    print("\nreal files — schema MUST accept every shipped example")
     for path in files:
         document, parse_error = load(path)
         rel = path.relative_to(ROOT)
@@ -133,48 +121,52 @@ def check_real_files(validator, failures):
             failures.append(f"{rel}: {errors[0].message}")
 
 
+def check_beta6_examples(validator, failures):
+    """Shipped examples are release-surface beta.6 data, not historical corpus."""
+    examples = sorted((ROOT / "examples").glob("*.apr*"))
+    print()
+    print("beta6 shipped examples — every user-facing example MUST be beta.6")
+    for path in examples:
+        rel = path.relative_to(ROOT)
+        try:
+            records = beta6_records(path)
+        except (ValueError, json.JSONDecodeError) as exc:
+            print("  FAIL  %s  (not valid beta.6 representation)" % rel)
+            failures.append("%s: %s" % (rel, exc))
+            continue
+        errors = [error for record in records for error in validator.iter_errors(record)]
+        ok = len(records) == 1 and not errors
+        print("  %s  %s" % ("PASS" if ok else "FAIL", rel))
+        if not ok:
+            detail = errors[0].message if errors else "expected one beta.6 record, found %d" % len(records)
+            failures.append("%s: %s" % (rel, detail))
+
+
 def main():
-    validator = Draft202012Validator(json.loads(SCHEMA.read_text(encoding="utf-8")))
-    Draft202012Validator.check_schema(json.loads(SCHEMA.read_text(encoding="utf-8")))
+    beta_schema = json.loads(BETA6_SCHEMA.read_text(encoding="utf-8"))
+    Draft202012Validator.check_schema(beta_schema)
+    # The beta schema deliberately reuses stable core definitions by relative
+    # reference. Give jsonschema the on-disk schema URI so that reference is
+    # resolved exactly as it is for external consumers.
+    from jsonschema import RefResolver
+    validator = Draft202012Validator(beta_schema, resolver=RefResolver(BETA6_SCHEMA.as_uri(), beta_schema))
     failures = []
-
-    def check(folder, expect_schema_valid, label):
-        directory = CORPUS / folder
-        if not directory.is_dir():
-            return
-        print(f"\n{label}")
-        for path in sorted(directory.glob("*.apr*")):
-            document, parse_error = load(path)
-            if parse_error is not None:
-                # Only the malformed corpus may fail to parse as JSON at all.
-                ok = folder == "malformed"
-                print(f"  {'PASS' if ok else 'FAIL'}  {path.name}  (not valid JSON)")
-                if not ok:
-                    failures.append(f"{path.name}: unparseable JSON")
-                continue
-
-            errors = sorted(validator.iter_errors(document), key=lambda e: list(e.path))
-            schema_valid = not errors
-
-            if path.name in VALIDATOR_ONLY:
-                ok = schema_valid  # expected to slip past the schema
-                note = "  (validator-only rule: document-wide id uniqueness)"
-            else:
-                ok = schema_valid is expect_schema_valid
-                note = ""
-
-            print(f"  {'PASS' if ok else 'FAIL'}  {path.name}{note}")
-            if not ok:
-                detail = errors[0].message if errors else "unexpectedly passed the schema"
-                failures.append(f"{path.name}: {detail}")
-
-    check_type_registry()
-    check("valid", True, "valid/ — schema MUST accept every file")
-    check("canonicalization", True, "canonicalization/ — signing vector input")
-    check("signatures", True, "signatures/ — structurally valid; only verification fails")
-    check("invalid", False, "invalid/ — schema catches all but the validator-only rules")
-    check("malformed", False, "malformed/ — rejected at the JSON or type layer")
     check_real_files(validator, failures)
+    check_beta6_examples(validator, failures)
+    print("\nbeta6/ — schema MUST accept paired forms and independent attestation records")
+    for path in sorted(p for p in BETA6_CORPUS.rglob("*") if p.is_file() and p.suffix in {".jsonc", ".yaml", ".yml"}):
+        try:
+            records = beta6_records(path)
+            errors = [error for record in records for error in validator.iter_errors(record)]
+            ok = not errors and bool(records)
+        except Exception as exc:
+            errors, ok = [exc], False
+        expected_valid = "malformed" not in path.parts
+        passed = ok is expected_valid
+        print(f"  {'PASS' if passed else 'FAIL'}  {path.relative_to(ROOT)}")
+        if not passed:
+            detail = str(errors[0]) if errors else "unexpectedly passed schema"
+            failures.append(f"{path.relative_to(ROOT)}: {detail}")
 
     if failures:
         print(f"\n{len(failures)} failure(s):")

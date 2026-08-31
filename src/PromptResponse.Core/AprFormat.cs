@@ -1,27 +1,7 @@
 namespace PromptResponse.Core;
 
-/// <summary>How this build relates to a document's declared format version.</summary>
-public enum VersionCompatibility
-{
-    /// <summary>The version cannot be parsed as MAJOR.MINOR.</summary>
-    Unparseable,
-
-    /// <summary>A different major version. Incompatible — the document must be rejected.</summary>
-    UnsupportedMajor,
-
-    /// <summary>A minor version this build knows. Fully readable.</summary>
-    Supported,
-
-    /// <summary>
-    /// The same major but a newer minor. Readable: the document may carry members this
-    /// build does not understand, which are ignored but preserved.
-    /// </summary>
-    NewerMinor,
-}
-
 /// <summary>
-/// The single source of truth for the APR document format version, and the rules for
-/// deciding whether a given document can be read.
+/// The single source of truth for the only APR document format version this build accepts.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -33,75 +13,19 @@ public enum VersionCompatibility
 ///   never per release.</item>
 ///   <item><b>Specification document version</b> — per release, in
 ///   <c>docs/APR_SPECIFICATION.md</c>.</item>
-///   <item><b>Conformance corpus tag</b> — per release, <c>corpus/v1 @ &lt;sha&gt;</c>.</item>
+///   <item><b>Conformance corpus tag</b> — beta.6, in <c>tests/Conformance/beta6</c>.</item>
 /// </list>
-/// <para>
-/// <b>Compatibility is decided by MAJOR.MINOR alone.</b> A different MAJOR is
-/// incompatible and is rejected. A newer MINOR is readable — that is what makes
-/// additive change possible, and it only works because unknown members survive a
-/// round-trip (see the <c>Extensions</c> property on each model class). Any
-/// pre-release suffix (<c>-beta</c>) is informational and ignored when deciding
-/// compatibility, so <c>1.0-beta</c> and <c>1.0</c> are the same format and the
-/// eventual stable tag needs no migration and no legacy-version list.
-/// </para>
-/// <para>
-/// To ship an additive change: add optional members, bump <see cref="KnownMinor"/>,
-/// and leave <see cref="KnownMajor"/> alone. Older readers keep working.
-/// </para>
+/// This repository has not made a public release, so it deliberately has no wire
+/// compatibility policy: a document must declare the exact current version.
 /// </remarks>
 public static class AprFormat
 {
-    /// <summary>The major version this build implements. A document with any other major is rejected.</summary>
-    public const int KnownMajor = 1;
-
-    /// <summary>The highest minor version this build fully understands.</summary>
-    public const int KnownMinor = 0;
-
     /// <summary>The format version written into newly created documents.</summary>
-    public const string CurrentVersion = "1.0-beta";
+    public const string CurrentVersion = "1.0-beta.6";
 
-    /// <summary>A human-readable description of what this build accepts, for error messages.</summary>
-    public static string SupportedVersionsDescription =>
-        $"{KnownMajor}.x (this build understands up to {KnownMajor}.{KnownMinor})";
-
-    /// <summary>
-    /// Splits a version string into its numeric major and minor parts, ignoring any
-    /// pre-release suffix. Returns false when the string is not MAJOR.MINOR.
-    /// </summary>
-    public static bool TryParse(string? version, out int major, out int minor)
-    {
-        major = 0;
-        minor = 0;
-        if (string.IsNullOrWhiteSpace(version))
-        {
-            return false;
-        }
-
-        // Compatibility ignores any pre-release suffix: "1.0-beta" is the "1.0" format.
-        var core = version.Split('-', 2)[0].Trim();
-        var parts = core.Split('.');
-        if (parts.Length != 2)
-        {
-            return false;
-        }
-
-        return int.TryParse(parts[0], out major) && major >= 0
-            && int.TryParse(parts[1], out minor) && minor >= 0;
-    }
-
-    /// <summary>Decides how this build relates to a declared version.</summary>
-    public static VersionCompatibility Classify(string? version)
-    {
-        if (!TryParse(version, out var major, out var minor))
-        {
-            return VersionCompatibility.Unparseable;
-        }
-        if (major != KnownMajor)
-        {
-            return VersionCompatibility.UnsupportedMajor;
-        }
-        return minor > KnownMinor ? VersionCompatibility.NewerMinor : VersionCompatibility.Supported;
-    }
+    /// <summary>Whether this build can read a document declaring the given version.</summary>
+    public static bool IsSupported(string? version) =>
+        string.Equals(version, CurrentVersion, StringComparison.Ordinal);
 
     /// <summary>
     /// Member names that were deliberately removed from the format and MUST NOT be
@@ -139,7 +63,4 @@ public static class AprFormat
         }
     }
 
-    /// <summary>Whether this build can read a document declaring the given version.</summary>
-    public static bool IsSupported(string? version) =>
-        Classify(version) is VersionCompatibility.Supported or VersionCompatibility.NewerMinor;
 }

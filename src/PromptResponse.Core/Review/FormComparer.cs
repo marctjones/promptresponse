@@ -1,5 +1,4 @@
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Signing;
 
 namespace PromptResponse.Core.Review;
 
@@ -11,7 +10,7 @@ public sealed class FormComparison
     /// </summary>
     /// <remarks>
     /// The comparison uses the same canonical form a publisher signature binds
-    /// (<see cref="AprCanonicalizer.FormDefinition"/>): titles, ids, ordered structure,
+    /// (the beta.6 structural comparison): titles, ids, ordered structure,
     /// labels and hints, excluding responses. So a true here means the submitter answered
     /// exactly the questions that were asked, and answering them changed nothing.
     /// </remarks>
@@ -60,8 +59,7 @@ public static class FormComparer
         ArgumentNullException.ThrowIfNull(template);
         ArgumentNullException.ThrowIfNull(submission);
 
-        var identical = AprCanonicalizer.FormDefinition(template)
-            .SequenceEqual(AprCanonicalizer.FormDefinition(submission));
+        var identical = DefinitionEquals(template, submission);
 
         var identityMatches =
             string.Equals(template.Metadata.TemplateId, submission.Metadata.TemplateId, StringComparison.Ordinal)
@@ -147,6 +145,20 @@ public static class FormComparer
             IdentityMatches = identityMatches,
             Findings = findings,
         };
+    }
+
+    private static bool DefinitionEquals(AprDocument left, AprDocument right) =>
+        left.Sections.SelectMany(Flatten).Select(section => (section.Id, section.Title, section.Description))
+            .SequenceEqual(right.Sections.SelectMany(Flatten).Select(section => (section.Id, section.Title, section.Description)))
+        && left.Sections.SelectMany(Flatten).SelectMany(section => section.Prompts)
+            .Select(prompt => (prompt.Id, prompt.Label))
+            .SequenceEqual(right.Sections.SelectMany(Flatten).SelectMany(section => section.Prompts)
+                .Select(prompt => (prompt.Id, prompt.Label)));
+
+    private static IEnumerable<Section> Flatten(Section section)
+    {
+        yield return section;
+        foreach (var child in section.Sections.SelectMany(Flatten)) yield return child;
     }
 
     private static ReviewFinding Finding(string id, (Prompt Prompt, string Path) at, string code, string message) =>

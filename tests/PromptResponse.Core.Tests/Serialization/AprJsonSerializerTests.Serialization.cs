@@ -12,7 +12,7 @@ public sealed class AprJsonSerializerSerializationTests : AprJsonSerializerTestB
     {
         var json = Serializer.Serialize(new AprDocument { Version = AprFormat.CurrentVersion, DocumentType = DocumentType.Template, Metadata = new Metadata { Title = "Test Form" }, Sections = [new Section { Id = "section_001", Title = "Test Section" }] });
         json.Should().NotBeNullOrEmpty();
-        json.Should().Contain("\"version\": \"1.0-beta\"");
+        json.Should().Contain("\"version\": \"1.0-beta.6\"");
         json.Should().Contain("\"documentType\": \"template\"");
         json.Should().Contain("\"title\": \"Test Form\"");
     }
@@ -21,7 +21,7 @@ public sealed class AprJsonSerializerSerializationTests : AprJsonSerializerTestB
     public void Serialize_WithComplexDocument_ShouldIncludeAllStructure()
     {
         var json = Serializer.Serialize(CreateComplexDocument());
-        json.Should().Contain("\"version\": \"1.0-beta\"");
+        json.Should().Contain("\"version\": \"1.0-beta.6\"");
         json.Should().Contain("\"documentType\": \"template\"");
         json.Should().Contain("\"sections\"");
         json.Should().Contain("\"prompts\"");

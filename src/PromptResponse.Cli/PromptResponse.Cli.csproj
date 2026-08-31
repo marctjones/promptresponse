@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <PackageId>PromptResponse.Cli</PackageId>
-    <Version>1.0.0-beta.3</Version>
+    <Version>1.0.0-beta.6</Version>
     <Authors>PromptResponse Contributors</Authors>
     <Description>Command-line tool for working with APR (Adaptive Prompt Response) files</Description>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>

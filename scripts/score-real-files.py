@@ -25,7 +25,7 @@ from collections import Counter
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TYPES = ROOT / "schemas" / "apr-types-1.0.json"
-SEARCH_ROOTS = [ROOT / "examples", ROOT / "tests" / "Fixtures"]
+SEARCH_ROOTS = [ROOT / "examples"]
 
 
 def vocabulary():
@@ -174,7 +174,7 @@ def main():
         key=str,
     )
     if not files:
-        sys.exit("no real form files found under examples/ or tests/Fixtures/")
+        sys.exit("no real form files found under examples/")
 
     results = [score(f, types, universal) for f in files]
 
@@ -193,7 +193,7 @@ def main():
         "registeredTypes": sorted(types),
         "files": results,
     }, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {args.json.relative_to(ROOT)}")
+    print(f"wrote {args.json.resolve().relative_to(ROOT)}")
     return 0
 
 

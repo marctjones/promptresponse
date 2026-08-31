@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Signing;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.ViewModels.Editing;
 using PromptResponse.Desktop.ViewModels.Prompts.Presentation;
@@ -29,7 +28,6 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
     private readonly EditHistory? _history;
     private readonly PromptProfileRefreshCoordinator _profileRefresh;
     private readonly PromptResponseState _responseState;
-    private readonly PromptSignatureState _signatureState;
     private bool _disposed;
 
     protected PromptViewModelBase(Prompt prompt, IProfileService profileService, EditHistory? history = null)
@@ -42,7 +40,6 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
             propertyName => Notify(propertyName),
             OnDerivedPropertiesShouldRefresh);
         _responseState = new PromptResponseState(_prompt, Notify, OnDerivedPropertiesShouldRefresh);
-        _signatureState = new PromptSignatureState(Notify);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -147,69 +144,6 @@ public abstract class PromptViewModelBase : INotifyPropertyChanged, IDisposable
 
     /// <summary>Whether the mark may carry a colour cue as well as its text.</summary>
     public bool ProvenanceColorCue => ShowProvenanceMark && ActiveProfile.ColorCuesEnabled;
-
-    // ── Signature coverage: is this value signed? (specification 9.3) ──
-
-    /// <summary>The signatures covering this field's value, set by the shell after verifying.</summary>
-    /// <remarks>
-    /// Recomputed on every edit, not cached from load. Signature state that can go stale
-    /// is worse than none at all: a field still reporting "signed" after the keystroke
-    /// that invalidated it is actively misleading, and the person reading it has no way
-    /// to know.
-    /// </remarks>
-    public IReadOnlyList<CoveringSignature> CoveringSignatures
-    {
-        get => _signatureState.CoveringSignatures;
-        internal set => _signatureState.CoveringSignatures = value;
-    }
-
-    /// <summary>Whether this value is signed, and whether that still holds.</summary>
-    public FieldSignatureState SignatureState => SignatureCoverage.StateOf(CoveringSignatures);
-
-    /// <summary>Whether to show anything at all about signatures on this field.</summary>
-    /// <remarks>
-    /// An unsigned field shows nothing. Most documents are never signed, signing is
-    /// optional, and marking every field "unsigned" would make the ordinary case look
-    /// like a warning - which teaches people to stop reading the marks that matter.
-    /// </remarks>
-    public bool ShowSignatureMark => SignatureState != FieldSignatureState.Unsigned;
-
-    /// <summary>True when a signature covers this value and no longer verifies.</summary>
-    public bool SignatureIsBroken => SignatureState == FieldSignatureState.Broken;
-
-    /// <summary>
-    /// The text shown beside the field. Always text, never colour alone.
-    /// </summary>
-    /// <remarks>
-    /// Colour is an accompaniment here, never the message: a profile may have colour cues
-    /// off, a reader may be colour-blind, and a printout has no state at all. Anyone who
-    /// can see the field can read the word.
-    /// </remarks>
-    public string? SignatureLabel => PromptSignaturePresentation.Label(CoveringSignatures);
-
-    /// <summary>
-    /// What assistive technology should say about this field's signatures.
-    /// </summary>
-    /// <remarks>
-    /// Fuller than the visible mark, because a screen-reader user cannot glance at the
-    /// panel in the sidebar for the rest of the story. Verbosity follows the active
-    /// profile: a profile asking for terse live regions gets the fact without the
-    /// explanation.
-    /// </remarks>
-    public string? SignatureAnnouncement
-    {
-        get
-        {
-            return PromptSignaturePresentation.Announcement(CoveringSignatures, ActiveProfile.LiveRegions);
-        }
-    }
-
-    /// <summary>Whether the mark may carry a colour cue as well as its text.</summary>
-    /// <remarks>
-    /// Profiles switch colour cues off - for high contrast, or where colour conveys
-    /// nothing useful to the person. The text stays either way.
-    /// </remarks>
-    public bool SignatureColorCue => ShowSignatureMark && ActiveProfile.ColorCuesEnabled;
 
     // ── Roles: whose field is this? (specification 4.10) ──
 

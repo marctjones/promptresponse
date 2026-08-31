@@ -1,0 +1,15 @@
+{
+  "recordType": "attestation",
+  "version": "1.0-beta.6",
+  "subject": { "digest": "sha256:d06b9720c44d64b368e93bd6765cad81bfa1e8ea9b767b4acd1ffc57c26b0253", "canonicalization": "jcs-sha256" },
+  "scope": { "kind": "document" },
+  "manifest": {
+    "root": "sha256:d06b9720c44d64b368e93bd6765cad81bfa1e8ea9b767b4acd1ffc57c26b0253",
+    "entries": [
+      { "path": "", "digest": "sha256:d06b9720c44d64b368e93bd6765cad81bfa1e8ea9b767b4acd1ffc57c26b0253" },
+      { "path": "/sections/0/prompts/0/response", "digest": "sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a" }
+    ]
+  },
+  "proofs": [{ "type": "example/opaque-v1", "value": "b3BhcXVl" }],
+  "witnesses": []
+}

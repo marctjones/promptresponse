@@ -19,14 +19,8 @@ public class DocumentValidator : IValidator<AprDocument>
     private static void ValidateVersion(AprDocument document, ValidationResult result)
     {
         if (string.IsNullOrWhiteSpace(document.Version)) { result.AddError(new ValidationError("Version is required", "version", "REQUIRED_FIELD")); return; }
-        switch (AprFormat.Classify(document.Version))
-        {
-            case VersionCompatibility.Unparseable:
-            case VersionCompatibility.UnsupportedMajor:
-                result.AddError(new ValidationError($"Unsupported version '{document.Version}'. Supported: {AprFormat.SupportedVersionsDescription}", "version", "UNSUPPORTED_VERSION")); break;
-            case VersionCompatibility.NewerMinor:
-                result.AddWarning(new ValidationWarning($"Document declares version '{document.Version}', newer than this build understands ({AprFormat.KnownMajor}.{AprFormat.KnownMinor}). It will be read, and members that are not recognised are preserved unchanged.", "version", "NEWER_MINOR_VERSION")); break;
-        }
+        if (!AprFormat.IsSupported(document.Version))
+            result.AddError(new ValidationError($"Unsupported APR version '{document.Version}'. This build accepts only {AprFormat.CurrentVersion}.", "version", "UNSUPPORTED_VERSION"));
     }
 
     private static void ValidateMetadata(AprDocument document, ValidationResult result)

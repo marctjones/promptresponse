@@ -54,7 +54,7 @@ public class TableSectionTests
         // as an unknown member — otherwise removing it would never take effect.
         var json = """
             {
-              "version": "1.0-beta",
+              "version": "1.0-beta.6",
               "documentType": "template",
               "metadata": { "title": "T" },
               "sections": [{

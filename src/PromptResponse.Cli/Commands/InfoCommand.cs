@@ -18,7 +18,6 @@ public class InfoCommand : ICommand
         {
             var document = _serializer.Deserialize(await File.ReadAllTextAsync(filePath));
             InfoDocumentPresenter.Write(document, filePath);
-            SignatureNotice.Write(document);
             return 0;
         }
         catch (SerializationException ex) { Console.Error.WriteLine($"Error: Failed to load APR file: {ex.Message}"); return 1; }

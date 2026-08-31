@@ -520,12 +520,18 @@
           "xunit.v3.runner.common": "[3.2.2]"
         }
       },
+      "YamlDotNet": {
+        "type": "Transitive",
+        "resolved": "18.1.0",
+        "contentHash": "5K+9KFg2TdTl7VXv88Qzi/0lqK6JFoNP3lRuImPYGRV7K/QYklDyTrj4+A+KAki1JsQi6qKY+hDyY7d6WRqjrw=="
+      },
       "promptresponse.core": {
         "type": "Project",
         "dependencies": {
           "Celly": "[1.2.0, )",
           "Microsoft.Extensions.Logging.Abstractions": "[10.0.11, )",
-          "System.Security.Cryptography.Pkcs": "[10.0.11, )"
+          "System.Security.Cryptography.Pkcs": "[10.0.11, )",
+          "YamlDotNet": "[18.1.0, )"
         }
       },
       "promptresponse.desktop": {
@@ -538,7 +544,7 @@
           "CommunityToolkit.Mvvm": "[8.4.2, )",
           "Microsoft.Extensions.DependencyInjection": "[10.0.11, )",
           "Microsoft.Extensions.Logging.Console": "[10.0.11, )",
-          "PromptResponse.Core": "[1.0.0-beta.3, )",
+          "PromptResponse.Core": "[1.0.0-beta.6, )",
           "PromptResponse.Rendering.Pdf": "[1.0.0, )"
         }
       },
@@ -546,7 +552,7 @@
         "type": "Project",
         "dependencies": {
           "Excise.Core": "[3.8.0, )",
-          "PromptResponse.Core": "[1.0.0-beta.3, )"
+          "PromptResponse.Core": "[1.0.0-beta.6, )"
         }
       }
     }

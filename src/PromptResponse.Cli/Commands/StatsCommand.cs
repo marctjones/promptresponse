@@ -57,7 +57,6 @@ public class StatsCommand : ICommand
             else
             {
                 DisplayStatistics(stats);
-                SignatureNotice.Write(document);
             }
 
             return 0;

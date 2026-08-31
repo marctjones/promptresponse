@@ -118,28 +118,7 @@ public sealed class HtmlDocumentRenderer : IDocumentRenderer
                 AppendTable(sb, t);
                 break;
 
-            case SignatureBlock sig:
-                AppendSignatures(sb, sig);
-                break;
         }
-    }
-
-    /// <summary>Renders the signatures summary with a verified/invalid badge per signature.</summary>
-    internal static void AppendSignatures(StringBuilder sb, SignatureBlock block)
-    {
-        sb.Append("<h2>Signatures</h2>\n<ul class=\"signatures\">\n");
-        foreach (var s in block.Signatures)
-        {
-            var badge = s.ContentValid ? "✓ verified" : "✗ INVALID";
-            var cls = s.ContentValid ? "sig" : "sig bad";
-            sb.Append("<li class=\"").Append(cls).Append("\">")
-              .Append("<span class=\"sig-badge\">").Append(badge).Append("</span> ")
-              .Append("<strong>").Append(Enc(s.Role)).Append("</strong>: ").Append(Enc(s.Signer))
-              .Append(" — ").Append(Enc(s.Scope))
-              .Append("<br><span class=\"sig-status\">trust: ").Append(Enc(s.Trust)).Append(" · ").Append(Enc(s.Status)).Append("</span>")
-              .Append("</li>\n");
-        }
-        sb.Append("</ul>\n");
     }
 
     private static void AppendTable(StringBuilder sb, TableBlock table)

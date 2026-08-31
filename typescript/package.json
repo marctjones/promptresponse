@@ -1,6 +1,6 @@
 {
   "name": "@promptresponse/core",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.6",
   "description": "Core reader, writer, validator, and CEL expression evaluator for APR forms",
   "type": "module",
   "main": "./dist/index.js",
@@ -11,7 +11,10 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test dist/test/*.test.js"
@@ -21,7 +24,10 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "@marcbachmann/cel-js": "8.0.0"
+    "@marcbachmann/cel-js": "8.0.0",
+    "asn1js": "^3.0.10",
+    "pkijs": "^3.4.0",
+    "yaml": "^2.9.0"
   },
   "license": "AGPL-3.0-or-later"
 }

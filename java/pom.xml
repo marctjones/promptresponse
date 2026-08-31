@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.promptresponse</groupId>
   <artifactId>promptresponse-java</artifactId>
-  <version>1.0.0-beta.3</version>
+  <version>1.0.0-beta.6</version>
   <licenses>
     <license>
       <name>GNU Affero General Public License v3.0 or later</name>
@@ -23,6 +23,16 @@
       <groupId>dev.cel</groupId>
       <artifactId>cel</artifactId>
       <version>${cel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcpkix-jdk18on</artifactId>
+      <version>1.78.1</version>
     </dependency>
   </dependencies>
   <build>

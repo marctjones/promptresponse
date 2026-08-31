@@ -90,9 +90,6 @@ public sealed class FillableHtmlDocumentRenderer : IDocumentRenderer
                 case TableBlock table:
                     FillableHtmlFieldMarkup.AppendTable(output, table, ref fieldSequence);
                     break;
-                case SignatureBlock signature:
-                    HtmlDocumentRenderer.AppendSignatures(output, signature);
-                    break;
             }
         }
     }

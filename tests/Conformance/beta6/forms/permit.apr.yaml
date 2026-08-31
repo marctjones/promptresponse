@@ -1,0 +1,11 @@
+version: "1.0-beta.6"
+documentType: template
+metadata:
+  title: Beta 6 permit
+sections:
+  - id: applicant
+    title: Applicant
+    prompts:
+      - id: name
+        label: Name
+        response: "Ada"

@@ -90,17 +90,4 @@ public class AprDocument
     /// </remarks>
     public List<RoleDefinition>? Roles { get; set; }
 
-    /// <summary>
-    /// Gets or sets the detached cryptographic signatures over this document.
-    /// </summary>
-    /// <remarks>
-    /// Pure data — verification is a side-effect-free computation, consistent with
-    /// the "no code execution, safe to open untrusted" principle. A publisher
-    /// signature attests to the form definition (and binds the submission URL); a
-    /// filler signature attests to the responses in its scope. Editing a covered
-    /// field invalidates the signatures that cover it. See
-    /// <c>PromptResponse.Core.Signing</c>. Null/absent when the document is
-    /// unsigned, so unsigned files carry no signatures field.
-    /// </remarks>
-    public List<Signature>? Signatures { get; set; }
 }

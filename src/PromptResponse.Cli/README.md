@@ -175,27 +175,20 @@ recommendation. Flat/scanned PDFs (no form fields) report an error — for those
 plus Word/OpenDocument/images, use the `document-to-apr` skill. See
 [docs/IMPORT.md](../../docs/IMPORT.md).
 
-### keygen / sign / verify
+### attest
 
-Digital signatures over APR content (industry-standard CMS/PKCS#7 + X.509).
+Beta.6 carries CMS signatures as independent attestation records, never as a
+member embedded in a form. Supply an ECDSA P-256 PKCS#12 certificate and write a
+new stream containing the unchanged form plus its attestation:
 
 ```bash
-# generate a self-signed signing cert (or use a CA-issued .pfx / PIV card)
-apr keygen --name="Town of Bloomfield" --output=publisher.pfx --cert-out=publisher.cer
-
-# publisher signs the template and binds the submission URL
-apr sign permit.aprt --publisher --cert=publisher.pfx --url="https://gov/permit/submit"
-
-# a filler signs the responses they completed
-apr sign permit.aprf --fields=applicant_name,dob --cert=ada.pfx --id=ada
-
-# verify, pinning the publisher's public cert as a trust anchor
-apr verify permit.aprf --trust=publisher.cer
+apr attest permit.apr --cert=ada.pfx --password=secret --output=permit.attested.apr
+apr attest permit.apr --cert=ada.pfx --password=secret --fields=name --output=permit.attested.apr
+apr info permit.attested.apr --json
 ```
 
-`verify` reports each signature as `trusted` / `self-signed` / `untrusted` /
-`INVALID` and exits non-zero if signed content was altered. Full guide:
-[docs/SIGNING.md](../../docs/SIGNING.md).
+`info` reports cryptographic content status independently from certificate trust;
+an attestation never blocks form extraction. See [docs/SIGNING.md](../../docs/SIGNING.md).
 
 ### help
 
@@ -450,3 +443,20 @@ is not implementing APR. The break is reported loudly and the command succeeds.
 document valid" but "can a machine handle this submission unattended". Somebody
 attested to the form and it no longer matches, so it needs a person — whatever
 the answers themselves look like.
+## Beta.6 streams and attestations
+
+`validate` and `info` are beta.6-first aliases for JSONC/YAML forms or streams;
+the explicit namespace remains available for normalization:
+
+```bash
+apr validate form.apr
+apr info stream.apr --json
+apr beta6 normalize form.yaml --yaml --output=canonical.yaml
+```
+
+`inspect` enumerates every form and independent attestation, reporting
+`valid`, `invalid`, `unresolved`, or `unverifiable` where supported. An
+attestation result never prevents the CLI from reading or extracting a form.
+APR beta.6 retires the older `keygen`, `sign`, and `verify` commands with
+embedded root signatures. Use `attest` to append an independent CMS
+attestation to a beta.6 stream; inspect its non-gating result with `info`.

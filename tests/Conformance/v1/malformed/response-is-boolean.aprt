@@ -1,8 +1,0 @@
-{
-  "version": "1.0-beta",
-  "documentType": "template",
-  "metadata": { "title": "Conformance Response Is Boolean", "templateId": "conformance-response-is-boolean" },
-  "sections": [
-    { "id": "s1", "title": "A section", "prompts": [ { "id": "p1", "label": "Member?", "response": true, "hints": { "expectedDataType": "boolean" } } ] }
-  ]
-}

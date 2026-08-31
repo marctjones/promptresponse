@@ -11,11 +11,7 @@ public partial class DocumentIntegrationTests
     public void LoadIrsFormW4_ShouldDeserializeCorrectly()
     {
         // Arrange
-        var examplePath = GetExampleFilePath("irs-form-w4-2024.aprt");
-        var json = File.ReadAllText(examplePath);
-
-        // Act
-        var document = _serializer.Deserialize(json);
+        var document = ReadBeta6Fixture("irs-form-w4-2024.aprt");
 
         // Assert
         document.Should().NotBeNull();
@@ -43,11 +39,7 @@ public partial class DocumentIntegrationTests
     public void LoadGsaSf86_ShouldDeserializeComplexHierarchy()
     {
         // Arrange
-        var examplePath = GetExampleFilePath("gsa-sf86-sections.aprt");
-        var json = File.ReadAllText(examplePath);
-
-        // Act
-        var document = _serializer.Deserialize(json);
+        var document = ReadBeta6Fixture("gsa-sf86-sections.aprt");
 
         // Assert
         document.Should().NotBeNull();
@@ -70,11 +62,7 @@ public partial class DocumentIntegrationTests
     public void LoadIrsForm1040_ShouldDeserializeWithCalculations()
     {
         // Arrange
-        var examplePath = GetExampleFilePath("irs-form-1040-simplified.aprt");
-        var json = File.ReadAllText(examplePath);
-
-        // Act
-        var document = _serializer.Deserialize(json);
+        var document = ReadBeta6Fixture("irs-form-1040-simplified.aprt");
 
         // Assert
         document.Should().NotBeNull();
@@ -99,9 +87,9 @@ public partial class DocumentIntegrationTests
         // Arrange & Act
         var forms = new[]
         {
-            _serializer.Deserialize(File.ReadAllText(GetExampleFilePath("irs-form-w4-2024.aprt"))),
-            _serializer.Deserialize(File.ReadAllText(GetExampleFilePath("gsa-sf86-sections.aprt"))),
-            _serializer.Deserialize(File.ReadAllText(GetExampleFilePath("irs-form-1040-simplified.aprt")))
+            ReadBeta6Fixture("irs-form-w4-2024.aprt"),
+            ReadBeta6Fixture("gsa-sf86-sections.aprt"),
+            ReadBeta6Fixture("irs-form-1040-simplified.aprt")
         };
 
         // Assert - All should have proper metadata

@@ -1,4 +1,4 @@
-import { dumps, loads, recomputeComputedValues, renderHtml, validate, type AprDocument, type Prompt, type Section, type ValidationIssue } from "../../../typescript/dist/index.js";
+import { readBeta6Stream, resolveBeta6AttestationsAsync, writeBeta6Form, recomputeComputedValues, renderHtml, validate, type AprDocument, type Prompt, type Section, type ValidationIssue } from "../../../typescript/dist/index.js";
 
 const fileInput = document.querySelector<HTMLInputElement>("#apr-file")!;
 const loadStatus = document.querySelector<HTMLElement>("#load-status")!;
@@ -8,8 +8,12 @@ const validationHost = document.querySelector<HTMLElement>("#validation")!;
 const documentName = document.querySelector<HTMLElement>("#document-name")!;
 const documentSummary = document.querySelector<HTMLElement>("#document-summary")!;
 const saveButton = document.querySelector<HTMLButtonElement>("#save-button")!;
+const streamPicker = document.querySelector<HTMLSelectElement>("#stream-form")!;
+const streamPickerLabel = document.querySelector<HTMLLabelElement>("#stream-picker-label")!;
+const streamStatus = document.querySelector<HTMLElement>("#stream-status")!;
 
 let documentModel: AprDocument | undefined;
+let streamForms: AprDocument[] = [];
 let sourceStem = "completed-form";
 
 function promptsIn(section: Section): Prompt[] {
@@ -88,7 +92,8 @@ function download(): void {
   documentModel.documentType = "filledForm";
   documentModel.metadata.filledDate = new Date().toISOString();
   documentModel.metadata.templateId ||= sourceStem;
-  const blob = new Blob([dumps(documentModel) + "\n"], { type: "application/json" });
+  documentModel.version = "1.0-beta.6";
+  const blob = new Blob([writeBeta6Form(documentModel, "jsonc") + "\n"], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const link = Object.assign(document.createElement("a"), { href: url, download: `${sourceStem}.aprf` });
   link.click();
@@ -100,8 +105,18 @@ fileInput.addEventListener("change", async () => {
   const file = fileInput.files?.[0];
   if (!file) return;
   try {
-    documentModel = loads(await file.text());
-    sourceStem = file.name.replace(/\.(apr|aprt|aprf)$/i, "") || sourceStem;
+    const representation = /\.ya?ml$/i.test(file.name) ? "yaml" : "jsonc";
+    const records = readBeta6Stream(await file.text(), representation);
+    streamForms = records.filter((record): record is { type: "form"; document: AprDocument } => record.type === "form").map(record => record.document);
+    if (!streamForms.length) throw new Error("This stream has no form records to display.");
+    documentModel = streamForms[0];
+    streamPicker.replaceChildren(...streamForms.map((_, index) => Object.assign(document.createElement("option"), { value: String(index), textContent: `Form occurrence ${index + 1}` })));
+    streamPicker.hidden = streamPickerLabel.hidden = streamForms.length < 2;
+    const attestations = await resolveBeta6AttestationsAsync(records);
+    const states = attestations.map(result => result.state).join(", ") || "none";
+    streamStatus.textContent = `${records.length} independent record(s): ${streamForms.length} form occurrence(s), ${attestations.length} attestation(s) (${states}). Attestations never block form display.`;
+    streamStatus.hidden = false;
+    sourceStem = file.name.replace(/\.(apr|aprt|aprf|yaml|yml)$/i, "") || sourceStem;
     loadStatus.textContent = `Opened ${file.name}.`;
     showDocument();
   } catch (error) {
@@ -109,6 +124,13 @@ fileInput.addEventListener("change", async () => {
     panel.hidden = true;
     loadStatus.textContent = `Could not open ${file.name}: ${(error as Error).message}`;
   }
+});
+
+streamPicker.addEventListener("change", () => {
+  const index = Number(streamPicker.value);
+  if (!Number.isInteger(index) || !streamForms[index]) return;
+  documentModel = streamForms[index];
+  showDocument();
 });
 
 saveButton.addEventListener("click", download);

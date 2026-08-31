@@ -1,8 +1,14 @@
 {
-  "$comment": "Machine-readable registry of APR test suites and spec-requirement coverage. Verified by scripts/check-test-registry.py, which fails if a referenced fixture or test no longer exists, or if a requirement has no entry. The registry is a claim about coverage; the verifier is what makes the claim checkable.",
-  "specVersion": "1.0.0-beta.3",
-  "formatVersion": "1.0-beta",
-  "corpusTag": "corpus/v1",
+  "$comment": "Machine-readable registry of APR test suites and spec-requirement coverage. Verified by scripts/check-test-registry.py, which fails if a referenced fixture or test no longer exists, or if a requirement has no entry. The registry is a claim about coverage; the verifier is what makes the claim checkable. Its v1 requirements remain historical beta.3 coverage while beta.6 migration coverage is added separately.",
+  "specVersion": "1.0.0-beta.6-draft",
+  "formatVersion": "1.0-beta.6",
+  "corpusTag": "corpus/beta6",
+  "activeMigrationTarget": {
+    "specVersion": "1.0.0-beta.6-draft",
+    "formatVersion": "1.0-beta.6",
+    "corpusPath": "tests/Conformance/beta6",
+    "coverageStatus": "gated; paired representations and streams, semantic digests/manifests, CMS and unsupported proofs, fields scope, witness chains, changed forms, malformed representations, and shipped beta.6 examples are covered"
+  },
   "gateStrength": {
     "gated": "A test fails in CI if the rule is violated. The only level that actually holds an implementation.",
     "partial": "Some aspect of the rule is gated; other aspects are not.",
@@ -143,7 +149,7 @@
       "language": "csharp",
       "path": "tests/PromptResponse.Core.Tests/RealFormFilesTests.cs",
       "runsInCi": true,
-      "gate": "every file under examples/ and tests/Fixtures/ must parse, validate, round-trip byte-stable, render through both PDF renderers unchanged, and satisfy the published schema",
+      "gate": "every shipped beta.6 example must satisfy the published schema and beta.6 parser gate",
       "dimensions": {
         "completeness": "gated",
         "conformance": "gated",

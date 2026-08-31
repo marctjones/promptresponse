@@ -104,6 +104,8 @@ public partial class AboutDialog : Window
         // ─── Expression engine ───────────────────────────────────────────────────────
         new Acknowledgement("Celly", "1.2.0", "Apache License 2.0",
             Note: "Native C# implementation of Google's Common Expression Language (CEL). Evaluates the advisory expr* hints; passes the official cel-spec conformance suite."),
+        new Acknowledgement("YamlDotNet", "18.1.0", "MIT License — © Antoine Aubry and contributors",
+            Note: "Safe YAML parsing and writing for APR beta.6 YAML representations."),
 
         // ─── PDF engine — © Marc Jones, MIT ──────────────────────────────────────────
         new Acknowledgement("Excise.Core", "3.8.0", "MIT License — © Marc Jones",

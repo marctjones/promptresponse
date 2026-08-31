@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <PackageId>PromptResponse.Core</PackageId>
-    <Version>1.0.0-beta.3</Version>
+    <Version>1.0.0-beta.6</Version>
     <Authors>PromptResponse Contributors</Authors>
     <Description>Core library for APR (Adaptive Prompt Response) form format</Description>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
@@ -19,6 +19,7 @@
     <!-- CMS/PKCS#7 (SignedCms) for industry-standard APR signatures. First-party
          Microsoft BCL package; ships with the runtime. -->
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.11" />
+    <PackageReference Include="YamlDotNet" Version="18.1.0" />
   </ItemGroup>
 
 </Project>

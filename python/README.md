@@ -50,7 +50,7 @@ uv sync --all-extras
 uv run pytest
 ```
 
-The suite runs the shared conformance corpus at `../tests/Conformance/v1`
+The suite runs the shared beta.6 conformance corpus at `../tests/Conformance/beta6`
 directly: every `valid/` fixture must parse, validate and round-trip without
 loss; every `invalid/` fixture must parse and fail validation; every
 `malformed/` fixture must be refused at parse time. Passing it is what makes

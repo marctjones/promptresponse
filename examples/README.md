@@ -205,10 +205,8 @@ The format supports these data type hints (all advisory, never enforced):
 - **multichoice**: Multiple suggested choices
 - **currency**, **range**, **time**, **datetime**, **password**, **file**, **color**, **signature**: host-affordance hints demonstrated in `field-types-showcase.aprt`
 
-For a cryptographically signed, non-sensitive example, see
-[`tests/Conformance/v1/valid/signed-template.aprt`](../tests/Conformance/v1/valid/signed-template.aprt).
-It is also verified by the conformance suite; do not copy its private test
-certificate material because none is published.
+For a cryptographically attested example, see
+[`tests/Conformance/beta6/attestations/permit.cms.attestation.jsonc`](../tests/Conformance/beta6/attestations/permit.cms.attestation.jsonc).
 - Custom types are allowed and will be ignored by validation
 
 ### 5. Validation
@@ -251,7 +249,7 @@ Minimum required structure:
 
 ```json
 {
-  "version": "1.0-beta",
+  "version": "1.0-beta.6",
   "documentType": "template",
   "metadata": {
     "title": "My Form",

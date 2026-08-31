@@ -47,7 +47,7 @@ artifacts are not source of truth.
 | `schemas/` | structural APR contract | machine-readable format authority | application defaults |
 | `python/`, `typescript/`, `java/` | independent SDKs and local demos | cross-language corpus evidence | a second format definition |
 | `docs/` | canonical product, design, operations, and registry records | human-facing authority map | historical plans |
-| `examples/` and `tests/Fixtures/` | user and regression inputs | supported representative documents | mutable test output |
+| `examples/` and `tests/Conformance/beta6/` | user and regression inputs | supported beta.6 documents | mutable test output |
 | `packaging/`, `docker/`, `scripts/`, `.github/` | build, release, and verification machinery | reproducible operational sources | release binaries |
 | `local-nuget/` | vendored PDF-engine package feed | intentionally tracked reproducibility input | a general package cache |
 
