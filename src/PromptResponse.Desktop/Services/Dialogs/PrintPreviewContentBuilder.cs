@@ -67,9 +67,6 @@ internal static class PrintPreviewContentBuilder
             case TableBlock table:
                 page.Children.Add(BuildTable(table));
                 break;
-            case SignatureBlock signatures:
-                AddSignatures(page, signatures);
-                break;
         }
     }
 
@@ -134,23 +131,4 @@ internal static class PrintPreviewContentBuilder
         return panel;
     }
 
-    private static void AddSignatures(StackPanel page, SignatureBlock signatures)
-    {
-        page.Children.Add(new TextBlock { Text = "Signatures", FontSize = 16, FontWeight = FontWeight.SemiBold, Margin = new Thickness(0, 12, 0, 0) });
-        foreach (var signature in signatures.Signatures)
-        {
-            page.Children.Add(new TextBlock
-            {
-                Text = $"[{(signature.ContentValid ? "verified" : "INVALID")}] {signature.Role}: {signature.Signer} - {signature.Scope}",
-                TextWrapping = TextWrapping.Wrap,
-            });
-            page.Children.Add(new TextBlock
-            {
-                Text = $"trust: {signature.Trust} - {signature.Status}",
-                FontSize = 12,
-                Foreground = Brushes.DimGray,
-                TextWrapping = TextWrapping.Wrap,
-            });
-        }
-    }
 }

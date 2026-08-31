@@ -39,7 +39,7 @@ public class CliRobustnessTests : IDisposable
 
     private static string CorpusDir => Path.Combine(
         Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")),
-        "tests", "Conformance", "v1");
+        "tests", "Conformance", "beta6", "forms");
 
     public static IEnumerable<object[]> HostileInputs()
     {

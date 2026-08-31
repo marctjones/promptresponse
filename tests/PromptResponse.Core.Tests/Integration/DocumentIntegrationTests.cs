@@ -38,11 +38,9 @@ public partial class DocumentIntegrationTests
 
     private AprDocument ReadBeta6Fixture(string filename)
     {
-        // Historical fixture bytes are beta.3 evidence. Convert them in test setup so
-        // integration assertions exercise the active beta.6 reader/writer boundary.
+        // Fixtures are normalized through the active beta.6 reader/writer boundary.
         var document = _serializer.Deserialize(File.ReadAllText(GetExampleFilePath(filename)));
         document.Version = "1.0-beta.6";
-        document.Signatures = null;
         var reader = new AprBeta6Reader();
         return reader.ReadForm(reader.WriteForm(document, AprRepresentation.Jsonc), AprRepresentation.Jsonc);
     }

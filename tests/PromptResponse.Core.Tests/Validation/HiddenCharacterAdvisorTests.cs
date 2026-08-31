@@ -167,9 +167,13 @@ public class HiddenCharacterAdvisorTests
     [Fact]
     public void SharedUnicodeSafetyFixture_PreservesResponsesAndEmitsAdvisories()
     {
-        var root = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", ".."));
-        var fixture = Path.Combine(root, "tests", "Conformance", "v1", "valid", "unicode-security-advisories.aprf");
-        var document = new PromptResponse.Core.Serialization.AprJsonSerializer().Deserialize(File.ReadAllText(fixture));
+        var document = new PromptResponse.Core.Serialization.AprJsonSerializer().Deserialize("""
+            {"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[
+              {"id":"bidi_override","label":"Bidi","response":"safe\u202etxt.exe"},
+              {"id":"persian_zwnj","label":"Persian","response":"می‌روم"},
+              {"id":"emoji_zwj","label":"Emoji","response":"👨‍👩‍👧"},
+              {"id":"bidi_isolate","label":"Isolate","response":"a\u2066b"}]}]}
+            """);
 
         var responses = document.Sections.SelectMany(Flatten).ToDictionary(prompt => prompt.Id, prompt => prompt.Response);
         var codes = _advisor.Validate(document).Warnings.Select(warning => warning.WarningCode).ToHashSet();

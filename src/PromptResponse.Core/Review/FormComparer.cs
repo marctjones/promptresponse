@@ -9,9 +9,8 @@ public sealed class FormComparison
     /// True when the submission's form definition is byte-identical to the template's.
     /// </summary>
     /// <remarks>
-    /// The comparison uses the same canonical form a publisher signature binds
-    /// (the beta.6 structural comparison): titles, ids, ordered structure,
-    /// labels and hints, excluding responses. So a true here means the submitter answered
+    /// The comparison uses the beta.6 structural definition: titles, ids, ordered
+    /// structure, labels and hints, excluding responses. So a true here means the submitter answered
     /// exactly the questions that were asked, and answering them changed nothing.
     /// </remarks>
     public bool DefinitionIdentical { get; init; }
@@ -42,13 +41,6 @@ public sealed class FormComparison
 /// its label changes. A pipeline maps responses by id, so it will happily file the answer
 /// under the right field - but the person answered a different question. Nothing about the
 /// response looks wrong. Only the template says otherwise.
-/// </para>
-/// <para>
-/// This is the weaker of two available answers and worth being honest about. If the
-/// template was signed by its publisher, the signature already binds the form definition
-/// and survives filling (specification 9), so a single verification proves the questions
-/// are untouched without needing the original file at all. This is for when there is no
-/// signature but the receiver does have the template.
 /// </para>
 /// </remarks>
 public static class FormComparer
@@ -151,9 +143,11 @@ public static class FormComparer
         left.Sections.SelectMany(Flatten).Select(section => (section.Id, section.Title, section.Description))
             .SequenceEqual(right.Sections.SelectMany(Flatten).Select(section => (section.Id, section.Title, section.Description)))
         && left.Sections.SelectMany(Flatten).SelectMany(section => section.Prompts)
-            .Select(prompt => (prompt.Id, prompt.Label))
+            .Select(prompt => (prompt.Id, prompt.Label, prompt.Hints?.ExpectedDataType,
+                Options: string.Join("\u001f", prompt.Hints?.SuggestedValues ?? [])))
             .SequenceEqual(right.Sections.SelectMany(Flatten).SelectMany(section => section.Prompts)
-                .Select(prompt => (prompt.Id, prompt.Label)));
+                .Select(prompt => (prompt.Id, prompt.Label, prompt.Hints?.ExpectedDataType,
+                    Options: string.Join("\u001f", prompt.Hints?.SuggestedValues ?? []))));
 
     private static IEnumerable<Section> Flatten(Section section)
     {

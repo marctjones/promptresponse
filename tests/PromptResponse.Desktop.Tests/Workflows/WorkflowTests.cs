@@ -107,7 +107,6 @@ public partial class WorkflowTests : IDisposable
     {
         var document = _serializer.Deserialize(await File.ReadAllTextAsync(source));
         document.Version = "1.0-beta.6";
-        document.Signatures = null;
         var path = Path_(name);
         await File.WriteAllTextAsync(path, new AprBeta6Reader().WriteForm(document, AprRepresentation.Jsonc));
         return path;

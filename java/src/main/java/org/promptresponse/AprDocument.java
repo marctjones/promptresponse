@@ -4,8 +4,7 @@ import java.util.*;
 
 /**
  * An APR document under the core profile. It deliberately retains the raw JSON
- * tree: unknown members, expression hints, and signatures round-trip without
- * loss. The core profile neither evaluates expressions nor verifies signatures.
+ * tree: unknown members and expression hints round-trip without loss.
  */
 public final class AprDocument {
     private final LinkedHashMap<String, Object> root;

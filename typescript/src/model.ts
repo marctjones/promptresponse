@@ -29,7 +29,7 @@ export interface Metadata {
 }
 export interface AprDocument {
   version: string; documentType?: string; metadata: Metadata; sections: Section[];
-  roles?: RoleDefinition[]; signatures?: JsonValue[]; extra: JsonObject;
+  roles?: RoleDefinition[]; extra: JsonObject;
 }
 
 export const RETIRED_MEMBERS = new Set(["tableLayout", "columns", "fixedRows"]);

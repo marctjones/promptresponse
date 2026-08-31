@@ -50,13 +50,9 @@ def test_beta6_rejects_retired_embedded_signatures():
         pr.read_beta6_form(FORM[:-1] + ',"signatures":[]}', "jsonc")
 
 
-def test_beta6_rejects_duplicate_jsonc_members_and_writer_root_signatures():
+def test_beta6_rejects_duplicate_jsonc_members():
     with pytest.raises(pr.AprParseError, match="duplicate member"):
         pr.read_beta6_form(FORM.replace('"metadata":', '"metadata":{},"metadata":'), "jsonc")
-    document = pr.read_beta6_form(FORM, "jsonc")
-    document.signatures = []
-    with pytest.raises(pr.AprParseError, match="RETIRED_EMBEDDED_SIGNATURES"):
-        pr.write_beta6_form(document, "jsonc")
 
 
 def test_beta6_shared_malformed_corpus_is_rejected():

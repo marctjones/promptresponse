@@ -61,10 +61,9 @@ export function loads(text: string): AprDocument {
   if (!Array.isArray(node.sections)) throw new AprParseError("sections must be an array");
   if (!isSupportedVersion(string(node, "version", "document"))) throw new AprParseError(`Unsupported APR version ${String(node.version)}; this build accepts only ${CURRENT_VERSION}`);
   if (node.roles !== undefined && !Array.isArray(node.roles)) throw new AprParseError("roles must be an array");
-  if (node.signatures !== undefined && !Array.isArray(node.signatures)) throw new AprParseError("signatures must be an array");
   if (node.signatures !== undefined) throw new AprParseError("RETIRED_EMBEDDED_SIGNATURES");
   const known = new Set(["version", "documentType", "metadata", "sections", "roles", "signatures"]);
-  return { version: string(node, "version", "document") ?? "", documentType: string(node, "documentType", "document"), metadata: parseMetadata(node.metadata), sections: (node.sections as JsonValue[]).map(parseSection), roles: node.roles === undefined ? undefined : (node.roles as JsonValue[]).map(parseRole), signatures: node.signatures as JsonValue[] | undefined, extra: rest(node, known) };
+  return { version: string(node, "version", "document") ?? "", documentType: string(node, "documentType", "document"), metadata: parseMetadata(node.metadata), sections: (node.sections as JsonValue[]).map(parseSection), roles: node.roles === undefined ? undefined : (node.roles as JsonValue[]).map(parseRole), extra: rest(node, known) };
 }
 const compact = (node: Record<string, JsonValue | undefined>): JsonObject => Object.fromEntries(Object.entries(node).filter(([, value]) => value !== undefined && value !== null && !(Array.isArray(value) && value.length === 0) && !(typeof value === "object" && !Array.isArray(value) && Object.keys(value as object).length === 0))) as JsonObject;
 function hintsJson(hints: PromptHints): JsonObject { return { ...compact({ expectedDataType: hints.expectedDataType, placeholder: hints.placeholder, helpText: hints.helpText, validationPattern: hints.validationPattern, suggestedValues: hints.suggestedValues, min: hints.min, max: hints.max, step: hints.step, exprHidden: hints.exprHidden, exprValue: hints.exprValue, exprExpected: hints.exprExpected, exprValidation: hints.exprValidation, exprReadOnly: hints.exprReadOnly }), ...hints.extra }; }
@@ -73,7 +72,6 @@ function sectionJson(section: Section): JsonObject { const node: JsonObject = { 
 /** Serialize an APR document while preserving unknown non-retired members. */
 export function dumps(document: AprDocument, indent = 2): string {
   if (!isSupportedVersion(document.version)) throw new AprParseError(`Unsupported APR version ${document.version}; this build accepts only ${CURRENT_VERSION}`);
-  if (document.signatures !== undefined) throw new AprParseError("RETIRED_EMBEDDED_SIGNATURES");
   const metadata: JsonObject = { title: document.metadata.title, ...compact({ description: document.metadata.description, author: document.metadata.author, created: document.metadata.created, modified: document.metadata.modified, templateId: document.metadata.templateId, templateVersion: document.metadata.templateVersion, filledBy: document.metadata.filledBy, filledDate: document.metadata.filledDate, publisher: document.metadata.publisher, submissionUrls: document.metadata.submissionUrls }), ...document.metadata.extra };
   const node: JsonObject = { version: document.version, metadata, sections: document.sections.map(sectionJson) }; if (document.documentType) node.documentType = document.documentType; if (document.roles) node.roles = document.roles.map(role => ({ ...compact({ id: role.id, name: role.name, description: role.description }), ...role.extra })); return JSON.stringify({ ...node, ...document.extra }, null, indent);
 }

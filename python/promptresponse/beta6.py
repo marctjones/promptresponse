@@ -61,8 +61,6 @@ def write_beta6_form(document: AprDocument, representation: str) -> str:
     """Write a beta.6 form in canonical JSONC or YAML source."""
     if document.version != VERSION:
         raise AprParseError(f"APR beta.6 writers require version {VERSION}")
-    if document.signatures is not None:
-        raise AprParseError("RETIRED_EMBEDDED_SIGNATURES")
     return _write_json(dumps(document), representation)
 
 

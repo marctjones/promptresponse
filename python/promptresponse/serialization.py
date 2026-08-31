@@ -195,12 +195,11 @@ def loads(text: str) -> AprDocument:
             if roles is not None
             else None
         ),
-        signatures=node.get("signatures"),
         extra=_rest(node, known),
     )
     if not is_supported_version(document.version):
         raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}")
-    if document.signatures is not None:
+    if "signatures" in node:
         raise AprParseError("RETIRED_EMBEDDED_SIGNATURES")
     return document
 
@@ -274,8 +273,6 @@ def dumps(document: AprDocument, indent: int = 2) -> str:
     """Writes APR JSON, preserving every member this reader did not recognise."""
     if not is_supported_version(document.version):
         raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}")
-    if document.signatures is not None:
-        raise AprParseError("RETIRED_EMBEDDED_SIGNATURES")
     metadata = {"title": document.metadata.title}
     metadata.update(_compact({
         "description": document.metadata.description,
@@ -301,8 +298,6 @@ def dumps(document: AprDocument, indent: int = 2) -> str:
             for r in document.roles
         ]
     node["sections"] = [_section_json(s) for s in document.sections]
-    if document.signatures:
-        node["signatures"] = document.signatures
     node.update(document.extra)
 
     return json.dumps(node, indent=indent, ensure_ascii=False)

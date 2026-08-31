@@ -77,20 +77,9 @@ def test_any_text_is_a_valid_response_whatever_the_hint_asked_for(answer):
 
 # ── 4.8 unknown members ──────────────────────────────────────────────────────
 
-def test_a_member_from_a_newer_minor_version_survives_being_saved():
-    source = (
-        '{"version":"1.1","metadata":{"title":"T","futureThing":"kept"},"sections":'
-        '[{"id":"s","title":"S","somethingNew":"also kept","prompts":'
-        '[{"id":"p","label":"L","response":"","inventedLater":"kept too"}]}]}'
-    )
-    written = pr.dumps(pr.loads(source))
-
-    for expected in ("futureThing", "somethingNew", "inventedLater", "kept"):
-        assert expected in written, (
-            f"{expected} was dropped. Without preservation every additive change to "
-            "the format is destructive: an older reader silently strips what it does "
-            "not recognise the first time somebody saves (specification 4.8)"
-        )
+def test_an_old_version_is_rejected():
+    with pytest.raises(pr.AprParseError, match="1.0-beta.6"):
+        pr.loads('{"version":"1.1","metadata":{"title":"T"},"sections":[]}')
 
 
 def test_retired_members_are_dropped_rather_than_carried_forward():
@@ -106,16 +95,6 @@ def test_retired_members_are_dropped_rather_than_carried_forward():
 
 
 # ── 6.1 the error list is exhaustive ─────────────────────────────────────────
-
-def test_no_error_ever_arises_from_a_signature():
-    """Specification 6.1 and 9.5: a validator that rejects a document because a
-    signature is missing or broken is not implementing APR."""
-    document = pr.loads(
-        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
-        '[{"id":"s","title":"S","prompts":[{"id":"p","label":"L","response":""}]}],'
-        '"signatures":[{"id":"x","role":"filler","cms":"not-even-base64"}]}'
-    )
-    assert pr.validate(document).is_valid
 
 
 def test_a_section_and_a_prompt_may_share_an_id():

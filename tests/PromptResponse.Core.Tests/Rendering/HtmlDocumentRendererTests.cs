@@ -36,19 +36,6 @@ public class HtmlDocumentRendererTests
         Encoding.UTF8.GetString(r.RenderToBytes(doc, o));
 
     [Fact]
-    public void Render_SignedDocument_ShowsSignatureStatus()
-    {
-        var doc = SampleDoc();
-        using var cert = PromptResponse.Core.Signing.SignatureCertificates.CreateSelfSigned(
-            "Town of Bloomfield", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1));
-        doc.Signatures = [PromptResponse.Core.Signing.AprSigner.SignTemplate(doc, cert, DateTime.UtcNow)];
-
-        var html = Render(_renderer, doc);
-
-        html.Should().Contain("Signatures").And.Contain("Town of Bloomfield").And.Contain("verified");
-    }
-
-    [Fact]
     public void FormatMetadata_IsHtml()
     {
         _renderer.FormatId.Should().Be("html");

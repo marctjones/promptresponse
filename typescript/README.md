@@ -1,8 +1,8 @@
 # @promptresponse/core
 
 The browser and Node.js core SDK for the APR form format. It implements the
-`core` profile: parse, validate, render HTML, fill, and write. It deliberately
-preserves expression hints and signatures without evaluating or verifying them.
+beta.6 profile: parse, validate, render HTML, fill, write, and inspect independent
+attestation records. It does not make trust decisions for callers.
 
 ```ts
 import { dumps, loads, validate } from "@promptresponse/core";

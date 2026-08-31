@@ -21,7 +21,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "tests" / "registry.json"
-CORPUS = ROOT / "tests" / "Conformance" / "v1"
+CORPUS = ROOT / "tests" / "Conformance" / "beta6"
 SPEC = ROOT / "docs" / "APR_SPECIFICATION.md"
 
 

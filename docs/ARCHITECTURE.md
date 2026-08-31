@@ -7,7 +7,7 @@ Corpus + schema + specification
              │
      PromptResponse.Core
   model · parse/write · validation
-  expressions · signing · rendering model
+  expressions · attestation records · rendering model
       │             │             │
  Desktop (Avalonia) CLI       PDF renderer/importer
       │             │             │
@@ -19,7 +19,7 @@ Python, TypeScript, and Java SDKs independently exercise the shared corpus. Loca
 | Layer | Owns | Must not own |
 | --- | --- | --- |
 | Format artifacts | APR meaning and compatibility | UI policy or hosted workflows |
-| Core | model, serialization, validation, expressions, signatures, render model | Avalonia, file dialogs, network UI |
+| Core | model, serialization, validation, expressions, attestations, render model | Avalonia, file dialogs, network UI |
 | Renderers/importers | derived PDF/HTML and controlled import | APR layout fields |
 | Desktop | interactive author/fill workflow and local services | new format semantics |
 | CLI | deterministic automation and explicit operations | hidden background submission |

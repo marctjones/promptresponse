@@ -25,10 +25,7 @@ public sealed class HtmlDocumentRenderer : IDocumentRenderer
         ".value{white-space:pre-wrap}.help{font-size:.85em;color:#666;margin:.1rem 0 0}" +
         "table{border-collapse:collapse;width:100%;margin:.75rem 0}" +
         "th,td{border:1px solid #ccc;padding:.4rem .6rem;text-align:left;vertical-align:top}" +
-        "th{background:#f5f5f5}" +
-        ".signatures{list-style:none;padding:0}.sig{border-left:3px solid #2e7d32;padding:.4rem .6rem;margin:.5rem 0;background:#f6f9f6}" +
-        ".sig.bad{border-left-color:#b00;background:#fbf0f0}.sig-badge{font-weight:600}.sig.bad .sig-badge{color:#b00}" +
-        ".sig-status{font-size:.85em;color:#555}";
+        "th{background:#f5f5f5}";
 
     private readonly IDocumentRenderModelBuilder _builder;
 

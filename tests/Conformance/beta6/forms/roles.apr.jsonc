@@ -1,0 +1,28 @@
+{
+  "version": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": { "title": "Patient Intake", "templateId": "intake", "templateVersion": "1.0" },
+  "roles": [
+    { "id": "patient", "name": "Patient", "description": "The person receiving care." },
+    { "id": "nurse", "name": "Nurse", "description": "Clinical staff recording observations." },
+    { "id": "office", "name": "Office use" }
+  ],
+  "sections": [
+    { "id": "patient_details", "title": "About you", "role": "patient", "prompts": [
+      { "id": "name", "label": "Full name", "response": "", "hints": { "expectedDataType": "text" } },
+      { "id": "dob", "label": "Date of birth", "response": "", "hints": { "expectedDataType": "date" } }
+    ] },
+    { "id": "observations", "title": "Clinical observations", "role": "nurse", "prompts": [
+      { "id": "bp", "label": "Blood pressure", "response": "", "hints": { "expectedDataType": "text" } },
+      { "id": "weight", "label": "Weight (kg)", "response": "", "hints": { "expectedDataType": "number", "min": "0", "max": "400" } },
+      { "id": "symptoms", "label": "Describe your symptoms in your own words", "response": "", "role": "patient", "hints": { "expectedDataType": "multiline" } }
+    ] },
+    { "id": "office", "title": "For office use only", "role": "office", "prompts": [
+      { "id": "ref", "label": "Reference number", "response": "", "hints": { "expectedDataType": "text" } },
+      { "id": "received", "label": "Date received", "response": "", "hints": { "expectedDataType": "date" } }
+    ] },
+    { "id": "consent", "title": "Consent", "prompts": [
+      { "id": "agree", "label": "I confirm the above is accurate", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["Yes", "No"] } }
+    ] }
+  ]
+}

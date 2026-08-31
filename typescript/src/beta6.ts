@@ -25,7 +25,6 @@ export function readBeta6Form(source: string, representation: Beta6Representatio
 /** Writes one beta.6 form in the requested representation. */
 export function writeBeta6Form(document: AprDocument, representation: Beta6Representation): string {
   if (document.version !== VERSION) throw new AprParseError(`APR beta.6 writers require version ${VERSION}`);
-  if (document.signatures !== undefined && document.signatures !== null) throw new AprParseError("RETIRED_EMBEDDED_SIGNATURES");
   const json = dumps(document);
   return representation === "jsonc" ? json : stringify(JSON.parse(json));
 }

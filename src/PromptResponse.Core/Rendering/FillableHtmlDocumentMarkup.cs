@@ -17,8 +17,6 @@ internal static class FillableHtmlDocumentMarkup
         "textarea{min-height:4.5rem;resize:vertical}" +
         "table{border-collapse:collapse;width:100%;margin:.75rem 0}" +
         "th,td{border:1px solid #ccc;padding:.4rem .6rem;text-align:left;vertical-align:top}th{background:#f5f5f5}" +
-        ".signatures{list-style:none;padding:0}.sig{border-left:3px solid #2e7d32;padding:.4rem .6rem;margin:.5rem 0;background:#f6f9f6}" +
-        ".sig.bad{border-left-color:#b00;background:#fbf0f0}.sig-badge{font-weight:600}.sig.bad .sig-badge{color:#b00}.sig-status{font-size:.85em;color:#555}" +
         ".bar{position:sticky;bottom:0;background:#fff;border-top:1px solid #ddd;padding:1rem 0;margin-top:2rem}" +
         ".bar button{font:inherit;font-weight:600;padding:.55rem 1.1rem;border:0;border-radius:6px;background:#0b5fff;color:#fff;cursor:pointer}" +
         ".bar button:hover{background:#0848c4}";

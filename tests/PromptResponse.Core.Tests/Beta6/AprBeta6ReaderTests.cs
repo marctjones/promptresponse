@@ -89,19 +89,6 @@ public class AprBeta6ReaderTests
     }
 
     [Fact]
-    public void Writer_RejectsRetiredEmbeddedSignatures()
-    {
-        var form = _reader.ReadForm("""
-            {"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[]}]}
-            """, AprRepresentation.Jsonc);
-        form.Signatures = [new Core.Models.Signature { Role = Core.Models.SignatureRole.Publisher }];
-
-        var write = () => _reader.WriteForm(form, AprRepresentation.Jsonc);
-
-        write.Should().Throw<SerializationException>().WithMessage("*RETIRED_EMBEDDED_SIGNATURES*");
-    }
-
-    [Fact]
     public void Writer_PreservesEveryStreamOccurrence()
     {
         const string form = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"\"}]}]}";

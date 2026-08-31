@@ -46,11 +46,8 @@ test("beta.6 rejects the retired root signatures field", () => {
   assert.throws(() => readBeta6Form(retired, "jsonc"), /RETIRED_EMBEDDED_SIGNATURES/);
 });
 
-test("beta.6 rejects duplicate JSONC members and writer root signatures", () => {
+test("beta.6 rejects duplicate JSONC members", () => {
   assert.throws(() => readBeta6Form(form.replace('"metadata":', '"metadata":{},"metadata":'), "jsonc"), /duplicate member/);
-  const document = readBeta6Form(form, "jsonc");
-  document.signatures = [];
-  assert.throws(() => writeBeta6Form(document, "jsonc"), /RETIRED_EMBEDDED_SIGNATURES/);
 });
 
 test("beta.6 shared malformed corpus is rejected", async () => {

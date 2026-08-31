@@ -31,12 +31,9 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 | **TypeScript** — `typescript/` | browser-safe beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and async detached CMS content verification | beta.6 shared-corpus tests; trust is caller policy |
 | **Java** — `java/` | beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and detached CMS content verification | beta.6 shared-corpus tests; trust is caller policy |
 
-The Python and TypeScript SDKs run the same conformance corpus as .NET. The Python one implements the **core
-profile** deliberately: it parses expression hints and signatures, preserves
-them untouched, and evaluates or verifies neither. That is what lets it test
-what a core-only reader must do — a rule the .NET implementation structurally
-cannot check, because an implementation providing every profile can never
-behave like one that does not.
+The Python and TypeScript SDKs run the same beta.6 corpus as .NET. They parse
+forms and independent attestation records without treating an attestation as a
+member of its form; trust policy stays with the calling application.
 
 It also earns its keep as a second opinion. Within an hour of existing it found
 a conformance bug in .NET that had been invisible since tables were redesigned:

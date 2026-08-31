@@ -25,12 +25,11 @@ health.
 
 | Component | Owns | Must not own | Evidence |
 | --- | --- | --- | --- |
-| `MainShellViewModel` | composition, document/tree lifecycle, command compatibility, screen-level derived state | certificate/signature workflow details, renderer implementation, file-format semantics | desktop shell, GUI, and accessibility tests |
-| `ViewModels/Signing/SignatureWorkflow` | signature verification/status, field coverage, breakage notice, deliberate removal, certificate-backed signing | XAML ownership, document-tree construction, trust/key-store product expansion | signature, coverage, and breakage tests |
+| `MainShellViewModel` | composition, document/tree lifecycle, command compatibility, screen-level derived state | renderer implementation, file-format semantics, trust policy | desktop shell, GUI, and accessibility tests |
 | `SectionViewModel` | section tree projection and structural editing | a second application shell or unrelated document I/O | section/table and undo/redo tests |
 
-Document I/O/export/delivery, table-shape editing, and signature workflow are
-separate services. `MainShellViewModel` remains their composition boundary; a new
+Document I/O/export/delivery and table-shape editing are separate services.
+`MainShellViewModel` remains their composition boundary; a new
 feature must extend the owning service rather than reintroduce those concerns into
 the shell.
 
