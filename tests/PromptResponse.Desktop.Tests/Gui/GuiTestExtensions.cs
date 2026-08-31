@@ -14,6 +14,21 @@ namespace PromptResponse.Desktop.Tests.Gui;
 /// </summary>
 public static class GuiTestExtensions
 {
+    /// <summary>Returns a disposable path for generated GUI-test evidence.</summary>
+    public static string EvidencePath(string fileName)
+    {
+        var directory = new DirectoryInfo(Directory.GetCurrentDirectory());
+        while (directory.Parent is not null && !File.Exists(Path.Combine(directory.FullName, "PromptResponse.sln")))
+        {
+            directory = directory.Parent;
+        }
+
+        var root = Environment.GetEnvironmentVariable("PROMPTRESPONSE_GUI_EVIDENCE_DIR")
+            ?? Path.Combine(directory.FullName, "TestResults", "gui-evidence");
+        Directory.CreateDirectory(root);
+        return Path.Combine(root, fileName);
+    }
+
     /// <summary>
     /// Wraps a control in a host <see cref="Window"/>, shows it headlessly, and runs layout
     /// so it has a valid visual tree before assertions.

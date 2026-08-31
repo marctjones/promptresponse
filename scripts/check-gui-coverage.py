@@ -14,15 +14,18 @@ nothing mentions is certainly untested.
 Writes tests/gui-coverage.json and prints a summary.
 """
 import json
+import os
 import pathlib
 import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-INVENTORY = ROOT / "tests" / "gui-inventory.json"
-EXERCISED = ROOT / "tests" / "gui-exercised.json"
+EVIDENCE = pathlib.Path(os.environ.get(
+    "PROMPTRESPONSE_GUI_EVIDENCE_DIR", ROOT / "TestResults" / "gui-evidence"))
+INVENTORY = EVIDENCE / "gui-inventory.json"
+EXERCISED = EVIDENCE / "gui-exercised.json"
 GUI_TESTS = ROOT / "tests" / "PromptResponse.Desktop.Tests" / "Gui"
-OUT = ROOT / "tests" / "gui-coverage.json"
+OUT = EVIDENCE / "gui-coverage.json"
 
 # Control-template parts, not app-authored controls. A ComboBox's dropdown button is
 # Avalonia's, not ours, and is unreachable by keyboard by design.
@@ -36,7 +39,7 @@ def test_corpus():
 
 def main():
     if not INVENTORY.is_file():
-        sys.exit("Run GuiInventoryTests first to generate tests/gui-inventory.json")
+        sys.exit("Run GuiInventoryTests first to generate gui-inventory.json in the evidence directory")
 
     inventory = json.loads(INVENTORY.read_text(encoding="utf-8"))
     corpus = test_corpus()
@@ -75,6 +78,7 @@ def main():
         "untested": sorted(untested, key=lambda r: (r["surface"], r["kind"], r["label"])),
         "elements": rows,
     }
+    OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
     if "--json" in sys.argv:

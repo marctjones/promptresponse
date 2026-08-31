@@ -19,7 +19,7 @@ namespace PromptResponse.Desktop.Tests.Gui;
 
 /// <summary>
 /// Walks the rendered visual tree and writes an inventory of every interactive element
-/// to tests/gui-inventory.json.
+/// to a disposable gui-inventory.json artifact.
 /// </summary>
 /// <remarks>
 /// Enumerating the interface by hand goes stale the moment someone adds a button, and
@@ -40,13 +40,6 @@ public class GuiInventoryTests
 
     private sealed record Element(
         string Surface, string Kind, string? Name, string? Text, bool Enabled, bool CanFocus);
-
-    private static string RepoRoot()
-    {
-        var d = new DirectoryInfo(Directory.GetCurrentDirectory());
-        while (d != null && !File.Exists(Path.Combine(d.FullName, "PromptResponse.sln"))) d = d.Parent;
-        return d!.FullName;
-    }
 
     private static AprDocument Doc() => new()
     {
@@ -174,7 +167,7 @@ public class GuiInventoryTests
             surfaces = bySurface,
         };
 
-        var outPath = Path.Combine(RepoRoot(), "tests", "gui-inventory.json");
+        var outPath = GuiTestExtensions.EvidencePath("gui-inventory.json");
         File.WriteAllText(outPath, JsonSerializer.Serialize(payload,
             new JsonSerializerOptions { WriteIndented = true }));
 

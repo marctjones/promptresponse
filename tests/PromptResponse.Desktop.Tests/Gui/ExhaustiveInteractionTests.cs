@@ -19,7 +19,7 @@ using Xunit;
 namespace PromptResponse.Desktop.Tests.Gui;
 
 /// <summary>
-/// Activates every interactive element in the shell and records what it touched.
+/// Activates every interactive element in the shell and records disposable evidence.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -29,7 +29,7 @@ namespace PromptResponse.Desktop.Tests.Gui;
 /// hit - the application does not throw, and the document stays structurally valid.
 /// </para>
 /// <para>
-/// It writes tests/gui-exercised.json, so coverage is measured by what was actually
+/// It writes a disposable gui-exercised.json artifact, so coverage is measured by what was actually
 /// activated at runtime rather than by which control names happen to appear in test
 /// source. That distinction matters: a name can be mentioned in a comment.
 /// </para>
@@ -52,13 +52,6 @@ public class ExhaustiveInteractionTests
     [
         "Exit", "Quit", "Close window", "New document", "New template", "Open", "Save as", "Browse",
     ];
-
-    private static string RepoRoot()
-    {
-        var d = new DirectoryInfo(Directory.GetCurrentDirectory());
-        while (d != null && !File.Exists(Path.Combine(d.FullName, "PromptResponse.sln"))) d = d.Parent;
-        return d!.FullName;
-    }
 
     private static string? NameOf(Visual v) =>
         v.GetValue(Avalonia.Automation.AutomationProperties.NameProperty) as string
@@ -174,7 +167,7 @@ public class ExhaustiveInteractionTests
         }
 
         // Merge into the exercised register so coverage reflects runtime activation.
-        var path = Path.Combine(RepoRoot(), "tests", "gui-exercised.json");
+        var path = GuiTestExtensions.EvidencePath("gui-exercised.json");
         var existing = File.Exists(path)
             ? JsonSerializer.Deserialize<List<JsonElement>>(File.ReadAllText(path))!
                 .Where(e => e.GetProperty("surface").GetString() != surface)
