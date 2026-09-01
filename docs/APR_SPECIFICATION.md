@@ -971,10 +971,11 @@ When they disagree the document is still **valid**; a validator reports
 Sections nest recursively. Every implementation **MUST** support at least **16
 levels** of section nesting. Implementations **MAY** support more.
 
+Any particular ceiling above that floor is an implementation detail and
+**MUST NOT** be relied upon by a document author.
+
 > Rationale: unbounded depth is not implementable. Every real parser has a depth
-> limit, and a format that promises infinity promises a stack overflow. Any
-> particular ceiling above the floor is an implementation detail and **MUST NOT**
-> be relied upon.
+> limit, and a format that promises infinity promises a stack overflow.
 
 Authors **SHOULD** stay far below the floor. Forms nested more than four or five
 levels deep are difficult to navigate with any input method.

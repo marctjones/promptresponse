@@ -1,0 +1,135 @@
+{
+  "$comment": "The shape an APR specification must have, expressed as data so it can be checked rather than asserted. Each property records the specification it is borrowed from, so a reviewer can see what is being copied and why. Verified by scripts/check-spec-shape.py.",
+  "manifestVersion": "apr-spec-shape-1",
+  "specification": "docs/APR_SPECIFICATION.md",
+
+  "modelledOn": [
+    {
+      "name": "CommonMark",
+      "source": "https://spec.commonmark.org/",
+      "propertiesAdopted": [
+        "one normative file, with no separately maintained corpus that could disagree with it",
+        "executable examples embedded in the specification and extracted into the test suite",
+        "an explicit statement of what is normative and what is illustrative"
+      ]
+    },
+    {
+      "name": "YAML 1.2.2",
+      "source": "https://yaml.org/spec/1.2.2/",
+      "propertiesAdopted": [
+        "separation of semantic model, serialization, and presentation",
+        "processing roles defined by obligation",
+        "a terminology chapter that front-loads defined terms",
+        "syntax defined by production rather than by prose description"
+      ]
+    },
+    {
+      "name": "RFC 8259 (JSON)",
+      "source": "https://www.rfc-editor.org/rfc/rfc8259",
+      "propertiesAdopted": [
+        "a complete grammar in ABNF",
+        "normative and informative references separated",
+        "a security considerations section",
+        "BCP 14 requirement language"
+      ]
+    }
+  ],
+
+  "frontMatter": [
+    "Specification document version",
+    "Describes format version",
+    "Status",
+    "Published",
+    "Editor",
+    "Normative schema",
+    "Conformance corpus",
+    "Repository"
+  ],
+
+  "requiredSections": [
+    { "anchor": "scope", "borrowedFrom": "CommonMark §1, YAML ch.1", "purpose": "what this is and what defines it" },
+    { "anchor": "normative-language", "borrowedFrom": "RFC 8259 §1.2", "purpose": "BCP 14 keywords" },
+    { "anchor": "conventions", "borrowedFrom": "CommonMark", "purpose": "normative vs illustrative vs rationale" },
+    { "anchor": "terminology", "borrowedFrom": "YAML ch.3", "purpose": "defined terms in one place" },
+    { "anchor": "conformance", "borrowedFrom": "YAML ch.10, RFC 8259 §9", "purpose": "conformance classes" },
+    { "anchor": "representations", "borrowedFrom": "YAML ch.5-8", "purpose": "concrete syntaxes" },
+    { "anchor": "syntax-conventions", "borrowedFrom": "YAML ch.4", "purpose": "how to read the grammar" },
+    { "anchor": "apr-jsonc", "borrowedFrom": "RFC 8259 §2-7", "purpose": "JSONC grammar" },
+    { "anchor": "apr-yaml", "borrowedFrom": "YAML ch.5-9", "purpose": "restricted YAML" },
+    { "anchor": "form-model", "borrowedFrom": "YAML ch.3", "purpose": "the data model" },
+    { "anchor": "validation", "borrowedFrom": "RFC 8259 §9", "purpose": "what makes a document invalid" },
+    { "anchor": "streams", "borrowedFrom": "YAML ch.9", "purpose": "document streams" },
+    { "anchor": "security", "borrowedFrom": "RFC 8259 §12", "purpose": "security considerations" },
+    { "anchor": "checklist", "borrowedFrom": "CommonMark", "purpose": "implementer checklist" },
+    { "anchor": "open-questions", "borrowedFrom": "RFC practice", "purpose": "declared gaps" },
+    { "anchor": "history", "borrowedFrom": "RFC practice", "purpose": "change history" },
+    { "anchor": "normative-references", "borrowedFrom": "RFC 8259 §13.1", "purpose": "binding references" },
+    { "anchor": "informative-references", "borrowedFrom": "RFC 8259 §13.2", "purpose": "non-binding references" },
+    { "anchor": "provenance", "borrowedFrom": "APR-specific", "purpose": "where this text comes from" },
+    { "anchor": "corpus-gaps", "borrowedFrom": "APR-specific", "purpose": "rules without vectors" }
+  ],
+
+  "structuralProperties": [
+    {
+      "id": "every-heading-anchored",
+      "borrowedFrom": "APR-specific; YAML and CommonMark cite stable numbers instead",
+      "requirement": "Every heading carries an explicit {#anchor}, because section numbers renumber and anchors do not."
+    },
+    {
+      "id": "single-file",
+      "borrowedFrom": "CommonMark spec.txt",
+      "requirement": "The specification references no other document as normative. The format is fully described by this one file."
+    },
+    {
+      "id": "examples-are-executable",
+      "borrowedFrom": "CommonMark spec.txt plus spec_tests.py",
+      "requirement": "Examples marked apr-example are extracted into conformance vectors and executed."
+    },
+    {
+      "id": "examples-cite-a-rule",
+      "borrowedFrom": "CommonMark example-to-section association",
+      "requirement": "Every executable example names the specification anchor it demonstrates."
+    },
+    {
+      "id": "grammar-by-reference",
+      "borrowedFrom": "RFC 8259 ABNF; YAML productions",
+      "requirement": "Concrete syntax is defined by ABNF or by named reference to another specification, not by prose alone."
+    },
+    {
+      "id": "normative-and-informative-references-separated",
+      "borrowedFrom": "RFC 8259 §13",
+      "requirement": "Two reference sections exist, and every cited designation appears in one of them."
+    },
+    {
+      "id": "rationale-is-marked-non-normative",
+      "borrowedFrom": "CommonMark; RFC practice",
+      "requirement": "Explanatory text is marked so that removing it cannot change the requirements."
+    },
+    {
+      "id": "derived-artifacts-named",
+      "borrowedFrom": "CommonMark's generated test suite",
+      "requirement": "The specification names which artifacts are derived from it and states that a disagreement is the derived artifact's defect."
+    }
+  ],
+
+  "knownShortfalls": [
+    {
+      "id": "no-rule-identifiers",
+      "issue": 256,
+      "requirement": "Every normative clause should carry a stable identifier, the way CommonMark numbers examples and YAML numbers productions, so a test can cite one rule rather than a section.",
+      "status": "not started"
+    },
+    {
+      "id": "schema-not-generated",
+      "issue": 262,
+      "requirement": "The JSON Schema is named a derived projection but is maintained by hand.",
+      "status": "not started"
+    },
+    {
+      "id": "semantic-review-is-generic",
+      "issue": 263,
+      "requirement": "The local model review asks generic coverage questions rather than checking against this manifest and the concept registry.",
+      "status": "not started"
+    }
+  ]
+}

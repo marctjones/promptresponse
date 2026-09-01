@@ -148,6 +148,12 @@ jobs:
         # have an entry.
         run: python3 scripts/check-test-registry.py
 
+      - name: Verify the specification has its declared shape
+        # tests/spec-shape/manifest.json records the structural properties borrowed
+        # from CommonMark, YAML 1.2.2 and RFC 8259. This checks them, so "written
+        # like those specifications" is verified rather than asserted.
+        run: python3 scripts/check-spec-shape.py
+
       - name: Verify the conformance vectors still match the specification
         # The specification is normative and the corpus is derived from it. This
         # regenerates the vectors from the examples embedded in the specification
