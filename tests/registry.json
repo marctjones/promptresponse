@@ -129,21 +129,6 @@
       }
     },
     {
-      "id": "desktop.conformance",
-      "component": "Desktop corpus conformance",
-      "language": "csharp",
-      "path": "tests/PromptResponse.Desktop.Tests/Conformance",
-      "runsInCi": true,
-      "gate": "the shared corpus, through the desktop view-model layer",
-      "notes": "Opening changes no response; a round-trip preserves documentType, version and unknown members; every prompt accepts any string whatever its hint; an invalid document still opens so the problem can be shown; a malformed one is refused; a tampered signature does not withhold the data.",
-      "dimensions": {
-        "completeness": "partial",
-        "conformance": "gated",
-        "correctness": "gated",
-        "robustness": "partial"
-      }
-    },
-    {
       "id": "real-files",
       "component": "Real documents (Core / Rendering.Pdf / Desktop)",
       "language": "csharp",

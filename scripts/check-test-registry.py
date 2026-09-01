@@ -126,9 +126,18 @@ def main():
             notes.append(f"{req['id']}: {req['strength']} but records no gap explanation")
 
     # 4. Suites must point at something real.
+    #
+    # A directory must contain a file, not merely exist. Git does not track an empty
+    # directory, so one left behind by a deletion still exists in a working copy and
+    # is absent from every fresh checkout - passing here and failing only in CI.
     for suite in registry["suites"]:
-        if not (ROOT / suite["path"]).exists():
+        target = ROOT / suite["path"]
+        if not target.exists():
             problems.append(f"suite {suite['id']}: path does not exist — {suite['path']}")
+        elif target.is_dir() and not any(target.rglob("*")):
+            problems.append(
+                f"suite {suite['id']}: directory is empty, so it is absent from a fresh "
+                f"checkout — {suite['path']}")
 
     # 5. Fixtures nobody claims are invisible coverage.
     for orphan in sorted(fixtures_on_disk - claimed_fixtures):
