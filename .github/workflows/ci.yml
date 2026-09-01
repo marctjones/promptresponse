@@ -109,8 +109,11 @@ jobs:
           distribution: temurin
           java-version: "21"
 
-      - name: Install jsonschema
-        run: pip install --disable-pip-version-check jsonschema
+      - name: Install schema-gate dependencies
+        # PyYAML is required, not optional: the gate validates the beta.6 APR-YAML
+        # forms and streams, and reports a missing parser as a failure rather than
+        # skipping them, so that half the corpus cannot pass by being unreadable.
+        run: pip install --disable-pip-version-check jsonschema PyYAML
 
       # The Python SDK runs the same corpus as the .NET one. A second
       # implementation disagreeing is the cheapest signal that the corpus or the
