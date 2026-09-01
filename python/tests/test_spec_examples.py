@@ -27,16 +27,7 @@ VECTORS = (
 # Examples where the reference implementation does not yet do what the
 # specification requires. Each entry is an implementation defect, not a
 # specification question.
-KNOWN_DIVERGENCES = {
-    "yaml-directive": (
-        "The reader accepts a %YAML directive that the specification excludes. See #264."
-    ),
-    "yaml-legacy-boolean-is-a-string": (
-        "The reader rejects a plain 'yes' scalar. The specification resolves any "
-        "plain scalar that is not a JSON literal as a string, so this is a valid "
-        "response of \"yes\". See #264."
-    ),
-}
+KNOWN_DIVERGENCES: dict[str, str] = {}
 
 
 def load_examples():

@@ -48,12 +48,26 @@
       "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Permit Application\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: about twelve\n"
     },
     {
+      "id": "yaml-date-like-is-a-string",
+      "rule": "yaml-resolution",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Date-like\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 2026-01-01\n"
+    },
+    {
       "id": "yaml-directive",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
       "document": "%YAML 1.2\n---\nversion: \"1.0-beta.6\"\nmetadata:\n  title: Directed\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_DIRECTIVE_FORBIDDEN"
+    },
+    {
+      "id": "yaml-leading-zero-is-a-string",
+      "rule": "yaml-resolution",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Leading zero\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 012\n"
     },
     {
       "id": "yaml-legacy-boolean-is-a-string",

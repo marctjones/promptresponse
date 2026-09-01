@@ -41,7 +41,7 @@ def read_beta6_stream(source: str, representation: str) -> List[Beta6Record]:
     elif representation == "yaml":
         try:
             _reject_yaml_features(source)
-            raw = [json.dumps(document, ensure_ascii=False) for document in yaml.safe_load_all(source)]
+            raw = [json.dumps(document, ensure_ascii=False) for document in yaml.load_all(source, AprYamlLoader)]
         except yaml.YAMLError as exc:
             raise AprParseError(f"invalid APR YAML: {exc}") from exc
     else:
@@ -133,9 +133,54 @@ def _split_jsonc(source: str) -> List[str]:
     return records
 
 
+# APR-YAML resolves scalars to the JSON value space, which is not what a stock
+# YAML 1.1 loader does. PyYAML resolves "yes" and "on" as booleans, ".inf" as a
+# float, "2026-01-01" as a date, and "012" as octal 10 - the last of which is
+# silent data corruption in a response. The specification's resolution table is
+# implemented here instead: quoted scalars are strings, the null, boolean and
+# JSON number forms resolve to those types, and any other plain scalar is a
+# string.
+_JSON_NUMBER = r"-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?"
+_NON_FINITE = re.compile(r"^[-+]?\.(?:inf|Inf|INF|nan|NaN|NAN)$")
+_DIRECTIVE = re.compile(r"(?m)^%(?:YAML|TAG)\b")
+
+
+class AprYamlLoader(yaml.SafeLoader):
+    """A YAML loader whose scalar resolution is the specification's, not YAML 1.1's."""
+
+
+AprYamlLoader.yaml_implicit_resolvers = {}
+AprYamlLoader.add_implicit_resolver(
+    "tag:yaml.org,2002:null", re.compile(r"^(?:~|null|Null|NULL|)$"), ["~", "n", "N", ""]
+)
+AprYamlLoader.add_implicit_resolver(
+    "tag:yaml.org,2002:bool",
+    re.compile(r"^(?:true|True|TRUE|false|False|FALSE)$"),
+    list("tTfF"),
+)
+AprYamlLoader.add_implicit_resolver(
+    "tag:yaml.org,2002:float",
+    re.compile(r"^" + _JSON_NUMBER + r"$"),
+    list("-0123456789"),
+)
+
+
+def _reject_non_finite(source: str) -> None:
+    """A non-finite float has no JSON value, so it is refused rather than coerced."""
+    for line in source.splitlines():
+        _, sep, value = line.partition(":")
+        if sep and _NON_FINITE.match(value.strip()):
+            raise AprParseError(
+                "APR YAML forbids a non-finite number: JSON cannot represent it"
+            )
+
+
 def _reject_yaml_features(source: str) -> None:
     if re.search(r"(?m)(?:^|[\s\[{,])(?:[&*!]|<<\s*:)", source):
         raise AprParseError("APR YAML forbids anchors, aliases, tags, and merge keys")
+    if _DIRECTIVE.search(source):
+        raise AprParseError("APR YAML forbids directives, including %YAML and %TAG")
+    _reject_non_finite(source)
 
 
 def _write_json(source: str, representation: str) -> str:

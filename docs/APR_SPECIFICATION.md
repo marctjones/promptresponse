@@ -651,6 +651,42 @@ sections:
 ```
 
 ```apr-example
+id: yaml-leading-zero-is-a-string
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Leading zero
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: 012
+```
+
+```apr-example
+id: yaml-date-like-is-a-string
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Date-like
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: 2026-01-01
+```
+
+```apr-example
 id: yaml-non-finite-float
 rule: yaml-resolution
 representation: yaml
