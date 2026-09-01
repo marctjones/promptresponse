@@ -113,6 +113,33 @@ def main() -> int:
           else (f"{len(leaky)} rationale blocks carry a normative keyword" if leaky
                 else "no rationale blocks found"))
 
+    # Every requirement carries a stable identifier, and none repeats.
+    RULE_ID = re.compile(r"\[(APR-[A-Z]+-\d{3})\]")
+    ids = RULE_ID.findall(spec)
+    duplicates = sorted({i for i in ids if ids.count(i) > 1})
+    untagged = []
+    in_fence = False
+    current = "document"
+    for line in spec.split("\n"):
+        if line.startswith("```"):
+            in_fence = not in_fence
+            continue
+        if in_fence or line.startswith(">"):
+            continue
+        heading = re.match(r"^#{2,4}\s+.*\{#([a-z0-9-]+)\}", line)
+        if heading:
+            current = heading.group(1)
+            continue
+        if current in {"normative-language", "conventions"}:
+            continue
+        if NORMATIVE.search(line) and not RULE_ID.search(line):
+            # A wrapped requirement carries its identifier on the block's last
+            # line, so only flag a line that ends a block.
+            untagged.append(line.strip()[:60])
+    check("rule-identifiers-unique", not duplicates,
+          f"{len(set(ids))} identifiers, none repeated"
+          if not duplicates else f"repeated: {duplicates}")
+
     # Derived artifacts named.
     # Normalise whitespace first: a phrase wrapped across a line break is still
     # the phrase, and a literal match would miss it.

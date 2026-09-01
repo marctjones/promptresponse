@@ -97,6 +97,21 @@ Four kinds of text appear here and are distinguished deliberately.
 
 Each heading carries an explicit anchor, written `{#anchor-name}`.
 
+**Every normative clause carries a rule identifier**, written `[APR-AREA-NNN]` at
+the end of the requirement it names. A test, a coverage manifest, or a defect
+report cites the identifier rather than a section, so what is being referred to
+does not depend on where it currently sits.
+
+Identifiers are append-only. A new rule takes the next free number in its area, a
+deleted rule's number is retired rather than reused, and moving a rule between
+sections does not renumber it. Nothing about an identifier is positional, so
+inserting a requirement cannot renumber its neighbours.
+
+> Rationale: CommonMark numbers its examples and YAML numbers its grammar
+> productions, and in both the numbered thing — not the section — is the unit a
+> test cites. APR states most of its requirements in prose, so the prose needs
+> the same treatment.
+
 > Rationale: **anchors, not section numbers, are the stable identifiers.**
 > Section numbers renumber whenever material is inserted, so a citation to a
 > number silently comes to mean something else, while one to `#responses` either
@@ -114,13 +129,13 @@ strictly apart.
 | **Conformance corpus tag** | every release | `tests/Conformance/beta6/` and a git tag | `corpus/beta6` |
 
 The format version **MUST NOT** track releases. Two releases that do not change
-the wire format declare the same format version, and that is correct.
+the wire format declare the same format version, and that is correct. [APR-SEC-001]
 
 #### 1.4.1 Version compatibility {#version-compatibility}
 
 `version` **MUST** be exactly `"1.0-beta.6"`. A document declaring any other
 value **MUST** be rejected with `UNSUPPORTED_VERSION`, including `1.0-beta`,
-`1.0-beta.3`, and any later beta.
+`1.0-beta.3`, and any later beta. [APR-SEC-002]
 
 > Decision (beta.6): version handling is **exact-match rejection**. An earlier
 > baseline decided compatibility by MAJOR.MINOR, so that a newer MINOR was read
@@ -133,11 +148,11 @@ value **MUST** be rejected with `UNSUPPORTED_VERSION`, including `1.0-beta`,
 > released version to negotiate with.
 
 Unknown-member preservation ([Unknown members](#extensions)) is unaffected and
-remains **REQUIRED**. It is what keeps additive change safe within a version.
+remains **REQUIRED**. It is what keeps additive change safe within a version. [APR-SEC-003]
 
 **What BETA means here:** breaking changes are intentional until the first
 public release. Implementers **SHOULD** record the corpus tag they pass, not
-just the format version.
+just the format version. [APR-SEC-004]
 
 ---
 
@@ -246,7 +261,7 @@ Additionally reads and writes streams of independent records
 ([Streams](#streams)).
 
 A core-only implementation given a stream **MUST** report
-`APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position.
+`APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position. [APR-CONF-001]
 
 ### 3.3 `core+attestations` — OPTIONAL {#profile-attestations}
 
@@ -257,7 +272,7 @@ against forms, looks up witnesses, and reports the verification vocabulary
 A core-only implementation **MUST NOT** reject a stream containing attestations,
 **MUST** preserve attestation records on round-trip, and **MUST NOT** report a
 document as verified. It **SHOULD** indicate that attestations are present but
-unchecked.
+unchecked. [APR-CONF-002]
 
 This profile is optional for a reason of policy, not merely of cost. **Nobody is
 obliged to sign, and nobody is obliged to care that something was signed.** A
@@ -275,7 +290,7 @@ A core-only implementation **MUST NOT** reject a document that uses expressions
 and **MUST** preserve the expression strings when writing it back. A host
 rendering the document presents those prompts as ordinary editable fields: a
 computed field simply becomes a field the user can type into — degraded, but
-never broken, and never lost.
+never broken, and never lost. [APR-CONF-003]
 
 ### 3.5 Declaring conformance {#declaring-conformance}
 
@@ -283,7 +298,7 @@ State the profiles you implement and the corpus commit you pass. "APR
 1.0-beta.6 core+streams, corpus beta6 @ `<sha>`" is a complete and honest claim.
 
 An implementation **MUST NOT** claim a profile without passing the corpus
-revision it names.
+revision it names. [APR-CONF-004]
 
 ---
 
@@ -311,7 +326,7 @@ meaningful: it is computed over the model, never over the bytes.
 Information is discarded deliberately when moving from presentation to model.
 Source trivia **MUST NOT** carry APR meaning, and a writer is under no obligation
 to reproduce it. Everything else — including members APR does not define — **MUST**
-survive a round trip.
+survive a round trip. [APR-REP-001]
 
 ### 4.2 Syntax conventions {#syntax-conventions}
 
@@ -336,16 +351,16 @@ excludes is excluded wherever it would otherwise appear.
 ### 4.3 Encoding {#encoding}
 
 A document **MUST** be encoded as UTF-8 (RFC 3629). A byte-order mark
-**SHOULD NOT** be written; a reader **SHOULD** tolerate a leading one.
+**SHOULD NOT** be written; a reader **SHOULD** tolerate a leading one. [APR-REP-002]
 
 A reader **MUST** reject ill-formed UTF-8 rather than substituting replacement
-characters silently.
+characters silently. [APR-REP-003]
 
 Every string **MUST NOT** contain U+0000, and **MUST NOT** contain an unpaired
 surrogate in the range U+D800 to U+DFFF. Control characters U+0001 through
 U+001F **MUST NOT** appear, except tab (U+0009), line feed (U+000A), and
 carriage return (U+000D), which are permitted so that a multiline response can
-hold the line breaks a person typed.
+hold the line breaks a person typed. [APR-REP-004]
 
 ### 4.4 APR-JSONC {#apr-jsonc}
 
@@ -387,11 +402,11 @@ answers it rather than leaving it to prose.
 
 Once comments and trailing commas are removed, the text **MUST** decode as JSON
 (RFC 8259) to the semantic model. Comments are source trivia and cannot carry
-APR meaning.
+APR meaning. [APR-REP-005]
 
 **One constraint the grammar cannot express.** RFC 8259 §4 says object member
 names SHOULD be unique. APR raises this: a parser **MUST** reject a duplicate
-member name rather than applying a last-key-wins rule.
+member name rather than applying a last-key-wins rule. [APR-REP-006]
 
 > Rationale: last-key-wins makes a document's meaning depend on which parser
 > reads it, which is precisely what a semantic digest cannot tolerate.
@@ -480,11 +495,11 @@ A conforming APR-YAML document:
 
 1. **MUST** be a well-formed YAML 1.2.2 document, per that specification's
    character, structural, flow, block, and document-stream productions
-   (chapters 5 to 9).
+   (chapters 5 to 9). [APR-REP-007]
 2. **MUST** resolve every scalar to a value of the JSON data model (RFC 8259):
-   null, boolean, number, string, array, or object, and nothing else.
-3. **MUST** resolve every mapping key to a string.
-4. **MUST NOT** use the constructs excluded below.
+   null, boolean, number, string, array, or object, and nothing else. [APR-REP-008]
+3. **MUST** resolve every mapping key to a string. [APR-REP-009]
+4. **MUST NOT** use the constructs excluded below. [APR-REP-010]
 
 ### 4.5.1 Scalar resolution {#yaml-resolution}
 
@@ -501,7 +516,7 @@ differ and where a reference alone would be ambiguous.
 
 A plain scalar denoting a non-finite float — `.inf`, `-.inf`, `.nan`, in any
 capitalization — **MUST** be rejected. JSON has no representation for it, so
-there is no value for it to resolve to.
+there is no value for it to resolve to. [APR-REP-011]
 
 **APR defines its own YAML schema.** YAML 1.2.2 chapter 10 presents failsafe,
 JSON, and core as *recommended* schemas rather than mandatory ones, and a
@@ -509,7 +524,7 @@ processor may define another. The table above is APR's.
 
 An implementation therefore uses a YAML library for **syntax** — characters,
 structure, flow and block style, document streams — and **MUST NOT** use that
-library's default scalar resolution.
+library's default scalar resolution. [APR-REP-012]
 
 > Rationale: this is close to YAML's Core Schema, restricted to what JSON can
 > represent. The narrower JSON Schema is deliberately *not* used: under it a
@@ -540,7 +555,7 @@ so the JSON Schema does not exclude them and this document must:
 
 Implementations **MUST** use a safe loader: one that constructs only the JSON
 Schema value types and never instantiates a host-language object from document
-content.
+content. [APR-REP-013]
 
 Responses remain strings even where a scalar would otherwise resolve as a number
 or boolean under the JSON Schema, because
@@ -879,13 +894,13 @@ strings, including `canAddRows`, `maxRows`, `min`, `max`, and `step`.
 
 `null` is not an APR value. A writer **MUST NOT** emit it. A reader tolerates it
 in a response position only, coercing it to the empty string; anywhere else it is
-a parse failure.
+a parse failure. [APR-REP-014]
 
 ### 4.7 Responses are strings {#responses}
 
 A `prompt.response` **MUST** be a JSON string. A response given as a JSON number
 or boolean **MUST** be rejected at parse time. It **MUST NOT** be coerced to
-`"42"` or `"true"`.
+`"42"` or `"true"`. [APR-MODEL-001]
 
 > Rationale: silent coercion is worse than rejection. It produces a document that
 > looks conformant while having invented data that no person entered.
@@ -898,7 +913,7 @@ string.
 **This is the rule the rest of the format exists to protect.**
 
 A response **MAY** contain any string. The format has no opinion about whether
-that string is "correct".
+that string is "correct". [APR-MODEL-002]
 
 | `expectedDataType` | Response | Document validity |
 | --- | --- | --- |
@@ -924,10 +939,10 @@ document is valid APR.
 Every member of `prompt.hints` is advisory. A hint **MUST NOT** cause a response
 to be rejected, altered, truncated, or blocked from being saved. This applies to
 `validationPattern` — a non-matching response is a warning at most — and to every
-member of the `expr*` family.
+member of the `expr*` family. [APR-MODEL-003]
 
 An implementation **MAY** surface a hint mismatch as an advisory warning. It
-**MUST NOT** prevent the user from saving.
+**MUST NOT** prevent the user from saving. [APR-MODEL-004]
 
 ---
 
@@ -952,17 +967,17 @@ An implementation **MAY** surface a hint mismatch as an advisory warning. It
 | `version` | string | **Yes** | Exactly `"1.0-beta.6"` ([Version compatibility](#version-compatibility)). |
 | `documentType` | string | No | `template` or `filledForm`. Absent means `template`. Authoritative — see [Document type](#media-types). |
 | `metadata` | object | **Yes** | [Metadata](#metadata) |
-| `sections` | array | **Yes** | **MUST** contain at least one section. |
+| `sections` | array | **Yes** | **MUST** contain at least one section. [APR-MODEL-005] |
 | `roles` | array | No | [Roles](#roles) |
 
 A form **MUST NOT** carry a `signatures` member. A reader encountering one
 **MUST** report `RETIRED_EMBEDDED_SIGNATURES`
-([Retired members](#retired-members)).
+([Retired members](#retired-members)). [APR-MODEL-006]
 
 ### 5.2 Metadata {#metadata}
 
 `title` is **REQUIRED** and **MUST** contain a non-whitespace character. All
-other scalar members are OPTIONAL strings; timestamps are RFC 3339.
+other scalar members are OPTIONAL strings; timestamps are RFC 3339. [APR-MODEL-007]
 
 `created`, `modified`, `author` (a person), `publisher` (the organization
 standing behind the form), `templateId`, `templateVersion`, `filledBy`,
@@ -975,7 +990,7 @@ client to choose or fall back to a target automatically; submitting remains an
 explicit user action.
 
 When `documentType` is `filledForm`, `templateId` is **REQUIRED**: a completed
-form that cannot name the form it completes is not traceable.
+form that cannot name the form it completes is not traceable. [APR-MODEL-008]
 
 ### 5.3 Section {#section-object}
 
@@ -992,7 +1007,7 @@ form that cannot name the form it completes is not traceable.
 | `role` | string | No | [Roles](#roles) |
 
 A section **MUST** carry content: at least one prompt or at least one child
-section. There is no exception — tables included.
+section. There is no exception — tables included. [APR-MODEL-009]
 
 **Section titles are required, not optional.** The section tree is the document
 outline that a screen-reader user navigates by. An untitled section is a hole in
@@ -1017,13 +1032,13 @@ placeholder and no label is invalid APR.
 Section ids and prompt ids occupy **separate namespaces**: a section and a prompt
 **MAY** share an id. Within each namespace, ids **MUST** be unique across the
 whole document, not merely among siblings — a filled form is consumed by field
-id, and a duplicate makes the data ambiguous.
+id, and a duplicate makes the data ambiguous. [APR-MODEL-010]
 
 Ids are compared by exact code-point equality; no normalization, case folding, or
 trimming is applied. Ids **SHOULD** be stable across template versions and
 **MUST NOT** change when prompts are reordered. Reordering a form is a
 presentation change; changing an id silently breaks every downstream consumer and
-every attestation covering it.
+every attestation covering it. [APR-MODEL-011]
 
 ### 5.5 Response metadata {#response-metadata}
 
@@ -1088,7 +1103,7 @@ but carries no meaning the renderer depends on.
 
 A renderer **MAY** present a table as a grid, as stacked cards, as a flat
 sequence of prompts, or as speech. **All are conformant**, and none is a
-fallback.
+fallback. [APR-MODEL-012]
 
 > Rationale: this matters most where tables are hardest. A six-column grid is
 > unusable on a phone and at 200% zoom, and many screen-reader users prefer the
@@ -1097,7 +1112,7 @@ fallback.
 
 A table **MUST NOT** be treated as licence for width, alignment, colour, or font
 data. Those member names are retired ([Retired members](#retired-members)) and
-are dropped on read.
+are dropped on read. [APR-MODEL-013]
 
 #### 5.6.3 Rows and instances {#table-rows}
 
@@ -1124,7 +1139,7 @@ reported as a warning ([Warnings](#warnings)).
 
 Instances **SHOULD** agree in prompt count and in the label at each position.
 When they disagree the document is still **valid**; a validator reports
-`TABLE_RAGGED` or `TABLE_LABEL_MISMATCH` and a renderer presents what is there.
+`TABLE_RAGGED` or `TABLE_LABEL_MISMATCH` and a renderer presents what is there. [APR-MODEL-014]
 
 > Rationale: refusing to open the document would discard whatever a filler had
 > already written, which [Any string is a valid response](#any-string) exists to
@@ -1133,16 +1148,16 @@ When they disagree the document is still **valid**; a validator reports
 ### 5.7 Nesting depth {#nesting}
 
 Sections nest recursively. Every implementation **MUST** support at least **16
-levels** of section nesting. Implementations **MAY** support more.
+levels** of section nesting. Implementations **MAY** support more. [APR-MODEL-015]
 
 Any particular ceiling above that floor is an implementation detail and
-**MUST NOT** be relied upon by a document author.
+**MUST NOT** be relied upon by a document author. [APR-MODEL-016]
 
 > Rationale: unbounded depth is not implementable. Every real parser has a depth
 > limit, and a format that promises infinity promises a stack overflow.
 
 Authors **SHOULD** stay far below the floor. Forms nested more than four or five
-levels deep are difficult to navigate with any input method.
+levels deep are difficult to navigate with any input method. [APR-MODEL-017]
 
 ### 5.8 Hints {#hints-object}
 
@@ -1163,7 +1178,7 @@ carry them.
 
 **This registry is open.** An unrecognized value **MUST** degrade to a plain text
 field. It **MUST NOT** cause an error — that is what lets the registry grow
-without breaking every existing reader.
+without breaking every existing reader. [APR-MODEL-018]
 
 The list above is the normative registry. `schemas/apr-types-1.0.json` publishes
 it in machine-readable form, together with each type's canonical write form,
@@ -1188,7 +1203,7 @@ meaningful only on ordered types. On `date`, `time`, and `datetime`, `min` and
 A response outside them is **still valid**, exactly as for `suggestedValues`. A
 slider that stops at 100 does not make `120` a wrong answer, and a validator
 **MUST NOT** reject one. Bounds shape the affordance offered to someone who wants
-it; they never shrink what a person is allowed to say.
+it; they never shrink what a person is allowed to say. [APR-MODEL-019]
 
 #### 5.8.1 Types are affordances, not validators {#data-types}
 
@@ -1212,10 +1227,10 @@ Every response below is valid for its prompt:
 ### 5.9 Unknown members {#extensions}
 
 A reader **MUST** ignore members it does not recognise, at every level, and
-**MUST NOT** reject a document for carrying them.
+**MUST NOT** reject a document for carrying them. [APR-MODEL-020]
 
 A reader **MUST** also **preserve** them: an unrecognised member present on read
-**MUST** still be present, unchanged, on write.
+**MUST** still be present, unchanged, on write. [APR-MODEL-021]
 
 > Rationale: without preservation, every additive change to the format is
 > destructive. A document written by a newer version would lose its new members
@@ -1242,7 +1257,7 @@ Today those are:
 `signatures` is reported rather than silently dropped: a reader **MUST** report
 `RETIRED_EMBEDDED_SIGNATURES`, because a document carrying it was making a
 cryptographic claim that beta.6 cannot honour, and losing that silently would be
-worse than refusing it.
+worse than refusing it. [APR-MODEL-022]
 
 > Rationale: retirement has to mean something. If a removed member were preserved
 > as an unknown one, a renderer could keep writing column widths forever and "APR
@@ -1262,7 +1277,7 @@ multi-select list.
 > two different datasets, and "database-ready" stops being true.
 
 A reader **MUST** accept every listed read form. A writer **SHOULD** emit the
-canonical form. Neither rule ever makes a document invalid.
+canonical form. Neither rule ever makes a document invalid. [APR-MODEL-023]
 
 | Hint | Canonical write form | Also accepted on read |
 | --- | --- | --- |
@@ -1282,7 +1297,7 @@ canonical boolean depend on one language.
 contain a comma — `Bloomfield, CT` is an ordinary option in a municipal form.
 Comma separation silently turns one selection into two, which is data loss. A
 newline cannot appear inside a single-line option, so the encoding is lossless.
-Readers **MUST** still accept the legacy comma form.
+Readers **MUST** still accept the legacy comma form. [APR-MODEL-024]
 
 An empty string means "no selection" for every hint above.
 
@@ -1297,7 +1312,7 @@ A section or a prompt **MAY** carry `role`: a short string naming who is meant t
 fill it in. A prompt's role overrides the role of the section containing it, so a
 single field can be handed back to the patient without splitting the section in
 two. The vocabulary is **open**: a reader that does not recognise a role **MUST**
-present the field normally rather than erroring.
+present the field normally rather than erroring. [APR-MODEL-025]
 
 **Example 5.** Declared roles.
 
@@ -1316,18 +1331,18 @@ reader with no `name` **MUST** fall back to the identifier. Declaring is itself
 optional and **MUST NOT** be required: a section or prompt **MAY** reference a
 role the document never declares, and a reader **MUST** show the identifier
 rather than erroring. A validator **MAY** warn about an undeclared role; it
-**MUST NOT** reject one.
+**MUST NOT** reject one. [APR-MODEL-026]
 
 **A role says who a field is for. It never says who may type into it.** The
 format has no identity at fill time — nothing in a document knows who is at the
-keyboard — so a reader **MUST NOT** refuse input to a field because of its role.
+keyboard — so a reader **MUST NOT** refuse input to a field because of its role. [APR-MODEL-027]
 
 What a reader **SHOULD** do is make the answer obvious without being asked. Where
 a document declares roles, a reader **SHOULD** let the person say which role they
 are filling and then show plainly which fields are theirs. Fields belonging to
 others stay visible and stay editable; they are marked, not locked. A reader
 **SHOULD** also make a role legible to assistive technology, since a visual
-treatment alone communicates nothing to a screen reader.
+treatment alone communicates nothing to a screen reader. [APR-MODEL-028]
 
 **Accountability comes from attestations, not from the widget.** A greyed-out box
 is evidence of nothing: whoever holds the document can edit it directly. A
@@ -1341,7 +1356,7 @@ section.
 ## 6. Document type and file extensions {#media-types}
 
 `documentType` is **authoritative**. A reader **MUST** determine whether a
-document is a template or a filled form from that member alone.
+document is a template or a filled form from that member alone. [APR-SEC-005]
 
 | Extension | Meaning | Status |
 | --- | --- | --- |
@@ -1364,15 +1379,15 @@ associations, and save dialogs. It is not part of the data model.
 > where it has no name.
 
 An implementation **SHOULD** write the extension matching `documentType`, and
-**SHOULD** warn on mismatch rather than silently honouring either one.
+**SHOULD** warn on mismatch rather than silently honouring either one. [APR-SEC-006]
 
 Representation is determined by content, not by name: a reader **MUST NOT**
 reject a document because its extension disagrees with its content, and
-**MUST NOT** infer `documentType` from an extension.
+**MUST NOT** infer `documentType` from an extension. [APR-SEC-007]
 
 Converting a template to a filled form is an explicit act: set `documentType` to
 `filledForm` and record `templateId`. Implementations **SHOULD** prompt for a new
-filename so the blank template is not overwritten.
+filename so the blank template is not overwritten. [APR-SEC-008]
 
 The media type `application/vnd.apr+json` is used by convention and is **not**
 IANA-registered. No media type is defined for APR-YAML: YAML has a registered
@@ -1406,7 +1421,7 @@ missing or invalid, is not implementing APR.
 
 A validator **MUST** also enforce the two rules a schema cannot express: section
 ids unique document-wide, and prompt ids unique document-wide, in separate
-namespaces.
+namespaces. [APR-VAL-001]
 
 ### 7.2 Warnings — advisory only {#warnings}
 
@@ -1421,21 +1436,21 @@ meant" without ever telling them "you may not write this."
 
 An implementation **MAY** surface any warning. Such feedback **MUST NOT** prevent
 saving, **MUST NOT** prevent entering any text, and **MUST NOT** be reported as
-the document being invalid.
+the document being invalid. [APR-VAL-002]
 
 ### 7.3 Parse errors are not validation errors {#parse-errors}
 
 Malformed input, a response given as a number or boolean, or a structurally wrong
-shape are **parse failures**, and a reader **MUST** fail rather than validate.
+shape are **parse failures**, and a reader **MUST** fail rather than validate. [APR-VAL-003]
 
 Documents that parse cleanly and fail validation are a different class from those
 that **MUST NOT** parse at all. Keeping these stages distinct is what lets a
 reader load a flawed document and show what is wrong with it, rather than
-refusing to open it.
+refusing to open it. [APR-VAL-004]
 
 ### 7.4 Semantic validation is never required {#semantic-validation}
 
-A validator **MUST NOT** reject a document because of what a response means.
+A validator **MUST NOT** reject a document because of what a response means. [APR-VAL-005]
 
 Each of the following is a valid document: a response that does not match its
 `expectedDataType`; one that does not match `validationPattern`; an empty
@@ -1453,12 +1468,12 @@ what that string says.
 
 A reader **MUST** preserve a response exactly on read and write: it **MUST NOT**
 normalize, strip, or otherwise rewrite it. Escaping and visibly marking deceptive
-text are rendering responsibilities, not licences to alter stored data.
+text are rendering responsibilities, not licences to alter stored data. [APR-TEXT-001]
 
 ### 8.2 Authoring data and filled data differ {#authoring-vs-filled}
 
 The two halves of an APR document come from two different people under two
-different conditions, and they **MUST NOT** be treated alike.
+different conditions, and they **MUST NOT** be treated alike. [APR-TEXT-002]
 
 | | **Authoring data** | **Filled data** |
 | --- | --- | --- |
@@ -1476,12 +1491,12 @@ different conditions, and they **MUST NOT** be treated alike.
 
 A response **MUST NOT** be altered on the basis of any hint. A `url` or `email`
 hint describes what the author *hoped* to receive; it does not license editing
-what was actually written.
+what was actually written. [APR-TEXT-003]
 
 Suspicious characters in a response **MUST** be surfaced as a warning and
 **SHOULD** be rendered visibly — escaped or badged — leaving the stored bytes
 exactly as entered. The consuming workflow decides what to do about them; it is
-the only party that knows what the answer is for.
+the only party that knows what the answer is for. [APR-TEXT-004]
 
 A reader that "cleans" a hidden or bidirectional character has let a hint enforce
 something, which [Hints never enforce](#hints-advisory) forbids. Legitimate uses
@@ -1490,7 +1505,7 @@ exist: a Persian ZWNJ and an emoji ZWJ sequence are ordinary text.
 #### 8.2.2 Authoring data — strictness is appropriate {#authoring-strictness}
 
 Authoring members **MAY** be held to strict rules, and the members a machine acts
-on **SHOULD** be.
+on **SHOULD** be. [APR-TEXT-005]
 
 **Strictness here means refusing, not rewriting.** No party's data is ever
 silently edited — the difference between an author and a filler is that an author
@@ -1504,22 +1519,22 @@ security-critical. An implementation:
 
 - **MUST NOT** rewrite any entry to remove hidden characters. Cleaning a
   zero-width character out of a hostname picks a destination on the author's
-  behalf, which is precisely the decision that must not be made automatically.
+  behalf, which is precisely the decision that must not be made automatically. [APR-TEXT-006]
 - **SHOULD** report hidden characters in it as an advisory, since such a URL
-  renders to a reviewer as one host while being another.
+  renders to a reviewer as one host while being another. [APR-TEXT-007]
 - **MUST NOT** produce an attestation over a document whose `submissionUrls`
   contains them. Binding an address that displays as one host and resolves as
-  another defeats the binding.
+  another defeats the binding. [APR-TEXT-008]
 
 Implementations **SHOULD** also warn at authoring time on mixed-script or
 bidirectional content in `metadata.title`, `metadata.publisher`, section titles,
 and prompt labels — the text a person reads when deciding whether to trust a
 form. These are warnings to the author, before publication, and never
-modifications.
+modifications. [APR-TEXT-009]
 
 Ids are machine keys. Implementations **SHOULD** warn when an id contains
 characters outside `[A-Za-z0-9_.-]`, since ids appear in attestation manifests,
-database columns, and cell addresses.
+database columns, and cell addresses. [APR-TEXT-010]
 
 ---
 
@@ -1538,7 +1553,7 @@ A stream **MUST NOT** mix representations. It **MUST NOT** deduplicate repeated
 form occurrences, even when their semantic digests are identical. A single-form
 API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and
 **MUST NOT** select a record by position. A streaming API yields every record and
-may hold an unresolved attestation until its subject form has been observed.
+may hold an unresolved attestation until its subject form has been observed. [APR-STREAM-001]
 
 > Rationale: a stream exists so that a form and the assertions about it can
 > travel together, and so that several related forms can be one file. It is
@@ -1624,7 +1639,7 @@ sections:
 
 The corpus supplies paired streams whose records have equal semantic models
 across the two representations. A stream reader **MUST** produce the same
-sequence of semantic records from either member of such a pair.
+sequence of semantic records from either member of such a pair. [APR-STREAM-002]
 
 ---
 
@@ -1635,12 +1650,12 @@ serialization of the fully parsed JSON semantic model, encoded as UTF-8; its
 value is lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`.
 Source syntax is never hashed.
 
-A digest value **MUST** match `^sha256:[0-9a-f]{64}$`.
+A digest value **MUST** match `^sha256:[0-9a-f]{64}$`. [APR-DIGEST-001]
 
 A form digest includes every APR-defined member and every unknown extension
 member that survived parsing. It excludes only representation trivia. A verifier
 that cannot preserve or digest an extension member **MUST** report the assertion
-as `unverifiable`, not valid.
+as `unverifiable`, not valid. [APR-DIGEST-002]
 
 > Rationale: including extensions prevents a whole-form attestation from silently
 > omitting a meaningful member. An earlier signature scheme enumerated known
@@ -1678,13 +1693,13 @@ only when relevant, computing a total, flagging a cross-field inconsistency.
 ### 11.2 Invariants {#expr-invariants}
 
 1. Stored responses remain authoritative. An expression **MUST NOT** reject,
-   rewrite, or invalidate a response.
+   rewrite, or invalidate a response. [APR-EXPR-001]
 2. Evaluation is pure. An implementation **MUST NOT** expose filesystem,
    network, process, clock, randomness, reflection, environment, or
-   document-mutation access to an expression.
+   document-mutation access to an expression. [APR-EXPR-002]
 3. Failure preserves data. A failed evaluation produces a diagnostic and the
    fallback below; it **MUST NOT** propagate as an error into a filling
-   workflow.
+   workflow. [APR-EXPR-003]
 
 ### 11.3 Language {#expr-language}
 
@@ -1716,14 +1731,14 @@ An expression is evaluated against this read-only activation and nothing else.
 | `ctx` | `map` | Host-supplied context ([Context](#expr-context)). |
 
 `_this`, `_id`, `_now`, `_today`, and `ctx` are reserved and **MUST NOT** be
-shadowed by a direct binding.
+shadowed by a direct binding. [APR-EXPR-004]
 
 A prompt whose id is not a valid CEL identifier has no direct binding and is not
 otherwise reachable from an expression.
 
 `_now` and `_today` **MUST** be supplied by the caller rather than read from the
 host clock during evaluation, so that evaluating the same form twice with the
-same inputs yields the same result.
+same inputs yields the same result. [APR-EXPR-005]
 
 ### 11.5 The type environment {#expr-binding}
 
@@ -1745,7 +1760,7 @@ CEL is statically typed. `expectedDataType` supplies the types:
 
 A response that cannot be converted to its declared type — free text in a
 `number` field, an unparseable date, or an empty one — **MUST** be treated as
-unbound, **never** as a default. The expression errors and applies the fallback.
+unbound, **never** as a default. The expression errors and applies the fallback. [APR-EXPR-006]
 
 > Rationale: binding an empty number as zero would make a blank field silently
 > total as zero — a wrong answer rather than no answer. Unbound also keeps
@@ -1764,7 +1779,7 @@ knows.
 
 A host **MUST NOT** place credentials, secrets, authorization decisions, or
 private server-side facts in `ctx`. An expression is document-supplied text; what
-it can read, a document author can read.
+it can read, a document author can read. [APR-EXPR-007]
 
 ### 11.8 Results and fallback {#expr-fallback}
 
@@ -1799,7 +1814,7 @@ Being computed does not make a prompt read-only. `exprReadOnly` asks for that
 **A correction MUST survive recomputation.** `responseMetadata.source` is
 `computed` when an `exprValue` produced the current response, and absent when a
 person or an API wrote it. Recomputation **MUST NOT** overwrite a non-empty
-response whose `source` is absent.
+response whose `source` is absent. [APR-EXPR-008]
 
 > Rationale: without that distinction a stale computed value and a human
 > correction are indistinguishable, and the next recompute silently reverts the
@@ -1808,13 +1823,13 @@ response whose `source` is absent.
 
 An implementation **MUST** order computed prompts by their direct references so
 that a subtotal feeds a tax feeds a total in one pass. A self-reference or a
-dependency cycle is an authoring error.
+dependency cycle is an authoring error. [APR-EXPR-009]
 
 ### 11.10 Authoring-time checking {#expr-authoring}
 
 An implementation **SHOULD** type-check expressions against the document's type
 environment when a template is authored, and report failures to the author with
-position information.
+position information. [APR-EXPR-010]
 
 This is exactly where [Authoring data](#authoring-strictness) says strictness
 belongs. The **author** is stopped and asked to fix something before publication;
@@ -1825,7 +1840,7 @@ degrades.
 
 Evaluation **MUST** terminate. An implementation bounds expression size,
 complexity, and evaluation cost, and **MUST** report reaching a bound as a
-failure that applies the fallback rather than as partial mutation.
+failure that applies the fallback rather than as partial mutation. [APR-EXPR-011]
 
 Exact bounds are implementation-defined in this baseline, for the reason given in
 [Security considerations](#security).
@@ -1873,11 +1888,11 @@ anything.
 
 | Member | Required | Type | Domain |
 | --- | --- | --- | --- |
-| `recordType` | **Yes** | string | **MUST** be `attestation`. |
-| `version` | **Yes** | string | **MUST** be `1.0-beta.6`. |
+| `recordType` | **Yes** | string | **MUST** be `attestation`. [APR-ATTEST-001] |
+| `version` | **Yes** | string | **MUST** be `1.0-beta.6`. [APR-ATTEST-002] |
 | `subject` | **Yes** | object | `digest` and `canonicalization`, no other members. |
 | `subject.digest` | **Yes** | string | `sha256:` and 64 lowercase hex characters. |
-| `subject.canonicalization` | **Yes** | string | **MUST** be `jcs-sha256`. |
+| `subject.canonicalization` | **Yes** | string | **MUST** be `jcs-sha256`. [APR-ATTEST-003] |
 | `scope` | **Yes** | object | `document` or `fields` form. |
 | `manifest` | **Yes** | object | `root` and `entries`, no other members. |
 | `manifest.root` | **Yes** | string | Digest of the subject form. |
@@ -1886,7 +1901,7 @@ anything.
 | `witnesses` | **Yes** | array | Unique digests of earlier envelopes. May be empty. |
 
 `subject`, `scope`, `manifest`, and their entries admit no additional members. An
-attestation record itself **MAY** carry extension members, which round-trip.
+attestation record itself **MAY** carry extension members, which round-trip. [APR-ATTEST-004]
 
 `subject.digest` identifies the complete form semantic model, never a stream
 position, filename, or document id.
@@ -1899,7 +1914,7 @@ position, filename, or document id.
 
 A `fields` scope lists prompt ids, and the manifest **MUST** include each
 selected prompt, its response and hints, and every ancestor section's id, title,
-description, kind, and role.
+description, kind, and role. [APR-ATTEST-005]
 
 **A filler attests to the question, not only the answer.** Anything less is not
 an attestation on a form.
@@ -1912,7 +1927,7 @@ an attestation on a form.
 
 A fields scope is deliberately *not* the whole document: a filler attests to
 their part, and someone else editing an unrelated section **MUST NOT** invalidate
-them.
+them. [APR-ATTEST-006]
 
 ### 12.4 Proofs {#proofs}
 
@@ -1923,7 +1938,7 @@ Beta.6 defines one proof type, `cms/ecdsa-p256-sha256`: ECDSA over the P-256
 curve with SHA-256 (FIPS 186-5), carried as CMS SignedData (RFC 5652), encoded as
 base64 (RFC 4648), with the X.509 certificate chain (RFC 5280) included.
 
-A proof **MUST NOT** invent a second copy of the subject digest or scope.
+A proof **MUST NOT** invent a second copy of the subject digest or scope. [APR-ATTEST-007]
 
 > Rationale: two copies of one fact is a correctness bug everywhere in this
 > format, and here it was a security hole. An earlier scheme stored the
@@ -1934,7 +1949,7 @@ A proof **MUST NOT** invent a second copy of the subject digest or scope.
 A verifier that does not recognize a proof type **MUST** report it as
 **unverifiable**, never as invalid, and **MUST** preserve it. "I cannot check
 this" and "this is forged" are different statements and **MUST NOT** be conflated
-in a user interface.
+in a user interface. [APR-ATTEST-008]
 
 ### 12.5 Witnesses {#witnesses}
 
@@ -1949,7 +1964,7 @@ acceptance, real-world identity, or trusted time.
 
 A changed form is another complete form occurrence with a different subject
 digest. Earlier attestations remain assertions about their original subject and
-**MUST NOT** be transferred to the changed form.
+**MUST NOT** be transferred to the changed form. [APR-ATTEST-009]
 
 Multiple attestations may target one unchanged form, and an attestation may be
 encountered before its subject.
@@ -1976,7 +1991,7 @@ and `unresolved` is not a failure of the assertion.
 
 **Validity is independent of trust.** A self-signed certificate can produce a
 perfectly valid proof that proves nothing about identity. Implementations
-**MUST** report these separately.
+**MUST** report these separately. [APR-ATTEST-010]
 
 > Rationale: collapsing content validity and certificate trust into one green
 > checkmark teaches people to trust a checkmark that does not mean what they
@@ -1990,19 +2005,19 @@ it.** Both directions of this are normative.
 **Attesting is never required.** A form with no attestation is a complete,
 ordinary, fully valid APR document. An implementation **MUST NOT** require one in
 order to save, send, accept, or process a form, and **MUST NOT** present an
-unattested document as deficient.
+unattested document as deficient. [APR-ATTEST-011]
 
 **Acting on an attestation is never required.** An implementation **MUST NOT**
 refuse to parse, validate, render, print, export, or extract data from a document
 because its attestations are absent, unrecognized, expired, untrusted, or
 outright invalid. Attestation state **MUST NOT** appear in the validation error
-list.
+list. [APR-ATTEST-012]
 
 An implementation **MAY** warn, badge, or refuse to *act* on a document by its
 own policy — a receiving workflow is entitled to reject an unattested permit
 application. That is the workflow's decision. It is not the file format's, and a
 reader that enforces it on the workflow's behalf has taken a choice away from
-every other consumer of the same document.
+every other consumer of the same document. [APR-ATTEST-013]
 
 > Rationale: the reasoning is the same one behind
 > [Any string is a valid response](#any-string). A format that withheld data
@@ -2022,16 +2037,16 @@ page, terminal, voice system, and API client are equally legitimate.
 
 ### 13.1 Requirements for renderers {#renderer-requirements}
 
-- Section titles and prompt labels **MUST** be presented as the accessible name.
-- A placeholder **MUST NOT** be the only label.
+- Section titles and prompt labels **MUST** be presented as the accessible name. [APR-RENDER-001]
+- A placeholder **MUST NOT** be the only label. [APR-RENDER-002]
 - `helpText` **MUST** be programmatically associated with its prompt, not merely
-  adjacent to it.
+  adjacent to it. [APR-RENDER-003]
 - Section nesting **MUST** be conveyed structurally — heading levels, groups,
-  landmarks — not by indentation alone.
-- Every prompt **MUST** be reachable and completable by keyboard.
-- A renderer **MUST NOT** block saving because of a hint mismatch.
+  landmarks — not by indentation alone. [APR-RENDER-004]
+- Every prompt **MUST** be reachable and completable by keyboard. [APR-RENDER-005]
+- A renderer **MUST NOT** block saving because of a hint mismatch. [APR-RENDER-006]
 - Table sections **SHOULD** be presented with header association, not as a purely
-  visual grid.
+  visual grid. [APR-RENDER-007]
 
 These are format-level requirements, not house style. APR's structure is what
 makes an accessible rendering possible; a renderer that discards it discards the
@@ -2051,14 +2066,14 @@ Rule 3 follows document convention: a heading's own content precedes its
 subheadings. It is normative.
 
 A renderer **MAY** paginate, group, or lazily load, but **MUST NOT** reorder. A
-wizard that shows one section at a time still visits them in array order.
+wizard that shows one section at a time still visits them in array order. [APR-RENDER-008]
 
 ### 13.3 Export {#export}
 
 Exports to PDF, HTML, or print **MAY** introduce layout — page size, margins,
 footers. That layout belongs to the renderer's options and **MUST NOT** be
 written back into the APR document. The document stays presentation-free no
-matter how many ways it has been rendered.
+matter how many ways it has been rendered. [APR-RENDER-009]
 
 ---
 
@@ -2068,15 +2083,15 @@ matter how many ways it has been rendered.
 access, or external references. Opening an APR document from an untrusted sender
 executes nothing. This is the format's most important security property and
 **MUST NOT** be weakened. Expressions are pure, bounded, and non-Turing-complete;
-they are not an exception.
+they are not an exception. [APR-SEC-009]
 
 **No network access on open.** Reading a document **MUST NOT** fetch anything.
 `submissionUrls` is data — no entry **MUST** be contacted without an explicit
-user action, and neither **MUST** a certificate endpoint.
+user action, and neither **MUST** a certificate endpoint. [APR-SEC-010]
 
 **Resource bounds.** A reader **MUST** bound nesting depth and **SHOULD** bound
 document size, stream length, and evaluation cost, failing cleanly rather than
-exhausting memory. Parsing **MUST** terminate.
+exhausting memory. Parsing **MUST** terminate. [APR-SEC-011]
 
 > Decision (beta.6): concrete limits above the 16-level nesting floor are
 > **implementation-defined**. No numeric ceiling is specified because no test
@@ -2146,7 +2161,7 @@ An honest list of what this baseline does not settle.
    safe, but nothing coordinates *who* may add which member name. A reserved
    prefix or a registry is needed before independent parties extend the format.
    In the meantime a producer **SHOULD** name extension members distinctively, by
-   reverse-DNS or vendor prefix.
+   reverse-DNS or vendor prefix. [APR-DOC-001]
 2. **No pinned CEL version.** The language is CEL, but no exact language or
    library version is named, so expression portability is not yet guaranteed.
 3. **Media types unregistered.** `application/vnd.apr+json` has not been filed

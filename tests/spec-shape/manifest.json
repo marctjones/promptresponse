@@ -2,7 +2,6 @@
   "$comment": "The shape an APR specification must have, expressed as data so it can be checked rather than asserted. Each property records the specification it is borrowed from, so a reviewer can see what is being copied and why. Verified by scripts/check-spec-shape.py.",
   "manifestVersion": "apr-spec-shape-1",
   "specification": "docs/APR_SPECIFICATION.md",
-
   "modelledOn": [
     {
       "name": "CommonMark",
@@ -34,7 +33,6 @@
       ]
     }
   ],
-
   "frontMatter": [
     "Specification document version",
     "Describes format version",
@@ -45,30 +43,108 @@
     "Conformance corpus",
     "Repository"
   ],
-
   "requiredSections": [
-    { "anchor": "scope", "borrowedFrom": "CommonMark §1, YAML ch.1", "purpose": "what this is and what defines it" },
-    { "anchor": "normative-language", "borrowedFrom": "RFC 8259 §1.2", "purpose": "BCP 14 keywords" },
-    { "anchor": "conventions", "borrowedFrom": "CommonMark", "purpose": "normative vs illustrative vs rationale" },
-    { "anchor": "terminology", "borrowedFrom": "YAML ch.3", "purpose": "defined terms in one place" },
-    { "anchor": "conformance", "borrowedFrom": "YAML ch.10, RFC 8259 §9", "purpose": "conformance classes" },
-    { "anchor": "representations", "borrowedFrom": "YAML ch.5-8", "purpose": "concrete syntaxes" },
-    { "anchor": "syntax-conventions", "borrowedFrom": "YAML ch.4", "purpose": "how to read the grammar" },
-    { "anchor": "apr-jsonc", "borrowedFrom": "RFC 8259 §2-7", "purpose": "JSONC grammar" },
-    { "anchor": "apr-yaml", "borrowedFrom": "YAML ch.5-9", "purpose": "restricted YAML" },
-    { "anchor": "form-model", "borrowedFrom": "YAML ch.3", "purpose": "the data model" },
-    { "anchor": "validation", "borrowedFrom": "RFC 8259 §9", "purpose": "what makes a document invalid" },
-    { "anchor": "streams", "borrowedFrom": "YAML ch.9", "purpose": "document streams" },
-    { "anchor": "security", "borrowedFrom": "RFC 8259 §12", "purpose": "security considerations" },
-    { "anchor": "checklist", "borrowedFrom": "CommonMark", "purpose": "implementer checklist" },
-    { "anchor": "open-questions", "borrowedFrom": "RFC practice", "purpose": "declared gaps" },
-    { "anchor": "history", "borrowedFrom": "RFC practice", "purpose": "change history" },
-    { "anchor": "normative-references", "borrowedFrom": "RFC 8259 §13.1", "purpose": "binding references" },
-    { "anchor": "informative-references", "borrowedFrom": "RFC 8259 §13.2", "purpose": "non-binding references" },
-    { "anchor": "provenance", "borrowedFrom": "APR-specific", "purpose": "where this text comes from" },
-    { "anchor": "corpus-gaps", "borrowedFrom": "APR-specific", "purpose": "rules without vectors" }
+    {
+      "anchor": "scope",
+      "borrowedFrom": "CommonMark \u00a71, YAML ch.1",
+      "purpose": "what this is and what defines it"
+    },
+    {
+      "anchor": "normative-language",
+      "borrowedFrom": "RFC 8259 \u00a71.2",
+      "purpose": "BCP 14 keywords"
+    },
+    {
+      "anchor": "conventions",
+      "borrowedFrom": "CommonMark",
+      "purpose": "normative vs illustrative vs rationale"
+    },
+    {
+      "anchor": "terminology",
+      "borrowedFrom": "YAML ch.3",
+      "purpose": "defined terms in one place"
+    },
+    {
+      "anchor": "conformance",
+      "borrowedFrom": "YAML ch.10, RFC 8259 \u00a79",
+      "purpose": "conformance classes"
+    },
+    {
+      "anchor": "representations",
+      "borrowedFrom": "YAML ch.5-8",
+      "purpose": "concrete syntaxes"
+    },
+    {
+      "anchor": "syntax-conventions",
+      "borrowedFrom": "YAML ch.4",
+      "purpose": "how to read the grammar"
+    },
+    {
+      "anchor": "apr-jsonc",
+      "borrowedFrom": "RFC 8259 \u00a72-7",
+      "purpose": "JSONC grammar"
+    },
+    {
+      "anchor": "apr-yaml",
+      "borrowedFrom": "YAML ch.5-9",
+      "purpose": "restricted YAML"
+    },
+    {
+      "anchor": "form-model",
+      "borrowedFrom": "YAML ch.3",
+      "purpose": "the data model"
+    },
+    {
+      "anchor": "validation",
+      "borrowedFrom": "RFC 8259 \u00a79",
+      "purpose": "what makes a document invalid"
+    },
+    {
+      "anchor": "streams",
+      "borrowedFrom": "YAML ch.9",
+      "purpose": "document streams"
+    },
+    {
+      "anchor": "security",
+      "borrowedFrom": "RFC 8259 \u00a712",
+      "purpose": "security considerations"
+    },
+    {
+      "anchor": "checklist",
+      "borrowedFrom": "CommonMark",
+      "purpose": "implementer checklist"
+    },
+    {
+      "anchor": "open-questions",
+      "borrowedFrom": "RFC practice",
+      "purpose": "declared gaps"
+    },
+    {
+      "anchor": "history",
+      "borrowedFrom": "RFC practice",
+      "purpose": "change history"
+    },
+    {
+      "anchor": "normative-references",
+      "borrowedFrom": "RFC 8259 \u00a713.1",
+      "purpose": "binding references"
+    },
+    {
+      "anchor": "informative-references",
+      "borrowedFrom": "RFC 8259 \u00a713.2",
+      "purpose": "non-binding references"
+    },
+    {
+      "anchor": "provenance",
+      "borrowedFrom": "APR-specific",
+      "purpose": "where this text comes from"
+    },
+    {
+      "anchor": "corpus-gaps",
+      "borrowedFrom": "APR-specific",
+      "purpose": "rules without vectors"
+    }
   ],
-
   "structuralProperties": [
     {
       "id": "every-heading-anchored",
@@ -97,7 +173,7 @@
     },
     {
       "id": "normative-and-informative-references-separated",
-      "borrowedFrom": "RFC 8259 §13",
+      "borrowedFrom": "RFC 8259 \u00a713",
       "requirement": "Two reference sections exist, and every cited designation appears in one of them."
     },
     {
@@ -109,16 +185,14 @@
       "id": "derived-artifacts-named",
       "borrowedFrom": "CommonMark's generated test suite",
       "requirement": "The specification names which artifacts are derived from it and states that a disagreement is the derived artifact's defect."
+    },
+    {
+      "id": "every-requirement-has-an-identifier",
+      "borrowedFrom": "CommonMark example numbers; YAML production numbers",
+      "requirement": "Every normative clause carries an append-only [APR-AREA-NNN] identifier, so a test cites a rule rather than a section."
     }
   ],
-
   "knownShortfalls": [
-    {
-      "id": "no-rule-identifiers",
-      "issue": 256,
-      "requirement": "Every normative clause should carry a stable identifier, the way CommonMark numbers examples and YAML numbers productions, so a test can cite one rule rather than a section.",
-      "status": "not started"
-    },
     {
       "id": "schema-not-generated",
       "issue": 262,

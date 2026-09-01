@@ -126,38 +126,94 @@ def extract_json_object(text: str) -> str:
 def parse_model_report(
     text: str, *, rubric_version: str, items: list[RubricItem]
 ) -> dict[str, Any]:
-    """Validate a model report before it is written as review evidence."""
+    """Turn a model response into one finding per rubric item.
+
+    Every rubric item gets an entry. An item the model answered well keeps its
+    answer; an item it skipped, duplicated, or answered malformedly is recorded as
+    ``no_model_answer`` with the reason it was not usable.
+
+    An earlier contract required exactly one well-formed finding per item and
+    raised otherwise. Against a local model that meant one null id discarded six
+    good findings, so the suite usually produced nothing at all. A review that
+    reports "the model did not answer this" is more useful than no review, and it
+    is still honest: nothing is invented, and an unusable answer is never counted
+    as addressed.
+    """
     try:
         payload = json.loads(extract_json_object(text))
     except json.JSONDecodeError as exc:
         raise SemanticReviewError("model response was not valid JSON") from exc
 
-    if not isinstance(payload, dict) or payload.get("rubric_version") != rubric_version:
+    if not isinstance(payload, dict):
+        raise SemanticReviewError("model response is not an object")
+    if payload.get("rubric_version") != rubric_version:
         raise SemanticReviewError("model response has a wrong rubric version")
-    findings = payload.get("findings")
-    expected_ids = {item.id for item in items}
-    if not isinstance(findings, list) or len(findings) != len(expected_ids):
-        raise SemanticReviewError("model response must contain one finding per rubric item")
 
-    received_ids: set[str] = set()
-    for finding in findings:
+    raw = payload.get("findings")
+    if not isinstance(raw, list):
+        raise SemanticReviewError("model response has no findings list")
+
+    expected = {item.id: item for item in items}
+    accepted: dict[str, dict[str, Any]] = {}
+    rejected: list[dict[str, str]] = []
+
+    for index, finding in enumerate(raw):
+        def discard(why: str) -> None:
+            rejected.append({"index": index, "reason": why})
+
         if not isinstance(finding, dict):
-            raise SemanticReviewError("each finding must be an object")
+            discard("finding is not an object")
+            continue
         item_id = finding.get("id")
-        status = finding.get("status")
+        if item_id not in expected:
+            discard(f"unknown rubric id {item_id!r}")
+            continue
+        if item_id in accepted:
+            discard(f"duplicate finding for {item_id}")
+            continue
+        if finding.get("status") not in {"addressed", "needs_human_review"}:
+            discard(f"{item_id}: status {finding.get('status')!r} is not permitted")
+            continue
         evidence = finding.get("evidence")
-        reason = finding.get("reason")
-        if item_id not in expected_ids or item_id in received_ids:
-            raise SemanticReviewError("findings must use each rubric id exactly once")
-        if status not in {"addressed", "needs_human_review"}:
-            raise SemanticReviewError("finding status is invalid")
         if not isinstance(evidence, list) or not all(
             isinstance(quote, str) and quote.strip() for quote in evidence
         ):
-            raise SemanticReviewError("finding evidence must be a list of non-blank strings")
+            discard(f"{item_id}: evidence must be a list of non-blank quotations")
+            continue
+        reason = finding.get("reason")
         if not isinstance(reason, str) or not reason.strip():
-            raise SemanticReviewError("finding reason must be a non-blank string")
-        received_ids.add(item_id)
-    if received_ids != expected_ids:
-        raise SemanticReviewError("model response omitted a rubric item")
-    return payload
+            discard(f"{item_id}: reason must be a non-blank string")
+            continue
+        accepted[item_id] = {
+            "id": item_id,
+            "status": finding["status"],
+            "evidence": evidence,
+            "reason": reason.strip(),
+        }
+
+    findings = []
+    for item in items:
+        if item.id in accepted:
+            findings.append(accepted[item.id])
+        else:
+            findings.append({
+                "id": item.id,
+                "status": "no_model_answer",
+                "evidence": [],
+                "reason": "the model returned no usable finding for this rubric item",
+            })
+
+    answered = sum(1 for f in findings if f["status"] != "no_model_answer")
+    if answered == 0:
+        raise SemanticReviewError("model response contained no usable finding")
+
+    return {
+        "rubric_version": rubric_version,
+        "findings": findings,
+        "coverage": {
+            "rubricItems": len(items),
+            "answered": answered,
+            "unanswered": len(items) - answered,
+        },
+        "discardedFindings": rejected,
+    }

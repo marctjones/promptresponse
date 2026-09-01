@@ -38,8 +38,17 @@ def arguments() -> argparse.Namespace:
         required=True,
         help="Existing local MLX model directory. Network model downloads are not allowed.",
     )
-    parser.add_argument("--model-id", required=True, help="Pinned source model identifier.")
-    parser.add_argument("--model-revision", required=True, help="Pinned model revision or commit.")
+    # Pinned so two runs are comparable. Override for a different reviewer.
+    parser.add_argument(
+        "--model-id",
+        default="Qwen/Qwen3-8B",
+        help="Pinned source model identifier.",
+    )
+    parser.add_argument(
+        "--model-revision",
+        default="b968826d9c46dd6066d109eabc6255188de91218-mlx-q4",
+        help="Pinned model revision, including any local quantisation.",
+    )
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--max-tokens", type=int, default=4096)
     parser.add_argument("--spec", type=Path, default=ROOT / "docs" / "APR_SPECIFICATION.md")

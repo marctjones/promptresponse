@@ -51,7 +51,12 @@ def test_model_report_accepts_one_evidence_backed_finding_per_rubric_item():
         ],
     }
 
-    assert parse_model_report(json.dumps(payload), rubric_version=version, items=items) == payload
+    report = parse_model_report(json.dumps(payload), rubric_version=version, items=items)
+
+    # Every finding survives verbatim, in rubric order, with coverage recorded.
+    assert report["findings"] == payload["findings"]
+    assert report["coverage"] == {"rubricItems": 2, "answered": 2, "unanswered": 0}
+    assert report["discardedFindings"] == []
 
 
 @pytest.mark.parametrize(
@@ -59,25 +64,7 @@ def test_model_report_accepts_one_evidence_backed_finding_per_rubric_item():
     [
         "not-json",
         json.dumps({"rubric_version": "wrong", "findings": []}),
-        json.dumps(
-            {
-                "rubric_version": "test-rubric-1",
-                "findings": [
-                    {
-                        "id": "authority",
-                        "status": "pass",
-                        "evidence": ["x"],
-                        "reason": "x",
-                    },
-                    {
-                        "id": "errors",
-                        "status": "addressed",
-                        "evidence": ["x"],
-                        "reason": "x",
-                    },
-                ],
-            }
-        ),
+        json.dumps({"rubric_version": "test-rubric-1", "findings": []}),
     ],
 )
 def test_model_report_rejects_untrusted_or_invalid_output(payload):
@@ -129,3 +116,34 @@ def test_extract_json_object_rejects_a_response_with_no_object():
 
     with pytest.raises(SemanticReviewError):
         extract_json_object("I could not complete the review.")
+
+
+def test_an_unusable_finding_leaves_its_item_unanswered_without_discarding_the_rest():
+    """One malformed finding must not throw away the findings beside it."""
+    version, items = rubric()
+    report = parse_model_report(
+        json.dumps({
+            "rubric_version": version,
+            "findings": [
+                {"id": "authority", "status": "pass", "evidence": ["x"], "reason": "x"},
+                {"id": "errors", "status": "addressed", "evidence": ["q"], "reason": "ok"},
+            ],
+        }),
+        rubric_version=version,
+        items=items,
+    )
+    by_id = {f["id"]: f for f in report["findings"]}
+    assert by_id["errors"]["status"] == "addressed"
+    assert by_id["authority"]["status"] == "no_model_answer"
+    assert report["coverage"] == {"rubricItems": 2, "answered": 1, "unanswered": 1}
+    assert "status 'pass' is not permitted" in report["discardedFindings"][0]["reason"]
+
+
+def test_a_report_with_no_usable_finding_is_still_refused():
+    version, items = rubric()
+    with pytest.raises(SemanticReviewError):
+        parse_model_report(
+            json.dumps({"rubric_version": version, "findings": [{"id": "nope"}]}),
+            rubric_version=version,
+            items=items,
+        )
