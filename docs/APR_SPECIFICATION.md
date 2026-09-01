@@ -398,6 +398,57 @@ member name rather than applying a last-key-wins rule.
 
 *Negative case:* `malformed/duplicate-member.apr.jsonc`.
 
+These examples are executable. `scripts/extract-spec-examples.py` derives the
+conformance vectors from them, so a change to the rule and a change to its
+evidence are the same edit ([Authority](#scope)).
+
+```apr-example
+id: jsonc-trailing-comma
+rule: apr-jsonc
+representation: jsonc
+expect: valid
+---
+{
+  "version": "1.0-beta.6",
+  "metadata": { "title": "Trailing commas" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" }, ] },
+  ],
+}
+```
+
+A comment sequence inside a string is not a comment, because `ws` never occurs
+inside `string`.
+
+```apr-example
+id: jsonc-comment-inside-string
+rule: apr-jsonc
+representation: jsonc
+expect: valid
+---
+{
+  "version": "1.0-beta.6",
+  "metadata": { "title": "// not a comment /* nor this */" },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
+```apr-example
+id: jsonc-duplicate-member
+rule: apr-jsonc
+representation: jsonc
+expect: reject
+diagnostic: DUPLICATE_MEMBER
+---
+{
+  "version": "1.0-beta.6",
+  "metadata": { "title": "first" },
+  "metadata": { "title": "second" },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
+
 **Example 1.** A form in APR-JSONC, with comments that carry no meaning.
 
 ```jsonc
@@ -421,35 +472,57 @@ member name rather than applying a last-key-wins rule.
 
 ### 4.5 APR-YAML {#apr-yaml}
 
-APR-YAML is **YAML 1.2.2 resolved under its own JSON Schema**, with four
-constructs excluded. It is defined by reference rather than restated.
+APR-YAML is **YAML 1.2.2 syntax carrying the JSON value space**. Its syntax is
+referenced rather than restated; only its resolution and its exclusions are
+stated here, because those are the parts APR constrains.
 
 A conforming APR-YAML document:
 
 1. **MUST** be a well-formed YAML 1.2.2 document, per that specification's
-   character, structural, flow, and block productions (chapters 5 to 8).
-2. **MUST** resolve every scalar under the **JSON Schema of YAML 1.2.2 chapter
-   10.2**, and **MUST NOT** apply the Core Schema (10.3) or any other resolution.
+   character, structural, flow, block, and document-stream productions
+   (chapters 5 to 9).
+2. **MUST** resolve every scalar to a value of the JSON data model (RFC 8259):
+   null, boolean, number, string, array, or object, and nothing else.
 3. **MUST** resolve every mapping key to a string.
 4. **MUST NOT** use the constructs excluded below.
 
-Point 2 does most of the work, and is the reason this section is short. The JSON
-Schema is YAML's own definition of "resolve exactly what JSON would resolve": it
-admits null, boolean, integer, float, and string, and nothing else. Choosing it
-disposes of an entire class of YAML-only behaviour without APR having to
-enumerate it — sexagesimals, implicit timestamps, `.inf` and `.nan`, `y`/`n` as
-booleans, and every other YAML 1.1 legacy resolution are simply not JSON Schema
-resolutions and therefore not APR values.
+### 4.5.1 Scalar resolution {#yaml-resolution}
+
+Resolution is stated exhaustively, because it is where YAML and JSON genuinely
+differ and where a reference alone would be ambiguous.
+
+| Scalar | Resolves to |
+| --- | --- |
+| Any quoted scalar | string, verbatim |
+| Plain `null`, `Null`, `NULL`, `~`, or empty | null |
+| Plain `true`, `True`, `TRUE`, `false`, `False`, `FALSE` | boolean |
+| A plain scalar matching JSON's `number` production (RFC 8259 §6) | number |
+| **Any other plain scalar** | **string** |
+
+A plain scalar denoting a non-finite float — `.inf`, `-.inf`, `.nan`, in any
+capitalization — **MUST** be rejected. JSON has no representation for it, so
+there is no value for it to resolve to.
+
+> Rationale: this is close to YAML's Core Schema, restricted to what JSON can
+> represent. The narrower JSON Schema is deliberately *not* used: under it a
+> plain scalar that is not a literal has no resolution at all, so `title: Permit
+> Application` would be invalid and every string in an APR-YAML document would
+> have to be quoted. That is not a document anyone would write.
+
+Because the target is the JSON value space rather than YAML's, an entire class of
+YAML-only behaviour disappears without APR enumerating it. Sexagesimals,
+implicit timestamps, and the YAML 1.1 `y`/`n`/`on`/`off` boolean spellings are
+not JSON values and therefore resolve as ordinary strings.
 
 **Excluded constructs.** These are structural rather than resolution behaviour,
 so the JSON Schema does not exclude them and this document must:
 
-| Excluded | Defined in YAML 1.2.2 | Corpus case |
+| Excluded | Defined in YAML 1.2.2 | Example |
 | --- | --- | --- |
-| Anchors and aliases | §3.2.2.2, node properties and alias nodes | `malformed/yaml-anchor.apr.yaml` |
-| Tags, including `!!binary` and language-specific tags | §3.2.1.2, node properties | none — corpus gap |
-| Merge keys | the `<<` mapping-merge convention | none — corpus gap |
-| Directives, including `%YAML` and `%TAG` | §6.8 | none — corpus gap |
+| Anchors and aliases | §3.2.2.2, node properties and alias nodes | `yaml-anchor` |
+| Tags, including `!!binary` and language-specific tags | §3.2.1.2, node properties | `yaml-tag` |
+| Merge keys | the `<<` mapping-merge convention | `yaml-merge-key` |
+| Directives, including `%YAML` and `%TAG` | §6.8 | `yaml-directive` |
 
 Implementations **MUST** use a safe loader: one that constructs only the JSON
 Schema value types and never instantiates a host-language object from document
@@ -460,9 +533,145 @@ or boolean under the JSON Schema, because
 [Responses are strings](#responses) governs the semantic model regardless of how
 a scalar resolved.
 
-Rows marked *corpus gap* state a rule the corpus does not yet exercise. The rule
-is normative; the missing vector is a corpus defect
-([Corpus gaps](#corpus-gaps)).
+
+The excluded constructs, each with its vector.
+
+```apr-example
+id: yaml-anchor
+rule: apr-yaml
+representation: yaml
+expect: reject
+diagnostic: YAML_ANCHOR_FORBIDDEN
+---
+version: "1.0-beta.6"
+metadata: &meta
+  title: Anchored
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
+
+```apr-example
+id: yaml-tag
+rule: apr-yaml
+representation: yaml
+expect: reject
+diagnostic: YAML_TAG_FORBIDDEN
+---
+version: "1.0-beta.6"
+metadata:
+  title: !!str Tagged
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
+
+```apr-example
+id: yaml-merge-key
+rule: apr-yaml
+representation: yaml
+expect: reject
+diagnostic: YAML_MERGE_KEY_FORBIDDEN
+---
+version: "1.0-beta.6"
+metadata:
+  title: Merged
+sections:
+  - id: s
+    title: S
+    <<: { description: merged in }
+    prompts:
+      - id: p
+        label: P
+```
+
+```apr-example
+id: yaml-directive
+rule: apr-yaml
+representation: yaml
+expect: reject
+diagnostic: YAML_DIRECTIVE_FORBIDDEN
+---
+%YAML 1.2
+---
+version: "1.0-beta.6"
+metadata:
+  title: Directed
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
+
+Resolution, including the cases that separate APR from YAML's own schemas. A bare
+word is a string, and a non-finite float has no JSON value to resolve to.
+
+```apr-example
+id: yaml-bare-word-is-a-string
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Permit Application
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: about twelve
+```
+
+```apr-example
+id: yaml-legacy-boolean-is-a-string
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Legacy spellings
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: yes
+```
+
+```apr-example
+id: yaml-non-finite-float
+rule: yaml-resolution
+representation: yaml
+expect: reject
+diagnostic: YAML_NON_FINITE_NUMBER
+---
+version: "1.0-beta.6"
+metadata:
+  title: Non-finite
+sections:
+  - id: s
+    title: S
+    kind: table
+    maxRows: .inf
+    prompts:
+      - id: p
+        label: P
+```
+
+Every exclusion above names the example that exercises it, and those examples are
+in this document ([Authority](#scope)).
 
 **Example 2.** The same form as Example 1, in APR-YAML. Both have identical
 semantic models and therefore identical digests.
@@ -1223,6 +1432,29 @@ sections:
         response: ""
 ```
 
+
+A stream carries one representation throughout.
+
+```apr-example
+id: stream-mixed-representations
+rule: streams
+representation: jsonc-stream
+expect: reject
+diagnostic: APR_STREAM_MIXED_REPRESENTATIONS
+---
+{"version":"1.0-beta.6","metadata":{"title":"first"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+---
+version: "1.0-beta.6"
+metadata:
+  title: second
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
+
 ### 9.3 Equivalence {#stream-equivalence}
 
 The corpus supplies paired streams whose records have equal semantic models
@@ -1864,11 +2096,17 @@ document disagree, the implementation has a defect to fix.
 
 Non-normative.
 
-Every rule in this document is normative. These rules are not yet exercised by a
-conformance vector, which makes them a corpus defect rather than a specification
-gap:
+Every rule in this document is normative. A rule with no vector is a corpus
+defect rather than a specification gap, because the corpus is derived from this
+document ([Authority](#scope)).
 
-- the forbidden APR-YAML constructs other than anchors: tags, merge keys,
-  non-finite numbers, binary values, implicit dates, and language constructors;
-- mixed-representation stream rejection; and
-- manifest vectors across the full range of changed member kinds.
+Closed by the examples embedded here: the forbidden APR-YAML constructs — tags,
+merge keys, and directives as well as anchors — scalar resolution of bare words,
+legacy boolean spellings and non-finite floats, JSONC trailing commas and
+comments inside strings, and mixed-representation stream rejection.
+
+Still without a vector:
+
+- manifest vectors across the full range of changed member kinds;
+- a `kind: table` section in the beta.6 corpus; and
+- an unregistered `expectedDataType` degrading to text.

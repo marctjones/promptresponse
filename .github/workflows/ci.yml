@@ -148,6 +148,12 @@ jobs:
         # have an entry.
         run: python3 scripts/check-test-registry.py
 
+      - name: Verify the conformance vectors still match the specification
+        # The specification is normative and the corpus is derived from it. This
+        # regenerates the vectors from the examples embedded in the specification
+        # and fails if the committed file differs, so prose and evidence cannot drift.
+        run: python3 scripts/extract-spec-examples.py
+
       - name: Verify release-status documentation agrees with the repository
         run: python3 scripts/check-docs.py
 

@@ -1171,6 +1171,22 @@
       ]
     },
     {
+      "id": "REQ-yaml-resolution",
+      "section": "yaml-resolution",
+      "statement": "APR-YAML scalars resolve to the JSON value space; non-finite floats are rejected",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "spec-examples.json"
+        },
+        {
+          "type": "test",
+          "ref": "Yaml_ReadsTheSameSemanticForm"
+        }
+      ]
+    },
+    {
       "id": "REQ-yaml-restricted",
       "section": "apr-yaml",
       "statement": "Restricted YAML: string keys, safe loader, forbidden constructs rejected",

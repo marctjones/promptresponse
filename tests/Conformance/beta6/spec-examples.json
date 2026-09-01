@@ -1,0 +1,90 @@
+{
+  "$comment": "GENERATED from the examples embedded in docs/APR_SPECIFICATION.md. Do not edit. Run scripts/extract-spec-examples.py --write.",
+  "formatVersion": "1.0-beta.6",
+  "examples": [
+    {
+      "id": "jsonc-comment-inside-string",
+      "rule": "apr-jsonc",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"// not a comment /* nor this */\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n"
+    },
+    {
+      "id": "jsonc-duplicate-member",
+      "rule": "apr-jsonc",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"first\" },\n  \"metadata\": { \"title\": \"second\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "diagnostic": "DUPLICATE_MEMBER"
+    },
+    {
+      "id": "jsonc-trailing-comma",
+      "rule": "apr-jsonc",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Trailing commas\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" }, ] },\n  ],\n}\n"
+    },
+    {
+      "id": "stream-mixed-representations",
+      "rule": "streams",
+      "representation": "jsonc-stream",
+      "expect": "reject",
+      "document": "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n---\nversion: \"1.0-beta.6\"\nmetadata:\n  title: second\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "diagnostic": "APR_STREAM_MIXED_REPRESENTATIONS"
+    },
+    {
+      "id": "yaml-anchor",
+      "rule": "apr-yaml",
+      "representation": "yaml",
+      "expect": "reject",
+      "document": "version: \"1.0-beta.6\"\nmetadata: &meta\n  title: Anchored\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "diagnostic": "YAML_ANCHOR_FORBIDDEN"
+    },
+    {
+      "id": "yaml-bare-word-is-a-string",
+      "rule": "yaml-resolution",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Permit Application\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: about twelve\n"
+    },
+    {
+      "id": "yaml-directive",
+      "rule": "apr-yaml",
+      "representation": "yaml",
+      "expect": "reject",
+      "document": "%YAML 1.2\n---\nversion: \"1.0-beta.6\"\nmetadata:\n  title: Directed\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "diagnostic": "YAML_DIRECTIVE_FORBIDDEN"
+    },
+    {
+      "id": "yaml-legacy-boolean-is-a-string",
+      "rule": "yaml-resolution",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Legacy spellings\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: yes\n"
+    },
+    {
+      "id": "yaml-merge-key",
+      "rule": "apr-yaml",
+      "representation": "yaml",
+      "expect": "reject",
+      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Merged\nsections:\n  - id: s\n    title: S\n    <<: { description: merged in }\n    prompts:\n      - id: p\n        label: P\n",
+      "diagnostic": "YAML_MERGE_KEY_FORBIDDEN"
+    },
+    {
+      "id": "yaml-non-finite-float",
+      "rule": "yaml-resolution",
+      "representation": "yaml",
+      "expect": "reject",
+      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Non-finite\nsections:\n  - id: s\n    title: S\n    kind: table\n    maxRows: .inf\n    prompts:\n      - id: p\n        label: P\n",
+      "diagnostic": "YAML_NON_FINITE_NUMBER"
+    },
+    {
+      "id": "yaml-tag",
+      "rule": "apr-yaml",
+      "representation": "yaml",
+      "expect": "reject",
+      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: !!str Tagged\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "diagnostic": "YAML_TAG_FORBIDDEN"
+    }
+  ]
+}
