@@ -33,6 +33,28 @@ These templates showcase the flexibility and power of the APR format for represe
 - **Features**: Every registered type hint, including `select`, `multichoice`, range, file, color, and signature
 - **Use Case**: Reference for data type validation and hints
 
+#### `hints-and-widgets-showcase.apr.jsonc` and `hints-and-widgets-showcase.apr.yaml`
+- **Purpose**: Matched beta.6 JSONC and YAML representations of one semantic template
+- **Features**: Every registered `expectedDataType`, plus placeholders, help text,
+  suggested values, regex, range bounds, and every `expr*` hint
+- **Use Case**: Representation and renderer-affordance reference; the two files
+  must remain semantically equivalent
+
+#### `multiple-forms-stream.apr.yaml`
+- **Purpose**: A YAML stream containing two independent template records
+- **Features**: Explicit record iteration; neither form is a child of the other
+- **Use Case**: Reader/SDK example for multiple forms in one stream
+
+### Official-form examples
+
+The `government/` directory keeps a semantic APR example next to the exact
+official IRS source PDF used to create it, plus URL and SHA-256 provenance in
+the APR metadata. The APR file is a reviewed semantic model; the PDF remains
+the visual authority.
+
+- `government/irs-form-w9-2024.aprt` + `irs-form-w9-2024.pdf`
+- `government/irs-form-w2-2026.aprt` + `irs-form-w2-2026.pdf`
+
 ### Business Forms
 
 #### `employment-application.apr`

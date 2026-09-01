@@ -1,0 +1,84 @@
+{
+  "version": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-2 (2026) - Wage and Tax Statement",
+    "description": "Faithful semantic transcription of one 2026 IRS Form W-2 statement. The official PDF carries multiple recipient copies of the same statement; this APR model represents the shared data once. The adjacent PDF is the authoritative visual source and contains copy-specific delivery instructions.",
+    "author": "Internal Revenue Service",
+    "templateId": "irs-form-w2-2026",
+    "templateVersion": "2026",
+    "sourceUrl": "https://www.irs.gov/pub/irs-pdf/fw2.pdf",
+    "sourceSha256": "61eca7c81f16d3965819fe1f31be4fe68c1b2887a81f51172f1d2ed2b2b9f087"
+  },
+  "roles": [
+    { "id": "employer", "name": "Employer", "description": "Employer completing and furnishing the wage statement." },
+    { "id": "employee", "name": "Employee", "description": "Employee named by the wage statement." }
+  ],
+  "sections": [
+    {
+      "id": "identification",
+      "title": "Employer and employee identification",
+      "role": "employer",
+      "prompts": [
+        { "id": "box_a_employee_ssn", "label": "a. Employee's social security number", "response": "", "role": "employee", "hints": { "expectedDataType": "text", "placeholder": "XXX-XX-XXXX", "validationPattern": "^\\d{3}-?\\d{2}-?\\d{4}$" } },
+        { "id": "box_b_employer_ein", "label": "b. Employer identification number (EIN)", "response": "", "hints": { "expectedDataType": "text", "placeholder": "XX-XXXXXXX", "validationPattern": "^\\d{2}-?\\d{7}$" } },
+        { "id": "box_c_employer_name_address_zip", "label": "c. Employer's name, address, and ZIP code", "response": "", "hints": { "expectedDataType": "multiline" } },
+        { "id": "box_d_control_number", "label": "d. Control number", "response": "", "hints": { "expectedDataType": "text" } },
+        { "id": "box_e_employee_name", "label": "e. Employee's first name and initial, last name, and suffix", "response": "", "role": "employee", "hints": { "expectedDataType": "text" } },
+        { "id": "box_f_employee_address_zip", "label": "f. Employee's address and ZIP code", "response": "", "role": "employee", "hints": { "expectedDataType": "multiline" } }
+      ]
+    },
+    {
+      "id": "federal_wages_and_taxes",
+      "title": "Federal wages and taxes",
+      "role": "employer",
+      "prompts": [
+        { "id": "box_1_wages", "label": "1. Wages, tips, other compensation", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_2_federal_income_tax_withheld", "label": "2. Federal income tax withheld", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_3_social_security_wages", "label": "3. Social security wages", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_4_social_security_tax_withheld", "label": "4. Social security tax withheld", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_5_medicare_wages_tips", "label": "5. Medicare wages and tips", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_6_medicare_tax_withheld", "label": "6. Medicare tax withheld", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_7_social_security_tips", "label": "7. Social security tips", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_8_allocated_tips", "label": "8. Allocated tips", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_9", "label": "9.", "response": "", "hints": { "expectedDataType": "text", "helpText": "The official 2026 form retains box 9 as an unlabeled box." } },
+        { "id": "box_10_dependent_care_benefits", "label": "10. Dependent care benefits", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_11_nonqualified_plans", "label": "11. Nonqualified plans", "response": "", "hints": { "expectedDataType": "currency" } }
+      ]
+    },
+    {
+      "id": "codes_and_status",
+      "title": "Codes and employment status",
+      "role": "employer",
+      "description": "Use the official W-2 instructions for boxes 12 and 13. The four code/value entries are modeled as separate labeled records without reproducing the paper layout.",
+      "sections": [
+        { "id": "box_12a", "title": "12a. Code and amount", "prompts": [ { "id": "box_12a_code", "label": "12a code", "response": "", "hints": { "expectedDataType": "text" } }, { "id": "box_12a_amount", "label": "12a amount", "response": "", "hints": { "expectedDataType": "currency" } } ] },
+        { "id": "box_12b", "title": "12b. Code and amount", "prompts": [ { "id": "box_12b_code", "label": "12b code", "response": "", "hints": { "expectedDataType": "text" } }, { "id": "box_12b_amount", "label": "12b amount", "response": "", "hints": { "expectedDataType": "currency" } } ] },
+        { "id": "box_12c", "title": "12c. Code and amount", "prompts": [ { "id": "box_12c_code", "label": "12c code", "response": "", "hints": { "expectedDataType": "text" } }, { "id": "box_12c_amount", "label": "12c amount", "response": "", "hints": { "expectedDataType": "currency" } } ] },
+        { "id": "box_12d", "title": "12d. Code and amount", "prompts": [ { "id": "box_12d_code", "label": "12d code", "response": "", "hints": { "expectedDataType": "text" } }, { "id": "box_12d_amount", "label": "12d amount", "response": "", "hints": { "expectedDataType": "currency" } } ] }
+      ],
+      "prompts": [
+        { "id": "box_13_statutory_employee", "label": "13. Statutory employee", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["Yes", "No"] } },
+        { "id": "box_13_retirement_plan", "label": "13. Retirement plan", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["Yes", "No"] } },
+        { "id": "box_13_third_party_sick_pay", "label": "13. Third-party sick pay", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["Yes", "No"] } },
+        { "id": "box_14a_other", "label": "14a. Other", "response": "", "hints": { "expectedDataType": "multiline" } },
+        { "id": "box_14b_tipped_occupation_codes", "label": "14b. Treasury Tipped Occupation Code(s)", "response": "", "hints": { "expectedDataType": "text" } }
+      ]
+    },
+    {
+      "id": "state_and_local",
+      "title": "State and local wages and taxes",
+      "role": "employer",
+      "description": "The paper form provides a row for each state/local entry. This semantic model provides one complete row; a future approved evolution may make it a repeating table.",
+      "prompts": [
+        { "id": "box_15_state", "label": "15. State", "response": "", "hints": { "expectedDataType": "text" } },
+        { "id": "box_15_employer_state_id", "label": "15. Employer's state ID number", "response": "", "hints": { "expectedDataType": "text" } },
+        { "id": "box_16_state_wages", "label": "16. State wages, tips, etc.", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_17_state_income_tax", "label": "17. State income tax", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_18_local_wages", "label": "18. Local wages, tips, etc.", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_19_local_income_tax", "label": "19. Local income tax", "response": "", "hints": { "expectedDataType": "currency" } },
+        { "id": "box_20_locality_name", "label": "20. Locality name", "response": "", "hints": { "expectedDataType": "text" } }
+      ]
+    }
+  ]
+}

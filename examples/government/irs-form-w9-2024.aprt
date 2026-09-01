@@ -1,0 +1,67 @@
+{
+  "version": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-9 (Rev. March 2024) - Request for Taxpayer Identification Number and Certification",
+    "description": "Faithful semantic transcription of the response-bearing page of the official IRS Form W-9 (Rev. March 2024). Give the completed form to the requester; do not send it to the IRS. The adjacent PDF is the authoritative visual source and contains the full instructions.",
+    "author": "Internal Revenue Service",
+    "templateId": "irs-form-w9-2024",
+    "templateVersion": "2024-03",
+    "sourceUrl": "https://www.irs.gov/pub/irs-pdf/fw9.pdf",
+    "sourceSha256": "2d420cbb4123dcf1fb82595b2359cfbb5d81f00b9df9d359fcc7af361d093f53"
+  },
+  "roles": [
+    { "id": "payee", "name": "Payee", "description": "Individual or entity providing a taxpayer identification number." },
+    { "id": "requester", "name": "Requester", "description": "Person requesting the completed Form W-9." }
+  ],
+  "sections": [
+    {
+      "id": "identity_and_classification",
+      "title": "Name, classification, and exemptions",
+      "role": "payee",
+      "description": "Complete lines 1 through 4. Line 1 is required. Check exactly one line 3a tax classification; line 3b applies only in the circumstances printed on the official form.",
+      "prompts": [
+        { "id": "line_1_name", "label": "1. Name of entity/individual", "response": "", "hints": { "expectedDataType": "text", "helpText": "For a sole proprietor or disregarded entity, enter the owner's name." } },
+        { "id": "line_2_business_name", "label": "2. Business name/disregarded entity name, if different from above", "response": "", "hints": { "expectedDataType": "text" } },
+        { "id": "line_3a_tax_classification", "label": "3a. Federal tax classification", "response": "", "hints": { "expectedDataType": "select", "suggestedValues": ["Individual/sole proprietor", "C corporation", "S corporation", "Partnership", "Trust/estate", "LLC", "Other"] } },
+        { "id": "line_3a_llc_tax_classification", "label": "3a. LLC tax classification (C, S, or P)", "response": "", "hints": { "expectedDataType": "select", "suggestedValues": ["C", "S", "P"], "helpText": "Complete only when LLC is selected and it is not a disregarded entity." } },
+        { "id": "line_3a_other_classification", "label": "3a. Other tax classification (specify)", "response": "", "hints": { "expectedDataType": "text", "helpText": "Complete only when Other is selected." } },
+        { "id": "line_3b_foreign_partners", "label": "3b. Entity has foreign partners, owners, or beneficiaries", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["Yes", "No"], "helpText": "Applies when the official form's line 3b conditions are met." } },
+        { "id": "line_4a_exempt_payee_code", "label": "4. Exempt payee code (if any)", "response": "", "hints": { "expectedDataType": "text" } },
+        { "id": "line_4b_fatca_exemption_code", "label": "4. Exemption from FATCA reporting code (if any)", "response": "", "hints": { "expectedDataType": "text", "helpText": "Applies to accounts maintained outside the United States." } }
+      ]
+    },
+    {
+      "id": "address_and_accounts",
+      "title": "Address and account numbers",
+      "role": "payee",
+      "prompts": [
+        { "id": "line_5_address", "label": "5. Address (number, street, and apartment or suite number)", "response": "", "hints": { "expectedDataType": "text" } },
+        { "id": "line_6_city_state_zip", "label": "6. City, state, and ZIP code", "response": "", "hints": { "expectedDataType": "text" } },
+        { "id": "line_7_account_numbers", "label": "7. List account number(s) here (optional)", "response": "", "hints": { "expectedDataType": "multiline" } },
+        { "id": "requester_name_and_address", "label": "Requester's name and address (optional)", "response": "", "role": "requester", "hints": { "expectedDataType": "multiline" } }
+      ]
+    },
+    {
+      "id": "part_i_tin",
+      "title": "Part I - Taxpayer Identification Number (TIN)",
+      "role": "payee",
+      "description": "Enter either a Social Security number or an Employer Identification Number in the appropriate official-form box. The TIN must match the line 1 name to avoid backup withholding.",
+      "prompts": [
+        { "id": "part_i_ssn", "label": "Social security number", "response": "", "hints": { "expectedDataType": "text", "placeholder": "XXX-XX-XXXX", "validationPattern": "^\\d{3}-?\\d{2}-?\\d{4}$" } },
+        { "id": "part_i_ein", "label": "Employer identification number", "response": "", "hints": { "expectedDataType": "text", "placeholder": "XX-XXXXXXX", "validationPattern": "^\\d{2}-?\\d{7}$" } }
+      ]
+    },
+    {
+      "id": "part_ii_certification",
+      "title": "Part II - Certification",
+      "role": "payee",
+      "description": "Under penalties of perjury, the signer certifies that the TIN is correct (or pending), backup-withholding status is as stated, the signer is a U.S. person, and any FATCA exemption code is correct. The official form provides exceptions and instructions; consult the adjacent PDF.",
+      "prompts": [
+        { "id": "certification_acknowledgment", "label": "I certify the Part II statements printed on Form W-9", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["Yes", "No"] } },
+        { "id": "signature", "label": "Signature of U.S. person", "response": "", "hints": { "expectedDataType": "signature" } },
+        { "id": "signature_date", "label": "Date", "response": "", "hints": { "expectedDataType": "date" } }
+      ]
+    }
+  ]
+}
