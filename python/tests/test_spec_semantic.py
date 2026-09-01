@@ -97,3 +97,35 @@ def test_rubric_rejects_duplicate_identifiers():
                 ],
             }
         )
+
+
+def test_extract_json_object_strips_reasoning_and_fences():
+    """A reasoning model answers with its chain of thought before the JSON."""
+    from promptresponse.spec_semantic import extract_json_object
+
+    wrapped = (
+        "<think>Let me read the specification carefully.</think>\n"
+        "```json\n"
+        '{"rubric_version": "v1", "findings": []}\n'
+        "```"
+    )
+    assert json.loads(extract_json_object(wrapped)) == {
+        "rubric_version": "v1",
+        "findings": [],
+    }
+
+
+def test_extract_json_object_handles_braces_inside_strings():
+    from promptresponse.spec_semantic import extract_json_object
+
+    payload = '{"reason": "a } inside a string", "findings": []}'
+    assert json.loads(extract_json_object("noise " + payload + " trailing"))["reason"] == (
+        "a } inside a string"
+    )
+
+
+def test_extract_json_object_rejects_a_response_with_no_object():
+    from promptresponse.spec_semantic import SemanticReviewError, extract_json_object
+
+    with pytest.raises(SemanticReviewError):
+        extract_json_object("I could not complete the review.")

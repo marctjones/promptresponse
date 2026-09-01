@@ -77,6 +77,25 @@ def main() -> int:
     )
     mx.random.seed(args.seed)
     model, tokenizer = load(str(args.model_path))
+
+    # Present the prompt the way the model was trained to receive it. A reasoning
+    # model asked for JSON through a raw completion prompt answers with its chain
+    # of thought first; enable_thinking=False turns that off where the template
+    # supports it, and the parser strips it where it does not.
+    if getattr(tokenizer, "chat_template", None):
+        try:
+            prompt = tokenizer.apply_chat_template(
+                [{"role": "user", "content": prompt}],
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=False,
+            )
+        except TypeError:
+            prompt = tokenizer.apply_chat_template(
+                [{"role": "user", "content": prompt}],
+                tokenize=False,
+                add_generation_prompt=True,
+            )
     # Greedy decoding, expressed the way current mlx-lm expects it. The older
     # "temp=0.0" keyword was removed upstream, and passing it raised a TypeError
     # before any review could run.

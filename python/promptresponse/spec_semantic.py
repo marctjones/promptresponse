@@ -8,6 +8,7 @@ model returned evidence a human can inspect.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from typing import Any
 
@@ -81,12 +82,53 @@ APR beta specification ends.
 """
 
 
+_THINK = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
+_FENCE = re.compile(r"^```[a-zA-Z]*\n|\n```$", re.MULTILINE)
+
+
+def extract_json_object(text: str) -> str:
+    """Return the first balanced JSON object in a model response.
+
+    A reasoning model emits its chain of thought before the answer, and a chat
+    model likes to wrap JSON in a code fence. Neither is a defect in the report
+    itself, so the wrapper is stripped rather than the report rejected. Every
+    check that matters - rubric version, one finding per item, known ids,
+    permitted status values - still runs against the parsed object, unchanged.
+    """
+    cleaned = _FENCE.sub("", _THINK.sub("", text)).strip()
+    start = cleaned.find("{")
+    if start < 0:
+        raise SemanticReviewError("model response contained no JSON object")
+    depth = 0
+    in_string = False
+    escaped = False
+    for index in range(start, len(cleaned)):
+        char = cleaned[index]
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+        elif char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return cleaned[start : index + 1]
+    raise SemanticReviewError("model response contained no balanced JSON object")
+
+
 def parse_model_report(
     text: str, *, rubric_version: str, items: list[RubricItem]
 ) -> dict[str, Any]:
     """Validate a model report before it is written as review evidence."""
     try:
-        payload = json.loads(text)
+        payload = json.loads(extract_json_object(text))
     except json.JSONDecodeError as exc:
         raise SemanticReviewError("model response was not valid JSON") from exc
 
