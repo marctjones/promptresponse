@@ -63,6 +63,11 @@ public class RealFormFilesTests
             .SelectMany(d => Directory.GetFiles(d, "*.apr*", SearchOption.AllDirectories))
             .Where(f => !f.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}")
                      && !f.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}"))
+            // JSONC and YAML examples are exercised through AprBeta6Reader below.
+            // This legacy serializer suite intentionally covers only single JSON APR files.
+            .Where(f => !f.EndsWith(".jsonc", StringComparison.OrdinalIgnoreCase)
+                     && !f.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase)
+                     && !f.EndsWith(".yml", StringComparison.OrdinalIgnoreCase))
             .OrderBy(f => f, StringComparer.Ordinal)
             .ToList();
 

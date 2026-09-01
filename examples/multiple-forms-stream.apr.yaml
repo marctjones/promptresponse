@@ -1,0 +1,40 @@
+---
+# A beta.6 YAML stream with two independent form records. Neither form is an
+# attachment or child of the other; consumers must enumerate both in order.
+version: "1.0-beta.6"
+documentType: template
+metadata:
+  title: Household contact card
+  templateId: household-contact-card
+  templateVersion: "1.0"
+sections:
+  - id: contact
+    title: Contact
+    prompts:
+      - id: full_name
+        label: Full name
+        response: ""
+        hints: { expectedDataType: text }
+      - id: email
+        label: Email address
+        response: ""
+        hints: { expectedDataType: email }
+---
+version: "1.0-beta.6"
+documentType: template
+metadata:
+  title: Household emergency contact card
+  templateId: household-emergency-contact-card
+  templateVersion: "1.0"
+sections:
+  - id: emergency_contact
+    title: Emergency contact
+    prompts:
+      - id: contact_name
+        label: Emergency contact name
+        response: ""
+        hints: { expectedDataType: text }
+      - id: contact_phone
+        label: Emergency contact phone number
+        response: ""
+        hints: { expectedDataType: phone }

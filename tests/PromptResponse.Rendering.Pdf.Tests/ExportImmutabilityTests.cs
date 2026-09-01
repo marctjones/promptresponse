@@ -144,6 +144,11 @@ public class ExportImmutabilityTests
             .SelectMany(d => Directory.GetFiles(d, "*.apr*", SearchOption.AllDirectories))
             .Where(f => !f.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}")
                      && !f.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}"))
+            // JSONC and YAML examples reach the renderers through AprBeta6Reader. This suite
+            // loads files with the single-document JSON serializer, which cannot read them.
+            .Where(f => !f.EndsWith(".jsonc", StringComparison.OrdinalIgnoreCase)
+                     && !f.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase)
+                     && !f.EndsWith(".yml", StringComparison.OrdinalIgnoreCase))
             .OrderBy(f => f, StringComparer.Ordinal);
 
         foreach (var file in files)

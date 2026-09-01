@@ -1,0 +1,43 @@
+// Matched pair: this JSONC document and hints-and-widgets-showcase.apr.yaml
+// represent exactly the same beta.6 template. Comments and formatting are non-semantic.
+{
+  "version": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "APR hints and widgets showcase",
+    "description": "Matched JSONC/YAML demonstration of every registered expectedDataType and every standard hint family. Hints are advisory: a renderer may offer another accessible affordance and responses remain strings.",
+    "templateId": "apr-hints-and-widgets-showcase",
+    "templateVersion": "1.0-beta.6"
+  },
+  "sections": [
+    { "id": "text_and_contact", "title": "Text and contact widgets", "prompts": [
+      { "id": "text", "label": "Text", "response": "", "hints": { "expectedDataType": "text", "placeholder": "ABC-12345", "helpText": "Includes a regex hint.", "validationPattern": "^[A-Z]{3}-\\d{5}$" } },
+      { "id": "multiline", "label": "Multiline text", "response": "", "hints": { "expectedDataType": "multiline", "placeholder": "Write several lines" } },
+      { "id": "email", "label": "Email", "response": "", "hints": { "expectedDataType": "email", "placeholder": "name@example.test" } },
+      { "id": "phone", "label": "Phone", "response": "", "hints": { "expectedDataType": "phone", "placeholder": "+1 555 0100" } },
+      { "id": "url", "label": "URL", "response": "", "hints": { "expectedDataType": "url", "placeholder": "https://example.test" } },
+      { "id": "password", "label": "Password", "response": "", "hints": { "expectedDataType": "password", "helpText": "Mask while typing where supported." } }
+    ] },
+    { "id": "dates_and_numbers", "title": "Dates and numeric widgets", "prompts": [
+      { "id": "date", "label": "Date", "response": "", "hints": { "expectedDataType": "date", "placeholder": "2026-08-31" } },
+      { "id": "time", "label": "Time", "response": "", "hints": { "expectedDataType": "time", "placeholder": "14:30:00" } },
+      { "id": "datetime", "label": "Date and time", "response": "", "hints": { "expectedDataType": "datetime", "placeholder": "2026-08-31T14:30:00Z" } },
+      { "id": "number", "label": "Number", "response": "", "hints": { "expectedDataType": "number", "placeholder": "42" } },
+      { "id": "currency", "label": "Currency", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "123.45" } },
+      { "id": "range", "label": "Range", "response": "", "hints": { "expectedDataType": "range", "min": "1", "max": "10", "step": "1", "helpText": "Bounds are advisory." } },
+      { "id": "color", "label": "Color", "response": "", "hints": { "expectedDataType": "color", "placeholder": "#336699" } }
+    ] },
+    { "id": "choices_and_attachments", "title": "Choices, signature, and file widgets", "prompts": [
+      { "id": "boolean", "label": "Boolean", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["Yes", "No"] } },
+      { "id": "select", "label": "Single choice", "response": "", "hints": { "expectedDataType": "select", "suggestedValues": ["Email", "Phone", "Postal mail"] } },
+      { "id": "multichoice", "label": "Multiple choices", "response": "", "hints": { "expectedDataType": "multichoice", "suggestedValues": ["Red", "Green", "Blue"] } },
+      { "id": "file", "label": "File", "response": "", "hints": { "expectedDataType": "file", "helpText": "A renderer may offer a file picker or accept a reference." } },
+      { "id": "signature", "label": "Signature", "response": "", "hints": { "expectedDataType": "signature" } }
+    ] },
+    { "id": "expression_hints", "title": "Advisory expression hints", "description": "These demonstrate behavior suggestions, not validation rules.", "prompts": [
+      { "id": "enable_details", "label": "Enable details", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["true", "false"] } },
+      { "id": "details", "label": "Details", "response": "", "hints": { "expectedDataType": "text", "exprHidden": "enable_details == 'false'", "exprExpected": "enable_details == 'true'", "exprValidation": "enable_details == 'true' ? (_this == '' ? 'Explain the details.' : '') : ''", "exprReadOnly": "enable_details == 'false'" } },
+      { "id": "computed_note", "label": "Computed note", "response": "", "hints": { "expectedDataType": "text", "exprValue": "enable_details == 'true' ? 'Details enabled' : 'Details disabled'" } }
+    ] }
+  ]
+}

@@ -11,6 +11,29 @@ public sealed class AprBeta6CorpusTests
     private static string Corpus => Path.Combine(
         Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")),
         "tests", "Conformance", "beta6");
+    private static string Examples => Path.Combine(
+        Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "..")),
+        "examples");
+
+    [Fact]
+    public void ShippedJsoncAndYamlExamples_ParseToTheExpectedRecords()
+    {
+        var jsonc = _reader.ReadForm(
+            File.ReadAllText(Path.Combine(Examples, "hints-and-widgets-showcase.apr.jsonc")),
+            AprRepresentation.Jsonc);
+        var yaml = _reader.ReadForm(
+            File.ReadAllText(Path.Combine(Examples, "hints-and-widgets-showcase.apr.yaml")),
+            AprRepresentation.Yaml);
+        jsonc.Metadata.Title.Should().Be(yaml.Metadata.Title);
+        jsonc.Sections.SelectMany(s => s.Prompts).Should().HaveCount(21);
+        yaml.Sections.SelectMany(s => s.Prompts).Should().HaveCount(21);
+
+        var forms = _reader.ReadStream(
+            File.ReadAllText(Path.Combine(Examples, "multiple-forms-stream.apr.yaml")),
+            AprRepresentation.Yaml).OfType<AprFormRecord>().ToList();
+        forms.Select(f => f.Form.Metadata.TemplateId).Should().Equal(
+            "household-contact-card", "household-emergency-contact-card");
+    }
 
     [Fact]
     public void PairedFormsAndStreams_FollowTheSharedBeta6Corpus()

@@ -97,7 +97,8 @@ def check_real_files(validator, failures):
     roots = [ROOT / "examples"]
     files = sorted(
         (f for root in roots if root.is_dir()
-           for f in root.rglob("*.apr*")
+           for f in root.rglob("*")
+           if f.suffix in {".apr", ".aprt", ".aprf"}
            if "bin" not in f.parts and "obj" not in f.parts),
         key=lambda f: str(f),
     )
@@ -123,7 +124,10 @@ def check_real_files(validator, failures):
 
 def check_beta6_examples(validator, failures):
     """Shipped examples are release-surface beta.6 data, not historical corpus."""
-    examples = sorted((ROOT / "examples").glob("*.apr*"))
+    examples = sorted(
+        path for path in (ROOT / "examples").glob("*.apr*")
+        if path.suffix in {".apr", ".aprt", ".aprf"}
+    )
     print()
     print("beta6 shipped examples — every user-facing example MUST be beta.6")
     for path in examples:
@@ -142,6 +146,30 @@ def check_beta6_examples(validator, failures):
             failures.append("%s: %s" % (rel, detail))
 
 
+def check_beta6_representation_examples(validator, failures):
+    """Validate shipped JSONC/YAML examples, including intentional multi-form streams."""
+    paths = sorted(
+        [*ROOT.joinpath("examples").glob("*.apr.jsonc"),
+         *ROOT.joinpath("examples").glob("*.apr.yaml"),
+         *ROOT.joinpath("examples").glob("*.apr.yml")]
+    )
+    print()
+    print("beta6 JSONC/YAML examples — every record MUST validate")
+    for path in paths:
+        rel = path.relative_to(ROOT)
+        try:
+            records = beta6_records(path)
+            errors = [error for record in records for error in validator.iter_errors(record)]
+            expected_count = 2 if path.name.startswith("multiple-forms-stream.") else 1
+            ok = len(records) == expected_count and not errors
+        except Exception as exc:
+            errors, ok = [exc], False
+        print("  %s  %s" % ("PASS" if ok else "FAIL", rel))
+        if not ok:
+            detail = str(errors[0]) if errors else "expected %d record(s), found %d" % (expected_count, len(records))
+            failures.append("%s: %s" % (rel, detail))
+
+
 def main():
     beta_schema = json.loads(BETA6_SCHEMA.read_text(encoding="utf-8"))
     Draft202012Validator.check_schema(beta_schema)
@@ -153,6 +181,7 @@ def main():
     failures = []
     check_real_files(validator, failures)
     check_beta6_examples(validator, failures)
+    check_beta6_representation_examples(validator, failures)
     print("\nbeta6/ — schema MUST accept paired forms and independent attestation records")
     for path in sorted(p for p in BETA6_CORPUS.rglob("*") if p.is_file() and p.suffix in {".jsonc", ".yaml", ".yml"}):
         try:

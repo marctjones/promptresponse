@@ -91,6 +91,12 @@ public class ParserFuzzTests
 
     public static IEnumerable<object[]> CorpusFiles() =>
         Directory.GetFiles(ExamplesDir, "*.apr*")
+            // JSONC and YAML examples are not strict JSON. This suite feeds every file to
+            // the single-document JSON serializer, so their comments and document markers
+            // would be reported as fuzz findings rather than the encoding hazards under test.
+            .Where(f => !f.EndsWith(".jsonc", StringComparison.OrdinalIgnoreCase)
+                     && !f.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase)
+                     && !f.EndsWith(".yml", StringComparison.OrdinalIgnoreCase))
             .OrderBy(Path.GetFileName, StringComparer.Ordinal)
             .Select(p => new object[] { Path.GetFileName(p), File.ReadAllText(p) });
 
