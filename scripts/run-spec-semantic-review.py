@@ -62,6 +62,7 @@ def main() -> int:
 
     try:
         from mlx_lm import generate, load
+        from mlx_lm.sample_utils import make_sampler
         import mlx.core as mx
     except ImportError as exc:
         raise SystemExit(
@@ -76,12 +77,15 @@ def main() -> int:
     )
     mx.random.seed(args.seed)
     model, tokenizer = load(str(args.model_path))
+    # Greedy decoding, expressed the way current mlx-lm expects it. The older
+    # "temp=0.0" keyword was removed upstream, and passing it raised a TypeError
+    # before any review could run.
     raw_report = generate(
         model,
         tokenizer,
         prompt=prompt,
         max_tokens=args.max_tokens,
-        temp=0.0,
+        sampler=make_sampler(temp=0.0),
         verbose=False,
     )
     report = parse_model_report(raw_report, rubric_version=rubric_version, items=items)
