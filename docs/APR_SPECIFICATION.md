@@ -291,7 +291,27 @@ Source trivia **MUST NOT** carry APR meaning, and a writer is under no obligatio
 to reproduce it. Everything else — including members APR does not define — **MUST**
 survive a round trip.
 
-### 4.2 Encoding {#encoding}
+### 4.2 Syntax conventions {#syntax-conventions}
+
+APR does not define a grammar of its own. It defines a **delta** against
+grammars that already exist, so that an implementer reuses a JSON or YAML parser
+rather than writing an APR one.
+
+Grammar in this document is ABNF (RFC 5234). Two conventions apply:
+
+- **Rules are imported by name.** A rule referenced but not defined here is the
+  rule of that name in the cited specification, unchanged. `value`, `string`,
+  `number`, `member`, and the structural characters are RFC 8259's.
+- **A redefinition replaces the imported rule wherever it appears.** Where this
+  document defines a rule that the cited specification also defines, the
+  definition here governs for APR, and every imported rule that references it
+  picks up the replacement.
+
+Nothing else in the imported grammar changes. A construct this document does not
+mention is permitted exactly as the cited specification permits it, and one it
+excludes is excluded wherever it would otherwise appear.
+
+### 4.3 Encoding {#encoding}
 
 A document **MUST** be encoded as UTF-8 (RFC 3629). A byte-order mark
 **SHOULD NOT** be written; a reader **SHOULD** tolerate a leading one.
@@ -305,19 +325,51 @@ U+001F **MUST NOT** appear, except tab (U+0009), line feed (U+000A), and
 carriage return (U+000D), which are permitted so that a multiline response can
 hold the line breaks a person typed.
 
-### 4.3 APR-JSONC {#apr-jsonc}
+### 4.4 APR-JSONC {#apr-jsonc}
 
-APR-JSONC is JSON (RFC 8259) extended with exactly three constructs:
+APR-JSONC is the JSON grammar of RFC 8259 with comments and trailing commas
+admitted. It is defined as a delta against that grammar, per
+[Syntax conventions](#syntax-conventions).
 
-- line comments introduced by `//`, running to end of line;
-- block comments delimited by `/*` and `*/`; and
-- a trailing comma after the final member of an object or element of an array.
+```abnf
+; Imported unchanged from RFC 8259: value, member, string, number,
+; begin-object, end-object, begin-array, end-array,
+; name-separator, value-separator, and everything they reference.
+
+apr-jsonc-text  = ws value ws
+
+; REDEFINED. Whitespace admits comments, so a comment is legal
+; wherever whitespace is, and nowhere else.
+ws              = *( %x20 / %x09 / %x0A / %x0D / comment )
+
+comment         = line-comment / block-comment
+line-comment    = %x2F.2F *( %x00-09 / %x0B-10FFFF )
+block-comment   = %x2F.2A *( not-star / star-not-slash ) %x2A.2F
+not-star        = %x00-29 / %x2B-10FFFF
+star-not-slash  = %x2A ( %x00-2E / %x30-10FFFF )
+
+; REDEFINED. A trailing comma is permitted after the final element.
+object          = begin-object
+                  [ member *( value-separator member ) [ value-separator ] ]
+                  end-object
+array           = begin-array
+                  [ value *( value-separator value ) [ value-separator ] ]
+                  end-array
+```
+
+Because a comment is a production of `ws`, and `ws` never appears inside
+`string`, **a comment sequence inside a string literal is not a comment.** The
+`string` rule is imported unchanged, so `"// not a comment"` is an ordinary
+string value. This is the first question an implementer asks, and the grammar
+answers it rather than leaving it to prose.
 
 Once comments and trailing commas are removed, the text **MUST** decode as JSON
-to the semantic model. Comments are source trivia and cannot carry APR meaning.
+(RFC 8259) to the semantic model. Comments are source trivia and cannot carry
+APR meaning.
 
-A JSONC parser **MUST** reject duplicate object keys rather than applying a
-last-key-wins rule.
+**One constraint the grammar cannot express.** RFC 8259 §4 says object member
+names SHOULD be unique. APR raises this: a parser **MUST** reject a duplicate
+member name rather than applying a last-key-wins rule.
 
 > Rationale: last-key-wins makes a document's meaning depend on which parser
 > reads it, which is precisely what a semantic digest cannot tolerate.
@@ -345,28 +397,46 @@ last-key-wins rule.
 }
 ```
 
-### 4.4 APR-YAML {#apr-yaml}
+### 4.5 APR-YAML {#apr-yaml}
 
-APR-YAML is a restricted YAML 1.2 representation of the same model.
+APR-YAML is **YAML 1.2.2 resolved under its own JSON Schema**, with four
+constructs excluded. It is defined by reference rather than restated.
 
-Keys **MUST** be strings. These constructs are forbidden and **MUST** be
-rejected:
+A conforming APR-YAML document:
 
-| Forbidden | Corpus case |
-| --- | --- |
-| Anchors and aliases | `malformed/yaml-anchor.apr.yaml` |
-| Tags | none — corpus gap |
-| Merge keys | none — corpus gap |
-| Non-finite numbers | none — corpus gap |
-| Binary values | none — corpus gap |
-| Dates resolved by implicit typing | none — corpus gap |
-| Arbitrary-language constructors | none — corpus gap |
+1. **MUST** be a well-formed YAML 1.2.2 document, per that specification's
+   character, structural, flow, and block productions (chapters 5 to 8).
+2. **MUST** resolve every scalar under the **JSON Schema of YAML 1.2.2 chapter
+   10.2**, and **MUST NOT** apply the Core Schema (10.3) or any other resolution.
+3. **MUST** resolve every mapping key to a string.
+4. **MUST NOT** use the constructs excluded below.
 
-Implementations **MUST** use a safe YAML loader and **MUST** resolve scalars only
-to JSON null, boolean, number, string, array, or object before APR validation.
+Point 2 does most of the work, and is the reason this section is short. The JSON
+Schema is YAML's own definition of "resolve exactly what JSON would resolve": it
+admits null, boolean, integer, float, and string, and nothing else. Choosing it
+disposes of an entire class of YAML-only behaviour without APR having to
+enumerate it — sexagesimals, implicit timestamps, `.inf` and `.nan`, `y`/`n` as
+booleans, and every other YAML 1.1 legacy resolution are simply not JSON Schema
+resolutions and therefore not APR values.
 
-Responses remain strings even where a YAML scalar could otherwise resolve as a
-number or boolean: a response written as `42` carries the string `"42"`.
+**Excluded constructs.** These are structural rather than resolution behaviour,
+so the JSON Schema does not exclude them and this document must:
+
+| Excluded | Defined in YAML 1.2.2 | Corpus case |
+| --- | --- | --- |
+| Anchors and aliases | §3.2.2.2, node properties and alias nodes | `malformed/yaml-anchor.apr.yaml` |
+| Tags, including `!!binary` and language-specific tags | §3.2.1.2, node properties | none — corpus gap |
+| Merge keys | the `<<` mapping-merge convention | none — corpus gap |
+| Directives, including `%YAML` and `%TAG` | §6.8 | none — corpus gap |
+
+Implementations **MUST** use a safe loader: one that constructs only the JSON
+Schema value types and never instantiates a host-language object from document
+content.
+
+Responses remain strings even where a scalar would otherwise resolve as a number
+or boolean under the JSON Schema, because
+[Responses are strings](#responses) governs the semantic model regardless of how
+a scalar resolved.
 
 Rows marked *corpus gap* state a rule the corpus does not yet exercise. The rule
 is normative; the missing vector is a corpus defect
@@ -389,7 +459,7 @@ sections:
         response: ""
 ```
 
-### 4.5 Value types {#json-subset}
+### 4.6 Value types {#json-subset}
 
 APR uses a restricted subset of the JSON data model.
 
@@ -416,7 +486,7 @@ strings, including `canAddRows`, `maxRows`, `min`, `max`, and `step`.
 in a response position only, coercing it to the empty string; anywhere else it is
 a parse failure.
 
-### 4.6 Responses are strings {#responses}
+### 4.7 Responses are strings {#responses}
 
 A `prompt.response` **MUST** be a JSON string. A response given as a JSON number
 or boolean **MUST** be rejected at parse time. It **MUST NOT** be coerced to
@@ -428,7 +498,7 @@ or boolean **MUST** be rejected at parse time. It **MUST NOT** be coerced to
 A `null` response and an absent `response` member are both read as the empty
 string.
 
-### 4.7 Any string is a valid response {#any-string}
+### 4.8 Any string is a valid response {#any-string}
 
 **This is the rule the rest of the format exists to protect.**
 
@@ -454,7 +524,7 @@ document is valid APR.
 > format that rejected them would discard true information because it was
 > inconveniently shaped.
 
-### 4.8 Hints never enforce {#hints-advisory}
+### 4.9 Hints never enforce {#hints-advisory}
 
 Every member of `prompt.hints` is advisory. A hint **MUST NOT** cause a response
 to be rejected, altered, truncated, or blocked from being saved. This applies to
@@ -698,6 +768,17 @@ carry them.
 **This registry is open.** An unrecognized value **MUST** degrade to a plain text
 field. It **MUST NOT** cause an error — that is what lets the registry grow
 without breaking every existing reader.
+
+The list above is the normative registry. `schemas/apr-types-1.0.json` publishes
+it in machine-readable form, together with each type's canonical write form,
+accepted read forms, expression type, and meaningful hints. That file is a
+**derived projection** of this section: where the two disagree, this section
+governs and the file is a defect.
+
+> Rationale: the same facts stated in prose, in a schema, and in code will
+> eventually disagree, which is the failure [Tables](#table-assertion) removes by
+> refusing to declare a column twice. Naming one source and deriving the rest is
+> the same move applied to the type vocabulary.
 
 `suggestedValues` offers options; a response outside the list is still valid. On
 a `boolean` it names the two options, so a renderer can label them as the author
@@ -1071,18 +1152,27 @@ may hold an unresolved attestation until its subject form has been observed.
 
 ### 9.1 JSONC framing {#jsonc-framing}
 
-APR-JSONC streams use RFC 7464 framing: every record is prefixed by ASCII Record
-Separator, U+001E, and terminated by U+000A. A comment is confined to its one
-JSONC record.
+APR-JSONC streams use the JSON text sequence framing of RFC 7464, with the
+element grammar replaced by APR-JSONC.
 
-A record not preceded by the separator is a framing failure.
+```abnf
+apr-jsonc-stream = *record
+record           = RS apr-jsonc-text LF
+RS               = %x1E
+LF               = %x0A
+```
+
+A comment is confined to its one JSONC record: `apr-jsonc-text` bounds it, so no
+comment can span the separator. A record not preceded by `RS` is a framing
+failure.
 
 *Negative case:* `malformed/missing-record-separator.apr.jsonc`.
 
 ### 9.2 YAML framing {#yaml-framing}
 
-APR-YAML streams use YAML document markers: every document introduced by `---` is
-exactly one record.
+APR-YAML streams are YAML streams: the document productions of YAML 1.2.2
+chapter 9 apply unchanged, and every YAML document in the stream is exactly one
+APR record. No additional framing is defined, because YAML already has one.
 
 **Example 6.** A YAML stream carrying two independent forms.
 
@@ -1674,6 +1764,7 @@ Compliance with this specification requires the editions below.
 | RFC 3339 | Date and Time on the Internet: Timestamps |
 | RFC 3629 | UTF-8, a transformation format of ISO 10646 |
 | RFC 4648 | The Base16, Base32, and Base64 Data Encodings |
+| RFC 5234 | Augmented BNF for Syntax Specifications (ABNF), the notation used for the grammars here |
 | RFC 5280 | Internet X.509 Public Key Infrastructure Certificate and CRL Profile |
 | RFC 5652 | Cryptographic Message Syntax (CMS) |
 | RFC 6901 | JavaScript Object Notation (JSON) Pointer |
