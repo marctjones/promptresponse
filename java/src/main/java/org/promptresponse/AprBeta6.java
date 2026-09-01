@@ -4,6 +4,8 @@ import java.util.*;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
+import org.yaml.snakeyaml.nodes.Tag;
+import org.yaml.snakeyaml.resolver.Resolver;
 
 /** APR beta.6 JSONC/YAML representation and independent-stream API. */
 public final class AprBeta6 {
@@ -68,9 +70,30 @@ public final class AprBeta6 {
         return Arrays.stream(split).filter(value -> !value.isBlank()).map(AprBeta6::stripJsonc).toList();
     }
 
+    /**
+     * APR defines its own YAML schema. SnakeYAML resolves YAML 1.1, under which
+     * "yes" is a boolean, "012" is octal 10 and ".inf" is a float - none of which
+     * are APR values, and the "012" case is silent data loss in a response. The
+     * library is used for syntax only; resolution follows the specification's
+     * table. A YAML 1.2 library would not remove the need for this: under YAML
+     * 1.2's core schema "012" still resolves as the number 12.
+     */
+    private static final class AprResolver extends Resolver {
+        @Override protected void addImplicitResolvers() {
+            addImplicitResolver(Tag.NULL, java.util.regex.Pattern.compile("^(?:~|null|Null|NULL| )$"), "~nN\0");
+            addImplicitResolver(Tag.NULL, java.util.regex.Pattern.compile("^$"), null);
+            addImplicitResolver(Tag.BOOL, java.util.regex.Pattern.compile("^(?:true|True|TRUE|false|False|FALSE)$"), "tTfF");
+            addImplicitResolver(Tag.FLOAT,
+                java.util.regex.Pattern.compile("^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:[eE][-+]?[0-9]+)?$"),
+                "-0123456789");
+        }
+    }
+
     private static List<String> yamlDocuments(String source) {
         if (source.matches("(?s).*(^|[\\s\\[{,])(?:[&*!]|<<\\s*:).*")) throw new AprException("APR YAML forbids anchors, aliases, tags, and merge keys");
-        Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
+        if (source.matches("(?s).*(?m)^%(?:YAML|TAG)\\b.*")) throw new AprException("APR YAML forbids directives, including %YAML and %TAG");
+        if (source.matches("(?s).*(?m):\\s*[-+]?\\.(?:inf|Inf|INF|nan|NaN|NAN)\\s*$.*")) throw new AprException("APR YAML forbids a non-finite number: JSON cannot represent it");
+        Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()), new org.yaml.snakeyaml.representer.Representer(new org.yaml.snakeyaml.DumperOptions()), new org.yaml.snakeyaml.DumperOptions(), new AprResolver());
         List<String> values = new ArrayList<>();
         for (Object value : yaml.loadAll(source)) values.add(Json.write(normalizeYaml(value)));
         return values;

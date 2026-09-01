@@ -503,11 +503,25 @@ A plain scalar denoting a non-finite float — `.inf`, `-.inf`, `.nan`, in any
 capitalization — **MUST** be rejected. JSON has no representation for it, so
 there is no value for it to resolve to.
 
+**APR defines its own YAML schema.** YAML 1.2.2 chapter 10 presents failsafe,
+JSON, and core as *recommended* schemas rather than mandatory ones, and a
+processor may define another. The table above is APR's.
+
+An implementation therefore uses a YAML library for **syntax** — characters,
+structure, flow and block style, document streams — and **MUST NOT** use that
+library's default scalar resolution.
+
 > Rationale: this is close to YAML's Core Schema, restricted to what JSON can
 > represent. The narrower JSON Schema is deliberately *not* used: under it a
 > plain scalar that is not a literal has no resolution at all, so `title: Permit
 > Application` would be invalid and every string in an APR-YAML document would
 > have to be quoted. That is not a document anyone would write.
+>
+> Choosing a YAML 1.2 library instead of a 1.1 one does not remove the need for
+> this table. Under YAML 1.2's Core Schema `012` resolves as the number 12 and
+> `.inf` as a float, so a leading-zero identifier is still corrupted and a
+> non-finite value still appears. The distance being closed here is not between
+> YAML versions; it is between any YAML schema and the JSON value space.
 
 Because the target is the JSON value space rather than YAML's, an entire class of
 YAML-only behaviour disappears without APR enumerating it. Sexagesimals,

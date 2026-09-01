@@ -1,4 +1,4 @@
-import { parseAllDocuments, stringify } from "yaml";
+import { isMap, isScalar, isSeq, parseAllDocuments, Scalar, stringify } from "yaml";
 import { AprParseError } from "./errors.js";
 import { AprDocument, JsonObject, JsonValue } from "./model.js";
 import { dumps, loads } from "./serialization.js";
@@ -104,12 +104,51 @@ function splitJsonc(source: string): string[] {
   return records;
 }
 
+// APR defines its own YAML schema. The library's core schema resolves "012" as
+// the number 12 and ".inf" as Infinity, neither of which is an APR value, so
+// resolution is done here against the specification's table instead. The library
+// is used for syntax only.
+const JSON_NUMBER = /^-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?$/;
+const NON_FINITE = /^[-+]?\.(?:inf|Inf|INF|nan|NaN|NAN)$/;
+
+function resolvePlainScalar(text: string): JsonValue {
+  if (text === "" || text === "~" || text === "null" || text === "Null" || text === "NULL") return null;
+  if (text === "true" || text === "True" || text === "TRUE") return true;
+  if (text === "false" || text === "False" || text === "FALSE") return false;
+  if (NON_FINITE.test(text)) throw new AprParseError("APR YAML forbids a non-finite number: JSON cannot represent it");
+  if (JSON_NUMBER.test(text)) return Number(text);
+  return text;
+}
+
+function aprResolve(node: unknown): JsonValue {
+  if (isMap(node)) {
+    const object: Record<string, JsonValue> = {};
+    for (const pair of node.items) {
+      const key = aprResolve(pair.key);
+      if (typeof key !== "string") throw new AprParseError("APR YAML requires every mapping key to be a string");
+      object[key] = aprResolve(pair.value);
+    }
+    return object;
+  }
+  if (isSeq(node)) return node.items.map(item => aprResolve(item));
+  if (isScalar(node)) {
+    const scalar = node as Scalar;
+    const source = typeof scalar.source === "string" ? scalar.source : undefined;
+    // A quoted scalar is a string verbatim; only a plain one is resolved.
+    if (scalar.type === Scalar.PLAIN || scalar.type === undefined) return resolvePlainScalar(source ?? String(scalar.value ?? ""));
+    return source !== undefined ? String(scalar.value) : String(scalar.value);
+  }
+  if (node === null || node === undefined) return null;
+  throw new AprParseError("APR YAML contains a node APR does not define");
+}
+
 function splitYaml(source: string): string[] {
   if (/(^|[\s\[{,])(?:[&*!]|<<\s*:)/m.test(source)) throw new AprParseError("APR YAML forbids anchors, aliases, tags, and merge keys");
-  const documents = parseAllDocuments(source, { schema: "core" });
+  if (/^%(?:YAML|TAG)\b/m.test(source)) throw new AprParseError("APR YAML forbids directives, including %YAML and %TAG");
+  const documents = parseAllDocuments(source, { schema: "failsafe" });
   return documents.map(document => {
     if (document.errors.length) throw new AprParseError(`invalid APR YAML: ${document.errors[0].message}`);
-    return JSON.stringify(document.toJSON() as JsonValue);
+    return JSON.stringify(aprResolve(document.contents) as JsonValue);
   });
 }
 

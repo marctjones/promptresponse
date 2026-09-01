@@ -8,8 +8,56 @@ public final class AprConformanceTest {
         expressionBinding();
         beta6();
         beta6Corpus();
+        specificationExamples();
         System.out.println("Java APR beta.6 conformance passed");
     }
+    /**
+     * Runs the executable examples embedded in the specification.
+     *
+     * The vectors are generated from docs/APR_SPECIFICATION.md, so these are the
+     * specification's own claims rather than a separately authored suite. Where an
+     * example and this reader disagree, the specification is normative and the
+     * reader has the defect.
+     */
+    private static void specificationExamples() throws Exception {
+        Path vectors = Path.of("..", "tests", "Conformance", "beta6", "spec-examples.json");
+        String raw = Files.readString(vectors);
+        Object parsed = Json.parse(raw);
+        if (!(parsed instanceof java.util.Map<?, ?> root)) throw new AssertionError("spec-examples.json is not an object");
+        if (!(root.get("examples") instanceof java.util.List<?> examples) || examples.isEmpty())
+            throw new AssertionError("spec-examples.json carries no examples");
+
+        java.util.List<String> failures = new java.util.ArrayList<>();
+        for (Object entry : examples) {
+            java.util.Map<?, ?> example = (java.util.Map<?, ?>) entry;
+            String id = String.valueOf(example.get("id"));
+            String rule = String.valueOf(example.get("rule"));
+            String representation = String.valueOf(example.get("representation"));
+            String expect = String.valueOf(example.get("expect"));
+            String document = String.valueOf(example.get("document"));
+            AprBeta6.Representation form = representation.startsWith("yaml")
+                ? AprBeta6.Representation.YAML : AprBeta6.Representation.JSONC;
+
+            boolean accepted;
+            String detail = "";
+            try {
+                if (representation.endsWith("-stream")) AprBeta6.readStream(document, form);
+                else AprBeta6.readForm(document, form);
+                accepted = true;
+            } catch (RuntimeException rejected) {
+                accepted = false;
+                detail = String.valueOf(rejected.getMessage());
+            }
+
+            if ("valid".equals(expect) && !accepted)
+                failures.add(id + " (#" + rule + "): specification says valid, reader rejected it — " + detail);
+            if ("reject".equals(expect) && accepted)
+                failures.add(id + " (#" + rule + "): specification requires rejection, reader accepted it");
+        }
+        if (!failures.isEmpty()) throw new AssertionError("specification examples failed:\n  " + String.join("\n  ", failures));
+        System.out.println("Java specification examples passed: " + examples.size());
+    }
+
     private static void expressionBinding() {
         try { Apr.parse("{\"version\":\"1.0-beta\",\"metadata\":{\"title\":\"T\"},\"sections\":[]}"); throw new AssertionError("legacy APR version was accepted"); } catch (AprException expected) { }
         AprDocument document=Apr.parse("{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"qty\",\"label\":\"Quantity\",\"response\":\"3\",\"hints\":{\"expectedDataType\":\"number\"}},{\"id\":\"price\",\"label\":\"Price\",\"response\":\"12.5\",\"hints\":{\"expectedDataType\":\"currency\"}},{\"id\":\"total\",\"label\":\"Total\",\"response\":\"\",\"hints\":{\"expectedDataType\":\"currency\",\"exprValue\":\"qty * price\"}}]}]}");
