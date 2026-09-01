@@ -205,6 +205,16 @@ public sealed class AprBeta6Reader
     {
         if (System.Text.RegularExpressions.Regex.IsMatch(source, @"(?m)(?:^|[\s\[{,])(?:[&*!]|<<\s*:)") )
             throw new SerializationException("APR YAML forbids anchors, aliases, tags, and merge keys.");
+
+        // A directive is a YAML construct APR excludes outright.
+        if (System.Text.RegularExpressions.Regex.IsMatch(source, @"(?m)^%(?:YAML|TAG)\b"))
+            throw new SerializationException("APR YAML forbids directives, including %YAML and %TAG.");
+
+        // A non-finite float has no JSON value to resolve to, so it is refused
+        // rather than coerced. Left unchecked it arrives as Infinity or NaN and
+        // cannot be serialized back out.
+        if (System.Text.RegularExpressions.Regex.IsMatch(source, @"(?m):\s*[-+]?\.(?:inf|Inf|INF|nan|NaN|NAN)\s*$"))
+            throw new SerializationException("APR YAML forbids a non-finite number: JSON cannot represent it.");
     }
 
     private string WriteJson(string json, AprRepresentation representation) => representation switch
