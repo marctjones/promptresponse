@@ -1,0 +1,253 @@
+{
+  "source": {
+    "title": "Standard Form 86 - Questionnaire for National Security Positions",
+    "revision": "November 2016",
+    "publisher": "U.S. Office of Personnel Management",
+    "pdf_url": "https://www.opm.gov/forms/pdf_fill/sf86.pdf",
+    "page_count": 136
+  },
+  "instructions_source": {
+    "before_section_1_lines": [
+      1,
+      320
+    ],
+    "after_section_29_line": 7982
+  },
+  "sections": [
+    {
+      "number": "1",
+      "title": "Full Name",
+      "source_heading": "Section 1 - Full Name",
+      "extracted_text_line": 321,
+      "extracted_markdown_heading": "## Section 1 - Full Name"
+    },
+    {
+      "number": "2",
+      "title": "Date of Birth",
+      "source_heading": "Section 2 - Date of Birth",
+      "extracted_text_line": 327,
+      "extracted_markdown_heading": "## Section 2 - Date of Birth"
+    },
+    {
+      "number": "3",
+      "title": "Place of Birth",
+      "source_heading": "Section 3 - Place of Birth",
+      "extracted_text_line": 327,
+      "extracted_markdown_heading": "## Section 3 - Place of Birth"
+    },
+    {
+      "number": "4",
+      "title": "Social Security Number",
+      "source_heading": "Section 4 - Social Security Number",
+      "extracted_text_line": 332,
+      "extracted_markdown_heading": "## Section 4 - Social Security Number"
+    },
+    {
+      "number": "5",
+      "title": "Other Names Used",
+      "source_heading": "Section 5 - Other Names Used",
+      "extracted_text_line": 336,
+      "extracted_markdown_heading": "## Section 5 - Other Names Used"
+    },
+    {
+      "number": "6",
+      "title": "Your Identifying Information",
+      "source_heading": "Section 6 - Your Identifying Information",
+      "extracted_text_line": 364,
+      "extracted_markdown_heading": "## Section 6 - Your Identifying Information"
+    },
+    {
+      "number": "7",
+      "title": "Your Contact Information",
+      "source_heading": "Section 7 - Your Contact Information",
+      "extracted_text_line": 379,
+      "extracted_markdown_heading": "## Section 7 - Your Contact Information"
+    },
+    {
+      "number": "8",
+      "title": "U.S. Passport Information",
+      "source_heading": "Section 8 - U.S. Passport Information",
+      "extracted_text_line": 391,
+      "extracted_markdown_heading": "## Section 8 - U.S. Passport Information"
+    },
+    {
+      "number": "9",
+      "title": "Citizenship",
+      "source_heading": "Section 9 - Citizenship",
+      "extracted_text_line": 403,
+      "extracted_markdown_heading": "## Section 9 - Citizenship"
+    },
+    {
+      "number": "10",
+      "title": "Dual/Multiple Citizenship & Foreign Passport Information",
+      "source_heading": "Section 10 - Dual/Multiple Citizenship & Foreign Passport Information",
+      "extracted_text_line": 515,
+      "extracted_markdown_heading": "## Section 10 - Dual/Multiple Citizenship & Foreign Passport Information"
+    },
+    {
+      "number": "11",
+      "title": "Where You Have Lived",
+      "source_heading": "Section 11 - Where You Have Lived",
+      "extracted_text_line": 627,
+      "extracted_markdown_heading": "## Section 11 - Where You Have Lived"
+    },
+    {
+      "number": "12",
+      "title": "Where You Went to School",
+      "source_heading": "Section 12 - Where You Went to School",
+      "extracted_text_line": 870,
+      "extracted_markdown_heading": "## Section 12 - Where You Went to School"
+    },
+    {
+      "number": "13A",
+      "title": "Employment Activities",
+      "source_heading": "Section 13A - Employment Activities",
+      "extracted_text_line": 1045,
+      "extracted_markdown_heading": "## Section 13A - Employment Activities"
+    },
+    {
+      "number": "13B",
+      "title": "Employment Activities - Former Federal Service",
+      "source_heading": "Section 13B - Employment Activities - Former Federal Service",
+      "extracted_text_line": 2160,
+      "extracted_markdown_heading": "## Section 13B - Employment Activities - Former Federal Service"
+    },
+    {
+      "number": "13C",
+      "title": "Employment Record",
+      "source_heading": "Section 13C - Employment Record",
+      "extracted_text_line": 2200,
+      "extracted_markdown_heading": "## Section 13C - Employment Record"
+    },
+    {
+      "number": "14",
+      "title": "Selective Service Record",
+      "source_heading": "Section 14 - Selective Service Record",
+      "extracted_text_line": 2223,
+      "extracted_markdown_heading": "## Section 14 - Selective Service Record"
+    },
+    {
+      "number": "15",
+      "title": "Military History",
+      "source_heading": "Section 15 - Military History",
+      "extracted_text_line": 2233,
+      "extracted_markdown_heading": "## Section 15 - Military History"
+    },
+    {
+      "number": "16",
+      "title": "People Who Know You Well",
+      "source_heading": "Section 16 - People Who Know You Well",
+      "extracted_text_line": 2463,
+      "extracted_markdown_heading": "## Section 16 - People Who Know You Well"
+    },
+    {
+      "number": "17",
+      "title": "Marital/Relationship Status",
+      "source_heading": "Section 17 - Marital/Relationship Status",
+      "extracted_text_line": 2534,
+      "extracted_markdown_heading": "## Section 17 - Marital/Relationship Status"
+    },
+    {
+      "number": "18",
+      "title": "Relatives",
+      "source_heading": "Section 18 - Relatives",
+      "extracted_text_line": 2879,
+      "extracted_markdown_heading": "## Section 18 - Relatives"
+    },
+    {
+      "number": "19",
+      "title": "Foreign Contacts",
+      "source_heading": "Section 19 - Foreign Contacts",
+      "extracted_text_line": 4013,
+      "extracted_markdown_heading": "## Section 19 - Foreign Contacts"
+    },
+    {
+      "number": "20A",
+      "title": "Foreign Activities",
+      "source_heading": "Section 20A - Foreign Activities",
+      "extracted_text_line": 4271,
+      "extracted_markdown_heading": "## Section 20A - Foreign Activities"
+    },
+    {
+      "number": "20B",
+      "title": "Foreign Business, Professional Activities, and Foreign Government Contacts",
+      "source_heading": "Section 20B - Foreign Business, Professional Activities, and Foreign Government Contacts",
+      "extracted_text_line": 4770,
+      "extracted_markdown_heading": "## Section 20B - Foreign Business, Professional Activities, and Foreign Government Contacts"
+    },
+    {
+      "number": "20C",
+      "title": "Foreign Travel",
+      "source_heading": "Section 20C - Foreign Travel",
+      "extracted_text_line": 5204,
+      "extracted_markdown_heading": "## Section 20C - Foreign Travel"
+    },
+    {
+      "number": "21",
+      "title": "Psychological and Emotional Health",
+      "source_heading": "Section 21 - Psychological and Emotional Health",
+      "extracted_text_line": 5405,
+      "extracted_markdown_heading": "## Section 21 - Psychological and Emotional Health"
+    },
+    {
+      "number": "22",
+      "title": "Police Record",
+      "source_heading": "Section 22 - Police Record",
+      "extracted_text_line": 6026,
+      "extracted_markdown_heading": "## Section 22 - Police Record"
+    },
+    {
+      "number": "23",
+      "title": "Illegal Use of Drugs and Drug Activity",
+      "source_heading": "Section 23 - Illegal Use of Drugs and Drug Activity",
+      "extracted_text_line": 6450,
+      "extracted_markdown_heading": "## Section 23 - Illegal Use of Drugs and Drug Activity"
+    },
+    {
+      "number": "24",
+      "title": "Use of Alcohol",
+      "source_heading": "Section 24 - Use of Alcohol",
+      "extracted_text_line": 6863,
+      "extracted_markdown_heading": "## Section 24 - Use of Alcohol"
+    },
+    {
+      "number": "25",
+      "title": "Investigations and Clearance Record",
+      "source_heading": "Section 25 - Investigations and Clearance Record",
+      "extracted_text_line": 7089,
+      "extracted_markdown_heading": "## Section 25 - Investigations and Clearance Record"
+    },
+    {
+      "number": "26",
+      "title": "Financial Record",
+      "source_heading": "Section 26 - Financial Record",
+      "extracted_text_line": 7186,
+      "extracted_markdown_heading": "## Section 26 - Financial Record"
+    },
+    {
+      "number": "27",
+      "title": "Use of Information Technology Systems",
+      "source_heading": "Section 27 - Use of Information Technology Systems",
+      "extracted_text_line": 7610,
+      "extracted_markdown_heading": "## Section 27 - Use of Information Technology Systems"
+    },
+    {
+      "number": "28",
+      "title": "Involvement in Non-Criminal Court Actions",
+      "source_heading": "Section 28 - Involvement in Non-Criminal Court Actions",
+      "extracted_text_line": 7718,
+      "extracted_markdown_heading": "## Section 28 - Involvement in Non-Criminal Court Actions"
+    },
+    {
+      "number": "29",
+      "title": "Association Record",
+      "source_heading": "Section 29 - Association Record",
+      "extracted_text_line": 7756,
+      "extracted_markdown_heading": "## Section 29 - Association Record"
+    }
+  ],
+  "notes": [
+    "This outline is based on the accompanying official-PDF extraction, not the existing APR example.",
+    "13A, 13B, 13C and 20A, 20B, 20C are official identifiers."
+  ]
+}

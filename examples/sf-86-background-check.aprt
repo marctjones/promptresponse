@@ -2,8 +2,8 @@
   "version": "1.0-beta.6",
   "documentType": "template",
   "metadata": {
-    "title": "SF-86 - Questionnaire for National Security Positions",
-    "description": "Standard Form 86 - Used to conduct background investigations for national security positions requiring access to classified information",
+    "title": "SF-86 concepts - simplified demonstration",
+    "description": "A simplified APR demonstration derived from SF-86 concepts. It is not an official, complete, or submit-ready SF-86. See docs/research/sf86-2016-apr-gap-report.md for the official section mapping and completeness audit.",
     "created": "2025-01-01T00:00:00Z",
     "modified": "2025-01-01T00:00:00Z",
     "author": "U.S. Office of Personnel Management",
@@ -13,8 +13,8 @@
   "sections": [
     {
       "id": "section_instructions",
-      "title": "Instructions and Certification",
-      "description": "Read carefully before completing this form",
+      "title": "Instructions and certification (simplified)",
+      "description": "The official November 2016 SF-86 begins with multi-page instructions, authority, disclosure, penalties, and privacy information. This demonstration cannot represent those prose-only blocks as standalone APR sections under the frozen format; consult docs/research/sf86-2016-official-extracted.txt and the related comparison report before using it for reference.",
       "prompts": [
         {
           "id": "prompt_investigation_type",
@@ -45,7 +45,7 @@
     },
     {
       "id": "section_1",
-      "title": "Section 1 - Personal Information",
+      "title": "Official sections 1-6 - Identity information (simplified)",
       "description": "Full legal name and other names used",
       "sections": [
         {
@@ -281,7 +281,7 @@
     },
     {
       "id": "section_2",
-      "title": "Section 2 - Citizenship",
+      "title": "Official sections 8-10 - Passport and citizenship (simplified)",
       "description": "Information about your citizenship status",
       "prompts": [
         {
@@ -374,7 +374,7 @@
     },
     {
       "id": "section_3",
-      "title": "Section 3 - Residence History",
+      "title": "Official section 11 - Where You Have Lived (simplified)",
       "description": "List all places you have lived in the past 10 years",
       "sections": [
         {
@@ -560,7 +560,7 @@
     },
     {
       "id": "section_4",
-      "title": "Section 4 - Employment History",
+      "title": "Official section 13A - Employment Activities (simplified)",
       "description": "List all employment for the past 10 years",
       "sections": [
         {
@@ -711,7 +711,7 @@
     },
     {
       "id": "section_5",
-      "title": "Section 5 - Education",
+      "title": "Official section 12 - Where You Went to School (simplified)",
       "description": "Schools attended in the last 10 years",
       "sections": [
         {
@@ -806,7 +806,7 @@
     },
     {
       "id": "section_6",
-      "title": "Section 6 - References",
+      "title": "Official section 16 - People Who Know You Well (simplified)",
       "description": "Provide three people who know you well",
       "sections": [
         {
@@ -981,7 +981,7 @@
     },
     {
       "id": "section_7",
-      "title": "Section 7 - Family Members",
+      "title": "Official sections 17-18 - Relationships and relatives (simplified)",
       "description": "Information about spouse and relatives",
       "sections": [
         {
@@ -1167,7 +1167,7 @@
     },
     {
       "id": "section_8",
-      "title": "Section 8 - Foreign Activities",
+      "title": "Official sections 19-20C - Foreign contacts and activities (simplified)",
       "description": "Foreign contacts, travel, and activities",
       "prompts": [
         {
@@ -1238,7 +1238,7 @@
     },
     {
       "id": "section_9",
-      "title": "Section 9 - Legal and Financial",
+      "title": "Official sections 22, 26, and 28 - Police, financial, and court records (simplified)",
       "description": "Legal history and financial status",
       "prompts": [
         {
@@ -1309,7 +1309,7 @@
     },
     {
       "id": "section_10",
-      "title": "Section 10 - Drug and Alcohol Use",
+      "title": "Official sections 23-24 - Illegal drug use and alcohol use (simplified)",
       "description": "Information about substance use",
       "prompts": [
         {
