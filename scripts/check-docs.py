@@ -78,6 +78,30 @@ else:
     for designation in sorted(listed - cited):
         problems.append(f"specification lists {designation} in the references but never cites it")
 
+# The specification is normative and the schema, type registry, and corpus are
+# derived from it. That ordering was inverted once already; this keeps the older
+# wording from creeping back into any document.
+SUPERSEDED_ORDERING = (
+    "corpus \u2192 schema",
+    "conformance corpus \u2192 JSON Schema",
+    "corpus, schema, and specification",
+    "executable, and\n   always right",
+)
+for doc in sorted((ROOT / "docs").rglob("*.md")) + [ROOT / "CLAUDE.md", ROOT / "README.md"]:
+    if not doc.is_file():
+        continue
+    text = doc.read_text(encoding="utf-8")
+    for phrase in SUPERSEDED_ORDERING:
+        if phrase in text:
+            rel = doc.relative_to(ROOT)
+            problems.append(
+                f"{rel} states the superseded authority ordering: the specification is "
+                f"normative and the schema and corpus are derived from it")
+            break
+
+if "This document is the normative definition" not in spec:
+    problems.append("APR specification must declare itself the normative definition")
+
 if problems:
     print("Documentation consistency check failed:", *[f"- {p}" for p in problems], sep="\n")
     sys.exit(1)

@@ -19,10 +19,20 @@ Read documents by the question you need answered:
 
 ## Authority
 
-For APR semantics, authority is **conformance corpus → JSON Schema → APR
-specification**. Source code and tests establish what a shipped implementation does;
-the registries connect those facts without redefining them. Guides explain use and
-must not invent product behavior.
+For APR semantics, the **[APR specification](APR_SPECIFICATION.md) is
+normative**. The JSON Schema, the type registry, and the conformance corpus are
+**derived projections** of it: where one disagrees with the specification, the
+derived artifact has the defect.
+
+This is how CommonMark and YAML are organised — one normative document, with
+machine-readable artifacts generated from or subordinate to it. It replaces an
+earlier ordering that put the corpus first, which suited a specification that
+merely described what had been built.
+
+Source code and tests establish what a shipped implementation does, and an
+implementation that departs from the specification has a defect. The registries
+connect those facts without redefining them. Guides explain use and must not
+invent product behavior.
 
 Historical plans and superseded specifications live in Git history, not the active
 documentation tree.

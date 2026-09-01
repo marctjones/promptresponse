@@ -26,8 +26,9 @@ form → export, hand off, or process the structured result.**
 - **Accessible by design.** Keyboard operation, useful accessible names, visible
   focus, adaptable presentation, and assistive-technology evidence are product work,
   not a later compliance layer.
-- **Open and interoperable.** The corpus, schema, and specification enable readers
-  and writers across languages without vendor lock-in.
+- **Open and interoperable.** The specification, with the schema and conformance
+  corpus derived from it, enables readers and writers across languages without
+  vendor lock-in.
 
 ## Deliberate boundaries
 

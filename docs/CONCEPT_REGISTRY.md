@@ -1,8 +1,9 @@
 # Concept registry
 
 This registry maps enduring product concepts to their normative definition,
-implementation owner, and regression evidence. It is a navigation aid; it does not
-override the corpus, schema, specification, source, or tests.
+implementation owner, and regression evidence. It is a navigation aid and is
+itself derived: the [specification](APR_SPECIFICATION.md) is normative, and this
+registry does not override it, the artifacts derived from it, or the source.
 
 The authority column cites specification **anchors**, not section numbers.
 Anchors are stable across edits; section numbers are not.

@@ -17,17 +17,39 @@ APR (Adaptive Prompt Response) is a file format for forms. An APR document
 describes *what to collect*, never *how to display it*. A blank form and a
 completed form are the same structure, distinguished by one member.
 
-This specification is **descriptive**: it documents the format as designed and
-tested, not as hoped for. Three artifacts define APR `1.0-beta.6` together, and
-where they disagree the order of authority is:
+**This document is the normative definition of APR `1.0-beta.6`.** Everything
+else that describes the format is derived from it:
 
-1. **The conformance corpus**, `tests/Conformance/beta6/` — executable, and
-   always right.
-2. **The JSON Schema**, `schemas/apr-1.0-beta.6.schema.json` — structural rules,
-   machine-checkable.
-3. **This prose** — everything the first two cannot express.
+| Artifact | Role |
+| --- | --- |
+| This document | **Normative.** Defines the format completely: grammar, structure, semantics, and the rules no machine-readable artifact can express. |
+| `schemas/apr-1.0-beta.6.schema.json` | **Derived.** A machine-checkable projection of the structural subset. |
+| `schemas/apr-types-1.0.json` | **Derived.** A machine-readable projection of the type registry ([Hints](#hints-object)). |
+| `tests/Conformance/beta6/` | **Derived.** Executable vectors exercising the rules stated here. |
 
-If prose contradicts a fixture, the prose is a bug. Report it.
+Where a derived artifact disagrees with this document, **the derived artifact has
+the defect**. A schema that admits something this document forbids is a schema
+bug; a fixture that expects something this document does not require is a corpus
+bug.
+
+> Rationale: a schema can only state what a schema can state. This one cannot
+> express that ids are unique document-wide, that any string is a valid response,
+> that hints never enforce, or that attestation state never gates data — and its
+> own `$comment` says so. Ranking it above this document would leave every rule
+> it cannot express with no authority at all. The corpus is ranked below for a
+> different reason: it is a finite set of examples, and no finite set of examples
+> defines a format.
+
+**A failing fixture is still evidence.** Ranking the corpus below this document
+does not make it less useful — it is usually the fastest way to discover that a
+sentence here is wrong. The ordering says only which artifact gets corrected once
+the disagreement is understood.
+
+> Decision (beta.6): this inverts the earlier ordering, under which the corpus
+> outranked the schema, which outranked this prose. That ordering suited a
+> descriptive specification that documented what had been built. This document is
+> no longer descriptive: it states what APR is, and an implementation, a schema,
+> or a fixture that departs from it is wrong rather than authoritative.
 
 This document has not been ratified. Nothing in it designates APR 1.0.
 
