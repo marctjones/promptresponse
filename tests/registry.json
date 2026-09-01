@@ -840,6 +840,190 @@
         }
       ],
       "gap": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus."
+    },
+    {
+      "id": "REQ-validate-structure",
+      "section": "structural-validation",
+      "statement": "Structural checks that decide whether a document is a valid APR document",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        },
+        {
+          "type": "test",
+          "ref": "RealFile_Validates"
+        },
+        {
+          "type": "test",
+          "ref": "test_an_old_version_is_rejected"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_section_and_a_prompt_may_share_an_id"
+        }
+      ]
+    },
+    {
+      "id": "REQ-validate-text",
+      "section": "text-validation",
+      "statement": "Well-formed UTF-8, no NUL or unpaired surrogates, restricted control characters",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "EncodingHazards_AreToleratedOrRefusedCleanly"
+        },
+        {
+          "type": "test",
+          "ref": "test_labels_are_nfc_normalised"
+        },
+        {
+          "type": "test",
+          "ref": "test_unicode_security_values_are_preserved_and_advised"
+        }
+      ]
+    },
+    {
+      "id": "REQ-validate-never-semantic",
+      "section": "semantic-validation",
+      "statement": "A document is never invalid because of what a response means",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "test_any_text_is_a_valid_response_whatever_the_hint_asked_for"
+        },
+        {
+          "type": "test",
+          "ref": "test_unicode_warning_does_not_make_a_document_invalid"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_response_that_is_a_string_of_a_number_is_fine"
+        }
+      ]
+    },
+    {
+      "id": "REQ-advisory-never-blocks",
+      "section": "advisory-feedback",
+      "statement": "Advisory feedback never blocks saving, input, or declares a document invalid",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "test_unicode_warning_does_not_make_a_document_invalid"
+        },
+        {
+          "type": "suite",
+          "ref": "desktop.unit"
+        }
+      ],
+      "gap": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule."
+    },
+    {
+      "id": "REQ-types-are-affordances",
+      "section": "data-types",
+      "statement": "expectedDataType is an affordance; it never constrains a response, and degrades to text",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "UnregisteredType_DegradesToText"
+        },
+        {
+          "type": "test",
+          "ref": "test_any_text_is_a_valid_response_whatever_the_hint_asked_for"
+        }
+      ]
+    },
+    {
+      "id": "REQ-expr-invariants",
+      "section": "expr-invariants",
+      "statement": "Expressions are pure, never authoritative over a response, and fail data-preservingly",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "ComputedField_IsNotReadOnly_BecauseAnyStringIsAValidResponse"
+        },
+        {
+          "type": "test",
+          "ref": "RecomputeComputedValues_LeavesAnAnswerAloneWhenTheExpressionFails"
+        }
+      ]
+    },
+    {
+      "id": "REQ-expr-activation",
+      "section": "expr-activation",
+      "statement": "The read-only activation and its reserved names",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "Hint_DeclaresTheCelType"
+        },
+        {
+          "type": "test",
+          "ref": "EveryRegisteredType_TypeChecksAsTheRegistryDeclares"
+        }
+      ],
+      "gap": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
+    },
+    {
+      "id": "REQ-expr-context",
+      "section": "expr-context",
+      "statement": "ctx carries host-supplied data and never carries secrets or authorization decisions",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "core.unit"
+        }
+      ],
+      "gap": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector."
+    },
+    {
+      "id": "REQ-expr-computed",
+      "section": "expr-computed",
+      "statement": "exprValue marks provenance and never overwrites an unmarked non-empty response",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "RecomputeComputedValues_DoesNotRevertAnAnswerSomeoneTypedOver"
+        },
+        {
+          "type": "test",
+          "ref": "RecomputeComputedValues_SettlesChainedComputations"
+        },
+        {
+          "type": "test",
+          "ref": "ComputedResults_UseTheCanonicalWriteForms"
+        },
+        {
+          "type": "test",
+          "ref": "test_cel_binding_computes_typed_value_without_overwriting_correction"
+        }
+      ]
+    },
+    {
+      "id": "REQ-expr-limits",
+      "section": "expr-limits",
+      "statement": "Evaluation terminates and a reached bound applies the hint fallback",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "EmptyTypedField_IsAnError_NotZero"
+        },
+        {
+          "type": "test",
+          "ref": "FreeTextInATypedField_DoesNotBind_AndTheExpressionDegrades"
+        }
+      ],
+      "gap": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit."
     }
   ]
 }
