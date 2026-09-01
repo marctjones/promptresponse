@@ -21,6 +21,9 @@ test = [
     "jsonschema==4.26.0",
     "pytest==9.1.1",
 ]
+semantic-review = [
+    "mlx-lm>=0.31.2; platform_system == 'Darwin'",
+]
 
 [tool.setuptools.packages.find]
 include = ["promptresponse*"]

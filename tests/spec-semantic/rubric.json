@@ -1,0 +1,33 @@
+{
+  "version": "apr-beta-specification-rubric-1",
+  "items": [
+    {
+      "id": "authority-and-version",
+      "question": "Does the document clearly identify its beta status, covered format version, and authority or precedence relationship?"
+    },
+    {
+      "id": "abstract-model",
+      "question": "Does it distinguish the APR semantic model from representation-specific spelling and describe forms, prompts, sections, streams, and attestations?"
+    },
+    {
+      "id": "representation-and-streams",
+      "question": "Does it specify each supported representation, prohibited features, duplicate-key behavior, and independent-record stream framing?"
+    },
+    {
+      "id": "object-and-field-contract",
+      "question": "Does it state required object members, member types, defaults, uniqueness, cross-field constraints, and unknown or retired-member behavior?"
+    },
+    {
+      "id": "processing-and-errors",
+      "question": "Does it define required reader, writer, stream-reader, renderer, validation, and error or diagnostic behavior?"
+    },
+    {
+      "id": "integrity-and-security",
+      "question": "Does it cover canonicalization or digests, attestations, trust boundaries, offline behavior, resource limits, and security or privacy risks?"
+    },
+    {
+      "id": "conformance-evidence",
+      "question": "Does it identify a conformance corpus or executable evidence and distinguish normative requirements from examples or guidance?"
+    }
+  ]
+}
