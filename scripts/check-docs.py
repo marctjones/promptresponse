@@ -63,6 +63,21 @@ if "WCAG 2.1 Level AA compliance built-in" in readme:
 if "Java / Rust / C++ | Not implemented" in sdk:
     problems.append("SDK conformance status contradicts the shipped Java SDK")
 
+# A specification that cites a standard it does not list, or lists one it never
+# cites, is drifting from its own bibliography. Restricted to designations with an
+# unambiguous shape, so ordinary prose cannot trip it.
+DESIGNATION = re.compile(r"\b(?:RFC \d{3,5}|BCP \d{1,3}|FIPS \d{3}-\d)\b")
+if "{#normative-references}" not in spec:
+    problems.append("APR specification has no normative references section")
+else:
+    head, _, tail = spec.partition("{#normative-references}")
+    listed = set(DESIGNATION.findall(tail))
+    cited = set(DESIGNATION.findall(head))
+    for designation in sorted(cited - listed):
+        problems.append(f"specification cites {designation} but does not list it in the references")
+    for designation in sorted(listed - cited):
+        problems.append(f"specification lists {designation} in the references but never cites it")
+
 if problems:
     print("Documentation consistency check failed:", *[f"- {p}" for p in problems], sep="\n")
     sys.exit(1)
