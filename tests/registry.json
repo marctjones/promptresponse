@@ -309,69 +309,86 @@
   ],
   "requirements": [
     {
-      "id": "REQ-lang-rfc2119",
-      "section": "normative-language",
-      "statement": "BCP 14 keywords are normative only in all capitals",
-      "strength": "none",
-      "gates": [],
-      "gap": "Definitional. Nothing to execute."
-    },
-    {
-      "id": "REQ-model-trivia",
-      "section": "model-layers",
-      "statement": "Presentation trivia carries no meaning; everything else round-trips",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "Jsonc_CommentsAndTrailingCommas_AreSourceTrivia"
-        },
-        {
-          "type": "test",
-          "ref": "Digest_IsIndependentOfJsonObjectOrder"
-        },
-        {
-          "type": "test",
-          "ref": "RealFile_RoundTripsWithoutDrift"
-        }
-      ]
-    },
-    {
-      "id": "REQ-roles-obligations",
-      "section": "processing-roles",
-      "statement": "Each processing role carries the stated obligations",
+      "id": "REQ-advisory-never-blocks",
+      "section": "warnings",
+      "statement": "Advisory feedback never blocks saving, input, or declares a document invalid",
       "strength": "partial",
       "gates": [
         {
-          "type": "suite",
-          "ref": "core.unit"
+          "type": "test",
+          "ref": "test_unicode_warning_does_not_make_a_document_invalid"
         },
         {
           "type": "suite",
-          "ref": "sdk.python"
+          "ref": "desktop.unit"
         }
       ],
-      "gap": "Role obligations are gated individually by the entries below; no single vector asserts the role table itself."
+      "gap": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule."
     },
     {
-      "id": "REQ-failure-stages",
-      "section": "failure-points",
-      "statement": "Presentation, serialization, model, and assertion failures are distinguishable",
+      "id": "REQ-attestation-members",
+      "section": "attestation-catalogue",
+      "statement": "Attestation record members, requiredness, and closed sub-objects",
       "strength": "gated",
       "gates": [
         {
-          "type": "test",
-          "ref": "MalformedSharedStream_IsRejected"
+          "type": "fixture",
+          "ref": "malformed/attestation-missing-subject.apr.jsonc"
+        },
+        {
+          "type": "suite",
+          "ref": "schema.gate"
         },
         {
           "type": "test",
-          "ref": "test_beta6_shared_malformed_corpus_is_rejected"
+          "ref": "FieldsScope_MustCarryPromptResponseAndSectionContext"
         }
       ]
     },
     {
+      "id": "REQ-attestation-scope",
+      "section": "attestation-scope",
+      "statement": "A fields scope binds the question and its context, not only the answer",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "attestations/permit.fields.attestation.jsonc"
+        },
+        {
+          "type": "test",
+          "ref": "FieldsScope_MustCarryPromptResponseAndSectionContext"
+        }
+      ]
+    },
+    {
+      "id": "REQ-authoring-strict",
+      "section": "authoring-strictness",
+      "statement": "Authoring data may be refused, never rewritten",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "test_inspector_reports_visually_deceptive_characters_without_changing_text"
+        }
+      ]
+    },
+    {
+      "id": "REQ-authoring-vs-filled",
+      "section": "authoring-vs-filled",
+      "statement": "Authoring data and filled data are governed differently",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "test_unicode_security_values_are_preserved_and_advised"
+        }
+      ],
+      "gap": "Filled-data tolerance is gated; the authoring-strictness half is gated separately."
+    },
+    {
       "id": "REQ-beta6-only",
-      "section": "beta6-boundary",
+      "section": "retired-members",
       "statement": "version MUST be 1.0-beta.6; retired embedded signatures are reported",
       "strength": "gated",
       "gates": [
@@ -386,149 +403,155 @@
       ]
     },
     {
-      "id": "REQ-form-model",
-      "section": "form-model",
-      "statement": "A form is an object of version, documentType, metadata, sections, roles",
+      "id": "REQ-changed-form",
+      "section": "changed-forms",
+      "statement": "A changed form is a new subject; earlier attestations do not transfer",
       "strength": "gated",
       "gates": [
-        {
-          "type": "suite",
-          "ref": "schema.gate"
-        },
         {
           "type": "fixture",
-          "ref": "forms/roles.apr.jsonc"
+          "ref": "streams/changed-form.apr.jsonc"
         },
         {
           "type": "test",
-          "ref": "RealFile_Validates"
+          "ref": "test_beta6_changed_copied_form_does_not_inherit_an_attestation"
         }
       ]
     },
     {
-      "id": "REQ-root-members",
-      "section": "root-object",
-      "statement": "Root member requiredness, domains, and defaults",
+      "id": "REQ-digests-manifests",
+      "section": "digests",
+      "statement": "jcs-sha256 over the semantic model; manifests hold no plaintext",
       "strength": "gated",
       "gates": [
         {
-          "type": "suite",
-          "ref": "schema.gate"
+          "type": "fixture",
+          "ref": "digests/permit.json"
         },
         {
           "type": "test",
-          "ref": "RealFile_Parses"
-        }
-      ]
-    },
-    {
-      "id": "REQ-metadata-members",
-      "section": "metadata",
-      "statement": "metadata.title required non-blank; filledForm declares templateId",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "suite",
-          "ref": "schema.gate"
-        }
-      ]
-    },
-    {
-      "id": "REQ-section-members",
-      "section": "section-object",
-      "statement": "Section requires id and title and at least one prompt or child section",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "suite",
-          "ref": "schema.gate"
-        }
-      ]
-    },
-    {
-      "id": "REQ-prompt-members",
-      "section": "prompt-object",
-      "statement": "Prompt requires id and label; label is the accessible name",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "suite",
-          "ref": "schema.gate"
+          "ref": "Digest_IsIndependentOfJsonObjectOrder"
         },
         {
-          "type": "suite",
-          "ref": "accessibility"
+          "type": "test",
+          "ref": "Manifest_ContainsRootAndNonPlaintextLeafDigest"
         }
       ]
     },
     {
-      "id": "REQ-hint-members",
-      "section": "hints-object",
-      "statement": "Every defined hint member, and the expectedDataType registry",
+      "id": "REQ-export-no-writeback",
+      "section": "export",
+      "statement": "Export layout is never written back into the document",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "pdf"
+        }
+      ]
+    },
+    {
+      "id": "REQ-expr-activation",
+      "section": "expr-activation",
+      "statement": "The read-only activation and its reserved names",
       "strength": "partial",
       "gates": [
         {
-          "type": "suite",
-          "ref": "schema.gate"
+          "type": "test",
+          "ref": "Hint_DeclaresTheCelType"
+        },
+        {
+          "type": "test",
+          "ref": "EveryRegisteredType_TypeChecksAsTheRegistryDeclares"
         }
       ],
-      "gap": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text."
+      "gap": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
     },
     {
-      "id": "REQ-validator-rules",
-      "section": "unexpressible",
-      "statement": "Constraints JSON Schema cannot express that a validator MUST enforce",
-      "strength": "partial",
+      "id": "REQ-expr-computed",
+      "section": "expr-computed",
+      "statement": "exprValue marks provenance and never overwrites an unmarked non-empty response",
+      "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "RealFile_IdsAreUniqueWithinTheirNamespace"
-        }
-      ],
-      "gap": "Id uniqueness is gated. Ragged-table-is-advisory has no beta.6 vector."
-    },
-    {
-      "id": "REQ-responses-strings",
-      "section": "responses",
-      "statement": "A response is always a JSON string; null coerces on read, never on write",
-      "strength": "partial",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "RealFile_ResponsesAreAlwaysStrings"
-        }
-      ],
-      "gap": "No beta.6 malformed fixture carries a non-string response."
-    },
-    {
-      "id": "REQ-hints-advisory",
-      "section": "hints-advisory",
-      "statement": "No hint rejects, alters, or blocks a response",
-      "strength": "partial",
-      "gates": [
-        {
-          "type": "suite",
-          "ref": "desktop.unit"
+          "ref": "RecomputeComputedValues_DoesNotRevertAnAnswerSomeoneTypedOver"
         },
+        {
+          "type": "test",
+          "ref": "RecomputeComputedValues_SettlesChainedComputations"
+        },
+        {
+          "type": "test",
+          "ref": "ComputedResults_UseTheCanonicalWriteForms"
+        },
+        {
+          "type": "test",
+          "ref": "test_cel_binding_computes_typed_value_without_overwriting_correction"
+        }
+      ]
+    },
+    {
+      "id": "REQ-expr-context",
+      "section": "expr-context",
+      "statement": "ctx carries host-supplied data and never carries secrets or authorization decisions",
+      "strength": "partial",
+      "gates": [
         {
           "type": "suite",
           "ref": "core.unit"
         }
       ],
-      "gap": "Advisory behavior is gated in client tests; no beta.6 corpus vector asserts it."
+      "gap": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector."
     },
     {
-      "id": "REQ-tables-structural",
-      "section": "tables",
-      "statement": "kind=table is a structural claim licensing no layout data",
+      "id": "REQ-expr-invariants",
+      "section": "expr-invariants",
+      "statement": "Expressions are pure, never authoritative over a response, and fail data-preservingly",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "ComputedField_IsNotReadOnly_BecauseAnyStringIsAValidResponse"
+        },
+        {
+          "type": "test",
+          "ref": "RecomputeComputedValues_LeavesAnAnswerAloneWhenTheExpressionFails"
+        }
+      ]
+    },
+    {
+      "id": "REQ-expr-limits",
+      "section": "expr-limits",
+      "statement": "Evaluation terminates and a reached bound applies the hint fallback",
       "strength": "partial",
       "gates": [
         {
-          "type": "suite",
-          "ref": "schema.gate"
+          "type": "test",
+          "ref": "EmptyTypedField_IsAnError_NotZero"
+        },
+        {
+          "type": "test",
+          "ref": "FreeTextInATypedField_DoesNotBind_AndTheExpressionDegrades"
         }
       ],
-      "gap": "No beta.6 corpus fixture carries a table section."
+      "gap": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit."
+    },
+    {
+      "id": "REQ-expr-unbound",
+      "section": "expr-unbound",
+      "statement": "An unconvertible response is unbound, never defaulted",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "EmptyTypedField_IsAnError_NotZero"
+        },
+        {
+          "type": "test",
+          "ref": "FreeTextInATypedField_DoesNotBind_AndTheExpressionDegrades"
+        }
+      ]
     },
     {
       "id": "REQ-extensions-roundtrip",
@@ -547,52 +570,70 @@
       ]
     },
     {
-      "id": "REQ-offline-read",
-      "section": "offline",
-      "statement": "Opening a form or attestation contacts no network location",
+      "id": "REQ-filled-preserved",
+      "section": "filled-never-rewritten",
+      "statement": "A response is never altered on the basis of a hint",
       "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "CoreCannotReachTheNetwork_ByConstruction"
+          "ref": "test_a_bidi_override_is_preserved_and_reported_in_a_response"
+        },
+        {
+          "type": "test",
+          "ref": "test_an_odd_but_harmless_character_is_left_alone_in_a_response"
         }
       ]
     },
     {
-      "id": "REQ-renderer-obligations",
-      "section": "renderers",
-      "statement": "Semantic order, labels as accessible names, complete keyboard operation",
+      "id": "REQ-form-model",
+      "section": "json-subset",
+      "statement": "A form is an object of version, documentType, metadata, sections, roles",
       "strength": "gated",
       "gates": [
         {
           "type": "suite",
-          "ref": "accessibility"
+          "ref": "schema.gate"
         },
+        {
+          "type": "fixture",
+          "ref": "forms/roles.apr.jsonc"
+        },
+        {
+          "type": "test",
+          "ref": "RealFile_Validates"
+        }
+      ]
+    },
+    {
+      "id": "REQ-hint-members",
+      "section": "hints-object",
+      "statement": "Every defined hint member, and the expectedDataType registry",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ],
+      "gap": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text."
+    },
+    {
+      "id": "REQ-hints-advisory",
+      "section": "hints-advisory",
+      "statement": "No hint rejects, alters, or blocks a response",
+      "strength": "partial",
+      "gates": [
         {
           "type": "suite",
           "ref": "desktop.unit"
-        }
-      ]
-    },
-    {
-      "id": "REQ-representations-equal",
-      "section": "representations",
-      "statement": "JSONC and YAML spellings carry one semantic model; UTF-8 encoding",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "Yaml_ReadsTheSameSemanticForm"
         },
         {
-          "type": "test",
-          "ref": "test_beta6_jsonc_and_yaml_have_same_semantics"
-        },
-        {
-          "type": "test",
-          "ref": "EncodingHazards_AreToleratedOrRefusedCleanly"
+          "type": "suite",
+          "ref": "core.unit"
         }
-      ]
+      ],
+      "gap": "Advisory behavior is gated in client tests; no beta.6 corpus vector asserts it."
     },
     {
       "id": "REQ-jsonc-grammar",
@@ -615,36 +656,145 @@
       ]
     },
     {
-      "id": "REQ-yaml-restricted",
-      "section": "apr-yaml",
-      "statement": "Restricted YAML: string keys, safe loader, forbidden constructs rejected",
-      "strength": "partial",
+      "id": "REQ-lang-rfc2119",
+      "section": "normative-language",
+      "statement": "BCP 14 keywords are normative only in all capitals",
+      "strength": "none",
+      "gates": [],
+      "gap": "Definitional. Nothing to execute."
+    },
+    {
+      "id": "REQ-metadata-members",
+      "section": "metadata",
+      "statement": "metadata.title required non-blank; filledForm declares templateId",
+      "strength": "gated",
       "gates": [
         {
-          "type": "fixture",
-          "ref": "malformed/yaml-anchor.apr.yaml"
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ]
+    },
+    {
+      "id": "REQ-model-trivia",
+      "section": "model-layers",
+      "statement": "Presentation trivia carries no meaning; everything else round-trips",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "Jsonc_CommentsAndTrailingCommas_AreSourceTrivia"
         },
         {
           "type": "test",
-          "ref": "Writer_RoundTripsAFormThroughYaml"
+          "ref": "Digest_IsIndependentOfJsonObjectOrder"
+        },
+        {
+          "type": "test",
+          "ref": "RealFile_RoundTripsWithoutDrift"
         }
-      ],
-      "gap": "Only anchors have a vector. Tags, merge keys, non-finite numbers, binary, implicit dates and constructors are unexercised."
+      ]
     },
     {
-      "id": "REQ-stream-records",
-      "section": "streams",
-      "statement": "Independent records, no dedup, no positional selection, RFC 7464 framing",
+      "id": "REQ-nesting-floor",
+      "section": "nesting",
+      "statement": "At least 16 levels of section nesting",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
+        }
+      ]
+    },
+    {
+      "id": "REQ-never-gate",
+      "section": "never-gate",
+      "statement": "Attestation state never gates parsing, validation, rendering, or extraction",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "MismatchedManifest_IsInvalidButNeverRemovesTheForm"
+        },
+        {
+          "type": "test",
+          "ref": "UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm"
+        }
+      ]
+    },
+    {
+      "id": "REQ-no-media-type",
+      "section": "media-types",
+      "statement": "No registered media type; representation determined by content, not name",
       "strength": "partial",
       "gates": [
         {
-          "type": "fixture",
-          "ref": "streams/out-of-order.apr.jsonc"
+          "type": "test",
+          "ref": "RealFile_Validates"
+        }
+      ],
+      "gap": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus."
+    },
+    {
+      "id": "REQ-offline-read",
+      "section": "security",
+      "statement": "Opening a form or attestation contacts no network location",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "CoreCannotReachTheNetwork_ByConstruction"
+        }
+      ]
+    },
+    {
+      "id": "REQ-ordering",
+      "section": "ordering",
+      "statement": "A section's own prompts precede its child sections",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "GetAllPrompts_WalksNestedSectionsInOrder"
+        }
+      ]
+    },
+    {
+      "id": "REQ-profile-attestations",
+      "section": "profile-attestations",
+      "statement": "core+attestations resolves, verifies, and reports honestly",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "ValidCmsProof_MakesTheResolvedAttestationValid"
         },
         {
-          "type": "fixture",
-          "ref": "malformed/missing-record-separator.apr.jsonc"
-        },
+          "type": "test",
+          "ref": "test_beta6_digest_and_unsigned_attestation_resolve_from_shared_corpus"
+        }
+      ]
+    },
+    {
+      "id": "REQ-profile-expressions",
+      "section": "profile-expressions",
+      "statement": "A core-only reader preserves expression strings and ignores them",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "Check_ReportsTypeErrorsAtAuthoringTime"
+        }
+      ],
+      "gap": "Preservation by a core-only reader has no dedicated vector."
+    },
+    {
+      "id": "REQ-profile-streams",
+      "section": "profile-streams",
+      "statement": "core+streams reads and writes independent records",
+      "strength": "gated",
+      "gates": [
         {
           "type": "test",
           "ref": "Stream_PreservesAttestationAndAllFormOccurrences"
@@ -653,8 +803,169 @@
           "type": "test",
           "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
         }
+      ]
+    },
+    {
+      "id": "REQ-prompt-members",
+      "section": "prompt-object",
+      "statement": "Prompt requires id and label; label is the accessible name",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        },
+        {
+          "type": "suite",
+          "ref": "accessibility"
+        }
+      ]
+    },
+    {
+      "id": "REQ-proofs",
+      "section": "proofs",
+      "statement": "Proofs cover the proof-free envelope; unsupported types are unverifiable",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "CmsCorpusProof_BindsTheExactProofFreeEnvelope"
+        },
+        {
+          "type": "test",
+          "ref": "UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_unsupported_proof_is_unverifiable_not_invalid"
+        }
+      ]
+    },
+    {
+      "id": "REQ-renderer-obligations",
+      "section": "renderer-requirements",
+      "statement": "Semantic order, labels as accessible names, complete keyboard operation",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "accessibility"
+        },
+        {
+          "type": "suite",
+          "ref": "desktop.unit"
+        }
+      ]
+    },
+    {
+      "id": "REQ-representations-equal",
+      "section": "encoding",
+      "statement": "JSONC and YAML spellings carry one semantic model; UTF-8 encoding",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "Yaml_ReadsTheSameSemanticForm"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_jsonc_and_yaml_have_same_semantics"
+        },
+        {
+          "type": "test",
+          "ref": "EncodingHazards_AreToleratedOrRefusedCleanly"
+        }
+      ]
+    },
+    {
+      "id": "REQ-response-verbatim",
+      "section": "text-responses",
+      "statement": "A response is preserved exactly on read and write",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "RealFile_RoundTripsWithoutDrift"
+        },
+        {
+          "type": "test",
+          "ref": "test_unicode_warning_does_not_make_a_document_invalid"
+        }
+      ]
+    },
+    {
+      "id": "REQ-responses-strings",
+      "section": "responses",
+      "statement": "A response is always a JSON string; null coerces on read, never on write",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "RealFile_ResponsesAreAlwaysStrings"
+        }
       ],
-      "gap": "Mixed-representation stream rejection has no fixture."
+      "gap": "No beta.6 malformed fixture carries a non-string response."
+    },
+    {
+      "id": "REQ-roles",
+      "section": "roles",
+      "statement": "A role states intent and never refuses input",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "forms/roles.apr.jsonc"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_prompt_role_overrides_its_sections"
+        }
+      ]
+    },
+    {
+      "id": "REQ-roles-obligations",
+      "section": "declaring-conformance",
+      "statement": "Each processing role carries the stated obligations",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "core.unit"
+        },
+        {
+          "type": "suite",
+          "ref": "sdk.python"
+        }
+      ],
+      "gap": "Role obligations are gated individually by the entries below; no single vector asserts the role table itself."
+    },
+    {
+      "id": "REQ-root-members",
+      "section": "root-object",
+      "statement": "Root member requiredness, domains, and defaults",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        },
+        {
+          "type": "test",
+          "ref": "RealFile_Parses"
+        }
+      ]
+    },
+    {
+      "id": "REQ-section-members",
+      "section": "section-object",
+      "statement": "Section requires id and title and at least one prompt or child section",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ]
     },
     {
       "id": "REQ-stream-pairs",
@@ -685,64 +996,131 @@
       ]
     },
     {
-      "id": "REQ-digests-manifests",
-      "section": "digests",
-      "statement": "jcs-sha256 over the semantic model; manifests hold no plaintext",
-      "strength": "gated",
+      "id": "REQ-stream-records",
+      "section": "streams",
+      "statement": "Independent records, no dedup, no positional selection, RFC 7464 framing",
+      "strength": "partial",
       "gates": [
         {
           "type": "fixture",
-          "ref": "digests/permit.json"
+          "ref": "streams/out-of-order.apr.jsonc"
+        },
+        {
+          "type": "fixture",
+          "ref": "malformed/missing-record-separator.apr.jsonc"
         },
         {
           "type": "test",
-          "ref": "Digest_IsIndependentOfJsonObjectOrder"
+          "ref": "Stream_PreservesAttestationAndAllFormOccurrences"
         },
         {
           "type": "test",
-          "ref": "Manifest_ContainsRootAndNonPlaintextLeafDigest"
+          "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
         }
-      ]
+      ],
+      "gap": "Mixed-representation stream rejection has no fixture."
     },
     {
-      "id": "REQ-attestation-members",
-      "section": "attestation-catalogue",
-      "statement": "Attestation record members, requiredness, and closed sub-objects",
-      "strength": "gated",
+      "id": "REQ-tables-structural",
+      "section": "table-no-layout",
+      "statement": "kind=table is a structural claim licensing no layout data",
+      "strength": "partial",
       "gates": [
-        {
-          "type": "fixture",
-          "ref": "malformed/attestation-missing-subject.apr.jsonc"
-        },
         {
           "type": "suite",
           "ref": "schema.gate"
-        },
-        {
-          "type": "test",
-          "ref": "FieldsScope_MustCarryPromptResponseAndSectionContext"
         }
-      ]
+      ],
+      "gap": "No beta.6 corpus fixture carries a table section."
     },
     {
-      "id": "REQ-proofs",
-      "section": "proofs",
-      "statement": "Proofs cover the proof-free envelope; unsupported types are unverifiable",
+      "id": "REQ-types-are-affordances",
+      "section": "canonical-values",
+      "statement": "expectedDataType is an affordance; it never constrains a response, and degrades to text",
       "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "CmsCorpusProof_BindsTheExactProofFreeEnvelope"
+          "ref": "UnregisteredType_DegradesToText"
         },
+        {
+          "type": "test",
+          "ref": "test_any_text_is_a_valid_response_whatever_the_hint_asked_for"
+        }
+      ]
+    },
+    {
+      "id": "REQ-unknown-degrades",
+      "section": "version-numbers",
+      "statement": "Unknown members, data types, roles, and proof types degrade rather than reject",
+      "strength": "gated",
+      "gates": [
         {
           "type": "test",
           "ref": "UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm"
         },
         {
           "type": "test",
-          "ref": "test_beta6_unsupported_proof_is_unverifiable_not_invalid"
+          "ref": "test_beta6_stream_rewrite_preserves_semantic_extensions_and_cms_subjects"
         }
       ]
+    },
+    {
+      "id": "REQ-validate-never-semantic",
+      "section": "semantic-validation",
+      "statement": "A document is never invalid because of what a response means",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "test_any_text_is_a_valid_response_whatever_the_hint_asked_for"
+        },
+        {
+          "type": "test",
+          "ref": "test_unicode_warning_does_not_make_a_document_invalid"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_response_that_is_a_string_of_a_number_is_fine"
+        }
+      ]
+    },
+    {
+      "id": "REQ-validate-structure",
+      "section": "structural-validation",
+      "statement": "Structural checks that decide whether a document is a valid APR document",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        },
+        {
+          "type": "test",
+          "ref": "RealFile_Validates"
+        },
+        {
+          "type": "test",
+          "ref": "test_an_old_version_is_rejected"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_section_and_a_prompt_may_share_an_id"
+        }
+      ]
+    },
+    {
+      "id": "REQ-validator-rules",
+      "section": "parse-errors",
+      "statement": "Constraints JSON Schema cannot express that a validator MUST enforce",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "RealFile_IdsAreUniqueWithinTheirNamespace"
+        }
+      ],
+      "gap": "Id uniqueness is gated. Ragged-table-is-advisory has no beta.6 vector."
     },
     {
       "id": "REQ-verification-vocabulary",
@@ -777,22 +1155,6 @@
       ]
     },
     {
-      "id": "REQ-unknown-degrades",
-      "section": "forward-compatibility",
-      "statement": "Unknown members, data types, roles, and proof types degrade rather than reject",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm"
-        },
-        {
-          "type": "test",
-          "ref": "test_beta6_stream_rewrite_preserves_semantic_extensions_and_cms_subjects"
-        }
-      ]
-    },
-    {
       "id": "REQ-version-exact",
       "section": "version-compatibility",
       "statement": "Exact-match version rejection; no MAJOR.MINOR negotiation",
@@ -809,221 +1171,21 @@
       ]
     },
     {
-      "id": "REQ-resource-limits",
-      "section": "resource-limits",
-      "statement": "Parsing terminates; at least 16 levels of section nesting supported",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
-        },
-        {
-          "type": "test",
-          "ref": "HostileStructures_AreRefusedCleanly"
-        },
-        {
-          "type": "test",
-          "ref": "EveryTruncationOfAValidDocument_IsRefusedCleanly"
-        }
-      ]
-    },
-    {
-      "id": "REQ-no-media-type",
-      "section": "media-types",
-      "statement": "No registered media type; representation determined by content, not name",
+      "id": "REQ-yaml-restricted",
+      "section": "apr-yaml",
+      "statement": "Restricted YAML: string keys, safe loader, forbidden constructs rejected",
       "strength": "partial",
       "gates": [
         {
+          "type": "fixture",
+          "ref": "malformed/yaml-anchor.apr.yaml"
+        },
+        {
           "type": "test",
-          "ref": "RealFile_Validates"
+          "ref": "Writer_RoundTripsAFormThroughYaml"
         }
       ],
-      "gap": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus."
-    },
-    {
-      "id": "REQ-validate-structure",
-      "section": "structural-validation",
-      "statement": "Structural checks that decide whether a document is a valid APR document",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "suite",
-          "ref": "schema.gate"
-        },
-        {
-          "type": "test",
-          "ref": "RealFile_Validates"
-        },
-        {
-          "type": "test",
-          "ref": "test_an_old_version_is_rejected"
-        },
-        {
-          "type": "test",
-          "ref": "test_a_section_and_a_prompt_may_share_an_id"
-        }
-      ]
-    },
-    {
-      "id": "REQ-validate-text",
-      "section": "text-validation",
-      "statement": "Well-formed UTF-8, no NUL or unpaired surrogates, restricted control characters",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "EncodingHazards_AreToleratedOrRefusedCleanly"
-        },
-        {
-          "type": "test",
-          "ref": "test_labels_are_nfc_normalised"
-        },
-        {
-          "type": "test",
-          "ref": "test_unicode_security_values_are_preserved_and_advised"
-        }
-      ]
-    },
-    {
-      "id": "REQ-validate-never-semantic",
-      "section": "semantic-validation",
-      "statement": "A document is never invalid because of what a response means",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "test_any_text_is_a_valid_response_whatever_the_hint_asked_for"
-        },
-        {
-          "type": "test",
-          "ref": "test_unicode_warning_does_not_make_a_document_invalid"
-        },
-        {
-          "type": "test",
-          "ref": "test_a_response_that_is_a_string_of_a_number_is_fine"
-        }
-      ]
-    },
-    {
-      "id": "REQ-advisory-never-blocks",
-      "section": "advisory-feedback",
-      "statement": "Advisory feedback never blocks saving, input, or declares a document invalid",
-      "strength": "partial",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "test_unicode_warning_does_not_make_a_document_invalid"
-        },
-        {
-          "type": "suite",
-          "ref": "desktop.unit"
-        }
-      ],
-      "gap": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule."
-    },
-    {
-      "id": "REQ-types-are-affordances",
-      "section": "data-types",
-      "statement": "expectedDataType is an affordance; it never constrains a response, and degrades to text",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "UnregisteredType_DegradesToText"
-        },
-        {
-          "type": "test",
-          "ref": "test_any_text_is_a_valid_response_whatever_the_hint_asked_for"
-        }
-      ]
-    },
-    {
-      "id": "REQ-expr-invariants",
-      "section": "expr-invariants",
-      "statement": "Expressions are pure, never authoritative over a response, and fail data-preservingly",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "ComputedField_IsNotReadOnly_BecauseAnyStringIsAValidResponse"
-        },
-        {
-          "type": "test",
-          "ref": "RecomputeComputedValues_LeavesAnAnswerAloneWhenTheExpressionFails"
-        }
-      ]
-    },
-    {
-      "id": "REQ-expr-activation",
-      "section": "expr-activation",
-      "statement": "The read-only activation and its reserved names",
-      "strength": "partial",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "Hint_DeclaresTheCelType"
-        },
-        {
-          "type": "test",
-          "ref": "EveryRegisteredType_TypeChecksAsTheRegistryDeclares"
-        }
-      ],
-      "gap": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
-    },
-    {
-      "id": "REQ-expr-context",
-      "section": "expr-context",
-      "statement": "ctx carries host-supplied data and never carries secrets or authorization decisions",
-      "strength": "partial",
-      "gates": [
-        {
-          "type": "suite",
-          "ref": "core.unit"
-        }
-      ],
-      "gap": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector."
-    },
-    {
-      "id": "REQ-expr-computed",
-      "section": "expr-computed",
-      "statement": "exprValue marks provenance and never overwrites an unmarked non-empty response",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "RecomputeComputedValues_DoesNotRevertAnAnswerSomeoneTypedOver"
-        },
-        {
-          "type": "test",
-          "ref": "RecomputeComputedValues_SettlesChainedComputations"
-        },
-        {
-          "type": "test",
-          "ref": "ComputedResults_UseTheCanonicalWriteForms"
-        },
-        {
-          "type": "test",
-          "ref": "test_cel_binding_computes_typed_value_without_overwriting_correction"
-        }
-      ]
-    },
-    {
-      "id": "REQ-expr-limits",
-      "section": "expr-limits",
-      "statement": "Evaluation terminates and a reached bound applies the hint fallback",
-      "strength": "partial",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "EmptyTypedField_IsAnError_NotZero"
-        },
-        {
-          "type": "test",
-          "ref": "FreeTextInATypedField_DoesNotBind_AndTheExpressionDegrades"
-        }
-      ],
-      "gap": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit."
+      "gap": "Only anchors have a vector. Tags, merge keys, non-finite numbers, binary, implicit dates and constructors are unexercised."
     }
   ]
 }

@@ -2,114 +2,160 @@
 
 **Specification document version:** 1.0.0-beta.6-draft
 **Describes format version:** `1.0-beta.6`
-**Status:** BETA — breaking changes are intentional until the first public release
+**Status:** BETA — the format is not frozen and breaking changes are intentional
 **Published:** 2026-09-01
 **Editor:** Marc Jones
 **Normative schema:** `schemas/apr-1.0-beta.6.schema.json`
 **Conformance corpus:** `tests/Conformance/beta6/`
 **Repository:** <https://github.com/marctjones/promptresponse>
-**License:** the repository `LICENSE` (AGPL-3.0) applies to this text
 
-This document has not been ratified. Nothing in it designates APR 1.0, and a
-beta baseline remains revisable until an explicit human decision says otherwise.
+---
 
-**Citing this document.** Cite the format version, the repository tag that
-carries the baseline, and the anchor of the section referenced — for example,
-*APR File Format Specification, 1.0-beta.6, `docs/APR_SPECIFICATION.md#responses`*.
-Section numbers are not citable; see [Document conventions](#conventions).
+## 1. About this document {#scope}
 
-**Reporting a defect.** File an issue in the repository above. A defect in this
-text is corrected here; a disagreement between this text and the schema or the
-conformance corpus is resolved by [Authority and precedence](#authority), which
-makes those the higher authority.
+APR (Adaptive Prompt Response) is a file format for forms. An APR document
+describes *what to collect*, never *how to display it*. A blank form and a
+completed form are the same structure, distinguished by one member.
 
-## 1. Scope {#scope}
+This specification is **descriptive**: it documents the format as designed and
+tested, not as hoped for. Three artifacts define APR `1.0-beta.6` together, and
+where they disagree the order of authority is:
 
-APR is a local-first, semantic form format. It stores what a form asks and the
-string responses it receives. It stores no page layout and executes no
-document-supplied code.
+1. **The conformance corpus**, `tests/Conformance/beta6/` — executable, and
+   always right.
+2. **The JSON Schema**, `schemas/apr-1.0-beta.6.schema.json` — structural rules,
+   machine-checkable.
+3. **This prose** — everything the first two cannot express.
 
-This document specifies the `1.0-beta.6` format: its abstract model, its JSONC
-and YAML representations, record streams, semantic digests, attestations,
-verification reporting, and conformance profiles.
+If prose contradicts a fixture, the prose is a bug. Report it.
 
-Out of scope: page layout and pagination, hosted collaboration, submission
-transport beyond the record contract defined here, and any behavior an
-application layers on top of an APR document.
+This document has not been ratified. Nothing in it designates APR 1.0.
 
-## 2. Normative language {#normative-language}
+### 1.1 Navigation {#navigation}
+
+Read the specification in this order when implementing APR:
+
+1. [Conformance profiles](#conformance) identify the required and optional
+   behaviour.
+2. [Representations](#representations), [document structure](#form-model),
+   [document type](#media-types), [validation](#validation), and
+   [text handling](#text-handling) define `core`.
+3. [Streams](#streams) and [digests](#digests) define `core+streams`.
+4. [Expressions](#expressions) and [attestations](#attestations) are the
+   remaining optional profiles.
+5. [Rendering](#renderers), [security](#security), and the
+   [conformance checklist](#checklist) constrain hosts and verify an
+   implementation.
+
+This navigation is informative. The requirement language in the sections it
+links to remains authoritative.
+
+### 1.2 Requirement language {#normative-language}
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**,
 **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL** are to be
 interpreted as described in BCP 14 (RFC 2119, RFC 8174) when, and only when,
 they appear in all capitals.
 
-Lowercase uses of these words carry their ordinary English meaning and impose no
-requirement.
+Lowercase uses carry their ordinary English meaning and impose no requirement.
 
-## 3. Document conventions {#conventions}
+### 1.3 Document conventions {#conventions}
 
-Four kinds of text appear in this document and are distinguished deliberately.
+Four kinds of text appear here and are distinguished deliberately.
 
-- **Normative text** states requirements. It is ordinary prose using the
-  keywords of [Normative language](#normative-language).
-- **Examples** appear in fenced code blocks introduced as examples. An example
-  is illustrative. Where an example and normative text disagree, the normative
-  text governs.
-- **Rationale** appears in blockquotes beginning `Rationale:`. Rationale
-  explains why a rule exists and is non-normative. Removing every rationale
-  block would not change the format.
-- **Decisions** appear in blockquotes beginning `Decision (beta.6):`. A decision
-  block marks a rule that this document originates rather than transcribes from
-  the schema or the conformance corpus. Decision blocks are normative, and they
-  are marked so that every non-transcribed rule can be found and reviewed.
+- **Normative text** states requirements, using the keywords of
+  [Requirement language](#normative-language).
+- **Examples** are captioned `Example N` and are illustrative. Where an example
+  and normative text disagree, the normative text governs.
+- **Rationale** appears in blockquotes beginning `Rationale:` and is
+  non-normative. Removing every rationale block would not change the format.
+- **Decisions** appear in blockquotes beginning `Decision (beta.6):` and mark a
+  rule this document originates rather than inherits. They are normative, and
+  marked so that every such rule can be found.
 
 Each heading carries an explicit anchor, written `{#anchor-name}`.
 
 > Rationale: **anchors, not section numbers, are the stable identifiers.**
-> Section numbers renumber whenever material is inserted. A coverage manifest,
-> a drift test, or an external citation that referenced `§6.2` would silently
-> come to mean something else; one that references `#form-model` either
+> Section numbers renumber whenever material is inserted, so a citation to a
+> number silently comes to mean something else, while one to `#responses` either
 > resolves or fails loudly. Cite anchors.
 
-## 4. Terminology {#terminology}
+### 1.4 Three version numbers {#version-numbers}
 
-These terms carry the meanings below throughout this document. Where a term is
-also an ordinary English word, the definition here governs.
+Conflating these is the most common way to break a file format, so they are kept
+strictly apart.
+
+| Number | Changes | Lives in | Today |
+| --- | --- | --- | --- |
+| **Format version** | only on a breaking change to the wire format | the `version` member of every document | `1.0-beta.6` |
+| **Specification document version** | every release | this document's header | `1.0.0-beta.6-draft` |
+| **Conformance corpus tag** | every release | `tests/Conformance/beta6/` and a git tag | `corpus/beta6` |
+
+The format version **MUST NOT** track releases. Two releases that do not change
+the wire format declare the same format version, and that is correct.
+
+#### 1.4.1 Version compatibility {#version-compatibility}
+
+`version` **MUST** be exactly `"1.0-beta.6"`. A document declaring any other
+value **MUST** be rejected with `UNSUPPORTED_VERSION`, including `1.0-beta`,
+`1.0-beta.3`, and any later beta.
+
+> Decision (beta.6): version handling is **exact-match rejection**. An earlier
+> baseline decided compatibility by MAJOR.MINOR, so that a newer MINOR was read
+> with a warning and its unknown members preserved. That tolerance is withdrawn.
+>
+> The reason is that beta.6 changes the meaning of an existing document rather
+> than adding to it: embedded signatures are retired, and a beta.3 document read
+> as beta.6 would silently lose its cryptographic assertions. Reading it "with a
+> warning" would be worse than refusing it. Negotiation returns when there is a
+> released version to negotiate with.
+
+Unknown-member preservation ([Unknown members](#extensions)) is unaffected and
+remains **REQUIRED**. It is what keeps additive change safe within a version.
+
+**What BETA means here:** breaking changes are intentional until the first
+public release. Implementers **SHOULD** record the corpus tag they pass, not
+just the format version.
+
+---
+
+## 2. Terminology {#terminology}
+
+These terms carry the meanings below throughout. Where a term is also an
+ordinary English word, the definition here governs.
 
 **form** — the complete semantic model of one APR document: its version,
 document type, metadata, section tree, and roles. A form is ordinary data and
 carries no cryptographic assertion of its own.
 
-**template** — a form whose document type is `template`: the questions, without
-the answers of any particular respondent.
+**template** — a form whose `documentType` is `template`: the questions, without
+any particular respondent's answers.
 
-**filled form** — a form whose document type is `filledForm`: the questions
+**filled form** — a form whose `documentType` is `filledForm`: the questions
 together with one respondent's answers, naming the template it answers.
 
-**section** — a named node of the form tree. A section holds prompts, child
-sections, or both, and carries the outline a reader navigates by.
+**section** — a named node of the form tree, holding prompts, child sections, or
+both.
 
-**prompt** — a single question. A prompt owns a label, an optional response, and
+**prompt** — a single question, owning a label, an optional response, and
 optional advisory hints.
 
 **response** — the answer stored for a prompt, always a string.
 
-**hint** — advisory guidance attached to a prompt. A hint describes how a
-response might be presented or checked, and never determines whether a response
-is acceptable.
+**hint** — advisory guidance attached to a prompt, describing how a response
+might be presented or checked, never whether it is acceptable.
 
-**advisory** — describing guidance that never rejects, alters, or blocks a
-response. Advisory is the opposite of binding, not the opposite of important.
+**advisory** — never rejecting, altering, or blocking a response. The opposite
+of binding, not of important.
 
 **instance** — one repetition of a table section's shape.
 
 **semantic model** — the information APR defines, independent of how it is
 written down. Two documents with the same semantic model are the same form.
 
-**source trivia** — everything present in the bytes but absent from the semantic
-model: comments, whitespace, indentation, quoting style, mapping order, and
-record framing. Trivia carries no APR meaning.
+**source trivia** — everything in the bytes but absent from the semantic model:
+comments, whitespace, indentation, quoting style, mapping order, and record
+framing. Trivia carries no APR meaning.
 
 **representation** — a concrete spelling of the semantic model. APR defines two,
 APR-JSONC and APR-YAML.
@@ -133,7 +179,7 @@ plaintext of the values it describes.
 **attestation** — an independent record making a cryptographic assertion about a
 form identified by digest.
 
-**envelope** — the attestation record excluding its own proofs; this is what a
+**envelope** — an attestation record excluding its own proofs; this is what a
 proof signs and what a witness references.
 
 **subject** — the form an attestation asserts about, identified by digest.
@@ -155,300 +201,366 @@ preserved across a round trip.
 **non-blank string** — a string containing at least one non-whitespace
 character. A whitespace-only string is treated as absent.
 
-## 5. Authority and precedence {#authority}
+---
 
-APR authority is, in descending order:
+## 3. Conformance profiles {#conformance}
 
-1. the beta.6 conformance corpus, `tests/Conformance/beta6/`;
-2. the beta.6 JSON Schema, `schemas/apr-1.0-beta.6.schema.json`; and
-3. this specification.
+APR is deliberately layered so that a complete, useful implementation can be
+written in an afternoon, in any language, on any device. Only the core is
+required.
 
-Where they disagree, the higher authority governs and the disagreement is a
-defect to be reported rather than resolved by a reader's judgment.
+### 3.1 `core` — REQUIRED of every implementation {#profile-core}
 
-This document is the declared prose authority for the `1.0-beta.6` baseline.
+Parse, validate, fill, and write one document in both representations, per
+[Representations](#representations) through [Text handling](#text-handling).
 
-> Rationale: the corpus outranks the prose because a conformance claim is
-> settled by executing vectors, not by reading. An implementation that passes
-> the corpus and contradicts a sentence here has found a specification bug.
+A core implementation is fully conformant. It is not a degraded one, and it need
+not emit HTML, PDF, or native controls. It exposes the semantic document and its
+advisory hints for a host application or renderer to use.
 
-### 5.1 Relationship to the schema's own prose {#schema-prose}
+### 3.2 `core+streams` — OPTIONAL {#profile-streams}
 
-The beta.6 schema layers its constraints over a shared structural base,
-`schemas/apr-1.0.schema.json`. That base carries `description` text written for
-an earlier beta. Its **structure** is correctly constrained for beta.6 by the
-overriding layer; several of its **descriptions** are stale and describe retired
-behavior — an accepted version of `1.0-beta`, a `core+signatures` profile, and
-the retired `signature` and `signer` definitions.
+Additionally reads and writes streams of independent records
+([Streams](#streams)).
 
-Where a base-schema description and this document disagree, this document
-governs for beta.6 semantics, and the stale description is a defect to be
-corrected in the schema rather than a competing rule.
+A core-only implementation given a stream **MUST** report
+`APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position.
 
-## 6. The beta.6 boundary {#beta6-boundary}
+### 3.3 `core+attestations` — OPTIONAL {#profile-attestations}
 
-Beta.6 replaces beta.3. There is no public compatibility commitment: a beta.6
-reader **MUST** reject a beta.3 form rather than silently treating it as
-beta.6.
+Additionally computes semantic digests and manifests, resolves attestations
+against forms, looks up witnesses, and reports the verification vocabulary
+([Attestations](#attestations)). Requires `core+streams`.
 
-- `version` **MUST** be exactly `"1.0-beta.6"`.
-- `signatures` and `apr-sig-v3` are retired. An APR form is ordinary form data;
-  cryptographic assertions live in independent attestation records
-  ([Attestations](#attestations)).
-- A form has no `signatures` member. A reader **MUST** report it as
-  `RETIRED_EMBEDDED_SIGNATURES`. It is not an extension member.
+A core-only implementation **MUST NOT** reject a stream containing attestations,
+**MUST** preserve attestation records on round-trip, and **MUST NOT** report a
+document as verified. It **SHOULD** indicate that attestations are present but
+unchecked.
 
-## 7. Abstract model and processing {#abstract-model}
+This profile is optional for a reason of policy, not merely of cost. **Nobody is
+obliged to sign, and nobody is obliged to care that something was signed.** A
+recipient may have every reason to trust a document by other means — they know
+the sender, they requested the form, the data is low-stakes, or they simply want
+to read it. Requiring verification before data can be used would impose the form
+author's threat model on every reader, which is not a decision the file format
+gets to make. See [Attestations never gate the data](#never-gate).
 
-### 7.1 Model, serialization, presentation {#model-layers}
+### 3.4 `core+expressions` — OPTIONAL {#profile-expressions}
+
+Additionally evaluates the `expr*` hint family ([Expressions](#expressions)).
+
+A core-only implementation **MUST NOT** reject a document that uses expressions
+and **MUST** preserve the expression strings when writing it back. A host
+rendering the document presents those prompts as ordinary editable fields: a
+computed field simply becomes a field the user can type into — degraded, but
+never broken, and never lost.
+
+### 3.5 Declaring conformance {#declaring-conformance}
+
+State the profiles you implement and the corpus commit you pass. "APR
+1.0-beta.6 core+streams, corpus beta6 @ `<sha>`" is a complete and honest claim.
+
+An implementation **MUST NOT** claim a profile without passing the corpus
+revision it names.
+
+---
+
+## 4. Representations {#representations}
+
+The semantic model is representation-neutral. The same form or attestation may
+be written as APR-JSONC or APR-YAML; comments, whitespace, indentation, scalar
+spelling, and mapping order have no semantic effect.
+
+### 4.1 Model, serialization, presentation {#model-layers}
 
 APR separates three layers. A rule stated at one layer does not constrain
 another.
 
-1. **Semantic model** — the information APR defines: a form's identity,
-   metadata, section tree, prompts, advisory hints, and string responses; or an
-   attestation's subject, scope, manifest, proofs, and witnesses. All APR
-   semantics are properties of this layer.
+1. **Semantic model** — the information APR defines. All APR semantics are
+   properties of this layer.
 2. **Serialization** — the JSON data model the semantic model maps onto:
    objects, arrays, strings, numbers, booleans, and null.
-3. **Presentation** — the bytes actually written: APR-JSONC or APR-YAML spelling,
-   comments, whitespace, indentation, quoting style, and mapping order.
+3. **Presentation** — the bytes actually written.
 
 Two documents with the same semantic model are the same form, whatever their
-presentation. This is what makes a semantic digest ([Semantic digests and manifests](#digests)) meaningful:
-it is computed over the model, never over the bytes.
+presentation. This is what makes a semantic digest ([Digests](#digests))
+meaningful: it is computed over the model, never over the bytes.
 
 Information is discarded deliberately when moving from presentation to model.
-Comments, whitespace, key order, scalar spelling, and framing are **source
-trivia**: they **MUST NOT** carry APR meaning, and a writer is under no
-obligation to reproduce them. Everything else — including members APR does not
-define ([Extension members](#extensions)) — **MUST** survive a round trip.
+Source trivia **MUST NOT** carry APR meaning, and a writer is under no obligation
+to reproduce it. Everything else — including members APR does not define — **MUST**
+survive a round trip.
 
-### 7.2 Processing roles {#processing-roles}
+### 4.2 Encoding {#encoding}
 
-An implementation may take any of these roles. Each is defined by its
-obligations, not by an API shape.
+A document **MUST** be encoded as UTF-8 (RFC 3629). A byte-order mark
+**SHOULD NOT** be written; a reader **SHOULD** tolerate a leading one.
 
-| Role | Obligation |
+A reader **MUST** reject ill-formed UTF-8 rather than substituting replacement
+characters silently.
+
+Every string **MUST NOT** contain U+0000, and **MUST NOT** contain an unpaired
+surrogate in the range U+D800 to U+DFFF. Control characters U+0001 through
+U+001F **MUST NOT** appear, except tab (U+0009), line feed (U+000A), and
+carriage return (U+000D), which are permitted so that a multiline response can
+hold the line breaks a person typed.
+
+### 4.3 APR-JSONC {#apr-jsonc}
+
+APR-JSONC is JSON (RFC 8259) extended with exactly three constructs:
+
+- line comments introduced by `//`, running to end of line;
+- block comments delimited by `/*` and `*/`; and
+- a trailing comma after the final member of an object or element of an array.
+
+Once comments and trailing commas are removed, the text **MUST** decode as JSON
+to the semantic model. Comments are source trivia and cannot carry APR meaning.
+
+A JSONC parser **MUST** reject duplicate object keys rather than applying a
+last-key-wins rule.
+
+> Rationale: last-key-wins makes a document's meaning depend on which parser
+> reads it, which is precisely what a semantic digest cannot tolerate.
+
+*Negative case:* `malformed/duplicate-member.apr.jsonc`.
+
+**Example 1.** A form in APR-JSONC, with comments that carry no meaning.
+
+```jsonc
+{
+  // Comments are trivia: they survive a byte-level copy and vanish from
+  // the semantic model. They are never hashed and never attested.
+  "version": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": { "title": "Permit Application" },
+  "sections": [
+    {
+      "id": "applicant",
+      "title": "Applicant",
+      "prompts": [
+        { "id": "full_name", "label": "Full name", "response": "" },
+      ],
+    },
+  ],
+}
+```
+
+### 4.4 APR-YAML {#apr-yaml}
+
+APR-YAML is a restricted YAML 1.2 representation of the same model.
+
+Keys **MUST** be strings. These constructs are forbidden and **MUST** be
+rejected:
+
+| Forbidden | Corpus case |
 | --- | --- |
-| **Reader** | Decode one document from a representation to the semantic model, or reject it. **MUST** reject a document whose `version` is not `1.0-beta.6` ([The beta.6 boundary](#beta6-boundary)). |
-| **Writer** | Encode a semantic model to a representation. **MUST NOT** emit `null` for a response ([Responses are strings](#responses)), and **MUST** preserve extension members. |
-| **Stream reader** | Yield every record of a stream in order ([Streams](#streams)). **MUST NOT** deduplicate, reorder, or select by position. |
-| **Validator** | Report whether a document satisfies this specification, including the constraints of [Constraints no schema expresses](#unexpressible) that no schema can state. |
-| **Renderer** | Present a form to a person under the obligations of [Renderer obligations](#renderers). |
-| **Attestation producer** | Compute a subject digest and manifest and emit an attestation record ([Attestations](#attestations)). |
-| **Verifier** | Resolve an attestation against observed forms and report the vocabulary of [Verification and safety](#verification). **MUST NOT** conflate cryptographic validity with trust. |
-| **Application** | Anything layered above: workflow, storage, transport. Outside this specification. |
+| Anchors and aliases | `malformed/yaml-anchor.apr.yaml` |
+| Tags | none — corpus gap |
+| Merge keys | none — corpus gap |
+| Non-finite numbers | none — corpus gap |
+| Binary values | none — corpus gap |
+| Dates resolved by implicit typing | none — corpus gap |
+| Arbitrary-language constructors | none — corpus gap |
 
-A single implementation commonly takes several roles. A conformance profile
-([Conformance](#conformance)) names which roles it exercises.
+Implementations **MUST** use a safe YAML loader and **MUST** resolve scalars only
+to JSON null, boolean, number, string, array, or object before APR validation.
 
-### 7.3 Failure points {#failure-points}
+Responses remain strings even where a YAML scalar could otherwise resolve as a
+number or boolean: a response written as `42` carries the string `"42"`.
 
-A document can fail at distinct stages, and the stages are reported
-distinguishably:
+Rows marked *corpus gap* state a rule the corpus does not yet exercise. The rule
+is normative; the missing vector is a corpus defect
+([Corpus gaps](#corpus-gaps)).
 
-- **presentation failure** — the bytes are not well-formed in the declared
-  representation ([Representations](#representations));
-- **serialization failure** — a forbidden construct resolved to something
-  outside the JSON data model ([APR-YAML](#apr-yaml));
-- **model failure** — the JSON is well-formed but violates a rule of
-  [Form model](#form-model); and
-- **assertion failure** — the model is valid but an attestation over it does not
-  verify ([Verification and safety](#verification)). An assertion failure **MUST NOT** prevent
-  access to the form.
+**Example 2.** The same form as Example 1, in APR-YAML. Both have identical
+semantic models and therefore identical digests.
 
-## 8. Form model {#form-model}
+```yaml
+version: "1.0-beta.6"
+documentType: template
+metadata:
+  title: Permit Application
+sections:
+  - id: applicant
+    title: Applicant
+    prompts:
+      - id: full_name
+        label: Full name
+        response: ""
+```
 
-A form is a JSON object. This section catalogues every member APR defines.
-
-Throughout: *required* means the member **MUST** be present; *optional* means it
-**MAY** be absent, and absence carries the stated default. Unless a member's
-entry says otherwise, its value is a JSON string.
-
-### 8.1 Value types {#json-subset}
+### 4.5 Value types {#json-subset}
 
 APR uses a restricted subset of the JSON data model.
 
 A **response** is always a JSON string ([Responses are strings](#responses)). It
-is never a number, a boolean, an array, or an object, whatever the prompt's
-advisory type suggests.
+is never a number, boolean, array, or object, whatever the prompt's advisory
+type suggests.
 
 Every other member is **structural**: it describes the form rather than carrying
 what a person typed. Structural members in this baseline are also written as
 strings, including `canAddRows`, `maxRows`, `min`, `max`, and `step`.
 
 > Decision (beta.6): structural members remain **strings** in this baseline. The
-> strings-only rule originally applied to the whole document; the intent recorded
-> during beta.6 design is narrower — responses are always strings because they
-> carry what a person typed, while a structural member that never comes from a
-> person may use the JSON type that fits it, so that a row count is the number
-> `5` rather than the string `"5"`.
+> strings-only rule originally applied to the whole document; the recorded intent
+> is narrower — a response is a string because it carries what a person typed,
+> while a structural member that never comes from a person may use the JSON type
+> that fits it, so that a row count is the number `5` rather than the string
+> `"5"`.
 >
-> That narrowing is not yet written into the schema, which still types these
-> members as strings, and the corpus follows the schema. This document therefore
-> specifies strings, and the change is tracked as a pending format decision
-> rather than asserted here ahead of the schema.
+> That narrowing is not yet written into the schema, and the corpus follows the
+> schema. This document therefore specifies strings and records the change as
+> pending rather than asserting it ahead of the schema.
 
-`null` is not an APR value. A writer never emits it. A reader tolerates it in a
-response position only, coercing it to the empty string
-([Responses are strings](#responses)); anywhere else it is a model failure.
+`null` is not an APR value. A writer **MUST NOT** emit it. A reader tolerates it
+in a response position only, coercing it to the empty string; anywhere else it is
+a parse failure.
 
-### 8.2 Identifiers {#identifiers}
+### 4.6 Responses are strings {#responses}
 
-A section `id` and a prompt `id` are non-blank strings, unique document-wide
-within their own namespace ([Constraints no schema expresses](#unexpressible)).
+A `prompt.response` **MUST** be a JSON string. A response given as a JSON number
+or boolean **MUST** be rejected at parse time. It **MUST NOT** be coerced to
+`"42"` or `"true"`.
 
-Identifiers are compared by exact code-point equality. `Section_1` and
-`section_1` are different identifiers, and no normalization, case folding, or
-trimming is applied before comparison.
+> Rationale: silent coercion is worse than rejection. It produces a document that
+> looks conformant while having invented data that no person entered.
 
-An identifier is not required to be a programming-language identifier. A
-consequence is recorded in [Expressions](#expressions): a prompt whose id is not
-a valid CEL identifier has no direct expression binding.
+A `null` response and an absent `response` member are both read as the empty
+string.
 
-### 8.3 Root object {#root-object}
+### 4.7 Any string is a valid response {#any-string}
 
-| Member | Required | Type | Domain and default |
-| --- | --- | --- | --- |
-| `version` | required | string | **MUST** be exactly `"1.0-beta.6"`. |
-| `documentType` | optional | string | `template` or `filledForm`. Absent means `template`. |
-| `metadata` | required | object | [`metadata`](#metadata) |
-| `sections` | required | array | At least one [section](#section-object). |
-| `roles` | optional | array | Zero or more [role definitions](#role-object). |
+**This is the rule the rest of the format exists to protect.**
 
-`documentType` — **not** the filename extension — determines how a document is
-treated. A `filledForm` **MUST** declare `metadata.templateId`.
+A response **MAY** contain any string. The format has no opinion about whether
+that string is "correct".
 
-A form **MUST NOT** carry `signatures` ([The beta.6 boundary](#beta6-boundary)).
-
-### 8.4 `metadata` {#metadata}
-
-| Member | Required | Type | Notes |
-| --- | --- | --- | --- |
-| `title` | required | non-blank string | The form's name. |
-| `description` | optional | string | Prose about the form as a whole. |
-| `created` | optional | date-time | RFC 3339 / ISO 8601. |
-| `modified` | optional | date-time | |
-| `author` | optional | string | A person. |
-| `publisher` | optional | string | The organization standing behind the template. |
-| `templateId` | optional | string | Required on a `filledForm`; identifies the template it answers. |
-| `templateVersion` | optional | string | The template revision answered. |
-| `filledBy` | optional | string | Who supplied the responses. |
-| `filledDate` | optional | date-time | |
-| `submissionUrls` | optional | array of string | Ordered explicit delivery choices for a completed form. |
-
-A *non-blank string* contains at least one non-whitespace character.
-Whitespace-only is treated as absent.
-
-`submissionUrls` is data an application **MAY** offer as a destination. Reading a
-form **MUST NOT** contact one ([Offline reading](#offline)). APR defines no submission
-protocol; a delivery action is an application concern.
-
-### 8.5 `section` {#section-object}
-
-| Member | Required | Type | Domain and default |
-| --- | --- | --- | --- |
-| `id` | required | non-blank string | Unique document-wide among sections. |
-| `title` | required | non-blank string | Carries the document outline. |
-| `description` | optional | string | Prose shown with the section. |
-| `sections` | optional | array | Child sections; recursive. |
-| `prompts` | optional | array | Child [prompts](#prompt-object). |
-| `kind` | optional | string | `section` or `table`. Absent means `section`. |
-| `canAddRows` | optional | string | Truthy if a filler may add or remove table instances. Absent means instances are fixed. |
-| `maxRows` | optional | string | Advisory upper bound on instance count. |
-| `role` | optional | string | Open vocabulary; see [Roles](#roles). |
-
-A section **MUST** have at least one prompt or at least one child section. This
-holds for `table` sections as well: a table declares its shape with at least one
-instance, even where `canAddRows` permits a filler to add more.
-
-> Rationale: prose in an earlier baseline stated an exception admitting an empty
-> dynamic table. The schema admits no such exception, and no shipped example or
-> corpus fixture exercises one — every `kind: table` section carries at least one
-> child section defining the shape. [Authority and precedence](#authority) makes the schema govern, so
-> the exception is removed rather than the constraint relaxed.
-
-A section `title` is required and never optional.
-
-> Rationale: titles carry the document outline that assistive technology
-> navigates by. An untitled section is invisible to a screen-reader user moving
-> by heading.
-
-### 8.6 `prompt` {#prompt-object}
-
-| Member | Required | Type | Domain and default |
-| --- | --- | --- | --- |
-| `id` | required | non-blank string | Unique document-wide among prompts. |
-| `label` | required | non-blank string | The accessible name. |
-| `response` | optional | string | See [Responses are strings](#responses). Absent means the empty string. |
-| `hints` | optional | object | [`hints`](#hints-object). Every member advisory. |
-| `responseMetadata` | optional | object | [`responseMetadata`](#response-metadata). |
-| `role` | optional | string | Overrides the containing section's role. |
-
-A prompt `label` is required, never optional, and **MUST NOT** be substituted by
-placeholder text.
-
-### 8.7 `hints` {#hints-object}
-
-Every member is **ADVISORY** ([Hints are advisory](#hints-advisory)).
-
-| Member | Type | Meaning |
+| `expectedDataType` | Response | Document validity |
 | --- | --- | --- |
-| `placeholder` | string | Text shown in an empty control. Never a substitute for `label`. |
-| `expectedDataType` | string | Suggested input affordance. Open registry; see below. |
-| `suggestedValues` | array of string | Offered as autocomplete or menu options. A response outside the list is still valid. |
-| `helpText` | string | Explanatory text for the prompt. |
-| `validationPattern` | string | Advisory regular expression. A non-matching response is still a valid document. |
-| `min` | string | Suggested lower bound for an ordered field. |
-| `max` | string | Suggested upper bound for an ordered field. |
-| `step` | string | Suggested increment for an ordered field. |
-| `exprHidden` | string | CEL. Truthy hides this prompt. |
-| `exprValue` | string | CEL. Computed read-only value. |
-| `exprExpected` | string | CEL. Truthy marks the prompt as expected. |
-| `exprValidation` | string | CEL. Returns a message; empty string means valid. |
-| `exprReadOnly` | string | CEL. Truthy makes this prompt read-only in a renderer. |
+| `number` | `about twelve` | **Valid** |
+| `email` | `call me instead` | **Valid** |
+| `date` | `the summer of 1985` | **Valid** |
+| anything | empty | **Valid** |
 
-`expectedDataType` values are a **registry, not a closed set**. These are the
-registered values:
+The distinction is between **document validity** — is this well-formed APR? —
+and **workflow acceptance** — will the receiving office act on it? A benefits
+office may reject a form for a blank field or an unparseable date. That is a
+workflow decision, made by a workflow, and it has nothing to do with whether the
+document is valid APR.
 
-`text`, `multiline`, `email`, `phone`, `url`, `date`, `time`, `datetime`,
-`number`, `currency`, `boolean`, `signature`, `file`, `select`, `multichoice`,
-`password`, `range`, `color`.
+> Rationale: forms are filled by people under conditions the author did not
+> anticipate. Someone whose legal name does not fit the field, whose address is
+> not a street address, whose answer is "I don't know" — all produce valid APR. A
+> format that rejected them would discard true information because it was
+> inconveniently shaped.
 
-An unrecognized value **MUST** degrade to `text` rather than raise an error.
+### 4.8 Hints never enforce {#hints-advisory}
 
-The five `expr*` members belong to the `core+expressions` profile and are
-specified in [Expressions](#expressions). An implementation without expression
-support **MUST** preserve these members and ignore them.
+Every member of `prompt.hints` is advisory. A hint **MUST NOT** cause a response
+to be rejected, altered, truncated, or blocked from being saved. This applies to
+`validationPattern` — a non-matching response is a warning at most — and to every
+member of the `expr*` family.
 
-### 8.8 Types are affordances, not validators {#data-types}
+An implementation **MAY** surface a hint mismatch as an advisory warning. It
+**MUST NOT** prevent the user from saving.
 
-`expectedDataType` tells a renderer which input affordance to offer and tells the
-person filling the form what the author expected. It does nothing else.
+---
 
-It **MUST NOT** prevent a person entering any string, **MUST NOT** make a
-document invalid when a response does not match it, and **MUST NOT** oblige an
-implementation to check a response against it
-([Semantic validation is never required](#semantic-validation)).
+## 5. Document structure {#form-model}
 
-Every response below is valid for its prompt:
+### 5.1 Document {#root-object}
 
-| `expectedDataType` | Responses that are all valid |
-| --- | --- |
-| `date` | `2025-01-15`, `January 15th`, `next Tuesday`, `TBD`, `` |
-| `number` | `42`, `forty-two`, `~50`, `N/A`, `` |
-| `email` | `user@example.com`, `none`, `see attached`, `` |
-| `phone` | `+1-555-0100`, `unlisted`, `ask my assistant`, `` |
-| `boolean` | `Yes`, `No`, `Maybe`, `It's complicated`, `` |
+**Example 3.** The shape of a form.
 
-> Rationale: the author's intent and what the person actually wrote are two
-> different facts. APR preserves the second exactly. Whether it is acceptable is
-> a decision for the workflow that consumes the form, not for the file format.
+```jsonc
+{
+  "version": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": { "title": "Permit Application" },
+  "sections": [ /* ... */ ],
+  "roles": [ /* ... */ ]
+}
+```
 
-An unrecognized value degrades to `text`. An absent value is `text`.
+| Member | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `version` | string | **Yes** | Exactly `"1.0-beta.6"` ([Version compatibility](#version-compatibility)). |
+| `documentType` | string | No | `template` or `filledForm`. Absent means `template`. Authoritative — see [Document type](#media-types). |
+| `metadata` | object | **Yes** | [Metadata](#metadata) |
+| `sections` | array | **Yes** | **MUST** contain at least one section. |
+| `roles` | array | No | [Roles](#roles) |
 
-### 8.9 `responseMetadata` {#response-metadata}
+A form **MUST NOT** carry a `signatures` member. A reader encountering one
+**MUST** report `RETIRED_EMBEDDED_SIGNATURES`
+([Retired members](#retired-members)).
+
+### 5.2 Metadata {#metadata}
+
+`title` is **REQUIRED** and **MUST** contain a non-whitespace character. All
+other scalar members are OPTIONAL strings; timestamps are RFC 3339.
+
+`created`, `modified`, `author` (a person), `publisher` (the organization
+standing behind the form), `templateId`, `templateVersion`, `filledBy`,
+`filledDate`, `submissionUrls`.
+
+`submissionUrls`, when present, is an ordered array of strings. Even one delivery
+choice is represented as a one-element array; a scalar `submissionUrl` is not
+valid. Order is the author's preferred display order, never permission for a
+client to choose or fall back to a target automatically; submitting remains an
+explicit user action.
+
+When `documentType` is `filledForm`, `templateId` is **REQUIRED**: a completed
+form that cannot name the form it completes is not traceable.
+
+### 5.3 Section {#section-object}
+
+| Member | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `id` | string | **Yes** | Non-whitespace. Unique document-wide among sections. |
+| `title` | string | **Yes** | Non-whitespace. **Never optional.** |
+| `description` | string | No | |
+| `sections` | array | No | Child sections — recursive. |
+| `prompts` | array | No | |
+| `kind` | string | No | `table` when this section's child sections are repeating instances ([Tables](#tables)). |
+| `canAddRows` | string | No | `"true"` if a filler may add or remove instances. Default fixed. |
+| `maxRows` | string | No | Advisory cap on instance count. |
+| `role` | string | No | [Roles](#roles) |
+
+A section **MUST** carry content: at least one prompt or at least one child
+section. There is no exception — tables included.
+
+**Section titles are required, not optional.** The section tree is the document
+outline that a screen-reader user navigates by. An untitled section is a hole in
+that outline, so the format refuses to produce one.
+
+### 5.4 Prompt {#prompt-object}
+
+| Member | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `id` | string | **Yes** | Non-whitespace. Unique document-wide among prompts. |
+| `label` | string | **Yes** | Non-whitespace. This is the accessible name. |
+| `response` | string | No | Absent means empty ([Responses are strings](#responses)). |
+| `hints` | object | No | [Hints](#hints-object). Advisory in full. |
+| `responseMetadata` | object | No | [Response metadata](#response-metadata). Never authoritative. |
+| `role` | string | No | Overrides the containing section's role. |
+
+**`label` is required and placeholder text is never a substitute for it.** A
+placeholder disappears when the user types, is invisible to many assistive
+technologies, and leaves the field permanently unnamed. A prompt with a
+placeholder and no label is invalid APR.
+
+Section ids and prompt ids occupy **separate namespaces**: a section and a prompt
+**MAY** share an id. Within each namespace, ids **MUST** be unique across the
+whole document, not merely among siblings — a filled form is consumed by field
+id, and a duplicate makes the data ambiguous.
+
+Ids are compared by exact code-point equality; no normalization, case folding, or
+trimming is applied. Ids **SHOULD** be stable across template versions and
+**MUST NOT** change when prompts are reordered. Reordering a form is a
+presentation change; changing an id silently breaks every downstream consumer and
+every attestation covering it.
+
+### 5.5 Response metadata {#response-metadata}
 
 | Member | Type | Meaning |
 | --- | --- | --- |
@@ -456,138 +568,605 @@ An unrecognized value degrades to `text`. An absent value is `text`.
 | `lastModified` | date-time | When the response last changed. |
 | `source` | string | `computed` is the only defined value. Present when an `exprValue` produced the response; absent when a person or an API wrote it. |
 
-Every member is advisory. A reader that ignores `responseMetadata` entirely
-still holds a valid document.
+Every member is advisory. A reader that ignores `responseMetadata` entirely still
+holds a valid document.
 
-> Rationale: `source` exists so recomputation can tell a stale computed value
-> from an answer someone typed. Without it, correcting a computed field would
-> silently revert on the next recompute.
+### 5.6 Tables {#tables}
 
-### 8.10 `roleDefinition` {#role-object}
+A table introduces **no new primitive**. Rows are ordinary sections; cells are
+ordinary prompts. A section becomes a table by carrying `kind: "table"`.
 
-| Member | Required | Type | Meaning |
-| --- | --- | --- | --- |
-| `id` | required | string | The identifier that section and prompt `role` members reference. |
-| `name` | optional | string | The name to show a person. Falls back to `id`. |
-| `description` | optional | string | Prose about the party. |
+**Example 4.** A table section.
 
-Declaring a role is optional and the vocabulary is open: a section or prompt
-**MAY** reference a role that is not declared here, and a reader shows the
-identifier.
+```jsonc
+{
+  "id": "expenses",
+  "title": "Expense line items",
+  "kind": "table",
+  "canAddRows": "true",
+  "maxRows": "25",
+  "sections": [
+    {
+      "id": "item_1",
+      "title": "Item 1",
+      "prompts": [
+        { "id": "item_1.description", "label": "Description", "response": "Train fare" },
+        { "id": "item_1.amount", "label": "Amount", "response": "42.50",
+          "hints": { "expectedDataType": "currency" } }
+      ]
+    }
+  ]
+}
+```
 
-### 8.11 Attestation record members {#attestation-members}
+#### 5.6.1 What a table asserts {#table-assertion}
 
-An attestation is a stream record, not a form member. Its catalogue is in
-[Attestation catalogue](#attestation-catalogue).
+It is **a claim about structure, not appearance**:
 
-### 8.12 Constraints no schema expresses {#unexpressible}
+- child sections are **instances**, not free-standing subsections;
+- prompts at the **same position correspond** across instances — this is what
+  makes "the Amount field" a thing that exists in every row;
+- an instance's `title` **identifies** it; and
+- a prompt's `label` **names the corresponding field** across every instance.
 
-A conforming validator **MUST** enforce these rules, which JSON Schema cannot
-state:
+There is deliberately **no column definition**. A column header *is* the
+corresponding prompt's label; a column's type hint *is* that prompt's
+`expectedDataType`. Declaring columns separately would state twice what the
+prompts already state, and anything stated twice can disagree — which is the
+failure this design removes rather than manages.
 
-1. **Section ids are unique document-wide.**
-2. **Prompt ids are unique document-wide.** A section id and a prompt id **MAY**
-   coincide; they are separate namespaces.
-3. **Attestation assertions verify as specified** ([Verification and safety](#verification)). In
-   beta.3 this rule concerned embedded canonical signature payloads; those are
-   retired, and the beta.6 obligation is digest and manifest agreement plus
-   proof verification.
-4. **Within a `table` section, prompts at the same position across instances
-   correspond.** A ragged or mislabelled table is **advisory, never invalid**: a
-   validator reports it as a warning and the document remains conformant.
+Correspondence is **by position**. Ids are free-form; the convention
+`{rowId}.{columnId}` is **RECOMMENDED** for addressability and database import,
+but carries no meaning the renderer depends on.
 
-The schema also deliberately declines to express the advisory rules of
-[Hints are advisory](#hints-advisory). No hint — `validationPattern` and the `expr*` family
-included — ever constrains `response`. **Any JSON string is a valid response.**
+#### 5.6.2 A table licenses no layout {#table-no-layout}
 
-### 8.13 Responses are strings {#responses}
+A renderer **MAY** present a table as a grid, as stacked cards, as a flat
+sequence of prompts, or as speech. **All are conformant**, and none is a
+fallback.
 
-A response **MUST** be a JSON string, in templates and filled forms alike. It is
-never a JSON number, boolean, array, or object; those **MUST** be rejected at
-parse time.
+> Rationale: this matters most where tables are hardest. A six-column grid is
+> unusable on a phone and at 200% zoom, and many screen-reader users prefer the
+> linear reading. Choosing the linear presentation is not a degraded rendering of
+> a table — it is an equally valid reading of the same claim.
 
-An absent response is read as the empty string. JSON `null` is tolerated on read
-and coerced to the empty string, but a conforming writer **MUST NOT** emit it.
+A table **MUST NOT** be treated as licence for width, alignment, colour, or font
+data. Those member names are retired ([Retired members](#retired-members)) and
+are dropped on read.
 
-> Rationale: `null` is permitted on read only so that lenient inbound documents
-> validate rather than failing at the door. The schema admits
-> `["string","null"]` for exactly this reason and for no other.
+#### 5.6.3 Rows and instances {#table-rows}
 
-### 8.14 Hints are advisory {#hints-advisory}
+`canAddRows` is `"true"` when a filler may add or remove instances; absent means
+fixed.
 
-A hint **MUST NOT** cause a response to be rejected, altered, or blocked from
-being saved. This holds for every member of [`hints`](#hints-object) without
-exception.
+> Rationale: the default is deliberately restrictive. A fixed table that silently
+> gained a row is a worse failure than a line-item table needing one explicit
+> property.
 
-A response outside `suggestedValues`, outside `min`/`max`, or not matching
-`validationPattern` is a valid document. A reader surfaces the divergence as a
-warning, never as a block.
+**Mutability and population are independent.** Whether instances may be added has
+nothing to do with whether they currently hold values — a filled table may still
+accept new rows, and a fixed table may be entirely blank.
 
-### 8.15 Structural tables {#tables}
+**A table always has at least one instance.** An "empty" table was never empty: a
+UI offering to add the first row is already presenting a row, and how that row is
+shown is a display decision. The instance also carries the table's field names,
+so a table without one cannot describe itself.
 
-A section with `kind` of `table` declares that its child sections are repeating
-instances of one shape: prompts at the same position correspond across
-instances, each instance's title identifies it, and a prompt's label names the
-corresponding field.
+`maxRows` is advisory. A table carrying more instances is still valid and is
+reported as a warning ([Warnings](#warnings)).
 
-This is a claim about **structure, not appearance**. A renderer may present it
-as a grid, as stacked cards, as a flat sequence of prompts, or as speech, and
-all are conformant. It licenses no layout data of any kind.
+#### 5.6.4 Ragged tables {#table-ragged}
 
-A table **MUST** carry at least one instance, which establishes the shape its
-other instances repeat. `canAddRows` states whether a filler may add or remove
-instances; absent, instances are fixed. `maxRows` is advisory in the sense of
-[Hints are advisory](#hints-advisory): a table carrying more is still valid and is reported
-as a warning.
+Instances **SHOULD** agree in prompt count and in the label at each position.
+When they disagree the document is still **valid**; a validator reports
+`TABLE_RAGGED` or `TABLE_LABEL_MISMATCH` and a renderer presents what is there.
 
-> Rationale: fixed-by-default is the safe direction. A table that silently
-> gained a row is a worse failure than one that needed an explicit property.
+> Rationale: refusing to open the document would discard whatever a filler had
+> already written, which [Any string is a valid response](#any-string) exists to
+> prevent.
 
-### 8.16 Roles {#roles}
+### 5.7 Nesting depth {#nesting}
 
-A role states who is meant to fill something in — `patient`, `nurse`, `office`.
-The vocabulary is open and a role is a statement of intent, never enforcement: a
-reader marks the field and still accepts any input. A prompt's role overrides
-the role of the section containing it.
+Sections nest recursively. Every implementation **MUST** support at least **16
+levels** of section nesting. Implementations **MAY** support more.
 
-### 8.17 Extension members {#extensions}
+> Rationale: unbounded depth is not implementable. Every real parser has a depth
+> limit, and a format that promises infinity promises a stack overflow. Any
+> particular ceiling above the floor is an implementation detail and **MUST NOT**
+> be relied upon.
 
-Unknown members are semantic extension data. They **MUST** round-trip and are
-included in whole-document beta.6 digests ([Semantic digests and manifests](#digests)). Retired
-presentation members remain forbidden, and `signatures` is retired rather than
-unknown ([The beta.6 boundary](#beta6-boundary)).
+Authors **SHOULD** stay far below the floor. Forms nested more than four or five
+levels deep are difficult to navigate with any input method.
 
-### 8.18 Reserved for future use {#reserved}
+### 5.8 Hints {#hints-object}
 
-No member name is reserved. A future baseline may define a member that a
-document is already carrying as an extension; that collision is resolved by the
-version boundary ([Compatibility and extensibility](#compatibility)), not by reservation.
+All OPTIONAL, all advisory ([Hints never enforce](#hints-advisory)).
 
-### 8.19 Offline reading {#offline}
+`placeholder`, `expectedDataType`, `suggestedValues`, `helpText`,
+`validationPattern`, the bounds family `min`, `max`, `step`, and the `expr*`
+family ([Expressions](#expressions)).
 
-Core form reading is offline and safe. Opening a form or an attestation
-**MUST NOT** contact a `metadata.submissionUrls` entry, a certificate endpoint,
-or any other network location.
+`expectedDataType` registry: `text`, `multiline`, `email`, `phone`, `url`,
+`date`, `time`, `datetime`, `number`, `currency`, `boolean`, `select`,
+`multichoice`, `signature`, `file`, `password`, `range`, `color`.
 
-### 8.20 Renderer obligations {#renderers}
+Country-specific field types are deliberately absent. A postcode, a national
+identity number, or a tax reference is `text` with a `validationPattern`: baking
+one country's formats into the vocabulary would oblige every reader everywhere to
+carry them.
 
-A renderer **MUST** preserve semantic order, **MUST** use labels as accessible
-names, and **MUST** allow complete keyboard operation.
+**This registry is open.** An unrecognized value **MUST** degrade to a plain text
+field. It **MUST NOT** cause an error — that is what lets the registry grow
+without breaking every existing reader.
 
-A renderer **MUST NOT** use `placeholder` as a prompt's accessible name, and
-**MUST NOT** treat any hint as a constraint on input
-([Hints are advisory](#hints-advisory)).
+`suggestedValues` offers options; a response outside the list is still valid. On
+a `boolean` it names the two options, so a renderer can label them as the author
+intended without changing the type.
 
-## 9. Expressions {#expressions}
+**Bounds are an offer, not a limit.** `min`, `max`, and `step` describe the range
+a widget should offer: the ends of a slider, the increment of a spinner. They are
+meaningful only on ordered types. On `date`, `time`, and `datetime`, `min` and
+`max` are the earliest and latest suggested values.
 
-The `expr*` hints ([Hints](#hints-object)) carry expressions in the Common
-Expression Language. Support is the `core+expressions` profile: optional to
-claim, binding once claimed.
+A response outside them is **still valid**, exactly as for `suggestedValues`. A
+slider that stops at 100 does not make `120` a wrong answer, and a validator
+**MUST NOT** reject one. Bounds shape the affordance offered to someone who wants
+it; they never shrink what a person is allowed to say.
 
-Expressions let a form react to values already in that form. They never grant a
-document authority over a person's stored response.
+#### 5.8.1 Types are affordances, not validators {#data-types}
 
-### 9.1 Invariants {#expr-invariants}
+`expectedDataType` tells a renderer which input affordance to offer and tells the
+person filling the form what the author expected. It does nothing else.
+
+Every response below is valid for its prompt:
+
+| `expectedDataType` | Responses that are all valid |
+| --- | --- |
+| `date` | `2025-01-15`, `January 15th`, `next Tuesday`, `TBD`, empty |
+| `number` | `42`, `forty-two`, `~50`, `N/A`, empty |
+| `email` | `user@example.com`, `none`, `see attached`, empty |
+| `phone` | `+1-555-0100`, `unlisted`, `ask my assistant`, empty |
+| `boolean` | `Yes`, `No`, `Maybe`, `It's complicated`, empty |
+
+> Rationale: the author's intent and what the person actually wrote are two
+> different facts. APR preserves the second exactly. Whether it is acceptable is
+> a decision for the workflow that consumes the form.
+
+### 5.9 Unknown members {#extensions}
+
+A reader **MUST** ignore members it does not recognise, at every level, and
+**MUST NOT** reject a document for carrying them.
+
+A reader **MUST** also **preserve** them: an unrecognised member present on read
+**MUST** still be present, unchanged, on write.
+
+> Rationale: without preservation, every additive change to the format is
+> destructive. A document written by a newer version would lose its new members
+> the first time an older reader opened and saved it, silently, with no error
+> anywhere.
+
+**Member names are case-sensitive.** A wrongly-cased member is an unknown member:
+it is preserved as data, and the property it resembles takes its default. This is
+a common source of "my field vanished" reports.
+
+Extension members participate in whole-document digests ([Digests](#digests)),
+so an attestation over a form covers them.
+
+#### 5.9.1 Retired members are the exception {#retired-members}
+
+Members the specification has **removed** are dropped rather than preserved.
+Today those are:
+
+- the table-column presentation set — `width`, `alignment`, `color`,
+  `background`, `fontSize`, `bold`, `style`; and
+- `signatures`, the embedded-signature array retired in beta.6
+  ([Attestations](#attestations)).
+
+`signatures` is reported rather than silently dropped: a reader **MUST** report
+`RETIRED_EMBEDDED_SIGNATURES`, because a document carrying it was making a
+cryptographic claim that beta.6 cannot honour, and losing that silently would be
+worse than refusing it.
+
+> Rationale: retirement has to mean something. If a removed member were preserved
+> as an unknown one, a renderer could keep writing column widths forever and "APR
+> carries no presentation data" would be unenforceable. Dropping them is how the
+> removal takes effect.
+
+A name is added to the retired list only when this specification retires it. A
+member that is merely unfamiliar is preserved, not dropped.
+
+### 5.10 Canonical value forms {#canonical-values}
+
+Any string remains a valid response. This section governs only what a renderer
+**writes** when it controls the value — a date picker, a checkbox, a
+multi-select list.
+
+> Rationale: without it, the same template filled in two implementations yields
+> two different datasets, and "database-ready" stops being true.
+
+A reader **MUST** accept every listed read form. A writer **SHOULD** emit the
+canonical form. Neither rule ever makes a document invalid.
+
+| Hint | Canonical write form | Also accepted on read |
+| --- | --- | --- |
+| `date` | `YYYY-MM-DD` (RFC 3339 full-date) | anything |
+| `time` | `HH:MM` or `HH:MM:SS`, 24-hour | anything |
+| `datetime` | RFC 3339 | anything |
+| `boolean` | `true` / `false` | `yes`, `y`, `1`, `on`, `x`, `checked` / `no`, `n`, `0`, `off`, `unchecked`, case-insensitive |
+| `number`, `currency` | digits with `.` as decimal separator, no grouping | anything, including symbols and words |
+| `multichoice` | selections separated by U+000A, one per line | a single line separated by comma and space, legacy |
+| `select` | exactly one value, verbatim from `suggestedValues` | anything |
+
+**Why `true`/`false` and not `yes`/`no`.** `yes` is English. A format that
+renders to voice, to other languages, and into database columns cannot make its
+canonical boolean depend on one language.
+
+**Why newline and not comma for `multichoice`.** A suggested value may itself
+contain a comma — `Bloomfield, CT` is an ordinary option in a municipal form.
+Comma separation silently turns one selection into two, which is data loss. A
+newline cannot appear inside a single-line option, so the encoding is lossless.
+Readers **MUST** still accept the legacy comma form.
+
+An empty string means "no selection" for every hint above.
+
+### 5.11 Roles — who each part is for {#roles}
+
+Most real forms are filled by more than one person. A patient completes an
+intake, a nurse records observations, the office stamps a reference. With nowhere
+to say so, all three arrive as one undifferentiated list and the patient is left
+guessing which questions are theirs.
+
+A section or a prompt **MAY** carry `role`: a short string naming who is meant to
+fill it in. A prompt's role overrides the role of the section containing it, so a
+single field can be handed back to the patient without splitting the section in
+two. The vocabulary is **open**: a reader that does not recognise a role **MUST**
+present the field normally rather than erroring.
+
+**Example 5.** Declared roles.
+
+```jsonc
+"roles": [
+  { "id": "patient", "name": "Patient",
+    "description": "The person receiving care" },
+  { "id": "nurse", "name": "Nurse",
+    "description": "Clinical staff recording observations" },
+  { "id": "office", "name": "Office use" }
+]
+```
+
+Each entry **MUST** carry `id`; `name` and `description` are OPTIONAL, and a
+reader with no `name` **MUST** fall back to the identifier. Declaring is itself
+optional and **MUST NOT** be required: a section or prompt **MAY** reference a
+role the document never declares, and a reader **MUST** show the identifier
+rather than erroring. A validator **MAY** warn about an undeclared role; it
+**MUST NOT** reject one.
+
+**A role says who a field is for. It never says who may type into it.** The
+format has no identity at fill time — nothing in a document knows who is at the
+keyboard — so a reader **MUST NOT** refuse input to a field because of its role.
+
+What a reader **SHOULD** do is make the answer obvious without being asked. Where
+a document declares roles, a reader **SHOULD** let the person say which role they
+are filling and then show plainly which fields are theirs. Fields belonging to
+others stay visible and stay editable; they are marked, not locked. A reader
+**SHOULD** also make a role legible to assistive technology, since a visual
+treatment alone communicates nothing to a screen reader.
+
+**Accountability comes from attestations, not from the widget.** A greyed-out box
+is evidence of nothing: whoever holds the document can edit it directly. A
+fields-scoped attestation over those prompts, made with the nurse's certificate,
+is evidence the nurse filled them. Roles describe intent; attestations establish
+fact. An implementation that treats a role as a security control has misread this
+section.
+
+---
+
+## 6. Document type and file extensions {#media-types}
+
+`documentType` is **authoritative**. A reader **MUST** determine whether a
+document is a template or a filled form from that member alone.
+
+| Extension | Meaning | Status |
+| --- | --- | --- |
+| `.aprt` | Template | Convention |
+| `.aprf` | Filled form | Convention |
+| `.apr` | Either | Convention |
+| `.apr.jsonc` | An APR-JSONC document or stream | Convention |
+| `.apr.yaml` | An APR-YAML document or stream | Convention |
+
+A filename extension is a **desktop affordance** — it drives icons, file
+associations, and save dialogs. It is not part of the data model.
+
+> Rationale: an earlier draft made the extension override `documentType`. That
+> rule cannot be implemented anywhere a filename does not exist: an HTTP request
+> body, a database column, a clipboard paste, a mobile share intent, a
+> `postMessage` between frames, a byte array in an enterprise queue. Under it a
+> browser-based reader and a desktop reader would reach *different conclusions
+> about identical bytes* — precisely the interoperability failure the format
+> exists to prevent. A document must mean the same thing everywhere, including
+> where it has no name.
+
+An implementation **SHOULD** write the extension matching `documentType`, and
+**SHOULD** warn on mismatch rather than silently honouring either one.
+
+Representation is determined by content, not by name: a reader **MUST NOT**
+reject a document because its extension disagrees with its content, and
+**MUST NOT** infer `documentType` from an extension.
+
+Converting a template to a filled form is an explicit act: set `documentType` to
+`filledForm` and record `templateId`. Implementations **SHOULD** prompt for a new
+filename so the blank template is not overwritten.
+
+The media type `application/vnd.apr+json` is used by convention and is **not**
+IANA-registered. No media type is defined for APR-YAML: YAML has a registered
+type of its own (RFC 9512), but an APR-YAML document is a constrained profile
+rather than arbitrary YAML, and a reader selecting behaviour from that type would
+be wrong about the profile ([Open questions](#open-questions)).
+
+---
+
+## 7. Validation {#validation}
+
+Validation produces **errors** and **warnings**. A document is valid if and only
+if it has zero errors. Warnings never affect validity.
+
+### 7.1 Errors — structure only {#structural-validation}
+
+| Code | Condition |
+| --- | --- |
+| `NULL_DOCUMENT` | No document. |
+| `REQUIRED_FIELD` | `version`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `sections` empty; `templateId` absent on a filled form. |
+| `UNSUPPORTED_VERSION` | `version` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). |
+| `DUPLICATE_ID` | A section or prompt id repeats within its namespace. |
+| `EMPTY_SECTION` | A section has no prompts and no child sections. |
+| `RETIRED_EMBEDDED_SIGNATURES` | The document carries a `signatures` member. |
+
+This list is exhaustive. **No error may ever arise from the content of a
+response**, and none may ever arise from the state of an attestation
+([Attestations never gate the data](#never-gate)). A validator that rejects a
+document because a response is badly formatted, or because an attestation is
+missing or invalid, is not implementing APR.
+
+A validator **MUST** also enforce the two rules a schema cannot express: section
+ids unique document-wide, and prompt ids unique document-wide, in separate
+namespaces.
+
+### 7.2 Warnings — advisory only {#warnings}
+
+A response contradicting `expectedDataType`; a response not matching
+`validationPattern`; a response outside `suggestedValues` or the bounds family; a
+blank response the workflow may consider required; text advisories
+([Text handling](#text-handling)); an undeclared role; and the table advisories
+`TABLE_NO_ROWS`, `TABLE_RAGGED`, `TABLE_LABEL_MISMATCH`, `TABLE_OVER_CAPACITY`.
+
+Warnings are how an implementation tells a person "this may not be what you
+meant" without ever telling them "you may not write this."
+
+An implementation **MAY** surface any warning. Such feedback **MUST NOT** prevent
+saving, **MUST NOT** prevent entering any text, and **MUST NOT** be reported as
+the document being invalid.
+
+### 7.3 Parse errors are not validation errors {#parse-errors}
+
+Malformed input, a response given as a number or boolean, or a structurally wrong
+shape are **parse failures**, and a reader **MUST** fail rather than validate.
+
+Documents that parse cleanly and fail validation are a different class from those
+that **MUST NOT** parse at all. Keeping these stages distinct is what lets a
+reader load a flawed document and show what is wrong with it, rather than
+refusing to open it.
+
+### 7.4 Semantic validation is never required {#semantic-validation}
+
+A validator **MUST NOT** reject a document because of what a response means.
+
+Each of the following is a valid document: a response that does not match its
+`expectedDataType`; one that does not match `validationPattern`; an empty
+response, including on a prompt marked expected; one outside `suggestedValues`,
+`min`, or `max`; and one a reader considers factually wrong.
+
+The format validates that a response is a well-formed string. It never validates
+what that string says.
+
+---
+
+## 8. Text handling {#text-handling}
+
+### 8.1 Responses are evidence {#text-responses}
+
+A reader **MUST** preserve a response exactly on read and write: it **MUST NOT**
+normalize, strip, or otherwise rewrite it. Escaping and visibly marking deceptive
+text are rendering responsibilities, not licences to alter stored data.
+
+### 8.2 Authoring data and filled data differ {#authoring-vs-filled}
+
+The two halves of an APR document come from two different people under two
+different conditions, and they **MUST NOT** be treated alike.
+
+| | **Authoring data** | **Filled data** |
+| --- | --- | --- |
+| Written by | the form author | the person filling the form |
+| Members | `metadata` except `filledBy` and `filledDate`, section `id`, `title`, `description`, prompt `id`, `label`, all of `hints` | `prompt.response`, `metadata.filledBy`, `responseMetadata` |
+| Conditions | deliberate, repeatable, reviewable before publication | once, under time pressure, often on someone else's behalf |
+| Consumed by | machines and every future reader | the receiving workflow |
+| Policy | **Strict rules are appropriate.** Reject or warn at authoring time. | **Maximum tolerance.** Accept any string; never rewrite. |
+
+> Rationale: strictness at authoring time costs the author one correction before
+> publishing. Strictness at fill time costs a person their answer, silently, at
+> the moment they are least able to notice.
+
+#### 8.2.1 Filled data — never rewritten {#filled-never-rewritten}
+
+A response **MUST NOT** be altered on the basis of any hint. A `url` or `email`
+hint describes what the author *hoped* to receive; it does not license editing
+what was actually written.
+
+Suspicious characters in a response **MUST** be surfaced as a warning and
+**SHOULD** be rendered visibly — escaped or badged — leaving the stored bytes
+exactly as entered. The consuming workflow decides what to do about them; it is
+the only party that knows what the answer is for.
+
+A reader that "cleans" a hidden or bidirectional character has let a hint enforce
+something, which [Hints never enforce](#hints-advisory) forbids. Legitimate uses
+exist: a Persian ZWNJ and an emoji ZWJ sequence are ordinary text.
+
+#### 8.2.2 Authoring data — strictness is appropriate {#authoring-strictness}
+
+Authoring members **MAY** be held to strict rules, and the members a machine acts
+on **SHOULD** be.
+
+**Strictness here means refusing, not rewriting.** No party's data is ever
+silently edited — the difference between an author and a filler is that an author
+*can* be stopped and asked to fix something, while a filler must never be
+blocked. Rewriting an authored value is not the strict option; it is the same
+silent edit wearing a different hat.
+
+`metadata.submissionUrls` is the strongest case in the format. It is an ordered,
+author-supplied array of explicit delivery choices, machine-consumed and
+security-critical. An implementation:
+
+- **MUST NOT** rewrite any entry to remove hidden characters. Cleaning a
+  zero-width character out of a hostname picks a destination on the author's
+  behalf, which is precisely the decision that must not be made automatically.
+- **SHOULD** report hidden characters in it as an advisory, since such a URL
+  renders to a reviewer as one host while being another.
+- **MUST NOT** produce an attestation over a document whose `submissionUrls`
+  contains them. Binding an address that displays as one host and resolves as
+  another defeats the binding.
+
+Implementations **SHOULD** also warn at authoring time on mixed-script or
+bidirectional content in `metadata.title`, `metadata.publisher`, section titles,
+and prompt labels — the text a person reads when deciding whether to trust a
+form. These are warnings to the author, before publication, and never
+modifications.
+
+Ids are machine keys. Implementations **SHOULD** warn when an id contains
+characters outside `[A-Za-z0-9_.-]`, since ids appear in attestation manifests,
+database columns, and cell addresses.
+
+---
+
+## 9. Streams {#streams}
+
+A stream is an ordered transport of independent records. Physical order is
+presentation only: it creates no subject, revision, chronology, or trust
+relationship.
+
+Each record is exactly one of:
+
+- a complete standalone APR form; or
+- an APR attestation.
+
+A stream **MUST NOT** mix representations. It **MUST NOT** deduplicate repeated
+form occurrences, even when their semantic digests are identical. A single-form
+API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and
+**MUST NOT** select a record by position. A streaming API yields every record and
+may hold an unresolved attestation until its subject form has been observed.
+
+> Rationale: a stream exists so that a form and the assertions about it can
+> travel together, and so that several related forms can be one file. It is
+> deliberately *not* a revision history: nothing in the ordering says one form
+> supersedes another. A workflow that wants revisions builds them from
+> attestations, where the relationship is proved rather than positional.
+
+### 9.1 JSONC framing {#jsonc-framing}
+
+APR-JSONC streams use RFC 7464 framing: every record is prefixed by ASCII Record
+Separator, U+001E, and terminated by U+000A. A comment is confined to its one
+JSONC record.
+
+A record not preceded by the separator is a framing failure.
+
+*Negative case:* `malformed/missing-record-separator.apr.jsonc`.
+
+### 9.2 YAML framing {#yaml-framing}
+
+APR-YAML streams use YAML document markers: every document introduced by `---` is
+exactly one record.
+
+**Example 6.** A YAML stream carrying two independent forms.
+
+```yaml
+---
+version: "1.0-beta.6"
+metadata:
+  title: Household contact card
+sections:
+  - id: contact
+    title: Contact
+    prompts:
+      - id: full_name
+        label: Full name
+        response: ""
+---
+version: "1.0-beta.6"
+metadata:
+  title: Emergency contact card
+sections:
+  - id: emergency
+    title: Emergency contact
+    prompts:
+      - id: emergency_name
+        label: Name
+        response: ""
+```
+
+### 9.3 Equivalence {#stream-equivalence}
+
+The corpus supplies paired streams whose records have equal semantic models
+across the two representations. A stream reader **MUST** produce the same
+sequence of semantic records from either member of such a pair.
+
+---
+
+## 10. Semantic digests and manifests {#digests}
+
+`jcs-sha256` is the beta.6 semantic digest algorithm. Its input is RFC 8785 JCS
+serialization of the fully parsed JSON semantic model, encoded as UTF-8; its
+value is lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`.
+Source syntax is never hashed.
+
+A digest value **MUST** match `^sha256:[0-9a-f]{64}$`.
+
+A form digest includes every APR-defined member and every unknown extension
+member that survived parsing. It excludes only representation trivia. A verifier
+that cannot preserve or digest an extension member **MUST** report the assertion
+as `unverifiable`, not valid.
+
+> Rationale: including extensions prevents a whole-form attestation from silently
+> omitting a meaningful member. An earlier signature scheme enumerated known
+> fields only, which meant extension data on a signed document could be altered
+> without invalidating the signature.
+
+An integrity manifest does not duplicate plaintext. It contains `root`, the form
+digest, and sorted `entries`; each entry has a JSON Pointer `path` (RFC 6901) and
+a digest of the JCS encoding of that path's value. `entries` includes the root
+pointer and every defined semantic leaf; whole-document manifests also include
+extension members.
+
+A verifier can compare entries to explain which values differ without the
+manifest retaining their old values.
+
+---
+
+## 11. Profile: expressions {#expressions}
+
+**OPTIONAL.** Core implementations skip this section entirely.
+
+### 11.1 What expressions are {#expr-what}
+
+Five advisory hints that let a form react to its own answers: showing a field
+only when relevant, computing a total, flagging a cross-field inconsistency.
+
+| Hint | Effect when truthy |
+| --- | --- |
+| `exprHidden` | Hide this prompt |
+| `exprValue` | Computed value, still editable |
+| `exprExpected` | Mark as expected; advisory, never blocks |
+| `exprValidation` | Returns a message; empty means valid |
+| `exprReadOnly` | Make read-only |
+
+### 11.2 Invariants {#expr-invariants}
 
 1. Stored responses remain authoritative. An expression **MUST NOT** reject,
    rewrite, or invalidate a response.
@@ -598,17 +1177,33 @@ document authority over a person's stored response.
    fallback below; it **MUST NOT** propagate as an error into a filling
    workflow.
 
-### 9.2 Activation {#expr-activation}
+### 11.3 Language {#expr-language}
+
+**APR expressions are CEL**, the Common Expression Language. This specification
+does not define the language: grammar, operators, functions, and type rules come
+from cel-spec, and language conformance is that project's own test suite, which
+APR neither writes nor maintains.
+
+CEL is non-Turing-complete, terminates by construction, and has no I/O or host
+access, which is why it is safe to evaluate on a document from an untrusted
+sender.
+
+> Decision (beta.6): this baseline does not pin a CEL language or library
+> version, and defines no custom functions. Two implementations may therefore
+> differ on expressions using recent or optional CEL surface. Pinning a version
+> requires evidence that every implementation can conform to it.
+
+### 11.4 Activation {#expr-activation}
 
 An expression is evaluated against this read-only activation and nothing else.
 
 | Name | Type | Meaning |
 | --- | --- | --- |
-| a prompt's `id` | that prompt's bound type | Direct binding, where the id is a valid CEL identifier and not a reserved name. |
+| a prompt's `id` | that prompt's bound type | Direct binding, where the id is a valid CEL identifier and not reserved. |
 | `_this` | the owning prompt's bound type | The response of the prompt carrying this hint. |
 | `_id` | `string` | The owning prompt's id. |
 | `_now` | `timestamp` | The evaluation instant, supplied by the caller. |
-| `_today` | `string` | The evaluation date as `YYYY-MM-DD`, supplied by the caller. |
+| `_today` | `string` | The evaluation date, supplied by the caller. |
 | `ctx` | `map` | Host-supplied context ([Context](#expr-context)). |
 
 `_this`, `_id`, `_now`, `_today`, and `ctx` are reserved and **MUST NOT** be
@@ -621,40 +1216,51 @@ otherwise reachable from an expression.
 host clock during evaluation, so that evaluating the same form twice with the
 same inputs yields the same result.
 
-### 9.3 Binding {#expr-binding}
+### 11.5 The type environment {#expr-binding}
 
-A response is bound to a CEL value according to its prompt's declared type.
+CEL is statically typed. `expectedDataType` supplies the types:
 
-| `expectedDataType` | CEL type | Bound from |
-| --- | --- | --- |
-| `number`, `currency`, `range` | `double` | A non-blank finite number |
-| `boolean` | `bool` | An accepted boolean spelling |
-| `date`, `time`, `datetime` | `timestamp` | A canonical temporal value; a date binds at UTC midnight |
-| `multichoice` | `list<string>` | Newline-separated values |
-| anything else, or absent | `string` | The stored response, including the empty string |
+| `expectedDataType` | CEL type |
+| --- | --- |
+| `number`, `currency`, `range` | `double` |
+| `boolean` | `bool` |
+| `date`, `time`, `datetime` | `timestamp` |
+| `multichoice` | `list<string>` |
+| everything else, or absent | `string` |
 
-A blank or unparseable typed response is **unbound**. It is not a default value
-and not null: it has no binding at all, so referencing it is an evaluation error
-rather than a silent zero.
+> Rationale: this is what lets an author write `quantity * unit_price` rather
+> than wrapping every reference in a conversion, and what lets a type checker
+> tell them an expression is wrong before a filler ever sees the form.
 
-> Rationale: unbound rather than defaulted keeps short-circuiting usable.
-> `rush && amount > 1000.0` does not need a valid `amount` when `rush` is false,
-> and a defaulted `amount` of zero would quietly answer a question nobody asked.
+### 11.6 Values that will not bind {#expr-unbound}
 
-### 9.4 Context {#expr-context}
+A response that cannot be converted to its declared type — free text in a
+`number` field, an unparseable date, or an empty one — **MUST** be treated as
+unbound, **never** as a default. The expression errors and applies the fallback.
 
-`ctx` carries data the host application supplies — the person's own details, their
-organization, their environment — so a form can offer what it already knows.
+> Rationale: binding an empty number as zero would make a blank field silently
+> total as zero — a wrong answer rather than no answer. Unbound also keeps
+> short-circuiting usable: a conjunction whose first operand is false does not
+> need its second operand to bind.
+
+**Nothing about the response changes.** It is stored verbatim, displayed
+verbatim, and the document stays valid. It simply does not participate in a
+calculation — which is what advisory has meant all along.
+
+### 11.7 Context {#expr-context}
+
+`ctx` carries data the host application supplies — the person's own details,
+their organization, their environment — so a form can offer what it already
+knows.
 
 A host **MUST NOT** place credentials, secrets, authorization decisions, or
 private server-side facts in `ctx`. An expression is document-supplied text; what
 it can read, a document author can read.
 
-`ctx` **MUST** be treated as absent rather than empty when the host supplies
-nothing, so that a reference to a missing key fails as unbound rather than
-silently yielding a blank.
+### 11.8 Results and fallback {#expr-fallback}
 
-### 9.5 Results and fallback {#expr-fallback}
+A result is marshalled back to a stored string through the canonical write forms
+of [Canonical value forms](#canonical-values), which serve both directions.
 
 Each hint requires a result type. Any failure — a compile error, an evaluation
 error, an unbound reference, or a result of the wrong type — applies the
@@ -662,247 +1268,89 @@ fallback.
 
 | Hint | Required result | Fallback |
 | --- | --- | --- |
-| `exprHidden` | `bool` | `false` — show the prompt |
-| `exprExpected` | `bool` | `false` — do not mark expected |
-| `exprReadOnly` | `bool` | `false` — keep editable |
-| `exprValidation` | `string` | `""` — no advisory |
+| `exprHidden` | `bool` | false — show the prompt |
+| `exprExpected` | `bool` | false — do not mark expected |
+| `exprReadOnly` | `bool` | false — keep editable |
+| `exprValidation` | `string` | empty — no advisory |
 | `exprValue` | the prompt's bound type | Do not write; retain the stored response exactly |
 
-Every fallback shows more and blocks less. A form whose expressions all fail is
-a plain form.
+Every fallback shows more and blocks less. A form whose expressions all fail is a
+plain form.
 
-### 9.6 Computed values {#expr-computed}
+### 11.9 A computed value is a suggestion, not a lock {#expr-computed}
 
-A successful `exprValue` writes the canonical string form of its result and
-**MUST** set `responseMetadata.source` to `computed`
-([`responseMetadata`](#response-metadata)).
+**A computed prompt MUST remain editable.** Any string is a valid response, and a
+renderer that refuses typing into a computed field has stopped implementing the
+format. A total that is wrong — because the form's arithmetic does not match what
+was actually agreed — must be correctable by the person filling it in.
 
-A write by a person or an API clears that marker. Recomputation **MUST NOT**
-overwrite a non-empty response that does not carry it.
+Being computed does not make a prompt read-only. `exprReadOnly` asks for that
+*presentation*, and even then it is an affordance rather than a wall.
 
-> Rationale: without the marker, correcting a computed field by hand would
-> silently revert on the next recompute.
+**A correction MUST survive recomputation.** `responseMetadata.source` is
+`computed` when an `exprValue` produced the current response, and absent when a
+person or an API wrote it. Recomputation **MUST NOT** overwrite a non-empty
+response whose `source` is absent.
 
-A computed prompt remains editable unless `exprReadOnly` says otherwise;
-`exprValue` states where a value came from, not whether a person may change it.
+> Rationale: without that distinction a stale computed value and a human
+> correction are indistinguishable, and the next recompute silently reverts the
+> correction — losing an answer, which is the one thing this format exists to
+> prevent.
 
 An implementation **MUST** order computed prompts by their direct references so
 that a subtotal feeds a tax feeds a total in one pass. A self-reference or a
 dependency cycle is an authoring error.
 
-### 9.7 Bounds {#expr-limits}
+### 11.10 Authoring-time checking {#expr-authoring}
+
+An implementation **SHOULD** type-check expressions against the document's type
+environment when a template is authored, and report failures to the author with
+position information.
+
+This is exactly where [Authoring data](#authoring-strictness) says strictness
+belongs. The **author** is stopped and asked to fix something before publication;
+the **filler** is never blocked, because at fill time the same expression
+degrades.
+
+### 11.11 Bounds {#expr-limits}
 
 Evaluation **MUST** terminate. An implementation bounds expression size,
 complexity, and evaluation cost, and **MUST** report reaching a bound as a
-failure that applies the fallback of
-[Results and fallback](#expr-fallback) rather than as partial mutation.
+failure that applies the fallback rather than as partial mutation.
 
 Exact bounds are implementation-defined in this baseline, for the reason given in
-[Resource limits](#resource-limits): a limit no test enforces is a limit
-implementations will disagree about.
+[Security considerations](#security).
 
-> Decision (beta.6): this baseline does not pin a CEL language or library
-> version, and does not define custom functions. Two implementations may
-> therefore differ on expressions using recent or optional CEL surface. Pinning a
-> version requires evidence that every SDK can conform to it, which is tracked
-> separately and is not asserted here ahead of that evidence.
+---
 
-## 10. Validation {#validation}
+## 12. Profile: attestations {#attestations}
 
-Validation answers one question — is this a valid APR document — and it answers
-it from structure alone. What a response *means* is never part of the answer.
+**OPTIONAL.** Core implementations preserve attestation records and report them
+as unchecked.
 
-### 10.1 Structural validation {#structural-validation}
+### 12.1 Model {#attestation-model}
 
-A document is valid when all of the following hold. A validator **MUST** enforce
-each, and **MUST** report a document failing any of them as invalid.
+Beta.6 retires the embedded `signatures` array. An APR form is ordinary form
+data; cryptographic assertions live in **independent attestation records** that
+travel in the same stream.
 
-| Check | Requirement |
-| --- | --- |
-| Representation | Well-formed in its declared representation ([Representations](#representations)) |
-| `version` | Present, and exactly `"1.0-beta.6"` |
-| `documentType` | Absent, or `template` or `filledForm` |
-| `metadata.title` | Present and non-blank |
-| `sections` | Present, an array, at least one section |
-| Section content | Every section carries at least one prompt or child section |
-| Required text | Every section `id` and `title`, and every prompt `id` and `label`, present and non-blank |
-| Identifier uniqueness | Section ids unique document-wide; prompt ids unique document-wide |
-| `response` type | A JSON string wherever present |
-| `templateId` | Present when `documentType` is `filledForm` |
-| Retired members | No `signatures` member ([The beta.6 boundary](#beta6-boundary)) |
+> Rationale: an embedded signature made the document and the assertion about it
+> one object, so every reader had to understand signatures to read a form, and
+> every signature had to describe its own scope inside the thing it was signing.
+> Separating them means a reader that ignores attestations simply reads forms,
+> and an attestation identifies its subject by content rather than by position or
+> filename — so it does not matter what order records arrive in, or whether the
+> subject is even present.
 
-### 10.2 Text validation {#text-validation}
+Verification is a pure computation over bytes already in hand: **a form carrying
+attestations is exactly as safe to open as one without.** APR never executes
+anything.
 
-Every string in a document **MUST** be well-formed UTF-8 (RFC 3629), and a
-reader **MUST** reject ill-formed sequences rather than substituting replacement
-characters silently.
+### 12.2 Attestation record {#attestation-catalogue}
 
-A string **MUST NOT** contain U+0000, and **MUST NOT** contain an unpaired
-surrogate in the range U+D800 to U+DFFF, which cannot be encoded in UTF-8 at all.
-
-Control characters U+0001 through U+001F **MUST NOT** appear, except tab
-(U+0009), line feed (U+000A), and carriage return (U+000D), which are permitted
-so that a multiline response can hold the line breaks a person typed.
-
-An implementation **MAY** trim leading and trailing whitespace from a response,
-even where trimming yields the empty string. Trimming is permitted and never
-required.
-
-### 10.3 Semantic validation is never required {#semantic-validation}
-
-A validator **MUST NOT** reject a document because of what a response means.
-
-Each of the following is a valid document:
-
-- a response that does not match its prompt's `expectedDataType`;
-- a response that does not match `validationPattern`;
-- an empty response, including on a prompt marked expected;
-- a response outside `suggestedValues`, `min`, or `max`; and
-- a response a reader considers factually wrong.
-
-The format validates that a response is a well-formed string. It never validates
-what that string says.
-
-### 10.4 Advisory feedback {#advisory-feedback}
-
-An implementation **MAY** surface any of the divergences above to the person
-filling the form — highlighting a response that does not match its type,
-flagging one outside a suggested range, or marking an expected prompt still
-empty.
-
-Such feedback **MUST NOT** prevent saving the document, **MUST NOT** prevent
-entering any text, and **MUST NOT** be reported as the document being invalid.
-
-Advisory feedback is a courtesy to the person filling the form, not a property of
-the format.
-
-## 11. Representations {#representations}
-
-The semantic model is representation-neutral. The same form or attestation may
-be written as APR-JSONC or APR-YAML.
-
-A document **MUST** be encoded as UTF-8 (RFC 3629). A reader **SHOULD** tolerate a leading
-byte-order mark and **MUST NOT** silently mis-decode a document that is not
-UTF-8; such input is a presentation failure ([Failure points](#failure-points)).
-
-### 11.1 APR-JSONC {#apr-jsonc}
-
-APR-JSONC is JSON (RFC 8259) extended with exactly three constructs:
-
-- line comments introduced by `//`, running to end of line;
-- block comments delimited by `/*` and `*/`; and
-- a trailing comma after the final member of an object or element of an array.
-
-Once comments and trailing commas are removed the text **MUST** decode as JSON
-to the semantic model. Comments are source trivia
-([Model, serialization, presentation](#model-layers)) and cannot carry APR meaning.
-
-A JSONC parser **MUST** reject duplicate object keys rather than applying a
-last-key-wins rule.
-
-*Negative case:* `malformed/duplicate-member.apr.jsonc`.
-
-> Rationale: last-key-wins makes the meaning of a document depend on which
-> parser reads it, which is precisely what a semantic digest cannot tolerate.
-
-### 11.2 APR-YAML {#apr-yaml}
-
-APR-YAML is a restricted YAML 1.2 representation of the same JSON model.
-
-Keys **MUST** be strings. These constructs are forbidden and **MUST** be
-rejected:
-
-| Forbidden | Corpus case |
-| --- | --- |
-| Anchors and aliases (`&`, `*`) | `malformed/yaml-anchor.apr.yaml` |
-| Tags (`!!str`, `!Custom`) | none — corpus gap |
-| Merge keys (`<<`) | none — corpus gap |
-| Non-finite numbers (`.inf`, `.nan`) | none — corpus gap |
-| Binary values | none — corpus gap |
-| Dates resolved by implicit typing | none — corpus gap |
-| Arbitrary-language constructors | none — corpus gap |
-
-Implementations **MUST** use a safe YAML loader and **MUST** resolve scalars only
-to JSON null, boolean, number, string, array, or object before APR validation.
-
-Responses remain strings even where a YAML scalar could otherwise resolve as a
-number or boolean: `response: 42` and `response: true` carry the string values
-`"42"` and `"true"`.
-
-Rows above marked *corpus gap* state a rule the corpus does not yet exercise.
-The rule is normative; the missing vector is a corpus defect.
-
-## 12. Streams {#streams}
-
-A stream is an ordered transport of independent records. Physical order is
-presentation only: it creates no subject, revision, chronology, or trust
-relationship.
-
-Each record is exactly one of:
-
-- a complete standalone APR form; or
-- an APR attestation (`recordType: "attestation"`).
-
-A stream **MUST NOT** mix representations. It **MUST NOT** deduplicate repeated
-form occurrences, even when their semantic digests are identical. A single-form
-API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and
-**MUST NOT** select a record by position. A streaming API yields every record
-and may hold an unresolved attestation until its subject form has been
-observed.
-
-### 12.1 JSONC framing {#jsonc-framing}
-
-APR-JSONC streams use RFC 7464 framing: every record is prefixed by ASCII Record
-Separator (`0x1E`) and terminated by LF (`0x0A`). A comment is confined to its
-one JSONC record.
-
-A record not preceded by `0x1E` is a framing failure.
-
-*Negative case:* `malformed/missing-record-separator.apr.jsonc`.
-
-### 12.2 YAML framing {#yaml-framing}
-
-APR-YAML streams use YAML document markers: every document introduced by `---`
-is exactly one record.
-
-### 12.3 Equivalence {#stream-equivalence}
-
-The corpus supplies paired streams whose records have equal semantic models
-across the two representations. A stream reader **MUST** produce the same
-sequence of semantic records from either member of such a pair.
-
-## 13. Semantic digests and manifests {#digests}
-
-`jcs-sha256` is the beta.6 semantic digest algorithm. Its input is RFC 8785 JCS
-serialization of the fully parsed JSON semantic model, encoded as UTF-8; its
-value is lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`. Source syntax is
-never hashed.
-
-A digest value **MUST** match `^sha256:[0-9a-f]{64}$`.
-
-A form digest includes every APR-defined member and every unknown extension
-member that survived parsing. It excludes only representation trivia. A verifier
-that cannot preserve or digest an extension member **MUST** report the assertion
-as `unverifiable`, not valid.
-
-> Rationale: including extensions prevents a whole-form attestation from
-> silently omitting a meaningful member.
-
-An integrity manifest does not duplicate plaintext. It contains `root`, the form
-digest, and sorted `entries`; each entry has a JSON Pointer `path` and a digest
-of the JCS encoding of that path's value. Pointers are RFC 6901 pointers into
-the form semantic model. `entries` includes `""`, the root pointer, and every
-defined semantic leaf; whole-document manifests also include extension members.
-
-A verifier can compare entries to explain which values differ without the
-manifest retaining their old values.
-
-## 14. Attestations {#attestations}
-
-An attestation is a stream record.
+**Example 7.** An attestation.
 
 ```jsonc
-// Example — illustrative, not normative.
 {
   "recordType": "attestation",
   "version": "1.0-beta.6",
@@ -914,219 +1362,309 @@ An attestation is a stream record.
 }
 ```
 
-### 14.1 Attestation catalogue {#attestation-catalogue}
-
 | Member | Required | Type | Domain |
 | --- | --- | --- | --- |
-| `recordType` | required | string | **MUST** be `"attestation"`. |
-| `version` | required | string | **MUST** be `"1.0-beta.6"`. |
-| `subject` | required | object | `digest` and `canonicalization`, no other members. |
-| `subject.digest` | required | string | `sha256:` + 64 lowercase hex. |
-| `subject.canonicalization` | required | string | **MUST** be `"jcs-sha256"`. |
-| `scope` | required | object | `document` or `fields` form; see below. |
-| `manifest` | required | object | `root` and `entries`, no other members. |
-| `manifest.root` | required | string | Digest of the subject form. |
-| `manifest.entries` | required | array | Entries of `path` and `digest`, no other members. |
-| `proofs` | required | array | Entries of `type` and `value`, no other members. May be empty. |
-| `witnesses` | required | array | Unique digests of earlier attestation envelopes. May be empty. |
+| `recordType` | **Yes** | string | **MUST** be `attestation`. |
+| `version` | **Yes** | string | **MUST** be `1.0-beta.6`. |
+| `subject` | **Yes** | object | `digest` and `canonicalization`, no other members. |
+| `subject.digest` | **Yes** | string | `sha256:` and 64 lowercase hex characters. |
+| `subject.canonicalization` | **Yes** | string | **MUST** be `jcs-sha256`. |
+| `scope` | **Yes** | object | `document` or `fields` form. |
+| `manifest` | **Yes** | object | `root` and `entries`, no other members. |
+| `manifest.root` | **Yes** | string | Digest of the subject form. |
+| `manifest.entries` | **Yes** | array | Entries of `path` and `digest`, no other members. |
+| `proofs` | **Yes** | array | Entries of `type` and `value`. May be empty. |
+| `witnesses` | **Yes** | array | Unique digests of earlier envelopes. May be empty. |
 
-Unlike `subject`, `scope`, `manifest`, and their entries — which admit no
-additional members — an attestation record itself **MAY** carry extension
-members, which round-trip under [Extension members](#extensions).
-
-A `document` scope object carries only `kind`. A `fields` scope carries `kind`
-and `fields`, a non-empty array of unique non-blank prompt ids.
+`subject`, `scope`, `manifest`, and their entries admit no additional members. An
+attestation record itself **MAY** carry extension members, which round-trip.
 
 `subject.digest` identifies the complete form semantic model, never a stream
 position, filename, or document id.
 
-A `fields` manifest **MUST** include each selected prompt, its response and
-hints, and every ancestor section's id, title, description, kind, and role. A
-fields assertion therefore attests to both what was answered and the question
-and context presented.
+### 12.3 Scope {#attestation-scope}
 
-### 14.2 Proofs {#proofs}
+`scope.kind` is `document` or `fields`.
+
+`document` covers the complete form, including its extension members.
+
+A `fields` scope lists prompt ids, and the manifest **MUST** include each
+selected prompt, its response and hints, and every ancestor section's id, title,
+description, kind, and role.
+
+**A filler attests to the question, not only the answer.** Anything less is not
+an attestation on a form.
+
+> Rationale: an earlier scheme covered the response alone. Sign "No" to *"Have
+> you ever been convicted of a felony?"*, let someone afterwards change the label
+> to *"Do you enjoy long walks?"*, and the signature still verified — putting a
+> person on record as having answered a question they never saw. Covering the
+> question, its type, and its offered options is what closes that.
+
+A fields scope is deliberately *not* the whole document: a filler attests to
+their part, and someone else editing an unrelated section **MUST NOT** invalidate
+them.
+
+### 12.4 Proofs {#proofs}
 
 `proofs` are assertions over the JCS serialization of the attestation envelope
 after omitting `proofs` themselves.
 
 Beta.6 defines one proof type, `cms/ecdsa-p256-sha256`: ECDSA over the P-256
-curve with SHA-256 (FIPS 186-5), carried as CMS SignedData (RFC 5652), encoded
-as base64 (RFC 4648), with the X.509 certificate chain (RFC 5280) included.
+curve with SHA-256 (FIPS 186-5), carried as CMS SignedData (RFC 5652), encoded as
+base64 (RFC 4648), with the X.509 certificate chain (RFC 5280) included.
 
 A proof **MUST NOT** invent a second copy of the subject digest or scope.
-Unsupported proof types are `unverifiable`, not invalid; a reader without
-support for a proof type **MUST** preserve it.
 
-> Rationale: a second copy of the subject is what once let a redirected
-> destination still verify.
+> Rationale: two copies of one fact is a correctness bug everywhere in this
+> format, and here it was a security hole. An earlier scheme stored the
+> submission URL a second time on the signature object and verified against
+> *that* copy, so redirecting the document's real URL left the signature
+> reporting valid.
 
-### 14.3 Witnesses {#witnesses}
+A verifier that does not recognize a proof type **MUST** report it as
+**unverifiable**, never as invalid, and **MUST** preserve it. "I cannot check
+this" and "this is forged" are different statements and **MUST NOT** be conflated
+in a user interface.
+
+### 12.5 Witnesses {#witnesses}
 
 `witnesses` is an ordered, duplicate-free list of semantic digests of earlier
-attestation envelopes, again excluding `proofs`. It says only that this
+attestation envelopes, again excluding `proofs`. It records that this
 attestation's signer explicitly witnessed those assertions.
 
 Witnessing neither authorizes a change nor proves a clock order, workflow
 acceptance, real-world identity, or trusted time.
 
-### 14.4 Changed forms {#changed-forms}
+### 12.6 Changed forms {#changed-forms}
 
 A changed form is another complete form occurrence with a different subject
 digest. Earlier attestations remain assertions about their original subject and
-do not transfer to the changed form.
+**MUST NOT** be transferred to the changed form.
 
 Multiple attestations may target one unchanged form, and an attestation may be
 encountered before its subject.
 
-## 15. Verification and safety {#verification}
+> Rationale: this is how a workflow builds revision history without APR defining
+> one. A sequence of forms with attestations that witness each other is a chain
+> whose relationships are proved. A sequence of forms without them is just
+> several forms, and the format declines to guess.
+
+### 12.7 Verification vocabulary {#verification}
 
 Verification reports these independent facts:
 
 | Result | Meaning |
 | --- | --- |
-| `valid` | The subject resolved, semantic digest and manifest match, and a recognized proof verifies. |
+| `valid` | The subject resolved, digest and manifest match, and a recognized proof verifies. |
 | `invalid` | A recognized proof fails, or a resolved subject differs from the attested digest or manifest. |
 | `unresolved` | No matching form occurrence is available. |
 | `unverifiable` | Required representation, extension, digest, or proof support is unavailable. |
-| `witnessed` | One or more referenced attestation envelopes resolve and match. |
+| `witnessed` | One or more referenced envelopes resolve and match. |
 
-These are independent: an attestation may be both `unverifiable` and
-`witnessed`, and `unresolved` is not a failure of the assertion.
+These are independent: an attestation may be both `unverifiable` and `witnessed`,
+and `unresolved` is not a failure of the assertion.
 
-Trust is separate from cryptographic validity. A valid self-signed proof is not
-a trusted identity; trust policy is supplied by the caller and is not part of
-this format.
+**Validity is independent of trust.** A self-signed certificate can produce a
+perfectly valid proof that proves nothing about identity. Implementations
+**MUST** report these separately.
 
-Attestation status **MUST NOT** gate parsing, validation, rendering, export, or
-data extraction. An unsigned form is complete APR data.
+> Rationale: collapsing content validity and certificate trust into one green
+> checkmark teaches people to trust a checkmark that does not mean what they
+> think.
 
-Verification is a side-effect-free computation over data already in hand. A form
-carrying attestations is no less safe to open than one without.
+### 12.8 Attestations never gate the data {#never-gate}
 
-## 16. Conformance {#conformance}
+**An attestation is an assertion about a document, never a permission to read
+it.** Both directions of this are normative.
 
-| Profile | Requirement |
+**Attesting is never required.** A form with no attestation is a complete,
+ordinary, fully valid APR document. An implementation **MUST NOT** require one in
+order to save, send, accept, or process a form, and **MUST NOT** present an
+unattested document as deficient.
+
+**Acting on an attestation is never required.** An implementation **MUST NOT**
+refuse to parse, validate, render, print, export, or extract data from a document
+because its attestations are absent, unrecognized, expired, untrusted, or
+outright invalid. Attestation state **MUST NOT** appear in the validation error
+list.
+
+An implementation **MAY** warn, badge, or refuse to *act* on a document by its
+own policy — a receiving workflow is entitled to reject an unattested permit
+application. That is the workflow's decision. It is not the file format's, and a
+reader that enforces it on the workflow's behalf has taken a choice away from
+every other consumer of the same document.
+
+> Rationale: the reasoning is the same one behind
+> [Any string is a valid response](#any-string). A format that withheld data
+> until a cryptographic condition was met would fail exactly when it is most
+> needed: an expired certificate, a verifier that does not recognize a proof
+> type, a proxy that re-encoded the bytes, an archived form whose signing
+> authority no longer exists. In every one of those cases the answers a person
+> wrote are still there, still true, and still the reason the document exists.
+> **The data outlives the attestation, and the format must let it.**
+
+---
+
+## 13. Rendering {#renderers}
+
+APR carries no presentation data. A renderer decides everything, and a GUI, web
+page, terminal, voice system, and API client are equally legitimate.
+
+### 13.1 Requirements for renderers {#renderer-requirements}
+
+- Section titles and prompt labels **MUST** be presented as the accessible name.
+- A placeholder **MUST NOT** be the only label.
+- `helpText` **MUST** be programmatically associated with its prompt, not merely
+  adjacent to it.
+- Section nesting **MUST** be conveyed structurally — heading levels, groups,
+  landmarks — not by indentation alone.
+- Every prompt **MUST** be reachable and completable by keyboard.
+- A renderer **MUST NOT** block saving because of a hint mismatch.
+- Table sections **SHOULD** be presented with header association, not as a purely
+  visual grid.
+
+These are format-level requirements, not house style. APR's structure is what
+makes an accessible rendering possible; a renderer that discards it discards the
+reason to use APR.
+
+### 13.2 Ordering {#ordering}
+
+Presentation is otherwise free, but **order is data**. A form asks its questions
+in a sequence its author chose, and two renderers that disagree about that
+sequence are showing two different forms.
+
+1. Sections are presented in array order.
+2. Prompts within a section are presented in array order.
+3. **A section's own prompts are presented BEFORE its child sections.**
+
+Rule 3 follows document convention: a heading's own content precedes its
+subheadings. It is normative.
+
+A renderer **MAY** paginate, group, or lazily load, but **MUST NOT** reorder. A
+wizard that shows one section at a time still visits them in array order.
+
+### 13.3 Export {#export}
+
+Exports to PDF, HTML, or print **MAY** introduce layout — page size, margins,
+footers. That layout belongs to the renderer's options and **MUST NOT** be
+written back into the APR document. The document stays presentation-free no
+matter how many ways it has been rendered.
+
+---
+
+## 14. Security considerations {#security}
+
+**No executable content.** APR contains no scripts, macros, formulas with host
+access, or external references. Opening an APR document from an untrusted sender
+executes nothing. This is the format's most important security property and
+**MUST NOT** be weakened. Expressions are pure, bounded, and non-Turing-complete;
+they are not an exception.
+
+**No network access on open.** Reading a document **MUST NOT** fetch anything.
+`submissionUrls` is data — no entry **MUST** be contacted without an explicit
+user action, and neither **MUST** a certificate endpoint.
+
+**Resource bounds.** A reader **MUST** bound nesting depth and **SHOULD** bound
+document size, stream length, and evaluation cost, failing cleanly rather than
+exhausting memory. Parsing **MUST** terminate.
+
+> Decision (beta.6): concrete limits above the 16-level nesting floor are
+> **implementation-defined**. No numeric ceiling is specified because no test
+> enforces one, and a limit that nothing verifies is a limit implementations will
+> disagree about.
+
+**Deceptive text.** A filler's response is preserved and rendered defensively
+instead of silently cleaned. Author-supplied members a machine acts on — above
+all `metadata.submissionUrls` — are checked and refused at authoring time.
+Spending strictness on the answer rather than on the submission target protects
+nothing and destroys data.
+
+**Attestations are not authorization.** A valid proof shows bytes are unaltered.
+It does not establish that the signer is who they claim, that they were entitled
+to sign, or that the form should be acted on. Conversely, an absent or failing
+attestation is not a reason to withhold data from a reader — it is information
+the reader is entitled to have alongside the data, not instead of it.
+
+**What an attestation reveals.** A manifest reveals the *shape* of a form: its
+pointers name every attested path. A `fields` attestation additionally reveals
+which prompts were selected. Neither reveals response values. A certificate chain
+in a proof carries the signer's identity in cleartext.
+
+**Responses may be sensitive.** APR documents routinely hold personal data in
+plain text. The format provides no encryption, no access control, and no
+redaction; protection at rest and in transit is the surrounding system's
+responsibility.
+
+---
+
+## 15. Conformance checklist {#checklist}
+
+An implementation claiming **APR 1.0-beta.6 core** MUST:
+
+- [ ] Parse UTF-8 in both representations; reject malformed input rather than coercing it
+- [ ] Reject a response given as a JSON number or boolean
+- [ ] Read a null or absent response as the empty string; never write null
+- [ ] Reject any `version` other than `1.0-beta.6`
+- [ ] Report `RETIRED_EMBEDDED_SIGNATURES` for a `signatures` member
+- [ ] Treat `documentType` as authoritative; never infer type from a filename
+- [ ] Require `metadata.title`, section `id` and `title`, prompt `id` and `label`
+- [ ] Enforce document-wide id uniqueness in both namespaces
+- [ ] Require content in every section, tables included
+- [ ] Treat a table as structure, never as licence for layout data
+- [ ] Derive table headers from the corresponding prompts' labels; correspond by position
+- [ ] Require `templateId` on a filled form
+- [ ] Support at least 16 levels of section nesting
+- [ ] Ignore unknown members without rejecting them, and preserve them on write
+- [ ] Drop retired members rather than preserving them
+- [ ] Degrade an unrecognized `expectedDataType` to text
+- [ ] **Never reject, alter, or block a response because of a hint**
+- [ ] Never alter a response on the basis of a hint
+- [ ] Report — never rewrite — hidden characters in every `submissionUrls` entry
+- [ ] Preserve every response byte-for-byte across a round-trip
+- [ ] Produce identical semantic models from paired JSONC and YAML documents
+- [ ] Preserve attestation records and `expr*` strings even when not implementing them
+- [ ] Never gate parsing, validation, rendering, or data extraction on attestation state
+- [ ] Pass every fixture in `tests/Conformance/beta6/`
+
+---
+
+## 16. Open questions {#open-questions}
+
+An honest list of what this baseline does not settle.
+
+1. **No registry for extension members.** Preservation makes additive change
+   safe, but nothing coordinates *who* may add which member name. A reserved
+   prefix or a registry is needed before independent parties extend the format.
+   In the meantime a producer **SHOULD** name extension members distinctively, by
+   reverse-DNS or vendor prefix.
+2. **No pinned CEL version.** The language is CEL, but no exact language or
+   library version is named, so expression portability is not yet guaranteed.
+3. **Media types unregistered.** `application/vnd.apr+json` has not been filed
+   with IANA, and no media type is defined for APR-YAML.
+4. **Structural members are still strings.** The recorded intent is that a
+   structural member may use the JSON type that fits it; the schema has not
+   changed.
+5. **Submission profiles are deliberately narrow.** `submissionUrls` names
+   explicit choices. Transports beyond an explicit user-initiated HTTPS POST
+   remain out of scope.
+6. **No governance.** A format used by public institutions eventually needs
+   stewardship that is not a single repository.
+7. **Attachments** have no representation. A `file` hint stores a reference, and
+   what it references is undefined.
+
+---
+
+## 17. Change history {#history}
+
+| Format version | Change |
 | --- | --- |
-| `core` | Parse and write one beta.6 form in both representations. |
-| `core+streams` | `core`, plus stream iteration ([Streams](#streams)). |
-| `core+attestations` | `core+streams`, plus semantic digests, manifests, attestation resolution, witness lookup, and the vocabulary of [Verification and safety](#verification). |
-| `core+expressions` | `core`, plus evaluation of the `expr*` hints ([`hints`](#hints-object)). Independent of the stream and attestation profiles. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. |
+| `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
-An implementation may claim a profile only with the exact beta.6 corpus revision
-it passes.
+---
 
-The beta.6 corpus covers paired JSONC/YAML forms and streams, duplicate and
-out-of-order records, malformed framing, single-form API rejection, digest and
-manifest vectors, document and fields scopes, CMS proof inputs, unsupported
-proofs, witness chains, and changed copied forms.
-
-## 17. Compatibility and extensibility {#compatibility}
-
-### 17.1 Within beta.6 {#forward-compatibility}
-
-Forward compatibility rests on [Extension members](#extensions): unknown members are
-extension data, **MUST** round-trip, and participate in whole-document digests.
-
-An implementation encountering an unknown `expectedDataType`
-([`hints`](#hints-object)) or an unknown `role` ([Roles](#roles)) **MUST** degrade
-gracefully rather than reject the document. An unknown proof type is
-`unverifiable` rather than invalid ([Proofs](#proofs)).
-
-### 17.2 Across versions {#version-compatibility}
-
-Beta.6 makes no compatibility commitment. `version` **MUST** be exactly
-`"1.0-beta.6"`, and a document declaring any other version — including
-`1.0-beta.3` and any later beta — **MUST** be rejected.
-
-> Decision (beta.6): version handling is **exact-match rejection**, not
-> MAJOR.MINOR negotiation. The shared base schema's `version` description still
-> describes a MAJOR.MINOR compatibility rule under which a newer MINOR is
-> readable; that rule does not apply to beta.6 and the description is stale
-> ([Relationship to the schema's own prose](#schema-prose)). Negotiation is deferred until the first public
-> release, when there is something to negotiate with.
-
-### 17.3 Extension governance {#extension-governance}
-
-> Decision (beta.6): extensions are **unregistered and uncoordinated** during
-> beta. Anyone may add an extension member; nothing reserves a name, and no
-> registry mediates collisions ([Reserved for future use](#reserved)). Two vendors choosing the
-> same member name produce documents that round-trip correctly and mean
-> different things, and this baseline accepts that risk rather than standing up
-> governance for a format with no public release.
->
-> A producer **SHOULD** therefore name extension members distinctively — a
-> reverse-DNS or vendor prefix — to make an accidental collision unlikely.
-> This is a recommendation, not a constraint a validator enforces.
-
-## 18. Security and privacy {#security}
-
-### 18.1 Properties beta.6 guarantees {#security-guarantees}
-
-- Opening a document executes no document-supplied code ([Scope](#scope)).
-- Opening a document performs no network access ([Offline reading](#offline)).
-- Verification is side-effect-free ([Verification and safety](#verification)).
-- Attestation status never gates access to form data ([Verification and safety](#verification)).
-- A valid proof is not a trusted identity ([Verification and safety](#verification)).
-- A manifest does not retain the plaintext it attests to ([Semantic digests and manifests](#digests)).
-
-### 18.2 Properties beta.6 does not provide {#security-non-guarantees}
-
-APR defines no encryption, no access control, and no redaction. A form carries
-whatever a person typed into it and is exactly as sensitive as its responses; it
-is protected by the storage and transport around it, not by the format.
-
-An attestation's manifest reveals the *shape* of a form — its pointers name
-every attested path — and a `fields` attestation additionally reveals which
-prompts were selected. It reveals no response values.
-
-A certificate chain in a CMS proof carries the signer's identity in cleartext.
-
-### 18.3 Resource limits {#resource-limits}
-
-A malformed or hostile document **MUST NOT** be able to hang a reader. Parsing
-**MUST** terminate.
-
-> Decision (beta.6): concrete limits are **implementation-defined**, with one
-> floor. A reader **MUST** support at least 16 levels of section nesting; the
-> corpus pins this. Beyond that floor an implementation chooses its own ceilings
-> for document size, nesting depth, stream length, and evaluation budget, and
-> **MUST** report reaching one as a clean refusal rather than a crash, a hang, or
-> a silent truncation.
->
-> No numeric ceiling is specified because no test enforces one, and a limit that
-> nothing verifies is a limit implementations will disagree about.
-
-## 19. Media types and file extensions {#media-types}
-
-> Decision (beta.6): APR registers **no media type**. Implementations
-> **MUST NOT** rely on a media type to determine that a document is APR, nor to
-> select a representation or profile. Registration is deferred to the first public
-> release; minting a provisional type during beta would leave a name in
-> circulation that the ratified format may not honor.
-
-YAML has a registered media type of its own (RFC 9512). APR does not adopt it:
-an APR-YAML document is a constrained profile rather than arbitrary YAML, and a
-reader selecting behaviour from that type would be wrong about the profile.
-
-Representation is determined by content, not by name: a document beginning with
-`0x1E` framing or parsing as JSONC is APR-JSONC; one parsing as restricted YAML
-is APR-YAML. `documentType` ([Root object](#root-object)) is authoritative over any
-filename.
-
-These extensions are **conventional**, not normative:
-
-| Extension | Convention |
-| --- | --- |
-| `.aprt` | A template in JSON spelling. |
-| `.aprf` | A filled form in JSON spelling. |
-| `.apr.jsonc` | An APR-JSONC form or stream. |
-| `.apr.yaml` | An APR-YAML form or stream. |
-
-A reader **MUST NOT** reject a document because its extension disagrees with its
-content, and **MUST NOT** infer `documentType` from an extension.
-
-## 20. Normative references {#normative-references}
+## 18. Normative references {#normative-references}
 
 Compliance with this specification requires the editions below.
 
@@ -1147,70 +1685,77 @@ Compliance with this specification requires the editions below.
 | YAML 1.2.2 | YAML Ain't Markup Language, revision 1.2.2 |
 | CEL | Common Expression Language, as published at <https://github.com/google/cel-spec> |
 
-The CEL entry is normative for the `core+expressions` profile only. This
-baseline does not pin an exact CEL language or library version; that hole is
-declared in [Hints](#hints-object) rather than left to inference.
+The CEL entry is normative for the `core+expressions` profile only.
 
-## 21. Informative references {#informative-references}
-
-These informed the design and are not required for compliance.
+## 19. Informative references {#informative-references}
 
 | Designation | Title |
 | --- | --- |
 | ISO 8601 | Date and time representations. RFC 3339 is the normative profile used here. |
 | ECMA-404 | The JSON Data Interchange Syntax, the parallel standardization of RFC 8259 |
-| CommonMark | A strongly defined, highly compatible specification of Markdown, whose executable-example practice this document follows |
+| CommonMark | A strongly defined, highly compatible specification of Markdown |
 | RFC 9512 | The application/yaml media type |
+| UTR 36 | Unicode Security Considerations |
+| UTS 39 | Unicode Security Mechanisms |
 
-## 22. Change history {#history}
+---
 
-| Format version | Change |
-| --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favor of independent attestation records. Added APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. |
-| `1.0-beta.3` | Superseded. Not a compatibility target. |
+## 20. Appendix A: Minimal valid document {#appendix-minimal}
 
-## 23. Provenance of this text {#provenance}
+**Example 8.** The smallest conformant APR form.
 
-Non-normative editor's note.
+```jsonc
+{
+  "version": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": { "title": "Contact" },
+  "sections": [
+    {
+      "id": "contact",
+      "title": "Contact",
+      "prompts": [
+        { "id": "full_name", "label": "Full name", "response": "" }
+      ]
+    }
+  ]
+}
+```
+
+## 21. Appendix B: The rule to remember {#appendix-rule}
+
+If you implement nothing else correctly, implement this:
+
+> **Any string is a valid response, and a hint never says otherwise.**
+
+Everything else in APR is structure. That rule is the point.
+
+## 22. Appendix C: Provenance of this text {#provenance}
+
+Non-normative.
 
 This document is written from APR's design record, not from any implementation.
-Four sources exist, and they are used in this order:
+It merges the beta.3 specification, which supplies the core form profile, with
+the beta.6 design decisions, which supply the changes made deliberately since.
+The schema and conformance corpus scope which features this baseline carries: a
+feature an earlier text described and beta.6 dropped is not revived here by being
+written down again.
 
-1. **The earlier specification text**, retained in Git history, supplies the
-   substance of the core form profile — value types, identifiers, text safety,
-   data-type semantics, validation, and the expression profile.
-2. **The beta.6 design decisions** supply the changes made deliberately since:
-   representation-neutral JSONC and YAML spellings, record streams, independent
-   attestations replacing embedded signatures, semantic digests and manifests,
-   and `documentType` becoming authoritative over a filename.
-3. **The schema and conformance corpus** scope which features this baseline
-   carries. A feature the earlier text described and beta.6 dropped is not
-   revived here by being written down again.
-4. **Implementations** are not a source. Where a shipped implementation and this
-   document disagree, the implementation has a defect to fix. A behaviour that
-   exists only because some code happens to do it does not become a requirement
-   by being observed.
+**Implementations are not a source.** Where a shipped implementation and this
+document disagree, the implementation has a defect to fix.
 
-This ordering exists because the alternative — writing a specification by reading
-the code — produces a document that ratifies accidents and cannot be used to
-judge whether the code is right.
+> Rationale: the alternative — writing a specification by reading the code —
+> produces a document that ratifies accidents and cannot be used to judge whether
+> the code is right.
 
-Relative to the earlier text, beta.3 removed localization, attachments, response
-identifiers, submission history, and the structured publisher and version
-objects. Their absence is recorded here so that it reads as a decision rather
-than an omission.
+## 23. Appendix D: Corpus gaps {#corpus-gaps}
 
-## 24. Corpus gaps {#corpus-gaps}
-
-Non-normative editor's note.
+Non-normative.
 
 Every rule in this document is normative. These rules are not yet exercised by a
-conformance vector, which makes them a corpus defect rather than a
-specification gap:
+conformance vector, which makes them a corpus defect rather than a specification
+gap:
 
-- the forbidden APR-YAML constructs other than anchors ([APR-YAML](#apr-yaml)):
-  tags, merge keys, non-finite numbers, binary values, implicit dates, and
-  language constructors;
-- mixed-representation stream rejection ([Streams](#streams)); and
-- manifest vectors across the full range of changed member kinds
-  ([Semantic digests and manifests](#digests)).
+- the forbidden APR-YAML constructs other than anchors: tags, merge keys,
+  non-finite numbers, binary values, implicit dates, and language constructors;
+- mixed-representation stream rejection; and
+- manifest vectors across the full range of changed member kinds.
