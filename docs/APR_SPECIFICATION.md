@@ -403,9 +403,9 @@ version boundary ([§14](#compatibility)), not by reservation.
 
 ### 7.16 Offline reading {#offline}
 
-Core form reading is offline and safe. Opening a form or an attestation **MUST
-NOT** contact a `metadata.submissionUrls` entry, a certificate endpoint, or any
-other network location.
+Core form reading is offline and safe. Opening a form or an attestation
+**MUST NOT** contact a `metadata.submissionUrls` entry, a certificate endpoint,
+or any other network location.
 
 ### 7.17 Renderer obligations {#renderers}
 
@@ -485,9 +485,10 @@ Each record is exactly one of:
 
 A stream **MUST NOT** mix representations. It **MUST NOT** deduplicate repeated
 form occurrences, even when their semantic digests are identical. A single-form
-API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and **MUST
-NOT** select a record by position. A streaming API yields every record and may
-hold an unresolved attestation until its subject form has been observed.
+API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and
+**MUST NOT** select a record by position. A streaming API yields every record
+and may hold an unresolved attestation until its subject form has been
+observed.
 
 ### 9.1 JSONC framing {#jsonc-framing}
 
@@ -737,9 +738,9 @@ A malformed or hostile document **MUST NOT** be able to hang a reader. Parsing
 
 ## 16. Media types and file extensions {#media-types}
 
-> Decision (beta.6): APR registers **no media type**. Implementations **MUST
-> NOT** rely on a media type to determine that a document is APR, nor to select a
-> representation or profile. Registration is deferred to the first public
+> Decision (beta.6): APR registers **no media type**. Implementations
+> **MUST NOT** rely on a media type to determine that a document is APR, nor to
+> select a representation or profile. Registration is deferred to the first public
 > release; minting a provisional type during beta would leave a name in
 > circulation that the ratified format may not honor.
 

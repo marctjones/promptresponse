@@ -207,7 +207,7 @@
       "id": "sdk.typescript.core",
       "component": "TypeScript SDK (core + expressions profile)",
       "language": "typescript",
-      "path": "typescript/src/test/conformance.test.ts",
+      "path": "typescript/src/test/beta6.test.ts",
       "runsInCi": true,
       "gate": "npm ci && npm test: valid, invalid, malformed, unknown-member, expression-preservation, signature-preservation, and exact-response corpus coverage",
       "dimensions": {
@@ -324,637 +324,259 @@
   ],
   "requirements": [
     {
-      "id": "REQ-1.1-rfc2119",
-      "section": "1.1",
-      "statement": "MUST/SHOULD/MAY are interpreted per RFC 2119",
-      "strength": "informative",
+      "id": "REQ-lang-rfc2119",
+      "section": "normative-language",
+      "statement": "BCP 14 keywords are normative only in all capitals",
+      "strength": "none",
       "gates": [],
-      "gap": "Definitional. Nothing to test."
+      "gap": "Definitional. Nothing to execute."
     },
     {
-      "id": "REQ-1.3.1-major",
-      "section": "1.3.1",
-      "statement": "A different MAJOR version MUST be rejected",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "invalid/unsupported-major.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "invalid/unsupported-version.aprt"
-        }
-      ]
-    },
-    {
-      "id": "REQ-1.3.1-minor",
-      "section": "1.3.1",
-      "statement": "A newer MINOR version is readable, with a warning",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/newer-minor-accepted.aprt"
-        },
-        {
-          "type": "test",
-          "ref": "NewerMinorVersion_ValidatesWithAnAdvisoryWarning"
-        }
-      ]
-    },
-    {
-      "id": "REQ-2.2-coreonly-expr",
-      "section": "2.2",
-      "statement": "A core-only reader MUST NOT reject a document using expressions, and MUST preserve the expr* strings",
+      "id": "REQ-model-trivia",
+      "section": "model-layers",
+      "statement": "Presentation trivia carries no meaning; everything else round-trips",
       "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "python/tests/test_core_profile.py::test_a_document_using_expressions_is_accepted"
+          "ref": "Jsonc_CommentsAndTrailingCommas_AreSourceTrivia"
         },
         {
           "type": "test",
-          "ref": "python/tests/test_core_profile.py::test_expression_strings_survive_a_round_trip_untouched"
-        }
-      ],
-      "notes": "Gated by the Python SDK, which implements the core profile only. This could never be tested from .NET: an implementation that provides every profile cannot exhibit core-only behaviour."
-    },
-    {
-      "id": "REQ-2.3-coreonly-sig",
-      "section": "2.3",
-      "statement": "A core-only reader MUST NOT reject a signed document, MUST preserve the signatures array, and MUST NOT report it as verified",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "python/tests/test_core_profile.py::test_a_signed_document_is_accepted_and_readable"
+          "ref": "Digest_IsIndependentOfJsonObjectOrder"
         },
         {
           "type": "test",
-          "ref": "python/tests/test_core_profile.py::test_the_signatures_array_survives_a_round_trip"
-        },
-        {
-          "type": "test",
-          "ref": "python/tests/test_core_profile.py::test_nothing_reports_a_signature_as_verified"
-        }
-      ],
-      "notes": "Same reason as REQ-2.2. The reader carries signatures as opaque data, preserves them byte for byte, and has no verdict to give about them."
-    },
-    {
-      "id": "REQ-3.1-encoding",
-      "section": "3.1",
-      "statement": "Files MUST be UTF-8; a reader SHOULD tolerate a leading BOM",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::EncodingHazards_AreToleratedOrRefusedCleanly"
-        }
-      ],
-      "notes": "Byte-level, because a C# string is already decoded and cannot express these cases. Asserts a leading BOM still parses, that UTF-16LE/BE are refused cleanly rather than mis-decoded, and that truncation mid-codepoint and arbitrary byte corruption are survived."
-    },
-    {
-      "id": "REQ-3.2-null",
-      "section": "3.2",
-      "statement": "JSON null is read as empty string and MUST NOT be written",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/null-response-coercion.aprf"
+          "ref": "RealFile_RoundTripsWithoutDrift"
         }
       ]
     },
     {
-      "id": "REQ-3.2-strings",
-      "section": "3.2",
-      "statement": "A response given as a JSON number or boolean MUST be rejected at parse time",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "malformed/response-is-number.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "malformed/response-is-boolean.aprt"
-        },
-        {
-          "type": "test",
-          "ref": "MalformedCorpus_IsRejectedAtParseTime"
-        }
-      ]
-    },
-    {
-      "id": "REQ-3.3-anystring",
-      "section": "3.3",
-      "statement": "Any string is a valid response, whatever the hint",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/hints-contradicted.aprf"
-        }
-      ]
-    },
-    {
-      "id": "REQ-3.4-noenforce",
-      "section": "3.4",
-      "statement": "A hint MUST NOT reject, alter, or block a response",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/hidden-characters-preserved.aprf"
-        },
-        {
-          "type": "test",
-          "ref": "TypeHints_NeverRewriteAResponse"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.1-document",
-      "section": "4.1",
-      "statement": "version and metadata are required; sections MUST contain at least one section",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "invalid/no-sections.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "invalid/unsupported-version.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "valid/minimal-template.aprt"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.2-templateid",
-      "section": "4.2",
-      "statement": "A filled form MUST record templateId",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "invalid/filledform-missing-templateid.aprf"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.3-section",
-      "section": "4.3",
-      "statement": "Section id and title are required; a section MUST carry content",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "invalid/missing-section-title.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "invalid/empty-section.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "invalid/blank-ids.aprt"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.4-label",
-      "section": "4.4",
-      "statement": "Prompt label is required; a placeholder is never a label",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "invalid/missing-prompt-label.aprt"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.4-namespaces",
-      "section": "4.4",
-      "statement": "A section and a prompt MAY share an id (separate namespaces)",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/shared-id-namespaces.aprt"
-        }
-      ],
-      "notes": "A section and a prompt both use the id \"address\". Without this fixture an implementation that pooled sections and prompts into one id namespace passed the entire corpus."
-    },
-    {
-      "id": "REQ-4.4-uniqueids",
-      "section": "4.4",
-      "statement": "Ids MUST be unique document-wide within their namespace",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "invalid/duplicate-prompt-id.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "invalid/duplicate-section-id.aprt"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.5-table",
-      "section": "4.5",
-      "statement": "kind=table: children are instances, prompts correspond by position",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/table-fixed-filled.aprf"
-        },
-        {
-          "type": "fixture",
-          "ref": "valid/table-dynamic-filled.aprf"
-        },
-        {
-          "type": "fixture",
-          "ref": "valid/dynamic-table.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "valid/table-and-expressions.aprt"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.6-depth",
-      "section": "4.6",
-      "statement": "At least 16 levels of section nesting MUST be supported",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/deep-nesting.aprt"
-        },
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
-        }
-      ],
-      "notes": "Fixture pins the 16-level floor; the test walks up to the real ceiling (30 levels, set by System.Text.Json MaxDepth=64 at two JSON levels per section) and asserts the floor holds beneath it. The ceiling is recorded, not asserted - section 4.6 makes it an implementation detail that MUST NOT be relied upon."
-    },
-    {
-      "id": "REQ-4.7-unknownhint",
-      "section": "4.7",
-      "statement": "An unrecognized expectedDataType MUST degrade to text",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/unknown-fields.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "valid/all-hint-types.aprt"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.7-vocabulary",
-      "section": "4.7",
-      "statement": "The expectedDataType registry and every enumerated attribute value are published and consistent",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "TypeRegistry_AgreesWithTheImplementation"
-        }
-      ],
-      "notes": "schemas/apr-types-1.0.json is the single published vocabulary. The .NET test asserts each type maps to the CEL type it claims; scripts/check-schema.py asserts the schema's examples and specification 4.7 name the same set. Previously these facts lived in five places."
-    },
-    {
-      "id": "REQ-4.8-preserve",
-      "section": "4.8",
-      "statement": "Unknown members MUST be preserved across a round-trip",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "UnknownMembers_SurviveARoundTrip"
-        },
-        {
-          "type": "fixture",
-          "ref": "valid/unknown-fields.aprt"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.8.1-retired",
-      "section": "4.8.1",
-      "statement": "Retired members are dropped, not preserved",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "RoundTrip_DropsRetiredDisplayFields_ButKeepsTheStructure"
-        }
-      ]
-    },
-    {
-      "id": "REQ-4.9-canonical",
-      "section": "4.9",
-      "statement": "Canonical write forms; every read form still accepted",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/canonical-values.aprf"
-        }
-      ]
-    },
-    {
-      "id": "REQ-5-documenttype",
-      "section": "5",
-      "statement": "documentType is authoritative over the file extension",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "valid/documenttype-beats-extension.aprt"
-        },
-        {
-          "type": "test",
-          "ref": "DocumentType_IsAuthoritative_OverTheFileExtension"
-        }
-      ]
-    },
-    {
-      "id": "REQ-6.1-errorlist",
-      "section": "6.1",
-      "statement": "The structural error list is exhaustive; no error from response content",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "invalid/no-sections.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "invalid/missing-metadata-title.aprt"
-        },
-        {
-          "type": "test",
-          "ref": "InvalidCorpus_Deserializes_ButDoesNotValidate"
-        }
-      ]
-    },
-    {
-      "id": "REQ-6.3-stages",
-      "section": "6.3",
-      "statement": "Parse errors are not validation errors",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "malformed/truncated.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "malformed/sections-not-array.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "malformed/missing-required-members.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "malformed/not-an-object.aprt"
-        },
-        {
-          "type": "test",
-          "ref": "MalformedCorpus_IsRejectedAtParseTime"
-        }
-      ],
-      "notes": "missing-required-members pins the shape the reference parser used to accept: an object with none of the required top-level members deserialized into a document of defaults, so `apr info` exited 0 on any JSON object at all while the schema rejected the same file."
-    },
-    {
-      "id": "REQ-7.1-nfc",
-      "section": "7.1",
-      "statement": "Strings MUST be NFC-normalized on read and write",
+      "id": "REQ-roles-obligations",
+      "section": "processing-roles",
+      "statement": "Each processing role carries the stated obligations",
       "strength": "partial",
       "gates": [
         {
-          "type": "fixture",
-          "ref": "valid/response-edge-cases.aprf"
+          "type": "suite",
+          "ref": "core.unit"
         },
         {
-          "type": "fixture",
-          "ref": "valid/filled-unicode.aprf"
+          "type": "suite",
+          "ref": "sdk.python"
         }
       ],
-      "gap": "Preservation is asserted post-parse on both sides, so a read-time mutation of a fixture would not be caught for most characters."
+      "gap": "Role obligations are gated individually by the entries below; no single vector asserts the role table itself."
     },
     {
-      "id": "REQ-7.2-preserve",
-      "section": "7.2",
-      "statement": "Responses MUST be preserved exactly; suspicious Unicode is advisory-only",
+      "id": "REQ-failure-stages",
+      "section": "failure-points",
+      "statement": "Presentation, serialization, model, and assertion failures are distinguishable",
       "strength": "gated",
       "gates": [
         {
-          "type": "fixture",
-          "ref": "valid/unicode-security-advisories.aprf"
+          "type": "test",
+          "ref": "MalformedSharedStream_IsRejected"
         },
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Validation/HiddenCharacterAdvisorTests.cs::SharedUnicodeSafetyFixture_PreservesResponsesAndEmitsAdvisories"
-        },
-        {
-          "type": "test",
-          "ref": "python/tests/test_unicode_security.py::test_shared_unicode_security_fixture_is_preserved_and_advised"
+          "ref": "test_beta6_shared_malformed_corpus_is_rejected"
         }
       ]
     },
     {
-      "id": "REQ-7.3.1-nofilleredit",
-      "section": "7.3.1",
-      "statement": "Filled data MUST NOT be rewritten on the basis of a hint",
+      "id": "REQ-beta6-only",
+      "section": "beta6-boundary",
+      "statement": "version MUST be 1.0-beta.6; retired embedded signatures are reported",
       "strength": "gated",
       "gates": [
         {
-          "type": "fixture",
-          "ref": "valid/hidden-characters-preserved.aprf"
+          "type": "test",
+          "ref": "Beta3EmbeddedSignatures_AreRejected"
         },
         {
           "type": "test",
-          "ref": "TypeHints_NeverRewriteAResponse"
+          "ref": "test_beta6_rejects_retired_embedded_signatures"
         }
       ]
     },
     {
-      "id": "REQ-7.3.2-submissionurls",
-      "section": "7.3.2",
-      "statement": "every submissionUrls entry with hidden characters is reported, never rewritten, and blocks signing",
+      "id": "REQ-form-model",
+      "section": "form-model",
+      "statement": "A form is an object of version, documentType, metadata, sections, roles",
       "strength": "gated",
       "gates": [
         {
+          "type": "suite",
+          "ref": "schema.gate"
+        },
+        {
+          "type": "fixture",
+          "ref": "forms/roles.apr.jsonc"
+        },
+        {
           "type": "test",
-          "ref": "SubmissionUrlWithHiddenCharacters_IsReportedAndBlocksSigning"
+          "ref": "RealFile_Validates"
         }
       ]
     },
     {
-      "id": "REQ-8-expressions",
-      "section": "8",
-      "statement": "Expression evaluation semantics: CEL, with expectedDataType supplying the type environment",
+      "id": "REQ-root-members",
+      "section": "root-object",
+      "statement": "Root member requiredness, domains, and defaults",
       "strength": "gated",
       "gates": [
         {
-          "type": "fixture",
-          "ref": "expressions/vectors.json"
+          "type": "suite",
+          "ref": "schema.gate"
         },
         {
           "type": "test",
-          "ref": "ExpressionBinding_MatchesThePublishedVectors"
-        },
-        {
-          "type": "fixture",
-          "ref": "valid/table-and-expressions.aprt"
+          "ref": "RealFile_Parses"
         }
-      ],
-      "notes": "Conformance splits in two. The LANGUAGE is CEL, tested by cel-spec's own 2,456-test suite, which this project does not maintain. The BINDING - type environment from hints, unbindable values degrading rather than defaulting, marshalling back through the section 4.9 canonical forms - is APR-specific and is pinned by 12 published vectors."
+      ]
     },
     {
-      "id": "REQ-8.6-override",
-      "section": "8.6",
-      "statement": "A computed field remains editable, and a correction MUST survive recomputation",
+      "id": "REQ-metadata-members",
+      "section": "metadata",
+      "statement": "metadata.title required non-blank; filledForm declares templateId",
       "strength": "gated",
       "gates": [
         {
-          "type": "test",
-          "ref": "ComputedField_IsNotReadOnly_BecauseAnyStringIsAValidResponse"
-        },
-        {
-          "type": "test",
-          "ref": "RecomputeComputedValues_DoesNotRevertAnAnswerSomeoneTypedOver"
-        },
-        {
-          "type": "test",
-          "ref": "RecomputeComputedValues_StillUpdatesAValueItProducedItself"
-        },
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Desktop.Tests/ViewModels/ProvenanceDisplayTests.cs::ACorrectionSurvivesRecomputation_AndKeepsSayingSo"
+          "type": "suite",
+          "ref": "schema.gate"
         }
-      ],
-      "notes": "responseMetadata.source distinguishes a stale computed value from a human correction. Without it the two are indistinguishable and the next recompute silently reverts the correction. The guarantee is now also visible: a field says whether the form calculated the value or somebody typed over it, and the override mark persists across a recompute. An invisible guarantee is not much of a guarantee."
+      ]
     },
     {
-      "id": "REQ-9.1-signature-boundary",
-      "section": "9.1",
-      "statement": "apr-sig-v3 MUST NOT be represented as complete attestation history; the witnessed-manifest profile remains v4 work",
+      "id": "REQ-section-members",
+      "section": "section-object",
+      "statement": "Section requires id and title and at least one prompt or child section",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ]
+    },
+    {
+      "id": "REQ-prompt-members",
+      "section": "prompt-object",
+      "statement": "Prompt requires id and label; label is the accessible name",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        },
+        {
+          "type": "suite",
+          "ref": "accessibility"
+        }
+      ]
+    },
+    {
+      "id": "REQ-hint-members",
+      "section": "hints-object",
+      "statement": "Every defined hint member, and the expectedDataType registry",
       "strength": "partial",
-      "gates": [],
-      "gap": "This is an honest product and workflow boundary until the v4 witnessed-manifest design in issue #88 has vectors and an implementation."
-    },
-    {
-      "id": "REQ-9.2-sigobject",
-      "section": "9.2",
-      "statement": "Signature required members; canonicalization MUST be apr-sig-v3; a signature MUST NOT carry its own copy of the submission URL",
-      "strength": "gated",
       "gates": [
         {
-          "type": "fixture",
-          "ref": "valid/signed-template.aprt"
-        },
-        {
-          "type": "test",
-          "ref": "SignedFixture_VerifiesAsShipped"
+          "type": "suite",
+          "ref": "schema.gate"
         }
       ],
-      "notes": "The no-own-copy rule is enforced structurally: the field was removed from the model, and the re-signed fixture demonstrates its absence."
+      "gap": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text."
     },
     {
-      "id": "REQ-9.3-canonical",
-      "section": "9.3",
-      "statement": "The apr-sig-v3 canonical payload MUST be reproduced byte-for-byte",
-      "strength": "gated",
+      "id": "REQ-validator-rules",
+      "section": "unexpressible",
+      "statement": "Constraints JSON Schema cannot express that a validator MUST enforce",
+      "strength": "partial",
       "gates": [
         {
-          "type": "fixture",
-          "ref": "canonicalization/input.aprt"
-        },
-        {
           "type": "test",
-          "ref": "CanonicalPayload_MatchesThePublishedVector"
-        }
-      ]
-    },
-    {
-      "id": "REQ-9.3-urlsource",
-      "section": "9.3",
-      "statement": "The payload binds ordered metadata.submissionUrls, read from the document",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "fixture",
-          "ref": "malformed/submission-url-scalar.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "valid/multiple-submission-urls.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "signatures/tampered-metadata-url.aprt"
-        },
-        {
-          "type": "fixture",
-          "ref": "signatures/tampered-submission-url.aprt"
-        },
-        {
-          "type": "test",
-          "ref": "Publisher_BindsEverySubmissionUrlAndTheirOrder"
+          "ref": "RealFile_IdsAreUniqueWithinTheirNamespace"
         }
       ],
-      "notes": "Closed a real vulnerability: verification once used a copy stored on the signature, so redirecting the metadata URL still verified."
+      "gap": "Id uniqueness is gated. Ragged-table-is-advisory has no beta.6 vector."
     },
     {
-      "id": "REQ-9.4-tamper",
-      "section": "9.4",
-      "statement": "Editing covered content MUST invalidate the signature",
+      "id": "REQ-responses-strings",
+      "section": "responses",
+      "statement": "A response is always a JSON string; null coerces on read, never on write",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "RealFile_ResponsesAreAlwaysStrings"
+        }
+      ],
+      "gap": "No beta.6 malformed fixture carries a non-string response."
+    },
+    {
+      "id": "REQ-hints-advisory",
+      "section": "hints-advisory",
+      "statement": "No hint rejects, alters, or blocks a response",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "desktop.unit"
+        },
+        {
+          "type": "suite",
+          "ref": "core.unit"
+        }
+      ],
+      "gap": "Advisory behavior is gated in client tests; no beta.6 corpus vector asserts it."
+    },
+    {
+      "id": "REQ-tables-structural",
+      "section": "tables",
+      "statement": "kind=table is a structural claim licensing no layout data",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ],
+      "gap": "No beta.6 corpus fixture carries a table section."
+    },
+    {
+      "id": "REQ-extensions-roundtrip",
+      "section": "extensions",
+      "statement": "Unknown members round-trip and enter whole-document digests",
       "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "TamperedSignatures_ValidateStructurally_ButFailVerification"
+          "ref": "test_beta6_stream_rewrite_preserves_semantic_extensions_and_cms_subjects"
         },
         {
           "type": "test",
-          "ref": "SignedFixture_VerifiesAsShipped"
+          "ref": "RealFile_RoundTripsWithoutDrift"
         }
       ]
     },
     {
-      "id": "REQ-9.5-nogate",
-      "section": "9.5",
-      "statement": "Signature state MUST NOT gate parsing, validation, or data access",
+      "id": "REQ-offline-read",
+      "section": "offline",
+      "statement": "Opening a form or attestation contacts no network location",
       "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "TamperedSignatures_ValidateStructurally_ButFailVerification"
+          "ref": "CoreCannotReachTheNetwork_ByConstruction"
         }
       ]
     },
     {
-      "id": "REQ-10.1-accessiblename",
-      "section": "10.1",
-      "statement": "Labels and titles MUST be the accessible name; helpText programmatically associated",
+      "id": "REQ-renderer-obligations",
+      "section": "renderers",
+      "statement": "Semantic order, labels as accessible names, complete keyboard operation",
       "strength": "gated",
       "gates": [
         {
@@ -962,195 +584,277 @@
           "ref": "accessibility"
         },
         {
-          "type": "test",
-          "ref": "typescript/src/test/render.test.ts::htmlRendererPreservesAccessibleStructureAndEscapesContent"
+          "type": "suite",
+          "ref": "desktop.unit"
         }
       ]
     },
     {
-      "id": "REQ-10.2-order",
-      "section": "10.2",
-      "statement": "A section's own prompts render before its child sections",
+      "id": "REQ-representations-equal",
+      "section": "representations",
+      "statement": "JSONC and YAML spellings carry one semantic model; UTF-8 encoding",
       "strength": "gated",
       "gates": [
         {
-          "type": "fixture",
-          "ref": "valid/section-ordering.aprt"
+          "type": "test",
+          "ref": "Yaml_ReadsTheSameSemanticForm"
         },
         {
           "type": "test",
-          "ref": "SectionOrdering_OwnPromptsRenderBeforeChildSections"
+          "ref": "test_beta6_jsonc_and_yaml_have_same_semantics"
         },
         {
           "type": "test",
-          "ref": "typescript/src/test/render.test.ts::htmlRendererPreservesAccessibleStructureAndEscapesContent"
+          "ref": "EncodingHazards_AreToleratedOrRefusedCleanly"
         }
       ]
     },
     {
-      "id": "REQ-10.3-export",
-      "section": "10.3",
-      "statement": "Export layout MUST NOT be written back into the APR document",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Rendering.Pdf.Tests/ExportImmutabilityTests.cs::Export_LeavesTheSourceDocumentByteIdentical"
-        },
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Rendering.Pdf.Tests/ExportImmutabilityTests.cs::RepeatedExport_DoesNotAccumulateState"
-        },
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Serialization/SanitizationPreservesProvenanceTests.cs::RoundTrip_PreservesLastModifiedAndSource"
-        }
-      ],
-      "notes": "Serializes, exports to both PDF renderers, serializes again and requires byte-identical output; repeated export must not accumulate state either. A control case asserts two serializations with no export in between match, which is what revealed that the first failures were the serializer mutating the document rather than the renderer."
-    },
-    {
-      "id": "REQ-11-bounds",
-      "section": "11",
-      "statement": "A reader MUST bound nesting depth and SHOULD bound document size",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::HostileStructures_AreRefusedCleanly"
-        },
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::EveryTruncationOfAValidDocument_IsRefusedCleanly"
-        },
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::SingleCharacterCorruption_IsRefusedCleanly"
-        },
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
-        },
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::EncodingHazards_AreToleratedOrRefusedCleanly"
-        }
-      ],
-      "notes": "Fuzzed against every truncation and 200 single-character corruptions per corpus fixture, plus 50k-deep nesting, a 5MB string and 100k prompts. Exercised through both entry points, including DeserializeAsync(Stream) which is what actually opens a file. Contract asserted: parse either succeeds or throws SerializationException, within 5s - never an unexpected exception type to a caller told the format is safe to open."
-    },
-    {
-      "id": "REQ-11-nonetwork",
-      "section": "11",
-      "statement": "Reading a document MUST NOT fetch anything",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs::CoreCannotReachTheNetwork_ByConstruction"
-        },
-        {
-          "type": "test",
-          "ref": "typescript/src/test/render.test.ts::htmlRendererFallsBackSafelyAndNeverContactsNetwork"
-        }
-      ],
-      "notes": "Asserted structurally: the core library references no System.Net type and links no HTTP client, so no input can cause a fetch. A behavioural test could only cover the paths it happened to walk."
-    },
-    {
-      "id": "REQ-4.7-bounds",
-      "section": "4.7",
-      "statement": "min, max and step are advisory; a response outside them is still valid",
+      "id": "REQ-jsonc-grammar",
+      "section": "apr-jsonc",
+      "statement": "JSONC adds comments and trailing commas; duplicate keys are rejected",
       "strength": "gated",
       "gates": [
         {
           "type": "fixture",
-          "ref": "valid/bounds-hints.aprt"
+          "ref": "malformed/duplicate-member.apr.jsonc"
         },
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/BoundsHintsTests.cs::AResponseOutsideItsBounds_IsStillValid"
-        }
-      ],
-      "notes": "Every response in the fixture sits outside its stated bounds and the document is valid. Bounds describe the control offered, never a limit on the answer."
-    },
-    {
-      "id": "REQ-4.10-advisory",
-      "section": "4.10",
-      "statement": "A reader MUST NOT refuse input to a field because of its role",
-      "strength": "gated",
-      "gates": [
+          "ref": "JsoncDuplicateMember_IsRejectedBeforeSemanticParsing"
+        },
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs::SomeoneElsesFields_StayAnswerable"
+          "ref": "test_beta6_rejects_duplicate_jsonc_members"
         }
-      ],
-      "notes": "The load-bearing rule. A disabled box is evidence of nothing, since whoever holds the file can edit the JSON; accountability comes from signatures instead."
+      ]
     },
     {
-      "id": "REQ-4.10-inherit",
-      "section": "4.10",
-      "statement": "A prompt's role overrides the role of the section containing it",
+      "id": "REQ-yaml-restricted",
+      "section": "apr-yaml",
+      "statement": "Restricted YAML: string keys, safe loader, forbidden constructs rejected",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "malformed/yaml-anchor.apr.yaml"
+        },
+        {
+          "type": "test",
+          "ref": "Writer_RoundTripsAFormThroughYaml"
+        }
+      ],
+      "gap": "Only anchors have a vector. Tags, merge keys, non-finite numbers, binary, implicit dates and constructors are unexercised."
+    },
+    {
+      "id": "REQ-stream-records",
+      "section": "streams",
+      "statement": "Independent records, no dedup, no positional selection, RFC 7464 framing",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "streams/out-of-order.apr.jsonc"
+        },
+        {
+          "type": "fixture",
+          "ref": "malformed/missing-record-separator.apr.jsonc"
+        },
+        {
+          "type": "test",
+          "ref": "Stream_PreservesAttestationAndAllFormOccurrences"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
+        }
+      ],
+      "gap": "Mixed-representation stream rejection has no fixture."
+    },
+    {
+      "id": "REQ-stream-pairs",
+      "section": "stream-equivalence",
+      "statement": "Paired JSONC and YAML streams yield the same semantic records",
       "strength": "gated",
       "gates": [
         {
           "type": "fixture",
-          "ref": "valid/roles.aprt"
+          "ref": "forms/permit.apr.jsonc"
+        },
+        {
+          "type": "fixture",
+          "ref": "forms/permit.apr.yaml"
+        },
+        {
+          "type": "fixture",
+          "ref": "streams/out-of-order.apr.yaml"
         },
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Models/FormRolesTests.cs::APromptsOwnRoleOverridesItsSections"
+          "ref": "PairedFormsAndStreams_FollowTheSharedBeta6Corpus"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_shared_jsonc_and_yaml_corpus_are_semantically_equal"
         }
-      ],
-      "notes": "Lets one question go back to the patient without splitting the nurse's section in two."
+      ]
     },
     {
-      "id": "REQ-4.10-open",
-      "section": "4.10",
-      "statement": "An unrecognised or undeclared role MUST be presented normally, not rejected",
+      "id": "REQ-digests-manifests",
+      "section": "digests",
+      "statement": "jcs-sha256 over the semantic model; manifests hold no plaintext",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "digests/permit.json"
+        },
+        {
+          "type": "test",
+          "ref": "Digest_IsIndependentOfJsonObjectOrder"
+        },
+        {
+          "type": "test",
+          "ref": "Manifest_ContainsRootAndNonPlaintextLeafDigest"
+        }
+      ]
+    },
+    {
+      "id": "REQ-attestation-members",
+      "section": "attestation-catalogue",
+      "statement": "Attestation record members, requiredness, and closed sub-objects",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "malformed/attestation-missing-subject.apr.jsonc"
+        },
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        },
+        {
+          "type": "test",
+          "ref": "FieldsScope_MustCarryPromptResponseAndSectionContext"
+        }
+      ]
+    },
+    {
+      "id": "REQ-proofs",
+      "section": "proofs",
+      "statement": "Proofs cover the proof-free envelope; unsupported types are unverifiable",
       "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Models/FormRolesTests.cs::AnUnrecognisedRole_IsStillValid"
+          "ref": "CmsCorpusProof_BindsTheExactProofFreeEnvelope"
         },
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Models/FormRolesTests.cs::AnUndeclaredRole_IsValidAndReported"
+          "ref": "UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_unsupported_proof_is_unverifiable_not_invalid"
         }
-      ],
-      "notes": "The vocabulary must stay open or every industry with a party nobody enumerated in advance is locked out."
+      ]
     },
     {
-      "id": "REQ-4.10-announce",
-      "section": "4.10",
-      "statement": "A reader SHOULD make a role legible to assistive technology",
+      "id": "REQ-verification-vocabulary",
+      "section": "verification",
+      "statement": "valid, invalid, unresolved, unverifiable, witnessed; status never gates data",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "streams/witnessed.apr.jsonc"
+        },
+        {
+          "type": "fixture",
+          "ref": "streams/witness-chain.apr.jsonc"
+        },
+        {
+          "type": "fixture",
+          "ref": "streams/changed-form.apr.jsonc"
+        },
+        {
+          "type": "test",
+          "ref": "ValidCmsProof_MakesTheResolvedAttestationValid"
+        },
+        {
+          "type": "test",
+          "ref": "MismatchedManifest_IsInvalidButNeverRemovesTheForm"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_changed_copied_form_does_not_inherit_an_attestation"
+        }
+      ]
+    },
+    {
+      "id": "REQ-unknown-degrades",
+      "section": "forward-compatibility",
+      "statement": "Unknown members, data types, roles, and proof types degrade rather than reject",
       "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs::WhoseFieldItIs_ReachesAssistiveTechnology"
+          "ref": "UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_stream_rewrite_preserves_semantic_extensions_and_cms_subjects"
         }
-      ],
-      "notes": "A visual accent communicates nothing to a screen reader, and the whole point is that nobody has to ask whether a field is theirs."
+      ]
     },
     {
-      "id": "REQ-9.3-fillerbinds",
-      "section": "9.3",
-      "statement": "A filler signature MUST bind the question as presented, not only the response",
+      "id": "REQ-version-exact",
+      "section": "version-compatibility",
+      "statement": "Exact-match version rejection; no MAJOR.MINOR negotiation",
       "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Signing/AprSigningTests.cs::Filler_DetectsTheQuestionBeingRewrittenAfterSigning"
+          "ref": "Beta3EmbeddedSignatures_AreRejected"
+        },
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ]
+    },
+    {
+      "id": "REQ-resource-limits",
+      "section": "resource-limits",
+      "statement": "Parsing terminates; at least 16 levels of section nesting supported",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
         },
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Signing/AprSigningTests.cs::Filler_DetectsTheOfferedOptionsBeingChangedAfterSigning"
+          "ref": "HostileStructures_AreRefusedCleanly"
         },
         {
           "type": "test",
-          "ref": "tests/PromptResponse.Core.Tests/Signing/AprSigningTests.cs::Filler_StillIgnoresQuestionsOutsideTheirScope"
+          "ref": "EveryTruncationOfAValidDocument_IsRefusedCleanly"
+        }
+      ]
+    },
+    {
+      "id": "REQ-no-media-type",
+      "section": "media-types",
+      "statement": "No registered media type; representation determined by content, not name",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "RealFile_Validates"
         }
       ],
-      "notes": "Closed in apr-sig-v3. Under v2 a signature over \"No\" survived the question being rewritten to anything at all, putting a person on record as having answered something they never saw."
+      "gap": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus."
     }
   ]
 }

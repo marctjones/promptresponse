@@ -38,17 +38,27 @@ def source_text():
 
 
 def spec_sections_with_musts():
-    """Sections of the specification containing an emphasised normative clause."""
-    sections, current = set(), None
+    """Anchors of specification sections containing an emphasised normative clause.
+
+    Keyed on the explicit {#anchor} each heading carries, not on its section
+    number. The specification says anchors are its stable identifiers precisely
+    so that inserting a section cannot silently repoint a registry entry at
+    different prose; a number-keyed registry drifts on every edit, in silence.
+    A heading with a normative clause and no anchor is itself reported, since it
+    cannot be referenced stably.
+    """
+    sections, current, unanchored = set(), None, set()
     for line in SPEC.read_text(encoding="utf-8").split("\n"):
         heading = re.match(r"^#{2,4} (.+)$", line)
         if heading:
             current = heading.group(1).strip()
         if current and re.search(r"\*\*(MUST NOT|MUST|REQUIRED|SHALL)\*\*", line):
-            number = re.match(r"^([0-9]+(?:\.[0-9]+)*)", current)
-            if number:
-                sections.add(number.group(1))
-    return sections
+            anchor = re.search(r"\{#([A-Za-z0-9_-]+)\}", current)
+            if anchor:
+                sections.add(anchor.group(1))
+            else:
+                unanchored.add(current)
+    return sections, unanchored
 
 
 def placeholder_test_files():
@@ -126,10 +136,16 @@ def main():
 
     # 6. Normative spec sections absent from the registry.
     covered = {r["section"] for r in registry["requirements"]}
-    for section in sorted(spec_sections_with_musts()):
-        if not any(c == section or c.startswith(section + ".") or section.startswith(c + ".")
-                   for c in covered):
-            problems.append(f"specification §{section} has normative clauses but no registry entry")
+    normative_anchors, unanchored = spec_sections_with_musts()
+    for anchor in sorted(normative_anchors):
+        if anchor not in covered:
+            problems.append(
+                f"specification #{anchor} has normative clauses but no registry entry")
+    for heading in sorted(unanchored):
+        problems.append(
+            f"specification heading has normative clauses but no stable anchor — {heading}")
+    for anchor in sorted(covered - normative_anchors):
+        notes.append(f"registry entry cites #{anchor}, which carries no normative clause")
 
     # 7. Do not retain IDE-generated empty test scaffolding as apparent coverage.
     for placeholder in placeholder_test_files():
