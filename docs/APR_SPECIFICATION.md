@@ -700,6 +700,120 @@ sections:
         response: 2026-01-01
 ```
 
+These pin the surface where YAML schemas and the JSON value space differ. Each
+is a spelling some YAML schema resolves to a non-string; none is a JSON number,
+so each is a string here.
+
+```apr-example
+id: yaml-sexagesimal-is-a-string
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: 1:30
+```
+
+```apr-example
+id: yaml-hex-is-a-string
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: 0x1F
+```
+
+```apr-example
+id: yaml-underscored-number-is-a-string
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: 1_000
+```
+
+```apr-example
+id: yaml-bare-decimal-is-a-string
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: .5
+```
+
+```apr-example
+id: yaml-quoted-null-is-a-string
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: "null"
+```
+
+A plain `null` is the null value, and a null response reads as the empty string.
+
+```apr-example
+id: yaml-plain-null-response-is-empty
+rule: yaml-resolution
+representation: yaml
+expect: valid
+---
+version: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: null
+```
+
 ```apr-example
 id: yaml-non-finite-float
 rule: yaml-resolution
