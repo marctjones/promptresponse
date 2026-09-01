@@ -220,6 +220,40 @@ public class MainShellViewGuiTests
     }
 
     [AvaloniaFact]
+    public void ProgressSidebar_ExpandsTheNavigatedTopLevelSection_AndRendersNestedNavigation()
+    {
+        var (view, vm, session, _) = Build();
+        var window = view.ShowInWindow(width: 1100, height: 700);
+        var document = MakeDocument();
+        document.Sections[0].Sections.Add(new Section
+        {
+            Id = "details", Title = "Further details",
+            Prompts = new List<Prompt> { new() { Id = "detail", Label = "Detail" } },
+        });
+        session.Set(document, filePath: null);
+        GuiTestExtensions.PumpDispatcher();
+
+        vm.Progress.Sections.Should().HaveCount(1,
+            "the sidebar starts as a top-level outline rather than an overwhelming flat list");
+        view.GetVisualDescendants().OfType<Button>().Should().NotContain(button =>
+            Avalonia.Automation.AutomationProperties.GetName(button) == "Further details",
+            "nested sections stay collapsed until their parent becomes current or is expanded");
+        string? requested = null;
+        vm.FocusSectionRequested += id => requested = id;
+
+        var topLevelButton = view.GetVisualDescendants().OfType<Button>().Single(button =>
+            Avalonia.Automation.AutomationProperties.GetName(button) == "Information");
+        window.Activate(topLevelButton);
+        GuiTestExtensions.PumpDispatcher();
+
+        var nestedButton = view.GetVisualDescendants().OfType<Button>().Single(button =>
+            Avalonia.Automation.AutomationProperties.GetName(button) == "Further details");
+        window.Activate(nestedButton);
+
+        requested.Should().Be("details", "Enter on a progress item jumps to the matching section");
+    }
+
+    [AvaloniaFact]
     public void SearchTextBox_KeyboardInput_FiltersMatches()
     {
         var (view, vm, session, _) = Build();

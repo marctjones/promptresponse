@@ -47,7 +47,7 @@ public class FormProgressViewModelTests
         var vm = new FormProgressViewModel();
         vm.SetDocument(doc);
 
-        vm.Sections.Should().HaveCount(2);
+        vm.Sections.Should().HaveCount(2, "the sidebar starts with the document's top-level section outline");
 
         var personal = vm.Sections[0];
         personal.Title.Should().Be("Personal");
@@ -62,6 +62,12 @@ public class FormProgressViewModelTests
         work.Answered.Should().Be(2);
         work.IsComplete.Should().BeTrue();
         work.StatusText.Should().Be("✓ 2/2");
+
+        var nested = work.Children.Single();
+        nested.Title.Should().Be("Sub");
+        nested.SectionId.Should().Be("b1");
+        nested.Depth.Should().Be(1);
+        nested.TopLevelIndex.Should().Be(1);
     }
 
     [Fact]

@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using PromptResponse.Desktop.ViewModels;
 using PromptResponse.Desktop.ViewModels.Prompts;
@@ -33,11 +34,13 @@ public partial class MainShellView : UserControl
         if (_subscribedShell != null)
         {
             _subscribedShell.FocusPromptRequested -= OnFocusPromptRequested;
+            _subscribedShell.FocusSectionRequested -= OnFocusSectionRequested;
             _subscribedShell = null;
         }
         if (DataContext is MainShellViewModel shell)
         {
             shell.FocusPromptRequested += OnFocusPromptRequested;
+            shell.FocusSectionRequested += OnFocusSectionRequested;
             shell.ExitRequested += OnExitRequested;
             shell.CreateSigningKeyRequested += OnCreateSigningKeyRequested;
             _subscribedShell = shell;
@@ -68,6 +71,19 @@ public partial class MainShellView : UserControl
         var focusable = target.GetVisualDescendants().OfType<Control>().FirstOrDefault(c => c.Focusable)
             ?? target;
         focusable.Focus();
+    }
+
+    private void OnFocusSectionRequested(string sectionId)
+    {
+        // Wizard navigation changes the realized visual tree. Post this lookup so
+        // the selected top-level section has rendered before we locate a nested one.
+        Dispatcher.UIThread.Post(() =>
+        {
+            var target = this.GetVisualDescendants()
+                .OfType<Control>()
+                .FirstOrDefault(c => c.DataContext is SectionViewModel section && section.Id == sectionId);
+            target?.BringIntoView();
+        });
     }
 
     /// <summary>Register the top-level edit-mode sections list as a drop target

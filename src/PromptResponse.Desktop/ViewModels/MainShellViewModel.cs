@@ -429,6 +429,12 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// </summary>
     public event Action<string>? FocusPromptRequested;
 
+    /// <summary>
+    /// Raised when a progress-sidebar entry is activated. The view owns scrolling
+    /// the matching section header into view; the shell owns the semantic section id.
+    /// </summary>
+    public event Action<string>? FocusSectionRequested;
+
     /// <summary>Raised when the user asks to make a signing key.</summary>
     /// <remarks>The view owns the dialog; the shell only asks for it.</remarks>
     public event Action? CreateSigningKeyRequested;
@@ -466,6 +472,30 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         {
             FocusPromptRequested?.Invoke(promptId);
         }
+    }
+
+    /// <summary>Navigate from the progress sidebar to a section, including nested sections.</summary>
+    [RelayCommand]
+    public void NavigateToSection(SectionProgress? section)
+    {
+        if (section is null || string.IsNullOrWhiteSpace(section.SectionId)) return;
+
+        // Navigation identifies the active top-level branch. Keep that branch
+        // open so its subsections remain visible after the jump.
+        if (section.TopLevelIndex >= 0 && section.TopLevelIndex < Progress.Sections.Count)
+            Progress.Sections[section.TopLevelIndex].IsExpanded = true;
+
+        // A nested section is rendered inside its top-level parent in wizard mode.
+        // Select that parent before asking the view to bring the target into view.
+        if (IsWizardMode) JumpToWizardSection(section.TopLevelIndex);
+        FocusSectionRequested?.Invoke(section.SectionId);
+    }
+
+    /// <summary>Explicitly expands or collapses a top-level progress branch.</summary>
+    [RelayCommand]
+    public void ToggleSectionExpansion(SectionProgress? section)
+    {
+        if (section?.HasChildren == true) section.IsExpanded = !section.IsExpanded;
     }
 
     /// <summary>Whether the open beta.6 stream carries independent attestations.</summary>

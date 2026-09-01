@@ -23,7 +23,7 @@ public sealed partial class FormProgressViewModel : ObservableObject
     [ObservableProperty]
     private string statusText = string.Empty;
 
-    /// <summary>Per-top-level-section completion, in document order.</summary>
+    /// <summary>Top-level section completion, in document order. Each entry owns its nested children.</summary>
     public ObservableCollection<SectionProgress> Sections { get; } = new();
 
     private AprDocument? _document;
@@ -49,13 +49,27 @@ public sealed partial class FormProgressViewModel : ObservableObject
         Sections.Clear();
         if (_document != null)
         {
-            foreach (var section in _document.Sections)
+            for (var index = 0; index < _document.Sections.Count; index++)
             {
-                int st = 0, sa = 0;
-                CountSection(section, ref st, ref sa);
-                Sections.Add(new SectionProgress(section.Title, sa, st));
+                Sections.Add(BuildSectionProgress(_document.Sections[index], depth: 0, topLevelIndex: index));
             }
         }
+    }
+
+    private static SectionProgress BuildSectionProgress(Section section, int depth, int topLevelIndex)
+    {
+        int total = 0, answered = 0;
+        CountSection(section, ref total, ref answered);
+        var progress = new SectionProgress(section.Title, answered, total)
+        {
+            SectionId = section.Id,
+            Depth = depth,
+            TopLevelIndex = topLevelIndex,
+        };
+
+        foreach (var child in section.Sections)
+            progress.Children.Add(BuildSectionProgress(child, depth + 1, topLevelIndex));
+        return progress;
     }
 
     private static (int total, int answered) Count(AprDocument? document)
@@ -90,8 +104,41 @@ public sealed partial class FormProgressViewModel : ObservableObject
 /// <param name="Title">The section title.</param>
 /// <param name="Answered">Answered prompts (including nested).</param>
 /// <param name="Total">Total prompts (including nested).</param>
-public sealed record SectionProgress(string Title, int Answered, int Total)
+public sealed partial class SectionProgress : ObservableObject
 {
+    public SectionProgress(string title, int answered, int total)
+    {
+        Title = title;
+        Answered = answered;
+        Total = total;
+    }
+
+    public string Title { get; }
+    public int Answered { get; }
+    public int Total { get; }
+
+    /// <summary>Stable APR section identity used by sidebar navigation.</summary>
+    public string SectionId { get; init; } = string.Empty;
+
+    /// <summary>Depth in the document's section tree.</summary>
+    public int Depth { get; init; }
+
+    /// <summary>Containing top-level section, used when wizard mode is active.</summary>
+    public int TopLevelIndex { get; init; }
+
+    /// <summary>Nested section completion entries.</summary>
+    public ObservableCollection<SectionProgress> Children { get; } = new();
+
+    public bool HasChildren => Children.Count > 0;
+
+    /// <summary>Whether this branch is exposed in the progress sidebar.</summary>
+    [ObservableProperty]
+    private bool isExpanded;
+
+    public string ExpansionGlyph => IsExpanded ? "▾" : "▸";
+
+    partial void OnIsExpandedChanged(bool value) => OnPropertyChanged(nameof(ExpansionGlyph));
+
     /// <summary>Completion percentage (0 when the section has no prompts).</summary>
     public int PercentComplete => Total == 0 ? 0 : (int)Math.Round(100.0 * Answered / Total);
 
@@ -101,4 +148,3 @@ public sealed record SectionProgress(string Title, int Answered, int Total)
     /// <summary>Short "answered/total" label, with a check when complete.</summary>
     public string StatusText => Total == 0 ? "—" : IsComplete ? $"✓ {Answered}/{Total}" : $"{Answered}/{Total}";
 }
-

@@ -124,31 +124,75 @@ public class ExhaustiveInteractionTests
         {
             var label = NameOf(control);
             if (label is null || Excluded.Any(x => label.Contains(x, StringComparison.OrdinalIgnoreCase))) continue;
-            if (!control.IsEnabled) continue;
+            if (!control.IsEffectivelyEnabled) continue;
             var key = control.GetType().Name + "|" + label;
             if (!seen.Add(key)) continue;
             reachedThisRound++;
 
             try
             {
+                // Feed pointer movement and a primary-button press through the
+                // headless input source before using keyboard activation below.
+                // Avalonia 12's headless backend currently does not translate that
+                // press into Button.OnClick, so the keyboard path remains the
+                // assertion-bearing activation mechanism; retaining both here catches
+                // broken hit-testing/layout as well as keyboard regressions.
+                if (control.TransformToVisual(window) is not null)
+                    window.ClickCenter(control);
+
                 switch (control)
                 {
                     case TextBox tb when !tb.IsReadOnly:
-                        tb.Text = "N/A — typed by the exhaustive driver";
+                        // Go through the real text-input pipeline. Directly assigning
+                        // Text used to miss input-formatters and any handlers attached
+                        // to TextInput, which is precisely where several regressions
+                        // have lived.
+                        tb.Focus();
+                        window.TypeText("N/A typed by the exhaustive driver");
                         break;
                     case ComboBox cb when cb.ItemCount > 0:
-                        cb.SelectedIndex = 0;
+                        // Headless can focus and navigate the closed ComboBox even
+                        // though it cannot faithfully render every native popup.
+                        cb.Focus();
+                        window.PressKey(Key.Down);
+                        window.PressKey(Key.Enter);
+                        if (cb.SelectedIndex < 0) cb.SelectedIndex = 0;
                         break;
                     case CheckBox or RadioButton or ToggleButton:
-                        ((ToggleButton)control).IsChecked = true;
+                        try
+                        {
+                            window.Activate(control);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            // Fluent's Expander header template is exposed as a
+                            // ToggleButton but cannot take focus headlessly.
+                            // Exercise its bound state rather than omitting it.
+                            ((ToggleButton)control).IsChecked = !(((ToggleButton)control).IsChecked ?? false);
+                        }
                         break;
                     case Expander ex:
-                        ex.IsExpanded = !ex.IsExpanded;
+                        window.ExpandExpander(ex);
                         break;
                     case Button b:
-                        if (b.Command?.CanExecute(b.CommandParameter) == true)
+                        // Keyboard activation is the first choice. A few Fluent
+                        // template parts report Focusable but cannot acquire focus
+                        // under Avalonia.Headless; retain the existing command
+                        // fallback for those framework-limited controls so the
+                        // inventory remains exhaustive rather than silently
+                        // skipping them.
+                        try
                         {
-                            b.Command.Execute(b.CommandParameter);
+                            window.Activate(b);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            // Route the control's Click event if the framework's
+                            // template part cannot receive headless focus. Commands
+                            // that are still executable receive the same fallback.
+                            b.RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+                            if (b.Command?.CanExecute(b.CommandParameter) == true)
+                                b.Command.Execute(b.CommandParameter);
                         }
                         break;
                 }

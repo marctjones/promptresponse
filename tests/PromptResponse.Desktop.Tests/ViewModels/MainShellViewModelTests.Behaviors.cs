@@ -64,6 +64,36 @@ public partial class MainShellViewModelTests
         var shell = CreateShell(); string? requested = null; shell.FocusPromptRequested += id => requested = id; shell.FocusAdvisoryCommand.Execute("prompt_42"); requested.Should().Be("prompt_42");
     }
 
+    [Fact]
+    public void NavigateToSection_RaisesFocusSectionRequested_WithStableSectionId()
+    {
+        var shell = CreateShell();
+        string? requested = null;
+        shell.FocusSectionRequested += id => requested = id;
+
+        shell.NavigateToSectionCommand.Execute(new SectionProgress("Employment", 0, 3)
+        {
+            SectionId = "employment",
+            Depth = 1,
+            TopLevelIndex = 2,
+        });
+
+        requested.Should().Be("employment");
+    }
+
+    [Fact]
+    public void ToggleSectionExpansion_ExpandsAndCollapsesAProgressBranch()
+    {
+        var shell = CreateShell();
+        var branch = new SectionProgress("Employment", 0, 3);
+        branch.Children.Add(new SectionProgress("Current employer", 0, 2));
+
+        shell.ToggleSectionExpansionCommand.Execute(branch);
+        branch.IsExpanded.Should().BeTrue();
+        shell.ToggleSectionExpansionCommand.Execute(branch);
+        branch.IsExpanded.Should().BeFalse();
+    }
+
     [Theory]
     [InlineData(null)]
     [InlineData("")]

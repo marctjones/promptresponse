@@ -737,21 +737,71 @@
                                           AutomationProperties.Name="Section completion">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="vm:SectionProgress">
-                                        <Grid ColumnDefinitions="*,Auto"
-                                              Margin="0,2"
-                                              AutomationProperties.Name="{Binding Title}"
-                                              AutomationProperties.HelpText="{Binding StatusText}">
-                                            <TextBlock Grid.Column="0"
-                                                       Text="{Binding Title}"
-                                                       FontSize="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).CaptionFontSize}"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       Foreground="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).ActiveProfileOnSurfaceBrush}"/>
-                                            <TextBlock Grid.Column="1"
-                                                       Text="{Binding StatusText}"
-                                                       Margin="8,0,0,0"
-                                                       FontSize="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).CaptionFontSize}"
-                                                       Foreground="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).ActiveProfileMutedTextBrush}"/>
-                                        </Grid>
+                                        <StackPanel Spacing="1">
+                                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                                <Button Grid.Column="0"
+                                                        Content="{Binding ExpansionGlyph}"
+                                                        Command="{Binding #Root.((vm:MainShellViewModel)DataContext).ToggleSectionExpansionCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        IsVisible="{Binding HasChildren}"
+                                                        Width="28" Height="28" Padding="0"
+                                                        AutomationProperties.Name="Expand or collapse subsections"
+                                                        ToolTip.Tip="Expand or collapse subsections"/>
+                                                <Button Grid.Column="1"
+                                                        Command="{Binding #Root.((vm:MainShellViewModel)DataContext).NavigateToSectionCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Stretch"
+                                                        Background="Transparent"
+                                                        BorderThickness="0"
+                                                        Padding="4,3"
+                                                        Margin="0,1"
+                                                        AutomationProperties.Name="{Binding Title}"
+                                                        AutomationProperties.HelpText="{Binding StatusText}"
+                                                        ToolTip.Tip="Go to this section">
+                                                    <TextBlock Text="{Binding Title}"
+                                                               FontSize="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).CaptionFontSize}"
+                                                               TextTrimming="CharacterEllipsis"
+                                                               Foreground="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).ActiveProfileOnSurfaceBrush}"/>
+                                                </Button>
+                                                <TextBlock Grid.Column="2"
+                                                           Text="{Binding StatusText}"
+                                                           Margin="8,0,0,0"
+                                                           FontSize="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).CaptionFontSize}"
+                                                           Foreground="{Binding $parent[ItemsControl].((vm:MainShellViewModel)DataContext).ActiveProfileMutedTextBrush}"/>
+                                            </Grid>
+                                            <ItemsControl ItemsSource="{Binding Children}"
+                                                          IsVisible="{Binding IsExpanded}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="vm:SectionProgress">
+                                                        <Button Command="{Binding #Root.((vm:MainShellViewModel)DataContext).NavigateToSectionCommand}"
+                                                                CommandParameter="{Binding}"
+                                                                HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Stretch"
+                                                                Background="Transparent"
+                                                                BorderThickness="0"
+                                                                Padding="16,3,4,3"
+                                                                Margin="0,1"
+                                                                AutomationProperties.Name="{Binding Title}"
+                                                                AutomationProperties.HelpText="{Binding StatusText}"
+                                                                ToolTip.Tip="Go to this subsection">
+                                                            <Grid ColumnDefinitions="*,Auto">
+                                                                <TextBlock Grid.Column="0"
+                                                                           Text="{Binding Title}"
+                                                                           FontSize="{Binding #Root.((vm:MainShellViewModel)DataContext).CaptionFontSize}"
+                                                                           TextTrimming="CharacterEllipsis"
+                                                                           Foreground="{Binding #Root.((vm:MainShellViewModel)DataContext).ActiveProfileOnSurfaceBrush}"/>
+                                                                <TextBlock Grid.Column="1"
+                                                                           Text="{Binding StatusText}"
+                                                                           Margin="8,0,0,0"
+                                                                           FontSize="{Binding #Root.((vm:MainShellViewModel)DataContext).CaptionFontSize}"
+                                                                           Foreground="{Binding #Root.((vm:MainShellViewModel)DataContext).ActiveProfileMutedTextBrush}"/>
+                                                            </Grid>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
