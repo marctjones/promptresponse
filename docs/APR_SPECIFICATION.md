@@ -2180,7 +2180,42 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Produce identical semantic models from paired JSONC and YAML documents
 - [ ] Preserve attestation records and `expr*` strings even when not implementing them
 - [ ] Never gate parsing, validation, rendering, or data extraction on attestation state
-- [ ] Pass every fixture in `tests/Conformance/beta6/`
+- [ ] Pass every fixture in `tests/Conformance/beta6/`, and every executable
+      example in this document
+
+An implementation additionally claiming **`core+streams`** MUST:
+
+- [ ] Read and write RS-framed APR-JSONC streams and APR-YAML document streams
+- [ ] Yield every record, including repeated identical form occurrences
+- [ ] Never deduplicate, reorder, or select a record by position
+- [ ] Return `APR_STREAM_REQUIRES_ITERATION` from a single-form API given a stream
+- [ ] Refuse a stream that mixes representations
+- [ ] Produce the same semantic records from either member of a paired stream
+
+An implementation additionally claiming **`core+attestations`** MUST, and MUST
+also satisfy `core+streams`:
+
+- [ ] Compute `jcs-sha256` digests over the semantic model, extension members included
+- [ ] Build manifests that hold no plaintext of the values they describe
+- [ ] Resolve an attestation to its subject by digest, whatever the record order
+- [ ] Hold an unresolved attestation until its subject is observed, and report `unresolved` if it never is
+- [ ] Verify a `cms/ecdsa-p256-sha256` proof over the proof-free envelope
+- [ ] Report an unrecognized proof type as `unverifiable`, never `invalid`, and preserve it
+- [ ] Resolve a witness to the exact earlier envelope it names
+- [ ] Report `valid`, `invalid`, `unresolved`, `unverifiable` and `witnessed` independently
+- [ ] Keep certificate trust separate from cryptographic validity
+- [ ] **Never gate parsing, validation, rendering, export or extraction on attestation state**
+
+An implementation additionally claiming **`core+expressions`** MUST:
+
+- [ ] Bind each response by its prompt's declared type
+- [ ] Treat an unconvertible or blank typed response as unbound, never as a default
+- [ ] Supply `_this`, `_id`, `_now`, `_today` and `ctx`, and let no prompt id shadow them
+- [ ] Take `_now` and `_today` from the caller, never from the host clock
+- [ ] Apply the per-hint fallback on any failure, showing more and blocking less
+- [ ] Mark `responseMetadata.source` as `computed`, and never overwrite an unmarked non-empty response
+- [ ] Order computed prompts by their direct references
+- [ ] Bound evaluation, and report a reached bound as a fallback rather than partial mutation
 
 ---
 

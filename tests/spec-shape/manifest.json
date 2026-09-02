@@ -200,6 +200,11 @@
       "id": "coverage-is-measured-per-rule",
       "borrowedFrom": "CommonMark's per-example test results",
       "requirement": "Every rule identifier is claimed by exactly one registry requirement, so coverage is counted against the rule rather than the section it sits in."
+    },
+    {
+      "id": "inventories-are-covered",
+      "borrowedFrom": "APR-specific",
+      "requirement": "Every concept the registry names, every member the schema declares, and every conformance profile has prose. Checked by scripts/check-spec-completeness.py."
     }
   ],
   "knownShortfalls": [
@@ -207,7 +212,7 @@
       "id": "semantic-review-is-generic",
       "issue": 263,
       "requirement": "The local model review asks generic coverage questions rather than checking against this manifest and the concept registry.",
-      "status": "not started"
+      "status": "deterministic half done; the judgement half is narrowed to the 27 ungated rules"
     }
   ]
 }

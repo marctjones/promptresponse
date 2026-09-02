@@ -148,6 +148,11 @@ jobs:
         # have an entry.
         run: python3 scripts/check-test-registry.py
 
+      - name: Verify the specification covers its inventories
+        # Every concept the registry names, every member the schema declares, and
+        # every conformance profile must be accounted for in the prose.
+        run: python3 scripts/check-spec-completeness.py
+
       - name: Verify the schema agrees with the specification
         # The specification is normative and the schema is a derived projection of
         # it. Every documented member must be declared and every declared member
