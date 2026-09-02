@@ -27,12 +27,10 @@
       { "id": "range", "label": "Range", "response": "", "hints": { "expectedDataType": "range", "min": 1, "max": 10, "step": 1, "helpText": "Bounds are advisory." } },
       { "id": "color", "label": "Color", "response": "", "hints": { "expectedDataType": "color", "placeholder": "#336699" } }
     ] },
-    { "id": "choices_and_attachments", "title": "Choices, signature, and file widgets", "prompts": [
+    { "id": "choices", "title": "Choice widgets", "prompts": [
       { "id": "boolean", "label": "Boolean", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["Yes", "No"] } },
       { "id": "select", "label": "Single choice", "response": "", "hints": { "expectedDataType": "select", "suggestedValues": ["Email", "Phone", "Postal mail"] } },
-      { "id": "multichoice", "label": "Multiple choices", "response": "", "hints": { "expectedDataType": "multichoice", "suggestedValues": ["Red", "Green", "Blue"] } },
-      { "id": "file", "label": "File", "response": "", "hints": { "expectedDataType": "file", "helpText": "A renderer may offer a file picker or accept a reference." } },
-      { "id": "signature", "label": "Signature", "response": "", "hints": { "expectedDataType": "signature" } }
+      { "id": "multichoice", "label": "Multiple choices", "response": "", "hints": { "expectedDataType": "multichoice", "suggestedValues": ["Red", "Green", "Blue"] } }
     ] },
     { "id": "expression_hints", "title": "Advisory expression hints", "description": "These demonstrate behavior suggestions, not validation rules.", "prompts": [
       { "id": "enable_details", "label": "Enable details", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["true", "false"] } },

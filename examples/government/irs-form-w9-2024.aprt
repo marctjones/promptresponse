@@ -59,7 +59,6 @@
       "description": "Under penalties of perjury, the signer certifies that the TIN is correct (or pending), backup-withholding status is as stated, the signer is a U.S. person, and any FATCA exemption code is correct. The official form provides exceptions and instructions; consult the adjacent PDF.",
       "prompts": [
         { "id": "certification_acknowledgment", "label": "I certify the Part II statements printed on Form W-9", "response": "", "hints": { "expectedDataType": "boolean", "suggestedValues": ["Yes", "No"] } },
-        { "id": "signature", "label": "Signature of U.S. person", "response": "", "hints": { "expectedDataType": "signature" } },
         { "id": "signature_date", "label": "Date", "response": "", "hints": { "expectedDataType": "date" } }
       ]
     }

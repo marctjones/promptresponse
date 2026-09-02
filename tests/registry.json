@@ -727,7 +727,7 @@
     {
       "id": "REQ-hint-members",
       "section": "hints-object",
-      "statement": "Every defined hint member, and the expectedDataType registry",
+      "statement": "Every defined hint member, and the expectedDataType registry; signature and file are not registered types",
       "strength": "partial",
       "gates": [
         {
@@ -738,7 +738,8 @@
       "gap": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text.",
       "rules": [
         "APR-MODEL-018",
-        "APR-MODEL-019"
+        "APR-MODEL-019",
+        "APR-MODEL-030"
       ]
     },
     {

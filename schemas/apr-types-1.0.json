@@ -197,25 +197,6 @@
         "notes": "Newline rather than comma because a suggested value may itself contain a comma - 'Bloomfield, CT' is an ordinary option on a municipal form, and comma separation would split one selection into two."
       },
       {
-        "id": "signature",
-        "description": "A hand-written or drawn signature.",
-        "celType": "string",
-        "meaningfulHints": [
-          "helpText"
-        ],
-        "notes": "What the response contains is not yet specified - see specification 13."
-      },
-      {
-        "id": "file",
-        "description": "A reference to an attached file.",
-        "celType": "string",
-        "meaningfulHints": [
-          "placeholder",
-          "helpText"
-        ],
-        "notes": "Attachments have no defined representation yet - see specification 13."
-      },
-      {
         "id": "password",
         "description": "Text the renderer should mask while it is being typed.",
         "celType": "string",

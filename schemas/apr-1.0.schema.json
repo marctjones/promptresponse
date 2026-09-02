@@ -261,8 +261,6 @@
             "number",
             "currency",
             "boolean",
-            "signature",
-            "file",
             "select",
             "multichoice",
             "password",

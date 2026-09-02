@@ -1281,7 +1281,20 @@ All OPTIONAL, all advisory ([Hints never enforce](#hints-advisory)).
 
 `expectedDataType` registry: `text`, `multiline`, `email`, `phone`, `url`,
 `date`, `time`, `datetime`, `number`, `currency`, `boolean`, `select`,
-`multichoice`, `signature`, `file`, `password`, `range`, `color`.
+`multichoice`, `password`, `range`, `color`.
+
+**There is no `signature` type and no `file` type.** A signature is not a
+response: evidence that a person stood behind a form is an attestation record
+travelling beside it in the stream ([Attestations](#attestations)), never a
+drawn image or a typed name in a field. An attachment is not a response either:
+a form carries what a person typed, and the format defines no representation
+for bytes that were not typed. A reader encountering either name treats it as
+any other unregistered value and degrades it to text. [APR-MODEL-030]
+
+> Rationale: both names once stood in the registry with their meaning marked as
+> unspecified, so two implementations could accept the same form and store
+> different things. A signature field in particular invited the mistake the
+> roles section warns against — treating a widget as evidence.
 
 Country-specific field types are deliberately absent. A postcode, a national
 identity number, or a tax reference is `text` with a `validationPattern`: baking
@@ -2285,6 +2298,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Ignore unknown members without rejecting them, and preserve them on write
 - [ ] Drop retired members rather than preserving them
 - [ ] Degrade an unrecognized `expectedDataType` to text
+- [ ] Treat `signature` and `file` as unregistered types; never present a signature widget as evidence
 - [ ] **Never reject, alter, or block a response because of a hint**
 - [ ] Never alter a response on the basis of a hint
 - [ ] Report — never rewrite — hidden characters in every `submissionUrls` entry
@@ -2348,8 +2362,6 @@ An honest list of what this baseline does not settle.
    remain out of scope.
 4. **No governance.** A format used by public institutions eventually needs
    stewardship that is not a single repository.
-5. **Attachments** have no representation. A `file` hint stores a reference, and
-   what it references is undefined.
 
 ---
 
@@ -2357,7 +2369,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

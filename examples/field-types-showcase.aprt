@@ -1392,17 +1392,6 @@
           "responseMetadata": {}
         },
         {
-          "id": "prompt_file",
-          "label": "Resume Upload",
-          "response": "",
-          "hints": {
-            "placeholder": "Click Browse to select a file",
-            "expectedDataType": "file",
-            "helpText": "Select a file to attach. Stores the file path."
-          },
-          "responseMetadata": {}
-        },
-        {
           "id": "prompt_range",
           "label": "Satisfaction Rating",
           "response": "",
@@ -1458,16 +1447,6 @@
             "placeholder": "https://linkedin.com/in/yourprofile",
             "expectedDataType": "url",
             "helpText": "URL validation indicator shows green checkmark when valid"
-          },
-          "responseMetadata": {}
-        },
-        {
-          "id": "prompt_signature_smart",
-          "label": "Digital Signature",
-          "response": "",
-          "hints": {
-            "expectedDataType": "signature",
-            "helpText": "Type your full legal name as an electronic signature. Text appears in cursive."
           },
           "responseMetadata": {}
         },
