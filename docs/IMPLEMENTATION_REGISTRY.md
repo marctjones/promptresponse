@@ -4,8 +4,9 @@ This is the human inventory of shipped and planned PromptResponse surfaces. For 
 
 | Surface | Responsibility | Status | Gate or evidence |
 | --- | --- | --- | --- |
-| APR specification and schema | Format definition | Beta.6 draft, schema, and schema gate implemented | `scripts/check-schema.py` |
-| Conformance corpus | Cross-implementation behavior | Paired JSONC/YAML forms and streams, digests/manifests, CMS and unsupported proofs, fields scope, witness chains, changed forms, and malformed representations | beta.6 corpus + SDK tests |
+| APR specification | Normative format definition | Single file, 1,900 lines, formal grammar, stable rule identifiers, executable examples | `check-spec-shape.py`, `check-spec-completeness.py` |
+| Schema and type registry | Derived projections of the specification | Agreement-checked in both directions; a disagreement is the derived artifact's defect | `check-schema-agrees.py`, `check-schema.py` |
+| Conformance corpus | Cross-implementation behavior, derived from the specification's examples | Paired JSONC/YAML forms and streams, digests/manifests, CMS and unsupported proofs, fields scope, witness chains, changed forms, and malformed representations | beta.6 corpus + SDK tests |
 | .NET Core | Reference core, CEL, representations, streams, attestations | Beta.6 core+attestations, manifest resolution, CMS verification, and independent attestation creation | focused beta.6 core tests |
 | Desktop | Author, fill, review, export, import, attestation display | Beta.6 JSONC/YAML form I/O plus stream-occurrence browser; attestation states are non-gating and trust remains external by design | GUI/accessibility/desktop tests |
 | CLI | Validate, fill, review, eval, import/export, stream and attestation inspection | Every runtime command uses beta.6-only form I/O; validate/info/normalize/attest use stream APIs, and retired embedded-signature commands are rejected | CLI tests + release smoke |

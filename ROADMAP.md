@@ -18,32 +18,49 @@ keeps responses as strings, and does not store presentation layout.
 For the full product boundary, see [Product](docs/PRODUCT.md). For present shipped
 surfaces and their evidence, see the [implementation registry](docs/IMPLEMENTATION_REGISTRY.md).
 
-## Current focus: APR `1.0-beta.6` migration and stabilization
+## Current focus: APR `1.0-beta.6`
 
 APR has not been publicly released. The beta.3 wire contract is therefore not a
-compatibility target: beta.6 may make the required breaking changes once, before
-we stabilize the implementation around it. In particular, beta.6 replaces the
-embedded `signatures` / `apr-sig-v3` model with independent attestation records,
-adds JSONC and YAML representations, and introduces representation-neutral
-streams.
+compatibility target: beta.6 makes the required breaking changes once, before we
+stabilize around it. Beta.6 replaces the embedded `signatures` / `apr-sig-v3`
+model with independent attestation records, adds the APR-JSONC and APR-YAML
+representations, and introduces representation-neutral streams.
 
-Stabilization is part of this migration, not work that precedes it:
+### Where the contract stands
 
-1. **Contract first** — settle the beta.6 specification, schema, semantic-digest
-   and attestation vectors, and language-neutral conformance corpus.
-2. **Reference core and SDKs** — implement the settled core contract, then bring
-   Python, TypeScript, and Java through the same executable corpus.
-3. **Clients** — upgrade CLI before desktop and the web demo; clients consume
-   stream and attestation APIs and must not invent their own semantics.
-4. **Evidence while migrating** — add focused core, SDK, CLI, GUI, accessibility,
-   and package-smoke coverage as each layer moves. Only after every surface is on
-   beta.6 do cross-platform release and maintainability gates become the final
-   stabilization pass.
+The specification is normative, and the schema, the type registry, and the
+conformance corpus are derived from it. A derived artifact that disagrees with
+the specification has the defect, as does an implementation. That ordering is
+enforced rather than declared:
 
-The active work is [APR 1.0 beta.6 upgrade — streams and
-attestations](https://github.com/marctjones/promptresponse/milestone/18). Existing
-refactoring and dependency milestones support this work; they must not stabilize
-the retired beta.3 contract.
+- the corpus is **generated** from executable examples embedded in the
+  specification, and CI fails if the two diverge;
+- the schema is **agreement-checked** in both directions against the
+  specification's member tables;
+- the type registry is checked against the registry section;
+- every normative clause carries a stable rule identifier, and coverage is
+  counted per rule rather than per section.
+
+Core, the Python, TypeScript and Java SDKs, the CLI, the desktop client, and the
+web demo all read and write both representations, iterate streams, and resolve
+attestations without gating data on them. The same executable examples run in all
+four implementations.
+
+### What remains
+
+1. **Evidence** — Core line coverage is below its gate, and the manifest vectors
+   for changed member kinds have no corpus entry.
+2. **Specification apparatus** — a review and release checklist, and a build that
+   produces tagged baselines identifying the exact specification, schema,
+   registry and corpus set.
+3. **Stabilization** — only after those do cross-platform release and
+   maintainability gates become the final pass.
+
+Planning lives in [the specification
+milestone](https://github.com/marctjones/promptresponse/milestone/19) and [the
+beta.6 upgrade milestone](https://github.com/marctjones/promptresponse/milestone/18).
+Existing refactoring and dependency milestones support this work; they must not
+stabilize the retired beta.3 contract.
 
 ## Deferred, explicit decisions
 
