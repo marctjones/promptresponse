@@ -874,6 +874,20 @@
       ]
     },
     {
+      "id": "REQ-submission",
+      "section": "submission",
+      "statement": "A submission entry is an https pre-signed PUT target or a mailto address; delivery is a single PUT or an attachment, on explicit user action, never following a redirect",
+      "strength": "none",
+      "gates": [],
+      "gap": "Transport behaviour is outside the corpus. No test yet asserts that an unsupported scheme is reported or refused.",
+      "rules": [
+        "APR-MODEL-032",
+        "APR-MODEL-033",
+        "APR-MODEL-034",
+        "APR-MODEL-035"
+      ]
+    },
+    {
       "id": "REQ-no-media-type",
       "section": "media-types",
       "statement": "vnd.apr media types name the representation; representation and document type determined by content, not name",

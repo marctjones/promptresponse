@@ -1080,7 +1080,7 @@ A form **MUST NOT** carry a `signatures` member. A reader encountering one
 | `templateVersion` | string | No | The template revision answered. |
 | `filledBy` | string | No | Who supplied the responses. |
 | `filledDate` | date-time | No | RFC 3339. |
-| `submissionUrls` | array of string | No | Ordered explicit delivery choices. |
+| `submissionUrls` | array of string | No | Ordered explicit delivery choices; `https` or `mailto` ([Submission targets](#submission)). |
 
 `title` **MUST** contain a non-whitespace character. [APR-MODEL-007]
 
@@ -1092,6 +1092,49 @@ explicit user action.
 
 When `documentType` is `filledForm`, `templateId` is **REQUIRED**: a completed
 form that cannot name the form it completes is not traceable. [APR-MODEL-008]
+
+#### 5.2.1 Submission targets {#submission}
+
+A `submissionUrls` entry is one of exactly two kinds, told apart by its scheme.
+This document defines no other transport. [APR-MODEL-032]
+
+| Scheme | Meaning | Defined by |
+| --- | --- | --- |
+| `https` | A pre-signed object-store PUT target | HTTP (RFC 9110); the S3 pre-signed URL convention |
+| `mailto` | An email address to attach the document to | RFC 6068 |
+
+**`https`.** The entry is a URL to which the complete document is delivered by a
+single HTTP `PUT`, with the document as the body and the `vnd.apr` media type
+of its representation as `Content-Type` ([Document type](#media-types)). The
+URL is used verbatim, query string included: this is the contract of an S3
+pre-signed PUT URL, which carries its own authorisation and expiry in the
+query, and any receiver that accepts a plain `PUT` of a body satisfies it
+identically. A client **MUST** send only the document — no credentials,
+cookies, or headers derived from it — **MUST** treat any status other than
+2xx as failure, **MUST NOT** follow a redirect, and **MUST NOT** retry
+without a fresh user action. [APR-MODEL-033]
+
+**`mailto`.** The entry is an RFC 6068 address, with any header fields it
+carries such as `subject` passed through. Submitting means composing a message
+to that address with the document as an attachment, never inlined in the body.
+A client **MAY** hand the composition to the user's mail client, or **MAY**
+send natively if it has that ability; either way the message leaves only on an
+explicit user action. [APR-MODEL-034]
+
+A client **MUST NOT** act on an entry whose scheme it does not recognise or
+does not implement, and a validator **SHOULD** report such an entry as
+`SUBMISSION_URL_UNSUPPORTED` ([Warnings](#warnings)). An `http` entry is
+unsupported. [APR-MODEL-035]
+
+> Rationale: the format defines *where* a completed form may go and borrows
+> *how* from transports that already exist, rather than specifying one. A
+> pre-signed PUT is the industry's common way to accept an upload without
+> handing out credentials, and every S3-compatible store implements it; a
+> `mailto` address is the way an office without any server at all still
+> receives forms. Redirects are refused for the same reason hidden characters
+> are reported: following one delivers the form to a host the author never
+> named. A pre-signed browser POST is deliberately absent — it needs policy
+> fields beyond the URL, which a string entry cannot carry.
 
 ### 5.3 Section {#section-object}
 
@@ -1622,7 +1665,8 @@ blank response the workflow may consider required; text advisories
 ([Text handling](#text-handling)); an undeclared role; and the table advisories
 `TABLE_NO_ROWS`, `TABLE_RAGGED`, `TABLE_LABEL_MISMATCH`, `TABLE_OVER_CAPACITY`; and
 `UNPREFIXED_MEMBER` for an unrecognised member with no reverse-DNS prefix
-([Unknown members](#extensions)).
+([Unknown members](#extensions)); and `SUBMISSION_URL_UNSUPPORTED` for a
+submission entry of a scheme this document does not define ([Submission targets](#submission)).
 
 Warnings are how an implementation tells a person "this may not be what you
 meant" without ever telling them "you may not write this."
@@ -2359,6 +2403,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] **Never reject, alter, or block a response because of a hint**
 - [ ] Never alter a response on the basis of a hint
 - [ ] Report — never rewrite — hidden characters in every `submissionUrls` entry
+- [ ] Deliver only by a single `PUT` to an `https` entry or an attachment to a `mailto` entry, on an explicit user action, never following a redirect
 - [ ] Preserve every response byte-for-byte across a round-trip
 - [ ] Produce identical semantic models from paired JSONC and YAML documents
 - [ ] Preserve attestation records and `expr*` strings even when not implementing them
@@ -2412,10 +2457,7 @@ An honest list of what this baseline does not settle.
    `application/vnd.apr+yaml` and `application/vnd.apr+json-seq` are defined
    ([Document type](#media-types)) but the IANA vendor-tree registration has
    not been filed.
-2. **Submission profiles are deliberately narrow.** `submissionUrls` names
-   explicit choices. Transports beyond an explicit user-initiated HTTPS POST
-   remain out of scope.
-3. **No governance.** A format used by public institutions eventually needs
+2. **No governance.** A format used by public institutions eventually needs
    stewardship that is not a single repository.
 
 ---
@@ -2424,7 +2466,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---
@@ -2442,16 +2484,19 @@ Compliance with this specification requires the editions below.
 | RFC 5234 | Augmented BNF for Syntax Specifications (ABNF), the notation used for the grammars here |
 | RFC 5280 | Internet X.509 Public Key Infrastructure Certificate and CRL Profile |
 | RFC 5652 | Cryptographic Message Syntax (CMS) |
+| RFC 6068 | The 'mailto' URI Scheme |
 | RFC 6838 | Media Type Specifications and Registration Procedures |
 | RFC 6839 | Additional Media Type Structured Syntax Suffixes |
 | RFC 6901 | JavaScript Object Notation (JSON) Pointer |
 | RFC 7464 | JavaScript Object Notation (JSON) Text Sequences |
 | RFC 8259 | The JavaScript Object Notation (JSON) Data Interchange Format |
 | RFC 8785 | JSON Canonicalization Scheme (JCS) |
+| RFC 9110 | HTTP Semantics |
 | RFC 9512 | The application/yaml media type |
 | FIPS 180-4 | Secure Hash Standard, for SHA-256 |
 | FIPS 186-5 | Digital Signature Standard, for ECDSA over the P-256 curve |
 | YAML 1.2.2 | YAML Ain't Markup Language, revision 1.2.2 |
+| S3 pre-signed URL | Amazon S3, *Authenticating Requests: Using Query Parameters (AWS Signature Version 4)*, <https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html> |
 | CEL | Common Expression Language, cel-spec release `v0.25.3`, <https://github.com/cel-expr/cel-spec/releases/tag/v0.25.3> |
 | CEL strings extension | The `strings` extension library of cel-go release `v0.32.0`, <https://github.com/google/cel-go/blob/v0.32.0/ext/README.md#strings> |
 

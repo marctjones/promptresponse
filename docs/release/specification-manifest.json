@@ -6,15 +6,15 @@
     "formatVersion": "1.0-beta.6",
     "status": "BETA \u2014 the format is not frozen and breaking changes are intentional",
     "published": "2026-09-01",
-    "normativeClauses": 184,
-    "ruleIdentifiers": 117,
-    "anchors": 95,
+    "normativeClauses": 192,
+    "ruleIdentifiers": 121,
+    "anchors": 96,
     "executableExamples": 23
   },
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:b633a484596709005ba56aeab3c2050a46b7fdeb7b5b0a0e95fadad345a31c31"
+      "sha256": "sha256:1be37377145b1b908118e7e204c40785dba29f477d16f7bf83170f27c3caa738"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
@@ -30,7 +30,7 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:9885c6a449f6384e6ae2303ab4c5e8c87d0a1361b24281b921f0502a89f62f29"
+      "sha256": "sha256:4aa0800530dc910e17a1b719a3c643bfe39d7452013726dcbe1c3f2bab1b6260"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
