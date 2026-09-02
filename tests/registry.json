@@ -15,7 +15,7 @@
     "indirect": "Covered only through another component, not at this rule's own level.",
     "external": "Gated by a third-party suite this project does not maintain.",
     "none": "No test would fail if the rule were broken.",
-    "informative": "Not a testable rule \u2014 definitional or explanatory text."
+    "informative": "Not a testable rule — definitional or explanatory text."
   },
   "dimensions": {
     "completeness": "Does the component do everything it claims?",
@@ -171,7 +171,7 @@
         "correctness": "gated",
         "robustness": "partial"
       },
-      "notes": "The suite had deep per-command coverage and a driver that activates every control, but nothing carried a task from beginning to end. These author a template, fill one, edit a saved form, build and fill a table, undo/redo a whole session, fill one party\u2019s share of a multi-party form, walk the wizard, and export a fillable PDF. Partial on completeness: signing and PDF import journeys are still covered only per command."
+      "notes": "The suite had deep per-command coverage and a driver that activates every control, but nothing carried a task from beginning to end. These author a template, fill one, edit a saved form, build and fill a table, undo/redo a whole session, fill one party’s share of a multi-party form, walk the wizard, and export a fillable PDF. Partial on completeness: signing and PDF import journeys are still covered only per command."
     },
     {
       "id": "sdk.python",
@@ -605,6 +605,18 @@
         "APR-EXPR-001",
         "APR-EXPR-002",
         "APR-EXPR-003"
+      ]
+    },
+    {
+      "id": "REQ-expr-language",
+      "section": "expr-language",
+      "statement": "Expressions are CEL as cel-spec v0.25.3 defines it, with the standard library, standard macros and the cel-go v0.32.0 strings extension, and nothing else",
+      "strength": "external",
+      "gates": [],
+      "gap": "Language conformance is the cel-spec v0.25.3 conformance suite, which this project does not maintain. No vector yet asserts that a function outside the pinned surface fails to the per-hint fallback.",
+      "rules": [
+        "APR-EXPR-012",
+        "APR-EXPR-013"
       ]
     },
     {

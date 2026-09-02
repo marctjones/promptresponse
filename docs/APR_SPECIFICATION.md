@@ -1800,10 +1800,27 @@ CEL is non-Turing-complete, terminates by construction, and has no I/O or host
 access, which is why it is safe to evaluate on a document from an untrusted
 sender.
 
-> Decision (beta.6): this baseline does not pin a CEL language or library
-> version, and defines no custom functions. Two implementations may therefore
-> differ on expressions using recent or optional CEL surface. Pinning a version
-> requires evidence that every implementation can conform to it.
+The language is **cel-spec release `v0.25.3`**: its language definition, its
+standard library, and its standard macros. An implementation claiming
+`core+expressions` **MUST** evaluate expressions as that release specifies and
+**MUST** pass that release's conformance suite for the surface it exposes. [APR-EXPR-012]
+
+The only library beyond the standard library is the **CEL strings extension**,
+as defined by cel-go release `v0.32.0`. An implementation **MUST** provide the
+standard library, the standard macros, and the strings extension, and **MUST
+NOT** provide any other extension library or custom function. An expression
+naming a function outside that surface is an evaluation failure, and the
+per-hint fallback applies ([Results and fallback](#expr-fallback)). [APR-EXPR-013]
+
+> Rationale: without a pin, a function that did not exist when a form was written
+> is neither clearly valid nor clearly invalid, and two conforming readers may
+> evaluate the same form to different values. Pinning the specification release
+> rather than a library means the four implementations may each track their own
+> language's library, provided each conforms to the same definition. The strings
+> extension is admitted because trimming, splitting and case-folding are what
+> form authors reach for first; it is defined by cel-go rather than cel-spec, so
+> it is pinned there. A later baseline moves the pin deliberately, as a
+> behavioural change.
 
 ### 11.4 Activation {#expr-activation}
 
@@ -2265,6 +2282,8 @@ also satisfy `core+streams`:
 
 An implementation additionally claiming **`core+expressions`** MUST:
 
+- [ ] Evaluate CEL as cel-spec `v0.25.3` defines it, and pass that release's conformance suite
+- [ ] Provide the standard library, standard macros and the strings extension, and nothing else
 - [ ] Bind each response by its prompt's declared type
 - [ ] Treat an unconvertible or blank typed response as unbound, never as a default
 - [ ] Supply `_this`, `_id`, `_now`, `_today` and `ctx`, and let no prompt id shadow them
@@ -2284,19 +2303,17 @@ An honest list of what this baseline does not settle.
    safe, but nothing coordinates *who* may add which member name. A reserved
    prefix or a registry is needed before independent parties extend the format.
    The interim naming recommendation is in [Unknown members](#extensions).
-2. **No pinned CEL version.** The language is CEL, but no exact language or
-   library version is named, so expression portability is not yet guaranteed.
-3. **Media types unregistered.** `application/vnd.apr+json` has not been filed
+2. **Media types unregistered.** `application/vnd.apr+json` has not been filed
    with IANA, and no media type is defined for APR-YAML.
-4. **Structural members are still strings.** The recorded intent is that a
+3. **Structural members are still strings.** The recorded intent is that a
    structural member may use the JSON type that fits it; the schema has not
    changed.
-5. **Submission profiles are deliberately narrow.** `submissionUrls` names
+4. **Submission profiles are deliberately narrow.** `submissionUrls` names
    explicit choices. Transports beyond an explicit user-initiated HTTPS POST
    remain out of scope.
-6. **No governance.** A format used by public institutions eventually needs
+5. **No governance.** A format used by public institutions eventually needs
    stewardship that is not a single repository.
-7. **Attachments** have no representation. A `file` hint stores a reference, and
+6. **Attachments** have no representation. A `file` hint stores a reference, and
    what it references is undefined.
 
 ---
@@ -2330,9 +2347,10 @@ Compliance with this specification requires the editions below.
 | FIPS 180-4 | Secure Hash Standard, for SHA-256 |
 | FIPS 186-5 | Digital Signature Standard, for ECDSA over the P-256 curve |
 | YAML 1.2.2 | YAML Ain't Markup Language, revision 1.2.2 |
-| CEL | Common Expression Language, as published at <https://github.com/google/cel-spec> |
+| CEL | Common Expression Language, cel-spec release `v0.25.3`, <https://github.com/cel-expr/cel-spec/releases/tag/v0.25.3> |
+| CEL strings extension | The `strings` extension library of cel-go release `v0.32.0`, <https://github.com/google/cel-go/blob/v0.32.0/ext/README.md#strings> |
 
-The CEL entry is normative for the `core+expressions` profile only.
+The CEL entries are normative for the `core+expressions` profile only.
 
 ## 19. Informative references {#informative-references}
 
