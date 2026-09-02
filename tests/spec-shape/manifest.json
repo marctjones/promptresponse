@@ -190,15 +190,14 @@
       "id": "every-requirement-has-an-identifier",
       "borrowedFrom": "CommonMark example numbers; YAML production numbers",
       "requirement": "Every normative clause carries an append-only [APR-AREA-NNN] identifier, so a test cites a rule rather than a section."
+    },
+    {
+      "id": "schema-agrees-with-the-specification",
+      "borrowedFrom": "APR-specific; neither CommonMark nor YAML has a schema",
+      "requirement": "Every member a specification table documents is declared in the schema with the same requiredness, and every member the schema declares is documented. Checked by scripts/check-schema-agrees.py."
     }
   ],
   "knownShortfalls": [
-    {
-      "id": "schema-not-generated",
-      "issue": 262,
-      "requirement": "The JSON Schema is named a derived projection but is maintained by hand.",
-      "status": "not started"
-    },
     {
       "id": "semantic-review-is-generic",
       "issue": 263,

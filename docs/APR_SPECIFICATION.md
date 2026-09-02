@@ -976,12 +976,21 @@ A form **MUST NOT** carry a `signatures` member. A reader encountering one
 
 ### 5.2 Metadata {#metadata}
 
-`title` is **REQUIRED** and **MUST** contain a non-whitespace character. All
-other scalar members are OPTIONAL strings; timestamps are RFC 3339. [APR-MODEL-007]
+| Member | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `title` | non-blank string | **Yes** | The form's name. |
+| `description` | string | No | Prose about the form as a whole. |
+| `created` | date-time | No | RFC 3339. |
+| `modified` | date-time | No | RFC 3339. |
+| `author` | string | No | A person. |
+| `publisher` | string | No | The organization standing behind the form. |
+| `templateId` | string | No | Required on a `filledForm`; identifies the template it answers. |
+| `templateVersion` | string | No | The template revision answered. |
+| `filledBy` | string | No | Who supplied the responses. |
+| `filledDate` | date-time | No | RFC 3339. |
+| `submissionUrls` | array of string | No | Ordered explicit delivery choices. |
 
-`created`, `modified`, `author` (a person), `publisher` (the organization
-standing behind the form), `templateId`, `templateVersion`, `filledBy`,
-`filledDate`, `submissionUrls`.
+`title` **MUST** contain a non-whitespace character. [APR-MODEL-007]
 
 `submissionUrls`, when present, is an ordered array of strings. Even one delivery
 choice is represented as a one-element array; a scalar `submissionUrl` is not
@@ -1163,9 +1172,21 @@ levels deep are difficult to navigate with any input method. [APR-MODEL-017]
 
 All OPTIONAL, all advisory ([Hints never enforce](#hints-advisory)).
 
-`placeholder`, `expectedDataType`, `suggestedValues`, `helpText`,
-`validationPattern`, the bounds family `min`, `max`, `step`, and the `expr*`
-family ([Expressions](#expressions)).
+| Member | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `placeholder` | string | No | Text shown in an empty control. Never a substitute for `label`. |
+| `expectedDataType` | string | No | Suggested input affordance. Open registry; see below. |
+| `suggestedValues` | array of string | No | Offered as options. A response outside the list is still valid. |
+| `helpText` | string | No | Explanatory text for the prompt. |
+| `validationPattern` | string | No | Advisory regular expression. |
+| `min` | string | No | Suggested lower bound for an ordered field. |
+| `max` | string | No | Suggested upper bound for an ordered field. |
+| `step` | string | No | Suggested increment for an ordered field. |
+| `exprHidden` | string | No | CEL. Truthy hides this prompt ([Expressions](#expressions)). |
+| `exprValue` | string | No | CEL. Computed value. |
+| `exprExpected` | string | No | CEL. Truthy marks the prompt as expected. |
+| `exprValidation` | string | No | CEL. Returns a message; empty means valid. |
+| `exprReadOnly` | string | No | CEL. Truthy makes this prompt read-only in a renderer. |
 
 `expectedDataType` registry: `text`, `multiline`, `email`, `phone`, `url`,
 `date`, `time`, `datetime`, `number`, `currency`, `boolean`, `select`,
@@ -1886,19 +1907,19 @@ anything.
 }
 ```
 
-| Member | Required | Type | Domain |
+| Member | Type | Required | Domain |
 | --- | --- | --- | --- |
-| `recordType` | **Yes** | string | **MUST** be `attestation`. [APR-ATTEST-001] |
-| `version` | **Yes** | string | **MUST** be `1.0-beta.6`. [APR-ATTEST-002] |
-| `subject` | **Yes** | object | `digest` and `canonicalization`, no other members. |
-| `subject.digest` | **Yes** | string | `sha256:` and 64 lowercase hex characters. |
-| `subject.canonicalization` | **Yes** | string | **MUST** be `jcs-sha256`. [APR-ATTEST-003] |
-| `scope` | **Yes** | object | `document` or `fields` form. |
-| `manifest` | **Yes** | object | `root` and `entries`, no other members. |
-| `manifest.root` | **Yes** | string | Digest of the subject form. |
-| `manifest.entries` | **Yes** | array | Entries of `path` and `digest`, no other members. |
-| `proofs` | **Yes** | array | Entries of `type` and `value`. May be empty. |
-| `witnesses` | **Yes** | array | Unique digests of earlier envelopes. May be empty. |
+| `recordType` | string | **Yes** | **MUST** be `attestation`. [APR-ATTEST-001] |
+| `version` | string | **Yes** | **MUST** be `1.0-beta.6`. [APR-ATTEST-002] |
+| `subject` | object | **Yes** | `digest` and `canonicalization`, no other members. |
+| `subject.digest` | string | **Yes** | `sha256:` and 64 lowercase hex characters. |
+| `subject.canonicalization` | string | **Yes** | **MUST** be `jcs-sha256`. [APR-ATTEST-003] |
+| `scope` | object | **Yes** | `document` or `fields` form. |
+| `manifest` | object | **Yes** | `root` and `entries`, no other members. |
+| `manifest.root` | string | **Yes** | Digest of the subject form. |
+| `manifest.entries` | array | **Yes** | Entries of `path` and `digest`, no other members. |
+| `proofs` | array | **Yes** | Entries of `type` and `value`. May be empty. |
+| `witnesses` | array | **Yes** | Unique digests of earlier envelopes. May be empty. |
 
 `subject`, `scope`, `manifest`, and their entries admit no additional members. An
 attestation record itself **MAY** carry extension members, which round-trip. [APR-ATTEST-004]

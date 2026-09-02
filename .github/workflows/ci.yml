@@ -148,6 +148,12 @@ jobs:
         # have an entry.
         run: python3 scripts/check-test-registry.py
 
+      - name: Verify the schema agrees with the specification
+        # The specification is normative and the schema is a derived projection of
+        # it. Every documented member must be declared and every declared member
+        # documented, so the two cannot drift apart unnoticed.
+        run: python3 scripts/check-schema-agrees.py
+
       - name: Verify the specification has its declared shape
         # tests/spec-shape/manifest.json records the structural properties borrowed
         # from CommonMark, YAML 1.2.2 and RFC 8259. This checks them, so "written
