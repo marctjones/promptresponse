@@ -27,6 +27,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SPEC = ROOT / "docs" / "APR_SPECIFICATION.md"
 BASE = ROOT / "schemas" / "apr-1.0.schema.json"
 BETA = ROOT / "schemas" / "apr-1.0-beta.6.schema.json"
+TYPES = ROOT / "schemas" / "apr-types-1.0.json"
 
 HEADING = re.compile(r"^#{2,4}\s+.*\{#([a-z0-9-]+)\}\s*$")
 MEMBER = re.compile(r"^\|\s*`([A-Za-z0-9_.]+)`\s*\|([^|]*)\|([^|]*)\|")
@@ -107,6 +108,51 @@ def schema_members() -> tuple[dict[str, dict[str, bool]], dict[str, set[str]]]:
     return out, forbidden
 
 
+def check_type_registry(spec_text: str, hints: dict[str, bool], problems: list[str]) -> dict:
+    """The published type vocabulary is a projection of the registry section."""
+    types = json.loads(TYPES.read_text(encoding="utf-8"))
+    summary: dict = {}
+
+    # The registry section names the registered values in one sentence.
+    match = re.search(
+        r"`expectedDataType` registry: (.+?)\n\n", spec_text, re.DOTALL
+    )
+    documented = set(re.findall(r"`([a-z]+)`", match.group(1))) if match else set()
+    published = {entry["id"] for entry in types["expectedDataType"]["types"]}
+    summary["documentedTypes"] = len(documented)
+    summary["publishedTypes"] = len(published)
+
+    for name in sorted(documented - published):
+        problems.append(f"type registry: the specification registers `{name}` and the file omits it")
+    for name in sorted(published - documented):
+        problems.append(f"type registry: the file publishes `{name}` and the specification does not register it")
+
+    # Every hint a type calls meaningful must be a hint the specification declares.
+    for entry in types["expectedDataType"]["types"]:
+        for hint in entry.get("meaningfulHints", []):
+            if hint not in hints:
+                problems.append(
+                    f"type registry: `{entry['id']}` names hint `{hint}`, which no specification table declares")
+
+    # The published format version must be the one the specification describes.
+    declared = re.search(r"\*\*Describes format version:\*\* `([^`]+)`", spec_text)
+    if declared and types.get("formatVersion") != declared.group(1):
+        problems.append(
+            f"type registry: publishes formatVersion {types.get('formatVersion')!r}, "
+            f"specification describes {declared.group(1)!r}")
+
+    # An enumeration for a retired member is drift.
+    retired_enums = sorted(
+        key for key in types.get("enumeratedValues", {})
+        if key.split(".")[0] in {"signature", "signer"}
+    )
+    for key in retired_enums:
+        problems.append(
+            f"type registry: enumerates `{key}`, which beta.6 retired with embedded signatures")
+    summary["retiredEnumerations"] = retired_enums
+    return summary
+
+
 def main() -> int:
     spec = spec_members()
     schema, forbidden = schema_members()
@@ -150,6 +196,8 @@ def main() -> int:
             problems.append(
                 f"the schema forbids `{name}` and the specification never mentions it")
 
+    types_summary = check_type_registry(spec_text, spec.get("hints-object", {}), problems)
+
     if "--json" in sys.argv:
         print(json.dumps({"tables": [
             {"anchor": a, "specMembers": s, "schemaMembers": c} for a, s, c in rows
@@ -167,6 +215,8 @@ def main() -> int:
         return 1
     print(f"\n  prohibited members, each explained in the specification: "
           f"{', '.join(prohibitions) or 'none'}")
+    print(f"  type registry: {types_summary['publishedTypes']} published, "
+          f"{types_summary['documentedTypes']} registered in the specification")
     print("\nEvery documented member is declared, and every declared member is documented.")
     return 0
 

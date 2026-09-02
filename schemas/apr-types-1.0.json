@@ -1,6 +1,6 @@
 {
-  "$comment": "The vocabulary of the APR format: every registered expectedDataType and every enumerated attribute value, in one machine-readable place. Previously these facts lived in five: the JSON Schema's examples, specification 4.7, 4.9 and 8.2.1, and CelBinding.cs. Anything stated in more than one place can disagree with itself, which this project has had to fix twice already - once as a security hole.",
-  "formatVersion": "1.0-beta",
+  "$comment": "GENERATED-ADJACENT: a derived projection of the APR specification's type registry and enumerated value domains. The specification is normative; where the two disagree this file has the defect. Checked by scripts/check-schema-agrees.py.",
+  "formatVersion": "1.0-beta.6",
   "specification": "docs/APR_SPECIFICATION.md",
   "expectedDataType": {
     "$comment": "An OPEN registry (specification 4.7). An unrecognised value MUST degrade to a text field rather than error - that is what lets this list grow without breaking existing readers. Every hint here is advisory: it never constrains what may be stored, only how a renderer presents the field, what it writes when it controls the value, and what the expression profile can compute with.",
@@ -289,24 +289,6 @@
       ],
       "default": "absent, meaning authored",
       "notes": "Distinguishes a stale computed value from a correction someone typed (specification 8.6)."
-    },
-    "signature.role": {
-      "values": [
-        "publisher",
-        "filler"
-      ]
-    },
-    "signature.scope": {
-      "values": [
-        "template",
-        "fields"
-      ]
-    },
-    "signature.canonicalization": {
-      "values": [
-        "apr-sig-v3"
-      ],
-      "notes": "v2 is retired: it bound a filler to their answer without binding the question, so rewriting the question left the signature valid."
     },
     "section.role": {
       "values": "open",

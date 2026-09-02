@@ -194,7 +194,7 @@
     {
       "id": "schema-agrees-with-the-specification",
       "borrowedFrom": "APR-specific; neither CommonMark nor YAML has a schema",
-      "requirement": "Every member a specification table documents is declared in the schema with the same requiredness, and every member the schema declares is documented. Checked by scripts/check-schema-agrees.py."
+      "requirement": "Every member a specification table documents is declared in the schema with the same requiredness, every member the schema declares is documented, every member the schema forbids is explained, and the published type registry matches the specification's registered types, hint names and format version. Checked by scripts/check-schema-agrees.py."
     }
   ],
   "knownShortfalls": [
