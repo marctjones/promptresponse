@@ -661,7 +661,7 @@
     {
       "id": "REQ-extensions-roundtrip",
       "section": "extensions",
-      "statement": "Unknown members round-trip and enter whole-document digests",
+      "statement": "Unknown members round-trip and enter whole-document digests; unprefixed names are reserved, extensions carry a reverse-DNS prefix",
       "strength": "gated",
       "gates": [
         {
@@ -676,7 +676,8 @@
       "rules": [
         "APR-MODEL-020",
         "APR-MODEL-021",
-        "APR-MODEL-029"
+        "APR-MODEL-029",
+        "APR-MODEL-031"
       ]
     },
     {

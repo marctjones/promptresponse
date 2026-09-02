@@ -232,8 +232,9 @@ envelope, recording that its signer saw that assertion.
 **profile** — an optional conformance capability an implementation may claim.
 Optional to claim; binding once claimed.
 
-**extension member** — a member APR does not define, carried by a document and
-preserved across a round trip.
+**extension member** — a member APR does not define, named with a reverse-DNS
+prefix by the producer that owns it, carried by a document and preserved across
+a round trip ([Unknown members](#extensions)).
 
 **non-blank string** — a string containing at least one non-whitespace
 character. A whitespace-only string is treated as absent.
@@ -1371,15 +1372,41 @@ a common source of "my field vanished" reports.
 Extension members participate in whole-document digests ([Digests](#digests)),
 so an attestation over a form covers them.
 
-Nothing reserves an extension member name, and no registry mediates a collision
-between two producers who choose the same one. A producer **SHOULD** therefore
-name extension members distinctively, by reverse-DNS or vendor prefix, so that an
-accidental collision is unlikely. [APR-MODEL-029]
+**Unprefixed names belong to the specification.** Every member this document
+defines is unprefixed, and every member a later version of APR adds will be.
+A producer **MUST NOT** add a member whose name carries no prefix. [APR-MODEL-031]
 
-> Rationale: two vendors choosing the same member name produce documents that
-> round-trip correctly and mean different things. This baseline accepts that risk
-> rather than standing up governance for a format with no public release, and
-> says so in [Open questions](#open-questions) rather than leaving it implied.
+**An extension member is named by its owner.** An extension member name
+**MUST** begin with a reverse-DNS prefix owned by the producer, followed by a
+dot: `com.example.priority`, `gov.ct.dmv.routing`. A reader identifies an
+extension member by the dot in its name. A validator **MAY** report an
+unrecognised undotted member as `UNPREFIXED_MEMBER`; it **MUST NOT** reject
+the document, and **MUST** still preserve the member
+([Warnings](#warnings)). [APR-MODEL-029]
+
+> Rationale: two producers choosing the same member name produce documents that
+> round-trip correctly and mean different things, and a format that cannot add
+> a member without colliding with somebody's private one cannot grow. Reserving
+> the unprefixed space and requiring an owned prefix for everything else closes
+> both problems without a registry, which is what OpenAPI's `x-` and reverse-DNS
+> naming in Java and Apple platforms do. A domain is the one namespace every
+> producer already owns, so no one has to run anything.
+
+```apr-example
+id: extension-member-prefixed
+rule: extensions
+representation: jsonc
+expect: valid
+---
+{
+  "version": "1.0-beta.6",
+  "metadata": { "title": "Extended", "com.example.routing": "desk-4" },
+  "sections": [
+    { "id": "s", "title": "S",
+      "prompts": [ { "id": "p", "label": "P", "com.example.priority": 2 } ] }
+  ]
+}
+```
 
 #### 5.9.1 Retired members are the exception {#retired-members}
 
@@ -1567,7 +1594,9 @@ A response contradicting `expectedDataType`; a response not matching
 `validationPattern`; a response outside `suggestedValues` or the bounds family; a
 blank response the workflow may consider required; text advisories
 ([Text handling](#text-handling)); an undeclared role; and the table advisories
-`TABLE_NO_ROWS`, `TABLE_RAGGED`, `TABLE_LABEL_MISMATCH`, `TABLE_OVER_CAPACITY`.
+`TABLE_NO_ROWS`, `TABLE_RAGGED`, `TABLE_LABEL_MISMATCH`, `TABLE_OVER_CAPACITY`; and
+`UNPREFIXED_MEMBER` for an unrecognised member with no reverse-DNS prefix
+([Unknown members](#extensions)).
 
 Warnings are how an implementation tells a person "this may not be what you
 meant" without ever telling them "you may not write this."
@@ -2296,6 +2325,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Require `templateId` on a filled form
 - [ ] Support at least 16 levels of section nesting
 - [ ] Ignore unknown members without rejecting them, and preserve them on write
+- [ ] Name every extension member with an owned reverse-DNS prefix; add no unprefixed member
 - [ ] Drop retired members rather than preserving them
 - [ ] Degrade an unrecognized `expectedDataType` to text
 - [ ] Treat `signature` and `file` as unregistered types; never present a signature widget as evidence
@@ -2351,16 +2381,12 @@ An implementation additionally claiming **`core+expressions`** MUST:
 
 An honest list of what this baseline does not settle.
 
-1. **No registry for extension members.** Preservation makes additive change
-   safe, but nothing coordinates *who* may add which member name. A reserved
-   prefix or a registry is needed before independent parties extend the format.
-   The interim naming recommendation is in [Unknown members](#extensions).
-2. **Media types unregistered.** `application/vnd.apr+json` has not been filed
+1. **Media types unregistered.** `application/vnd.apr+json` has not been filed
    with IANA, and no media type is defined for APR-YAML.
-3. **Submission profiles are deliberately narrow.** `submissionUrls` names
+2. **Submission profiles are deliberately narrow.** `submissionUrls` names
    explicit choices. Transports beyond an explicit user-initiated HTTPS POST
    remain out of scope.
-4. **No governance.** A format used by public institutions eventually needs
+3. **No governance.** A format used by public institutions eventually needs
    stewardship that is not a single repository.
 
 ---
@@ -2369,7 +2395,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

@@ -3,6 +3,13 @@
   "formatVersion": "1.0-beta.6",
   "examples": [
     {
+      "id": "extension-member-prefixed",
+      "rule": "extensions",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Extended\", \"com.example.routing\": \"desk-4\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"com.example.priority\": 2 } ] }\n  ]\n}\n"
+    },
+    {
       "id": "jsonc-comment-inside-string",
       "rule": "apr-jsonc",
       "representation": "jsonc",
