@@ -323,7 +323,29 @@
           "ref": "desktop.unit"
         }
       ],
-      "gap": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule."
+      "gap": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule.",
+      "rules": [
+        "APR-VAL-002"
+      ]
+    },
+    {
+      "id": "REQ-any-string",
+      "section": "any-string",
+      "statement": "Any string is a valid response, whatever the hint asked for",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "test_any_text_is_a_valid_response_whatever_the_hint_asked_for"
+        },
+        {
+          "type": "test",
+          "ref": "RealFile_ResponsesAreAlwaysStrings"
+        }
+      ],
+      "rules": [
+        "APR-MODEL-002"
+      ]
     },
     {
       "id": "REQ-attestation-members",
@@ -343,6 +365,12 @@
           "type": "test",
           "ref": "FieldsScope_MustCarryPromptResponseAndSectionContext"
         }
+      ],
+      "rules": [
+        "APR-ATTEST-001",
+        "APR-ATTEST-002",
+        "APR-ATTEST-003",
+        "APR-ATTEST-004"
       ]
     },
     {
@@ -359,6 +387,10 @@
           "type": "test",
           "ref": "FieldsScope_MustCarryPromptResponseAndSectionContext"
         }
+      ],
+      "rules": [
+        "APR-ATTEST-005",
+        "APR-ATTEST-006"
       ]
     },
     {
@@ -371,6 +403,14 @@
           "type": "test",
           "ref": "test_inspector_reports_visually_deceptive_characters_without_changing_text"
         }
+      ],
+      "rules": [
+        "APR-TEXT-005",
+        "APR-TEXT-006",
+        "APR-TEXT-007",
+        "APR-TEXT-008",
+        "APR-TEXT-009",
+        "APR-TEXT-010"
       ]
     },
     {
@@ -384,7 +424,10 @@
           "ref": "test_unicode_security_values_are_preserved_and_advised"
         }
       ],
-      "gap": "Filled-data tolerance is gated; the authoring-strictness half is gated separately."
+      "gap": "Filled-data tolerance is gated; the authoring-strictness half is gated separately.",
+      "rules": [
+        "APR-TEXT-002"
+      ]
     },
     {
       "id": "REQ-beta6-only",
@@ -400,6 +443,9 @@
           "type": "test",
           "ref": "test_beta6_rejects_retired_embedded_signatures"
         }
+      ],
+      "rules": [
+        "APR-MODEL-022"
       ]
     },
     {
@@ -416,6 +462,9 @@
           "type": "test",
           "ref": "test_beta6_changed_copied_form_does_not_inherit_an_attestation"
         }
+      ],
+      "rules": [
+        "APR-ATTEST-009"
       ]
     },
     {
@@ -436,6 +485,10 @@
           "type": "test",
           "ref": "Manifest_ContainsRootAndNonPlaintextLeafDigest"
         }
+      ],
+      "rules": [
+        "APR-DIGEST-001",
+        "APR-DIGEST-002"
       ]
     },
     {
@@ -448,6 +501,9 @@
           "type": "suite",
           "ref": "pdf"
         }
+      ],
+      "rules": [
+        "APR-RENDER-009"
       ]
     },
     {
@@ -465,7 +521,26 @@
           "ref": "EveryRegisteredType_TypeChecksAsTheRegistryDeclares"
         }
       ],
-      "gap": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
+      "gap": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects.",
+      "rules": [
+        "APR-EXPR-004",
+        "APR-EXPR-005"
+      ]
+    },
+    {
+      "id": "REQ-expr-authoring",
+      "section": "expr-authoring",
+      "statement": "Expressions are type-checked at authoring time",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "Check_ReportsTypeErrorsAtAuthoringTime"
+        }
+      ],
+      "rules": [
+        "APR-EXPR-010"
+      ]
     },
     {
       "id": "REQ-expr-computed",
@@ -489,6 +564,10 @@
           "type": "test",
           "ref": "test_cel_binding_computes_typed_value_without_overwriting_correction"
         }
+      ],
+      "rules": [
+        "APR-EXPR-008",
+        "APR-EXPR-009"
       ]
     },
     {
@@ -502,7 +581,10 @@
           "ref": "core.unit"
         }
       ],
-      "gap": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector."
+      "gap": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector.",
+      "rules": [
+        "APR-EXPR-007"
+      ]
     },
     {
       "id": "REQ-expr-invariants",
@@ -518,6 +600,11 @@
           "type": "test",
           "ref": "RecomputeComputedValues_LeavesAnAnswerAloneWhenTheExpressionFails"
         }
+      ],
+      "rules": [
+        "APR-EXPR-001",
+        "APR-EXPR-002",
+        "APR-EXPR-003"
       ]
     },
     {
@@ -535,7 +622,10 @@
           "ref": "FreeTextInATypedField_DoesNotBind_AndTheExpressionDegrades"
         }
       ],
-      "gap": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit."
+      "gap": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit.",
+      "rules": [
+        "APR-EXPR-011"
+      ]
     },
     {
       "id": "REQ-expr-unbound",
@@ -551,6 +641,9 @@
           "type": "test",
           "ref": "FreeTextInATypedField_DoesNotBind_AndTheExpressionDegrades"
         }
+      ],
+      "rules": [
+        "APR-EXPR-006"
       ]
     },
     {
@@ -567,6 +660,11 @@
           "type": "test",
           "ref": "RealFile_RoundTripsWithoutDrift"
         }
+      ],
+      "rules": [
+        "APR-MODEL-020",
+        "APR-MODEL-021",
+        "APR-MODEL-029"
       ]
     },
     {
@@ -583,6 +681,10 @@
           "type": "test",
           "ref": "test_an_odd_but_harmless_character_is_left_alone_in_a_response"
         }
+      ],
+      "rules": [
+        "APR-TEXT-003",
+        "APR-TEXT-004"
       ]
     },
     {
@@ -603,6 +705,9 @@
           "type": "test",
           "ref": "RealFile_Validates"
         }
+      ],
+      "rules": [
+        "APR-REP-014"
       ]
     },
     {
@@ -616,7 +721,11 @@
           "ref": "schema.gate"
         }
       ],
-      "gap": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text."
+      "gap": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text.",
+      "rules": [
+        "APR-MODEL-018",
+        "APR-MODEL-019"
+      ]
     },
     {
       "id": "REQ-hints-advisory",
@@ -633,7 +742,11 @@
           "ref": "core.unit"
         }
       ],
-      "gap": "Advisory behavior is gated in client tests; no beta.6 corpus vector asserts it."
+      "gap": "Advisory behavior is gated in client tests; no beta.6 corpus vector asserts it.",
+      "rules": [
+        "APR-MODEL-003",
+        "APR-MODEL-004"
+      ]
     },
     {
       "id": "REQ-jsonc-grammar",
@@ -653,6 +766,10 @@
           "type": "test",
           "ref": "test_beta6_rejects_duplicate_jsonc_members"
         }
+      ],
+      "rules": [
+        "APR-REP-005",
+        "APR-REP-006"
       ]
     },
     {
@@ -673,6 +790,10 @@
           "type": "suite",
           "ref": "schema.gate"
         }
+      ],
+      "rules": [
+        "APR-MODEL-007",
+        "APR-MODEL-008"
       ]
     },
     {
@@ -693,6 +814,9 @@
           "type": "test",
           "ref": "RealFile_RoundTripsWithoutDrift"
         }
+      ],
+      "rules": [
+        "APR-REP-001"
       ]
     },
     {
@@ -705,6 +829,11 @@
           "type": "test",
           "ref": "NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
         }
+      ],
+      "rules": [
+        "APR-MODEL-015",
+        "APR-MODEL-016",
+        "APR-MODEL-017"
       ]
     },
     {
@@ -721,6 +850,11 @@
           "type": "test",
           "ref": "UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm"
         }
+      ],
+      "rules": [
+        "APR-ATTEST-011",
+        "APR-ATTEST-012",
+        "APR-ATTEST-013"
       ]
     },
     {
@@ -734,7 +868,13 @@
           "ref": "RealFile_Validates"
         }
       ],
-      "gap": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus."
+      "gap": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus.",
+      "rules": [
+        "APR-SEC-005",
+        "APR-SEC-006",
+        "APR-SEC-007",
+        "APR-SEC-008"
+      ]
     },
     {
       "id": "REQ-offline-read",
@@ -746,6 +886,11 @@
           "type": "test",
           "ref": "CoreCannotReachTheNetwork_ByConstruction"
         }
+      ],
+      "rules": [
+        "APR-SEC-009",
+        "APR-SEC-010",
+        "APR-SEC-011"
       ]
     },
     {
@@ -758,6 +903,9 @@
           "type": "test",
           "ref": "GetAllPrompts_WalksNestedSectionsInOrder"
         }
+      ],
+      "rules": [
+        "APR-RENDER-008"
       ]
     },
     {
@@ -774,6 +922,9 @@
           "type": "test",
           "ref": "test_beta6_digest_and_unsigned_attestation_resolve_from_shared_corpus"
         }
+      ],
+      "rules": [
+        "APR-CONF-002"
       ]
     },
     {
@@ -787,7 +938,10 @@
           "ref": "Check_ReportsTypeErrorsAtAuthoringTime"
         }
       ],
-      "gap": "Preservation by a core-only reader has no dedicated vector."
+      "gap": "Preservation by a core-only reader has no dedicated vector.",
+      "rules": [
+        "APR-CONF-003"
+      ]
     },
     {
       "id": "REQ-profile-streams",
@@ -803,6 +957,9 @@
           "type": "test",
           "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
         }
+      ],
+      "rules": [
+        "APR-CONF-001"
       ]
     },
     {
@@ -819,6 +976,10 @@
           "type": "suite",
           "ref": "accessibility"
         }
+      ],
+      "rules": [
+        "APR-MODEL-010",
+        "APR-MODEL-011"
       ]
     },
     {
@@ -839,6 +1000,10 @@
           "type": "test",
           "ref": "test_beta6_unsupported_proof_is_unverifiable_not_invalid"
         }
+      ],
+      "rules": [
+        "APR-ATTEST-007",
+        "APR-ATTEST-008"
       ]
     },
     {
@@ -855,6 +1020,15 @@
           "type": "suite",
           "ref": "desktop.unit"
         }
+      ],
+      "rules": [
+        "APR-RENDER-001",
+        "APR-RENDER-002",
+        "APR-RENDER-003",
+        "APR-RENDER-004",
+        "APR-RENDER-005",
+        "APR-RENDER-006",
+        "APR-RENDER-007"
       ]
     },
     {
@@ -875,6 +1049,11 @@
           "type": "test",
           "ref": "EncodingHazards_AreToleratedOrRefusedCleanly"
         }
+      ],
+      "rules": [
+        "APR-REP-002",
+        "APR-REP-003",
+        "APR-REP-004"
       ]
     },
     {
@@ -891,6 +1070,9 @@
           "type": "test",
           "ref": "test_unicode_warning_does_not_make_a_document_invalid"
         }
+      ],
+      "rules": [
+        "APR-TEXT-001"
       ]
     },
     {
@@ -904,7 +1086,10 @@
           "ref": "RealFile_ResponsesAreAlwaysStrings"
         }
       ],
-      "gap": "No beta.6 malformed fixture carries a non-string response."
+      "gap": "No beta.6 malformed fixture carries a non-string response.",
+      "rules": [
+        "APR-MODEL-001"
+      ]
     },
     {
       "id": "REQ-roles",
@@ -920,6 +1105,12 @@
           "type": "test",
           "ref": "test_a_prompt_role_overrides_its_sections"
         }
+      ],
+      "rules": [
+        "APR-MODEL-025",
+        "APR-MODEL-026",
+        "APR-MODEL-027",
+        "APR-MODEL-028"
       ]
     },
     {
@@ -937,7 +1128,10 @@
           "ref": "sdk.python"
         }
       ],
-      "gap": "Role obligations are gated individually by the entries below; no single vector asserts the role table itself."
+      "gap": "Role obligations are gated individually by the entries below; no single vector asserts the role table itself.",
+      "rules": [
+        "APR-CONF-004"
+      ]
     },
     {
       "id": "REQ-root-members",
@@ -953,6 +1147,10 @@
           "type": "test",
           "ref": "RealFile_Parses"
         }
+      ],
+      "rules": [
+        "APR-MODEL-005",
+        "APR-MODEL-006"
       ]
     },
     {
@@ -965,6 +1163,9 @@
           "type": "suite",
           "ref": "schema.gate"
         }
+      ],
+      "rules": [
+        "APR-MODEL-009"
       ]
     },
     {
@@ -993,6 +1194,9 @@
           "type": "test",
           "ref": "test_beta6_shared_jsonc_and_yaml_corpus_are_semantically_equal"
         }
+      ],
+      "rules": [
+        "APR-STREAM-002"
       ]
     },
     {
@@ -1018,7 +1222,26 @@
           "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
         }
       ],
-      "gap": "Mixed-representation stream rejection has no fixture."
+      "gap": "Mixed-representation stream rejection has no fixture.",
+      "rules": [
+        "APR-STREAM-001"
+      ]
+    },
+    {
+      "id": "REQ-table-ragged",
+      "section": "table-ragged",
+      "statement": "A ragged table is advisory, never invalid",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ],
+      "gap": "No beta.6 corpus fixture carries a table, ragged or otherwise.",
+      "rules": [
+        "APR-MODEL-014"
+      ]
     },
     {
       "id": "REQ-tables-structural",
@@ -1031,7 +1254,11 @@
           "ref": "schema.gate"
         }
       ],
-      "gap": "No beta.6 corpus fixture carries a table section."
+      "gap": "No beta.6 corpus fixture carries a table section.",
+      "rules": [
+        "APR-MODEL-012",
+        "APR-MODEL-013"
+      ]
     },
     {
       "id": "REQ-types-are-affordances",
@@ -1047,6 +1274,10 @@
           "type": "test",
           "ref": "test_any_text_is_a_valid_response_whatever_the_hint_asked_for"
         }
+      ],
+      "rules": [
+        "APR-MODEL-023",
+        "APR-MODEL-024"
       ]
     },
     {
@@ -1063,6 +1294,9 @@
           "type": "test",
           "ref": "test_beta6_stream_rewrite_preserves_semantic_extensions_and_cms_subjects"
         }
+      ],
+      "rules": [
+        "APR-SEC-001"
       ]
     },
     {
@@ -1083,6 +1317,9 @@
           "type": "test",
           "ref": "test_a_response_that_is_a_string_of_a_number_is_fine"
         }
+      ],
+      "rules": [
+        "APR-VAL-005"
       ]
     },
     {
@@ -1107,6 +1344,9 @@
           "type": "test",
           "ref": "test_a_section_and_a_prompt_may_share_an_id"
         }
+      ],
+      "rules": [
+        "APR-VAL-001"
       ]
     },
     {
@@ -1120,7 +1360,11 @@
           "ref": "RealFile_IdsAreUniqueWithinTheirNamespace"
         }
       ],
-      "gap": "Id uniqueness is gated. Ragged-table-is-advisory has no beta.6 vector."
+      "gap": "Id uniqueness is gated. Ragged-table-is-advisory has no beta.6 vector.",
+      "rules": [
+        "APR-VAL-003",
+        "APR-VAL-004"
+      ]
     },
     {
       "id": "REQ-verification-vocabulary",
@@ -1152,6 +1396,9 @@
           "type": "test",
           "ref": "test_beta6_changed_copied_form_does_not_inherit_an_attestation"
         }
+      ],
+      "rules": [
+        "APR-ATTEST-010"
       ]
     },
     {
@@ -1168,6 +1415,11 @@
           "type": "suite",
           "ref": "schema.gate"
         }
+      ],
+      "rules": [
+        "APR-SEC-002",
+        "APR-SEC-003",
+        "APR-SEC-004"
       ]
     },
     {
@@ -1184,6 +1436,11 @@
           "type": "test",
           "ref": "Yaml_ReadsTheSameSemanticForm"
         }
+      ],
+      "rules": [
+        "APR-REP-011",
+        "APR-REP-012",
+        "APR-REP-013"
       ]
     },
     {
@@ -1201,7 +1458,13 @@
           "ref": "Writer_RoundTripsAFormThroughYaml"
         }
       ],
-      "gap": "Only anchors have a vector. Tags, merge keys, non-finite numbers, binary, implicit dates and constructors are unexercised."
+      "gap": "Only anchors have a vector. Tags, merge keys, non-finite numbers, binary, implicit dates and constructors are unexercised.",
+      "rules": [
+        "APR-REP-007",
+        "APR-REP-008",
+        "APR-REP-009",
+        "APR-REP-010"
+      ]
     }
   ]
 }

@@ -1265,6 +1265,16 @@ a common source of "my field vanished" reports.
 Extension members participate in whole-document digests ([Digests](#digests)),
 so an attestation over a form covers them.
 
+Nothing reserves an extension member name, and no registry mediates a collision
+between two producers who choose the same one. A producer **SHOULD** therefore
+name extension members distinctively, by reverse-DNS or vendor prefix, so that an
+accidental collision is unlikely. [APR-MODEL-029]
+
+> Rationale: two vendors choosing the same member name produce documents that
+> round-trip correctly and mean different things. This baseline accepts that risk
+> rather than standing up governance for a format with no public release, and
+> says so in [Open questions](#open-questions) rather than leaving it implied.
+
 #### 5.9.1 Retired members are the exception {#retired-members}
 
 Members the specification has **removed** are dropped rather than preserved.
@@ -2181,8 +2191,7 @@ An honest list of what this baseline does not settle.
 1. **No registry for extension members.** Preservation makes additive change
    safe, but nothing coordinates *who* may add which member name. A reserved
    prefix or a registry is needed before independent parties extend the format.
-   In the meantime a producer **SHOULD** name extension members distinctively, by
-   reverse-DNS or vendor prefix. [APR-DOC-001]
+   The interim naming recommendation is in [Unknown members](#extensions).
 2. **No pinned CEL version.** The language is CEL, but no exact language or
    library version is named, so expression portability is not yet guaranteed.
 3. **Media types unregistered.** `application/vnd.apr+json` has not been filed

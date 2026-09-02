@@ -195,6 +195,11 @@
       "id": "schema-agrees-with-the-specification",
       "borrowedFrom": "APR-specific; neither CommonMark nor YAML has a schema",
       "requirement": "Every member a specification table documents is declared in the schema with the same requiredness, every member the schema declares is documented, every member the schema forbids is explained, and the published type registry matches the specification's registered types, hint names and format version. Checked by scripts/check-schema-agrees.py."
+    },
+    {
+      "id": "coverage-is-measured-per-rule",
+      "borrowedFrom": "CommonMark's per-example test results",
+      "requirement": "Every rule identifier is claimed by exactly one registry requirement, so coverage is counted against the rule rather than the section it sits in."
     }
   ],
   "knownShortfalls": [

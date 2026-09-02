@@ -52,7 +52,13 @@ def spec_sections_with_musts():
         heading = re.match(r"^#{2,4} (.+)$", line)
         if heading:
             current = heading.group(1).strip()
-        if current and re.search(r"\*\*(MUST NOT|MUST|REQUIRED|SHALL)\*\*", line):
+        # The full BCP 14 set, matching how rule identifiers are assigned. A
+        # section whose only requirement is a SHOULD or a MAY still states a
+        # requirement, and counting it differently here than there produced
+        # sections that were normative for one check and not the other.
+        if current and re.search(
+            r"\*\*(MUST NOT|MUST|SHALL NOT|SHALL|REQUIRED|SHOULD NOT|SHOULD|MAY)\*\*", line
+        ):
             anchor = re.search(r"\{#([A-Za-z0-9_-]+)\}", current)
             if anchor:
                 sections.add(anchor.group(1))
@@ -156,7 +162,32 @@ def main():
     for anchor in sorted(covered - normative_anchors):
         notes.append(f"registry entry cites #{anchor}, which carries no normative clause")
 
-    # 7. Do not retain IDE-generated empty test scaffolding as apparent coverage.
+    # 7. Coverage is measured per rule, not per section.
+    #
+    # A section can hold six requirements and one vector and still look covered
+    # when the unit is the section. The specification gives every normative clause
+    # a stable identifier so coverage can be counted against the rule instead.
+    rule_ids = re.findall(r"\[(APR-[A-Z]+-\d{3})\]", SPEC.read_text(encoding="utf-8"))
+    claimed: dict[str, list[str]] = {}
+    for req in registry["requirements"]:
+        for rule in req.get("rules", []):
+            claimed.setdefault(rule, []).append(req["id"])
+
+    for rule in sorted(set(rule_ids) - set(claimed)):
+        problems.append(f"rule {rule} is stated in the specification and claimed by no requirement")
+    for rule in sorted(set(claimed) - set(rule_ids)):
+        problems.append(f"registry claims rule {rule}, which the specification does not state")
+    for rule, owners in sorted(claimed.items()):
+        if len(owners) > 1:
+            problems.append(f"rule {rule} is claimed by more than one requirement: {owners}")
+
+    gated_rules = sum(
+        len(req.get("rules", []))
+        for req in registry["requirements"]
+        if req["strength"] == "gated"
+    )
+
+    # 8. Do not retain IDE-generated empty test scaffolding as apparent coverage.
     for placeholder in placeholder_test_files():
         problems.append(f"placeholder test scaffold must be removed — {placeholder.relative_to(ROOT)}")
 
@@ -174,6 +205,9 @@ def main():
             if strength in by_strength:
                 print(f"  {by_strength[strength]:3}  {strength}")
         print(f"\nFixtures on disk: {len(fixtures_on_disk)}  claimed: {len(claimed_fixtures)}")
+        print(f"Rules in the specification: {len(set(rule_ids))}  "
+              f"gated: {gated_rules}  "
+              f"in a partial or ungated requirement: {len(set(rule_ids)) - gated_rules}")
         if notes:
             print(f"\n{len(notes)} note(s):")
             for n in notes:
