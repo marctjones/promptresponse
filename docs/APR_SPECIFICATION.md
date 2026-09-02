@@ -1553,11 +1553,37 @@ Converting a template to a filled form is an explicit act: set `documentType` to
 `filledForm` and record `templateId`. Implementations **SHOULD** prompt for a new
 filename so the blank template is not overwritten. [APR-SEC-008]
 
-The media type `application/vnd.apr+json` is used by convention and is **not**
-IANA-registered. No media type is defined for APR-YAML: YAML has a registered
-type of its own (RFC 9512), but an APR-YAML document is a constrained profile
-rather than arbitrary YAML, and a reader selecting behaviour from that type would
-be wrong about the profile ([Open questions](#open-questions)).
+**Media types.** Where a document travels with a media type, the type names the
+representation, and the `documentType` member remains authoritative for what the
+document is.
+
+| Content | Media type |
+| --- | --- |
+| An APR-JSONC document | `application/vnd.apr+json` |
+| An APR-YAML document or document stream | `application/vnd.apr+yaml` |
+| An APR-JSONC record stream | `application/vnd.apr+json-seq` |
+
+A producer that labels APR content **MUST** use the type above for its
+representation. A reader **MUST NOT** select APR behaviour from the generic
+`application/json`, `application/yaml`, or `application/json-seq` types, and
+**MUST NOT** treat a mismatch between a media type and the content as grounds
+for rejection: the content decides, exactly as for a filename extension. [APR-SEC-012]
+
+The types are in the vendor tree of RFC 6838, with the `+json` (RFC 6839),
+`+yaml` (RFC 9512) and `+json-seq` (RFC 7464) structured syntax suffixes.
+Registration with IANA by Skeptical Engineering is **pending**
+([Open questions](#open-questions)); until it completes the names are a
+declaration of intent that no other party has claimed.
+
+> Rationale: a media type is the name a document carries where a filename does
+> not exist — an HTTP body, an attachment, a share sheet. The `+yaml` suffix
+> answers the concern that YAML's own type would mislead a reader: it says YAML
+> syntax and APR meaning, which is the constrained profile APR-YAML is. The
+> `+json` suffix is a mild stretch, since an APR-JSONC document may carry
+> comments; they are representation trivia removed before the text is JSON
+> ([APR-JSONC](#apr-jsonc)). The product-only name `vnd.apr` rather than a
+> vendor-qualified one is deliberate: a media type is never renamed, and the
+> format is meant to outlive its first steward.
 
 ---
 
@@ -2317,6 +2343,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Reject any `version` other than `1.0-beta.6`
 - [ ] Report `RETIRED_EMBEDDED_SIGNATURES` for a `signatures` member
 - [ ] Treat `documentType` as authoritative; never infer type from a filename
+- [ ] Label APR content with its `vnd.apr` media type; never infer behaviour from a generic one
 - [ ] Require `metadata.title`, section `id` and `title`, prompt `id` and `label`
 - [ ] Enforce document-wide id uniqueness in both namespaces
 - [ ] Require content in every section, tables included
@@ -2381,8 +2408,10 @@ An implementation additionally claiming **`core+expressions`** MUST:
 
 An honest list of what this baseline does not settle.
 
-1. **Media types unregistered.** `application/vnd.apr+json` has not been filed
-   with IANA, and no media type is defined for APR-YAML.
+1. **Media types not yet registered.** `application/vnd.apr+json`,
+   `application/vnd.apr+yaml` and `application/vnd.apr+json-seq` are defined
+   ([Document type](#media-types)) but the IANA vendor-tree registration has
+   not been filed.
 2. **Submission profiles are deliberately narrow.** `submissionUrls` names
    explicit choices. Transports beyond an explicit user-initiated HTTPS POST
    remain out of scope.
@@ -2395,7 +2424,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---
@@ -2413,10 +2442,13 @@ Compliance with this specification requires the editions below.
 | RFC 5234 | Augmented BNF for Syntax Specifications (ABNF), the notation used for the grammars here |
 | RFC 5280 | Internet X.509 Public Key Infrastructure Certificate and CRL Profile |
 | RFC 5652 | Cryptographic Message Syntax (CMS) |
+| RFC 6838 | Media Type Specifications and Registration Procedures |
+| RFC 6839 | Additional Media Type Structured Syntax Suffixes |
 | RFC 6901 | JavaScript Object Notation (JSON) Pointer |
 | RFC 7464 | JavaScript Object Notation (JSON) Text Sequences |
 | RFC 8259 | The JavaScript Object Notation (JSON) Data Interchange Format |
 | RFC 8785 | JSON Canonicalization Scheme (JCS) |
+| RFC 9512 | The application/yaml media type |
 | FIPS 180-4 | Secure Hash Standard, for SHA-256 |
 | FIPS 186-5 | Digital Signature Standard, for ECDSA over the P-256 curve |
 | YAML 1.2.2 | YAML Ain't Markup Language, revision 1.2.2 |
@@ -2432,7 +2464,6 @@ The CEL entries are normative for the `core+expressions` profile only.
 | ISO 8601 | Date and time representations. RFC 3339 is the normative profile used here. |
 | ECMA-404 | The JSON Data Interchange Syntax, the parallel standardization of RFC 8259 |
 | CommonMark | A strongly defined, highly compatible specification of Markdown |
-| RFC 9512 | The application/yaml media type |
 | UTR 36 | Unicode Security Considerations |
 | UTS 39 | Unicode Security Mechanisms |
 

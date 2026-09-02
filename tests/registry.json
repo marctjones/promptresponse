@@ -876,7 +876,7 @@
     {
       "id": "REQ-no-media-type",
       "section": "media-types",
-      "statement": "No registered media type; representation determined by content, not name",
+      "statement": "vnd.apr media types name the representation; representation and document type determined by content, not name",
       "strength": "partial",
       "gates": [
         {
@@ -884,12 +884,13 @@
           "ref": "RealFile_Validates"
         }
       ],
-      "gap": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus.",
+      "gap": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus.",
       "rules": [
         "APR-SEC-005",
         "APR-SEC-006",
         "APR-SEC-007",
-        "APR-SEC-008"
+        "APR-SEC-008",
+        "APR-SEC-012"
       ]
     },
     {
