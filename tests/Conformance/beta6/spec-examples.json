@@ -33,11 +33,19 @@
       "diagnostic": "APR_STREAM_MIXED_REPRESENTATIONS"
     },
     {
+      "id": "structural-member-wrong-type",
+      "rule": "json-subset",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Stringly typed\" },\n  \"sections\": [\n    {\n      \"id\": \"rows\",\n      \"title\": \"Rows\",\n      \"kind\": \"table\",\n      \"canAddRows\": \"true\",\n      \"maxRows\": \"25\",\n      \"sections\": [\n        { \"id\": \"row_1\", \"title\": \"Row 1\",\n          \"prompts\": [ { \"id\": \"row_1.note\", \"label\": \"Note\" } ] }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
       "id": "table-section",
       "rule": "tables",
       "representation": "jsonc",
       "expect": "valid",
-      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": \"true\",\n      \"maxRows\": \"25\",\n      \"sections\": [\n        {\n          \"id\": \"item_1\",\n          \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": true,\n      \"maxRows\": 25,\n      \"sections\": [\n        {\n          \"id\": \"item_1\",\n          \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
       "id": "unregistered-data-type-degrades",

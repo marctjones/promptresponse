@@ -23,6 +23,7 @@ except ImportError:
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BETA6_SCHEMA = ROOT / "schemas" / "apr-1.0-beta.6.schema.json"
+BASE_SCHEMA = ROOT / "schemas" / "apr-1.0.schema.json"
 BETA6_CORPUS = ROOT / "tests" / "Conformance" / "beta6"
 
 
@@ -177,7 +178,15 @@ def main():
     # reference. Give jsonschema the on-disk schema URI so that reference is
     # resolved exactly as it is for external consumers.
     from jsonschema import RefResolver
-    validator = Draft202012Validator(beta_schema, resolver=RefResolver(BETA6_SCHEMA.as_uri(), beta_schema))
+    # The base schema's $id is its published URL. Without a store, the resolver
+    # would fetch that URL and validate against whatever is on the default
+    # branch rather than the file beside this one, so the gate would pass or fail
+    # on the published schema instead of the proposed one.
+    base_schema = json.loads(BASE_SCHEMA.read_text(encoding="utf-8"))
+    store = {base_schema["$id"]: base_schema, beta_schema["$id"]: beta_schema,
+             BASE_SCHEMA.as_uri(): base_schema, BETA6_SCHEMA.as_uri(): beta_schema}
+    validator = Draft202012Validator(
+        beta_schema, resolver=RefResolver(BETA6_SCHEMA.as_uri(), beta_schema, store=store))
     failures = []
     check_real_files(validator, failures)
     check_beta6_examples(validator, failures)

@@ -702,7 +702,7 @@
     {
       "id": "REQ-form-model",
       "section": "json-subset",
-      "statement": "A form is an object of version, documentType, metadata, sections, roles",
+      "statement": "A form is an object of version, documentType, metadata, sections, roles; structural members use native JSON types",
       "strength": "gated",
       "gates": [
         {
@@ -719,7 +719,9 @@
         }
       ],
       "rules": [
-        "APR-REP-014"
+        "APR-REP-014",
+        "APR-REP-015",
+        "APR-REP-016"
       ]
     },
     {

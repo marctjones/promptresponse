@@ -14,7 +14,7 @@
     ] },
     { "id": "observations", "title": "Clinical observations", "role": "nurse", "prompts": [
       { "id": "bp", "label": "Blood pressure", "response": "", "hints": { "expectedDataType": "text" } },
-      { "id": "weight", "label": "Weight (kg)", "response": "", "hints": { "expectedDataType": "number", "min": "0", "max": "400" } },
+      { "id": "weight", "label": "Weight (kg)", "response": "", "hints": { "expectedDataType": "number", "min": 0, "max": 400 } },
       { "id": "symptoms", "label": "Describe your symptoms in your own words", "response": "", "role": "patient", "hints": { "expectedDataType": "multiline" } }
     ] },
     { "id": "office", "title": "For office use only", "role": "office", "prompts": [

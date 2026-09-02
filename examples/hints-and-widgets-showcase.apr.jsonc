@@ -24,7 +24,7 @@
       { "id": "datetime", "label": "Date and time", "response": "", "hints": { "expectedDataType": "datetime", "placeholder": "2026-08-31T14:30:00Z" } },
       { "id": "number", "label": "Number", "response": "", "hints": { "expectedDataType": "number", "placeholder": "42" } },
       { "id": "currency", "label": "Currency", "response": "", "hints": { "expectedDataType": "currency", "placeholder": "123.45" } },
-      { "id": "range", "label": "Range", "response": "", "hints": { "expectedDataType": "range", "min": "1", "max": "10", "step": "1", "helpText": "Bounds are advisory." } },
+      { "id": "range", "label": "Range", "response": "", "hints": { "expectedDataType": "range", "min": 1, "max": 10, "step": 1, "helpText": "Bounds are advisory." } },
       { "id": "color", "label": "Color", "response": "", "hints": { "expectedDataType": "color", "placeholder": "#336699" } }
     ] },
     { "id": "choices_and_attachments", "title": "Choices, signature, and file widgets", "prompts": [

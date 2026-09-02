@@ -736,8 +736,8 @@ expect: valid
       "id": "expenses",
       "title": "Expense line items",
       "kind": "table",
-      "canAddRows": "true",
-      "maxRows": "25",
+      "canAddRows": true,
+      "maxRows": 25,
       "sections": [
         {
           "id": "item_1",
@@ -748,6 +748,32 @@ expect: valid
               "hints": { "expectedDataType": "currency" } }
           ]
         }
+      ]
+    }
+  ]
+}
+```
+
+```apr-example
+id: structural-member-wrong-type
+rule: json-subset
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "version": "1.0-beta.6",
+  "metadata": { "title": "Stringly typed" },
+  "sections": [
+    {
+      "id": "rows",
+      "title": "Rows",
+      "kind": "table",
+      "canAddRows": "true",
+      "maxRows": "25",
+      "sections": [
+        { "id": "row_1", "title": "Row 1",
+          "prompts": [ { "id": "row_1.note", "label": "Note" } ] }
       ]
     }
   ]
@@ -935,19 +961,27 @@ is never a number, boolean, array, or object, whatever the prompt's advisory
 type suggests.
 
 Every other member is **structural**: it describes the form rather than carrying
-what a person typed. Structural members in this baseline are also written as
-strings, including `canAddRows`, `maxRows`, `min`, `max`, and `step`.
+what a person typed. A structural member uses the **JSON type that fits it**,
+natively: a flag is a JSON boolean, a count is a JSON integer, a numeric bound
+is a JSON number, and a name, identifier, or piece of text is a JSON string. A
+writer **MUST** emit each structural member in the type its member table
+declares, and a reader **MUST** report a structural member of another type as
+`WRONG_TYPE` ([Errors](#structural-validation)). `"canAddRows": "true"`
+is not a boolean and `"maxRows": "25"` is not a count. [APR-REP-015]
 
-> Decision (beta.6): structural members remain **strings** in this baseline. The
-> strings-only rule originally applied to the whole document; the recorded intent
-> is narrower — a response is a string because it carries what a person typed,
-> while a structural member that never comes from a person may use the JSON type
-> that fits it, so that a row count is the number `5` rather than the string
-> `"5"`.
->
-> That narrowing is not yet written into the schema, and the corpus follows the
-> schema. This document therefore specifies strings and records the change as
-> pending rather than asserting it ahead of the schema.
+Where JSON has no type for a value, the member is a string in a stated form:
+timestamps are RFC 3339 strings, and a bound on a temporal field is a string in
+that field's canonical write form ([Canonical value forms](#canonical-values)).
+A structural member is never a string *because* it is structural; it is a
+string only when a string is the fitting type. [APR-REP-016]
+
+> Rationale: the strings-only rule once applied to the whole document, and the
+> reason for it never did. A response is a string because it carries what a
+> person typed, and typing produces text. A row count does not come from a
+> person; spelling it `"25"` obliges every reader to parse a number out of a
+> string and to decide what `"25.0"` or `" 25"` mean, which is exactly the class
+> of silent divergence the format exists to remove. Native types give the schema
+> the check and give readers nothing to interpret.
 
 `null` is not an APR value. A writer **MUST NOT** emit it. A reader tolerates it
 in a response position only, coercing it to the empty string; anywhere else it is
@@ -1068,8 +1102,8 @@ form that cannot name the form it completes is not traceable. [APR-MODEL-008]
 | `sections` | array | No | Child sections — recursive. |
 | `prompts` | array | No | |
 | `kind` | string | No | `table` when this section's child sections are repeating instances ([Tables](#tables)). |
-| `canAddRows` | string | No | `"true"` if a filler may add or remove instances. Default fixed. |
-| `maxRows` | string | No | Advisory cap on instance count. |
+| `canAddRows` | boolean | No | `true` if a filler may add or remove instances. Absent means fixed. |
+| `maxRows` | integer | No | Advisory cap on instance count. **MUST** be at least 1. |
 | `role` | string | No | [Roles](#roles) |
 
 A section **MUST** carry content: at least one prompt or at least one child
@@ -1129,8 +1163,8 @@ ordinary prompts. A section becomes a table by carrying `kind: "table"`.
   "id": "expenses",
   "title": "Expense line items",
   "kind": "table",
-  "canAddRows": "true",
-  "maxRows": "25",
+  "canAddRows": true,
+  "maxRows": 25,
   "sections": [
     {
       "id": "item_1",
@@ -1182,7 +1216,7 @@ are dropped on read. [APR-MODEL-013]
 
 #### 5.6.3 Rows and instances {#table-rows}
 
-`canAddRows` is `"true"` when a filler may add or remove instances; absent means
+`canAddRows` is `true` when a filler may add or remove instances; absent means
 fixed.
 
 > Rationale: the default is deliberately restrictive. A fixed table that silently
@@ -1236,9 +1270,9 @@ All OPTIONAL, all advisory ([Hints never enforce](#hints-advisory)).
 | `suggestedValues` | array of string | No | Offered as options. A response outside the list is still valid. |
 | `helpText` | string | No | Explanatory text for the prompt. |
 | `validationPattern` | string | No | Advisory regular expression. |
-| `min` | string | No | Suggested lower bound for an ordered field. |
-| `max` | string | No | Suggested upper bound for an ordered field. |
-| `step` | string | No | Suggested increment for an ordered field. |
+| `min` | number or string | No | Suggested lower bound for an ordered field. A number on `number`, `currency`, and `range`; a canonical-form string on `date`, `time`, and `datetime`. |
+| `max` | number or string | No | Suggested upper bound for an ordered field. Typed as `min`. |
+| `step` | number | No | Suggested increment for an ordered field. Meaningful on `number`, `currency`, and `range`. |
 | `exprHidden` | string | No | CEL. Truthy hides this prompt ([Expressions](#expressions)). |
 | `exprValue` | string | No | CEL. Computed value. |
 | `exprExpected` | string | No | CEL. Truthy marks the prompt as expected. |
@@ -1275,8 +1309,10 @@ intended without changing the type.
 
 **Bounds are an offer, not a limit.** `min`, `max`, and `step` describe the range
 a widget should offer: the ends of a slider, the increment of a spinner. They are
-meaningful only on ordered types. On `date`, `time`, and `datetime`, `min` and
-`max` are the earliest and latest suggested values.
+meaningful only on ordered types. On `number`, `currency`, and `range` they are
+JSON numbers. On `date`, `time`, and `datetime`, `min` and `max` are the earliest
+and latest suggested values, written as strings in that type's canonical form
+([Value types](#json-subset)); `step` has no meaning there.
 
 A response outside them is **still valid**, exactly as for `suggestedValues`. A
 slider that stops at 100 does not make `120` a wrong answer, and a validator
@@ -1500,6 +1536,7 @@ if it has zero errors. Warnings never affect validity.
 | `DUPLICATE_ID` | A section or prompt id repeats within its namespace. |
 | `EMPTY_SECTION` | A section has no prompts and no child sections. |
 | `RETIRED_EMBEDDED_SIGNATURES` | The document carries a `signatures` member. |
+| `WRONG_TYPE` | A structural member is not the JSON type its member table declares ([Value types](#json-subset)). |
 
 This list is exhaustive. **No error may ever arise from the content of a
 response**, and none may ever arise from the state of an attestation
@@ -2233,6 +2270,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 
 - [ ] Parse UTF-8 in both representations; reject malformed input rather than coercing it
 - [ ] Reject a response given as a JSON number or boolean
+- [ ] Reject a structural member given in the wrong JSON type; `canAddRows` is a boolean, `maxRows` an integer
 - [ ] Read a null or absent response as the empty string; never write null
 - [ ] Reject any `version` other than `1.0-beta.6`
 - [ ] Report `RETIRED_EMBEDDED_SIGNATURES` for a `signatures` member
@@ -2305,15 +2343,12 @@ An honest list of what this baseline does not settle.
    The interim naming recommendation is in [Unknown members](#extensions).
 2. **Media types unregistered.** `application/vnd.apr+json` has not been filed
    with IANA, and no media type is defined for APR-YAML.
-3. **Structural members are still strings.** The recorded intent is that a
-   structural member may use the JSON type that fits it; the schema has not
-   changed.
-4. **Submission profiles are deliberately narrow.** `submissionUrls` names
+3. **Submission profiles are deliberately narrow.** `submissionUrls` names
    explicit choices. Transports beyond an explicit user-initiated HTTPS POST
    remain out of scope.
-5. **No governance.** A format used by public institutions eventually needs
+4. **No governance.** A format used by public institutions eventually needs
    stewardship that is not a single repository.
-6. **Attachments** have no representation. A `file` hint stores a reference, and
+5. **Attachments** have no representation. A `file` hint stores a reference, and
    what it references is undefined.
 
 ---
@@ -2322,7 +2357,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---
