@@ -148,6 +148,11 @@ jobs:
         # have an entry.
         run: python3 scripts/check-test-registry.py
 
+      - name: Verify the specification release manifest is current
+        # A published baseline must identify the exact bytes it published, or the
+        # version string names a moving target.
+        run: python3 scripts/build-spec.py
+
       - name: Verify the specification covers its inventories
         # Every concept the registry names, every member the schema declares, and
         # every conformance profile must be accounted for in the prose.

@@ -16,6 +16,7 @@ Read documents by the question you need answered:
 | How do I use it? | [User guide](USER_GUIDE.md) |
 | How do I contribute? | [Development guide](DEVELOPMENT.md) |
 | How are releases built and verified? | [Release documentation](release/) |
+| How is a specification baseline reviewed and released? | [Specification review](release/SPECIFICATION_REVIEW.md) |
 
 ## Authority
 
