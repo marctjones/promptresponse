@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { AprParseError, beta6FormValue, createBeta6Manifest, digestBeta6, readBeta6Form, readBeta6Stream, resolveBeta6Attestations, resolveBeta6AttestationsAsync, verifyBeta6CmsProof, writeBeta6Form, writeBeta6Stream } from "../index.js";
+import { buildExpressionContext, computeValue, AprParseError, beta6FormValue, createBeta6Manifest, digestBeta6, readBeta6Form, readBeta6Stream, resolveBeta6Attestations, resolveBeta6AttestationsAsync, verifyBeta6CmsProof, writeBeta6Form, writeBeta6Stream } from "../index.js";
 import { readFile } from "node:fs/promises";
 
 const form = `{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}`;
@@ -125,4 +125,36 @@ test("beta.6 unsupported proof remains explicitly unverifiable", async () => {
   const document = readBeta6Form(await readFile(new URL("../../../tests/Conformance/beta6/forms/permit.apr.jsonc", import.meta.url), "utf8"), "jsonc");
   const [proof] = readBeta6Stream(await readFile(new URL("../../../tests/Conformance/beta6/attestations/permit.unsupported.attestation.jsonc", import.meta.url), "utf8"), "jsonc");
   assert.equal(resolveBeta6Attestations([{ type: "form", document }, proof!])[0].state, "unverifiable");
+});
+
+test("the expression activation binds every name the specification defines", () => {
+  const document = readBeta6Form(JSON.stringify({
+    version: "1.0-beta.6", metadata: { title: "T" },
+    sections: [{ id: "s", title: "S", prompts: [
+      { id: "echo_id", label: "E", response: "", hints: { exprValue: "_id" } },
+      { id: "echo_today", label: "T", response: "", hints: { exprValue: "_today" } },
+      { id: "echo_ctx", label: "C", response: "", hints: { exprValue: "ctx['team']" } },
+      { id: "echo_this", label: "S", response: "seed", hints: { exprValue: "_this" } },
+    ] }],
+  }), "jsonc");
+  const context = buildExpressionContext(document, "2026-09-01T12:00:00Z", { team: "records" });
+  const value = (id: string) =>
+    computeValue(document.sections[0].prompts.find(p => p.id === id)!, context);
+
+  assert.equal(value("echo_id"), "echo_id");
+  assert.equal(value("echo_today"), "2026-09-01");
+  assert.equal(value("echo_ctx"), "records");
+  assert.equal(value("echo_this"), "seed");
+});
+
+test("temporal names are unbound when the caller supplies nothing", () => {
+  // Reading the host clock would make the same inputs evaluate differently twice.
+  const document = readBeta6Form(JSON.stringify({
+    version: "1.0-beta.6", metadata: { title: "T" },
+    sections: [{ id: "s", title: "S", prompts: [
+      { id: "t", label: "T", response: "kept", hints: { exprValue: "_today" } },
+    ] }],
+  }), "jsonc");
+  const context = buildExpressionContext(document);
+  assert.equal(computeValue(document.sections[0].prompts[0], context), undefined);
 });

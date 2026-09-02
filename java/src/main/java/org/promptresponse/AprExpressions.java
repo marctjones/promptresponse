@@ -46,23 +46,44 @@ public final class AprExpressions {
     public static final class Context {
         private final Map<String,Map<String,Object>> prompts = new LinkedHashMap<>();
         private final Map<String,Object> bindings = new LinkedHashMap<>();
-        Context(AprDocument document) {
+        private final String today;
+        Context(AprDocument document) { this(document, null, null); }
+        Context(AprDocument document, String instant, Map<String,String> context) {
+            this.today = instant;
             for (Map<String,Object> prompt : prompts(document.sections())) {
                 String id = AprDocument.string(prompt.get("id")); if (blank(id) || prompts.containsKey(id)) continue;
                 prompts.put(id, prompt); Object value = bind(prompt);
                 if (value != null) bindings.put(id, value);
             }
-            bindings.put("_today", Instant.now()); bindings.put("ctx", Map.of());
+            // _now and _today are caller-supplied and never read from the host
+            // clock, so the same form with the same inputs evaluates the same way
+            // twice. Instant.now() made every expression using them
+            // non-deterministic and unlike the other implementations.
+            if (instant != null && !instant.isBlank()) {
+                try { bindings.put("_now", Instant.parse(instant)); } catch (RuntimeException ignored) { }
+                bindings.put("_today", instant.length() >= 10 ? instant.substring(0, 10) : instant);
+            }
+            bindings.put("ctx", context == null ? Map.of() : Map.copyOf(context));
         }
         public String evaluate(Map<String,Object> prompt, String expression) {
             try {
                 CelFactory.standardCelBuilder().build();
                 var builder = CelFactory.standardCelBuilder();
                 for (Map.Entry<String,Map<String,Object>> entry : prompts.entrySet()) builder.addVar(entry.getKey(), typeOf(entry.getValue()));
-                builder.addVar("_today", SimpleType.TIMESTAMP).addVar("ctx", MapType.create(SimpleType.STRING, SimpleType.STRING)).addVar("_this", typeOf(prompt));
+                // Declared only when bound. A declared but unbound name does not
+                // reliably error: it can evaluate to a default, so an expression
+                // referencing an unsupplied _today would produce a value rather
+                // than degrading. Leaving it undeclared makes the reference a
+                // compile error, which is what the specification requires.
+                if (bindings.containsKey("_today")) builder.addVar("_today", SimpleType.STRING);
+                if (bindings.containsKey("_now")) builder.addVar("_now", SimpleType.TIMESTAMP);
+                builder.addVar("_id", SimpleType.STRING)
+                       .addVar("ctx", MapType.create(SimpleType.STRING, SimpleType.STRING))
+                       .addVar("_this", typeOf(prompt));
                 Cel cel = builder.build(); CelValidationResult checked = cel.compile(expression);
                 if (checked.hasError()) return null;
                 Map<String,Object> values = new LinkedHashMap<>(bindings); Object current = bind(prompt); if (current != null) values.put("_this", current);
+                values.put("_id", AprDocument.string(prompt.get("id")));
                 return stored(cel.createProgram(checked.getAst()).eval(values));
             } catch (Exception ignored) { return null; }
         }

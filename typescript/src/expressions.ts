@@ -51,24 +51,37 @@ function stored(value: unknown): string {
 export class ExpressionContext {
   private readonly fields: Map<string, Prompt>;
   private readonly bindings: Record<string, unknown> = {};
-  constructor(document: AprDocument, today = new Date().toISOString(), ctx: ContextValues = {}) {
+  // _now and _today are supplied by the caller and never read from the host
+  // clock: defaulting them to "now" made every expression using them
+  // non-deterministic, and different from the other implementations.
+  constructor(document: AprDocument, today?: string, ctx: ContextValues = {}) {
     this.fields = new Map(prompts(document.sections).filter(prompt => prompt.id).map(prompt => [prompt.id, prompt]));
     for (const prompt of this.fields.values()) {
       const value = bind(prompt.response, prompt.hints.expectedDataType);
       if (value !== undefined) this.bindings[prompt.id] = value;
     }
-    const boundToday = bind(today, "datetime");
-    if (boundToday !== undefined) this.bindings._today = boundToday;
+    if (today) {
+      const instant = bind(today, "datetime");
+      if (instant !== undefined) this.bindings._now = instant;
+      // _today is the date as YYYY-MM-DD, a string rather than a timestamp.
+      this.bindings._today = today.slice(0, 10);
+    }
     this.bindings.ctx = ctx;
   }
   evaluate(prompt: Prompt, expression: string): unknown | undefined {
     try {
       const environment = new Environment({ unlistedVariablesAreDyn: false });
       for (const field of this.fields.values()) environment.registerVariable(field.id, typeFor(field.hints.expectedDataType));
-      environment.registerVariable("_today", "dyn").registerVariable("ctx", "map<string, string>").registerVariable("_this", typeFor(prompt.hints.expectedDataType));
+      environment
+        .registerVariable("_today", "string")
+        .registerVariable("_now", "dyn")
+        .registerVariable("_id", "string")
+        .registerVariable("ctx", "map<string, string>")
+        .registerVariable("_this", typeFor(prompt.hints.expectedDataType));
       const bindings = { ...this.bindings };
       const current = bind(prompt.response, prompt.hints.expectedDataType);
       if (current !== undefined) bindings._this = current;
+      bindings._id = prompt.id;
       return environment.evaluate(expression, bindings);
     } catch { return undefined; }
   }

@@ -719,6 +719,63 @@ These pin the surface where YAML schemas and the JSON value space differ. Each
 is a spelling some YAML schema resolves to a non-string; none is a JSON number,
 so each is a string here.
 
+A table is a structural claim, and an unregistered affordance degrades rather
+than failing.
+
+```apr-example
+id: table-section
+rule: tables
+representation: jsonc
+expect: valid
+---
+{
+  "version": "1.0-beta.6",
+  "metadata": { "title": "Expenses" },
+  "sections": [
+    {
+      "id": "expenses",
+      "title": "Expense line items",
+      "kind": "table",
+      "canAddRows": "true",
+      "maxRows": "25",
+      "sections": [
+        {
+          "id": "item_1",
+          "title": "Item 1",
+          "prompts": [
+            { "id": "item_1.description", "label": "Description", "response": "Train fare" },
+            { "id": "item_1.amount", "label": "Amount", "response": "42.50",
+              "hints": { "expectedDataType": "currency" } }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+```apr-example
+id: unregistered-data-type-degrades
+rule: hints-object
+representation: jsonc
+expect: valid
+---
+{
+  "version": "1.0-beta.6",
+  "metadata": { "title": "Unregistered affordance" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "p", "label": "P", "response": "anything",
+          "hints": { "expectedDataType": "holographic-signature" } }
+      ]
+    }
+  ]
+}
+```
+
 ```apr-example
 id: yaml-sexagesimal-is-a-string
 rule: yaml-resolution
@@ -2352,6 +2409,6 @@ comments inside strings, and mixed-representation stream rejection.
 
 Still without a vector:
 
-- manifest vectors across the full range of changed member kinds;
-- a `kind: table` section in the beta.6 corpus; and
-- an unregistered `expectedDataType` degrading to text.
+- manifest vectors across the full range of changed member kinds. Each needs a
+  computed `jcs-sha256` digest, so these belong in the corpus beside the existing
+  digest vectors rather than embedded here.

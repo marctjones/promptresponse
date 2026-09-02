@@ -259,4 +259,45 @@ public class FormExpressionsTests
 
         FormExpressions.GetAllPrompts(doc).Select(p => p.Id).Should().Equal("first", "second");
     }
+
+    /// <summary>The activation the specification defines, and nothing else.</summary>
+    /// <remarks>
+    /// _now and _today are caller-supplied. Reading them from the host clock would
+    /// make the same form with the same inputs evaluate differently on two runs,
+    /// which the specification forbids for exactly that reason.
+    /// </remarks>
+    [Fact]
+    public void Activation_BindsEveryNameTheSpecificationDefines()
+    {
+        var document = Doc(
+            P("who", response: "Ada"),
+            P("echo_id", hints: h => h.ExprValue = "_id"),
+            P("echo_today", hints: h => h.ExprValue = "_today"),
+            P("echo_ctx", hints: h => h.ExprValue = "ctx['team']"),
+            P("echo_this", response: "seed", hints: h => h.ExprValue = "_this"));
+        var context = FormExpressions.BuildContext(
+            document, "2026-09-01T12:00:00Z", new Dictionary<string, string> { ["team"] = "records" });
+        var prompts = FormExpressions.GetAllPrompts(document).ToDictionary(prompt => prompt.Id);
+
+        FormExpressions.ComputeValue(prompts["echo_id"], context).Should().Be("echo_id",
+            "_id is the owning prompt's identifier");
+        FormExpressions.ComputeValue(prompts["echo_today"], context).Should().Be("2026-09-01",
+            "_today is the caller-supplied date as YYYY-MM-DD");
+        FormExpressions.ComputeValue(prompts["echo_ctx"], context).Should().Be("records",
+            "ctx carries host-supplied strings");
+        FormExpressions.ComputeValue(prompts["echo_this"], context).Should().Be("seed",
+            "_this is the owning prompt's own response");
+    }
+
+    [Fact]
+    public void Activation_LeavesTemporalNamesUnboundWhenTheCallerSuppliesNothing()
+    {
+        var document = Doc(P("p", response: "kept", hints: h => h.ExprValue = "_today"));
+        var context = FormExpressions.BuildContext(document);
+        var prompt = FormExpressions.GetAllPrompts(document).Single();
+
+        FormExpressions.ComputeValue(prompt, context).Should().BeNull(
+            "with no caller-supplied instant the name is unbound, and an unbound reference "
+            + "degrades rather than silently using the host clock");
+    }
 }

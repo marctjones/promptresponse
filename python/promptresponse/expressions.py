@@ -88,12 +88,29 @@ class ExpressionContext:
             bound = _bind(prompt.response, expected)
             if bound is not None:
                 self.bindings[prompt_id] = bound
-        self.types["_today"] = celtypes.TimestampType
-        parsed_today = _bind(today or datetime.now(timezone.utc).isoformat(), "datetime")
-        if parsed_today is not None:
-            self.bindings["_today"] = parsed_today
+        # The activation the specification defines. _now and _today are supplied by
+        # the caller and never read from the host clock, so evaluating the same form
+        # twice with the same inputs gives the same result. Defaulting them to "now"
+        # made every expression using them non-deterministic.
+        # Declared only when bound. An annotated but unbound name does not error
+        # here: it evaluates to the stringified type object, so an expression
+        # referencing an unsupplied _today would write
+        # "<class 'celpy.celtypes.StringType'>" into a response. Leaving the name
+        # undeclared makes the reference a compile error, which degrades to the
+        # stored response as the specification requires.
+        if today:
+            instant = _bind(today, "datetime")
+            if instant is not None:
+                self.types["_now"] = celtypes.TimestampType
+                self.bindings["_now"] = instant
+            # _today is the date as YYYY-MM-DD, a string rather than a timestamp.
+            self.types["_today"] = celtypes.StringType
+            self.bindings["_today"] = today[:10]
+        self.types["_id"] = celtypes.StringType
+        # Declared map<string, string> so an expression over ctx type-checks the
+        # same way in every implementation.
         self.types["ctx"] = celtypes.MapType
-        self.bindings["ctx"] = dict(ctx or {})
+        self.bindings["ctx"] = {str(k): str(v) for k, v in dict(ctx or {}).items()}
 
     def evaluate(self, prompt: Prompt, expression: str):
         annotations = dict(self.types)
@@ -102,6 +119,7 @@ class ExpressionContext:
         bindings = dict(self.bindings)
         if current is not None:
             bindings["_this"] = current
+        bindings["_id"] = prompt.id
         try:
             environment = Environment(annotations=annotations)
             return environment.program(environment.compile(expression)).evaluate(bindings)

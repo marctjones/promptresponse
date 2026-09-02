@@ -33,6 +33,20 @@
       "diagnostic": "APR_STREAM_MIXED_REPRESENTATIONS"
     },
     {
+      "id": "table-section",
+      "rule": "tables",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": \"true\",\n      \"maxRows\": \"25\",\n      \"sections\": [\n        {\n          \"id\": \"item_1\",\n          \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "unregistered-data-type-degrades",
+      "rule": "hints-object",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Unregistered affordance\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"response\": \"anything\",\n          \"hints\": { \"expectedDataType\": \"holographic-signature\" } }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
       "id": "yaml-anchor",
       "rule": "apr-yaml",
       "representation": "yaml",

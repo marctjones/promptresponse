@@ -75,14 +75,26 @@ public sealed class FormExpressionContext
             }
         }
 
-        decls.Add(new VariableDecl("_today", CelType.Timestamp));
-        var boundToday = CelBinding.Bind(today, CelType.Timestamp);
-        if (boundToday is not null)
+        // The activation the specification defines: _this, _id, _now, _today and
+        // ctx. _now and _today are caller-supplied and never read from the host
+        // clock, so evaluating the same form twice with the same inputs gives the
+        // same result.
+        decls.Add(new VariableDecl("_today", CelType.String));
+        decls.Add(new VariableDecl("_now", CelType.Timestamp));
+        if (!string.IsNullOrWhiteSpace(today))
         {
-            bindings["_today"] = boundToday;
+            var instant = CelBinding.Bind(today, CelType.Timestamp);
+            if (instant is not null)
+            {
+                bindings["_now"] = instant;
+            }
+            // _today is the date as YYYY-MM-DD, a string rather than a timestamp.
+            bindings["_today"] = today!.Length >= 10 ? today[..10] : today;
         }
 
-        decls.Add(new VariableDecl("ctx", CelType.MapDyn));
+        // ctx carries host-supplied strings. Declared map<string, string> so that
+        // an expression over it type-checks the same way in every implementation.
+        decls.Add(new VariableDecl("ctx", CelType.Map(CelType.String, CelType.String)));
         bindings["ctx"] = ctx?.ToDictionary(k => (object)k.Key, v => (object?)v.Value)
                           ?? new Dictionary<object, object?>();
 
@@ -104,7 +116,11 @@ public sealed class FormExpressionContext
             return cached;
         }
 
-        var decls = new List<VariableDecl>(_fieldDecls) { new("_this", thisType) };
+        var decls = new List<VariableDecl>(_fieldDecls)
+        {
+            new("_this", thisType),
+            new("_id", CelType.String),
+        };
         var env = CelEnv.Create(new CelEnvSettings { Declarations = decls });
         _envByThisType[key] = env;
         return env;
@@ -142,6 +158,7 @@ public sealed class FormExpressionContext
         {
             bindings["_this"] = thisValue;
         }
+        bindings["_id"] = prompt.Id;
 
         try
         {

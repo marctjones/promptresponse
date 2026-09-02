@@ -9,6 +9,7 @@ public final class AprConformanceTest {
         beta6();
         beta6Corpus();
         specificationExamples();
+        expressionActivation();
         System.out.println("Java APR beta.6 conformance passed");
     }
     /**
@@ -56,6 +57,33 @@ public final class AprConformanceTest {
         }
         if (!failures.isEmpty()) throw new AssertionError("specification examples failed:\n  " + String.join("\n  ", failures));
         System.out.println("Java specification examples passed: " + examples.size());
+    }
+
+    /** The activation the specification defines, and its caller-supplied instants. */
+    private static void expressionActivation() {
+        String json = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},"
+            + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":["
+            + "{\"id\":\"echo_id\",\"label\":\"E\",\"response\":\"\"}"
+            + "]}]}";
+        AprDocument document = Apr.parse(json);
+        java.util.Map<String,Object> prompt = new java.util.LinkedHashMap<>();
+        prompt.put("id", "echo_id");
+
+        var supplied = new AprExpressions.Context(
+            document, "2026-09-01T12:00:00Z", java.util.Map.of("team", "records"));
+        if (!"echo_id".equals(supplied.evaluate(prompt, "_id")))
+            throw new AssertionError("_id did not bind");
+        if (!"2026-09-01".equals(supplied.evaluate(prompt, "_today")))
+            throw new AssertionError("_today did not bind as a date string");
+        if (!"records".equals(supplied.evaluate(prompt, "ctx['team']")))
+            throw new AssertionError("ctx did not bind");
+
+        // With nothing supplied the name is unbound, and the expression degrades
+        // rather than silently using the host clock.
+        var unsupplied = new AprExpressions.Context(document, null, null);
+        if (unsupplied.evaluate(prompt, "_today") != null)
+            throw new AssertionError("_today bound without a caller-supplied instant");
+        System.out.println("Java expression activation passed");
     }
 
     private static void expressionBinding() {
