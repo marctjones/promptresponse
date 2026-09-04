@@ -39,6 +39,73 @@ public class AprBeta6ReaderTests
         form.Sections.Single().Prompts.Single().Id.Should().Be("p");
     }
 
+    private const string YamlForm = """
+        version: "1.0-beta.6"
+        metadata:
+          title: T
+          "<<": not a merge key
+        sections:
+          - id: s
+            title: S
+            prompts:
+              - id: p
+                label: P
+                hints:
+                  exprValue: string(fee_count * 8.0)
+                response: a * b & c! d
+
+        """;
+
+    [Fact]
+    public void Yaml_IndicatorCharactersInsideAPlainScalar_AreOrdinaryContent()
+    {
+        // An anchor, alias or tag is a node property (specification 4.5); "&", "*"
+        // and "!" inside a scalar's content are just characters of a string.
+        var record = _reader.ReadStream(YamlForm, AprRepresentation.Yaml).Single().Should().BeOfType<AprFormRecord>().Subject;
+        var prompt = record.Value.GetProperty("sections")[0].GetProperty("prompts")[0];
+        prompt.GetProperty("hints").GetProperty("exprValue").GetString().Should().Be("string(fee_count * 8.0)");
+        prompt.GetProperty("response").GetString().Should().Be("a * b & c! d");
+    }
+
+    [Theory]
+    [InlineData("response: &r a * b & c! d", "anchors")]
+    [InlineData("response: *r", "aliases")]
+    [InlineData("response: !!str a", "tags")]
+    [InlineData("response: ! a", "tags")]
+    [InlineData("response: {<<: {b: 1}}", "merge keys")]
+    public void Yaml_ExcludedNodeProperties_AreRejected(string response, string construct)
+    {
+        var source = YamlForm.Replace("response: a * b & c! d", response, StringComparison.Ordinal);
+        var read = () => _reader.ReadStream(source, AprRepresentation.Yaml);
+        read.Should().Throw<SerializationException>().WithMessage($"*{construct}*");
+    }
+
+    [Fact]
+    public void Yaml_MergeKey_IsRejected()
+    {
+        var source = YamlForm.Replace("    title: S\n", "    title: S\n    <<: {description: merged}\n", StringComparison.Ordinal);
+        var read = () => _reader.ReadStream(source, AprRepresentation.Yaml);
+        read.Should().Throw<SerializationException>().WithMessage("*merge keys*");
+    }
+
+    [Theory]
+    [InlineData("%YAML 1.2\n---\n")]
+    [InlineData("%TAG !e! tag:example.com,2000:\n---\n")]
+    public void Yaml_Directives_AreRejected(string directive)
+    {
+        var read = () => _reader.ReadStream(directive + YamlForm, AprRepresentation.Yaml);
+        read.Should().Throw<SerializationException>().WithMessage("*directives*");
+    }
+
+    [Fact]
+    public void Yaml_DirectiveOnALaterDocument_IsRejected()
+    {
+        // A directive belongs to the document that follows it, wherever that is in the stream.
+        var source = YamlForm + "...\n%TAG !e! tag:example.com,2000:\n---\n" + YamlForm;
+        var read = () => _reader.ReadStream(source, AprRepresentation.Yaml);
+        read.Should().Throw<SerializationException>().WithMessage("*directives*");
+    }
+
     [Fact]
     public void Stream_PreservesAttestationAndAllFormOccurrences()
     {

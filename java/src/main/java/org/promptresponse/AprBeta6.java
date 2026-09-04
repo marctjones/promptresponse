@@ -1,6 +1,9 @@
 package org.promptresponse;
 
+import java.io.StringReader;
 import java.util.*;
+import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.events.*;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
@@ -89,11 +92,51 @@ public final class AprBeta6 {
         }
     }
 
+    private static final Map<String, String> DEFAULT_TAG_HANDLES = Map.of("!", "!", "!!", "tag:yaml.org,2002:");
+
+    /**
+     * The constructs APR excludes (specification 4.5) are node properties and
+     * directives, so they are detected on the parser's event stream rather than
+     * in the source text: "&amp;", "*" and "!" inside a plain scalar's content, as
+     * in {@code string(fee_count * 8.0)}, are ordinary characters of an ordinary
+     * string. A merge key is a plain {@code <<} in key position; a quoted one is a
+     * string key. Running on events, before construction, also means an alias is
+     * never expanded.
+     */
+    private static void rejectYamlFeatures(Yaml yaml, String source) {
+        Deque<int[]> frames = new ArrayDeque<>(); // {isMapping, nodesSeen} per open collection
+        for (Event event : yaml.parse(new StringReader(source))) {
+            boolean isKey = false;
+            if (event instanceof NodeEvent && !frames.isEmpty()) {
+                int[] frame = frames.peek();
+                isKey = frame[0] == 1 && frame[1] % 2 == 0;
+                frame[1]++;
+            }
+            if (event instanceof DocumentStartEvent start) {
+                boolean customTag = start.getTags() != null && start.getTags().entrySet().stream()
+                    .anyMatch(tag -> !tag.getValue().equals(DEFAULT_TAG_HANDLES.get(tag.getKey())));
+                if (start.getVersion() != null || customTag) throw new AprException("APR YAML forbids directives, including %YAML and %TAG");
+            } else if (event instanceof AliasEvent) {
+                throw new AprException("APR YAML forbids aliases");
+            } else if (event instanceof NodeEvent node) {
+                if (node.getAnchor() != null) throw new AprException("APR YAML forbids anchors");
+                if (event instanceof ScalarEvent scalar) {
+                    if (scalar.getTag() != null) throw new AprException("APR YAML forbids tags");
+                    if (isKey && scalar.getScalarStyle() == DumperOptions.ScalarStyle.PLAIN && "<<".equals(scalar.getValue())) throw new AprException("APR YAML forbids merge keys");
+                } else if (event instanceof CollectionStartEvent collection) {
+                    if (collection.getTag() != null) throw new AprException("APR YAML forbids tags");
+                    frames.push(new int[] { event instanceof MappingStartEvent ? 1 : 0, 0 });
+                }
+            } else if (event instanceof CollectionEndEvent) {
+                frames.pop();
+            }
+        }
+    }
+
     private static List<String> yamlDocuments(String source) {
-        if (source.matches("(?s).*(^|[\\s\\[{,])(?:[&*!]|<<\\s*:).*")) throw new AprException("APR YAML forbids anchors, aliases, tags, and merge keys");
-        if (source.matches("(?s).*(?m)^%(?:YAML|TAG)\\b.*")) throw new AprException("APR YAML forbids directives, including %YAML and %TAG");
         if (source.matches("(?s).*(?m):\\s*[-+]?\\.(?:inf|Inf|INF|nan|NaN|NAN)\\s*$.*")) throw new AprException("APR YAML forbids a non-finite number: JSON cannot represent it");
         Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()), new org.yaml.snakeyaml.representer.Representer(new org.yaml.snakeyaml.DumperOptions()), new org.yaml.snakeyaml.DumperOptions(), new AprResolver());
+        rejectYamlFeatures(yaml, source);
         List<String> values = new ArrayList<>();
         for (Object value : yaml.loadAll(source)) values.add(Json.write(normalizeYaml(value)));
         return values;
