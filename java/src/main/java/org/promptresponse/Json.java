@@ -80,7 +80,12 @@ final class Json {
         if (peek('.')) { at++; digits(); }
         if (peek('e') || peek('E')) { at++; if (peek('+') || peek('-')) at++; digits(); }
         String token = input.substring(start, at);
-        try { return token.contains(".") || token.contains("e") || token.contains("E") ? Double.valueOf(token) : Long.valueOf(token); }
+        try {
+            if (token.contains(".") || token.contains("e") || token.contains("E")) return Double.valueOf(token);
+            // An integer literal beyond the Long range is still a JSON number; it
+            // becomes the double an ES6 parser would produce for it.
+            try { return Long.valueOf(token); } catch (NumberFormatException overflow) { return Double.valueOf(token); }
+        }
         catch (NumberFormatException ex) { throw error("invalid number"); }
     }
     private void digits() { int start = at; while (at < input.length() && Character.isDigit(input.charAt(at))) at++; if (at == start) throw error("expected digit"); }

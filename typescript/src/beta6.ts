@@ -116,7 +116,11 @@ function resolvePlainScalar(text: string): JsonValue {
   if (text === "true" || text === "True" || text === "TRUE") return true;
   if (text === "false" || text === "False" || text === "FALSE") return false;
   if (NON_FINITE.test(text)) throw new AprParseError("APR YAML forbids a non-finite number: JSON cannot represent it");
-  if (JSON_NUMBER.test(text)) return Number(text);
+  if (JSON_NUMBER.test(text)) {
+    const number = Number(text);
+    if (!Number.isFinite(number)) throw new AprParseError("APR YAML forbids a non-finite number: JSON cannot represent it");
+    return number;
+  }
   return text;
 }
 

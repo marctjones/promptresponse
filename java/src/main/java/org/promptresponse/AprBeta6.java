@@ -83,6 +83,10 @@ public final class AprBeta6 {
             addImplicitResolver(Tag.NULL, java.util.regex.Pattern.compile("^(?:~|null|Null|NULL| )$"), "~nN\0");
             addImplicitResolver(Tag.NULL, java.util.regex.Pattern.compile("^$"), null);
             addImplicitResolver(Tag.BOOL, java.util.regex.Pattern.compile("^(?:true|True|TRUE|false|False|FALSE)$"), "tTfF");
+            // An integer-looking scalar resolves to an integral Number, as the JSONC
+            // parser yields for "maxRows": 5. Resolvers are tried in insertion order,
+            // so the integer form must precede the float one.
+            addImplicitResolver(Tag.INT, java.util.regex.Pattern.compile("^-?(?:0|[1-9][0-9]*)$"), "-0123456789");
             addImplicitResolver(Tag.FLOAT,
                 java.util.regex.Pattern.compile("^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:[eE][-+]?[0-9]+)?$"),
                 "-0123456789");

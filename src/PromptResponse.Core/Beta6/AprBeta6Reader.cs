@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using PromptResponse.Core.Models;
@@ -102,7 +103,7 @@ public sealed class AprBeta6Reader
     {
         var json = representation == AprRepresentation.Jsonc
             ? StripJsonc(source)
-            : JsonSerializer.Serialize(_yaml.Deserialize<object>(source));
+            : YamlToJson(source);
         if (representation == AprRepresentation.Jsonc) EnsureUniqueObjectMembers(json);
         using var parsed = JsonDocument.Parse(json);
         var root = parsed.RootElement;
@@ -199,6 +200,84 @@ public sealed class AprBeta6Reader
         var documents = System.Text.RegularExpressions.Regex.Split(source, "(?m)^---\\s*$")
             .Where(document => !string.IsNullOrWhiteSpace(document)).ToArray();
         return documents.Length == 0 ? [source] : documents;
+    }
+
+    // APR defines its own YAML schema (specification section 4.5.1). YamlDotNet is
+    // used for syntax only: its default object deserializer leaves every scalar a
+    // string, so "maxRows: 5" would arrive as "5" and "canAddRows: true" as "true",
+    // and its typed resolution follows YAML 1.1. Resolution is done here against
+    // the specification's table instead: a quoted scalar is a string verbatim; a
+    // plain scalar is null, a boolean, or a number when it is spelled as one, and
+    // a string otherwise.
+    private static readonly System.Text.RegularExpressions.Regex JsonNumber =
+        new(@"^-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?$", System.Text.RegularExpressions.RegexOptions.CultureInvariant);
+
+    private static string YamlToJson(string source)
+    {
+        var stream = new YamlDotNet.RepresentationModel.YamlStream();
+        try { stream.Load(new StringReader(source)); }
+        catch (YamlDotNet.Core.YamlException exception) { throw new SerializationException("Invalid APR YAML: " + exception.Message, exception); }
+        using var buffer = new MemoryStream();
+        using (var writer = new Utf8JsonWriter(buffer))
+        {
+            if (stream.Documents.Count == 0) writer.WriteNullValue();
+            else WriteYamlNode(writer, stream.Documents[0].RootNode);
+        }
+        return Encoding.UTF8.GetString(buffer.ToArray());
+    }
+
+    private static void WriteYamlNode(Utf8JsonWriter writer, YamlDotNet.RepresentationModel.YamlNode node)
+    {
+        switch (node)
+        {
+            case YamlDotNet.RepresentationModel.YamlMappingNode mapping:
+                writer.WriteStartObject();
+                foreach (var (key, value) in mapping.Children)
+                {
+                    if (key is not YamlDotNet.RepresentationModel.YamlScalarNode scalarKey)
+                        throw new SerializationException("APR YAML requires every mapping key to be a string.");
+                    writer.WritePropertyName(scalarKey.Value ?? "");
+                    WriteYamlNode(writer, value);
+                }
+                writer.WriteEndObject();
+                break;
+            case YamlDotNet.RepresentationModel.YamlSequenceNode sequence:
+                writer.WriteStartArray();
+                foreach (var item in sequence.Children) WriteYamlNode(writer, item);
+                writer.WriteEndArray();
+                break;
+            case YamlDotNet.RepresentationModel.YamlScalarNode scalar:
+                WriteYamlScalar(writer, scalar);
+                break;
+            default:
+                throw new SerializationException("APR YAML contains a node APR does not define.");
+        }
+    }
+
+    private static void WriteYamlScalar(Utf8JsonWriter writer, YamlDotNet.RepresentationModel.YamlScalarNode scalar)
+    {
+        var text = scalar.Value ?? "";
+        if (scalar.Style is not (YamlDotNet.Core.ScalarStyle.Plain or YamlDotNet.Core.ScalarStyle.Any))
+        {
+            writer.WriteStringValue(text);
+            return;
+        }
+        switch (text)
+        {
+            case "" or "~" or "null" or "Null" or "NULL": writer.WriteNullValue(); return;
+            case "true" or "True" or "TRUE": writer.WriteBooleanValue(true); return;
+            case "false" or "False" or "FALSE": writer.WriteBooleanValue(false); return;
+        }
+        if (JsonNumber.IsMatch(text))
+        {
+            if (!double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var number) || double.IsInfinity(number))
+                throw new SerializationException("APR YAML forbids a non-finite number: JSON cannot represent it.");
+            // The source spelling is kept so the semantic value is exactly what a
+            // JSON parser would see; the digest canonicalizes it later.
+            writer.WriteRawValue(text, skipInputValidation: false);
+            return;
+        }
+        writer.WriteStringValue(text);
     }
 
     private static void RejectYamlFeatures(string source)

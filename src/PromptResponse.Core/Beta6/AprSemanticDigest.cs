@@ -74,12 +74,47 @@ public static class AprSemanticDigest
             case JsonValueKind.False: writer.WriteBooleanValue(false); break;
             case JsonValueKind.Null: writer.WriteNullValue(); break;
             case JsonValueKind.Number:
-                if (!value.TryGetDouble(out var number) || double.IsNaN(number) || double.IsInfinity(number))
+                if (!value.TryGetDouble(out var number))
                     throw new SerializationException("APR semantic digests require finite JSON numbers.");
-                writer.WriteRawValue(number.ToString("R", CultureInfo.InvariantCulture), skipInputValidation: false);
+                writer.WriteRawValue(CanonicalNumber(number), skipInputValidation: false);
                 break;
             default: throw new SerializationException("Unsupported JSON value in APR semantic digest.");
         }
+    }
+
+    /// <summary>
+    /// RFC 8785 section 3.2.2.3 number serialization: ES6 <c>Number::toString</c>.
+    /// An integral value has no fractional part ("1996", never "1996.0"), fractions
+    /// use the shortest round-trip digits, and exponent forms appear only where ES6
+    /// uses them (magnitude at or above 1e21, or below 1e-6), spelled "1e+21" and "1e-7".
+    /// </summary>
+    public static string CanonicalNumber(double number)
+    {
+        if (double.IsNaN(number) || double.IsInfinity(number))
+            throw new SerializationException("APR semantic digests require finite JSON numbers.");
+        if (number == 0) return "0"; // ES6 prints negative zero as "0"
+        // "R" yields the shortest digit string that round-trips, which is the digit
+        // sequence ES6 requires; only the placement of the point and the exponent
+        // spelling differ, so those are rebuilt from the digits and exponent.
+        var text = number.ToString("R", CultureInfo.InvariantCulture);
+        var sign = text.StartsWith('-') ? "-" : "";
+        text = text.TrimStart('-');
+        var exponentIndex = text.IndexOfAny(['E', 'e']);
+        var mantissa = exponentIndex < 0 ? text : text[..exponentIndex];
+        var exponent = exponentIndex < 0 ? 0 : int.Parse(text[(exponentIndex + 1)..], NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture);
+        var pointIndex = mantissa.IndexOf('.');
+        var digits = pointIndex < 0 ? mantissa : mantissa.Remove(pointIndex, 1);
+        var point = (pointIndex < 0 ? mantissa.Length : pointIndex) + exponent;
+        var stripped = digits.TrimStart('0');
+        point -= digits.Length - stripped.Length;
+        digits = stripped.TrimEnd('0');
+        int k = digits.Length, n = point;
+        if (k <= n && n <= 21) return sign + digits + new string('0', n - k);
+        if (0 < n && n <= 21) return sign + digits[..n] + "." + digits[n..];
+        if (-6 < n && n <= 0) return sign + "0." + new string('0', -n) + digits;
+        var exponentValue = n - 1;
+        var body = k > 1 ? digits[..1] + "." + digits[1..] : digits;
+        return sign + body + "e" + (exponentValue > 0 ? "+" : "-") + Math.Abs(exponentValue).ToString(CultureInfo.InvariantCulture);
     }
 }
 

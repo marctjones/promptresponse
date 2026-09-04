@@ -7,6 +7,7 @@ public final class AprConformanceTest {
     public static void main(String[] args) throws Exception {
         expressionBinding();
         beta6();
+        jcsNumbers();
         beta6Corpus();
         specificationExamples();
         expressionActivation();
@@ -112,6 +113,44 @@ public final class AprConformanceTest {
         if (!"unverifiable".equals(AprBeta6Integrity.resolve(java.util.List.of(new AprBeta6.FormRecord(AprBeta6.readForm(form,AprBeta6.Representation.JSONC)),new AprBeta6.AttestationRecord(assertion))).getFirst().state())) throw new AssertionError("unsigned beta.6 attestation must be unverifiable");
         var fieldManifest = new java.util.LinkedHashMap<String,Object>(); fieldManifest.put("root",manifest.root()); fieldManifest.put("entries",manifest.entries().stream().filter(entry -> !entry.path().equals("/sections/0/prompts/0/response")).map(entry->java.util.Map.of("path",entry.path(),"digest",entry.digest())).toList()); assertion.put("scope",java.util.Map.of("kind","fields","fields",java.util.List.of("p"))); assertion.put("manifest",fieldManifest);
         if (!"invalid".equals(AprBeta6Integrity.resolve(java.util.List.of(new AprBeta6.FormRecord(AprBeta6.readForm(form,AprBeta6.Representation.JSONC)),new AprBeta6.AttestationRecord(assertion))).getFirst().state())) throw new AssertionError("fields scope without response must be invalid");
+    }
+    /** RFC 8785 Appendix B number vectors, plus the representation-neutral digest pinned across SDKs. */
+    private static void jcsNumbers() {
+        String[][] vectors = {
+            {"0000000000000000", "0"}, {"8000000000000000", "0"}, {"0000000000000001", "5e-324"}, {"0000000000000002", "1e-323"}, {"8000000000000001", "-5e-324"},
+            {"7fefffffffffffff", "1.7976931348623157e+308"}, {"ffefffffffffffff", "-1.7976931348623157e+308"},
+            {"4340000000000000", "9007199254740992"}, {"c340000000000000", "-9007199254740992"}, {"4430000000000000", "295147905179352830000"},
+            {"44b52d02c7e14af5", "9.999999999999997e+22"}, {"44b52d02c7e14af6", "1e+23"}, {"44b52d02c7e14af7", "1.0000000000000001e+23"},
+            {"444b1ae4d6e2ef4e", "999999999999999700000"}, {"444b1ae4d6e2ef4f", "999999999999999900000"}, {"444b1ae4d6e2ef50", "1e+21"},
+            {"3eb0c6f7a0b5ed8c", "9.999999999999997e-7"}, {"3eb0c6f7a0b5ed8d", "0.000001"},
+            {"41b3de4355555553", "333333333.3333332"}, {"41b3de4355555554", "333333333.33333325"}, {"41b3de4355555555", "333333333.3333333"},
+            {"41b3de4355555556", "333333333.3333334"}, {"41b3de4355555557", "333333333.33333343"},
+            {"becbf647612f3696", "-0.0000033333333333333333"}, {"43143ff3c1cb0959", "1424953923781206.2"},
+        };
+        for (String[] vector : vectors) {
+            String actual = AprBeta6Integrity.canonicalNumber(Double.longBitsToDouble(Long.parseUnsignedLong(vector[0], 16)));
+            if (!vector[1].equals(actual)) throw new AssertionError("JCS number " + vector[0] + ": expected " + vector[1] + " but was " + actual);
+        }
+        if (!"{\"canAddRows\":true,\"maxRows\":5,\"min\":1996}".equals(AprBeta6Integrity.canonicalize(Json.parse("{\"maxRows\":5.0,\"min\":1.996e3,\"canAddRows\":true}"))))
+            throw new AssertionError("JCS must write integral numbers without a fractional part");
+        if (!AprBeta6Integrity.digest(Json.parse("{\"maxRows\":5}")).equals(AprBeta6Integrity.digest(Json.parse("{\"maxRows\":5.0}"))))
+            throw new AssertionError("JCS digest depends on the spelling of an integral number");
+        try { AprBeta6Integrity.canonicalize(Double.POSITIVE_INFINITY); throw new AssertionError("non-finite number was canonicalized"); } catch (AprException expected) { }
+        String expected = "sha256:b2d48b3e183f16894e16b4c94f99f340d2c2fc5dcc32e68938f61bebcc404d0a";
+        String jsonc = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"\",\"com.example.canAddRows\":true,\"com.example.maxRows\":5,\"com.example.min\":1996,\"com.example.step\":0.5,\"com.example.scale\":1e21,\"com.example.epsilon\":1e-7}]}]}";
+        String yaml = String.join("\n",
+            "version: \"1.0-beta.6\"", "metadata: { title: T }", "sections:", "  - id: s", "    title: S", "    prompts:",
+            "      - id: p", "        label: P", "        response: \"\"", "        com.example.canAddRows: true", "        com.example.maxRows: 5",
+            "        com.example.min: 1996.0", "        com.example.step: 0.5", "        com.example.scale: 1000000000000000000000", "        com.example.epsilon: 0.0000001", "");
+        for (var pair : java.util.Map.of(AprBeta6.Representation.JSONC, jsonc, AprBeta6.Representation.YAML, yaml).entrySet()) {
+            var record = (AprBeta6.FormRecord) AprBeta6.readStream(pair.getValue(), pair.getKey()).getFirst();
+            String actual = AprBeta6Integrity.digest(record.value());
+            if (!expected.equals(actual)) throw new AssertionError(pair.getKey() + " numeric extension digest was " + actual + ": " + AprBeta6Integrity.canonicalize(record.value()));
+        }
+        var resolved = (AprBeta6.FormRecord) AprBeta6.readStream("version: \"1.0-beta.6\"\nmetadata: { title: T, com.example.count: 5, com.example.lead: 012, com.example.quoted: '5' }\nsections: []\n", AprBeta6.Representation.YAML).getFirst();
+        java.util.Map<?,?> metadata = (java.util.Map<?,?>) resolved.value().get("metadata");
+        if (!(metadata.get("com.example.count") instanceof Long) || !"012".equals(metadata.get("com.example.lead")) || !"5".equals(metadata.get("com.example.quoted")))
+            throw new AssertionError("APR YAML integer resolution differs from JSON: " + metadata);
     }
     private static void beta6Corpus() throws Exception {
         Path beta6 = Path.of("..", "tests", "Conformance", "beta6");

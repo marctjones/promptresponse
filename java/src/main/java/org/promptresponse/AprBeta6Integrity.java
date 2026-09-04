@@ -25,6 +25,50 @@ public final class AprBeta6Integrity {
         try { return "sha256:" + HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(canonical(value).getBytes(StandardCharsets.UTF_8))); }
         catch (NoSuchAlgorithmException ex) { throw new IllegalStateException(ex); }
     }
+    /**
+     * RFC 8785 section 3.2.2.3 number serialization: ES6 {@code Number::toString}.
+     * JCS numbers are IEEE 754 doubles, so every JSON number is digested as one;
+     * an integral value has no fractional part ("1996", never "1996.0"), fractions
+     * use the shortest round-trip digits, and exponent forms appear only where ES6
+     * uses them (magnitude at or above 1e21, or below 1e-6), spelled "1e+21" and "1e-7".
+     * {@link Double#toString} supplies the shortest round-trip digits on JDK 19 and
+     * later (JDK-4511638); this SDK targets 21.
+     */
+    public static String canonicalNumber(double number) {
+        if (!Double.isFinite(number)) throw new AprException("APR semantic digests require finite JSON numbers");
+        if (number == 0) return "0"; // ES6 prints negative zero as "0"
+        String text = Double.toString(number);
+        String sign = text.startsWith("-") ? "-" : "";
+        if (!sign.isEmpty()) text = text.substring(1);
+        int exponentIndex = text.indexOf('E');
+        String mantissa = exponentIndex < 0 ? text : text.substring(0, exponentIndex);
+        int exponent = exponentIndex < 0 ? 0 : Integer.parseInt(text.substring(exponentIndex + 1));
+        int pointIndex = mantissa.indexOf('.');
+        String digits = pointIndex < 0 ? mantissa : mantissa.substring(0, pointIndex) + mantissa.substring(pointIndex + 1);
+        int point = (pointIndex < 0 ? mantissa.length() : pointIndex) + exponent;
+        String stripped = digits.replaceFirst("^0+", "");
+        point -= digits.length() - stripped.length();
+        digits = stripped.replaceFirst("0+$", "");
+        if (digits.length() == 2) {
+            // Double.toString never prints fewer than two significant digits, so
+            // for a subnormal such as 5e-324 it chooses the closer two-digit
+            // 4.9E-324. ES6 prefers the shortest spelling, so when a one-digit
+            // decimal bracketing the exact value round-trips, that is the answer.
+            java.math.BigDecimal exact = new java.math.BigDecimal(Math.abs(number)), best = null;
+            for (java.math.RoundingMode mode : new java.math.RoundingMode[] {java.math.RoundingMode.FLOOR, java.math.RoundingMode.CEILING}) {
+                java.math.BigDecimal candidate = exact.round(new java.math.MathContext(1, mode));
+                if (candidate.doubleValue() == Math.abs(number) && (best == null || candidate.subtract(exact).abs().compareTo(best.subtract(exact).abs()) < 0)) best = candidate;
+            }
+            if (best != null) { best = best.stripTrailingZeros(); digits = best.unscaledValue().toString(); point = digits.length() - best.scale(); }
+        }
+        int k = digits.length(), n = point;
+        if (k <= n && n <= 21) return sign + digits + "0".repeat(n - k);
+        if (0 < n && n <= 21) return sign + digits.substring(0, n) + "." + digits.substring(n);
+        if (-6 < n && n <= 0) return sign + "0." + "0".repeat(-n) + digits;
+        int exponentValue = n - 1;
+        String body = k > 1 ? digits.charAt(0) + "." + digits.substring(1) : digits;
+        return sign + body + "e" + (exponentValue > 0 ? "+" : "-") + Math.abs(exponentValue);
+    }
     public static Manifest createManifest(Object value) {
         List<ManifestEntry> entries = new ArrayList<>(); visit(value, "", entries); return new Manifest(digest(value), List.copyOf(entries));
     }
@@ -59,7 +103,8 @@ public final class AprBeta6Integrity {
         else if (value instanceof List<?> list) for(int i=0;i<list.size();i++) visit(list.get(i),path+"/"+i,entries);
     }
     @SuppressWarnings("unchecked") private static String canonical(Object value) {
-        if (value==null || value instanceof String || value instanceof Boolean || value instanceof Number) { if(value instanceof Double d && !Double.isFinite(d)) throw new AprException("APR semantic digests require finite JSON numbers"); return Json.write(value); }
+        if (value instanceof Number number) return canonicalNumber(number.doubleValue());
+        if (value==null || value instanceof String || value instanceof Boolean) return Json.write(value);
         if (value instanceof List<?> list) return "["+list.stream().map(AprBeta6Integrity::canonical).reduce((a,b)->a+","+b).orElse("")+"]";
         if (value instanceof Map<?,?> raw) { Map<String,Object> map=(Map<String,Object>)raw; return "{"+map.keySet().stream().sorted().map(key->Json.write(key)+":"+canonical(map.get(key))).reduce((a,b)->a+","+b).orElse("")+"}"; }
         throw new AprException("APR semantic digests require JSON values");

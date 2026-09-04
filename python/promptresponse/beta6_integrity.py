@@ -27,15 +27,58 @@ def form_value(document) -> dict[str, Any]:
 
 def canonicalize(value: Any) -> str:
     """Canonical JSON for APR's JSON subset (sorted member names, no source trivia)."""
-    if value is None or isinstance(value, (bool, int, float, str)):
-        if isinstance(value, float) and (value != value or value in (float("inf"), float("-inf"))):
-            raise AprParseError("APR semantic digests require finite JSON numbers")
-        return json.dumps(value, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+    if value is None or isinstance(value, (bool, str)):
+        return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    if isinstance(value, (int, float)):
+        return canonical_number(value)
     if isinstance(value, list):
         return "[" + ",".join(canonicalize(item) for item in value) + "]"
     if isinstance(value, dict):
         return "{" + ",".join(json.dumps(str(key), ensure_ascii=False, separators=(",", ":")) + ":" + canonicalize(value[key]) for key in sorted(value)) + "}"
     raise AprParseError("APR semantic digests require JSON values")
+
+
+def canonical_number(value: int | float) -> str:
+    """RFC 8785 section 3.2.2.3 number serialization: ES6 Number::toString.
+
+    JCS numbers are IEEE 754 doubles, so a Python int is digested as the double
+    a JSON parser in any other language would produce for it. An integral value
+    is written without a fractional part ("1996", never "1996.0"), fractions use
+    the shortest round-trip digits, and exponent forms appear only where ES6
+    uses them (magnitude >= 1e21 or < 1e-6), spelled "1e+21" and "1e-7".
+    """
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise AprParseError("APR semantic digests require JSON numbers")
+    try:
+        number = float(value)
+    except OverflowError as exc:
+        raise AprParseError("APR semantic digests require finite JSON numbers") from exc
+    if number != number or number in (float("inf"), float("-inf")):
+        raise AprParseError("APR semantic digests require finite JSON numbers")
+    if number == 0:
+        return "0"  # ES6 prints negative zero as "0"
+    # repr() gives the shortest digit string that round-trips, which is the digit
+    # sequence ES6 requires; only the placement of the point and the exponent
+    # spelling differ, so those are rebuilt here from the digits and exponent.
+    text = repr(number)
+    sign = "-" if text.startswith("-") else ""
+    mantissa, _, exponent = text.lstrip("-").partition("e")
+    integer_part, _, fraction = mantissa.partition(".")
+    digits = integer_part + fraction
+    point = len(integer_part) + (int(exponent) if exponent else 0)
+    stripped = digits.lstrip("0")
+    point -= len(digits) - len(stripped)
+    digits = stripped.rstrip("0")
+    k, n = len(digits), point
+    if k <= n <= 21:
+        return sign + digits + "0" * (n - k)
+    if 0 < n <= 21:
+        return sign + digits[:n] + "." + digits[n:]
+    if -6 < n <= 0:
+        return sign + "0." + "0" * (-n) + digits
+    exponent_value = n - 1
+    body = digits[0] + ("." + digits[1:] if k > 1 else "")
+    return sign + body + "e" + ("+" if exponent_value > 0 else "-") + str(abs(exponent_value))
 
 
 def digest(value: Any) -> str:

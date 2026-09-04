@@ -125,3 +125,109 @@ def test_beta6_unsupported_proof_is_unverifiable_not_invalid():
     form = pr.read_beta6_form((CORPUS / "permit.apr.jsonc").read_text(), "jsonc")
     proof = pr.read_beta6_stream((CORPUS.parent / "attestations" / "permit.unsupported.attestation.jsonc").read_text(), "jsonc")[0]
     assert pr.resolve_attestations([pr.Beta6FormRecord(form), proof])[0]["state"] == "unverifiable"
+
+
+# RFC 8785 Appendix B: IEEE 754 bit patterns and their required JCS spellings.
+JCS_NUMBER_VECTORS = [
+    ("0000000000000000", "0"), ("8000000000000000", "0"), ("0000000000000001", "5e-324"), ("0000000000000002", "1e-323"),
+    ("8000000000000001", "-5e-324"), ("7fefffffffffffff", "1.7976931348623157e+308"),
+    ("ffefffffffffffff", "-1.7976931348623157e+308"), ("4340000000000000", "9007199254740992"),
+    ("c340000000000000", "-9007199254740992"), ("4430000000000000", "295147905179352830000"),
+    ("44b52d02c7e14af5", "9.999999999999997e+22"), ("44b52d02c7e14af6", "1e+23"),
+    ("44b52d02c7e14af7", "1.0000000000000001e+23"), ("444b1ae4d6e2ef4e", "999999999999999700000"),
+    ("444b1ae4d6e2ef4f", "999999999999999900000"), ("444b1ae4d6e2ef50", "1e+21"),
+    ("3eb0c6f7a0b5ed8c", "9.999999999999997e-7"), ("3eb0c6f7a0b5ed8d", "0.000001"),
+    ("41b3de4355555553", "333333333.3333332"), ("41b3de4355555554", "333333333.33333325"),
+    ("41b3de4355555555", "333333333.3333333"), ("41b3de4355555556", "333333333.3333334"),
+    ("41b3de4355555557", "333333333.33333343"), ("becbf647612f3696", "-0.0000033333333333333333"),
+    ("43143ff3c1cb0959", "1424953923781206.2"),
+]
+
+# One form whose numbers live in extension members, so every SDK's stream reader
+# preserves them. Its digest is pinned across the Python, .NET, TypeScript and
+# Java canonicalizers.
+NUMERIC_EXTENSIONS_JSONC = '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"","com.example.canAddRows":true,"com.example.maxRows":5,"com.example.min":1996,"com.example.step":0.5,"com.example.scale":1e21,"com.example.epsilon":1e-7}]}]}'
+NUMERIC_EXTENSIONS_YAML = """version: "1.0-beta.6"
+metadata: { title: T }
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: ""
+        com.example.canAddRows: true
+        com.example.maxRows: 5
+        com.example.min: 1996.0
+        com.example.step: 0.5
+        com.example.scale: 1000000000000000000000
+        com.example.epsilon: 0.0000001
+"""
+NUMERIC_EXTENSIONS_DIGEST = "sha256:b2d48b3e183f16894e16b4c94f99f340d2c2fc5dcc32e68938f61bebcc404d0a"
+
+
+def test_jcs_number_serialization_matches_rfc_8785_appendix_b():
+    import struct
+    for pattern, expected in JCS_NUMBER_VECTORS:
+        value = struct.unpack(">d", bytes.fromhex(pattern))[0]
+        assert pr.canonicalize(value) == expected, pattern
+    assert pr.canonicalize(1996) == "1996"
+    assert pr.canonicalize(1996.0) == "1996"
+    assert pr.canonicalize(1e20) == "100000000000000000000"
+    assert pr.canonicalize(2**53 + 2) == "9007199254740994"
+    assert pr.canonicalize(True) == "true"
+    for bad in (float("inf"), float("-inf"), float("nan"), 10**400):
+        with pytest.raises(pr.AprParseError, match="finite JSON numbers"):
+            pr.canonicalize(bad)
+
+
+def test_jsonc_and_yaml_spellings_of_native_structural_numbers_digest_identically():
+    import json
+    import yaml
+    from promptresponse.beta6 import AprYamlLoader, _strip_jsonc
+
+    jsonc = """{
+      // structural members use native JSON types
+      "version": "1.0-beta.6", "metadata": { "title": "T" },
+      "sections": [{ "id": "s", "title": "S", "canAddRows": true, "maxRows": 5,
+        "prompts": [{ "id": "n", "label": "N", "hints": { "min": 1996 }, "response": "" }] }]
+    }"""
+    yaml_source = """version: "1.0-beta.6"
+metadata: { title: T }
+sections:
+  - id: s
+    title: S
+    canAddRows: true
+    maxRows: 5
+    prompts:
+      - id: n
+        label: N
+        hints: { min: 1996 }
+        response: ""
+"""
+    from_jsonc = json.loads(_strip_jsonc(jsonc))
+    from_yaml = yaml.load(yaml_source, AprYamlLoader)
+    assert from_jsonc == from_yaml
+    assert isinstance(from_yaml["sections"][0]["maxRows"], int)
+    assert isinstance(from_yaml["sections"][0]["prompts"][0]["hints"]["min"], int)
+    assert '"maxRows":5,' in pr.canonicalize(from_jsonc)
+    assert '"min":1996}' in pr.canonicalize(from_yaml)
+    assert pr.digest(from_jsonc) == pr.digest(from_yaml)
+    # A float spelling of an integral value is the same JCS number.
+    assert pr.digest(yaml.load(yaml_source.replace("min: 1996", "min: 1996.0"), AprYamlLoader)) == pr.digest(from_jsonc)
+
+
+def test_apr_yaml_resolves_integer_and_float_scalars_to_the_json_value_space():
+    import yaml
+    from promptresponse.beta6 import AprYamlLoader
+
+    loaded = yaml.load("i: 5\nz: -0\nf: 1.5\ne: 1e3\nlead: 012\nq: '5'\nsex: 1:30\n", AprYamlLoader)
+    assert loaded == {"i": 5, "z": 0, "f": 1.5, "e": 1000.0, "lead": "012", "q": "5", "sex": "1:30"}
+    assert isinstance(loaded["i"], int) and isinstance(loaded["f"], float)
+
+
+def test_numeric_extension_members_digest_identically_from_jsonc_and_yaml_streams():
+    jsonc_record = pr.read_beta6_stream(NUMERIC_EXTENSIONS_JSONC, "jsonc")[0]
+    yaml_record = pr.read_beta6_stream(NUMERIC_EXTENSIONS_YAML, "yaml")[0]
+    assert pr.digest(jsonc_record.value) == NUMERIC_EXTENSIONS_DIGEST
+    assert pr.digest(yaml_record.value) == NUMERIC_EXTENSIONS_DIGEST

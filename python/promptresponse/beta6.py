@@ -140,7 +140,8 @@ def _split_jsonc(source: str) -> List[str]:
 # implemented here instead: quoted scalars are strings, the null, boolean and
 # JSON number forms resolve to those types, and any other plain scalar is a
 # string.
-_JSON_NUMBER = r"-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?"
+_JSON_INTEGER = r"-?(?:0|[1-9][0-9]*)"
+_JSON_NUMBER = _JSON_INTEGER + r"(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?"
 _NON_FINITE = re.compile(r"^[-+]?\.(?:inf|Inf|INF|nan|NaN|NAN)$")
 _DIRECTIVE = re.compile(r"(?m)^%(?:YAML|TAG)\b")
 
@@ -157,6 +158,14 @@ AprYamlLoader.add_implicit_resolver(
     "tag:yaml.org,2002:bool",
     re.compile(r"^(?:true|True|TRUE|false|False|FALSE)$"),
     list("tTfF"),
+)
+# An integer-looking scalar resolves to int, as json.loads would, so the YAML
+# and JSONC spellings of "maxRows: 5" yield the same Python value. PyYAML tries
+# resolvers in insertion order, so the integer form must precede the float one.
+AprYamlLoader.add_implicit_resolver(
+    "tag:yaml.org,2002:int",
+    re.compile(r"^" + _JSON_INTEGER + r"$"),
+    list("-0123456789"),
 )
 AprYamlLoader.add_implicit_resolver(
     "tag:yaml.org,2002:float",

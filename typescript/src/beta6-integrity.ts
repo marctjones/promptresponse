@@ -111,6 +111,10 @@ function findPrompt(value: JsonValue | undefined, id: string, base: string, ance
 function atPointer(value: JsonValue, path: string): JsonValue | undefined { let current: JsonValue | undefined = value; for (const part of path.split("/").slice(1)) { if (Array.isArray(current)) current = current[Number(part)]; else if (current !== null && typeof current === "object") current = (current as JsonObject)[part.replaceAll("~1", "/").replaceAll("~0", "~")]; else return undefined; } return current; }
 function requirePath(paths: Set<string>, path: string, differing: string[]): void { if (!paths.has(path)) differing.push(path); }
 function canonical(value: JsonValue): string {
+  // RFC 8785 section 3.2.2.3 requires ES6 Number::toString, which is exactly what
+  // JSON.stringify applies to a finite number; a non-finite one would silently
+  // become "null", so it is refused as the other SDKs refuse it.
+  if (typeof value === "number" && !Number.isFinite(value)) throw new AprParseError("APR semantic digests require finite JSON numbers");
   if (value === null || typeof value === "boolean" || typeof value === "number" || typeof value === "string") return JSON.stringify(value);
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
   return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${canonical(value[key]!)}`).join(",")}}`;

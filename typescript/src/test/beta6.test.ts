@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildExpressionContext, computeValue, AprParseError, beta6FormValue, createBeta6Manifest, digestBeta6, readBeta6Form, readBeta6Stream, resolveBeta6Attestations, resolveBeta6AttestationsAsync, verifyBeta6CmsProof, writeBeta6Form, writeBeta6Stream } from "../index.js";
+import { buildExpressionContext, computeValue, AprParseError, beta6FormValue, canonicalizeBeta6, createBeta6Manifest, digestBeta6, readBeta6Form, readBeta6Stream, resolveBeta6Attestations, resolveBeta6AttestationsAsync, verifyBeta6CmsProof, writeBeta6Form, writeBeta6Stream } from "../index.js";
 import { readFile } from "node:fs/promises";
 
 const form = `{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}`;
@@ -10,6 +10,46 @@ test("beta.6 shared JSONC and YAML corpus forms have equal semantics", async () 
   const jsonc = readBeta6Form(await readFile(new URL(corpus + "permit.apr.jsonc", import.meta.url), "utf8"), "jsonc");
   const yaml = readBeta6Form(await readFile(new URL(corpus + "permit.apr.yaml", import.meta.url), "utf8"), "yaml");
   assert.deepEqual(jsonc, yaml);
+});
+
+// RFC 8785 Appendix B: IEEE 754 bit patterns and their required JCS spellings.
+const JCS_NUMBER_VECTORS: [string, string][] = [
+  ["0000000000000000", "0"], ["8000000000000000", "0"], ["0000000000000001", "5e-324"], ["0000000000000002", "1e-323"], ["8000000000000001", "-5e-324"],
+  ["7fefffffffffffff", "1.7976931348623157e+308"], ["ffefffffffffffff", "-1.7976931348623157e+308"],
+  ["4340000000000000", "9007199254740992"], ["c340000000000000", "-9007199254740992"], ["4430000000000000", "295147905179352830000"],
+  ["44b52d02c7e14af5", "9.999999999999997e+22"], ["44b52d02c7e14af6", "1e+23"], ["44b52d02c7e14af7", "1.0000000000000001e+23"],
+  ["444b1ae4d6e2ef4e", "999999999999999700000"], ["444b1ae4d6e2ef4f", "999999999999999900000"], ["444b1ae4d6e2ef50", "1e+21"],
+  ["3eb0c6f7a0b5ed8c", "9.999999999999997e-7"], ["3eb0c6f7a0b5ed8d", "0.000001"],
+  ["41b3de4355555553", "333333333.3333332"], ["41b3de4355555554", "333333333.33333325"], ["41b3de4355555555", "333333333.3333333"],
+  ["41b3de4355555556", "333333333.3333334"], ["41b3de4355555557", "333333333.33333343"],
+  ["becbf647612f3696", "-0.0000033333333333333333"], ["43143ff3c1cb0959", "1424953923781206.2"],
+];
+
+test("beta.6 canonical numbers match RFC 8785 Appendix B", () => {
+  for (const [bits, expected] of JCS_NUMBER_VECTORS) {
+    const view = new DataView(new ArrayBuffer(8));
+    view.setBigUint64(0, BigInt(`0x${bits}`));
+    assert.equal(canonicalizeBeta6(view.getFloat64(0)), expected, bits);
+  }
+  assert.equal(canonicalizeBeta6(JSON.parse(`{"maxRows":5.0,"min":1.996e3,"canAddRows":true}`)), `{"canAddRows":true,"maxRows":5,"min":1996}`);
+  assert.throws(() => canonicalizeBeta6(Infinity), AprParseError);
+  assert.throws(() => canonicalizeBeta6(NaN), AprParseError);
+});
+
+test("beta.6 numeric extension members digest identically from JSONC and YAML", () => {
+  const expected = "sha256:b2d48b3e183f16894e16b4c94f99f340d2c2fc5dcc32e68938f61bebcc404d0a";
+  const jsonc = `{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"","com.example.canAddRows":true,"com.example.maxRows":5,"com.example.min":1996,"com.example.step":0.5,"com.example.scale":1e21,"com.example.epsilon":1e-7}]}]}`;
+  const yaml = [
+    `version: "1.0-beta.6"`, "metadata: { title: T }", "sections:", "  - id: s", "    title: S", "    prompts:",
+    "      - id: p", "        label: P", `        response: ""`, "        com.example.canAddRows: true", "        com.example.maxRows: 5",
+    "        com.example.min: 1996.0", "        com.example.step: 0.5", "        com.example.scale: 1000000000000000000000", "        com.example.epsilon: 0.0000001", "",
+  ].join("\n");
+  for (const [source, representation] of [[jsonc, "jsonc"], [yaml, "yaml"]] as const) {
+    const record = readBeta6Stream(source, representation)[0]!;
+    assert.equal(record.type, "form");
+    assert.equal(digestBeta6(record.value!), expected, representation);
+  }
+  assert.throws(() => readBeta6Stream(`version: "1.0-beta.6"\nmetadata: { title: T, com.example.big: 1e999 }\nsections: []\n`, "yaml"), /non-finite/);
 });
 
 test("beta.6 JSONC and YAML decode to the same form", () => {
