@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "c8c6c148-7c75-58e6-bce1-9517f0efeab1",
+    "uuid": "30b99493-2fc6-5895-be0c-ecb48d2d8409",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "5bc411b1aaa1309150b6de05ea02b0c0b6cb7265faff2def664e7dd47babaeb0"
+          "value": "81f7ff005a1f4457aa5654f9ef5e5ab29c6d2220944ce921d7b2fa46da14f8c7"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -95,7 +95,7 @@
               {
                 "id": "apr-attest-002_smt",
                 "name": "statement",
-                "prose": "`version` — string — **Yes** — **MUST** be `1.0-beta.6`."
+                "prose": "`aprVersion` — string — **Yes** — **MUST** be `1.0-beta.6`."
               }
             ]
           },
@@ -3945,7 +3945,7 @@
               {
                 "id": "apr-sec-002_smt",
                 "name": "statement",
-                "prose": "`version` **MUST** be exactly `\"1.0-beta.6\"`. A document declaring any other value **MUST** be rejected with `UNSUPPORTED_VERSION`, including `1.0-beta`, `1.0-beta.3`, and any later beta."
+                "prose": "`aprVersion` **MUST** be exactly `\"1.0-beta.6\"`. A record declaring any other value **MUST** be rejected with `UNSUPPORTED_VERSION`, including `1.0-beta`, `1.0-beta.3`, and any later beta."
               }
             ]
           },

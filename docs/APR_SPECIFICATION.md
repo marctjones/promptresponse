@@ -124,7 +124,7 @@ strictly apart.
 
 | Number | Changes | Lives in | Today |
 | --- | --- | --- | --- |
-| **Format version** | only on a breaking change to the wire format | the `version` member of every document | `1.0-beta.6` |
+| **Format version** | only on a breaking change to the wire format | the `aprVersion` member of every record | `1.0-beta.6` |
 | **Specification document version** | every release | this document's header | `1.0.0-beta.6-draft` |
 | **Conformance corpus tag** | every release | `tests/Conformance/beta6/` and a git tag | `corpus/beta6` |
 
@@ -133,9 +133,14 @@ the wire format declare the same format version, and that is correct. [APR-SEC-0
 
 #### 1.4.1 Version compatibility {#version-compatibility}
 
-`version` **MUST** be exactly `"1.0-beta.6"`. A document declaring any other
+`aprVersion` **MUST** be exactly `"1.0-beta.6"`. A record declaring any other
 value **MUST** be rejected with `UNSUPPORTED_VERSION`, including `1.0-beta`,
 `1.0-beta.3`, and any later beta. [APR-SEC-002]
+
+> Decision (beta.6): the member is named `aprVersion`, not `version`. A bare
+> `version` in a document that also carries `templateVersion` reads as though
+> it were the form author's own version number, which is the one thing it is
+> not. The name says whose version it is.
 
 > Decision (beta.6): version handling is **exact-match rejection**. An earlier
 > baseline decided compatibility by MAJOR.MINOR, so that a newer MINOR was read
@@ -427,7 +432,7 @@ representation: jsonc
 expect: valid
 ---
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "metadata": { "title": "Trailing commas" },
   "sections": [
     { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" }, ] },
@@ -445,7 +450,7 @@ representation: jsonc
 expect: valid
 ---
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "metadata": { "title": "// not a comment /* nor this */" },
   "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
 }
@@ -459,7 +464,7 @@ expect: reject
 diagnostic: DUPLICATE_MEMBER
 ---
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "metadata": { "title": "first" },
   "metadata": { "title": "second" },
   "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
@@ -473,7 +478,7 @@ diagnostic: DUPLICATE_MEMBER
 {
   // Comments are trivia: they survive a byte-level copy and vanish from
   // the semantic model. They are never hashed and never attested.
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "documentType": "template",
   "metadata": { "title": "Permit Application" },
   "sections": [
@@ -577,7 +582,7 @@ representation: yaml
 expect: reject
 diagnostic: YAML_ANCHOR_FORBIDDEN
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata: &meta
   title: Anchored
 sections:
@@ -595,7 +600,7 @@ representation: yaml
 expect: reject
 diagnostic: YAML_TAG_FORBIDDEN
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: !!str Tagged
 sections:
@@ -613,7 +618,7 @@ representation: yaml
 expect: reject
 diagnostic: YAML_MERGE_KEY_FORBIDDEN
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Merged
 sections:
@@ -634,7 +639,7 @@ diagnostic: YAML_DIRECTIVE_FORBIDDEN
 ---
 %YAML 1.2
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Directed
 sections:
@@ -654,7 +659,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Permit Application
 sections:
@@ -672,7 +677,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Legacy spellings
 sections:
@@ -690,7 +695,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Leading zero
 sections:
@@ -708,7 +713,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Date-like
 sections:
@@ -734,7 +739,7 @@ representation: jsonc
 expect: valid
 ---
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "metadata": { "title": "Expenses" },
   "sections": [
     {
@@ -767,7 +772,7 @@ expect: reject
 diagnostic: WRONG_TYPE
 ---
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "metadata": { "title": "Stringly typed" },
   "sections": [
     {
@@ -792,7 +797,7 @@ representation: jsonc
 expect: valid
 ---
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "metadata": { "title": "Unregistered affordance" },
   "sections": [
     {
@@ -813,7 +818,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Resolution
 sections:
@@ -831,7 +836,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Resolution
 sections:
@@ -849,7 +854,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Resolution
 sections:
@@ -867,7 +872,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Resolution
 sections:
@@ -885,7 +890,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Resolution
 sections:
@@ -905,7 +910,7 @@ rule: yaml-resolution
 representation: yaml
 expect: valid
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Resolution
 sections:
@@ -924,7 +929,7 @@ representation: yaml
 expect: reject
 diagnostic: YAML_NON_FINITE_NUMBER
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Non-finite
 sections:
@@ -944,7 +949,7 @@ in this document ([Authority](#scope)).
 semantic models and therefore identical digests.
 
 ```yaml
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 documentType: template
 metadata:
   title: Permit Application
@@ -1050,7 +1055,7 @@ An implementation **MAY** surface a hint mismatch as an advisory warning. It
 
 ```jsonc
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "documentType": "template",
   "metadata": { "title": "Permit Application" },
   "sections": [ /* ... */ ],
@@ -1060,7 +1065,7 @@ An implementation **MAY** surface a hint mismatch as an advisory warning. It
 
 | Member | Type | Required | Notes |
 | --- | --- | --- | --- |
-| `version` | string | **Yes** | Exactly `"1.0-beta.6"` ([Version compatibility](#version-compatibility)). |
+| `aprVersion` | string | **Yes** | Exactly `"1.0-beta.6"` — the version of *this specification* the record is written to, never the form's own ([Version compatibility](#version-compatibility)). |
 | `documentType` | string | No | `template` or `filledForm`. Absent means `template`. Authoritative — see [Document type](#media-types). |
 | `metadata` | object | **Yes** | [Metadata](#metadata) |
 | `sections` | array | **Yes** | **MUST** contain at least one section. [APR-MODEL-005] |
@@ -1547,7 +1552,7 @@ representation: jsonc
 expect: valid
 ---
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "metadata": { "title": "Extended", "com.example.routing": "desk-4" },
   "sections": [
     { "id": "s", "title": "S",
@@ -1745,8 +1750,8 @@ if it has zero errors. Warnings never affect validity.
 | Code | Condition |
 | --- | --- |
 | `NULL_DOCUMENT` | No document. |
-| `REQUIRED_FIELD` | `version`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `sections` empty; `templateId` absent on a filled form. |
-| `UNSUPPORTED_VERSION` | `version` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). |
+| `REQUIRED_FIELD` | `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `sections` empty; `templateId` absent on a filled form. |
+| `UNSUPPORTED_VERSION` | `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). |
 | `DUPLICATE_ID` | A section or prompt id repeats within its namespace. |
 | `EMPTY_SECTION` | A section has no prompts and no child sections. |
 | `RETIRED_EMBEDDED_SIGNATURES` | The document carries a `signatures` member. |
@@ -1968,7 +1973,7 @@ APR record. No additional framing is defined, because YAML already has one.
 
 ```yaml
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Household contact card
 sections:
@@ -1979,7 +1984,7 @@ sections:
         label: Full name
         response: ""
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: Emergency contact card
 sections:
@@ -2001,9 +2006,9 @@ representation: jsonc-stream
 expect: reject
 diagnostic: APR_STREAM_MIXED_REPRESENTATIONS
 ---
-{"version":"1.0-beta.6","metadata":{"title":"first"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+{"aprVersion":"1.0-beta.6","metadata":{"title":"first"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
 ---
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 metadata:
   title: second
 sections:
@@ -2273,7 +2278,7 @@ anything.
 ```jsonc
 {
   "recordType": "attestation",
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "subject": { "digest": "sha256:...", "canonicalization": "jcs-sha256" },
   "scope": { "kind": "document" },
   "manifest": { "root": "sha256:...", "entries": [] },
@@ -2285,7 +2290,7 @@ anything.
 | Member | Type | Required | Domain |
 | --- | --- | --- | --- |
 | `recordType` | string | **Yes** | **MUST** be `attestation`. [APR-ATTEST-001] |
-| `version` | string | **Yes** | **MUST** be `1.0-beta.6`. [APR-ATTEST-002] |
+| `aprVersion` | string | **Yes** | **MUST** be `1.0-beta.6`. [APR-ATTEST-002] |
 | `subject` | object | **Yes** | `digest` and `canonicalization`, no other members. |
 | `subject.digest` | string | **Yes** | `sha256:` and 64 lowercase hex characters. |
 | `subject.canonicalization` | string | **Yes** | **MUST** be `jcs-sha256`. [APR-ATTEST-003] |
@@ -2526,7 +2531,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Reject a response given as a JSON number or boolean
 - [ ] Reject a structural member given in the wrong JSON type; `canAddRows` is a boolean, `maxRows` an integer
 - [ ] Read a null or absent response as the empty string; never write null
-- [ ] Reject any `version` other than `1.0-beta.6`
+- [ ] Reject any `aprVersion` other than `1.0-beta.6`
 - [ ] Report `RETIRED_EMBEDDED_SIGNATURES` for a `signatures` member
 - [ ] Treat `documentType` as authoritative; never infer type from a filename
 - [ ] Label APR content with its `vnd.apr` media type; never infer behaviour from a generic one
@@ -2609,7 +2614,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---
@@ -2668,7 +2673,7 @@ The CEL entries are normative for the `core+expressions` profile only.
 
 ```jsonc
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "documentType": "template",
   "metadata": { "title": "Contact" },
   "sections": [
