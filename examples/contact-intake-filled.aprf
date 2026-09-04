@@ -5,10 +5,8 @@
     "title": "Contact Intake — completed example",
     "description": "Fictional data demonstrating a filled APR form without personal information.",
     "author": "PromptResponse Team",
-    "templateId": "contact-intake",
-    "templateVersion": "1.0",
-    "filledBy": "Example Respondent",
-    "filledDate": "2026-08-29T00:00:00Z"
+    "templateId": "tag:skpt.cl,2026:examples/contact-intake",
+    "templateVersion": "1.0"
   },
   "sections": [
     {

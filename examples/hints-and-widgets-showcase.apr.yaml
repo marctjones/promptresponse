@@ -4,7 +4,7 @@ documentType: template
 metadata:
   title: APR hints and widgets showcase
   description: "Matched JSONC/YAML demonstration of every registered expectedDataType and every standard hint family. Hints are advisory: a renderer may offer another accessible affordance and responses remain strings."
-  templateId: apr-hints-and-widgets-showcase
+  templateId: "tag:skpt.cl,2026:examples/apr-hints-and-widgets-showcase"
   templateVersion: "1.0-beta.6"
 sections:
   - id: text_and_contact

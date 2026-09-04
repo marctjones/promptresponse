@@ -7,7 +7,7 @@
     "created": "2025-01-01T00:00:00Z",
     "modified": "2025-01-01T00:00:00Z",
     "author": "PromptResponse Team",
-    "templateId": "field-types-showcase",
+    "templateId": "tag:skpt.cl,2026:examples/field-types-showcase",
     "templateVersion": "1.0"
   },
   "sections": [

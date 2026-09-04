@@ -5,7 +5,7 @@
     "title": "IRS Form W-2 (2026) - Wage and Tax Statement",
     "description": "Faithful semantic transcription of one 2026 IRS Form W-2 statement. The official PDF carries multiple recipient copies of the same statement; this APR model represents the shared data once. The adjacent PDF is the authoritative visual source and contains copy-specific delivery instructions.",
     "author": "Internal Revenue Service",
-    "templateId": "irs-form-w2-2026",
+    "templateId": "tag:skpt.cl,2026:examples/irs-form-w2-2026",
     "templateVersion": "2026",
     "sourceUrl": "https://www.irs.gov/pub/irs-pdf/fw2.pdf",
     "sourceSha256": "61eca7c81f16d3965819fe1f31be4fe68c1b2887a81f51172f1d2ed2b2b9f087"

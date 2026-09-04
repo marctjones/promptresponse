@@ -109,17 +109,12 @@
           "description": "The organization standing behind the template. When a publisher signature is present, the certificate identity is authoritative over this field."
         },
         "templateId": {
-          "type": "string"
+          "type": "string",
+          "format": "uri",
+          "description": "A URI identifying the template a filled form answers. RFC 4151 tag URIs are the recommended form. Never fetched."
         },
         "templateVersion": {
           "type": "string"
-        },
-        "filledBy": {
-          "type": "string"
-        },
-        "filledDate": {
-          "type": "string",
-          "format": "date-time"
         },
         "submissionUrls": {
           "type": "array",
@@ -326,14 +321,6 @@
     "responseMetadata": {
       "type": "object",
       "properties": {
-        "inferredDataType": {
-          "type": "string",
-          "description": "What a reader detected in the response. Never authoritative, never a constraint."
-        },
-        "lastModified": {
-          "type": "string",
-          "format": "date-time"
-        },
         "source": {
           "type": "string",
           "enum": [

@@ -7,7 +7,7 @@
     "created": "2025-01-01T00:00:00Z",
     "modified": "2025-01-01T00:00:00Z",
     "author": "Internal Revenue Service",
-    "templateId": "irs-form-990-2024",
+    "templateId": "tag:skpt.cl,2026:examples/irs-form-990-2024",
     "templateVersion": "2024.1"
   },
   "sections": [

@@ -5,7 +5,7 @@ version: "1.0-beta.6"
 documentType: template
 metadata:
   title: Household contact card
-  templateId: household-contact-card
+  templateId: "tag:skpt.cl,2026:examples/household-contact-card"
   templateVersion: "1.0"
 sections:
   - id: contact
@@ -24,7 +24,7 @@ version: "1.0-beta.6"
 documentType: template
 metadata:
   title: Household emergency contact card
-  templateId: household-emergency-contact-card
+  templateId: "tag:skpt.cl,2026:examples/household-emergency-contact-card"
   templateVersion: "1.0"
 sections:
   - id: emergency_contact

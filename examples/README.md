@@ -275,7 +275,7 @@ Minimum required structure:
   "documentType": "template",
   "metadata": {
     "title": "My Form",
-    "templateId": "my-form-v1"
+    "templateId": "tag:example.com,2026:my-form"
   },
   "sections": [
     {
@@ -288,8 +288,6 @@ Minimum required structure:
           "response": "",
           "hints": {},
           "responseMetadata": {
-            "lastModified": null,
-            "inferredDataType": null
           }
         }
       ],

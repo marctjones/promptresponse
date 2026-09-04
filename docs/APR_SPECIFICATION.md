@@ -563,7 +563,9 @@ content. [APR-REP-013]
 Responses remain strings even where a scalar would otherwise resolve as a number
 or boolean under the JSON Schema, because
 [Responses are strings](#responses) governs the semantic model regardless of how
-a scalar resolved.
+a scalar resolved. Anywhere else, an author who means the *string* `true` or
+`25` — as a suggested value, say — **MUST** quote it, exactly as a JSON author
+must; the table above is the only thing that decides.
 
 
 The excluded constructs, each with its vector.
@@ -1078,10 +1080,8 @@ A form **MUST NOT** carry a `signatures` member. A reader encountering one
 | `modified` | date-time | No | RFC 3339. |
 | `author` | string | No | A person. |
 | `publisher` | string | No | The organization standing behind the form. |
-| `templateId` | string | No | Required on a `filledForm`; identifies the template it answers. |
+| `templateId` | string | No | Required on a `filledForm`. A URI identifying the template it answers ([Template identity](#template-identity)). |
 | `templateVersion` | string | No | The template revision answered. |
-| `filledBy` | string | No | Who supplied the responses. |
-| `filledDate` | date-time | No | RFC 3339. |
 | `submissionUrls` | array of string | No | Ordered explicit delivery choices; `https` or `mailto` ([Submission targets](#submission)). |
 
 `title` **MUST** contain a non-whitespace character. [APR-MODEL-007]
@@ -1094,6 +1094,32 @@ explicit user action.
 
 When `documentType` is `filledForm`, `templateId` is **REQUIRED**: a completed
 form that cannot name the form it completes is not traceable. [APR-MODEL-008]
+
+**Template identity.** {#template-identity} `templateId` **MUST** be a URI
+(RFC 3986). It identifies; it need not resolve. The **RECOMMENDED** form is a
+tag URI (RFC 4151), `tag:skpt.cl,2026:dog-license`, which is unique by
+construction — it is minted from a domain or email address the author held on
+a date — and needs no server. Any URI the author controls the uniqueness of is
+acceptable, an email address as a `mailto` URI included. A reader **MUST NOT**
+fetch a `templateId`. [APR-MODEL-036]
+
+> Rationale: a filled form is consumed by the template it answers, so the
+> identifier has to be unique across every author who will ever publish a
+> form. Relying on a URI puts that uniqueness on a namespace someone already
+> owns rather than on a registry. `file:///example.apr` is a valid URI and a
+> poor identifier, and the format does not stop an author choosing badly; it
+> only gives them a good form to choose.
+
+**Workflow state is not form data.** When a form was received, by whom, and
+what happened to it next are facts the *receiver* tracks against the form,
+not members of it. This document defines no member for them, and a workflow
+that needs them keeps them beside the form or in an extension member it owns
+([Unknown members](#extensions)), never in a member this document defines. [APR-MODEL-037]
+
+> Rationale: an earlier draft carried `filledBy` and `filledDate`. They were
+> written by the wrong party — the filler asserting facts about the
+> submission — and sat inside the object an attestation covers, so a
+> receiver's bookkeeping could not change without disturbing a signature.
 
 #### 5.2.1 Submission targets {#submission}
 
@@ -1201,9 +1227,13 @@ every attestation covering it. [APR-MODEL-011]
 
 | Member | Type | Meaning |
 | --- | --- | --- |
-| `inferredDataType` | string | What a reader detected in the response. Never authoritative, never a constraint. |
-| `lastModified` | date-time | When the response last changed. |
 | `source` | string | `computed` is the only defined value. Present when an `exprValue` produced the response; absent when a person or an API wrote it. |
+
+`source` is the one fact about a response that the format itself needs: the
+expressions profile uses it to tell a value it may recompute from one a person
+corrected ([A computed value is a suggestion](#expr-computed)). Everything
+else a reader once recorded here — what type it detected, when the value last
+changed — was workflow state and is gone ([Metadata](#metadata)).
 
 Every member is advisory. A reader that ignores `responseMetadata` entirely still
 holds a valid document.
@@ -1211,7 +1241,14 @@ holds a valid document.
 ### 5.6 Tables {#tables}
 
 A table introduces **no new primitive**. Rows are ordinary sections; cells are
-ordinary prompts. A section becomes a table by carrying `kind: "table"`.
+ordinary prompts. A section becomes a table by carrying `kind: "table"`, and
+**only** by carrying it: a table is never inferred from `maxRows`,
+`canAddRows`, or the presence of child sections, and those members on a
+section that is not a table are preserved and ignored. [APR-MODEL-038]
+
+> Rationale: a plain section may have child sections too, so inference would
+> have to guess, and two readers guessing differently about the same document
+> is the failure the format exists to prevent.
 
 **Example 4.** A table section.
 
@@ -1361,6 +1398,14 @@ carry them.
 **This registry is open.** An unrecognized value **MUST** degrade to a plain text
 field. It **MUST NOT** cause an error — that is what lets the registry grow
 without breaking every existing reader. [APR-MODEL-018]
+
+**A hint a reader cannot use is not an error.** A hint that is unrecognised,
+unsupported, or malformed — an unparseable `validationPattern`, a bound of the
+wrong type, an expression that will not compile — **MUST** be preserved and
+**MAY** be reported as a warning; it **MUST NOT** make the document invalid.
+Hints are applied in the order the member table lists them, and where two
+hints on one prompt conflict, the earlier one stands and the later one is
+skipped and **MAY** be reported. [APR-MODEL-039]
 
 The list above is the normative registry. `schemas/apr-types-1.0.json` publishes
 it in machine-readable form, together with each type's canonical write form,
@@ -1728,7 +1773,7 @@ different conditions, and they **MUST NOT** be treated alike. [APR-TEXT-002]
 | | **Authoring data** | **Filled data** |
 | --- | --- | --- |
 | Written by | the form author | the person filling the form |
-| Members | `metadata` except `filledBy` and `filledDate`, section `id`, `title`, `description`, prompt `id`, `label`, all of `hints` | `prompt.response`, `metadata.filledBy`, `responseMetadata` |
+| Members | `metadata`, section `id`, `title`, `description`, prompt `id`, `label`, all of `hints` | `prompt.response`, `responseMetadata` |
 | Conditions | deliberate, repeatable, reviewable before publication | once, under time pressure, often on someone else's behalf |
 | Consumed by | machines and every future reader | the receiving workflow |
 | Policy | **Strict rules are appropriate.** Reject or warn at authoring time. | **Maximum tolerance.** Accept any string; never rewrite. |
@@ -2406,7 +2451,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Require content in every section, tables included
 - [ ] Treat a table as structure, never as licence for layout data
 - [ ] Derive table headers from the corresponding prompts' labels; correspond by position
-- [ ] Require `templateId` on a filled form
+- [ ] Require `templateId` on a filled form, as a URI, and never fetch it
 - [ ] Support at least 16 levels of section nesting
 - [ ] Ignore unknown members without rejecting them, and preserve them on write
 - [ ] Name every extension member with an owned reverse-DNS prefix; add no unprefixed member
@@ -2479,7 +2524,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---
@@ -2493,6 +2538,8 @@ Compliance with this specification requires the editions below.
 | BCP 14 | Key words for use in RFCs (RFC 2119 and RFC 8174) |
 | RFC 3339 | Date and Time on the Internet: Timestamps |
 | RFC 3629 | UTF-8, a transformation format of ISO 10646 |
+| RFC 3986 | Uniform Resource Identifier (URI): Generic Syntax |
+| RFC 4151 | The 'tag' URI Scheme |
 | RFC 4648 | The Base16, Base32, and Base64 Data Encodings |
 | RFC 4918 | HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV) |
 | RFC 5234 | Augmented BNF for Syntax Specifications (ABNF), the notation used for the grammars here |

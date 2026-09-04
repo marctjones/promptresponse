@@ -728,7 +728,7 @@
     {
       "id": "REQ-hint-members",
       "section": "hints-object",
-      "statement": "Every defined hint member, and the expectedDataType registry; signature and file are not registered types",
+      "statement": "Every defined hint member, and the expectedDataType registry; signature and file are not registered types; an unusable hint is preserved, never an error; earlier hint wins a conflict",
       "strength": "partial",
       "gates": [
         {
@@ -740,7 +740,8 @@
       "rules": [
         "APR-MODEL-018",
         "APR-MODEL-019",
-        "APR-MODEL-030"
+        "APR-MODEL-030",
+        "APR-MODEL-039"
       ]
     },
     {
@@ -799,7 +800,7 @@
     {
       "id": "REQ-metadata-members",
       "section": "metadata",
-      "statement": "metadata.title required non-blank; filledForm declares templateId",
+      "statement": "metadata.title required non-blank; filledForm declares templateId; templateId is a URI, never fetched; workflow state is not form data",
       "strength": "gated",
       "gates": [
         {
@@ -809,7 +810,9 @@
       ],
       "rules": [
         "APR-MODEL-007",
-        "APR-MODEL-008"
+        "APR-MODEL-008",
+        "APR-MODEL-036",
+        "APR-MODEL-037"
       ]
     },
     {
@@ -1187,7 +1190,7 @@
     {
       "id": "REQ-section-members",
       "section": "section-object",
-      "statement": "Section requires id and title and at least one prompt or child section",
+      "statement": "Section requires id and title and at least one prompt or child section; a table is never inferred",
       "strength": "gated",
       "gates": [
         {
@@ -1196,7 +1199,8 @@
         }
       ],
       "rules": [
-        "APR-MODEL-009"
+        "APR-MODEL-009",
+        "APR-MODEL-038"
       ]
     },
     {

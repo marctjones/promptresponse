@@ -1,7 +1,7 @@
 {
   "version": "1.0-beta.6",
   "documentType": "template",
-  "metadata": { "title": "Patient Intake", "templateId": "intake", "templateVersion": "1.0" },
+  "metadata": { "title": "Patient Intake", "templateId": "tag:skpt.cl,2026:examples/intake", "templateVersion": "1.0" },
   "roles": [
     { "id": "patient", "name": "Patient", "description": "The person receiving care." },
     { "id": "nurse", "name": "Nurse", "description": "Clinical staff recording observations." },

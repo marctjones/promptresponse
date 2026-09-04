@@ -7,7 +7,7 @@
     "created": "2026-06-06T00:00:00Z",
     "modified": "2026-06-06T00:00:00Z",
     "author": "PromptResponse Team",
-    "templateId": "contact-intake",
+    "templateId": "tag:skpt.cl,2026:examples/contact-intake",
     "templateVersion": "1.0"
   },
   "sections": [
