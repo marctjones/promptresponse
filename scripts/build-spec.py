@@ -41,6 +41,7 @@ ARTIFACTS = {
     "shapeManifest": "tests/spec-shape/manifest.json",
     "reviewRubric": "tests/spec-semantic/rubric.json",
     "derivedExamples": "tests/Conformance/beta6/spec-examples.json",
+    "oscalCatalog": "docs/release/apr-oscal-catalog.json",
 }
 
 CORPUS = ROOT / "tests" / "Conformance" / "beta6"

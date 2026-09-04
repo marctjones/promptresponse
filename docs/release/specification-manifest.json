@@ -43,6 +43,10 @@
     "derivedExamples": {
       "path": "tests/Conformance/beta6/spec-examples.json",
       "sha256": "sha256:d30a45cadbb918d6b632a47618d76b1c3b3287cb93619d71a32d31f4b434fbf2"
+    },
+    "oscalCatalog": {
+      "path": "docs/release/apr-oscal-catalog.json",
+      "sha256": "sha256:d898203b9b62fd97824d8a8549bf95ac0939e52f412b97e2908c503a29e756c9"
     }
   },
   "corpus": {

@@ -40,6 +40,7 @@ surfaces first.
 - [ ] `python3 scripts/check-schema-agrees.py` — schema and type registry match the member tables
 - [ ] `python3 scripts/extract-spec-examples.py` — the corpus still matches the specification
 - [ ] `python3 scripts/check-test-registry.py` — per-rule coverage, fixtures, tests and suites resolve
+- [ ] `python3 scripts/build-oscal.py` — the OSCAL rule catalog matches the specification
 - [ ] `python3 scripts/check-docs.py` — references and the authority ordering hold
 - [ ] `python3 scripts/check-schema.py` — corpus and examples validate against the schema
 - [ ] Every implementation suite passes: .NET, Python, TypeScript, Java, and the web demo
@@ -86,6 +87,7 @@ review and never substitutes for a human reading the text.
 - [ ] Change class from §1 recorded, with reasoning
 - [ ] Output of every gate in §2 recorded
 - [ ] Reviewer named, and the date
+- [ ] `python3 scripts/build-oscal.py --write` run, and the OSCAL catalog committed
 - [ ] `python3 scripts/build-spec.py --write` run, and the release manifest committed
 - [ ] Tag identifies the exact specification, schema, type registry, registry and corpus set
 

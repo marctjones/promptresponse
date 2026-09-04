@@ -148,6 +148,11 @@ jobs:
         # have an entry.
         run: python3 scripts/check-test-registry.py
 
+      - name: Verify the OSCAL rule catalog is current
+        # Every rule identifier is projected into an OSCAL control so completeness
+        # policies can be written against the same identifiers the spec uses.
+        run: python3 scripts/build-oscal.py
+
       - name: Verify the specification release manifest is current
         # A published baseline must identify the exact bytes it published, or the
         # version string names a moving target.
