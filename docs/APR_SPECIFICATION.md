@@ -295,8 +295,10 @@ never broken, and never lost. [APR-CONF-003]
 
 ### 3.5 Declaring conformance {#declaring-conformance}
 
-State the profiles you implement and the corpus commit you pass. "APR
-1.0-beta.6 core+streams, corpus beta6 @ `<sha>`" is a complete and honest claim.
+State the profiles you implement, the submission transports you implement
+(`https`, `mailto`, both, or none — [Submission targets](#submission)), and the
+corpus commit you pass. "APR 1.0-beta.6 core+streams, submits https, corpus
+beta6 @ `<sha>`" is a complete and honest claim.
 
 An implementation **MUST NOT** claim a profile without passing the corpus
 revision it names. [APR-CONF-004]
@@ -1116,14 +1118,22 @@ without a fresh user action. [APR-MODEL-033]
 
 **`mailto`.** The entry is an RFC 6068 address, with any header fields it
 carries such as `subject` passed through. Submitting means composing a message
-to that address with the document as an attachment, never inlined in the body.
-A client **MAY** hand the composition to the user's mail client, or **MAY**
-send natively if it has that ability; either way the message leaves only on an
-explicit user action. [APR-MODEL-034]
+to that address with the **stream** as a single attachment, never inlined in
+the body; a lone form is a one-record stream. A client **SHOULD** hand the
+composition to the user's mail client, and **MAY** instead send natively if it
+has that ability; either way the message leaves only on an explicit user
+action. [APR-MODEL-034]
 
-A client **MUST NOT** act on an entry whose scheme it does not recognise or
-does not implement, and a validator **SHOULD** report such an entry as
-`SUBMISSION_URL_UNSUPPORTED` ([Warnings](#warnings)). An `http` entry is
+What the receiver holds after a `PUT` is the request body, byte for byte: the
+stream as the client wrote it, already a valid APR file. No processing on the
+receiving side is assumed or permitted to be needed. A WebDAV collection
+(RFC 4918) is an ordinary `PUT` target and needs no separate treatment.
+
+Each transport is **OPTIONAL** and claimed separately
+([Declaring conformance](#declaring-conformance)). A client **MUST NOT** act
+on an entry whose scheme it does not recognise or does not implement, and a
+validator **SHOULD** report an entry of a scheme this document does not define
+as `SUBMISSION_URL_UNSUPPORTED` ([Warnings](#warnings)). An `http` entry is
 unsupported. [APR-MODEL-035]
 
 > Rationale: the format defines *where* a completed form may go and borrows
@@ -1134,7 +1144,10 @@ unsupported. [APR-MODEL-035]
 > receives forms. Redirects are refused for the same reason hidden characters
 > are reported: following one delivers the form to a host the author never
 > named. A pre-signed browser POST is deliberately absent — it needs policy
-> fields beyond the URL, which a string entry cannot carry.
+> fields beyond the URL, which a string entry cannot carry, and every
+> S3-compatible store accepts a pre-signed PUT. No authentication step is
+> defined because a pre-signed URL *is* the authorisation: the grant travels
+> in the query string, so the client never holds a credential.
 
 ### 5.3 Section {#section-object}
 
@@ -2481,6 +2494,7 @@ Compliance with this specification requires the editions below.
 | RFC 3339 | Date and Time on the Internet: Timestamps |
 | RFC 3629 | UTF-8, a transformation format of ISO 10646 |
 | RFC 4648 | The Base16, Base32, and Base64 Data Encodings |
+| RFC 4918 | HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV) |
 | RFC 5234 | Augmented BNF for Syntax Specifications (ABNF), the notation used for the grammars here |
 | RFC 5280 | Internet X.509 Public Key Infrastructure Certificate and CRL Profile |
 | RFC 5652 | Cryptographic Message Syntax (CMS) |

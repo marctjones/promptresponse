@@ -14,7 +14,7 @@
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:1be37377145b1b908118e7e204c40785dba29f477d16f7bf83170f27c3caa738"
+      "sha256": "sha256:1894dba4dd97577fadd079d15d5be57d3d3c2b28f5bbb07f792c7220a2d139f3"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
