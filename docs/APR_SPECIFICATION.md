@@ -1223,6 +1223,53 @@ trimming is applied. Ids **SHOULD** be stable across template versions and
 presentation change; changing an id silently breaks every downstream consumer and
 every attestation covering it. [APR-MODEL-011]
 
+#### 5.4.1 Generated ids {#generated-ids}
+
+An author names things. A writer **MUST** preserve every valid id it read, and
+**MUST NOT** invent or replace an id unless the caller explicitly asks it to
+repair the document; by default a blank id or a duplicate is simply the error
+[Errors](#structural-validation) says it is. [APR-MODEL-040]
+
+When asked to repair, a writer generates ids by **content**, so that every
+implementation repairing the same document arrives at the same names:
+
+1. Take the **title path**: the titles of the enclosing sections from the
+   outermost inward, followed by the member's own `title` (a section) or
+   `label` (a prompt), as a JSON array of strings.
+2. Serialize that array with JCS (RFC 8785), digest it with SHA-256, and
+   encode the digest with base32 (RFC 4648 §6) in lowercase, without padding.
+3. The id is `s` for a section or `p` for a prompt, followed by the first
+   five characters. `sdwlrh` names the section titled *Applicant*; `pnzapj` names
+   the prompt *Full name* inside it; `sasnpa` names row *Item 1* of a table
+   titled *Expense line items*.
+4. If the result collides with any id already in its namespace, append the
+   member's 1-based position among its siblings to the array and repeat;
+   if it still collides, append its parent's position, and so on outward.
+
+A blank or whitespace-only id receives a generated one. Where two members
+share an id, **both** are renamed, since neither has a better claim to the
+name than the other. [APR-MODEL-041]
+
+Generated ids are short, typeable, and carry no order: two adjacent prompts
+get unrelated names, and nothing about a name says where it sits. A writer
+**MUST NOT** generate ids that encode position — `q1`, `q2`, `row_3` —
+because a person reading them will take the sequence to mean something, and
+inserting one row would then appear to renumber the rest. A renamed id is a
+changed id, with everything the stability rule above warns of: a `fields` attestation
+naming the old id resolves to nothing afterwards, which is the honest
+outcome, since the thing it named is no longer there under that name. [APR-MODEL-042]
+
+> Rationale: ids are how a filled form is consumed, so a document with a
+> missing or duplicated id is unusable, and *somebody* has to name the
+> member. Deriving the name from what the member is — its label in its
+> place in the outline — means the name is stable for as long as the thing it
+> names is, and means a document repaired on two machines is the same
+> document. Deriving it from a counter would make it stable only by luck and
+> would make the names look like an order. Rows in a table follow the same
+> rule for the same reason: a row's position is already carried by the
+> document order, which is meaningful, and a name that repeats it is a second
+> copy of one fact.
+
 ### 5.5 Response metadata {#response-metadata}
 
 | Member | Type | Meaning |
@@ -2484,7 +2531,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Treat `documentType` as authoritative; never infer type from a filename
 - [ ] Label APR content with its `vnd.apr` media type; never infer behaviour from a generic one
 - [ ] Require `metadata.title`, section `id` and `title`, prompt `id` and `label`
-- [ ] Enforce document-wide id uniqueness in both namespaces
+- [ ] Enforce document-wide id uniqueness in both namespaces; never generate or replace an id unless asked, and then only by the content rule
 - [ ] Require content in every section, tables included
 - [ ] Treat a table as structure, never as licence for layout data
 - [ ] Derive table headers from the corresponding prompts' labels; correspond by position
@@ -2562,7 +2609,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

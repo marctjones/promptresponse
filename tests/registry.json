@@ -1030,6 +1030,19 @@
       ]
     },
     {
+      "id": "REQ-generated-ids",
+      "section": "generated-ids",
+      "statement": "Ids are never generated unless repair is requested; generated ids derive from the title path by JCS, SHA-256 and base32, prefixed s or p, both members of a duplicate renamed, never positional",
+      "strength": "none",
+      "gates": [],
+      "gap": "No vector yet asserts the generation algorithm; a digest vector for the three worked ids belongs beside the digest fixtures.",
+      "rules": [
+        "APR-MODEL-040",
+        "APR-MODEL-041",
+        "APR-MODEL-042"
+      ]
+    },
+    {
       "id": "REQ-proofs",
       "section": "proofs",
       "statement": "Proofs cover the proof-free envelope; unsupported types are unverifiable",
