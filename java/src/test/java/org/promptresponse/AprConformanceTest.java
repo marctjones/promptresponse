@@ -99,6 +99,21 @@ public final class AprConformanceTest {
         AprDocument jsonc = AprBeta6.readForm("// comment\n" + form.substring(0, form.length() - 1) + ",}", AprBeta6.Representation.JSONC);
         AprDocument yaml = AprBeta6.readForm(AprBeta6.writeForm(jsonc, AprBeta6.Representation.YAML), AprBeta6.Representation.YAML);
         if (!"Ada".equals(((java.util.Map<?,?>)((java.util.List<?>)((java.util.Map<?,?>)yaml.sections().getFirst()).get("prompts")).getFirst()).get("response"))) throw new AssertionError("beta.6 YAML changed a response");
+        // An anchor, alias or tag is a node property (specification 4.5): "&", "*" and "!" inside a plain scalar's content are ordinary characters.
+        String yamlForm = "version: \"1.0-beta.6\"\nmetadata:\n  title: T\n  \"<<\": not a merge key\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        hints:\n          exprValue: string(fee_count * 8.0)\n        response: a * b & c! d\n";
+        var yamlPrompt = (java.util.Map<?,?>)((java.util.List<?>)((java.util.Map<?,?>)((java.util.List<?>)((AprBeta6.FormRecord)AprBeta6.readStream(yamlForm, AprBeta6.Representation.YAML).getFirst()).value().get("sections")).getFirst()).get("prompts")).getFirst();
+        if (!"string(fee_count * 8.0)".equals(((java.util.Map<?,?>)yamlPrompt.get("hints")).get("exprValue")) || !"a * b & c! d".equals(yamlPrompt.get("response"))) throw new AssertionError("beta.6 YAML did not read indicator characters inside a plain scalar as content");
+        String[][] excluded = {
+            { yamlForm.replace("response: a", "response: &r a"), "anchors" }, { yamlForm.replace("response: a * b & c! d", "response: *r"), "aliases" },
+            { yamlForm.replace("response: a", "response: !!str a"), "tags" }, { yamlForm.replace("response: a", "response: ! a"), "tags" },
+            { yamlForm.replace("    title: S\n", "    title: S\n    <<: {description: merged}\n"), "merge keys" }, { yamlForm.replace("response: a * b & c! d", "response: {<<: {b: 1}}"), "merge keys" },
+            { "%YAML 1.2\n---\n" + yamlForm, "directives" }, { "%TAG !e! tag:example.com,2000:\n---\n" + yamlForm, "directives" },
+            // A directive belongs to the document that follows it, wherever that is in the stream.
+            { yamlForm + "...\n%TAG !e! tag:example.com,2000:\n---\n" + yamlForm, "directives" } };
+        for (String[] excludedCase : excluded) {
+            try { AprBeta6.readStream(excludedCase[0], AprBeta6.Representation.YAML); throw new AssertionError("beta.6 YAML accepted an excluded construct in:\n" + excludedCase[0]); }
+            catch (AprException expected) { if (!expected.getMessage().contains(excludedCase[1])) throw new AssertionError("beta.6 YAML rejected " + excludedCase[1] + " for another reason: " + expected.getMessage()); }
+        }
         String attestation = "{\"recordType\":\"attestation\",\"version\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"entries\":[]},\"proofs\":[],\"witnesses\":[]}";
         String stream = "\u001e" + attestation + "\n\u001e" + form + "\n\u001e" + form;
         java.util.List<AprBeta6.Record> records = AprBeta6.readStream(stream, AprBeta6.Representation.JSONC);

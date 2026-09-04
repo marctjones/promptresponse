@@ -3,6 +3,8 @@ using System.Text;
 using System.Text.Json;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
+using YamlDotNet.Core;
+using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
 
 namespace PromptResponse.Core.Beta6;
@@ -280,14 +282,58 @@ public sealed class AprBeta6Reader
         writer.WriteStringValue(text);
     }
 
+    private static readonly Dictionary<string, string> DefaultTagHandles = new()
+    {
+        ["!"] = "!",
+        ["!!"] = "tag:yaml.org,2002:",
+    };
+
+    // The constructs APR excludes (specification 4.5) are node properties and
+    // directives, so they are detected on the parser's event stream rather than in
+    // the source text: "&", "*" and "!" inside a plain scalar's content, as in
+    // "string(fee_count * 8.0)", are ordinary characters of an ordinary string. A
+    // merge key is a plain "<<" in key position; a quoted one is a string key.
+    // Running on events, before deserialization, also means an alias is never expanded.
     private static void RejectYamlFeatures(string source)
     {
-        if (System.Text.RegularExpressions.Regex.IsMatch(source, @"(?m)(?:^|[\s\[{,])(?:[&*!]|<<\s*:)") )
-            throw new SerializationException("APR YAML forbids anchors, aliases, tags, and merge keys.");
-
-        // A directive is a YAML construct APR excludes outright.
-        if (System.Text.RegularExpressions.Regex.IsMatch(source, @"(?m)^%(?:YAML|TAG)\b"))
-            throw new SerializationException("APR YAML forbids directives, including %YAML and %TAG.");
+        var parser = new Parser(new StringReader(source));
+        var frames = new Stack<int[]>(); // {isMapping, nodesSeen} per open collection
+        while (parser.MoveNext())
+        {
+            var current = parser.Current!;
+            var isKey = false;
+            if (current is NodeEvent && frames.Count > 0)
+            {
+                var frame = frames.Peek();
+                isKey = frame[0] == 1 && frame[1] % 2 == 0;
+                frame[1]++;
+            }
+            switch (current)
+            {
+                case DocumentStart start:
+                    var customTag = start.Tags?.Any(tag => !DefaultTagHandles.TryGetValue(tag.Handle, out var prefix) || prefix != tag.Prefix) == true;
+                    if (start.Version is not null || customTag)
+                        throw new SerializationException("APR YAML forbids directives, including %YAML and %TAG.");
+                    break;
+                case AnchorAlias:
+                    throw new SerializationException("APR YAML forbids aliases.");
+                case NodeEvent node when !node.Anchor.IsEmpty:
+                    throw new SerializationException("APR YAML forbids anchors.");
+                case NodeEvent node when !node.Tag.IsEmpty:
+                    throw new SerializationException("APR YAML forbids tags.");
+                case Scalar scalar when isKey && scalar.Style == ScalarStyle.Plain && scalar.Value == "<<":
+                    throw new SerializationException("APR YAML forbids merge keys.");
+                case MappingStart:
+                    frames.Push([1, 0]);
+                    break;
+                case SequenceStart:
+                    frames.Push([0, 0]);
+                    break;
+                case MappingEnd or SequenceEnd:
+                    frames.Pop();
+                    break;
+            }
+        }
 
         // A non-finite float has no JSON value to resolve to, so it is refused
         // rather than coerced. Left unchecked it arrives as Infinity or NaN and

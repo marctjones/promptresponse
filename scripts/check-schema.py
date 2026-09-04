@@ -10,6 +10,7 @@ schema agrees with it. Any SDK in any language can be held to the same two check
 
 Exits non-zero if any fixture disagrees with the schema.
 """
+import functools
 import json
 import pathlib
 import re
@@ -64,16 +65,34 @@ def strip_jsonc(text):
     return re.sub(r",(\s*[}\]])", r"\1", "".join(output))
 
 
+@functools.lru_cache(maxsize=None)
+def apr_yaml():
+    """Load the Python SDK's APR-YAML module by file path.
+
+    The specification defines APR-YAML's own scalar resolution (4.5.1): under
+    PyYAML's default YAML 1.1 loader "yes" is a boolean and "2026-09-02" is a
+    date, and a mid-scalar "*" is not an alias, so a stock safe_load_all would
+    hold fixtures to a different format than the readers implement. The module
+    depends on nothing but PyYAML, and it is loaded by path rather than through
+    the package so that this gate stays free of the SDK's other dependencies
+    and can still fail the same way a third-party SDK would.
+    """
+    import importlib.util
+    try:
+        import yaml  # noqa: F401
+    except ImportError as exc:
+        raise RuntimeError("PyYAML is required for beta.6 YAML schema fixtures") from exc
+    source = ROOT / "python" / "promptresponse" / "apr_yaml.py"
+    spec = importlib.util.spec_from_file_location("apr_yaml", source)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def beta6_records(path):
     text = path.read_text(encoding="utf-8")
     if path.suffix in {".yaml", ".yml"}:
-        try:
-            import yaml
-        except ImportError as exc:
-            raise RuntimeError("PyYAML is required for beta.6 YAML schema fixtures") from exc
-        if re.search(r"(?m)(?:^|[\s\[{,])(?:[&*!]|<<\s*:)", text):
-            raise ValueError("APR YAML forbids anchors, aliases, tags, and merge keys")
-        return list(yaml.safe_load_all(text))
+        return apr_yaml().load_all(text)
     parts = [part for part in text.split("\x1e") if part.strip()] if "\x1e" in text else [text]
     def unique_object(pairs):
         value = {}

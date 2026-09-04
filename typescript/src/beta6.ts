@@ -1,4 +1,4 @@
-import { isMap, isScalar, isSeq, parseAllDocuments, Scalar, stringify } from "yaml";
+import { isAlias, isMap, isNode, isPair, isScalar, isSeq, parseAllDocuments, Scalar, stringify, visit, type Document } from "yaml";
 import { AprParseError } from "./errors.js";
 import { AprDocument, JsonObject, JsonValue } from "./model.js";
 import { dumps, loads } from "./serialization.js";
@@ -146,12 +146,35 @@ function aprResolve(node: unknown): JsonValue {
   throw new AprParseError("APR YAML contains a node APR does not define");
 }
 
+// The constructs APR excludes (specification 4.5) are node properties and
+// directives, so they are detected on the parsed document rather than in the
+// source text: "&", "*" and "!" inside a plain scalar's content, as in
+// "string(fee_count * 8.0)", are ordinary characters of an ordinary string. A
+// merge key is a plain "<<" in key position; a quoted "<<" is a string key.
+const DEFAULT_TAG_HANDLES: Record<string, string> = { "!": "!", "!!": "tag:yaml.org,2002:" };
+
+function rejectYamlFeatures(document: Document): void {
+  const directives = document.directives;
+  const customTag = Object.entries(directives?.tags ?? {}).some(([handle, prefix]) => DEFAULT_TAG_HANDLES[handle] !== prefix);
+  if (directives?.yaml.explicit || customTag) throw new AprParseError("APR YAML forbids directives, including %YAML and %TAG");
+  visit(document, (_key, node) => {
+    if (isAlias(node)) throw new AprParseError("APR YAML forbids aliases");
+    if (isPair(node)) {
+      const key = node.key;
+      if (isScalar(key) && (key.type === Scalar.PLAIN || key.type === undefined) && key.value === "<<") throw new AprParseError("APR YAML forbids merge keys");
+      return;
+    }
+    if (!isNode(node)) return;
+    if (node.anchor !== undefined) throw new AprParseError("APR YAML forbids anchors");
+    if (node.tag !== undefined) throw new AprParseError("APR YAML forbids tags");
+  });
+}
+
 function splitYaml(source: string): string[] {
-  if (/(^|[\s\[{,])(?:[&*!]|<<\s*:)/m.test(source)) throw new AprParseError("APR YAML forbids anchors, aliases, tags, and merge keys");
-  if (/^%(?:YAML|TAG)\b/m.test(source)) throw new AprParseError("APR YAML forbids directives, including %YAML and %TAG");
   const documents = parseAllDocuments(source, { schema: "failsafe" });
   return documents.map(document => {
     if (document.errors.length) throw new AprParseError(`invalid APR YAML: ${document.errors[0].message}`);
+    rejectYamlFeatures(document);
     return JSON.stringify(aprResolve(document.contents) as JsonValue);
   });
 }

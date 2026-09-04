@@ -81,6 +81,27 @@ test("beta.6 shared out-of-order stream stays unresolved before the form and pre
   assert.equal(resolveBeta6Attestations(yaml)[0].state, "unverifiable");
 });
 
+test("beta.6 YAML indicator characters inside a plain scalar are ordinary content", () => {
+  // An anchor, alias or tag is a node property (specification 4.5); "&", "*" and
+  // "!" inside a scalar's content are just characters of a string, and a quoted
+  // "<<" is a string key rather than a merge key.
+  const form = (response: string) => `version: "1.0-beta.6"\nmetadata:\n  title: T\n  "<<": not a merge key\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        hints:\n          exprValue: string(fee_count * 8.0)\n        response: ${response}\n`;
+  const record = readBeta6Stream(form("a * b & c! d"), "yaml")[0];
+  assert.equal(record.type, "form");
+  const prompt = (record.value as { sections: { prompts: { hints: Record<string, unknown>; response: unknown }[] }[] }).sections[0].prompts[0];
+  assert.equal(prompt.hints.exprValue, "string(fee_count * 8.0)");
+  assert.equal(prompt.response, "a * b & c! d");
+  const cases: [string, RegExp][] = [
+    [form("&r 1"), /anchors/], [form("*r"), /aliases/], [form("!!str 1"), /tags/], [form("! 1"), /tags/],
+    [form("1").replace("    title: S\n", "    title: S\n    <<: {description: merged}\n"), /merge keys/],
+    [form("{<<: {b: 1}}"), /merge keys/],
+    ["%YAML 1.2\n---\n" + form("1"), /directives/], ["%TAG !e! tag:example.com,2000:\n---\n" + form("1"), /directives/],
+    // A directive belongs to the document that follows it, wherever that is in the stream.
+    [form("1") + "...\n%TAG !e! tag:example.com,2000:\n---\n" + form("2"), /directives/],
+  ];
+  for (const [source, message] of cases) assert.throws(() => readBeta6Stream(source, "yaml"), message);
+});
+
 test("beta.6 rejects the retired root signatures field", () => {
   const retired = `${form.slice(0, -1)},"signatures":[]}`;
   assert.throws(() => readBeta6Form(retired, "jsonc"), /RETIRED_EMBEDDED_SIGNATURES/);
