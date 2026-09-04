@@ -6,15 +6,15 @@
     "formatVersion": "1.0-beta.6",
     "status": "BETA \u2014 the format is not frozen and breaking changes are intentional",
     "published": "2026-09-01",
-    "normativeClauses": 205,
-    "ruleIdentifiers": 130,
-    "anchors": 99,
-    "executableExamples": 23
+    "normativeClauses": 208,
+    "ruleIdentifiers": 133,
+    "anchors": 100,
+    "executableExamples": 25
   },
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:81f7ff005a1f4457aa5654f9ef5e5ab29c6d2220944ce921d7b2fa46da14f8c7"
+      "sha256": "sha256:975a806d122ee6b02ed0e909fe4e8f94b68939f4d5521d68618ed9c76b90c25c"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
@@ -22,7 +22,7 @@
     },
     "schemaBase": {
       "path": "schemas/apr-1.0.schema.json",
-      "sha256": "sha256:49243d9739f5a3eb13631daf6c2c98d2e13869fc18e753d7008c4edb4cf1c486"
+      "sha256": "sha256:74781bf9445c9128d852c5775f2d75299a645aab6e00816c8a28c52a0b7c6e57"
     },
     "typeRegistry": {
       "path": "schemas/apr-types-1.0.json",
@@ -30,7 +30,7 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:9ebc0ed100c921668fa0e716410e1f18cf61efc912251dadf7ecf9c20672c072"
+      "sha256": "sha256:c8b9799d78940926e0ed1c2dadde2f74815a086ac0def1138dbd9cd4b8323011"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
@@ -42,11 +42,11 @@
     },
     "derivedExamples": {
       "path": "tests/Conformance/beta6/spec-examples.json",
-      "sha256": "sha256:d30a45cadbb918d6b632a47618d76b1c3b3287cb93619d71a32d31f4b434fbf2"
+      "sha256": "sha256:67f9ec2b2a170608c580e7cf86fdf1f5729902b21e5f3dca353eff7b395f76b5"
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:78dfe97b5e1eda752df66be9ccbe4d4ade7ed1dae269af26042d3638a6b681bd"
+      "sha256": "sha256:f8275ae9f7b006a5cc29a4fe207687003f528dfe9107879c90bc3eba23372c77"
     }
   },
   "corpus": {

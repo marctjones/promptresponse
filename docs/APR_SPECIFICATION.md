@@ -1088,6 +1088,7 @@ A form **MUST NOT** carry a `signatures` member. A reader encountering one
 | `templateId` | string | No | Required on a `filledForm`. A URI identifying the template it answers ([Template identity](#template-identity)). |
 | `templateVersion` | string | No | The template revision answered. |
 | `submissionUrls` | array of string | No | Ordered explicit delivery choices; `https` or `mailto` ([Submission targets](#submission)). |
+| `regarding` | array of string | No | Digests of the records this form was completed with reference to ([Related records](#regarding)). |
 
 `title` **MUST** contain a non-whitespace character. [APR-MODEL-007]
 
@@ -1118,8 +1119,9 @@ fetch a `templateId`. [APR-MODEL-036]
 **Workflow state is not form data.** When a form was received, by whom, and
 what happened to it next are facts the *receiver* tracks against the form,
 not members of it. This document defines no member for them, and a workflow
-that needs them keeps them beside the form or in an extension member it owns
-([Unknown members](#extensions)), never in a member this document defines. [APR-MODEL-037]
+that needs to record them writes its own form and names what that form was
+about ([Related records](#regarding)), never adding them to a form somebody
+else wrote. [APR-MODEL-037]
 
 > Rationale: an earlier draft carried `filledBy` and `filledDate`. They were
 > written by the wrong party — the filler asserting facts about the
@@ -1179,6 +1181,94 @@ unsupported. [APR-MODEL-035]
 > S3-compatible store accepts a pre-signed PUT. No authentication step is
 > defined because a pre-signed URL *is* the authorisation: the grant travels
 > in the query string, so the client never holds a credential.
+
+#### 5.2.2 Related records {#regarding}
+
+`regarding` names the records this form was completed with reference to, each
+by its semantic digest ([Digests](#digests)).
+
+A step of a process is an ordinary form. The office publishes a template for
+it — a receipt, a review, a routing decision — somebody fills that template in
+while looking at what came before, and the form they produce names what they
+looked at. Every record they looked at is left exactly as it was, so its digest
+holds and the attestations over it stay `valid`.
+
+`regarding` is an ordered, duplicate-free array of digest strings, each
+matching the digest form ([Digests](#digests)). Order is the author's preferred
+display order and means nothing else. An entry **MAY** name a form or an
+attestation, so a form can pin not only what it was about but the attestation
+state it was about. [APR-MODEL-043]
+
+**A reference asserts context and nothing else.** It records that whoever
+completed this form had those records in front of them. It creates no revision,
+no supersession, no chronology, no authority, and no trust relationship, and a
+reader **MUST NOT** present one as any of those. [APR-MODEL-044]
+
+Unsigned, a reference is a claim anyone could write. An attestation over the
+form binds it, because a form digest covers `metadata`. Proving a history is
+therefore what it always was — attestations, never position and never
+assertion ([Changed forms](#changed-forms)).
+
+A referenced digest matching no available record is `unresolved`
+([Verification vocabulary](#verification)). The document is **valid**: a reader
+**MUST NOT** reject it, report it as damaged, or withhold its data. [APR-MODEL-045]
+
+> References are acyclic by construction. A form's digest covers its own
+> `regarding` list, so a record can only name one whose digest was already
+> fixed. Nothing needs to forbid a cycle, because none can be built.
+
+A receipt naming the submission it was written against:
+
+```apr-example
+id: regarding-reference
+rule: regarding
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "filledForm",
+  "metadata": {
+    "title": "Intake Receipt",
+    "templateId": "tag:example.com,2026:intake-receipt",
+    "regarding": ["sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28"]
+  },
+  "sections": [
+    {
+      "id": "intake",
+      "title": "Intake",
+      "prompts": [
+        { "id": "received", "label": "Date received", "response": "2026-09-04",
+          "hints": { "expectedDataType": "date" } }
+      ]
+    }
+  ]
+}
+```
+
+The referenced record need not accompany it. Alone, the receipt above is a
+valid form whose one reference is `unresolved`. In a stream with its subject,
+the reference resolves and the chain is legible to a reader.
+
+```apr-example
+id: regarding-chain
+rule: regarding
+representation: jsonc-stream
+expect: valid
+---
+{"aprVersion":"1.0-beta.6","documentType":"filledForm","metadata":{"title":"Permit Application","templateId":"tag:example.com,2026:permit"},"sections":[{"id":"applicant","title":"Applicant","prompts":[{"id":"full_name","label":"Full name","response":"Ada Lovelace"}]}]}
+---
+{"aprVersion":"1.0-beta.6","documentType":"filledForm","metadata":{"title":"Intake Receipt","templateId":"tag:example.com,2026:intake-receipt","regarding":["sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28"]},"sections":[{"id":"intake","title":"Intake","prompts":[{"id":"received","label":"Date received","response":"2026-09-04"}]}]}
+```
+
+> Rationale: a workflow that wants to record something about a form has two bad
+> options and one good one. Editing the form destroys the digest every
+> attestation over it depends on. Widening the form with the receiver's data
+> puts one party's assertions inside another party's document. Writing a new
+> form and naming what it was about leaves every earlier record untouched, and
+> makes each step of a process a document a person can read, a role can own,
+> and a signature can cover — using the primitive the format already has
+> instead of inventing a second one.
 
 ### 5.3 Section {#section-object}
 
@@ -1536,6 +1626,12 @@ extension member by the dot in its name. A validator **MAY** report an
 unrecognised undotted member as `UNPREFIXED_MEMBER`; it **MUST NOT** reject
 the document, and **MUST** still preserve the member
 ([Warnings](#warnings)). [APR-MODEL-029]
+
+**An extension member is the author's own data.** It is written by whoever wrote
+the form, travels inside it, and is covered by its digest. Data *about* a form
+written by somebody else — a receipt, a review, a routing decision — is not an
+extension member: it is a new form naming what it was about
+([Related records](#regarding)).
 
 > Rationale: two producers choosing the same member name produce documents that
 > round-trip correctly and mean different things, and a format that cannot add
@@ -2541,6 +2637,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Treat a table as structure, never as licence for layout data
 - [ ] Derive table headers from the corresponding prompts' labels; correspond by position
 - [ ] Require `templateId` on a filled form, as a URI, and never fetch it
+- [ ] Preserve `metadata.regarding`, treat an unresolved reference as valid, and never read a reference as revision, authority or trust
 - [ ] Support at least 16 levels of section nesting
 - [ ] Ignore unknown members without rejecting them, and preserve them on write
 - [ ] Name every extension member with an owned reverse-DNS prefix; add no unprefixed member
@@ -2614,7 +2711,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

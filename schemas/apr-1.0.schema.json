@@ -123,7 +123,16 @@
           },
           "description": "Ordered explicit delivery choices for a completed form. Bound into the publisher signature payload when signed, so a destination cannot be added, removed, or redirected without invalidating that signature."
         },
-        "submissionUrl": false
+        "submissionUrl": false,
+        "regarding": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "description": "Semantic digests of the records this form was completed with reference to. Ordered for display only. A reference asserts context and nothing else: no revision, no supersession, no chronology, no authority, no trust. A digest matching no available record is unresolved, and the document stays valid."
+        }
       }
     },
     "section": {

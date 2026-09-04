@@ -904,6 +904,24 @@
       ]
     },
     {
+      "id": "REQ-regarding",
+      "section": "regarding",
+      "statement": "metadata.regarding names records this form was completed against by digest; it asserts context only, and an unresolved reference leaves the document valid",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ],
+      "gap": "The array shape and digest form are gated by the schema and two executable examples. That a reader never reads a reference as revision or authority, and never rejects an unresolved one, is reader behaviour no vector asserts.",
+      "rules": [
+        "APR-MODEL-043",
+        "APR-MODEL-044",
+        "APR-MODEL-045"
+      ]
+    },
+    {
       "id": "REQ-no-media-type",
       "section": "media-types",
       "statement": "vnd.apr media types name the representation; representation and document type determined by content, not name",

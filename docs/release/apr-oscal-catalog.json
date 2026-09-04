@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "30b99493-2fc6-5895-be0c-ecb48d2d8409",
+    "uuid": "27b10579-6c61-5826-aed5-5575a4917a24",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "81f7ff005a1f4457aa5654f9ef5e5ab29c6d2220944ce921d7b2fa46da14f8c7"
+          "value": "975a806d122ee6b02ed0e909fe4e8f94b68939f4d5521d68618ed9c76b90c25c"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -2703,7 +2703,7 @@
               {
                 "id": "apr-model-037_smt",
                 "name": "statement",
-                "prose": "**Workflow state is not form data.** When a form was received, by whom, and what happened to it next are facts the *receiver* tracks against the form, not members of it. This document defines no member for them, and a workflow that needs them keeps them beside the form or in an extension member it owns ([Unknown members](#extensions)), never in a member this document defines."
+                "prose": "**Workflow state is not form data.** When a form was received, by whom, and what happened to it next are facts the *receiver* tracks against the form, not members of it. This document defines no member for them, and a workflow that needs to record them writes its own form and names what that form was about ([Related records](#regarding)), never adding them to a form somebody else wrote."
               }
             ]
           },
@@ -2909,6 +2909,132 @@
                 "id": "apr-model-042_gap",
                 "name": "assessment-gap",
                 "prose": "No vector yet asserts the generation algorithm; a digest vector for the three worked ids belongs beside the digest fixtures."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-043",
+            "title": "APR-MODEL-043 — 5.2.2 Related records",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-043"
+              },
+              {
+                "name": "section",
+                "value": "regarding"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-regarding"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#regarding",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-043_smt",
+                "name": "statement",
+                "prose": "`regarding` is an ordered, duplicate-free array of digest strings, each matching the digest form ([Digests](#digests)). Order is the author's preferred display order and means nothing else. An entry **MAY** name a form or an attestation, so a form can pin not only what it was about but the attestation state it was about."
+              },
+              {
+                "id": "apr-model-043_gap",
+                "name": "assessment-gap",
+                "prose": "The array shape and digest form are gated by the schema and two executable examples. That a reader never reads a reference as revision or authority, and never rejects an unresolved one, is reader behaviour no vector asserts."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-044",
+            "title": "APR-MODEL-044 — 5.2.2 Related records",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-044"
+              },
+              {
+                "name": "section",
+                "value": "regarding"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-regarding"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#regarding",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-044_smt",
+                "name": "statement",
+                "prose": "**A reference asserts context and nothing else.** It records that whoever completed this form had those records in front of them. It creates no revision, no supersession, no chronology, no authority, and no trust relationship, and a reader **MUST NOT** present one as any of those."
+              },
+              {
+                "id": "apr-model-044_gap",
+                "name": "assessment-gap",
+                "prose": "The array shape and digest form are gated by the schema and two executable examples. That a reader never reads a reference as revision or authority, and never rejects an unresolved one, is reader behaviour no vector asserts."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-045",
+            "title": "APR-MODEL-045 — 5.2.2 Related records",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-045"
+              },
+              {
+                "name": "section",
+                "value": "regarding"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-regarding"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#regarding",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-045_smt",
+                "name": "statement",
+                "prose": "A referenced digest matching no available record is `unresolved` ([Verification vocabulary](#verification)). The document is **valid**: a reader **MUST NOT** reject it, report it as damaged, or withhold its data."
+              },
+              {
+                "id": "apr-model-045_gap",
+                "name": "assessment-gap",
+                "prose": "The array shape and digest form are gated by the schema and two executable examples. That a reader never reads a reference as revision or authority, and never rejects an unresolved one, is reader behaviour no vector asserts."
               }
             ]
           }

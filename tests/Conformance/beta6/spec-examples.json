@@ -7,21 +7,21 @@
       "rule": "extensions",
       "representation": "jsonc",
       "expect": "valid",
-      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Extended\", \"com.example.routing\": \"desk-4\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"com.example.priority\": 2 } ] }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Extended\", \"com.example.routing\": \"desk-4\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"com.example.priority\": 2 } ] }\n  ]\n}\n"
     },
     {
       "id": "jsonc-comment-inside-string",
       "rule": "apr-jsonc",
       "representation": "jsonc",
       "expect": "valid",
-      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"// not a comment /* nor this */\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"// not a comment /* nor this */\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n"
     },
     {
       "id": "jsonc-duplicate-member",
       "rule": "apr-jsonc",
       "representation": "jsonc",
       "expect": "reject",
-      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"first\" },\n  \"metadata\": { \"title\": \"second\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"first\" },\n  \"metadata\": { \"title\": \"second\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
       "diagnostic": "DUPLICATE_MEMBER"
     },
     {
@@ -29,14 +29,28 @@
       "rule": "apr-jsonc",
       "representation": "jsonc",
       "expect": "valid",
-      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Trailing commas\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" }, ] },\n  ],\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Trailing commas\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" }, ] },\n  ],\n}\n"
+    },
+    {
+      "id": "regarding-chain",
+      "rule": "regarding",
+      "representation": "jsonc-stream",
+      "expect": "valid",
+      "document": "{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Permit Application\",\"templateId\":\"tag:example.com,2026:permit\"},\"sections\":[{\"id\":\"applicant\",\"title\":\"Applicant\",\"prompts\":[{\"id\":\"full_name\",\"label\":\"Full name\",\"response\":\"Ada Lovelace\"}]}]}\n---\n{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Intake Receipt\",\"templateId\":\"tag:example.com,2026:intake-receipt\",\"regarding\":[\"sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\"]},\"sections\":[{\"id\":\"intake\",\"title\":\"Intake\",\"prompts\":[{\"id\":\"received\",\"label\":\"Date received\",\"response\":\"2026-09-04\"}]}]}\n"
+    },
+    {
+      "id": "regarding-reference",
+      "rule": "regarding",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"filledForm\",\n  \"metadata\": {\n    \"title\": \"Intake Receipt\",\n    \"templateId\": \"tag:example.com,2026:intake-receipt\",\n    \"regarding\": [\"sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\"]\n  },\n  \"sections\": [\n    {\n      \"id\": \"intake\",\n      \"title\": \"Intake\",\n      \"prompts\": [\n        { \"id\": \"received\", \"label\": \"Date received\", \"response\": \"2026-09-04\",\n          \"hints\": { \"expectedDataType\": \"date\" } }\n      ]\n    }\n  ]\n}\n"
     },
     {
       "id": "stream-mixed-representations",
       "rule": "streams",
       "representation": "jsonc-stream",
       "expect": "reject",
-      "document": "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n---\nversion: \"1.0-beta.6\"\nmetadata:\n  title: second\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "document": "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: second\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "APR_STREAM_MIXED_REPRESENTATIONS"
     },
     {
@@ -44,7 +58,7 @@
       "rule": "json-subset",
       "representation": "jsonc",
       "expect": "reject",
-      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Stringly typed\" },\n  \"sections\": [\n    {\n      \"id\": \"rows\",\n      \"title\": \"Rows\",\n      \"kind\": \"table\",\n      \"canAddRows\": \"true\",\n      \"maxRows\": \"25\",\n      \"sections\": [\n        { \"id\": \"row_1\", \"title\": \"Row 1\",\n          \"prompts\": [ { \"id\": \"row_1.note\", \"label\": \"Note\" } ] }\n      ]\n    }\n  ]\n}\n",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Stringly typed\" },\n  \"sections\": [\n    {\n      \"id\": \"rows\",\n      \"title\": \"Rows\",\n      \"kind\": \"table\",\n      \"canAddRows\": \"true\",\n      \"maxRows\": \"25\",\n      \"sections\": [\n        { \"id\": \"row_1\", \"title\": \"Row 1\",\n          \"prompts\": [ { \"id\": \"row_1.note\", \"label\": \"Note\" } ] }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
     {
@@ -52,21 +66,21 @@
       "rule": "tables",
       "representation": "jsonc",
       "expect": "valid",
-      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": true,\n      \"maxRows\": 25,\n      \"sections\": [\n        {\n          \"id\": \"item_1\",\n          \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": true,\n      \"maxRows\": 25,\n      \"sections\": [\n        {\n          \"id\": \"item_1\",\n          \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
       "id": "unregistered-data-type-degrades",
       "rule": "hints-object",
       "representation": "jsonc",
       "expect": "valid",
-      "document": "{\n  \"version\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Unregistered affordance\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"response\": \"anything\",\n          \"hints\": { \"expectedDataType\": \"holographic-signature\" } }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Unregistered affordance\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"response\": \"anything\",\n          \"hints\": { \"expectedDataType\": \"holographic-signature\" } }\n      ]\n    }\n  ]\n}\n"
     },
     {
       "id": "yaml-anchor",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
-      "document": "version: \"1.0-beta.6\"\nmetadata: &meta\n  title: Anchored\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata: &meta\n  title: Anchored\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_ANCHOR_FORBIDDEN"
     },
     {
@@ -74,28 +88,28 @@
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: .5\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: .5\n"
     },
     {
       "id": "yaml-bare-word-is-a-string",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Permit Application\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: about twelve\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Permit Application\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: about twelve\n"
     },
     {
       "id": "yaml-date-like-is-a-string",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Date-like\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 2026-01-01\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Date-like\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 2026-01-01\n"
     },
     {
       "id": "yaml-directive",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
-      "document": "%YAML 1.2\n---\nversion: \"1.0-beta.6\"\nmetadata:\n  title: Directed\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "document": "%YAML 1.2\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Directed\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_DIRECTIVE_FORBIDDEN"
     },
     {
@@ -103,28 +117,28 @@
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 0x1F\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 0x1F\n"
     },
     {
       "id": "yaml-leading-zero-is-a-string",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Leading zero\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 012\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Leading zero\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 012\n"
     },
     {
       "id": "yaml-legacy-boolean-is-a-string",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Legacy spellings\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: yes\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Legacy spellings\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: yes\n"
     },
     {
       "id": "yaml-merge-key",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Merged\nsections:\n  - id: s\n    title: S\n    <<: { description: merged in }\n    prompts:\n      - id: p\n        label: P\n",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Merged\nsections:\n  - id: s\n    title: S\n    <<: { description: merged in }\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_MERGE_KEY_FORBIDDEN"
     },
     {
@@ -132,7 +146,7 @@
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "reject",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Non-finite\nsections:\n  - id: s\n    title: S\n    kind: table\n    maxRows: .inf\n    prompts:\n      - id: p\n        label: P\n",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Non-finite\nsections:\n  - id: s\n    title: S\n    kind: table\n    maxRows: .inf\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_NON_FINITE_NUMBER"
     },
     {
@@ -140,28 +154,28 @@
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: null\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: null\n"
     },
     {
       "id": "yaml-quoted-null-is-a-string",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: \"null\"\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: \"null\"\n"
     },
     {
       "id": "yaml-sexagesimal-is-a-string",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1:30\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1:30\n"
     },
     {
       "id": "yaml-tag",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: !!str Tagged\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: !!str Tagged\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_TAG_FORBIDDEN"
     },
     {
@@ -169,7 +183,7 @@
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
-      "document": "version: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1_000\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1_000\n"
     }
   ]
 }
