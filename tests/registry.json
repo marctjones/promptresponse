@@ -411,6 +411,19 @@
         "APR-TEXT-008",
         "APR-TEXT-009",
         "APR-TEXT-010"
+      ],
+      "gap": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
+    },
+    {
+      "id": "REQ-human-text",
+      "section": "human-text",
+      "statement": "Human-facing text is NFC and free of invisible, deprecated and control code points (UTS #39 by reference); confusable detection recommended",
+      "strength": "none",
+      "gates": [],
+      "gap": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text.",
+      "rules": [
+        "APR-TEXT-011",
+        "APR-TEXT-012"
       ]
     },
     {

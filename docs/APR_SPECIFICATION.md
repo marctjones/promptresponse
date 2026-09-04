@@ -1831,6 +1831,43 @@ Ids are machine keys. Implementations **SHOULD** warn when an id contains
 characters outside `[A-Za-z0-9_.-]`, since ids appear in attestation manifests,
 database columns, and cell addresses. [APR-TEXT-010]
 
+#### 8.2.3 Human-facing text {#human-text}
+
+Some members exist to be read or heard by a person: `metadata.title`,
+`description`, `author` and `publisher`; a role's `name` and `description`; a
+section's `title` and `description`; a prompt's `label`; and the `placeholder`,
+`helpText` and `suggestedValues` hints. Every one of them is a string, because
+its whole purpose is to be rendered as text or speech, and every one of them is
+authoring data.
+
+Human-facing text **MUST** be in Normalization Form C (UAX #15) and **MUST
+NOT** contain a code point that is unassigned, a surrogate, private-use, a
+control other than U+0009 and U+000A, or that UTS #39 classifies with an
+`Identifier_Type` of `Default_Ignorable`, `Deprecated`, or `Not_Character`.
+Bidirectional and joining behaviour comes from the characters' own properties
+(UAX #9), never from explicit control characters, which the preceding sentence
+excludes. A validator **MUST** report a violation at authoring time; a reader
+that meets one in a published form renders it defensively and never rewrites
+it ([Responses are evidence](#text-responses)). [APR-TEXT-011]
+
+Beyond that floor, an implementation **SHOULD** apply the confusable and
+mixed-script detection of UTS #39 to human-facing text and report what it
+finds, as the authoring-time warning above already asks for titles and labels. [APR-TEXT-012]
+
+**A response is not human-facing text in this sense.** It is what a person
+typed, and [Filled data — never rewritten](#filled-never-rewritten) governs it:
+suspicious characters in a response are surfaced and rendered visibly, and the
+document stays valid.
+
+> Rationale: the format is meant to be safe for a person to read and to edit
+> by hand, so text addressed to a person must be text a person can see. The
+> Unicode Consortium maintains the list of what is invisible, deprecated, or
+> deceptive; restating it here would put a copy of that list in this document
+> to drift. The rule therefore names the properties and cites the standard
+> that defines them, and the floor is the mechanical part — the part a script
+> can check — while confusable detection, which depends on context and script
+> tables, is recommended rather than required.
+
 ---
 
 ## 9. Streams {#streams}
@@ -2461,6 +2498,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] **Never reject, alter, or block a response because of a hint**
 - [ ] Never alter a response on the basis of a hint
 - [ ] Report — never rewrite — hidden characters in every `submissionUrls` entry
+- [ ] Refuse, at authoring time, human-facing text that is not NFC or carries invisible, deprecated or control code points
 - [ ] Deliver only by a single `PUT` to an `https` entry or an attachment to a `mailto` entry, on an explicit user action, never following a redirect
 - [ ] Preserve every response byte-for-byte across a round-trip
 - [ ] Produce identical semantic models from paired JSONC and YAML documents
@@ -2524,7 +2562,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---
@@ -2556,6 +2594,9 @@ Compliance with this specification requires the editions below.
 | RFC 9512 | The application/yaml media type |
 | FIPS 180-4 | Secure Hash Standard, for SHA-256 |
 | FIPS 186-5 | Digital Signature Standard, for ECDSA over the P-256 curve |
+| UAX #9 | Unicode Bidirectional Algorithm |
+| UAX #15 | Unicode Normalization Forms |
+| UTS #39 | Unicode Security Mechanisms |
 | YAML 1.2.2 | YAML Ain't Markup Language, revision 1.2.2 |
 | S3 pre-signed URL | Amazon S3, *Authenticating Requests: Using Query Parameters (AWS Signature Version 4)*, <https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html> |
 | CEL | Common Expression Language, cel-spec release `v0.25.3`, <https://github.com/cel-expr/cel-spec/releases/tag/v0.25.3> |
@@ -2571,7 +2612,6 @@ The CEL entries are normative for the `core+expressions` profile only.
 | ECMA-404 | The JSON Data Interchange Syntax, the parallel standardization of RFC 8259 |
 | CommonMark | A strongly defined, highly compatible specification of Markdown |
 | UTR 36 | Unicode Security Considerations |
-| UTS 39 | Unicode Security Mechanisms |
 
 ---
 
