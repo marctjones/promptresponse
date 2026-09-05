@@ -2,8 +2,10 @@
 """Project the APR specification's rules into an OSCAL catalog.
 
 The specification is normative; this catalog is derived from it. Every rule
-identifier in the specification becomes one OSCAL control, grouped by the
-rule's area (`APR-MODEL-…`, `APR-EXPR-…`, and so on). Each control carries the
+identifier in the specification becomes one OSCAL control, grouped by the chapter
+that states it. The area token in an identifier is an allocation namespace rather
+than a taxonomy, and grouping by it put versioning and filename rules in a group
+titled Security; the area is kept as a property on each control. Each control carries the
 rule's normative text as its statement, a link to the section anchor it lives
 under, and the gate strength the coverage registry (tests/registry.json)
 records for it. Nothing is added that the specification does not say.
@@ -41,6 +43,11 @@ HEADING = re.compile(r"^(#{2,4})\s+(.*?)\s*\{#([a-z0-9-]+)\}\s*$")
 RULE = re.compile(r"\[(APR-([A-Z]+)-(\d{3}))\]")
 INLINE_ANCHOR = re.compile(r"\s*\{#[a-z0-9-]+\}")
 
+# The area token in a rule identifier is an allocation namespace, not a taxonomy:
+# APR-SEC-002 is the exact-match version rule, and only three of the twelve APR-SEC
+# rules are about security. Grouping by it produced a group titled "Security" holding
+# versioning and filename conventions, which would mislead anyone selecting on it.
+# Controls are grouped by the chapter that states them instead.
 AREA_TITLES = {
     "REP": "Representations",
     "MODEL": "Document model",
@@ -63,6 +70,29 @@ def front_matter(text: str) -> dict[str, str]:
         if m:
             facts[m.group(1)] = m.group(2).strip()
     return facts
+
+
+def chapters(text: str) -> tuple[dict[str, str], list[str]]:
+    """(section anchor -> its chapter, chapters in document order)."""
+    out: dict[str, str] = {}
+    order: list[str] = []
+    chapter = "Document"
+    in_code = False
+    for line in text.split("\n"):
+        if line.startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        match = HEADING.match(line)
+        if not match:
+            continue
+        if len(match.group(1)) == 2:
+            chapter = match.group(2)
+            if chapter not in order:
+                order.append(chapter)
+        out[match.group(3)] = chapter
+    return out, order
 
 
 def rules(text: str) -> list[dict]:
@@ -137,17 +167,22 @@ def build() -> dict:
     spec_sha = hashlib.sha256(text.encode("utf-8")).hexdigest()
     reg = registry_index()
 
+    where, order = chapters(text)
+    ordered = sorted(rules(text), key=lambda r: (r["area"], r["number"]))
     groups: dict[str, dict] = {}
-    for rule in sorted(rules(text), key=lambda r: (r["area"], r["number"])):
-        group = groups.setdefault(rule["area"], {
-            "id": f"apr-{rule['area'].lower()}",
-            "title": AREA_TITLES.get(rule["area"], rule["area"].title()),
+    for rule in ordered:
+        chapter = where.get(rule["anchor"], "Document")
+        slug = re.sub(r"[^a-z0-9]+", "-", chapter.lower()).strip("-")
+        group = groups.setdefault(chapter, {
+            "id": f"apr-{slug}"[:60],
+            "title": chapter,
             "controls": [],
         })
         req = reg.get(rule["id"])
         props = [
             {"name": "rule-id", "value": rule["id"]},
             {"name": "section", "value": rule["anchor"] or ""},
+            {"name": "area", "ns": "https://skpt.cl/apr/oscal", "value": rule["area"]},
             {"name": "gate-strength", "ns": "https://skpt.cl/apr/oscal",
              "value": (req or {}).get("strength", "none")},
         ]
@@ -178,7 +213,8 @@ def build() -> dict:
                 ],
                 "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect.",
             },
-            "groups": [groups[k] for k in sorted(groups)],
+            # Document order, so the catalogue reads like the specification.
+            "groups": [groups[k] for k in order if k in groups],
         }
     }
     return catalog
