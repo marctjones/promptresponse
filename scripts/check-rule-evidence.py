@@ -33,9 +33,11 @@ which is the easy half.
 `tests/Conformance/beta6/rule-evidence.json` and may not go down. Coverage is
 not gated at a level nobody has reached; it is prevented from regressing.
 
-`caught` is satisfied either by a finding that cites the rule, or, for rules
-enforced during parsing rather than validation, by the parser raising the
-diagnostic the case declares. The second form attributes the rule from the
+`caught` is satisfied by a finding that cites the rule; by the parser raising the
+diagnostic the case declares, for rules decided while reading; by a lossy writer or
+a wrong evaluator failing a round-trip or evaluation case; or, weakest, by
+`acceptance`, where the rule says a reader must accept something and refusing it is
+the whole of the violation. The second form attributes the rule from the
 case's own citation, so it is weaker, and the matrix marks it `parse`.
 """
 from __future__ import annotations
@@ -209,6 +211,32 @@ def main() -> int:
                 problems.append(f"{case['id']} cites {rule}, which the catalogue does not contain")
         if not cited:
             continue
+        if case.get("equivalentTo"):
+            # Paired representations must produce one semantic model. A reader whose
+            # scalar resolution differs between them reports two digests and fails,
+            # which is the violation this case exists to catch.
+            for rule in cited:
+                satisfied[rule] = satisfied.get(rule, 0) + 1
+                violated[rule] = violated.get(rule, 0) + 1
+                caught[rule] = "equivalence"
+            continue
+
+        if case.get("acceptance"):
+            # A rule of the form "a reader MUST accept this" is violated by refusing
+            # the document, which the harness scores directly. Weaker than a
+            # rejection case, because any conforming reader passes it by doing
+            # nothing special, so the matrix marks it apart.
+            for rule in cited:
+                satisfied[rule] = satisfied.get(rule, 0) + 1
+                violated[rule] = violated.get(rule, 0) + 1
+                caught[rule] = "acceptance"
+            outcome, _, _, _ = evaluate(case, members)
+            if outcome != "valid":
+                problems.append(
+                    f"{case['id']} claims acceptance proves its rule, but the validator "
+                    f"refuses it")
+            continue
+
         if case.get("expects"):
             # An evaluation rule has no violating document either: the violation is
             # by the evaluator. The case is the negative test, and counts only if a

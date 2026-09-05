@@ -827,7 +827,7 @@
       "id": "REQ-metadata-members",
       "section": "metadata",
       "statement": "metadata.title required non-blank; filledForm declares templateId; templateId is a URI, never fetched; workflow state is not form data",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "suite",
@@ -839,7 +839,8 @@
         "APR-MODEL-008",
         "APR-MODEL-036",
         "APR-MODEL-037"
-      ]
+      ],
+      "gap": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
     },
     {
       "id": "REQ-model-trivia",
@@ -1084,7 +1085,7 @@
       "id": "REQ-proofs",
       "section": "proofs",
       "statement": "Proofs cover the proof-free envelope; unsupported types are unverifiable; a claimed signing time is presented as claimed, never as proven",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -1103,7 +1104,8 @@
         "APR-ATTEST-007",
         "APR-ATTEST-008",
         "APR-ATTEST-014"
-      ]
+      ],
+      "gap": "APR-ATTEST-014, that a claimed signing time is shown as claimed rather than proven, is about how a reader labels a value. The corpus carries a CMS proof with a signing time, and nothing distinguishes an implementation that presents it honestly from one that presents it as trusted time."
     },
     {
       "id": "REQ-renderer-obligations",

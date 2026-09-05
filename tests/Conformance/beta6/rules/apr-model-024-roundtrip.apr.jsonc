@@ -1,0 +1,27 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "m",
+          "label": "M",
+          "response": "Bloomfield, CT\nHartford, CT",
+          "hints": {
+            "expectedDataType": "multichoice",
+            "suggestedValues": [
+              "Bloomfield, CT",
+              "Hartford, CT",
+              "Avon, CT"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

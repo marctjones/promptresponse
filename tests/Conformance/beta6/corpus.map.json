@@ -168,17 +168,13 @@
     },
     "forms/permit.apr.yaml": {
       "expect": "valid",
-      "anchors": [
-        "apr-yaml",
-        "yaml-resolution",
-        "stream-equivalence",
-        "model-layers"
-      ],
+      "anchors": [],
       "rules": [
         "APR-REP-007",
         "APR-REP-008",
         "APR-STREAM-002"
-      ]
+      ],
+      "equivalentTo": "corpus:forms/permit.apr.jsonc"
     },
     "forms/roles.apr.jsonc": {
       "expect": "valid",
@@ -845,7 +841,8 @@
     "rules/apr-model-021-roundtrip.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-021"
+        "APR-MODEL-021",
+        "APR-MODEL-020"
       ],
       "anchors": [],
       "roundTrip": true,
@@ -1057,7 +1054,8 @@
       "rules": [
         "APR-MODEL-015"
       ],
-      "anchors": []
+      "anchors": [],
+      "acceptance": "sixteen levels of nesting must be supported; an implementation with a shallower ceiling refuses this document"
     },
     "rules/apr-model-036-satisfies.apr.jsonc": {
       "expect": "valid",
@@ -1171,6 +1169,43 @@
       ],
       "anchors": [],
       "diagnostic": "FORBIDDEN_CODE_POINT"
+    },
+    "rules/apr-model-023-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-023"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/0/response",
+        "/sections/0/prompts/1/response",
+        "/sections/0/prompts/2/response"
+      ]
+    },
+    "rules/apr-model-024-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-024"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/0/response",
+        "/sections/0/prompts/0/hints/suggestedValues"
+      ]
+    },
+    "rules/apr-attest-008-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-ATTEST-008"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/proofs/0/type",
+        "/proofs/0/value"
+      ]
     }
   }
 }

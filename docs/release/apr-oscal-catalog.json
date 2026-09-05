@@ -272,7 +272,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -291,6 +291,11 @@
                 "id": "apr-attest-007_smt",
                 "name": "statement",
                 "prose": "A proof **MUST NOT** invent a second copy of the subject digest or scope."
+              },
+              {
+                "id": "apr-attest-007_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-014, that a claimed signing time is shown as claimed rather than proven, is about how a reader labels a value. The corpus carries a CMS proof with a signing time, and nothing distinguishes an implementation that presents it honestly from one that presents it as trusted time."
               }
             ]
           },
@@ -309,7 +314,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -328,6 +333,11 @@
                 "id": "apr-attest-008_smt",
                 "name": "statement",
                 "prose": "A verifier that does not recognize a proof type **MUST** report it as **unverifiable**, never as invalid, and **MUST** preserve it. \"I cannot check this\" and \"this is forged\" are different statements and **MUST NOT** be conflated in a user interface."
+              },
+              {
+                "id": "apr-attest-008_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-014, that a claimed signing time is shown as claimed rather than proven, is about how a reader labels a value. The corpus carries a CMS proof with a signing time, and nothing distinguishes an implementation that presents it honestly from one that presents it as trusted time."
               }
             ]
           },
@@ -551,7 +561,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -570,6 +580,11 @@
                 "id": "apr-attest-014_smt",
                 "name": "statement",
                 "prose": "**A proof MAY carry a claimed signing time.** In `cms/ecdsa-p256-sha256` that is the CMS signing-time signed attribute (RFC 5652), which sits inside the signature and therefore cannot be altered without breaking it. What nothing vouches for is the clock: the value is the signer's assertion that they signed then, and no more. A reader that shows it **MUST** show it as claimed rather than proven, and **MUST NOT** derive from it that one record precedes another."
+              },
+              {
+                "id": "apr-attest-014_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-014, that a claimed signing time is shown as claimed rather than proven, is about how a reader labels a value. The corpus carries a CMS proof with a signing time, and nothing distinguishes an implementation that presents it honestly from one that presents it as trusted time."
               }
             ]
           },
@@ -1926,7 +1941,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -1945,6 +1960,11 @@
                 "id": "apr-model-007_smt",
                 "name": "statement",
                 "prose": "`title` **MUST** contain a non-whitespace character."
+              },
+              {
+                "id": "apr-model-007_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
               }
             ]
           },
@@ -1963,7 +1983,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -1982,6 +2002,11 @@
                 "id": "apr-model-008_smt",
                 "name": "statement",
                 "prose": "When `documentType` is `filledForm`, `templateId` is **REQUIRED**: a completed form that cannot name the form it completes is not traceable."
+              },
+              {
+                "id": "apr-model-008_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
               }
             ]
           },
@@ -3084,7 +3109,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -3103,6 +3128,11 @@
                 "id": "apr-model-036_smt",
                 "name": "statement",
                 "prose": "**Template identity.** `templateId` **MUST** be a URI (RFC 3986). It identifies; it need not resolve. The **RECOMMENDED** form is a tag URI (RFC 4151), `tag:skpt.cl,2026:dog-license`, which is unique by construction — it is minted from a domain or email address the author held on a date — and needs no server. Any URI the author controls the uniqueness of is acceptable, an email address as a `mailto` URI included. A reader **MUST NOT** fetch a `templateId`."
+              },
+              {
+                "id": "apr-model-036_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
               }
             ]
           },
@@ -3121,7 +3151,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -3140,6 +3170,11 @@
                 "id": "apr-model-037_smt",
                 "name": "statement",
                 "prose": "**Workflow state is not form data.** When a form was received, by whom, and what happened to it next are facts the *receiver* tracks against the form, not members of it. This document defines no member for them, and a workflow that needs to record them writes its own form and names what that form was about ([Related records](#regarding)), never adding them to a form somebody else wrote."
+              },
+              {
+                "id": "apr-model-037_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
               }
             ]
           },
