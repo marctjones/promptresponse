@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "27b10579-6c61-5826-aed5-5575a4917a24",
+    "uuid": "8c7cc8d8-900f-53dd-b4ef-bcef20a2ed5c",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "975a806d122ee6b02ed0e909fe4e8f94b68939f4d5521d68618ed9c76b90c25c"
+          "value": "5636173aa7d6523f6a759a6e8d7a9a5f8f4dc43a34ce4bdeba0ed3492cc2f89c"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."

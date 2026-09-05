@@ -8,13 +8,13 @@
     "published": "2026-09-01",
     "normativeClauses": 208,
     "ruleIdentifiers": 133,
-    "anchors": 100,
+    "anchors": 101,
     "executableExamples": 25
   },
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:975a806d122ee6b02ed0e909fe4e8f94b68939f4d5521d68618ed9c76b90c25c"
+      "sha256": "sha256:5636173aa7d6523f6a759a6e8d7a9a5f8f4dc43a34ce4bdeba0ed3492cc2f89c"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
@@ -46,7 +46,7 @@
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:f8275ae9f7b006a5cc29a4fe207687003f528dfe9107879c90bc3eba23372c77"
+      "sha256": "sha256:29d7c14690f91c0e4025764ffd7205419c2eeef5c6223b4c865f79c3998d4add"
     }
   },
   "corpus": {

@@ -2829,3 +2829,44 @@ Still without a vector:
 - manifest vectors across the full range of changed member kinds. Each needs a
   computed `jcs-sha256` digest, so these belong in the corpus beside the existing
   digest vectors rather than embedded here.
+
+---
+
+## 24. Appendix E: What earns a primitive {#primitives}
+
+Non-normative.
+
+This document is asked from time to time to add a record kind or a structural
+element for something common and important. The answer has usually been no.
+This appendix records the test, so the next such question is decided the same
+way as the last.
+
+**A concept earns a primitive when its content cannot be posed as questions and
+answers, and when a reader computes over it rather than rendering it.**
+
+The two halves are one distinction seen from either side.
+
+An attestation earns its record kind on both counts. Nobody types a digest, so
+there is no question to ask and no label to render, and its correctness is
+settled by computation — a mode this format refuses for responses
+([Any string is a valid response](#any-string)). Nothing about it would fit
+inside a form either: a manifest is nested computed structure, and a response is
+always a string a person typed ([Responses are strings](#responses)).
+
+A table does not, and [Tables](#tables) says so directly. Rows are ordinary
+sections and cells are ordinary prompts, and carrying `kind` is a claim about
+structure that already exists rather than a new thing. Tables are as common as
+anything proposed since, and commonness is not the test.
+
+A receipt does not either. What it holds — when something arrived, under what
+reference, by what route — is answers with labels, read by people. It is a form
+an office fills in, and [Related records](#regarding) is how it names what it
+was about. The separate claim that the bytes received are the bytes sent is an
+attestation made by the receiver, which needs nothing new either.
+
+The failure this test prevents is a format that grows a document kind for every
+common step of every process. Fixing what a receipt contains would mean
+modelling one jurisdiction's intake — the mistake [Hints](#hints-object) already
+refuses at the field level when it declines country-specific types. A vocabulary
+of published templates carries that weight one layer up, where two offices
+disagreeing costs nobody else anything.
