@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "e3b00fc4-695e-5f3f-ae8a-382d4f9e320b",
+    "uuid": "0553e248-1f34-55bd-b3e9-57f32d2472a9",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "ec59670c54dc7a97630e6d2db8cc47bd645d315e3b51f5dfdfccb66a0a53f129"
+          "value": "c580b64f5970e0ed191230a624283095f8e6cf032f5fdfd165c4aaf9d5c06e5a"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -1511,6 +1511,48 @@
                 "id": "apr-expr-013_gap",
                 "name": "assessment-gap",
                 "prose": "Language conformance is the cel-spec v0.25.3 conformance suite, which this project does not maintain. No vector yet asserts that a function outside the pinned surface fails to the per-hint fallback."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-014",
+            "title": "APR-EXPR-014 — 11.9 A computed value is a suggestion, not a lock",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-014"
+              },
+              {
+                "name": "section",
+                "value": "expr-computed"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-context"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-computed",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-014_smt",
+                "name": "statement",
+                "prose": "**A computed prompt MUST remain editable.** Any string is a valid response, and a renderer that refuses typing into a computed field has stopped implementing the format. A total that is wrong — because the form's arithmetic does not match what was actually agreed — must be correctable by the person filling it in."
+              },
+              {
+                "id": "apr-expr-014_gap",
+                "name": "assessment-gap",
+                "prose": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector."
               }
             ]
           }
@@ -3321,6 +3363,85 @@
                 "prose": "**A table always has at least one instance.** A section carrying `kind: \"table\"` **MUST** carry at least one child section. Prompts alone satisfy [Section](#section-object) but not this: a table's cells live in its instances, so a table without one has nowhere to put them. A reader **MUST** report `EMPTY_TABLE`."
               }
             ]
+          },
+          {
+            "id": "apr-model-047",
+            "title": "APR-MODEL-047 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-047"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-047_smt",
+                "name": "statement",
+                "prose": "`maxRows` — integer — No — Advisory cap on instance count. **MUST** be at least 1."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-048",
+            "title": "APR-MODEL-048 — 5.6.1 What a table asserts",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-048"
+              },
+              {
+                "name": "section",
+                "value": "table-assertion"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-table-assertion"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#table-assertion",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-048_smt",
+                "name": "statement",
+                "prose": "Correspondence is **by position**. Ids are free-form; the convention `{rowId}.{columnId}` is **RECOMMENDED** for addressability and database import, but carries no meaning the renderer depends on."
+              },
+              {
+                "id": "apr-model-048_gap",
+                "name": "assessment-gap",
+                "prose": "A recommendation about id spelling that carries no behaviour. No document is wrong for ignoring it, so no vector can reach it."
+              }
+            ]
           }
         ]
       },
@@ -4276,6 +4397,43 @@
                 "id": "apr-rep-016_smt",
                 "name": "statement",
                 "prose": "Where JSON has no type for a value, the member is a string in a stated form: timestamps are RFC 3339 strings, and a bound on a temporal field is a string in that field's canonical write form ([Canonical value forms](#canonical-values)). A structural member is never a string *because* it is structural; it is a string only when a string is the fitting type."
+              }
+            ]
+          },
+          {
+            "id": "apr-rep-017",
+            "title": "APR-REP-017 — 4.5.1 Scalar resolution",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-REP-017"
+              },
+              {
+                "name": "section",
+                "value": "yaml-resolution"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-yaml-resolution"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#yaml-resolution",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-rep-017_smt",
+                "name": "statement",
+                "prose": "Responses remain strings even where a scalar would otherwise resolve as a number or boolean under the JSON Schema, because [Responses are strings](#responses) governs the semantic model regardless of how a scalar resolved. Anywhere else, an author who means the *string* `true` or `25` — as a suggested value, say — **MUST** quote it, exactly as a JSON author must; the table above is the only thing that decides."
               }
             ]
           }

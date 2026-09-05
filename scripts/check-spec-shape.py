@@ -22,7 +22,11 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / "tests" / "spec-shape" / "manifest.json"
 
-NORMATIVE = re.compile(r"\*\*(MUST NOT|MUST|SHALL NOT|SHALL|REQUIRED|SHOULD NOT|SHOULD|MAY)\*\*")
+# Section 1.2 says a keyword is normative "when, and only when, they appear in all
+# capitals". Bold is a typographic habit, so matching only bolded keywords missed a
+# clause inside a fully bolded sentence, and the list omitted RECOMMENDED entirely.
+NORMATIVE = re.compile(
+    r"\b(MUST NOT|MUST|SHALL NOT|SHALL|REQUIRED|SHOULD NOT|SHOULD|MAY|RECOMMENDED)\b")
 HEADING = re.compile(r"^(#{1,4})\s+(.*)$", re.MULTILINE)
 ANCHOR = re.compile(r"\{#([a-z0-9-]+)\}")
 EXAMPLE = re.compile(r"^```apr-example\n(.*?)^---\n", re.MULTILINE | re.DOTALL)
@@ -118,24 +122,52 @@ def main() -> int:
     ids = RULE_ID.findall(spec)
     duplicates = sorted({i for i in ids if ids.count(i) > 1})
     untagged = []
+    block: list[str] = []
+
+    def flush() -> None:
+        if not block:
+            return
+        text = " ".join(block)
+        if NORMATIVE.search(text) and not RULE_ID.search(text):
+            untagged.append(f"#{current}: {text.strip()[:70]}")
+        block.clear()
+
     in_fence = False
     current = "document"
     for line in spec.split("\n"):
         if line.startswith("```"):
+            flush()
             in_fence = not in_fence
             continue
-        if in_fence or line.startswith(">"):
+        if in_fence:
+            continue
+        if line.startswith(">"):
+            flush()
             continue
         heading = re.match(r"^#{2,4}\s+.*\{#([a-z0-9-]+)\}", line)
         if heading:
+            flush()
             current = heading.group(1)
             continue
-        if current in {"normative-language", "conventions"}:
+        # These three restate rules rather than stating them: two define the
+        # vocabulary, and the checklist is a reader's index of what is already said.
+        if current in {"normative-language", "conventions", "checklist"}:
             continue
-        if NORMATIVE.search(line) and not RULE_ID.search(line):
-            # A wrapped requirement carries its identifier on the block's last
-            # line, so only flag a line that ends a block.
-            untagged.append(line.strip()[:60])
+        # A requirement wraps across lines and carries its identifier at the end, so
+        # the unit is the block, not the line. Table rows are their own blocks.
+        if not line.strip():
+            flush()
+            continue
+        if line.lstrip().startswith("|"):
+            flush()
+            block.append(line)
+            flush()
+            continue
+        block.append(line)
+    flush()
+    check("every-obligation-carries-an-identifier", not untagged,
+          f"{len(set(ids))} identifiers cover every normative block"
+          if not untagged else f"{len(untagged)} untagged: {untagged[:3]}")
     check("rule-identifiers-unique", not duplicates,
           f"{len(set(ids))} identifiers, none repeated"
           if not duplicates else f"repeated: {duplicates}")

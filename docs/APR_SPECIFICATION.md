@@ -573,7 +573,7 @@ or boolean under the JSON Schema, because
 [Responses are strings](#responses) governs the semantic model regardless of how
 a scalar resolved. Anywhere else, an author who means the *string* `true` or
 `25` — as a suggested value, say — **MUST** quote it, exactly as a JSON author
-must; the table above is the only thing that decides.
+must; the table above is the only thing that decides. [APR-REP-017]
 
 
 The excluded constructs, each with its vector.
@@ -1304,7 +1304,7 @@ expect: valid
 | `prompts` | array | No | |
 | `kind` | string | No | `table` when this section's child sections are repeating instances ([Tables](#tables)). |
 | `canAddRows` | boolean | No | `true` if a filler may add or remove instances. Absent means fixed. |
-| `maxRows` | integer | No | Advisory cap on instance count. **MUST** be at least 1. |
+| `maxRows` | integer | No | Advisory cap on instance count. **MUST** be at least 1. [APR-MODEL-047] |
 | `role` | string | No | [Roles](#roles) |
 
 A section **MUST** carry content: at least one prompt or at least one child
@@ -1456,7 +1456,7 @@ failure this design removes rather than manages.
 
 Correspondence is **by position**. Ids are free-form; the convention
 `{rowId}.{columnId}` is **RECOMMENDED** for addressability and database import,
-but carries no meaning the renderer depends on.
+but carries no meaning the renderer depends on. [APR-MODEL-048]
 
 #### 5.6.2 A table licenses no layout {#table-no-layout}
 
@@ -2357,7 +2357,7 @@ plain form.
 **A computed prompt MUST remain editable.** Any string is a valid response, and a
 renderer that refuses typing into a computed field has stopped implementing the
 format. A total that is wrong — because the form's arithmetic does not match what
-was actually agreed — must be correctable by the person filling it in.
+was actually agreed — must be correctable by the person filling it in. [APR-EXPR-014]
 
 Being computed does not make a prompt read-only. `exprReadOnly` asks for that
 *presentation*, and even then it is an affordance rather than a wall.
@@ -2797,7 +2797,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Gave identifiers to four obligations that had none. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

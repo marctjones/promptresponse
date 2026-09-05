@@ -592,7 +592,7 @@
     {
       "id": "REQ-expr-context",
       "section": "expr-context",
-      "statement": "ctx carries host-supplied data and never carries secrets or authorization decisions",
+      "statement": "ctx carries host-supplied data and never carries secrets or authorization decisions; a computed prompt stays editable",
       "strength": "partial",
       "gates": [
         {
@@ -602,7 +602,8 @@
       ],
       "gap": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector.",
       "rules": [
-        "APR-EXPR-007"
+        "APR-EXPR-007",
+        "APR-EXPR-014"
       ]
     },
     {
@@ -1241,7 +1242,7 @@
     {
       "id": "REQ-section-members",
       "section": "section-object",
-      "statement": "Section requires id and title and at least one prompt or child section",
+      "statement": "Section requires id and title and at least one prompt or child section; maxRows is at least 1",
       "strength": "gated",
       "gates": [
         {
@@ -1250,7 +1251,8 @@
         }
       ],
       "rules": [
-        "APR-MODEL-009"
+        "APR-MODEL-009",
+        "APR-MODEL-047"
       ]
     },
     {
@@ -1356,6 +1358,17 @@
       "gap": "No beta.6 corpus fixture carries a table, ragged or otherwise.",
       "rules": [
         "APR-MODEL-014"
+      ]
+    },
+    {
+      "id": "REQ-table-assertion",
+      "section": "table-assertion",
+      "statement": "Correspondence in a table is by position; the {rowId}.{columnId} id convention is recommended and carries no meaning",
+      "strength": "none",
+      "gates": [],
+      "gap": "A recommendation about id spelling that carries no behaviour. No document is wrong for ignoring it, so no vector can reach it.",
+      "rules": [
+        "APR-MODEL-048"
       ]
     },
     {
@@ -1540,7 +1553,7 @@
     {
       "id": "REQ-yaml-resolution",
       "section": "yaml-resolution",
-      "statement": "APR-YAML scalars resolve to the JSON value space; non-finite floats are rejected",
+      "statement": "APR-YAML scalars resolve to the JSON value space; non-finite floats are rejected; a YAML author quotes a scalar that would otherwise resolve as a literal",
       "strength": "gated",
       "gates": [
         {
@@ -1555,7 +1568,8 @@
       "rules": [
         "APR-REP-011",
         "APR-REP-012",
-        "APR-REP-013"
+        "APR-REP-013",
+        "APR-REP-017"
       ]
     },
     {
