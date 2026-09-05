@@ -145,9 +145,19 @@ def load_yaml(text: str) -> list:
         anchor = getattr(event, "anchor", None)
         if anchor:
             raise AprError("YAML_ANCHOR_FORBIDDEN")
-        tag = getattr(event, "tag", None)
-        if tag and not tag.startswith("tag:yaml.org,2002:"):
-            raise AprError("YAML_TAG_FORBIDDEN")
+        # An explicit tag is one the document wrote, whether or not it happens to
+        # name a standard type: `!!str` is as excluded as `!mine`. The tag string
+        # cannot tell them apart, because resolution fills the same field in, so
+        # the implicit flags decide. A scalar carries a (plain, quoted) pair and a
+        # collection a single flag; either way, False means the document said it.
+        implicit = getattr(event, "implicit", None)
+        if isinstance(event, yaml.events.ScalarEvent):
+            if implicit == (False, False):
+                raise AprError("YAML_TAG_FORBIDDEN")
+        elif isinstance(event, (yaml.events.SequenceStartEvent,
+                                yaml.events.MappingStartEvent)):
+            if implicit is False:
+                raise AprError("YAML_TAG_FORBIDDEN")
     if re.search(r"(?m)^%(YAML|TAG)\b", text):
         raise AprError("YAML_DIRECTIVE_FORBIDDEN")
     if re.search(r"(?m)^\s*<<\s*:", text):

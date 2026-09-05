@@ -45,6 +45,7 @@ surfaces first.
 - [ ] `python3 scripts/check-schema.py` — corpus and examples validate against the schema
 - [ ] `python3 scripts/check-corpus.py` — every digest in the corpus is the digest it claims
 - [ ] `python3 scripts/build-corpus.py` — the corpus is what regenerating it would produce
+- [ ] `python3 scripts/validate-apr.py --spec-examples` — every executable example agrees with the validator
 - [ ] Every implementation suite passes: .NET, Python, TypeScript, Java, and the web demo
 - [ ] The executable examples pass in **all four** implementations, not only the reference one
 

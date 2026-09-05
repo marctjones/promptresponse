@@ -161,6 +161,13 @@ jobs:
         # regeneration rather than a hand edit nobody can redo.
         run: python3 scripts/build-corpus.py
 
+      - name: Validate the specification's own examples
+        # A validator built from the specification, checked against the examples
+        # the specification publishes. An example marked valid that it rejects
+        # means one of the two is wrong; an example marked rejected that it
+        # accepts means the validator is missing a rule the document states.
+        run: python3 scripts/validate-apr.py --spec-examples
+
       - name: Verify the OSCAL rule catalog is current
         # Every rule identifier is projected into an OSCAL control so completeness
         # policies can be written against the same identifiers the spec uses.
