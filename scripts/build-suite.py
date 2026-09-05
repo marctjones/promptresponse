@@ -73,6 +73,18 @@ def build() -> dict:
             "expect": example["expect"],
             "document": document,
         }
+        if example["expect"] == "valid" and not example["representation"].endswith("stream"):
+            # Acceptance alone is a weak assertion: a reader that resolves `012` to
+            # the number 12 accepts the document too. The digest pins the semantic
+            # model the document must produce, which is what the rule is about.
+            try:
+                records = aprlib.read_records(
+                    document,
+                    "yaml" if example["representation"] == "yaml" else "jsonc")
+                if len(records) == 1:
+                    case["digest"] = aprlib.digest(records[0])
+            except Exception:  # noqa: BLE001 - a vector we cannot read states no digest
+                pass
         if example.get("diagnostic"):
             case["diagnostic"] = example["diagnostic"]
         if example.get("equivalentTo"):

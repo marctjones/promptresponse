@@ -746,7 +746,7 @@ than failing.
 ```apr-example
 id: table-section
 rule: tables
-rules: APR-MODEL-038
+rules: APR-MODEL-038, APR-REP-015
 representation: jsonc
 expect: valid
 ---

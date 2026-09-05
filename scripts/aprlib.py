@@ -42,6 +42,25 @@ class AprError(ValueError):
     """A document that the specification says must be rejected."""
 
 
+# Rules this module enforces while reading, rather than while validating. Parsing
+# is where a representation rule is decided, so these never reach the validator,
+# and scripts/check-rule-evidence.py counts them from here.
+ENFORCES = {
+    "DUPLICATE_MEMBER": ("APR-REP-006",),
+    "YAML_ANCHOR_FORBIDDEN": ("APR-REP-010",),
+    "YAML_TAG_FORBIDDEN": ("APR-REP-010",),
+    "YAML_DIRECTIVE_FORBIDDEN": ("APR-REP-010",),
+    "YAML_MERGE_KEY_FORBIDDEN": ("APR-REP-010",),
+    "YAML_NON_FINITE_NUMBER": ("APR-REP-011",),
+    "APR_STREAM_MIXED_REPRESENTATIONS": ("APR-STREAM-001",),
+    # Scalar resolution is enforced by resolving, not by refusing: a plain `Yes`
+    # becomes the string it must be rather than raising.
+    "<scalar resolution>": ("APR-REP-008", "APR-REP-012"),
+    "<jsonc decoding>": ("APR-REP-005",),
+    "<yaml syntax>": ("APR-REP-007",),
+}
+
+
 # --------------------------------------------------------------------------
 # APR-JSONC
 # --------------------------------------------------------------------------
@@ -175,7 +194,25 @@ def read_records(text: str, representation: str) -> list:
     if representation == "yaml":
         return load_yaml(text)
     parts = [p for p in text.split(RS) if p.strip()] if RS in text else [text]
-    return [load_jsonc(p) for p in parts]
+    records = []
+    for part in parts:
+        try:
+            records.append(load_jsonc(part))
+        except AprError:
+            raise
+        except Exception:
+            # A record in a JSONC stream that will not decode as JSON is either
+            # malformed or written in the other representation, and those are
+            # different faults. Saying "invalid JSON" for a YAML record would
+            # report the symptom and hide the rule that was broken.
+            try:
+                other = load_yaml(part)
+            except Exception:
+                raise
+            if other:
+                raise AprError("APR_STREAM_MIXED_REPRESENTATIONS")
+            raise
+    return records
 
 
 def read_file(path) -> list:

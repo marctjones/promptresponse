@@ -37,9 +37,14 @@ suite names a diagnostic, a different one is recorded as a discrepancy rather
 than a failure, because a case can be refused for the right reason under a
 different name.
 
-`digest` is the `jcs-sha256` semantic digest. Cases expecting `equivalent` are
-scored on it, and it is optional elsewhere. Reporting it everywhere is better:
-this compares digests across every case two implementations both answer.
+`digest` is the `jcs-sha256` semantic digest, and reporting it is how a case
+proves more than acceptance. Most valid cases state the digest the document must
+produce; if you report one and it differs, the case fails even though you
+accepted the document. That is deliberate, and it is where a reader whose scalar
+resolution is wrong gets caught: it reads `012` happily, as the number twelve,
+and produces a different form. Omitting the digest is allowed and skips that
+check, which makes your score weaker rather than better. Cases expecting
+`equivalent` are scored on it alone.
 
 A case you do not implement may be omitted, and is reported as unanswered rather
 than failed. Claiming a profile you have not answered for is the one thing this
@@ -107,6 +112,14 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
             ok = outcome == ("valid" if case["expect"] == "valid" else "reject")
             if not ok:
                 row["detail"] = f"expected {case['expect']}, reported {outcome}"
+            elif case.get("digest") and result.get("digest") \
+                    and result["digest"] != case["digest"]:
+                # Accepted, but not as the same document. This is where a reader
+                # whose scalar resolution is wrong is caught: it read the file
+                # happily and produced a different semantic model.
+                ok = False
+                row["detail"] = (f"accepted, but produced {result['digest']} where the "
+                                 f"suite requires {case['digest']}")
 
         row["status"] = "pass" if ok else "fail"
         tally["pass" if ok else "fail"] += 1

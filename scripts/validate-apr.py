@@ -174,7 +174,8 @@ def check_object(report: Report, node, kind: str, path: str, members) -> None:
         elif name in node and not type_ok(node[name], declared_type):
             report.error("WRONG_TYPE", f"{path}/{name}",
                          f"{kind}.{name} must be {declared_type}, "
-                         f"got {type(node[name]).__name__}")
+                         f"got {type(node[name]).__name__}",
+                         "APR-REP-015", "APR-REP-016")
         if (kind, name) in HUMAN_TEXT and isinstance(node.get(name), str):
             check_text(report, f"{path}/{name}", node[name])
     for name in node:
@@ -416,7 +417,12 @@ def enforced_rules() -> set[str]:
     """
     source = pathlib.Path(__file__).read_text(encoding="utf-8")
     body = source.split("def enforced_rules", 1)[0]
-    return set(re.findall(r"APR-[A-Z]+-\d{3}", body))
+    checks = set(re.findall(r"APR-[A-Z]+-\d{3}", body))
+    # A representation rule is decided while reading, so it is enforced in the
+    # reference library and never reaches a check here. Counting only this file
+    # would report those rules as unimplemented when they are the best-covered
+    # ones in the format.
+    return checks | {rule for rules in aprlib.ENFORCES.values() for rule in rules}
 
 
 def report_rule_coverage() -> int:

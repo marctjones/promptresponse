@@ -95,7 +95,8 @@
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": true,\n      \"maxRows\": 25,\n      \"sections\": [\n        {\n          \"id\": \"item_1\",\n          \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
       "rules": [
-        "APR-MODEL-038"
+        "APR-MODEL-038",
+        "APR-REP-015"
       ]
     },
     {

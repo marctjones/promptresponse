@@ -183,6 +183,13 @@ jobs:
         # cites no rule is, because it is measured as nothing.
         run: python3 scripts/check-suite-coverage.py
 
+      - name: Verify per-rule conformance evidence
+        # For every rule in the OSCAL catalogue: is it enforced, is there a document
+        # that satisfies it, is there one that violates it, and is that violation
+        # caught traceably. Gates two invariants and ratchets the counts so coverage
+        # cannot fall.
+        run: python3 scripts/check-rule-evidence.py
+
       - name: Verify the OSCAL rule catalog is current
         # Every rule identifier is projected into an OSCAL control so completeness
         # policies can be written against the same identifiers the spec uses.

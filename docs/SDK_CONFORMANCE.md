@@ -63,9 +63,12 @@ and `document`, the source text. Stream cases carry real record separators.
 - `diagnostic` is the code reported. Where the suite names one, a different code
   is recorded as a discrepancy rather than a failure: a document can be refused
   for the right reason under another name.
-- `digest` is the `jcs-sha256` semantic digest. Cases expecting `equivalent` are
-  scored on it; reporting it everywhere lets two implementations be compared
-  case by case.
+- `digest` is the `jcs-sha256` semantic digest, and reporting it is how a case
+  proves more than acceptance. Most valid cases state the digest the document
+  must produce, and reporting a different one fails the case even though you
+  accepted the document. That is where a reader whose scalar resolution is wrong
+  is caught. Omitting it is allowed and skips the check, which weakens your score
+  rather than improving it.
 - A case a driver omits is reported as unanswered, never as failed.
 
 **What this cannot check** is whether a profile you claim is a profile you
@@ -97,7 +100,16 @@ python3 scripts/build-corpus.py         # the corpus is what regenerating it wou
 python3 scripts/build-suite.py          # the suite is current
 python3 scripts/validate-apr.py --spec-examples   # the examples agree with a validator
 python3 scripts/run-conformance.py --driver "python3 scripts/reference-driver.py"
+python3 scripts/check-rule-evidence.py  # per-rule: enforced, satisfied, violated, caught
 ```
+
+`check-rule-evidence.py` is the one that says whether a rule is genuinely
+covered. A rule needs all four: a check that enforces it, a case showing a
+document that satisfies it, a case showing one that violates it, and that
+violation actually being caught traceably. It gates two invariants — a case may
+not cite a rule the catalogue lacks, and a case expecting rejection must be
+refused for the rule it names — and ratchets the four counts so coverage cannot
+fall.
 
 `scripts/validate-apr.py FILE…` validates any APR document against the
 specification's error and warning tables, by the codes the specification names.
