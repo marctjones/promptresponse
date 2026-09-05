@@ -529,6 +529,8 @@ def validate_file(path: pathlib.Path, members) -> Report:
     report = Report(str(path))
     try:
         records = aprlib.read_file(path)
+    except aprlib.MissingDependency:
+        raise  # a missing package is an environment fault, never a bad document
     except aprlib.AprError as exc:
         report.error("PARSE_ERROR", "", str(exc))
         return report
@@ -570,6 +572,8 @@ def validate_spec_examples(members) -> int:
             records = aprlib.read_records(
                 example["document"],
                 "yaml" if example["representation"] == "yaml" else "jsonc")
+        except aprlib.MissingDependency:
+            raise  # a missing package is an environment fault, never a bad example
         except Exception:  # noqa: BLE001
             records = None
         report = Report(example["id"])
@@ -681,4 +685,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except aprlib.MissingDependency as missing:
+        # Say what is missing. A gate that reports a document problem it did not
+        # find is worse than one that does not run.
+        print(f"cannot run: {missing}", file=sys.stderr)
+        sys.exit(2)

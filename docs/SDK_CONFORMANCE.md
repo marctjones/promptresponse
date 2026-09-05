@@ -77,7 +77,10 @@ and `document`, the source text. Stream cases carry real record separators.
   is valid either way cannot tell a reader that says the right thing from one that
   stays silent. Reporting more than the suite names is a discrepancy, not a failure.
 - `evaluated` is what evaluating the expression hints produced, required by any case
-  carrying `expects`. Report `{"responses": {...}, "hidden": {...}, "expected": {...},
+  carrying `expects`. Every non-empty response in the document as you read it is
+  authored, whatever produced it, and recomputation must not overwrite one — a case
+  that supplies a response contradicting its own `exprValue` is testing exactly that,
+  not carrying a stale fixture. Report `{"responses": {...}, "hidden": {...}, "expected": {...},
   "readOnly": {...}, "validation": {...}}`, keyed by prompt id. The case supplies
   `_now`, `_today` and `ctx` under `evaluate`; take them from there and never from
   the host clock, which is what makes a form evaluate the same way twice. Only what
@@ -164,8 +167,9 @@ unchanged corpus reproduces it byte for byte.
 The specification moved substantially during the beta.6 baseline work: native
 JSON types for structural members, the `signature` and `file` types removed, a
 reverse-DNS prefix required on extension members, submission transports defined,
-`templateId` as a URI, `metadata.regarding`, and the format-version member
-renamed to `aprVersion`.
+`templateId` as a URI, `metadata.regarding`, the format-version member renamed to
+`aprVersion`, and `responseMetadata` retired entirely — recomputation now protects
+every response already in the document rather than only an unmarked one.
 
 **No SDK is currently aligned to it.** The Python suite fails 26 of 109 tests
 against the regenerated corpus; the .NET, TypeScript and Java suites have not

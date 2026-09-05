@@ -42,6 +42,15 @@ class AprError(ValueError):
     """A document that the specification says must be rejected."""
 
 
+class MissingDependency(Exception):
+    """A package this module needs is not installed.
+
+    Deliberately not an AprError: a caller that treats it as one reports a
+    missing package as a document the specification rejects, and a gate then
+    fails for a reason that has nothing to do with the document it was given.
+    """
+
+
 # Rules this module enforces while reading, rather than while validating. Parsing
 # is where a representation rule is decided, so these never reach the validator,
 # and scripts/check-rule-evidence.py counts them from here.
@@ -141,7 +150,8 @@ def load_yaml(text: str) -> list:
     try:
         import yaml
     except ImportError as exc:  # pragma: no cover - environment problem
-        raise AprError("PyYAML is required to read APR-YAML") from exc
+        raise MissingDependency(
+            "PyYAML is required to read APR-YAML: pip install pyyaml") from exc
 
     class Loader(yaml.SafeLoader):
         pass
