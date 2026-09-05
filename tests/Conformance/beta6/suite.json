@@ -26,6 +26,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Extended\", \"com.example.routing\": \"desk-4\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"com.example.priority\": 2 } ] }\n  ]\n}\n",
       "digest": "sha256:741d884dcd1c4f1e2da1b1f715f23ba0e2f06219cd09f37f40616c190b4df5c7"
     },
@@ -41,6 +42,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"// not a comment /* nor this */\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
       "digest": "sha256:b02f16565b2f67c6d9edc08f2aae79871b83895783eb3d170f6a63a600aa5456"
     },
@@ -56,6 +58,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"first\" },\n  \"metadata\": { \"title\": \"second\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
       "diagnostic": "DUPLICATE_MEMBER"
     },
@@ -71,6 +74,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Trailing commas\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" }, ] },\n  ],\n}\n",
       "digest": "sha256:c166b7662e9866805ce87371db8217b1a2a03796728369b276525a4c54d17a9d"
     },
@@ -86,6 +90,7 @@
       ],
       "representation": "jsonc-stream",
       "expect": "valid",
+      "profile": "core+streams",
       "document": "\u001e{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Permit Application\",\"templateId\":\"tag:example.com,2026:permit\"},\"sections\":[{\"id\":\"applicant\",\"title\":\"Applicant\",\"prompts\":[{\"id\":\"full_name\",\"label\":\"Full name\",\"response\":\"Ada Lovelace\"}]}]}\n\u001e{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Intake Receipt\",\"templateId\":\"tag:example.com,2026:intake-receipt\",\"regarding\":[\"sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\"]},\"sections\":[{\"id\":\"intake\",\"title\":\"Intake\",\"prompts\":[{\"id\":\"received\",\"label\":\"Date received\",\"response\":\"2026-09-04\"}]}]}\n"
     },
     {
@@ -101,6 +106,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"filledForm\",\n  \"metadata\": {\n    \"title\": \"Intake Receipt\",\n    \"templateId\": \"tag:example.com,2026:intake-receipt\",\n    \"regarding\": [\"sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\"]\n  },\n  \"sections\": [\n    {\n      \"id\": \"intake\",\n      \"title\": \"Intake\",\n      \"prompts\": [\n        { \"id\": \"received\", \"label\": \"Date received\", \"response\": \"2026-09-04\",\n          \"hints\": { \"expectedDataType\": \"date\" } }\n      ]\n    }\n  ]\n}\n",
       "digest": "sha256:3067d522e8d2dbe7c2bafd72cdb5ed761448a72619a10dc0c2cd3ba89eae1b21"
     },
@@ -116,6 +122,7 @@
       ],
       "representation": "jsonc-stream",
       "expect": "reject",
+      "profile": "core+streams",
       "document": "\u001e{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n\u001eaprVersion: \"1.0-beta.6\"\nmetadata:\n  title: second\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "APR_STREAM_MIXED_REPRESENTATIONS"
     },
@@ -131,6 +138,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Stringly typed\" },\n  \"sections\": [\n    {\n      \"id\": \"rows\",\n      \"title\": \"Rows\",\n      \"kind\": \"table\",\n      \"canAddRows\": \"true\",\n      \"maxRows\": \"25\",\n      \"sections\": [\n        { \"id\": \"row_1\", \"title\": \"Row 1\",\n          \"prompts\": [ { \"id\": \"row_1.note\", \"label\": \"Note\" } ] }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -147,6 +155,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": true,\n      \"maxRows\": 25,\n      \"sections\": [\n        {\n          \"id\": \"item_1\",\n          \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
       "digest": "sha256:471b17fa639732bd4296e87a4a7f40ac4db64cd4bfa4caceb21e6bc5ab415d1d"
     },
@@ -162,6 +171,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Unregistered affordance\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"response\": \"anything\",\n          \"hints\": { \"expectedDataType\": \"holographic-signature\" } }\n      ]\n    }\n  ]\n}\n",
       "digest": "sha256:9f05bfc81c2c6f22f91923013fc7024edeedd8c18336ed6406b78a097bcaae52"
     },
@@ -177,6 +187,7 @@
       ],
       "representation": "yaml",
       "expect": "reject",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata: &meta\n  title: Anchored\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_ANCHOR_FORBIDDEN"
     },
@@ -193,6 +204,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: .5\n",
       "digest": "sha256:369059237755e00fd51bb2be0b4ff3dc8ff3e39c17ce615ee451a09d71f985d7"
     },
@@ -209,6 +221,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Permit Application\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: about twelve\n",
       "digest": "sha256:13298c16fa4f33a0c0aec85e21d13f5a597fa067c540f66af460ff79922c70a0"
     },
@@ -225,6 +238,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Date-like\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 2026-01-01\n",
       "digest": "sha256:be3fee6deb27ac0e4a13e2340d683c020ed7b5d2fe81974582ffedb0df138ddf"
     },
@@ -240,6 +254,7 @@
       ],
       "representation": "yaml",
       "expect": "reject",
+      "profile": "core",
       "document": "%YAML 1.2\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Directed\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_DIRECTIVE_FORBIDDEN"
     },
@@ -256,6 +271,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 0x1F\n",
       "digest": "sha256:15baef3594a9d6eb48225d4e6ef8ba0ae81dd91c690ba23918028aae5c60aa4f"
     },
@@ -272,6 +288,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Leading zero\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 012\n",
       "digest": "sha256:b8ccda36ddbbbac98bd8f0780479c4b4effc54ebf139a230392fc258ca2e67f7"
     },
@@ -288,6 +305,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Legacy spellings\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: yes\n",
       "digest": "sha256:e13f1698ce14c3a3e0081ae0ea52043f317f6a32c3e9ed604bcb2b6037145eea"
     },
@@ -303,6 +321,7 @@
       ],
       "representation": "yaml",
       "expect": "reject",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Merged\nsections:\n  - id: s\n    title: S\n    <<: { description: merged in }\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_MERGE_KEY_FORBIDDEN"
     },
@@ -318,6 +337,7 @@
       ],
       "representation": "yaml",
       "expect": "reject",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Non-finite\nsections:\n  - id: s\n    title: S\n    kind: table\n    maxRows: .inf\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_NON_FINITE_NUMBER"
     },
@@ -334,6 +354,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: null\n",
       "digest": "sha256:09473377cbd253088a500365c769bfdbda9629952f8f5f11938a94d6f935de4d"
     },
@@ -349,6 +370,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: \"null\"\n",
       "digest": "sha256:96b9a4c4f1b8744a755dea33898233b88348f85aff89940d7b0f1ea3ab6b5509"
     },
@@ -365,6 +387,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1:30\n",
       "digest": "sha256:6b366621e757a8a00950d584d64ceef58fda6f84ef5fb5ce67964e1beda0f71c"
     },
@@ -380,6 +403,7 @@
       ],
       "representation": "yaml",
       "expect": "reject",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: !!str Tagged\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "diagnostic": "YAML_TAG_FORBIDDEN"
     },
@@ -396,6 +420,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1_000\n",
       "digest": "sha256:df92222fd713a0f0bc6542a93fec6422bacf438405f231ee6b5f067b55049102"
     },
@@ -415,6 +440,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/aprVersion\",\n        \"digest\": \"sha256:08baa03721d3da98e92260c7b765214afa9e624b9e3cb52986f7a632fe0660bf\"\n      },\n      {\n        \"path\": \"/documentType\",\n        \"digest\": \"sha256:dae1a374ddaefa22ba8c71598ad98c02147631f5867f0ed3386ea06e5d8d8d4b\"\n      },\n      {\n        \"path\": \"/metadata\",\n        \"digest\": \"sha256:4e01956e902c76a413af77d42995e5fa6a634603a2550d3d1588e1a5a3767122\"\n      },\n      {\n        \"path\": \"/metadata/title\",\n        \"digest\": \"sha256:96eed32a48e30480ad5413c0251e33ab3ce901ae24519fc60156ca4114768e02\"\n      },\n      {\n        \"path\": \"/sections\",\n        \"digest\": \"sha256:e44bc9a4dc018af9504385e2f7e2d23331f0e53eebc1c64763f3ea2f366fd182\"\n      },\n      {\n        \"path\": \"/sections/0\",\n        \"digest\": \"sha256:4b018af8fd92048e092ce74e1cbaba0d923eba5f14898b6548312fe74f0488c7\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts\",\n        \"digest\": \"sha256:6de53cd047916b884beb6eaeb8b2f654e10ad8a6f5d8d33bfc8f48efddbf6c6b\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/id\",\n        \"digest\": \"sha256:6ffe58b85cad95f1e86f1afebc4ffba738ef6c5520811cb5f393f6c0234ffcb0\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/label\",\n        \"digest\": \"sha256:6cc5df35f0338e230e9e633ead9991f08f62cab45a3264978daedc6747867305\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -429,6 +455,7 @@
       "rules": [],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"cms/ecdsa-p256-sha256\",\n      \"value\": \"MIIDAAYJKoZIhvcNAQcCoIIC8TCCAu0CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGgggGeMIIBmjCCAUCgAwIBAgIIQVBSLVRFU1QwCgYIKoZIzj0EAwIwQjEfMB0GA1UEAwwWQVBSIGNvcnB1cyB0ZXN0IHNpZ25lcjEfMB0GA1UECgwWQVBSIGNvbmZvcm1hbmNlIGNvcnB1czAeFw0yNjAxMDEwMDAwMDBaFw0zNjAxMDEwMDAwMDBaMEIxHzAdBgNVBAMMFkFQUiBjb3JwdXMgdGVzdCBzaWduZXIxHzAdBgNVBAoMFkFQUiBjb25mb3JtYW5jZSBjb3JwdXMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATpAFTL4qZJf29fA1/UE7KI1BzdMllbNCz1RBbmCi536wN0+LOgFutnlJP12iZIxYLITVf9/46ikS9qx80K94awoyAwHjAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH/BAIwADAKBggqhkjOPQQDAgNIADBFAiBNbO8YBXBK0k22lJGGE1gsq2t/7P3LaZ+XLijAXvvvVAIhAKDFuDXVmb2SQ5tmS42lJ6UOtmjc+zabrvP/fcFCHDzGMYIBJjCCASICAQEwTjBCMR8wHQYDVQQDDBZBUFIgY29ycHVzIHRlc3Qgc2lnbmVyMR8wHQYDVQQKDBZBUFIgY29uZm9ybWFuY2UgY29ycHVzAghBUFItVEVTVDANBglghkgBZQMEAgEFAKBpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDEwMjAwMDAwMFowLwYJKoZIhvcNAQkEMSIEIO9HTLyjXqU0bziCPxeU99SrEIykZQN4gWSzckmwL5rbMAoGCCqGSM49BAMCBEcwRQIgL7qe/0/xYG4ylXuJeqLa53xKuEnLw5gRQzmh9KbjWZICIQCvlf5CpCXqWUA4D+stnIxl1LttVdoRB55cn6EBanwqWQ==\"\n    }\n  ],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -445,6 +472,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"fields\",\n    \"fields\": [\n      \"name\"\n    ]\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -460,6 +488,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"example/opaque-v1\",\n      \"value\": \"b3BhcXVl\"\n    }\n  ],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -477,6 +506,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "// JSONC comments and formatting are not semantic content.\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        { \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" },\n      ],\n    },\n  ],\n}\n"
     },
     {
@@ -495,6 +525,7 @@
       ],
       "representation": "yaml",
       "expect": "valid",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata:\n  title: Beta 6 permit\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: \"Ada\"\n"
     },
     {
@@ -514,6 +545,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Patient Intake\", \"templateId\": \"tag:skpt.cl,2026:examples/intake\", \"templateVersion\": \"1.0\" },\n  \"roles\": [\n    { \"id\": \"patient\", \"name\": \"Patient\", \"description\": \"The person receiving care.\" },\n    { \"id\": \"nurse\", \"name\": \"Nurse\", \"description\": \"Clinical staff recording observations.\" },\n    { \"id\": \"office\", \"name\": \"Office use\" }\n  ],\n  \"sections\": [\n    { \"id\": \"patient_details\", \"title\": \"About you\", \"role\": \"patient\", \"prompts\": [\n      { \"id\": \"name\", \"label\": \"Full name\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"dob\", \"label\": \"Date of birth\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"date\" } }\n    ] },\n    { \"id\": \"observations\", \"title\": \"Clinical observations\", \"role\": \"nurse\", \"prompts\": [\n      { \"id\": \"bp\", \"label\": \"Blood pressure\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"weight\", \"label\": \"Weight (kg)\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"number\", \"min\": 0, \"max\": 400 } },\n      { \"id\": \"symptoms\", \"label\": \"Describe your symptoms in your own words\", \"response\": \"\", \"role\": \"patient\", \"hints\": { \"expectedDataType\": \"multiline\" } }\n    ] },\n    { \"id\": \"office\", \"title\": \"For office use only\", \"role\": \"office\", \"prompts\": [\n      { \"id\": \"ref\", \"label\": \"Reference number\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"received\", \"label\": \"Date received\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"date\" } }\n    ] },\n    { \"id\": \"consent\", \"title\": \"Consent\", \"prompts\": [\n      { \"id\": \"agree\", \"label\": \"I confirm the above is accurate\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"boolean\", \"suggestedValues\": [\"Yes\", \"No\"] } }\n    ] }\n  ]\n}\n"
     },
     {
@@ -526,6 +558,7 @@
       "rules": [],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"scope\": { \"kind\": \"document\" },\n  \"manifest\": { \"root\": \"sha256:d06b9720c44d64b368e93bd6765cad81bfa1e8ea9b767b4acd1ffc57c26b0253\", \"entries\": [] },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "diagnostic": "REQUIRED_FIELD"
     },
@@ -541,6 +574,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"first\" },\n  \"metadata\": { \"title\": \"second\" },\n  \"sections\": []\n}\n",
       "diagnostic": "DUPLICATE_MEMBER"
     },
@@ -554,6 +588,7 @@
       "rules": [],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[]}\n{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"second\"},\"sections\":[]}\n"
     },
     {
@@ -568,6 +603,7 @@
       ],
       "representation": "yaml",
       "expect": "reject",
+      "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata: &metadata\n  title: Permit\nsections: []\n",
       "diagnostic": "YAML_ANCHOR_FORBIDDEN"
     },
@@ -581,6 +617,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -593,6 +630,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestations\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -606,6 +644,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -618,6 +657,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.3\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "diagnostic": "UNSUPPORTED_VERSION"
     },
@@ -631,6 +671,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -643,6 +684,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -656,6 +698,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -668,6 +711,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\",\n    \"note\": \"extra\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -681,6 +725,7 @@
       ],
       "representation": "jsonc-stream",
       "expect": "valid",
+      "profile": "core+streams",
       "document": "\u001e{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "roundTrip": true
     },
@@ -694,6 +739,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\",\n          \"response\": \"2\"\n        },\n        {\n          \"id\": \"total\",\n          \"label\": \"Total\",\n          \"hints\": {\n            \"exprValue\": \"string(a)\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "roundTrip": true,
       "preserves": [
@@ -710,6 +756,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -722,6 +769,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -735,6 +783,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"com.example.priority\": 2\n        }\n      ]\n    }\n  ]\n}\n",
       "roundTrip": true,
       "preserves": [
@@ -751,6 +800,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      },\n      {\n        \"path\": \"/a\",\n        \"digest\": \"sha256:efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -763,6 +813,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"/b\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      },\n      {\n        \"path\": \"/a\",\n        \"digest\": \"sha256:efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -776,6 +827,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
     },
     {
@@ -788,6 +840,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"/a\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "diagnostic": "REQUIRED_FIELD"
     },
@@ -801,6 +854,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"42\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -813,6 +867,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": 42\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -826,6 +881,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"12\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -838,6 +894,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"the summer of 1985\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "RESPONSE_CONTRADICTS_TYPE"
@@ -853,6 +910,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -865,6 +923,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": []\n}\n",
       "diagnostic": "REQUIRED_FIELD"
     },
@@ -878,6 +937,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -890,6 +950,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ],\n  \"signatures\": []\n}\n",
       "diagnostic": "RETIRED_EMBEDDED_SIGNATURES"
     },
@@ -903,6 +964,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Permit\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -915,6 +977,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"   \"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -928,6 +991,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateId\": \"tag:example.com,2026:t\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ],\n  \"documentType\": \"filledForm\"\n}\n"
     },
     {
@@ -940,6 +1004,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ],\n  \"documentType\": \"filledForm\"\n}\n",
       "diagnostic": "REQUIRED_FIELD"
     },
@@ -953,6 +1018,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -965,6 +1031,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\"\n    }\n  ]\n}\n",
       "diagnostic": "EMPTY_SECTION"
     },
@@ -978,6 +1045,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"x\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"x\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -990,6 +1058,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"A\"\n        },\n        {\n          \"id\": \"p\",\n          \"label\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "DUPLICATE_ID"
     },
@@ -1003,6 +1072,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        },\n        {\n          \"id\": \"r2\",\n          \"title\": \"R2\",\n          \"prompts\": [\n            {\n              \"id\": \"r2.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1015,6 +1085,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        },\n        {\n          \"id\": \"r2\",\n          \"title\": \"R2\",\n          \"prompts\": [\n            {\n              \"id\": \"r2.a\",\n              \"label\": \"A\"\n            },\n            {\n              \"id\": \"r2.b\",\n              \"label\": \"B\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "TABLE_RAGGED",
@@ -1031,6 +1102,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1043,6 +1115,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"hologram\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "UNREGISTERED_DATA_TYPE"
@@ -1058,6 +1131,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"5\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"min\": 1,\n            \"max\": 10\n          }\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1070,6 +1144,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"120\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"min\": 1,\n            \"max\": 10\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "RESPONSE_OUTSIDE_BOUNDS"
@@ -1085,6 +1160,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"com.example.priority\": 2\n        }\n      ]\n    }\n  ]\n}\n",
       "roundTrip": true,
       "preserves": [
@@ -1102,6 +1178,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"role\": \"clerk\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"id\": \"clerk\",\n      \"name\": \"Clerk\"\n    }\n  ]\n}\n"
     },
     {
@@ -1114,6 +1191,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"role\": \"nurse\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"id\": \"clerk\",\n      \"name\": \"Clerk\"\n    }\n  ]\n}\n",
       "warns": [
         "UNDECLARED_ROLE"
@@ -1129,6 +1207,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1141,6 +1220,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "UNPREFIXED_MEMBER"
@@ -1156,6 +1236,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1168,6 +1249,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"signature\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "UNREGISTERED_DATA_TYPE"
@@ -1183,6 +1265,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1195,6 +1278,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "UNPREFIXED_MEMBER"
@@ -1210,6 +1294,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"submissionUrls\": [\n      \"mailto:clerk@example.com\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1222,6 +1307,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"submissionUrls\": [\n      \"ftp://example.com/drop\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "SUBMISSION_URL_UNSUPPORTED"
@@ -1237,6 +1323,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 5,\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1249,6 +1336,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"maxRows\": 5\n    }\n  ]\n}\n",
       "warns": [
         "TABLE_MEMBERS_ON_A_PLAIN_SECTION"
@@ -1264,6 +1352,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"AB-1\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1276,6 +1365,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"validationPattern\": \"^([A-Z\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "HINT_UNUSABLE"
@@ -1291,6 +1381,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        {\n          \"id\": \"full_name\",\n          \"label\": \"Full name\",\n          \"response\": \"Ada\"\n        }\n      ]\n    }\n  ]\n}\n",
       "roundTrip": true,
       "preserves": [
@@ -1308,6 +1399,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"regarding\": [\n      \"sha256:abababababababababababababababababababababababababababababababab\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1320,6 +1412,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"regarding\": [\n      \"sha256:NOTHEX\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -1333,6 +1426,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1345,6 +1439,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "EMPTY_TABLE"
     },
@@ -1358,6 +1453,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "// a comment carries no meaning\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n  ,\n}\n",
       "roundTrip": true,
       "preserves": [
@@ -1374,6 +1470,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1386,6 +1483,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1398,6 +1496,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1410,6 +1509,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": null\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1422,6 +1522,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ],\n  \"documentType\": null\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -1435,6 +1536,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"date\",\n            \"min\": \"2026-01-01\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1447,6 +1549,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"date\",\n            \"min\": 2026\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
@@ -1460,6 +1563,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1472,6 +1576,7 @@
       ],
       "representation": "jsonc",
       "expect": "reject",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.3\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "UNSUPPORTED_VERSION"
     },
@@ -1485,6 +1590,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"  Ada‍ Lovelace  \"\n        }\n      ]\n    }\n  ]\n}\n",
       "roundTrip": true,
       "preserves": [
@@ -1501,6 +1607,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"AB-1\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1513,6 +1620,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"nope\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "RESPONSE_PATTERN_MISMATCH"
@@ -1528,6 +1636,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"12\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
@@ -1540,6 +1649,7 @@
       ],
       "representation": "jsonc",
       "expect": "valid",
+      "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"about twelve\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "warns": [
         "RESPONSE_CONTRADICTS_TYPE"
@@ -1558,6 +1668,7 @@
       ],
       "representation": "jsonc-stream",
       "expect": "valid",
+      "profile": "core+streams",
       "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Grace\" }] }]\n}\n"
     },
     {
@@ -1570,6 +1681,7 @@
       "rules": [],
       "representation": "jsonc-stream",
       "expect": "valid",
+      "profile": "core+streams",
       "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n"
     },
     {
@@ -1583,6 +1695,7 @@
       "rules": [],
       "representation": "yaml-stream",
       "expect": "valid",
+      "profile": "core+streams",
       "document": "---\nrecordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries: []\nproofs: []\nwitnesses: []\n---\naprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata: { title: Beta 6 permit }\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: Ada\n---\naprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata: { title: Beta 6 permit }\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: Ada\n"
     },
     {
@@ -1596,6 +1709,7 @@
       "rules": [],
       "representation": "jsonc-stream",
       "expect": "valid",
+      "profile": "core+streams",
       "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:6b53e6a6ea75a742ea8ac8c1cd210bbace9cef73650f923db7815bad2d6f3f2b\"\n  ]\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:0afc5c7ae1ebd165c9cbbf6da3274378c41bc9e30e43666ae1291ba2fc9dd85f\"\n  ]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n"
     },
     {
@@ -1609,6 +1723,7 @@
       "rules": [],
       "representation": "jsonc-stream",
       "expect": "valid",
+      "profile": "core+streams",
       "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:6b53e6a6ea75a742ea8ac8c1cd210bbace9cef73650f923db7815bad2d6f3f2b\"\n  ]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n"
     }
   ]

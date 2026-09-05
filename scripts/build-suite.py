@@ -41,6 +41,21 @@ SKIP_NAMES = {"spec-examples.json", "suite.json", "corpus.map.json"}
 SKIP_DIRS = {"keys", "digests"}
 
 
+def profile_of(representation: str, document: str) -> str:
+    """The conformance profile a case belongs to.
+
+    A profile is optional to claim and binding once claimed, so a case has to say
+    which one it belongs to before the harness can hold anybody to that.
+    """
+    if representation.endswith("stream"):
+        return "core+streams"
+    if '"recordType"' in document or "recordType:" in document:
+        return "core+attestations"
+    if "expr" in document:
+        return "core+expressions"
+    return "core"
+
+
 def representation_of(path: pathlib.Path, text: str) -> str:
     if path.suffix in {".yaml", ".yml"}:
         return "yaml-stream" if text.count("\n---") >= 1 else "yaml"
@@ -71,6 +86,7 @@ def build() -> dict:
             "rules": example.get("rules", []),
             "representation": example["representation"],
             "expect": example["expect"],
+            "profile": profile_of(example["representation"], document),
             "document": document,
         }
         if example["expect"] == "valid" and not example["representation"].endswith("stream"):
@@ -107,6 +123,7 @@ def build() -> dict:
             "rules": expected.get("rules", []),
             "representation": representation_of(path, text),
             "expect": expected["expect"],
+            "profile": profile_of(representation_of(path, text), text),
             "document": text,
         }
         if expected.get("diagnostic"):

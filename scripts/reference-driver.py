@@ -77,7 +77,10 @@ def main() -> int:
         "implementation": {
             "name": "APR reference tooling driver",
             "version": suite["formatVersion"],
-            "profiles": ["core", "core+streams"],
+            # Attestations are checked structurally, streams are framed and read,
+            # and expressions are preserved but never evaluated, so that profile is
+            # not claimed.
+            "profiles": ["core", "core+streams", "core+attestations"],
         },
         "results": [answer(case, members) for case in suite["cases"]],
     }, sys.stdout, indent=2, ensure_ascii=False)

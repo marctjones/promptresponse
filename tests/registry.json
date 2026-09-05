@@ -1207,14 +1207,10 @@
       "gates": [
         {
           "type": "suite",
-          "ref": "core.unit"
-        },
-        {
-          "type": "suite",
-          "ref": "sdk.python"
+          "ref": "schema.gate"
         }
       ],
-      "gap": "Role obligations are gated individually by the entries below; no single vector asserts the role table itself.",
+      "gap": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable.",
       "rules": [
         "APR-CONF-004"
       ]

@@ -777,7 +777,7 @@
               {
                 "id": "apr-conf-004_gap",
                 "name": "assessment-gap",
-                "prose": "Role obligations are gated individually by the entries below; no single vector asserts the role table itself."
+                "prose": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable."
               }
             ]
           }

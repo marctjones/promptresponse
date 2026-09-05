@@ -82,11 +82,17 @@ and `document`, the source text. Stream cases carry real record separators.
   the contract that tests writing, and preservation is what makes additive change
   safe: a reader that quietly drops an unknown member accepts every document it is
   ever given.
-- A case a driver omits is reported as unanswered, never as failed.
+- Every case carries the `profile` it belongs to. A profile is optional to claim and
+  **binding once claimed**: a case in a profile you declare must be answered, and
+  omitting it fails. A case outside every profile you declare may be omitted and is
+  reported as unanswered; answering one anyway is allowed and scored, because you
+  volunteered it.
 
-**What this cannot check** is whether a profile you claim is a profile you
-implement. Declaring conformance stays a statement a person makes, as the
-specification's conformance section says.
+**What this cannot check** is whether the profiles you declare are the ones you
+implement. Within a run a claim is binding, so declaring `core+attestations` and
+answering none of those cases fails. Whether the claim you publish elsewhere is
+honest stays a statement a person makes, as the specification's conformance
+section says.
 
 ## Profiles
 

@@ -59,9 +59,14 @@ and produces a different form. Omitting the digest is allowed and skips that
 check, which makes your score weaker rather than better. Cases expecting
 `equivalent` are scored on it alone.
 
-A case you do not implement may be omitted, and is reported as unanswered rather
-than failed. Claiming a profile you have not answered for is the one thing this
-cannot check, which is why declaring conformance is a statement a person makes.
+Every case carries the `profile` it belongs to. A profile is optional to claim and
+**binding once claimed**: a case belonging to a profile you declare must be
+answered, and omitting it fails. A case outside every profile you declare may be
+omitted and is reported as unanswered. Answering one anyway is allowed, and it is
+scored, because you volunteered it.
+
+What this still cannot check is whether the profiles you declare are the ones you
+implement, which is why declaring conformance remains a statement a person makes.
 """
 from __future__ import annotations
 
@@ -137,6 +142,10 @@ def round_trip_ok(case: dict, result: dict) -> tuple[bool, str]:
 
 def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
     reported = {r["id"]: r for r in response.get("results", []) if isinstance(r, dict)}
+    # "Optional to claim; binding once claimed." A case belonging to a profile the
+    # implementation declares must be answered. Skipping it is a failure, not a
+    # shrug, or a driver could claim every profile and answer nothing.
+    claimed = set(response.get("implementation", {}).get("profiles") or ["core"])
     by_id = {c["id"]: c for c in suite["cases"]}
     rows: list[dict] = []
     tally = {"pass": 0, "fail": 0, "unanswered": 0, "discrepancy": 0}
@@ -144,9 +153,16 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
     for case in suite["cases"]:
         result = reported.get(case["id"])
         row = {"id": case["id"], "rule": case["rule"], "expect": case["expect"]}
+        row["profile"] = case.get("profile", "core")
         if result is None:
-            row["status"] = "unanswered"
-            tally["unanswered"] += 1
+            if row["profile"] in claimed:
+                row["status"] = "fail"
+                row["detail"] = (f"unanswered, and this implementation claims "
+                                 f"{row['profile']}, which binds it to every case in it")
+                tally["fail"] += 1
+            else:
+                row["status"] = "unanswered"
+                tally["unanswered"] += 1
             rows.append(row)
             continue
 
