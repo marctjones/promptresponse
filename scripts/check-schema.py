@@ -25,13 +25,14 @@ except ImportError:
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BETA6_SCHEMA = ROOT / "schemas" / "apr-1.0-beta.6.schema.json"
 BASE_SCHEMA = ROOT / "schemas" / "apr-1.0.schema.json"
+BETA6_CORPUS = ROOT / "tests" / "Conformance" / "beta6"
+
 try:
     EXPECTATIONS = {k: v for k, v in json.loads(
         (BETA6_CORPUS / "corpus.map.json").read_text(encoding="utf-8")
     ).get("expectations", {}).items() if not k.startswith("$")}
 except (OSError, ValueError):
     EXPECTATIONS = {}
-BETA6_CORPUS = ROOT / "tests" / "Conformance" / "beta6"
 
 
 def load(path):
