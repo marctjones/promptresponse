@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "0553e248-1f34-55bd-b3e9-57f32d2472a9",
+    "uuid": "d3b5f54d-ec04-5464-abff-6d616d7c70f0",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "c580b64f5970e0ed191230a624283095f8e6cf032f5fdfd165c4aaf9d5c06e5a"
+          "value": "ca0a34484c4b7b8208f58faba8390fa44e00b4285c9558eb7e4d15b12ff1cac6"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -720,7 +720,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -738,7 +738,12 @@
               {
                 "id": "apr-conf-002_smt",
                 "name": "statement",
-                "prose": "A core-only implementation **MUST NOT** reject a stream containing attestations, **MUST** preserve attestation records on round-trip, and **MUST NOT** report a document as verified. It **SHOULD** indicate that attestations are present but unchecked."
+                "prose": "A core-only implementation **MUST NOT** reject a stream containing attestations, and **MUST** preserve attestation records on round-trip."
+              },
+              {
+                "id": "apr-conf-002_gap",
+                "name": "assessment-gap",
+                "prose": "APR-CONF-005, that a core-only implementation never reports a document as verified and should say attestations are present but unchecked, is about what it displays. The harness scores acceptance, not wording."
               }
             ]
           },
@@ -823,6 +828,48 @@
                 "id": "apr-conf-004_gap",
                 "name": "assessment-gap",
                 "prose": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-005",
+            "title": "APR-CONF-005 — 3.3 `core+attestations` — OPTIONAL",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-005"
+              },
+              {
+                "name": "section",
+                "value": "profile-attestations"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-profile-attestations"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#profile-attestations",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-005_smt",
+                "name": "statement",
+                "prose": "It **MUST NOT** report a document as verified, and **SHOULD** indicate that attestations are present but unchecked. Saying nothing is better than saying verified; saying \"present, unchecked\" is better than both."
+              },
+              {
+                "id": "apr-conf-005_gap",
+                "name": "assessment-gap",
+                "prose": "APR-CONF-005, that a core-only implementation never reports a document as verified and should say attestations are present but unchecked, is about what it displays. The harness scores acceptance, not wording."
               }
             ]
           }
@@ -1660,7 +1707,7 @@
               {
                 "id": "apr-model-001_smt",
                 "name": "statement",
-                "prose": "A `prompt.response` **MUST** be a JSON string. A response given as a JSON number or boolean **MUST** be rejected at parse time. It **MUST NOT** be coerced to `\"42\"` or `\"true\"`."
+                "prose": "A `prompt.response` **MUST** be a JSON string, and a response given as a JSON number or boolean **MUST** be rejected at parse time."
               },
               {
                 "id": "apr-model-001_gap",
@@ -3542,6 +3589,48 @@
                 "prose": "A recommendation about id spelling that carries no behaviour. No document is wrong for ignoring it, so no vector can reach it."
               }
             ]
+          },
+          {
+            "id": "apr-model-049",
+            "title": "APR-MODEL-049 — 4.7 Responses are strings",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-049"
+              },
+              {
+                "name": "section",
+                "value": "responses"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-responses-strings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#responses",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-049_smt",
+                "name": "statement",
+                "prose": "It **MUST NOT** be coerced to `\"42\"` or `\"true\"`. Rejecting and coercing are different failures: one refuses the document, the other accepts it having invented data."
+              },
+              {
+                "id": "apr-model-049_gap",
+                "name": "assessment-gap",
+                "prose": "No beta.6 malformed fixture carries a non-string response."
+              }
+            ]
           }
         ]
       },
@@ -5166,12 +5255,12 @@
               {
                 "id": "apr-stream-001_smt",
                 "name": "statement",
-                "prose": "A stream **MUST NOT** mix representations. It **MUST NOT** deduplicate repeated form occurrences, even when their semantic digests are identical. A single-form API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position. A streaming API yields every record and may hold an unresolved attestation until its subject form has been observed."
+                "prose": "A stream **MUST NOT** mix representations."
               },
               {
                 "id": "apr-stream-001_gap",
                 "name": "assessment-gap",
-                "prose": "Mixed-representation stream rejection has no fixture."
+                "prose": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API."
               }
             ]
           },
@@ -5209,6 +5298,90 @@
                 "id": "apr-stream-002_smt",
                 "name": "statement",
                 "prose": "The corpus supplies paired streams whose records have equal semantic models across the two representations. A stream reader **MUST** produce the same sequence of semantic records from either member of such a pair."
+              }
+            ]
+          },
+          {
+            "id": "apr-stream-003",
+            "title": "APR-STREAM-003 — 9. Streams",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-STREAM-003"
+              },
+              {
+                "name": "section",
+                "value": "streams"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-stream-records"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#streams",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-stream-003_smt",
+                "name": "statement",
+                "prose": "It **MUST NOT** deduplicate repeated form occurrences, even when their semantic digests are identical. Two occurrences of one form are two records, and a reader that collapses them has lost a fact the sender stated."
+              },
+              {
+                "id": "apr-stream-003_gap",
+                "name": "assessment-gap",
+                "prose": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API."
+              }
+            ]
+          },
+          {
+            "id": "apr-stream-004",
+            "title": "APR-STREAM-004 — 9. Streams",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-STREAM-004"
+              },
+              {
+                "name": "section",
+                "value": "streams"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-stream-records"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#streams",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-stream-004_smt",
+                "name": "statement",
+                "prose": "A single-form API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position. A streaming API yields every record and may hold an unresolved attestation until its subject form has been observed."
+              },
+              {
+                "id": "apr-stream-004_gap",
+                "name": "assessment-gap",
+                "prose": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API."
               }
             ]
           }
@@ -5793,12 +5966,12 @@
               {
                 "id": "apr-val-002_smt",
                 "name": "statement",
-                "prose": "An implementation **MAY** surface any warning. Such feedback **MUST NOT** prevent saving, **MUST NOT** prevent entering any text, and **MUST NOT** be reported as the document being invalid."
+                "prose": "An implementation **MAY** surface any warning. Such feedback **MUST NOT** be reported as the document being invalid."
               },
               {
                 "id": "apr-val-002_gap",
                 "name": "assessment-gap",
-                "prose": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule."
+                "prose": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule. APR-VAL-006, that a warning never prevents saving or typing, is a user-interface obligation. A document is valid either way, so no case distinguishes an implementation that blocks the keyboard from one that does not."
               }
             ]
           },
@@ -5920,6 +6093,48 @@
                 "id": "apr-val-005_smt",
                 "name": "statement",
                 "prose": "A validator **MUST NOT** reject a document because of what a response means."
+              }
+            ]
+          },
+          {
+            "id": "apr-val-006",
+            "title": "APR-VAL-006 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-006"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-advisory-never-blocks"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-006_smt",
+                "name": "statement",
+                "prose": "It **MUST NOT** prevent saving, and **MUST NOT** prevent entering any text."
+              },
+              {
+                "id": "apr-val-006_gap",
+                "name": "assessment-gap",
+                "prose": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule. APR-VAL-006, that a warning never prevents saving or typing, is a user-interface obligation. A document is valid either way, so no case distinguishes an implementation that blocks the keyboard from one that does not."
               }
             ]
           }

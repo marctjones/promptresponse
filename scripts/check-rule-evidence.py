@@ -168,6 +168,15 @@ def lossy(document: str, representation: str, pointers: list[str]) -> str | None
     # writer loses data, and dropping a record is the loudest version of it.
     damaged = [strip(r) for r in records
                if not (len(records) > 1 and isinstance(r, dict) and "recordType" in r)]
+    # And collapses repeated occurrences, which a stream must never do.
+    seen, deduplicated = set(), []
+    for record in damaged:
+        key = aprlib.canonicalize(record)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduplicated.append(record)
+    damaged = deduplicated
     for pointer in pointers:
         for record in damaged:
             parent = aprlib.resolve_pointer(record, pointer.rsplit("/", 1)[0] or "")

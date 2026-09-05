@@ -1,0 +1,40 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Repeated"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "p",
+          "label": "P",
+          "response": "same"
+        }
+      ]
+    }
+  ]
+}
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Repeated"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "p",
+          "label": "P",
+          "response": "same"
+        }
+      ]
+    }
+  ]
+}

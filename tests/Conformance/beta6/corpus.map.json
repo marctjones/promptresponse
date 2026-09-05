@@ -313,14 +313,16 @@
     "rules/apr-model-001-satisfies.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-001"
+        "APR-MODEL-001",
+        "APR-MODEL-049"
       ],
       "anchors": []
     },
     "rules/apr-model-001-violates.apr.jsonc": {
       "expect": "reject",
       "rules": [
-        "APR-MODEL-001"
+        "APR-MODEL-001",
+        "APR-MODEL-049"
       ],
       "anchors": [],
       "diagnostic": "WRONG_TYPE"
@@ -1114,6 +1116,14 @@
       ],
       "anchors": [],
       "diagnostic": "DUPLICATE_ID"
+    },
+    "rules/apr-stream-003-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-STREAM-003"
+      ],
+      "anchors": [],
+      "roundTrip": true
     }
   }
 }

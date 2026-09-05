@@ -323,9 +323,10 @@
           "ref": "desktop.unit"
         }
       ],
-      "gap": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule.",
+      "gap": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule. APR-VAL-006, that a warning never prevents saving or typing, is a user-interface obligation. A document is valid either way, so no case distinguishes an implementation that blocks the keyboard from one that does not.",
       "rules": [
-        "APR-VAL-002"
+        "APR-VAL-002",
+        "APR-VAL-006"
       ]
     },
     {
@@ -993,7 +994,7 @@
       "id": "REQ-profile-attestations",
       "section": "profile-attestations",
       "statement": "core+attestations resolves, verifies, and reports honestly",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -1005,8 +1006,10 @@
         }
       ],
       "rules": [
-        "APR-CONF-002"
-      ]
+        "APR-CONF-002",
+        "APR-CONF-005"
+      ],
+      "gap": "APR-CONF-005, that a core-only implementation never reports a document as verified and should say attestations are present but unchecked, is about what it displays. The harness scores acceptance, not wording."
     },
     {
       "id": "REQ-profile-expressions",
@@ -1186,7 +1189,8 @@
       ],
       "gap": "No beta.6 malformed fixture carries a non-string response.",
       "rules": [
-        "APR-MODEL-001"
+        "APR-MODEL-001",
+        "APR-MODEL-049"
       ]
     },
     {
@@ -1348,9 +1352,11 @@
           "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
         }
       ],
-      "gap": "Mixed-representation stream rejection has no fixture.",
+      "gap": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API.",
       "rules": [
-        "APR-STREAM-001"
+        "APR-STREAM-001",
+        "APR-STREAM-003",
+        "APR-STREAM-004"
       ]
     },
     {

@@ -276,9 +276,11 @@ against forms, looks up witnesses, and reports the verification vocabulary
 ([Attestations](#attestations)). Requires `core+streams`.
 
 A core-only implementation **MUST NOT** reject a stream containing attestations,
-**MUST** preserve attestation records on round-trip, and **MUST NOT** report a
-document as verified. It **SHOULD** indicate that attestations are present but
-unchecked. [APR-CONF-002]
+and **MUST** preserve attestation records on round-trip. [APR-CONF-002]
+
+It **MUST NOT** report a document as verified, and **SHOULD** indicate that
+attestations are present but unchecked. Saying nothing is better than saying
+verified; saying "present, unchecked" is better than both. [APR-CONF-005]
 
 This profile is optional for a reason of policy, not merely of cost. **Nobody is
 obliged to sign, and nobody is obliged to care that something was signed.** A
@@ -1020,9 +1022,12 @@ a parse failure. [APR-REP-014]
 
 ### 4.7 Responses are strings {#responses}
 
-A `prompt.response` **MUST** be a JSON string. A response given as a JSON number
-or boolean **MUST** be rejected at parse time. It **MUST NOT** be coerced to
-`"42"` or `"true"`. [APR-MODEL-001]
+A `prompt.response` **MUST** be a JSON string, and a response given as a JSON
+number or boolean **MUST** be rejected at parse time. [APR-MODEL-001]
+
+It **MUST NOT** be coerced to `"42"` or `"true"`. Rejecting and coercing are
+different failures: one refuses the document, the other accepts it having invented
+data. [APR-MODEL-049]
 
 > Rationale: silent coercion is worse than rejection. It produces a document that
 > looks conformant while having invented data that no person entered.
@@ -1914,9 +1919,10 @@ submission entry of a scheme this document does not define ([Submission targets]
 Warnings are how an implementation tells a person "this may not be what you
 meant" without ever telling them "you may not write this."
 
-An implementation **MAY** surface any warning. Such feedback **MUST NOT** prevent
-saving, **MUST NOT** prevent entering any text, and **MUST NOT** be reported as
-the document being invalid. [APR-VAL-002]
+An implementation **MAY** surface any warning. Such feedback **MUST NOT** be
+reported as the document being invalid. [APR-VAL-002]
+
+It **MUST NOT** prevent saving, and **MUST NOT** prevent entering any text. [APR-VAL-006]
 
 ### 7.3 Parse errors are not validation errors {#parse-errors}
 
@@ -2066,11 +2072,16 @@ Each record is exactly one of:
 - a complete standalone APR form; or
 - an APR attestation.
 
-A stream **MUST NOT** mix representations. It **MUST NOT** deduplicate repeated
-form occurrences, even when their semantic digests are identical. A single-form
-API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and
-**MUST NOT** select a record by position. A streaming API yields every record and
-may hold an unresolved attestation until its subject form has been observed. [APR-STREAM-001]
+A stream **MUST NOT** mix representations. [APR-STREAM-001]
+
+It **MUST NOT** deduplicate repeated form occurrences, even when their semantic
+digests are identical. Two occurrences of one form are two records, and a reader
+that collapses them has lost a fact the sender stated. [APR-STREAM-003]
+
+A single-form API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION`
+and **MUST NOT** select a record by position. A streaming API yields every record
+and may hold an unresolved attestation until its subject form has been
+observed. [APR-STREAM-004]
 
 > Rationale: a stream exists so that a form and the assertions about it can
 > travel together, and so that several related forms can be one file. It is
@@ -2797,7 +2808,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Gave identifiers to four obligations that had none. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Gave identifiers to four obligations that had none, and split four rules that bundled obligations failing independently. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

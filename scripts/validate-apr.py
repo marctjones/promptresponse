@@ -235,8 +235,9 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
     # other non-string is the coercion the format refuses.
     if prompt.get("response") is not None and not isinstance(prompt["response"], str):
         report.error("WRONG_TYPE", f"{path}/response",
-                     "a response is always a JSON string, never a number or boolean",
-                     "APR-MODEL-001")
+                     "a response is always a JSON string, never a number or boolean; "
+                     "it is refused, never coerced to \"42\"",
+                     "APR-MODEL-001", "APR-MODEL-049")
     role = prompt.get("role")
     if isinstance(role, str) and roles and role not in roles:
         report.warn("UNDECLARED_ROLE", f"{path}/role", f"role {role!r} is not declared", "APR-MODEL-026")
