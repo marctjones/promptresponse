@@ -521,9 +521,10 @@
         }
       ],
       "rules": [
-        "APR-ATTEST-009"
+        "APR-ATTEST-009",
+        "APR-ATTEST-020"
       ],
-      "gap": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour for the same reason: the document is valid either way, and what differs is what a verifier says about it."
+      "gap": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333)."
     },
     {
       "id": "REQ-digests-manifests",

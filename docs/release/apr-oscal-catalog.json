@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "1799de04-95a7-58ae-bf4f-807526ddac11",
+    "uuid": "5fde01e9-8209-5976-8982-8fd88e2d3f9d",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "939da154b6a34a80a0ee4deac1efa93161c976d07fe78d45c64f8dd445a0d398"
+          "value": "56a6255c8bdf689b834eee57ab3c46d52c2c7ae7ffa6e482a8504d3c25899ff9"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -6558,7 +6558,7 @@
               {
                 "id": "apr-attest-009_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour for the same reason: the document is valid either way, and what differs is what a verifier says about it."
+                "prose": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333)."
               }
             ]
           },
@@ -7029,6 +7029,53 @@
                 "id": "apr-attest-019_gap",
                 "name": "assessment-gap",
                 "prose": "Reader behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
+              }
+            ]
+          },
+          {
+            "id": "apr-attest-020",
+            "title": "APR-ATTEST-020 — 12.6 Changed forms",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-ATTEST-020"
+              },
+              {
+                "name": "section",
+                "value": "changed-forms"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "ATTEST"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-changed-form"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#changed-forms",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-attest-020_smt",
+                "name": "statement",
+                "prose": "**Say what happened, not only what is missing.** An attestation whose subject resolves to nothing is `unresolved` ([Verification vocabulary](#verification)), and that is the whole of what the vocabulary states. Where a verifier holds a form occurrence that is not the subject, it **SHOULD** report both facts: that the attested form is absent, and that a different form is present."
+              },
+              {
+                "id": "apr-attest-020_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333)."
               }
             ]
           }

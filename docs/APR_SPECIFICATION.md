@@ -2601,6 +2601,20 @@ digest. Earlier attestations remain assertions about their original subject and
 Multiple attestations may target one unchanged form, and an attestation may be
 encountered before its subject.
 
+**Say what happened, not only what is missing.** An attestation whose subject
+resolves to nothing is `unresolved` ([Verification vocabulary](#verification)),
+and that is the whole of what the vocabulary states. Where a verifier holds a
+form occurrence that is not the subject, it **SHOULD** report both facts: that
+the attested form is absent, and that a different form is present. [APR-ATTEST-020]
+
+> Rationale: the common cause of an unresolved attestation is not a lost file. It
+> is that somebody opened the form, corrected a typo and saved. Reporting only
+> that the signed document is missing is true and sends that person looking for a
+> file that was never lost, when what they need to know is that the one in front
+> of them is no longer the one that was signed. The result stays `unresolved`,
+> because the assertion really does have no subject here; what this adds is the
+> second fact beside it.
+
 > Rationale: this is how a workflow builds revision history without APR defining
 > one. A sequence of forms with attestations that witness each other is a chain
 > whose relationships are proved. A sequence of forms without them is just
