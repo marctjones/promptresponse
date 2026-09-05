@@ -67,7 +67,9 @@ def evaluate(case, members) -> tuple[str, set[str], str | None]:
         return "reject", set(), type(exc).__name__
     report = validate_apr.Report(case["id"])
     for record in records:
-        if not aprlib.is_attestation(record):
+        if isinstance(record, dict) and "recordType" in record:
+            validate_apr.validate_attestation(report, record)
+        else:
             validate_apr.validate_form(report, record, members)
     cited = {r for f in report.findings if f["severity"] == "error" for r in f["rules"]}
     return ("reject" if report.errors else "valid"), cited, None

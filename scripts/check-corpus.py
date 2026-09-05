@@ -29,7 +29,8 @@ What it checks, per the specification:
   witnesses are duplicate-free (#witnesses)
 * the published digest vectors under digests/ agree with the forms they cite
 
-Fixtures under malformed/ are excluded: they exist to be rejected.
+Fixtures under malformed/ and rules/ are excluded: the first exist to be rejected,
+the second carry placeholder digests and test shape rather than integrity.
 """
 from __future__ import annotations
 
@@ -42,7 +43,10 @@ import aprlib  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CORPUS = ROOT / "tests" / "Conformance" / "beta6"
-SKIP_DIRS = {"malformed"}
+# malformed/ exists to be rejected. rules/ holds narrow per-rule vectors whose
+# digests are placeholders: they exercise structural rules, and requiring their
+# subjects to resolve would be asking a shape test to also be an integrity test.
+SKIP_DIRS = {"malformed", "rules"}
 SKIP_NAMES = {"spec-examples.json"}
 
 

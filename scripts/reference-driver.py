@@ -49,10 +49,10 @@ def answer(case, members):
 
     report = validate_apr.Report(case["id"])
     for record in records:
-        if not aprlib.is_attestation(record):
+        if isinstance(record, dict) and "recordType" in record:
+            validate_apr.validate_attestation(report, record)
+        else:
             validate_apr.validate_form(report, record, members)
-        elif not isinstance(record.get("subject"), dict):
-            report.error("REQUIRED_FIELD", "/subject", "an attestation must name a subject")
     if report.errors:
         return {"id": case["id"], "outcome": "reject",
                 "diagnostic": next(f["code"] for f in report.findings

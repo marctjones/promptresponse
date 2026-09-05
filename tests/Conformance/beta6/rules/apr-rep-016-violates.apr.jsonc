@@ -1,0 +1,22 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "p",
+          "label": "P",
+          "hints": {
+            "expectedDataType": "date",
+            "min": 2026
+          }
+        }
+      ]
+    }
+  ]
+}

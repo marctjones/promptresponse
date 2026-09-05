@@ -51,7 +51,7 @@
   },
   "corpus": {
     "path": "tests/Conformance/beta6",
-    "files": 24,
-    "sha256": "sha256:ec00a1b208f18b0ce9b0b55b75718255d1369931f3aeeb165a6708fd9eff3abb"
+    "files": 64,
+    "sha256": "sha256:b2cdf8c0249126f89fd354a94508409ca0a96ec0313db1da2d3c77ca4983b3d0"
   }
 }

@@ -61,6 +61,14 @@ HUMAN_TEXT = {
 }
 CONTROL_OK = {0x09, 0x0A}
 
+# Where a member's own rule is more specific than the generic native-types rules,
+# name it. A blank title breaks the title rule, not the rule about JSON types.
+MEMBER_RULES = {
+    ("metadata", "title"): ("APR-MODEL-007",),
+    ("form", "sections"): ("APR-MODEL-005",),
+    ("prompt", "response"): ("APR-MODEL-001",),
+}
+
 
 def spec_members() -> dict[str, dict[str, tuple[str, bool]]]:
     """Member name -> (declared type, required), per specification table."""
@@ -126,8 +134,15 @@ class Report:
         # One finding per code per location. Two passes can reach the same defect
         # — a member table says a response must be a string, and the responses
         # rule says so more pointedly — and reporting it twice helps nobody.
-        if any(f["code"] == code and f["path"] == path for f in self.findings):
-            return
+        for existing in self.findings:
+            if existing["code"] == code and existing["path"] == path:
+                # Two passes can reach one defect from different rules — a member
+                # table says the type is wrong, and the null rule says why. Keep one
+                # finding, but keep both attributions.
+                for rule in rules:
+                    if rule not in existing["rules"]:
+                        existing["rules"].append(rule)
+                return
         self.findings.append({"severity": severity, "code": code, "path": path,
                               "message": message, "rules": list(rules)})
 
@@ -168,14 +183,14 @@ def check_object(report: Report, node, kind: str, path: str, members) -> None:
     for name, (declared_type, required) in declared.items():
         if kind == "prompt" and name == "response":
             continue  # null is tolerated here alone; check_prompt states the rule
+        rules = MEMBER_RULES.get((kind, name), ("APR-REP-015", "APR-REP-016"))
         if required and (name not in node or node[name] is None):
             report.error("REQUIRED_FIELD", f"{path}/{name}",
-                         f"{kind}.{name} is required")
+                         f"{kind}.{name} is required", *rules)
         elif name in node and not type_ok(node[name], declared_type):
             report.error("WRONG_TYPE", f"{path}/{name}",
                          f"{kind}.{name} must be {declared_type}, "
-                         f"got {type(node[name]).__name__}",
-                         "APR-REP-015", "APR-REP-016")
+                         f"got {type(node[name]).__name__}", *rules)
         if (kind, name) in HUMAN_TEXT and isinstance(node.get(name), str):
             check_text(report, f"{path}/{name}", node[name])
     for name in node:
@@ -220,6 +235,13 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
             report.warn("RESPONSE_OUTSIDE_SUGGESTED_VALUES", f"{path}/response",
                         "response is not one of the offered values, which is valid",
                         "APR-MODEL-002", "APR-VAL-005")
+        temporal = hints.get("expectedDataType") in {"date", "time", "datetime"}
+        for bound in ("min", "max"):
+            if temporal and bound in hints and not isinstance(hints[bound], str):
+                report.error("WRONG_TYPE", f"{path}/hints/{bound}",
+                             f"a {hints['expectedDataType']} bound has no JSON type, so "
+                             f"it is a string in that type's canonical form",
+                             "APR-REP-016")
         pattern = hints.get("validationPattern")
         if isinstance(pattern, str) and isinstance(response, str) and response:
             try:
@@ -289,6 +311,79 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
         check_section(report, child, f"{path}/sections/{index}", members, ids, roles, depth + 1)
 
 
+ATTESTATION_MEMBERS = {"recordType", "aprVersion", "subject", "scope", "manifest",
+                       "proofs", "witnesses"}
+CLOSED = {"subject": {"digest", "canonicalization"},
+          "manifest": {"root", "entries"}}
+
+
+def validate_attestation(report: Report, record) -> None:
+    """An attestation is a record with its own rules, and they were unenforced."""
+    if record.get("recordType") != "attestation":
+        report.error("WRONG_TYPE", "/recordType",
+                     "recordType must be exactly 'attestation'", "APR-ATTEST-001")
+    version = record.get("aprVersion")
+    if version is None:
+        report.error("REQUIRED_FIELD", "/aprVersion", "aprVersion is required",
+                     "APR-ATTEST-002")
+    elif version != FORMAT_VERSION:
+        report.error("UNSUPPORTED_VERSION", "/aprVersion",
+                     f"{version!r} is not exactly {FORMAT_VERSION!r}", "APR-ATTEST-002")
+
+    for name in ("subject", "scope", "manifest", "proofs", "witnesses"):
+        if name not in record:
+            report.error("REQUIRED_FIELD", f"/{name}",
+                         f"an attestation must carry {name}", "APR-ATTEST-004")
+
+    # subject, scope, manifest and their entries admit no additional members.
+    for name, allowed in CLOSED.items():
+        node = record.get(name)
+        if isinstance(node, dict):
+            for extra in sorted(set(node) - allowed):
+                report.error("WRONG_TYPE", f"/{name}/{extra}",
+                             f"{name} admits no member {extra!r}", "APR-ATTEST-004")
+
+    subject = record.get("subject")
+    if isinstance(subject, dict):
+        if subject.get("canonicalization") != "jcs-sha256":
+            report.error("WRONG_TYPE", "/subject/canonicalization",
+                         "canonicalization must be 'jcs-sha256'", "APR-ATTEST-003")
+        digest = subject.get("digest")
+        if not (isinstance(digest, str) and aprlib.DIGEST_PATTERN.match(digest)):
+            report.error("WRONG_TYPE", "/subject/digest",
+                         "a digest is 'sha256:' and 64 lowercase hex characters",
+                         "APR-DIGEST-001")
+
+    manifest = record.get("manifest")
+    if isinstance(manifest, dict):
+        root = manifest.get("root")
+        if not (isinstance(root, str) and aprlib.DIGEST_PATTERN.match(root)):
+            report.error("WRONG_TYPE", "/manifest/root",
+                         "a digest is 'sha256:' and 64 lowercase hex characters",
+                         "APR-DIGEST-001")
+        entries = manifest.get("entries")
+        if isinstance(entries, list):
+            paths = [e.get("path") for e in entries if isinstance(e, dict)]
+            if paths != sorted(paths):
+                report.error("WRONG_TYPE", "/manifest/entries",
+                             "manifest entries must be ordered by path",
+                             "APR-DIGEST-003")
+            if len(set(paths)) != len(paths):
+                report.error("WRONG_TYPE", "/manifest/entries",
+                             "manifest entries must not repeat a path",
+                             "APR-DIGEST-003")
+            if paths and "" not in paths:
+                report.error("REQUIRED_FIELD", "/manifest/entries",
+                             "a manifest carrying entries must carry the root pointer",
+                             "APR-DIGEST-004")
+
+    for name in sorted(set(record) - ATTESTATION_MEMBERS):
+        if "." not in name:
+            report.warn("UNPREFIXED_MEMBER", f"/{name}",
+                        f"unknown member {name!r} carries no reverse-DNS prefix",
+                        "APR-MODEL-029", "APR-MODEL-031")
+
+
 def validate_form(report: Report, form, members) -> None:
     if form is None:
         report.error("NULL_DOCUMENT", "", "no document")
@@ -326,6 +421,27 @@ def validate_form(report: Report, form, members) -> None:
                 report.error("WRONG_TYPE", f"/metadata/regarding/{index}",
                              "a reference is a sha256: digest of a record", "APR-MODEL-043")
 
+    def nulls(node, path: str) -> None:
+        if isinstance(node, dict):
+            for key, value in node.items():
+                where = f"{path}/{key}"
+                # A prompt's response is the one place a reader tolerates null,
+                # coercing it to the empty string. Anywhere else it is not a value.
+                if value is None and key != "response":
+                    report.error("WRONG_TYPE", where,
+                                 "null is not an APR value outside a response position",
+                                 "APR-REP-014")
+                nulls(value, where)
+        elif isinstance(node, list):
+            for index, value in enumerate(node):
+                if value is None:
+                    report.error("WRONG_TYPE", f"{path}/{index}",
+                                 "null is not an APR value outside a response position",
+                                 "APR-REP-014")
+                nulls(value, f"{path}/{index}")
+
+    nulls(form, "")
+
     sections = form.get("sections")
     if not isinstance(sections, list) or not sections:
         report.error("REQUIRED_FIELD", "/sections", "a form must carry at least one section", "APR-MODEL-005")
@@ -351,10 +467,11 @@ def validate_file(path: pathlib.Path, members) -> Report:
         return report
     for index, record in enumerate(records):
         prefix = f"[{index}]" if len(records) > 1 else ""
-        if aprlib.is_attestation(record):
-            continue  # attestation integrity is scripts/check-corpus.py's job
         sub = Report(report.where)
-        validate_form(sub, record, members)
+        if isinstance(record, dict) and "recordType" in record:
+            validate_attestation(sub, record)
+        else:
+            validate_form(sub, record, members)
         for finding in sub.findings:
             finding["path"] = prefix + finding["path"]
             report.findings.append(finding)

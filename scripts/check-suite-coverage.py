@@ -92,7 +92,10 @@ def main() -> int:
     uncited: list[str] = []
     for case in suite["cases"]:
         anchors = case.get("anchors") or []
+        # The ceiling is what the case could have covered: the rules it names
+        # outright, plus every rule in any section it cites.
         reached = {r for anchor in anchors for r in anchor_rules.get(anchor, [])}
+        reached |= set(case.get("rules") or [])
         if not reached:
             uncited.append(case["id"])
             continue
