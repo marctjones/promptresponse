@@ -29,6 +29,7 @@ Header keys are:
 
     id              unique, stable, cited by tests and by the registry
     rule            the specification anchor the example demonstrates
+    rules           OPTIONAL, comma separated: the rule identifiers it exercises
     representation  jsonc | yaml | jsonc-stream | yaml-stream
     expect          valid | reject | equivalent
     diagnostic      required when expect is reject: the reported code
@@ -61,6 +62,7 @@ def anchors() -> set[str]:
 def extract() -> tuple[list[dict], list[str]]:
     text = SPEC.read_text(encoding="utf-8")
     known_anchors = anchors()
+    known_rules = set(re.findall(r"APR-[A-Z]+-\d{3}", text))
     examples: list[dict] = []
     problems: list[str] = []
     seen: set[str] = set()
@@ -89,6 +91,16 @@ def extract() -> tuple[list[dict], list[str]]:
         if rule not in known_anchors:
             problems.append(f"{ident}: rule #{rule} is not an anchor in the specification")
 
+        # `rule` names the section an example demonstrates. `rules` is optional and
+        # names the identifiers it actually exercises. Without it, coverage has to
+        # credit every rule in the section, which overstates what the example proves.
+        rules = [r.strip() for r in header.get("rules", "").split(",") if r.strip()]
+        for identifier in rules:
+            if identifier not in known_rules:
+                problems.append(
+                    f"{ident}: rules names {identifier}, which the specification "
+                    f"does not state")
+
         representation = header.get("representation", "")
         if representation not in REPRESENTATIONS:
             problems.append(f"{ident}: representation {representation!r} is not recognised")
@@ -112,6 +124,8 @@ def extract() -> tuple[list[dict], list[str]]:
             "expect": expect,
             "document": body,
         }
+        if rules:
+            example["rules"] = rules
         if header.get("diagnostic"):
             example["diagnostic"] = header["diagnostic"]
         if header.get("equivalent-to"):

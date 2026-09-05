@@ -51,8 +51,15 @@ def main() -> int:
             if requirement.get("section"):
                 anchor_rules[requirement["section"]].append(rule)
 
+    # Two counts, because they answer different questions. A case that names the
+    # rules it exercises proves something about those rules. A case that only names
+    # a section is credited with every rule in it, which is the most it could
+    # possibly have covered rather than what it did. The first is the floor, the
+    # second the ceiling, and the distance between them is citation work not done.
     positive: collections.Counter = collections.Counter()
     negative: collections.Counter = collections.Counter()
+    cited: collections.Counter = collections.Counter()
+    cited_negative: collections.Counter = collections.Counter()
     uncited: list[str] = []
     for case in suite["cases"]:
         anchors = case.get("anchors") or []
@@ -65,7 +72,13 @@ def main() -> int:
                 negative[rule] += 1
             else:
                 positive[rule] += 1
+        for rule in case.get("rules") or []:
+            cited[rule] += 1
+            if case["expect"] == "reject":
+                cited_negative[rule] += 1
 
+    named = [r for r in spec_rules if cited[r]]
+    named_negative = [r for r in spec_rules if cited_negative[r]]
     touched = [r for r in spec_rules if positive[r] or negative[r]]
     twice = [r for r in spec_rules if positive[r] + negative[r] > 1]
     refused = [r for r in spec_rules if negative[r]]
@@ -80,7 +93,9 @@ def main() -> int:
             "suiteVersion": suite["suiteVersion"],
             "rules": len(spec_rules),
             "cases": len(suite["cases"]),
-            "reached": len(touched),
+            "namedByACase": len(named),
+            "namedByARejectCase": len(named_negative),
+            "reachedAtMost": len(touched),
             "reachedTwiceOrMore": len(twice),
             "reachedByARejectCase": len(refused),
             "unreached": unreached,
@@ -91,12 +106,17 @@ def main() -> int:
 
     print(f"suite {suite['suiteVersion']}: {len(suite['cases'])} cases "
           f"({sum(1 for c in suite['cases'] if c['expect'] == 'reject')} expect rejection)\n")
-    print(f"  rules in the specification      {len(spec_rules):>4}")
-    print(f"  reached by at least one case    {len(touched):>4}")
-    print(f"  reached by two or more          {len(twice):>4}")
-    print(f"  reached by a rejection case     {len(refused):>4}")
-    print(f"  reached by nothing              {len(unreached):>4}")
-    print(f"  of those, with no recorded gap  {len(unexplained):>4}")
+    print(f"  rules in the specification         {len(spec_rules):>4}")
+    print(f"  named outright by a case (floor)   {len(named):>4}")
+    print(f"    of those, by a rejection case    {len(named_negative):>4}")
+    print(f"  credited via a section (ceiling)   {len(touched):>4}")
+    print(f"    of those, by a rejection case    {len(refused):>4}")
+    print(f"    credited more than once          {len(twice):>4}")
+    print(f"  reached by nothing at all          {len(unreached):>4}")
+    print(f"    of those, with no recorded gap   {len(unexplained):>4}")
+    print("\n  The floor counts cases that name the rules they exercise. The ceiling\n"
+          "  credits a case with every rule in the section it cites, which is the most\n"
+          "  it could have covered rather than what it did.")
 
     by_area = collections.Counter(r.split("-")[1] for r in unreached)
     print("\nunreached by area: " + ", ".join(f"{a} {n}" for a, n in by_area.most_common()))

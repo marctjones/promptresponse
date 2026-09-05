@@ -428,6 +428,7 @@ evidence are the same edit ([Authority](#scope)).
 ```apr-example
 id: jsonc-trailing-comma
 rule: apr-jsonc
+rules: APR-REP-005
 representation: jsonc
 expect: valid
 ---
@@ -446,6 +447,7 @@ inside `string`.
 ```apr-example
 id: jsonc-comment-inside-string
 rule: apr-jsonc
+rules: APR-REP-005
 representation: jsonc
 expect: valid
 ---
@@ -459,6 +461,7 @@ expect: valid
 ```apr-example
 id: jsonc-duplicate-member
 rule: apr-jsonc
+rules: APR-REP-006
 representation: jsonc
 expect: reject
 diagnostic: DUPLICATE_MEMBER
@@ -578,6 +581,7 @@ The excluded constructs, each with its vector.
 ```apr-example
 id: yaml-anchor
 rule: apr-yaml
+rules: APR-REP-010
 representation: yaml
 expect: reject
 diagnostic: YAML_ANCHOR_FORBIDDEN
@@ -596,6 +600,7 @@ sections:
 ```apr-example
 id: yaml-tag
 rule: apr-yaml
+rules: APR-REP-010
 representation: yaml
 expect: reject
 diagnostic: YAML_TAG_FORBIDDEN
@@ -614,6 +619,7 @@ sections:
 ```apr-example
 id: yaml-merge-key
 rule: apr-yaml
+rules: APR-REP-010
 representation: yaml
 expect: reject
 diagnostic: YAML_MERGE_KEY_FORBIDDEN
@@ -633,6 +639,7 @@ sections:
 ```apr-example
 id: yaml-directive
 rule: apr-yaml
+rules: APR-REP-010
 representation: yaml
 expect: reject
 diagnostic: YAML_DIRECTIVE_FORBIDDEN
@@ -656,6 +663,7 @@ word is a string, and a non-finite float has no JSON value to resolve to.
 ```apr-example
 id: yaml-bare-word-is-a-string
 rule: yaml-resolution
+rules: APR-REP-008, APR-REP-012
 representation: yaml
 expect: valid
 ---
@@ -674,6 +682,7 @@ sections:
 ```apr-example
 id: yaml-legacy-boolean-is-a-string
 rule: yaml-resolution
+rules: APR-REP-008, APR-REP-012
 representation: yaml
 expect: valid
 ---
@@ -692,6 +701,7 @@ sections:
 ```apr-example
 id: yaml-leading-zero-is-a-string
 rule: yaml-resolution
+rules: APR-REP-008, APR-REP-012
 representation: yaml
 expect: valid
 ---
@@ -710,6 +720,7 @@ sections:
 ```apr-example
 id: yaml-date-like-is-a-string
 rule: yaml-resolution
+rules: APR-REP-008, APR-REP-012
 representation: yaml
 expect: valid
 ---
@@ -735,6 +746,7 @@ than failing.
 ```apr-example
 id: table-section
 rule: tables
+rules: APR-MODEL-038
 representation: jsonc
 expect: valid
 ---
@@ -767,6 +779,7 @@ expect: valid
 ```apr-example
 id: structural-member-wrong-type
 rule: json-subset
+rules: APR-REP-015
 representation: jsonc
 expect: reject
 diagnostic: WRONG_TYPE
@@ -793,6 +806,7 @@ diagnostic: WRONG_TYPE
 ```apr-example
 id: unregistered-data-type-degrades
 rule: hints-object
+rules: APR-MODEL-018
 representation: jsonc
 expect: valid
 ---
@@ -815,6 +829,7 @@ expect: valid
 ```apr-example
 id: yaml-sexagesimal-is-a-string
 rule: yaml-resolution
+rules: APR-REP-008, APR-REP-012
 representation: yaml
 expect: valid
 ---
@@ -833,6 +848,7 @@ sections:
 ```apr-example
 id: yaml-hex-is-a-string
 rule: yaml-resolution
+rules: APR-REP-008, APR-REP-012
 representation: yaml
 expect: valid
 ---
@@ -851,6 +867,7 @@ sections:
 ```apr-example
 id: yaml-underscored-number-is-a-string
 rule: yaml-resolution
+rules: APR-REP-008, APR-REP-012
 representation: yaml
 expect: valid
 ---
@@ -869,6 +886,7 @@ sections:
 ```apr-example
 id: yaml-bare-decimal-is-a-string
 rule: yaml-resolution
+rules: APR-REP-008, APR-REP-012
 representation: yaml
 expect: valid
 ---
@@ -887,6 +905,7 @@ sections:
 ```apr-example
 id: yaml-quoted-null-is-a-string
 rule: yaml-resolution
+rules: APR-REP-008
 representation: yaml
 expect: valid
 ---
@@ -907,6 +926,7 @@ A plain `null` is the null value, and a null response reads as the empty string.
 ```apr-example
 id: yaml-plain-null-response-is-empty
 rule: yaml-resolution
+rules: APR-REP-008, APR-REP-014
 representation: yaml
 expect: valid
 ---
@@ -925,6 +945,7 @@ sections:
 ```apr-example
 id: yaml-non-finite-float
 rule: yaml-resolution
+rules: APR-REP-011
 representation: yaml
 expect: reject
 diagnostic: YAML_NON_FINITE_NUMBER
@@ -1222,6 +1243,7 @@ A receipt naming the submission it was written against:
 ```apr-example
 id: regarding-reference
 rule: regarding
+rules: APR-MODEL-043, APR-MODEL-045
 representation: jsonc
 expect: valid
 ---
@@ -1253,6 +1275,7 @@ the reference resolves and the chain is legible to a reader.
 ```apr-example
 id: regarding-chain
 rule: regarding
+rules: APR-MODEL-043
 representation: jsonc-stream
 expect: valid
 ---
@@ -1644,6 +1667,7 @@ extension member: it is a new form naming what it was about
 ```apr-example
 id: extension-member-prefixed
 rule: extensions
+rules: APR-MODEL-020, APR-MODEL-029, APR-MODEL-031
 representation: jsonc
 expect: valid
 ---
@@ -2098,6 +2122,7 @@ A stream carries one representation throughout.
 ```apr-example
 id: stream-mixed-representations
 rule: streams
+rules: APR-STREAM-001
 representation: jsonc-stream
 expect: reject
 diagnostic: APR_STREAM_MIXED_REPRESENTATIONS

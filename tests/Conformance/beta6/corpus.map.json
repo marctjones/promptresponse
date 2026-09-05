@@ -161,6 +161,9 @@
         "apr-jsonc",
         "json-subset",
         "responses"
+      ],
+      "rules": [
+        "APR-REP-005"
       ]
     },
     "forms/permit.apr.yaml": {
@@ -170,6 +173,10 @@
         "yaml-resolution",
         "stream-equivalence",
         "model-layers"
+      ],
+      "rules": [
+        "APR-REP-007",
+        "APR-REP-008"
       ]
     },
     "forms/roles.apr.jsonc": {
@@ -180,6 +187,10 @@
         "section-object",
         "prompt-object",
         "metadata"
+      ],
+      "rules": [
+        "APR-MODEL-025",
+        "APR-MODEL-026"
       ]
     },
     "attestations/permit.attestation.jsonc": {
@@ -188,6 +199,11 @@
         "attestation-catalogue",
         "digests",
         "attestation-scope"
+      ],
+      "rules": [
+        "APR-ATTEST-003",
+        "APR-DIGEST-003",
+        "APR-DIGEST-004"
       ]
     },
     "attestations/permit.cms.attestation.jsonc": {
@@ -203,6 +219,10 @@
       "anchors": [
         "attestation-scope",
         "digests"
+      ],
+      "rules": [
+        "APR-ATTEST-005",
+        "APR-DIGEST-003"
       ]
     },
     "attestations/permit.unsupported.attestation.jsonc": {
@@ -210,6 +230,9 @@
       "anchors": [
         "proofs",
         "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-008"
       ]
     },
     "streams/witnessed.apr.jsonc": {
@@ -231,6 +254,9 @@
       "anchors": [
         "changed-forms",
         "streams"
+      ],
+      "rules": [
+        "APR-ATTEST-009"
       ]
     },
     "streams/out-of-order.apr.jsonc": {
@@ -258,6 +284,9 @@
       "diagnostic": "DUPLICATE_MEMBER",
       "anchors": [
         "apr-jsonc"
+      ],
+      "rules": [
+        "APR-REP-006"
       ]
     },
     "malformed/missing-record-separator.apr.jsonc": {
@@ -271,6 +300,9 @@
       "diagnostic": "YAML_ANCHOR_FORBIDDEN",
       "anchors": [
         "apr-yaml"
+      ],
+      "rules": [
+        "APR-REP-010"
       ]
     }
   }
