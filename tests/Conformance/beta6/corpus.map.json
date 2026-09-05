@@ -1,0 +1,149 @@
+{
+  "$comment": "GENERATED-ONCE, then maintained by hand. Declares what each attestation record in the corpus asserts, so scripts/build-corpus.py can recompute every digest it carries from the records themselves. Addresses are '<path relative to this directory>[<record index>]'. The specification is normative; a fixture that disagrees with what this map generates has the defect.",
+  "mapVersion": "apr-corpus-map-1",
+  "signingKey": "keys/corpus-test-key.pem",
+  "signingCertificate": "keys/corpus-test-cert.pem",
+  "attestations": {
+    "attestations/permit.attestation.jsonc[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [
+        "",
+        "/sections/0/prompts/0/response"
+      ],
+      "proofs": [],
+      "witnesses": []
+    },
+    "attestations/permit.cms.attestation.jsonc[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [
+        "",
+        "/sections/0/prompts/0/response"
+      ],
+      "proofs": [
+        {
+          "type": "cms/ecdsa-p256-sha256"
+        }
+      ],
+      "witnesses": []
+    },
+    "attestations/permit.fields.attestation.jsonc[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "fields",
+        "fields": [
+          "name"
+        ]
+      },
+      "entries": [
+        "",
+        "/sections/0/id",
+        "/sections/0/prompts/0",
+        "/sections/0/prompts/0/response",
+        "/sections/0/title"
+      ],
+      "proofs": [],
+      "witnesses": []
+    },
+    "attestations/permit.unsupported.attestation.jsonc[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [
+        "",
+        "/sections/0/prompts/0/response"
+      ],
+      "proofs": [
+        {
+          "type": "example/opaque-v1",
+          "value": "b3BhcXVl"
+        }
+      ],
+      "witnesses": []
+    },
+    "streams/changed-form.apr.jsonc[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [],
+      "proofs": [],
+      "witnesses": []
+    },
+    "streams/out-of-order.apr.jsonc[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [],
+      "proofs": [],
+      "witnesses": []
+    },
+    "streams/out-of-order.apr.yaml[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [],
+      "proofs": [],
+      "witnesses": []
+    },
+    "streams/witness-chain.apr.jsonc[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [],
+      "proofs": [],
+      "witnesses": []
+    },
+    "streams/witness-chain.apr.jsonc[1]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [],
+      "proofs": [],
+      "witnesses": [
+        "streams/witnessed.apr.jsonc[0]"
+      ]
+    },
+    "streams/witness-chain.apr.jsonc[2]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [],
+      "proofs": [],
+      "witnesses": [
+        "streams/witnessed.apr.jsonc[1]"
+      ]
+    },
+    "streams/witnessed.apr.jsonc[0]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [],
+      "proofs": [],
+      "witnesses": []
+    },
+    "streams/witnessed.apr.jsonc[1]": {
+      "subject": "forms/permit.apr.jsonc[0]",
+      "scope": {
+        "kind": "document"
+      },
+      "entries": [],
+      "proofs": [],
+      "witnesses": [
+        "streams/witnessed.apr.jsonc[0]"
+      ]
+    }
+  }
+}

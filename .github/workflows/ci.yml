@@ -155,6 +155,12 @@ jobs:
         # SDKs against the same stale bytes.
         run: python3 scripts/check-corpus.py
 
+      - name: Verify the corpus is what regenerating it would produce
+        # Attestations are derived from the forms they cover. This proves the
+        # committed fixtures are reproducible, so a specification change is a
+        # regeneration rather than a hand edit nobody can redo.
+        run: python3 scripts/build-corpus.py
+
       - name: Verify the OSCAL rule catalog is current
         # Every rule identifier is projected into an OSCAL control so completeness
         # policies can be written against the same identifiers the spec uses.
