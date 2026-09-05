@@ -43,6 +43,7 @@ surfaces first.
 - [ ] `python3 scripts/build-oscal.py` — the OSCAL rule catalog matches the specification
 - [ ] `python3 scripts/check-docs.py` — references and the authority ordering hold
 - [ ] `python3 scripts/check-schema.py` — corpus and examples validate against the schema
+- [ ] `python3 scripts/check-corpus.py` — every digest in the corpus is the digest it claims
 - [ ] Every implementation suite passes: .NET, Python, TypeScript, Java, and the web demo
 - [ ] The executable examples pass in **all four** implementations, not only the reference one
 

@@ -148,6 +148,13 @@ jobs:
         # have an entry.
         run: python3 scripts/check-test-registry.py
 
+      - name: Verify every digest in the conformance corpus
+        # Subject digests, manifest entries and witnesses are values computed over
+        # other records. Nothing else checks them, so a stale one would survive
+        # every other gate: the schema checks shape, and the SDK suites check the
+        # SDKs against the same stale bytes.
+        run: python3 scripts/check-corpus.py
+
       - name: Verify the OSCAL rule catalog is current
         # Every rule identifier is projected into an OSCAL control so completeness
         # policies can be written against the same identifiers the spec uses.
