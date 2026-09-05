@@ -3866,7 +3866,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -3885,6 +3885,11 @@
                 "id": "apr-val-001_smt",
                 "name": "statement",
                 "prose": "A validator **MUST** also enforce the two rules a schema cannot express: section ids unique document-wide, and prompt ids unique document-wide, in separate namespaces."
+              },
+              {
+                "id": "apr-val-001_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-008, that the errors table is exhaustive, is the absence of behaviour. Every valid case in the suite would catch one invented error, and none proves a validator has invented no error at all."
               }
             ]
           },
@@ -4185,7 +4190,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -4204,6 +4209,11 @@
                 "id": "apr-val-008_smt",
                 "name": "statement",
                 "prose": "This list is exhaustive, and a validator **MUST NOT** raise an error outside it. **No error may ever arise from the content of a response**, and none may ever arise from the state of an attestation ([Attestations never gate the data](#never-gate)). A validator that rejects a document because a response is badly formatted, or because an attestation is missing or invalid, is not implementing APR."
+              },
+              {
+                "id": "apr-val-008_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-008, that the errors table is exhaustive, is the absence of behaviour. Every valid case in the suite would catch one invented error, and none proves a validator has invented no error at all."
               }
             ]
           }
@@ -6065,7 +6075,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -6084,6 +6094,11 @@
                 "id": "apr-attest-001_smt",
                 "name": "statement",
                 "prose": "`recordType` — string — **Yes** — **MUST** be `attestation`."
+              },
+              {
+                "id": "apr-attest-001_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-017, that a subject is resolved by digest and never by stream position or filename, is verifier behaviour. The corpus supplies the case that would separate the two — a stream whose only form is not the attested one — but the harness scores whether a document was accepted, not how a subject was resolved."
               }
             ]
           },
@@ -6107,7 +6122,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -6126,6 +6141,11 @@
                 "id": "apr-attest-002_smt",
                 "name": "statement",
                 "prose": "`aprVersion` — string — **Yes** — **MUST** be `1.0-beta.6`."
+              },
+              {
+                "id": "apr-attest-002_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-017, that a subject is resolved by digest and never by stream position or filename, is verifier behaviour. The corpus supplies the case that would separate the two — a stream whose only form is not the attested one — but the harness scores whether a document was accepted, not how a subject was resolved."
               }
             ]
           },
@@ -6149,7 +6169,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -6168,6 +6188,11 @@
                 "id": "apr-attest-003_smt",
                 "name": "statement",
                 "prose": "`subject.canonicalization` — string — **Yes** — **MUST** be `jcs-sha256`."
+              },
+              {
+                "id": "apr-attest-003_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-017, that a subject is resolved by digest and never by stream position or filename, is verifier behaviour. The corpus supplies the case that would separate the two — a stream whose only form is not the attested one — but the harness scores whether a document was accepted, not how a subject was resolved."
               }
             ]
           },
@@ -6191,7 +6216,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -6210,6 +6235,11 @@
                 "id": "apr-attest-004_smt",
                 "name": "statement",
                 "prose": "`subject`, `scope`, `manifest`, and their entries admit no additional members. An attestation record itself **MAY** carry extension members, which round-trip."
+              },
+              {
+                "id": "apr-attest-004_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-017, that a subject is resolved by digest and never by stream position or filename, is verifier behaviour. The corpus supplies the case that would separate the two — a stream whose only form is not the attested one — but the harness scores whether a document was accepted, not how a subject was resolved."
               }
             ]
           },
@@ -6421,7 +6451,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -6440,6 +6470,11 @@
                 "id": "apr-attest-009_smt",
                 "name": "statement",
                 "prose": "A changed form is another complete form occurrence with a different subject digest. Earlier attestations remain assertions about their original subject and **MUST NOT** be transferred to the changed form."
+              },
+              {
+                "id": "apr-attest-009_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour for the same reason: the document is valid either way, and what differs is what a verifier says about it."
               }
             ]
           },
@@ -6792,7 +6827,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -6811,6 +6846,11 @@
                 "id": "apr-attest-017_smt",
                 "name": "statement",
                 "prose": "`subject.digest` **MUST** identify the complete form semantic model, and a verifier **MUST NOT** resolve a subject by stream position, filename, or document id."
+              },
+              {
+                "id": "apr-attest-017_gap",
+                "name": "assessment-gap",
+                "prose": "APR-ATTEST-017, that a subject is resolved by digest and never by stream position or filename, is verifier behaviour. The corpus supplies the case that would separate the two — a stream whose only form is not the attested one — but the harness scores whether a document was accepted, not how a subject was resolved."
               }
             ]
           },

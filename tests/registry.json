@@ -352,7 +352,7 @@
       "id": "REQ-attestation-members",
       "section": "attestation-catalogue",
       "statement": "Attestation record members, requiredness, and closed sub-objects; a subject is resolved by digest, never by position or filename",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "fixture",
@@ -373,7 +373,8 @@
         "APR-ATTEST-003",
         "APR-ATTEST-004",
         "APR-ATTEST-017"
-      ]
+      ],
+      "gap": "APR-ATTEST-017, that a subject is resolved by digest and never by stream position or filename, is verifier behaviour. The corpus supplies the case that would separate the two — a stream whose only form is not the attested one — but the harness scores whether a document was accepted, not how a subject was resolved."
     },
     {
       "id": "REQ-attestation-scope",
@@ -470,7 +471,7 @@
       "id": "REQ-changed-form",
       "section": "changed-forms",
       "statement": "A changed form is a new subject; earlier attestations do not transfer",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "fixture",
@@ -483,7 +484,8 @@
       ],
       "rules": [
         "APR-ATTEST-009"
-      ]
+      ],
+      "gap": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour for the same reason: the document is valid either way, and what differs is what a verifier says about it."
     },
     {
       "id": "REQ-digests-manifests",
@@ -1497,7 +1499,7 @@
       "id": "REQ-validate-structure",
       "section": "structural-validation",
       "statement": "Structural checks that decide whether a document is a valid APR document; the errors table is exhaustive",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "suite",
@@ -1519,7 +1521,8 @@
       "rules": [
         "APR-VAL-001",
         "APR-VAL-008"
-      ]
+      ],
+      "gap": "APR-VAL-008, that the errors table is exhaustive, is the absence of behaviour. Every valid case in the suite would catch one invented error, and none proves a validator has invented no error at all."
     },
     {
       "id": "REQ-validator-rules",
