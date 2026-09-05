@@ -1241,7 +1241,7 @@
     {
       "id": "REQ-section-members",
       "section": "section-object",
-      "statement": "Section requires id and title and at least one prompt or child section; a table is never inferred",
+      "statement": "Section requires id and title and at least one prompt or child section",
       "strength": "gated",
       "gates": [
         {
@@ -1250,7 +1250,21 @@
         }
       ],
       "rules": [
-        "APR-MODEL-009",
+        "APR-MODEL-009"
+      ]
+    },
+    {
+      "id": "REQ-tables",
+      "section": "tables",
+      "statement": "A table is declared by kind and never inferred from maxRows, canAddRows or child sections",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ],
+      "rules": [
         "APR-MODEL-038"
       ]
     },

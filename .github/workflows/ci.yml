@@ -177,6 +177,12 @@ jobs:
         # harness works; a real implementation supplies its own driver.
         run: python3 scripts/run-conformance.py --driver "python3 scripts/reference-driver.py"
 
+      - name: Report how much of the specification the suite reaches
+        # Passing the suite should mean something, and how much it means is the
+        # number of rules it exercises. Coverage itself is not gated; a case that
+        # cites no rule is, because it is measured as nothing.
+        run: python3 scripts/check-suite-coverage.py
+
       - name: Verify the OSCAL rule catalog is current
         # Every rule identifier is projected into an OSCAL control so completeness
         # policies can be written against the same identifiers the spec uses.

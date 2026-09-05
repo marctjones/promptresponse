@@ -13,6 +13,9 @@
       "id": "spec:extension-member-prefixed",
       "source": "specification",
       "rule": "extensions",
+      "anchors": [
+        "extensions"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Extended\", \"com.example.routing\": \"desk-4\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"com.example.priority\": 2 } ] }\n  ]\n}\n"
@@ -21,6 +24,9 @@
       "id": "spec:jsonc-comment-inside-string",
       "source": "specification",
       "rule": "apr-jsonc",
+      "anchors": [
+        "apr-jsonc"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"// not a comment /* nor this */\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n"
@@ -29,6 +35,9 @@
       "id": "spec:jsonc-duplicate-member",
       "source": "specification",
       "rule": "apr-jsonc",
+      "anchors": [
+        "apr-jsonc"
+      ],
       "representation": "jsonc",
       "expect": "reject",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"first\" },\n  \"metadata\": { \"title\": \"second\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
@@ -38,6 +47,9 @@
       "id": "spec:jsonc-trailing-comma",
       "source": "specification",
       "rule": "apr-jsonc",
+      "anchors": [
+        "apr-jsonc"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Trailing commas\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" }, ] },\n  ],\n}\n"
@@ -46,6 +58,9 @@
       "id": "spec:regarding-chain",
       "source": "specification",
       "rule": "regarding",
+      "anchors": [
+        "regarding"
+      ],
       "representation": "jsonc-stream",
       "expect": "valid",
       "document": "\u001e{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Permit Application\",\"templateId\":\"tag:example.com,2026:permit\"},\"sections\":[{\"id\":\"applicant\",\"title\":\"Applicant\",\"prompts\":[{\"id\":\"full_name\",\"label\":\"Full name\",\"response\":\"Ada Lovelace\"}]}]}\n\u001e{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Intake Receipt\",\"templateId\":\"tag:example.com,2026:intake-receipt\",\"regarding\":[\"sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\"]},\"sections\":[{\"id\":\"intake\",\"title\":\"Intake\",\"prompts\":[{\"id\":\"received\",\"label\":\"Date received\",\"response\":\"2026-09-04\"}]}]}\n"
@@ -54,6 +69,9 @@
       "id": "spec:regarding-reference",
       "source": "specification",
       "rule": "regarding",
+      "anchors": [
+        "regarding"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"filledForm\",\n  \"metadata\": {\n    \"title\": \"Intake Receipt\",\n    \"templateId\": \"tag:example.com,2026:intake-receipt\",\n    \"regarding\": [\"sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\"]\n  },\n  \"sections\": [\n    {\n      \"id\": \"intake\",\n      \"title\": \"Intake\",\n      \"prompts\": [\n        { \"id\": \"received\", \"label\": \"Date received\", \"response\": \"2026-09-04\",\n          \"hints\": { \"expectedDataType\": \"date\" } }\n      ]\n    }\n  ]\n}\n"
@@ -62,6 +80,9 @@
       "id": "spec:stream-mixed-representations",
       "source": "specification",
       "rule": "streams",
+      "anchors": [
+        "streams"
+      ],
       "representation": "jsonc-stream",
       "expect": "reject",
       "document": "\u001e{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n\u001eaprVersion: \"1.0-beta.6\"\nmetadata:\n  title: second\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
@@ -71,6 +92,9 @@
       "id": "spec:structural-member-wrong-type",
       "source": "specification",
       "rule": "json-subset",
+      "anchors": [
+        "json-subset"
+      ],
       "representation": "jsonc",
       "expect": "reject",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Stringly typed\" },\n  \"sections\": [\n    {\n      \"id\": \"rows\",\n      \"title\": \"Rows\",\n      \"kind\": \"table\",\n      \"canAddRows\": \"true\",\n      \"maxRows\": \"25\",\n      \"sections\": [\n        { \"id\": \"row_1\", \"title\": \"Row 1\",\n          \"prompts\": [ { \"id\": \"row_1.note\", \"label\": \"Note\" } ] }\n      ]\n    }\n  ]\n}\n",
@@ -80,6 +104,9 @@
       "id": "spec:table-section",
       "source": "specification",
       "rule": "tables",
+      "anchors": [
+        "tables"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": true,\n      \"maxRows\": 25,\n      \"sections\": [\n        {\n          \"id\": \"item_1\",\n          \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
@@ -88,6 +115,9 @@
       "id": "spec:unregistered-data-type-degrades",
       "source": "specification",
       "rule": "hints-object",
+      "anchors": [
+        "hints-object"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Unregistered affordance\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"response\": \"anything\",\n          \"hints\": { \"expectedDataType\": \"holographic-signature\" } }\n      ]\n    }\n  ]\n}\n"
@@ -96,6 +126,9 @@
       "id": "spec:yaml-anchor",
       "source": "specification",
       "rule": "apr-yaml",
+      "anchors": [
+        "apr-yaml"
+      ],
       "representation": "yaml",
       "expect": "reject",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata: &meta\n  title: Anchored\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
@@ -105,6 +138,9 @@
       "id": "spec:yaml-bare-decimal-is-a-string",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: .5\n"
@@ -113,6 +149,9 @@
       "id": "spec:yaml-bare-word-is-a-string",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Permit Application\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: about twelve\n"
@@ -121,6 +160,9 @@
       "id": "spec:yaml-date-like-is-a-string",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Date-like\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 2026-01-01\n"
@@ -129,6 +171,9 @@
       "id": "spec:yaml-directive",
       "source": "specification",
       "rule": "apr-yaml",
+      "anchors": [
+        "apr-yaml"
+      ],
       "representation": "yaml",
       "expect": "reject",
       "document": "%YAML 1.2\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Directed\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
@@ -138,6 +183,9 @@
       "id": "spec:yaml-hex-is-a-string",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 0x1F\n"
@@ -146,6 +194,9 @@
       "id": "spec:yaml-leading-zero-is-a-string",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Leading zero\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 012\n"
@@ -154,6 +205,9 @@
       "id": "spec:yaml-legacy-boolean-is-a-string",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Legacy spellings\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: yes\n"
@@ -162,6 +216,9 @@
       "id": "spec:yaml-merge-key",
       "source": "specification",
       "rule": "apr-yaml",
+      "anchors": [
+        "apr-yaml"
+      ],
       "representation": "yaml",
       "expect": "reject",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Merged\nsections:\n  - id: s\n    title: S\n    <<: { description: merged in }\n    prompts:\n      - id: p\n        label: P\n",
@@ -171,6 +228,9 @@
       "id": "spec:yaml-non-finite-float",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "reject",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Non-finite\nsections:\n  - id: s\n    title: S\n    kind: table\n    maxRows: .inf\n    prompts:\n      - id: p\n        label: P\n",
@@ -180,6 +240,9 @@
       "id": "spec:yaml-plain-null-response-is-empty",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: null\n"
@@ -188,6 +251,9 @@
       "id": "spec:yaml-quoted-null-is-a-string",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: \"null\"\n"
@@ -196,6 +262,9 @@
       "id": "spec:yaml-sexagesimal-is-a-string",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1:30\n"
@@ -204,6 +273,9 @@
       "id": "spec:yaml-tag",
       "source": "specification",
       "rule": "apr-yaml",
+      "anchors": [
+        "apr-yaml"
+      ],
       "representation": "yaml",
       "expect": "reject",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: !!str Tagged\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
@@ -213,6 +285,9 @@
       "id": "spec:yaml-underscored-number-is-a-string",
       "source": "specification",
       "rule": "yaml-resolution",
+      "anchors": [
+        "yaml-resolution"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1_000\n"
@@ -220,7 +295,12 @@
     {
       "id": "corpus:attestations/permit.attestation.jsonc",
       "source": "corpus",
-      "rule": "attestations",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue",
+        "digests",
+        "attestation-scope"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/aprVersion\",\n        \"digest\": \"sha256:08baa03721d3da98e92260c7b765214afa9e624b9e3cb52986f7a632fe0660bf\"\n      },\n      {\n        \"path\": \"/documentType\",\n        \"digest\": \"sha256:dae1a374ddaefa22ba8c71598ad98c02147631f5867f0ed3386ea06e5d8d8d4b\"\n      },\n      {\n        \"path\": \"/metadata\",\n        \"digest\": \"sha256:4e01956e902c76a413af77d42995e5fa6a634603a2550d3d1588e1a5a3767122\"\n      },\n      {\n        \"path\": \"/metadata/title\",\n        \"digest\": \"sha256:96eed32a48e30480ad5413c0251e33ab3ce901ae24519fc60156ca4114768e02\"\n      },\n      {\n        \"path\": \"/sections\",\n        \"digest\": \"sha256:e44bc9a4dc018af9504385e2f7e2d23331f0e53eebc1c64763f3ea2f366fd182\"\n      },\n      {\n        \"path\": \"/sections/0\",\n        \"digest\": \"sha256:4b018af8fd92048e092ce74e1cbaba0d923eba5f14898b6548312fe74f0488c7\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts\",\n        \"digest\": \"sha256:6de53cd047916b884beb6eaeb8b2f654e10ad8a6f5d8d33bfc8f48efddbf6c6b\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/id\",\n        \"digest\": \"sha256:6ffe58b85cad95f1e86f1afebc4ffba738ef6c5520811cb5f393f6c0234ffcb0\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/label\",\n        \"digest\": \"sha256:6cc5df35f0338e230e9e633ead9991f08f62cab45a3264978daedc6747867305\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
@@ -228,7 +308,12 @@
     {
       "id": "corpus:attestations/permit.cms.attestation.jsonc",
       "source": "corpus",
-      "rule": "attestations",
+      "rule": "proofs",
+      "anchors": [
+        "proofs",
+        "attestation-catalogue",
+        "verification"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"cms/ecdsa-p256-sha256\",\n      \"value\": \"MIIDAAYJKoZIhvcNAQcCoIIC8TCCAu0CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGgggGeMIIBmjCCAUCgAwIBAgIIQVBSLVRFU1QwCgYIKoZIzj0EAwIwQjEfMB0GA1UEAwwWQVBSIGNvcnB1cyB0ZXN0IHNpZ25lcjEfMB0GA1UECgwWQVBSIGNvbmZvcm1hbmNlIGNvcnB1czAeFw0yNjAxMDEwMDAwMDBaFw0zNjAxMDEwMDAwMDBaMEIxHzAdBgNVBAMMFkFQUiBjb3JwdXMgdGVzdCBzaWduZXIxHzAdBgNVBAoMFkFQUiBjb25mb3JtYW5jZSBjb3JwdXMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATpAFTL4qZJf29fA1/UE7KI1BzdMllbNCz1RBbmCi536wN0+LOgFutnlJP12iZIxYLITVf9/46ikS9qx80K94awoyAwHjAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH/BAIwADAKBggqhkjOPQQDAgNIADBFAiBNbO8YBXBK0k22lJGGE1gsq2t/7P3LaZ+XLijAXvvvVAIhAKDFuDXVmb2SQ5tmS42lJ6UOtmjc+zabrvP/fcFCHDzGMYIBJjCCASICAQEwTjBCMR8wHQYDVQQDDBZBUFIgY29ycHVzIHRlc3Qgc2lnbmVyMR8wHQYDVQQKDBZBUFIgY29uZm9ybWFuY2UgY29ycHVzAghBUFItVEVTVDANBglghkgBZQMEAgEFAKBpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDEwMjAwMDAwMFowLwYJKoZIhvcNAQkEMSIEIO9HTLyjXqU0bziCPxeU99SrEIykZQN4gWSzckmwL5rbMAoGCCqGSM49BAMCBEcwRQIgL7qe/0/xYG4ylXuJeqLa53xKuEnLw5gRQzmh9KbjWZICIQCvlf5CpCXqWUA4D+stnIxl1LttVdoRB55cn6EBanwqWQ==\"\n    }\n  ],\n  \"witnesses\": []\n}\n"
@@ -236,7 +321,11 @@
     {
       "id": "corpus:attestations/permit.fields.attestation.jsonc",
       "source": "corpus",
-      "rule": "attestations",
+      "rule": "attestation-scope",
+      "anchors": [
+        "attestation-scope",
+        "digests"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"fields\",\n    \"fields\": [\n      \"name\"\n    ]\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
@@ -244,7 +333,11 @@
     {
       "id": "corpus:attestations/permit.unsupported.attestation.jsonc",
       "source": "corpus",
-      "rule": "attestations",
+      "rule": "proofs",
+      "anchors": [
+        "proofs",
+        "verification"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"example/opaque-v1\",\n      \"value\": \"b3BhcXVl\"\n    }\n  ],\n  \"witnesses\": []\n}\n"
@@ -252,7 +345,13 @@
     {
       "id": "corpus:forms/permit.apr.jsonc",
       "source": "corpus",
-      "rule": "forms",
+      "rule": "root-object",
+      "anchors": [
+        "root-object",
+        "apr-jsonc",
+        "json-subset",
+        "responses"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "// JSONC comments and formatting are not semantic content.\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        { \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" },\n      ],\n    },\n  ],\n}\n"
@@ -260,7 +359,13 @@
     {
       "id": "corpus:forms/permit.apr.yaml",
       "source": "corpus",
-      "rule": "forms",
+      "rule": "apr-yaml",
+      "anchors": [
+        "apr-yaml",
+        "yaml-resolution",
+        "stream-equivalence",
+        "model-layers"
+      ],
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata:\n  title: Beta 6 permit\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: \"Ada\"\n"
@@ -268,7 +373,14 @@
     {
       "id": "corpus:forms/roles.apr.jsonc",
       "source": "corpus",
-      "rule": "forms",
+      "rule": "roles",
+      "anchors": [
+        "roles",
+        "hints-object",
+        "section-object",
+        "prompt-object",
+        "metadata"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Patient Intake\", \"templateId\": \"tag:skpt.cl,2026:examples/intake\", \"templateVersion\": \"1.0\" },\n  \"roles\": [\n    { \"id\": \"patient\", \"name\": \"Patient\", \"description\": \"The person receiving care.\" },\n    { \"id\": \"nurse\", \"name\": \"Nurse\", \"description\": \"Clinical staff recording observations.\" },\n    { \"id\": \"office\", \"name\": \"Office use\" }\n  ],\n  \"sections\": [\n    { \"id\": \"patient_details\", \"title\": \"About you\", \"role\": \"patient\", \"prompts\": [\n      { \"id\": \"name\", \"label\": \"Full name\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"dob\", \"label\": \"Date of birth\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"date\" } }\n    ] },\n    { \"id\": \"observations\", \"title\": \"Clinical observations\", \"role\": \"nurse\", \"prompts\": [\n      { \"id\": \"bp\", \"label\": \"Blood pressure\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"weight\", \"label\": \"Weight (kg)\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"number\", \"min\": 0, \"max\": 400 } },\n      { \"id\": \"symptoms\", \"label\": \"Describe your symptoms in your own words\", \"response\": \"\", \"role\": \"patient\", \"hints\": { \"expectedDataType\": \"multiline\" } }\n    ] },\n    { \"id\": \"office\", \"title\": \"For office use only\", \"role\": \"office\", \"prompts\": [\n      { \"id\": \"ref\", \"label\": \"Reference number\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"received\", \"label\": \"Date received\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"date\" } }\n    ] },\n    { \"id\": \"consent\", \"title\": \"Consent\", \"prompts\": [\n      { \"id\": \"agree\", \"label\": \"I confirm the above is accurate\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"boolean\", \"suggestedValues\": [\"Yes\", \"No\"] } }\n    ] }\n  ]\n}\n"
@@ -276,7 +388,10 @@
     {
       "id": "corpus:malformed/attestation-missing-subject.apr.jsonc",
       "source": "corpus",
-      "rule": "malformed",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
       "representation": "jsonc",
       "expect": "reject",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"scope\": { \"kind\": \"document\" },\n  \"manifest\": { \"root\": \"sha256:d06b9720c44d64b368e93bd6765cad81bfa1e8ea9b767b4acd1ffc57c26b0253\", \"entries\": [] },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
@@ -285,7 +400,10 @@
     {
       "id": "corpus:malformed/duplicate-member.apr.jsonc",
       "source": "corpus",
-      "rule": "malformed",
+      "rule": "apr-jsonc",
+      "anchors": [
+        "apr-jsonc"
+      ],
       "representation": "jsonc",
       "expect": "reject",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"first\" },\n  \"metadata\": { \"title\": \"second\" },\n  \"sections\": []\n}\n",
@@ -294,7 +412,10 @@
     {
       "id": "corpus:malformed/missing-record-separator.apr.jsonc",
       "source": "corpus",
-      "rule": "malformed",
+      "rule": "streams",
+      "anchors": [
+        "streams"
+      ],
       "representation": "jsonc",
       "expect": "reject",
       "document": "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[]}\n{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"second\"},\"sections\":[]}\n"
@@ -302,7 +423,10 @@
     {
       "id": "corpus:malformed/yaml-anchor.apr.yaml",
       "source": "corpus",
-      "rule": "malformed",
+      "rule": "apr-yaml",
+      "anchors": [
+        "apr-yaml"
+      ],
       "representation": "yaml",
       "expect": "reject",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata: &metadata\n  title: Permit\nsections: []\n",
@@ -311,7 +435,11 @@
     {
       "id": "corpus:streams/changed-form.apr.jsonc",
       "source": "corpus",
-      "rule": "streams",
+      "rule": "changed-forms",
+      "anchors": [
+        "changed-forms",
+        "streams"
+      ],
       "representation": "jsonc-stream",
       "expect": "valid",
       "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Grace\" }] }]\n}\n"
@@ -320,6 +448,9 @@
       "id": "corpus:streams/out-of-order.apr.jsonc",
       "source": "corpus",
       "rule": "streams",
+      "anchors": [
+        "streams"
+      ],
       "representation": "jsonc-stream",
       "expect": "valid",
       "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n"
@@ -328,6 +459,10 @@
       "id": "corpus:streams/out-of-order.apr.yaml",
       "source": "corpus",
       "rule": "streams",
+      "anchors": [
+        "streams",
+        "apr-yaml"
+      ],
       "representation": "yaml-stream",
       "expect": "valid",
       "document": "---\nrecordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries: []\nproofs: []\nwitnesses: []\n---\naprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata: { title: Beta 6 permit }\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: Ada\n---\naprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata: { title: Beta 6 permit }\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: Ada\n"
@@ -336,6 +471,10 @@
       "id": "corpus:streams/witness-chain.apr.jsonc",
       "source": "corpus",
       "rule": "streams",
+      "anchors": [
+        "streams",
+        "verification"
+      ],
       "representation": "jsonc-stream",
       "expect": "valid",
       "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:6b53e6a6ea75a742ea8ac8c1cd210bbace9cef73650f923db7815bad2d6f3f2b\"\n  ]\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:0afc5c7ae1ebd165c9cbbf6da3274378c41bc9e30e43666ae1291ba2fc9dd85f\"\n  ]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n"
@@ -344,6 +483,10 @@
       "id": "corpus:streams/witnessed.apr.jsonc",
       "source": "corpus",
       "rule": "streams",
+      "anchors": [
+        "streams",
+        "verification"
+      ],
       "representation": "jsonc-stream",
       "expect": "valid",
       "document": "\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": []\n  },\n  \"proofs\": [],\n  \"witnesses\": [\n    \"sha256:6b53e6a6ea75a742ea8ac8c1cd210bbace9cef73650f923db7815bad2d6f3f2b\"\n  ]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\", \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [{ \"id\": \"applicant\", \"title\": \"Applicant\", \"prompts\": [{ \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" }] }]\n}\n"

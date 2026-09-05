@@ -153,21 +153,125 @@
     }
   },
   "expectations": {
-    "$comment": "Every corpus file is expected to be read successfully unless it is named here. A diagnostic is stated only where the specification names one.",
+    "$comment": "Every corpus file is read successfully unless expect says otherwise. `anchors` names the specification sections the file exercises, so per-rule coverage counts corpus fixtures and executable examples alike. A diagnostic is stated only where the specification names one.",
+    "forms/permit.apr.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "root-object",
+        "apr-jsonc",
+        "json-subset",
+        "responses"
+      ]
+    },
+    "forms/permit.apr.yaml": {
+      "expect": "valid",
+      "anchors": [
+        "apr-yaml",
+        "yaml-resolution",
+        "stream-equivalence",
+        "model-layers"
+      ]
+    },
+    "forms/roles.apr.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "roles",
+        "hints-object",
+        "section-object",
+        "prompt-object",
+        "metadata"
+      ]
+    },
+    "attestations/permit.attestation.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "attestation-catalogue",
+        "digests",
+        "attestation-scope"
+      ]
+    },
+    "attestations/permit.cms.attestation.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "proofs",
+        "attestation-catalogue",
+        "verification"
+      ]
+    },
+    "attestations/permit.fields.attestation.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "attestation-scope",
+        "digests"
+      ]
+    },
+    "attestations/permit.unsupported.attestation.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "proofs",
+        "verification"
+      ]
+    },
+    "streams/witnessed.apr.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "streams",
+        "verification"
+      ]
+    },
+    "streams/witness-chain.apr.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "streams",
+        "verification"
+      ]
+    },
+    "streams/changed-form.apr.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "changed-forms",
+        "streams"
+      ]
+    },
+    "streams/out-of-order.apr.jsonc": {
+      "expect": "valid",
+      "anchors": [
+        "streams"
+      ]
+    },
+    "streams/out-of-order.apr.yaml": {
+      "expect": "valid",
+      "anchors": [
+        "streams",
+        "apr-yaml"
+      ]
+    },
     "malformed/attestation-missing-subject.apr.jsonc": {
       "expect": "reject",
-      "diagnostic": "REQUIRED_FIELD"
+      "diagnostic": "REQUIRED_FIELD",
+      "anchors": [
+        "attestation-catalogue"
+      ]
     },
     "malformed/duplicate-member.apr.jsonc": {
       "expect": "reject",
-      "diagnostic": "DUPLICATE_MEMBER"
+      "diagnostic": "DUPLICATE_MEMBER",
+      "anchors": [
+        "apr-jsonc"
+      ]
     },
     "malformed/missing-record-separator.apr.jsonc": {
-      "expect": "reject"
+      "expect": "reject",
+      "anchors": [
+        "streams"
+      ]
     },
     "malformed/yaml-anchor.apr.yaml": {
       "expect": "reject",
-      "diagnostic": "YAML_ANCHOR_FORBIDDEN"
+      "diagnostic": "YAML_ANCHOR_FORBIDDEN",
+      "anchors": [
+        "apr-yaml"
+      ]
     }
   }
 }

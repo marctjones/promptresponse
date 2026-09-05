@@ -67,6 +67,7 @@ def build() -> dict:
             "id": f"spec:{example['id']}",
             "source": "specification",
             "rule": example["rule"],
+            "anchors": [example["rule"]],
             "representation": example["representation"],
             "expect": example["expect"],
             "document": document,
@@ -88,7 +89,8 @@ def build() -> dict:
         case = {
             "id": f"corpus:{relative.as_posix()}",
             "source": "corpus",
-            "rule": relative.parts[0],
+            "rule": (expected.get("anchors") or [relative.parts[0]])[0],
+            "anchors": expected.get("anchors") or [],
             "representation": representation_of(path, text),
             "expect": expected["expect"],
             "document": text,

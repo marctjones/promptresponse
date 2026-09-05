@@ -2974,7 +2974,7 @@
               {
                 "name": "requirement",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-section-members"
+                "value": "REQ-tables"
               }
             ],
             "links": [
