@@ -1780,12 +1780,15 @@ present the field normally rather than erroring. [APR-MODEL-025]
 ]
 ```
 
-Each entry **MUST** carry `id`; `name` and `description` are OPTIONAL, and a
-reader with no `name` **MUST** fall back to the identifier. Declaring is itself
-optional and **MUST NOT** be required: a section or prompt **MAY** reference a
-role the document never declares, and a reader **MUST** show the identifier
-rather than erroring. A validator **MAY** warn about an undeclared role; it
-**MUST NOT** reject one. [APR-MODEL-026]
+Each entry **MUST** carry `id`; `name` and `description` are OPTIONAL. [APR-MODEL-026]
+
+A reader with no `name` **MUST** fall back to the identifier, and **MUST** show
+the identifier rather than erroring where a role is referenced but never
+declared. [APR-MODEL-050]
+
+Declaring is itself optional and **MUST NOT** be required: a section or prompt
+**MAY** reference a role the document never declares. A validator **MAY** warn
+about an undeclared role; it **MUST NOT** reject one. [APR-MODEL-051]
 
 **A role says who a field is for. It never says who may type into it.** The
 format has no identity at fill time — nothing in a document knows who is at the
@@ -2808,7 +2811,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Gave identifiers to four obligations that had none, and split four rules that bundled obligations failing independently. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Gave identifiers to four obligations that had none, and split five rules that bundled obligations failing independently. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

@@ -662,14 +662,16 @@
     "rules/apr-model-026-satisfies.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-026"
+        "APR-MODEL-026",
+        "APR-MODEL-051"
       ],
       "anchors": []
     },
     "rules/apr-model-026-warns.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-026"
+        "APR-MODEL-026",
+        "APR-MODEL-051"
       ],
       "anchors": [],
       "warns": [

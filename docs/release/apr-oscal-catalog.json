@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "d3b5f54d-ec04-5464-abff-6d616d7c70f0",
+    "uuid": "33916998-63b5-55fd-ae73-eece7360d26b",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "ca0a34484c4b7b8208f58faba8390fa44e00b4285c9558eb7e4d15b12ff1cac6"
+          "value": "3201d158cbadbbfff9f2d0f966a81433805d64c645001cde4b5f83ddba5c29a1"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -2655,7 +2655,7 @@
               {
                 "id": "apr-model-025_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them."
+                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
               }
             ]
           },
@@ -2692,12 +2692,12 @@
               {
                 "id": "apr-model-026_smt",
                 "name": "statement",
-                "prose": "Each entry **MUST** carry `id`; `name` and `description` are OPTIONAL, and a reader with no `name` **MUST** fall back to the identifier. Declaring is itself optional and **MUST NOT** be required: a section or prompt **MAY** reference a role the document never declares, and a reader **MUST** show the identifier rather than erroring. A validator **MAY** warn about an undeclared role; it **MUST NOT** reject one."
+                "prose": "Each entry **MUST** carry `id`; `name` and `description` are OPTIONAL."
               },
               {
                 "id": "apr-model-026_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them."
+                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
               }
             ]
           },
@@ -2739,7 +2739,7 @@
               {
                 "id": "apr-model-027_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them."
+                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
               }
             ]
           },
@@ -2781,7 +2781,7 @@
               {
                 "id": "apr-model-028_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them."
+                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
               }
             ]
           },
@@ -3629,6 +3629,90 @@
                 "id": "apr-model-049_gap",
                 "name": "assessment-gap",
                 "prose": "No beta.6 malformed fixture carries a non-string response."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-050",
+            "title": "APR-MODEL-050 — 5.11 Roles — who each part is for",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-050"
+              },
+              {
+                "name": "section",
+                "value": "roles"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-roles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#roles",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-050_smt",
+                "name": "statement",
+                "prose": "A reader with no `name` **MUST** fall back to the identifier, and **MUST** show the identifier rather than erroring where a role is referenced but never declared."
+              },
+              {
+                "id": "apr-model-050_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-051",
+            "title": "APR-MODEL-051 — 5.11 Roles — who each part is for",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-051"
+              },
+              {
+                "name": "section",
+                "value": "roles"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-roles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#roles",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-051_smt",
+                "name": "statement",
+                "prose": "Declaring is itself optional and **MUST NOT** be required: a section or prompt **MAY** reference a role the document never declares. A validator **MAY** warn about an undeclared role; it **MUST NOT** reject one."
+              },
+              {
+                "id": "apr-model-051_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
               }
             ]
           }

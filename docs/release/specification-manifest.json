@@ -7,14 +7,14 @@
     "status": "BETA \u2014 the format is not frozen and breaking changes are intentional",
     "published": "2026-09-01",
     "normativeClauses": 221,
-    "ruleIdentifiers": 149,
+    "ruleIdentifiers": 151,
     "anchors": 101,
     "executableExamples": 25
   },
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:ca0a34484c4b7b8208f58faba8390fa44e00b4285c9558eb7e4d15b12ff1cac6"
+      "sha256": "sha256:3201d158cbadbbfff9f2d0f966a81433805d64c645001cde4b5f83ddba5c29a1"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
@@ -30,7 +30,7 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:ac54ad42ff0cfaf773505d19993dbd01144a83858b5939c1c52f7c8283403564"
+      "sha256": "sha256:5bee36755cc8857bdf39828cccb6b2d302bb830c26219bf85932c45781b01c10"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
@@ -46,12 +46,12 @@
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:fb85a77583380dedc55dff33d5c9422e1fb2931e9a06b6cebcb8b506b45438e0"
+      "sha256": "sha256:5eede1867ab35e291fd5a1ac9736359395b648df05e32b1d80e93eba13801fcf"
     }
   },
   "corpus": {
     "path": "tests/Conformance/beta6",
     "files": 118,
-    "sha256": "sha256:0abfb3a7cfd11fe8920307a5089d1e9f1ed754f2265802dfc54674066c61d072"
+    "sha256": "sha256:b6135bc7920c48a284dfe3c9fc57e9e1bf58835b58e2da1476405b3b182c3658"
   }
 }

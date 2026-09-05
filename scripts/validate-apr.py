@@ -240,7 +240,9 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
                      "APR-MODEL-001", "APR-MODEL-049")
     role = prompt.get("role")
     if isinstance(role, str) and roles and role not in roles:
-        report.warn("UNDECLARED_ROLE", f"{path}/role", f"role {role!r} is not declared", "APR-MODEL-026")
+        report.warn("UNDECLARED_ROLE", f"{path}/role", f"role {role!r} is not declared; a validator may warn about "
+                    f"one and must not reject it",
+                    "APR-MODEL-026", "APR-MODEL-051")
     hints = prompt.get("hints")
     if isinstance(hints, dict):
         check_object(report, hints, "hints", f"{path}/hints", members)
@@ -326,7 +328,9 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
 
     role = section.get("role")
     if isinstance(role, str) and roles and role not in roles:
-        report.warn("UNDECLARED_ROLE", f"{path}/role", f"role {role!r} is not declared", "APR-MODEL-026")
+        report.warn("UNDECLARED_ROLE", f"{path}/role", f"role {role!r} is not declared; a validator may warn about "
+                    f"one and must not reject it",
+                    "APR-MODEL-026", "APR-MODEL-051")
 
     if section.get("kind") == "table":
         if not children:

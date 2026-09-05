@@ -1212,9 +1212,11 @@
         "APR-MODEL-025",
         "APR-MODEL-026",
         "APR-MODEL-027",
-        "APR-MODEL-028"
+        "APR-MODEL-028",
+        "APR-MODEL-050",
+        "APR-MODEL-051"
       ],
-      "gap": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them."
+      "gap": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
     },
     {
       "id": "REQ-declaring-conformance",
