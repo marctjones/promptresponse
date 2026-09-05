@@ -804,7 +804,7 @@
               {
                 "name": "requirement",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-roles-obligations"
+                "value": "REQ-declaring-conformance"
               }
             ],
             "links": [

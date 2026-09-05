@@ -1213,9 +1213,9 @@
       "gap": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them."
     },
     {
-      "id": "REQ-roles-obligations",
+      "id": "REQ-declaring-conformance",
       "section": "declaring-conformance",
-      "statement": "Each processing role carries the stated obligations",
+      "statement": "An implementation does not claim a profile without passing the corpus revision it names",
       "strength": "partial",
       "gates": [
         {
