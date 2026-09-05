@@ -47,6 +47,7 @@ surfaces first.
 - [ ] `python3 scripts/build-corpus.py` — the corpus is what regenerating it would produce
 - [ ] `python3 scripts/validate-apr.py --spec-examples` — every executable example agrees with the validator
 - [ ] `python3 scripts/check-suite-coverage.py` — every conformance case cites a rule, and the coverage numbers are recorded
+- [ ] `python3 scripts/check-suite-coverage.py --by-section` — per-section coverage recorded with the review
 - [ ] Every implementation suite passes: .NET, Python, TypeScript, Java, and the web demo
 - [ ] The executable examples pass in **all four** implementations, not only the reference one
 

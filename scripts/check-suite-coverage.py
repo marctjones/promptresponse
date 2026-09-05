@@ -7,6 +7,7 @@ Nothing reported that until now: the suite could pass in full while most of the
 document went unexercised, and the passing score would look identical.
 
     python3 scripts/check-suite-coverage.py            # summary
+    python3 scripts/check-suite-coverage.py --by-section  # per section of the document
     python3 scripts/check-suite-coverage.py --gaps     # and every unreached rule
     python3 scripts/check-suite-coverage.py --json     # machine readable
 
@@ -36,6 +37,34 @@ SUITE = ROOT / "tests" / "Conformance" / "beta6" / "suite.json"
 REGISTRY = ROOT / "tests" / "registry.json"
 
 RULE = re.compile(r"APR-[A-Z]+-\d{3}")
+HEADING = re.compile(r"^(#{2,4})\s+(.*?)\s*\{#([a-z0-9-]+)\}\s*$")
+
+
+def rules_by_section(text: str) -> list[tuple[str, str, list[str]]]:
+    """(heading, anchor, rules) for each section, read from the specification.
+
+    Attribution comes from where a rule is *stated*, not from where the registry
+    files it. The two can disagree, and the document is the one that decides.
+    """
+    sections: list[tuple[str, str, list[str]]] = []
+    heading = anchor = None
+    collected: list[str] = []
+    in_code = False
+    for line in text.split("\n"):
+        if line.startswith("```"):
+            in_code = not in_code
+            continue
+        match = HEADING.match(line)
+        if match and not in_code:
+            if anchor is not None:
+                sections.append((heading, anchor, collected))
+            heading, anchor, collected = match.group(2), match.group(3), []
+            continue
+        if anchor is not None:
+            collected.extend(RULE.findall(line))
+    if anchor is not None:
+        sections.append((heading, anchor, collected))
+    return [(h, a, sorted(set(r))) for h, a, r in sections]
 
 
 def main() -> int:
@@ -125,6 +154,25 @@ def main() -> int:
         print(f"\n{len(uncited)} case(s) cite no rule at all, so they count for nothing:")
         for case in uncited:
             print(f"  {case}")
+
+    if "--by-section" in sys.argv:
+        spec_text = SPEC.read_text(encoding="utf-8")
+        print("\n  rules  named  credited  reject  section")
+        print("  -----  -----  --------  ------  " + "-" * 44)
+        for heading, anchor, rules in rules_by_section(spec_text):
+            if not rules:
+                continue
+            named_here = sum(1 for r in rules if cited[r])
+            credited_here = sum(1 for r in rules if positive[r] or negative[r])
+            reject_here = sum(1 for r in rules if negative[r])
+            flag = "  " if named_here else "! "
+            print(f"  {len(rules):>5}  {named_here:>5}  {credited_here:>8}  "
+                  f"{reject_here:>6}  {flag}{heading[:42]}")
+        print("\n  named    = rules a case names outright")
+        print("  credited = rules credited through the section a case cites")
+        print("  reject   = rules credited by a case that expects rejection")
+        print("  !        = no case names any rule in this section")
+        return 1 if uncited else 0
 
     if "--gaps" in sys.argv:
         print("\nUnreached rules. A rule with a recorded gap is a decision; one "
