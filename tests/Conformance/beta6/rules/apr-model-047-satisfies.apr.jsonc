@@ -1,0 +1,26 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "t",
+      "title": "T",
+      "kind": "table",
+      "maxRows": 1,
+      "sections": [
+        {
+          "id": "r",
+          "title": "R",
+          "prompts": [
+            {
+              "id": "r.a",
+              "label": "A"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -452,7 +452,10 @@
         "attestation-catalogue",
         "verification"
       ],
-      "rules": [],
+      "rules": [
+        "APR-ATTEST-008",
+        "APR-ATTEST-014"
+      ],
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
@@ -521,7 +524,8 @@
       ],
       "rules": [
         "APR-REP-007",
-        "APR-REP-008"
+        "APR-REP-008",
+        "APR-STREAM-002"
       ],
       "representation": "yaml",
       "expect": "valid",
@@ -713,6 +717,33 @@
       "expect": "reject",
       "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\",\n    \"note\": \"extra\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/apr-attest-007-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-ATTEST-007"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+attestations",
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-attest-007-violates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-ATTEST-007"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"example/opaque-v1\",\n      \"value\": \"b3BhcXVl\",\n      \"subject\": {\n        \"digest\": \"sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\"\n      }\n    }\n  ],\n  \"witnesses\": []\n}\n",
       "diagnostic": "WRONG_TYPE"
     },
     {
@@ -1117,7 +1148,8 @@
       "rule": "rules",
       "anchors": [],
       "rules": [
-        "APR-MODEL-006"
+        "APR-MODEL-006",
+        "APR-MODEL-022"
       ],
       "representation": "jsonc",
       "expect": "valid",
@@ -1130,7 +1162,8 @@
       "rule": "rules",
       "anchors": [],
       "rules": [
-        "APR-MODEL-006"
+        "APR-MODEL-006",
+        "APR-MODEL-022"
       ],
       "representation": "jsonc",
       "expect": "reject",
@@ -1225,7 +1258,8 @@
       "rule": "rules",
       "anchors": [],
       "rules": [
-        "APR-MODEL-010"
+        "APR-MODEL-010",
+        "APR-VAL-001"
       ],
       "representation": "jsonc",
       "expect": "valid",
@@ -1238,12 +1272,40 @@
       "rule": "rules",
       "anchors": [],
       "rules": [
-        "APR-MODEL-010"
+        "APR-MODEL-010",
+        "APR-VAL-001"
       ],
       "representation": "jsonc",
       "expect": "reject",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"A\"\n        },\n        {\n          \"id\": \"p\",\n          \"label\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "DUPLICATE_ID"
+    },
+    {
+      "id": "corpus:rules/apr-model-011-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-011"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"Name\",\n          \"label\": \"A\"\n        },\n        {\n          \"id\": \"name\",\n          \"label\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-011-violates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-011"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"name\",\n          \"label\": \"A\"\n        },\n        {\n          \"id\": \"name\",\n          \"label\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "DUPLICATE_ID"
     },
     {
@@ -1275,6 +1337,19 @@
         "TABLE_RAGGED",
         "TABLE_LABEL_MISMATCH"
       ]
+    },
+    {
+      "id": "corpus:rules/apr-model-015-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s1\",\n      \"title\": \"S1\",\n      \"sections\": [\n        {\n          \"id\": \"s2\",\n          \"title\": \"S2\",\n          \"sections\": [\n            {\n              \"id\": \"s3\",\n              \"title\": \"S3\",\n              \"sections\": [\n                {\n                  \"id\": \"s4\",\n                  \"title\": \"S4\",\n                  \"sections\": [\n                    {\n                      \"id\": \"s5\",\n                      \"title\": \"S5\",\n                      \"sections\": [\n                        {\n                          \"id\": \"s6\",\n                          \"title\": \"S6\",\n                          \"sections\": [\n                            {\n                              \"id\": \"s7\",\n                              \"title\": \"S7\",\n                              \"sections\": [\n                                {\n                                  \"id\": \"s8\",\n                                  \"title\": \"S8\",\n                                  \"sections\": [\n                                    {\n                                      \"id\": \"s9\",\n                                      \"title\": \"S9\",\n                                      \"sections\": [\n                                        {\n                                          \"id\": \"s10\",\n                                          \"title\": \"S10\",\n                                          \"sections\": [\n                                            {\n                                              \"id\": \"s11\",\n                                              \"title\": \"S11\",\n                                              \"sections\": [\n                                                {\n                                                  \"id\": \"s12\",\n                                                  \"title\": \"S12\",\n                                                  \"sections\": [\n                                                    {\n                                                      \"id\": \"s13\",\n                                                      \"title\": \"S13\",\n                                                      \"sections\": [\n                                                        {\n                                                          \"id\": \"s14\",\n                                                          \"title\": \"S14\",\n                                                          \"sections\": [\n                                                            {\n                                                              \"id\": \"s15\",\n                                                              \"title\": \"S15\",\n                                                              \"sections\": [\n                                                                {\n                                                                  \"id\": \"s16\",\n                                                                  \"title\": \"S16\",\n                                                                  \"prompts\": [\n                                                                    {\n                                                                      \"id\": \"p\",\n                                                                      \"label\": \"P\"\n                                                                    }\n                                                                  ]\n                                                                }\n                                                              ]\n                                                            }\n                                                          ]\n                                                        }\n                                                      ]\n                                                    }\n                                                  ]\n                                                }\n                                              ]\n                                            }\n                                          ]\n                                        }\n                                      ]\n                                    }\n                                  ]\n                                }\n                              ]\n                            }\n                          ]\n                        }\n                      ]\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
       "id": "corpus:rules/apr-model-018-satisfies.apr.jsonc",
@@ -1498,6 +1573,33 @@
       ]
     },
     {
+      "id": "corpus:rules/apr-model-036-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-036"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateId\": \"tag:example.com,2026:t\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-036-violates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-036"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateId\": \"just-a-name\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
       "id": "corpus:rules/apr-model-038-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",
@@ -1626,6 +1728,33 @@
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "EMPTY_TABLE"
+    },
+    {
+      "id": "corpus:rules/apr-model-047-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-047"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 1,\n      \"sections\": [\n        {\n          \"id\": \"r\",\n          \"title\": \"R\",\n          \"prompts\": [\n            {\n              \"id\": \"r.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-047-violates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-047"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 0,\n      \"sections\": [\n        {\n          \"id\": \"r\",\n          \"title\": \"R\",\n          \"prompts\": [\n            {\n              \"id\": \"r.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
     },
     {
       "id": "corpus:rules/apr-rep-001-roundtrip.apr.jsonc",

@@ -1,0 +1,30 @@
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:abababababababababababababababababababababababababababababababab",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:abababababababababababababababababababababababababababababababab",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+      }
+    ]
+  },
+  "proofs": [
+    {
+      "type": "example/opaque-v1",
+      "value": "b3BhcXVl",
+      "subject": {
+        "digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    }
+  ],
+  "witnesses": []
+}

@@ -377,7 +377,7 @@
       "id": "REQ-attestation-scope",
       "section": "attestation-scope",
       "statement": "A fields scope binds the question and its context, not only the answer; a changed form leaves a fields attestation unresolved, never invalid",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "fixture",
@@ -393,7 +393,8 @@
         "APR-ATTEST-006",
         "APR-ATTEST-015",
         "APR-ATTEST-016"
-      ]
+      ],
+      "gap": "APR-ATTEST-005 is covered. APR-ATTEST-006, 015 and 016 are verifier behaviour: that an unrelated edit is never reported as invalid, that a later form leaves an attestation unresolved rather than invalid, and that a verifier may report per-path which attested values still match. All three are about what a verifier says, and the harness scores documents rather than verification reports."
     },
     {
       "id": "REQ-authoring-strict",
@@ -514,7 +515,7 @@
       "id": "REQ-export-no-writeback",
       "section": "export",
       "statement": "Export layout is never written back into the document",
-      "strength": "gated",
+      "strength": "none",
       "gates": [
         {
           "type": "suite",
@@ -523,7 +524,8 @@
       ],
       "rules": [
         "APR-RENDER-009"
-      ]
+      ],
+      "gap": "About what an exporter must not write back into the document. The suite has no export step, and adding one would mean specifying an export format, which the specification deliberately does not."
     },
     {
       "id": "REQ-expr-activation",
@@ -550,7 +552,7 @@
       "id": "REQ-expr-authoring",
       "section": "expr-authoring",
       "statement": "Expressions are type-checked at authoring time",
-      "strength": "gated",
+      "strength": "none",
       "gates": [
         {
           "type": "test",
@@ -559,7 +561,8 @@
       ],
       "rules": [
         "APR-EXPR-010"
-      ]
+      ],
+      "gap": "A SHOULD about type-checking at authoring time, before a filler ever sees the form. The harness evaluates a completed document and has no authoring step."
     },
     {
       "id": "REQ-expr-computed",
@@ -610,7 +613,7 @@
       "id": "REQ-expr-invariants",
       "section": "expr-invariants",
       "statement": "Expressions are pure, never authoritative over a response, and fail data-preservingly",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -625,7 +628,8 @@
         "APR-EXPR-001",
         "APR-EXPR-002",
         "APR-EXPR-003"
-      ]
+      ],
+      "gap": "APR-EXPR-001 and APR-EXPR-003 are covered by evaluation vectors. APR-EXPR-002, that evaluation is pure and exposes no filesystem, network, process, clock or randomness, cannot be reached by one: a document cannot ask for a capability the language does not have, and proving absence needs inspection of the host rather than a case."
     },
     {
       "id": "REQ-expr-language",
@@ -704,7 +708,7 @@
       "id": "REQ-filled-preserved",
       "section": "filled-never-rewritten",
       "statement": "A response is never altered on the basis of a hint",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -718,7 +722,8 @@
       "rules": [
         "APR-TEXT-003",
         "APR-TEXT-004"
-      ]
+      ],
+      "gap": "APR-TEXT-001 is covered by a round-trip vector. APR-TEXT-003 and 004 are reader behaviour: that a hint never licenses altering a response, and that suspicious characters are surfaced and rendered visibly rather than cleaned. The first is the absence of an action, and the second is a presentation obligation."
     },
     {
       "id": "REQ-form-model",
@@ -862,7 +867,7 @@
       "id": "REQ-nesting-floor",
       "section": "nesting",
       "statement": "At least 16 levels of section nesting",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -873,13 +878,14 @@
         "APR-MODEL-015",
         "APR-MODEL-016",
         "APR-MODEL-017"
-      ]
+      ],
+      "gap": "APR-MODEL-015 is covered by a sixteen-level vector. APR-MODEL-016 and 017 cannot be: one forbids an author from relying on a ceiling above the floor, and the other asks authors to stay well below it. Both bind the person writing a form, and no document is wrong for ignoring either."
     },
     {
       "id": "REQ-never-gate",
       "section": "never-gate",
       "statement": "Attestation state never gates parsing, validation, rendering, or extraction",
-      "strength": "gated",
+      "strength": "none",
       "gates": [
         {
           "type": "test",
@@ -894,7 +900,8 @@
         "APR-ATTEST-011",
         "APR-ATTEST-012",
         "APR-ATTEST-013"
-      ]
+      ],
+      "gap": "Reader behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
     },
     {
       "id": "REQ-submission",
@@ -952,7 +959,7 @@
       "id": "REQ-offline-read",
       "section": "security",
       "statement": "Opening a form or attestation contacts no network location",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -963,13 +970,14 @@
         "APR-SEC-009",
         "APR-SEC-010",
         "APR-SEC-011"
-      ]
+      ],
+      "gap": "Three properties of an implementation rather than of a document. No executable content is a property of the format itself — there is nothing to execute — so nothing can violate it. No network access on open and resource bounds need the harness to observe a reader's behaviour, not its answer. Resource bounds are partly gated in-repo by ParserFuzzTests."
     },
     {
       "id": "REQ-ordering",
       "section": "ordering",
       "statement": "A section's own prompts precede its child sections",
-      "strength": "gated",
+      "strength": "none",
       "gates": [
         {
           "type": "test",
@@ -978,7 +986,8 @@
       ],
       "rules": [
         "APR-RENDER-008"
-      ]
+      ],
+      "gap": "A renderer obligation, not a property of a document: array order is in the file either way, and only a rendering can reorder it. Reaching it portably would need the harness to observe presentation."
     },
     {
       "id": "REQ-profile-attestations",
@@ -1019,7 +1028,7 @@
       "id": "REQ-profile-streams",
       "section": "profile-streams",
       "statement": "core+streams reads and writes independent records",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -1032,7 +1041,8 @@
       ],
       "rules": [
         "APR-CONF-001"
-      ]
+      ],
+      "gap": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately."
     },
     {
       "id": "REQ-prompt-members",
@@ -1096,7 +1106,7 @@
       "id": "REQ-renderer-obligations",
       "section": "renderer-requirements",
       "statement": "Semantic order, labels as accessible names, complete keyboard operation",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "suite",
@@ -1115,13 +1125,14 @@
         "APR-RENDER-005",
         "APR-RENDER-006",
         "APR-RENDER-007"
-      ]
+      ],
+      "gap": "Not reachable by a document vector: no file is valid or invalid because of how a renderer presents it. Gated inside this repository by tests/PromptResponse.AccessibilityTests — accessible names, XAML automation properties, and keyboard navigation — which a third-party implementation never runs. A portable test would need the harness to drive a user interface."
     },
     {
       "id": "REQ-representations-equal",
       "section": "encoding",
       "statement": "JSONC and YAML spellings carry one semantic model; UTF-8 encoding",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -1140,7 +1151,8 @@
         "APR-REP-002",
         "APR-REP-003",
         "APR-REP-004"
-      ]
+      ],
+      "gap": "APR-REP-002, 003 and 004 concern the byte layer: UTF-8 encoding, a byte-order mark, ill-formed sequences, U+0000 and unpaired surrogates. The suite carries documents as text in a JSON file, so it cannot express a malformed byte sequence. Reaching them needs the suite to carry encoded bytes rather than strings."
     },
     {
       "id": "REQ-response-verbatim",
@@ -1181,7 +1193,7 @@
       "id": "REQ-roles",
       "section": "roles",
       "statement": "A role states intent and never refuses input",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "fixture",
@@ -1197,7 +1209,8 @@
         "APR-MODEL-026",
         "APR-MODEL-027",
         "APR-MODEL-028"
-      ]
+      ],
+      "gap": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them."
     },
     {
       "id": "REQ-roles-obligations",
@@ -1408,7 +1421,7 @@
       "id": "REQ-unknown-degrades",
       "section": "version-numbers",
       "statement": "Unknown members, data types, roles, and proof types degrade rather than reject",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -1421,7 +1434,8 @@
       ],
       "rules": [
         "APR-SEC-001"
-      ]
+      ],
+      "gap": "APR-SEC-001 says the format version must not track releases. That binds how this project versions itself; no document and no implementation can violate it."
     },
     {
       "id": "REQ-validate-never-semantic",
@@ -1494,7 +1508,7 @@
       "id": "REQ-verification-vocabulary",
       "section": "verification",
       "statement": "valid, invalid, unresolved, unverifiable, witnessed; status never gates data",
-      "strength": "gated",
+      "strength": "none",
       "gates": [
         {
           "type": "fixture",
@@ -1523,13 +1537,14 @@
       ],
       "rules": [
         "APR-ATTEST-010"
-      ]
+      ],
+      "gap": "That validity is reported independently of trust is about what a verifier says, not what a document contains. The corpus supplies a self-signed proof that is cryptographically valid and establishes no identity, but nothing checks that an implementation reports those two facts separately."
     },
     {
       "id": "REQ-version-exact",
       "section": "version-compatibility",
       "statement": "Exact-match version rejection; no MAJOR.MINOR negotiation",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -1544,13 +1559,14 @@
         "APR-SEC-002",
         "APR-SEC-003",
         "APR-SEC-004"
-      ]
+      ],
+      "gap": "APR-SEC-002 is covered. APR-SEC-003 restates unknown-member preservation, which its own rules cover, and APR-SEC-004 explains what BETA means to an implementer. Neither adds an obligation a document or an implementation could fail."
     },
     {
       "id": "REQ-yaml-resolution",
       "section": "yaml-resolution",
       "statement": "APR-YAML scalars resolve to the JSON value space; non-finite floats are rejected; a YAML author quotes a scalar that would otherwise resolve as a literal",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "fixture",
@@ -1566,7 +1582,8 @@
         "APR-REP-012",
         "APR-REP-013",
         "APR-REP-017"
-      ]
+      ],
+      "gap": "APR-REP-008, 011, 012 and 017 are covered. APR-REP-013 requires a safe loader that never constructs a host-language object from document content. Proving that needs inspection of the reader, and a document that would exploit an unsafe loader is already refused by the excluded-constructs rules."
     },
     {
       "id": "REQ-yaml-restricted",

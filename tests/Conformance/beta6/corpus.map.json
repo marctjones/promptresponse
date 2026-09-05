@@ -176,7 +176,8 @@
       ],
       "rules": [
         "APR-REP-007",
-        "APR-REP-008"
+        "APR-REP-008",
+        "APR-STREAM-002"
       ]
     },
     "forms/roles.apr.jsonc": {
@@ -212,6 +213,10 @@
         "proofs",
         "attestation-catalogue",
         "verification"
+      ],
+      "rules": [
+        "APR-ATTEST-008",
+        "APR-ATTEST-014"
       ]
     },
     "attestations/permit.fields.attestation.jsonc": {
@@ -338,14 +343,16 @@
     "rules/apr-model-006-satisfies.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-006"
+        "APR-MODEL-006",
+        "APR-MODEL-022"
       ],
       "anchors": []
     },
     "rules/apr-model-006-violates.apr.jsonc": {
       "expect": "reject",
       "rules": [
-        "APR-MODEL-006"
+        "APR-MODEL-006",
+        "APR-MODEL-022"
       ],
       "anchors": [],
       "diagnostic": "RETIRED_EMBEDDED_SIGNATURES"
@@ -398,14 +405,16 @@
     "rules/apr-model-010-satisfies.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-010"
+        "APR-MODEL-010",
+        "APR-VAL-001"
       ],
       "anchors": []
     },
     "rules/apr-model-010-violates.apr.jsonc": {
       "expect": "reject",
       "rules": [
-        "APR-MODEL-010"
+        "APR-MODEL-010",
+        "APR-VAL-001"
       ],
       "anchors": [],
       "diagnostic": "DUPLICATE_ID"
@@ -1038,6 +1047,73 @@
           "outside": ""
         }
       }
+    },
+    "rules/apr-model-015-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-015"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-036-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-036"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-036-violates.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-MODEL-036"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/apr-model-047-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-047"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-047-violates.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-MODEL-047"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/apr-attest-007-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-ATTEST-007"
+      ],
+      "anchors": []
+    },
+    "rules/apr-attest-007-violates.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-ATTEST-007"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/apr-model-011-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-011"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-011-violates.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-MODEL-011"
+      ],
+      "anchors": [],
+      "diagnostic": "DUPLICATE_ID"
     }
   }
 }

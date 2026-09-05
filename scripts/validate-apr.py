@@ -228,7 +228,8 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
     if isinstance(identifier, str) and identifier.strip():
         if identifier in ids["prompt"]:
             report.error("DUPLICATE_ID", f"{path}/id",
-                         f"prompt id {identifier!r} is already used", "APR-MODEL-010")
+                         f"prompt id {identifier!r} is already used",
+                         "APR-MODEL-010", "APR-MODEL-011", "APR-VAL-001")
         ids["prompt"].add(identifier)
     # A null response, and an absent one, are both read as the empty string. Any
     # other non-string is the coercion the format refuses.
@@ -311,7 +312,8 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
     if isinstance(identifier, str) and identifier.strip():
         if identifier in ids["section"]:
             report.error("DUPLICATE_ID", f"{path}/id",
-                         f"section id {identifier!r} is already used", "APR-MODEL-010")
+                         f"section id {identifier!r} is already used",
+                         "APR-MODEL-010", "APR-MODEL-011", "APR-VAL-001")
         ids["section"].add(identifier)
 
     prompts = section.get("prompts") or []
@@ -332,6 +334,10 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
                          "in its instances, so prompts alone are not a table",
                          "APR-MODEL-046")
         cap = section.get("maxRows")
+        if isinstance(cap, int) and not isinstance(cap, bool) and cap < 1:
+            report.error("WRONG_TYPE", f"{path}/maxRows",
+                         "an advisory cap of fewer than one instance is not a cap",
+                         "APR-MODEL-047")
         if isinstance(cap, int) and not isinstance(cap, bool) and len(children) > cap:
             report.warn("TABLE_OVER_CAPACITY", path,
                         f"{len(children)} instances exceed the advisory cap of {cap}",
@@ -424,6 +430,17 @@ def validate_attestation(report: Report, record) -> None:
                              "a manifest carrying entries must carry the root pointer",
                              "APR-DIGEST-004")
 
+    subject_digest = (record.get("subject") or {}).get("digest")
+    for index, proof in enumerate(record.get("proofs") or []):
+        if not isinstance(proof, dict):
+            continue
+        for extra in sorted(set(proof) - {"type", "value"}):
+            report.error("WRONG_TYPE", f"/proofs/{index}/{extra}",
+                         "a proof carries a type and a value; a second copy of the "
+                         "subject digest or scope is what an earlier scheme verified "
+                         "against instead of the real one",
+                         "APR-ATTEST-007")
+
     for name in sorted(set(record) - ATTESTATION_MEMBERS):
         if "." not in name:
             report.warn("UNPREFIXED_MEMBER", f"/{name}",
@@ -441,7 +458,7 @@ def validate_form(report: Report, form, members) -> None:
     if "signatures" in form:
         report.error("RETIRED_EMBEDDED_SIGNATURES", "/signatures",
                      "embedded signatures are retired; attestations are separate records",
-                     "APR-MODEL-006")
+                     "APR-MODEL-006", "APR-MODEL-022")
 
     version_member = next((m for m in members["form"] if m.lower().endswith("version")), None)
     version = form.get(version_member) if version_member else None
@@ -455,6 +472,11 @@ def validate_form(report: Report, form, members) -> None:
     metadata = form.get("metadata")
     if isinstance(metadata, dict):
         check_object(report, metadata, "metadata", "/metadata", members)
+        template = metadata.get("templateId")
+        if isinstance(template, str) and not re.match(r"^[A-Za-z][A-Za-z0-9+.-]*:", template):
+            report.error("WRONG_TYPE", "/metadata/templateId",
+                         "a templateId is a URI; it identifies, and need not resolve",
+                         "APR-MODEL-036")
         if form.get("documentType") == "filledForm" and not metadata.get("templateId"):
             report.error("REQUIRED_FIELD", "/metadata/templateId",
                          "a filled form must name the template it answers", "APR-MODEL-008")
