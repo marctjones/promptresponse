@@ -277,3 +277,21 @@ def resolve_pointer(document, pointer: str):
 
 
 MISSING = _MISSING
+
+
+def all_pointers(value, prefix: str = "") -> list[str]:
+    """Every JSON Pointer addressing a value, root first, at every depth.
+
+    This is what a whole-document manifest is recommended to carry: an entry per
+    value lets a verifier say which one differs, rather than only that something
+    did.
+    """
+    out = [prefix]
+    if isinstance(value, dict):
+        for key, child in value.items():
+            token = key.replace("~", "~0").replace("/", "~1")
+            out.extend(all_pointers(child, f"{prefix}/{token}"))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            out.extend(all_pointers(child, f"{prefix}/{index}"))
+    return out

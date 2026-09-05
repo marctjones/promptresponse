@@ -2142,14 +2142,30 @@ as `unverifiable`, not valid. [APR-DIGEST-002]
 > fields only, which meant extension data on a signed document could be altered
 > without invalidating the signature.
 
-An integrity manifest does not duplicate plaintext. It contains `root`, the form
-digest, and sorted `entries`; each entry has a JSON Pointer `path` (RFC 6901) and
-a digest of the JCS encoding of that path's value. `entries` includes the root
-pointer and every defined semantic leaf; whole-document manifests also include
-extension members.
+An integrity manifest does not duplicate plaintext. It contains `root`, the
+digest of the subject form, and `entries`. Each entry has a JSON Pointer `path`
+(RFC 6901) and a digest of the JCS encoding of the value at that path.
 
-A verifier can compare entries to explain which values differ without the
-manifest retaining their old values.
+`entries` **MUST** be ordered by `path`, compared as strings, and **MUST NOT**
+repeat a path. [APR-DIGEST-003]
+
+`entries` **MUST** contain the root pointer, and **SHOULD** contain one entry for
+every value in the semantic model at every depth, extension members included. A
+`fields` scope is the exception: what it carries is stated in
+[Scope](#attestation-scope), and nothing further is expected of it. [APR-DIGEST-004]
+
+Integrity comes from `root` alone. Entries are how a verifier explains *which*
+values differ without the manifest retaining what they used to be, so a manifest
+missing a path explains less and proves exactly as much. A verifier that finds a
+subject differing from `root` **MUST** report the difference at the most specific
+path the manifest carries, and **MUST NOT** report a path it does not. [APR-DIGEST-005]
+
+> Rationale: an earlier draft asserted completeness in prose without requiring
+> it, so a manifest could omit half a document without breaking a rule while a
+> reader was entitled to expect otherwise. Ordering is required because two
+> manifests over one form should be one manifest. Completeness is recommended
+> rather than required because a whole-document manifest over a large form runs
+> to thousands of entries, and buying diagnosis with size is the signer's call.
 
 ---
 
@@ -2423,8 +2439,28 @@ an attestation on a form.
 > question, its type, and its offered options is what closes that.
 
 A fields scope is deliberately *not* the whole document: a filler attests to
-their part, and someone else editing an unrelated section **MUST NOT** invalidate
-them. [APR-ATTEST-006]
+their part, and someone else editing an unrelated section **MUST NOT** be
+reported as making their attestation `invalid`. [APR-ATTEST-006]
+
+**What that protection is, exactly.** `subject.digest` names the complete form,
+so an edit anywhere produces a changed form, and against *that* form the
+attestation is `unresolved` rather than invalid
+([Changed forms](#changed-forms), [Verification vocabulary](#verification)). It
+stays `valid` against the form it was made over, which is why a workflow retains
+the original record rather than replacing it. A verifier **MUST NOT** report
+`invalid` merely because the form it holds is a later one. [APR-ATTEST-015]
+
+A verifier **MAY** additionally compare a `fields` manifest's entries against a
+changed form and report which attested paths still match. That is a diagnostic
+and **MUST NOT** be reported as a verification result: the attestation remains an
+assertion about its original subject and is never transferred to another. [APR-ATTEST-016]
+
+> Rationale: the promise above is worth making and was worth stating precisely.
+> Read loosely it suggests a fields attestation keeps verifying across edits,
+> which nothing in the format delivers, because a digest over the whole form
+> moves when any part of it does. What the format does deliver is that a filler
+> is never reported as having signed something false — and, for a reader that
+> wants it, a per-path answer to what actually changed.
 
 ### 12.4 Proofs {#proofs}
 
@@ -2447,6 +2483,18 @@ A verifier that does not recognize a proof type **MUST** report it as
 **unverifiable**, never as invalid, and **MUST** preserve it. "I cannot check
 this" and "this is forged" are different statements and **MUST NOT** be conflated
 in a user interface. [APR-ATTEST-008]
+
+**A proof MAY carry a claimed signing time.** In `cms/ecdsa-p256-sha256` that is
+the CMS signing-time signed attribute (RFC 5652), which sits inside the signature
+and therefore cannot be altered without breaking it. What nothing vouches for is
+the clock: the value is the signer's assertion that they signed then, and no
+more. A reader that shows it **MUST** show it as claimed rather than proven, and
+**MUST NOT** derive from it that one record precedes another. [APR-ATTEST-014]
+
+> Rationale: every signature format works this way, and pretending otherwise is
+> how a plausible timestamp becomes evidence it was never entitled to be.
+> Trusted time needs a time authority, which this baseline does not define. A
+> claimed time is still worth carrying, because it is what the signer said.
 
 ### 12.5 Witnesses {#witnesses}
 
@@ -2711,7 +2759,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

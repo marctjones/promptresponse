@@ -23,7 +23,8 @@ What it checks, per the specification:
   (#attestation-catalogue)
 * `manifest.root` is the digest of that subject (#digests)
 * every manifest entry digest is the digest of the JCS encoding of the value at
-  its JSON Pointer, and entries are sorted (#digests)
+  its JSON Pointer, entries are ordered by path, no path repeats, and the root
+  pointer is present (#digests)
 * every witness names the envelope digest of an attestation in the corpus, and
   witnesses are duplicate-free (#witnesses)
 * the published digest vectors under digests/ agree with the forms they cite
@@ -127,7 +128,13 @@ def main() -> int:
         paths = [entry.get("path") for entry in entries]
         checks += 1
         if paths != sorted(paths):
-            problems.append(f"{where}: manifest entries are not sorted")
+            problems.append(f"{where}: manifest entries are not ordered by path")
+        checks += 1
+        if len(set(paths)) != len(paths):
+            problems.append(f"{where}: manifest repeats a path")
+        checks += 1
+        if "" not in paths and paths:
+            problems.append(f"{where}: manifest carries entries but not the root pointer")
         for entry in entries:
             checks += 1
             value = aprlib.resolve_pointer(form, entry.get("path", ""))

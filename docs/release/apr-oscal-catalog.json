@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "8c7cc8d8-900f-53dd-b4ef-bcef20a2ed5c",
+    "uuid": "4a4ab79f-abae-54ea-8561-106040e40317",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "5636173aa7d6523f6a759a6e8d7a9a5f8f4dc43a34ce4bdeba0ed3492cc2f89c"
+          "value": "e180f39af18a8ff494f28b8f19a243bada62b22033b564293fb00fae2ce7925a"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -243,7 +243,7 @@
               {
                 "id": "apr-attest-006_smt",
                 "name": "statement",
-                "prose": "A fields scope is deliberately *not* the whole document: a filler attests to their part, and someone else editing an unrelated section **MUST NOT** invalidate them."
+                "prose": "A fields scope is deliberately *not* the whole document: a filler attests to their part, and someone else editing an unrelated section **MUST NOT** be reported as making their attestation `invalid`."
               }
             ]
           },
@@ -505,6 +505,117 @@
                 "prose": "An implementation **MAY** warn, badge, or refuse to *act* on a document by its own policy — a receiving workflow is entitled to reject an unattested permit application. That is the workflow's decision. It is not the file format's, and a reader that enforces it on the workflow's behalf has taken a choice away from every other consumer of the same document."
               }
             ]
+          },
+          {
+            "id": "apr-attest-014",
+            "title": "APR-ATTEST-014 — 12.4 Proofs",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-ATTEST-014"
+              },
+              {
+                "name": "section",
+                "value": "proofs"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-proofs"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#proofs",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-attest-014_smt",
+                "name": "statement",
+                "prose": "**A proof MAY carry a claimed signing time.** In `cms/ecdsa-p256-sha256` that is the CMS signing-time signed attribute (RFC 5652), which sits inside the signature and therefore cannot be altered without breaking it. What nothing vouches for is the clock: the value is the signer's assertion that they signed then, and no more. A reader that shows it **MUST** show it as claimed rather than proven, and **MUST NOT** derive from it that one record precedes another."
+              }
+            ]
+          },
+          {
+            "id": "apr-attest-015",
+            "title": "APR-ATTEST-015 — 12.3 Scope",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-ATTEST-015"
+              },
+              {
+                "name": "section",
+                "value": "attestation-scope"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-attestation-scope"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#attestation-scope",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-attest-015_smt",
+                "name": "statement",
+                "prose": "**What that protection is, exactly.** `subject.digest` names the complete form, so an edit anywhere produces a changed form, and against *that* form the attestation is `unresolved` rather than invalid ([Changed forms](#changed-forms), [Verification vocabulary](#verification)). It stays `valid` against the form it was made over, which is why a workflow retains the original record rather than replacing it. A verifier **MUST NOT** report `invalid` merely because the form it holds is a later one."
+              }
+            ]
+          },
+          {
+            "id": "apr-attest-016",
+            "title": "APR-ATTEST-016 — 12.3 Scope",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-ATTEST-016"
+              },
+              {
+                "name": "section",
+                "value": "attestation-scope"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-attestation-scope"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#attestation-scope",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-attest-016_smt",
+                "name": "statement",
+                "prose": "A verifier **MAY** additionally compare a `fields` manifest's entries against a changed form and report which attested paths still match. That is a diagnostic and **MUST NOT** be reported as a verification result: the attestation remains an assertion about its original subject and is never transferred to another."
+              }
+            ]
           }
         ]
       },
@@ -691,7 +802,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -710,6 +821,11 @@
                 "id": "apr-digest-001_smt",
                 "name": "statement",
                 "prose": "A digest value **MUST** match `^sha256:[0-9a-f]{64}$`."
+              },
+              {
+                "id": "apr-digest-001_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
               }
             ]
           },
@@ -728,7 +844,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "requirement",
@@ -747,6 +863,137 @@
                 "id": "apr-digest-002_smt",
                 "name": "statement",
                 "prose": "A form digest includes every APR-defined member and every unknown extension member that survived parsing. It excludes only representation trivia. A verifier that cannot preserve or digest an extension member **MUST** report the assertion as `unverifiable`, not valid."
+              },
+              {
+                "id": "apr-digest-002_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+              }
+            ]
+          },
+          {
+            "id": "apr-digest-003",
+            "title": "APR-DIGEST-003 — 10. Semantic digests and manifests",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-DIGEST-003"
+              },
+              {
+                "name": "section",
+                "value": "digests"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-digests-manifests"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#digests",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-digest-003_smt",
+                "name": "statement",
+                "prose": "`entries` **MUST** be ordered by `path`, compared as strings, and **MUST NOT** repeat a path."
+              },
+              {
+                "id": "apr-digest-003_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+              }
+            ]
+          },
+          {
+            "id": "apr-digest-004",
+            "title": "APR-DIGEST-004 — 10. Semantic digests and manifests",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-DIGEST-004"
+              },
+              {
+                "name": "section",
+                "value": "digests"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-digests-manifests"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#digests",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-digest-004_smt",
+                "name": "statement",
+                "prose": "`entries` **MUST** contain the root pointer, and **SHOULD** contain one entry for every value in the semantic model at every depth, extension members included. A `fields` scope is the exception: what it carries is stated in [Scope](#attestation-scope), and nothing further is expected of it."
+              },
+              {
+                "id": "apr-digest-004_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+              }
+            ]
+          },
+          {
+            "id": "apr-digest-005",
+            "title": "APR-DIGEST-005 — 10. Semantic digests and manifests",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-DIGEST-005"
+              },
+              {
+                "name": "section",
+                "value": "digests"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-digests-manifests"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#digests",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-digest-005_smt",
+                "name": "statement",
+                "prose": "Integrity comes from `root` alone. Entries are how a verifier explains *which* values differ without the manifest retaining what they used to be, so a manifest missing a path explains less and proves exactly as much. A verifier that finds a subject differing from `root` **MUST** report the difference at the most specific path the manifest carries, and **MUST NOT** report a path it does not."
+              },
+              {
+                "id": "apr-digest-005_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
               }
             ]
           }

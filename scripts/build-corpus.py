@@ -119,8 +119,12 @@ def rebuild(record: dict, spec: dict, records, resolved, key_pem, cert_pem) -> d
     out["subject"]["canonicalization"] = "jcs-sha256"
     out["scope"] = spec["scope"]
 
+    # "*" is a whole-document manifest: an entry for every value, as the digests
+    # section recommends. A list is the signer choosing to carry less.
+    declared = (aprlib.all_pointers(subject_form) if spec["entries"] == "*"
+                else spec["entries"])
     entries = []
-    for pointer in sorted(spec["entries"]):
+    for pointer in sorted(declared):
         value = aprlib.resolve_pointer(subject_form, pointer)
         if value is aprlib.MISSING:
             raise SystemExit(

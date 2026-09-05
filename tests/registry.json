@@ -376,7 +376,7 @@
     {
       "id": "REQ-attestation-scope",
       "section": "attestation-scope",
-      "statement": "A fields scope binds the question and its context, not only the answer",
+      "statement": "A fields scope binds the question and its context, not only the answer; a changed form leaves a fields attestation unresolved, never invalid",
       "strength": "gated",
       "gates": [
         {
@@ -390,7 +390,9 @@
       ],
       "rules": [
         "APR-ATTEST-005",
-        "APR-ATTEST-006"
+        "APR-ATTEST-006",
+        "APR-ATTEST-015",
+        "APR-ATTEST-016"
       ]
     },
     {
@@ -483,8 +485,8 @@
     {
       "id": "REQ-digests-manifests",
       "section": "digests",
-      "statement": "jcs-sha256 over the semantic model; manifests hold no plaintext",
-      "strength": "gated",
+      "statement": "jcs-sha256 over the semantic model; manifests hold no plaintext; manifest entries are ordered and duplicate-free, carry the root pointer, and bound what a verifier may report",
+      "strength": "partial",
       "gates": [
         {
           "type": "fixture",
@@ -501,8 +503,12 @@
       ],
       "rules": [
         "APR-DIGEST-001",
-        "APR-DIGEST-002"
-      ]
+        "APR-DIGEST-002",
+        "APR-DIGEST-003",
+        "APR-DIGEST-004",
+        "APR-DIGEST-005"
+      ],
+      "gap": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
     },
     {
       "id": "REQ-export-no-writeback",
@@ -1063,7 +1069,7 @@
     {
       "id": "REQ-proofs",
       "section": "proofs",
-      "statement": "Proofs cover the proof-free envelope; unsupported types are unverifiable",
+      "statement": "Proofs cover the proof-free envelope; unsupported types are unverifiable; a claimed signing time is presented as claimed, never as proven",
       "strength": "gated",
       "gates": [
         {
@@ -1081,7 +1087,8 @@
       ],
       "rules": [
         "APR-ATTEST-007",
-        "APR-ATTEST-008"
+        "APR-ATTEST-008",
+        "APR-ATTEST-014"
       ]
     },
     {

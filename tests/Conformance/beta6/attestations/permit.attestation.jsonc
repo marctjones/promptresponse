@@ -16,8 +16,56 @@
         "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
       },
       {
+        "path": "/aprVersion",
+        "digest": "sha256:08baa03721d3da98e92260c7b765214afa9e624b9e3cb52986f7a632fe0660bf"
+      },
+      {
+        "path": "/documentType",
+        "digest": "sha256:dae1a374ddaefa22ba8c71598ad98c02147631f5867f0ed3386ea06e5d8d8d4b"
+      },
+      {
+        "path": "/metadata",
+        "digest": "sha256:4e01956e902c76a413af77d42995e5fa6a634603a2550d3d1588e1a5a3767122"
+      },
+      {
+        "path": "/metadata/title",
+        "digest": "sha256:96eed32a48e30480ad5413c0251e33ab3ce901ae24519fc60156ca4114768e02"
+      },
+      {
+        "path": "/sections",
+        "digest": "sha256:e44bc9a4dc018af9504385e2f7e2d23331f0e53eebc1c64763f3ea2f366fd182"
+      },
+      {
+        "path": "/sections/0",
+        "digest": "sha256:4b018af8fd92048e092ce74e1cbaba0d923eba5f14898b6548312fe74f0488c7"
+      },
+      {
+        "path": "/sections/0/id",
+        "digest": "sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e"
+      },
+      {
+        "path": "/sections/0/prompts",
+        "digest": "sha256:6de53cd047916b884beb6eaeb8b2f654e10ad8a6f5d8d33bfc8f48efddbf6c6b"
+      },
+      {
+        "path": "/sections/0/prompts/0",
+        "digest": "sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a"
+      },
+      {
+        "path": "/sections/0/prompts/0/id",
+        "digest": "sha256:6ffe58b85cad95f1e86f1afebc4ffba738ef6c5520811cb5f393f6c0234ffcb0"
+      },
+      {
+        "path": "/sections/0/prompts/0/label",
+        "digest": "sha256:6cc5df35f0338e230e9e633ead9991f08f62cab45a3264978daedc6747867305"
+      },
+      {
         "path": "/sections/0/prompts/0/response",
         "digest": "sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a"
+      },
+      {
+        "path": "/sections/0/title",
+        "digest": "sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a"
       }
     ]
   },
