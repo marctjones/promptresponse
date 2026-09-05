@@ -1844,10 +1844,21 @@ document is.
 | An APR-JSONC record stream | `application/vnd.apr+json-seq` |
 
 A producer that labels APR content **MUST** use the type above for its
-representation. A reader **MUST NOT** select APR behaviour from the generic
-`application/json`, `application/yaml`, or `application/json-seq` types, and
-**MUST NOT** treat a mismatch between a media type and the content as grounds
-for rejection: the content decides, exactly as for a filename extension. [APR-SEC-012]
+representation. [APR-SEC-012]
+
+A reader **MUST NOT** select APR behaviour from the generic `application/json`,
+`application/yaml`, or `application/json-seq` types. [APR-SEC-013]
+
+A reader **MUST NOT** treat a mismatch between a media type and the content as
+grounds for rejection: the content decides, exactly as for a filename
+extension. [APR-SEC-014]
+
+> Rationale: these three fail independently, and a case citing one bundle could
+> not say which broke. A producer labelling APR-YAML as `application/json` is a
+> mislabelled document; a reader inferring APR from `application/json` treats
+> every JSON file it meets as a form; a reader refusing a mismatch loses a
+> readable document to a header. Only the last is data loss, which is why the
+> content deciding is stated as its own rule.
 
 The types are in the vendor tree of RFC 6838, with the `+json` (RFC 6839),
 `+yaml` (RFC 9512) and `+json-seq` (RFC 7464) structured syntax suffixes.
@@ -2741,6 +2752,13 @@ user action, and neither **MUST** a certificate endpoint. [APR-SEC-010]
 **Resource bounds.** A reader **MUST** bound nesting depth and **SHOULD** bound
 document size, stream length, and evaluation cost, failing cleanly rather than
 exhausting memory. Parsing **MUST** terminate. [APR-SEC-011]
+
+The depth bound has a floor this document states: sixteen levels
+([Nesting depth](#nesting)). The others are deliberately the implementation's
+to choose, because the right limit for a phone and for a batch importer are not
+the same number, and a number here would be wrong for one of them. What is not
+optional is that a limit exists and that reaching it is a clean refusal rather
+than a crash.
 
 > Decision (beta.6): concrete limits above the 16-level nesting floor are
 > **implementation-defined**. No numeric ceiling is specified because no test

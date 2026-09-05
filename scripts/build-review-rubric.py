@@ -83,7 +83,18 @@ def owning_section(body_by_anchor, rule: str) -> tuple[str, str]:
     for level, title, anchor, body in body_by_anchor:
         if f"[{rule}]" in body and (best is None or level > best[0]):
             best = (level, f"{title} (#{anchor})", body)
-    return (best[1], best[2]) if best else ("", "")
+    if best is None:
+        return "", ""
+    body = best[2]
+    # A rule stated in a chapter's own preamble, before its first subsection, is
+    # complete in the preamble. Handing over the whole chapter buries the one
+    # sentence being judged under ten pages, and a reviewer then reports that the
+    # rule is "referenced but not explained" — which is a fact about the excerpt,
+    # not about the specification.
+    cut = HEADING.search(body, 1)
+    if cut and f"[{rule}]" in body[:cut.start()]:
+        body = body[:cut.start()]
+    return best[1], body
 
 
 def main() -> int:

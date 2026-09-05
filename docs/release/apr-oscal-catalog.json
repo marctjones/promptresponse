@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "5fde01e9-8209-5976-8982-8fd88e2d3f9d",
+    "uuid": "e42f3256-0c43-55da-9dd6-ff76c2265165",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "56a6255c8bdf689b834eee57ab3c46d52c2c7ae7ffa6e482a8504d3c25899ff9"
+          "value": "ed1f8ac936cdb2510f0a220ad946c1567bc38536846d282963bf62c96752ccfa"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -3791,10 +3791,104 @@
               {
                 "id": "apr-sec-012_smt",
                 "name": "statement",
-                "prose": "A producer that labels APR content **MUST** use the type above for its representation. A reader **MUST NOT** select APR behaviour from the generic `application/json`, `application/yaml`, or `application/json-seq` types, and **MUST NOT** treat a mismatch between a media type and the content as grounds for rejection: the content decides, exactly as for a filename extension."
+                "prose": "A producer that labels APR content **MUST** use the type above for its representation."
               },
               {
                 "id": "apr-sec-012_gap",
+                "name": "assessment-gap",
+                "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
+              }
+            ]
+          },
+          {
+            "id": "apr-sec-013",
+            "title": "APR-SEC-013 — 6. Document type and file extensions",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-SEC-013"
+              },
+              {
+                "name": "section",
+                "value": "media-types"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SEC"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-no-media-type"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#media-types",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-sec-013_smt",
+                "name": "statement",
+                "prose": "A reader **MUST NOT** select APR behaviour from the generic `application/json`, `application/yaml`, or `application/json-seq` types."
+              },
+              {
+                "id": "apr-sec-013_gap",
+                "name": "assessment-gap",
+                "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
+              }
+            ]
+          },
+          {
+            "id": "apr-sec-014",
+            "title": "APR-SEC-014 — 6. Document type and file extensions",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-SEC-014"
+              },
+              {
+                "name": "section",
+                "value": "media-types"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SEC"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-no-media-type"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#media-types",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-sec-014_smt",
+                "name": "statement",
+                "prose": "A reader **MUST NOT** treat a mismatch between a media type and the content as grounds for rejection: the content decides, exactly as for a filename extension."
+              },
+              {
+                "id": "apr-sec-014_gap",
                 "name": "assessment-gap",
                 "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
               }

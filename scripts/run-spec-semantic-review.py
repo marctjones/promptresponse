@@ -58,6 +58,14 @@ def arguments() -> argparse.Namespace:
              "asked in bounded batches; one prompt holding 135 items and the whole "
              "specification answers none of them well.",
     )
+    parser.add_argument(
+        "--budget",
+        type=int,
+        default=12000,
+        help="Characters of excerpt per prompt. A batch is closed when either this "
+             "or --chunk is reached, so one large section cannot make a prompt the "
+             "model answers in prose.",
+    )
     parser.add_argument("--max-tokens", type=int, default=4096)
     parser.add_argument("--spec", type=Path, default=ROOT / "docs" / "APR_SPECIFICATION.md")
     parser.add_argument(
@@ -84,9 +92,28 @@ def batches_of(args) -> tuple[str, list, dict, bool, list]:
     version, items = load_rubric(payload)
     excerpts = {i["id"]: i.get("excerpt") for i in payload["items"]}
     scoped = all(excerpts.get(item.id) for item in items)
-    groups = ([items[n:n + args.chunk] for n in range(0, len(items), args.chunk)]
-              if scoped else [items])
-    return version, items, excerpts, scoped, groups
+    return version, items, excerpts, scoped, pack(items, excerpts, args) if scoped else [items]
+
+
+def pack(items: list, excerpts: dict, args) -> list[list]:
+    """Group items into prompts bounded by payload, not only by count.
+
+    Sections differ in size by an order of magnitude, so a fixed item count
+    produces batches that differ by the same. One batch of six carrying 46,000
+    characters is what made the model return prose where JSON was asked for,
+    while its neighbours at 4,000 answered cleanly.
+    """
+    groups, current, size = [], [], 0
+    for item in items:
+        cost = len(excerpts[item.id] or "")
+        if current and (len(current) >= args.chunk or size + cost > args.budget):
+            groups.append(current)
+            current, size = [], 0
+        current.append(item)
+        size += cost
+    if current:
+        groups.append(current)
+    return groups
 
 
 def dry_run(args) -> int:
@@ -168,10 +195,29 @@ def main() -> int:
             sampler=make_sampler(temp=0.0),
             verbose=False,
         )
-        part = parse_model_report(raw_report, rubric_version=rubric_version, items=batch)
-        findings.extend(part["findings"])
-        print(f"  batch {number}/{len(batches)}: {len(part['findings'])} findings",
-              file=sys.stderr)
+        try:
+            part = parse_model_report(raw_report, rubric_version=rubric_version, items=batch)
+        except SemanticReviewError as exc:
+            # One batch the model answered badly is one batch, not the run. A
+            # reviewer that discards twenty-two good batches because the
+            # twenty-third came back malformed has cost more than it found, and
+            # the failure is silent: the artifact keeps whatever it held before.
+            findings.extend({"id": item.id, "status": "no_model_answer",
+                             "evidence": [], "reason": f"batch {number} rejected: {exc}"}
+                            for item in batch)
+            print(f"  batch {number}/{len(batches)}: rejected ({exc})", file=sys.stderr)
+        else:
+            findings.extend(part["findings"])
+            print(f"  batch {number}/{len(batches)}: {len(part['findings'])} findings",
+                  file=sys.stderr)
+        # Checkpoint. A local run costs an hour, and a crash at batch twenty
+        # should not cost the nineteen that answered.
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(json.dumps(
+            {"kind": "non-authoritative-apr-specification-semantic-review",
+             "warning": "Partial: this run has not finished.",
+             "report": {"rubric_version": rubric_version, "findings": findings}},
+            indent=2) + "\n", encoding="utf-8")
     report = {"rubric_version": rubric_version, "findings": findings}
     output = {
         "kind": "non-authoritative-apr-specification-semantic-review",
