@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import subprocess
 import re
 import sys
 
@@ -133,6 +134,32 @@ def main() -> int:
     surface = sorted(rule for rule in all_rules if rule not in gated)
     lines.append(f"  rules: {len(all_rules)} stated, {len(gated)} gated, "
                  f"{len(surface)} carrying no executable gate")
+
+    # 5. Gap drift: a recorded gap that is no longer a gap is prose describing a
+    # project that has moved on, and it is how a registry stops being read.
+    evidence = json.loads(subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "check-rule-evidence.py"), "--json"],
+        capture_output=True, text=True, check=False).stdout or "{}")
+    complete = {rule for rule, legs in (evidence.get("matrix") or {}).items()
+                if legs["enforced"] and legs["satisfied"] and legs["violated"] and legs["caught"]}
+    stale: list[str] = []
+    for requirement in registry["requirements"]:
+        if not requirement.get("gap"):
+            continue
+        # A gap is stale once every rule it describes is fully evidenced, not
+        # merely reached: a gap saying the evidence stops at satisfied is still
+        # true while the violation goes uncaught. `gapRules` narrows a gap to the
+        # rules it still describes, for an entry whose other rules have closed.
+        described = requirement.get("gapRules") or requirement.get("rules", [])
+        covered = [rule for rule in described if rule in complete]
+        if covered and len(covered) == len(described):
+            stale.append(f"{requirement['id']} ({', '.join(covered)})")
+    for entry in stale:
+        problems.append(
+            f"{entry}: every rule its gap describes is now fully evidenced. Delete the gap, "
+            f"or narrow it with `gapRules` naming the rules it still describes.")
+    lines.append(f"  recorded gaps: {sum(1 for r in registry['requirements'] if r.get('gap'))} held, "
+                 f"{len(stale)} describing rules now fully evidenced")
 
     if "--review-surface" in sys.argv:
         print(json.dumps({

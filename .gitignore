@@ -94,3 +94,7 @@ logs/
 
 # Claude Code scheduler state
 .claude/scheduled_tasks.lock
+
+# Local review evidence: reproducible from the pinned model and rubric,
+# and specific to one machine and one specification digest.
+artifacts/spec-semantic-review.json

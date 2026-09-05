@@ -28,6 +28,25 @@ reports the absence as a defect in a document — but a gate that cannot run has
 not passed, so check that the environment is the one you think it is before
 trusting a green run.
 
+The specification has a completeness review with a deterministic half and a
+judgement half. `scripts/check-spec-completeness.py` is the deterministic half and
+runs in CI: every concept the registry cites resolves to a substantive section,
+every schema member has a normative sentence, every profile has a checklist, and
+no recorded gap still describes a rule that is now fully evidenced. The judgement
+half is opt-in, local, and never a gate:
+
+```bash
+python3 scripts/build-review-rubric.py --write     # one item per ungated rule
+python3 scripts/run-spec-semantic-review.py --dry-run
+python3 scripts/run-spec-semantic-review.py --model-path ~/models/Qwen3-8B-4bit-mlx
+```
+
+The rubric carries each rule's own section as its excerpt and is asked in bounded
+batches, so the reviewer sees one rule's text rather than three thousand lines.
+The model never ratifies the specification; its output is review leads for a
+person, and it is written to a gitignored artifact because it is specific to one
+machine and one specification digest.
+
 For a focused .NET suite while another local build or test may be running, use
 the output-isolated launcher instead of directing two `dotnet test` commands at
 the checkout's shared `obj/` folders:

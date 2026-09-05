@@ -204,8 +204,19 @@ jobs:
 
       - name: Verify the specification covers its inventories
         # Every concept the registry names, every member the schema declares, and
-        # every conformance profile must be accounted for in the prose.
+        # every conformance profile must be accounted for in the prose. Also that
+        # no recorded gap still explains why a rule has no evidence after the
+        # evidence arrived: a registry describing a project that has moved on is
+        # how a registry stops being read.
         run: python3 scripts/check-spec-completeness.py
+
+      - name: Verify the review rubric is current
+        # The opt-in local review is never a gate, but the rubric it asks is
+        # derived from the specification and goes stale silently. Regenerating it
+        # must be a no-op.
+        run: |
+          python3 scripts/build-review-rubric.py --write
+          git diff --exit-code tests/spec-semantic/completeness-rubric.json
 
       - name: Verify the schema agrees with the specification
         # The specification is normative and the schema is a derived projection of

@@ -684,6 +684,9 @@
       "strength": "external",
       "gates": [],
       "gap": "APR-EXPR-012 pins the language itself. A case can show the standard library working, but no simulated wrong evaluator fails it, because any CEL implementation satisfies it by existing. Its evidence stops at satisfied and violated; the pin is held by naming a release, not by a vector.",
+      "gapRules": [
+        "APR-EXPR-012"
+      ],
       "rules": [
         "APR-EXPR-012",
         "APR-EXPR-013"
@@ -807,7 +810,6 @@
           "ref": "schema.gate"
         }
       ],
-      "gap": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text.",
       "rules": [
         "APR-MODEL-018",
         "APR-MODEL-019",
@@ -1070,7 +1072,6 @@
           "ref": "Check_ReportsTypeErrorsAtAuthoringTime"
         }
       ],
-      "gap": "Preservation by a core-only reader has no dedicated vector.",
       "rules": [
         "APR-CONF-003"
       ]
@@ -1152,7 +1153,10 @@
         "APR-ATTEST-008",
         "APR-ATTEST-014"
       ],
-      "gap": "APR-ATTEST-014, that a claimed signing time is shown as claimed rather than proven, is about how a reader labels a value. The corpus carries a CMS proof with a signing time, and nothing distinguishes an implementation that presents it honestly from one that presents it as trusted time."
+      "gap": "APR-ATTEST-014, that a claimed signing time is shown as claimed rather than proven, is about how a reader labels a value. The corpus carries a CMS proof with a signing time, and nothing distinguishes an implementation that presents it honestly from one that presents it as trusted time.",
+      "gapRules": [
+        "APR-ATTEST-014"
+      ]
     },
     {
       "id": "REQ-renderer-obligations",
@@ -1236,7 +1240,6 @@
           "ref": "RealFile_ResponsesAreAlwaysStrings"
         }
       ],
-      "gap": "No beta.6 malformed fixture carries a non-string response.",
       "rules": [
         "APR-MODEL-001",
         "APR-MODEL-049"
@@ -1422,7 +1425,6 @@
           "ref": "schema.gate"
         }
       ],
-      "gap": "No beta.6 corpus fixture carries a table, ragged or otherwise.",
       "rules": [
         "APR-MODEL-014"
       ]

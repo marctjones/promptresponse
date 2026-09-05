@@ -352,11 +352,6 @@
                 "id": "apr-conf-003_smt",
                 "name": "statement",
                 "prose": "A core-only implementation **MUST NOT** reject a document that uses expressions and **MUST** preserve the expression strings when writing it back. A host rendering the document presents those prompts as ordinary editable fields: a computed field simply becomes a field the user can type into — degraded, but never broken, and never lost."
-              },
-              {
-                "id": "apr-conf-003_gap",
-                "name": "assessment-gap",
-                "prose": "Preservation by a core-only reader has no dedicated vector."
               }
             ]
           },
@@ -499,11 +494,6 @@
                 "id": "apr-model-001_smt",
                 "name": "statement",
                 "prose": "A `prompt.response` **MUST** be a JSON string, and a response given as a JSON number or boolean **MUST** be rejected at parse time."
-              },
-              {
-                "id": "apr-model-001_gap",
-                "name": "assessment-gap",
-                "prose": "No beta.6 malformed fixture carries a non-string response."
               }
             ]
           },
@@ -682,11 +672,6 @@
                 "id": "apr-model-049_smt",
                 "name": "statement",
                 "prose": "It **MUST NOT** be coerced to `\"42\"` or `\"true\"`. Rejecting and coercing are different failures: one refuses the document, the other accepts it having invented data."
-              },
-              {
-                "id": "apr-model-049_gap",
-                "name": "assessment-gap",
-                "prose": "No beta.6 malformed fixture carries a non-string response."
               }
             ]
           },
@@ -1902,11 +1887,6 @@
                 "id": "apr-model-014_smt",
                 "name": "statement",
                 "prose": "Instances **SHOULD** agree in prompt count and in the label at each position. When they disagree the document is still **valid**; a validator reports `TABLE_RAGGED` or `TABLE_LABEL_MISMATCH` and a renderer presents what is there."
-              },
-              {
-                "id": "apr-model-014_gap",
-                "name": "assessment-gap",
-                "prose": "No beta.6 corpus fixture carries a table, ragged or otherwise."
               }
             ]
           },
@@ -2090,11 +2070,6 @@
                 "id": "apr-model-018_smt",
                 "name": "statement",
                 "prose": "**This registry is open.** An unrecognized value **MUST** degrade to a plain text field. It **MUST NOT** cause an error — that is what lets the registry grow without breaking every existing reader."
-              },
-              {
-                "id": "apr-model-018_gap",
-                "name": "assessment-gap",
-                "prose": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text."
               }
             ]
           },
@@ -2137,11 +2112,6 @@
                 "id": "apr-model-019_smt",
                 "name": "statement",
                 "prose": "A response outside them is **still valid**, exactly as for `suggestedValues`. A slider that stops at 100 does not make `120` a wrong answer, and a validator **MUST NOT** reject one. Bounds shape the affordance offered to someone who wants it; they never shrink what a person is allowed to say."
-              },
-              {
-                "id": "apr-model-019_gap",
-                "name": "assessment-gap",
-                "prose": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text."
               }
             ]
           },
@@ -2624,11 +2594,6 @@
                 "id": "apr-model-030_smt",
                 "name": "statement",
                 "prose": "**There is no `signature` type and no `file` type.** A signature is not a response: evidence that a person stood behind a form is an attestation record travelling beside it in the stream ([Attestations](#attestations)), never a drawn image or a typed name in a field. An attachment is not a response either: a form carries what a person typed, and the format defines no representation for bytes that were not typed. A reader encountering either name treats it as any other unregistered value and degrades it to text."
-              },
-              {
-                "id": "apr-model-030_gap",
-                "name": "assessment-gap",
-                "prose": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text."
               }
             ]
           },
@@ -3037,11 +3002,6 @@
                 "id": "apr-model-039_smt",
                 "name": "statement",
                 "prose": "**A hint a reader cannot use is not an error.** A hint that is unrecognised, unsupported, or malformed — an unparseable `validationPattern`, a bound of the wrong type, an expression that will not compile — **MUST** be preserved and **MAY** be reported as a warning; it **MUST NOT** make the document invalid. Hints are applied in the order the member table lists them, and where two hints on one prompt conflict, the earlier one stands and the later one is skipped and **MAY** be reported."
-              },
-              {
-                "id": "apr-model-039_gap",
-                "name": "assessment-gap",
-                "prose": "No beta.6 fixture exercises an unregistered expectedDataType degrading to text."
               }
             ]
           },
