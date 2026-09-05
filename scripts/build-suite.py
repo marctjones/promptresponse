@@ -113,6 +113,10 @@ def build() -> dict:
             case["diagnostic"] = expected["diagnostic"]
         if expected.get("warns"):
             case["warns"] = expected["warns"]
+        if expected.get("roundTrip"):
+            case["roundTrip"] = True
+            if expected.get("preserves"):
+                case["preserves"] = expected["preserves"]
         cases.append(case)
 
     return {
@@ -131,6 +135,13 @@ def build() -> dict:
                       "that is the code it must report.",
             "equivalent": "The document has the same semantic model, and therefore the "
                           "same digest, as the case named in `equivalentTo`.",
+        },
+        "roundTrip": {
+            "$comment": "A case marked roundTrip asks the implementation to write the "
+                        "document back out and return it as `written`. The result must "
+                        "carry the same semantic model, and every pointer in `preserves` "
+                        "must still resolve to the same value. Preservation is what makes "
+                        "additive change safe, and a read-only suite cannot test it.",
         },
         "cases": cases,
     }

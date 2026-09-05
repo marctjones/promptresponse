@@ -1,0 +1,26 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "a",
+          "label": "A",
+          "response": "2"
+        },
+        {
+          "id": "total",
+          "label": "Total",
+          "hints": {
+            "exprValue": "string(a)"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -4,7 +4,8 @@
 Three questions were being answered by three different scripts and never joined
 up, so nothing could say whether any single rule was actually covered:
 
-* does the file validator **enforce** the rule?
+* is the rule **enforced** — by a check in the file validator, or, for a rule about
+  what a writer preserves, by a round-trip case in the harness?
 * does a conformance case demonstrate a document that **satisfies** it?
 * does a conformance case demonstrate a document that **violates** it, and is
   that violation actually **caught**?
@@ -51,6 +52,10 @@ _spec = importlib.util.spec_from_file_location("validate_apr", HERE / "validate-
 validate_apr = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(validate_apr)
 
+_run = importlib.util.spec_from_file_location("run_conformance", HERE / "run-conformance.py")
+run_conformance = importlib.util.module_from_spec(_run)
+_run.loader.exec_module(run_conformance)
+
 CATALOG = ROOT / "docs" / "release" / "apr-oscal-catalog.json"
 SUITE = ROOT / "tests" / "Conformance" / "beta6" / "suite.json"
 BASELINE = ROOT / "tests" / "Conformance" / "beta6" / "rule-evidence.json"
@@ -76,6 +81,42 @@ def evaluate(case, members) -> tuple[str, set[str], str | None, dict]:
     return ("reject" if report.errors else "valid"), cited, None, warned
 
 
+def lossy(document: str, representation: str, pointers: list[str]) -> str | None:
+    """The same document as a careless writer would emit it.
+
+    Drops every unknown member and every pointer the case says must survive, then
+    re-serializes. A round-trip case that this still passes is testing nothing:
+    the rule is about what a writer keeps, so the vector has to notice losing it.
+    """
+    try:
+        records = aprlib.read_records(document, representation)
+    except Exception:  # noqa: BLE001
+        return None
+
+    def strip(node):
+        if isinstance(node, dict):
+            return {k: strip(v) for k, v in node.items() if "." not in k}
+        if isinstance(node, list):
+            return [strip(v) for v in node]
+        if isinstance(node, str):
+            return node.strip()  # the normalization the format forbids
+        return node
+
+    # A core-only reader that discards what it cannot interpret is the other way a
+    # writer loses data, and dropping a record is the loudest version of it.
+    damaged = [strip(r) for r in records
+               if not (len(records) > 1 and isinstance(r, dict) and "recordType" in r)]
+    for pointer in pointers:
+        for record in damaged:
+            parent = aprlib.resolve_pointer(record, pointer.rsplit("/", 1)[0] or "")
+            leaf = pointer.rsplit("/", 1)[-1]
+            if isinstance(parent, dict):
+                parent.pop(leaf, None)
+    return "".join((aprlib.RS if len(damaged) > 1 else "")
+                   + json.dumps(record, indent=2, ensure_ascii=False) + "\n"
+                   for record in damaged)
+
+
 def main() -> int:
     catalog = json.loads(CATALOG.read_text(encoding="utf-8"))["catalog"]
     rules = [c["props"][0]["value"] for g in catalog["groups"] for c in g["controls"]]
@@ -97,6 +138,27 @@ def main() -> int:
                 problems.append(f"{case['id']} cites {rule}, which the catalogue does not contain")
         if not cited:
             continue
+        if case.get("roundTrip"):
+            # A preservation rule has no violating document: the violation is by the
+            # writer. So the case itself is the negative test, and it only counts if
+            # a careless writer actually fails it.
+            for rule in cited:
+                satisfied[rule] = satisfied.get(rule, 0) + 1
+                violated[rule] = violated.get(rule, 0) + 1
+            representation = ("yaml" if case["representation"].startswith("yaml")
+                              else "jsonc")
+            damaged = lossy(case["document"], representation,
+                            case.get("preserves") or [])
+            passes, _ = run_conformance.round_trip_ok(case, {"written": damaged or ""})
+            if passes:
+                problems.append(
+                    f"{case['id']} is a round-trip case that a writer dropping unknown "
+                    f"members and trimming responses still passes, so it tests nothing")
+            else:
+                for rule in cited:
+                    caught[rule] = "roundtrip"
+            continue
+
         if case["expect"] == "valid" and not case.get("warns"):
             for rule in cited:
                 satisfied[rule] = satisfied.get(rule, 0) + 1
@@ -148,6 +210,10 @@ def main() -> int:
                     f"cites it and the parser raised {diagnostic!r} where the case "
                     f"declares {case.get('diagnostic')!r}")
 
+    # A preservation rule is not something a file validator can check: no single
+    # document is wrong. The harness enforces it by asking for the document back.
+    enforced = enforced | {r for case in suite["cases"] if case.get("roundTrip")
+                           for r in (case.get("rules") or [])}
     counts = {
         "enforced": sum(1 for r in rules if r in enforced),
         "satisfied": sum(1 for r in rules if satisfied[r]),
@@ -190,7 +256,7 @@ def main() -> int:
               f"{caught.get(rule) or '-':>6}")
 
     print(f"\nof {len(rules)} rules in the catalogue:")
-    print(f"  enforced by the validator        {counts['enforced']:>4}")
+    print(f"  enforced by a check or a round trip{counts['enforced']:>4}")
     print(f"  shown satisfied by a case        {counts['satisfied']:>4}")
     print(f"  shown violated by a case         {counts['violated']:>4}")
     print(f"  and that violation is caught     {counts['caught']:>4}")

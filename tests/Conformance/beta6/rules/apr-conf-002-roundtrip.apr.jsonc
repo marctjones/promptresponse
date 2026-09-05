@@ -1,0 +1,40 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "p",
+          "label": "P"
+        }
+      ]
+    }
+  ]
+}
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:abababababababababababababababababababababababababababababababab",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:abababababababababababababababababababababababababababababababab",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}

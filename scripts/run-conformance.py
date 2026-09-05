@@ -43,6 +43,13 @@ fails, because an advisory rule is only tested if the advisory can be required.
 Reporting more than the suite names is a discrepancy, not a failure: an
 implementation may legitimately warn about more.
 
+`written` is the document as you would serialize it after reading, required by any
+case marked `roundTrip`. The harness reads it back and checks it is the same
+document, and that every pointer in `preserves` survived. This is the only part of
+the contract that tests writing, and preservation is what makes additive change
+safe: a reader that quietly drops an unknown member accepts every document it is
+ever given.
+
 `digest` is the `jcs-sha256` semantic digest, and reporting it is how a case
 proves more than acceptance. Most valid cases state the digest the document must
 produce; if you report one and it differs, the case fails even though you
@@ -64,6 +71,9 @@ import shlex
 import subprocess
 import sys
 import uuid
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import aprlib  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SUITE = ROOT / "tests" / "Conformance" / "beta6" / "suite.json"
@@ -87,6 +97,42 @@ def rules_for_anchor() -> dict[str, list[str]]:
         if anchor:
             out.setdefault(anchor, []).extend(requirement.get("rules", []))
     return out
+
+
+def round_trip_ok(case: dict, result: dict) -> tuple[bool, str]:
+    """Did writing the document back out keep it the same document?
+
+    A reader that drops an unknown member, normalizes a response or renames an id
+    accepts every document it is given. The only way to see it is to ask it to
+    write, and then read what it wrote.
+    """
+    written = result.get("written")
+    if not written:
+        return False, "did not return the document it would write"
+    representation = "yaml" if case["representation"].startswith("yaml") else "jsonc"
+    try:
+        records = aprlib.read_records(written, representation)
+    except Exception as exc:  # noqa: BLE001
+        return False, f"wrote something that will not read back: {exc}"
+    if not records:
+        return False, "wrote nothing"
+    original = aprlib.read_records(case["document"], representation)
+    if len(records) != len(original):
+        return False, (f"wrote {len(records)} record(s) where it read "
+                       f"{len(original)}: a stream keeps every record")
+    for index, (before, after) in enumerate(zip(original, records)):
+        if aprlib.digest(before) != aprlib.digest(after):
+            return False, (f"record {index} came back as a different document: "
+                           f"{aprlib.digest(after)} where the input was "
+                           f"{aprlib.digest(before)}")
+    for pointer in case.get("preserves") or []:
+        before = aprlib.resolve_pointer(original[0], pointer)
+        after = aprlib.resolve_pointer(records[0], pointer)
+        if after is aprlib.MISSING:
+            return False, f"dropped {pointer}, which must survive a round trip"
+        if after != before:
+            return False, f"changed {pointer} from {before!r} to {after!r}"
+    return True, ""
 
 
 def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
@@ -143,6 +189,11 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
                     row["discrepancy"] = (f"also warned {', '.join(extra)}, which the "
                                           f"suite does not name")
                     tally["discrepancy"] += 1
+
+        if ok and case.get("roundTrip"):
+            ok, detail = round_trip_ok(case, result)
+            if not ok:
+                row["detail"] = detail
 
         row["status"] = "pass" if ok else "fail"
         tally["pass" if ok else "fail"] += 1

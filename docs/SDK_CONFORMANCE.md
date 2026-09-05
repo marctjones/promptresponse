@@ -76,6 +76,12 @@ and `document`, the source text. Stream cases carry real record separators.
   advisory rule is only tested if the advisory can be required, and a document that
   is valid either way cannot tell a reader that says the right thing from one that
   stays silent. Reporting more than the suite names is a discrepancy, not a failure.
+- `written` is the document as you would serialize it after reading, required by any
+  case marked `roundTrip`. The harness reads it back and checks it is the same
+  document, and that every pointer in `preserves` survived. This is the only part of
+  the contract that tests writing, and preservation is what makes additive change
+  safe: a reader that quietly drops an unknown member accepts every document it is
+  ever given.
 - A case a driver omits is reported as unanswered, never as failed.
 
 **What this cannot check** is whether a profile you claim is a profile you

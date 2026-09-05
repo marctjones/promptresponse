@@ -8,6 +8,9 @@
     "reject": "The reader refuses the document. Where `diagnostic` is given, that is the code it must report.",
     "equivalent": "The document has the same semantic model, and therefore the same digest, as the case named in `equivalentTo`."
   },
+  "roundTrip": {
+    "$comment": "A case marked roundTrip asks the implementation to write the document back out and return it as `written`. The result must carry the same semantic model, and every pointer in `preserves` must still resolve to the same value. Preservation is what makes additive change safe, and a read-only suite cannot test it."
+  },
   "cases": [
     {
       "id": "spec:extension-member-prefixed",
@@ -669,6 +672,35 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "corpus:rules/apr-conf-002-roundtrip.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-CONF-002"
+      ],
+      "representation": "jsonc-stream",
+      "expect": "valid",
+      "document": "\u001e{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n\u001e{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "roundTrip": true
+    },
+    {
+      "id": "corpus:rules/apr-conf-003-roundtrip.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-CONF-003"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\",\n          \"response\": \"2\"\n        },\n        {\n          \"id\": \"total\",\n          \"label\": \"Total\",\n          \"hints\": {\n            \"exprValue\": \"string(a)\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/1/hints/exprValue"
+      ]
+    },
+    {
       "id": "corpus:rules/apr-digest-001-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",
@@ -692,6 +724,22 @@
       "expect": "reject",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/apr-digest-002-roundtrip.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-DIGEST-002"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"com.example.priority\": 2\n        }\n      ]\n    }\n  ]\n}\n",
+      "roundTrip": true,
+      "preserves": [
+        "/metadata/com.example.routing"
+      ]
     },
     {
       "id": "corpus:rules/apr-digest-003-satisfies.apr.jsonc",
@@ -1028,6 +1076,23 @@
       ]
     },
     {
+      "id": "corpus:rules/apr-model-021-roundtrip.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-021"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"com.example.priority\": 2\n        }\n      ]\n    }\n  ]\n}\n",
+      "roundTrip": true,
+      "preserves": [
+        "/metadata/com.example.routing",
+        "/sections/0/prompts/0/com.example.priority"
+      ]
+    },
+    {
       "id": "corpus:rules/apr-model-026-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",
@@ -1217,6 +1282,23 @@
       ]
     },
     {
+      "id": "corpus:rules/apr-model-040-roundtrip.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-040"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        {\n          \"id\": \"full_name\",\n          \"label\": \"Full name\",\n          \"response\": \"Ada\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/id",
+        "/sections/0/prompts/0/id"
+      ]
+    },
+    {
       "id": "corpus:rules/apr-model-043-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",
@@ -1240,6 +1322,22 @@
       "expect": "reject",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"regarding\": [\n      \"sha256:NOTHEX\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/apr-rep-001-roundtrip.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-001"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "// a comment carries no meaning\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n  ,\n}\n",
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/0/label"
+      ]
     },
     {
       "id": "corpus:rules/apr-rep-005-satisfies.apr.jsonc",
@@ -1351,6 +1449,22 @@
       "expect": "reject",
       "document": "{\n  \"aprVersion\": \"1.0-beta.3\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "UNSUPPORTED_VERSION"
+    },
+    {
+      "id": "corpus:rules/apr-text-001-roundtrip.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-TEXT-001"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"  Ada‍ Lovelace  \"\n        }\n      ]\n    }\n  ]\n}\n",
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/0/response"
+      ]
     },
     {
       "id": "corpus:rules/apr-val-002-satisfies.apr.jsonc",

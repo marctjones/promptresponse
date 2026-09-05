@@ -1,0 +1,19 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "applicant",
+      "title": "Applicant",
+      "prompts": [
+        {
+          "id": "full_name",
+          "label": "Full name",
+          "response": "Ada"
+        }
+      ]
+    }
+  ]
+}

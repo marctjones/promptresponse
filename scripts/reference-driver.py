@@ -57,9 +57,17 @@ def answer(case, members):
         return {"id": case["id"], "outcome": "reject",
                 "diagnostic": next(f["code"] for f in report.findings
                                    if f["severity"] == "error")}
-    return {"id": case["id"], "outcome": "valid", "digest": aprlib.digest(records[0]),
-            "warnings": sorted({f["code"] for f in report.findings
-                                if f["severity"] == "warning"})}
+    answer = {"id": case["id"], "outcome": "valid", "digest": aprlib.digest(records[0]),
+              "warnings": sorted({f["code"] for f in report.findings
+                                  if f["severity"] == "warning"})}
+    if case.get("roundTrip"):
+        # Writing is serializing the semantic model. Nothing is filtered on the way
+        # out, which is the whole of what preservation asks for.
+        answer["written"] = "".join(
+            (aprlib.RS if len(records) > 1 else "")
+            + json.dumps(record, indent=2, ensure_ascii=False) + "\n"
+            for record in records)
+    return answer
 
 
 def main() -> int:

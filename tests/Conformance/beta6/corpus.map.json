@@ -817,6 +817,82 @@
       "warns": [
         "UNPREFIXED_MEMBER"
       ]
+    },
+    "rules/apr-text-001-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-TEXT-001"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/0/response"
+      ]
+    },
+    "rules/apr-model-021-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-021"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/metadata/com.example.routing",
+        "/sections/0/prompts/0/com.example.priority"
+      ]
+    },
+    "rules/apr-digest-002-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-DIGEST-002"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/metadata/com.example.routing"
+      ]
+    },
+    "rules/apr-model-040-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-040"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/id",
+        "/sections/0/prompts/0/id"
+      ]
+    },
+    "rules/apr-conf-003-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-CONF-003"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/1/hints/exprValue"
+      ]
+    },
+    "rules/apr-conf-002-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-CONF-002"
+      ],
+      "anchors": [],
+      "roundTrip": true
+    },
+    "rules/apr-rep-001-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-001"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/0/label"
+      ]
     }
   }
 }
