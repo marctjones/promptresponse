@@ -1,0 +1,30 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "qty",
+          "label": "Qty",
+          "response": "about twelve",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "cost",
+          "label": "Cost",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "qty * 2.0"
+          }
+        }
+      ]
+    }
+  ]
+}

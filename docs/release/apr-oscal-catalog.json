@@ -1468,7 +1468,7 @@
               {
                 "id": "apr-expr-012_gap",
                 "name": "assessment-gap",
-                "prose": "Language conformance is the cel-spec v0.25.3 conformance suite, which this project does not maintain. No vector yet asserts that a function outside the pinned surface fails to the per-hint fallback."
+                "prose": "APR-EXPR-012 pins the language itself. A case can show the standard library working, but no simulated wrong evaluator fails it, because any CEL implementation satisfies it by existing. Its evidence stops at satisfied and violated; the pin is held by naming a release, not by a vector."
               }
             ]
           },
@@ -1510,7 +1510,7 @@
               {
                 "id": "apr-expr-013_gap",
                 "name": "assessment-gap",
-                "prose": "Language conformance is the cel-spec v0.25.3 conformance suite, which this project does not maintain. No vector yet asserts that a function outside the pinned surface fails to the per-hint fallback."
+                "prose": "APR-EXPR-012 pins the language itself. A case can show the standard library working, but no simulated wrong evaluator fails it, because any CEL implementation satisfies it by existing. Its evidence stops at satisfied and violated; the pin is held by naming a release, not by a vector."
               }
             ]
           },

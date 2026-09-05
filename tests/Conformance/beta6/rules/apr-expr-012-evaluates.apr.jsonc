@@ -1,0 +1,45 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "a",
+          "label": "A",
+          "response": "7",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "big",
+          "label": "Big",
+          "hints": {
+            "exprValidation": "a > 5.0 ? 'over five' : ''"
+          }
+        },
+        {
+          "id": "n",
+          "label": "N",
+          "response": "Ada",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "len",
+          "label": "Len",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "double(size(n))"
+          }
+        }
+      ]
+    }
+  ]
+}

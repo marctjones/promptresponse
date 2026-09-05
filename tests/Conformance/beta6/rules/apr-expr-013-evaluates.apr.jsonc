@@ -1,0 +1,46 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "n",
+          "label": "N",
+          "response": "  Ada Lovelace  ",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "trimmed",
+          "label": "T",
+          "hints": {
+            "expectedDataType": "text",
+            "exprValue": "n.trim()"
+          }
+        },
+        {
+          "id": "first",
+          "label": "F",
+          "hints": {
+            "expectedDataType": "text",
+            "exprValue": "n.trim().split(' ')[0]"
+          }
+        },
+        {
+          "id": "outside",
+          "label": "O",
+          "hints": {
+            "expectedDataType": "text",
+            "exprValue": "math.greatest(1.0, 2.0)"
+          }
+        }
+      ]
+    }
+  ]
+}

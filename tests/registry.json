@@ -633,7 +633,7 @@
       "statement": "Expressions are CEL as cel-spec v0.25.3 defines it, with the standard library, standard macros and the cel-go v0.32.0 strings extension, and nothing else",
       "strength": "external",
       "gates": [],
-      "gap": "Language conformance is the cel-spec v0.25.3 conformance suite, which this project does not maintain. No vector yet asserts that a function outside the pinned surface fails to the per-hint fallback.",
+      "gap": "APR-EXPR-012 pins the language itself. A case can show the standard library working, but no simulated wrong evaluator fails it, because any CEL implementation satisfies it by existing. Its evidence stops at satisfied and violated; the pin is held by naming a release, not by a vector.",
       "rules": [
         "APR-EXPR-012",
         "APR-EXPR-013"

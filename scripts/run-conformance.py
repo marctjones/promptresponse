@@ -43,6 +43,14 @@ fails, because an advisory rule is only tested if the advisory can be required.
 Reporting more than the suite names is a discrepancy, not a failure: an
 implementation may legitimately warn about more.
 
+`evaluated` is what evaluating the expression hints produced, required by any case
+carrying `expects`. Report it as
+`{"responses": {...}, "hidden": {...}, "expected": {...}, "readOnly": {...},
+"validation": {...}}`, keyed by prompt id. The case supplies `_now`, `_today` and
+`ctx` under `evaluate`; take them from there and never from the host clock, which
+is what makes the same form evaluate the same way twice. Only what a case names is
+checked.
+
 `written` is the document as you would serialize it after reading, required by any
 case marked `roundTrip`. The harness reads it back and checks it is the same
 document, and that every pointer in `preserves` survived. This is the only part of
@@ -102,6 +110,26 @@ def rules_for_anchor() -> dict[str, list[str]]:
         if anchor:
             out.setdefault(anchor, []).extend(requirement.get("rules", []))
     return out
+
+
+def evaluation_ok(case: dict, result: dict) -> tuple[bool, str]:
+    """Did evaluating the expressions produce what the specification requires?
+
+    Only what the case names is checked, so a case can assert one computed value
+    without stating every hint's result.
+    """
+    produced = result.get("evaluated")
+    if not isinstance(produced, dict):
+        return False, "did not report what evaluating the expressions produced"
+    for group, wanted in case["expects"].items():
+        got = produced.get(group) or {}
+        for identifier, value in wanted.items():
+            if identifier not in got:
+                return False, f"reported no {group} for {identifier!r}"
+            if got[identifier] != value:
+                return False, (f"{group} for {identifier!r} came back "
+                               f"{got[identifier]!r}, not {value!r}")
+    return True, ""
 
 
 def round_trip_ok(case: dict, result: dict) -> tuple[bool, str]:
@@ -205,6 +233,11 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
                     row["discrepancy"] = (f"also warned {', '.join(extra)}, which the "
                                           f"suite does not name")
                     tally["discrepancy"] += 1
+
+        if ok and case.get("expects"):
+            ok, detail = evaluation_ok(case, result)
+            if not ok:
+                row["detail"] = detail
 
         if ok and case.get("roundTrip"):
             ok, detail = round_trip_ok(case, result)

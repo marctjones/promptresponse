@@ -5,7 +5,8 @@ Three questions were being answered by three different scripts and never joined
 up, so nothing could say whether any single rule was actually covered:
 
 * is the rule **enforced** — by a check in the file validator, or, for a rule about
-  what a writer preserves, by a round-trip case in the harness?
+  what a writer preserves or what an evaluator computes, by a round-trip or
+  evaluation case in the harness?
 * does a conformance case demonstrate a document that **satisfies** it?
 * does a conformance case demonstrate a document that **violates** it, and is
   that violation actually **caught**?
@@ -39,6 +40,7 @@ case's own citation, so it is weaker, and the matrix marks it `parse`.
 """
 from __future__ import annotations
 
+import datetime
 import importlib.util
 import json
 import pathlib
@@ -48,6 +50,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
 import aprlib  # noqa: E402
+import aprexpr  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location("validate_apr", HERE / "validate-apr.py")
 validate_apr = importlib.util.module_from_spec(_spec)
@@ -84,6 +87,60 @@ def evaluate(case, members) -> tuple[str, set[str], str | None, dict]:
     cited = {r for f in report.findings if f["severity"] == "error" for r in f["rules"]}
     warned = {f["code"]: f["rules"] for f in report.findings if f["severity"] == "warning"}
     return ("reject" if report.errors else "valid"), cited, None, warned
+
+
+def naive_evaluation(document: str, representation: str, inputs: dict) -> dict:
+    """What a plausibly wrong evaluator produces.
+
+    Six mistakes the specification names and forbids, made on purpose: default an
+    unbound response instead of leaving it unbound, overwrite every computed prompt
+    including a person's correction, evaluate in document order rather than by
+    reference, read the host clock rather than the caller's, let a prompt shadow a
+    reserved name, and get the language surface wrong in both directions — no
+    strings extension, and a math extension that should not be there. A case that
+    this still satisfies is testing nothing about correct evaluation.
+    """
+    try:
+        records = aprlib.read_records(document, representation)
+    except Exception:  # noqa: BLE001
+        return {}
+    form = records[0]
+    original_bind, original_order = aprexpr.bind, aprexpr.order
+    original_reserved, original_strings = aprexpr.RESERVED, aprexpr.strings_extension
+    original_compose = aprexpr.compose
+
+    def defaulting(response, declared):
+        try:
+            return original_bind(response, declared)
+        except aprexpr.Unbound:
+            kind = aprexpr.CEL_TYPE.get(declared or "", "string")
+            from celpy import celtypes
+            return {"double": celtypes.DoubleType(0.0),
+                    "bool": celtypes.BoolType(False)}.get(kind, celtypes.StringType(""))
+
+    stripped = json.loads(json.dumps(form))
+    for prompt, _ in aprexpr.prompts_of(stripped):
+        prompt.pop("responseMetadata", None)  # every computed value is overwritten
+        if isinstance((prompt.get("hints") or {}).get("exprValue"), str):
+            prompt.pop("response", None)
+    try:
+        from celpy import celtypes
+        aprexpr.bind, aprexpr.order = defaulting, (lambda computed: computed)
+        # A prompt named ctx now shadows the host context, by applying direct
+        # bindings last instead of first.
+        aprexpr.RESERVED = ()
+        aprexpr.compose = lambda bound, ambient: {**ambient, **bound}
+        aprexpr.strings_extension = lambda: {
+            "greatest": lambda *a: celtypes.DoubleType(max(float(x) for x in a))}
+        return aprexpr.evaluate(stripped, now=inputs.get("now"),
+                                today=datetime.date.today().isoformat(),
+                                ctx=inputs.get("ctx"))
+    except Exception:  # noqa: BLE001
+        return {}
+    finally:
+        aprexpr.bind, aprexpr.order = original_bind, original_order
+        aprexpr.RESERVED, aprexpr.strings_extension = original_reserved, original_strings
+        aprexpr.compose = original_compose
 
 
 def lossy(document: str, representation: str, pointers: list[str]) -> str | None:
@@ -143,6 +200,33 @@ def main() -> int:
                 problems.append(f"{case['id']} cites {rule}, which the catalogue does not contain")
         if not cited:
             continue
+        if case.get("expects"):
+            # An evaluation rule has no violating document either: the violation is
+            # by the evaluator. The case is the negative test, and counts only if a
+            # plausibly wrong evaluator fails it.
+            for rule in cited:
+                satisfied[rule] = satisfied.get(rule, 0) + 1
+                violated[rule] = violated.get(rule, 0) + 1
+            representation = ("yaml" if case["representation"].startswith("yaml")
+                              else "jsonc")
+            wrong = naive_evaluation(case["document"], representation,
+                                     case.get("evaluate") or {})
+            passes, _ = run_conformance.evaluation_ok(case, {"evaluated": wrong})
+            if passes and case.get("teeth") is False:
+                # Declared as documenting the surface rather than guarding it: no
+                # simulated mistake reaches a rule that any CEL implementation
+                # satisfies by existing. Counted as violated but never as caught.
+                continue
+            if passes:
+                problems.append(
+                    f"{case['id']} is an evaluation case that an evaluator defaulting "
+                    f"unbound values, overwriting corrections, ignoring reference order "
+                    f"and reading the host clock still satisfies, so it tests nothing")
+            else:
+                for rule in cited:
+                    caught[rule] = "evaluation"
+            continue
+
         if case.get("roundTrip"):
             # A preservation rule has no violating document: the violation is by the
             # writer. So the case itself is the negative test, and it only counts if
@@ -217,7 +301,8 @@ def main() -> int:
 
     # A preservation rule is not something a file validator can check: no single
     # document is wrong. The harness enforces it by asking for the document back.
-    enforced = enforced | {r for case in suite["cases"] if case.get("roundTrip")
+    enforced = enforced | {r for case in suite["cases"]
+                           if case.get("roundTrip") or case.get("expects")
                            for r in (case.get("rules") or [])}
     counts = {
         "enforced": sum(1 for r in rules if r in enforced),

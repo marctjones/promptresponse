@@ -845,6 +845,190 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "corpus:rules/apr-expr-001-evaluates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-EXPR-001"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\",\n          \"response\": \"2\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"b\",\n          \"label\": \"B\",\n          \"response\": \"99\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"a * 2.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "expects": {
+        "responses": {
+          "b": "99"
+        }
+      }
+    },
+    {
+      "id": "corpus:rules/apr-expr-003-evaluates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-EXPR-003"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"kept\",\n          \"label\": \"Kept\",\n          \"response\": \"typed by a person\",\n          \"responseMetadata\": {\n            \"source\": \"computed\"\n          },\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"nosuch.thing()\"\n          }\n        },\n        {\n          \"id\": \"h\",\n          \"label\": \"H\",\n          \"hints\": {\n            \"exprHidden\": \"1 +\",\n            \"exprValidation\": \"2 + 2\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "expects": {
+        "responses": {
+          "kept": "typed by a person"
+        },
+        "hidden": {
+          "h": false
+        },
+        "validation": {
+          "h": ""
+        }
+      }
+    },
+    {
+      "id": "corpus:rules/apr-expr-004-evaluates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-EXPR-004"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"ctx\",\n          \"label\": \"Ctx\",\n          \"response\": \"a prompt, not the context\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        },\n        {\n          \"id\": \"org\",\n          \"label\": \"Org\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"ctx.org\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "evaluate": {
+        "ctx": {
+          "org": "Skeptical Engineering"
+        }
+      },
+      "expects": {
+        "responses": {
+          "org": "Skeptical Engineering"
+        }
+      }
+    },
+    {
+      "id": "corpus:rules/apr-expr-005-evaluates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-EXPR-005"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"d\",\n          \"label\": \"D\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"_today\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "evaluate": {
+        "today": "1970-01-01"
+      },
+      "expects": {
+        "responses": {
+          "d": "1970-01-01"
+        }
+      }
+    },
+    {
+      "id": "corpus:rules/apr-expr-006-evaluates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-EXPR-006"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"qty\",\n          \"label\": \"Qty\",\n          \"response\": \"about twelve\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"cost\",\n          \"label\": \"Cost\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"qty * 2.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "expects": {
+        "responses": {
+          "cost": ""
+        }
+      }
+    },
+    {
+      "id": "corpus:rules/apr-expr-008-evaluates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-EXPR-008"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\",\n          \"response\": \"2\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"corrected\",\n          \"label\": \"C\",\n          \"response\": \"99\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"a * 2.0\"\n          }\n        },\n        {\n          \"id\": \"recomputed\",\n          \"label\": \"R\",\n          \"response\": \"99\",\n          \"responseMetadata\": {\n            \"source\": \"computed\"\n          },\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"a * 2.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "expects": {
+        "responses": {
+          "corrected": "99",
+          "recomputed": "4"
+        }
+      }
+    },
+    {
+      "id": "corpus:rules/apr-expr-009-evaluates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-EXPR-009"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"total\",\n          \"label\": \"Total\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"subtotal + tax\"\n          }\n        },\n        {\n          \"id\": \"tax\",\n          \"label\": \"Tax\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"subtotal * 0.1\"\n          }\n        },\n        {\n          \"id\": \"subtotal\",\n          \"label\": \"Subtotal\",\n          \"response\": \"200\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "expects": {
+        "responses": {
+          "tax": "20",
+          "total": "220"
+        }
+      }
+    },
+    {
+      "id": "corpus:rules/apr-expr-012-evaluates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-EXPR-012"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\",\n          \"response\": \"7\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"big\",\n          \"label\": \"Big\",\n          \"hints\": {\n            \"exprValidation\": \"a > 5.0 ? 'over five' : ''\"\n          }\n        },\n        {\n          \"id\": \"n\",\n          \"label\": \"N\",\n          \"response\": \"Ada\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        },\n        {\n          \"id\": \"len\",\n          \"label\": \"Len\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"double(size(n))\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "teeth": false,
+      "expects": {
+        "validation": {
+          "big": "over five"
+        },
+        "responses": {
+          "len": "3"
+        }
+      }
+    },
+    {
+      "id": "corpus:rules/apr-expr-013-evaluates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-EXPR-013"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"n\",\n          \"label\": \"N\",\n          \"response\": \"  Ada Lovelace  \",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        },\n        {\n          \"id\": \"trimmed\",\n          \"label\": \"T\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"n.trim()\"\n          }\n        },\n        {\n          \"id\": \"first\",\n          \"label\": \"F\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"n.trim().split(' ')[0]\"\n          }\n        },\n        {\n          \"id\": \"outside\",\n          \"label\": \"O\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"math.greatest(1.0, 2.0)\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "expects": {
+        "responses": {
+          "trimmed": "Ada Lovelace",
+          "first": "Ada",
+          "outside": ""
+        }
+      }
+    },
+    {
       "id": "corpus:rules/apr-model-001-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",

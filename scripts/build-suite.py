@@ -130,6 +130,11 @@ def build() -> dict:
             case["diagnostic"] = expected["diagnostic"]
         if expected.get("warns"):
             case["warns"] = expected["warns"]
+        if expected.get("teeth") is False:
+            case["teeth"] = False
+        for key in ("evaluate", "expects"):
+            if expected.get(key):
+                case[key] = expected[key]
         if expected.get("roundTrip"):
             case["roundTrip"] = True
             if expected.get("preserves"):

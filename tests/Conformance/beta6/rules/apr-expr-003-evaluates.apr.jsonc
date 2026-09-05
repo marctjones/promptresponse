@@ -1,0 +1,34 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "kept",
+          "label": "Kept",
+          "response": "typed by a person",
+          "responseMetadata": {
+            "source": "computed"
+          },
+          "hints": {
+            "expectedDataType": "text",
+            "exprValue": "nosuch.thing()"
+          }
+        },
+        {
+          "id": "h",
+          "label": "H",
+          "hints": {
+            "exprHidden": "1 +",
+            "exprValidation": "2 + 2"
+          }
+        }
+      ]
+    }
+  ]
+}

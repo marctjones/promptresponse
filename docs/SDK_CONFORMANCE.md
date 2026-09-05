@@ -76,6 +76,12 @@ and `document`, the source text. Stream cases carry real record separators.
   advisory rule is only tested if the advisory can be required, and a document that
   is valid either way cannot tell a reader that says the right thing from one that
   stays silent. Reporting more than the suite names is a discrepancy, not a failure.
+- `evaluated` is what evaluating the expression hints produced, required by any case
+  carrying `expects`. Report `{"responses": {...}, "hidden": {...}, "expected": {...},
+  "readOnly": {...}, "validation": {...}}`, keyed by prompt id. The case supplies
+  `_now`, `_today` and `ctx` under `evaluate`; take them from there and never from
+  the host clock, which is what makes a form evaluate the same way twice. Only what
+  a case names is checked.
 - `written` is the document as you would serialize it after reading, required by any
   case marked `roundTrip`. The harness reads it back and checks it is the same
   document, and that every pointer in `preserves` survived. This is the only part of

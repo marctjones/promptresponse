@@ -1,0 +1,43 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "a",
+          "label": "A",
+          "response": "2",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "corrected",
+          "label": "C",
+          "response": "99",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "a * 2.0"
+          }
+        },
+        {
+          "id": "recomputed",
+          "label": "R",
+          "response": "99",
+          "responseMetadata": {
+            "source": "computed"
+          },
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "a * 2.0"
+          }
+        }
+      ]
+    }
+  ]
+}

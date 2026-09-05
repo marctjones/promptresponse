@@ -908,6 +908,136 @@
       ],
       "anchors": [],
       "diagnostic": "EMPTY_TABLE"
+    },
+    "rules/apr-expr-009-evaluates.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-EXPR-009"
+      ],
+      "anchors": [],
+      "expects": {
+        "responses": {
+          "tax": "20",
+          "total": "220"
+        }
+      }
+    },
+    "rules/apr-expr-006-evaluates.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-EXPR-006"
+      ],
+      "anchors": [],
+      "expects": {
+        "responses": {
+          "cost": ""
+        }
+      }
+    },
+    "rules/apr-expr-003-evaluates.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-EXPR-003"
+      ],
+      "anchors": [],
+      "expects": {
+        "responses": {
+          "kept": "typed by a person"
+        },
+        "hidden": {
+          "h": false
+        },
+        "validation": {
+          "h": ""
+        }
+      }
+    },
+    "rules/apr-expr-001-evaluates.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-EXPR-001"
+      ],
+      "anchors": [],
+      "expects": {
+        "responses": {
+          "b": "99"
+        }
+      }
+    },
+    "rules/apr-expr-008-evaluates.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-EXPR-008"
+      ],
+      "anchors": [],
+      "expects": {
+        "responses": {
+          "corrected": "99",
+          "recomputed": "4"
+        }
+      }
+    },
+    "rules/apr-expr-005-evaluates.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-EXPR-005"
+      ],
+      "anchors": [],
+      "expects": {
+        "responses": {
+          "d": "1970-01-01"
+        }
+      },
+      "evaluate": {
+        "today": "1970-01-01"
+      }
+    },
+    "rules/apr-expr-004-evaluates.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-EXPR-004"
+      ],
+      "anchors": [],
+      "expects": {
+        "responses": {
+          "org": "Skeptical Engineering"
+        }
+      },
+      "evaluate": {
+        "ctx": {
+          "org": "Skeptical Engineering"
+        }
+      }
+    },
+    "rules/apr-expr-012-evaluates.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-EXPR-012"
+      ],
+      "anchors": [],
+      "expects": {
+        "validation": {
+          "big": "over five"
+        },
+        "responses": {
+          "len": "3"
+        }
+      },
+      "teeth": false
+    },
+    "rules/apr-expr-013-evaluates.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-EXPR-013"
+      ],
+      "anchors": [],
+      "expects": {
+        "responses": {
+          "trimmed": "Ada Lovelace",
+          "first": "Ada",
+          "outside": ""
+        }
+      }
     }
   }
 }

@@ -1,0 +1,30 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "ctx",
+          "label": "Ctx",
+          "response": "a prompt, not the context",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "org",
+          "label": "Org",
+          "hints": {
+            "expectedDataType": "text",
+            "exprValue": "ctx.org"
+          }
+        }
+      ]
+    }
+  ]
+}

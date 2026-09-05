@@ -60,6 +60,15 @@ def answer(case, members):
     answer = {"id": case["id"], "outcome": "valid", "digest": aprlib.digest(records[0]),
               "warnings": sorted({f["code"] for f in report.findings
                                   if f["severity"] == "warning"})}
+    if case.get("expects"):
+        import aprexpr
+        inputs = case.get("evaluate") or {}
+        try:
+            answer["evaluated"] = aprexpr.evaluate(
+                records[0], now=inputs.get("now"), today=inputs.get("today"),
+                ctx=inputs.get("ctx"))
+        except Exception as exc:  # noqa: BLE001
+            answer["evaluated"] = {"error": type(exc).__name__}
     if case.get("roundTrip"):
         # Writing is serializing the semantic model. Nothing is filtered on the way
         # out, which is the whole of what preservation asks for.
@@ -78,9 +87,9 @@ def main() -> int:
             "name": "APR reference tooling driver",
             "version": suite["formatVersion"],
             # Attestations are checked structurally, streams are framed and read,
-            # and expressions are preserved but never evaluated, so that profile is
-            # not claimed.
-            "profiles": ["core", "core+streams", "core+attestations"],
+            # and expressions are evaluated through scripts/aprexpr.py.
+            "profiles": ["core", "core+streams", "core+attestations",
+                         "core+expressions"],
         },
         "results": [answer(case, members) for case in suite["cases"]],
     }, sys.stdout, indent=2, ensure_ascii=False)
