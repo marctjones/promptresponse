@@ -109,11 +109,13 @@ jobs:
           distribution: temurin
           java-version: "21"
 
-      - name: Install schema-gate dependencies
-        # PyYAML is required, not optional: the gate validates the beta.6 APR-YAML
-        # forms and streams, and reports a missing parser as a failure rather than
-        # skipping them, so that half the corpus cannot pass by being unreadable.
-        run: pip install --disable-pip-version-check jsonschema PyYAML
+      - name: Install specification and conformance tooling dependencies
+        # None of these is optional. PyYAML reads the beta.6 APR-YAML forms and
+        # streams, so without it half the corpus would pass by being unreadable;
+        # cel-python evaluates the expression cases, and asn1crypto with
+        # cryptography rebuilds the signed attestation fixtures. A gate reports a
+        # missing package as a failure rather than skipping the work it gates.
+        run: pip install --disable-pip-version-check -r scripts/requirements.txt
 
       # The Python SDK runs the same corpus as the .NET one. A second
       # implementation disagreeing is the cheapest signal that the corpus or the

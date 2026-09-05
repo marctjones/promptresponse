@@ -9,17 +9,24 @@ python3 scripts/check-docs.py
 ```
 
 The specification and conformance scripts under `scripts/` are plain Python 3 and
-import no SDK, but several need packages that are not in the standard library. A
-gate whose dependency is missing exits non-zero with the reason rather than
-passing quietly, so install them before trusting a green run:
+import no SDK, but several need packages the standard library does not carry.
+They are declared in `scripts/requirements.txt` and belong in a virtual
+environment — a Homebrew or system Python refuses to install into itself, and
+overriding that is not the answer:
 
 ```bash
-python3 -m pip install pyyaml jsonschema cel-python asn1crypto cryptography
+python3 -m venv .venv && .venv/bin/pip install -r scripts/requirements.txt
 ```
 
-`pyyaml` reads APR-YAML, `jsonschema` runs `check-schema.py`, `cel-python`
-evaluates expression hints, and `asn1crypto` with `cryptography` rebuilds the
-signed attestation fixtures.
+Then run the gates with `.venv/bin/python` in place of `python3`, or activate the
+environment first. `python/.venv`, created by `uv sync`, carries the same
+packages and works too; the requirements file exists so the tooling states its
+own dependencies rather than borrowing the SDK's.
+
+A gate whose package is missing exits non-zero saying which one, and never
+reports the absence as a defect in a document — but a gate that cannot run has
+not passed, so check that the environment is the one you think it is before
+trusting a green run.
 
 For a focused .NET suite while another local build or test may be running, use
 the output-isolated launcher instead of directing two `dotnet test` commands at
