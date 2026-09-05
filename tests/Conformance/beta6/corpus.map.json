@@ -145,5 +145,14 @@
         "streams/witnessed.apr.jsonc[0]"
       ]
     }
+  },
+  "digestVectors": {
+    "digests/permit.json": {
+      "form": "forms/permit.apr.jsonc[0]",
+      "entries": [
+        "",
+        "/sections/0/prompts/0/response"
+      ]
+    }
   }
 }

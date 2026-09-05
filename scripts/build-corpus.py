@@ -176,8 +176,28 @@ def main() -> int:
             rebuilt[addr] = new
             resolved[addr] = aprlib.envelope_digest(new)
 
-    # Rewrite each file, replacing only the attestation records the map declares.
+    # The published digest vectors state the same facts a third time, so they are
+    # derived too. A vector nobody regenerates is a vector that goes quietly stale.
     changed: list[str] = []
+    for name, spec in (mapping.get("digestVectors") or {}).items():
+        path = CORPUS / name
+        _, _, form = records[spec["form"]]
+        vector = {
+            "canonicalization": "jcs-sha256",
+            "canonicalJson": aprlib.canonicalize(form),
+            "documentDigest": aprlib.digest(form),
+            "entries": [
+                {"path": pointer, "digest": aprlib.digest(aprlib.resolve_pointer(form, pointer))}
+                for pointer in sorted(spec["entries"])
+            ],
+        }
+        rendered = json.dumps(vector, indent=2, ensure_ascii=False) + "\n"
+        if path.read_text(encoding="utf-8") != rendered:
+            changed.append(str(path.relative_to(ROOT)))
+            if write:
+                path.write_text(rendered, encoding="utf-8")
+
+    # Rewrite each file, replacing only the attestation records the map declares.
     for path in sorted({records[a][0] for a in specs}):
         text = path.read_text(encoding="utf-8")
         if path.suffix in {".yaml", ".yml"}:
