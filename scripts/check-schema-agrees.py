@@ -39,15 +39,15 @@ TABLES = {
     "section-object": ("section", None),
     "prompt-object": ("prompt", None),
     "hints-object": ("promptHints", None),
-    "response-metadata": ("responseMetadata", None),
     "attestation-catalogue": ("<attestation>", None),
 }
 
 # Members the schema carries for a retired feature. The specification does not
-# describe them because beta.6 retires embedded signatures.
+# describe them because beta.6 retires embedded signatures and `responseMetadata`.
 RETIRED = {"signatures", "signature", "signer", "selfSigned", "thumbprint",
            "issuer", "signedAt", "cms", "algorithm", "canonicalization",
-           "identifier", "subject", "name", "scope", "fields", "id", "role"}
+           "identifier", "subject", "name", "scope", "fields", "id", "role",
+           "responseMetadata"}
 
 
 def spec_members() -> dict[str, dict[str, bool]]:

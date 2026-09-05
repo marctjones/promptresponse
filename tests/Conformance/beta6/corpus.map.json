@@ -983,7 +983,7 @@
       "expects": {
         "responses": {
           "corrected": "99",
-          "recomputed": "4"
+          "empty": "4"
         }
       }
     },
@@ -1275,36 +1275,6 @@
       "anchors": []
     },
     "rules/optional-metadata-templateversion-wrong.apr.jsonc": {
-      "expect": "reject",
-      "rules": [
-        "APR-REP-015"
-      ],
-      "anchors": [],
-      "diagnostic": "WRONG_TYPE"
-    },
-    "rules/optional-prompt-responsemetadata-present.apr.jsonc": {
-      "expect": "valid",
-      "rules": [
-        "APR-REP-015"
-      ],
-      "anchors": []
-    },
-    "rules/optional-prompt-responsemetadata-wrong.apr.jsonc": {
-      "expect": "reject",
-      "rules": [
-        "APR-REP-015"
-      ],
-      "anchors": [],
-      "diagnostic": "WRONG_TYPE"
-    },
-    "rules/optional-responsemetadata-source-present.apr.jsonc": {
-      "expect": "valid",
-      "rules": [
-        "APR-REP-015"
-      ],
-      "anchors": []
-    },
-    "rules/optional-responsemetadata-source-wrong.apr.jsonc": {
       "expect": "reject",
       "rules": [
         "APR-REP-015"

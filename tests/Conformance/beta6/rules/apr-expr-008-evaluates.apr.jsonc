@@ -26,12 +26,8 @@
           }
         },
         {
-          "id": "recomputed",
-          "label": "R",
-          "response": "99",
-          "responseMetadata": {
-            "source": "computed"
-          },
+          "id": "empty",
+          "label": "E",
           "hints": {
             "expectedDataType": "number",
             "exprValue": "a * 2.0"

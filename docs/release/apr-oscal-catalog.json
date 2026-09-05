@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "3622bff0-fce9-5bd7-a4ec-b6f6b3c58b5b",
+    "uuid": "2784a304-aa08-511b-b3d9-63373d679a30",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "c50ce6982dc959c7e85f437664e4a4b3d6502376cff07987cd6186b6b0562ecd"
+          "value": "fa8304531e70cf526c5253b3531af02f7d40ee321ce401b1127f0039ff6ec0c5"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -1771,7 +1771,7 @@
           },
           {
             "id": "apr-model-012",
-            "title": "APR-MODEL-012 — 5.6.2 A table licenses no layout",
+            "title": "APR-MODEL-012 — 5.5.2 A table licenses no layout",
             "props": [
               {
                 "name": "rule-id",
@@ -1818,7 +1818,7 @@
           },
           {
             "id": "apr-model-013",
-            "title": "APR-MODEL-013 — 5.6.2 A table licenses no layout",
+            "title": "APR-MODEL-013 — 5.5.2 A table licenses no layout",
             "props": [
               {
                 "name": "rule-id",
@@ -1865,7 +1865,7 @@
           },
           {
             "id": "apr-model-014",
-            "title": "APR-MODEL-014 — 5.6.4 Ragged tables",
+            "title": "APR-MODEL-014 — 5.5.4 Ragged tables",
             "props": [
               {
                 "name": "rule-id",
@@ -1912,7 +1912,7 @@
           },
           {
             "id": "apr-model-015",
-            "title": "APR-MODEL-015 — 5.7 Nesting depth",
+            "title": "APR-MODEL-015 — 5.6 Nesting depth",
             "props": [
               {
                 "name": "rule-id",
@@ -1959,7 +1959,7 @@
           },
           {
             "id": "apr-model-016",
-            "title": "APR-MODEL-016 — 5.7 Nesting depth",
+            "title": "APR-MODEL-016 — 5.6 Nesting depth",
             "props": [
               {
                 "name": "rule-id",
@@ -2006,7 +2006,7 @@
           },
           {
             "id": "apr-model-017",
-            "title": "APR-MODEL-017 — 5.7 Nesting depth",
+            "title": "APR-MODEL-017 — 5.6 Nesting depth",
             "props": [
               {
                 "name": "rule-id",
@@ -2053,7 +2053,7 @@
           },
           {
             "id": "apr-model-018",
-            "title": "APR-MODEL-018 — 5.8 Hints",
+            "title": "APR-MODEL-018 — 5.7 Hints",
             "props": [
               {
                 "name": "rule-id",
@@ -2100,7 +2100,7 @@
           },
           {
             "id": "apr-model-019",
-            "title": "APR-MODEL-019 — 5.8 Hints",
+            "title": "APR-MODEL-019 — 5.7 Hints",
             "props": [
               {
                 "name": "rule-id",
@@ -2147,7 +2147,7 @@
           },
           {
             "id": "apr-model-020",
-            "title": "APR-MODEL-020 — 5.9 Unknown members",
+            "title": "APR-MODEL-020 — 5.8 Unknown members",
             "props": [
               {
                 "name": "rule-id",
@@ -2189,7 +2189,7 @@
           },
           {
             "id": "apr-model-021",
-            "title": "APR-MODEL-021 — 5.9 Unknown members",
+            "title": "APR-MODEL-021 — 5.8 Unknown members",
             "props": [
               {
                 "name": "rule-id",
@@ -2231,7 +2231,7 @@
           },
           {
             "id": "apr-model-022",
-            "title": "APR-MODEL-022 — 5.9.1 Retired members are the exception",
+            "title": "APR-MODEL-022 — 5.8.1 Retired members are the exception",
             "props": [
               {
                 "name": "rule-id",
@@ -2273,7 +2273,7 @@
           },
           {
             "id": "apr-model-023",
-            "title": "APR-MODEL-023 — 5.10 Canonical value forms",
+            "title": "APR-MODEL-023 — 5.9 Canonical value forms",
             "props": [
               {
                 "name": "rule-id",
@@ -2315,7 +2315,7 @@
           },
           {
             "id": "apr-model-024",
-            "title": "APR-MODEL-024 — 5.10 Canonical value forms",
+            "title": "APR-MODEL-024 — 5.9 Canonical value forms",
             "props": [
               {
                 "name": "rule-id",
@@ -2357,7 +2357,7 @@
           },
           {
             "id": "apr-model-025",
-            "title": "APR-MODEL-025 — 5.11 Roles — who each part is for",
+            "title": "APR-MODEL-025 — 5.10 Roles — who each part is for",
             "props": [
               {
                 "name": "rule-id",
@@ -2404,7 +2404,7 @@
           },
           {
             "id": "apr-model-026",
-            "title": "APR-MODEL-026 — 5.11 Roles — who each part is for",
+            "title": "APR-MODEL-026 — 5.10 Roles — who each part is for",
             "props": [
               {
                 "name": "rule-id",
@@ -2451,7 +2451,7 @@
           },
           {
             "id": "apr-model-027",
-            "title": "APR-MODEL-027 — 5.11 Roles — who each part is for",
+            "title": "APR-MODEL-027 — 5.10 Roles — who each part is for",
             "props": [
               {
                 "name": "rule-id",
@@ -2498,7 +2498,7 @@
           },
           {
             "id": "apr-model-028",
-            "title": "APR-MODEL-028 — 5.11 Roles — who each part is for",
+            "title": "APR-MODEL-028 — 5.10 Roles — who each part is for",
             "props": [
               {
                 "name": "rule-id",
@@ -2545,7 +2545,7 @@
           },
           {
             "id": "apr-model-029",
-            "title": "APR-MODEL-029 — 5.9 Unknown members",
+            "title": "APR-MODEL-029 — 5.8 Unknown members",
             "props": [
               {
                 "name": "rule-id",
@@ -2587,7 +2587,7 @@
           },
           {
             "id": "apr-model-030",
-            "title": "APR-MODEL-030 — 5.8 Hints",
+            "title": "APR-MODEL-030 — 5.7 Hints",
             "props": [
               {
                 "name": "rule-id",
@@ -2634,7 +2634,7 @@
           },
           {
             "id": "apr-model-031",
-            "title": "APR-MODEL-031 — 5.9 Unknown members",
+            "title": "APR-MODEL-031 — 5.8 Unknown members",
             "props": [
               {
                 "name": "rule-id",
@@ -2958,7 +2958,7 @@
           },
           {
             "id": "apr-model-038",
-            "title": "APR-MODEL-038 — 5.6 Tables",
+            "title": "APR-MODEL-038 — 5.5 Tables",
             "props": [
               {
                 "name": "rule-id",
@@ -3000,7 +3000,7 @@
           },
           {
             "id": "apr-model-039",
-            "title": "APR-MODEL-039 — 5.8 Hints",
+            "title": "APR-MODEL-039 — 5.7 Hints",
             "props": [
               {
                 "name": "rule-id",
@@ -3329,7 +3329,7 @@
           },
           {
             "id": "apr-model-046",
-            "title": "APR-MODEL-046 — 5.6.3 Rows and instances",
+            "title": "APR-MODEL-046 — 5.5.3 Rows and instances",
             "props": [
               {
                 "name": "rule-id",
@@ -3413,7 +3413,7 @@
           },
           {
             "id": "apr-model-048",
-            "title": "APR-MODEL-048 — 5.6.1 What a table asserts",
+            "title": "APR-MODEL-048 — 5.5.1 What a table asserts",
             "props": [
               {
                 "name": "rule-id",
@@ -3460,7 +3460,7 @@
           },
           {
             "id": "apr-model-050",
-            "title": "APR-MODEL-050 — 5.11 Roles — who each part is for",
+            "title": "APR-MODEL-050 — 5.10 Roles — who each part is for",
             "props": [
               {
                 "name": "rule-id",
@@ -3507,7 +3507,7 @@
           },
           {
             "id": "apr-model-051",
-            "title": "APR-MODEL-051 — 5.11 Roles — who each part is for",
+            "title": "APR-MODEL-051 — 5.10 Roles — who each part is for",
             "props": [
               {
                 "name": "rule-id",
@@ -5674,7 +5674,7 @@
               {
                 "id": "apr-expr-008_smt",
                 "name": "statement",
-                "prose": "**A correction MUST survive recomputation.** `responseMetadata.source` is `computed` when an `exprValue` produced the current response, and absent when a person or an API wrote it. Recomputation **MUST NOT** overwrite a non-empty response whose `source` is absent."
+                "prose": "**A correction MUST survive recomputation.** Every non-empty response in a document as it was read is **authored**, whatever produced it, and recomputation **MUST NOT** overwrite an authored response. A reader presents the recomputed value as a suggestion instead."
               }
             ]
           },

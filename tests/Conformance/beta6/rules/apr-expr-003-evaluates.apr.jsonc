@@ -12,9 +12,6 @@
           "id": "kept",
           "label": "Kept",
           "response": "typed by a person",
-          "responseMetadata": {
-            "source": "computed"
-          },
           "hints": {
             "expectedDataType": "text",
             "exprValue": "nosuch.thing()"

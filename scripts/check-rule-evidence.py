@@ -121,7 +121,6 @@ def naive_evaluation(document: str, representation: str, inputs: dict) -> dict:
 
     stripped = json.loads(json.dumps(form))
     for prompt, _ in aprexpr.prompts_of(stripped):
-        prompt.pop("responseMetadata", None)  # every computed value is overwritten
         if isinstance((prompt.get("hints") or {}).get("exprValue"), str):
             prompt.pop("response", None)
     try:

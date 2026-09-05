@@ -308,10 +308,9 @@ def evaluate(form: dict, now: str | None = None, today: str | None = None,
     for prompt in order(computed):
         identifier = prompt["id"]
         stored = prompt.get("response")
-        source_marker = (prompt.get("responseMetadata") or {}).get("source")
-        # A correction survives recomputation: a non-empty response nobody marked
-        # as computed was written by a person, and is not overwritten.
-        if isinstance(stored, str) and stored != "" and source_marker != "computed":
+        # A correction survives recomputation: every non-empty response in the
+        # document as it was read is authored, and is not overwritten.
+        if isinstance(stored, str) and stored != "":
             results["responses"][identifier] = stored
             continue
         declared = declared_of.get(identifier)

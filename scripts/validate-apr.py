@@ -48,7 +48,6 @@ TABLES = {
     "section-object": "section",
     "prompt-object": "prompt",
     "hints-object": "hints",
-    "response-metadata": "responseMetadata",
 }
 
 FORMAT_VERSION = "1.0-beta.6"
@@ -243,13 +242,6 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
         report.warn("UNDECLARED_ROLE", f"{path}/role", f"role {role!r} is not declared; a validator may warn about "
                     f"one and must not reject it",
                     "APR-MODEL-026", "APR-MODEL-051")
-    metadata = prompt.get("responseMetadata")
-    if isinstance(metadata, dict):
-        # Advisory in full, and still held to its declared types: optional is about
-        # whether you supply a member, never about whether it has to be right.
-        check_object(report, metadata, "responseMetadata",
-                     f"{path}/responseMetadata", members)
-
     hints = prompt.get("hints")
     if isinstance(hints, dict):
         check_object(report, hints, "hints", f"{path}/hints", members)

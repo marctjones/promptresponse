@@ -1328,7 +1328,6 @@ that outline, so the format refuses to produce one.
 | `label` | string | **Yes** | Non-whitespace. This is the accessible name. |
 | `response` | string | No | Absent means empty ([Responses are strings](#responses)). |
 | `hints` | object | No | [Hints](#hints-object). Advisory in full. |
-| `responseMetadata` | object | No | [Response metadata](#response-metadata). Never authoritative. |
 | `role` | string | No | Overrides the containing section's role. |
 
 **`label` is required and placeholder text is never a substitute for it.** A
@@ -1394,22 +1393,7 @@ outcome, since the thing it named is no longer there under that name. [APR-MODEL
 > document order, which is meaningful, and a name that repeats it is a second
 > copy of one fact.
 
-### 5.5 Response metadata {#response-metadata}
-
-| Member | Type | Meaning |
-| --- | --- | --- |
-| `source` | string | `computed` is the only defined value. Present when an `exprValue` produced the response; absent when a person or an API wrote it. |
-
-`source` is the one fact about a response that the format itself needs: the
-expressions profile uses it to tell a value it may recompute from one a person
-corrected ([A computed value is a suggestion](#expr-computed)). Everything
-else a reader once recorded here — what type it detected, when the value last
-changed — was workflow state and is gone ([Metadata](#metadata)).
-
-Every member is advisory. A reader that ignores `responseMetadata` entirely still
-holds a valid document.
-
-### 5.6 Tables {#tables}
+### 5.5 Tables {#tables}
 
 A table introduces **no new primitive**. Rows are ordinary sections; cells are
 ordinary prompts. A section becomes a table by carrying `kind: "table"`, and
@@ -1444,7 +1428,7 @@ those members on a section that is not a table. [APR-MODEL-038]
 }
 ```
 
-#### 5.6.1 What a table asserts {#table-assertion}
+#### 5.5.1 What a table asserts {#table-assertion}
 
 It is **a claim about structure, not appearance**:
 
@@ -1464,7 +1448,7 @@ Correspondence is **by position**. Ids are free-form; the convention
 `{rowId}.{columnId}` is **RECOMMENDED** for addressability and database import,
 but carries no meaning the renderer depends on. [APR-MODEL-048]
 
-#### 5.6.2 A table licenses no layout {#table-no-layout}
+#### 5.5.2 A table licenses no layout {#table-no-layout}
 
 A renderer **MAY** present a table as a grid, as stacked cards, as a flat
 sequence of prompts, or as speech. **All are conformant**, and none is a
@@ -1479,7 +1463,7 @@ A table **MUST NOT** be treated as licence for width, alignment, colour, or font
 data. Those member names are retired ([Retired members](#retired-members)) and
 are dropped on read. [APR-MODEL-013]
 
-#### 5.6.3 Rows and instances {#table-rows}
+#### 5.5.3 Rows and instances {#table-rows}
 
 `canAddRows` is `true` when a filler may add or remove instances; absent means
 fixed.
@@ -1512,7 +1496,7 @@ itself.
 `maxRows` is advisory. A table carrying more instances is still valid and is
 reported as a warning ([Warnings](#warnings)).
 
-#### 5.6.4 Ragged tables {#table-ragged}
+#### 5.5.4 Ragged tables {#table-ragged}
 
 Instances **SHOULD** agree in prompt count and in the label at each position.
 When they disagree the document is still **valid**; a validator reports
@@ -1522,7 +1506,7 @@ When they disagree the document is still **valid**; a validator reports
 > already written, which [Any string is a valid response](#any-string) exists to
 > prevent.
 
-### 5.7 Nesting depth {#nesting}
+### 5.6 Nesting depth {#nesting}
 
 Sections nest recursively. Every implementation **MUST** support at least **16
 levels** of section nesting. Implementations **MAY** support more. [APR-MODEL-015]
@@ -1536,7 +1520,7 @@ Any particular ceiling above that floor is an implementation detail and
 Authors **SHOULD** stay far below the floor. Forms nested more than four or five
 levels deep are difficult to navigate with any input method. [APR-MODEL-017]
 
-### 5.8 Hints {#hints-object}
+### 5.7 Hints {#hints-object}
 
 All OPTIONAL, all advisory ([Hints never enforce](#hints-advisory)).
 
@@ -1617,7 +1601,7 @@ slider that stops at 100 does not make `120` a wrong answer, and a validator
 **MUST NOT** reject one. Bounds shape the affordance offered to someone who wants
 it; they never shrink what a person is allowed to say. [APR-MODEL-019]
 
-#### 5.8.1 Types are affordances, not validators {#data-types}
+#### 5.7.1 Types are affordances, not validators {#data-types}
 
 `expectedDataType` tells a renderer which input affordance to offer and tells the
 person filling the form what the author expected. It does nothing else.
@@ -1636,7 +1620,7 @@ Every response below is valid for its prompt:
 > different facts. APR preserves the second exactly. Whether it is acceptable is
 > a decision for the workflow that consumes the form.
 
-### 5.9 Unknown members {#extensions}
+### 5.8 Unknown members {#extensions}
 
 A reader **MUST** ignore members it does not recognise, at every level, and
 **MUST NOT** reject a document for carrying them. [APR-MODEL-020]
@@ -1699,15 +1683,17 @@ expect: valid
 }
 ```
 
-#### 5.9.1 Retired members are the exception {#retired-members}
+#### 5.8.1 Retired members are the exception {#retired-members}
 
 Members the specification has **removed** are dropped rather than preserved.
 Today those are:
 
 - the table-column presentation set — `width`, `alignment`, `color`,
-  `background`, `fontSize`, `bold`, `style`; and
+  `background`, `fontSize`, `bold`, `style`;
 - `signatures`, the embedded-signature array retired in beta.6
-  ([Attestations](#attestations)).
+  ([Attestations](#attestations)); and
+- `responseMetadata` and every member it carried, retired in beta.6 as workflow
+  state ([A computed value is a suggestion](#expr-computed)).
 
 `signatures` is reported rather than silently dropped: a reader **MUST** report
 `RETIRED_EMBEDDED_SIGNATURES`, because a document carrying it was making a
@@ -1722,7 +1708,7 @@ worse than refusing it. [APR-MODEL-022]
 A name is added to the retired list only when this specification retires it. A
 member that is merely unfamiliar is preserved, not dropped.
 
-### 5.10 Canonical value forms {#canonical-values}
+### 5.9 Canonical value forms {#canonical-values}
 
 Any string remains a valid response. This section governs only what a renderer
 **writes** when it controls the value — a date picker, a checkbox, a
@@ -1756,7 +1742,7 @@ Readers **MUST** still accept the legacy comma form. [APR-MODEL-024]
 
 An empty string means "no selection" for every hint above.
 
-### 5.11 Roles — who each part is for {#roles}
+### 5.10 Roles — who each part is for {#roles}
 
 Most real forms are filled by more than one person. A patient completes an
 intake, a nurse records observations, the office stamps a reference. With nowhere
@@ -1971,7 +1957,7 @@ different conditions, and they **MUST NOT** be treated alike. [APR-TEXT-002]
 | | **Authoring data** | **Filled data** |
 | --- | --- | --- |
 | Written by | the form author | the person filling the form |
-| Members | `metadata`, section `id`, `title`, `description`, prompt `id`, `label`, all of `hints` | `prompt.response`, `responseMetadata` |
+| Members | `metadata`, section `id`, `title`, `description`, prompt `id`, `label`, all of `hints` | `prompt.response` |
 | Conditions | deliberate, repeatable, reviewable before publication | once, under time pressure, often on someone else's behalf |
 | Consumed by | machines and every future reader | the receiving workflow |
 | Policy | **Strict rules are appropriate.** Reject or warn at authoring time. | **Maximum tolerance.** Accept any string; never rewrite. |
@@ -2387,15 +2373,23 @@ was actually agreed — must be correctable by the person filling it in. [APR-EX
 Being computed does not make a prompt read-only. `exprReadOnly` asks for that
 *presentation*, and even then it is an affordance rather than a wall.
 
-**A correction MUST survive recomputation.** `responseMetadata.source` is
-`computed` when an `exprValue` produced the current response, and absent when a
-person or an API wrote it. Recomputation **MUST NOT** overwrite a non-empty
-response whose `source` is absent. [APR-EXPR-008]
+**A correction MUST survive recomputation.** Every non-empty response in a
+document as it was read is **authored**, whatever produced it, and recomputation
+**MUST NOT** overwrite an authored response. A reader presents the recomputed
+value as a suggestion instead. [APR-EXPR-008]
 
-> Rationale: without that distinction a stale computed value and a human
-> correction are indistinguishable, and the next recompute silently reverts the
-> correction — losing an answer, which is the one thing this format exists to
-> prevent.
+Within a session a reader knows which responses it computed itself and may
+replace those freely; that knowledge is the reader's own state and the document
+records nothing about it.
+
+> Rationale: a document cannot tell a stale computed value from a correction
+> someone typed, and the earlier design that tried — a `computed` marker in
+> `responseMetadata` — rested a prohibition on a member every reader was free to
+> ignore, which is not a guarantee. Treating every response already in the file as
+> authored needs no marker and errs toward keeping an answer, which is the one
+> thing this format exists to prevent losing. The cost is that a stale value does
+> not silently refresh across a save and reopen, and that is the correct cost: a
+> computed value is a suggestion, not a lock.
 
 An implementation **MUST** order computed prompts by their direct references so
 that a subtotal feeds a tax feeds a total in one pass. A self-reference or a
@@ -2803,7 +2797,7 @@ An implementation additionally claiming **`core+expressions`** MUST:
 - [ ] Supply `_this`, `_id`, `_now`, `_today` and `ctx`, and let no prompt id shadow them
 - [ ] Take `_now` and `_today` from the caller, never from the host clock
 - [ ] Apply the per-hint fallback on any failure, showing more and blocking less
-- [ ] Mark `responseMetadata.source` as `computed`, and never overwrite an unmarked non-empty response
+- [ ] Never overwrite a non-empty response found in a document being read; offer the recomputed value as a suggestion
 - [ ] Order computed prompts by their direct references
 - [ ] Bound evaluation, and report a reached bound as a fallback rather than partial mutation
 
@@ -2826,7 +2820,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Gave identifiers to four obligations that had none, and split five rules that bundled obligations failing independently. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate` and `responseMetadata` entirely as workflow state: `inferredDataType` and `lastModified` went first, and `source` followed once recomputation was restated to protect every response already in the file rather than only an unmarked one. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Gave identifiers to four obligations that had none, and split five rules that bundled obligations failing independently. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

@@ -264,13 +264,6 @@
       "default": "absent, meaning fixed",
       "notes": "Whether a filler may add or remove instances. Fixed is the safe default."
     },
-    "responseMetadata.source": {
-      "values": [
-        "computed"
-      ],
-      "default": "absent, meaning authored",
-      "notes": "Distinguishes a stale computed value from a correction someone typed (specification 8.6)."
-    },
     "section.role": {
       "values": "open",
       "notes": "Domain-specific (patient, nurse, office, notary). An unrecognised role degrades to no special treatment (specification 4.10)."
