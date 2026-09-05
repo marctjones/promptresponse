@@ -330,13 +330,22 @@ def main() -> int:
         for rule in cited:
             if rule in by_check:
                 caught[rule] = "check"
-            elif diagnostic and diagnostic == case.get("diagnostic"):
+            elif diagnostic == case.get("diagnostic") \
+                    and rule in aprlib.ENFORCES.get(diagnostic or "", ()):
+                # The parser refused it, and `aprlib.ENFORCES` says that code
+                # enforces this rule. Both halves are needed. Matching only the
+                # case's own declared diagnostic let a case certify itself: it
+                # named a rule, the parser raised the code the same case named,
+                # and nothing independent ever said the two were related.
                 caught.setdefault(rule, "parse")
             else:
+                declared = aprlib.ENFORCES.get(diagnostic or "", ())
                 problems.append(
                     f"{case['id']} is refused, but not traceably for {rule}: no check "
-                    f"cites it and the parser raised {diagnostic!r} where the case "
-                    f"declares {case.get('diagnostic')!r}")
+                    f"cites it, and the parser raised {diagnostic!r}, which "
+                    + (f"enforces {', '.join(declared)}" if declared
+                       else "no rule is declared to enforce")
+                    + f" (the case declares {case.get('diagnostic')!r})")
 
     # A preservation, evaluation, equivalence or tolerance rule is not something a
     # file validator can check: no single document is wrong. The harness enforces
