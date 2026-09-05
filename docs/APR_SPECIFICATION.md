@@ -1118,9 +1118,10 @@ A form **MUST NOT** carry a `signatures` member. A reader encountering one
 
 `title` **MUST** contain a non-whitespace character. [APR-MODEL-007]
 
-`submissionUrls`, when present, is an ordered array of strings. Even one delivery
-choice is represented as a one-element array; a scalar `submissionUrl` is not
-valid. Order is the author's preferred display order, never permission for a
+`submissionUrls`, when present, **MUST** be an ordered array of strings. Even one
+delivery choice is represented as a one-element array; a scalar `submissionUrl`
+**MUST NOT** be written, and a reader encountering one **MUST** treat it as an
+unknown member rather than honouring it. [APR-MODEL-052] Order is the author's preferred display order, never permission for a
 client to choose or fall back to a target automatically; submitting remains an
 explicit user action.
 
@@ -1412,9 +1413,9 @@ holds a valid document.
 
 A table introduces **no new primitive**. Rows are ordinary sections; cells are
 ordinary prompts. A section becomes a table by carrying `kind: "table"`, and
-**only** by carrying it: a table is never inferred from `maxRows`,
-`canAddRows`, or the presence of child sections, and those members on a
-section that is not a table are preserved and ignored. [APR-MODEL-038]
+**only** by carrying it: a reader **MUST NOT** infer a table from `maxRows`,
+`canAddRows`, or the presence of child sections, and **MUST** preserve and ignore
+those members on a section that is not a table. [APR-MODEL-038]
 
 > Rationale: a plain section may have child sections too, so inference would
 > have to guess, and two readers guessing differently about the same document
@@ -1883,7 +1884,9 @@ declaration of intent that no other party has claimed.
 ## 7. Validation {#validation}
 
 Validation produces **errors** and **warnings**. A document is valid if and only
-if it has zero errors. Warnings never affect validity.
+if it has zero errors: a validator **MUST NOT** report a document as invalid for
+any reason not in the errors table, and a warning **MUST NOT** affect
+validity. [APR-VAL-007]
 
 ### 7.1 Errors — structure only {#structural-validation}
 
@@ -1898,7 +1901,8 @@ if it has zero errors. Warnings never affect validity.
 | `RETIRED_EMBEDDED_SIGNATURES` | The document carries a `signatures` member. |
 | `WRONG_TYPE` | A structural member is not the JSON type its member table declares ([Value types](#json-subset)). |
 
-This list is exhaustive. **No error may ever arise from the content of a
+This list is exhaustive, and a validator **MUST NOT** raise an error outside
+it. [APR-VAL-008] **No error may ever arise from the content of a
 response**, and none may ever arise from the state of an attestation
 ([Attestations never gate the data](#never-gate)). A validator that rejects a
 document because a response is badly formatted, or because an attestation is
@@ -2067,8 +2071,8 @@ document stays valid.
 ## 9. Streams {#streams}
 
 A stream is an ordered transport of independent records. Physical order is
-presentation only: it creates no subject, revision, chronology, or trust
-relationship.
+presentation only: a reader **MUST NOT** derive a subject, a revision, a
+chronology, or a trust relationship from the position of a record. [APR-STREAM-005]
 
 Each record is exactly one of:
 
@@ -2177,10 +2181,11 @@ sequence of semantic records from either member of such a pair. [APR-STREAM-002]
 
 ## 10. Semantic digests and manifests {#digests}
 
-`jcs-sha256` is the beta.6 semantic digest algorithm. Its input is RFC 8785 JCS
-serialization of the fully parsed JSON semantic model, encoded as UTF-8; its
-value is lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`.
-Source syntax is never hashed.
+`jcs-sha256` is the beta.6 semantic digest algorithm. A digest **MUST** be
+computed over the RFC 8785 JCS serialization of the fully parsed JSON semantic
+model, encoded as UTF-8, and expressed as lowercase hexadecimal SHA-256
+(FIPS 180-4) prefixed with `sha256:`. Source syntax **MUST NOT** be
+hashed. [APR-DIGEST-006]
 
 A digest value **MUST** match `^sha256:[0-9a-f]{64}$`. [APR-DIGEST-001]
 
@@ -2265,26 +2270,31 @@ standard library, and its standard macros. An implementation claiming
 `core+expressions` **MUST** evaluate expressions as that release specifies and
 **MUST** pass that release's conformance suite for the surface it exposes. [APR-EXPR-012]
 
-The only library beyond the standard library is the **CEL strings extension**,
-as defined by cel-go release `v0.32.0`. An implementation **MUST** provide the
-standard library, the standard macros, and the strings extension, and **MUST
-NOT** provide any other extension library or custom function. An expression
-naming a function outside that surface is an evaluation failure, and the
-per-hint fallback applies ([Results and fallback](#expr-fallback)). [APR-EXPR-013]
+An implementation **MUST** provide the standard library and the standard macros,
+and **MUST NOT** provide any extension library or custom function. An expression
+naming a function outside that surface is an evaluation failure, and the per-hint
+fallback applies ([Results and fallback](#expr-fallback)). [APR-EXPR-013]
+
+> Decision (beta.6): the CEL strings extension is **not** required. An earlier
+> draft of this baseline required it, on the reasoning that trimming, splitting
+> and case-folding are what form authors reach for first. It was withdrawn on
+> evidence: the extension is defined by cel-go and is not carried by every CEL
+> binding — the Python one ships the standard library and macros without it — so
+> requiring it would have obliged an implementer to write the extension before
+> they could claim the profile. A surface every binding already has is worth more
+> than a convenient one only some of them do.
 
 > Rationale: without a pin, a function that did not exist when a form was written
 > is neither clearly valid nor clearly invalid, and two conforming readers may
 > evaluate the same form to different values. Pinning the specification release
 > rather than a library means the four implementations may each track their own
-> language's library, provided each conforms to the same definition. The strings
-> extension is admitted because trimming, splitting and case-folding are what
-> form authors reach for first; it is defined by cel-go rather than cel-spec, so
-> it is pinned there. A later baseline moves the pin deliberately, as a
-> behavioural change.
+> language's library, provided each conforms to the same definition. A later
+> baseline moves the pin deliberately, as a behavioural change.
 
 ### 11.4 Activation {#expr-activation}
 
-An expression is evaluated against this read-only activation and nothing else.
+An expression **MUST** be evaluated against this read-only activation and nothing
+else. [APR-EXPR-015]
 
 | Name | Type | Meaning |
 | --- | --- | --- |
@@ -2298,8 +2308,9 @@ An expression is evaluated against this read-only activation and nothing else.
 `_this`, `_id`, `_now`, `_today`, and `ctx` are reserved and **MUST NOT** be
 shadowed by a direct binding. [APR-EXPR-004]
 
-A prompt whose id is not a valid CEL identifier has no direct binding and is not
-otherwise reachable from an expression.
+A prompt whose id is not a valid CEL identifier **MUST NOT** be given a direct
+binding, and **MUST NOT** be reachable from an expression by any other
+name. [APR-EXPR-016]
 
 `_now` and `_today` **MUST** be supplied by the caller rather than read from the
 host clock during evaluation, so that evaluating the same form twice with the
@@ -2468,8 +2479,9 @@ anything.
 `subject`, `scope`, `manifest`, and their entries admit no additional members. An
 attestation record itself **MAY** carry extension members, which round-trip. [APR-ATTEST-004]
 
-`subject.digest` identifies the complete form semantic model, never a stream
-position, filename, or document id.
+`subject.digest` **MUST** identify the complete form semantic model, and a
+verifier **MUST NOT** resolve a subject by stream position, filename, or document
+id. [APR-ATTEST-017]
 
 ### 12.3 Scope {#attestation-scope}
 
@@ -2583,8 +2595,9 @@ Verification reports these independent facts:
 | `unverifiable` | Required representation, extension, digest, or proof support is unavailable. |
 | `witnessed` | One or more referenced envelopes resolve and match. |
 
-These are independent: an attestation may be both `unverifiable` and `witnessed`,
-and `unresolved` is not a failure of the assertion.
+These are independent, and a verifier **MUST** report them independently: an
+attestation may be both `unverifiable` and `witnessed`, and `unresolved`
+**MUST NOT** be reported as a failure of the assertion. [APR-ATTEST-018]
 
 **Validity is independent of trust.** A self-signed certificate can produce a
 perfectly valid proof that proves nothing about identity. Implementations
@@ -2597,7 +2610,9 @@ perfectly valid proof that proves nothing about identity. Implementations
 ### 12.8 Attestations never gate the data {#never-gate}
 
 **An attestation is an assertion about a document, never a permission to read
-it.** Both directions of this are normative.
+it.** An implementation **MUST NOT** treat the presence, absence, or state of an
+attestation as authorization to read, or to withhold, the data a form
+carries. [APR-ATTEST-019]
 
 **Attesting is never required.** A form with no attestation is a complete,
 ordinary, fully valid APR document. An implementation **MUST NOT** require one in
@@ -2782,7 +2797,7 @@ also satisfy `core+streams`:
 An implementation additionally claiming **`core+expressions`** MUST:
 
 - [ ] Evaluate CEL as cel-spec `v0.25.3` defines it, and pass that release's conformance suite
-- [ ] Provide the standard library, standard macros and the strings extension, and nothing else
+- [ ] Provide the CEL standard library and standard macros, and no extension library or custom function
 - [ ] Bind each response by its prompt's declared type
 - [ ] Treat an unconvertible or blank typed response as unbound, never as a default
 - [ ] Supply `_this`, `_id`, `_now`, `_today` and `ctx`, and let no prompt id shadow them
@@ -2849,9 +2864,8 @@ Compliance with this specification requires the editions below.
 | YAML 1.2.2 | YAML Ain't Markup Language, revision 1.2.2 |
 | S3 pre-signed URL | Amazon S3, *Authenticating Requests: Using Query Parameters (AWS Signature Version 4)*, <https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html> |
 | CEL | Common Expression Language, cel-spec release `v0.25.3`, <https://github.com/cel-expr/cel-spec/releases/tag/v0.25.3> |
-| CEL strings extension | The `strings` extension library of cel-go release `v0.32.0`, <https://github.com/google/cel-go/blob/v0.32.0/ext/README.md#strings> |
 
-The CEL entries are normative for the `core+expressions` profile only.
+The CEL entry is normative for the `core+expressions` profile only.
 
 ## 19. Informative references {#informative-references}
 

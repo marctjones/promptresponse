@@ -351,7 +351,7 @@
     {
       "id": "REQ-attestation-members",
       "section": "attestation-catalogue",
-      "statement": "Attestation record members, requiredness, and closed sub-objects",
+      "statement": "Attestation record members, requiredness, and closed sub-objects; a subject is resolved by digest, never by position or filename",
       "strength": "gated",
       "gates": [
         {
@@ -371,7 +371,8 @@
         "APR-ATTEST-001",
         "APR-ATTEST-002",
         "APR-ATTEST-003",
-        "APR-ATTEST-004"
+        "APR-ATTEST-004",
+        "APR-ATTEST-017"
       ]
     },
     {
@@ -487,7 +488,7 @@
     {
       "id": "REQ-digests-manifests",
       "section": "digests",
-      "statement": "jcs-sha256 over the semantic model; manifests hold no plaintext; manifest entries are ordered and duplicate-free, carry the root pointer, and bound what a verifier may report",
+      "statement": "jcs-sha256 over the semantic model; manifests hold no plaintext; manifest entries are ordered and duplicate-free, carry the root pointer, and bound what a verifier may report; jcs-sha256 is computed over the JCS encoding of the semantic model, never over source syntax",
       "strength": "partial",
       "gates": [
         {
@@ -508,7 +509,8 @@
         "APR-DIGEST-002",
         "APR-DIGEST-003",
         "APR-DIGEST-004",
-        "APR-DIGEST-005"
+        "APR-DIGEST-005",
+        "APR-DIGEST-006"
       ],
       "gap": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
     },
@@ -531,7 +533,7 @@
     {
       "id": "REQ-expr-activation",
       "section": "expr-activation",
-      "statement": "The read-only activation and its reserved names",
+      "statement": "The read-only activation and its reserved names; an expression sees the activation and nothing else; an id that is not a CEL identifier is unreachable",
       "strength": "partial",
       "gates": [
         {
@@ -546,7 +548,9 @@
       "gap": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects.",
       "rules": [
         "APR-EXPR-004",
-        "APR-EXPR-005"
+        "APR-EXPR-005",
+        "APR-EXPR-015",
+        "APR-EXPR-016"
       ]
     },
     {
@@ -635,7 +639,7 @@
     {
       "id": "REQ-expr-language",
       "section": "expr-language",
-      "statement": "Expressions are CEL as cel-spec v0.25.3 defines it, with the standard library, standard macros and the cel-go v0.32.0 strings extension, and nothing else",
+      "statement": "Expressions are CEL as cel-spec v0.25.3 defines it, with the standard library and standard macros, and no extension library",
       "strength": "external",
       "gates": [],
       "gap": "APR-EXPR-012 pins the language itself. A case can show the standard library working, but no simulated wrong evaluator fails it, because any CEL implementation satisfies it by existing. Its evidence stops at satisfied and violated; the pin is held by naming a release, not by a vector.",
@@ -826,7 +830,7 @@
     {
       "id": "REQ-metadata-members",
       "section": "metadata",
-      "statement": "metadata.title required non-blank; filledForm declares templateId; templateId is a URI, never fetched; workflow state is not form data",
+      "statement": "metadata.title required non-blank; filledForm declares templateId; templateId is a URI, never fetched; workflow state is not form data; submissionUrls is an array and a scalar submissionUrl is never honoured",
       "strength": "partial",
       "gates": [
         {
@@ -838,7 +842,8 @@
         "APR-MODEL-007",
         "APR-MODEL-008",
         "APR-MODEL-036",
-        "APR-MODEL-037"
+        "APR-MODEL-037",
+        "APR-MODEL-052"
       ],
       "gap": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
     },
@@ -886,7 +891,7 @@
     {
       "id": "REQ-never-gate",
       "section": "never-gate",
-      "statement": "Attestation state never gates parsing, validation, rendering, or extraction",
+      "statement": "Attestation state never gates parsing, validation, rendering, or extraction; an attestation never authorizes reading or withholding data",
       "strength": "none",
       "gates": [
         {
@@ -901,7 +906,8 @@
       "rules": [
         "APR-ATTEST-011",
         "APR-ATTEST-012",
-        "APR-ATTEST-013"
+        "APR-ATTEST-013",
+        "APR-ATTEST-019"
       ],
       "gap": "Reader behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
     },
@@ -1336,7 +1342,7 @@
     {
       "id": "REQ-stream-records",
       "section": "streams",
-      "statement": "Independent records, no dedup, no positional selection, RFC 7464 framing",
+      "statement": "Independent records, no dedup, no positional selection, RFC 7464 framing; position creates no subject, revision, chronology or trust",
       "strength": "partial",
       "gates": [
         {
@@ -1360,7 +1366,8 @@
       "rules": [
         "APR-STREAM-001",
         "APR-STREAM-003",
-        "APR-STREAM-004"
+        "APR-STREAM-004",
+        "APR-STREAM-005"
       ]
     },
     {
@@ -1471,9 +1478,25 @@
       ]
     },
     {
+      "id": "REQ-validation",
+      "section": "validation",
+      "statement": "A document is valid exactly when it carries no error from the errors table, and a warning never affects validity",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ],
+      "gap": "That a validator raises no error outside the table is the absence of behaviour: every valid case in the suite would catch one invented error, but no case proves a validator has invented none.",
+      "rules": [
+        "APR-VAL-007"
+      ]
+    },
+    {
       "id": "REQ-validate-structure",
       "section": "structural-validation",
-      "statement": "Structural checks that decide whether a document is a valid APR document",
+      "statement": "Structural checks that decide whether a document is a valid APR document; the errors table is exhaustive",
       "strength": "gated",
       "gates": [
         {
@@ -1494,7 +1517,8 @@
         }
       ],
       "rules": [
-        "APR-VAL-001"
+        "APR-VAL-001",
+        "APR-VAL-008"
       ]
     },
     {
@@ -1517,7 +1541,7 @@
     {
       "id": "REQ-verification-vocabulary",
       "section": "verification",
-      "statement": "valid, invalid, unresolved, unverifiable, witnessed; status never gates data",
+      "statement": "valid, invalid, unresolved, unverifiable, witnessed; status never gates data; verification results are reported independently",
       "strength": "none",
       "gates": [
         {
@@ -1546,7 +1570,8 @@
         }
       ],
       "rules": [
-        "APR-ATTEST-010"
+        "APR-ATTEST-010",
+        "APR-ATTEST-018"
       ],
       "gap": "That validity is reported independently of trust is about what a verifier says, not what a document contains. The corpus supplies a self-signed proof that is cryptographically valid and establishes no identity, but nothing checks that an implementation reports those two facts separately."
     },

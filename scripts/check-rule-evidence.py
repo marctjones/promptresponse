@@ -98,9 +98,8 @@ def naive_evaluation(document: str, representation: str, inputs: dict) -> dict:
     unbound response instead of leaving it unbound, overwrite every computed prompt
     including a person's correction, evaluate in document order rather than by
     reference, read the host clock rather than the caller's, let a prompt shadow a
-    reserved name, and get the language surface wrong in both directions — no
-    strings extension, and a math extension that should not be there. A case that
-    this still satisfies is testing nothing about correct evaluation.
+    reserved name, and provide an extension library the specification forbids. A
+    case that this still satisfies is testing nothing about correct evaluation.
     """
     try:
         records = aprlib.read_records(document, representation)
@@ -132,8 +131,10 @@ def naive_evaluation(document: str, representation: str, inputs: dict) -> dict:
         # bindings last instead of first.
         aprexpr.RESERVED = ()
         aprexpr.compose = lambda bound, ambient: {**ambient, **bound}
-        aprexpr.strings_extension = lambda: {
-            "greatest": lambda *a: celtypes.DoubleType(max(float(x) for x in a))}
+        # An implementation that provides an extension library the specification
+        # forbids. The withdrawn strings extension is the realistic one to reach
+        # for, since a CEL binding that ships it makes this the easy mistake.
+        aprexpr.strings_extension = aprexpr._withdrawn_strings_extension
         return aprexpr.evaluate(stripped, now=inputs.get("now"),
                                 today=datetime.date.today().isoformat(),
                                 ctx=inputs.get("ctx"))

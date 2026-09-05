@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "33916998-63b5-55fd-ae73-eece7360d26b",
+    "uuid": "3622bff0-fce9-5bd7-a4ec-b6f6b3c58b5b",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "3201d158cbadbbfff9f2d0f966a81433805d64c645001cde4b5f83ddba5c29a1"
+          "value": "c50ce6982dc959c7e85f437664e4a4b3d6502376cff07987cd6186b6b0562ecd"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -2994,7 +2994,7 @@
               {
                 "id": "apr-model-038_smt",
                 "name": "statement",
-                "prose": "A table introduces **no new primitive**. Rows are ordinary sections; cells are ordinary prompts. A section becomes a table by carrying `kind: \"table\"`, and **only** by carrying it: a table is never inferred from `maxRows`, `canAddRows`, or the presence of child sections, and those members on a section that is not a table are preserved and ignored."
+                "prose": "A table introduces **no new primitive**. Rows are ordinary sections; cells are ordinary prompts. A section becomes a table by carrying `kind: \"table\"`, and **only** by carrying it: a reader **MUST NOT** infer a table from `maxRows`, `canAddRows`, or the presence of child sections, and **MUST** preserve and ignore those members on a section that is not a table."
               }
             ]
           },
@@ -3551,6 +3551,53 @@
                 "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
               }
             ]
+          },
+          {
+            "id": "apr-model-052",
+            "title": "APR-MODEL-052 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-052"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-052_smt",
+                "name": "statement",
+                "prose": "`submissionUrls`, when present, **MUST** be an ordered array of strings. Even one delivery choice is represented as a one-element array; a scalar `submissionUrl` **MUST NOT** be written, and a reader encountering one **MUST** treat it as an unknown member rather than honouring it. Order is the author's preferred display order, never permission for a client to choose or fall back to a target automatically; submitting remains an explicit user action."
+              },
+              {
+                "id": "apr-model-052_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
+              }
+            ]
           }
         ]
       },
@@ -4068,6 +4115,95 @@
                 "id": "apr-val-006_gap",
                 "name": "assessment-gap",
                 "prose": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule. APR-VAL-006, that a warning never prevents saving or typing, is a user-interface obligation. A document is valid either way, so no case distinguishes an implementation that blocks the keyboard from one that does not."
+              }
+            ]
+          },
+          {
+            "id": "apr-val-007",
+            "title": "APR-VAL-007 — 7. Validation",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-007"
+              },
+              {
+                "name": "section",
+                "value": "validation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-validation"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#validation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-007_smt",
+                "name": "statement",
+                "prose": "Validation produces **errors** and **warnings**. A document is valid if and only if it has zero errors: a validator **MUST NOT** report a document as invalid for any reason not in the errors table, and a warning **MUST NOT** affect validity."
+              },
+              {
+                "id": "apr-val-007_gap",
+                "name": "assessment-gap",
+                "prose": "That a validator raises no error outside the table is the absence of behaviour: every valid case in the suite would catch one invented error, but no case proves a validator has invented none."
+              }
+            ]
+          },
+          {
+            "id": "apr-val-008",
+            "title": "APR-VAL-008 — 7.1 Errors — structure only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-008"
+              },
+              {
+                "name": "section",
+                "value": "structural-validation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-validate-structure"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#structural-validation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-008_smt",
+                "name": "statement",
+                "prose": "This list is exhaustive, and a validator **MUST NOT** raise an error outside it. **No error may ever arise from the content of a response**, and none may ever arise from the state of an attestation ([Attestations never gate the data](#never-gate)). A validator that rejects a document because a response is badly formatted, or because an attestation is missing or invalid, is not implementing APR."
               }
             ]
           }
@@ -4824,6 +4960,53 @@
                 "prose": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API."
               }
             ]
+          },
+          {
+            "id": "apr-stream-005",
+            "title": "APR-STREAM-005 — 9. Streams",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-STREAM-005"
+              },
+              {
+                "name": "section",
+                "value": "streams"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "STREAM"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-stream-records"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#streams",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-stream-005_smt",
+                "name": "statement",
+                "prose": "A stream is an ordered transport of independent records. Physical order is presentation only: a reader **MUST NOT** derive a subject, a revision, a chronology, or a trust relationship from the position of a record."
+              },
+              {
+                "id": "apr-stream-005_gap",
+                "name": "assessment-gap",
+                "prose": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API."
+              }
+            ]
           }
         ]
       },
@@ -5061,6 +5244,53 @@
               },
               {
                 "id": "apr-digest-005_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+              }
+            ]
+          },
+          {
+            "id": "apr-digest-006",
+            "title": "APR-DIGEST-006 — 10. Semantic digests and manifests",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-DIGEST-006"
+              },
+              {
+                "name": "section",
+                "value": "digests"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "DIGEST"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-digests-manifests"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#digests",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-digest-006_smt",
+                "name": "statement",
+                "prose": "`jcs-sha256` is the beta.6 semantic digest algorithm. A digest **MUST** be computed over the RFC 8785 JCS serialization of the fully parsed JSON semantic model, encoded as UTF-8, and expressed as lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`. Source syntax **MUST NOT** be hashed."
+              },
+              {
+                "id": "apr-digest-006_gap",
                 "name": "assessment-gap",
                 "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
               }
@@ -5659,7 +5889,7 @@
               {
                 "id": "apr-expr-013_smt",
                 "name": "statement",
-                "prose": "The only library beyond the standard library is the **CEL strings extension**, as defined by cel-go release `v0.32.0`. An implementation **MUST** provide the standard library, the standard macros, and the strings extension, and **MUST NOT** provide any other extension library or custom function. An expression naming a function outside that surface is an evaluation failure, and the per-hint fallback applies ([Results and fallback](#expr-fallback))."
+                "prose": "An implementation **MUST** provide the standard library and the standard macros, and **MUST NOT** provide any extension library or custom function. An expression naming a function outside that surface is an evaluation failure, and the per-hint fallback applies ([Results and fallback](#expr-fallback))."
               },
               {
                 "id": "apr-expr-013_gap",
@@ -5712,6 +5942,100 @@
                 "id": "apr-expr-014_gap",
                 "name": "assessment-gap",
                 "prose": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-015",
+            "title": "APR-EXPR-015 — 11.4 Activation",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-015"
+              },
+              {
+                "name": "section",
+                "value": "expr-activation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-activation"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-activation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-015_smt",
+                "name": "statement",
+                "prose": "An expression **MUST** be evaluated against this read-only activation and nothing else."
+              },
+              {
+                "id": "apr-expr-015_gap",
+                "name": "assessment-gap",
+                "prose": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-016",
+            "title": "APR-EXPR-016 — 11.4 Activation",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-016"
+              },
+              {
+                "name": "section",
+                "value": "expr-activation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-activation"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-activation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-016_smt",
+                "name": "statement",
+                "prose": "A prompt whose id is not a valid CEL identifier **MUST NOT** be given a direct binding, and **MUST NOT** be reachable from an expression by any other name."
+              },
+              {
+                "id": "apr-expr-016_gap",
+                "name": "assessment-gap",
+                "prose": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
               }
             ]
           }
@@ -6445,6 +6769,142 @@
                 "id": "apr-attest-016_gap",
                 "name": "assessment-gap",
                 "prose": "APR-ATTEST-005 is covered. APR-ATTEST-006, 015 and 016 are verifier behaviour: that an unrelated edit is never reported as invalid, that a later form leaves an attestation unresolved rather than invalid, and that a verifier may report per-path which attested values still match. All three are about what a verifier says, and the harness scores documents rather than verification reports."
+              }
+            ]
+          },
+          {
+            "id": "apr-attest-017",
+            "title": "APR-ATTEST-017 — 12.2 Attestation record",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-ATTEST-017"
+              },
+              {
+                "name": "section",
+                "value": "attestation-catalogue"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "ATTEST"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-attestation-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#attestation-catalogue",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-attest-017_smt",
+                "name": "statement",
+                "prose": "`subject.digest` **MUST** identify the complete form semantic model, and a verifier **MUST NOT** resolve a subject by stream position, filename, or document id."
+              }
+            ]
+          },
+          {
+            "id": "apr-attest-018",
+            "title": "APR-ATTEST-018 — 12.7 Verification vocabulary",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-ATTEST-018"
+              },
+              {
+                "name": "section",
+                "value": "verification"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "ATTEST"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-verification-vocabulary"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#verification",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-attest-018_smt",
+                "name": "statement",
+                "prose": "These are independent, and a verifier **MUST** report them independently: an attestation may be both `unverifiable` and `witnessed`, and `unresolved` **MUST NOT** be reported as a failure of the assertion."
+              },
+              {
+                "id": "apr-attest-018_gap",
+                "name": "assessment-gap",
+                "prose": "That validity is reported independently of trust is about what a verifier says, not what a document contains. The corpus supplies a self-signed proof that is cryptographically valid and establishes no identity, but nothing checks that an implementation reports those two facts separately."
+              }
+            ]
+          },
+          {
+            "id": "apr-attest-019",
+            "title": "APR-ATTEST-019 — 12.8 Attestations never gate the data",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-ATTEST-019"
+              },
+              {
+                "name": "section",
+                "value": "never-gate"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "ATTEST"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-never-gate"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#never-gate",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-attest-019_smt",
+                "name": "statement",
+                "prose": "**An attestation is an assertion about a document, never a permission to read it.** An implementation **MUST NOT** treat the presence, absence, or state of an attestation as authorization to read, or to withhold, the data a form carries."
+              },
+              {
+                "id": "apr-attest-019_gap",
+                "name": "assessment-gap",
+                "prose": "Reader behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
               }
             ]
           }

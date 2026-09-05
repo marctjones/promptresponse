@@ -1043,9 +1043,9 @@
       "anchors": [],
       "expects": {
         "responses": {
-          "trimmed": "Ada Lovelace",
-          "first": "Ada",
-          "outside": ""
+          "len": "3",
+          "outside": "",
+          "alsooutside": ""
         }
       }
     },

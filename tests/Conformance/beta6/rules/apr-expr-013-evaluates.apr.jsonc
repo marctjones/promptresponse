@@ -11,25 +11,17 @@
         {
           "id": "n",
           "label": "N",
-          "response": "  Ada Lovelace  ",
+          "response": "Ada",
           "hints": {
             "expectedDataType": "text"
           }
         },
         {
-          "id": "trimmed",
-          "label": "T",
+          "id": "len",
+          "label": "Len",
           "hints": {
-            "expectedDataType": "text",
-            "exprValue": "n.trim()"
-          }
-        },
-        {
-          "id": "first",
-          "label": "F",
-          "hints": {
-            "expectedDataType": "text",
-            "exprValue": "n.trim().split(' ')[0]"
+            "expectedDataType": "number",
+            "exprValue": "double(size(n))"
           }
         },
         {
@@ -37,7 +29,15 @@
           "label": "O",
           "hints": {
             "expectedDataType": "text",
-            "exprValue": "math.greatest(1.0, 2.0)"
+            "exprValue": "n.trim()"
+          }
+        },
+        {
+          "id": "alsooutside",
+          "label": "A",
+          "hints": {
+            "expectedDataType": "text",
+            "exprValue": "math.greatest(1.0,2.0)"
           }
         }
       ]

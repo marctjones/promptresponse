@@ -55,7 +55,18 @@ HINTS = {
 
 
 def strings_extension():
-    """The CEL strings extension the specification pins, as functions.
+    """No extension library. The specification requires the standard library alone.
+
+    This returns nothing, and stays as a seam because the evidence tooling patches
+    it to model an implementation that gets the language surface wrong. An earlier
+    baseline required the cel-go strings extension; it was withdrawn because not
+    every CEL binding carries it.
+    """
+    return {}
+
+
+def _withdrawn_strings_extension():
+    """Kept for reference: what the withdrawn extension requirement asked for.
 
     `celpy` ships the CEL standard library and standard macros but not this
     extension, so the tooling supplies it. That is a faithful reading of what the

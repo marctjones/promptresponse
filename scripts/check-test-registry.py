@@ -52,12 +52,25 @@ def spec_sections_with_musts():
         heading = re.match(r"^#{2,4} (.+)$", line)
         if heading:
             current = heading.group(1).strip()
+            # A heading may name a keyword as a label — "`core` — REQUIRED of every
+            # implementation" — without stating a clause. The obligation, if there
+            # is one, is in the body.
+            continue
+        # Two sections define the vocabulary rather than using it, and the checklist
+        # indexes rules stated elsewhere. All three are excluded where rule
+        # identifiers are assigned, and are excluded here for the same reason.
+        if current and re.search(r"\{#(normative-language|conventions|checklist)\}", current):
+            continue
         # The full BCP 14 set, matching how rule identifiers are assigned. A
         # section whose only requirement is a SHOULD or a MAY still states a
         # requirement, and counting it differently here than there produced
         # sections that were normative for one check and not the other.
         if current and re.search(
-            r"\*\*(MUST NOT|MUST|SHALL NOT|SHALL|REQUIRED|SHOULD NOT|SHOULD|MAY)\*\*", line
+            # Section 1.2: a keyword is normative when it appears in all capitals. Matching
+            # only bolded ones missed a clause inside a fully bolded sentence, and the
+            # list omitted RECOMMENDED.
+            r"\b(MUST NOT|MUST|SHALL NOT|SHALL|REQUIRED|SHOULD NOT|SHOULD|MAY|RECOMMENDED)\b",
+            line
         ):
             anchor = re.search(r"\{#([A-Za-z0-9_-]+)\}", current)
             if anchor:
@@ -89,8 +102,14 @@ def main():
     src = source_text()
     problems, notes = [], []
 
+    # rules/ holds one narrow vector per specification rule. Those are claimed by
+    # tests/Conformance/beta6/corpus.map.json and measured per rule by
+    # scripts/check-rule-evidence.py, which is a stronger claim than a gate
+    # reference: it checks the vector actually catches a violation. Requiring them
+    # here as well would duplicate a hundred entries and record nothing new.
     fixtures_on_disk = {
         f"{p.parent.name}/{p.name}" for p in CORPUS.rglob("*.apr*")
+        if p.parent.name != "rules"
     }
     claimed_fixtures = set()
     suite_ids = {s["id"] for s in registry["suites"]}
