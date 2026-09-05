@@ -6,12 +6,12 @@
   "$comment": "Rules this schema cannot express, which a conforming validator MUST still enforce: (1) section ids are unique document-wide; (2) prompt ids are unique document-wide (a section id and a prompt id MAY coincide); (3) canonical signature payloads verify; (4) within a kind=table section, prompts at the same position across instances should correspond (a ragged or mislabelled table is advisory, never invalid). Rules this schema deliberately does NOT express because they are advisory: every hint under prompt.hints, including validationPattern and the expr* family, never constrains 'response'. Any JSON string is a valid response.",
   "type": "object",
   "required": [
-    "version",
+    "aprVersion",
     "metadata",
     "sections"
   ],
   "properties": {
-    "version": {
+    "aprVersion": {
       "pattern": "^1\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.]+)?$",
       "description": "APR format version, MAJOR.MINOR with an optional informational pre-release suffix. Compatibility is decided by MAJOR.MINOR alone: a different MAJOR is incompatible and MUST be rejected, while a NEWER MINOR is readable (ignore members you do not know, but preserve them). This schema therefore accepts any 1.x. The -beta suffix travels inside the file on purpose: a specification document does not accompany an emailed form, so the file itself must say the format is not yet frozen. A document declaring any version not in this list MUST be rejected. At the 1.0 stable tag, \"1.0\" is ADDED to this list and \"1.0-beta\" is kept permanently so beta-era files keep opening."
     },

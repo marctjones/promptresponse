@@ -168,6 +168,15 @@ jobs:
         # accepts means the validator is missing a rule the document states.
         run: python3 scripts/validate-apr.py --spec-examples
 
+      - name: Verify the conformance suite is current
+        run: python3 scripts/build-suite.py
+
+      - name: Score the reference driver against the conformance suite
+        # The suite and the harness that scores it are what make "a validated
+        # implementation" mean something. Running the reference driver proves the
+        # harness works; a real implementation supplies its own driver.
+        run: python3 scripts/run-conformance.py --driver "python3 scripts/reference-driver.py"
+
       - name: Verify the OSCAL rule catalog is current
         # Every rule identifier is projected into an OSCAL control so completeness
         # policies can be written against the same identifiers the spec uses.

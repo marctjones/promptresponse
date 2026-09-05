@@ -1,7 +1,7 @@
 // Matched pair: this JSONC document and hints-and-widgets-showcase.apr.yaml
 // represent exactly the same beta.6 template. Comments and formatting are non-semantic.
 {
-  "version": "1.0-beta.6",
+  "aprVersion": "1.0-beta.6",
   "documentType": "template",
   "metadata": {
     "title": "APR hints and widgets showcase",

@@ -1,5 +1,5 @@
 # Matched pair: this YAML document and hints-and-widgets-showcase.apr.jsonc.
-version: "1.0-beta.6"
+aprVersion: "1.0-beta.6"
 documentType: template
 metadata:
   title: APR hints and widgets showcase

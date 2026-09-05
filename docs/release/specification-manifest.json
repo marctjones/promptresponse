@@ -18,11 +18,11 @@
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
-      "sha256": "sha256:2cf32099b6f6538012a9a47a6e1660991e60c7905512bdac8305d4e11ba58930"
+      "sha256": "sha256:4488ec647879ba26e080ff6f2c3bf92ba56d30b3c194fc9693d40204bc717a22"
     },
     "schemaBase": {
       "path": "schemas/apr-1.0.schema.json",
-      "sha256": "sha256:74781bf9445c9128d852c5775f2d75299a645aab6e00816c8a28c52a0b7c6e57"
+      "sha256": "sha256:e29ebed74203844b3a21cca378756a3bfd8989c8fc600cdbf8ee7f8c7760bf1a"
     },
     "typeRegistry": {
       "path": "schemas/apr-types-1.0.json",
@@ -51,7 +51,7 @@
   },
   "corpus": {
     "path": "tests/Conformance/beta6",
-    "files": 22,
-    "sha256": "sha256:3ffae95f67e64fa1ff5d06d4f3ddbc0324e5f35b323b081b2c1fb7696df0852d"
+    "files": 23,
+    "sha256": "sha256:784c608d83231359fa4d5fa17a25f5b6ab51b16a854cb039f1f8b5de6e9eacff"
   }
 }
