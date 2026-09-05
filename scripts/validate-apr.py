@@ -164,7 +164,21 @@ class Report:
     def error(self, code, path, msg, *rules):
         self.add("error", code, path, msg, rules)
 
+    # Advisory spellings the warnings table fixes. Reporting one of these under
+    # the name the table gives it is what APR-VAL-009 requires, so every such
+    # finding is evidence for that rule as well as for the rule it is about.
+    SPELLED = {
+        "RESPONSE_CONTRADICTS_TYPE", "RESPONSE_PATTERN_MISMATCH",
+        "RESPONSE_OUTSIDE_BOUNDS", "RESPONSE_OUTSIDE_SUGGESTED_VALUES",
+        "HINT_UNUSABLE", "UNREGISTERED_DATA_TYPE", "UNDECLARED_ROLE",
+        "TABLE_RAGGED", "TABLE_LABEL_MISMATCH", "TABLE_OVER_CAPACITY",
+        "TABLE_MEMBERS_ON_A_PLAIN_SECTION", "UNPREFIXED_MEMBER",
+        "SUBMISSION_URL_UNSUPPORTED", "NON_NFC_TEXT", "FORBIDDEN_CODE_POINT",
+    }
+
     def warn(self, code, path, msg, *rules):
+        if code in self.SPELLED and "APR-VAL-009" not in rules:
+            rules = (*rules, "APR-VAL-009")
         self.add("warning", code, path, msg, rules)
 
     @property

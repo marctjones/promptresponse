@@ -1,11 +1,11 @@
 {
   "$comment": "Ratchet baseline for scripts/check-rule-evidence.py. These counts may rise and may not fall. Regenerate with --write only when they have risen.",
-  "rules": 161,
+  "rules": 163,
   "counts": {
-    "enforced": 73,
+    "enforced": 74,
     "satisfied": 78,
-    "violated": 72,
-    "caught": 71,
+    "violated": 74,
+    "caught": 73,
     "complete": 71
   }
 }

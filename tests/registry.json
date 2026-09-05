@@ -330,6 +330,44 @@
       ]
     },
     {
+      "id": "REQ-warning-code-spellings",
+      "section": "warnings",
+      "statement": "A reported advisory condition carries the code the warnings table names",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "rules/apr-model-014-warns.apr.jsonc"
+        },
+        {
+          "type": "suite",
+          "ref": "core.conformance"
+        }
+      ],
+      "rules": [
+        "APR-VAL-009"
+      ]
+    },
+    {
+      "id": "REQ-parse-error-code",
+      "section": "parse-errors",
+      "statement": "A parse failure is reported as PARSE_ERROR, outside the exhaustive error table",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "malformed/duplicate-member.apr.jsonc"
+        },
+        {
+          "type": "suite",
+          "ref": "core.conformance"
+        }
+      ],
+      "rules": [
+        "APR-VAL-010"
+      ]
+    },
+    {
       "id": "REQ-any-string",
       "section": "any-string",
       "statement": "Any string is a valid response, whatever the hint asked for",

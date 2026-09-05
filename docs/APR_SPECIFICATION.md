@@ -1900,20 +1900,42 @@ namespaces. [APR-VAL-001]
 
 ### 7.2 Warnings — advisory only {#warnings}
 
-A response contradicting `expectedDataType`; a response not matching
-`validationPattern`; a response outside `suggestedValues` or the bounds family; a
-blank response the workflow may consider required; text advisories
-([Text handling](#text-handling)); an undeclared role; and the table advisories
-`TABLE_NO_ROWS`, `TABLE_RAGGED`, `TABLE_LABEL_MISMATCH`, `TABLE_OVER_CAPACITY`; and
-`UNPREFIXED_MEMBER` for an unrecognised member with no reverse-DNS prefix
-([Unknown members](#extensions)); and `SUBMISSION_URL_UNSUPPORTED` for a
-submission entry of a scheme this document does not define ([Submission targets](#submission)).
+| Code | Condition |
+| --- | --- |
+| `RESPONSE_CONTRADICTS_TYPE` | A response contradicts `expectedDataType`. |
+| `RESPONSE_PATTERN_MISMATCH` | A response does not match `validationPattern`. |
+| `RESPONSE_OUTSIDE_BOUNDS` | A response falls outside the bounds family ([Hints](#hints-object)). |
+| `RESPONSE_OUTSIDE_SUGGESTED_VALUES` | A response is not one of `suggestedValues`. |
+| `HINT_UNUSABLE` | A hint cannot be applied at all — a `validationPattern` that is not a valid regular expression, a bound that will not parse. |
+| `UNREGISTERED_DATA_TYPE` | `expectedDataType` names a type the registry does not carry ([Types are affordances](#data-types)). |
+| `UNDECLARED_ROLE` | A `role` names a role `metadata.roles` does not declare ([Roles](#roles)). |
+| `TABLE_RAGGED` | Instances of a table do not carry the same prompt ids ([Ragged tables](#table-ragged)). |
+| `TABLE_LABEL_MISMATCH` | A cell's label differs across instances of the same column. |
+| `TABLE_OVER_CAPACITY` | A table carries more instances than `maxRows`. |
+| `TABLE_MEMBERS_ON_A_PLAIN_SECTION` | `maxRows` or `canAddRows` on a section that is not a table ([Tables](#tables)). |
+| `UNPREFIXED_MEMBER` | An unrecognised member with no reverse-DNS prefix ([Unknown members](#extensions)). |
+| `SUBMISSION_URL_UNSUPPORTED` | A submission entry of a scheme this document does not define ([Submission targets](#submission)). |
+| `NON_NFC_TEXT` | Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). |
+| `FORBIDDEN_CODE_POINT` | Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). |
+
+An implementation that reports one of these conditions **MUST** report it under
+the code named here. [APR-VAL-009]
 
 Warnings are how an implementation tells a person "this may not be what you
 meant" without ever telling them "you may not write this."
 
-An implementation **MAY** surface any warning. Such feedback **MUST NOT** be
-reported as the document being invalid. [APR-VAL-002]
+An implementation **MAY** surface any warning, including conditions this table
+does not name — a blank response the workflow may consider required, or the
+confusable and mixed-script findings the text-handling section asks for. Such feedback
+**MUST NOT** be reported as the document being invalid. [APR-VAL-002]
+
+> Rationale: the table fixes spellings, not obligations. Whether to report a
+> condition stays the implementation's choice, and this list is not exhaustive
+> the way the error list is. But a warning exists to be understood by whoever
+> reads it next, and two implementations reporting the same condition under two
+> names have produced advice that only travels as prose. `NON_NFC_TEXT` and
+> `FORBIDDEN_CODE_POINT` are the exception to the choice, not to the spelling:
+> the human-facing text floor requires a validator to report those at authoring time.
 
 It **MUST NOT** prevent saving, and **MUST NOT** prevent entering any text. [APR-VAL-006]
 
@@ -1926,6 +1948,13 @@ Documents that parse cleanly and fail validation are a different class from thos
 that **MUST NOT** parse at all. Keeping these stages distinct is what lets a
 reader load a flawed document and show what is wrong with it, rather than
 refusing to open it. [APR-VAL-004]
+
+A reader that reports a parse failure **MUST** report it under a parse-stage
+code: the code this document names for that condition where it names one —
+`DUPLICATE_MEMBER`, the `YAML_*` refusals, `APR_STREAM_MIXED_REPRESENTATIONS` —
+and `PARSE_ERROR` where it does not. No parse-stage code is an entry in the error
+table above, and none disturbs its exhaustiveness: a document that will not parse
+was never validated, so no validation error can describe it. [APR-VAL-010]
 
 ### 7.4 Semantic validation is never required {#semantic-validation}
 

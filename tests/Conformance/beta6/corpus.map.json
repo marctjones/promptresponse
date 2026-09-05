@@ -287,7 +287,8 @@
         "apr-jsonc"
       ],
       "rules": [
-        "APR-REP-006"
+        "APR-REP-006",
+        "APR-VAL-010"
       ]
     },
     "malformed/missing-record-separator.apr.jsonc": {
@@ -613,7 +614,8 @@
     "rules/apr-model-014-warns.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-014"
+        "APR-MODEL-014",
+        "APR-VAL-009"
       ],
       "anchors": [],
       "warns": [
