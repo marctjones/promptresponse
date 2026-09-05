@@ -960,7 +960,7 @@
       "statement": "A submission entry is an https pre-signed PUT target or a mailto address; delivery is a single PUT or an attachment, on explicit user action, never following a redirect",
       "strength": "none",
       "gates": [],
-      "gap": "Transport behaviour is outside the corpus. No test yet asserts that an unsupported scheme is reported or refused.",
+      "gap": "APR-MODEL-035 is gated by a warns case. Section 7.2 now names `SUBMISSION_URL_UNSUPPORTED` with a code, so APR-MODEL-032's validator half is an ordinary warns case too and is worth writing. APR-MODEL-033 and APR-MODEL-034 are transport behaviour — what a client does with a PUT or a mailto — and need a transport harness the suite does not have.",
       "rules": [
         "APR-MODEL-032",
         "APR-MODEL-033",
@@ -1024,7 +1024,7 @@
         "APR-SEC-010",
         "APR-SEC-011"
       ],
-      "gap": "Three properties of an implementation rather than of a document. No executable content is a property of the format itself — there is nothing to execute — so nothing can violate it. No network access on open and resource bounds need the harness to observe a reader's behaviour, not its answer. Resource bounds are partly gated in-repo by ParserFuzzTests."
+      "gap": "APR-SEC-009 is a property of the format rather than of a document: there is nothing to execute, so nothing can violate it. APR-SEC-010 needs the harness to observe that a reader made no request, not what it answered. APR-SEC-011 is closer than this entry said: `scripts/validate-apr.py` already threads a depth parameter through `check_section`, so enforcing a bound there plus a deeper-than-sixteen vector would gate the depth half; the size, stream-length and evaluation-cost bounds stay implementation-defined by design. Partly gated in-repo by ParserFuzzTests."
     },
     {
       "id": "REQ-ordering",
@@ -1453,7 +1453,7 @@
           "ref": "schema.gate"
         }
       ],
-      "gap": "No beta.6 corpus fixture carries a table section.",
+      "gap": "Nine corpus cases carry a table section, so the fixtures exist. What is unreached is the obligation itself: APR-MODEL-012 says every presentation of a table is conformant and none is a fallback, which no document can violate because the document does not choose the presentation. APR-MODEL-013 is the retired-member drop, reachable by a round-trip case carrying a retired column member and asserting it is gone on write; nobody has written one.",
       "rules": [
         "APR-MODEL-012",
         "APR-MODEL-013"

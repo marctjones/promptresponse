@@ -20,28 +20,4 @@ public class KeyboardNavigationConventionTests
                 Console.WriteLine($"WARNING: {Path.GetFileName(xamlFile)} has IsTabStop=\"False\" on interactive element: {System.Text.RegularExpressions.Regex.Match(xamlContent, tabStopFalsePattern).Value}");
         }
     }
-
-    [Theory]
-    [InlineData("Ctrl+O", "Open file")]
-    [InlineData("Ctrl+S", "Save file")]
-    [InlineData("Tab", "Navigate to next field")]
-    [InlineData("Shift+Tab", "Navigate to previous field")]
-    [InlineData("Space", "Toggle checkbox/expand section")]
-    [InlineData("Enter", "Activate button")]
-    [InlineData("Esc", "Close dialog")]
-    [InlineData("Alt+F", "File menu")]
-    [InlineData("Alt+V", "View menu")]
-    [InlineData("Alt+H", "Help menu")]
-    public void KeyboardShortcut_ShouldFollow_StandardConventions(string shortcut, string action)
-    {
-        var standardShortcuts = new Dictionary<string, string>
-        {
-            { "Ctrl+O", "Open" }, { "Ctrl+S", "Save" }, { "Tab", "Next field" },
-            { "Shift+Tab", "Previous field" }, { "Space", "Toggle/Activate" },
-            { "Enter", "Activate/Submit" }, { "Esc", "Cancel/Close" },
-        };
-
-        if (standardShortcuts.ContainsKey(shortcut))
-            true.Should().BeTrue($"because {shortcut} for {action} follows standard keyboard conventions");
-    }
 }

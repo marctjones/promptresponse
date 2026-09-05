@@ -53,7 +53,12 @@ public sealed class TemporalBoundsTests
 
         review.Findings.Should().NotBeEmpty(
             "a response outside a suggested bound is worth telling someone about");
-        review.Findings.Should().OnlyContain(finding => finding.Severity != ReviewSeverity.Error,
+        // ReviewSeverity has no Error member on purpose: neither level means the
+        // document is invalid, so there is nothing for an Error to mean. A response
+        // outside a suggested bound is Advisory - unusual but plausible - and never
+        // NeedsReview, which is reserved for a value a machine will mishandle.
+        review.Findings.Should().OnlyContain(
+            finding => finding.Severity != ReviewSeverity.NeedsReview,
             "bounds are an offer, not a limit: a response outside them is still valid");
     }
 

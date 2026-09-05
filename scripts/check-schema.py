@@ -20,7 +20,10 @@ from urllib.parse import urljoin
 try:
     from jsonschema import Draft202012Validator
 except ImportError:
-    sys.exit("jsonschema is required: pip install jsonschema")
+    # A gate that cannot run has not passed. Exit 2, as the other gates do.
+    print("cannot run: jsonschema is required: pip install jsonschema",
+          file=sys.stderr)
+    sys.exit(2)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BETA6_SCHEMA = ROOT / "schemas" / "apr-1.0-beta.6.schema.json"

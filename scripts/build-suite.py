@@ -99,6 +99,8 @@ def build() -> dict:
                     "yaml" if example["representation"] == "yaml" else "jsonc")
                 if len(records) == 1:
                     case["digest"] = aprlib.digest(records[0])
+            except aprlib.MissingDependency:
+                raise  # never a property of the vector; the package is absent
             except Exception:  # noqa: BLE001 - a vector we cannot read states no digest
                 pass
         if example.get("diagnostic"):
@@ -192,4 +194,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except aprlib.MissingDependency as missing:
+        # A gate that cannot run has not passed. Say which package is absent
+        # rather than reporting its absence as a defect in a document.
+        print(f"cannot run: {missing}", file=sys.stderr)
+        sys.exit(2)

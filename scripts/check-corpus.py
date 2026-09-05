@@ -199,4 +199,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except aprlib.MissingDependency as missing:
+        # A gate that cannot run has not passed. Say which package is absent
+        # rather than reporting its absence as a defect in a document.
+        print(f"cannot run: {missing}", file=sys.stderr)
+        sys.exit(2)

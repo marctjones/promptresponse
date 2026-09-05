@@ -60,7 +60,9 @@ jobs:
   accessibility-gate:
     name: Accessibility tests (mandatory)
     runs-on: ubuntu-latest
-    needs: build-and-test
+    # No `needs:`. This job builds what it tests; waiting on the full solution
+    # suite only meant that one failure elsewhere skipped the gate CI calls
+    # non-negotiable.
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -81,7 +83,11 @@ jobs:
   format-schema-gate:
     name: APR schema gate (language-neutral)
     runs-on: ubuntu-latest
-    needs: build-and-test
+    # No `needs:`. These gates check the specification and the artifacts derived
+    # from it, and read no SDK. Making them wait on `build-and-test` meant that
+    # while the .NET suite was misaligned with beta.6 they never ran at all — the
+    # corpus, conformance and rule-evidence gates were skipped on every push, and
+    # a skipped gate reports the same green as a passing one.
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -91,24 +97,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Set up uv
-        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
-
-      - name: Set up Node
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: "24"
-          cache: npm
-          cache-dependency-path: |
-            typescript/package-lock.json
-            demos/web/package-lock.json
-
-      - name: Set up Java
-        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
-        with:
-          distribution: temurin
-          java-version: "21"
-
       - name: Install specification and conformance tooling dependencies
         # None of these is optional. PyYAML reads the beta.6 APR-YAML forms and
         # streams, so without it half the corpus would pass by being unreadable;
@@ -116,31 +104,6 @@ jobs:
         # cryptography rebuilds the signed attestation fixtures. A gate reports a
         # missing package as a failure rather than skipping the work it gates.
         run: pip install --disable-pip-version-check -r scripts/requirements.txt
-
-      # The Python SDK runs the same corpus as the .NET one. A second
-      # implementation disagreeing is the cheapest signal that the corpus or the
-      # spec is ambiguous, and it is the only thing here that can exercise the
-      # core-only profile rules at all.
-      - name: Python SDK tests
-        working-directory: python
-        run: |
-          uv sync --all-extras --locked
-          uv run pytest -q
-
-      - name: TypeScript SDK and HTML renderer tests
-        working-directory: typescript
-        run: |
-          npm ci
-          npm test
-
-      - name: Browser demo tests
-        working-directory: demos/web
-        run: |
-          npm ci
-          npm test
-
-      - name: Java SDK shared-corpus tests
-        run: java/run-tests.sh
 
       - name: Verify the test registry agrees with the repository
         # tests/registry.json claims which spec requirements are gated. A coverage
@@ -249,7 +212,8 @@ jobs:
   coverage-gate:
     name: Coverage gate (Core ≥90%, Desktop ≥72%, Cli ratcheting)
     runs-on: ubuntu-latest
-    needs: build-and-test
+    # No `needs:`. It runs its own collection; the thresholds in its name are the
+    # bar, and they are meaningless while the job is skipped.
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -311,3 +275,62 @@ jobs:
           /p:ThresholdType=line
           /p:ThresholdStat=total
           /p:Exclude="[xunit.*]*%2c[*.Tests]*%2c[*.Tests.*]*%2c[PromptResponse.Cli]PromptResponse.Cli.Program"
+
+  sdk-suites:
+    name: SDK suites (Python, TypeScript, browser demo, Java)
+    runs-on: ubuntu-latest
+    # Separate from the language-neutral gate on purpose. These four suites are
+    # implementations measured against the specification, and no SDK is aligned
+    # to beta.6 yet, so this job is expected to fail until the alignment lands.
+    # It must not be able to take the specification gates down with it.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: |
+            typescript/package-lock.json
+            demos/web/package-lock.json
+
+      - name: Set up Java
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      # The Python SDK runs the same corpus as the .NET one. A second
+      # implementation disagreeing is the cheapest signal that the corpus or the
+      # spec is ambiguous, and it is the only thing here that can exercise the
+      # core-only profile rules at all.
+      - name: Python SDK tests
+        working-directory: python
+        run: |
+          uv sync --all-extras --locked
+          uv run pytest -q
+
+      - name: TypeScript SDK and HTML renderer tests
+        working-directory: typescript
+        run: |
+          npm ci
+          npm test
+
+      - name: Browser demo tests
+        working-directory: demos/web
+        run: |
+          npm ci
+          npm test
+
+      - name: Java SDK shared-corpus tests
+        run: java/run-tests.sh

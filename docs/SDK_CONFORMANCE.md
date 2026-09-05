@@ -103,6 +103,36 @@ answering none of those cases fails. Whether the claim you publish elsewhere is
 honest stays a statement a person makes, as the specification's conformance
 section says.
 
+## Decisions this contract rests on
+
+**`scripts/` is an SDK-free oracle and stays one.** `scripts/aprlib.py`,
+`scripts/validate-apr.py` and `scripts/aprexpr.py` are about 1,400 lines of
+beta.6-aligned Python that `scripts/reference-driver.py` answers the suite with.
+They import no SDK — `reference-driver.py` loads `aprlib` and `validate-apr.py`
+by path and never touches `python/promptresponse`. That independence is the point
+and is not an accident to be tidied away: the gates that pass today exercise the
+oracle, not the shipped SDK, so the Python SDK's own driver is a second
+implementation disagreeing with the first rather than a program checking itself.
+
+Folding `scripts/` into the Python SDK would end that. It would make the Python
+driver a restatement of the oracle, and the cheapest signal this project has —
+two implementations reading the same corpus and differing — would go silent. If
+that trade is ever made deliberately, this document and the SDK conformance claim
+both have to say so.
+
+**The .NET conformance driver calls `PromptResponse.Core` directly.** It is a thin
+project over the library rather than a program driving the command line, so
+scoring the .NET SDK does not wait on the non-interactive CLI contract. The CLI
+is then scored separately as its own surface, which is worth more than either
+alone: two drivers over one library catch a defect in the library, and a defect
+in the CLI's own layer shows up as a difference between them.
+
+**Retired signing helpers stay retired.** `CreateCertificateAuthority` and
+`IssueSigningCertificate` were removed from `SignatureCertificates`: nothing in
+`src/` or `tests/` referenced either, and the signed attestation fixtures are
+built by `scripts/build-corpus.py` in Python. A certificate-chain fixture, if one
+is ever needed, belongs beside the corpus it is for.
+
 ## Profiles
 
 `core` is required of every implementation. `core+streams`, `core+attestations`

@@ -10,7 +10,6 @@ public class KeyboardNavigationMainWindowTests
     public void MainWindow_CommonActions_ShouldHave_KeyboardShortcuts()
     {
         var xamlContent = KeyboardNavigationTestFiles.ReadDesktopFile("Views/MainShellView.axaml");
-        if (xamlContent is null) return;
 
         var shortcuts = new Dictionary<string, string>
         {
@@ -26,7 +25,6 @@ public class KeyboardNavigationMainWindowTests
     public void MainWindow_Menus_ShouldHave_MnemonicsForTopLevel()
     {
         var xamlContent = KeyboardNavigationTestFiles.ReadDesktopFile("Views/MainShellView.axaml");
-        if (xamlContent is null) return;
 
         foreach (var mnemonic in new[] { "_File", "_View", "_Help" })
             xamlContent.Should().Contain($"Header=\"{mnemonic}\"", $"because top-level menu {mnemonic} should have mnemonic for Alt+{mnemonic[1]} access");
@@ -36,7 +34,6 @@ public class KeyboardNavigationMainWindowTests
     public void ViewModels_Commands_ShouldBe_KeyboardAccessible()
     {
         var viewModelContent = KeyboardNavigationTestFiles.ReadDesktopFile("ViewModels/MainShellViewModel.cs");
-        if (viewModelContent is null) return;
 
         var explicitPattern = @"public\s+(?:I(?:Input)?Command\s+\w+Command|IRelayCommand\w*\s+\w+Command)";
         var generatedPattern = @"\[RelayCommand[^\]]*\]";

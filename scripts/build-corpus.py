@@ -66,9 +66,14 @@ def load_corpus() -> dict[str, tuple[pathlib.Path, int, object]]:
 
 def sign_cms(payload: bytes, key_pem: bytes, cert_pem: bytes) -> str:
     """A detached CMS SignedData over `payload`, as the specification's one proof type."""
-    from asn1crypto import cms, algos, core, x509 as asn1x509
-    from cryptography.hazmat.primitives import hashes, serialization
-    from cryptography.hazmat.primitives.asymmetric import ec
+    try:
+        from asn1crypto import cms, algos, core, x509 as asn1x509
+        from cryptography.hazmat.primitives import hashes, serialization
+        from cryptography.hazmat.primitives.asymmetric import ec
+    except ImportError as exc:
+        raise aprlib.MissingDependency(
+            "asn1crypto and cryptography are required to rebuild the CMS proof: "
+            "pip install -r scripts/requirements.txt") from exc
 
     private_key = serialization.load_pem_private_key(key_pem, password=None)
     certificate = asn1x509.Certificate.load(
@@ -253,4 +258,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except aprlib.MissingDependency as missing:
+        # A gate that cannot run has not passed. Say which package is absent
+        # rather than reporting its absence as a defect in a document.
+        print(f"cannot run: {missing}", file=sys.stderr)
+        sys.exit(2)

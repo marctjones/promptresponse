@@ -76,6 +76,8 @@ def evaluate(case, members) -> tuple[str, set[str], str | None, dict]:
     representation = "yaml" if case["representation"].startswith("yaml") else "jsonc"
     try:
         records = aprlib.read_records(case["document"], representation)
+    except aprlib.MissingDependency:
+        raise  # never a verdict about the case; the package is absent
     except aprlib.AprError as exc:
         return "reject", set(), str(exc), {}
     except Exception as exc:  # noqa: BLE001
@@ -354,6 +356,19 @@ def main() -> int:
                         if r in enforced and satisfied[r] and violated[r] and r in caught),
     }
 
+    def legs() -> dict[str, str]:
+        """Rule -> the legs it holds, as `esvc` with a dash for each absence.
+
+        Four totals cannot see a rule losing every leg while another gains four.
+        A per-rule record can, and reads in a diff: `es--` becoming `e---` names
+        the rule and the leg in one line.
+        """
+        return {rule: "".join(
+            letter if held else "-" for letter, held in (
+                ("e", rule in enforced), ("s", bool(satisfied[rule])),
+                ("v", bool(violated[rule])), ("c", bool(caught.get(rule)))))
+            for rule in sorted(rules)}
+
     if "--json" in sys.argv:
         print(json.dumps({
             "rules": len(rules), "counts": counts,
@@ -366,10 +381,12 @@ def main() -> int:
 
     if "--write" in sys.argv:
         BASELINE.write_text(json.dumps({
-            "$comment": "Ratchet baseline for scripts/check-rule-evidence.py. These "
-                        "counts may rise and may not fall. Regenerate with --write only "
-                        "when they have risen.",
-            "rules": len(rules), "counts": counts,
+            "$comment": "Ratchet baseline for scripts/check-rule-evidence.py. Evidence is "
+                        "compared per rule, not in total: a rule may not lose a leg even "
+                        "when another rule gains one. `legs` is the record; `counts` is a "
+                        "readable summary of it. Regenerate with --write only when "
+                        "evidence has risen or a rule was deliberately retired.",
+            "rules": len(rules), "counts": counts, "legs": legs(),
         }, indent=2) + "\n", encoding="utf-8")
         print(f"Wrote {BASELINE.relative_to(ROOT)}: {counts}")
         return 0
@@ -423,12 +440,34 @@ def main() -> int:
         return 1
 
     if BASELINE.exists():
-        base = json.loads(BASELINE.read_text(encoding="utf-8"))["counts"]
+        baseline = json.loads(BASELINE.read_text(encoding="utf-8"))
+        base = baseline["counts"]
+        now = legs()
+        # Per rule first. Totals can stay level while a rule loses all four legs
+        # and another gains them, and that is the regression worth catching.
+        lost = []
+        for rule, was in (baseline.get("legs") or {}).items():
+            has = now.get(rule)
+            if has is None:
+                lost.append(f"{rule}: {was} -> the rule is gone from the catalogue")
+                continue
+            dropped = [name for name, mark in zip(
+                ("enforced", "satisfied", "violated", "caught"), "esvc")
+                if mark in was and mark not in has]
+            if dropped:
+                lost.append(f"{rule}: {was} -> {has}, lost {', '.join(dropped)}")
+        if lost:
+            print("\nEVIDENCE REGRESSED, per rule:")
+            for line in lost:
+                print(f"  - {line}")
+            print("\nA rule may not lose evidence, whatever the totals do. Restore it, "
+                  "or if a rule\nwas deliberately retired, rerun with --write.")
+            return 1
         fell = {k: (base[k], counts[k]) for k in counts if counts[k] < base.get(k, 0)}
         if fell:
             print("\nCOVERAGE REGRESSED:")
-            for name, (was, now) in fell.items():
-                print(f"  - {name}: {was} -> {now}")
+            for name, (was, now_count) in fell.items():
+                print(f"  - {name}: {was} -> {now_count}")
             print("\nEvidence may rise and may not fall. Restore it, or if a rule was "
                   "deliberately\nretired, rerun with --write.")
             return 1
@@ -440,4 +479,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except aprlib.MissingDependency as missing:
+        # A gate that cannot run has not passed. Say which package is absent
+        # rather than reporting its absence as a defect in a document.
+        print(f"cannot run: {missing}", file=sys.stderr)
+        sys.exit(2)

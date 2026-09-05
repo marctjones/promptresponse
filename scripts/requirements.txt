@@ -13,5 +13,5 @@
 PyYAML==6.0.3          # APR-YAML syntax; scalar resolution is the spec's own
 jsonschema==4.26.0     # check-schema.py
 cel-python==0.5.0      # expression hints, the version section 11.3 pins
-asn1crypto>=1.5.1      # CMS SignedData in the attestation fixtures
-cryptography>=50.0.1   # ECDSA P-256 signing for those fixtures
+asn1crypto==1.5.1      # CMS SignedData in the attestation fixtures
+cryptography==50.0.1   # ECDSA P-256 signing for those fixtures

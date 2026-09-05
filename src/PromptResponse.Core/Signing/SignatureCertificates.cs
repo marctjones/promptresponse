@@ -31,34 +31,6 @@ public static class SignatureCertificates
         return request.CreateSelfSigned(notBefore, notAfter);
     }
 
-    /// <summary>Creates a self-signed CA certificate (for issuing leaf certs; mainly for tests).</summary>
-    public static X509Certificate2 CreateCertificateAuthority(string subjectName, DateTimeOffset notBefore, DateTimeOffset notAfter)
-    {
-        var ec = ECDsa.Create(ECCurve.NamedCurves.nistP256);
-        var request = new CertificateRequest($"CN={subjectName}", ec, HashAlgorithmName.SHA256);
-        request.CertificateExtensions.Add(new X509BasicConstraintsExtension(true, false, 0, true));
-        request.CertificateExtensions.Add(new X509KeyUsageExtension(
-            X509KeyUsageFlags.KeyCertSign | X509KeyUsageFlags.CrlSign, critical: true));
-        return request.CreateSelfSigned(notBefore, notAfter);
-    }
-
-    /// <summary>Issues a signing leaf certificate signed by <paramref name="issuer"/> (a CA).</summary>
-    public static X509Certificate2 IssueSigningCertificate(
-        X509Certificate2 issuer, string subjectName, DateTimeOffset notBefore, DateTimeOffset notAfter)
-    {
-        var leafKey = ECDsa.Create(ECCurve.NamedCurves.nistP256);
-        var request = new CertificateRequest($"CN={subjectName}", leafKey, HashAlgorithmName.SHA256);
-        request.CertificateExtensions.Add(new X509KeyUsageExtension(
-            X509KeyUsageFlags.DigitalSignature | X509KeyUsageFlags.NonRepudiation, critical: true));
-        request.CertificateExtensions.Add(new X509BasicConstraintsExtension(false, false, 0, false));
-
-        var serial = new byte[8];
-        RandomNumberGenerator.Fill(serial);
-        using var issued = request.Create(issuer, notBefore, notAfter, serial);
-        // Re-attach the leaf's private key so the result can sign.
-        return issued.CopyWithPrivateKey(leafKey);
-    }
-
     /// <summary>Loads a certificate (with private key) from a PKCS#12 / .pfx file.</summary>
     public static X509Certificate2 LoadPfx(string path, string? password = null) =>
         X509CertificateLoader.LoadPkcs12FromFile(path, password);
