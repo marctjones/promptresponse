@@ -327,9 +327,10 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
 
     if section.get("kind") == "table":
         if not children:
-            # "A table always has at least one instance" is stated in Rows and
-            # instances without a rule identifier, so this check cites none.
-            report.warn("TABLE_NO_ROWS", path, "a table always has at least one instance")
+            report.error("EMPTY_TABLE", path,
+                         "a table carries at least one instance; a table's cells live "
+                         "in its instances, so prompts alone are not a table",
+                         "APR-MODEL-046")
         cap = section.get("maxRows")
         if isinstance(cap, int) and not isinstance(cap, bool) and len(children) > cap:
             report.warn("TABLE_OVER_CAPACITY", path,

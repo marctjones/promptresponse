@@ -1269,6 +1269,21 @@
       ]
     },
     {
+      "id": "REQ-table-rows",
+      "section": "table-rows",
+      "statement": "A table section carries at least one instance; prompts alone do not satisfy it",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ],
+      "rules": [
+        "APR-MODEL-046"
+      ]
+    },
+    {
       "id": "REQ-stream-pairs",
       "section": "stream-equivalence",
       "statement": "Paired JSONC and YAML streams yield the same semantic records",

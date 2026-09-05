@@ -1486,10 +1486,22 @@ fixed.
 nothing to do with whether they currently hold values — a filled table may still
 accept new rows, and a fixed table may be entirely blank.
 
-**A table always has at least one instance.** An "empty" table was never empty: a
-UI offering to add the first row is already presenting a row, and how that row is
-shown is a display decision. The instance also carries the table's field names,
-so a table without one cannot describe itself.
+**A table always has at least one instance.** A section carrying
+`kind: "table"` **MUST** carry at least one child section. Prompts alone satisfy
+[Section](#section-object) but not this: a table's cells live in its instances,
+so a table without one has nowhere to put them. A reader **MUST** report
+`EMPTY_TABLE`. [APR-MODEL-046]
+
+An "empty" table was never empty: a UI offering to add the first row is already
+presenting a row, and how that row is shown is a display decision. The instance
+also carries the table's field names, so a table without one cannot describe
+itself.
+
+> Rationale: this was stated here in plain prose for the whole of the beta, as
+> "a table always has at least one instance", with no keyword and no identifier.
+> It read as a requirement, nothing could cite it, and no test could reach it.
+> The check that reports it had to attribute itself to a rule about layout data,
+> which was simply wrong.
 
 `maxRows` is advisory. A table carrying more instances is still valid and is
 reported as a warning ([Warnings](#warnings)).
@@ -1874,6 +1886,7 @@ if it has zero errors. Warnings never affect validity.
 | `UNSUPPORTED_VERSION` | `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). |
 | `DUPLICATE_ID` | A section or prompt id repeats within its namespace. |
 | `EMPTY_SECTION` | A section has no prompts and no child sections. |
+| `EMPTY_TABLE` | A `kind: "table"` section has no child sections, so it has no instances ([Rows and instances](#table-rows)). |
 | `RETIRED_EMBEDDED_SIGNATURES` | The document carries a `signatures` member. |
 | `WRONG_TYPE` | A structural member is not the JSON type its member table declares ([Value types](#json-subset)). |
 
@@ -2706,7 +2719,7 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Label APR content with its `vnd.apr` media type; never infer behaviour from a generic one
 - [ ] Require `metadata.title`, section `id` and `title`, prompt `id` and `label`
 - [ ] Enforce document-wide id uniqueness in both namespaces; never generate or replace an id unless asked, and then only by the content rule
-- [ ] Require content in every section, tables included
+- [ ] Require content in every section, tables included, and at least one instance in a table
 - [ ] Treat a table as structure, never as licence for layout data
 - [ ] Derive table headers from the corresponding prompts' labels; correspond by position
 - [ ] Require `templateId` on a filled form, as a URI, and never fetch it
@@ -2784,7 +2797,7 @@ An honest list of what this baseline does not settle.
 
 | Format version | Change |
 | --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
+| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate`, `responseMetadata.inferredDataType` and `responseMetadata.lastModified` as workflow state. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
 | `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
 
 ---

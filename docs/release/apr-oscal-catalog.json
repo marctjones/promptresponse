@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "8bf0b329-c0c5-5c21-846b-b6bb07469625",
+    "uuid": "e3b00fc4-695e-5f3f-ae8a-382d4f9e320b",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "5873fec17720ea7b4f2b565cbabee8d2252be7234025a7a27bb985d22a79b6ee"
+          "value": "ec59670c54dc7a97630e6d2db8cc47bd645d315e3b51f5dfdfccb66a0a53f129"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -3282,6 +3282,43 @@
                 "id": "apr-model-045_gap",
                 "name": "assessment-gap",
                 "prose": "The array shape and digest form are gated by the schema and two executable examples. That a reader never reads a reference as revision or authority, and never rejects an unresolved one, is reader behaviour no vector asserts."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-046",
+            "title": "APR-MODEL-046 — 5.6.3 Rows and instances",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-046"
+              },
+              {
+                "name": "section",
+                "value": "table-rows"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-table-rows"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#table-rows",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-046_smt",
+                "name": "statement",
+                "prose": "**A table always has at least one instance.** A section carrying `kind: \"table\"` **MUST** carry at least one child section. Prompts alone satisfy [Section](#section-object) but not this: a table's cells live in its instances, so a table without one has nowhere to put them. A reader **MUST** report `EMPTY_TABLE`."
               }
             ]
           }

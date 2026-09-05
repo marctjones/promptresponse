@@ -893,6 +893,21 @@
       "preserves": [
         "/sections/0/prompts/0/label"
       ]
+    },
+    "rules/apr-model-046-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-046"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-046-violates.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-MODEL-046"
+      ],
+      "anchors": [],
+      "diagnostic": "EMPTY_TABLE"
     }
   }
 }
