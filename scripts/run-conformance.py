@@ -23,7 +23,7 @@ and `document`, the source text.
       "results": [
         {"id": "spec:table-section", "outcome": "valid"},
         {"id": "spec:yaml-tag", "outcome": "reject", "diagnostic": "YAML_TAG_FORBIDDEN"},
-        {"id": "spec:yaml-permit", "outcome": "valid", "digest": "sha256:..."}
+        {"id": "spec:ragged", "outcome": "valid", "warnings": ["TABLE_RAGGED"]}
       ]
     }
 
@@ -36,6 +36,12 @@ distinguishes those two, but a case that expects rejection accepts either.
 suite names a diagnostic, a different one is recorded as a discrepancy rather
 than a failure, because a case can be refused for the right reason under a
 different name.
+
+`warnings` is the list of advisory codes you reported while accepting the
+document. Where a case names `warns`, every code it names must appear or the case
+fails, because an advisory rule is only tested if the advisory can be required.
+Reporting more than the suite names is a discrepancy, not a failure: an
+implementation may legitimately warn about more.
 
 `digest` is the `jcs-sha256` semantic digest, and reporting it is how a case
 proves more than acceptance. Most valid cases state the digest the document must
@@ -120,6 +126,23 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
                 ok = False
                 row["detail"] = (f"accepted, but produced {result['digest']} where the "
                                  f"suite requires {case['digest']}")
+
+        # An advisory rule is only tested if a case can require the advisory. A
+        # document that is valid either way cannot tell a reader that says the
+        # right thing from one that says nothing.
+        if ok and case.get("warns"):
+            raised = set(result.get("warnings") or [])
+            missing = [w for w in case["warns"] if w not in raised]
+            if missing:
+                ok = False
+                row["detail"] = (f"accepted, but did not report "
+                                 f"{', '.join(missing)}, which this case requires")
+            else:
+                extra = sorted(raised - set(case["warns"]))
+                if extra:
+                    row["discrepancy"] = (f"also warned {', '.join(extra)}, which the "
+                                          f"suite does not name")
+                    tally["discrepancy"] += 1
 
         row["status"] = "pass" if ok else "fail"
         tally["pass" if ok else "fail"] += 1

@@ -57,7 +57,9 @@ def answer(case, members):
         return {"id": case["id"], "outcome": "reject",
                 "diagnostic": next(f["code"] for f in report.findings
                                    if f["severity"] == "error")}
-    return {"id": case["id"], "outcome": "valid", "digest": aprlib.digest(records[0])}
+    return {"id": case["id"], "outcome": "valid", "digest": aprlib.digest(records[0]),
+            "warnings": sorted({f["code"] for f in report.findings
+                                if f["severity"] == "warning"})}
 
 
 def main() -> int:

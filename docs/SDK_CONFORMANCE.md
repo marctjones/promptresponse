@@ -52,7 +52,9 @@ and `document`, the source text. Stream cases carry real record separators.
   "results": [
     { "id": "spec:table-section", "outcome": "valid" },
     { "id": "spec:yaml-tag", "outcome": "reject", "diagnostic": "YAML_TAG_FORBIDDEN" },
-    { "id": "corpus:forms/permit.apr.jsonc", "outcome": "valid", "digest": "sha256:…" }
+    { "id": "corpus:forms/permit.apr.jsonc", "outcome": "valid", "digest": "sha256:…" },
+    { "id": "corpus:rules/apr-model-014-warns.apr.jsonc", "outcome": "valid",
+      "warnings": ["TABLE_RAGGED", "TABLE_LABEL_MISMATCH"] }
   ]
 }
 ```
@@ -69,6 +71,11 @@ and `document`, the source text. Stream cases carry real record separators.
   accepted the document. That is where a reader whose scalar resolution is wrong
   is caught. Omitting it is allowed and skips the check, which weakens your score
   rather than improving it.
+- `warnings` lists the advisory codes reported while accepting the document. Where
+  a case names `warns`, every code it names must appear or the case fails: an
+  advisory rule is only tested if the advisory can be required, and a document that
+  is valid either way cannot tell a reader that says the right thing from one that
+  stays silent. Reporting more than the suite names is a discrepancy, not a failure.
 - A case a driver omits is reported as unanswered, never as failed.
 
 **What this cannot check** is whether a profile you claim is a profile you

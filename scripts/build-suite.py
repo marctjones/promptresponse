@@ -111,6 +111,8 @@ def build() -> dict:
         }
         if expected.get("diagnostic"):
             case["diagnostic"] = expected["diagnostic"]
+        if expected.get("warns"):
+            case["warns"] = expected["warns"]
         cases.append(case)
 
     return {
@@ -122,7 +124,9 @@ def build() -> dict:
         "specificationSha256": "sha256:" + hashlib.sha256(
             SPEC.read_bytes()).hexdigest(),
         "outcomes": {
-            "valid": "The reader accepts the document and reports no error.",
+            "valid": "The reader accepts the document and reports no error. Where the "
+                     "case names `warns`, those advisories must also be reported: the "
+                     "document is valid and the reader is expected to say something.",
             "reject": "The reader refuses the document. Where `diagnostic` is given, "
                       "that is the code it must report.",
             "equivalent": "The document has the same semantic model, and therefore the "

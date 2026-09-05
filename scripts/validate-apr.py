@@ -98,6 +98,22 @@ def spec_members() -> dict[str, dict[str, tuple[str, bool]]]:
     return tables
 
 
+def data_types() -> set[str]:
+    """The `expectedDataType` registry, read from the specification's own list."""
+    text = SPEC.read_text(encoding="utf-8")
+    match = re.search(r"`expectedDataType` registry:(.*?)\n\n", text, re.S)
+    if not match:
+        raise SystemExit("cannot find the expectedDataType registry in the specification")
+    return set(re.findall(r"`([a-z]+)`", match.group(1)))
+
+
+def as_number(value: str):
+    try:
+        return float(value.strip())
+    except (TypeError, ValueError):
+        return None
+
+
 def type_ok(value, declared: str) -> bool:
     declared = declared.lower()
     if declared.startswith("array"):
@@ -235,6 +251,31 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
             report.warn("RESPONSE_OUTSIDE_SUGGESTED_VALUES", f"{path}/response",
                         "response is not one of the offered values, which is valid",
                         "APR-MODEL-002", "APR-VAL-005")
+        declared = hints.get("expectedDataType")
+        if isinstance(declared, str) and declared not in data_types():
+            # An unrecognised type degrades to a plain text field. It is reported so
+            # an author learns, and never as an error, which is what lets the
+            # registry grow. `signature` and `file` were retired into this path.
+            rules = (("APR-MODEL-018", "APR-MODEL-030")
+                     if declared in {"signature", "file"} else ("APR-MODEL-018",))
+            report.warn("UNREGISTERED_DATA_TYPE", f"{path}/hints/expectedDataType",
+                        f"{declared!r} is not in the registry and degrades to a text "
+                        f"field", *rules)
+        if isinstance(response, str) and response.strip() and declared in {"number", "currency"} \
+                and as_number(response) is None:
+            report.warn("RESPONSE_CONTRADICTS_TYPE", f"{path}/response",
+                        "the response is not a number, which is valid: the format never "
+                        "validates what a response means",
+                        "APR-MODEL-002", "APR-VAL-005")
+        if isinstance(response, str) and as_number(response) is not None:
+            for bound, worse in (("min", float.__lt__), ("max", float.__gt__)):
+                limit = hints.get(bound)
+                if isinstance(limit, (int, float)) and not isinstance(limit, bool) \
+                        and worse(as_number(response), float(limit)):
+                    report.warn("RESPONSE_OUTSIDE_BOUNDS", f"{path}/response",
+                                f"the response is outside {bound}, which is still valid: "
+                                f"a bound is an offer, not a limit", "APR-MODEL-019")
+
         temporal = hints.get("expectedDataType") in {"date", "time", "datetime"}
         for bound in ("min", "max"):
             if temporal and bound in hints and not isinstance(hints[bound], str):
@@ -243,17 +284,22 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
                              f"it is a string in that type's canonical form",
                              "APR-REP-016")
         pattern = hints.get("validationPattern")
-        if isinstance(pattern, str) and isinstance(response, str) and response:
+        if isinstance(pattern, str):
+            # A pattern that will not compile is unusable whether or not anyone has
+            # answered yet, so this is checked before the response is consulted.
             try:
-                if not re.search(pattern, response):
-                    report.warn("RESPONSE_PATTERN_MISMATCH", f"{path}/response",
-                                "response does not match the advisory pattern, "
-                                "which is valid", "APR-VAL-005", "APR-VAL-002")
+                compiled = re.compile(pattern)
             except re.error:
+                compiled = None
                 report.warn("HINT_UNUSABLE", f"{path}/hints/validationPattern",
                             "validationPattern is not a usable regular expression; "
                             "a hint a reader cannot use is never an error",
                             "APR-MODEL-039")
+            if compiled is not None and isinstance(response, str) and response \
+                    and not compiled.search(response):
+                report.warn("RESPONSE_PATTERN_MISMATCH", f"{path}/response",
+                            "response does not match the advisory pattern, "
+                            "which is valid", "APR-VAL-005", "APR-VAL-002")
 
 
 def check_section(report: Report, section, path, members, ids, roles, depth) -> None:

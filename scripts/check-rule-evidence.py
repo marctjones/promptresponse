@@ -56,15 +56,15 @@ SUITE = ROOT / "tests" / "Conformance" / "beta6" / "suite.json"
 BASELINE = ROOT / "tests" / "Conformance" / "beta6" / "rule-evidence.json"
 
 
-def evaluate(case, members) -> tuple[str, set[str], str | None]:
-    """(outcome, rules cited by errors, diagnostic raised while parsing)."""
+def evaluate(case, members) -> tuple[str, set[str], str | None, dict]:
+    """(outcome, rules cited by errors, parse diagnostic, warning code -> rules)."""
     representation = "yaml" if case["representation"].startswith("yaml") else "jsonc"
     try:
         records = aprlib.read_records(case["document"], representation)
     except aprlib.AprError as exc:
-        return "reject", set(), str(exc)
+        return "reject", set(), str(exc), {}
     except Exception as exc:  # noqa: BLE001
-        return "reject", set(), type(exc).__name__
+        return "reject", set(), type(exc).__name__, {}
     report = validate_apr.Report(case["id"])
     for record in records:
         if isinstance(record, dict) and "recordType" in record:
@@ -72,7 +72,8 @@ def evaluate(case, members) -> tuple[str, set[str], str | None]:
         else:
             validate_apr.validate_form(report, record, members)
     cited = {r for f in report.findings if f["severity"] == "error" for r in f["rules"]}
-    return ("reject" if report.errors else "valid"), cited, None
+    warned = {f["code"]: f["rules"] for f in report.findings if f["severity"] == "warning"}
+    return ("reject" if report.errors else "valid"), cited, None, warned
 
 
 def main() -> int:
@@ -96,15 +97,40 @@ def main() -> int:
                 problems.append(f"{case['id']} cites {rule}, which the catalogue does not contain")
         if not cited:
             continue
-        if case["expect"] == "valid":
+        if case["expect"] == "valid" and not case.get("warns"):
             for rule in cited:
                 satisfied[rule] = satisfied.get(rule, 0) + 1
+            continue
+        if case["expect"] == "valid":
+            # A case requiring an advisory is a violating case: the document breaks
+            # the rule, and the rule says to report it rather than refuse it.
+            for rule in cited:
+                violated[rule] = violated.get(rule, 0) + 1
+            outcome, _, _, warned = evaluate(case, members)
+            if outcome != "valid":
+                problems.append(
+                    f"{case['id']} expects acceptance with a warning, but the validator "
+                    f"refuses it")
+                continue
+            for code in case["warns"]:
+                if code not in warned:
+                    problems.append(
+                        f"{case['id']} requires the advisory {code}, which nothing reports")
+                    continue
+                for rule in cited:
+                    if rule in warned[code]:
+                        caught[rule] = "warning"
+            for rule in cited:
+                if rule not in caught:
+                    problems.append(
+                        f"{case['id']} is warned about, but not traceably for {rule}: no "
+                        f"advisory citing it was reported")
             continue
         if case["expect"] != "reject":
             continue
         for rule in cited:
             violated[rule] = violated.get(rule, 0) + 1
-        outcome, by_check, diagnostic = evaluate(case, members)
+        outcome, by_check, diagnostic, _ = evaluate(case, members)
         if outcome != "reject":
             problems.append(
                 f"{case['id']} expects rejection and cites {', '.join(cited)}, but the "

@@ -595,6 +595,228 @@
         "APR-REP-011"
       ],
       "anchors": []
+    },
+    "rules/apr-model-014-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-014"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-014-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-014"
+      ],
+      "anchors": [],
+      "warns": [
+        "TABLE_RAGGED",
+        "TABLE_LABEL_MISMATCH"
+      ]
+    },
+    "rules/apr-model-018-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-018"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-018-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-018"
+      ],
+      "anchors": [],
+      "warns": [
+        "UNREGISTERED_DATA_TYPE"
+      ]
+    },
+    "rules/apr-model-019-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-019"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-019-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-019"
+      ],
+      "anchors": [],
+      "warns": [
+        "RESPONSE_OUTSIDE_BOUNDS"
+      ]
+    },
+    "rules/apr-model-026-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-026"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-026-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-026"
+      ],
+      "anchors": [],
+      "warns": [
+        "UNDECLARED_ROLE"
+      ]
+    },
+    "rules/apr-model-030-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-030"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-030-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-030"
+      ],
+      "anchors": [],
+      "warns": [
+        "UNREGISTERED_DATA_TYPE"
+      ]
+    },
+    "rules/apr-model-035-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-035"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-035-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-035"
+      ],
+      "anchors": [],
+      "warns": [
+        "SUBMISSION_URL_UNSUPPORTED"
+      ]
+    },
+    "rules/apr-model-038-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-038"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-038-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-038"
+      ],
+      "anchors": [],
+      "warns": [
+        "TABLE_MEMBERS_ON_A_PLAIN_SECTION"
+      ]
+    },
+    "rules/apr-model-039-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-039"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-039-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-039"
+      ],
+      "anchors": [],
+      "warns": [
+        "HINT_UNUSABLE"
+      ]
+    },
+    "rules/apr-val-002-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-VAL-002"
+      ],
+      "anchors": []
+    },
+    "rules/apr-val-002-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-VAL-002"
+      ],
+      "anchors": [],
+      "warns": [
+        "RESPONSE_PATTERN_MISMATCH"
+      ]
+    },
+    "rules/apr-val-005-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-VAL-005"
+      ],
+      "anchors": []
+    },
+    "rules/apr-val-005-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-VAL-005"
+      ],
+      "anchors": [],
+      "warns": [
+        "RESPONSE_CONTRADICTS_TYPE"
+      ]
+    },
+    "rules/apr-model-002-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-002"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-002-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-002"
+      ],
+      "anchors": [],
+      "warns": [
+        "RESPONSE_CONTRADICTS_TYPE"
+      ]
+    },
+    "rules/apr-model-029-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-029"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-029-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-029"
+      ],
+      "anchors": [],
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ]
+    },
+    "rules/apr-model-031-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-031"
+      ],
+      "anchors": []
+    },
+    "rules/apr-model-031-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-031"
+      ],
+      "anchors": [],
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ]
     }
   }
 }

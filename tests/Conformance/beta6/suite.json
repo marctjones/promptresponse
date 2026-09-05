@@ -4,7 +4,7 @@
   "formatVersion": "1.0-beta.6",
   "specificationSha256": "sha256:5873fec17720ea7b4f2b565cbabee8d2252be7234025a7a27bb985d22a79b6ee",
   "outcomes": {
-    "valid": "The reader accepts the document and reports no error.",
+    "valid": "The reader accepts the document and reports no error. Where the case names `warns`, those advisories must also be reported: the document is valid and the reader is expected to say something.",
     "reject": "The reader refuses the document. Where `diagnostic` is given, that is the code it must report.",
     "equivalent": "The document has the same semantic model, and therefore the same digest, as the case named in `equivalentTo`."
   },
@@ -769,6 +769,33 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "corpus:rules/apr-model-002-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-002"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"12\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-002-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-002"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"the summer of 1985\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "RESPONSE_CONTRADICTS_TYPE"
+      ]
+    },
+    {
       "id": "corpus:rules/apr-model-005-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",
@@ -919,6 +946,277 @@
       "diagnostic": "DUPLICATE_ID"
     },
     {
+      "id": "corpus:rules/apr-model-014-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-014"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        },\n        {\n          \"id\": \"r2\",\n          \"title\": \"R2\",\n          \"prompts\": [\n            {\n              \"id\": \"r2.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-014-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-014"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        },\n        {\n          \"id\": \"r2\",\n          \"title\": \"R2\",\n          \"prompts\": [\n            {\n              \"id\": \"r2.a\",\n              \"label\": \"A\"\n            },\n            {\n              \"id\": \"r2.b\",\n              \"label\": \"B\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "TABLE_RAGGED",
+        "TABLE_LABEL_MISMATCH"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-model-018-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-018"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-018-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-018"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"hologram\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "UNREGISTERED_DATA_TYPE"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-model-019-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-019"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"5\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"min\": 1,\n            \"max\": 10\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-019-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-019"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"120\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"min\": 1,\n            \"max\": 10\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "RESPONSE_OUTSIDE_BOUNDS"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-model-026-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-026"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"role\": \"clerk\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"id\": \"clerk\",\n      \"name\": \"Clerk\"\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-026-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-026"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"role\": \"nurse\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"id\": \"clerk\",\n      \"name\": \"Clerk\"\n    }\n  ]\n}\n",
+      "warns": [
+        "UNDECLARED_ROLE"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-model-029-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-029"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-029-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-029"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-model-030-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-030"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-030-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-030"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"signature\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "UNREGISTERED_DATA_TYPE"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-model-031-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-031"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-031-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-031"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-model-035-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-035"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"submissionUrls\": [\n      \"mailto:clerk@example.com\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-035-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-035"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"submissionUrls\": [\n      \"ftp://example.com/drop\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "SUBMISSION_URL_UNSUPPORTED"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-model-038-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-038"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 5,\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-038-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-038"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"maxRows\": 5\n    }\n  ]\n}\n",
+      "warns": [
+        "TABLE_MEMBERS_ON_A_PLAIN_SECTION"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-model-039-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-039"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"AB-1\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-model-039-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-039"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"validationPattern\": \"^([A-Z\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "HINT_UNUSABLE"
+      ]
+    },
+    {
       "id": "corpus:rules/apr-model-043-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",
@@ -1053,6 +1351,60 @@
       "expect": "reject",
       "document": "{\n  \"aprVersion\": \"1.0-beta.3\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
       "diagnostic": "UNSUPPORTED_VERSION"
+    },
+    {
+      "id": "corpus:rules/apr-val-002-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-VAL-002"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"AB-1\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-val-002-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-VAL-002"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"nope\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "RESPONSE_PATTERN_MISMATCH"
+      ]
+    },
+    {
+      "id": "corpus:rules/apr-val-005-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-VAL-005"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"12\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-val-005-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-VAL-005"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"about twelve\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "warns": [
+        "RESPONSE_CONTRADICTS_TYPE"
+      ]
     },
     {
       "id": "corpus:streams/changed-form.apr.jsonc",

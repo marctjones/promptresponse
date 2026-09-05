@@ -1,0 +1,39 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "t",
+      "title": "T",
+      "kind": "table",
+      "sections": [
+        {
+          "id": "r1",
+          "title": "R1",
+          "prompts": [
+            {
+              "id": "r1.a",
+              "label": "A"
+            }
+          ]
+        },
+        {
+          "id": "r2",
+          "title": "R2",
+          "prompts": [
+            {
+              "id": "r2.a",
+              "label": "A"
+            },
+            {
+              "id": "r2.b",
+              "label": "B"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
