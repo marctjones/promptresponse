@@ -40,9 +40,19 @@ driver is the same shape in whatever language the implementation is written in.
 
 ### The driver contract
 
-**Input** on stdin is `tests/Conformance/beta6/suite.json` verbatim. Each case
-carries `id`, `representation` (`jsonc`, `yaml`, `jsonc-stream`, `yaml-stream`)
-and `document`, the source text. Stream cases carry real record separators.
+**Input** on stdin is `tests/Conformance/beta6/suite.json` with the answers
+withheld. Each case carries `id`, `representation` (`jsonc`, `yaml`,
+`jsonc-stream`, `yaml-stream`) and `document`, the source text; stream cases carry
+real record separators. What a case does **not** carry is whether it is valid,
+the digest it must produce, the diagnostic or warnings it expects, or what
+evaluation should return. Markers say what kind of answer is required —
+`evaluates`, `reportsWarnings`, `roundTrip` — and never what the answer is.
+
+The committed file holds the answers, because the harness needs them to score;
+they are removed from the copy your driver receives. Before this, a driver could
+read the expected result out of the input and report it back: one that did
+exactly that scored a perfect run without parsing a single document, and scores
+seven of 171 now.
 
 **Output** on stdout is one JSON object:
 

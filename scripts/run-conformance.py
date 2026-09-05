@@ -32,10 +32,12 @@ error, and `reject` when it refused it. Report `reject` for a document you
 cannot parse as well as for one you parse and find invalid; the specification
 distinguishes those two, but a case that expects rejection accepts either.
 
-`diagnostic` is the code you reported. Give it whenever you have one. Where the
-suite names a diagnostic, a different one is recorded as a discrepancy rather
-than a failure, because a case can be refused for the right reason under a
-different name.
+`diagnostic` is the code you reported, and where the suite names one you must
+report that code. Every code a case names is stated in the specification —
+section 7.1 for errors, 7.2 for advisories, 7.3 for the parse stage — so a
+different code is not the same refusal in unfamiliar words. It is a refusal for a
+different reason, and a case citing a rule cannot show that rule was enforced if
+you were answering a different question.
 
 `warnings` is the list of advisory codes you reported while accepting the
 document. Where a case names `warns`, every code it names must appear or the case
@@ -63,7 +65,8 @@ proves more than acceptance. Most valid cases state the digest the document must
 produce; if you report one and it differs, the case fails even though you
 accepted the document. That is deliberate, and it is where a reader whose scalar
 resolution is wrong gets caught: it reads `012` happily, as the number twelve,
-and produces a different form. Omitting the digest is allowed and skips that
+and produces a different form. Where a case states a digest, omitting it fails
+the case: acceptance on its own is a claim any program can make, and skips that
 check, which makes your score weaker rather than better. Cases expecting
 `equivalent` are scored on it alone.
 
@@ -196,26 +199,44 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
 
         outcome = result.get("outcome")
         row["outcome"] = outcome
-        if case["expect"] == "equivalent":
-            other = by_id.get(case.get("equivalentTo", ""))
-            mine = result.get("digest")
-            theirs = (reported.get(other["id"], {}) or {}).get("digest") if other else None
-            ok = bool(mine) and mine == theirs
-            if not ok:
-                row["detail"] = ("digests differ or were not reported: "
-                                 f"{mine} vs {theirs}")
-        else:
-            ok = outcome == ("valid" if case["expect"] == "valid" else "reject")
-            if not ok:
-                row["detail"] = f"expected {case['expect']}, reported {outcome}"
-            elif case.get("digest") and result.get("digest") \
-                    and result["digest"] != case["digest"]:
-                # Accepted, but not as the same document. This is where a reader
-                # whose scalar resolution is wrong is caught: it read the file
-                # happily and produced a different semantic model.
+        ok = outcome == ("valid" if case["expect"] == "valid" else "reject")
+        if not ok:
+            row["detail"] = f"expected {case['expect']}, reported {outcome}"
+        elif case.get("digest") and not result.get("digest"):
+            # Where a case states a digest, reporting one is not optional.
+            # Acceptance on its own is a claim any program can make: a driver
+            # answering "valid" and nothing else passed ninety-seven of these
+            # cases while parsing not one document.
+            ok = False
+            row["detail"] = ("accepted without reporting a digest, so nothing "
+                             "shows the document was read as the same document")
+        elif case.get("digest") and result["digest"] != case["digest"]:
+            # Accepted, but not as the same document. This is where a reader
+            # whose scalar resolution is wrong is caught: it read the file
+            # happily and produced a different semantic model.
+            ok = False
+            row["detail"] = (f"accepted, but produced {result['digest']} where the "
+                             f"suite requires {case['digest']}")
+
+        # Two representations of one document are one document. This is checked
+        # after the ordinary verdict rather than as a third kind of outcome: the
+        # earlier shape keyed on `expect == "equivalent"`, which no case has ever
+        # carried, so cross-representation equivalence scored nothing at all.
+        if ok and case.get("equivalentTo"):
+            other = reported.get(case["equivalentTo"])
+            mine, theirs = result.get("digest"), (other or {}).get("digest")
+            if other is None:
                 ok = False
-                row["detail"] = (f"accepted, but produced {result['digest']} where the "
-                                 f"suite requires {case['digest']}")
+                row["detail"] = (f"names {case['equivalentTo']} as its equivalent, "
+                                 "and that case was not answered")
+            elif not mine or not theirs:
+                ok = False
+                row["detail"] = ("equivalence needs a digest from both sides; "
+                                 f"got {mine} and {theirs}")
+            elif mine != theirs:
+                ok = False
+                row["detail"] = (f"the same document in two representations produced "
+                                 f"{mine} here and {theirs} in {case['equivalentTo']}")
 
         # An advisory rule is only tested if a case can require the advisory. A
         # document that is valid either way cannot tell a reader that says the
@@ -247,11 +268,21 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
         row["status"] = "pass" if ok else "fail"
         tally["pass" if ok else "fail"] += 1
 
+        # A refusal for the wrong reason is not the refusal the rule asks for.
+        # Every code the suite names is now stated in the specification —
+        # section 7.1 for errors, 7.2 for advisories, 7.3 for the parse stage —
+        # so "refused under a different name" no longer describes a reader that
+        # is right in an unfamiliar vocabulary. It describes one that refused for
+        # a different reason, and a case citing a rule cannot show that rule was
+        # enforced if the reader was answering a different question.
         wanted = case.get("diagnostic")
-        if ok and wanted and result.get("diagnostic") and result["diagnostic"] != wanted:
-            row["status"] = "pass"
-            row["discrepancy"] = f"reported {result['diagnostic']}, suite names {wanted}"
-            tally["discrepancy"] += 1
+        if ok and wanted and result.get("diagnostic") != wanted:
+            ok = False
+            row["status"] = "fail"
+            tally["pass"] -= 1
+            tally["fail"] += 1
+            row["detail"] = (f"refused, but reported {result.get('diagnostic')} where "
+                             f"the suite names {wanted}")
         rows.append(row)
     return rows, tally
 
@@ -317,6 +348,33 @@ def oscal(suite: dict, response: dict, rows: list[dict], path: pathlib.Path) -> 
                     encoding="utf-8")
 
 
+# Fields that state the answer. A driver receiving them could score a perfect run
+# by echoing what it was told, and nothing here would notice.
+ANSWERS = ("expect", "digest", "expects", "warns", "diagnostic", "preserves", "acceptance")
+
+
+def blind(suite: dict) -> dict:
+    """The suite as a driver sees it: the questions, never the answers.
+
+    A case keeps everything that says *what kind* of answer is required — the
+    document, the representation, the profile, whether evaluation or a round trip
+    is asked for — and loses everything that says what the answer is. `evaluates`
+    replaces `expects` for exactly this reason: a driver has to know that
+    evaluation is required without being told what it should produce.
+    """
+    cases = []
+    for case in suite["cases"]:
+        projected = {k: v for k, v in case.items() if k not in ANSWERS}
+        if case.get("expects"):
+            projected["evaluates"] = True
+        if case.get("warns"):
+            projected["reportsWarnings"] = True
+        cases.append(projected)
+    return {**suite, "cases": cases,
+            "$comment": suite["$comment"] + " Answers are withheld from the copy "
+                        "a driver receives."}
+
+
 def main() -> int:
     driver = option("--driver")
     if not driver:
@@ -327,10 +385,10 @@ def main() -> int:
               "run scripts/build-suite.py --write")
         return 2
 
-    suite_text = SUITE.read_text(encoding="utf-8")
-    suite = json.loads(suite_text)
+    suite = json.loads(SUITE.read_text(encoding="utf-8"))
+    asked = json.dumps(suite if "--with-answers" in sys.argv else blind(suite), indent=2)
     try:
-        completed = subprocess.run(shlex.split(driver), input=suite_text,
+        completed = subprocess.run(shlex.split(driver), input=asked,
                                    capture_output=True, text=True, timeout=600)
     except FileNotFoundError:
         print(f"driver not found: {driver}")

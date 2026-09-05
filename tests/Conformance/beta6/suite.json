@@ -441,7 +441,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/aprVersion\",\n        \"digest\": \"sha256:08baa03721d3da98e92260c7b765214afa9e624b9e3cb52986f7a632fe0660bf\"\n      },\n      {\n        \"path\": \"/documentType\",\n        \"digest\": \"sha256:dae1a374ddaefa22ba8c71598ad98c02147631f5867f0ed3386ea06e5d8d8d4b\"\n      },\n      {\n        \"path\": \"/metadata\",\n        \"digest\": \"sha256:4e01956e902c76a413af77d42995e5fa6a634603a2550d3d1588e1a5a3767122\"\n      },\n      {\n        \"path\": \"/metadata/title\",\n        \"digest\": \"sha256:96eed32a48e30480ad5413c0251e33ab3ce901ae24519fc60156ca4114768e02\"\n      },\n      {\n        \"path\": \"/sections\",\n        \"digest\": \"sha256:e44bc9a4dc018af9504385e2f7e2d23331f0e53eebc1c64763f3ea2f366fd182\"\n      },\n      {\n        \"path\": \"/sections/0\",\n        \"digest\": \"sha256:4b018af8fd92048e092ce74e1cbaba0d923eba5f14898b6548312fe74f0488c7\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts\",\n        \"digest\": \"sha256:6de53cd047916b884beb6eaeb8b2f654e10ad8a6f5d8d33bfc8f48efddbf6c6b\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/id\",\n        \"digest\": \"sha256:6ffe58b85cad95f1e86f1afebc4ffba738ef6c5520811cb5f393f6c0234ffcb0\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/label\",\n        \"digest\": \"sha256:6cc5df35f0338e230e9e633ead9991f08f62cab45a3264978daedc6747867305\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/aprVersion\",\n        \"digest\": \"sha256:08baa03721d3da98e92260c7b765214afa9e624b9e3cb52986f7a632fe0660bf\"\n      },\n      {\n        \"path\": \"/documentType\",\n        \"digest\": \"sha256:dae1a374ddaefa22ba8c71598ad98c02147631f5867f0ed3386ea06e5d8d8d4b\"\n      },\n      {\n        \"path\": \"/metadata\",\n        \"digest\": \"sha256:4e01956e902c76a413af77d42995e5fa6a634603a2550d3d1588e1a5a3767122\"\n      },\n      {\n        \"path\": \"/metadata/title\",\n        \"digest\": \"sha256:96eed32a48e30480ad5413c0251e33ab3ce901ae24519fc60156ca4114768e02\"\n      },\n      {\n        \"path\": \"/sections\",\n        \"digest\": \"sha256:e44bc9a4dc018af9504385e2f7e2d23331f0e53eebc1c64763f3ea2f366fd182\"\n      },\n      {\n        \"path\": \"/sections/0\",\n        \"digest\": \"sha256:4b018af8fd92048e092ce74e1cbaba0d923eba5f14898b6548312fe74f0488c7\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts\",\n        \"digest\": \"sha256:6de53cd047916b884beb6eaeb8b2f654e10ad8a6f5d8d33bfc8f48efddbf6c6b\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/id\",\n        \"digest\": \"sha256:6ffe58b85cad95f1e86f1afebc4ffba738ef6c5520811cb5f393f6c0234ffcb0\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/label\",\n        \"digest\": \"sha256:6cc5df35f0338e230e9e633ead9991f08f62cab45a3264978daedc6747867305\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:95b9922d945c68ac70eaf6cde57755485a747789e4a7fe91ede8ace0efe9c9f4"
     },
     {
       "id": "corpus:attestations/permit.cms.attestation.jsonc",
@@ -459,7 +460,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"cms/ecdsa-p256-sha256\",\n      \"value\": \"MIIDAAYJKoZIhvcNAQcCoIIC8TCCAu0CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGgggGeMIIBmjCCAUCgAwIBAgIIQVBSLVRFU1QwCgYIKoZIzj0EAwIwQjEfMB0GA1UEAwwWQVBSIGNvcnB1cyB0ZXN0IHNpZ25lcjEfMB0GA1UECgwWQVBSIGNvbmZvcm1hbmNlIGNvcnB1czAeFw0yNjAxMDEwMDAwMDBaFw0zNjAxMDEwMDAwMDBaMEIxHzAdBgNVBAMMFkFQUiBjb3JwdXMgdGVzdCBzaWduZXIxHzAdBgNVBAoMFkFQUiBjb25mb3JtYW5jZSBjb3JwdXMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATpAFTL4qZJf29fA1/UE7KI1BzdMllbNCz1RBbmCi536wN0+LOgFutnlJP12iZIxYLITVf9/46ikS9qx80K94awoyAwHjAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH/BAIwADAKBggqhkjOPQQDAgNIADBFAiBNbO8YBXBK0k22lJGGE1gsq2t/7P3LaZ+XLijAXvvvVAIhAKDFuDXVmb2SQ5tmS42lJ6UOtmjc+zabrvP/fcFCHDzGMYIBJjCCASICAQEwTjBCMR8wHQYDVQQDDBZBUFIgY29ycHVzIHRlc3Qgc2lnbmVyMR8wHQYDVQQKDBZBUFIgY29uZm9ybWFuY2UgY29ycHVzAghBUFItVEVTVDANBglghkgBZQMEAgEFAKBpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDEwMjAwMDAwMFowLwYJKoZIhvcNAQkEMSIEIO9HTLyjXqU0bziCPxeU99SrEIykZQN4gWSzckmwL5rbMAoGCCqGSM49BAMCBEcwRQIgL7qe/0/xYG4ylXuJeqLa53xKuEnLw5gRQzmh9KbjWZICIQCvlf5CpCXqWUA4D+stnIxl1LttVdoRB55cn6EBanwqWQ==\"\n    }\n  ],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"cms/ecdsa-p256-sha256\",\n      \"value\": \"MIIDAAYJKoZIhvcNAQcCoIIC8TCCAu0CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGgggGeMIIBmjCCAUCgAwIBAgIIQVBSLVRFU1QwCgYIKoZIzj0EAwIwQjEfMB0GA1UEAwwWQVBSIGNvcnB1cyB0ZXN0IHNpZ25lcjEfMB0GA1UECgwWQVBSIGNvbmZvcm1hbmNlIGNvcnB1czAeFw0yNjAxMDEwMDAwMDBaFw0zNjAxMDEwMDAwMDBaMEIxHzAdBgNVBAMMFkFQUiBjb3JwdXMgdGVzdCBzaWduZXIxHzAdBgNVBAoMFkFQUiBjb25mb3JtYW5jZSBjb3JwdXMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATpAFTL4qZJf29fA1/UE7KI1BzdMllbNCz1RBbmCi536wN0+LOgFutnlJP12iZIxYLITVf9/46ikS9qx80K94awoyAwHjAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0TAQH/BAIwADAKBggqhkjOPQQDAgNIADBFAiBNbO8YBXBK0k22lJGGE1gsq2t/7P3LaZ+XLijAXvvvVAIhAKDFuDXVmb2SQ5tmS42lJ6UOtmjc+zabrvP/fcFCHDzGMYIBJjCCASICAQEwTjBCMR8wHQYDVQQDDBZBUFIgY29ycHVzIHRlc3Qgc2lnbmVyMR8wHQYDVQQKDBZBUFIgY29uZm9ybWFuY2UgY29ycHVzAghBUFItVEVTVDANBglghkgBZQMEAgEFAKBpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDEwMjAwMDAwMFowLwYJKoZIhvcNAQkEMSIEIO9HTLyjXqU0bziCPxeU99SrEIykZQN4gWSzckmwL5rbMAoGCCqGSM49BAMCBEcwRQIgL7qe/0/xYG4ylXuJeqLa53xKuEnLw5gRQzmh9KbjWZICIQCvlf5CpCXqWUA4D+stnIxl1LttVdoRB55cn6EBanwqWQ==\"\n    }\n  ],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:ca25f7a8ffb33f4dfcf4fd8d094d3b4da10be6b31b15084f9303d0261bdaf2ee"
     },
     {
       "id": "corpus:attestations/permit.fields.attestation.jsonc",
@@ -476,7 +478,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"fields\",\n    \"fields\": [\n      \"name\"\n    ]\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"fields\",\n    \"fields\": [\n      \"name\"\n    ]\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/id\",\n        \"digest\": \"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0\",\n        \"digest\": \"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      },\n      {\n        \"path\": \"/sections/0/title\",\n        \"digest\": \"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:bca8e277e5ef04083a119f21a3518e94fe16fee2467851817662ba764fa7e24f"
     },
     {
       "id": "corpus:attestations/permit.unsupported.attestation.jsonc",
@@ -492,7 +495,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"example/opaque-v1\",\n      \"value\": \"b3BhcXVl\"\n    }\n  ],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\"\n      },\n      {\n        \"path\": \"/sections/0/prompts/0/response\",\n        \"digest\": \"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"example/opaque-v1\",\n      \"value\": \"b3BhcXVl\"\n    }\n  ],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:f58a780caad24dea56d65d966d1a744ffcb2daadf2b975e257ad1d13839fb679"
     },
     {
       "id": "corpus:forms/permit.apr.jsonc",
@@ -510,7 +514,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "// JSONC comments and formatting are not semantic content.\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        { \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" },\n      ],\n    },\n  ],\n}\n"
+      "document": "// JSONC comments and formatting are not semantic content.\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Beta 6 permit\" },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        { \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ada\" },\n      ],\n    },\n  ],\n}\n",
+      "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
     },
     {
       "id": "corpus:forms/permit.apr.yaml",
@@ -526,6 +531,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "aprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata:\n  title: Beta 6 permit\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: name\n        label: Name\n        response: \"Ada\"\n",
+      "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
       "equivalentTo": "corpus:forms/permit.apr.jsonc"
     },
     {
@@ -546,7 +552,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Patient Intake\", \"templateId\": \"tag:skpt.cl,2026:examples/intake\", \"templateVersion\": \"1.0\" },\n  \"roles\": [\n    { \"id\": \"patient\", \"name\": \"Patient\", \"description\": \"The person receiving care.\" },\n    { \"id\": \"nurse\", \"name\": \"Nurse\", \"description\": \"Clinical staff recording observations.\" },\n    { \"id\": \"office\", \"name\": \"Office use\" }\n  ],\n  \"sections\": [\n    { \"id\": \"patient_details\", \"title\": \"About you\", \"role\": \"patient\", \"prompts\": [\n      { \"id\": \"name\", \"label\": \"Full name\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"dob\", \"label\": \"Date of birth\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"date\" } }\n    ] },\n    { \"id\": \"observations\", \"title\": \"Clinical observations\", \"role\": \"nurse\", \"prompts\": [\n      { \"id\": \"bp\", \"label\": \"Blood pressure\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"weight\", \"label\": \"Weight (kg)\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"number\", \"min\": 0, \"max\": 400 } },\n      { \"id\": \"symptoms\", \"label\": \"Describe your symptoms in your own words\", \"response\": \"\", \"role\": \"patient\", \"hints\": { \"expectedDataType\": \"multiline\" } }\n    ] },\n    { \"id\": \"office\", \"title\": \"For office use only\", \"role\": \"office\", \"prompts\": [\n      { \"id\": \"ref\", \"label\": \"Reference number\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"received\", \"label\": \"Date received\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"date\" } }\n    ] },\n    { \"id\": \"consent\", \"title\": \"Consent\", \"prompts\": [\n      { \"id\": \"agree\", \"label\": \"I confirm the above is accurate\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"boolean\", \"suggestedValues\": [\"Yes\", \"No\"] } }\n    ] }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Patient Intake\", \"templateId\": \"tag:skpt.cl,2026:examples/intake\", \"templateVersion\": \"1.0\" },\n  \"roles\": [\n    { \"id\": \"patient\", \"name\": \"Patient\", \"description\": \"The person receiving care.\" },\n    { \"id\": \"nurse\", \"name\": \"Nurse\", \"description\": \"Clinical staff recording observations.\" },\n    { \"id\": \"office\", \"name\": \"Office use\" }\n  ],\n  \"sections\": [\n    { \"id\": \"patient_details\", \"title\": \"About you\", \"role\": \"patient\", \"prompts\": [\n      { \"id\": \"name\", \"label\": \"Full name\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"dob\", \"label\": \"Date of birth\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"date\" } }\n    ] },\n    { \"id\": \"observations\", \"title\": \"Clinical observations\", \"role\": \"nurse\", \"prompts\": [\n      { \"id\": \"bp\", \"label\": \"Blood pressure\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"weight\", \"label\": \"Weight (kg)\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"number\", \"min\": 0, \"max\": 400 } },\n      { \"id\": \"symptoms\", \"label\": \"Describe your symptoms in your own words\", \"response\": \"\", \"role\": \"patient\", \"hints\": { \"expectedDataType\": \"multiline\" } }\n    ] },\n    { \"id\": \"office\", \"title\": \"For office use only\", \"role\": \"office\", \"prompts\": [\n      { \"id\": \"ref\", \"label\": \"Reference number\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"text\" } },\n      { \"id\": \"received\", \"label\": \"Date received\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"date\" } }\n    ] },\n    { \"id\": \"consent\", \"title\": \"Consent\", \"prompts\": [\n      { \"id\": \"agree\", \"label\": \"I confirm the above is accurate\", \"response\": \"\", \"hints\": { \"expectedDataType\": \"boolean\", \"suggestedValues\": [\"Yes\", \"No\"] } }\n    ] }\n  ]\n}\n",
+      "digest": "sha256:932b982b846736dcdaef554379462ec48e1c2c929ad9b34076c6265e44b0a3c6"
     },
     {
       "id": "corpus:malformed/attestation-missing-subject.apr.jsonc",
@@ -619,7 +626,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:bc67872deef60cd6ed1e74d541e8d1115c4eb97ac4bd16bd253e63a6287b4270"
     },
     {
       "id": "corpus:rules/apr-attest-001-violates.apr.jsonc",
@@ -646,7 +654,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:bc67872deef60cd6ed1e74d541e8d1115c4eb97ac4bd16bd253e63a6287b4270"
     },
     {
       "id": "corpus:rules/apr-attest-002-violates.apr.jsonc",
@@ -673,7 +682,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:bc67872deef60cd6ed1e74d541e8d1115c4eb97ac4bd16bd253e63a6287b4270"
     },
     {
       "id": "corpus:rules/apr-attest-003-violates.apr.jsonc",
@@ -700,7 +710,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:bc67872deef60cd6ed1e74d541e8d1115c4eb97ac4bd16bd253e63a6287b4270"
     },
     {
       "id": "corpus:rules/apr-attest-004-violates.apr.jsonc",
@@ -727,7 +738,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:bc67872deef60cd6ed1e74d541e8d1115c4eb97ac4bd16bd253e63a6287b4270"
     },
     {
       "id": "corpus:rules/apr-attest-007-violates.apr.jsonc",
@@ -755,6 +767,7 @@
       "expect": "valid",
       "profile": "core+attestations",
       "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [\n    {\n      \"type\": \"example/opaque-v1\",\n      \"value\": \"b3BhcXVl\"\n    }\n  ],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:45aefeb70caf798ebc0bfb449c18cc2a2556eb164ef151c2f4c958bb7e9d67ca",
       "roundTrip": true,
       "preserves": [
         "/proofs/0/type",
@@ -787,6 +800,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\",\n          \"response\": \"2\"\n        },\n        {\n          \"id\": \"total\",\n          \"label\": \"Total\",\n          \"hints\": {\n            \"exprValue\": \"string(a)\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:4b061a69d73396d765a2e106e175fb2138d98daae75ee2117bc29471a0d91eea",
       "roundTrip": true,
       "preserves": [
         "/sections/0/prompts/1/hints/exprValue"
@@ -803,7 +817,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:bc67872deef60cd6ed1e74d541e8d1115c4eb97ac4bd16bd253e63a6287b4270"
     },
     {
       "id": "corpus:rules/apr-digest-001-violates.apr.jsonc",
@@ -831,6 +846,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"com.example.priority\": 2\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:15b3a4810b24b73804154fca84501cd60cfba9be66c4372f802314214bed5e94",
       "roundTrip": true,
       "preserves": [
         "/metadata/com.example.routing"
@@ -847,7 +863,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      },\n      {\n        \"path\": \"/a\",\n        \"digest\": \"sha256:efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      },\n      {\n        \"path\": \"/a\",\n        \"digest\": \"sha256:efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:994f6ff9c82536d7b1af8902c74e53d2ddeddb2ab5e4867b1dfc174fa5c69649"
     },
     {
       "id": "corpus:rules/apr-digest-003-violates.apr.jsonc",
@@ -874,7 +891,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+attestations",
-      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n"
+      "document": "{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": {\n    \"digest\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"canonicalization\": \"jcs-sha256\"\n  },\n  \"scope\": {\n    \"kind\": \"document\"\n  },\n  \"manifest\": {\n    \"root\": \"sha256:abababababababababababababababababababababababababababababababab\",\n    \"entries\": [\n      {\n        \"path\": \"\",\n        \"digest\": \"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"\n      }\n    ]\n  },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n",
+      "digest": "sha256:bc67872deef60cd6ed1e74d541e8d1115c4eb97ac4bd16bd253e63a6287b4270"
     },
     {
       "id": "corpus:rules/apr-digest-004-violates.apr.jsonc",
@@ -902,6 +920,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\",\n          \"response\": \"2\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"b\",\n          \"label\": \"B\",\n          \"response\": \"99\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"a * 2.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:9fd29f626cc3b89eff8ddc5398f29e5ffd7693226af46049d059e9b60303a3dd",
       "expects": {
         "responses": {
           "b": "99"
@@ -920,6 +939,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"kept\",\n          \"label\": \"Kept\",\n          \"response\": \"typed by a person\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"nosuch.thing()\"\n          }\n        },\n        {\n          \"id\": \"h\",\n          \"label\": \"H\",\n          \"hints\": {\n            \"exprHidden\": \"1 +\",\n            \"exprValidation\": \"2 + 2\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:b6585fe10c19d4850d2c63804a9439dde92b06964df51225fe9a1b90853e526a",
       "expects": {
         "responses": {
           "kept": "typed by a person"
@@ -944,6 +964,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"ctx\",\n          \"label\": \"Ctx\",\n          \"response\": \"a prompt, not the context\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        },\n        {\n          \"id\": \"org\",\n          \"label\": \"Org\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"ctx.org\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:974aa381b803ffc757ce93c713cba7af1c7d7ae55ed6636e27fbce8a971bec67",
       "evaluate": {
         "ctx": {
           "org": "Skeptical Engineering"
@@ -967,6 +988,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"d\",\n          \"label\": \"D\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"_today\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:69c9ef3b8d65c03f09944463c121c5688dcc722c6538275dd12ef6a58b8f9862",
       "evaluate": {
         "_today": "1970-01-01"
       },
@@ -988,6 +1010,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"qty\",\n          \"label\": \"Qty\",\n          \"response\": \"about twelve\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"cost\",\n          \"label\": \"Cost\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"qty * 2.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:b516fdf8ab1fbbf151adba22524301e17a6a2cf0279078a5a1619237d24396cf",
       "expects": {
         "responses": {
           "cost": ""
@@ -1006,6 +1029,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\",\n          \"response\": \"2\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"corrected\",\n          \"label\": \"C\",\n          \"response\": \"99\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"a * 2.0\"\n          }\n        },\n        {\n          \"id\": \"empty\",\n          \"label\": \"E\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"a * 2.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:5d83466b9ccbecd2a55ec0379c5a02b2a1c04ca5634c0b17a508a9b706241bb9",
       "expects": {
         "responses": {
           "corrected": "99",
@@ -1025,6 +1049,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"total\",\n          \"label\": \"Total\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"subtotal + tax\"\n          }\n        },\n        {\n          \"id\": \"tax\",\n          \"label\": \"Tax\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"subtotal * 0.1\"\n          }\n        },\n        {\n          \"id\": \"subtotal\",\n          \"label\": \"Subtotal\",\n          \"response\": \"200\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:0f3ad3f427277ced10f703cd2c276e38929211a73dd27de66557db4a58dd8ba4",
       "expects": {
         "responses": {
           "tax": "20",
@@ -1044,6 +1069,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\",\n          \"response\": \"7\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"big\",\n          \"label\": \"Big\",\n          \"hints\": {\n            \"exprValidation\": \"a > 5.0 ? 'over five' : ''\"\n          }\n        },\n        {\n          \"id\": \"n\",\n          \"label\": \"N\",\n          \"response\": \"Ada\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        },\n        {\n          \"id\": \"len\",\n          \"label\": \"Len\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"double(size(n))\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:fd12de2de0b0e5218bc1879c60dfbce8edfc3226104eb28ea03d26d9309d6851",
       "teeth": false,
       "expects": {
         "validation": {
@@ -1066,6 +1092,7 @@
       "expect": "valid",
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"n\",\n          \"label\": \"N\",\n          \"response\": \"Ada\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        },\n        {\n          \"id\": \"len\",\n          \"label\": \"Len\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"double(size(n))\"\n          }\n        },\n        {\n          \"id\": \"outside\",\n          \"label\": \"O\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"n.trim()\"\n          }\n        },\n        {\n          \"id\": \"alsooutside\",\n          \"label\": \"A\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"math.greatest(1.0,2.0)\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:461245f98dcc6e21fd40cf58b6178ddb4d63b91acb2dd8c23520a7e8acf926c3",
       "expects": {
         "responses": {
           "len": "3",
@@ -1086,7 +1113,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"42\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"42\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:4758c268f248d8db1f21897609c2d252089d6f6b8662b2f05f0637cfe0f8a428"
     },
     {
       "id": "corpus:rules/apr-model-001-violates.apr.jsonc",
@@ -1114,7 +1142,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"12\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"12\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:9fd7143722d2fa9453af3ef841b7ed77ea7e2a08484ed98ccc84a6af6307a8e8"
     },
     {
       "id": "corpus:rules/apr-model-002-warns.apr.jsonc",
@@ -1128,6 +1157,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"the summer of 1985\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:512ab7d05a3e5a3e4ea584ae1854c4396a2d960fae5120f49bcdbe1a0cd87fe2",
       "warns": [
         "RESPONSE_CONTRADICTS_TYPE"
       ]
@@ -1143,7 +1173,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
     },
     {
       "id": "corpus:rules/apr-model-005-violates.apr.jsonc",
@@ -1171,7 +1202,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
     },
     {
       "id": "corpus:rules/apr-model-006-violates.apr.jsonc",
@@ -1199,7 +1231,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Permit\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Permit\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:2ec97d87600388fa1a321aafcb3c89d1e12dd5adc79f91d02ab3538441debaa2"
     },
     {
       "id": "corpus:rules/apr-model-007-violates.apr.jsonc",
@@ -1226,7 +1259,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateId\": \"tag:example.com,2026:t\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ],\n  \"documentType\": \"filledForm\"\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateId\": \"tag:example.com,2026:t\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ],\n  \"documentType\": \"filledForm\"\n}\n",
+      "digest": "sha256:a45b0f9d48115f283ca35f36c0e520531a0074da9d34c38f2eafededf19124f6"
     },
     {
       "id": "corpus:rules/apr-model-008-violates.apr.jsonc",
@@ -1253,7 +1287,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
     },
     {
       "id": "corpus:rules/apr-model-009-violates.apr.jsonc",
@@ -1281,7 +1316,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"x\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"x\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"x\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"x\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:faf786375649651b2a8aa7d953ebb1822404632cb824a5946de38aaf414744cd"
     },
     {
       "id": "corpus:rules/apr-model-010-violates.apr.jsonc",
@@ -1309,7 +1345,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"Name\",\n          \"label\": \"A\"\n        },\n        {\n          \"id\": \"name\",\n          \"label\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"Name\",\n          \"label\": \"A\"\n        },\n        {\n          \"id\": \"name\",\n          \"label\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:75dc5df72f5fe1c31e044d4688a4d7c1ede25b7f8e0caad25d4db2d9e4a9a12c"
     },
     {
       "id": "corpus:rules/apr-model-011-violates.apr.jsonc",
@@ -1336,7 +1373,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        },\n        {\n          \"id\": \"r2\",\n          \"title\": \"R2\",\n          \"prompts\": [\n            {\n              \"id\": \"r2.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        },\n        {\n          \"id\": \"r2\",\n          \"title\": \"R2\",\n          \"prompts\": [\n            {\n              \"id\": \"r2.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:c99bcffef0272a15fdf70f3f87ba7357b9d4d692fbc7645cec826b92a7e869bc"
     },
     {
       "id": "corpus:rules/apr-model-014-warns.apr.jsonc",
@@ -1351,6 +1389,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        },\n        {\n          \"id\": \"r2\",\n          \"title\": \"R2\",\n          \"prompts\": [\n            {\n              \"id\": \"r2.a\",\n              \"label\": \"A\"\n            },\n            {\n              \"id\": \"r2.b\",\n              \"label\": \"B\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:e7bd5bb2bf5d0faf8eb2f9f609655c7da2ecc4ee1f2748ac7f6b856f2e799bf9",
       "warns": [
         "TABLE_RAGGED",
         "TABLE_LABEL_MISMATCH"
@@ -1368,6 +1407,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s1\",\n      \"title\": \"S1\",\n      \"sections\": [\n        {\n          \"id\": \"s2\",\n          \"title\": \"S2\",\n          \"sections\": [\n            {\n              \"id\": \"s3\",\n              \"title\": \"S3\",\n              \"sections\": [\n                {\n                  \"id\": \"s4\",\n                  \"title\": \"S4\",\n                  \"sections\": [\n                    {\n                      \"id\": \"s5\",\n                      \"title\": \"S5\",\n                      \"sections\": [\n                        {\n                          \"id\": \"s6\",\n                          \"title\": \"S6\",\n                          \"sections\": [\n                            {\n                              \"id\": \"s7\",\n                              \"title\": \"S7\",\n                              \"sections\": [\n                                {\n                                  \"id\": \"s8\",\n                                  \"title\": \"S8\",\n                                  \"sections\": [\n                                    {\n                                      \"id\": \"s9\",\n                                      \"title\": \"S9\",\n                                      \"sections\": [\n                                        {\n                                          \"id\": \"s10\",\n                                          \"title\": \"S10\",\n                                          \"sections\": [\n                                            {\n                                              \"id\": \"s11\",\n                                              \"title\": \"S11\",\n                                              \"sections\": [\n                                                {\n                                                  \"id\": \"s12\",\n                                                  \"title\": \"S12\",\n                                                  \"sections\": [\n                                                    {\n                                                      \"id\": \"s13\",\n                                                      \"title\": \"S13\",\n                                                      \"sections\": [\n                                                        {\n                                                          \"id\": \"s14\",\n                                                          \"title\": \"S14\",\n                                                          \"sections\": [\n                                                            {\n                                                              \"id\": \"s15\",\n                                                              \"title\": \"S15\",\n                                                              \"sections\": [\n                                                                {\n                                                                  \"id\": \"s16\",\n                                                                  \"title\": \"S16\",\n                                                                  \"prompts\": [\n                                                                    {\n                                                                      \"id\": \"p\",\n                                                                      \"label\": \"P\"\n                                                                    }\n                                                                  ]\n                                                                }\n                                                              ]\n                                                            }\n                                                          ]\n                                                        }\n                                                      ]\n                                                    }\n                                                  ]\n                                                }\n                                              ]\n                                            }\n                                          ]\n                                        }\n                                      ]\n                                    }\n                                  ]\n                                }\n                              ]\n                            }\n                          ]\n                        }\n                      ]\n                    }\n                  ]\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:10cfe8f6be2cc747592383127b5538569e867d8d3adffb6c5253c4a342a2e38f",
       "acceptance": "sixteen levels of nesting must be supported; an implementation with a shallower ceiling refuses this document"
     },
     {
@@ -1381,7 +1421,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:7396f665e3de179e209e1c6e476bc62b5a7ed985a7d36ae9b9d82e86dd07de24"
     },
     {
       "id": "corpus:rules/apr-model-018-warns.apr.jsonc",
@@ -1395,6 +1436,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"hologram\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:096dcbc4b8ac1197a18966684245d38f176a9b229ec307ee9a404ead9faa309b",
       "warns": [
         "UNREGISTERED_DATA_TYPE"
       ]
@@ -1410,7 +1452,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"5\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"min\": 1,\n            \"max\": 10\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"5\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"min\": 1,\n            \"max\": 10\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:b6a855c6d8b32b4cd25c80f33b649e570d9496b228a1ecf00de202f7b74dab80"
     },
     {
       "id": "corpus:rules/apr-model-019-warns.apr.jsonc",
@@ -1424,6 +1467,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"120\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"min\": 1,\n            \"max\": 10\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:7ff49923929b0eb2942e9d8702aa96da8806d022c6c4c83904c37324b43a53ee",
       "warns": [
         "RESPONSE_OUTSIDE_BOUNDS"
       ]
@@ -1441,6 +1485,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"com.example.priority\": 2\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:15b3a4810b24b73804154fca84501cd60cfba9be66c4372f802314214bed5e94",
       "roundTrip": true,
       "preserves": [
         "/metadata/com.example.routing",
@@ -1459,6 +1504,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"b\",\n          \"label\": \"B\",\n          \"response\": \"yes\",\n          \"hints\": {\n            \"expectedDataType\": \"boolean\"\n          }\n        },\n        {\n          \"id\": \"d\",\n          \"label\": \"D\",\n          \"response\": \"January 15th\",\n          \"hints\": {\n            \"expectedDataType\": \"date\"\n          }\n        },\n        {\n          \"id\": \"n\",\n          \"label\": \"N\",\n          \"response\": \"1,234.50 USD\",\n          \"hints\": {\n            \"expectedDataType\": \"currency\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:362987a774c5da23cfc9b3595602c173c54fba021e5c34bf097c533a5f7b0d60",
       "roundTrip": true,
       "preserves": [
         "/sections/0/prompts/0/response",
@@ -1478,6 +1524,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"m\",\n          \"label\": \"M\",\n          \"response\": \"Bloomfield, CT\\nHartford, CT\",\n          \"hints\": {\n            \"expectedDataType\": \"multichoice\",\n            \"suggestedValues\": [\n              \"Bloomfield, CT\",\n              \"Hartford, CT\",\n              \"Avon, CT\"\n            ]\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:0d95a15d2e56f6b7a41db951d27b90c956eab71ebfb37a70ee06199618dec9ee",
       "roundTrip": true,
       "preserves": [
         "/sections/0/prompts/0/response",
@@ -1496,7 +1543,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"role\": \"clerk\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"id\": \"clerk\",\n      \"name\": \"Clerk\"\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"role\": \"clerk\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"id\": \"clerk\",\n      \"name\": \"Clerk\"\n    }\n  ]\n}\n",
+      "digest": "sha256:93301fffa4ea937a2ef87489d3f1435334dd3143e7b85fe14981c76602ded0d3"
     },
     {
       "id": "corpus:rules/apr-model-026-warns.apr.jsonc",
@@ -1511,6 +1559,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"role\": \"nurse\"\n    }\n  ],\n  \"roles\": [\n    {\n      \"id\": \"clerk\",\n      \"name\": \"Clerk\"\n    }\n  ]\n}\n",
+      "digest": "sha256:1ce771d4416f3f0347a7fdaf98391e2e03f427cafc429fb4a254085dcd5a9a24",
       "warns": [
         "UNDECLARED_ROLE"
       ]
@@ -1526,7 +1575,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:c3644894a799f5cd0605f3b86bd242f031aabd2b7c03a90cabb5021a2e1042c1"
     },
     {
       "id": "corpus:rules/apr-model-029-warns.apr.jsonc",
@@ -1540,6 +1590,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:651f6d57493f5b670d6104e19e049aa99a7865e5e1f2847b1c07a69935d28968",
       "warns": [
         "UNPREFIXED_MEMBER"
       ]
@@ -1555,7 +1606,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:7396f665e3de179e209e1c6e476bc62b5a7ed985a7d36ae9b9d82e86dd07de24"
     },
     {
       "id": "corpus:rules/apr-model-030-warns.apr.jsonc",
@@ -1569,6 +1621,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"signature\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:d7d634b518d8841deaf5f6c98d73d679154071616012dcb31e618989f5165a29",
       "warns": [
         "UNREGISTERED_DATA_TYPE"
       ]
@@ -1584,7 +1637,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"com.example.routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:c3644894a799f5cd0605f3b86bd242f031aabd2b7c03a90cabb5021a2e1042c1"
     },
     {
       "id": "corpus:rules/apr-model-031-warns.apr.jsonc",
@@ -1598,6 +1652,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"routing\": \"desk-4\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:651f6d57493f5b670d6104e19e049aa99a7865e5e1f2847b1c07a69935d28968",
       "warns": [
         "UNPREFIXED_MEMBER"
       ]
@@ -1613,7 +1668,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"submissionUrls\": [\n      \"mailto:clerk@example.com\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"submissionUrls\": [\n      \"mailto:clerk@example.com\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:3610a92aae79b13d49d25b97cd0fcd2670e6cefbe2725a2e9f3304cb5d17bc45"
     },
     {
       "id": "corpus:rules/apr-model-035-warns.apr.jsonc",
@@ -1627,6 +1683,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"submissionUrls\": [\n      \"ftp://example.com/drop\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:339de043be998cf45f329f8e055dd5991887e367907958c1e03773f02395478f",
       "warns": [
         "SUBMISSION_URL_UNSUPPORTED"
       ]
@@ -1642,7 +1699,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateId\": \"tag:example.com,2026:t\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateId\": \"tag:example.com,2026:t\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:15eda42e70841a6acd4547730c8af7f70b8e60da47dda9ed11ffe26743ef39ca"
     },
     {
       "id": "corpus:rules/apr-model-036-violates.apr.jsonc",
@@ -1669,7 +1727,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 5,\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 5,\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:7603950888bb1fb47d40aeab0a9d97e49c149c658ce25af28ea1ce6e9c663ebf"
     },
     {
       "id": "corpus:rules/apr-model-038-warns.apr.jsonc",
@@ -1683,6 +1742,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ],\n      \"maxRows\": 5\n    }\n  ]\n}\n",
+      "digest": "sha256:9c3a8f2e9a7d66fb778efb23ab55735b36efa4047fdd5e55168d08b535808cfb",
       "warns": [
         "TABLE_MEMBERS_ON_A_PLAIN_SECTION"
       ]
@@ -1698,7 +1758,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"AB-1\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"AB-1\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:23e6e52e29aa9584eb3fdf2ed18b63aa455bffc33810c7304c3edf58401af63b"
     },
     {
       "id": "corpus:rules/apr-model-039-warns.apr.jsonc",
@@ -1712,6 +1773,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"validationPattern\": \"^([A-Z\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:a2b37320a4bd53b2c45d2d035af06983bdf975f18977d4ba890e8d6da28a4165",
       "warns": [
         "HINT_UNUSABLE"
       ]
@@ -1728,6 +1790,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        {\n          \"id\": \"full_name\",\n          \"label\": \"Full name\",\n          \"response\": \"Ada\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:4aca592f9a5d421a76425e2f448830b7be47e073ed4a609533bbc77b02fc7ab1",
       "roundTrip": true,
       "preserves": [
         "/sections/0/id",
@@ -1745,7 +1808,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"regarding\": [\n      \"sha256:abababababababababababababababababababababababababababababababab\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"regarding\": [\n      \"sha256:abababababababababababababababababababababababababababababababab\"\n    ]\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:58e5c54c24ed51c97634d747f15f0a1b701aef44e01098179f95412a8132b4a6"
     },
     {
       "id": "corpus:rules/apr-model-043-violates.apr.jsonc",
@@ -1772,7 +1836,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"sections\": [\n        {\n          \"id\": \"r1\",\n          \"title\": \"R1\",\n          \"prompts\": [\n            {\n              \"id\": \"r1.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:89dcd78f4ed177e74fb454699a8409f346f1941b6daad3313e4025581f39b719"
     },
     {
       "id": "corpus:rules/apr-model-046-violates.apr.jsonc",
@@ -1799,7 +1864,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 1,\n      \"sections\": [\n        {\n          \"id\": \"r\",\n          \"title\": \"R\",\n          \"prompts\": [\n            {\n              \"id\": \"r.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 1,\n      \"sections\": [\n        {\n          \"id\": \"r\",\n          \"title\": \"R\",\n          \"prompts\": [\n            {\n              \"id\": \"r.a\",\n              \"label\": \"A\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:7fe0266e295d7daa31c2e87644e1d49730fa29c7b89c13e599ab7e7cf0a47aaf"
     },
     {
       "id": "corpus:rules/apr-model-047-violates.apr.jsonc",
@@ -1827,6 +1893,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "// a comment carries no meaning\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n  ,\n}\n",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6",
       "roundTrip": true,
       "preserves": [
         "/sections/0/prompts/0/label"
@@ -1843,7 +1910,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
     },
     {
       "id": "corpus:rules/apr-rep-005-violates.apr.jsonc",
@@ -1870,7 +1938,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
     },
     {
       "id": "corpus:rules/apr-rep-007-violates.apr.yaml",
@@ -1897,7 +1966,8 @@
       "representation": "yaml",
       "expect": "valid",
       "profile": "core",
-      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Plain\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n"
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Plain\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "digest": "sha256:46e06998bcc8e70f2d2b33afe3e324cd472adee163c8e5aea93abd64b4fbd032"
     },
     {
       "id": "corpus:rules/apr-rep-011-satisfies.apr.jsonc",
@@ -1910,7 +1980,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
     },
     {
       "id": "corpus:rules/apr-rep-014-satisfies.apr.jsonc",
@@ -1923,7 +1994,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": null\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": null\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:ae033084018b082c29bd4b112059129a14069b32349fa0de95ba952b9d694865"
     },
     {
       "id": "corpus:rules/apr-rep-014-violates.apr.jsonc",
@@ -1950,7 +2022,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"date\",\n            \"min\": \"2026-01-01\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"date\",\n            \"min\": \"2026-01-01\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:0971414fede0664a30b27cfe0aa2e16cf732335ab5b9b3af5e978ca10f36f50d"
     },
     {
       "id": "corpus:rules/apr-rep-016-violates.apr.jsonc",
@@ -1977,7 +2050,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
     },
     {
       "id": "corpus:rules/apr-sec-002-violates.apr.jsonc",
@@ -2032,6 +2106,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"  Ada‍ Lovelace  \"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:987d6532ac0b1950cc1a6060b513f569654b450697c4bd2d69d4d35bd4000235",
       "roundTrip": true,
       "preserves": [
         "/sections/0/prompts/0/response"
@@ -2048,7 +2123,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Permit Application\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Permit Application\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:7546b6b2a76c75838cab6cbe6681805d476188264e4812577439735f86e88dd4"
     },
     {
       "id": "corpus:rules/apr-text-011-violates.apr.jsonc",
@@ -2075,7 +2151,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"AB-1\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"AB-1\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:23e6e52e29aa9584eb3fdf2ed18b63aa455bffc33810c7304c3edf58401af63b"
     },
     {
       "id": "corpus:rules/apr-val-002-warns.apr.jsonc",
@@ -2089,6 +2166,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"nope\",\n          \"hints\": {\n            \"validationPattern\": \"^[A-Z]{2}-[0-9]$\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:f1aa45c7ed7975a221dc1a62b7de1ac99791fbed3f4f489775748b90a6f94448",
       "warns": [
         "RESPONSE_PATTERN_MISMATCH"
       ]
@@ -2104,7 +2182,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"12\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"12\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:9fd7143722d2fa9453af3ef841b7ed77ea7e2a08484ed98ccc84a6af6307a8e8"
     },
     {
       "id": "corpus:rules/apr-val-005-warns.apr.jsonc",
@@ -2118,6 +2197,7 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"response\": \"about twelve\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:f154fa15bc576c3ae1c12d1efe4b1015dd1d08dc1aa961bd89504197cce34776",
       "warns": [
         "RESPONSE_CONTRADICTS_TYPE"
       ]
@@ -2133,7 +2213,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+expressions",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprExpected\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprExpected\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:3e8e659087ba2adba5dfb41c86b799393b37d9ee4f8ba490294dbf9bed22b051"
     },
     {
       "id": "corpus:rules/optional-hints-exprexpected-wrong.apr.jsonc",
@@ -2160,7 +2241,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+expressions",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprHidden\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprHidden\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:2928740724c76b9ec0af1fdaa8f85748b99f79607c50918d399166149c261fce"
     },
     {
       "id": "corpus:rules/optional-hints-exprhidden-wrong.apr.jsonc",
@@ -2187,7 +2269,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+expressions",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprReadOnly\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprReadOnly\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:91e6b1220b53a8cfef7763e918235d57934c48ea06156f84210a24e3f9183749"
     },
     {
       "id": "corpus:rules/optional-hints-exprreadonly-wrong.apr.jsonc",
@@ -2214,7 +2297,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+expressions",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprValidation\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprValidation\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:bda8ac922649d18a865376ef02429cdd6dc07e0d339d1c0c6da832fe087d19b9"
     },
     {
       "id": "corpus:rules/optional-hints-exprvalidation-wrong.apr.jsonc",
@@ -2241,7 +2325,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core+expressions",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprValue\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprValue\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:0157aa814001d392e617173a3b02c8d48f5b29a8160588fab045603cf7c736b3"
     },
     {
       "id": "corpus:rules/optional-hints-exprvalue-wrong.apr.jsonc",
@@ -2268,7 +2353,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"helpText\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"helpText\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:ee729f2263b2915e87e22f075ad877fdd957fddf7bc876c4a80661e6d0ae9c90"
     },
     {
       "id": "corpus:rules/optional-hints-helptext-wrong.apr.jsonc",
@@ -2295,7 +2381,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"placeholder\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"placeholder\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:94f17dd5dd402e91909a2f04234f2942e801673ad6e5ed5fe2be0010a6769e67"
     },
     {
       "id": "corpus:rules/optional-hints-placeholder-wrong.apr.jsonc",
@@ -2322,7 +2409,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"step\": 1\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"step\": 1\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:1dbe254e5357259ec1a0cb765a2b8866034b682e9148ac42e829521a838e2c29"
     },
     {
       "id": "corpus:rules/optional-hints-step-wrong.apr.jsonc",
@@ -2349,7 +2437,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"suggestedValues\": [\n              \"a\",\n              \"b\"\n            ]\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"suggestedValues\": [\n              \"a\",\n              \"b\"\n            ]\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:d980f2f90ac1600fe0516bd6de34b1aafb781c0913e7cae4893e40505eb99b50"
     },
     {
       "id": "corpus:rules/optional-hints-suggestedvalues-wrong.apr.jsonc",
@@ -2376,7 +2465,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"author\": \"text\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"author\": \"text\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:1cd37c33c2f35b116eba66e9ca1107da4789bf691ff791596f3913c9af3adbd1"
     },
     {
       "id": "corpus:rules/optional-metadata-author-wrong.apr.jsonc",
@@ -2403,7 +2493,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"created\": \"2026-09-05T00:00:00Z\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"created\": \"2026-09-05T00:00:00Z\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:2a47f1acc92fe362e4d9919ee045a4401ad6f49639d502657a12fa09718b936a"
     },
     {
       "id": "corpus:rules/optional-metadata-created-wrong.apr.jsonc",
@@ -2430,7 +2521,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"modified\": \"2026-09-05T00:00:00Z\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"modified\": \"2026-09-05T00:00:00Z\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:7e39fdb9d88d519c56cc3205a8537423ff8cf3f04218b94311ae826f4d165916"
     },
     {
       "id": "corpus:rules/optional-metadata-modified-wrong.apr.jsonc",
@@ -2457,7 +2549,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"publisher\": \"text\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"publisher\": \"text\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:9a61d1540ba285ab55549995fb2ec64b1f33ae9fb2616dc08d49101ace16badd"
     },
     {
       "id": "corpus:rules/optional-metadata-publisher-wrong.apr.jsonc",
@@ -2484,7 +2577,8 @@
       "representation": "jsonc",
       "expect": "valid",
       "profile": "core",
-      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateVersion\": \"text\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateVersion\": \"text\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:915c2f6c74cdbb9662d829413fdc9441065be7433a7b9a6cf64d059c590f0d64"
     },
     {
       "id": "corpus:rules/optional-metadata-templateversion-wrong.apr.jsonc",

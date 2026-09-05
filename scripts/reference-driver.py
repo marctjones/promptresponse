@@ -60,7 +60,7 @@ def answer(case, members):
     answer = {"id": case["id"], "outcome": "valid", "digest": aprlib.digest(records[0]),
               "warnings": sorted({f["code"] for f in report.findings
                                   if f["severity"] == "warning"})}
-    if case.get("expects"):
+    if case.get("evaluates") or case.get("expects"):
         import aprexpr
         inputs = case.get("evaluate") or {}
         try:

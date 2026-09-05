@@ -128,6 +128,19 @@ def build() -> dict:
             "profile": profile_of(representation_of(path, text), text),
             "document": text,
         }
+        if case["expect"] == "valid" and "stream" not in case["representation"]:
+            # The same reasoning as for a specification example, applied to the
+            # corpus: acceptance alone says only that a reader did not object.
+            # The digest says it built the semantic model the document defines,
+            # which is what a reader with wrong scalar resolution fails.
+            try:
+                records = aprlib.read_records(text, case["representation"])
+                if len(records) == 1:
+                    case["digest"] = aprlib.digest(records[0])
+            except aprlib.MissingDependency:
+                raise  # never a property of the vector; the package is absent
+            except Exception:  # noqa: BLE001 - a vector we cannot read states no digest
+                pass
         if expected.get("diagnostic"):
             case["diagnostic"] = expected["diagnostic"]
         if expected.get("warns"):
