@@ -1126,6 +1126,51 @@
       ],
       "anchors": [],
       "roundTrip": true
+    },
+    "rules/apr-rep-005-violates.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-005"
+      ],
+      "anchors": [],
+      "diagnostic": "PARSE_ERROR"
+    },
+    "rules/apr-rep-007-violates.apr.yaml": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-007"
+      ],
+      "anchors": [],
+      "diagnostic": "PARSE_ERROR"
+    },
+    "rules/apr-rep-010-satisfies.apr.yaml": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-010"
+      ],
+      "anchors": []
+    },
+    "rules/apr-stream-001-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-STREAM-001"
+      ],
+      "anchors": []
+    },
+    "rules/apr-text-011-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-TEXT-011"
+      ],
+      "anchors": []
+    },
+    "rules/apr-text-011-violates.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-TEXT-011"
+      ],
+      "anchors": [],
+      "diagnostic": "FORBIDDEN_CODE_POINT"
     }
   }
 }

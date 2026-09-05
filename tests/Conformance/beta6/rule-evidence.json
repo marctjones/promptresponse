@@ -3,9 +3,9 @@
   "rules": 151,
   "counts": {
     "enforced": 67,
-    "satisfied": 73,
-    "violated": 62,
-    "caught": 61,
-    "complete": 59
+    "satisfied": 76,
+    "violated": 65,
+    "caught": 64,
+    "complete": 64
   }
 }

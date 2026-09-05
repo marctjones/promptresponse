@@ -1791,6 +1791,20 @@
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
+      "id": "corpus:rules/apr-rep-005-violates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-005"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "// a comment\n{\n  \"aprVersion\": \"1.0-beta.6\"\n  \"metadata\": { \"title\": \"T\" }\n}\n",
+      "diagnostic": "PARSE_ERROR"
+    },
+    {
       "id": "corpus:rules/apr-rep-006-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",
@@ -1802,6 +1816,33 @@
       "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-rep-007-violates.apr.yaml",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-007"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: T\n sections:\n   - id: s\n",
+      "diagnostic": "PARSE_ERROR"
+    },
+    {
+      "id": "corpus:rules/apr-rep-010-satisfies.apr.yaml",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-010"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Plain\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n"
     },
     {
       "id": "corpus:rules/apr-rep-011-satisfies.apr.jsonc",
@@ -1898,6 +1939,19 @@
       "diagnostic": "UNSUPPORTED_VERSION"
     },
     {
+      "id": "corpus:rules/apr-stream-001-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-STREAM-001"
+      ],
+      "representation": "jsonc-stream",
+      "expect": "valid",
+      "profile": "core+streams",
+      "document": "\u001e{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n\u001e{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
       "id": "corpus:rules/apr-stream-003-roundtrip.apr.jsonc",
       "source": "corpus",
       "rule": "rules",
@@ -1927,6 +1981,33 @@
       "preserves": [
         "/sections/0/prompts/0/response"
       ]
+    },
+    {
+      "id": "corpus:rules/apr-text-011-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-TEXT-011"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Permit Application\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/apr-text-011-violates.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-TEXT-011"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Permit​Application\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "FORBIDDEN_CODE_POINT"
     },
     {
       "id": "corpus:rules/apr-val-002-satisfies.apr.jsonc",

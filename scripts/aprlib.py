@@ -116,7 +116,14 @@ def _no_duplicates(pairs):
 
 
 def load_jsonc(text: str):
-    return json.loads(strip_jsonc(text), object_pairs_hook=_no_duplicates)
+    try:
+        return json.loads(strip_jsonc(text), object_pairs_hook=_no_duplicates)
+    except AprError:
+        raise
+    except ValueError as exc:
+        # A reader reports what the specification names, not what its JSON library
+        # happens to call the failure.
+        raise AprError("PARSE_ERROR") from exc
 
 
 # --------------------------------------------------------------------------
@@ -158,7 +165,11 @@ def load_yaml(text: str) -> list:
         Loader.add_constructor(f"tag:yaml.org,2002:{tag}", resolve_scalar)
     Loader.yaml_implicit_resolvers = {}
 
-    for event in yaml.parse(text, Loader=yaml.SafeLoader):
+    try:
+        events = list(yaml.parse(text, Loader=yaml.SafeLoader))
+    except yaml.YAMLError as exc:
+        raise AprError("PARSE_ERROR") from exc
+    for event in events:
         if isinstance(event, yaml.events.AliasEvent):
             raise AprError("YAML_ANCHOR_FORBIDDEN")
         anchor = getattr(event, "anchor", None)
@@ -182,7 +193,12 @@ def load_yaml(text: str) -> list:
     if re.search(r"(?m)^\s*<<\s*:", text):
         raise AprError("YAML_MERGE_KEY_FORBIDDEN")
 
-    return [doc for doc in yaml.load_all(text, Loader=Loader) if doc is not None]
+    try:
+        return [doc for doc in yaml.load_all(text, Loader=Loader) if doc is not None]
+    except AprError:
+        raise
+    except yaml.YAMLError as exc:
+        raise AprError("PARSE_ERROR") from exc
 
 
 # --------------------------------------------------------------------------
@@ -198,19 +214,20 @@ def read_records(text: str, representation: str) -> list:
     for part in parts:
         try:
             records.append(load_jsonc(part))
-        except AprError:
-            raise
-        except Exception:
+        except AprError as failure:
             # A record in a JSONC stream that will not decode as JSON is either
             # malformed or written in the other representation, and those are
             # different faults. Saying "invalid JSON" for a YAML record would
-            # report the symptom and hide the rule that was broken.
+            # report the symptom and hide the rule that was broken. Any other
+            # failure — a duplicate member, say — is already the right diagnosis.
+            if str(failure) != "PARSE_ERROR" or RS not in text:
+                raise
             try:
                 other = load_yaml(part)
-            except Exception:
-                raise
+            except AprError:
+                raise failure
             if other:
-                raise AprError("APR_STREAM_MIXED_REPRESENTATIONS")
+                raise AprError("APR_STREAM_MIXED_REPRESENTATIONS") from failure
             raise
     return records
 
