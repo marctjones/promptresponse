@@ -336,10 +336,14 @@ def main() -> int:
                     f"cites it and the parser raised {diagnostic!r} where the case "
                     f"declares {case.get('diagnostic')!r}")
 
-    # A preservation rule is not something a file validator can check: no single
-    # document is wrong. The harness enforces it by asking for the document back.
+    # A preservation, evaluation, equivalence or tolerance rule is not something a
+    # file validator can check: no single document is wrong. The harness enforces
+    # each of them — by asking for the document back, by asking what an expression
+    # produced, by comparing the digests of a paired form, and by scoring whether a
+    # document that must be accepted was.
     enforced = enforced | {r for case in suite["cases"]
                            if case.get("roundTrip") or case.get("expects")
+                           or case.get("equivalentTo") or case.get("acceptance")
                            for r in (case.get("rules") or [])}
     counts = {
         "enforced": sum(1 for r in rules if r in enforced),
