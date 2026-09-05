@@ -968,7 +968,7 @@
       "profile": "core+expressions",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"d\",\n          \"label\": \"D\",\n          \"hints\": {\n            \"expectedDataType\": \"text\",\n            \"exprValue\": \"_today\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
       "evaluate": {
-        "today": "1970-01-01"
+        "_today": "1970-01-01"
       },
       "expects": {
         "responses": {

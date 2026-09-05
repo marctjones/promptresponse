@@ -65,7 +65,7 @@ def answer(case, members):
         inputs = case.get("evaluate") or {}
         try:
             answer["evaluated"] = aprexpr.evaluate(
-                records[0], now=inputs.get("now"), today=inputs.get("today"),
+                records[0], _now=inputs.get("_now"), _today=inputs.get("_today"),
                 ctx=inputs.get("ctx"))
         except Exception as exc:  # noqa: BLE001
             answer["evaluated"] = {"error": type(exc).__name__}

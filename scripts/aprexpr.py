@@ -227,7 +227,7 @@ def order(computed: list[dict]) -> list[dict]:
     return out
 
 
-def evaluate(form: dict, now: str | None = None, today: str | None = None,
+def evaluate(form: dict, _now: str | None = None, _today: str | None = None,
              ctx: dict | None = None) -> dict:
     """Evaluate every expression hint in a form. Returns what each hint produced.
 
@@ -255,13 +255,13 @@ def evaluate(form: dict, now: str | None = None, today: str | None = None,
             pass  # left out of the activation entirely
 
     ambient: dict[str, object] = {}
-    if now:
+    if _now:
         try:
-            ambient["_now"] = bind(now, "datetime")
+            ambient["_now"] = bind(_now, "datetime")
         except Unbound:
             pass
-    if today is not None:
-        ambient["_today"] = celtypes.StringType(today)
+    if _today is not None:
+        ambient["_today"] = celtypes.StringType(_today)
     if ctx is not None:
         ambient["ctx"] = celtypes.MapType(
             {celtypes.StringType(k): celtypes.StringType(v) for k, v in ctx.items()})

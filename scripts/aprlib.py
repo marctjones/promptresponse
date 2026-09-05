@@ -256,21 +256,47 @@ def is_attestation(record) -> bool:
 # --------------------------------------------------------------------------
 
 def _number(value) -> str:
-    """A JSON number as ES6 Number::toString renders it, per RFC 8785 3.2.2.3."""
+    """A JSON number as ES6 Number::toString renders it, per RFC 8785 3.2.2.3.
+
+    This is ECMA-262's Number::toString spelled out, and it is spelled out
+    because two shortcuts that look right are not. Rendering an integral double
+    with Python's int() prints the exact value where ECMAScript prints the
+    shortest decimal that round-trips and pads with zeros, so 2^68 becomes
+    ...825856 instead of the ...830000 RFC 8785 Appendix B publishes. And
+    Python's repr switches to exponential at 1e-5 where ECMAScript switches
+    below 1e-6, so 0.000001 comes out as 1e-06.
+
+    Both are invisible in ordinary documents and change every digest that
+    contains one. scripts/check-oracle.py holds this to the RFC's own vectors.
+    """
     if isinstance(value, bool):  # bool is an int subclass; never reached via dispatch
         raise AprError("boolean is not a number")
-    if isinstance(value, int):
-        return str(value)
     if not math.isfinite(value):
         raise AprError("non-finite numbers have no JSON representation")
-    if value == int(value) and abs(value) < 1e21:
-        return str(int(value))
-    text = repr(value)  # shortest round-trip, as ES6 requires
-    if "e" in text:  # Python writes 1e+21, ES6 writes 1e+21 too, but normalise e-05
-        mantissa, exponent = text.split("e")
-        sign = "+" if not exponent.startswith("-") else "-"
-        text = f"{mantissa}e{sign}{int(exponent.lstrip('+-'))}"
-    return text
+    if value == 0:
+        return "0"  # ECMAScript renders -0 as "0"
+    sign = "-" if value < 0 else ""
+    magnitude = abs(float(value))
+
+    # The shortest decimal that round-trips, as `s` digits and an exponent `n`
+    # such that the value is 0.s * 10**n. Python's repr is shortest round-trip,
+    # so the digits can be read off it rather than recomputed.
+    mantissa, _, exponent = repr(magnitude).partition("e")
+    whole, _, fraction = mantissa.partition(".")
+    digits = (whole + fraction).lstrip("0")
+    leading_zeros = len(whole + fraction) - len((whole + fraction).lstrip("0"))
+    n = len(whole) - leading_zeros + (int(exponent) if exponent else 0)
+    s = digits.rstrip("0") or "0"
+    k = len(s)
+
+    if k <= n <= 21:
+        return sign + s + "0" * (n - k)
+    if 0 < n <= 21:
+        return sign + s[:n] + "." + s[n:]
+    if -6 < n <= 0:
+        return sign + "0." + "0" * -n + s
+    tail = f"e{'+' if n - 1 >= 0 else '-'}{abs(n - 1)}"
+    return sign + (s if k == 1 else s[0] + "." + s[1:]) + tail
 
 
 def canonicalize(value) -> str:

@@ -105,6 +105,19 @@ jobs:
         # missing package as a failure rather than skipping the work it gates.
         run: pip install --disable-pip-version-check -r scripts/requirements.txt
 
+      - name: Test the oracle against RFC 8785's own vectors
+        # Every digest in the corpus is computed by scripts/aprlib.py, so a defect
+        # in it is a defect in every digest the suite states, and four SDKs would
+        # then be judged wrong for being right. Held to the RFC's published
+        # example, its property ordering, and its IEEE 754 serialization pairs.
+        run: python3 scripts/check-oracle.py
+
+      - name: Test the expression oracle against the pinned CEL surface
+        # Language conformance is cel-spec's; this checks the surface section 11.3
+        # pins is present, the extension libraries it forbids are absent, and
+        # activation, degradation and marshalling behave as section 11 states.
+        run: python3 scripts/check-expression-oracle.py
+
       - name: Verify the test registry agrees with the repository
         # tests/registry.json claims which spec requirements are gated. A coverage
         # registry nobody checks becomes a document describing a project that no longer

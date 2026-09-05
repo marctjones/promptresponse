@@ -77,14 +77,15 @@ and `document`, the source text. Stream cases carry real record separators.
   is valid either way cannot tell a reader that says the right thing from one that
   stays silent. Reporting more than the suite names is a discrepancy, not a failure.
 - `evaluated` is what evaluating the expression hints produced, required by any case
-  carrying `expects`. Every non-empty response in the document as you read it is
-  authored, whatever produced it, and recomputation must not overwrite one — a case
-  that supplies a response contradicting its own `exprValue` is testing exactly that,
-  not carrying a stale fixture. Report `{"responses": {...}, "hidden": {...}, "expected": {...},
-  "readOnly": {...}, "validation": {...}}`, keyed by prompt id. The case supplies
-  `_now`, `_today` and `ctx` under `evaluate`; take them from there and never from
-  the host clock, which is what makes a form evaluate the same way twice. Only what
-  a case names is checked.
+  carrying `expects`. Report the groups the suite asserts — `responses`, `hidden` and
+  `validation`, each keyed by prompt id. Only what a case names is checked, so
+  reporting more is harmless; `expected` and `readOnly` were documented here and are
+  consumed by nothing. The case supplies `_now`, `_today` and `ctx` under `evaluate` —
+  the reserved names the specification's activation section states — and taking them
+  from there rather than the host clock is what makes a form evaluate the same way
+  twice. Every non-empty response in the document as you read it is authored, whatever
+  produced it, and recomputation must not overwrite one: a case supplying a response
+  that contradicts its own `exprValue` is testing that, not carrying a stale fixture.
 - `written` is the document as you would serialize it after reading, required by any
   case marked `roundTrip`. The harness reads it back and checks it is the same
   document, and that every pointer in `preserves` survived. This is the only part of

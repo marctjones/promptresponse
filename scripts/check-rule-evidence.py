@@ -136,8 +136,8 @@ def naive_evaluation(document: str, representation: str, inputs: dict) -> dict:
         # forbids. The withdrawn strings extension is the realistic one to reach
         # for, since a CEL binding that ships it makes this the easy mistake.
         aprexpr.strings_extension = aprexpr._withdrawn_strings_extension
-        return aprexpr.evaluate(stripped, now=inputs.get("now"),
-                                today=datetime.date.today().isoformat(),
+        return aprexpr.evaluate(stripped, _now=inputs.get("_now"),
+                                _today=datetime.date.today().isoformat(),
                                 ctx=inputs.get("ctx"))
     except Exception:  # noqa: BLE001
         return {}

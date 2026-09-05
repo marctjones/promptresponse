@@ -1001,7 +1001,7 @@
         }
       },
       "evaluate": {
-        "today": "1970-01-01"
+        "_today": "1970-01-01"
       }
     },
     "rules/apr-expr-004-evaluates.apr.jsonc": {
