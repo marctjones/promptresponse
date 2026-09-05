@@ -2121,6 +2121,438 @@
       ]
     },
     {
+      "id": "corpus:rules/optional-hints-exprexpected-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprExpected\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-hints-exprexpected-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprExpected\": 42\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-hints-exprhidden-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprHidden\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-hints-exprhidden-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprHidden\": 42\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-hints-exprreadonly-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprReadOnly\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-hints-exprreadonly-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprReadOnly\": 42\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-hints-exprvalidation-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprValidation\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-hints-exprvalidation-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprValidation\": 42\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-hints-exprvalue-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprValue\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-hints-exprvalue-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core+expressions",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"exprValue\": 42\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-hints-helptext-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"helpText\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-hints-helptext-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"helpText\": 42\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-hints-placeholder-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"placeholder\": \"text\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-hints-placeholder-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"placeholder\": 42\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-hints-step-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"step\": 1\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-hints-step-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"step\": \"1\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-hints-suggestedvalues-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"suggestedValues\": [\n              \"a\",\n              \"b\"\n            ]\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-hints-suggestedvalues-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"suggestedValues\": [\n              1,\n              2\n            ]\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-author-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"author\": \"text\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-author-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"author\": 42\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-created-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"created\": \"2026-09-05T00:00:00Z\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-created-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"created\": 123456789\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-modified-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"modified\": \"2026-09-05T00:00:00Z\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-modified-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"modified\": 123456789\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-publisher-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"publisher\": \"text\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-publisher-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"publisher\": 42\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-templateversion-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateVersion\": \"text\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-metadata-templateversion-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\",\n    \"templateVersion\": 42\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-prompt-responsemetadata-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"responseMetadata\": {}\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-prompt-responsemetadata-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"responseMetadata\": \"not an object\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "corpus:rules/optional-responsemetadata-source-present.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"responseMetadata\": {\n            \"source\": \"computed\"\n          }\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "corpus:rules/optional-responsemetadata-source-wrong.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "jsonc",
+      "expect": "reject",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"responseMetadata\": {\n            \"source\": 42\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
       "id": "corpus:streams/changed-form.apr.jsonc",
       "source": "corpus",
       "rule": "changed-forms",

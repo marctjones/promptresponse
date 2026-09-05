@@ -1,0 +1,19 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T",
+    "author": "text"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "p",
+          "label": "P"
+        }
+      ]
+    }
+  ]
+}

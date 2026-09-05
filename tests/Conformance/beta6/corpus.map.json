@@ -1206,6 +1206,246 @@
         "/proofs/0/type",
         "/proofs/0/value"
       ]
+    },
+    "rules/optional-metadata-created-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-metadata-created-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-metadata-modified-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-metadata-modified-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-metadata-author-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-metadata-author-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-metadata-publisher-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-metadata-publisher-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-metadata-templateversion-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-metadata-templateversion-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-prompt-responsemetadata-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-prompt-responsemetadata-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-responsemetadata-source-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-responsemetadata-source-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-hints-placeholder-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-hints-placeholder-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-hints-suggestedvalues-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-hints-suggestedvalues-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-hints-helptext-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-hints-helptext-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-hints-step-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-hints-step-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-hints-exprhidden-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-hints-exprhidden-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-hints-exprvalue-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-hints-exprvalue-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-hints-exprexpected-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-hints-exprexpected-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-hints-exprvalidation-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-hints-exprvalidation-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
+    },
+    "rules/optional-hints-exprreadonly-present.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": []
+    },
+    "rules/optional-hints-exprreadonly-wrong.apr.jsonc": {
+      "expect": "reject",
+      "rules": [
+        "APR-REP-015"
+      ],
+      "anchors": [],
+      "diagnostic": "WRONG_TYPE"
     }
   }
 }

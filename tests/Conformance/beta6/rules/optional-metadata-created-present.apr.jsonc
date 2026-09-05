@@ -1,0 +1,19 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T",
+    "created": "2026-09-05T00:00:00Z"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "p",
+          "label": "P"
+        }
+      ]
+    }
+  ]
+}
