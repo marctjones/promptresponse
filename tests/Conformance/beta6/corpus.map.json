@@ -154,5 +154,23 @@
         "/sections/0/prompts/0/response"
       ]
     }
+  },
+  "expectations": {
+    "$comment": "Every corpus file is expected to be read successfully unless it is named here. A diagnostic is stated only where the specification names one.",
+    "malformed/attestation-missing-subject.apr.jsonc": {
+      "expect": "reject",
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    "malformed/duplicate-member.apr.jsonc": {
+      "expect": "reject",
+      "diagnostic": "DUPLICATE_MEMBER"
+    },
+    "malformed/missing-record-separator.apr.jsonc": {
+      "expect": "reject"
+    },
+    "malformed/yaml-anchor.apr.yaml": {
+      "expect": "reject",
+      "diagnostic": "YAML_ANCHOR_FORBIDDEN"
+    }
   }
 }

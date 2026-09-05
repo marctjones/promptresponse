@@ -91,7 +91,7 @@ def _no_duplicates(pairs):
     seen: dict = {}
     for key, value in pairs:
         if key in seen:
-            raise AprError(f"duplicate member {key!r}")
+            raise AprError("DUPLICATE_MEMBER")
         seen[key] = value
     return seen
 
