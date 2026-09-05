@@ -54,7 +54,10 @@ def load_corpus() -> dict[str, tuple[pathlib.Path, int, object]]:
     for path in sorted(CORPUS.rglob("*")):
         if not path.is_file() or path.suffix not in {".jsonc", ".yaml", ".yml"}:
             continue
-        if "malformed" in path.relative_to(CORPUS).parts:
+        # malformed/ exists to be rejected and rules/ holds narrow per-rule vectors,
+        # some of them deliberately unparseable. Neither carries a derived value, so
+        # neither is regenerated, and reading them would only fail.
+        if {"malformed", "rules"} & set(path.relative_to(CORPUS).parts):
             continue
         for index, record in enumerate(aprlib.read_file(path)):
             records[address(path, index)] = (path, index, record)
