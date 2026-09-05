@@ -17,6 +17,7 @@ which is the easy half.
 
     python3 scripts/check-rule-evidence.py            # matrix and totals
     python3 scripts/check-rule-evidence.py --missing  # only rules lacking evidence
+    python3 scripts/check-rule-evidence.py --by-section  # per section of the document
     python3 scripts/check-rule-evidence.py --json
     python3 scripts/check-rule-evidence.py --write    # update the ratchet baseline
 
@@ -51,6 +52,10 @@ import aprlib  # noqa: E402
 _spec = importlib.util.spec_from_file_location("validate_apr", HERE / "validate-apr.py")
 validate_apr = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(validate_apr)
+
+_cov = importlib.util.spec_from_file_location("cov", HERE / "check-suite-coverage.py")
+check_suite_coverage = importlib.util.module_from_spec(_cov)
+_cov.loader.exec_module(check_suite_coverage)
 
 _run = importlib.util.spec_from_file_location("run_conformance", HERE / "run-conformance.py")
 run_conformance = importlib.util.module_from_spec(_run)
@@ -242,6 +247,29 @@ def main() -> int:
         }, indent=2) + "\n", encoding="utf-8")
         print(f"Wrote {BASELINE.relative_to(ROOT)}: {counts}")
         return 0
+
+    if "--by-section" in sys.argv:
+        spec_text = (ROOT / "docs" / "APR_SPECIFICATION.md").read_text(encoding="utf-8")
+        full = {r for r in rules if r in enforced and satisfied[r]
+                and violated[r] and r in caught}
+        print(" rules  tested  missing  section")
+        print(" -----  ------  -------  " + "-" * 50)
+        total = short = 0
+        for heading, _anchor, section_rules in \
+                check_suite_coverage.rules_by_section(spec_text):
+            if not section_rules:
+                continue
+            done = sum(1 for r in section_rules if r in full)
+            gap = len(section_rules) - done
+            total += len(section_rules)
+            short += gap
+            mark = "   " if gap == 0 else ("!! " if done == 0 else " - ")
+            print(f" {len(section_rules):>5}  {done:>6}  {gap:>7}  {mark}{heading[:47]}")
+        print(f" {total:>5}  {total - short:>6}  {short:>7}   TOTAL")
+        print("\n !! no rule in this section has a test;  - partly tested")
+        print(" A rule is tested when it is enforced, shown satisfied, shown violated,")
+        print(" and that violation is caught traceably.")
+        return 1 if problems else 0
 
     show_missing = "--missing" in sys.argv
     print(f"{'rule':<16} enforced satisfied violated caught")

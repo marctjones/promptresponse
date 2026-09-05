@@ -60,7 +60,10 @@ def rules_by_section(text: str) -> list[tuple[str, str, list[str]]]:
                 sections.append((heading, anchor, collected))
             heading, anchor, collected = match.group(2), match.group(3), []
             continue
-        if anchor is not None:
+        # Only prose states a rule. An executable example cites rules in its
+        # `rules:` header, and crediting the section the example happens to sit in
+        # would attribute a rule to a section that does not state it.
+        if anchor is not None and not in_code:
             collected.extend(RULE.findall(line))
     if anchor is not None:
         sections.append((heading, anchor, collected))
