@@ -78,7 +78,7 @@ public class ExhaustiveInteractionTests
             },
             new Section
             {
-                Id = "tbl", Title = "Table", Kind = "table", CanAddRows = "true",
+                Id = "tbl", Title = "Table", Kind = "table", CanAddRows = true,
                 Sections = [new Section { Id = "r1", Title = "Row 1", Prompts =
                     [new Prompt { Id = "r1.a", Label = "A", Response = "1" }] }],
             },

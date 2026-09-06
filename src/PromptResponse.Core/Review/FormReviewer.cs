@@ -164,7 +164,7 @@ public static class FormReviewer
             yield break;   // Not a date at all; the type inspector already said so.
         }
 
-        if (DateTimeOffset.TryParse(hints.Min, CultureInfo.InvariantCulture,
+        if (DateTimeOffset.TryParse(hints.MinText, CultureInfo.InvariantCulture,
                 DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out var earliest)
             && when < earliest)
         {
@@ -173,7 +173,7 @@ public static class FormReviewer
                 "the control offered, not a limit on the answer (specification 4.7).");
         }
 
-        if (DateTimeOffset.TryParse(hints.Max, CultureInfo.InvariantCulture,
+        if (DateTimeOffset.TryParse(hints.MaxText, CultureInfo.InvariantCulture,
                 DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out var latest)
             && when > latest)
         {
@@ -205,16 +205,14 @@ public static class FormReviewer
             yield break;
         }
 
-        if (double.TryParse(hints.Min, NumberStyles.Any, CultureInfo.InvariantCulture, out var min)
-            && value < min)
+        if (hints.MinNumber is { } min && value < min)
         {
             yield return ("OUTSIDE_BOUNDS",
                 $"Below the suggested minimum of {hints.Min}. Bounds describe the control " +
                 "offered, not a limit on the answer (specification 4.7).");
         }
 
-        if (double.TryParse(hints.Max, NumberStyles.Any, CultureInfo.InvariantCulture, out var max)
-            && value > max)
+        if (hints.MaxNumber is { } max && value > max)
         {
             yield return ("OUTSIDE_BOUNDS",
                 $"Above the suggested maximum of {hints.Max}. Bounds describe the control " +

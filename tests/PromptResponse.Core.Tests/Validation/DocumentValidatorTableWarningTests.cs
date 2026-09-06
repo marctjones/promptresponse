@@ -34,7 +34,7 @@ public sealed class DocumentValidatorTableWarningTests : DocumentValidatorTestBa
     [Fact]
     public void TableAboveAdvisoryMaximum_ReportsCapacityWarningAfterShapeWarnings()
     {
-        var table = CreateTable(Row("a", "A"), Row("b", "B", "C")); table.MaxRows = "1";
+        var table = CreateTable(Row("a", "A"), Row("b", "B", "C")); table.MaxRows = 1;
         var warnings = Validator.Validate(CreateDocument("T", table)).Warnings;
         warnings.Select(warning => warning.WarningCode).Should().ContainInOrder("TABLE_RAGGED", "TABLE_OVER_CAPACITY");
     }

@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using PromptResponse.Core.Serialization;
 namespace PromptResponse.Core.Models;
 
 /// <summary>
@@ -89,17 +90,56 @@ public class PromptHints
     /// "-5" an invalid response, and a validator must never reject one. On date, time and
     /// datetime this is the earliest suggested value.
     ///
-    /// A string like every other value in the format, including the numeric ones - see the
-    /// strings-only rule (specification 3.2), which has exactly one exception and this is
-    /// not it.
+    /// A native JSON value, not a string. beta.6 reversed the earlier rule here: only a
+    /// response is always a string, because only a response is what a person typed.
+    /// Everything structural carries the JSON type it means, so a bound on a number is a
+    /// number and a bound on a date is the canonical-form string that date is written as
+    /// (specification 5.7).
     /// </remarks>
-    public string? Min { get; set; }
+    [JsonConverter(typeof(NumberOrStringConverter))]
+    public object? Min { get; set; }
 
-    /// <summary>Suggested upper bound for an ordered field, as a string. See <see cref="Min"/>.</summary>
-    public string? Max { get; set; }
+    /// <summary>Suggested upper bound for an ordered field. See <see cref="Min"/>.</summary>
+    [JsonConverter(typeof(NumberOrStringConverter))]
+    public object? Max { get; set; }
 
-    /// <summary>Suggested increment for an ordered field, as a string. See <see cref="Min"/>.</summary>
-    public string? Step { get; set; }
+    /// <summary>`min` read as a number, or null when it is not one.</summary>
+    /// <remarks>
+    /// A bound is a number on `number`, `currency` and `range`, and a canonical-form
+    /// string on `date`, `time` and `datetime`. Both are the format's own spellings, so
+    /// a reader takes whichever the field's space needs rather than converting between
+    /// them: rewriting 5 as "5" would change the document's digest.
+    /// </remarks>
+    [JsonIgnore]
+    public double? MinNumber => AsNumber(Min);
+
+    /// <summary>`max` read as a number, or null when it is not one.</summary>
+    [JsonIgnore]
+    public double? MaxNumber => AsNumber(Max);
+
+    /// <summary>`min` read as text, whatever spelling it carries.</summary>
+    [JsonIgnore]
+    public string? MinText => Min?.ToString();
+
+    /// <summary>`max` read as text, whatever spelling it carries.</summary>
+    [JsonIgnore]
+    public string? MaxText => Max?.ToString();
+
+    private static double? AsNumber(object? value) => value switch
+    {
+        null => null,
+        long whole => whole,
+        int whole => whole,
+        double number => number,
+        decimal number => (double)number,
+        string text when double.TryParse(text, System.Globalization.NumberStyles.Any,
+            System.Globalization.CultureInfo.InvariantCulture, out var parsed) => parsed,
+        _ => null,
+    };
+
+    /// <summary>Suggested increment for an ordered field, as a number.</summary>
+    /// <remarks>Always a number: an increment on a date is still a count.</remarks>
+    public double? Step { get; set; }
 
     // ── Expression hints (CEL; specification 8) ──
     // Not a "CEL subset" and not defined in the retired v0.2 appendices: these are CEL,

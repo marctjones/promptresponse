@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.Input;
@@ -239,12 +240,19 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     public bool IsDynamicTable => _section.AllowsAddingRows;
 
     /// <summary>Advisory maximum instance count, as text. Blank means no advisory cap.</summary>
+    /// <remarks>
+    /// The editor edits text because a person types text; the member is an integer,
+    /// because beta.6 gives every structural member the JSON type it means. Text that
+    /// is not an integer clears the cap rather than writing a value the format cannot
+    /// carry.
+    /// </remarks>
     public string MaxRowsText
     {
-        get => _section.MaxRows ?? string.Empty;
+        get => _section.MaxRows?.ToString(CultureInfo.InvariantCulture) ?? string.Empty;
         set
         {
-            var v = string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+            int? v = int.TryParse(value?.Trim(), NumberStyles.Integer,
+                CultureInfo.InvariantCulture, out var parsed) ? parsed : null;
             if (_section.MaxRows == v) return;
             _section.MaxRows = v;
             OnPropertyChanged();
@@ -272,7 +280,7 @@ public sealed class SectionViewModel : INotifyPropertyChanged
     public bool CanRemoveRow => IsDynamicTable && _nestedSections.Count > 1;
 
     private int EffectiveMaxRows =>
-        int.TryParse(_section.MaxRows, out var max) && max > 0 ? max : int.MaxValue;
+        _section.MaxRows is { } max && max > 0 ? max : int.MaxValue;
 
     public IRelayCommand AddRowCommand { get; }
     public IRelayCommand<SectionViewModel> RemoveRowCommand { get; }

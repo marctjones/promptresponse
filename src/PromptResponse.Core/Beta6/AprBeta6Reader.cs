@@ -127,7 +127,7 @@ public sealed class AprBeta6Reader
 
     private static void RequireBeta6(JsonElement root)
     {
-        if (!root.TryGetProperty("version", out var version) || version.GetString() != Beta6)
+        if (!root.TryGetProperty("aprVersion", out var version) || version.GetString() != Beta6)
             throw new SerializationException("APR beta.6 records must declare version '1.0-beta.6'.");
     }
 

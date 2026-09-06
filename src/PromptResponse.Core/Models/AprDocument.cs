@@ -45,7 +45,13 @@ public class AprDocument
     /// JsonRequired affects deserialization only; constructing an AprDocument in code still
     /// uses the defaults below.
     /// </remarks>
+    /// <remarks>
+    /// The wire name is <c>aprVersion</c>, renamed from <c>version</c> in beta.6 so a
+    /// reader cannot confuse the format's version with a version of the document.
+    /// The property keeps its shorter name; the attribute is what the format sees.
+    /// </remarks>
     [JsonRequired]
+    [JsonPropertyName("aprVersion")]
     public string Version { get; set; } = AprFormat.CurrentVersion;
 
     /// <summary>

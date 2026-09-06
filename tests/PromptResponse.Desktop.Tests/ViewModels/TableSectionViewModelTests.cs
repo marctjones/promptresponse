@@ -67,8 +67,8 @@ public class TableSectionViewModelTests
             Id = "tbl",
             Title = "Line items",
             Kind = "table",
-            CanAddRows = "true",
-            MaxRows = maxRows > 0 ? maxRows.ToString() : null,
+            CanAddRows = true,
+            MaxRows = maxRows > 0 ? maxRows : null,
         };
         var row = new Section { Id = "row1", Title = $"{rowLabel} 1" };
         row.Prompts.Add(new Prompt { Id = "row1.desc", Label = "Description", Hints = new PromptHints { ExpectedDataType = "text" } });

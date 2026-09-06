@@ -42,7 +42,7 @@ public class BoundsHintsTests
                         Id = "rating", Label = "Rating", Response = response,
                         Hints = new PromptHints
                         {
-                            ExpectedDataType = "range", Min = "1", Max = "10", Step = "1",
+                            ExpectedDataType = "range", Min = 1L, Max = 10L, Step = 1,
                         },
                     },
                 ],
@@ -85,9 +85,10 @@ public class BoundsHintsTests
         var reloaded = Serializer.Deserialize(Serializer.Serialize(WithBounds("5")));
         var hints = reloaded.Sections[0].Prompts[0].Hints;
 
-        hints.Min.Should().Be("1");
-        hints.Max.Should().Be("10");
-        hints.Step.Should().Be("1");
+        // Native JSON types, not strings: only a response is always a string.
+        hints.Min.Should().Be(1L);
+        hints.Max.Should().Be(10L);
+        hints.Step.Should().Be(1);
     }
 
     /// <summary>A reader that has never heard of bounds must still work.</summary>

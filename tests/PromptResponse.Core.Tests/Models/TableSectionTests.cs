@@ -44,7 +44,7 @@ public class TableSectionTests
         // Fixed is the safe failure: a tax-year table that silently gained a row is a
         // worse outcome than a line-item table needing one explicit property.
         new Section { Kind = "table" }.AllowsAddingRows.Should().BeFalse();
-        new Section { Kind = "table", CanAddRows = "true" }.AllowsAddingRows.Should().BeTrue();
+        new Section { Kind = "table", CanAddRows = true }.AllowsAddingRows.Should().BeTrue();
     }
 
     [Fact]

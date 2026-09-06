@@ -187,8 +187,8 @@ internal sealed class RemoveTopLevelSectionCommand : IEditCommand
 /// </summary>
 public sealed record TableSnapshot(
     string? Kind,
-    string? CanAddRows,
-    string? MaxRows,
+    bool? CanAddRows,
+    int? MaxRows,
     List<Section> Rows,
     List<Prompt> DirectPrompts);
 

@@ -69,7 +69,7 @@ public class GuiInventoryTests
             },
             new Section
             {
-                Id = "tbl", Title = "Table", Kind = "table", CanAddRows = "true",
+                Id = "tbl", Title = "Table", Kind = "table", CanAddRows = true,
                 Sections =
                 [
                     new Section { Id = "r1", Title = "Row 1", Prompts =

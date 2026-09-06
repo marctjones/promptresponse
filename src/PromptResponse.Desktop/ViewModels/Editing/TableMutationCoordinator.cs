@@ -80,7 +80,7 @@ internal sealed class TableMutationCoordinator
         _owner.PromptViewModels.Clear();
 
         Table.Kind = "table";
-        Table.CanAddRows = canAddRows ? "true" : null;
+        Table.CanAddRows = canAddRows ? true : null;
         if (Table.Sections.Count == 0)
         {
             AttachRow(TableRowFactory.CreateFirstRow(Table.Id, seedPrompts));

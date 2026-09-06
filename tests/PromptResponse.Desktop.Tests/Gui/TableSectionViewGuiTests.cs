@@ -142,8 +142,8 @@ public class TableSectionViewGuiTests
             Id = "tbl",
             Title = "Items",
             Kind = "table",
-            CanAddRows = "true",
-            MaxRows = "5",
+            CanAddRows = true,
+            MaxRows = 5,
         };
         var vm = new SectionViewModel(section, factory, depth: 0);
         var view = new SectionView { DataContext = vm };

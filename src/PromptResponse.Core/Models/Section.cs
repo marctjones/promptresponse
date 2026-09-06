@@ -136,17 +136,18 @@ public class Section
     /// This is independent of whether the instances hold values. A filled table whose
     /// rows carry data may still accept new rows.
     /// </remarks>
-    public string? CanAddRows { get; set; }
+    public bool? CanAddRows { get; set; }
 
     /// <summary>
-    /// Advisory upper bound on the number of instances, as a string.
+    /// Advisory upper bound on the number of instances.
     /// </summary>
     /// <remarks>
     /// A hint for the add-row affordance, never a reason to reject a document: a table
     /// carrying more instances than this is still valid and is reported as a warning.
-    /// A string, like every other value in the format.
+    /// An integer: beta.6 gives every structural member the JSON type it means, and
+    /// only a response stays a string (specification 5.7).
     /// </remarks>
-    public string? MaxRows { get; set; }
+    public int? MaxRows { get; set; }
 
     /// <summary>Whether this section's child sections are repeating instances.</summary>
     /// <remarks>
@@ -163,6 +164,6 @@ public class Section
     /// <remarks>Not serialized, for the same reason as <see cref="IsTable"/>.</remarks>
     [JsonIgnore]
     public bool AllowsAddingRows =>
-        IsTable && string.Equals(CanAddRows, "true", StringComparison.OrdinalIgnoreCase);
+        IsTable && CanAddRows == true;
 
 }

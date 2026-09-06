@@ -46,6 +46,6 @@ internal static class DocumentStructureValidator
             if (prompts.Count != first.Count) { result.AddWarning(new ValidationWarning($"Table instance '{row.Id}' has {prompts.Count} prompts but the first has {first.Count}; corresponding fields cannot be aligned by position.", $"{path}.sections", "TABLE_RAGGED")); continue; }
             for (var index = 0; index < prompts.Count; index++) if (!string.Equals(prompts[index].Label, first[index].Label, StringComparison.Ordinal)) result.AddWarning(new ValidationWarning($"Table instance '{row.Id}' names field {index} '{prompts[index].Label}' but the first instance names it '{first[index].Label}'; corresponding fields should share a label.", $"{path}.sections", "TABLE_LABEL_MISMATCH"));
         }
-        if (int.TryParse(section.MaxRows, out var maximum) && maximum > 0 && rows.Count > maximum) result.AddWarning(new ValidationWarning($"Table has {rows.Count} instances, above the advisory maximum of {maximum}.", path, "TABLE_OVER_CAPACITY"));
+        if (section.MaxRows is { } maximum && maximum > 0 && rows.Count > maximum) result.AddWarning(new ValidationWarning($"Table has {rows.Count} instances, above the advisory maximum of {maximum}.", path, "TABLE_OVER_CAPACITY"));
     }
 }
