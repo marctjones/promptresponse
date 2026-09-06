@@ -54,4 +54,54 @@ public class AprBeta6WriterGuardTests
 
         read.Should().NotThrow();
     }
+
+    [Fact]
+    public void AnUnprefixedMemberOnASectionOrPrompt_IsAlsoRefused()
+    {
+        var document = Form();
+        document.Sections[0].Extensions = Member("routing");
+
+        var write = () => _reader.WriteForm(document, AprRepresentation.Jsonc);
+
+        write.Should().Throw<SerializationException>().Which.Code.Should().Be("UNPREFIXED_MEMBER");
+    }
+
+    [Fact]
+    public void AnUnprefixedMemberOnHints_IsAlsoRefused()
+    {
+        var document = Form();
+        document.Sections[0].Prompts[0].Hints = new PromptHints { Extensions = Member("weight") };
+
+        var write = () => _reader.WriteForm(document, AprRepresentation.Jsonc);
+
+        write.Should().Throw<SerializationException>().Which.Code.Should().Be("UNPREFIXED_MEMBER");
+    }
+
+    [Fact]
+    public void AWrongVersion_IsRefusedOnWriteWithItsCode()
+    {
+        var document = Form();
+        document.Version = "1.0-beta.3";
+
+        var write = () => _reader.WriteForm(document, AprRepresentation.Jsonc);
+
+        write.Should().Throw<SerializationException>().Which.Code.Should().Be("UNSUPPORTED_VERSION");
+    }
+
+    [Fact]
+    public void ARetiredMember_IsDroppedOnRead_NotRefused()
+    {
+        // Retirement means the member goes, not that the document does. `signatures` is
+        // the one exception, because it carried a cryptographic claim.
+        var form = _reader.ReadForm(
+            "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},"
+            + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\","
+            + "\"responseMetadata\":{\"source\":\"computed\"}}]}]}",
+            AprRepresentation.Jsonc);
+
+        form.Sections[0].Prompts[0].Extensions.Should().BeNullOrEmpty(
+            "responseMetadata was retired in beta.6 and is dropped rather than preserved");
+        var write = () => _reader.WriteForm(form, AprRepresentation.Jsonc);
+        write.Should().NotThrow("the retired member is gone, so nothing unprefixed remains");
+    }
 }

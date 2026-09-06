@@ -283,10 +283,16 @@ internal static class AdvisoryVocabulary
         if (value is 0x0009 or 0x000A) return false;
         var category = System.Text.Rune.GetUnicodeCategory(rune);
         if (category is System.Globalization.UnicodeCategory.Control
+            or System.Globalization.UnicodeCategory.Format
             or System.Globalization.UnicodeCategory.Surrogate
             or System.Globalization.UnicodeCategory.PrivateUse
             or System.Globalization.UnicodeCategory.OtherNotAssigned)
         {
+            // Format (Cf) is the category the individually listed code points below
+            // belong to — the zero-width characters, the bidi controls, the annotation
+            // anchors. Naming the category rather than only its members means a code
+            // point assigned to it in a later Unicode version is excluded on the day it
+            // is assigned, rather than the day somebody notices.
             return true;
         }
         return value switch
