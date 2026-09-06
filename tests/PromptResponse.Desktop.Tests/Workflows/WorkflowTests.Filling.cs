@@ -48,7 +48,8 @@ public partial class WorkflowTests
         var reloaded = Reload(filledPath);
         MustBeValid(reloaded, "filling the SF-86 template");
         reloaded.DocumentType.Should().Be(DocumentType.FilledForm);
-        reloaded.Metadata.TemplateId.Should().Be("sf-86-2024");
+        reloaded.Metadata.TemplateId.Should().Be("tag:skpt.cl,2026:examples/sf-86-2024",
+            "beta.6 made templateId a URI, and the fixture moved with it");
         reloaded.Sections.SelectMany(Flatten).Single(p => p.Id == "prompt_investigation_type").Response.Should().Be("Initial Investigation");
         static IEnumerable<Prompt> Flatten(Section s) => s.Prompts.Concat(s.Sections.SelectMany(Flatten));
     }

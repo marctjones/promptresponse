@@ -23,8 +23,6 @@ public class MetadataTests
         metadata.Author.Should().BeNull();
         metadata.TemplateId.Should().BeNull();
         metadata.TemplateVersion.Should().BeNull();
-        metadata.FilledBy.Should().BeNull();
-        metadata.FilledDate.Should().BeNull();
     }
 
     [Fact]
@@ -117,8 +115,6 @@ public class MetadataTests
             Title = "Completed Form",
             TemplateId = "template-001",
             TemplateVersion = "1.0",
-            FilledBy = "Jane Smith",
-            FilledDate = filledDate,
             Modified = DateTime.UtcNow
         };
 
@@ -126,8 +122,6 @@ public class MetadataTests
         metadata.Title.Should().Be("Completed Form");
         metadata.TemplateId.Should().Be("template-001");
         metadata.TemplateVersion.Should().Be("1.0");
-        metadata.FilledBy.Should().Be("Jane Smith");
-        metadata.FilledDate.Should().Be(filledDate);
     }
 
     [Fact]
@@ -170,34 +164,6 @@ public class MetadataTests
 
         // Assert
         metadata.TemplateVersion.Should().Be(expectedVersion);
-    }
-
-    [Fact]
-    public void SetFilledBy_ShouldStoreValue()
-    {
-        // Arrange
-        var metadata = new Metadata();
-        const string expectedName = "Alice Johnson";
-
-        // Act
-        metadata.FilledBy = expectedName;
-
-        // Assert
-        metadata.FilledBy.Should().Be(expectedName);
-    }
-
-    [Fact]
-    public void SetFilledDate_ShouldStoreValue()
-    {
-        // Arrange
-        var metadata = new Metadata();
-        var expectedDate = new DateTime(2025, 11, 12, 14, 30, 0, DateTimeKind.Utc);
-
-        // Act
-        metadata.FilledDate = expectedDate;
-
-        // Assert
-        metadata.FilledDate.Should().Be(expectedDate);
     }
 
     [Fact]

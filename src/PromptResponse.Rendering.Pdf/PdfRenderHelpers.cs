@@ -98,8 +98,10 @@ internal static class PdfRenderHelpers
             pdf.Title(meta.Title);
         }
 
-        // Prefer the document author; fall back to who filled it in.
-        var author = !string.IsNullOrWhiteSpace(meta.Author) ? meta.Author : meta.FilledBy;
+        // The document's author. Who filled it in was `filledBy`, workflow state that
+        // beta.6 removed: a form does not carry a claim about who completed it, because
+        // an unsigned claim of authorship is not evidence of anything.
+        var author = meta.Author;
         if (!string.IsNullOrWhiteSpace(author))
         {
             pdf.Author(author!);

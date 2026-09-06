@@ -101,23 +101,6 @@ public class Metadata
     public string? TemplateVersion { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the person who filled out the form.
-    /// </summary>
-    /// <remarks>
-    /// FilledForm-specific field. Optional identifier of who completed the form.
-    /// </remarks>
-    public string? FilledBy { get; set; }
-
-    /// <summary>
-    /// Gets or sets the timestamp when the form was initially filled out.
-    /// </summary>
-    /// <remarks>
-    /// FilledForm-specific field. Distinct from Modified, which tracks any edits.
-    /// Should be UTC timestamp.
-    /// </remarks>
-    public DateTime? FilledDate { get; set; }
-
-    /// <summary>
     /// Gets or sets the publisher of the form (the organization or person that
     /// authored and stands behind the template).
     /// </summary>
@@ -139,4 +122,23 @@ public class Metadata
     /// </remarks>
     /// <example>["https://bloomfieldct.gov/forms/permit/submit"]</example>
     public List<string>? SubmissionUrls { get; set; }
+
+    /// <summary>
+    /// Gets or sets the records this form was completed with reference to, each by its
+    /// semantic digest.
+    /// </summary>
+    /// <remarks>
+    /// A step of a process is an ordinary form: the office publishes a template for a
+    /// receipt or a review, somebody fills it in while looking at what came before, and
+    /// the form they produce names what they looked at. Every record they looked at is
+    /// left exactly as it was, so its digest holds and the attestations over it stay
+    /// valid (specification 5.2.2).
+    ///
+    /// A reference asserts context and nothing else. It creates no revision, no
+    /// supersession, no chronology, no authority and no trust relationship, and a reader
+    /// must not present one as any of those. Order is the author's preferred display
+    /// order and means nothing else.
+    /// </remarks>
+    /// <example>["sha256:b4363edd8ccc..."]</example>
+    public List<string>? Regarding { get; set; }
 }

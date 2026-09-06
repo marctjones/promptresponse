@@ -12,7 +12,7 @@ public sealed class AprJsonSerializerDeserializationTests : AprJsonSerializerTes
     public void Deserialize_WithValidJson_ShouldCreateDocument()
     {
         var document = Serializer.Deserialize("""
-        { "version": "1.0-beta.6", "documentType": "template", "metadata": { "title": "Test Form" }, "sections": [] }
+        { "aprVersion": "1.0-beta.6", "documentType": "template", "metadata": { "title": "Test Form" }, "sections": [] }
         """);
         document.Should().NotBeNull();
         document.Version.Should().Be(AprFormat.CurrentVersion);
@@ -24,7 +24,7 @@ public sealed class AprJsonSerializerDeserializationTests : AprJsonSerializerTes
     public void Deserialize_WithFilledFormType_ShouldSetCorrectType()
     {
         var document = Serializer.Deserialize("""
-        { "version": "1.0-beta.6", "documentType": "filledForm", "metadata": { "title": "Filled" }, "sections": [] }
+        { "aprVersion": "1.0-beta.6", "documentType": "filledForm", "metadata": { "title": "Filled" }, "sections": [] }
         """);
         document.DocumentType.Should().Be(DocumentType.FilledForm);
     }
@@ -48,7 +48,7 @@ public sealed class AprJsonSerializerDeserializationTests : AprJsonSerializerTes
     {
         var document = Serializer.Deserialize("""
         {
-          "version": "1.0-beta.6", "documentType": "template",
+          "aprVersion": "1.0-beta.6", "documentType": "template",
           "metadata": { "title": "Test", "description": null, "author": null },
           "sections": [{ "id": "section_001", "title": "Test", "description": null, "prompts": [] }]
         }
@@ -62,7 +62,7 @@ public sealed class AprJsonSerializerDeserializationTests : AprJsonSerializerTes
     public void Deserialize_WithIso8601DateTime_ShouldParseCorrectly()
     {
         var document = Serializer.Deserialize("""
-        { "version": "1.0-beta.6", "documentType": "template", "metadata": { "title": "Test", "created": "2025-11-12T14:30:00Z" }, "sections": [] }
+        { "aprVersion": "1.0-beta.6", "documentType": "template", "metadata": { "title": "Test", "created": "2025-11-12T14:30:00Z" }, "sections": [] }
         """);
         document.Metadata.Created.Should().NotBeNull();
         document.Metadata.Created!.Value.Year.Should().Be(2025);

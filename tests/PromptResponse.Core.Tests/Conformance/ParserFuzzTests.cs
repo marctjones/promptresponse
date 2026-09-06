@@ -153,17 +153,17 @@ public class ParserFuzzTests
             "deep object nesting" => string.Concat(Enumerable.Repeat("{\"a\":", 50_000)) + "1"
                                      + new string('}', 50_000),
             "deep section nesting" => DeepSections(5_000),
-            "very long string" => "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\""
+            "very long string" => "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\""
                                   + new string('x', 5_000_000) + "\"},\"sections\":[]}",
-            "many sections" => "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"t\"},\"sections\":["
+            "many sections" => "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"t\"},\"sections\":["
                                + string.Join(",", Enumerable.Range(0, 50_000)
                                    .Select(i => $"{{\"id\":\"s{i}\",\"title\":\"t\"}}")) + "]}",
-            "many prompts" => "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"t\"},\"sections\":[{\"id\":\"s\",\"title\":\"t\",\"prompts\":["
+            "many prompts" => "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"t\"},\"sections\":[{\"id\":\"s\",\"title\":\"t\",\"prompts\":["
                               + string.Join(",", Enumerable.Range(0, 100_000)
                                   .Select(i => $"{{\"id\":\"p{i}\",\"label\":\"l\"}}")) + "]}]}",
-            "duplicate keys" => "{\"version\":\"1.0-beta.6\",\"version\":\"9.9\",\"metadata\":{\"title\":\"t\",\"title\":\"u\"},\"sections\":[]}",
-            "lone surrogate" => "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"\\uD800\"},\"sections\":[]}",
-            "null bytes" => "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"a\\u0000b\"},\"sections\":[]}",
+            "duplicate keys" => "{\"aprVersion\":\"1.0-beta.6\",\"version\":\"9.9\",\"metadata\":{\"title\":\"t\",\"title\":\"u\"},\"sections\":[]}",
+            "lone surrogate" => "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"\\uD800\"},\"sections\":[]}",
+            "null bytes" => "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"a\\u0000b\"},\"sections\":[]}",
             "bom and whitespace only" => "\uFEFF   \n\t  ",
             "empty input" => string.Empty,
             _ => throw new ArgumentOutOfRangeException(nameof(shape)),
@@ -174,7 +174,7 @@ public class ParserFuzzTests
 
     private static string DeepSections(int depth)
     {
-        var sb = new StringBuilder("{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"t\"},\"sections\":[");
+        var sb = new StringBuilder("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"t\"},\"sections\":[");
         for (var i = 0; i < depth; i++)
         {
             sb.Append($"{{\"id\":\"s{i}\",\"title\":\"t\",\"sections\":[");
@@ -315,7 +315,7 @@ public class ParserFuzzTests
 
     private static string NestedDocument(int depth)
     {
-        var sb = new StringBuilder("{\"version\":\"1.0-beta.6\",\"documentType\":\"template\",")
+        var sb = new StringBuilder("{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"template\",")
             .Append("\"metadata\":{\"title\":\"t\"},\"sections\":[");
         for (var i = 0; i < depth; i++)
         {

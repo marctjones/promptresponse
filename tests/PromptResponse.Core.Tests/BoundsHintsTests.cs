@@ -67,16 +67,16 @@ public class BoundsHintsTests
     }
 
     [Fact]
-    public void Bounds_AreWrittenAsStrings()
+    public void Bounds_AreWrittenAsTheJsonTypeTheyMean()
     {
         var json = Serializer.Serialize(WithBounds("5"));
 
-        json.Should().Contain("\"min\": \"1\"")
-            .And.Contain("\"max\": \"10\"")
-            .And.Contain("\"step\": \"1\"",
-                "every value in the format is a string bar one derived boolean " +
-                "(specification 3.2); a numeric bound would be a second exception to a " +
-                "rule the specification calls absolute");
+        json.Should().Contain("\"min\": 1")
+            .And.Contain("\"max\": 10")
+            .And.Contain("\"step\": 1",
+                "beta.6 reversed the strings-only rule for structural members: only a " +
+                "response is always a string, because only a response is what a person " +
+                "typed. A bound on a number is a number (specification 5.7)");
     }
 
     [Fact]

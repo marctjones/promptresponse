@@ -167,7 +167,7 @@ public class FileServiceTests : IDisposable
         await service.SaveFileAsync(document, filePath);
 
         await _mockSerializer.DidNotReceive().SerializeAsync(Arg.Any<AprDocument>(), Arg.Any<Stream>(), Arg.Any<CancellationToken>());
-        (await File.ReadAllTextAsync(filePath)).Should().Contain("\"version\": \"1.0-beta.6\"");
+        (await File.ReadAllTextAsync(filePath)).Should().Contain("\"aprVersion\": \"1.0-beta.6\"");
     }
 
     [Fact]
@@ -344,8 +344,6 @@ public class FileServiceTests : IDisposable
                 Description = "Test form description",
                 TemplateVersion = "1.0.0",
                 TemplateId = "template-123",
-                FilledBy = "TestUser",
-                FilledDate = DateTime.UtcNow,
                 Created = DateTime.UtcNow,
                 Modified = DateTime.UtcNow
             },

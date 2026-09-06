@@ -82,7 +82,7 @@ public class AprSemanticDigestTests
     public void Manifest_ContainsRootAndNonPlaintextLeafDigest()
     {
         using var form = JsonDocument.Parse("""
-            {"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}
+            {"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}
             """);
 
         var manifest = AprSemanticDigest.CreateManifest(form.RootElement);

@@ -104,7 +104,7 @@ public class AprAttestationResolverTests
     }
 
     private AprFormRecord FormRecord() => (AprFormRecord)_reader.ReadStream("""
-        {"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}
+        {"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}
         """, AprRepresentation.Jsonc).Single();
 
     private static AprAttestationRecord Attestation(string subject, string root, IReadOnlyList<AprManifestEntry> entries, string? proofType = null, string proofValue = "")

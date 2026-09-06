@@ -59,7 +59,6 @@ public class FormFillingApiTests : IDisposable
         var filled = _api.FillForm(template, responses, "Test User");
 
         filled.DocumentType.Should().Be(DocumentType.FilledForm);
-        filled.Metadata.FilledBy.Should().Be("Test User");
         filled.Sections[0].Prompts[0].Response.Should().Be("John Doe");
     }
 

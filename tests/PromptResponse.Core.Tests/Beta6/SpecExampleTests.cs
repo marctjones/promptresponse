@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Text.Json;
 using AwesomeAssertions;
 using PromptResponse.Core.Beta6;
@@ -54,6 +55,19 @@ public sealed class SpecExampleTests
         return data;
     }
 
+    /// <summary>Turns a prose stream example into the framing the format actually uses.</summary>
+    /// <remarks>
+    /// The specification separates records in a printed example with a <c>---</c> line,
+    /// because a record separator is an invisible control character and an example
+    /// nobody can read is a poor example. A reader is given the real framing, exactly as
+    /// scripts/build-suite.py does when it assembles the conformance suite. Feeding a
+    /// reader the prose form tests the prose, not the format.
+    /// </remarks>
+    private static string Framed(string document) => string.Concat(
+        Regex.Split(document, "(?m)^---$")
+            .Where(part => !string.IsNullOrWhiteSpace(part))
+            .Select(part => "\u001e" + part.Trim('\n') + "\n"));
+
     private static void Read(Example example)
     {
         var reader = new AprBeta6Reader();
@@ -63,7 +77,7 @@ public sealed class SpecExampleTests
 
         if (example.Representation.EndsWith("-stream", StringComparison.Ordinal))
         {
-            reader.ReadStream(example.Document, representation);
+            reader.ReadStream(Framed(example.Document), representation);
             return;
         }
 

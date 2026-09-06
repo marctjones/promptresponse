@@ -10,7 +10,7 @@ internal static class AprDocumentSanitizer
     internal static void Sanitize(AprDocument document)
     {
         AprFormat.DropRetiredMembers(document.Extensions);
-        if (document.Metadata is not null) { AprFormat.DropRetiredMembers(document.Metadata.Extensions); document.Metadata.Title = StringSanitizer.NormalizeAndStrip(document.Metadata.Title) ?? string.Empty; document.Metadata.Description = StringSanitizer.NormalizeAndStrip(document.Metadata.Description); document.Metadata.Author = StringSanitizer.NormalizeAndStrip(document.Metadata.Author); document.Metadata.FilledBy = StringSanitizer.NormalizeAndStrip(document.Metadata.FilledBy); document.Metadata.Publisher = StringSanitizer.NormalizeAndStrip(document.Metadata.Publisher); }
+        if (document.Metadata is not null) { AprFormat.DropRetiredMembers(document.Metadata.Extensions); document.Metadata.Title = StringSanitizer.NormalizeAndStrip(document.Metadata.Title) ?? string.Empty; document.Metadata.Description = StringSanitizer.NormalizeAndStrip(document.Metadata.Description); document.Metadata.Author = StringSanitizer.NormalizeAndStrip(document.Metadata.Author); document.Metadata.Publisher = StringSanitizer.NormalizeAndStrip(document.Metadata.Publisher); }
         foreach (var section in document.Sections) SanitizeSection(section);
     }
     private static void SanitizeSection(Section section) { AprFormat.DropRetiredMembers(section.Extensions); section.Title = StringSanitizer.NormalizeAndStrip(section.Title) ?? string.Empty; section.Description = StringSanitizer.NormalizeAndStrip(section.Description); foreach (var prompt in section.Prompts) SanitizePrompt(prompt); foreach (var nested in section.Sections) SanitizeSection(nested); }

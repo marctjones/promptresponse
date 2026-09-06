@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using PromptResponse.Core.Serialization;
 
@@ -15,9 +16,9 @@ public static class AprSemanticDigest
     /// <summary>Returns the canonical UTF-8 JSON bytes used for a semantic digest.</summary>
     public static byte[] Canonicalize(JsonElement value)
     {
-        using var stream = new MemoryStream();
-        using (var writer = new Utf8JsonWriter(stream)) WriteCanonical(writer, value);
-        return stream.ToArray();
+        var builder = new StringBuilder();
+        WriteCanonical(builder, value);
+        return Encoding.UTF8.GetBytes(builder.ToString());
     }
 
     /// <summary>Returns a lowercase, prefixed SHA-256 semantic digest.</summary>
@@ -51,35 +52,93 @@ public static class AprSemanticDigest
 
     private static string EscapePointer(string value) => value.Replace("~", "~0", StringComparison.Ordinal).Replace("/", "~1", StringComparison.Ordinal);
 
-    private static void WriteCanonical(Utf8JsonWriter writer, JsonElement value)
+    /// <summary>Appends the RFC 8785 canonical form of <paramref name="value"/>.</summary>
+    /// <remarks>
+    /// Written directly rather than through <see cref="Utf8JsonWriter"/>. No built-in
+    /// encoder produces JCS: the default escapes for HTML safety, and even
+    /// <c>UnsafeRelaxedJsonEscaping</c> escapes a character outside the Basic
+    /// Multilingual Plane as a surrogate pair, so an emoji in a title produced
+    /// <c>\uD83D\uDE00</c> where the canonical bytes are the character's own four UTF-8
+    /// bytes — a digest no other implementation could reproduce.
+    /// </remarks>
+    private static void WriteCanonical(StringBuilder builder, JsonElement value)
     {
         switch (value.ValueKind)
         {
             case JsonValueKind.Object:
-                writer.WriteStartObject();
+                builder.Append('{');
+                var firstMember = true;
+                // Member order is by UTF-16 code unit, which is what Ordinal compares.
                 foreach (var property in value.EnumerateObject().OrderBy(item => item.Name, StringComparer.Ordinal))
                 {
-                    writer.WritePropertyName(property.Name);
-                    WriteCanonical(writer, property.Value);
+                    if (!firstMember) builder.Append(',');
+                    firstMember = false;
+                    builder.Append(CanonicalString(property.Name)).Append(':');
+                    WriteCanonical(builder, property.Value);
                 }
-                writer.WriteEndObject();
+                builder.Append('}');
                 break;
             case JsonValueKind.Array:
-                writer.WriteStartArray();
-                foreach (var item in value.EnumerateArray()) WriteCanonical(writer, item);
-                writer.WriteEndArray();
+                builder.Append('[');
+                var firstItem = true;
+                foreach (var item in value.EnumerateArray())
+                {
+                    if (!firstItem) builder.Append(',');
+                    firstItem = false;
+                    WriteCanonical(builder, item);
+                }
+                builder.Append(']');
                 break;
-            case JsonValueKind.String: writer.WriteStringValue(value.GetString()); break;
-            case JsonValueKind.True: writer.WriteBooleanValue(true); break;
-            case JsonValueKind.False: writer.WriteBooleanValue(false); break;
-            case JsonValueKind.Null: writer.WriteNullValue(); break;
+            case JsonValueKind.String: builder.Append(CanonicalString(value.GetString()!)); break;
+            case JsonValueKind.True: builder.Append("true"); break;
+            case JsonValueKind.False: builder.Append("false"); break;
+            case JsonValueKind.Null: builder.Append("null"); break;
             case JsonValueKind.Number:
                 if (!value.TryGetDouble(out var number))
                     throw new SerializationException("APR semantic digests require finite JSON numbers.");
-                writer.WriteRawValue(CanonicalNumber(number), skipInputValidation: false);
+                builder.Append(CanonicalNumber(number));
                 break;
             default: throw new SerializationException("Unsupported JSON value in APR semantic digest.");
         }
+    }
+
+    /// <summary>RFC 8785 section 3.2.2.2 string serialization, as a quoted literal.</summary>
+    /// <remarks>
+    /// JCS escapes exactly what JSON mandates — the quote, the backslash, and the C0
+    /// controls, using the two-character forms where they exist and <c>\u00xx</c>
+    /// otherwise — and leaves every other character as itself.
+    ///
+    /// This is written out rather than delegated because no built-in encoder does it.
+    /// The default one escapes for HTML safety, and even
+    /// <c>UnsafeRelaxedJsonEscaping</c> escapes a character outside the Basic
+    /// Multilingual Plane as a surrogate pair: an emoji in a title came out
+    /// <c>\uD83D\uDE00</c> where the canonical bytes are the four UTF-8 bytes of the
+    /// character itself. Every digest of a document containing one was unreproducible
+    /// by any other implementation.
+    /// </remarks>
+    private static string CanonicalString(string value)
+    {
+        var builder = new StringBuilder(value.Length + 2).Append('"');
+        foreach (var character in value)
+        {
+            switch (character)
+            {
+                case '"': builder.Append("\\\""); break;
+                case '\\': builder.Append("\\\\"); break;
+                case '\b': builder.Append("\\b"); break;
+                case '\f': builder.Append("\\f"); break;
+                case '\n': builder.Append("\\n"); break;
+                case '\r': builder.Append("\\r"); break;
+                case '\t': builder.Append("\\t"); break;
+                default:
+                    if (character < 0x20)
+                        builder.Append(CultureInfo.InvariantCulture, $"\\u{(int)character:x4}");
+                    else
+                        builder.Append(character);
+                    break;
+            }
+        }
+        return builder.Append('"').ToString();
     }
 
     /// <summary>

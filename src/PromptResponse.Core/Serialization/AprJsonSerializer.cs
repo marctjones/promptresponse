@@ -23,6 +23,22 @@ public class AprJsonSerializer : IAprSerializer
 {
     private readonly JsonSerializerOptions _options;
 
+    /// <summary>Does this document spell the format version the way beta.6 retired?</summary>
+    private static bool RetiredVersionMember(string content)
+    {
+        try
+        {
+            using var probe = JsonDocument.Parse(content);
+            return probe.RootElement.ValueKind == JsonValueKind.Object
+                && !probe.RootElement.TryGetProperty("aprVersion", out _)
+                && probe.RootElement.TryGetProperty("version", out _);
+        }
+        catch (JsonException)
+        {
+            return false;   // Genuinely malformed; the shape message is the right one.
+        }
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="AprJsonSerializer"/> class.
     /// </summary>
@@ -82,7 +98,17 @@ public class AprJsonSerializer : IAprSerializer
         }
         catch (JsonException ex)
         {
-            throw new SerializationException("Invalid JSON format", ex);
+            // A document carrying the retired `version` member has no `aprVersion`, so
+            // the required-member check fires first and reports the shape rather than the
+            // cause. Say the cause: this is the commonest thing a pre-beta.6 document
+            // does, and "Invalid JSON format" sends the reader looking for a syntax error
+            // in a file whose syntax is fine.
+            throw new SerializationException(
+                RetiredVersionMember(content)
+                    ? $"This document declares the retired `version` member. APR "
+                      + $"{AprFormat.CurrentVersion} names it `aprVersion`, and a reader "
+                      + "accepts no other spelling."
+                    : "Invalid JSON format", ex);
         }
         catch (OperationCanceledException)
         {

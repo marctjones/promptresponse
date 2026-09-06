@@ -25,8 +25,6 @@ public partial class DocumentIntegrationTests
                 Title = template.Metadata.Title,
                 TemplateId = template.Metadata.TemplateId,
                 TemplateVersion = template.Metadata.TemplateVersion,
-                FilledBy = "John Doe",
-                FilledDate = DateTime.UtcNow,
                 Modified = DateTime.UtcNow
             },
             Sections = template.Sections
@@ -41,7 +39,6 @@ public partial class DocumentIntegrationTests
 
         // Assert
         deserialized.DocumentType.Should().Be(DocumentType.FilledForm);
-        deserialized.Metadata.FilledBy.Should().Be("John Doe");
         deserialized.Sections[0].Prompts[0].Response.Should().Be("John Doe");
         deserialized.Sections[0].Prompts[1].Response.Should().Be("john.doe@example.com");
         deserialized.Sections[0].Prompts[2].Response.Should().Be("This is a test message");

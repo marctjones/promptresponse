@@ -15,7 +15,7 @@ public class AprBeta6ReaderTests
     {
         var form = _reader.ReadForm("""
             // a comment must not turn this into YAML
-            { "version":"1.0-beta.6", "metadata":{"title":"T"},
+            { "aprVersion":"1.0-beta.6", "metadata":{"title":"T"},
               "sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":""},],},], }
             """, AprRepresentation.Jsonc);
 
@@ -26,7 +26,7 @@ public class AprBeta6ReaderTests
     public void Yaml_ReadsTheSameSemanticForm()
     {
         var form = _reader.ReadForm("""
-            version: "1.0-beta.6"
+            aprVersion: "1.0-beta.6"
             metadata: { title: T }
             sections:
               - id: s
@@ -41,7 +41,7 @@ public class AprBeta6ReaderTests
     }
 
     private const string YamlForm = """
-        version: "1.0-beta.6"
+        aprVersion: "1.0-beta.6"
         metadata:
           title: T
           "<<": not a merge key
@@ -111,7 +111,7 @@ public class AprBeta6ReaderTests
     public void Yaml_ResolvesPlainScalarsToTheJsonValueSpace()
     {
         var record = (AprFormRecord)_reader.ReadStream("""
-            version: "1.0-beta.6"
+            aprVersion: "1.0-beta.6"
             metadata: { title: T }
             sections:
               - id: s
@@ -148,7 +148,7 @@ public class AprBeta6ReaderTests
     public void Yaml_RejectsANumberTooLargeForJson()
     {
         var read = () => _reader.ReadForm("""
-            version: "1.0-beta.6"
+            aprVersion: "1.0-beta.6"
             metadata: { title: T, com.example.big: 1e999 }
             sections: []
             """, AprRepresentation.Yaml);
@@ -163,12 +163,15 @@ public class AprBeta6ReaderTests
     [Fact]
     public void Digest_OfNumericExtensionMembers_IsRepresentationNeutral()
     {
-        const string expected = "sha256:b2d48b3e183f16894e16b4c94f99f340d2c2fc5dcc32e68938f61bebcc404d0a";
+        // Pinned against the SDK-free oracle in scripts/aprlib.py, which is itself held
+        // to RFC 8785's published vectors by scripts/check-oracle.py. A hand-computed
+        // constant would only prove this implementation agrees with itself.
+        const string expected = "sha256:df7259065a4e63df08be70e66bfe7c85412e42a3af6d477ccab2d285a62c9fa8";
         var jsonc = (AprFormRecord)_reader.ReadStream("""
-            {"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"","com.example.canAddRows":true,"com.example.maxRows":5,"com.example.min":1996,"com.example.step":0.5,"com.example.scale":1e21,"com.example.epsilon":1e-7}]}]}
+            {"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"","com.example.canAddRows":true,"com.example.maxRows":5,"com.example.min":1996,"com.example.step":0.5,"com.example.scale":1e21,"com.example.epsilon":1e-7}]}]}
             """, AprRepresentation.Jsonc).Single();
         var yaml = (AprFormRecord)_reader.ReadStream("""
-            version: "1.0-beta.6"
+            aprVersion: "1.0-beta.6"
             metadata: { title: T }
             sections:
               - id: s
@@ -190,10 +193,28 @@ public class AprBeta6ReaderTests
     }
 
     [Fact]
+    public void Digest_OfNonAsciiText_MatchesTheOracle()
+    {
+        // JCS escapes the JSON-mandated set and nothing else, so a non-ASCII character
+        // stays literal in the canonical bytes and a control character becomes \u001f.
+        // Two implementations can read RFC 8785 and disagree about that, so this is
+        // settled against the oracle rather than by argument: the expectation comes from
+        // scripts/aprlib.py, which check-oracle.py holds to the RFC's own vectors.
+        const string expected = "sha256:373da0c93c482e4c159f227afab924b5334dbf547bf3543d2f6cd4253638df62";
+        var record = (AprFormRecord)_reader.ReadStream(
+            "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Z\\u00fcrich \\u00e9 \\ud83d\\ude00 \\\" \\\\ /\"},"
+            + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\","
+            + "\"response\":\"caf\\u00e9 \\ud83c\\udf0d \\u0009tab \\u001f\"}]}]}",
+            AprRepresentation.Jsonc).Single();
+
+        AprSemanticDigest.Digest(record.Value).Should().Be(expected);
+    }
+
+    [Fact]
     public void Stream_PreservesAttestationAndAllFormOccurrences()
     {
-        const string form = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"\"}]}]}";
-        const string attestation = "{\"recordType\":\"attestation\",\"version\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"entries\":[]},\"proofs\":[],\"witnesses\":[]}";
+        const string form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"\"}]}]}";
+        const string attestation = "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"entries\":[]},\"proofs\":[],\"witnesses\":[]}";
         var stream = "\u001e" + attestation + "\n\u001e" + form + "\n\u001e" + form;
 
         var records = _reader.ReadStream(stream, AprRepresentation.Jsonc);
@@ -209,7 +230,7 @@ public class AprBeta6ReaderTests
     public void Beta3EmbeddedSignatures_AreRejected()
     {
         var read = () => _reader.ReadForm("""
-            {"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":""}]}],"signatures":[]}
+            {"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":""}]}],"signatures":[]}
             """, AprRepresentation.Jsonc);
 
         read.Should().Throw<SerializationException>().WithMessage("*RETIRED_EMBEDDED_SIGNATURES*");
@@ -219,7 +240,7 @@ public class AprBeta6ReaderTests
     public void JsoncDuplicateMember_IsRejectedBeforeSemanticParsing()
     {
         var read = () => _reader.ReadForm("""
-            {"version":"1.0-beta.6","version":"1.0-beta.6","metadata":{"title":"T"},"sections":[]}
+            {"aprVersion":"1.0-beta.6","aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[]}
             """, AprRepresentation.Jsonc);
 
         read.Should().Throw<SerializationException>().WithMessage("*duplicate member*");
@@ -229,7 +250,7 @@ public class AprBeta6ReaderTests
     public void Writer_RoundTripsAFormThroughYaml()
     {
         var form = _reader.ReadForm("""
-            {"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}
+            {"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}
             """, AprRepresentation.Jsonc);
 
         var yaml = _reader.WriteForm(form, AprRepresentation.Yaml);
@@ -241,8 +262,8 @@ public class AprBeta6ReaderTests
     [Fact]
     public void Writer_PreservesEveryStreamOccurrence()
     {
-        const string form = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"\"}]}]}";
-        const string attestation = "{\"recordType\":\"attestation\",\"version\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"entries\":[]},\"proofs\":[],\"witnesses\":[]}";
+        const string form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"\"}]}]}";
+        const string attestation = "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"entries\":[]},\"proofs\":[],\"witnesses\":[]}";
         var records = _reader.ReadStream("\u001e" + form + "\n\u001e" + attestation + "\n\u001e" + form, AprRepresentation.Jsonc);
 
         var written = _reader.WriteStream(records, AprRepresentation.Jsonc);

@@ -44,25 +44,18 @@ internal sealed class DocumentHeaderPresentation
         _ => string.Empty,
     };
 
-    /// <summary>Filling attribution for the document header, when it is available.</summary>
-    public string? FilledByDisplay
-    {
-        get
-        {
-            var metadata = _session.CurrentDocument?.Metadata;
-            if (metadata == null || Mode != DocumentMode.FillingForm) return null;
-
-            var filledBy = string.IsNullOrWhiteSpace(metadata.FilledBy) ? null : metadata.FilledBy;
-            var filledDate = metadata.FilledDate?.ToString("MMMM d, yyyy");
-            return (filledBy, filledDate) switch
-            {
-                (not null, not null) => $"Filled by {filledBy} on {filledDate}",
-                (not null, null) => $"Filled by {filledBy}",
-                (null, not null) => $"Filled on {filledDate}",
-                _ => null,
-            };
-        }
-    }
+    /// <summary>Filling attribution for the document header. Always absent in beta.6.</summary>
+    /// <remarks>
+    /// `filledBy` and `filledDate` were retired as workflow state: an unsigned claim
+    /// about who completed a form and when is not evidence of either, and showing one in
+    /// a header presents it as though it were. A workflow that needs to record receipt
+    /// writes an ordinary form naming this one under `metadata.regarding`, and an
+    /// attestation is what makes such a claim provable (specification 5.2.2).
+    ///
+    /// The property remains so the header binding and its tests keep one place to
+    /// change if a provable attribution is ever surfaced here.
+    /// </remarks>
+    public string? FilledByDisplay => null;
 
     /// <summary>Polite live-region message combining the active title and completion state.</summary>
     public string StatusMessage => HasDocument

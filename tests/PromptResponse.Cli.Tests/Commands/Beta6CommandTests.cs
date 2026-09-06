@@ -17,8 +17,8 @@ public sealed class Beta6CommandTests : IDisposable
     public async Task Validate_AcceptsJsoncAndReportsEveryStreamRecord()
     {
         var path = Path.Combine(_directory, "stream.apr");
-        var form = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}]}";
-        var attestation = """{"recordType":"attestation","version":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}""";
+        var form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}]}";
+        var attestation = """{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}""";
         await File.WriteAllTextAsync(path, "\u001e" + attestation + "\n\u001e" + form);
 
         var result = await new Beta6Command().ExecuteAsync(["validate", path]);
@@ -31,20 +31,20 @@ public sealed class Beta6CommandTests : IDisposable
     {
         var source = Path.Combine(_directory, "form.apr");
         var output = Path.Combine(_directory, "form.yaml");
-        await File.WriteAllTextAsync(source, "// comment\n{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}]}");
+        await File.WriteAllTextAsync(source, "// comment\n{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}]}");
 
         var result = await new Beta6Command().ExecuteAsync(["normalize", source, "--yaml", "--output=" + output]);
 
         result.Should().Be(0);
-        (await File.ReadAllTextAsync(output)).Should().Contain("version: 1.0-beta.6");
+        (await File.ReadAllTextAsync(output)).Should().Contain("aprVersion: 1.0-beta.6");
     }
 
     [Fact]
     public async Task Inspect_ReportsAttestationStateWithoutSelectingAForm()
     {
         var path = Path.Combine(_directory, "stream.apr");
-        var form = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}]}";
-        var attestation = """{"recordType":"attestation","version":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}""";
+        var form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}]}";
+        var attestation = """{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}""";
         await File.WriteAllTextAsync(path, "\u001e" + attestation + "\n\u001e" + form);
 
         var result = await new Beta6Command().ExecuteAsync(["inspect", path, "--json"]);
@@ -58,7 +58,7 @@ public sealed class Beta6CommandTests : IDisposable
         var source = Path.Combine(_directory, "form.apr");
         var output = Path.Combine(_directory, "attested.apr");
         var pfx = Path.Combine(_directory, "signer.pfx");
-        await File.WriteAllTextAsync(source, """{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}""");
+        await File.WriteAllTextAsync(source, """{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}""");
         using (var certificate = SignatureCertificates.CreateSelfSigned("Ada", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddDays(1)))
             await File.WriteAllBytesAsync(pfx, certificate.Export(X509ContentType.Pfx, "secret"));
 

@@ -25,14 +25,19 @@ public sealed class AprBeta6CorpusTests
             File.ReadAllText(Path.Combine(Examples, "hints-and-widgets-showcase.apr.yaml")),
             AprRepresentation.Yaml);
         jsonc.Metadata.Title.Should().Be(yaml.Metadata.Title);
-        jsonc.Sections.SelectMany(s => s.Prompts).Should().HaveCount(21);
-        yaml.Sections.SelectMany(s => s.Prompts).Should().HaveCount(21);
+        // Nineteen, not the twenty-one this asserted for months: commit 91815bb removed
+        // the signature and file prompts when beta.6 retired those data types, and this
+        // expectation was not moved with them.
+        jsonc.Sections.SelectMany(s => s.Prompts).Should().HaveCount(19);
+        yaml.Sections.SelectMany(s => s.Prompts).Should().HaveCount(19);
 
         var forms = _reader.ReadStream(
             File.ReadAllText(Path.Combine(Examples, "multiple-forms-stream.apr.yaml")),
             AprRepresentation.Yaml).OfType<AprFormRecord>().ToList();
+        // beta.6 made templateId a URI, so a bare slug is no longer one.
         forms.Select(f => f.Form.Metadata.TemplateId).Should().Equal(
-            "household-contact-card", "household-emergency-contact-card");
+            "tag:skpt.cl,2026:examples/household-contact-card",
+            "tag:skpt.cl,2026:examples/household-emergency-contact-card");
     }
 
     [Fact]

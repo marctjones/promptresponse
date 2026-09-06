@@ -141,8 +141,6 @@ public class AprDocumentTests
                 Title = "Employment Application",
                 TemplateId = "employment-app-v1",
                 TemplateVersion = "1.0",
-                FilledBy = "John Doe",
-                FilledDate = DateTime.UtcNow,
                 Modified = DateTime.UtcNow
             },
             Sections = new List<Section>
@@ -166,7 +164,6 @@ public class AprDocumentTests
 
         // Assert
         document.DocumentType.Should().Be(DocumentType.FilledForm);
-        document.Metadata.FilledBy.Should().Be("John Doe");
         document.Sections.Should().ContainSingle();
         document.Sections[0].Prompts.Should().ContainSingle();
         document.Sections[0].Prompts[0].Response.Should().Be("John Doe");

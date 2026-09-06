@@ -83,8 +83,6 @@ public class FormFillingComponentsTests
 
         filled.Should().NotBeSameAs(template);
         filled.DocumentType.Should().Be(DocumentType.FilledForm);
-        filled.Metadata.FilledBy.Should().Be("Test User");
         template.DocumentType.Should().Be(DocumentType.Template);
-        template.Metadata.FilledBy.Should().BeNull();
     }
 }

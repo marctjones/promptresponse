@@ -141,8 +141,6 @@ public static class TestDocumentFactory
     {
         var filled = CreateComplexTemplate();
         filled.DocumentType = DocumentType.FilledForm;
-        filled.Metadata.FilledBy = "John Doe";
-        filled.Metadata.FilledDate = DateTime.UtcNow;
         filled.Metadata.Modified = DateTime.UtcNow;
 
         // Fill in responses
@@ -168,8 +166,6 @@ public static class TestDocumentFactory
     {
         var filled = CreateComplexTemplate();
         filled.DocumentType = DocumentType.FilledForm;
-        filled.Metadata.FilledBy = "Jane Smith";
-        filled.Metadata.FilledDate = DateTime.UtcNow;
 
         // Only fill first prompt
         filled.Sections[0].Prompts[0].Response = "Jane Smith";
