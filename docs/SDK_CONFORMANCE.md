@@ -212,11 +212,19 @@ reverse-DNS prefix required on extension members, submission transports defined,
 `aprVersion`, and `responseMetadata` retired entirely — recomputation now protects
 every response already in the document rather than only an unmarked one.
 
-**No SDK is currently aligned to it.** The Python suite fails 26 of 109 tests
-against the regenerated corpus; the .NET, TypeScript and Java suites have not
-been re-run since those changes and are expected to fail the same way. The
-alignment pass is deliberate outstanding work, and until it lands no SDK should
-claim any profile.
+**The .NET SDK is aligned and scored.** `tools/PromptResponse.ConformanceDriver`
+answers all 171 cases with zero failures, claiming `core`, `core+streams` and
+`core+expressions`:
+
+> APR 1.0-beta.6 core+streams+expressions, corpus beta6 @ `<sha>`
+
+`core+attestations` is deliberately unclaimed. A claim there rests on verifying a
+proof and reporting what verification found, and the harness does not yet score
+what a verifier reports.
+
+**Python, TypeScript and Java are not aligned.** None has a driver, and their
+suites have not been re-run since the beta.6 changes. Until each is scored, none
+should claim any profile.
 
 ## Required behaviours
 

@@ -16,8 +16,7 @@ internal static class PromptProvenancePresentation
 
     internal static bool IsCalculated(Prompt prompt) =>
         IsComputed(prompt)
-        && string.Equals(prompt.ResponseMetadata?.Source, FormExpressions.ComputedSource,
-            StringComparison.Ordinal);
+        && prompt.ComputedInThisSession;
 
     internal static bool WasOverridden(Prompt prompt) =>
         IsComputed(prompt) && !IsCalculated(prompt) && !string.IsNullOrEmpty(prompt.Response);

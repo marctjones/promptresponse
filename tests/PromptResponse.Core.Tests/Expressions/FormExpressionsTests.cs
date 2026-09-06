@@ -186,11 +186,12 @@ public class FormExpressionsTests
         FormExpressions.RecomputeComputedValues(doc);
         var total = doc.Sections[0].Prompts[1];
         total.Response.Should().Be("4", "computed on the first pass");
-        total.ResponseMetadata.Source.Should().Be(FormExpressions.ComputedSource);
+        total.ComputedInThisSession.Should().BeTrue(
+            "the reader knows which values it computed; the document records nothing");
 
         // A person corrects it. Setting Response clears the provenance.
         total.Response = "4 (agreed with vendor)";
-        total.ResponseMetadata.Source.Should().BeNull("an authored answer is not a computed one");
+        total.ComputedInThisSession.Should().BeFalse("an authored answer is not a computed one");
 
         doc.Sections[0].Prompts[0].Response = "10";
         FormExpressions.RecomputeComputedValues(doc);

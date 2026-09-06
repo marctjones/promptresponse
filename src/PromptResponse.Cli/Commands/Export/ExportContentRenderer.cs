@@ -26,7 +26,7 @@ internal static class ExportContentRenderer
     {
         var current = string.IsNullOrEmpty(parent) ? "" : $"{parent} / {section.Title}";
         foreach (var prompt in section.Prompts)
-            builder.AppendLine(string.Join(",", new[] { root, current, prompt.Id, prompt.Label, prompt.Response, prompt.Hints.ExpectedDataType ?? "", prompt.ResponseMetadata.LastModified?.ToString("yyyy-MM-dd HH:mm:ss") ?? "" }.Select(EscapeCsv)));
+            builder.AppendLine(string.Join(",", new[] { root, current, prompt.Id, prompt.Label, prompt.Response, prompt.Hints.ExpectedDataType ?? "" }.Select(EscapeCsv)));
         foreach (var child in section.Sections)
             AppendCsvSection(child, root, string.IsNullOrEmpty(current) ? child.Title : $"{current} / {child.Title}", builder);
     }
@@ -48,7 +48,7 @@ internal static class ExportContentRenderer
     private static void AppendResponses(Section section, string root, string? parent, List<ResponseItem> responses)
     {
         var current = parent is null ? null : $"{parent} / {section.Title}";
-        foreach (var prompt in section.Prompts) responses.Add(new(root, current, prompt.Id, prompt.Label, prompt.Response, prompt.Hints.ExpectedDataType, prompt.ResponseMetadata.LastModified));
+        foreach (var prompt in section.Prompts) responses.Add(new(root, current, prompt.Id, prompt.Label, prompt.Response, prompt.Hints.ExpectedDataType));
         foreach (var child in section.Sections) AppendResponses(child, root, current is null ? child.Title : $"{current} / {child.Title}", responses);
     }
 
@@ -79,5 +79,7 @@ internal static class ExportContentRenderer
         foreach (var child in section.Sections) AppendTextSection(child, level + 1, builder);
     }
 
-    private sealed record ResponseItem(string Section, string? Subsection, string PromptId, string Label, string Response, string? DataType, DateTime? LastModified);
+    // No lastModified: beta.6 retired it as workflow state, because an unsigned claim
+    // about when an answer was written is not evidence that it was.
+    private sealed record ResponseItem(string Section, string? Subsection, string PromptId, string Label, string Response, string? DataType);
 }

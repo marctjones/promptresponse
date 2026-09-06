@@ -23,7 +23,6 @@ public class FormFillingComponentsTests
         result.AppliedCount.Should().Be(1);
         result.MissingPromptIds.Should().ContainSingle().Which.Should().Be("missing");
         document.Sections[0].Sections[0].Prompts[0].Response.Should().Be("nested@example.com");
-        document.Sections[0].Sections[0].Prompts[0].ResponseMetadata.LastModified.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
     }
 
     [Fact]

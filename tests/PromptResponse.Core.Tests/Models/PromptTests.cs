@@ -20,7 +20,8 @@ public class PromptTests
         prompt.Label.Should().BeEmpty();
         prompt.Response.Should().BeEmpty();
         prompt.Hints.Should().NotBeNull();
-        prompt.ResponseMetadata.Should().NotBeNull();
+        prompt.ComputedInThisSession.Should().BeFalse(
+            "a fresh prompt holds no response this reader computed");
     }
 
     [Fact]
@@ -66,23 +67,6 @@ public class PromptTests
     }
 
     [Fact]
-    public void SetResponse_ShouldUpdateLastModified()
-    {
-        // Arrange
-        var prompt = new Prompt();
-        var beforeTime = DateTime.UtcNow;
-
-        // Wait a tiny bit to ensure time difference
-        Thread.Sleep(10);
-
-        // Act
-        prompt.Response = "Test response";
-
-        // Assert
-        prompt.ResponseMetadata.LastModified.Should().BeAfter(beforeTime);
-    }
-
-    [Fact]
     public void SetResponse_WithNull_ShouldStoreEmptyString()
     {
         // Arrange
@@ -93,40 +77,6 @@ public class PromptTests
 
         // Assert
         prompt.Response.Should().BeEmpty();
-    }
-
-    [Fact]
-    public void SetResponse_MultipleTimes_ShouldUpdateLastModifiedEachTime()
-    {
-        // Arrange
-        var prompt = new Prompt();
-        prompt.Response = "First";
-        var firstModified = prompt.ResponseMetadata.LastModified;
-
-        Thread.Sleep(10);
-
-        // Act
-        prompt.Response = "Second";
-
-        // Assert
-        prompt.ResponseMetadata.LastModified.Should().NotBeNull();
-        prompt.ResponseMetadata.LastModified!.Value.Should().BeAfter(firstModified!.Value);
-    }
-
-    [Fact]
-    public void SetResponse_WithEmptyString_ShouldUpdateLastModified()
-    {
-        // Arrange
-        var prompt = new Prompt();
-        var beforeTime = DateTime.UtcNow;
-
-        Thread.Sleep(10);
-
-        // Act
-        prompt.Response = "";
-
-        // Assert
-        prompt.ResponseMetadata.LastModified.Should().BeAfter(beforeTime);
     }
 
     [Fact]

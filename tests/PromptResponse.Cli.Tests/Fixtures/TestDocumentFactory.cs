@@ -145,16 +145,12 @@ public static class TestDocumentFactory
 
         // Fill in responses
         filled.Sections[0].Prompts[0].Response = "John Doe";
-        filled.Sections[0].Prompts[0].ResponseMetadata.LastModified = DateTime.UtcNow;
 
         filled.Sections[0].Sections[0].Prompts[0].Response = "john@example.com";
-        filled.Sections[0].Sections[0].Prompts[0].ResponseMetadata.LastModified = DateTime.UtcNow;
 
         filled.Sections[1].Prompts[0].Response = "2025-04-30";
-        filled.Sections[1].Prompts[0].ResponseMetadata.LastModified = DateTime.UtcNow;
 
         filled.Sections[1].Prompts[1].Response = "Option A";
-        filled.Sections[1].Prompts[1].ResponseMetadata.LastModified = DateTime.UtcNow;
 
         return filled;
     }
@@ -169,7 +165,6 @@ public static class TestDocumentFactory
 
         // Only fill first prompt
         filled.Sections[0].Prompts[0].Response = "Jane Smith";
-        filled.Sections[0].Prompts[0].ResponseMetadata.LastModified = DateTime.UtcNow;
 
         return filled;
     }

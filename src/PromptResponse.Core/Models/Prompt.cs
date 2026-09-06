@@ -52,7 +52,7 @@ public class Prompt
     /// </summary>
     /// <remarks>
     /// Always stored as a string regardless of expected data type.
-    /// Setting this property automatically updates ResponseMetadata.LastModified.
+    /// A write marks the response authored; the recalculator re-marks its own.
     /// Null values are converted to empty strings.
     /// </remarks>
     public string Response
@@ -61,12 +61,26 @@ public class Prompt
         set
         {
             _response = value ?? string.Empty;
-            ResponseMetadata.LastModified = DateTime.UtcNow;
             // Any write that is not a recomputation makes this an authored answer.
-            // FormExpressions re-marks it afterwards when it wrote the value itself.
-            ResponseMetadata.Source = null;
+            // The recalculator re-marks it afterwards when it wrote the value itself.
+            ComputedInThisSession = false;
         }
     }
+
+    /// <summary>Did this reader compute the current response, in this session?</summary>
+    /// <remarks>
+    /// Reader state, and never written to a document. beta.6 retired
+    /// `responseMetadata.source`, which tried to carry this between parties: it rested a
+    /// prohibition on a member every reader was free to ignore, so it was not the
+    /// guarantee it looked like.
+    ///
+    /// What survived is the part that was always true. On reading a document, every
+    /// non-empty response is authored and recomputation must not overwrite one. Within a
+    /// session a reader knows which responses it computed itself, and may replace those
+    /// freely — which is what keeps a live total tracking its inputs while somebody types.
+    /// </remarks>
+    [JsonIgnore]
+    public bool ComputedInThisSession { get; internal set; }
 
     /// <summary>
     /// Replaces the response text without recording the write as an answer.
@@ -109,11 +123,4 @@ public class Prompt
     /// </remarks>
     public string? Role { get; set; }
 
-    /// <summary>
-    /// Gets or sets metadata about the response.
-    /// </summary>
-    /// <remarks>
-    /// Primarily used in filled forms to track response information.
-    /// </remarks>
-    public ResponseMetadata ResponseMetadata { get; set; } = new();
 }

@@ -10,6 +10,7 @@ public class AprBeta6ReaderTests
 {
     private readonly AprBeta6Reader _reader = new();
 
+
     [Fact]
     public void Jsonc_CommentsAndTrailingCommas_AreSourceTrivia()
     {

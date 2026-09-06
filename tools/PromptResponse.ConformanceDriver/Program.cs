@@ -16,6 +16,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using PromptResponse.Core;
 using PromptResponse.Core.Beta6;
+using PromptResponse.Core.Expressions;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
@@ -38,10 +39,10 @@ var report = new JsonObject
         ["name"] = "PromptResponse.Core (.NET)",
         ["version"] = AprFormat.CurrentVersion,
         // Claimed deliberately, and binding: every case in a claimed profile must be
-        // answered. Attestations and expressions are not claimed because the library
-        // does not yet verify a proof or evaluate a hint through this driver, and a
-        // claim this driver cannot answer is worse than no claim.
-        ["profiles"] = new JsonArray("core", "core+streams"),
+        // answered. `core+attestations` is not claimed, because a claim rests on
+        // verifying a proof and reporting what verification found, and this driver
+        // reports nothing about verification yet.
+        ["profiles"] = new JsonArray("core", "core+streams", "core+expressions"),
     },
     ["results"] = results,
 };
@@ -113,6 +114,11 @@ JsonObject Answer(JsonObject testCase)
 
     answer["warnings"] = new JsonArray([.. warnings.Select(code => (JsonNode)code!)]);
 
+    if (testCase["evaluates"]?.GetValue<bool>() == true || testCase["expects"] is not null)
+    {
+        answer["evaluated"] = Evaluate(records, testCase["evaluate"]);
+    }
+
     if (testCase["roundTrip"]?.GetValue<bool>() == true)
     {
         // Always through WriteStream, which writes the parsed value. WriteForm
@@ -124,6 +130,54 @@ JsonObject Answer(JsonObject testCase)
     }
 
     return answer;
+}
+
+static JsonObject Evaluate(IReadOnlyList<AprStreamRecord> records, JsonNode? inputs)
+{
+    // `_now`, `_today` and `ctx` come from the case, never from the host clock. That is
+    // what makes a form evaluate the same way twice, and it is the difference between a
+    // reproducible document and one whose answers depend on when it was opened.
+    var supplied = inputs?.AsObject();
+    var today = supplied?["_today"]?.GetValue<string>();
+    var context = supplied?["ctx"]?.AsObject()?.ToDictionary(
+        pair => pair.Key, pair => pair.Value?.ToString() ?? string.Empty, StringComparer.Ordinal);
+
+    var responses = new JsonObject();
+    var hidden = new JsonObject();
+    var validation = new JsonObject();
+    foreach (var record in records)
+    {
+        if (record is not AprFormRecord form) continue;
+        // Settle the computed values first, then read them off. Every non-empty response
+        // in the document as it was read is authored and is left alone.
+        FormExpressions.RecomputeComputedValues(form.Form, today, context);
+        var environment = FormExpressions.BuildContext(form.Form, today, context);
+        foreach (var prompt in FormExpressions.GetAllPrompts(form.Form))
+        {
+            if (prompt.Id is not { Length: > 0 } id) continue;
+            if (prompt.Hints?.ExprHidden is { Length: > 0 })
+            {
+                hidden[id] = FormExpressions.IsHidden(prompt, environment);
+            }
+            if (prompt.Hints?.ExprValidation is { Length: > 0 })
+            {
+                validation[id] = FormExpressions.Validate(prompt, environment) ?? string.Empty;
+            }
+            if (prompt.Hints?.ExprValue is { Length: > 0 })
+            {
+                // Whatever settling left behind. A computed prompt may depend on another
+                // computed prompt, so the values have to settle in reference order rather
+                // than document order — which is what Recompute does above.
+                responses[id] = prompt.Response ?? string.Empty;
+            }
+        }
+    }
+    return new JsonObject
+    {
+        ["responses"] = responses,
+        ["hidden"] = hidden,
+        ["validation"] = validation,
+    };
 }
 
 static JsonElement ValueOf(AprStreamRecord record) => record switch

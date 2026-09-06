@@ -91,11 +91,14 @@ public static class FormExpressions
             return null;
         }
         var result = context.Evaluate(expression, prompt);
-        if (result is null)
+        // The required result is a string. A number is not a message, and coercing one
+        // into an advisory would show a person "4" where the author meant nothing at
+        // all — so a non-string result takes the fallback, which is no advisory.
+        if (result is not { } value || value.IsError || value.IsUnknown
+            || value.ToNative() is not string message)
         {
             return null;
         }
-        var message = CelBinding.ToStoredString(result);
         return string.IsNullOrEmpty(message) ? null : message;
     }
 

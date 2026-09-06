@@ -28,7 +28,6 @@ internal sealed class FormResponseApplicator
             }
 
             prompt.Response = response;
-            prompt.ResponseMetadata.LastModified = DateTime.UtcNow;
             appliedCount++;
         }
 

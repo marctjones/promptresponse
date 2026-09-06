@@ -10,7 +10,6 @@ public class SetPromptResponseCommand : ICommand
     private readonly Prompt _prompt;
     private string _newValue;
     private string _oldValue;
-    private DateTime? _oldLastModified;
     private readonly DateTime _createdAt;
 
     /// <inheritdoc/>
@@ -26,7 +25,6 @@ public class SetPromptResponseCommand : ICommand
         _prompt = prompt ?? throw new ArgumentNullException(nameof(prompt));
         _newValue = newValue;
         _oldValue = prompt.Response;
-        _oldLastModified = prompt.ResponseMetadata.LastModified;
         _createdAt = DateTime.UtcNow;
     }
 
@@ -34,14 +32,12 @@ public class SetPromptResponseCommand : ICommand
     public void Execute()
     {
         _prompt.Response = _newValue;
-        _prompt.ResponseMetadata.LastModified = DateTime.UtcNow;
     }
 
     /// <inheritdoc/>
     public void Undo()
     {
         _prompt.Response = _oldValue;
-        _prompt.ResponseMetadata.LastModified = _oldLastModified;
     }
 
     /// <inheritdoc/>

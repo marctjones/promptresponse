@@ -40,29 +40,6 @@ public class SetPromptResponseCommandTests
     }
 
     [Fact]
-    public void Undo_ShouldRestoreLastModifiedTimestamp()
-    {
-        // Arrange
-        var originalTime = DateTime.UtcNow.AddHours(-1);
-        var prompt = new Prompt
-        {
-            Id = "test",
-            Label = "Test",
-            Response = "original",
-            ResponseMetadata = new ResponseMetadata { LastModified = originalTime }
-        };
-
-        var command = new SetPromptResponseCommand(prompt, "new value");
-        command.Execute();
-
-        // Act
-        command.Undo();
-
-        // Assert
-        prompt.ResponseMetadata.LastModified.Should().Be(originalTime);
-    }
-
-    [Fact]
     public void ExecuteAndUndo_MultipleTimes_ShouldWork()
     {
         // Arrange
