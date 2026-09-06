@@ -803,7 +803,7 @@
       "id": "REQ-hint-members",
       "section": "hints-object",
       "statement": "Every defined hint member, and the expectedDataType registry; signature and file are not registered types; an unusable hint is preserved, never an error; earlier hint wins a conflict",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "suite",
@@ -1067,7 +1067,7 @@
       "id": "REQ-profile-expressions",
       "section": "profile-expressions",
       "statement": "A core-only reader preserves expression strings and ignores them",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "test",
@@ -1235,7 +1235,7 @@
       "id": "REQ-responses-strings",
       "section": "responses",
       "statement": "A response is always a JSON string; null coerces on read, never on write",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "test",
@@ -1420,7 +1420,7 @@
       "id": "REQ-table-ragged",
       "section": "table-ragged",
       "statement": "A ragged table is advisory, never invalid",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "suite",

@@ -23,10 +23,19 @@ namespace PromptResponse.Core.Validation;
 internal static class AdvisoryVocabulary
 {
     /// <summary>Data types the registry carries. An unrecognised one degrades to text.</summary>
-    private static readonly HashSet<string> Registered = new(StringComparer.Ordinal)
+    /// <remarks>
+    /// Mirrors <c>schemas/apr-types-1.0.json</c>. A copy, because Core reads no file at
+    /// run time — and therefore a copy that can drift, which is why
+    /// <c>RegisteredTypes_MatchTheTypeRegistry</c> compares the two and fails when they
+    /// disagree. The first version of this list omitted <c>color</c> and
+    /// <c>password</c>, so a document declaring either was told its type was not
+    /// registered.
+    /// </remarks>
+    internal static readonly HashSet<string> Registered = new(StringComparer.Ordinal)
     {
-        "text", "multiline", "number", "currency", "range", "date", "time", "datetime",
-        "boolean", "select", "multichoice", "email", "phone", "url",
+        "boolean", "color", "currency", "date", "datetime", "email", "multichoice",
+        "multiline", "number", "password", "phone", "range", "select", "text", "time",
+        "url",
     };
 
     /// <summary>Submission schemes this document defines. Anything else is advisory.</summary>
