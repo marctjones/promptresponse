@@ -36,7 +36,7 @@ public class DataTypeValidator
                 result.AddWarning(new ValidationWarning(
                     patternProblem ?? "Response does not match the suggested pattern",
                     prompt.Id,
-                    "PATTERN_MISMATCH"));
+                    "RESPONSE_PATTERN_MISMATCH"));
                 return result; // Pattern advisory takes precedence
             }
         }
@@ -56,7 +56,7 @@ public class DataTypeValidator
             result.AddWarning(new ValidationWarning(
                 $"Response '{prompt.Response}' does not look like '{expectedType}' (advisory)",
                 prompt.Id,
-                "TYPE_MISMATCH"));
+                "RESPONSE_CONTRADICTS_TYPE"));
         }
 
         return result;

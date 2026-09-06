@@ -38,7 +38,7 @@ internal static class DocumentStructureValidator
     {
         if (!section.IsTable) return;
         var rows = section.Sections ?? [];
-        if (rows.Count == 0) { result.AddWarning(new ValidationWarning("A table section has no instances. A table always has at least one row; an empty one cannot describe its own fields.", path, "TABLE_NO_ROWS")); return; }
+        if (rows.Count == 0) { result.AddError(new ValidationError("A table section has no instances. A table always has at least one row; an empty one cannot describe its own fields.", path, "EMPTY_TABLE")); return; }
         var first = rows[0].Prompts ?? [];
         foreach (var row in rows.Skip(1))
         {

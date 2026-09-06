@@ -13,6 +13,7 @@ public class DocumentValidator : IValidator<AprDocument>
         ValidateVersion(document, result);
         ValidateMetadata(document, result);
         DocumentStructureValidator.Validate(document, result);
+        AdvisoryVocabulary.Inspect(document, result);
         return result;
     }
 
