@@ -1246,7 +1246,7 @@
       "expect": "reject",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"   \"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
-      "diagnostic": "WRONG_TYPE"
+      "diagnostic": "REQUIRED_FIELD"
     },
     {
       "id": "corpus:rules/apr-model-008-satisfies.apr.jsonc",
@@ -2009,7 +2009,7 @@
       "expect": "reject",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ],\n  \"documentType\": null\n}\n",
-      "diagnostic": "WRONG_TYPE"
+      "diagnostic": "PARSE_ERROR"
     },
     {
       "id": "corpus:rules/apr-rep-016-satisfies.apr.jsonc",

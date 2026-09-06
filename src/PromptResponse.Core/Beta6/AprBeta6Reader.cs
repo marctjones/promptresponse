@@ -127,7 +127,9 @@ public sealed class AprBeta6Reader
         if (root.TryGetProperty("recordType", out var kind))
         {
             if (kind.ValueKind != JsonValueKind.String || kind.GetString() != "attestation")
-                throw new SerializationException("Unknown APR beta.6 stream record type.");
+                throw new SerializationException(
+                    "An APR beta.6 stream record declares recordType `attestation` or nothing.")
+                { Code = "WRONG_TYPE" };
             RequireBeta6(root);
             ValidateAttestation(root);
             return new AprAttestationRecord(root.Clone());
@@ -136,6 +138,10 @@ public sealed class AprBeta6Reader
         if (root.TryGetProperty("signatures", out _))
             throw new SerializationException("beta.6 forms carry attestations as stream records.")
                 { Code = "RETIRED_EMBEDDED_SIGNATURES" };
+        // Before the typed model. A structural member of the wrong JSON type is the
+        // validation error the format names, not the parse stage's generic code, and a
+        // typed deserializer cannot tell the two conditions apart.
+        AprStructuralTypes.Require(root);
         return new AprFormRecord(_forms.Deserialize(root.GetRawText()), root.Clone());
     }
 

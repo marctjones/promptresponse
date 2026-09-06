@@ -61,9 +61,12 @@ JsonObject Answer(JsonObject testCase)
     IReadOnlyList<AprStreamRecord> records;
     try
     {
-        records = streamed
-            ? reader.ReadStream(document, kind)
-            : [new AprFormRecord(reader.ReadForm(document, kind), ValueOf(document, kind))];
+        // Always through ReadStream. A document that is not framed as a stream is a
+        // stream of one record, and that record is not necessarily a form: an
+        // attestation is an independent record and a case may carry one on its own.
+        // ReadForm refuses anything that is not exactly one form, which refused every
+        // standalone attestation in the suite before the library saw it.
+        records = reader.ReadStream(document, kind);
     }
     catch (SerializationException exception)
     {
@@ -103,33 +106,32 @@ JsonObject Answer(JsonObject testCase)
     // The digest is how a case proves more than acceptance: it says the document was
     // read as the same document, which is where a reader with wrong scalar resolution
     // is caught. A stream has no single semantic model, so it states none.
-    if (!streamed && records.Count == 1 && records[0] is AprFormRecord single)
+    if (!streamed && records.Count == 1)
     {
-        answer["digest"] = AprSemanticDigest.Digest(single.Value);
+        answer["digest"] = AprSemanticDigest.Digest(ValueOf(records[0]));
     }
 
     answer["warnings"] = new JsonArray([.. warnings.Select(code => (JsonNode)code!)]);
 
     if (testCase["roundTrip"]?.GetValue<bool>() == true)
     {
-        // Writing is serializing the semantic model. Nothing is filtered on the way
-        // out, which is the whole of what preservation asks for.
-        answer["written"] = streamed
-            ? reader.WriteStream(records, kind)
-            : reader.WriteForm(((AprFormRecord)records[0]).Form, kind);
+        // Always through WriteStream, which writes the parsed value. WriteForm
+        // regenerates from the typed model, so a member the model has no property for
+        // — every extension member — does not survive. That is the one thing a
+        // round-trip case exists to catch, and preservation is what makes additive
+        // change to the format safe.
+        answer["written"] = reader.WriteStream(records, kind);
     }
 
     return answer;
 }
 
-static JsonElement ValueOf(string document, AprRepresentation representation)
+static JsonElement ValueOf(AprStreamRecord record) => record switch
 {
-    // The reader exposes the parsed value on a stream record; a single form is read
-    // through the same path so the digest is computed over one model, not two.
-    var reader = new AprBeta6Reader();
-    var records = reader.ReadStream(document, representation);
-    return ((AprFormRecord)records[0]).Value;
-}
+    AprFormRecord form => form.Value,
+    AprAttestationRecord attestation => attestation.Value,
+    _ => throw new InvalidOperationException("Unknown APR stream record."),
+};
 
 static string ParseDiagnostic(SerializationException exception)
 {

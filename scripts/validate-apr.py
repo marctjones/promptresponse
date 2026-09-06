@@ -216,6 +216,21 @@ def check_object(report: Report, node, kind: str, path: str, members) -> None:
         if required and (name not in node or node[name] is None):
             report.error("REQUIRED_FIELD", f"{path}/{name}",
                          f"{kind}.{name} is required", *rules)
+        elif name in node and node[name] is None:
+            # `null` is not an APR value, and outside a response position it is a parse
+            # failure rather than a wrong type: the member is not carrying the wrong
+            # kind of value, it is carrying something the format has no place for.
+            report.error("PARSE_ERROR", f"{path}/{name}",
+                         f"{kind}.{name} is null; null is not an APR value outside a "
+                         f"response position", "APR-REP-014", "APR-VAL-010")
+        elif (name in node and "non-blank string" in declared_type
+                and isinstance(node[name], str) and not node[name].strip()):
+            # A blank string is the right type carrying nothing. Section 7.1 names
+            # REQUIRED_FIELD for a blank title, id or label, and reporting WRONG_TYPE
+            # tells a reader to look at the type of a value whose type is fine.
+            report.error("REQUIRED_FIELD", f"{path}/{name}",
+                         f"{kind}.{name} is blank; it must contain a non-whitespace "
+                         f"character", *rules)
         elif name in node and not type_ok(node[name], declared_type):
             report.error("WRONG_TYPE", f"{path}/{name}",
                          f"{kind}.{name} must be {declared_type}, "

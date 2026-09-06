@@ -369,7 +369,7 @@
         "APR-MODEL-007"
       ],
       "anchors": [],
-      "diagnostic": "WRONG_TYPE"
+      "diagnostic": "REQUIRED_FIELD"
     },
     "rules/apr-model-008-satisfies.apr.jsonc": {
       "expect": "valid",
@@ -461,7 +461,7 @@
         "APR-REP-014"
       ],
       "anchors": [],
-      "diagnostic": "WRONG_TYPE"
+      "diagnostic": "PARSE_ERROR"
     },
     "rules/apr-rep-016-satisfies.apr.jsonc": {
       "expect": "valid",
