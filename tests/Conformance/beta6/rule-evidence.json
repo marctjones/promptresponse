@@ -4,9 +4,9 @@
   "counts": {
     "enforced": 75,
     "satisfied": 78,
-    "violated": 74,
-    "caught": 73,
-    "complete": 71
+    "violated": 75,
+    "caught": 74,
+    "complete": 72
   },
   "legs": {
     "APR-ATTEST-001": "esvc",
@@ -128,7 +128,7 @@
     "APR-REP-009": "----",
     "APR-REP-010": "esvc",
     "APR-REP-011": "esvc",
-    "APR-REP-012": "es--",
+    "APR-REP-012": "esvc",
     "APR-REP-013": "----",
     "APR-REP-014": "esvc",
     "APR-REP-015": "esvc",

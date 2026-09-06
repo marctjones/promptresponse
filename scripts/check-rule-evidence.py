@@ -147,6 +147,51 @@ def naive_evaluation(document: str, representation: str, inputs: dict) -> dict:
         aprexpr.compose = original_compose
 
 
+def misreading(document: str, representation: str) -> str | None:
+    """The digest a plausibly wrong reader would report for the same document.
+
+    Not an arbitrary corruption — that would make every case look caught and
+    prove nothing. This is the specific mistake the format exists to prevent: a
+    reader that resolves a response looking like a number, a boolean or a date
+    into a native value instead of keeping the string it was given. `012` becomes
+    twelve, the leading zero is gone, and the document round-trips into a
+    different answer.
+
+    Returns None when the document contains no such response, in which case the
+    case earns nothing: a vector that a misreading cannot disturb has not shown
+    that the harness would catch one.
+    """
+    try:
+        records = aprlib.read_records(document, representation)
+    except Exception:  # noqa: BLE001
+        return None
+    disturbed = False
+
+    def coerce(node, key=None):
+        nonlocal disturbed
+        if isinstance(node, dict):
+            return {k: coerce(v, k) for k, v in node.items()}
+        if isinstance(node, list):
+            return [coerce(v) for v in node]
+        if key == "response" and isinstance(node, str):
+            text = node.strip()
+            if text.lower() in ("true", "false", "yes", "no"):
+                disturbed = True
+                return text.lower() in ("true", "yes")
+            try:
+                value = float(text) if ("." in text or "e" in text.lower()) else int(text)
+            except ValueError:
+                return node
+            disturbed = True
+            return value
+        return node
+
+    misread = [coerce(record) for record in records]
+    if not disturbed or len(misread) != 1:
+        return None
+    return aprlib.digest(misread[0])
+
+
 def lossy(document: str, representation: str, pointers: list[str]) -> str | None:
     """The same document as a careless writer would emit it.
 
@@ -290,6 +335,19 @@ def main() -> int:
         if case["expect"] == "valid" and not case.get("warns"):
             for rule in cited:
                 satisfied[rule] = satisfied.get(rule, 0) + 1
+            # A case stating a digest is a violating case too: the violation is
+            # producing a different semantic model, and the harness now refuses a
+            # digest that does not match. Credited only where a plausibly wrong
+            # reader would actually report something different, so a case a
+            # misreading cannot disturb earns nothing.
+            if case.get("digest"):
+                representation = ("yaml" if case["representation"].startswith("yaml")
+                                  else "jsonc")
+                wrong = misreading(case["document"], representation)
+                if wrong and wrong != case["digest"]:
+                    for rule in cited:
+                        violated[rule] = violated.get(rule, 0) + 1
+                        caught.setdefault(rule, "digest")
             continue
         if case["expect"] == "valid":
             # A case requiring an advisory is a violating case: the document breaks
