@@ -64,13 +64,26 @@ public sealed class AprBeta6Reader
     public IReadOnlyList<AprStreamRecord> ReadStream(string source, AprRepresentation representation)
     {
         ArgumentNullException.ThrowIfNull(source);
-        var records = representation switch
+        try
         {
-            AprRepresentation.Jsonc => SplitJsoncRecords(source),
-            AprRepresentation.Yaml => SplitYamlDocuments(source),
-            _ => throw new ArgumentOutOfRangeException(nameof(representation)),
-        };
-        return records.Select(record => ParseRecord(record, representation)).ToList();
+            var records = representation switch
+            {
+                AprRepresentation.Jsonc => SplitJsoncRecords(source),
+                AprRepresentation.Yaml => SplitYamlDocuments(source),
+                _ => throw new ArgumentOutOfRangeException(nameof(representation)),
+            };
+            return records.Select(record => ParseRecord(record, representation)).ToList();
+        }
+        catch (Exception exception) when (exception is JsonException or YamlException)
+        {
+            // A caller reading APR should not have to catch System.Text.Json or
+            // YamlDotNet. Which parser this library happens to use is not part of its
+            // contract, and a caller that has to know is coupled to a choice it did not
+            // make. A record that will not parse is a parse failure, reported as one
+            // exception type whichever representation it arrived in.
+            throw new SerializationException(
+                "This stream contains a record that is not well-formed.", exception);
+        }
     }
 
     /// <summary>Writes one beta.6 form in the requested source representation.</summary>
@@ -121,14 +134,16 @@ public sealed class AprBeta6Reader
         }
         RequireBeta6(root);
         if (root.TryGetProperty("signatures", out _))
-            throw new SerializationException("RETIRED_EMBEDDED_SIGNATURES: beta.6 forms carry attestations as stream records.");
+            throw new SerializationException("beta.6 forms carry attestations as stream records.")
+                { Code = "RETIRED_EMBEDDED_SIGNATURES" };
         return new AprFormRecord(_forms.Deserialize(root.GetRawText()), root.Clone());
     }
 
     private static void RequireBeta6(JsonElement root)
     {
         if (!root.TryGetProperty("aprVersion", out var version) || version.GetString() != Beta6)
-            throw new SerializationException("APR beta.6 records must declare version '1.0-beta.6'.");
+            throw new SerializationException("APR beta.6 records must declare `aprVersion` '1.0-beta.6'.")
+            { Code = "UNSUPPORTED_VERSION" };
     }
 
     private static void ValidateAttestation(JsonElement value)
@@ -184,7 +199,8 @@ public sealed class AprBeta6Reader
     {
         RequireBeta6(form.Value);
         if (form.Value.TryGetProperty("signatures", out _))
-            throw new SerializationException("RETIRED_EMBEDDED_SIGNATURES: beta.6 forms cannot emit root signatures.");
+            throw new SerializationException("beta.6 forms cannot emit root signatures.")
+            { Code = "RETIRED_EMBEDDED_SIGNATURES" };
         return form.Value.GetRawText();
     }
 
@@ -273,7 +289,8 @@ public sealed class AprBeta6Reader
         if (JsonNumber.IsMatch(text))
         {
             if (!double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var number) || double.IsInfinity(number))
-                throw new SerializationException("APR YAML forbids a non-finite number: JSON cannot represent it.");
+                throw new SerializationException("APR YAML forbids a non-finite number: JSON cannot represent it.")
+                { Code = "YAML_NON_FINITE_NUMBER" };
             // The source spelling is kept so the semantic value is exactly what a
             // JSON parser would see; the digest canonicalizes it later.
             writer.WriteRawValue(text, skipInputValidation: false);
@@ -313,16 +330,21 @@ public sealed class AprBeta6Reader
                 case DocumentStart start:
                     var customTag = start.Tags?.Any(tag => !DefaultTagHandles.TryGetValue(tag.Handle, out var prefix) || prefix != tag.Prefix) == true;
                     if (start.Version is not null || customTag)
-                        throw new SerializationException("APR YAML forbids directives, including %YAML and %TAG.");
+                        throw new SerializationException("APR YAML forbids directives, including %YAML and %TAG.")
+                        { Code = "YAML_DIRECTIVE_FORBIDDEN" };
                     break;
                 case AnchorAlias:
-                    throw new SerializationException("APR YAML forbids aliases.");
+                    throw new SerializationException("APR YAML forbids aliases.")
+                        { Code = "YAML_ANCHOR_FORBIDDEN" };
                 case NodeEvent node when !node.Anchor.IsEmpty:
-                    throw new SerializationException("APR YAML forbids anchors.");
+                    throw new SerializationException("APR YAML forbids anchors.")
+                        { Code = "YAML_ANCHOR_FORBIDDEN" };
                 case NodeEvent node when !node.Tag.IsEmpty:
-                    throw new SerializationException("APR YAML forbids tags.");
+                    throw new SerializationException("APR YAML forbids tags.")
+                        { Code = "YAML_TAG_FORBIDDEN" };
                 case Scalar scalar when isKey && scalar.Style == ScalarStyle.Plain && scalar.Value == "<<":
-                    throw new SerializationException("APR YAML forbids merge keys.");
+                    throw new SerializationException("APR YAML forbids merge keys.")
+                        { Code = "YAML_MERGE_KEY_FORBIDDEN" };
                 case MappingStart:
                     frames.Push([1, 0]);
                     break;
@@ -339,7 +361,8 @@ public sealed class AprBeta6Reader
         // rather than coerced. Left unchecked it arrives as Infinity or NaN and
         // cannot be serialized back out.
         if (System.Text.RegularExpressions.Regex.IsMatch(source, @"(?m):\s*[-+]?\.(?:inf|Inf|INF|nan|NaN|NAN)\s*$"))
-            throw new SerializationException("APR YAML forbids a non-finite number: JSON cannot represent it.");
+            throw new SerializationException("APR YAML forbids a non-finite number: JSON cannot represent it.")
+                { Code = "YAML_NON_FINITE_NUMBER" };
     }
 
     private string WriteJson(string json, AprRepresentation representation) => representation switch
@@ -421,7 +444,8 @@ public sealed class AprBeta6Reader
             {
                 var name = reader.GetString()!;
                 if (!objects.Peek().Add(name))
-                    throw new SerializationException($"APR JSONC object has duplicate member '{name}'.");
+                    throw new SerializationException($"APR JSONC object has duplicate member '{name}'.")
+                        { Code = "DUPLICATE_MEMBER" };
             }
             else if (reader.TokenType == JsonTokenType.EndObject)
             {

@@ -233,7 +233,10 @@ public class AprBeta6ReaderTests
             {"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":""}]}],"signatures":[]}
             """, AprRepresentation.Jsonc);
 
-        read.Should().Throw<SerializationException>().WithMessage("*RETIRED_EMBEDDED_SIGNATURES*");
+        read.Should().Throw<SerializationException>()
+            // The code is structured data now, not a substring of the prose:
+            // a caller reports what the format names without parsing English.
+            .Which.Code.Should().Be("RETIRED_EMBEDDED_SIGNATURES");
     }
 
     [Fact]

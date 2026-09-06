@@ -18,6 +18,9 @@ public sealed class Beta6AprSerializerTests
         beta3.Should().Throw<SerializationException>().WithMessage("*1.0-beta.6*");
 
         var signed = () => _serializer.Deserialize("""{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[],"signatures":[]}""");
-        signed.Should().Throw<SerializationException>().WithMessage("*RETIRED_EMBEDDED_SIGNATURES*");
+        signed.Should().Throw<SerializationException>()
+            // The code is structured data now, not a substring of the prose:
+            // a caller reports what the format names without parsing English.
+            .Which.Code.Should().Be("RETIRED_EMBEDDED_SIGNATURES");
     }
 }
