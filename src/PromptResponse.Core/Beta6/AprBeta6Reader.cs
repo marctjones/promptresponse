@@ -210,6 +210,17 @@ public sealed class AprBeta6Reader
             }
             previous = path;
         }
+        // A manifest that carries entries covers the whole model, and the whole model
+        // starts at the root. Entries that begin somewhere inside describe a part
+        // without saying what it is part of.
+        if (entries.GetArrayLength() > 0
+            && !entries.EnumerateArray().Any(entry =>
+                entry.GetProperty("path").GetString() is { Length: 0 }))
+        {
+            throw new SerializationException(
+                "a beta.6 manifest carrying entries must carry the root pointer.")
+            { Code = "REQUIRED_FIELD" };
+        }
         foreach (var proof in proofs.EnumerateArray())
         {
             // A proof carries its own material. Restating the subject digest or the
@@ -276,6 +287,17 @@ public sealed class AprBeta6Reader
         if (!source.Contains('\u001e')) return [source];
         var records = source.Split('\u001e', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
         if (records.Length == 0) throw new SerializationException("An APR JSONC stream has no records.");
+        foreach (var record in records)
+        {
+            // One stream is one representation. A record that is not JSON in a
+            // record-separated stream is a YAML document somebody concatenated, and
+            // reading it would mean guessing per record which spelling was meant.
+            if (record.StartsWith('{')) continue;
+            throw new SerializationException(
+                "An APR JSONC stream carries JSONC records only; this stream mixes "
+                + "representations.")
+            { Code = "APR_STREAM_MIXED_REPRESENTATIONS" };
+        }
         return records;
     }
 

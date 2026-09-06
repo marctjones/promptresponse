@@ -32,7 +32,7 @@ public sealed class DocumentValidatorTableWarningTests : DocumentValidatorTestBa
     {
         var table = CreateTable(Row("a", "A"), Row("b", "B"));
         var result = Validator.Validate(CreateDocument("T", table));
-        result.Warnings.Should().ContainSingle(warning => warning.WarningCode == "TABLE_LABEL_MISMATCH" && warning.Message.Contains("field 0 'B'"));
+        result.Warnings.Should().ContainSingle(warning => warning.WarningCode == "TABLE_LABEL_MISMATCH" && warning.Message.Contains("does not name its fields as the first instance does"));
     }
 
     [Fact]

@@ -35,9 +35,13 @@ internal static class AdvisoryVocabulary
         "https", "mailto",
     };
 
+    /// <summary>Members whose whole purpose is to be read or heard by a person.</summary>
+    private static readonly string[] HumanText = ["title", "description", "author", "publisher", "label"];
+
     internal static void Inspect(AprDocument document, ValidationResult result)
     {
         InspectShape(document, result);
+        InspectText(document, result);
         InspectSubmission(document, result);
         InspectExtensions(document.Metadata?.Extensions, "metadata", result);
         var roles = new HashSet<string>(
@@ -202,6 +206,95 @@ internal static class AdvisoryVocabulary
                     $"{path}.maxRows", "WRONG_TYPE"));
             }
         }
+    }
+
+    /// <summary>Holds human-facing text to the floor the format states.</summary>
+    /// <remarks>
+    /// Human-facing text must be in Normalization Form C and must not carry a code point
+    /// that is unassigned, a surrogate, private-use, a control other than tab and
+    /// newline, or one UTS #39 classifies as default-ignorable, deprecated or
+    /// not-a-character. A validator reports a violation at authoring time.
+    ///
+    /// A response is not human-facing text in this sense. It is what a person typed, and
+    /// suspicious characters in one are surfaced and rendered visibly while the document
+    /// stays valid — which is why this walks titles and labels and never a response.
+    /// </remarks>
+    private static void InspectText(AprDocument document, ValidationResult result)
+    {
+        HoldToTheFloor(document.Metadata?.Title, "metadata.title", result);
+        HoldToTheFloor(document.Metadata?.Description, "metadata.description", result);
+        HoldToTheFloor(document.Metadata?.Author, "metadata.author", result);
+        HoldToTheFloor(document.Metadata?.Publisher, "metadata.publisher", result);
+        foreach (var (section, path) in Walk(document))
+        {
+            HoldToTheFloor(section.Title, $"{path}.title", result);
+            HoldToTheFloor(section.Description, $"{path}.description", result);
+            for (var index = 0; index < (section.Prompts?.Count ?? 0); index++)
+            {
+                HoldToTheFloor(section.Prompts![index].Label, $"{path}.prompts[{index}].label", result);
+            }
+        }
+    }
+
+    private static void HoldToTheFloor(string? value, string path, ValidationResult result)
+    {
+        if (value is not { Length: > 0 }) return;
+        if (!value.IsNormalized(System.Text.NormalizationForm.FormC))
+        {
+            result.AddError(new ValidationError(
+                "human-facing text must be in Normalization Form C; two spellings of one "
+                + "word are two different strings to everything that compares them.",
+                path, "NON_NFC_TEXT"));
+        }
+        foreach (var rune in value.EnumerateRunes())
+        {
+            if (!BelowTheFloor(rune)) continue;
+            result.AddError(new ValidationError(
+                $"human-facing text carries U+{rune.Value:X4}, which the format excludes: "
+                + "a character that renders as nothing can make one label look like "
+                + "another.", path, "FORBIDDEN_CODE_POINT"));
+            return;   // One report names the member; listing every offender adds noise.
+        }
+    }
+
+    /// <summary>Is this code point one the human-facing text floor excludes?</summary>
+    /// <remarks>
+    /// Unassigned, a surrogate, private-use, a control other than tab and newline, or
+    /// classified by UTS #39 as default-ignorable, deprecated or not-a-character. The
+    /// default-ignorable set is the one that matters in practice: a zero-width space
+    /// renders as nothing, so it can make one label look exactly like another while
+    /// comparing unequal to it.
+    ///
+    /// Deliberately not <c>StringSanitizer.IsAbusive</c>, which is a narrower set aimed
+    /// at paste artefacts in a response and does not carry the zero-width characters.
+    /// </remarks>
+    private static bool BelowTheFloor(System.Text.Rune rune)
+    {
+        var value = rune.Value;
+        if (value is 0x0009 or 0x000A) return false;
+        var category = System.Text.Rune.GetUnicodeCategory(rune);
+        if (category is System.Globalization.UnicodeCategory.Control
+            or System.Globalization.UnicodeCategory.Surrogate
+            or System.Globalization.UnicodeCategory.PrivateUse
+            or System.Globalization.UnicodeCategory.OtherNotAssigned)
+        {
+            return true;
+        }
+        return value switch
+        {
+            0x00AD => true,                              // soft hyphen
+            0x061C => true,                              // Arabic letter mark
+            >= 0x180B and <= 0x180F => true,             // Mongolian selectors and separator
+            >= 0x200B and <= 0x200F => true,             // zero-width and directional marks
+            >= 0x202A and <= 0x202E => true,             // embedding and override
+            >= 0x2060 and <= 0x206F => true,             // word joiner, invisible operators
+            0xFEFF => true,                              // byte-order mark mid-string
+            >= 0xFFF0 and <= 0xFFF8 => true,             // unassigned specials
+            0xFFFE or 0xFFFF => true,                    // not a character
+            >= 0x1D173 and <= 0x1D17A => true,           // musical format controls
+            >= 0xE0000 and <= 0xE0FFF => true,           // tags and variation selectors
+            _ => (value & 0xFFFE) == 0xFFFE,             // every plane's non-characters
+        };
     }
 
     /// <summary>A URI has a scheme. Nothing here fetches one; that is forbidden.</summary>
