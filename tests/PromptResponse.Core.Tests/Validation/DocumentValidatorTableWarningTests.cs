@@ -8,11 +8,15 @@ namespace PromptResponse.Core.Tests.Validation;
 public sealed class DocumentValidatorTableWarningTests : DocumentValidatorTestBase
 {
     [Fact]
-    public void EmptyTable_ReportsNoRowsWarning()
+    public void EmptyTable_IsAnError_NotAnAdvisory()
     {
         var table = CreateSection(prompts: []); table.Kind = "table";
         var result = Validator.Validate(CreateDocument("T", table));
-        result.Warnings.Should().ContainSingle(warning => warning.WarningCode == "TABLE_NO_ROWS" && warning.PropertyPath == "sections[0]");
+        // beta.6 made a table's first instance required rather than merely described,
+        // so this stopped being the TABLE_NO_ROWS advisory and became an error: a table
+        // with no instances cannot describe its own fields.
+        result.Errors.Should().ContainSingle(error =>
+            error.ErrorCode == "EMPTY_TABLE" && error.PropertyPath == "sections[0]");
     }
 
     [Fact]

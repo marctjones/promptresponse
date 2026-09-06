@@ -152,7 +152,7 @@ public class ValidationResultTests
     {
         var result = new ValidationResult();
 
-        result.AddWarning(new ValidationWarning("Looks like 'five', expected number", "prompts[0]", "TYPE_MISMATCH"));
+        result.AddWarning(new ValidationWarning("Looks like 'five', expected number", "prompts[0]", "RESPONSE_CONTRADICTS_TYPE"));
 
         result.IsValid.Should().BeTrue("warnings are advisory and never invalidate a document");
         result.HasWarnings.Should().BeTrue();
@@ -165,7 +165,7 @@ public class ValidationResultTests
         var result = new ValidationResult();
 
         result.AddError(new ValidationError("Missing required field", "metadata.title"));
-        result.AddWarning(new ValidationWarning("Looks like 'five', expected number", "prompts[0]", "TYPE_MISMATCH"));
+        result.AddWarning(new ValidationWarning("Looks like 'five', expected number", "prompts[0]", "RESPONSE_CONTRADICTS_TYPE"));
 
         result.IsValid.Should().BeFalse("there is a structural error");
         result.HasWarnings.Should().BeTrue();
@@ -178,8 +178,8 @@ public class ValidationResultTests
     {
         var result = new ValidationResult();
 
-        result.AddWarning(new ValidationWarning("W1", "p1", "TYPE_MISMATCH"));
-        result.AddWarning(new ValidationWarning("W2", "p2", "PATTERN_MISMATCH"));
+        result.AddWarning(new ValidationWarning("W1", "p1", "RESPONSE_CONTRADICTS_TYPE"));
+        result.AddWarning(new ValidationWarning("W2", "p2", "RESPONSE_PATTERN_MISMATCH"));
 
         result.Warnings.Should().HaveCount(2);
         result.IsValid.Should().BeTrue();
@@ -188,11 +188,11 @@ public class ValidationResultTests
     [Fact]
     public void ValidationWarning_ShouldStoreMessagePathAndCode()
     {
-        var warning = new ValidationWarning("'five' does not look like a number", "prompts[0]", "TYPE_MISMATCH");
+        var warning = new ValidationWarning("'five' does not look like a number", "prompts[0]", "RESPONSE_CONTRADICTS_TYPE");
 
         warning.Message.Should().Be("'five' does not look like a number");
         warning.PropertyPath.Should().Be("prompts[0]");
-        warning.WarningCode.Should().Be("TYPE_MISMATCH");
+        warning.WarningCode.Should().Be("RESPONSE_CONTRADICTS_TYPE");
     }
 
     [Fact]
@@ -207,7 +207,7 @@ public class ValidationResultTests
     public void ValidationResult_ToString_ShouldIncludeWarnings()
     {
         var result = new ValidationResult();
-        result.AddWarning(new ValidationWarning("Maybe a number?", "prompts[0]", "TYPE_MISMATCH"));
+        result.AddWarning(new ValidationWarning("Maybe a number?", "prompts[0]", "RESPONSE_CONTRADICTS_TYPE"));
 
         var str = result.ToString();
 

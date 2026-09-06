@@ -21,7 +21,7 @@ public sealed class DataTypeValidatorExpectedTypeTests : DataTypeValidatorTestBa
         var result = Validator.ValidateResponse(CreatePrompt(email, "email"));
         result.HasWarnings.Should().BeTrue();
         result.Warnings.Should().ContainSingle();
-        result.Warnings[0].WarningCode.Should().Be("TYPE_MISMATCH");
+        result.Warnings[0].WarningCode.Should().Be("RESPONSE_CONTRADICTS_TYPE");
     }
 
     [Theory]

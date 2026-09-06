@@ -81,7 +81,7 @@ public class FormReviewerTests
 
         review.PromptsConsidered.Should().Be(2,
             "a prompt without exprExpected is simply unmarked, not unwanted");
-        review.Findings.Should().ContainSingle(f => f.Code == "TYPE_MISMATCH" && f.PromptId == "b");
+        review.Findings.Should().ContainSingle(f => f.Code == "RESPONSE_CONTRADICTS_TYPE" && f.PromptId == "b");
     }
 
     [Fact]
@@ -116,7 +116,7 @@ public class FormReviewerTests
     [InlineData("OUTSIDE_SUGGESTED", ReviewSeverity.Advisory)]
     [InlineData("OUTSIDE_BOUNDS", ReviewSeverity.Advisory)]
     [InlineData("BLANK", ReviewSeverity.Advisory)]
-    [InlineData("TYPE_MISMATCH", ReviewSeverity.NeedsReview)]
+    [InlineData("RESPONSE_CONTRADICTS_TYPE", ReviewSeverity.NeedsReview)]
     public void FindingsAreGradedByWhetherAMachineCanReadThem(string code, ReviewSeverity expected)
     {
         var review = FormReviewer.Review(FormWith(

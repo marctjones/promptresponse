@@ -13,7 +13,7 @@ public sealed class DataTypeValidatorPatternAndDocumentTests : DataTypeValidator
 
         result.IsValid.Should().BeTrue("pattern hints are advisory like type hints");
         result.HasWarnings.Should().BeTrue();
-        result.Warnings[0].WarningCode.Should().Be("PATTERN_MISMATCH");
+        result.Warnings[0].WarningCode.Should().Be("RESPONSE_PATTERN_MISMATCH");
     }
 
     [Fact]
@@ -29,7 +29,7 @@ public sealed class DataTypeValidatorPatternAndDocumentTests : DataTypeValidator
         var result = Validator.ValidateResponse(CreatePrompt("invalid-format", validationPattern: @"^\d{4}-\d{2}-\d{2}$"));
 
         result.HasWarnings.Should().BeTrue();
-        result.Warnings[0].WarningCode.Should().Be("PATTERN_MISMATCH");
+        result.Warnings[0].WarningCode.Should().Be("RESPONSE_PATTERN_MISMATCH");
     }
 
     [Theory]

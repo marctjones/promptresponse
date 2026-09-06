@@ -30,7 +30,7 @@ public sealed class DataTypeValidatorAdvisoryTests : DataTypeValidatorTestBase
         result.IsValid.Should().BeTrue();
         result.HasWarnings.Should().BeTrue();
         result.Warnings.Should().ContainSingle();
-        result.Warnings[0].WarningCode.Should().Be("TYPE_MISMATCH");
+        result.Warnings[0].WarningCode.Should().Be("RESPONSE_CONTRADICTS_TYPE");
         result.Warnings[0].PropertyPath.Should().Be("p1");
     }
 

@@ -120,7 +120,7 @@ public class ReviewCommandTests : IDisposable
             "restated in every report so no downstream system reads \"review required\" as " +
             "\"invalid\"");
         root.GetProperty("findings").EnumerateArray().Should().ContainSingle()
-            .Which.GetProperty("code").GetString().Should().Be("TYPE_MISMATCH",
+            .Which.GetProperty("code").GetString().Should().Be("RESPONSE_CONTRADICTS_TYPE",
                 "routing should key on the stable code, not on the wording of the message");
     }
 
