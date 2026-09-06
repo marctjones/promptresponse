@@ -91,7 +91,9 @@ public sealed class AprBeta6Reader
     {
         ArgumentNullException.ThrowIfNull(form);
         if (form.Version != Beta6)
-            throw new SerializationException("APR beta.6 writers require version '1.0-beta.6'.");
+            throw new SerializationException("APR beta.6 writers require version '1.0-beta.6'.")
+            { Code = "UNSUPPORTED_VERSION" };
+        RequirePrefixedExtensions(form);
         return WriteJson(_forms.Serialize(form), representation);
     }
 
@@ -279,7 +281,57 @@ public sealed class AprBeta6Reader
         if (form.Value.TryGetProperty("signatures", out _))
             throw new SerializationException("beta.6 forms cannot emit root signatures.")
             { Code = "RETIRED_EMBEDDED_SIGNATURES" };
+        RequirePrefixedExtensions(form.Form);
         return form.Value.GetRawText();
+    }
+
+    /// <summary>Refuses to write an extension member with no reverse-DNS prefix.</summary>
+    /// <remarks>
+    /// Reading one is a warning: a document already carrying it is preserved and its
+    /// member ignored, because refusing it would lose a document over a name. Writing
+    /// one is a refusal, because APR-MODEL-031 reserves the unprefixed space to this
+    /// specification and a producer minting a name there collides with every member a
+    /// later version adds.
+    ///
+    /// The asymmetry is the point: tolerant of what arrives, strict about what leaves.
+    /// </remarks>
+    private static void RequirePrefixedExtensions(AprDocument form)
+    {
+        Check(form.Extensions, "the document");
+        Check(form.Metadata?.Extensions, "metadata");
+        foreach (var section in PromptTreeSections(form))
+        {
+            Check(section.Extensions, $"section '{section.Id}'");
+            foreach (var prompt in section.Prompts ?? [])
+            {
+                Check(prompt.Extensions, $"prompt '{prompt.Id}'");
+                Check(prompt.Hints?.Extensions, $"the hints of prompt '{prompt.Id}'");
+            }
+        }
+
+        static void Check(Dictionary<string, JsonElement>? extensions, string where)
+        {
+            foreach (var name in extensions?.Keys ?? Enumerable.Empty<string>())
+            {
+                if (name.Contains('.', StringComparison.Ordinal)) continue;
+                throw new SerializationException(
+                    $"cannot write '{name}' on {where}: an extension member is named by "
+                    + "its owner, with a reverse-DNS prefix. Unprefixed names are "
+                    + "reserved to the specification.")
+                { Code = "UNPREFIXED_MEMBER" };
+            }
+        }
+    }
+
+    private static IEnumerable<Section> PromptTreeSections(AprDocument form)
+    {
+        var pending = new Stack<Section>(form.Sections ?? []);
+        while (pending.Count > 0)
+        {
+            var section = pending.Pop();
+            yield return section;
+            foreach (var child in section.Sections ?? []) pending.Push(child);
+        }
     }
 
     private static IReadOnlyList<string> SplitJsoncRecords(string source)

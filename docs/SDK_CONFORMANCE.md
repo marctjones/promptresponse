@@ -16,6 +16,7 @@ implementation.
 | Artifact | Role |
 | --- | --- |
 | `docs/APR_SPECIFICATION.md` | **Normative.** Defines the format completely. |
+| `docs/BETA6_WIRE_DELTA.md` | What an SDK has to change to reach beta.6, and what the .NET alignment found. Derived. |
 | `tests/Conformance/beta6/suite.json` | Every conformance vector, self-contained. Generated. |
 | `schemas/apr-1.0-beta.6.schema.json` | A machine-checkable projection of the structural subset. |
 | `schemas/apr-types-1.0.json` | The type registry, projected. |

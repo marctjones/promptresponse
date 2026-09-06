@@ -48,6 +48,10 @@ public static class AprFormat
         {
             // Table column presentation, removed before 1.0 (see specification section 4.5).
             "width", "alignment", "color", "background", "fontSize", "bold", "style",
+            // Workflow state, retired in beta.6. Dropped rather than preserved, and
+            // without a diagnostic: unlike `signatures`, none of these carried a claim
+            // whose silent loss would be worse than its removal.
+            "responseMetadata", "filledBy", "filledDate",
         };
 
     /// <summary>Removes retired members from a captured extension bag, in place.</summary>
