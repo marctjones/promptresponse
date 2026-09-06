@@ -38,7 +38,7 @@ public partial class ExportCommandTests
             Metadata = new Metadata
             {
                 Title = "Test Form",
-                TemplateId = "test-v1"
+                TemplateId = "tag:skpt.cl,2026:tests/test-v1"
             },
             Sections = new List<Section>
             {
@@ -73,7 +73,7 @@ public partial class ExportCommandTests
             Metadata = new Metadata
             {
                 Title = "Multi-Prompt Form",
-                TemplateId = "multi-v1"
+                TemplateId = "tag:skpt.cl,2026:tests/multi-v1"
             },
             Sections = new List<Section>
             {

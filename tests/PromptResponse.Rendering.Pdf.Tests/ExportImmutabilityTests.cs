@@ -35,7 +35,7 @@ public class ExportImmutabilityTests
         Metadata = new Metadata
         {
             Title = "Expense Report",
-            TemplateId = "expense",
+            TemplateId = "tag:skpt.cl,2026:tests/expense",
             TemplateVersion = "1.0",
         },
         Sections =

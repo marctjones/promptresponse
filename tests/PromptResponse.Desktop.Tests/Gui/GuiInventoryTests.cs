@@ -44,7 +44,7 @@ public class GuiInventoryTests
     private static AprDocument Doc() => new()
     {
         DocumentType = DocumentType.FilledForm,
-        Metadata = new Metadata { Title = "Inventory", TemplateId = "t", Description = "d" },
+        Metadata = new Metadata { Title = "Inventory", TemplateId = "tag:skpt.cl,2026:tests/t", Description = "d" },
         Sections =
         [
             new Section

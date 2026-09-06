@@ -134,7 +134,7 @@ public class StatsCommandTests
             {
                 Title = "Test Form",
                 Author = "Test Author",
-                TemplateId = "test-v1"
+                TemplateId = "tag:skpt.cl,2026:tests/test-v1"
             },
             Sections = new List<Section>
             {

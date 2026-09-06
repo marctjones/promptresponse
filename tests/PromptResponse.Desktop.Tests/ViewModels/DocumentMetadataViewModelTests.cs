@@ -19,7 +19,7 @@ public class DocumentMetadataViewModelTests
         Title = "Original",
         Description = "original description",
         Author = "alex",
-        TemplateId = "tpl-1",
+        TemplateId = "tag:skpt.cl,2026:tests/tpl-1",
         TemplateVersion = "0.1.0",
     };
 
@@ -67,12 +67,12 @@ public class DocumentMetadataViewModelTests
 
         vm.Description = "new desc";
         vm.Author = "blair";
-        vm.TemplateId = "tpl-2";
+        vm.TemplateId = "tag:skpt.cl,2026:tests/tpl-2";
         vm.TemplateVersion = "1.0.0";
 
         meta.Description.Should().Be("new desc");
         meta.Author.Should().Be("blair");
-        meta.TemplateId.Should().Be("tpl-2");
+        meta.TemplateId.Should().Be("tag:skpt.cl,2026:tests/tpl-2");
         meta.TemplateVersion.Should().Be("1.0.0");
     }
 

@@ -4,7 +4,7 @@
   "metadata": {
     "title": "SF-86 (importer, page 1 sample)",
     "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
-    "templateId": "sf-86-questionnaire-for-national-security-positions",
+    "templateId": "tag:skpt.cl,2026:tests/sf-86-questionnaire-for-national-security-positions",
     "templateVersion": "1.0"
   },
   "sections": [

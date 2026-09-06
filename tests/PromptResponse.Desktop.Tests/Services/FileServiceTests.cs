@@ -343,7 +343,7 @@ public class FileServiceTests : IDisposable
                 Title = "Test Filled Form",
                 Description = "Test form description",
                 TemplateVersion = "1.0.0",
-                TemplateId = "template-123",
+                TemplateId = "tag:skpt.cl,2026:tests/template-123",
                 Created = DateTime.UtcNow,
                 Modified = DateTime.UtcNow
             },

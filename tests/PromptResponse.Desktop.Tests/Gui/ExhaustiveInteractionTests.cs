@@ -60,7 +60,7 @@ public class ExhaustiveInteractionTests
     private static AprDocument Doc() => new()
     {
         DocumentType = DocumentType.FilledForm,
-        Metadata = new Metadata { Title = "Exhaustive", TemplateId = "t" },
+        Metadata = new Metadata { Title = "Exhaustive", TemplateId = "tag:skpt.cl,2026:tests/t" },
         Sections =
         [
             new Section

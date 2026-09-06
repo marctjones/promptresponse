@@ -38,7 +38,7 @@ public class EvalCommandTests : IDisposable
     private static string Claim(string total) => $$"""
         {
           "aprVersion": "1.0-beta.6", "documentType": "filledForm",
-          "metadata": { "title": "Claim", "templateId": "c", "templateVersion": "1.0" },
+          "metadata": { "title": "Claim", "templateId": "tag:skpt.cl,2026:tests/c", "templateVersion": "1.0" },
           "sections": [{ "id": "s", "title": "Claim", "prompts": [
             { "id": "subtotal", "label": "Subtotal", "response": "100.00",
               "hints": { "expectedDataType": "currency" } },
@@ -110,7 +110,7 @@ public class EvalCommandTests : IDisposable
         var path = Write("""
             {
               "aprVersion": "1.0-beta.6", "documentType": "filledForm",
-              "metadata": { "title": "T", "templateId": "t", "templateVersion": "1.0" },
+              "metadata": { "title": "T", "templateId": "tag:skpt.cl,2026:tests/t", "templateVersion": "1.0" },
               "sections": [{ "id": "s", "title": "S", "prompts": [
                 { "id": "qty", "label": "Qty", "response": "",
                   "hints": { "expectedDataType": "number" } },

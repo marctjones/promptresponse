@@ -157,44 +157,53 @@ public sealed class AprBeta6Reader
         RequireObject(value, "subject", out var subject);
         RequireDigest(subject, "digest", "subject.digest");
         if (!subject.TryGetProperty("canonicalization", out var canonicalization) || canonicalization.GetString() != AprSemanticDigest.Canonicalization)
-            throw new SerializationException("beta.6 attestation subject.canonicalization must be jcs-sha256.");
+            throw new SerializationException("beta.6 attestation subject.canonicalization must be jcs-sha256.")
+                { Code = "WRONG_TYPE" };
         RequireObject(value, "scope", out var scope);
         if (!scope.TryGetProperty("kind", out var kind) || kind.ValueKind != JsonValueKind.String || (kind.GetString() is not ("document" or "fields")))
-            throw new SerializationException("beta.6 attestation scope.kind must be document or fields.");
+            throw new SerializationException("beta.6 attestation scope.kind must be document or fields.")
+                { Code = "WRONG_TYPE" };
         if (kind.GetString() == "fields")
         {
             if (!scope.TryGetProperty("fields", out var fields) || fields.ValueKind != JsonValueKind.Array || fields.GetArrayLength() == 0 || fields.EnumerateArray().Any(field => field.ValueKind != JsonValueKind.String || string.IsNullOrWhiteSpace(field.GetString())))
-                throw new SerializationException("beta.6 fields attestations require non-blank scope.fields.");
+                throw new SerializationException("beta.6 fields attestations require non-blank scope.fields.")
+                { Code = "WRONG_TYPE" };
         }
         RequireObject(value, "manifest", out var manifest);
         RequireDigest(manifest, "root", "manifest.root");
         if (!manifest.TryGetProperty("entries", out var entries) || entries.ValueKind != JsonValueKind.Array)
-            throw new SerializationException("beta.6 attestation manifest.entries must be an array.");
+            throw new SerializationException("beta.6 attestation manifest.entries must be an array.")
+                { Code = "WRONG_TYPE" };
         foreach (var entry in entries.EnumerateArray())
         {
             if (entry.ValueKind != JsonValueKind.Object || !entry.TryGetProperty("path", out var path) || path.ValueKind != JsonValueKind.String)
-                throw new SerializationException("beta.6 attestation manifest entries require a string path.");
+                throw new SerializationException("beta.6 attestation manifest entries require a string path.")
+                { Code = "WRONG_TYPE" };
             RequireDigest(entry, "digest", "manifest.entries[].digest");
         }
         if (!value.TryGetProperty("proofs", out var proofs) || proofs.ValueKind != JsonValueKind.Array || !value.TryGetProperty("witnesses", out var witnesses) || witnesses.ValueKind != JsonValueKind.Array)
-            throw new SerializationException("beta.6 attestations require proofs and witnesses arrays.");
+            throw new SerializationException("beta.6 attestations require proofs and witnesses arrays.")
+                { Code = "WRONG_TYPE" };
         foreach (var witness in witnesses.EnumerateArray())
         {
             if (witness.ValueKind != JsonValueKind.String || !IsDigest(witness.GetString()))
-                throw new SerializationException("beta.6 attestation witnesses must be sha256 digests.");
+                throw new SerializationException("beta.6 attestation witnesses must be sha256 digests.")
+                { Code = "WRONG_TYPE" };
         }
     }
 
     private static void RequireObject(JsonElement parent, string name, out JsonElement value)
     {
         if (!parent.TryGetProperty(name, out value) || value.ValueKind != JsonValueKind.Object)
-            throw new SerializationException($"beta.6 attestation {name} must be an object.");
+            throw new SerializationException($"beta.6 attestation {name} must be an object.")
+            { Code = "WRONG_TYPE" };
     }
 
     private static void RequireDigest(JsonElement parent, string name, string path)
     {
         if (!parent.TryGetProperty(name, out var value) || value.ValueKind != JsonValueKind.String || !IsDigest(value.GetString()))
-            throw new SerializationException($"beta.6 attestation {path} must be a lowercase sha256 digest.");
+            throw new SerializationException($"beta.6 attestation {path} must be a lowercase sha256 digest.")
+            { Code = "WRONG_TYPE" };
     }
 
     private static bool IsDigest(string? value) =>

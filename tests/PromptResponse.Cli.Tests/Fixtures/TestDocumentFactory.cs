@@ -22,7 +22,7 @@ public static class TestDocumentFactory
                 Title = "Test Template",
                 Author = "Test Author",
                 Created = DateTime.UtcNow,
-                TemplateId = "test-template-001",
+                TemplateId = "tag:skpt.cl,2026:tests/test-template-001",
                 TemplateVersion = "1.0"
             },
             Sections = new List<Section>
@@ -65,7 +65,7 @@ public static class TestDocumentFactory
                 Description = "A template with nested sections",
                 Author = "Test Author",
                 Created = DateTime.UtcNow,
-                TemplateId = "complex-template-001",
+                TemplateId = "tag:skpt.cl,2026:tests/complex-template-001",
                 TemplateVersion = "1.0"
             },
             Sections = new List<Section>

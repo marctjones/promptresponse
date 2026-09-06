@@ -39,7 +39,7 @@ public class SanitizationPreservesProvenanceTests
         var document = new AprDocument
         {
             DocumentType = DocumentType.FilledForm,
-            Metadata = new Metadata { Title = "Expenses", TemplateId = "expense", TemplateVersion = "1.0" },
+            Metadata = new Metadata { Title = "Expenses", TemplateId = "tag:skpt.cl,2026:tests/expense", TemplateVersion = "1.0" },
             Sections =
             [
                 new Section

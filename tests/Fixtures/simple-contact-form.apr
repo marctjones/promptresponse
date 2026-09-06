@@ -5,7 +5,7 @@
     "title": "Simple Contact Form",
     "description": "A minimal contact form fixture used by integration tests.",
     "author": "PromptResponse Test Suite",
-    "templateId": "simple-contact-v1",
+    "templateId": "tag:skpt.cl,2026:tests/simple-contact-v1",
     "templateVersion": "1.0",
     "created": "2025-01-01T00:00:00Z",
     "modified": "2025-01-01T00:00:00Z"

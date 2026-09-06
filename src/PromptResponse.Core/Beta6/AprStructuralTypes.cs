@@ -85,6 +85,7 @@ internal static class AprStructuralTypes
         ["exprHidden"] = [JsonValueKind.String],
         ["exprReadOnly"] = [JsonValueKind.String],
         ["exprValidation"] = [JsonValueKind.String],
+        ["exprExpected"] = [JsonValueKind.String],
         // `min` and `max` are a number on an ordered numeric field and a canonical-form
         // string on a temporal one, so both spellings are the format's own.
         ["min"] = [JsonValueKind.Number, JsonValueKind.String],
@@ -126,9 +127,42 @@ internal static class AprStructuralTypes
     {
         if (prompt.ValueKind != JsonValueKind.Object) return;
         Check(prompt, Prompt, path);
-        if (prompt.TryGetProperty("hints", out var hints) && hints.ValueKind == JsonValueKind.Object)
+        if (!prompt.TryGetProperty("hints", out var hints) || hints.ValueKind != JsonValueKind.Object)
         {
-            Check(hints, Hints, $"{path}/hints");
+            return;
+        }
+        Check(hints, Hints, $"{path}/hints");
+
+        // `min` and `max` are "number or string" only across the whole format. For one
+        // field they are one or the other: a bound has to be comparable in the space the
+        // field lives in, so a number on `number`, `currency` and `range`, and a
+        // canonical-form string on `date`, `time` and `datetime`. A number on a date
+        // field is not an early date, it is a different kind of thing.
+        if (!hints.TryGetProperty("expectedDataType", out var declared)
+            || declared.ValueKind != JsonValueKind.String)
+        {
+            return;
+        }
+        var wanted = declared.GetString() switch
+        {
+            "number" or "currency" or "range" => JsonValueKind.Number,
+            "date" or "time" or "datetime" => JsonValueKind.String,
+            _ => JsonValueKind.Undefined,
+        };
+        if (wanted == JsonValueKind.Undefined) return;
+        foreach (var bound in (string[])["min", "max"])
+        {
+            if (!hints.TryGetProperty(bound, out var value)
+                || value.ValueKind == JsonValueKind.Null
+                || value.ValueKind == wanted)
+            {
+                continue;
+            }
+            throw new SerializationException(
+                $"{path}/hints/{bound} is {Spell(value.ValueKind)} on a "
+                + $"{declared.GetString()} field, where the format declares "
+                + $"{Spell(wanted)}.")
+            { Code = "WRONG_TYPE" };
         }
     }
 

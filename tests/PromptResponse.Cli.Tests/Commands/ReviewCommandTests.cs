@@ -38,7 +38,7 @@ public class ReviewCommandTests : IDisposable
     private static string Form(string prompts) => $$"""
         {
           "aprVersion": "1.0-beta.6", "documentType": "filledForm",
-          "metadata": { "title": "T", "templateId": "t", "templateVersion": "1.0" },
+          "metadata": { "title": "T", "templateId": "tag:skpt.cl,2026:tests/t", "templateVersion": "1.0" },
           "sections": [{ "id": "s", "title": "S", "prompts": [{{prompts}}] }]
         }
         """;

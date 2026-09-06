@@ -4,7 +4,7 @@
   "metadata": {
     "title": "IRS 990 (importer, page 1 sample)",
     "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
-    "templateId": "irs-form-990-2024",
+    "templateId": "tag:skpt.cl,2026:tests/irs-form-990-2024",
     "templateVersion": "1.0"
   },
   "sections": [

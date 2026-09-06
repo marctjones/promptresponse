@@ -18,7 +18,7 @@ public partial class DocumentIntegrationTests
         document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Simple Contact Form");
-        document.Metadata.TemplateId.Should().Be("simple-contact-v1");
+        document.Metadata.TemplateId.Should().Be("tag:skpt.cl,2026:tests/simple-contact-v1");
         document.Sections.Should().ContainSingle();
         document.Sections[0].Title.Should().Be("Contact Information");
         document.Sections[0].Prompts.Should().HaveCount(3);
@@ -35,7 +35,7 @@ public partial class DocumentIntegrationTests
         document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Employment Application Form");
-        document.Metadata.TemplateId.Should().Be("employment-app-v1");
+        document.Metadata.TemplateId.Should().Be("tag:skpt.cl,2026:tests/employment-app-v1");
         document.Sections.Should().HaveCount(4);
 
         var personalInfoSection = document.Sections[0];

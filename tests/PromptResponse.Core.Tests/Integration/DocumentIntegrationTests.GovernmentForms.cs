@@ -18,7 +18,7 @@ public partial class DocumentIntegrationTests
         document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Form W-4: Employee's Withholding Certificate (2024)");
-        document.Metadata.TemplateId.Should().Be("irs-w4-2024-v1");
+        document.Metadata.TemplateId.Should().Be("tag:skpt.cl,2026:tests/irs-w4-2024-v1");
         document.Metadata.Author.Should().Be("Internal Revenue Service");
         document.Sections.Should().HaveCount(6);
 
@@ -46,7 +46,7 @@ public partial class DocumentIntegrationTests
         document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("SF-86: Questionnaire for National Security Positions");
-        document.Metadata.TemplateId.Should().Be("gsa-sf86-2024-v1");
+        document.Metadata.TemplateId.Should().Be("tag:skpt.cl,2026:tests/gsa-sf86-2024-v1");
         document.Metadata.Author.Should().Be("U.S. General Services Administration");
         document.Sections.Should().HaveCountGreaterThan(3);
 
@@ -69,7 +69,7 @@ public partial class DocumentIntegrationTests
         document.Version.Should().Be(AprFormat.CurrentVersion);
         document.DocumentType.Should().Be(DocumentType.Template);
         document.Metadata.Title.Should().Be("Form 1040: U.S. Individual Income Tax Return (Simplified)");
-        document.Metadata.TemplateId.Should().Be("irs-1040-2024-simplified-v1");
+        document.Metadata.TemplateId.Should().Be("tag:skpt.cl,2026:tests/irs-1040-2024-simplified-v1");
         document.Sections.Should().HaveCountGreaterThan(5);
 
         var filingStatus = document.Sections[0];

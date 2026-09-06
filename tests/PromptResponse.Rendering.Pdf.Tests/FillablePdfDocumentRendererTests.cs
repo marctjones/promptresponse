@@ -205,7 +205,7 @@ public class FillablePdfDocumentRendererTests
         var document = new AprDocument
         {
             DocumentType = DocumentType.FilledForm,
-            Metadata = new Metadata { Title = "Choices", TemplateId = "t" },
+            Metadata = new Metadata { Title = "Choices", TemplateId = "tag:skpt.cl,2026:tests/t" },
             Sections =
             [
                 new Section

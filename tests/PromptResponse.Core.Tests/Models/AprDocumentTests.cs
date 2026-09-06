@@ -112,7 +112,7 @@ public class AprDocumentTests
                 Title = "Employment Application",
                 Author = "HR Department",
                 Created = DateTime.UtcNow,
-                TemplateId = "employment-app-v1",
+                TemplateId = "tag:skpt.cl,2026:tests/employment-app-v1",
                 TemplateVersion = "1.0"
             },
             Sections = new List<Section>
@@ -139,7 +139,7 @@ public class AprDocumentTests
             Metadata = new Metadata
             {
                 Title = "Employment Application",
-                TemplateId = "employment-app-v1",
+                TemplateId = "tag:skpt.cl,2026:tests/employment-app-v1",
                 TemplateVersion = "1.0",
                 Modified = DateTime.UtcNow
             },

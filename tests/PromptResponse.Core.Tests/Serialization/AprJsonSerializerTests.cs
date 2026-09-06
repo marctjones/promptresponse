@@ -13,7 +13,7 @@ public abstract class AprJsonSerializerTestBase
     {
         Version = AprFormat.CurrentVersion,
         DocumentType = DocumentType.Template,
-        Metadata = new Metadata { Title = "Complex Form", Description = "A complex test form", Created = DateTime.UtcNow, Author = "Test Author", TemplateId = "test-001", TemplateVersion = "1.0" },
+        Metadata = new Metadata { Title = "Complex Form", Description = "A complex test form", Created = DateTime.UtcNow, Author = "Test Author", TemplateId = "tag:skpt.cl,2026:tests/test-001", TemplateVersion = "1.0" },
         Sections =
         [
             new Section

@@ -17,7 +17,7 @@ public class FormComparerTests
     private static AprDocument Form(DocumentType type, params Prompt[] prompts) => new()
     {
         DocumentType = type,
-        Metadata = new Metadata { Title = "Questionnaire", TemplateId = "q", TemplateVersion = "2.0" },
+        Metadata = new Metadata { Title = "Questionnaire", TemplateId = "tag:skpt.cl,2026:tests/q", TemplateVersion = "2.0" },
         Sections = [new Section { Id = "s", Title = "Background", Prompts = [.. prompts] }],
     };
 

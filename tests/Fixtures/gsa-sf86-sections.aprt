@@ -5,7 +5,7 @@
     "title": "SF-86: Questionnaire for National Security Positions",
     "description": "Fixture mimicking the SF-86 sectional structure for integration tests.",
     "author": "U.S. General Services Administration",
-    "templateId": "gsa-sf86-2024-v1",
+    "templateId": "tag:skpt.cl,2026:tests/gsa-sf86-2024-v1",
     "templateVersion": "2024",
     "created": "2025-02-01T00:00:00Z",
     "modified": "2025-02-01T00:00:00Z"

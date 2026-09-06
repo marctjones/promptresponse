@@ -15,7 +15,7 @@ public partial class WorkflowTests
         File.WriteAllText(templatePath, _serializer.Serialize(new AprDocument
         {
             DocumentType = DocumentType.Template,
-            Metadata = new Metadata { Title = "Intake", TemplateId = "intake", TemplateVersion = "1.0" },
+            Metadata = new Metadata { Title = "Intake", TemplateId = "tag:skpt.cl,2026:tests/intake", TemplateVersion = "1.0" },
             Sections = [new Section { Id = "s", Title = "About you", Prompts =
             [new Prompt { Id = "name", Label = "Name" }, new Prompt { Id = "email", Label = "Email", Hints = new PromptHints { ExpectedDataType = "email" } }] }],
         }));
@@ -30,7 +30,7 @@ public partial class WorkflowTests
         MustBeValid(reloaded, "filling a form");
         reloaded.DocumentType.Should().Be(DocumentType.FilledForm);
         reloaded.Sections[0].Prompts.Select(p => p.Response).Should().Equal("Ada Lovelace", "ada@example.com");
-        reloaded.Metadata.TemplateId.Should().Be("intake", "a filled form remembers which template it answers");
+        reloaded.Metadata.TemplateId.Should().Be("tag:skpt.cl,2026:tests/intake", "a filled form remembers which template it answers");
     }
 
     [Fact]
@@ -77,7 +77,7 @@ public partial class WorkflowTests
         File.WriteAllText(path, _serializer.Serialize(new AprDocument
         {
             DocumentType = DocumentType.FilledForm,
-            Metadata = new Metadata { Title = "Claim", TemplateId = "c", TemplateVersion = "1.0" },
+            Metadata = new Metadata { Title = "Claim", TemplateId = "tag:skpt.cl,2026:tests/c", TemplateVersion = "1.0" },
             Sections = [new Section { Id = "s", Title = "Claim", Prompts = [new Prompt { Id = "amount", Label = "Amount", Response = "100" }] }],
         }));
         _session.Set((await _files.LoadFileAsync(path))!, path);

@@ -92,14 +92,14 @@ public class MetadataTests
             Created = DateTime.UtcNow,
             Modified = DateTime.UtcNow,
             Author = "John Doe",
-            TemplateId = "template-001",
+            TemplateId = "tag:skpt.cl,2026:tests/template-001",
             TemplateVersion = "1.0"
         };
 
         // Assert
         metadata.Title.Should().Be("My Template");
         metadata.Author.Should().Be("John Doe");
-        metadata.TemplateId.Should().Be("template-001");
+        metadata.TemplateId.Should().Be("tag:skpt.cl,2026:tests/template-001");
         metadata.TemplateVersion.Should().Be("1.0");
     }
 
@@ -113,14 +113,14 @@ public class MetadataTests
         var metadata = new Metadata
         {
             Title = "Completed Form",
-            TemplateId = "template-001",
+            TemplateId = "tag:skpt.cl,2026:tests/template-001",
             TemplateVersion = "1.0",
             Modified = DateTime.UtcNow
         };
 
         // Assert
         metadata.Title.Should().Be("Completed Form");
-        metadata.TemplateId.Should().Be("template-001");
+        metadata.TemplateId.Should().Be("tag:skpt.cl,2026:tests/template-001");
         metadata.TemplateVersion.Should().Be("1.0");
     }
 

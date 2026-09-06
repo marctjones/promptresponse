@@ -90,7 +90,7 @@ public partial class ExportCommandTests
         var document = new AprDocument
         {
             DocumentType = DocumentType.FilledForm,
-            Metadata = new Metadata { Title = "Quarterly", TemplateId = "t" },
+            Metadata = new Metadata { Title = "Quarterly", TemplateId = "tag:skpt.cl,2026:tests/t" },
             Sections =
             [
                 new Section

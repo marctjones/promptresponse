@@ -39,7 +39,7 @@ public class ProvenanceDisplayTests
     private static AprDocument Claim() => new()
     {
         DocumentType = DocumentType.FilledForm,
-        Metadata = new Metadata { Title = "Claim", TemplateId = "c", TemplateVersion = "1.0" },
+        Metadata = new Metadata { Title = "Claim", TemplateId = "tag:skpt.cl,2026:tests/c", TemplateVersion = "1.0" },
         Sections =
         [
             new Section

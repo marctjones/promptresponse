@@ -18,7 +18,7 @@ public class FormReviewerTests
     private static AprDocument FormWith(params Prompt[] prompts) => new()
     {
         DocumentType = DocumentType.FilledForm,
-        Metadata = new Metadata { Title = "Claim", TemplateId = "c", TemplateVersion = "1.0" },
+        Metadata = new Metadata { Title = "Claim", TemplateId = "tag:skpt.cl,2026:tests/c", TemplateVersion = "1.0" },
         Sections = [new Section { Id = "s", Title = "Claim", Prompts = [.. prompts] }],
     };
 
@@ -171,7 +171,7 @@ public class FormReviewerTests
         var review = FormReviewer.Review(new AprDocument
         {
             DocumentType = DocumentType.FilledForm,
-            Metadata = new Metadata { Title = "Nested", TemplateId = "n", TemplateVersion = "1.0" },
+            Metadata = new Metadata { Title = "Nested", TemplateId = "tag:skpt.cl,2026:tests/n", TemplateVersion = "1.0" },
             Sections =
             [
                 new Section

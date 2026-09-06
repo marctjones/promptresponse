@@ -30,7 +30,11 @@ internal static class PdfImportDocumentBuilder
             {
                 Title = resolvedTitle,
                 Description = "Imported from a fillable PDF (AcroForm). Review labels and field types.",
-                TemplateId = Slug(resolvedTitle),
+                // beta.6 made templateId a URI, because an identifier has to be unique
+                // across every author who will ever publish a form and a slug is not.
+                // An import mints a tag URI (RFC 4151) from a namespace this project
+                // holds; a publisher replaces it with one of their own.
+                TemplateId = $"tag:skpt.cl,2026:imported/{Slug(resolvedTitle)}",
                 TemplateVersion = AprFormat.CurrentVersion,
             },
             Sections = sectionsByPage.Values.Where(section => section.Prompts.Count > 0).ToList(),

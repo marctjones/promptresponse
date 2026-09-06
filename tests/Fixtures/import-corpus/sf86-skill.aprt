@@ -4,7 +4,7 @@
   "metadata": {
     "title": "SF-86 — Questionnaire for National Security Positions (Sections 1–6)",
     "description": "Certification and Sections 1–6, authored from the printed form via the document-to-apr skill.",
-    "templateId": "sf-86-sections-1-6",
+    "templateId": "tag:skpt.cl,2026:tests/sf-86-sections-1-6",
     "templateVersion": "1.0",
     "author": "document-to-apr skill"
   },

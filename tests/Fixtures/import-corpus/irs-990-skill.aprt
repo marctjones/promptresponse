@@ -4,7 +4,7 @@
   "metadata": {
     "title": "IRS Form 990 — Return of Organization Exempt From Income Tax (2025)",
     "description": "Header (boxes A–M) and Part I Summary. Authored from the printed form via the document-to-apr skill.",
-    "templateId": "irs-form-990-2025",
+    "templateId": "tag:skpt.cl,2026:tests/irs-form-990-2025",
     "templateVersion": "1.0",
     "author": "document-to-apr skill"
   },

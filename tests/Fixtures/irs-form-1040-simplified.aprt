@@ -5,7 +5,7 @@
     "title": "Form 1040: U.S. Individual Income Tax Return (Simplified)",
     "description": "Simplified IRS Form 1040 fixture used by integration tests.",
     "author": "Internal Revenue Service",
-    "templateId": "irs-1040-2024-simplified-v1",
+    "templateId": "tag:skpt.cl,2026:tests/irs-1040-2024-simplified-v1",
     "templateVersion": "2024",
     "created": "2025-01-15T00:00:00Z",
     "modified": "2025-01-15T00:00:00Z"

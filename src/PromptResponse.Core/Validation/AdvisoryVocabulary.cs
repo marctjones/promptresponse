@@ -37,6 +37,7 @@ internal static class AdvisoryVocabulary
 
     internal static void Inspect(AprDocument document, ValidationResult result)
     {
+        InspectShape(document, result);
         InspectSubmission(document, result);
         InspectExtensions(document.Metadata?.Extensions, "metadata", result);
         var roles = new HashSet<string>(
@@ -162,6 +163,56 @@ internal static class AdvisoryVocabulary
                 + "are reserved to the specification.", $"{path}.{name}", "UNPREFIXED_MEMBER"));
         }
     }
+
+    /// <summary>Members whose value has a shape the format states, not just a type.</summary>
+    /// <remarks>
+    /// These are errors rather than advisories. A templateId that is not a URI is not
+    /// unique by construction, a `regarding` entry that is not a digest resolves to
+    /// nothing, and a table capped at zero rows cannot hold the instance a table is
+    /// required to have. Each says something the format does not allow, which is what
+    /// section 7.1 calls WRONG_TYPE.
+    /// </remarks>
+    private static void InspectShape(AprDocument document, ValidationResult result)
+    {
+        var metadata = document.Metadata;
+        if (metadata?.TemplateId is { Length: > 0 } template && !IsUri(template))
+        {
+            result.AddError(new ValidationError(
+                $"templateId '{template}' is not a URI. A template identifier must be "
+                + "unique across every author who will ever publish a form, which is why "
+                + "it rests on a namespace someone already owns — a tag URI, or a mailto.",
+                "metadata.templateId", "WRONG_TYPE"));
+        }
+        for (var index = 0; index < (metadata?.Regarding?.Count ?? 0); index++)
+        {
+            var entry = metadata!.Regarding![index];
+            if (IsDigest(entry)) continue;
+            result.AddError(new ValidationError(
+                $"regarding entry {index} is not a digest. Every entry names a record by "
+                + "its semantic digest, and one that is not a digest names nothing.",
+                $"metadata.regarding[{index}]", "WRONG_TYPE"));
+        }
+        foreach (var (section, path) in Walk(document))
+        {
+            if (section.MaxRows is { } cap && cap < 1)
+            {
+                result.AddError(new ValidationError(
+                    $"maxRows is {cap}. A table always holds at least one instance, so a "
+                    + "cap below one describes a table that cannot exist.",
+                    $"{path}.maxRows", "WRONG_TYPE"));
+            }
+        }
+    }
+
+    /// <summary>A URI has a scheme. Nothing here fetches one; that is forbidden.</summary>
+    private static bool IsUri(string value) =>
+        Uri.TryCreate(value, UriKind.Absolute, out _);
+
+    private static bool IsDigest(string value) =>
+        value.StartsWith("sha256:", StringComparison.Ordinal)
+        && value.Length == "sha256:".Length + 64
+        && value.AsSpan("sha256:".Length).ToString()
+            .All(character => character is (>= '0' and <= '9') or (>= 'a' and <= 'f'));
 
     private static void InspectSubmission(AprDocument document, ValidationResult result)
     {

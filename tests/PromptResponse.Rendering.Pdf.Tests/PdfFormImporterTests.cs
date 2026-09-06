@@ -160,7 +160,7 @@ public class PdfFormImporterTests
             Mapping("page-one", "First page", pageNumber: 1),
         ]);
 
-        document.Metadata.TemplateId.Should().Be("tax-form-2026");
+        document.Metadata.TemplateId.Should().Be("tag:skpt.cl,2026:imported/tax-form-2026");
         document.Sections.Select(section => section.Id).Should().Equal("fields", "page-1", "page-2");
         document.Sections[2].Description.Should().Be("Fields from page 2 of the source PDF.");
         document.Sections[1].Prompts.Single().Id.Should().Be("page-one");

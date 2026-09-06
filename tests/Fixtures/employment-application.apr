@@ -5,7 +5,7 @@
     "title": "Employment Application Form",
     "description": "Test fixture for an employment application with multiple sections.",
     "author": "PromptResponse Test Suite",
-    "templateId": "employment-app-v1",
+    "templateId": "tag:skpt.cl,2026:tests/employment-app-v1",
     "templateVersion": "1.0",
     "created": "2025-03-15T00:00:00Z",
     "modified": "2025-03-15T00:00:00Z"

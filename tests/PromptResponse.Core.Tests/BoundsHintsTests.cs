@@ -29,7 +29,7 @@ public class BoundsHintsTests
     private static AprDocument WithBounds(string response) => new()
     {
         DocumentType = DocumentType.FilledForm,
-        Metadata = new Metadata { Title = "Bounds", TemplateId = "b", TemplateVersion = "1.0" },
+        Metadata = new Metadata { Title = "Bounds", TemplateId = "tag:skpt.cl,2026:tests/b", TemplateVersion = "1.0" },
         Sections =
         [
             new Section
