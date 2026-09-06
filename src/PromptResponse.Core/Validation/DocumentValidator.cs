@@ -14,6 +14,12 @@ public class DocumentValidator : IValidator<AprDocument>
         ValidateMetadata(document, result);
         DocumentStructureValidator.Validate(document, result);
         AdvisoryVocabulary.Inspect(document, result);
+        // The response advisories lived in DataTypeValidator, which every client called
+        // separately and this validator did not call at all — so a caller validating a
+        // document was told nothing about a response contradicting its declared type or
+        // failing its own pattern. They are part of validating a document, not a
+        // separate errand.
+        result.AddWarnings(new DataTypeValidator().ValidateDocument(document).Warnings);
         return result;
     }
 

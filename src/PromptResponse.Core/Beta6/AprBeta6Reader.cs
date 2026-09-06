@@ -190,11 +190,63 @@ public sealed class AprBeta6Reader
                 throw new SerializationException("beta.6 attestation witnesses must be sha256 digests.")
                 { Code = "WRONG_TYPE" };
         }
+        // The closed sub-objects. An attestation record itself carries extension
+        // members, which round-trip; its sub-objects do not, because a member nobody
+        // recognises inside a signed claim is a claim nobody can read.
+        Closed(subject, "subject", ["digest", "canonicalization"]);
+        Closed(scope, "scope", ["kind", "fields"]);
+        Closed(manifest, "manifest", ["root", "entries"]);
+        var previous = default(string);
+        foreach (var entry in entries.EnumerateArray())
+        {
+            Closed(entry, "manifest.entries[]", ["path", "digest"]);
+            var path = entry.GetProperty("path").GetString() ?? string.Empty;
+            if (previous is not null && string.CompareOrdinal(previous, path) >= 0)
+            {
+                throw new SerializationException(
+                    $"beta.6 attestation manifest entries are ordered by path and never "
+                    + $"repeat one; '{path}' follows '{previous}'.")
+                { Code = "WRONG_TYPE" };
+            }
+            previous = path;
+        }
+        foreach (var proof in proofs.EnumerateArray())
+        {
+            // A proof carries its own material. Restating the subject digest or the
+            // scope inside it invites the two copies to disagree, and a reader would
+            // then have to decide which is the claim.
+            if (proof.ValueKind != JsonValueKind.Object) continue;
+            foreach (var forbidden in (string[])["subject", "scope"])
+            {
+                if (!proof.TryGetProperty(forbidden, out _)) continue;
+                throw new SerializationException(
+                    $"a beta.6 proof must not carry its own copy of {forbidden}.")
+                { Code = "WRONG_TYPE" };
+            }
+        }
+    }
+
+    /// <summary>Refuses a member the attestation catalogue does not define.</summary>
+    private static void Closed(JsonElement node, string name, string[] defined)
+    {
+        foreach (var member in node.EnumerateObject())
+        {
+            if (Array.IndexOf(defined, member.Name) >= 0) continue;
+            throw new SerializationException(
+                $"beta.6 attestation {name} admits no member '{member.Name}'.")
+            { Code = "WRONG_TYPE" };
+        }
     }
 
     private static void RequireObject(JsonElement parent, string name, out JsonElement value)
     {
-        if (!parent.TryGetProperty(name, out value) || value.ValueKind != JsonValueKind.Object)
+        // Absent and present-but-wrong are different conditions, and the format names
+        // them differently: REQUIRED_FIELD points at a member that is not there,
+        // WRONG_TYPE at one that is there carrying the wrong kind of value.
+        if (!parent.TryGetProperty(name, out value))
+            throw new SerializationException($"beta.6 attestation {name} is required.")
+            { Code = "REQUIRED_FIELD" };
+        if (value.ValueKind != JsonValueKind.Object)
             throw new SerializationException($"beta.6 attestation {name} must be an object.")
             { Code = "WRONG_TYPE" };
     }
