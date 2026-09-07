@@ -363,18 +363,30 @@ jobs:
           uv run pytest -q
 
       - name: TypeScript SDK and HTML renderer tests
+        # Reported even when an earlier suite failed. These four are independent
+        # implementations, and letting the first failure skip the rest means one known
+        # gap hides the state of three others: unmeasured reads as neither red nor green.
+        if: ${{ !cancelled() }}
         working-directory: typescript
         run: |
           npm ci
           npm test
 
       - name: Browser demo tests
+        # Reported even when an earlier suite failed. These four are independent
+        # implementations, and letting the first failure skip the rest means one known
+        # gap hides the state of three others: unmeasured reads as neither red nor green.
+        if: ${{ !cancelled() }}
         working-directory: demos/web
         run: |
           npm ci
           npm test
 
       - name: Java SDK shared-corpus tests
+        # Reported even when an earlier suite failed. These four are independent
+        # implementations, and letting the first failure skip the rest means one known
+        # gap hides the state of three others: unmeasured reads as neither red nor green.
+        if: ${{ !cancelled() }}
         run: java/run-tests.sh
 
   conformance-drivers:
