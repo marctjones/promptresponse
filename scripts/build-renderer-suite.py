@@ -54,6 +54,11 @@ def build() -> dict:
             # Which surface answers. Avalonia does not export, so the rule about what
             # an export must not do belongs to the exporter's driver.
             "surface": case.get("surface", "renderer"),
+            # Which prompts a truthy `exprHidden` asks a renderer to hide. Stated by the
+            # case because the scorer evaluates nothing: its oracle carries no SDK, and
+            # working this out for itself would mean embedding a CEL implementation in
+            # the thing that judges CEL implementations.
+            **({"hidden": case["hidden"]} if case.get("hidden") else {}),
             "document": json.dumps(case["document"], indent=2, ensure_ascii=False) + "\n",
         })
 

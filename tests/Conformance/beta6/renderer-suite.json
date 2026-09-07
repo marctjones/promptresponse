@@ -3,7 +3,7 @@
   "suiteVersion": "apr-beta6-renderer-conformance-1",
   "formatVersion": "1.0-beta.6",
   "specificationSha256": "sha256:ed1f8ac936cdb2510f0a220ad946c1567bc38536846d282963bf62c96752ccfa",
-  "contractSha256": "sha256:6e0b91e69d1631fead7161574f2c55731b75836a3156efabe5fa0fbdaed08734",
+  "contractSha256": "sha256:1a9e61b073188181ccd7cc17d55e348718dcfa4f4e678507a2accbddd5590233",
   "cases": [
     {
       "id": "renderer:accessible-name",
@@ -58,6 +58,18 @@
       "asks": "every prompt node carries a keyboardOrder",
       "surface": "renderer",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"a\",\n          \"label\": \"A\"\n        },\n        {\n          \"id\": \"b\",\n          \"label\": \"B\"\n        },\n        {\n          \"id\": \"c\",\n          \"label\": \"C\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
+      "id": "renderer:a-hidden-prompt-may-be-absent",
+      "rules": [
+        "APR-RENDER-005"
+      ],
+      "asks": "a prompt a truthy exprHidden asks to hide may be absent from the interface, and every other prompt may not",
+      "surface": "renderer",
+      "hidden": [
+        "/sections/0/prompts/1"
+      ],
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"shown\",\n          \"label\": \"Shown\",\n          \"hints\": {\n            \"exprHidden\": \"false\"\n          }\n        },\n        {\n          \"id\": \"concealed\",\n          \"label\": \"Concealed\",\n          \"hints\": {\n            \"exprHidden\": \"true\"\n          }\n        },\n        {\n          \"id\": \"also_shown\",\n          \"label\": \"Also shown\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
       "id": "renderer:a-hint-mismatch-does-not-block-saving",

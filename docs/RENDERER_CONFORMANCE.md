@@ -110,7 +110,7 @@ Windows-only contract wearing a platform-neutral name.
 | `APR-RENDER-002` | a prompt with a placeholder and no label has no node, because the document is invalid; a prompt with both takes its `name` from the label |
 | `APR-RENDER-003` | a prompt with `helpText` has it on the node or reachable through `labelledBy`, not merely as a neighbouring text node |
 | `APR-RENDER-004` | nested sections produce nodes whose `headingLevel` increases with depth, or groups that nest — indentation alone produces neither |
-| `APR-RENDER-005` | every prompt's node has a `keyboardOrder`, and no node says `completedByKeyboard: false` or `reachableBackwards: false`. Both claims are optional: a driver that renders to markup cannot type, and absent means unproven rather than passing |
+| `APR-RENDER-005` | every prompt a case does not list as `hidden` has a node with a `keyboardOrder`, and no node says `completedByKeyboard: false` or `reachableBackwards: false`. Both claims are optional: a driver that renders to markup cannot type, and absent means unproven rather than passing |
 | `APR-RENDER-006` | after a response contradicting `expectedDataType`, `saveResult.written` is true |
 | `APR-RENDER-007` | every cell node carries `columnHeader` naming a node whose `isColumnHeader` is true |
 | `APR-RENDER-008` | `keyboardOrder` is non-decreasing in document-pointer order |
@@ -119,6 +119,21 @@ Windows-only contract wearing a platform-neutral name.
 | `APR-SEC-010` | `requests` is empty for every case that involves no explicit user action |
 | `APR-SEC-011` | a sixteen-level document renders; a deeper one refuses cleanly rather than exhausting memory |
 | `APR-MODEL-004`, `APR-VAL-006` | `saveResult.written` is true even where a hint mismatch or advisory is present |
+
+### A hidden prompt is stated by the case, not worked out by the scorer
+
+A truthy `exprHidden` asks a renderer to hide a prompt (§11.1), and
+`APR-RENDER-005` asks that every prompt be reachable. Read together, "every
+prompt" is every prompt the renderer presents: a `core+expressions` renderer
+hides one, a `core` renderer shows it, and both conform.
+
+So a case carries `hidden`, a list of pointers, and the check **exempts** rather
+than requires — a prompt named there may be absent, and a prompt not named there
+may not. The list is an answer, withheld from the driver's copy like every other.
+
+The scorer could work it out only by evaluating CEL, and the harness keeps its
+oracle free of any SDK: embedding a CEL implementation in the thing that judges
+CEL implementations is how a harness stops measuring.
 
 ## What this contract does not decide
 

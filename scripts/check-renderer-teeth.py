@@ -67,6 +67,16 @@ for node in snapshot["nodes"]:
     if node.get("role") in ("group", "table", "row"):
         node["role"] = "text"
 '''),
+    "hides-what-it-was-not-asked-to": (
+        "drops a prompt no expression asked it to hide", "APR-RENDER-005", '''
+document = json.loads(case["document"])
+for index, prompt in enumerate((document["sections"][0].get("prompts") or [])):
+    if (prompt.get("hints") or {}).get("exprHidden") != "true":
+        pointer = "/sections/0/prompts/%d" % index
+        snapshot["nodes"] = [n for n in snapshot["nodes"]
+                             if n.get("documentPointer") != pointer]
+        break
+'''),
     "unreachable": ("leaves one field out of the keyboard order", "APR-RENDER-005", '''
 for node in snapshot["nodes"]:
     if node.get("role") == "textbox":

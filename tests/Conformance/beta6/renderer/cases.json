@@ -185,6 +185,48 @@
       }
     },
     {
+      "id": "a-hidden-prompt-may-be-absent",
+      "rules": [
+        "APR-RENDER-005"
+      ],
+      "asks": "a prompt a truthy exprHidden asks to hide may be absent from the interface, and every other prompt may not",
+      "hidden": [
+        "/sections/0/prompts/1"
+      ],
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "s",
+            "title": "S",
+            "prompts": [
+              {
+                "id": "shown",
+                "label": "Shown",
+                "hints": {
+                  "exprHidden": "false"
+                }
+              },
+              {
+                "id": "concealed",
+                "label": "Concealed",
+                "hints": {
+                  "exprHidden": "true"
+                }
+              },
+              {
+                "id": "also_shown",
+                "label": "Also shown"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "a-hint-mismatch-does-not-block-saving",
       "rules": [
         "APR-RENDER-006",

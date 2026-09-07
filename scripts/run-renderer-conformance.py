@@ -26,7 +26,11 @@ SUITE = ROOT / "tests" / "Conformance" / "beta6" / "renderer-suite.json"
 
 # Fields that state the answer. A driver never sees them, for the same reason the
 # document driver does not: a driver handed the expected result can report it.
-ANSWERS = ("asks",)
+#
+# `hidden` lists the prompts a truthy `exprHidden` asks a renderer to hide. The scorer
+# cannot work that out for itself without evaluating CEL, and the harness keeps its
+# oracle free of any SDK, so the case states it and the driver is not told.
+ANSWERS = ("asks", "hidden")
 
 STRUCTURAL = {"group", "heading", "table", "row"}
 
@@ -63,11 +67,13 @@ def depth_of(pointer: str) -> int:
 
 # ── one function per rule ───────────────────────────────────────────────────────
 
-def accessible_name(document, snapshot):
-    found = by_pointer(snapshot)
+def accessible_name(case, document, snapshot):
+    found, hidden = by_pointer(snapshot), hidden_prompts(case)
     for pointer, kind, member in walk(document):
         node = found.get(pointer)
         if node is None:
+            if pointer in hidden:
+                continue    # asked to be hidden, and hiding it is not a defect
             return f"nothing was rendered for {pointer}"
         expected = member.get("title") if kind == "section" else member.get("label")
         if (node.get("name") or "") != expected:
@@ -76,7 +82,7 @@ def accessible_name(document, snapshot):
     return None
 
 
-def placeholder_is_not_a_label(document, snapshot):
+def placeholder_is_not_a_label(case, document, snapshot):
     found = by_pointer(snapshot)
     for pointer, kind, member in walk(document):
         if kind != "prompt":
@@ -90,7 +96,7 @@ def placeholder_is_not_a_label(document, snapshot):
     return None
 
 
-def help_text_is_associated(document, snapshot):
+def help_text_is_associated(case, document, snapshot):
     found = by_pointer(snapshot)
     for pointer, kind, member in walk(document):
         if kind != "prompt":
@@ -106,7 +112,7 @@ def help_text_is_associated(document, snapshot):
     return None
 
 
-def nesting_is_structural(document, snapshot):
+def nesting_is_structural(case, document, snapshot):
     found = by_pointer(snapshot)
     levels = {}
     for pointer, kind, _ in walk(document):
@@ -128,7 +134,17 @@ def nesting_is_structural(document, snapshot):
     return None
 
 
-def every_prompt_is_reachable(document, snapshot):
+def hidden_prompts(case) -> set[str]:
+    """The prompts this case's expressions ask a renderer to hide.
+
+    A renderer implementing `core+expressions` hides them; a core one does not, and
+    both conform. So this exempts rather than requires: a prompt named here may be
+    absent from the interface, and a prompt not named here may not.
+    """
+    return set(case.get("hidden") or ())
+
+
+def every_prompt_is_reachable(case, document, snapshot):
     """APR-RENDER-005: reachable *and completable*, and the second half is optional.
 
     A driver that renders to markup cannot type, so it cannot honestly say whether a
@@ -137,9 +153,9 @@ def every_prompt_is_reachable(document, snapshot):
     it is false fails the case. Absent means unproven, which is not the same as passing
     and is why the driver that can prove it says so.
     """
-    found = by_pointer(snapshot)
+    found, hidden = by_pointer(snapshot), hidden_prompts(case)
     for pointer, kind, _ in walk(document):
-        if kind != "prompt":
+        if kind != "prompt" or pointer in hidden:
             continue
         node = found.get(pointer) or {}
         if node.get("keyboardOrder") is None:
@@ -153,7 +169,7 @@ def every_prompt_is_reachable(document, snapshot):
     return None
 
 
-def saving_is_not_blocked(document, snapshot):
+def saving_is_not_blocked(case, document, snapshot):
     save = snapshot.get("saveResult") or {}
     if save.get("written") is not True:
         return (f"the save was not written, blocked by {save.get('blockedBy')!r}; an "
@@ -161,7 +177,7 @@ def saving_is_not_blocked(document, snapshot):
     return None
 
 
-def cells_name_their_header(document, snapshot):
+def cells_name_their_header(case, document, snapshot):
     found = by_pointer(snapshot)
     for pointer, kind, section in walk(document):
         if kind != "section" or section.get("kind") != "table":
@@ -194,7 +210,7 @@ def cells_name_their_header(document, snapshot):
     return None
 
 
-def order_is_document_order(document, snapshot):
+def order_is_document_order(case, document, snapshot):
     found = by_pointer(snapshot)
     previous_pointer, previous_order = None, None
     for pointer, kind, _ in walk(document):
@@ -211,7 +227,7 @@ def order_is_document_order(document, snapshot):
     return None
 
 
-def nothing_executes(document, snapshot):
+def nothing_executes(case, document, snapshot):
     for node in nodes_of(snapshot):
         if node.get("executed"):
             return f"{node.get('documentPointer')} reports having executed something"
@@ -221,7 +237,7 @@ def nothing_executes(document, snapshot):
     return None
 
 
-def opening_fetches_nothing(document, snapshot):
+def opening_fetches_nothing(case, document, snapshot):
     requests = snapshot.get("requests")
     if requests is None:
         return "the driver did not say what it requested, so nothing shows it fetched nothing"
@@ -231,17 +247,17 @@ def opening_fetches_nothing(document, snapshot):
     return None
 
 
-def the_required_depth_renders(document, snapshot):
+def the_required_depth_renders(case, document, snapshot):
     deepest = max((depth_of(p) for p, kind, _ in walk(document) if kind == "section"),
                   default=0)
     if deepest < 16:
         return f"this case is meant to be sixteen levels deep and is {deepest}"
     if not by_pointer(snapshot):
         return "nothing was rendered; sixteen levels is a depth the format requires"
-    return every_prompt_is_reachable(document, snapshot)
+    return every_prompt_is_reachable(case, document, snapshot)
 
 
-def computed_stays_editable(document, snapshot):
+def computed_stays_editable(case, document, snapshot):
     found = by_pointer(snapshot)
     for pointer, kind, member in walk(document):
         if kind != "prompt" or not (member.get("hints") or {}).get("exprValue"):
@@ -253,7 +269,7 @@ def computed_stays_editable(document, snapshot):
     return None
 
 
-def an_export_is_not_written_back(document, snapshot):
+def an_export_is_not_written_back(case, document, snapshot):
     exported = snapshot.get("exportedDocument")
     if exported is None:
         return "the driver reported no exportedDocument, so nothing shows the document survived"
@@ -307,7 +323,7 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
 
         document = json.loads(case["document"])
         failure = next((detail for rule in case["rules"]
-                        if (detail := CHECKS[rule](document, snapshot))), None)
+                        if (detail := CHECKS[rule](case, document, snapshot))), None)
         row["status"] = "fail" if failure else "pass"
         if failure:
             row["detail"] = failure
