@@ -61,7 +61,24 @@ public class AprDocument
     /// Determines how the application handles the document when opened.
     /// Templates can be edited or filled out; FilledForms are opened for editing responses.
     /// </remarks>
-    public DocumentType DocumentType { get; set; } = DocumentType.Template;
+    public DocumentType DocumentType
+    {
+        get => _documentType;
+        set { _documentType = value; DocumentTypeIsDeclared = true; }
+    }
+
+    private DocumentType _documentType = DocumentType.Template;
+
+    /// <summary>Did the document carry a `documentType` member?</summary>
+    /// <remarks>
+    /// Absent means template ([Document type](#media-types)), and absent is not the same
+    /// document as an explicit `"documentType": "template"`: the two have different
+    /// semantic digests, so a reader that materializes the default breaks every
+    /// attestation over a form nobody edited. Reading a document that declares it, and
+    /// any assignment — <c>FilledFormFactory</c> stamping `filledForm`, say — sets this.
+    /// </remarks>
+    [JsonIgnore]
+    public bool DocumentTypeIsDeclared { get; internal set; }
 
     /// <summary>
     /// Gets or sets the metadata for this document.

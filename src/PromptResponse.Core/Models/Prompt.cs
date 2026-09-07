@@ -61,11 +61,23 @@ public class Prompt
         set
         {
             _response = value ?? string.Empty;
+            ResponseIsDeclared = true;
             // Any write that is not a recomputation makes this an authored answer.
             // The recalculator re-marks it afterwards when it wrote the value itself.
             ComputedInThisSession = false;
         }
     }
+
+    /// <summary>Did the document carry a `response` member, or has one been assigned?</summary>
+    /// <remarks>
+    /// Reader state, never written. A member that was absent did not survive parsing and
+    /// is not part of the semantic digest (APR-DIGEST-002), so writing `"response": ""`
+    /// where the source said nothing produces a different document and invalidates every
+    /// attestation over the original. Deserialization sets it because it goes through the
+    /// setter; <see cref="SetNormalizedResponse"/> deliberately does not.
+    /// </remarks>
+    [JsonIgnore]
+    public bool ResponseIsDeclared { get; internal set; }
 
     /// <summary>Did this reader compute the current response, in this session?</summary>
     /// <remarks>
@@ -102,7 +114,22 @@ public class Prompt
     /// <summary>
     /// Gets or sets hints for how this prompt should be presented and validated.
     /// </summary>
-    public PromptHints Hints { get; set; } = new();
+    public PromptHints Hints
+    {
+        get => _hints;
+        set { _hints = value ?? new PromptHints(); HintsAreDeclared = true; }
+    }
+
+    private PromptHints _hints = new();
+
+    /// <summary>Did the document carry a `hints` member, or has one been assigned?</summary>
+    /// <remarks>
+    /// The same presence question as <see cref="ResponseIsDeclared"/>. Hints mutated in
+    /// place rather than assigned do not set this, which is why the writer also asks
+    /// whether the object holds anything: see <see cref="PromptHints.IsEmpty"/>.
+    /// </remarks>
+    [JsonIgnore]
+    public bool HintsAreDeclared { get; internal set; }
 
     /// <summary>
     /// Who is meant to fill this in - "patient", "nurse", "office" - or null for anyone.

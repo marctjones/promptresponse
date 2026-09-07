@@ -62,7 +62,22 @@ public class Section
     /// Sections can be nested to any depth without limit.
     /// Optional - sections can have only direct prompts without child sections.
     /// </remarks>
-    public List<Section> Sections { get; set; } = new();
+    public List<Section> Sections
+    {
+        get => _sections;
+        set { _sections = value ?? []; SectionsAreDeclared = true; }
+    }
+
+    private List<Section> _sections = [];
+
+    /// <summary>Did the document carry a `sections` member on this section?</summary>
+    /// <remarks>
+    /// The writer emits the member when this is set or when the list holds anything, so
+    /// a section that gained children through <c>Sections.Add</c> still writes them and
+    /// one whose source said nothing does not gain an empty array.
+    /// </remarks>
+    [JsonIgnore]
+    public bool SectionsAreDeclared { get; internal set; }
 
     /// <summary>
     /// Gets or sets the list of prompts directly in this section.
@@ -74,7 +89,17 @@ public class Section
     /// Prompts are displayed in the order they appear in this list.
     /// This ordering is normative — see the specification, section 10.2.
     /// </remarks>
-    public List<Prompt> Prompts { get; set; } = new();
+    public List<Prompt> Prompts
+    {
+        get => _prompts;
+        set { _prompts = value ?? []; PromptsAreDeclared = true; }
+    }
+
+    private List<Prompt> _prompts = [];
+
+    /// <summary>Did the document carry a `prompts` member on this section?</summary>
+    [JsonIgnore]
+    public bool PromptsAreDeclared { get; internal set; }
 
     /// <summary>
     /// What kind of section this is. Absent or <c>"section"</c> for an ordinary

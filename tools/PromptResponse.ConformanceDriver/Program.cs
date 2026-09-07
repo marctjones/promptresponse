@@ -121,11 +121,14 @@ JsonObject Answer(JsonObject testCase)
 
     if (testCase["roundTrip"]?.GetValue<bool>() == true)
     {
-        // Always through WriteStream, which writes the parsed value. WriteForm
-        // regenerates from the typed model, so a member the model has no property for
-        // — every extension member — does not survive. That is the one thing a
-        // round-trip case exists to catch, and preservation is what makes additive
-        // change to the format safe.
+        // Always through WriteStream, which writes the parsed value rather than
+        // regenerating it from the typed model. Both preserve extension members, so the
+        // difference is subtler than it looks: a model cannot tell a member that was
+        // absent from one holding its default, and WriteForm used to add `documentType`,
+        // an empty `sections`, an empty `response` and an empty `hints` to documents
+        // that carried none of them. Writing the parsed value cannot do that at all,
+        // which is why a round-trip case is answered this way and why nothing here
+        // reached the defect AprPresenceContract fixes.
         answer["written"] = reader.WriteStream(records, kind);
     }
 

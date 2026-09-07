@@ -3,6 +3,7 @@ using PromptResponse.Core.Models;
 using PromptResponse.Core.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 
 namespace PromptResponse.Core.Serialization;
 
@@ -59,6 +60,12 @@ public class AprJsonSerializer : IAprSerializer
             Converters =
             {
                 new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+            },
+
+            // Write back the members the document carried, and no others.
+            TypeInfoResolver = new DefaultJsonTypeInfoResolver
+            {
+                Modifiers = { AprPresenceContract.OmitMembersTheDocumentDidNotCarry },
             }
         };
     }

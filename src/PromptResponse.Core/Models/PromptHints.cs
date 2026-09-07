@@ -56,7 +56,17 @@ public class PromptHints
     /// The UI may show these as autocomplete suggestions, but users can
     /// always enter their own value.
     /// </remarks>
-    public List<string> SuggestedValues { get; set; } = new();
+    public List<string> SuggestedValues
+    {
+        get => _suggestedValues;
+        set { _suggestedValues = value ?? []; SuggestedValuesAreDeclared = true; }
+    }
+
+    private List<string> _suggestedValues = [];
+
+    /// <summary>Did the document carry a `suggestedValues` member?</summary>
+    [JsonIgnore]
+    public bool SuggestedValuesAreDeclared { get; internal set; }
 
     /// <summary>
     /// Gets or sets help text providing additional guidance to the user.
@@ -178,4 +188,24 @@ public class PromptHints
     /// Expression that, when truthy, makes this prompt read-only.
     /// </summary>
     public string? ExprReadOnly { get; set; }
+
+    /// <summary>Does this hold nothing a document would have written?</summary>
+    /// <remarks>
+    /// Asked by the writer, not by any rule: a prompt whose source carried no `hints`
+    /// must not gain one, because a member that was absent is not part of the semantic
+    /// digest (APR-DIGEST-002). Emptiness rather than the declared flag alone, so hints
+    /// mutated in place — the desktop's template editing path — are still written.
+    ///
+    /// Every member is named here. `HintMembersAreAllAccountedFor` fails when one is
+    /// added and this is not updated, because a forgotten member would be dropped in
+    /// silence from a document that carried it.
+    /// </remarks>
+    [JsonIgnore]
+    public bool IsEmpty =>
+        Placeholder is null && ExpectedDataType is null && HelpText is null
+        && ValidationPattern is null && Min is null && Max is null && Step is null
+        && ExprHidden is null && ExprValue is null && ExprExpected is null
+        && ExprValidation is null && ExprReadOnly is null
+        && _suggestedValues.Count == 0 && !SuggestedValuesAreDeclared
+        && (Extensions is null || Extensions.Count == 0);
 }

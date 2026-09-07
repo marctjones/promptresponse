@@ -385,3 +385,12 @@ jobs:
           dotnet build src/PromptResponse.Cli -v q
           python3 scripts/run-conformance.py --driver "dotnet run --project tools/PromptResponse.ConformanceDriver --no-build -v q"
           python3 scripts/run-conformance.py --driver "dotnet run --project src/PromptResponse.Cli --no-build -v q -- conformance"
+
+      - name: Score the PDF exporter against the renderer suite
+        # APR-RENDER-009 says an export is never written back, which is a rule about the
+        # thing that exports. Avalonia does not export, so this driver is the only place
+        # it can be asked, and it declares only the exporter surface: the twelve renderer
+        # cases come back unanswered rather than falsely passed.
+        run: |
+          dotnet build tools/PromptResponse.RendererDrivers -v q
+          python3 scripts/run-renderer-conformance.py --driver "dotnet run --project tools/PromptResponse.RendererDrivers --no-build -v q"

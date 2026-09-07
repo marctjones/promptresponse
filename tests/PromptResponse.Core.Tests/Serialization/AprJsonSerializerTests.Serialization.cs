@@ -87,7 +87,14 @@ public sealed class AprJsonSerializerSerializationTests : AprJsonSerializerTestB
     [Fact]
     public void Serialize_WithCaseConversion_ShouldUseCamelCase()
     {
-        var json = Serializer.Serialize(new AprDocument { Metadata = new Metadata { Title = "Test" } });
+        // Declared, because the writer now omits a documentType the document never
+        // carried: an absent member is not part of the semantic digest, and this test is
+        // about how a member is spelled rather than whether it is there.
+        var json = Serializer.Serialize(new AprDocument
+        {
+            DocumentType = DocumentType.Template,
+            Metadata = new Metadata { Title = "Test" },
+        });
         json.Should().Contain("\"documentType\"");
         json.Should().NotContain("\"DocumentType\"");
     }
