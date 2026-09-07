@@ -52,7 +52,7 @@ public class FullStackPhoneMaskTest
         services.AddSingleton<IProfileService, ProfileService>();
         services.AddSingleton<IDocumentSessionService, DocumentSessionService>();
         services.AddSingleton<PromptViewModelFactory>();
-        services.AddSingleton<IFileService>(sp => new FileService(sp.GetRequiredService<IAprSerializer>()));
+        services.AddSingleton<IFileService>(_ => new FileService());
         services.AddSingleton<IDialogService>(_ => Substitute.For<IDialogService>());
         services.AddTransient<MainShellViewModel>();
         services.AddTransient<DisplayPreferencesViewModel>();

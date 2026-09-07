@@ -1,7 +1,6 @@
 using AwesomeAssertions;
 using PromptResponse.Core;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Serialization;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels;
@@ -75,7 +74,7 @@ internal sealed class SaveHarness
     {
         Session = new DocumentSessionService();
         var profile = new ProfileService(new NoPreferences(), applyAffordanceDefaults: false);
-        Shell = new MainShellViewModel(new FileService(new AprJsonSerializer()),
+        Shell = new MainShellViewModel(new FileService(),
             NSubstitute.Substitute.For<IDialogService>(), Session, profile,
             new PromptViewModelFactory(profile));
     }

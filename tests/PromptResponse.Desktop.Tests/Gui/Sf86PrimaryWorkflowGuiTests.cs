@@ -6,7 +6,6 @@ using Avalonia.VisualTree;
 using AwesomeAssertions;
 using NSubstitute;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Serialization;
 using PromptResponse.Desktop.Profiles;
 using PromptResponse.Desktop.Services;
 using PromptResponse.Desktop.ViewModels;
@@ -49,7 +48,7 @@ public class Sf86PrimaryWorkflowGuiTests
 
         try
         {
-            var files = new FileService(new AprJsonSerializer());
+            var files = new FileService();
             var dialogs = Substitute.For<IDialogService>();
             var session = new DocumentSessionService();
             var profile = new ProfileService(new FixedProbe(), applyAffordanceDefaults: false);

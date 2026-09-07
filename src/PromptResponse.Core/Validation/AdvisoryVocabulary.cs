@@ -44,9 +44,6 @@ internal static class AdvisoryVocabulary
         "https", "mailto",
     };
 
-    /// <summary>Members whose whole purpose is to be read or heard by a person.</summary>
-    private static readonly string[] HumanText = ["title", "description", "author", "publisher", "label"];
-
     internal static void Inspect(AprDocument document, ValidationResult result)
     {
         InspectShape(document, result);

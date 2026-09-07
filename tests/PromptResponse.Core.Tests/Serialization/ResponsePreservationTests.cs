@@ -38,7 +38,6 @@ namespace PromptResponse.Core.Tests.Serialization;
 public class ResponsePreservationTests
 {
     private static readonly AprJsonSerializer Serializer = new();
-    private static readonly DateTime Answered = new(2026, 3, 1, 9, 30, 0, DateTimeKind.Utc);
 
     private static AprDocument Filled()
     {
@@ -60,10 +59,6 @@ public class ResponsePreservationTests
             ],
         };
 
-        // Set provenance after the responses, since answering is what clears it.
-        foreach (var prompt in document.Sections[0].Prompts)
-        {
-        }
         return document;
     }
 

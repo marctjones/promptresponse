@@ -55,9 +55,9 @@ public partial class WorkflowTests : IDisposable
     /// FileService's methods are not virtual, so hiding them with `new` would have been
     /// silently bypassed.
     /// </remarks>
-    private sealed class ScriptedFileService(IAprSerializer serializer) : IFileService
+    private sealed class ScriptedFileService : IFileService
     {
-        private readonly FileService _real = new(serializer);
+        private readonly FileService _real = new();
 
         public string? NextExportPath { get; set; }
         public string? NextCertificatePath { get; set; }
@@ -91,7 +91,7 @@ public partial class WorkflowTests : IDisposable
     public WorkflowTests()
     {
         Directory.CreateDirectory(_dir);
-        _files = new ScriptedFileService(_serializer);
+        _files = new ScriptedFileService();
         var profile = new ProfileService(new Probe(), applyAffordanceDefaults: false);
         _shell = new MainShellViewModel(_files, _dialogs, _session, profile,
             new PromptViewModelFactory(profile));

@@ -3,7 +3,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Beta6;
 using System.Security.Cryptography.X509Certificates;
 using System.Linq;
@@ -15,14 +14,12 @@ namespace PromptResponse.Desktop.Services;
 /// </summary>
 public class FileService : IFileService
 {
-    private readonly IAprSerializer _serializer;
     private readonly AprDocumentPersistence _persistence;
     private readonly Dictionary<string, (IReadOnlyList<AprStreamRecord> Records, int FormRecordIndex)> _openStreams = new(StringComparer.Ordinal);
     private string? _currentFilePath;
 
-    public FileService(IAprSerializer serializer)
+    public FileService()
     {
-        _serializer = serializer;
         _persistence = new AprDocumentPersistence();
     }
 

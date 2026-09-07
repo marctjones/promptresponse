@@ -1,7 +1,6 @@
 using AwesomeAssertions;
 using PromptResponse.Core.Beta6;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Serialization;
 using PromptResponse.Desktop.Services;
 using Xunit;
 
@@ -48,7 +47,7 @@ public class OpenAndSaveKeepsTheDigestTests
             var copy = Path.Combine(workspace, Path.GetFileName(fixture));
             File.Copy(fixture, copy);
 
-            var files = new FileService(new AprJsonSerializer());
+            var files = new FileService();
             var document = await files.LoadFileAsync(copy);
             document.Should().NotBeNull();
             await files.SaveFileAsync(document!, copy);
@@ -97,7 +96,7 @@ public class OpenAndSaveKeepsTheDigestTests
             File.Copy(fixture, source);
             var destination = Path.Combine(workspace, "saved-as" + Path.GetExtension(fixture));
 
-            var files = new FileService(new AprJsonSerializer());
+            var files = new FileService();
             var document = await files.LoadFileAsync(source);
             await files.SaveFileAsync(document!, destination);
 

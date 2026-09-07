@@ -1,7 +1,5 @@
 using AwesomeAssertions;
-using NSubstitute;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Beta6;
 using PromptResponse.Core.Signing;
 using PromptResponse.Desktop.Services;
@@ -14,24 +12,18 @@ namespace PromptResponse.Desktop.Tests.Services;
 /// </summary>
 /// <remarks>
 /// These tests focus on testable aspects of FileService that don't require Avalonia dialogs:
-/// CurrentFilePath management, extension-based DocumentType override, and serializer integration.
-/// SaveFileAsync writes a real (empty) file via a mocked serializer to a per-test temp directory;
-/// no fictitious paths are used.
+/// CurrentFilePath management and extension-based DocumentType override.
+/// SaveFileAsync writes a real (empty) file to a per-test temp directory; no fictitious
+/// paths are used.
 /// </remarks>
 public class FileServiceTests : IDisposable
 {
-    private readonly IAprSerializer _mockSerializer;
     private readonly string _tempDir;
 
     public FileServiceTests()
     {
-        _mockSerializer = Substitute.For<IAprSerializer>();
         _tempDir = Path.Combine(Path.GetTempPath(), "promptresponse-tests-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(_tempDir);
-
-        _mockSerializer
-            .SerializeAsync(Arg.Any<AprDocument>(), Arg.Any<Stream>(), Arg.Any<CancellationToken>())
-            .Returns(Task.CompletedTask);
     }
 
     public void Dispose()
@@ -49,7 +41,7 @@ public class FileServiceTests : IDisposable
         }
     }
 
-    private FileService CreateService() => new(_mockSerializer);
+    private FileService CreateService() => new();
 
     private string PathFor(string fileName, string? subdir = null)
     {
@@ -167,13 +159,15 @@ public class FileServiceTests : IDisposable
     [Fact]
     public async Task Beta6_SaveFileAsync_WritesDocumentWithoutLegacySerializer()
     {
+        // FileService no longer accepts an IAprSerializer at all (removed 2026-09-07,
+        // confirmed unread by the IDE0052 dead-code gate), which makes this guarantee
+        // structural rather than something a mock needs to observe at runtime.
         var service = CreateService();
         var document = CreateTestTemplate();
         var filePath = PathFor("document.aprt");
 
         await service.SaveFileAsync(document, filePath);
 
-        await _mockSerializer.DidNotReceive().SerializeAsync(Arg.Any<AprDocument>(), Arg.Any<Stream>(), Arg.Any<CancellationToken>());
         (await File.ReadAllTextAsync(filePath)).Should().Contain("\"aprVersion\": \"1.0-beta.6\"");
     }
 
