@@ -20,11 +20,13 @@ put` equivalent. A real pre-signed *PUT* URL is generated the way any S3
 client library does it: `boto3.generate_presigned_url("put_object", ...)`,
 which is what [`presign.py`](presign.py) does.
 
-This is also why the pre-existing `docker/docker-compose.s3-test.yml` +
-`scripts/test-s3-upload.sh` pair (unrelated, not reused anywhere in this
-demo work) tests the wrong thing: it uses `mc share upload`'s pre-signed
-POST against MinIO, which is realistic MinIO usage but not what this
-specification defines.
+This is also why the repo's earlier `docker/docker-compose.s3-test.yml` +
+`scripts/test-s3-upload.sh` pair — removed 2026-09-07, not reused anywhere
+in this demo work — tested the wrong thing: it used `mc share upload`'s
+pre-signed POST against MinIO, which is realistic MinIO usage but not what
+this specification defines. It also referenced an `apr s3-setup` command
+that no longer exists and pre-beta.6 wire format fields, so it was doubly
+unusable regardless of the transport question.
 
 ## What's here
 

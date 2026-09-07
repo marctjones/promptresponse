@@ -115,7 +115,7 @@ artifacts are not source of truth.
 | `python/`, `typescript/`, `java/` | independent SDKs and local demos | cross-language corpus evidence | a second format definition |
 | `docs/` | canonical product, design, operations, and registry records | human-facing authority map | historical plans |
 | `examples/` and `tests/Conformance/beta6/` | user and regression inputs | supported beta.6 documents | mutable test output |
-| `packaging/`, `docker/`, `scripts/`, `.github/` | build, release, and verification machinery | reproducible operational sources | release binaries |
+| `packaging/`, `podman/`, `cloudflare/`, `scripts/`, `.github/` | build, release, and verification machinery | reproducible operational sources | release binaries |
 | `local-nuget/` | vendored PDF-engine package feed | intentionally tracked reproducibility input | a general package cache |
 
 Ignored directories such as `bin/`, `obj/`, `TestResults/`, `dist/`,

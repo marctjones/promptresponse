@@ -20,11 +20,11 @@ caught the desktop client's now-fixed bug of sending `POST` instead of
 
 It is a demo/operational tool, not product code — it lives outside
 `src/`, `tests/`, and `scripts/` on purpose. It lives under a new
-top-level `podman/` rather than the existing `docker/` because the only
-thing in `docker/` today is the legacy, unrelated `docker-compose.s3-test.yml`
-pair (see the bottom of this README) — folding a podman-first receiver
-into that directory would wrongly imply the two are related, so this gets
-its own root.
+top-level `podman/` rather than `docker/`: at the time this was built,
+`docker/` held only a legacy, unrelated `docker-compose.s3-test.yml` pair
+(see **Legacy S3 test infrastructure** below — it has since been removed),
+and folding a podman-first receiver in beside it would have wrongly implied
+the two were related.
 
 ## What's here
 
@@ -340,14 +340,19 @@ podman rmi apr-cli-verify:demo
   `application/vnd.apr+yaml` (and anything else) are accepted without
   error.
 
-## Relationship to `docker/docker-compose.s3-test.yml`
+## Legacy S3 test infrastructure (removed)
 
-That pre-existing pair (`docker/docker-compose.s3-test.yml` and
-`scripts/test-s3-upload.sh`) is unrelated and not reused here: it tests a
-pre-signed **POST** against MinIO (the exact mechanism this spec
-deliberately rejects), references an `apr s3-setup` command that no
-longer exists, and uses pre-beta.6 wire format fields. It's legacy and
-out of scope for this receiver.
+`docker/docker-compose.s3-test.yml` and `scripts/test-s3-upload.sh` existed
+before this receiver and were removed on 2026-09-07 rather than fixed: they
+tested a pre-signed **POST** against MinIO (the exact mechanism this
+specification's rationale deliberately rejects), referenced an
+`apr s3-setup` CLI command that no longer exists in this codebase, and used
+pre-beta.6 wire format fields (`"version"` instead of `"aprVersion"`,
+retired `filledBy`/`filledAt`). Nothing in CI or elsewhere in the repo
+referenced either file. Their design — embedding a presigned URL into a
+template at authoring time — is also the shape #102 explicitly names as a
+non-goal ("No... presigned URLs stored in APR files"), so there was no
+partial version of this worth keeping either.
 
 This receiver is also deliberately **not** a real S3-compatible layer
 (MinIO or otherwise) — the specification's own text says why one isn't
@@ -355,12 +360,12 @@ needed: "any receiver that accepts a plain PUT of a body satisfies it
 identically," and "no processing on the receiving side is assumed or
 permitted to be needed." A minimal stdlib HTTP server that stores what it's
 given is a faithful, sufficient stand-in for the pre-signed target this
-transport describes. A more realistic demo that actually exercises real S3 pre-signed-URL
-generation and signature verification, not just PUT acceptance, now
-exists at [`../minio-put-test/`](../minio-put-test/) — built fresh rather
-than rehabilitating the legacy pair above, since that pair tests the wrong
-transport (POST) against pre-beta.6 wire format regardless of the server
-behind it.
+transport describes. A more realistic demo that actually exercises real S3
+pre-signed-URL generation and signature verification, not just PUT
+acceptance, exists at [`../minio-put-test/`](../minio-put-test/) — built
+fresh rather than resurrecting the removed pair above, since that pair
+tested the wrong transport against the wrong wire format regardless of the
+server behind it.
 
 ## Related: a hosted version of this same receiver
 
