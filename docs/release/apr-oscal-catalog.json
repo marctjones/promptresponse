@@ -7159,7 +7159,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -7178,11 +7178,6 @@
                 "id": "apr-render-001_smt",
                 "name": "statement",
                 "prose": "Section titles and prompt labels **MUST** be presented as the accessible name."
-              },
-              {
-                "id": "apr-render-001_gap",
-                "name": "assessment-gap",
-                "prose": "Not reachable by a document vector: no file is valid or invalid because of how a renderer presents it. Gated inside this repository by tests/PromptResponse.AccessibilityTests — accessible names, XAML automation properties, and keyboard navigation — which a third-party implementation never runs. A portable test would need the harness to drive a user interface."
               }
             ]
           },
@@ -7206,7 +7201,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -7225,11 +7220,6 @@
                 "id": "apr-render-002_smt",
                 "name": "statement",
                 "prose": "A placeholder **MUST NOT** be the only label."
-              },
-              {
-                "id": "apr-render-002_gap",
-                "name": "assessment-gap",
-                "prose": "Not reachable by a document vector: no file is valid or invalid because of how a renderer presents it. Gated inside this repository by tests/PromptResponse.AccessibilityTests — accessible names, XAML automation properties, and keyboard navigation — which a third-party implementation never runs. A portable test would need the harness to drive a user interface."
               }
             ]
           },
@@ -7253,7 +7243,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -7272,11 +7262,6 @@
                 "id": "apr-render-003_smt",
                 "name": "statement",
                 "prose": "`helpText` **MUST** be programmatically associated with its prompt, not merely adjacent to it."
-              },
-              {
-                "id": "apr-render-003_gap",
-                "name": "assessment-gap",
-                "prose": "Not reachable by a document vector: no file is valid or invalid because of how a renderer presents it. Gated inside this repository by tests/PromptResponse.AccessibilityTests — accessible names, XAML automation properties, and keyboard navigation — which a third-party implementation never runs. A portable test would need the harness to drive a user interface."
               }
             ]
           },
@@ -7300,7 +7285,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -7319,11 +7304,6 @@
                 "id": "apr-render-004_smt",
                 "name": "statement",
                 "prose": "Section nesting **MUST** be conveyed structurally — heading levels, groups, landmarks — not by indentation alone."
-              },
-              {
-                "id": "apr-render-004_gap",
-                "name": "assessment-gap",
-                "prose": "Not reachable by a document vector: no file is valid or invalid because of how a renderer presents it. Gated inside this repository by tests/PromptResponse.AccessibilityTests — accessible names, XAML automation properties, and keyboard navigation — which a third-party implementation never runs. A portable test would need the harness to drive a user interface."
               }
             ]
           },
@@ -7347,7 +7327,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -7366,11 +7346,6 @@
                 "id": "apr-render-005_smt",
                 "name": "statement",
                 "prose": "Every prompt **MUST** be reachable and completable by keyboard."
-              },
-              {
-                "id": "apr-render-005_gap",
-                "name": "assessment-gap",
-                "prose": "Not reachable by a document vector: no file is valid or invalid because of how a renderer presents it. Gated inside this repository by tests/PromptResponse.AccessibilityTests — accessible names, XAML automation properties, and keyboard navigation — which a third-party implementation never runs. A portable test would need the harness to drive a user interface."
               }
             ]
           },
@@ -7394,7 +7369,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -7413,11 +7388,6 @@
                 "id": "apr-render-006_smt",
                 "name": "statement",
                 "prose": "A renderer **MUST NOT** block saving because of a hint mismatch."
-              },
-              {
-                "id": "apr-render-006_gap",
-                "name": "assessment-gap",
-                "prose": "Not reachable by a document vector: no file is valid or invalid because of how a renderer presents it. Gated inside this repository by tests/PromptResponse.AccessibilityTests — accessible names, XAML automation properties, and keyboard navigation — which a third-party implementation never runs. A portable test would need the harness to drive a user interface."
               }
             ]
           },
@@ -7441,7 +7411,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -7460,11 +7430,6 @@
                 "id": "apr-render-007_smt",
                 "name": "statement",
                 "prose": "Table sections **SHOULD** be presented with header association, not as a purely visual grid."
-              },
-              {
-                "id": "apr-render-007_gap",
-                "name": "assessment-gap",
-                "prose": "Not reachable by a document vector: no file is valid or invalid because of how a renderer presents it. Gated inside this repository by tests/PromptResponse.AccessibilityTests — accessible names, XAML automation properties, and keyboard navigation — which a third-party implementation never runs. A portable test would need the harness to drive a user interface."
               }
             ]
           },
@@ -7488,7 +7453,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -7507,11 +7472,6 @@
                 "id": "apr-render-008_smt",
                 "name": "statement",
                 "prose": "A renderer **MAY** paginate, group, or lazily load, but **MUST NOT** reorder. A wizard that shows one section at a time still visits them in array order."
-              },
-              {
-                "id": "apr-render-008_gap",
-                "name": "assessment-gap",
-                "prose": "A renderer obligation, not a property of a document: array order is in the file either way, and only a rendering can reorder it. Reaching it portably would need the harness to observe presentation."
               }
             ]
           },
@@ -7535,7 +7495,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -7554,11 +7514,6 @@
                 "id": "apr-render-009_smt",
                 "name": "statement",
                 "prose": "Exports to PDF, HTML, or print **MAY** introduce layout — page size, margins, footers. That layout belongs to the renderer's options and **MUST NOT** be written back into the APR document. The document stays presentation-free no matter how many ways it has been rendered."
-              },
-              {
-                "id": "apr-render-009_gap",
-                "name": "assessment-gap",
-                "prose": "About what an exporter must not write back into the document. The suite has no export step, and adding one would mean specifying an export format, which the specification deliberately does not."
               }
             ]
           }
