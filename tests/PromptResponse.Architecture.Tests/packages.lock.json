@@ -506,7 +506,6 @@
       "promptresponse.core": {
         "type": "Project",
         "dependencies": {
-          "Avalonia": "[12.1.1, )",
           "Celly": "[1.2.0, )",
           "Microsoft.Extensions.Logging.Abstractions": "[10.0.11, )",
           "System.Security.Cryptography.Pkcs": "[10.0.11, )",
