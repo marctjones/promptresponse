@@ -1,0 +1,5 @@
+{
+  "$comment": "The number of interactive elements the GUI suite actually activates, held by scripts/check-gui-coverage.py --gate. Raise it when it rises; lowering it is a decision to write down, not a way to make CI pass.",
+  "activated": 159,
+  "addressable": 217
+}

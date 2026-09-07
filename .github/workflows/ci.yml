@@ -299,6 +299,14 @@ jobs:
           /p:Include="[PromptResponse.Desktop]*"
           /p:Exclude="[xunit.*]*%2c[*.Tests]*%2c[*.Tests.*]*"
 
+      - name: GUI activation ratchet
+        # Line coverage says which code ran. This says which of the controls a person can
+        # actually reach was clicked, typed into or toggled — written by the Desktop suite
+        # that just ran, so the figure is reproducible rather than a committed snapshot
+        # nothing regenerates. Only activation gates; a control whose name merely appears
+        # in a test source is reported, because a mention in a comment would satisfy it.
+        run: python3 scripts/check-gui-coverage.py --gate
+
       - name: Cli coverage gate (ratcheting)
         run: >-
           dotnet test tests/PromptResponse.Cli.Tests
