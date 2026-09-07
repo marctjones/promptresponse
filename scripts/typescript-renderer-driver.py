@@ -166,12 +166,35 @@ def is_focusable(element: Element) -> bool:
 
 
 def owning_pointer(element: Element, pointers: dict[str, str]) -> str | None:
-    node = element
+    """Which member of the document this element is the rendering of.
+
+    An element that carries the marker is that member. Otherwise only a control
+    counts, and only for the nearest prompt marker above it: a synthesized column
+    header sitting inside a marked table is not the table, and a node that claimed the
+    table's pointer would displace the table's own.
+    """
+    for attribute in ("data-apr-section", "data-apr-prompt"):
+        pointer = pointers.get(element.attrs.get(attribute, ""))
+        if pointer:
+            return pointer
+    if element.tag not in FOCUSABLE:
+        return None
+    node = element.parent
     while node is not None:
-        for attribute in ("data-apr-prompt", "data-apr-section"):
-            pointer = pointers.get(node.attrs.get(attribute, ""))
-            if pointer:
-                return pointer
+        if node.attrs.get("data-apr-section"):
+            return None     # a section boundary is reached before any prompt
+        pointer = pointers.get(node.attrs.get("data-apr-prompt", ""))
+        if pointer:
+            return pointer
+        node = node.parent
+    return None
+
+
+def enclosing_cell(element: Element) -> Element | None:
+    node = element.parent
+    while node is not None:
+        if node.tag in ("td", "th"):
+            return node
         node = node.parent
     return None
 
@@ -195,8 +218,12 @@ def snapshot_of(markup: str, pointers: dict[str, str], rendered: dict) -> dict:
 
     for element in root.elements():
         role = role_of(element)
-        if role is None or element.tag in ("legend", "label", "small", "p", "h1"):
+        if role is None or element.tag in ("legend", "label", "small", "p", "h1",
+                                           "caption"):
             continue
+        if element.tag == "td" and any(child.tag in FOCUSABLE
+                                       for child in element.elements()):
+            continue    # reported through the control it holds
         node = {
             "id": element.attrs.get("id") or element.attrs.get("data-apr-section")
             or element.attrs.get("data-apr-prompt"),
@@ -220,12 +247,15 @@ def snapshot_of(markup: str, pointers: dict[str, str], rendered: dict) -> dict:
             node["helpText"] = texts_of(described, by_id)
         if element.tag == "th":
             node["isColumnHeader"] = element.attrs.get("scope", "col") == "col"
-        if element.tag == "td":
-            explicit = element.attrs.get("headers", "").split()
-            position = [c for c in element.parent.children
-                        if c.tag in ("th", "td")].index(element)
+        cell = element if element.tag == "td" else enclosing_cell(element)
+        if cell is not None and (element.tag == "td" or pointer):
+            explicit = cell.attrs.get("headers", "").split()
+            siblings = [c for c in cell.parent.children
+                        if isinstance(c, Element) and c.tag in ("th", "td")]
+            position = siblings.index(cell)
             header = (explicit[0] if explicit
-                      else (headers[position].attrs.get("id") if position in headers else None))
+                      else (headers[position].attrs.get("id")
+                            if position in headers else None))
             if header:
                 node["columnHeader"] = header
         nodes.append(node)

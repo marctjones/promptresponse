@@ -27,6 +27,38 @@
       }
     },
     {
+      "id": "a-role-does-not-become-the-name",
+      "rules": [
+        "APR-RENDER-001"
+      ],
+      "asks": "a prompt with a role is still named by its label, not by the label with the role appended",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "roles": [
+          {
+            "id": "office",
+            "name": "Records office"
+          }
+        ],
+        "sections": [
+          {
+            "id": "intake",
+            "title": "Intake",
+            "prompts": [
+              {
+                "id": "received",
+                "label": "Date received",
+                "role": "office"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "placeholder-is-not-a-label",
       "rules": [
         "APR-RENDER-002"

@@ -15,6 +15,15 @@
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        {\n          \"id\": \"full_name\",\n          \"label\": \"Full name\"\n        }\n      ]\n    }\n  ]\n}\n"
     },
     {
+      "id": "renderer:a-role-does-not-become-the-name",
+      "rules": [
+        "APR-RENDER-001"
+      ],
+      "asks": "a prompt with a role is still named by its label, not by the label with the role appended",
+      "surface": "renderer",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"roles\": [\n    {\n      \"id\": \"office\",\n      \"name\": \"Records office\"\n    }\n  ],\n  \"sections\": [\n    {\n      \"id\": \"intake\",\n      \"title\": \"Intake\",\n      \"prompts\": [\n        {\n          \"id\": \"received\",\n          \"label\": \"Date received\",\n          \"role\": \"office\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
+    {
       "id": "renderer:placeholder-is-not-a-label",
       "rules": [
         "APR-RENDER-002"
