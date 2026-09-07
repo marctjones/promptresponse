@@ -16,7 +16,7 @@ public class NewCommandTests
     public NewCommandTests()
     {
         _serializer = new AprJsonSerializer();
-        _command = new NewCommand(_serializer);
+        _command = new NewCommand();
     }
 
     [Fact]

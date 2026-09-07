@@ -1,6 +1,6 @@
 using PromptResponse.Core;
+using PromptResponse.Core.Beta6;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Serialization;
 
 namespace PromptResponse.Cli.Commands;
 
@@ -9,12 +9,7 @@ namespace PromptResponse.Cli.Commands;
 /// </summary>
 public class NewCommand : ICommand
 {
-    private readonly IAprSerializer _serializer;
-
-    public NewCommand(IAprSerializer serializer)
-    {
-        _serializer = serializer;
-    }
+    private readonly AprBeta6Reader _reader = new();
 
     public async Task<int> ExecuteAsync(string[] args)
     {
@@ -27,9 +22,12 @@ public class NewCommand : ICommand
 
         var filePath = args[0];
 
-        // Ensure APR extension (.aprt for templates by default)
+        // Ensure APR extension (.aprt for templates by default). A YAML extension is
+        // left exactly as given -- it already says both "this is APR" and which
+        // representation to write.
         var extension = Path.GetExtension(filePath).ToLowerInvariant();
-        if (extension != ".apr" && extension != ".aprt" && extension != ".aprf")
+        if (extension != ".apr" && extension != ".aprt" && extension != ".aprf"
+            && extension != ".yaml" && extension != ".yml")
         {
             // Default to .aprt for templates
             filePath += ".aprt";
@@ -110,9 +108,10 @@ public class NewCommand : ICommand
                 }
             };
 
-            // Serialize and save
-            var json = _serializer.Serialize(document);
-            await File.WriteAllTextAsync(filePath, json);
+            // Serialize and save, in whichever representation the extension names.
+            var representation = extension is ".yaml" or ".yml" ? AprRepresentation.Yaml : AprRepresentation.Jsonc;
+            var text = _reader.WriteForm(document, representation);
+            await File.WriteAllTextAsync(filePath, text);
 
             Console.WriteLine();
             Console.WriteLine($"✓ Template created: {filePath}");

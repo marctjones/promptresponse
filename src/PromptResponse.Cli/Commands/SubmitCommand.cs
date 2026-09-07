@@ -29,7 +29,14 @@ public sealed class SubmitCommand(
         var file = args[0];
         if (!File.Exists(file)) { Console.Error.WriteLine("Error: File not found."); return 1; }
 
-        var document = serializer.Deserialize(await File.ReadAllTextAsync(file));
+        // Read once, as bytes: what gets sent below is exactly what is on disk, in
+        // whichever representation the file already is. Re-serializing through
+        // `serializer` (JSONC-only) would silently rewrite a YAML source to JSON on its
+        // way out -- specification 5.2.1 says a receiver holds "the request body, byte
+        // for byte: the stream as the client wrote it, already a valid APR file," which
+        // reads as a promise about the sender's behaviour as much as the receiver's.
+        var bytes = await File.ReadAllBytesAsync(file);
+        var document = serializer.Deserialize(Encoding.UTF8.GetString(bytes));
         var result = validator.Validate(document);
         if (!result.IsValid)
         {
@@ -73,7 +80,6 @@ public sealed class SubmitCommand(
             return 2;
         }
 
-        var bytes = Encoding.UTF8.GetBytes(serializer.Serialize(document));
         var delivered = await delivery.DeliverAsync(
             target, bytes, MediaTypeFor(file), Path.GetFileName(file));
 

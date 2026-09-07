@@ -69,8 +69,33 @@ public class FormFillingComponentsTests
     [Theory]
     [InlineData("filled", "filled.aprf")]
     [InlineData("filled.APRF", "filled.APRF")]
+    [InlineData("filled.apr.yaml", "filled.apr.yaml")]
+    [InlineData("filled.yaml", "filled.yaml")]
+    [InlineData("filled.YML", "filled.YML")]
     public void FilledFormWriter_EnsuresFilledFormExtension(string outputPath, string expectedPath) =>
         FilledFormWriter.EnsureFilledFormExtension(outputPath).Should().Be(expectedPath);
+
+    [Fact]
+    public async Task FilledFormWriter_WritesYaml_WhenTheOutputPathSaysSo()
+    {
+        var document = TestDocumentFactory.CreateMinimalTemplate();
+        var dir = Directory.CreateTempSubdirectory("filled-form-writer");
+        try
+        {
+            var path = Path.Combine(dir.FullName, "answer.apr.yaml");
+
+            var written = await new FilledFormWriter().WriteAsync(document, path);
+
+            written.Should().Be(path);
+            var text = await File.ReadAllTextAsync(path);
+            text.Should().NotContain("{", "a YAML output must not be JSON");
+            text.Should().Contain("aprVersion:");
+        }
+        finally
+        {
+            dir.Delete(recursive: true);
+        }
+    }
 
     [Fact]
     public void FilledFormFactory_ClonesTemplateBeforeAddingFilledFormMetadata()

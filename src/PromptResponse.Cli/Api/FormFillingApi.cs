@@ -31,7 +31,7 @@ public class FormFillingApi
         _validator = validator ?? throw new ArgumentNullException(nameof(validator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _filledFormFactory = new FilledFormFactory(_serializer);
-        _filledFormWriter = new FilledFormWriter(_serializer);
+        _filledFormWriter = new FilledFormWriter();
     }
 
     /// <summary>

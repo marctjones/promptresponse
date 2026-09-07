@@ -2,6 +2,7 @@ using System.Text;
 using AwesomeAssertions;
 using PromptResponse.Cli.Commands;
 using PromptResponse.Core;
+using PromptResponse.Core.Beta6;
 using PromptResponse.Core.Models;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
@@ -63,6 +64,30 @@ public class SubmitCommandTests : IDisposable
         return path;
     }
 
+    private string WriteYaml(string name, params string[] submissionUrls)
+    {
+        var document = new AprDocument
+        {
+            Version = AprFormat.CurrentVersion,
+            DocumentType = DocumentType.FilledForm,
+            Metadata = new Metadata
+            {
+                Title = "Permit",
+                TemplateId = "tag:example.com,2026:permit",
+                SubmissionUrls = submissionUrls.Length == 0 ? null : [.. submissionUrls],
+            },
+            Sections = [new Section
+            {
+                Id = "s", Title = "S",
+                Prompts = [new Prompt { Id = "p", Label = "P", Response = "Ada" }],
+            }],
+        };
+        var path = Path.Combine(_directory, name);
+        var yaml = new AprBeta6Reader().WriteForm(document, AprRepresentation.Yaml);
+        File.WriteAllText(path, yaml);
+        return path;
+    }
+
     private (SubmitCommand Command, FakeDelivery Delivery) Build()
     {
         var delivery = new FakeDelivery();
@@ -95,6 +120,25 @@ public class SubmitCommandTests : IDisposable
         delivery.Sent[0].MediaType.Should().Be("application/vnd.apr+json",
             "the document is labelled with the media type its representation defines");
         delivery.Sent[0].Body.Should().Contain("Ada", "the document is the body, whole");
+    }
+
+    [Fact]
+    public async Task WithAYamlSource_TheBytesSentAreTheFileVerbatim_NotReserializedJson()
+    {
+        var (command, delivery) = Build();
+        var path = WriteYaml("a.apr.yaml", "https://example.gov/drop/a");
+        var onDisk = await File.ReadAllTextAsync(path);
+
+        var code = await command.ExecuteAsync([path, "--yes"]);
+
+        code.Should().Be(0);
+        delivery.Sent.Should().ContainSingle();
+        delivery.Sent[0].MediaType.Should().Be("application/vnd.apr+yaml",
+            "the media type must match the representation actually sent");
+        delivery.Sent[0].Body.Should().Be(onDisk,
+            "specification 5.2.1: the receiver holds the request body byte for byte, "
+            + "the stream as the client wrote it -- re-serializing to JSON here would "
+            + "silently change the representation of what was submitted");
     }
 
     [Fact]
