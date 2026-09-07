@@ -348,3 +348,22 @@ pre-signed **POST** against MinIO (the exact mechanism this spec
 deliberately rejects), references an `apr s3-setup` command that no
 longer exists, and uses pre-beta.6 wire format fields. It's legacy and
 out of scope for this receiver.
+
+This receiver is also deliberately **not** a real S3-compatible layer
+(MinIO or otherwise) — the specification's own text says why one isn't
+needed: "any receiver that accepts a plain PUT of a body satisfies it
+identically," and "no processing on the receiving side is assumed or
+permitted to be needed." A minimal stdlib HTTP server that stores what it's
+given is a faithful, sufficient stand-in for the pre-signed target this
+transport describes. If a *more* realistic demo — one that actually
+exercises S3 pre-signed-URL generation and semantics, not just PUT
+acceptance — is wanted, that would mean rehabilitating a MinIO-based setup
+(possibly starting from the legacy pair above) rather than extending this
+one; ask if that's the goal and it can be built separately.
+
+## Related: a hosted version of this same receiver
+
+[`cloudflare/submission-receiver/`](../../cloudflare/submission-receiver/) is
+the same PUT-only contract running on Cloudflare Workers instead of a local
+container — built and tested locally via `wrangler dev`, not deployed live
+(that's a separate decision; see its own README).
