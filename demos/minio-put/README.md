@@ -21,16 +21,29 @@ built-in default of its own; `MINIO_ROOT_USER`/`MINIO_ROOT_PASSWORD` must be
 set explicitly, and this pair is the shortest one that satisfies MinIO's own
 3/8-character minimums), creates a bucket, fills and submits a small "dog
 license" example form with the real `apr` CLI, downloads it back and diffs
-it against what was sent, and opens a fresh, disposable Chrome window on the
-MinIO Console's file browser for the bucket — launched with its own
-throwaway profile and `--ignore-certificate-errors` so it lands on the
-Console's login screen directly, with no certificate-warning interstitial
-first, and without touching your main Chrome profile or your Mac's own
-trust store. The raw S3 listing is also printed to the terminal, in case the
-Chrome step doesn't apply to your setup. Prints every command it runs,
-including the exact `apr submit` invocation. Leaves MinIO (and that Chrome
-window) running afterward and prints the teardown command rather than
-running it for you.
+it against what was sent — then does it again with the real Avalonia desktop
+GUI, driven headlessly: it types into the actual rendered form fields and
+clicks the real "Submit via HTTPS" command, saves a screenshot of what it
+filled in, and the object that lands in MinIO is verified against the exact
+bytes its HTTP client sent and against the real CLI's own `apr validate`.
+Both objects land in the same bucket. Finally it opens a fresh, disposable
+Chrome window on the MinIO Console's file browser for the bucket — launched
+with its own throwaway profile and `--ignore-certificate-errors` so it lands
+on the Console's login screen directly, with no certificate-warning
+interstitial first, and without touching your main Chrome profile or your
+Mac's own trust store. The raw S3 listing is also printed to the terminal,
+in case the Chrome step doesn't apply to your setup. Prints every command it
+runs, including the exact `apr submit` invocation and every dialog the GUI
+would have shown a person. Leaves MinIO (and that Chrome window) running
+afterward and prints the teardown command rather than running it for you.
+
+The GUI step needs no container the way the CLI step does (see below): the
+desktop's `HttpsSubmissionService` already accepts an `HttpMessageHandler`
+through its constructor, a seam built for tests, so the demo pins that one
+`HttpClient` instance's certificate trust to this MinIO instance's exact
+certificate bytes instead of asking anything broader to trust it. See
+[`../../tools/PromptResponse.GuiSubmitDemo.Avalonia/`](../../tools/PromptResponse.GuiSubmitDemo.Avalonia/)
+for the driver itself.
 
 ```bash
 ./demo.sh --embedded-url

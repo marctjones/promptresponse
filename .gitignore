@@ -96,6 +96,10 @@ demos/minio-put/mc-config/
 # machine-local, wiped and regenerated at the start of each run.
 demos/minio-put/.chrome-profile/
 
+# Screenshot of the desktop GUI's filled form, written by demo.sh's GUI submission
+# step -- demo evidence, regenerated each run.
+demos/minio-put/gui-submission-screenshot.png
+
 # APR test files (for testing only)
 *.apr.test
 test-forms/

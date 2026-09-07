@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
 # End-to-end demo: a real MinIO instance, a real presigned PUT URL, the real
-# unmodified `apr` CLI filling and submitting a small "dog license" form, a
-# byte-for-byte check that what MinIO holds matches what was sent, and a
-# Chrome window pointed at the bucket so you can see the submitted file
-# listed there yourself.
+# unmodified `apr` CLI *and* the real Avalonia desktop GUI each filling and
+# submitting their own "dog license" form, verification that what MinIO holds
+# matches what each client actually sent, and a Chrome window pointed at the
+# bucket so you can see both submitted files listed there yourself.
 #
 # Non-persistent: MinIO runs with no volume mount, so all of it -- the
 # bucket, the object, everything -- disappears the moment the container is
@@ -36,10 +36,23 @@
 #      metadata.submissionUrls from the file, then a second submit attempt
 #      with a *different* --url is shown being refused, since the document
 #      already names its one target.
-#   6. Downloads the object back from MinIO and diffs it against what was
-#      submitted.
-#   7. Opens a fresh, disposable Chrome window on the MinIO Console's file
-#      browser for the bucket, so you can see the listing yourself --
+#   6. Drives the real, unmodified Desktop app -- the shipped App, views,
+#      MainShellViewModel, and HttpsSubmissionService -- headlessly: types
+#      into its actual rendered form fields and clicks the real "Submit via
+#      HTTPS" command, which PUTs to a second presigned URL. No container is
+#      needed for this one (unlike step 5): HttpsSubmissionService already
+#      takes an HttpMessageHandler through its constructor, so the demo
+#      pins trust to this MinIO instance's exact certificate bytes for this
+#      one HttpClient instance, rather than asking anything to trust it more
+#      broadly. A screenshot of the filled form is saved so you can see what
+#      the GUI actually rendered.
+#   7. Downloads both objects back from MinIO: the CLI's is diffed
+#      byte-for-byte against the file it submitted; the GUI's is diffed
+#      against the exact bytes its own HTTP client sent (captured before the
+#      request left the process, since the GUI never writes its completed
+#      copy to disk) and validated with the real CLI.
+#   8. Opens a fresh, disposable Chrome window on the MinIO Console's file
+#      browser for the bucket, so you can see both files listed yourself --
 #      launched with a throwaway profile and --ignore-certificate-errors so
 #      it doesn't stop at a certificate warning first. Nothing on your main
 #      Chrome profile or your Mac's own trust store is touched.
@@ -76,6 +89,8 @@ CONTAINER_NAME="apr-minio-demo"
 IMAGE_NAME="apr-minio-put-test:demo"
 BUCKET="dog-licenses"
 OBJECT_KEY="submissions/dog-license-$(date +%Y%m%dT%H%M%S).aprf"
+GUI_OBJECT_KEY="submissions/dog-license-gui-$(date +%Y%m%dT%H%M%S).aprf"
+GUI_SCREENSHOT="$SCRIPT_DIR/gui-submission-screenshot.png"
 # MinIO has no built-in default credential: MINIO_ROOT_USER (>=3 chars) and
 # MINIO_ROOT_PASSWORD (>=8 chars) must be set explicitly for it to start at
 # all. These are the shortest memorable pair that satisfies both minimums.
@@ -237,18 +252,56 @@ else
   fi
 fi
 
-print_header "6. Download it back from MinIO and compare"
+print_header "6. Submit a second copy with the real desktop GUI, driven headlessly"
+GUI_PRESIGNED_URL="$(cd "$SCRIPT_DIR" && uv run --with boto3 python3 presign.py "$BUCKET" "$GUI_OBJECT_KEY" \
+  --access-key "$ROOT_USER" --secret-key "$ROOT_PASSWORD" 2>/dev/null | tail -1)"
+print_info "A second presigned URL, for the GUI's own object:"
+echo "  $GUI_PRESIGNED_URL"
+dotnet build "$REPO_ROOT/tools/PromptResponse.GuiSubmitDemo.Avalonia" -c Release --nologo -v q
+# A plain (non-RID-specific) build shouldn't touch packages.lock.json, but revert
+# defensively anyway -- see the comment on the same pattern in step 5.
+git -C "$REPO_ROOT" checkout -- \
+  src/PromptResponse.Core/packages.lock.json \
+  src/PromptResponse.Desktop/packages.lock.json \
+  src/PromptResponse.Rendering.Pdf/packages.lock.json 2>/dev/null || true
+GUI_CAPTURED_BODY="$WORK_DIR/gui-captured-body.aprf"
+dotnet run --project "$REPO_ROOT/tools/PromptResponse.GuiSubmitDemo.Avalonia" -c Release --no-build -- \
+  "$SCRIPT_DIR/dog-license.aprt" "$GUI_PRESIGNED_URL" "$WORK_DIR/minio.crt" \
+  "$GUI_SCREENSHOT" "$GUI_CAPTURED_BODY"
+print_ok "GUI submission complete -- screenshot of the filled form: $GUI_SCREENSHOT"
+
+print_header "7. Download both objects back from MinIO and verify each"
 DOWNLOADED="$WORK_DIR/downloaded.aprf"
 mc cat "localminio/$BUCKET/$OBJECT_KEY" > "$DOWNLOADED"
 if diff -q "$FILLED" "$DOWNLOADED" >/dev/null; then
-  print_ok "Byte-for-byte identical: what was submitted is exactly what MinIO now holds."
+  print_ok "CLI: byte-for-byte identical to what was submitted."
 else
-  print_err "MISMATCH -- the downloaded file differs from what was submitted:"
+  print_err "CLI MISMATCH -- the downloaded file differs from what was submitted:"
   diff "$FILLED" "$DOWNLOADED" || true
   exit 1
 fi
 
-print_header "7. Open a directory listing of everything PUT into the bucket"
+GUI_DOWNLOADED="$WORK_DIR/gui-downloaded.aprf"
+mc cat "localminio/$BUCKET/$GUI_OBJECT_KEY" > "$GUI_DOWNLOADED"
+if diff -q "$GUI_CAPTURED_BODY" "$GUI_DOWNLOADED" >/dev/null; then
+  print_ok "GUI: byte-for-byte identical to what its HTTP client actually sent."
+else
+  print_err "GUI MISMATCH -- the downloaded file differs from what was captured on the wire:"
+  diff "$GUI_CAPTURED_BODY" "$GUI_DOWNLOADED" || true
+  exit 1
+fi
+GUI_VALIDATE="$(podman run --rm --network=host \
+  -v "$GUI_DOWNLOADED:/data/gui-downloaded.aprf:Z" \
+  apr-cli-verify-minio:demo validate /data/gui-downloaded.aprf)"
+echo "$GUI_VALIDATE"
+if echo "$GUI_VALIDATE" | grep -q '"valid": true'; then
+  print_ok "GUI submission validates cleanly with the real CLI."
+else
+  print_err "GUI submission failed validation -- see output above."
+  exit 1
+fi
+
+print_header "8. Open a directory listing of everything PUT into the bucket"
 BUCKET_URL="https://localhost:9000/$BUCKET/"
 CONSOLE_URL="https://localhost:9001/browser/$BUCKET"
 print_info "Raw S3 ListObjects response for '$BUCKET' (this is the actual, unfiltered"
@@ -282,8 +335,9 @@ fi
 
 print_header "Done"
 echo "MinIO is still running (non-persistent -- no data survives removing it)."
+echo "The GUI's filled-form screenshot is at: $GUI_SCREENSHOT"
 echo "When you're done looking around:"
 echo
 print_cmd "podman rm -f $CONTAINER_NAME"
-print_cmd "rm -rf \"$CHROME_PROFILE\""
+print_cmd "rm -rf \"$CHROME_PROFILE\" \"$GUI_SCREENSHOT\""
 echo
