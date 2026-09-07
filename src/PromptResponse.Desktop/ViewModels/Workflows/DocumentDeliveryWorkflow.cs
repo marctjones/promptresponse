@@ -89,12 +89,12 @@ internal sealed class DocumentDeliveryWorkflow
 
         var selectedIndex = await _dialogService.ShowChoiceAsync(
             "Submit via HTTPS",
-            "Choose one destination. PromptResponse will POST only after you confirm; it never follows redirects or falls back.",
+            "Choose one destination. PromptResponse will PUT only after you confirm; it never follows redirects or falls back.",
             targets);
         if (!TryGetChoice(selectedIndex, targets, out var selected)) return;
 
         var target = targets[selected];
-        if (!await _dialogService.ShowConfirmationAsync("Submit completed APR", $"POST this completed APR to {target}?")) return;
+        if (!await _dialogService.ShowConfirmationAsync("Submit completed APR", $"PUT this completed APR to {target}?")) return;
 
         var result = await _httpsSubmission.SubmitAsync(target, _serializer.Serialize(CreateCompletedCopy(source!)));
         await _dialogService.ShowConfirmationAsync("HTTPS submission", result.Message);
