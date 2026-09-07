@@ -110,12 +110,14 @@ public class CliRobustnessTests : IDisposable
 
     private IEnumerable<(string Name, Func<string, Task<int>>)> ReadOnlyCommands()
     {
-        var validate = new ValidateCommand(_serializer, new DocumentValidator(), new DataTypeValidator());
-        var info = new InfoCommand(_serializer);
+        // The commands `Program` actually routes to. This used to construct
+        // ValidateCommand and InfoCommand, which `Program` routed away from years ago:
+        // the robustness suite was proving that unreachable code handled bad input well.
+        var beta6 = new Beta6Command();
         var stats = new StatsCommand(_serializer);
 
-        yield return ("validate", path => validate.ExecuteAsync([path]));
-        yield return ("info", path => info.ExecuteAsync([path]));
+        yield return ("validate", path => beta6.ExecuteAsync(["validate", path]));
+        yield return ("info", path => beta6.ExecuteAsync(["inspect", path]));
         yield return ("stats", path => stats.ExecuteAsync([path]));
     }
 

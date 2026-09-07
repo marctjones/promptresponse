@@ -167,6 +167,9 @@
           "YamlDotNet": "[18.1.0, )"
         }
       },
+      "promptresponse.host.abstractions": {
+        "type": "Project"
+      },
       "promptresponse.rendering.pdf": {
         "type": "Project",
         "dependencies": {

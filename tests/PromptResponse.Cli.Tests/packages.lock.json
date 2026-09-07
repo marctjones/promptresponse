@@ -311,6 +311,7 @@
           "Microsoft.Extensions.DependencyInjection": "[10.0.11, )",
           "Microsoft.Extensions.Logging.Console": "[10.0.11, )",
           "PromptResponse.Core": "[1.0.0-beta.6, )",
+          "PromptResponse.Host.Abstractions": "[1.0.0, )",
           "PromptResponse.Rendering.Pdf": "[1.0.0, )"
         }
       },
@@ -322,6 +323,9 @@
           "System.Security.Cryptography.Pkcs": "[10.0.11, )",
           "YamlDotNet": "[18.1.0, )"
         }
+      },
+      "promptresponse.host.abstractions": {
+        "type": "Project"
       },
       "promptresponse.rendering.pdf": {
         "type": "Project",

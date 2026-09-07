@@ -1,34 +1,101 @@
-using System.Net.Http.Headers;
+using System.Text;
+using PromptResponse.Core.Beta6;
 using PromptResponse.Core.Serialization;
 using PromptResponse.Core.Validation;
+using PromptResponse.Host.Abstractions;
 
 namespace PromptResponse.Cli.Commands;
 
-/// <summary>Explicitly posts a completed APR document to one HTTPS submission target.</summary>
-public sealed class SubmitCommand(IAprSerializer serializer, DocumentValidator validator) : ICommand
+/// <summary>Delivers a completed document to one submission target it names.</summary>
+/// <remarks>
+/// Delivery goes through <see cref="IDelivery"/> rather than an <c>HttpClient</c> this
+/// command owns: submission is a host capability, and the seam is the one decided in
+/// <c>docs/ARCHITECTURE.md</c>.
+///
+/// The command keeps the decisions that are its own — which target, and whether a person
+/// has confirmed. A port never asks; a surface does.
+/// </remarks>
+public sealed class SubmitCommand(
+    IAprSerializer serializer, DocumentValidator validator, IDelivery delivery) : ICommand
 {
     public async Task<int> ExecuteAsync(string[] args)
     {
-        if (args.Length == 0) { Console.Error.WriteLine("Usage: apr submit <file.aprf> [--url=https://…] --yes"); return 1; }
-        var file = args[0];
-        var url = args.FirstOrDefault(a => a.StartsWith("--url=", StringComparison.Ordinal))?[6..];
-        if (!File.Exists(file)) { Console.Error.WriteLine("Error: File not found."); return 1; }
-        var document = serializer.Deserialize(await File.ReadAllTextAsync(file));
-        if (!validator.Validate(document).IsValid) { Console.Error.WriteLine("Error: document has structural validation errors."); return 1; }
-        var choices = document.Metadata.SubmissionUrls?.Where(IsHttps).ToList() ?? [];
-        url ??= choices.Count == 1 ? choices[0] : null;
-        if (url is null || !IsHttps(url)) { Console.Error.WriteLine("Error: specify one HTTPS target with --url=…; no automatic fallback is used."); return 1; }
-        if (document.Metadata.SubmissionUrls is { Count: > 0 } && !document.Metadata.SubmissionUrls.Contains(url, StringComparer.Ordinal)) { Console.Error.WriteLine("Error: --url must be one of metadata.submissionUrls."); return 1; }
-        if (!args.Contains("--yes", StringComparer.Ordinal)) { Console.Error.WriteLine($"Will POST {Path.GetFileName(file)} to {url}. Re-run with --yes to confirm."); return 2; }
-        using var client = new HttpClient(new HttpClientHandler { AllowAutoRedirect = false }) { Timeout = TimeSpan.FromSeconds(30) };
-        using var content = new StringContent(serializer.Serialize(document)); content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.apr+json");
-        try
+        if (args.Length == 0)
         {
-            using var response = await client.PostAsync(url, content);
-            if (!response.IsSuccessStatusCode) { Console.Error.WriteLine($"Submission failed: HTTP {(int)response.StatusCode} {response.ReasonPhrase}. No redirect was followed."); return 1; }
-            Console.WriteLine($"Submitted to {url}: HTTP {(int)response.StatusCode} {response.ReasonPhrase}"); return 0;
+            Console.Error.WriteLine("Usage: apr submit <file.aprf> [--url=https://… | --url=mailto:…] --yes");
+            return 1;
         }
-        catch (HttpRequestException ex) { Console.Error.WriteLine($"Submission failed: {ex.Message}"); return 1; }
+
+        var file = args[0];
+        if (!File.Exists(file)) { Console.Error.WriteLine("Error: File not found."); return 1; }
+
+        var document = serializer.Deserialize(await File.ReadAllTextAsync(file));
+        var result = validator.Validate(document);
+        if (!result.IsValid)
+        {
+            Console.Error.WriteLine(
+                $"Error: this document has {result.Errors.Count} structural error(s) and is not "
+                + $"ready to submit. The first is {result.Errors[0].ErrorCode} at "
+                + $"{result.Errors[0].PropertyPath}.");
+            return 1;
+        }
+
+        var declared = document.Metadata.SubmissionUrls ?? [];
+        var requested = args.FirstOrDefault(a => a.StartsWith("--url=", StringComparison.Ordinal))?[6..];
+        // No automatic fallback. Where a document names one target the choice is
+        // unambiguous; where it names several, choosing for somebody is choosing where
+        // their answers go.
+        var chosen = requested ?? (declared.Count == 1 ? declared[0] : null);
+        if (chosen is null)
+        {
+            Console.Error.WriteLine(declared.Count == 0
+                ? "Error: this document names no submission target. Give one with --url=…"
+                : $"Error: this document names {declared.Count} targets. Choose one with --url=…");
+            return 1;
+        }
+        if (declared.Count > 0 && !declared.Contains(chosen, StringComparer.Ordinal))
+        {
+            Console.Error.WriteLine("Error: --url must be one of the targets the document names.");
+            return 1;
+        }
+        if (!Uri.TryCreate(chosen, UriKind.Absolute, out var target) || !delivery.Supports(target))
+        {
+            Console.Error.WriteLine(
+                $"Error: '{chosen}' is not a submission target this format defines. The "
+                + "format defines a pre-signed HTTPS PUT and a mailto address.");
+            return 1;
+        }
+
+        if (!args.Contains("--yes", StringComparer.Ordinal))
+        {
+            Console.Error.WriteLine(
+                $"Will send {Path.GetFileName(file)} to {target}. Re-run with --yes to confirm.");
+            return 2;
+        }
+
+        var bytes = Encoding.UTF8.GetBytes(serializer.Serialize(document));
+        var delivered = await delivery.DeliverAsync(
+            target, bytes, MediaTypeFor(file), Path.GetFileName(file));
+
+        switch (delivered.Outcome)
+        {
+            case DeliveryOutcome.Delivered:
+                Console.WriteLine(delivered.Detail);
+                return 0;
+            case DeliveryOutcome.Unavailable:
+                // Not a failure of the document or the target. Saying which it is keeps
+                // somebody from editing a file that was never the problem.
+                Console.Error.WriteLine($"Not sent: {delivered.Detail}");
+                return 3;
+            default:
+                Console.Error.WriteLine($"Not sent: {delivered.Detail}");
+                return 1;
+        }
     }
-    private static bool IsHttps(string value) => Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps && string.IsNullOrEmpty(uri.UserInfo) && string.IsNullOrEmpty(uri.Fragment);
+
+    private static string MediaTypeFor(string path) =>
+        path.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase)
+        || path.EndsWith(".yml", StringComparison.OrdinalIgnoreCase)
+            ? "application/vnd.apr+yaml"
+            : "application/vnd.apr+json";
 }

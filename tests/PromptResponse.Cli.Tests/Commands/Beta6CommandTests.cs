@@ -17,7 +17,10 @@ public sealed class Beta6CommandTests : IDisposable
     public async Task Validate_AcceptsJsoncAndReportsEveryStreamRecord()
     {
         var path = Path.Combine(_directory, "stream.apr");
-        var form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}]}";
+        // A prompt, because a section with neither prompts nor child sections is
+        // EMPTY_SECTION. This fixture carried none and the test passed anyway, which is
+        // what `validate` reporting on a parse rather than a validation looked like.
+        var form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
         var attestation = """{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}""";
         await File.WriteAllTextAsync(path, "\u001e" + attestation + "\n\u001e" + form);
 
@@ -43,7 +46,10 @@ public sealed class Beta6CommandTests : IDisposable
     public async Task Inspect_ReportsAttestationStateWithoutSelectingAForm()
     {
         var path = Path.Combine(_directory, "stream.apr");
-        var form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}]}";
+        // A prompt, because a section with neither prompts nor child sections is
+        // EMPTY_SECTION. This fixture carried none and the test passed anyway, which is
+        // what `validate` reporting on a parse rather than a validation looked like.
+        var form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}";
         var attestation = """{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}""";
         await File.WriteAllTextAsync(path, "\u001e" + attestation + "\n\u001e" + form);
 

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!--
+    No ProjectReference, by design. This assembly is interfaces and result types. It
+    depends on neither Core nor a UI framework nor a platform, which is what lets a
+    fake adapter stand in for a real one in a test on any runner.
+  -->
+
+</Project>

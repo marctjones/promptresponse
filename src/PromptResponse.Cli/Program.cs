@@ -77,8 +77,6 @@ class Program
         services.AddSingleton<FormFillingApi>();
 
         // Commands
-        services.AddTransient<ValidateCommand>();
-        services.AddTransient<InfoCommand>();
         services.AddTransient<NewCommand>();
         services.AddTransient<FillCommand>();
         services.AddTransient<StatsCommand>();
@@ -88,6 +86,10 @@ class Program
         services.AddTransient<ExportCommand>();
         services.AddTransient<ImportCommand>();
         services.AddTransient<AttestCommand>();
+        // The delivery port's command-line adapter, registered at the composition
+        // root. No runtime discovery: an adapter that is not registered here is a
+        // capability this host does not have.
+        services.AddSingleton<PromptResponse.Host.Abstractions.IDelivery, Host.CliDelivery>();
         services.AddTransient<SubmitCommand>();
         services.AddTransient<Beta6Command>();
     }
