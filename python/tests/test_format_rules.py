@@ -9,14 +9,6 @@ import pytest
 
 import promptresponse as pr
 
-
-def _doc(**overrides):
-    text = overrides.pop("text", None)
-    if text is not None:
-        return pr.loads(text)
-    raise AssertionError("give text=")
-
-
 # ── 3.2 strings only ─────────────────────────────────────────────────────────
 
 @pytest.mark.parametrize("literal", ["42", "true", "3.14"])
