@@ -1,0 +1,33 @@
+# A real S3-compatible server (MinIO) for testing APR submission against an
+# actual pre-signed PUT implementation, not just the minimal receiver in
+# ../submission-receiver/. That receiver proves the CLI/desktop send PUT and
+# nothing else works against a target that only accepts PUT; this proves the
+# same client behavior against real S3 signature verification, real
+# Content-Type binding in the signed request, and real rejection of every
+# method the signature wasn't computed for.
+#
+# TLS is baked in the same way as ../submission-receiver/'s Containerfile: a
+# throwaway self-signed certificate, in MinIO's own expected filenames and
+# location. Nothing on the host machine is asked to trust it -- see the
+# README for how the worked example reaches this server without doing that.
+#
+# Two stages because the official minio/minio image is a minimal RHEL-UBI
+# base with no package manager and no openssl -- the certificate is generated
+# in a throwaway builder stage that has one, then copied into the real image.
+FROM registry.access.redhat.com/ubi9/ubi-minimal:latest AS certs
+RUN microdnf install -y openssl && microdnf clean all
+RUN openssl req -x509 -newkey rsa:2048 -nodes \
+        -keyout /private.key \
+        -out /public.crt \
+        -days 3650 \
+        -subj "/CN=localhost" \
+        -addext "subjectAltName=DNS:localhost,IP:127.0.0.1"
+
+FROM docker.io/minio/minio:latest
+COPY --from=certs /private.key /root/.minio/certs/private.key
+COPY --from=certs /public.crt /root/.minio/certs/public.crt
+
+EXPOSE 9000 9001
+VOLUME ["/data"]
+
+ENTRYPOINT ["minio", "server", "/data", "--console-address", ":9001"]
