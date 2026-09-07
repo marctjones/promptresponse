@@ -362,6 +362,18 @@ jobs:
           uv sync --all-extras --locked
           uv run pytest -q
 
+      - name: Python dead-code check
+        # vulture's default per-kind confidence for an unused function or method is
+        # 60%, so --min-confidence 80 (vulture's own "safe" bar) silently excludes
+        # that whole category — a gate that would never have caught anything. Scoped
+        # to promptresponse + tests + the one script that calls into it, so cross-file
+        # usage is visible; python/vulture_whitelist.py names the few real positives
+        # confirmed intentional on 2026-09-07 rather than accidental.
+        working-directory: python
+        run: >-
+          uv run vulture promptresponse tests ../scripts/run-spec-semantic-review.py
+          vulture_whitelist.py --min-confidence 60
+
       - name: TypeScript SDK and HTML renderer tests
         # Reported even when an earlier suite failed. These four are independent
         # implementations, and letting the first failure skip the rest means one known
@@ -371,6 +383,15 @@ jobs:
         run: |
           npm ci
           npm test
+
+      - name: TypeScript dead-export and unused-dependency check
+        # An unused dependency or export doesn't fail a build, so nothing else here
+        # would ever catch one. knip found and removed one real case (asn1js, already
+        # transitive through pkijs) on 2026-09-07; keeping it wired in stops the next
+        # one from sitting unnoticed the same way.
+        if: ${{ !cancelled() }}
+        working-directory: typescript
+        run: npm run knip
 
       - name: Browser demo tests
         # Reported even when an earlier suite failed. These four are independent
