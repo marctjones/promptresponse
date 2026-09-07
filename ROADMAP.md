@@ -48,19 +48,25 @@ four implementations.
 
 ### What remains
 
-1. **Evidence** — Core line coverage is below its gate, and the manifest vectors
-   for changed member kinds have no corpus entry.
-2. **Specification apparatus** — a review and release checklist, and a build that
-   produces tagged baselines identifying the exact specification, schema,
-   registry and corpus set.
-3. **Stabilization** — only after those do cross-platform release and
+1. **Scoring the other three SDKs.** Conformance is asked two ways, and only one
+   of them is hard. A suite that *exercises* an implementation checks it reads the
+   corpus without failing. A suite that *scores* it withholds the answers, demands
+   a named diagnostic for every rejection and compares a computed digest per case.
+   The .NET library, the command line, the desktop client and the PDF exporter are
+   scored. Python, TypeScript and Java are exercised, and each of the three passed
+   its own suite for weeks while unable to read a beta.6 document at all.
+2. **Reaching every rule.** 84 of 166 rules are fully evidenced — enforced by a
+   check, shown satisfied, shown violated, and the violation caught. The rest are
+   reached partly or not at all, and each gap is recorded rather than rounded up.
+3. **Gates that decide what they claim to.** A skipped step, an unapplied fixture
+   and a threshold set below what already passes all report the same green as a
+   working check. Several were found this way and the class is not exhausted.
+4. **Stabilization** — only after those do cross-platform release and
    maintainability gates become the final pass.
 
-Planning lives in [the specification
-milestone](https://github.com/marctjones/promptresponse/milestone/19) and [the
-beta.6 upgrade milestone](https://github.com/marctjones/promptresponse/milestone/18).
-Existing refactoring and dependency milestones support this work; they must not
-stabilize the retired beta.3 contract.
+Planning lives in GitHub milestones and issues, which this document does not
+restate. Existing refactoring and dependency milestones support this work; they
+must not stabilize the retired beta.3 contract.
 
 ## Deferred, explicit decisions
 

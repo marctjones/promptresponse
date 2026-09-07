@@ -24,21 +24,30 @@ PromptResponse (.apr format) breaks free from the page metaphor. Traditional for
 
 ## Implementations
 
-| | Profile | Tests |
+| | Profile | Conformance evidence |
 |---|---|---|
-| **.NET** — `src/` | beta.6 JSONC/YAML, streams, manifests, and CMS attestation verification | beta.6 focused core tests |
-| **Python** — `python/` | beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and detached CMS content verification | beta.6 shared-corpus tests; trust is caller policy |
-| **TypeScript** — `typescript/` | browser-safe beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and async detached CMS content verification | beta.6 shared-corpus tests; trust is caller policy |
-| **Java** — `java/` | beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and detached CMS content verification | beta.6 shared-corpus tests; trust is caller policy |
+| **.NET** — `src/` | beta.6 JSONC/YAML, streams, manifests, and CMS attestation verification | **scored 171/171** against the blinded conformance suite, as the library and again as the CLI |
+| **Python** — `python/` | beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and detached CMS content verification | exercised against the shared corpus and the specification's examples; not yet scored against the suite |
+| **TypeScript** — `typescript/` | browser-safe beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and async detached CMS content verification | exercised against the shared corpus and the specification's examples; not yet scored against the suite |
+| **Java** — `java/` | beta.6 JSONC/YAML streams, digests, manifests, witness resolution, and detached CMS content verification | exercised against the shared corpus and the specification's examples; not yet scored against the suite |
 
-The Python and TypeScript SDKs run the same beta.6 corpus as .NET. They parse
-forms and independent attestation records without treating an attestation as a
-member of its form; trust policy stays with the calling application.
+All four SDKs read the same beta.6 corpus. They parse forms and independent
+attestation records without treating an attestation as a member of its form;
+trust policy stays with the calling application.
 
-It also earns its keep as a second opinion. Within an hour of existing it found
-a conformance bug in .NET that had been invisible since tables were redesigned:
-two computed properties were reaching the wire as JSON booleans, in a format
-that permits exactly one.
+There is a real distinction in that table. The .NET library and the CLI are
+**scored**: a harness withholds the answers, puts 171 cases to them, and checks
+the outcome, the diagnostic code and the computed digest each comes back with.
+The other three are **exercised**: they read the corpus and run the
+specification's examples without failing. That is weaker, and the difference is
+not academic — each of the three passed its own suite for weeks while being
+unable to read a beta.6 document at all, because its tests were written against
+the same pre-rename member as its reader. Closing that gap is
+[#379](https://github.com/marctjones/promptresponse/issues/379).
+
+Several implementations remain the cheapest way to find a defect in any one of
+them: where two disagree, at least one is wrong, and the specification says
+which.
 
 ## Key Features
 
