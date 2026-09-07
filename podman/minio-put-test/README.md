@@ -10,6 +10,20 @@ toy server that would accept whatever it's handed.
 
 Both are legitimate and test different things. Neither replaces the other.
 
+## The quick way: one command
+
+```bash
+./demo.sh
+```
+
+Starts a non-persistent MinIO, creates a bucket, fills and submits a small
+"dog license" example form with the real `apr` CLI, downloads it back and
+diffs it against what was sent, and opens Chrome on the bucket's listing.
+Prints every command it runs, including the exact `apr submit` invocation.
+Leaves MinIO running afterward and prints the teardown command rather than
+running it for you. Everything below is the same sequence spelled out by
+hand, for anyone who wants to run or adapt it a step at a time.
+
 ## Why this needed its own setup, not `mc share upload`
 
 MinIO's own client (`mc`) has a `share upload` command, but it generates a
