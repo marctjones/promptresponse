@@ -119,6 +119,8 @@ def main():
     # than the suite that contains it. A case gate is checked twice over: the case has to
     # exist, and it has to name the rule the requirement claims — a citation pointing at
     # a case that exercises something else is the failure this catches.
+    # The committed suite, not a build product: a fresh checkout has it, and
+    # build-renderer-suite.py fails separately when it is stale.
     renderer_cases = {}
     if RENDERER_SUITE.exists():
         renderer_cases = {

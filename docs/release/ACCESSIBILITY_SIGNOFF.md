@@ -55,7 +55,7 @@ Rendered against a real theme, at a real size, with a real display. The format s
 nothing about this and the harness measures nothing about it, so it is listed to say
 that its absence from the automated evidence is deliberate.
 
-### R7. The template editor — measured, but not against a rule
+### R5. The template editor — measured, but not against a rule
 
 `documentType` decides which of two interfaces a document produces, and the renderer
 drivers score the filling one, because that is what chapter 13 legislates. The editor
@@ -78,7 +78,7 @@ Listed here so its absence is deliberate rather than missed. It is also the one
 residue that looks like it should be a rule instead — unlike contrast, it is
 mechanically checkable the moment the specification says it.
 
-### R5. Unproven driven branches — `APR-RENDER-005`
+### R7. Unproven driven branches — `APR-RENDER-005`
 
 Two branches the headless input pipeline cannot drive, recorded rather than claimed:
 
