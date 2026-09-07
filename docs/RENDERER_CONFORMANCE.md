@@ -147,7 +147,8 @@ even parse against an editor, where a prompt's label is the *value* of a field
 rather than the name of one.
 
 So the Avalonia driver sets `documentType` to `filledForm` on the model it hands
-the shell, and says so. The editor is not unmeasured — `tests/gui-inventory.json`
+the shell, and says so. The editor is not unmeasured — `TestResults/gui-evidence/gui-inventory.json`,
+written by the Desktop suite rather than committed,
 records 158 elements on that surface against 58 on the filling one, and the
 activation ratchet holds 127 of them — but it is measured by the GUI suite rather
 than by a rule.
