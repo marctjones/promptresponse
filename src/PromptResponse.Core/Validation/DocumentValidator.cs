@@ -20,6 +20,14 @@ public class DocumentValidator : IValidator<AprDocument>
         // failing its own pattern. They are part of validating a document, not a
         // separate errand.
         result.AddWarnings(new DataTypeValidator().ValidateDocument(document).Warnings);
+        // Suspicious characters in a *response* are surfaced and the document stays
+        // valid — section 8.2.3 is explicit that a response is what a person typed and
+        // is not held to the human-facing text floor. These two advisors are that
+        // surfacing, and APR-TEXT-012 asks for the confusable and mixed-script half by
+        // name. They were reachable only from the desktop, so the same document got
+        // different advice depending on which surface a person opened it in.
+        result.AddWarnings(new HiddenCharacterAdvisor().Validate(document).Warnings);
+        result.AddWarnings(new MixedScriptAdvisor().Validate(document).Warnings);
         return result;
     }
 
