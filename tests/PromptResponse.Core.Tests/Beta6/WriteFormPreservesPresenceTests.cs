@@ -139,4 +139,48 @@ public class WriteFormPreservesPresenceTests
 
         _reader.WriteForm(document, AprRepresentation.Jsonc).Should().Contain("\"child\"");
     }
+
+    public static TheoryData<string> ShippedForms()
+    {
+        var data = new TheoryData<string>();
+        foreach (var path in Directory.EnumerateFiles(
+                     Path.Combine(Root(), "tests", "Conformance", "beta6", "forms")))
+        {
+            data.Add(path);
+        }
+        return data;
+    }
+
+    [Theory]
+    [MemberData(nameof(ShippedForms))]
+    public void AShippedFormComesBackAsItself(string fixture)
+    {
+        // The general form of the two above, over documents nobody wrote for this test.
+        // It is the property that matters — a writer adds nothing and drops nothing — and
+        // it is what caught `displayName`: a computed property on RoleDefinition that
+        // serialized, so every role in every document this library wrote gained an
+        // unprefixed member the specification does not define (APR-MODEL-031), and the
+        // form's digest moved with it.
+        var representation = fixture.EndsWith(".yaml", StringComparison.Ordinal)
+            ? AprRepresentation.Yaml : AprRepresentation.Jsonc;
+        var source = File.ReadAllText(fixture);
+
+        var written = _reader.WriteForm(_reader.ReadForm(source, representation), representation);
+
+        Digest(written, representation).Should().Be(Digest(source, representation),
+            "reading and writing {0} must leave the document it names", Path.GetFileName(fixture));
+    }
+
+    private static string Digest(string source, AprRepresentation representation) =>
+        AprSemanticDigest.Digest(new AprBeta6Reader()
+            .ReadStream(source, representation).OfType<AprFormRecord>().First().Value);
+
+    private static string Root()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null && !Directory.Exists(Path.Combine(directory.FullName, ".git")))
+            directory = directory.Parent;
+        return directory?.FullName
+            ?? throw new InvalidOperationException("no repository root above the test binary");
+    }
 }

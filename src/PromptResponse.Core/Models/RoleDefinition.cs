@@ -36,5 +36,14 @@ public class RoleDefinition
     public string? Description { get; set; }
 
     /// <summary>The name to display: <see cref="Name"/> if given, otherwise the identifier.</summary>
+    /// <remarks>
+    /// Never written. A producer <b>MUST NOT</b> add a member whose name carries no
+    /// prefix (APR-MODEL-031), and every unprefixed name belongs to the specification —
+    /// which defines `id`, `name` and `description` here and nothing else. Without this
+    /// attribute every role in every document written by this library gained a
+    /// `displayName`, which changed the form's digest and made the writer a producer of
+    /// documents the format does not define.
+    /// </remarks>
+    [JsonIgnore]
     public string DisplayName => string.IsNullOrWhiteSpace(Name) ? Id : Name;
 }
