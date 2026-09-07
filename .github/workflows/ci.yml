@@ -377,6 +377,29 @@ jobs:
       - name: Java SDK shared-corpus tests
         run: java/run-tests.sh
 
+  conformance-drivers:
+    name: Conformance drivers (library, CLI, desktop client, exporter)
+    runs-on: ubuntu-latest
+    # Its own job, not the tail of sdk-suites. These four steps are the evidence that the
+    # shipped .NET library, the command line, the desktop client and the exporter conform,
+    # and they read no SDK. Sitting below the Python suite meant the first CI run to carry
+    # them scored nothing at all: one expected failure, in an SDK knowingly behind the wire
+    # format, skipped every driver beneath it. A skipped driver reports the same green as a
+    # passing one.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install conformance tooling dependencies
+        # scripts/aprlib.py computes every digest the suite states and reads the APR-YAML
+        # half of the corpus, so PyYAML is load-bearing rather than optional here too.
+        run: pip install --disable-pip-version-check -r scripts/requirements.txt
+
       - name: Set up .NET 10
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
