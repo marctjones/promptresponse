@@ -74,8 +74,15 @@ changes their priority:
 - native print, trust-store, encryption, notarization, and richer document import;
 - Word/Excel export.
 
-The format's optional CEL profile is documented separately as a deliberate draft;
-it is not a substitute for the core-format authority.
+The expressions profile is normative in the specification's section 11, pinned to
+a CEL release, with no extension library and no custom function.
+
+One consequence of that pin is a known limitation of 1.0, recorded rather than
+worked around: **a dynamic table cannot have a computed total.** A fixed table
+totals by naming its cells; a table whose rows a filler may add has no expressible
+fold, because the pinned CEL surface has no reduce. Every way out reopens a
+decision this baseline made on purpose, so 1.0 ships without it and a later
+baseline decides. The question and its options are #337.
 
 ## What must remain true
 
