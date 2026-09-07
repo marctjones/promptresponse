@@ -305,7 +305,7 @@ ${GREEN}Examples:${NC}
 
 ${GREEN}Project Information:${NC}
   PromptResponse - A cross-platform form creation and filling application
-  Technology: .NET 8.0, C# 12, AvaloniaUI 11
+  Technology: .NET 10.0, C# 14, AvaloniaUI 12.1
   License: AGPL-3.0-or-later
 
 EOF

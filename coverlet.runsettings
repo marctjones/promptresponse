@@ -10,17 +10,11 @@
             Exclusions are scoped to code we deliberately do not unit-test:
               * Generated XAML code-behind (Avalonia compiles XAML to .g.cs)
               * App.axaml.cs DI bootstrap (integration-tested via Avalonia.Headless instead)
-              * Legacy ViewModels marked for refactor in Phase 3/4 — re-included once split
-              * Legacy InputFormattingBehavior — removed in Phase 5
               * Solution-wide Program.cs and Avalonia AppBuilder boot code
           -->
           <ExcludeByFile>
             **/*.g.cs,**/*.g.i.cs,
             **/App.axaml.cs,**/Program.cs,
-            **/Behaviors/InputFormattingBehavior.cs,
-            **/ViewModels/MainWindowViewModel.cs,
-            **/ViewModels/FormFillingViewModel.cs,
-            **/ViewModels/TemplateEditorViewModel.cs,
             **/Views/**
           </ExcludeByFile>
 

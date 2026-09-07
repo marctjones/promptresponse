@@ -1,401 +1,74 @@
-# Accessibility Testing Framework
+# Accessibility test suite
 
-## Overview
+## What this project actually is
 
-This test project provides automated accessibility testing for PromptResponse using both static APR file validation and dynamic runtime accessibility tree inspection (when available).
+Every test here is **static analysis** — reading `.axaml`, `.cs`, and `.aprt`
+files as text or XML and asserting on their content. Nothing renders a window,
+launches the app, or queries a live accessibility tree. There is no
+`IAccessibilityInspector` abstraction, no per-platform inspector, and no
+`[Fact(Skip = ...)]` integration test waiting to be un-skipped — an earlier
+design along those lines was never built; this suite replaced it.
 
-## Test Categories
+Runtime, in-process evidence (a real Avalonia window, real automation
+properties read off the rendered tree) lives in
+`tests/PromptResponse.Desktop.Tests/Gui/AutomationTreeTests.cs` and the other
+`Gui/` tests, not here. Live, native-platform evidence (an actual screen
+reader on an actual OS) lives in `tests/at-spi/` (Linux, AT-SPI2, run
+manually) and `scripts/verify-macos-accessibility.sh` (macOS, opt-in,
+Accessibility permission required). This project's job is narrower and
+cheaper: catch a missing accessible name, an untitled section, or a
+documented-but-unenforced keyboard convention, in CI, in milliseconds.
 
-### 1. Static APR Validation Tests (Fast, Always Available)
+## Test files
 
-These tests validate that APR files contain proper accessibility metadata **without** needing the application to run:
+| File | Checks |
+| --- | --- |
+| `XamlAccessibilityValidationTests.cs` | Every interactive `.axaml` element has `AutomationProperties.Name`; no placeholder-only labels. |
+| `ColorContrastTests.cs`, `ColorContrastValidationTests.cs` | WCAG contrast ratio math over `src/PromptResponse.Desktop/Profiles/ColorTokens.cs`. |
+| `AprAccessibilityValidationTests.cs` | Shipped `.aprt` files: titles present, labels unique within a section, section structure sane. |
+| `KeyboardNavigationValidationTests.MainWindow.cs`, `.Conventions.cs`, `.Documentation.cs` | String-level checks against `MainShellView.axaml` and this repository's documented keyboard conventions — e.g. that a given accelerator string appears. These check that the *documentation and XAML agree*, not that the accelerator works at runtime; see the caveat below. |
+| `ViewInventoryTests.cs` | Anti-shrink guard: every prompt-type view referenced by `PromptDataTemplateSelector.cs` has a corresponding `.axaml` file on disk. |
 
-- **Title validation**: Forms must have clear, concise titles
-- **Label validation**: All prompts must have descriptive, unique labels
-- **Help text validation**: Help text must be meaningful when provided
-- **Section structure**: Sections and subsections must have titles
-- **No duplicate labels**: Prevents confusing screen reader users
+## Known limit: string-level keyboard checks
 
-**Running:**
+Because `KeyboardNavigationValidationTests.MainWindow.cs` asserts that a
+literal string like `"Ctrl+W"` appears in the XAML, it cannot detect two menu
+items binding the *same* accelerator, or an accelerator that is declared but
+never actually reaches the running app. Runtime keyboard-flow evidence — Tab
+order, Shift-Tab return, actual key delivery — comes from
+`tests/PromptResponse.Desktop.Tests/Gui/KeyboardFlowTests.cs`, a headless
+Avalonia test, not from this project.
+
+## Running
+
 ```bash
 dotnet test tests/PromptResponse.AccessibilityTests
-
-# Output:
-# ✅ 8 passed, 2 skipped (integration tests)
 ```
 
-**Benefits:**
-- Runs in CI/CD without special setup
-- Fast feedback during development
-- Catches common accessibility issues early
-
-### 2. Dynamic Runtime Inspection Tests (Integration, Platform-Specific)
-
-These tests launch the application and inspect the actual accessibility tree that assistive technologies see:
-
-- **Accessibility tree validation**: Verifies UI properly exposes accessibility properties
-- **AutomationProperties validation**: Confirms XAML properties map correctly
-- **Screen reader compatibility**: Tests what screen readers actually see
-- **Cross-platform**: macOS has an opt-in System Events AX capture; Linux and
-  Windows runtime backends remain incomplete.
-
-**Status:**
-- ✅ Framework implemented
-- ⚠️ Integration tests currently skipped (requires running app)
-- 🚧 Full AT-SPI2 integration pending (D-Bus complexity)
-- 🚧 Windows UI Automation pending
-
-## Running Tests
-
-### All Tests (Static Only, Fast)
-
-```bash
-# From project root
-dotnet test tests/PromptResponse.AccessibilityTests
-
-# Expected: 8 passed, 2 skipped
-```
-
-### Specific Test Classes
-
-```bash
-# APR file validation tests
-dotnet test tests/PromptResponse.AccessibilityTests --filter FullyQualifiedName~AprAccessibilityValidationTests
-
-# Integration tests (currently skipped)
-dotnet test tests/PromptResponse.AccessibilityTests --filter FullyQualifiedName~RunningApplication
-```
-
-### Watch Mode (TDD)
-
-```bash
-dotnet watch test --project tests/PromptResponse.AccessibilityTests
-```
-
-## Platform Support
-
-| Platform | Inspector | Status | Tests Available |
-|----------|-----------|--------|-----------------|
-| **Linux** | AT-SPI2 | 🟡 Partial | Static tests work, runtime inspection pending |
-| **Windows** | UI Automation | 🔴 Planned | Static tests work, runtime planned |
-| **macOS** | System Events / AX | 🟡 Opt-in | `scripts/verify-macos-accessibility.sh` captures a live tree from a packaged app; requires Accessibility permission |
-
-### Linux (AT-SPI2)
-
-**Requirements:**
-```bash
-sudo apt-get install at-spi2-core
-```
-
-**Environment:**
-```bash
-export AVALONIA_ENABLE_ACCESSIBILITY=1
-```
-
-**Checking availability:**
-```bash
-ps aux | grep at-spi
-echo $AT_SPI_BUS
-```
-
-### Windows (UI Automation) - Future
-
-**Planned implementation:**
-- Use `FlaUI` NuGet package for cross-.NET Core support
-- Or `System.Windows.Automation` for .NET Framework compat
-- Map UIAutomation properties to `AccessibleElement`
-
-**Contribution welcome!**
-
-### macOS (System Events / AX)
-
-Package the app, grant the invoking Terminal or CI runner Accessibility
-permission, then run:
-
-```bash
-scripts/package-macos-app.sh --output dist/PromptResponse.app
-scripts/verify-macos-accessibility.sh dist/PromptResponse.app
-```
-
-The capture writes a timestamped JSON accessibility tree and fails when core
-menu controls are unnamed. Complete `docs/release/ACCESSIBILITY_SIGNOFF.md` as the
-human VoiceOver evidence for that same build.
-
-## Architecture
-
-### Abstraction Layer
-
-```
-IAccessibilityInspector (interface)
-├── LinuxAccessibilityInspector (AT-SPI2)
-├── WindowsAccessibilityInspector (UI Automation)
-└── MacAccessibilityInspector (NSAccessibility)
-```
-
-### Core Types
-
-**`AccessibleElement`**
-- Represents a UI element as seen by assistive technologies
-- Properties: Name, Role, Description, Value, States
-- Tree structure with Parent/Children
-- Helper methods for searching descendants
-
-**`AccessibilityValidationResult`**
-- Contains validation issues
-- Severity levels: Critical, High, Medium, Low, Info
-- Recommendations for fixes
-
-**`IAccessibilityInspector`**
-- Platform-agnostic interface
-- Methods:
-  - `FindElementByNameAsync()` - Find specific element
-  - `FindElementsByRoleAsync()` - Find by role (button, text field, etc.)
-  - `GetAccessibilityTreeAsync()` - Get entire tree
-  - `ValidateElementAsync()` - Validate accessibility properties
-
-## Test Examples
-
-### Static APR Validation
-
-```csharp
-[Fact]
-public async Task AprDocument_ShouldHave_AccessibleTitle()
-{
-    // Arrange
-    var json = await File.ReadAllTextAsync("examples/form.aprt");
-    var document = _serializer.Deserialize(json);
-
-    // Assert
-    document.Metadata.Title.Should().NotBeNullOrWhiteSpace(
-        "because the form title is announced by screen readers");
-}
-```
-
-### Dynamic Runtime Inspection (Integration)
-
-```csharp
-[Fact(Skip = "Requires running application")]
-public async Task RunningApplication_AllFormFields_ShouldBeAccessible()
-{
-    var inspector = AccessibilityInspectorFactory.CreateInspector();
-
-    // Launch app with test file
-    var document = LoadTestDocument();
-
-    // Verify each prompt is accessible
-    foreach (var prompt in GetAllPrompts(document))
-    {
-        var element = await inspector.FindElementByNameAsync(
-            prompt.Label, "text field");
-
-        element.Should().NotBeNull(
-            $"prompt '{prompt.Label}' should be accessible");
-
-        var validation = await inspector.ValidateElementAsync(element);
-        validation.IsValid.Should().BeTrue();
-    }
-}
-```
-
-## Continuous Integration
-
-### GitHub Actions Example
-
-```yaml
-name: Accessibility Tests
-
-on: [push, pull_request]
-
-jobs:
-  accessibility:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Run accessibility tests
-        run: dotnet test tests/PromptResponse.AccessibilityTests
-```
-
-Static tests run in CI without special setup!
-
-## Writing New Tests
-
-### 1. Static APR Validation Test
-
-```csharp
-[Theory]
-[InlineData("examples/form1.aprt")]
-[InlineData("examples/form2.aprt")]
-public async Task AprFile_CustomValidation(string aprFile)
-{
-    // Load APR
-    var json = await File.ReadAllTextAsync(aprFile);
-    var document = _serializer.Deserialize(json);
-
-    // Validate accessibility properties
-    // ...your custom validation...
-
-    // Assert with helpful messages
-    condition.Should().BeTrue(
-        "because screen reader users need...");
-}
-```
-
-### 2. Runtime Accessibility Test
-
-```csharp
-[Fact(Skip = "Requires running app")]
-public async Task CustomAccessibilityCheck()
-{
-    var inspector = AccessibilityInspectorFactory.CreateInspector();
-
-    if (!await inspector.IsAvailableAsync())
-    {
-        // Skip if inspector not available
-        return;
-    }
-
-    // TODO: Launch app
-    // TODO: Perform actions
-    // TODO: Validate accessibility tree
-}
-```
-
-## Manual Testing with Orca (Linux)
-
-For interactive testing with actual screen reader:
-
-```bash
-# See test-accessibility.sh in project root
-./test-accessibility.sh --file examples/form.aprt --no-speech
-```
-
-This launches the app with Orca and captures all announcements to a log file for review.
-
-## Common Validation Rules
-
-### ✅ Do
-
-- **All interactive elements must have accessible names**
-  - Set `AutomationProperties.Name` in XAML
-  - Use the field label as the accessible name
-
-- **Help text should be accessible descriptions**
-  - Set `AutomationProperties.HelpText`
-  - Maps to accessible description
-
-- **Use semantic roles**
-  - TextBox for text fields
-  - Button for buttons
-  - Proper controls auto-assign roles
-
-- **Maintain focus order**
-  - TabIndex for logical order
-  - Test keyboard navigation
-
-### ❌ Don't
-
-- **Don't use placeholder text as only label**
-  - Placeholders disappear when typing
-  - Use proper labels with AutomationProperties.Name
-
-- **Don't duplicate labels**
-  - Screen reader users navigate by field name
-  - Make labels unique and descriptive
-
-- **Don't rely on color alone**
-  - Use text or icons for information
-  - Ensure sufficient contrast
-
-- **Don't create keyboard traps**
-  - All interactive elements must be reachable
-  - Tab order must be logical
-
-## Debugging Failed Tests
-
-### Test Failure: "Element has no accessible name"
-
-**Cause:** AutomationProperties.Name not set
-
-**Fix:**
-```xml
-<TextBox Text="{Binding Response}"
-         AutomationProperties.Name="{Binding Label}"
-         AutomationProperties.HelpText="{Binding HelpText}"/>
-```
-
-### Test Failure: "Duplicate labels found"
-
-**Cause:** Multiple prompts with identical labels
-
-**Fix:** Make labels unique:
-- "First Name" / "Last Name" instead of "Name" / "Name"
-- "Home Phone" / "Work Phone" instead of "Phone" / "Phone"
-
-### Test Failure: "Label looks like technical ID"
-
-**Cause:** Label is set to ID value (e.g., "prompt_001")
-
-**Fix:** Use user-friendly labels:
-```csharp
-prompt.Label = "Email Address";  // Good
-prompt.Label = "email_addr_001";  // Bad - looks like ID
-```
-
-## Performance
-
-**Static tests:** < 100ms per test
-**Integration tests:** 2-5 seconds (app launch + inspection)
-
-**CI Impact:** Minimal - static tests add ~1 second to build
-
-## Future Enhancements
-
-### Planned
-
-- [ ] Full AT-SPI2 D-Bus integration for Linux
-- [ ] Windows UI Automation integration (FlaUI)
-- [ ] macOS NSAccessibility integration
-- [ ] Visual regression testing for focus indicators
-- [ ] Automated keyboard navigation testing
-- [ ] Color contrast validation
-- [ ] Font size scaling tests
-- [ ] ARIA role validation (if applicable)
-
-### Contributions Welcome
-
-See `docs/UX_ACCESSIBILITY.md` for contribution guidelines.
-
-**Priority areas:**
-1. Windows UI Automation implementation
-2. AT-SPI2 D-Bus query implementation
-3. Automated app launching for integration tests
-4. Additional validation rules
-
-## Resources
-
-- [UX_ACCESSIBILITY.md](../../docs/UX_ACCESSIBILITY.md) - Accessibility design and evidence
-- [IAccessibilityInspector.cs](./IAccessibilityInspector.cs) - Core interface
-- [AprAccessibilityValidationTests.cs](./AprAccessibilityValidationTests.cs) - Test examples
-- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [Avalonia Accessibility](https://docs.avaloniaui.net/docs/concepts/accessibility)
-
-## Support
-
-**Questions? Issues?**
-- Check test output for specific failure messages
-- Review `docs/UX_ACCESSIBILITY.md` for accessibility requirements
-- Run `./test-accessibility.sh` for interactive testing
-- File issues with specific test failures and platform info
-
-**Contributing:**
-- Add tests for new accessibility requirements
-- Implement platform-specific inspectors
-- Improve validation rules
-- Add integration test automation
+This is a **mandatory CI gate** (`.github/workflows/ci.yml`, job
+`accessibility-gate`) with no `needs:` — it runs independently of the rest of
+the solution and blocks merge on its own failure, regardless of other test
+status.
+
+## Manual, live testing
+
+- **Linux, live AT-SPI bus:** `tests/at-spi/run_at_spi_smoke.sh` (see that
+  directory's own README) — not part of `dotnet test`, run manually before a
+  release.
+- **macOS, live NSAccessibility tree:**
+  `scripts/package-macos-app.sh` then `scripts/verify-macos-accessibility.sh`,
+  which requires granting the invoking terminal Accessibility permission.
+- **Windows:** no automated UI Automation harness exists yet — tracked in the
+  accessibility milestone.
+
+Record per-release, per-platform manual evidence in
+`docs/release/ACCESSIBILITY_SIGNOFF.md`, which names exactly what a machine
+cannot check (whether structure is *comprehensible*, whether narration is
+well-timed, whether a tab order is *sensible*) rather than duplicating what
+this suite already covers.
+
+## Related documentation
+
+- [docs/UX_ACCESSIBILITY.md](../../docs/UX_ACCESSIBILITY.md) — design intent and evidence.
+- [docs/RENDERER_CONFORMANCE.md](../../docs/RENDERER_CONFORMANCE.md) — the conformance contract chapter 13 is scored against, including what a renderer driver decides that this suite does not.
+- [docs/release/ACCESSIBILITY_SIGNOFF.md](../../docs/release/ACCESSIBILITY_SIGNOFF.md) — the per-release manual checklist.
