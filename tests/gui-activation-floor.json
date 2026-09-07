@@ -1,7 +1,7 @@
 {
   "$comment": "The number of interactive elements the GUI suite actually activates, held by scripts/check-gui-coverage.py --gate. Raise it when it rises; lowering it is a decision to write down, not a way to make CI pass.",
-  "activated": 155,
+  "activated": 159,
   "addressable": 217,
   "observed": 159,
-  "$margin": "Four below what macOS observes. Activation depends on which controls a headless platform materializes, and the figure has not yet been seen on Linux \u2014 a floor at the observed count would go red on a difference that is not a regression. Close the margin once CI has reported its own count."
+  "$margin": "None. The figure was held four below the observed count while activation depended on which controls a headless platform materializes and only macOS had ever reported one. Run 34083254795 reported 159 on ubuntu-latest, the same count macOS reports, so the margin bought nothing and hid four elements' worth of regression."
 }
