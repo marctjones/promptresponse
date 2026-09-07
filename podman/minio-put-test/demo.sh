@@ -1,0 +1,199 @@
+#!/usr/bin/env bash
+#
+# End-to-end demo: a real MinIO instance, a real presigned PUT URL, the real
+# unmodified `apr` CLI filling and submitting a small "dog license" form, a
+# byte-for-byte check that what MinIO holds matches what was sent, and a
+# Chrome window pointed at the bucket so you can see the submitted file
+# listed there yourself.
+#
+# Non-persistent: MinIO runs with no volume mount, so all of it -- the
+# bucket, the object, everything -- disappears the moment the container is
+# removed. Nothing here survives a re-run or a reboot on purpose.
+#
+# Usage:
+#   ./demo.sh
+#
+# What it does, in order:
+#   1. Builds and starts a non-persistent MinIO container (see Containerfile).
+#   2. Creates a bucket and (deliberately, for this demo only) allows
+#      anonymous read/list on it, so Chrome can show the bucket listing
+#      without you having to log into the MinIO console.
+#   3. Fills dog-license.aprt with sample answers using the real `apr fill`.
+#   4. Generates a real S3 presigned PUT URL (presign.py) and prints the
+#      exact `apr submit` command before running it.
+#   5. Runs the real, unmodified `apr` CLI (published fresh from this
+#      checkout, run inside a throwaway container that trusts this MinIO
+#      instance's certificate -- see ../submission-receiver/README.md for
+#      why this dance exists: your Mac's Keychain is never touched) to
+#      submit the filled form.
+#   6. Downloads the object back from MinIO and diffs it against what was
+#      submitted.
+#   7. Opens Chrome at the bucket's URL so you can see the listing yourself.
+#
+# Leaves the MinIO container running so you can look around in Chrome.
+# Cleanup instructions print at the end.
+
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+cd "$SCRIPT_DIR"
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+print_header() { echo -e "\n${BLUE}═══ $1 ═══${NC}"; }
+print_info()   { echo -e "${YELLOW}ℹ $1${NC}"; }
+print_ok()     { echo -e "${GREEN}✓ $1${NC}"; }
+print_err()    { echo -e "${RED}✗ $1${NC}"; }
+print_cmd()    { echo -e "${BLUE}\$ $1${NC}"; }
+
+CONTAINER_NAME="apr-minio-demo"
+IMAGE_NAME="apr-minio-put-test:demo"
+BUCKET="dog-licenses"
+OBJECT_KEY="submissions/dog-license-$(date +%Y%m%dT%H%M%S).aprf"
+ROOT_USER="minioadmin"
+ROOT_PASSWORD="minioadmin123"
+WORK_DIR="$(mktemp -d)"
+trap 'rm -rf "$WORK_DIR"' EXIT
+
+mc() {
+  podman run --rm --network=host -v "$SCRIPT_DIR/mc-config:/root/.mc:Z" \
+    docker.io/minio/mc:latest --insecure "$@"
+}
+
+for tool in podman uv curl diff; do
+  command -v "$tool" >/dev/null 2>&1 || { print_err "'$tool' is required and not on PATH."; exit 1; }
+done
+
+if [ -z "${DOTNET_ROOT:-}" ] && [ -d "$HOME/.dotnet" ]; then
+  export DOTNET_ROOT="$HOME/.dotnet"
+  export PATH="$HOME/.dotnet:$PATH"
+fi
+command -v dotnet >/dev/null 2>&1 || { print_err "dotnet is required and not on PATH."; exit 1; }
+
+print_header "1. Start a non-persistent MinIO instance"
+podman rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
+print_info "Building the MinIO image (cached after the first run)..."
+podman build -q -t "$IMAGE_NAME" "$SCRIPT_DIR" >/dev/null
+print_info "Starting it with no volume mount -- nothing it holds survives removing this container."
+podman run -d --name "$CONTAINER_NAME" \
+  -p 9000:9000 -p 9001:9001 \
+  -e MINIO_ROOT_USER="$ROOT_USER" \
+  -e MINIO_ROOT_PASSWORD="$ROOT_PASSWORD" \
+  "$IMAGE_NAME" >/dev/null
+
+print_info "Waiting for it to become healthy..."
+for _ in $(seq 1 30); do
+  if curl -sk -o /dev/null -w '%{http_code}' https://localhost:9000/minio/health/live 2>/dev/null | grep -q 200; then
+    print_ok "MinIO is up at https://localhost:9000"
+    break
+  fi
+  sleep 1
+done
+
+print_header "2. Create the bucket (anonymous read/list, for this demo only)"
+rm -rf "$SCRIPT_DIR/mc-config"
+mkdir -p "$SCRIPT_DIR/mc-config"
+mc alias set localminio "https://localhost:9000" "$ROOT_USER" "$ROOT_PASSWORD" >/dev/null
+mc mb "localminio/$BUCKET" >/dev/null
+mc anonymous set download "localminio/$BUCKET" >/dev/null
+print_ok "Bucket '$BUCKET' created; anonymous download/list enabled so Chrome can show its listing without logging in."
+
+print_header "3. Fill the dog license form"
+dotnet build "$REPO_ROOT/src/PromptResponse.Cli" -c Release --nologo -v q
+FILLED="$WORK_DIR/dog-license.aprf"
+dotnet run --project "$REPO_ROOT/src/PromptResponse.Cli" -c Release --no-build -- \
+  fill "$SCRIPT_DIR/dog-license.aprt" --non-interactive \
+  --set-prompt_dog_name="Rex" \
+  --set-prompt_breed="Labrador Retriever" \
+  --set-prompt_owner_name="Jane Doe" \
+  --set-prompt_owner_phone="+1 (555) 123-4567" \
+  --set-prompt_rabies_vaccination_date="$(date +%Y-%m-%d)" \
+  --output="$FILLED"
+print_ok "Filled form saved to $FILLED"
+echo
+cat "$FILLED"
+echo
+
+print_header "4. Generate a real S3 presigned PUT URL"
+PRESIGNED_URL="$(cd "$SCRIPT_DIR" && uv run --with boto3 python3 presign.py "$BUCKET" "$OBJECT_KEY" 2>/dev/null | tail -1)"
+print_ok "Presigned URL (expires in 1 hour):"
+echo "  $PRESIGNED_URL"
+
+print_header "5. Submit it with the real, unmodified apr CLI"
+print_info "Publishing a self-contained linux-arm64 build of the CLI from this checkout..."
+dotnet publish "$REPO_ROOT/src/PromptResponse.Cli" -c Release -r linux-arm64 --self-contained true \
+  -o "$WORK_DIR/publish" --nologo -v q
+# dotnet publish -r <rid> touches the RID-specific section of each project's
+# packages.lock.json. Revert that; it's build noise, not a real change.
+git -C "$REPO_ROOT" checkout -- \
+  src/PromptResponse.Cli/packages.lock.json \
+  src/PromptResponse.Core/packages.lock.json \
+  src/PromptResponse.Host.Abstractions/packages.lock.json \
+  src/PromptResponse.Rendering.Pdf/packages.lock.json 2>/dev/null || true
+
+print_info "Building a throwaway container that trusts only this MinIO instance's certificate..."
+podman cp "$CONTAINER_NAME:/root/.minio/certs/public.crt" "$WORK_DIR/minio.crt"
+cat > "$WORK_DIR/Containerfile" <<'EOF'
+FROM mcr.microsoft.com/dotnet/runtime-deps:10.0
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+COPY minio.crt /usr/local/share/ca-certificates/minio-demo.crt
+RUN update-ca-certificates
+COPY publish/ /app/
+WORKDIR /app
+ENTRYPOINT ["./apr"]
+EOF
+podman build -q -t apr-cli-verify-minio:demo "$WORK_DIR" >/dev/null
+
+print_info "Nothing on your Mac's own trust store is touched -- only this throwaway container's."
+echo
+print_cmd "apr submit dog-license.aprf --url=\"$PRESIGNED_URL\" --yes"
+echo
+SUBMIT_OUTPUT="$(podman run --rm --network=host \
+  -v "$FILLED:/data/dog-license.aprf:Z" \
+  apr-cli-verify-minio:demo submit /data/dog-license.aprf \
+  --url="$PRESIGNED_URL" --yes)"
+echo "$SUBMIT_OUTPUT"
+if echo "$SUBMIT_OUTPUT" | grep -q "delivered to"; then
+  print_ok "Submitted."
+else
+  print_err "Submission did not report success -- see output above."
+  exit 1
+fi
+
+print_header "6. Download it back from MinIO and compare"
+DOWNLOADED="$WORK_DIR/downloaded.aprf"
+mc cat "localminio/$BUCKET/$OBJECT_KEY" > "$DOWNLOADED"
+if diff -q "$FILLED" "$DOWNLOADED" >/dev/null; then
+  print_ok "Byte-for-byte identical: what was submitted is exactly what MinIO now holds."
+else
+  print_err "MISMATCH -- the downloaded file differs from what was submitted:"
+  diff "$FILLED" "$DOWNLOADED" || true
+  exit 1
+fi
+
+print_header "7. Open Chrome on the bucket listing"
+BUCKET_URL="https://localhost:9000/$BUCKET/"
+print_info "This is a real S3 ListObjects response (XML), not a pretty UI --"
+print_info "the raw directory listing you asked to see. Chrome will warn about"
+print_info "the self-signed certificate; click through (Advanced -> Proceed) to see it."
+print_info "The nicer MinIO Console is also up at https://localhost:9001"
+print_info "  (login: $ROOT_USER / $ROOT_PASSWORD) if you'd rather browse it that way."
+if command -v open >/dev/null 2>&1; then
+  open -a "Google Chrome" "$BUCKET_URL" 2>/dev/null || open "$BUCKET_URL"
+elif command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "$BUCKET_URL"
+else
+  print_info "Could not auto-launch a browser. Open this yourself: $BUCKET_URL"
+fi
+
+print_header "Done"
+echo "MinIO is still running (non-persistent -- no data survives removing it)."
+echo "When you're done looking around:"
+echo
+print_cmd "podman rm -f $CONTAINER_NAME"
+echo
