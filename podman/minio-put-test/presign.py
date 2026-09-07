@@ -35,8 +35,8 @@ def main():
     parser.add_argument("--content-type", default="application/vnd.apr+json")
     parser.add_argument("--expires", type=int, default=3600, help="seconds (default: 1 hour)")
     parser.add_argument("--endpoint", default="https://localhost:9000")
-    parser.add_argument("--access-key", default="minioadmin")
-    parser.add_argument("--secret-key", default="minioadmin123")
+    parser.add_argument("--access-key", default="root")
+    parser.add_argument("--secret-key", default="password")
     args = parser.parse_args()
 
     # The demo MinIO container's certificate is self-signed and this script

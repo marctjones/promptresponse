@@ -92,6 +92,10 @@ java/build/
 # podman/minio-put-test/demo.sh each run.
 podman/minio-put-test/mc-config/
 
+# Throwaway Chrome profile demo.sh launches with --ignore-certificate-errors --
+# machine-local, wiped and regenerated at the start of each run.
+podman/minio-put-test/.chrome-profile/
+
 # APR test files (for testing only)
 *.apr.test
 test-forms/

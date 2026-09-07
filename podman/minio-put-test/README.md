@@ -16,13 +16,35 @@ Both are legitimate and test different things. Neither replaces the other.
 ./demo.sh
 ```
 
-Starts a non-persistent MinIO, creates a bucket, fills and submits a small
-"dog license" example form with the real `apr` CLI, downloads it back and
-diffs it against what was sent, and opens Chrome on the bucket's listing.
-Prints every command it runs, including the exact `apr submit` invocation.
-Leaves MinIO running afterward and prints the teardown command rather than
-running it for you. Everything below is the same sequence spelled out by
-hand, for anyone who wants to run or adapt it a step at a time.
+Starts a non-persistent MinIO (login: `root` / `password` — MinIO has no
+built-in default of its own; `MINIO_ROOT_USER`/`MINIO_ROOT_PASSWORD` must be
+set explicitly, and this pair is the shortest one that satisfies MinIO's own
+3/8-character minimums), creates a bucket, fills and submits a small "dog
+license" example form with the real `apr` CLI, downloads it back and diffs
+it against what was sent, and opens a fresh, disposable Chrome window on the
+MinIO Console's file browser for the bucket — launched with its own
+throwaway profile and `--ignore-certificate-errors` so it lands on the
+Console's login screen directly, with no certificate-warning interstitial
+first, and without touching your main Chrome profile or your Mac's own
+trust store. The raw S3 listing is also printed to the terminal, in case the
+Chrome step doesn't apply to your setup. Prints every command it runs,
+including the exact `apr submit` invocation. Leaves MinIO (and that Chrome
+window) running afterward and prints the teardown command rather than
+running it for you.
+
+```bash
+./demo.sh --embedded-url
+```
+
+Same demo, but the presigned URL is written into the template's
+`metadata.submissionUrls` *before* filling, so the filled document already
+names its own delivery target — `apr submit dog-license.aprf --yes` is run
+with no `--url` at all, reading the target from the file itself, and a
+second attempt with a different `--url` is shown being refused, since the
+document already names one.
+
+Everything below is the same sequence spelled out by hand, for anyone who
+wants to run or adapt it a step at a time.
 
 ## Why this needed its own setup, not `mc share upload`
 
@@ -62,8 +84,8 @@ cd podman/minio-put-test
 podman build -t apr-minio-put-test:demo .
 podman run -d --name apr-minio-put-test \
   -p 9000:9000 -p 9001:9001 \
-  -e MINIO_ROOT_USER=minioadmin \
-  -e MINIO_ROOT_PASSWORD=minioadmin123 \
+  -e MINIO_ROOT_USER=root \
+  -e MINIO_ROOT_PASSWORD=password \
   apr-minio-put-test:demo
 ```
 
@@ -79,7 +101,7 @@ Using MinIO's own client, containerized (no local `mc` install needed):
 mkdir -p mc-config
 mc() { podman run --rm --network=host -v "$(pwd)/mc-config:/root/.mc:Z" docker.io/minio/mc:latest --insecure "$@"; }
 
-mc alias set localminio https://localhost:9000 minioadmin minioadmin123
+mc alias set localminio https://localhost:9000 root password
 mc mb localminio/apr-test
 ```
 
@@ -96,7 +118,7 @@ uv run --with boto3 python3 presign.py apr-test inbox/demo.aprf
 Prints a URL like:
 
 ```
-https://localhost:9000/apr-test/inbox/demo.aprf?AWSAccessKeyId=minioadmin&Signature=...&content-type=application%2Fvnd.apr%2Bjson&Expires=...
+https://localhost:9000/apr-test/inbox/demo.aprf?AWSAccessKeyId=root&Signature=...&content-type=application%2Fvnd.apr%2Bjson&Expires=...
 ```
 
 This is a genuine S3 pre-signed URL: the signature covers the bucket, key,
@@ -147,7 +169,7 @@ podman run --rm --network=host \
 Verified output from an actual run:
 
 ```
-contact-intake.aprf delivered to https://localhost:9000/apr-test/inbox/demo.aprf?AWSAccessKeyId=minioadmin&Signature=...&Expires=...: HTTP 200 OK
+contact-intake.aprf delivered to https://localhost:9000/apr-test/inbox/demo.aprf?AWSAccessKeyId=root&Signature=...&Expires=...: HTTP 200 OK
 ```
 
 ## Verify what MinIO actually holds
