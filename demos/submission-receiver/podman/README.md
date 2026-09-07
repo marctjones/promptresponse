@@ -19,12 +19,15 @@ caught the desktop client's now-fixed bug of sending `POST` instead of
 `PUT`.
 
 It is a demo/operational tool, not product code — it lives outside
-`src/`, `tests/`, and `scripts/` on purpose. It lives under a new
-top-level `podman/` rather than `docker/`: at the time this was built,
-`docker/` held only a legacy, unrelated `docker-compose.s3-test.yml` pair
-(see **Legacy S3 test infrastructure** below — it has since been removed),
-and folding a podman-first receiver in beside it would have wrongly implied
-the two were related.
+`src/`, `tests/`, and `scripts/` on purpose, under `demos/`, grouped with
+its hosted counterpart at [`../cloudflare/`](../cloudflare/). It was
+originally built under a new top-level `podman/` rather than `docker/`:
+at the time, `docker/` held only a legacy, unrelated
+`docker-compose.s3-test.yml` pair (see **Legacy S3 test infrastructure**
+below — it has since been removed), and folding a podman-first receiver
+in beside it would have wrongly implied the two were related. Both
+`podman/` and the sibling top-level `cloudflare/` were later folded into
+`demos/`, grouped by purpose rather than by runtime.
 
 ## What's here
 
@@ -74,7 +77,7 @@ is asked to trust**. Because it's self-signed and untrusted by default:
 ## Build and run
 
 ```bash
-cd podman/submission-receiver
+cd demos/submission-receiver/podman
 podman build -t apr-submission-receiver:demo .
 
 mkdir -p "$HOME/apr-receiver-data"   # or any host directory you want the PUTs written to
@@ -298,14 +301,15 @@ correctly that it can't.
 
 ## Worked example, part four: the Python toy web demo as a third author
 
-`web-demo.py` at the repo root is a small Flask app using the Python SDK
-directly — a third way to author a filled form, independent of the CLI or
-desktop client, that (fixed 2026-09-07 alongside this receiver) now
-preserves whichever representation it opened. Point it at the same YAML
-example and let it produce a filled copy:
+[`../../python-web/web-demo.py`](../../python-web/web-demo.py) is a small
+Flask app using the Python SDK directly — a third way to author a filled
+form, independent of the CLI or desktop client, that (fixed 2026-09-07
+alongside this receiver) now preserves whichever representation it
+opened. Point it at the same YAML example and let it produce a filled
+copy (run from the repo root):
 
 ```bash
-python3 web-demo.py examples/hints-and-widgets-showcase.apr.yaml \
+python3 demos/python-web/web-demo.py examples/hints-and-widgets-showcase.apr.yaml \
   --port 8091 --output-dir "$HOME"
 # open http://127.0.0.1:8091/ , fill in the form, submit — Ctrl+C when done
 ```
@@ -369,7 +373,7 @@ server behind it.
 
 ## Related: a hosted version of this same receiver
 
-[`cloudflare/submission-receiver/`](../../cloudflare/submission-receiver/) is
+[`demos/submission-receiver/cloudflare/`](../cloudflare/) is
 the same PUT-only contract running on Cloudflare Workers instead of a local
 container — built and tested locally via `wrangler dev`, not deployed live
 (that's a separate decision; see its own README).

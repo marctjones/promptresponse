@@ -8,8 +8,8 @@ the format is a demo that can disagree with it, and the previous version of this
 file did exactly that: it hand-rolled its own validity check and had never heard
 of tables or roles.
 
-    python3 web-demo.py examples/field-types-showcase.aprt
-    python3 web-demo.py filled.aprf --port 8080
+    python3 demos/python-web/web-demo.py examples/field-types-showcase.aprt
+    python3 demos/python-web/web-demo.py filled.aprf --port 8080
 
 Templates (.aprt) render blank, filled forms (.aprf) render with their answers.
 Submitting writes a filled document beside the source and prints it. The saved
@@ -25,7 +25,8 @@ import pathlib
 import sys
 from datetime import datetime, timezone
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / "python"))
+REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(REPO_ROOT / "python"))
 
 import promptresponse as pr
 from promptresponse import roles as role_api

@@ -1,12 +1,12 @@
 # PromptResponse browser demo
 
 This is the browser-facing reference demo. It is deliberately separate from
-the Python/Flask reference demo at the repository root:
+the Python/Flask reference demo at [`../python-web/`](../python-web/):
 
 - this demo runs the TypeScript `@promptresponse/core` SDK in the browser to
   parse beta.6 JSONC/YAML streams, select every form occurrence, explain
   non-gating attestation resolution, render, validate, fill, and download an APR document;
-- `web-demo.py` uses the Python SDK to demonstrate server-side/local-host
+- `../python-web/web-demo.py` uses the Python SDK to demonstrate server-side/local-host
   processing, including server-side live advisories and saving outputs.
 
 Neither demo uploads documents or follows `metadata.submissionUrls`. Submission

@@ -29,7 +29,7 @@
 #      document already names its own delivery target.
 #   5. Runs the real, unmodified `apr` CLI (published fresh from this
 #      checkout, run inside a throwaway container that trusts this MinIO
-#      instance's certificate -- see ../submission-receiver/README.md for
+#      instance's certificate -- see ../submission-receiver/podman/README.md for
 #      why this dance exists: your Mac's Keychain is never touched) to
 #      submit the filled form. Without --embedded-url this passes --url=
 #      explicitly; with it, apr submit is given no --url at all and reads

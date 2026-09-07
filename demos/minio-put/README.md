@@ -1,6 +1,6 @@
 # Testing against a real S3-compatible server (MinIO)
 
-[`../submission-receiver/`](../submission-receiver/) proves the CLI and
+[`../submission-receiver/podman/`](../submission-receiver/podman/) proves the CLI and
 desktop client send `PUT`, and only `PUT`, against a minimal receiver that
 accepts exactly that. This directory proves the same client behavior against
 a *real* S3-compatible implementation — real pre-signed URL signature
@@ -70,7 +70,7 @@ unusable regardless of the transport question.
   TLS certificate baked in at build time (two stages, because the official
   MinIO image is a minimal RHEL-UBI base with no package manager and no
   `openssl` to generate one directly — see the Containerfile's own
-  comments). Same reasoning as `../submission-receiver/`'s Containerfile:
+  comments). Same reasoning as `../submission-receiver/podman/`'s Containerfile:
   the CLI's delivery adapter requires `https`, so a demo needs a real TLS
   listener, and nothing on your host machine is asked to trust this
   certificate.
@@ -80,7 +80,7 @@ unusable regardless of the transport question.
 ## Build and run
 
 ```bash
-cd podman/minio-put-test
+cd demos/minio-put
 podman build -t apr-minio-put-test:demo .
 podman run -d --name apr-minio-put-test \
   -p 9000:9000 -p 9001:9001 \
@@ -127,7 +127,7 @@ endpoint would.
 
 ## Submit a real filled form to it, with the real CLI
 
-Same containerized-CLI approach as `../submission-receiver/`'s worked
+Same containerized-CLI approach as `../submission-receiver/podman/`'s worked
 example, for the same reason: the certificate above is self-signed, and
 `apr submit` run directly on macOS validates TLS through the system
 Keychain, which this task does not touch. Publish the CLI and run it in a

@@ -1,6 +1,6 @@
 # APR submission receiver (hosted demo)
 
-The hosted counterpart to [`podman/submission-receiver/`](../../podman/submission-receiver/):
+The hosted counterpart to [`demos/submission-receiver/podman/`](../podman/):
 the same contract — a single HTTP `PUT` per specification 5.2.1
 (`APR-MODEL-033`), `POST` rejected with `405` — running on Cloudflare Workers
 instead of a local container, so trying it doesn't require anyone to check
@@ -42,7 +42,7 @@ effect of writing the code. See **Deploy** below when you're ready.
 ## Local testing (already done, repeatable)
 
 ```bash
-cd cloudflare/submission-receiver
+cd demos/submission-receiver/cloudflare
 wrangler dev --local --port 8790
 ```
 
@@ -75,7 +75,7 @@ with the original `Content-Type`.
 When you decide to make this live:
 
 ```bash
-cd cloudflare/submission-receiver
+cd demos/submission-receiver/cloudflare
 wrangler deploy
 ```
 

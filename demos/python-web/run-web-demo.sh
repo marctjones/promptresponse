@@ -7,7 +7,8 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DEFAULT_TEMPLATE="$SCRIPT_DIR/examples/field-types-showcase.aprt"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+DEFAULT_TEMPLATE="$REPO_ROOT/examples/field-types-showcase.aprt"
 PORT=8080
 
 # Parse arguments
