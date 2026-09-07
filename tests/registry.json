@@ -1189,6 +1189,14 @@
         {
           "type": "suite",
           "ref": "desktop.unit"
+        },
+        {
+          "type": "test",
+          "ref": "HelpText_IsProgrammaticallyAssociatedWithItsControl_AprRender003"
+        },
+        {
+          "type": "test",
+          "ref": "APlaceholderIsNeverTheAccessibleName_AprRender002"
         }
       ],
       "rules": [

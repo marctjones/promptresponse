@@ -219,4 +219,76 @@ public class AutomationTreeTests
         navButtons.Should().NotBeEmpty(
             "wizard mode must expose Previous/Next buttons in the automation tree so a blind user can navigate sections via Tab + Enter");
     }
+
+    /// <summary>A document that carries the two hints these assertions are about.</summary>
+    private static AprDocument HintedDoc() => new()
+    {
+        Version = AprFormat.CurrentVersion,
+        DocumentType = DocumentType.FilledForm,
+        Metadata = new Metadata { Title = "Hints", TemplateId = "tag:example.com,2026:hints" },
+        Sections =
+        [
+            new Section
+            {
+                Id = "s1",
+                Title = "Applicant",
+                Prompts =
+                [
+                    new Prompt { Id = "full_name", Label = "Full name", Hints = new PromptHints
+                        { HelpText = "As it appears on your passport", Placeholder = "Ada Lovelace" } },
+                    new Prompt { Id = "email", Label = "Email", Hints = new PromptHints
+                        { ExpectedDataType = "email", HelpText = "We will not share this",
+                          Placeholder = "you@example.gov" } },
+                ],
+            },
+        ],
+    };
+
+    [AvaloniaFact]
+    public void HelpText_IsProgrammaticallyAssociatedWithItsControl_AprRender003()
+    {
+        // APR-RENDER-003: helpText MUST be programmatically associated with its prompt,
+        // not merely adjacent to it. Every prompt view also renders the text in a
+        // SelectableTextBlock beside the field, which is what "adjacent" looks like and
+        // is not what the rule asks for — so this reads it off the control's peer, which
+        // is what a screen reader is told.
+        var (view, _, session) = Build();
+        session.Set(HintedDoc(), filePath: null);
+        view.ShowInWindow(width: 1200, height: 800);
+
+        var described = view.GetVisualDescendants().OfType<TextBox>()
+            .Where(box => box.IsEffectivelyVisible
+                && AutomationProperties.GetName(box) is "Full name" or "Email")
+            .Select(box => (Name: AutomationProperties.GetName(box),
+                            Help: AutomationProperties.GetHelpText(box)))
+            .ToList();
+
+        described.Should().HaveCount(2, "both prompts render an input");
+        described.Should().OnlyContain(input => !string.IsNullOrWhiteSpace(input.Help),
+            "help text reaches the control, not only the paragraph next to it");
+        described.Should().Contain(input => input.Help == "As it appears on your passport");
+        described.Should().Contain(input => input.Help == "We will not share this");
+    }
+
+    [AvaloniaFact]
+    public void APlaceholderIsNeverTheAccessibleName_AprRender002()
+    {
+        // APR-RENDER-002: a placeholder MUST NOT be the only label. A placeholder
+        // disappears the moment somebody types, so a field named by one is unnamed for
+        // the rest of the session — and much assistive technology never sees it at all.
+        var (view, _, session) = Build();
+        session.Set(HintedDoc(), filePath: null);
+        view.ShowInWindow(width: 1200, height: 800);
+
+        var inputs = view.GetVisualDescendants().OfType<TextBox>()
+            .Where(box => box.IsEffectivelyVisible && box.PlaceholderText is not null)
+            .Select(box => (Name: AutomationProperties.GetName(box), Placeholder: box.PlaceholderText))
+            .ToList();
+
+        inputs.Should().NotBeEmpty("the fixture gives both prompts a placeholder");
+        inputs.Should().OnlyContain(input => !string.IsNullOrWhiteSpace(input.Name),
+            "a field with a placeholder still has to be named");
+        inputs.Should().NotContain(input => input.Name == input.Placeholder,
+            "the label names the field; the placeholder is a hint that vanishes");
+    }
 }
