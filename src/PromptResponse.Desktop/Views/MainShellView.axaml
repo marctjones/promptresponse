@@ -107,13 +107,13 @@
                               AutomationProperties.HelpText="Make a self-signed key and save it to disk, for trying signing without a certificate authority"/>
                     <Separator/>
                     <MenuItem Header="Attest _document..."
-                              Command="{Binding SignAsPublisherCommand}"
+                              Command="{Binding AttestAsPublisherCommand}"
                               AutomationProperties.Name="Attest document"
-                              AutomationProperties.HelpText="Append an independent beta.6 CMS attestation for this document"/>
+                              AutomationProperties.HelpText="Append an independent CMS attestation for this document"/>
                     <MenuItem Header="Attest my _responses..."
-                              Command="{Binding SignMyResponsesCommand}"
+                              Command="{Binding AttestMyResponsesCommand}"
                               AutomationProperties.Name="Attest my responses"
-                              AutomationProperties.HelpText="Append an independent beta.6 CMS fields attestation for the responses you filled in"/>
+                              AutomationProperties.HelpText="Append an independent CMS fields attestation for the responses you filled in"/>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="_Close"
@@ -490,12 +490,6 @@
                                TextWrapping="Wrap"
                                IsVisible="{Binding HasDocumentDescription}"
                                Margin="0,0,0,8"/>
-                    <TextBlock Text="{Binding FilledByDisplay}"
-                               FontSize="{Binding CaptionFontSize}"
-                               Foreground="{Binding ActiveProfileMutedTextBrush}"
-                               IsVisible="{Binding FilledByDisplay, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-                               Margin="0,0,0,24"/>
-
                     <!-- Mode banner: shown when a template is being authored to make
                          the current rendering mode explicit, with a quick toggle. -->
                     <Border IsVisible="{Binding IsEditingTemplate}"
@@ -860,8 +854,8 @@
                         </StackPanel>
 
                         <StackPanel Spacing="4" IsVisible="{Binding HasBeta6Attestations}"
-                                    AutomationProperties.Name="Beta.6 attestations panel">
-                            <TextBlock Text="Beta.6 attestations"
+                                    AutomationProperties.Name="Attestations panel">
+                            <TextBlock Text="Attestations"
                                        FontWeight="SemiBold"
                                        FontSize="{Binding CaptionFontSize}"
                                        Foreground="{Binding ActiveProfileMutedTextBrush}"/>

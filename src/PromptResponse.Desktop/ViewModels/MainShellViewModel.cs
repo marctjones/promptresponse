@@ -516,7 +516,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// Appends a detached beta.6 document attestation using a chosen PFX certificate.
     /// </summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
-    public async Task SignAsPublisher()
+    public async Task AttestAsPublisher()
     {
         await AppendBeta6AttestationAsync(null);
     }
@@ -525,7 +525,7 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     /// Appends a detached beta.6 fields attestation for answered responses.
     /// </summary>
     [RelayCommand(CanExecute = nameof(HasDocument))]
-    public async Task SignMyResponses()
+    public async Task AttestMyResponses()
     {
         var fields = _documentTreeWorkflow.Prompts.Where(prompt => !string.IsNullOrWhiteSpace(prompt.Response))
             .Select(prompt => prompt.Id).ToList();
@@ -550,10 +550,10 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
             using var certificate = SignatureCertificates.LoadPfx(certificatePath, string.IsNullOrEmpty(password) ? null : password);
             if (!await _fileService.AppendBeta6AttestationAsync(document, certificate, fields))
             {
-                await _dialogService.ShowConfirmationAsync("Save the form first", "Beta.6 attestations are appended to a saved stream. Save this form, then try again.");
+                await _dialogService.ShowConfirmationAsync("Save the form first", "Attestations are appended to a saved stream. Save this form, then try again.");
                 return;
             }
-            await _dialogService.ShowConfirmationAsync("Attestation added", "A detached beta.6 CMS attestation was appended to the stream. It does not modify the form.");
+            await _dialogService.ShowConfirmationAsync("Attestation added", "A detached CMS attestation was appended to the stream. It does not modify the form.");
             RefreshBeta6Attestations();
         }
         catch (Exception exception)
@@ -579,12 +579,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(AdvisorySummary));
         OnPropertyChanged(nameof(Advisories));
     }
-
-    /// <summary>
-    /// "Filled by Alex Doe on 2025-04-29" style summary — null when the document is
-    /// a template or doesn't carry FilledBy metadata.
-    /// </summary>
-    public string? FilledByDisplay => _documentHeader.FilledByDisplay;
 
     public string StatusMessage => _documentHeader.StatusMessage;
 
@@ -767,7 +761,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(CurrentDocumentTitle));
         OnPropertyChanged(nameof(DocumentDescription));
         OnPropertyChanged(nameof(HasDocumentDescription));
-        OnPropertyChanged(nameof(FilledByDisplay));
         OnPropertyChanged(nameof(IsFilledForm));
         OnPropertyChanged(nameof(IsEditingTemplate));
         OnPropertyChanged(nameof(CanToggleEditMode));
@@ -778,8 +771,8 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
         ToggleEditModeCommand.NotifyCanExecuteChanged();
         RefreshAdvisories();
         RefreshBeta6Attestations();
-        SignAsPublisherCommand.NotifyCanExecuteChanged();
-        SignMyResponsesCommand.NotifyCanExecuteChanged();
+        AttestAsPublisherCommand.NotifyCanExecuteChanged();
+        AttestMyResponsesCommand.NotifyCanExecuteChanged();
         PrintPreviewCommand.NotifyCanExecuteChanged();
         ExportPdfCommand.NotifyCanExecuteChanged();
         ExportPdfFormCommand.NotifyCanExecuteChanged();
@@ -876,23 +869,6 @@ public sealed partial class MainShellViewModel : ObservableObject, IDisposable
     {
         if (e.PropertyName == nameof(FormProgressViewModel.StatusText))
             OnPropertyChanged(nameof(StatusMessage));
-    }
-
-    private static IEnumerable<Prompt> EnumeratePrompts(AprDocument document)
-    {
-        foreach (var section in document.Sections)
-        {
-            foreach (var prompt in EnumerateSection(section)) yield return prompt;
-        }
-    }
-
-    private static IEnumerable<Prompt> EnumerateSection(Section section)
-    {
-        foreach (var prompt in section.Prompts) yield return prompt;
-        foreach (var nested in section.Sections)
-        {
-            foreach (var prompt in EnumerateSection(nested)) yield return prompt;
-        }
     }
 
     public void Dispose()
