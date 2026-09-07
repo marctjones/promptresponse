@@ -46,6 +46,7 @@ import datetime
 import importlib.util
 import json
 import pathlib
+import re
 import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -68,6 +69,7 @@ _run.loader.exec_module(run_conformance)
 
 CATALOG = ROOT / "docs" / "release" / "apr-oscal-catalog.json"
 SUITE = ROOT / "tests" / "Conformance" / "beta6" / "suite.json"
+RENDERER_SUITE = ROOT / "tests" / "Conformance" / "beta6" / "renderer-suite.json"
 BASELINE = ROOT / "tests" / "Conformance" / "beta6" / "rule-evidence.json"
 
 
@@ -404,6 +406,31 @@ def main() -> int:
                     + (f"enforces {', '.join(declared)}" if declared
                        else "no rule is declared to enforce")
                     + f" (the case declares {case.get('diagnostic')!r})")
+
+    # Renderer rules. Twelve are reachable by no document vector, because no file is
+    # valid or invalid because of how a renderer behaves, and asking what a person
+    # ended up in front of is what makes them decidable at all.
+    #
+    # The scorer enforces each rule a case names, and the reference renderer
+    # satisfying it is the positive half. The violating half is a mutant renderer,
+    # and that a mutant actually fails is proven by scripts/check-renderer-teeth.py
+    # — a separate gate, which is what keeps this from crediting itself. A rule no
+    # mutant breaks earns `enforced` and `satisfied` and nothing more.
+    if RENDERER_SUITE.exists():
+        renderer = json.loads(RENDERER_SUITE.read_text(encoding="utf-8"))
+        broken_by_a_mutant = set()
+        teeth = ROOT / "scripts" / "check-renderer-teeth.py"
+        if teeth.exists():
+            broken_by_a_mutant = set(re.findall(r'"(APR-[A-Z]+-\d{3})"', teeth.read_text(encoding="utf-8")))
+        for case in renderer["cases"]:
+            for rule in case.get("rules", []):
+                if rule not in satisfied:
+                    continue   # a case may not cite a rule the catalogue lacks
+                enforced.add(rule)
+                satisfied[rule] = satisfied.get(rule, 0) + 1
+                if rule in broken_by_a_mutant:
+                    violated[rule] = violated.get(rule, 0) + 1
+                    caught.setdefault(rule, "renderer")
 
     # A preservation, evaluation, equivalence or tolerance rule is not something a
     # file validator can check: no single document is wrong. The harness enforces

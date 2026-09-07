@@ -34,6 +34,11 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SPEC = ROOT / "docs" / "APR_SPECIFICATION.md"
 SUITE = ROOT / "tests" / "Conformance" / "beta6" / "suite.json"
+# A renderer case reaches a rule exactly as a document case does. Twelve rules are
+# reachable only this way — no file is valid or invalid because of how a renderer
+# behaves — so a coverage count that read only the document suite would report them
+# unreached forever, however well a renderer scored.
+RENDERER_SUITE = ROOT / "tests" / "Conformance" / "beta6" / "renderer-suite.json"
 REGISTRY = ROOT / "tests" / "registry.json"
 
 RULE = re.compile(r"APR-[A-Z]+-\d{3}")
@@ -74,6 +79,8 @@ def main() -> int:
     spec_rules = sorted(set(RULE.findall(SPEC.read_text(encoding="utf-8"))))
     suite = json.loads(SUITE.read_text(encoding="utf-8"))
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    renderer = (json.loads(RENDERER_SUITE.read_text(encoding="utf-8"))
+                if RENDERER_SUITE.exists() else {"cases": []})
 
     anchor_rules: dict[str, list[str]] = collections.defaultdict(list)
     rule_requirement: dict[str, dict] = {}
@@ -93,7 +100,11 @@ def main() -> int:
     cited: collections.Counter = collections.Counter()
     cited_negative: collections.Counter = collections.Counter()
     uncited: list[str] = []
-    for case in suite["cases"]:
+    for case in suite["cases"] + [
+            # A renderer case names its rules outright and never cites a section, so it
+            # contributes to the floor and to the ceiling equally — which is what a case
+            # that says exactly what it exercises should do.
+            {**case, "anchors": [], "expect": "valid"} for case in renderer["cases"]]:
         anchors = case.get("anchors") or []
         # The ceiling is what the case could have covered: the rules it names
         # outright, plus every rule in any section it cites.

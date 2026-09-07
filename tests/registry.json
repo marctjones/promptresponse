@@ -247,6 +247,12 @@
         "robustness": "partial"
       },
       "notes": "Project-local Maven wrapper resolves official CEL-Java. Expressions are evaluated; signatures remain preserved but unchecked."
+    },
+    {
+      "id": "conformance.renderer",
+      "path": "tests/Conformance/beta6/renderer-suite.json",
+      "runsInCi": true,
+      "note": "Thirteen renderer cases scored by scripts/run-renderer-conformance.py, with scripts/check-renderer-teeth.py proving the scorer fails a broken renderer. Reaches the rules no document vector can."
     }
   ],
   "testKinds": [
@@ -559,8 +565,12 @@
       "id": "REQ-export-no-writeback",
       "section": "export",
       "statement": "Export layout is never written back into the document",
-      "strength": "none",
+      "strength": "gated",
       "gates": [
+        {
+          "type": "suite",
+          "ref": "conformance.renderer"
+        },
         {
           "type": "suite",
           "ref": "pdf"
@@ -568,8 +578,7 @@
       ],
       "rules": [
         "APR-RENDER-009"
-      ],
-      "gap": "About what an exporter must not write back into the document. The suite has no export step, and adding one would mean specifying an export format, which the specification deliberately does not."
+      ]
     },
     {
       "id": "REQ-expr-activation",
@@ -1030,8 +1039,12 @@
       "id": "REQ-ordering",
       "section": "ordering",
       "statement": "A section's own prompts precede its child sections",
-      "strength": "none",
+      "strength": "gated",
       "gates": [
+        {
+          "type": "suite",
+          "ref": "conformance.renderer"
+        },
         {
           "type": "test",
           "ref": "GetAllPrompts_WalksNestedSectionsInOrder"
@@ -1039,8 +1052,7 @@
       ],
       "rules": [
         "APR-RENDER-008"
-      ],
-      "gap": "A renderer obligation, not a property of a document: array order is in the file either way, and only a rendering can reorder it. Reaching it portably would need the harness to observe presentation."
+      ]
     },
     {
       "id": "REQ-profile-attestations",
@@ -1164,8 +1176,12 @@
       "id": "REQ-renderer-obligations",
       "section": "renderer-requirements",
       "statement": "Semantic order, labels as accessible names, complete keyboard operation",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
+        {
+          "type": "suite",
+          "ref": "conformance.renderer"
+        },
         {
           "type": "suite",
           "ref": "accessibility"
@@ -1183,8 +1199,7 @@
         "APR-RENDER-005",
         "APR-RENDER-006",
         "APR-RENDER-007"
-      ],
-      "gap": "Not reachable by a document vector: no file is valid or invalid because of how a renderer presents it. Gated inside this repository by tests/PromptResponse.AccessibilityTests — accessible names, XAML automation properties, and keyboard navigation — which a third-party implementation never runs. A portable test would need the harness to drive a user interface."
+      ]
     },
     {
       "id": "REQ-representations-equal",
