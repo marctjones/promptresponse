@@ -1,0 +1,50 @@
+# Minimal HTTPS PUT-only submission receiver for demonstrating APR-MODEL-033
+# (docs/APR_SPECIFICATION.md section 5.2.1): a client submits an APR document
+# with a single HTTP PUT to a pre-signed URL. This receiver stands in for
+# that pre-signed target.
+#
+# Language choice: Python stdlib only (http.server + ssl). No pip installs,
+# no framework -- the whole server is one file (server.py) using only what
+# ships with CPython, matching this repo's existing python/ toolchain
+# without adding a new one. There is genuinely nothing simpler that still
+# needs zero dependency installation inside the image.
+#
+# TLS choice: the CLI's delivery adapter (src/PromptResponse.Cli/Host/
+# CliDelivery.cs) hard-requires the "https" scheme -- IDelivery.Supports()
+# rejects everything else -- so "local HTTPS" isn't cosmetic here, the demo
+# genuinely needs a TLS listener to exercise `apr submit` at all. Rather
+# than adding a reverse proxy, this image bakes a self-signed certificate
+# straight into the same small Python server (a few extra lines, no new
+# dependency, one fewer moving part than a proxy). The cert's subject
+# alternative names cover both "localhost" and "127.0.0.1" so .NET's
+# hostname check (which ignores CN) has something to match. Because this
+# is a throwaway demo cert, no host machine trust store is touched by this
+# image or by anything in this task -- see the README for what a caller
+# needs to do on their own machine to make a real HTTPS client trust it.
+
+FROM python:3.13-slim
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /certs /data \
+    && openssl req -x509 -newkey rsa:2048 -nodes \
+        -keyout /certs/receiver-key.pem \
+        -out /certs/receiver.pem \
+        -days 3650 \
+        -subj "/CN=localhost" \
+        -addext "subjectAltName=DNS:localhost,IP:127.0.0.1"
+
+WORKDIR /app
+COPY server.py .
+
+ENV PORT=8443 \
+    DATA_DIR=/data \
+    CERT_FILE=/certs/receiver.pem \
+    KEY_FILE=/certs/receiver-key.pem
+
+EXPOSE 8443
+VOLUME ["/data"]
+
+ENTRYPOINT ["python3", "server.py"]
