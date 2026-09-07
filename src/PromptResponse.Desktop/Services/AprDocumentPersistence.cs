@@ -23,9 +23,18 @@ internal sealed class AprDocumentPersistence
             .OfType<AprFormRecord>().FirstOrDefault()?.Form;
     }
 
+    /// <remarks>
+    /// Writes what it is given. It used to stamp <c>metadata.modified</c> here, while
+    /// <see cref="SaveStreamAsync"/> beside it did not — so the same Save updated it or
+    /// not depending on whether the file had been opened in this session, and neither
+    /// behaviour was chosen. Stamping on save makes `modified` mean "when the file was
+    /// written" rather than "when the content changed", and moves the semantic digest of
+    /// a document nobody edited, which stops every attestation over it resolving. The
+    /// stamp now belongs to the workflow, which is the only place that knows an edit
+    /// happened.
+    /// </remarks>
     internal async Task SaveAsync(AprDocument document, string filePath)
     {
-        document.Metadata.Modified = DateTime.UtcNow;
         var representation = RepresentationFor(filePath);
         await File.WriteAllTextAsync(filePath, new AprBeta6Reader().WriteForm(document, representation));
     }

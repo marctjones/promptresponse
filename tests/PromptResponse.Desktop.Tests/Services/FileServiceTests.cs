@@ -143,8 +143,16 @@ public class FileServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task SaveFileAsync_ShouldUpdateModifiedTimestamp()
+    public async Task SaveFileAsync_DoesNotStampModified()
     {
+        // `metadata.modified` says when the document last changed, and a save is not a
+        // change. Stamping it here made it mean "when the file was written", moved the
+        // semantic digest of a document nobody edited — invalidating every attestation
+        // over it — and only on one of the two save paths, so the same Save did or did
+        // not depending on where the document came from.
+        //
+        // The stamp belongs to DocumentSessionWorkflow, which is the only place that
+        // knows an edit happened; SaveEditedDocument_StampsModified covers that.
         var service = CreateService();
         var document = CreateTestTemplate();
         var originalModified = document.Metadata.Modified;
@@ -153,8 +161,7 @@ public class FileServiceTests : IDisposable
         await Task.Delay(50);
         await service.SaveFileAsync(document, filePath);
 
-        document.Metadata.Modified.Should().NotBeNull();
-        document.Metadata.Modified!.Value.Should().BeAfter(originalModified ?? DateTime.MinValue);
+        document.Metadata.Modified.Should().Be(originalModified);
     }
 
     [Fact]

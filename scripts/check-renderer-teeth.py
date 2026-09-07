@@ -94,6 +94,13 @@ for node in snapshot["nodes"]:
     node.pop("columnHeader", None)
     node.pop("isColumnHeader", None)
 '''),
+    "headers-swapped": ("names the wrong column for every cell", "APR-RENDER-007", '''
+headers = [n for n in snapshot["nodes"] if n.get("isColumnHeader")]
+if len(headers) > 1:
+    names = [h["name"] for h in headers]
+    for header, name in zip(headers, names[::-1]):
+        header["name"] = name
+'''),
     "reordering": ("reorders the fields it shows", "APR-RENDER-008", '''
 orders = sorted(n["keyboardOrder"] for n in snapshot["nodes"] if n.get("keyboardOrder") is not None)
 for node in reversed([n for n in snapshot["nodes"] if n.get("keyboardOrder") is not None]):

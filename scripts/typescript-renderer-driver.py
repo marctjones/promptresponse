@@ -36,6 +36,8 @@ ROLES = {"textarea": "textbox", "select": "combobox", "button": "button",
          "fieldset": "group", "table": "table", "tr": "row", "th": "columnheader",
          "td": "cell", "a": "link", "script": "script", "iframe": "iframe",
          "embed": "embed", "object": "object"}
+NAMED_BY_CONTENT = {"th", "td", "button", "a", "caption", "summary",
+                   "h1", "h2", "h3", "h4", "h5", "h6"}
 INPUT_ROLES = {"checkbox": "checkbox", "radio": "radio", "button": "button",
                "submit": "button", "hidden": "none"}
 
@@ -137,6 +139,13 @@ def accessible_name(element: Element, by_id, labels) -> str:
         if ancestor.tag == "label":
             return ancestor.content()
         ancestor = ancestor.parent
+    # Name from content, for the roles HTML-AAM says take one: a th, a button, a link.
+    # Without this a column header renders its label and reports no name, and a cell
+    # naming it looks like a renderer that pointed at nothing.
+    if element.tag in NAMED_BY_CONTENT:
+        content = element.content()
+        if content:
+            return content
     if normalise(element.attrs.get("title", "")):
         return normalise(element.attrs["title"])
     # Last, and a finding when it is what names a field: a placeholder is not a label.

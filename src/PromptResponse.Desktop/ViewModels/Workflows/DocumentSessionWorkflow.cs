@@ -106,9 +106,23 @@ internal sealed class DocumentSessionWorkflow
         return forms[chosen.Value].Form;
     }
 
+    /// <summary>Records that the content changed, which a save is not.</summary>
+    /// <remarks>
+    /// `metadata.modified` says when the document last changed. Stamping it on every
+    /// save would say when the file was last written, and would move the digest of a
+    /// document somebody only opened and closed — invalidating every attestation over
+    /// it. The session is the one thing that knows the difference.
+    /// </remarks>
+    private void StampIfEdited()
+    {
+        if (_session.IsDirty && _session.CurrentDocument is { } document)
+            document.Metadata.Modified = DateTime.UtcNow;
+    }
+
     public async Task SaveAsync()
     {
         if (!_session.HasDocument) return;
+        StampIfEdited();
         if (string.IsNullOrEmpty(_fileService.CurrentFilePath))
             await _fileService.SaveFileAsAsync(_session.CurrentDocument!, WarnAboutExtension);
         else
@@ -120,6 +134,7 @@ internal sealed class DocumentSessionWorkflow
     public async Task SaveAsAsync()
     {
         if (!_session.HasDocument) return;
+        StampIfEdited();
         await _fileService.SaveFileAsAsync(_session.CurrentDocument!, WarnAboutExtension);
         _session.MarkClean();
         _addToRecent(_fileService.CurrentFilePath, _session.CurrentDocument?.Metadata.Title);

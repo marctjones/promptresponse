@@ -180,6 +180,17 @@ def cells_name_their_header(document, snapshot):
                 if named is None or not named.get("isColumnHeader"):
                     return (f"a cell in {pointer} names {header!r} as its header, and "
                             f"that node does not say it is one")
+                # And the right one. A cell that names a column header — any column
+                # header — has an association a screen reader will read out wrongly,
+                # which is worse than none: the correspondence between an instance's
+                # fields and the first instance's is positional, so the header for
+                # position N carries the label of the first instance's Nth field.
+                column = (rows[0].get("prompts") or [])[cell_index:cell_index + 1]
+                expected = column[0].get("label") if column else None
+                if expected is not None and (named.get("name") or "") != expected:
+                    return (f"a cell in column {cell_index} of {pointer} names a header "
+                            f"called {named.get('name')!r}, where that column is "
+                            f"{expected!r}")
     return None
 
 

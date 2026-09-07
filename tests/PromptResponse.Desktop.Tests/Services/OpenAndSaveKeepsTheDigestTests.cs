@@ -76,4 +76,38 @@ public class OpenAndSaveKeepsTheDigestTests
         return directory?.FullName
             ?? throw new InvalidOperationException("no repository root above the test binary");
     }
+
+    [Theory]
+    [MemberData(nameof(Fixtures))]
+    public async Task ASaveToAPathItWasNotOpenedFromKeepsTheDigestToo(string fixture)
+    {
+        // The other save path. FileService writes a stream when the file was opened in
+        // this session and a plain form otherwise, and only the second used to stamp
+        // metadata.modified — so the same Save moved the digest or did not, depending on
+        // where the document came from.
+        var representation = fixture.EndsWith(".yaml", StringComparison.Ordinal)
+            ? AprRepresentation.Yaml : AprRepresentation.Jsonc;
+        var before = Digest(await File.ReadAllTextAsync(fixture), representation);
+
+        var workspace = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+        Directory.CreateDirectory(workspace);
+        try
+        {
+            var source = Path.Combine(workspace, Path.GetFileName(fixture));
+            File.Copy(fixture, source);
+            var destination = Path.Combine(workspace, "saved-as" + Path.GetExtension(fixture));
+
+            var files = new FileService(new AprJsonSerializer());
+            var document = await files.LoadFileAsync(source);
+            await files.SaveFileAsync(document!, destination);
+
+            Digest(await File.ReadAllTextAsync(destination), representation).Should().Be(before,
+                "saving {0} under a new name is naming a file, not editing a document",
+                Path.GetFileName(fixture));
+        }
+        finally
+        {
+            Directory.Delete(workspace, recursive: true);
+        }
+    }
 }
