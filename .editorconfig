@@ -1,0 +1,9 @@
+root = true
+
+# Escalates exactly two dead-code diagnostics to build-breaking (Directory.Build.props
+# sets EnforceCodeStyleInBuild + TreatWarningsAsErrors). Every other IDE0xxx style rule
+# is intentionally left at its default severity: this file is a dead-code gate, not a
+# formatting mandate, and widening it should be a deliberate, separate decision.
+[*.cs]
+dotnet_diagnostic.IDE0051.severity = warning  # unused private member
+dotnet_diagnostic.IDE0052.severity = warning  # private member assigned but never read

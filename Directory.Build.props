@@ -17,6 +17,17 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningLevel>5</WarningLevel>
 
+    <!--
+      Runs the style analyzers (IDE0xxx) as part of every build, not only `dotnet
+      format`/the IDE. .editorconfig escalates exactly two of them: IDE0051 (unused
+      private member) and IDE0052 (private member assigned but never read), to
+      warning, which TreatWarningsAsErrors above turns into a build failure. Every
+      other IDE0xxx rule stays at its default (mostly "suggestion") severity and stays
+      silent; this is a dead-code gate, not a style mandate. Found and fixed three real
+      cases on 2026-09-07 the moment it was turned on.
+    -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
     <!-- Deterministic build for reproducibility -->
     <Deterministic>true</Deterministic>
 
