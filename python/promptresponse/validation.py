@@ -29,9 +29,9 @@ def validate(document: AprDocument) -> ValidationResult:
 
 def _validate_document_fields(document: AprDocument, result: ValidationResult) -> None:
     if not (document.version or "").strip():
-        result.errors.append(ValidationError("REQUIRED_FIELD", "version is required.", "version"))
+        result.errors.append(ValidationError("REQUIRED_FIELD", "aprVersion is required.", "aprVersion"))
     elif not is_supported_version(document.version):
-        result.errors.append(ValidationError("UNSUPPORTED_VERSION", f"Unsupported APR version {document.version!r}; this build accepts only 1.0-beta.6.", "version"))
+        result.errors.append(ValidationError("UNSUPPORTED_VERSION", f"Unsupported APR version {document.version!r}; this build accepts only 1.0-beta.6.", "aprVersion"))
     if not (document.metadata.title or "").strip():
         result.errors.append(ValidationError("REQUIRED_FIELD", "metadata.title is required.", "metadata.title"))
     if not document.sections:

@@ -19,7 +19,6 @@ from .models import (
     Metadata,
     Prompt,
     PromptHints,
-    ResponseMetadata,
     RoleDefinition,
     Section,
 )
@@ -32,6 +31,60 @@ from .wire import (
     string_member as _string,
     unknown_members as _rest,
 )
+
+
+def _spell(value) -> str:
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return "a boolean"
+    if isinstance(value, (int, float)):
+        return "a number"
+    if isinstance(value, str):
+        return "a string"
+    return "an array" if isinstance(value, list) else "an object"
+
+
+def _wrong_type(what: str, key: str, wanted: str, value) -> AprParseError:
+    """A structural member of the wrong JSON type is WRONG_TYPE, not a parse failure.
+
+    The record is well formed and says something the format does not allow
+    (specification 7.1). An explicit null is absence: a member table types a value
+    that is present.
+    """
+    return AprParseError(
+        f"{what}.{key} is {_spell(value)} where the format declares {wanted}; "
+        "APR values are never coerced.",
+        "WRONG_TYPE",
+    )
+
+
+def _boolean(node, key: str, what: str):
+    value = node.get(key)
+    if value is None:
+        return None
+    if not isinstance(value, bool):
+        raise _wrong_type(what, key, "a boolean", value)
+    return value
+
+
+def _number(node, key: str, what: str):
+    value = node.get(key)
+    if value is None:
+        return None
+    # bool is an int in Python, and `true` is not a number in JSON.
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise _wrong_type(what, key, "a number", value)
+    return value
+
+
+def _number_or_string(node, key: str, what: str):
+    value = node.get(key)
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, (int, float, str)):
+        raise _wrong_type(what, key, "a number or a string", value)
+    return value
 
 
 def _parse_hints(node) -> PromptHints:
@@ -53,9 +106,9 @@ def _parse_hints(node) -> PromptHints:
         help_text=normalize(_string(node, "helpText", "hints")),
         validation_pattern=_string(node, "validationPattern", "hints"),
         suggested_values=[normalize(s) for s in suggested],
-        min=_string(node, "min", "hints"),
-        max=_string(node, "max", "hints"),
-        step=_string(node, "step", "hints"),
+        min=_number_or_string(node, "min", "hints"),
+        max=_number_or_string(node, "max", "hints"),
+        step=_number(node, "step", "hints"),
         expr_hidden=_string(node, "exprHidden", "hints"),
         expr_value=_string(node, "exprValue", "hints"),
         expr_expected=_string(node, "exprExpected", "hints"),
@@ -65,20 +118,9 @@ def _parse_hints(node) -> PromptHints:
     )
 
 
-def _parse_response_metadata(node) -> ResponseMetadata:
-    node = _require_object(node, "responseMetadata")
-    known = {"inferredDataType", "source", "lastModified"}
-    return ResponseMetadata(
-        inferred_data_type=_string(node, "inferredDataType", "responseMetadata"),
-        source=_string(node, "source", "responseMetadata"),
-        last_modified=_string(node, "lastModified", "responseMetadata"),
-        extra=_rest(node, known),
-    )
-
-
 def _parse_prompt(node) -> Prompt:
     node = _require_object(node, "prompt")
-    known = {"id", "label", "response", "role", "hints", "responseMetadata"}
+    known = {"id", "label", "response", "role", "hints"}
     return Prompt(
         id=_string(node, "id", "prompt") or "",
         label=normalize(_string(node, "label", "prompt")) or "",
@@ -87,11 +129,6 @@ def _parse_prompt(node) -> Prompt:
         response=_string(node, "response", "prompt") or "",
         role=_string(node, "role", "prompt"),
         hints=_parse_hints(node["hints"]) if node.get("hints") else PromptHints(),
-        response_metadata=(
-            _parse_response_metadata(node["responseMetadata"])
-            if node.get("responseMetadata")
-            else ResponseMetadata()
-        ),
         extra=_rest(node, known),
     )
 
@@ -114,8 +151,8 @@ def _parse_section(node) -> Section:
         title=normalize(_string(node, "title", "section")) or "",
         description=normalize(_string(node, "description", "section")),
         kind=_string(node, "kind", "section"),
-        can_add_rows=_string(node, "canAddRows", "section"),
-        max_rows=_string(node, "maxRows", "section"),
+        can_add_rows=_boolean(node, "canAddRows", "section"),
+        max_rows=_number(node, "maxRows", "section"),
         role=_string(node, "role", "section"),
         prompts=[_parse_prompt(p) for p in prompts],
         sections=[_parse_section(s) for s in sections],
@@ -129,7 +166,7 @@ def _parse_metadata(node) -> Metadata:
         raise AprParseError("metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings")
     known = {
         "title", "description", "author", "created", "modified", "templateId",
-        "templateVersion", "filledBy", "filledDate", "publisher", "submissionUrls",
+        "templateVersion", "publisher", "submissionUrls",
     }
     return Metadata(
         title=normalize(_string(node, "title", "metadata")) or "",
@@ -139,8 +176,6 @@ def _parse_metadata(node) -> Metadata:
         modified=_string(node, "modified", "metadata"),
         template_id=_string(node, "templateId", "metadata"),
         template_version=_string(node, "templateVersion", "metadata"),
-        filled_by=normalize(_string(node, "filledBy", "metadata")),
-        filled_date=_string(node, "filledDate", "metadata"),
         publisher=normalize(_string(node, "publisher", "metadata")),
         # Deliberately not normalised: machine-consumed and signature-bound, so a
         # hidden character is reported rather than quietly cleaned to another host.
@@ -161,7 +196,7 @@ def loads(text: str) -> AprDocument:
             f"an APR document is a JSON object, not {type(node).__name__}"
         )
 
-    for required in ("version", "metadata", "sections"):
+    for required in ("aprVersion", "metadata", "sections"):
         if required not in node:
             raise AprParseError(
                 f"{required} is required. A document missing it is a structurally "
@@ -176,9 +211,9 @@ def loads(text: str) -> AprDocument:
     if roles is not None and not isinstance(roles, list):
         raise AprParseError("roles must be an array")
 
-    known = {"version", "documentType", "metadata", "sections", "roles", "signatures"}
+    known = {"aprVersion", "documentType", "metadata", "sections", "roles", "signatures"}
     document = AprDocument(
-        version=node["version"],
+        version=node["aprVersion"],
         document_type=_string(node, "documentType", "document"),
         metadata=_parse_metadata(node["metadata"]),
         sections=[_parse_section(s) for s in node["sections"]],
@@ -240,14 +275,6 @@ def _prompt_json(prompt: Prompt) -> Dict[str, Any]:
     hints = _hints_json(prompt.hints)
     if hints:
         node["hints"] = hints
-    meta = _compact({
-        "inferredDataType": prompt.response_metadata.inferred_data_type,
-        "source": prompt.response_metadata.source,
-        "lastModified": prompt.response_metadata.last_modified,
-    })
-    meta.update(prompt.response_metadata.extra)
-    if meta:
-        node["responseMetadata"] = meta
     node.update(prompt.extra)
     return node
 
@@ -281,14 +308,12 @@ def dumps(document: AprDocument, indent: int = 2) -> str:
         "modified": document.metadata.modified,
         "templateId": document.metadata.template_id,
         "templateVersion": document.metadata.template_version,
-        "filledBy": document.metadata.filled_by,
-        "filledDate": document.metadata.filled_date,
         "publisher": document.metadata.publisher,
         "submissionUrls": document.metadata.submission_urls,
     }))
     metadata.update(document.metadata.extra)
 
-    node: Dict[str, Any] = {"version": document.version}
+    node: Dict[str, Any] = {"aprVersion": document.version}
     if document.document_type:
         node["documentType"] = document.document_type
     node["metadata"] = metadata

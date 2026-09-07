@@ -14,6 +14,7 @@ cannot quietly rot.
 """
 
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -35,12 +36,28 @@ def load_examples():
     return data["examples"]
 
 
+def framed(document: str) -> str:
+    """Restore RFC 7464 framing to an APR-JSONC stream printed with ``---``.
+
+    A record separator is invisible on a page, so the specification stands one in
+    with a ``---`` line. Handing that prose form straight to the reader tests the
+    reader against a document the format never defines. APR-YAML streams are
+    untouched: there ``---`` is genuinely the separator, not a stand-in for one.
+
+    Mirrors ``Framed()`` in
+    tests/PromptResponse.Core.Tests/Beta6/SpecExampleTests.cs.
+    """
+    parts = [p for p in re.split(r"(?m)^---$", document) if p.strip()]
+    return "".join("\x1e" + p.strip("\n") + "\n" for p in parts)
+
+
 def read(example):
     """Read an example the way its declared representation requires."""
     representation = example["representation"]
     document = example["document"]
     if representation.endswith("-stream"):
-        return pr.read_beta6_stream(document, representation.split("-", 1)[0])
+        kind = representation.split("-", 1)[0]
+        return pr.read_beta6_stream(framed(document) if kind == "jsonc" else document, kind)
     return pr.read_beta6_form(document, representation)
 
 

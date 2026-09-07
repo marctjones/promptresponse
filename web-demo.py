@@ -372,7 +372,9 @@ def submit():
     pr.recompute_computed_values(DOCUMENT)
 
     DOCUMENT.document_type = "filledForm"
-    DOCUMENT.metadata.filled_date = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    # beta.6 retired `filledDate`: an unsigned claim about when a form was completed
+    # is not evidence of it. `metadata.modified` is the member that survives.
+    DOCUMENT.metadata.modified = datetime.now(timezone.utc).isoformat(timespec="seconds")
     if not DOCUMENT.metadata.template_id:
         # A filled form records the template it answers (specification 6.1).
         DOCUMENT.metadata.template_id = SOURCE_PATH.stem

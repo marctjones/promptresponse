@@ -11,7 +11,7 @@ import pytest
 import promptresponse as pr
 from promptresponse.apr_yaml import AprYamlError, load_all
 
-FORM = """version: "1.0-beta.6"
+FORM = """aprVersion: "1.0-beta.6"
 metadata:
   title: Fee schedule
 sections:

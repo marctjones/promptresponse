@@ -11,7 +11,7 @@ def test_inspector_reports_visually_deceptive_characters_without_changing_text()
 
 def test_unicode_warning_does_not_make_a_document_invalid():
     document = pr.loads(
-        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
+        '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","prompts":'
         '[{"id":"p","label":"L","response":"a\\u2066b"}]}]}'
     )
@@ -22,7 +22,7 @@ def test_unicode_warning_does_not_make_a_document_invalid():
 
 def test_unicode_security_values_are_preserved_and_advised():
     document = pr.loads(
-        '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":'
+        '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","prompts":['
         '{"id":"bidi_override","label":"Bidi","response":"safe\\u202etxt.exe"},'
         '{"id":"persian_zwnj","label":"Persian","response":"می‌روم"},'

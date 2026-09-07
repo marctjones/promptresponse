@@ -7,11 +7,18 @@ reader opens and saves it, which would make every additive change destructive.
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 # Members retired from the format. Dropped on write rather than preserved, so a
 # document does not carry a contradiction forward (specification 4.8.1).
-RETIRED_MEMBERS = frozenset(["tableLayout", "columns", "fixedRows"])
+RETIRED_MEMBERS = frozenset([
+    # Table column presentation, removed before 1.0.
+    "tableLayout", "columns", "fixedRows",
+    # Workflow state, retired in beta.6. Dropped rather than preserved into `extra`:
+    # none carried a claim whose silent loss would be worse than its removal, and
+    # preserving them would write them back into a document the format says has none.
+    "responseMetadata", "filledBy", "filledDate",
+])
 
 
 @dataclass
@@ -23,11 +30,15 @@ class PromptHints:
     help_text: Optional[str] = None
     validation_pattern: Optional[str] = None
     suggested_values: List[str] = field(default_factory=list)
-    # Bounds (specification 4.7). Strings, like every other value, and an offer
-    # rather than a limit: a response outside them is still valid.
-    min: Optional[str] = None
-    max: Optional[str] = None
-    step: Optional[str] = None
+    # Bounds (specification 4.7). An offer rather than a limit: a response outside
+    # them is still valid. Structural members, so they carry the JSON type the
+    # member table declares -- only a response is always a string. `min` and `max`
+    # are a number on an ordered numeric field and a canonical-form string on a
+    # temporal one, and neither spelling may be rewritten into the other because
+    # that moves the digest.
+    min: Optional[Union[float, int, str]] = None
+    max: Optional[Union[float, int, str]] = None
+    step: Optional[Union[float, int]] = None
     # Expression hints. This reader is core-only: it carries them through
     # untouched and never evaluates them (specification 2.2).
     expr_hidden: Optional[str] = None
@@ -35,18 +46,6 @@ class PromptHints:
     expr_expected: Optional[str] = None
     expr_validation: Optional[str] = None
     expr_read_only: Optional[str] = None
-    extra: Dict[str, Any] = field(default_factory=dict)
-
-
-@dataclass
-class ResponseMetadata:
-    """Provenance for a response."""
-
-    inferred_data_type: Optional[str] = None
-    # "computed" when an exprValue produced the value, absent when a person or
-    # an API wrote it. What stops a recomputation overwriting a correction.
-    source: Optional[str] = None
-    last_modified: Optional[str] = None
     extra: Dict[str, Any] = field(default_factory=dict)
 
 
@@ -59,8 +58,16 @@ class Prompt:
     response: str = ""
     role: Optional[str] = None
     hints: PromptHints = field(default_factory=PromptHints)
-    response_metadata: ResponseMetadata = field(default_factory=ResponseMetadata)
     extra: Dict[str, Any] = field(default_factory=dict)
+    # Whether this filling session computed the response now in `response`.
+    #
+    # Not a member, never written, and outside equality: beta.6 retired
+    # `responseMetadata.source`, which tried to carry this between parties and
+    # rested a prohibition on a marker every reader was free to drop. Every
+    # non-empty response in a document as it was read is authored, whatever
+    # produced it, so what may be recomputed is a fact about this session rather
+    # than about the file.
+    computed_in_this_session: bool = field(default=False, compare=False, repr=False)
 
 
 @dataclass
@@ -73,8 +80,8 @@ class Section:
     # "table" when the child sections are repeating instances. A table adds no
     # new primitive: rows are sections, cells are prompts (specification 4.5).
     kind: Optional[str] = None
-    can_add_rows: Optional[str] = None
-    max_rows: Optional[str] = None
+    can_add_rows: Optional[bool] = None
+    max_rows: Optional[int] = None
     role: Optional[str] = None
     prompts: List[Prompt] = field(default_factory=list)
     sections: List["Section"] = field(default_factory=list)
@@ -107,8 +114,6 @@ class Metadata:
     modified: Optional[str] = None
     template_id: Optional[str] = None
     template_version: Optional[str] = None
-    filled_by: Optional[str] = None
-    filled_date: Optional[str] = None
     publisher: Optional[str] = None
     submission_urls: Optional[List[str]] = None
     extra: Dict[str, Any] = field(default_factory=dict)

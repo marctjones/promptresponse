@@ -4,7 +4,7 @@ from pathlib import Path
 import promptresponse as pr
 
 
-FORM = '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}'
+FORM = '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}'
 CORPUS = Path(__file__).parents[2] / "tests" / "Conformance" / "beta6" / "forms"
 
 
@@ -24,7 +24,7 @@ def test_beta6_jsonc_and_yaml_have_same_semantics():
 
 
 def test_beta6_stream_keeps_duplicate_forms_and_requires_iteration():
-    attestation = '{"recordType":"attestation","version":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}'
+    attestation = '{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}'
     source = "\x1e" + attestation + "\n\x1e" + FORM + "\n\x1e" + FORM
     records = pr.read_beta6_stream(source, "jsonc")
     assert len(records) == 3
@@ -65,8 +65,8 @@ def test_beta6_digest_and_unsigned_attestation_resolve_from_shared_corpus():
     document = pr.read_beta6_form((CORPUS / "permit.apr.jsonc").read_text(), "jsonc")
     value = pr.form_value(document)
     manifest = pr.create_manifest(value)
-    assert pr.digest(value) == "sha256:d06b9720c44d64b368e93bd6765cad81bfa1e8ea9b767b4acd1ffc57c26b0253"
-    attestation = {"recordType": "attestation", "version": "1.0-beta.6", "subject": {"digest": manifest["root"], "canonicalization": "jcs-sha256"}, "scope": {"kind": "document"}, "manifest": manifest, "proofs": [], "witnesses": []}
+    assert pr.digest(value) == "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+    attestation = {"recordType": "attestation", "aprVersion": "1.0-beta.6", "subject": {"digest": manifest["root"], "canonicalization": "jcs-sha256"}, "scope": {"kind": "document"}, "manifest": manifest, "proofs": [], "witnesses": []}
     records = [pr.Beta6FormRecord(document), pr.Beta6AttestationRecord(attestation)]
     assert pr.resolve_attestations(records)[0]["state"] == "unverifiable"
 
@@ -75,7 +75,7 @@ def test_beta6_fields_scope_requires_the_selected_response_in_manifest():
     document = pr.read_beta6_form(FORM, "jsonc")
     value, complete = pr.form_value(document), pr.create_manifest(pr.form_value(document))
     manifest = {**complete, "entries": [entry for entry in complete["entries"] if entry["path"] != "/sections/0/prompts/0/response"]}
-    attestation = {"recordType": "attestation", "version": "1.0-beta.6", "subject": {"digest": pr.digest(value), "canonicalization": "jcs-sha256"}, "scope": {"kind": "fields", "fields": ["p"]}, "manifest": manifest, "proofs": [], "witnesses": []}
+    attestation = {"recordType": "attestation", "aprVersion": "1.0-beta.6", "subject": {"digest": pr.digest(value), "canonicalization": "jcs-sha256"}, "scope": {"kind": "fields", "fields": ["p"]}, "manifest": manifest, "proofs": [], "witnesses": []}
     result = pr.resolve_attestations([pr.Beta6FormRecord(document), pr.Beta6AttestationRecord(attestation)])[0]
     assert result["state"] == "invalid"
     assert "/sections/0/prompts/0/response" in result["differingPaths"]
@@ -105,7 +105,7 @@ def test_beta6_cms_corpus_proof_verifies_over_the_exact_detached_envelope():
 
 
 def test_beta6_stream_rewrite_preserves_semantic_extensions_and_cms_subjects():
-    source = '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[]}],"x-vendor":{"enabled":true}}'
+    source = '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[]}],"x-vendor":{"enabled":true}}'
     rewritten = pr.write_beta6_stream(pr.read_beta6_stream(source, "jsonc"), "jsonc")
     assert __import__("json").loads(rewritten.lstrip("\x1e").strip())["x-vendor"] == {"enabled": True}
 
@@ -146,8 +146,8 @@ JCS_NUMBER_VECTORS = [
 # One form whose numbers live in extension members, so every SDK's stream reader
 # preserves them. Its digest is pinned across the Python, .NET, TypeScript and
 # Java canonicalizers.
-NUMERIC_EXTENSIONS_JSONC = '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"","com.example.canAddRows":true,"com.example.maxRows":5,"com.example.min":1996,"com.example.step":0.5,"com.example.scale":1e21,"com.example.epsilon":1e-7}]}]}'
-NUMERIC_EXTENSIONS_YAML = """version: "1.0-beta.6"
+NUMERIC_EXTENSIONS_JSONC = '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"","com.example.canAddRows":true,"com.example.maxRows":5,"com.example.min":1996,"com.example.step":0.5,"com.example.scale":1e21,"com.example.epsilon":1e-7}]}]}'
+NUMERIC_EXTENSIONS_YAML = """aprVersion: "1.0-beta.6"
 metadata: { title: T }
 sections:
   - id: s
@@ -163,7 +163,7 @@ sections:
         com.example.scale: 1000000000000000000000
         com.example.epsilon: 0.0000001
 """
-NUMERIC_EXTENSIONS_DIGEST = "sha256:b2d48b3e183f16894e16b4c94f99f340d2c2fc5dcc32e68938f61bebcc404d0a"
+NUMERIC_EXTENSIONS_DIGEST = "sha256:df7259065a4e63df08be70e66bfe7c85412e42a3af6d477ccab2d285a62c9fa8"
 
 
 def test_jcs_number_serialization_matches_rfc_8785_appendix_b():
@@ -188,11 +188,11 @@ def test_jsonc_and_yaml_spellings_of_native_structural_numbers_digest_identicall
 
     jsonc = """{
       // structural members use native JSON types
-      "version": "1.0-beta.6", "metadata": { "title": "T" },
+      "aprVersion": "1.0-beta.6", "metadata": { "title": "T" },
       "sections": [{ "id": "s", "title": "S", "canAddRows": true, "maxRows": 5,
         "prompts": [{ "id": "n", "label": "N", "hints": { "min": 1996 }, "response": "" }] }]
     }"""
-    yaml_source = """version: "1.0-beta.6"
+    yaml_source = """aprVersion: "1.0-beta.6"
 metadata: { title: T }
 sections:
   - id: s

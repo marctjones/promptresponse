@@ -14,15 +14,18 @@ def test_cel_binding_computes_typed_value_without_overwriting_correction():
     ])])
     assert recompute_computed_values(document)
     assert total.response == "37.5"
+    # A person corrects the computed total. beta.6 records nothing about where a
+    # response came from, so the correction is expressed the only way that remains:
+    # this session no longer owns the value, and APR-EXPR-001 forbids rewriting it.
     total.response = "40"
-    total.response_metadata.source = None
+    total.computed_in_this_session = False
     assert not recompute_computed_values(document)
     assert total.response == "40"
 
 
 def _activation_document():
     return pr.loads(json.dumps({
-        "version": "1.0-beta.6",
+        "aprVersion": "1.0-beta.6",
         "metadata": {"title": "T"},
         "sections": [{"id": "s", "title": "S", "prompts": [
             {"id": "echo_id", "label": "E", "response": "", "hints": {"exprValue": "_id"}},

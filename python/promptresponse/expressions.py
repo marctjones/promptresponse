@@ -12,7 +12,6 @@ from celpy import Environment, celtypes
 from .models import AprDocument, Prompt
 
 PROFILE = "core+expressions"
-COMPUTED_SOURCE = "computed"
 
 
 def _cel_type(expected: Optional[str]):
@@ -160,13 +159,15 @@ def recompute_computed_values(document: AprDocument, today: Optional[str] = None
         for prompt in document.all_prompts():
             if not prompt.hints.expr_value:
                 continue
-            authored = bool(prompt.response) and prompt.response_metadata.source != COMPUTED_SOURCE
-            if authored:
+            # Every non-empty response in the document as it was read is authored,
+            # whatever produced it, and APR-EXPR-001 says an expression must not
+            # rewrite one. Only what this session computed may be recomputed.
+            if prompt.response and not prompt.computed_in_this_session:
                 continue
             computed = compute_value(prompt, context)
             if computed is not None and computed != prompt.response:
                 prompt.response = computed
-                prompt.response_metadata.source = COMPUTED_SOURCE
+                prompt.computed_in_this_session = True
                 changed_this_pass = changed = True
         if not changed_this_pass:
             break

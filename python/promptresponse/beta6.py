@@ -82,8 +82,8 @@ def _parse_record(raw: str) -> Beta6Record:
         raise AprParseError(f"not valid beta.6 representation: {exc}") from exc
     if not isinstance(value, dict):
         raise AprParseError("an APR beta.6 record must be an object")
-    if value.get("version") != VERSION:
-        raise AprParseError(f"APR beta.6 records must declare version {VERSION}")
+    if value.get("aprVersion") != VERSION:
+        raise AprParseError(f"APR beta.6 records must declare aprVersion {VERSION}")
     if "recordType" in value:
         if value["recordType"] != "attestation":
             raise AprParseError("unknown APR beta.6 stream record type")
