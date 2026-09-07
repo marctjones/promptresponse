@@ -100,6 +100,24 @@ public class CliDeliveryTests
         handler.LastRequest.Should().BeNull("the CLI composes no mail itself");
     }
 
+    [Theory]
+    [InlineData("mailto:forms@example.com", "forms@example.com")]
+    [InlineData("mailto:forms@example.com?subject=Permit", "forms@example.com")]
+    public async Task DeliverAsync_NamesTheRealAddress_ForAMailtoTarget(string uri, string expectedAddress)
+    {
+        // Uri.AbsolutePath is empty for a mailto: URI -- it is not a hierarchical
+        // scheme -- so the message must extract the address another way. This shipped
+        // showing a blank address ("addressed to  — the document...") until fixed
+        // alongside the podman submission receiver demo on 2026-09-07.
+        using var delivery = new CliDelivery();
+
+        var result = await delivery.DeliverAsync(
+            new Uri(uri), ReadOnlyMemory<byte>.Empty, "application/vnd.apr+json", "form.aprf");
+
+        result.Detail.Should().Contain(expectedAddress);
+        result.Detail.Should().NotContain("addressed to  ", "the address must never render blank");
+    }
+
     [Fact]
     public async Task DeliverAsync_ReportsUnavailableForAnUnrecognisedScheme_WithoutSendingAnything()
     {

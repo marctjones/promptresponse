@@ -30,9 +30,19 @@ public sealed class CliDelivery(HttpMessageHandler? handler = null) : IDelivery,
             // the message beside the document and says where; opening a mail client is
             // the desktop's job, and a command line that launched one would be doing
             // something its caller did not ask for.
+            //
+            // Uri.AbsolutePath is empty for a mailto: URI -- it is not a hierarchical
+            // scheme, so .NET does not populate the path components the way it would
+            // for https. The address is everything after "mailto:", up to an optional
+            // "?" introducing RFC 6068 header fields (subject=, etc.), which this
+            // message has no reason to repeat.
+            var address = target.AbsoluteUri["mailto:".Length..];
+            var headerFields = address.IndexOf('?');
+            if (headerFields >= 0) address = address[..headerFields];
+
             return DeliveryResult.Unavailable(
                 "this host composes no mail. Attach the file to a message addressed to "
-                + $"{target.AbsolutePath} — the document goes as an attachment, never "
+                + $"{address} — the document goes as an attachment, never "
                 + "pasted into the body.");
         }
         if (target.Scheme != Uri.UriSchemeHttps)

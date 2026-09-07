@@ -243,10 +243,79 @@ $ diff "$HOME/contact-intake.aprf" "$HOME/apr-receiver-data/20260907T18215736270
 (no output — byte-for-byte identical, 3804 bytes both sides)
 ```
 
-The delivered content matches the filled `.aprf` exactly — the CLI sends
-`serializer.Serialize(document)` rather than the file's raw bytes, so an
-exact match also depends on the serializer round-tripping the document
-unchanged; for this example it does.
+The delivered content matches the filled `.aprf` exactly — `apr submit`
+sends the file's own bytes verbatim (fixed 2026-09-07; it previously
+re-serialized the document before sending, which risked silently changing
+its representation), so the receiver holds exactly what was on disk.
+
+## Worked example, part two: the same workflow in APR-YAML
+
+Everything above works identically for APR-YAML — `apr fill`, `apr new`, and
+`apr submit` all became representation-aware on 2026-09-07 (previously `apr
+fill` could not even open a `.apr.yaml` template). Repeat steps 2–4 with a
+YAML template and a YAML output path:
+
+```bash
+DOTNET_ROOT=~/.dotnet ~/.dotnet/dotnet src/PromptResponse.Cli/bin/Release/net10.0/apr.dll \
+  fill examples/hints-and-widgets-showcase.apr.yaml \
+  --non-interactive \
+  --output="$HOME/contact-intake.apr.yaml"
+```
+
+`examples/hints-and-widgets-showcase.apr.yaml` is a real YAML-represented
+example already in this repo. The output file this produces is genuine
+YAML (`aprVersion: 1.0-beta.6`, not `{"aprVersion": ...}`), and submitting
+it (step 3, same containerized-CLI approach, same `--url=`) delivers it
+with `Content-Type: application/vnd.apr+yaml` and a YAML body — verify
+this either by inspecting the receiver's log (`podman logs
+apr-receiver-demo`, which prints the `Content-Type` it saw) or the file
+it wrote under `$HOME/apr-receiver-data`.
+
+## Worked example, part three: email instead of HTTPS
+
+The format defines exactly two submission transports — HTTPS and `mailto`
+— and the CLI never sends mail itself; specification 5.2.2 says a client
+hands the composition to the user or attaches the document, and this
+host "composes no mail." Confirm that behavior directly:
+
+```bash
+DOTNET_ROOT=~/.dotnet ~/.dotnet/dotnet src/PromptResponse.Cli/bin/Release/net10.0/apr.dll \
+  submit "$HOME/contact-intake.aprf" --url=mailto:forms@example.org --yes
+```
+
+Expected output:
+
+```
+Not sent: this host composes no mail. Attach the file to a message addressed to
+forms@example.org — the document goes as an attachment, never pasted into the body.
+```
+
+Exit code `3` — `DeliveryOutcome.Unavailable`, not a failure of the
+document or the target. The desktop client's mail handoff
+(`Submit via email` in the menu) is the surface that actually opens a
+compose window with the file attached; the CLI's job stops at telling you
+correctly that it can't.
+
+## Worked example, part four: the Python toy web demo as a third author
+
+`web-demo.py` at the repo root is a small Flask app using the Python SDK
+directly — a third way to author a filled form, independent of the CLI or
+desktop client, that (fixed 2026-09-07 alongside this receiver) now
+preserves whichever representation it opened. Point it at the same YAML
+example and let it produce a filled copy:
+
+```bash
+python3 web-demo.py examples/hints-and-widgets-showcase.apr.yaml \
+  --port 8091 --output-dir "$HOME"
+# open http://127.0.0.1:8091/ , fill in the form, submit — Ctrl+C when done
+```
+
+The file it writes under `$HOME` (representation preserved: `.apr.yaml`
+in, `.apr.yaml` out) is an ordinary filled APR document — hand it to the
+same `apr submit` command from part two to deliver it to this receiver.
+Authoring and delivery are deliberately separate concerns here: the
+Python demo never talks to the receiver itself, matching the architecture
+decision that SDKs own format semantics and hosts own delivery.
 
 ## Cleanup
 
