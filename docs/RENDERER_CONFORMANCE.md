@@ -85,6 +85,7 @@ carries — nothing here is invented for the harness.
 | `completedByKeyboard` | whether a response could actually be entered there, or absent if the driver cannot type | `APR-RENDER-005` — reachable is half the rule |
 | `reachableBackwards` | false when Shift-Tab never returns to it | `APR-RENDER-005` |
 | `editable` | whether typing is accepted | `APR-EXPR-014` — a computed field stays editable |
+| `value` | the response as the field shows it | Reported, **not checked** — see below |
 | `saveResult` | whether a save was written, and what blocked it | `APR-RENDER-006`, `APR-MODEL-004`, `APR-VAL-006` |
 | `exportedDocument` | the document as it stands after an export | `APR-RENDER-009` |
 | `requests` | every network request made while rendering | `APR-SEC-010` |
@@ -134,6 +135,24 @@ may not. The list is an answer, withheld from the driver's copy like every other
 The scorer could work it out only by evaluating CEL, and the harness keeps its
 oracle free of any SDK: embedding a CEL implementation in the thing that judges
 CEL implementations is how a harness stops measuring.
+
+### `value` is reported and nothing checks it
+
+Every field node carries the response the interface shows, and no check reads it.
+That is not an oversight: chapter 13 does not oblige a renderer to present the
+answers a document carries. `APR-EXPR-001` is about an expression not overwriting
+a response, not about showing one, and nothing in `APR-MODEL` speaks about
+rendering.
+
+So a renderer that displayed a filled form with every field blank would pass this
+suite. `renderer:a-filled-form-renders-its-answers` exercises the rules that do
+exist against a document with responses — every field named, every field reachable
+— and the shipped renderers do show them. Asserting more would be house style
+wearing a conformance badge.
+
+Whether the specification should say so is a question for the specification, and it
+is recorded as a residue in
+[docs/release/ACCESSIBILITY_SIGNOFF.md](release/ACCESSIBILITY_SIGNOFF.md).
 
 ## What this contract does not decide
 

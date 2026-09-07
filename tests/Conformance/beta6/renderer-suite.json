@@ -3,8 +3,18 @@
   "suiteVersion": "apr-beta6-renderer-conformance-1",
   "formatVersion": "1.0-beta.6",
   "specificationSha256": "sha256:ed1f8ac936cdb2510f0a220ad946c1567bc38536846d282963bf62c96752ccfa",
-  "contractSha256": "sha256:1a9e61b073188181ccd7cc17d55e348718dcfa4f4e678507a2accbddd5590233",
+  "contractSha256": "sha256:644c17c6760f086a7e9fda797a1726381f5cbd073fb3a761b10eea496aeaf86d",
   "cases": [
+    {
+      "id": "renderer:a-filled-form-renders-its-answers",
+      "rules": [
+        "APR-RENDER-001",
+        "APR-RENDER-005"
+      ],
+      "asks": "a document that carries responses is presented as a form somebody has already filled in, with every field named and reachable",
+      "surface": "renderer",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"filledForm\",\n  \"metadata\": {\n    \"title\": \"Permit Application\",\n    \"templateId\": \"tag:example.com,2026:permit\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        {\n          \"id\": \"full_name\",\n          \"label\": \"Full name\",\n          \"response\": \"Ada Lovelace\"\n        },\n        {\n          \"id\": \"filed_on\",\n          \"label\": \"Filed on\",\n          \"response\": \"2026-09-04\",\n          \"hints\": {\n            \"expectedDataType\": \"date\"\n          }\n        },\n        {\n          \"id\": \"notes\",\n          \"label\": \"Notes\",\n          \"response\": \"\"\n        }\n      ]\n    }\n  ]\n}\n"
+    },
     {
       "id": "renderer:accessible-name",
       "rules": [

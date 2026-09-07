@@ -2,6 +2,48 @@
   "$comment": "Renderer conformance cases. Documents are inline rather than one file each: a renderer case is defined by what it asks of a renderer, and splitting the document from the question across two files makes neither readable. See docs/RENDERER_CONFORMANCE.md.",
   "cases": [
     {
+      "id": "a-filled-form-renders-its-answers",
+      "rules": [
+        "APR-RENDER-001",
+        "APR-RENDER-005"
+      ],
+      "asks": "a document that carries responses is presented as a form somebody has already filled in, with every field named and reachable",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "documentType": "filledForm",
+        "metadata": {
+          "title": "Permit Application",
+          "templateId": "tag:example.com,2026:permit"
+        },
+        "sections": [
+          {
+            "id": "applicant",
+            "title": "Applicant",
+            "prompts": [
+              {
+                "id": "full_name",
+                "label": "Full name",
+                "response": "Ada Lovelace"
+              },
+              {
+                "id": "filed_on",
+                "label": "Filed on",
+                "response": "2026-09-04",
+                "hints": {
+                  "expectedDataType": "date"
+                }
+              },
+              {
+                "id": "notes",
+                "label": "Notes",
+                "response": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "accessible-name",
       "rules": [
         "APR-RENDER-001"

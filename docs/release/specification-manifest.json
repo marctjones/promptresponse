@@ -30,7 +30,7 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:ca7a7076b662ae636c68f1143e0561dcc4ad0332755165a21365da41931fc0db"
+      "sha256": "sha256:90f182bbe8a27e2f86dce3510e5ec45d527fe2d223bc31e77d69a9e4feaf4a22"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
@@ -52,6 +52,6 @@
   "corpus": {
     "path": "tests/Conformance/beta6",
     "files": 157,
-    "sha256": "sha256:b5c9bcba8d680967f84e260161858e57a4b26062d97e63c4b0a04fc2919609b2"
+    "sha256": "sha256:04d1556da52ef453eac623c3f6793d95e5e9f0c8ba315c785d5c54c816e6c5b4"
   }
 }

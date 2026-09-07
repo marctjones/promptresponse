@@ -55,6 +55,18 @@ Rendered against a real theme, at a real size, with a real display. The format s
 nothing about this and the harness measures nothing about it, so it is listed to say
 that its absence from the automated evidence is deliberate.
 
+### R6. Whether the answers a document carries reach the interface — no rule
+
+A field node in the snapshot carries the response the interface shows, and no check
+reads it, because chapter 13 does not oblige a renderer to present the answers a
+document carries. `APR-EXPR-001` is about an expression not overwriting a response
+rather than about showing one. So a renderer that displayed a filled form with every
+field blank would pass the drivers.
+
+Listed here so its absence is deliberate rather than missed. It is also the one
+residue that looks like it should be a rule instead — unlike contrast, it is
+mechanically checkable the moment the specification says it.
+
 ### R5. Unproven driven branches — `APR-RENDER-005`
 
 Two branches the headless input pipeline cannot drive, recorded rather than claimed:
