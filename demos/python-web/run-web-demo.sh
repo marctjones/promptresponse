@@ -11,31 +11,36 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 DEFAULT_TEMPLATE="$REPO_ROOT/examples/field-types-showcase.aprt"
 PORT=8080
 
-# Parse arguments
-TEMPLATE="${1:-$DEFAULT_TEMPLATE}"
+# Parse arguments: an optional template path and --port PORT, in any order
+TEMPLATE="$DEFAULT_TEMPLATE"
 
-if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-    echo "Usage: $0 [template.aprt] [--port PORT]"
-    echo ""
-    echo "Installs Flask (if needed) and launches the APRT Form Server."
-    echo ""
-    echo "Arguments:"
-    echo "  template.aprt    Path to an .aprt file (default: examples/field-types-showcase.aprt)"
-    echo "  --port PORT      Port to run on (default: 8080)"
-    echo ""
-    echo "Examples:"
-    echo "  $0                                    # Run with default example"
-    echo "  $0 my-form.aprt                       # Run with custom template"
-    echo "  $0 my-form.aprt --port 3000           # Run on port 3000"
-    exit 0
-fi
-
-# Check for --port argument
-for i in "${@}"; do
-    if [[ "$prev" == "--port" ]]; then
-        PORT="$i"
-    fi
-    prev="$i"
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            echo "Usage: $0 [template.aprt] [--port PORT]"
+            echo ""
+            echo "Installs Flask (if needed) and launches the APRT Form Server."
+            echo ""
+            echo "Arguments:"
+            echo "  template.aprt    Path to an .aprt file (default: examples/field-types-showcase.aprt)"
+            echo "  --port PORT      Port to run on (default: 8080)"
+            echo ""
+            echo "Examples:"
+            echo "  $0                                    # Run with default example"
+            echo "  $0 my-form.aprt                       # Run with custom template"
+            echo "  $0 my-form.aprt --port 3000           # Run on port 3000"
+            echo "  $0 --port 3000                        # Run default example on port 3000"
+            exit 0
+            ;;
+        --port)
+            PORT="$2"
+            shift 2
+            ;;
+        *)
+            TEMPLATE="$1"
+            shift
+            ;;
+    esac
 done
 
 # Detect python command
