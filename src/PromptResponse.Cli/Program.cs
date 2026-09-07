@@ -47,6 +47,7 @@ class Program
                 "keygen" or "sign" or "verify" => RetiredBeta3Command(command),
                 "submit" => await serviceProvider.GetRequiredService<SubmitCommand>().ExecuteAsync(commandArgs),
                 "beta6" => await serviceProvider.GetRequiredService<Beta6Command>().ExecuteAsync(commandArgs),
+                "conformance" => await serviceProvider.GetRequiredService<ConformanceCommand>().ExecuteAsync(commandArgs),
                 "help" or "--help" or "-h" => ShowHelp(),
                 "version" or "--version" or "-v" => ShowVersion(),
                 _ => ShowUnknownCommand(command)
@@ -91,6 +92,7 @@ class Program
         // capability this host does not have.
         services.AddSingleton<PromptResponse.Host.Abstractions.IDelivery, Host.CliDelivery>();
         services.AddTransient<SubmitCommand>();
+        services.AddTransient<ConformanceCommand>();
         services.AddTransient<Beta6Command>();
     }
 

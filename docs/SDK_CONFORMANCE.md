@@ -213,8 +213,15 @@ reverse-DNS prefix required on extension members, submission transports defined,
 `aprVersion`, and `responseMetadata` retired entirely — recomputation now protects
 every response already in the document rather than only an unmarked one.
 
-**The .NET SDK is aligned and scored.** `tools/PromptResponse.ConformanceDriver`
-answers all 171 cases with zero failures, claiming `core`, `core+streams` and
+**Two .NET drivers are scored, and the pair is the point.**
+`tools/PromptResponse.ConformanceDriver` calls `PromptResponse.Core` directly, so a
+passing run says the library is conformant. `apr conformance` answers the same
+contract through the command line, so a passing run says the program a person runs
+is. Where they disagree, the difference is the finding: a defect in the library
+shows in both, a defect in the command line's own layer shows in one, and neither
+could say that alone.
+
+Both answer all 171 cases with zero failures, claiming `core`, `core+streams` and
 `core+expressions`:
 
 > APR 1.0-beta.6 core+streams+expressions, corpus beta6 @ `<sha>`
