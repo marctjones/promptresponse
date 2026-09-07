@@ -43,7 +43,7 @@ public final class AprConformanceTest {
             boolean accepted;
             String detail = "";
             try {
-                if (representation.endsWith("-stream")) AprBeta6.readStream(document, form);
+                if (representation.endsWith("-stream")) AprBeta6.readStream(form == AprBeta6.Representation.JSONC ? framed(document) : document, form);
                 else AprBeta6.readForm(document, form);
                 accepted = true;
             } catch (RuntimeException rejected) {
@@ -62,7 +62,7 @@ public final class AprConformanceTest {
 
     /** The activation the specification defines, and its caller-supplied instants. */
     private static void expressionActivation() {
-        String json = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},"
+        String json = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},"
             + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":["
             + "{\"id\":\"echo_id\",\"label\":\"E\",\"response\":\"\"}"
             + "]}]}";
@@ -88,19 +88,19 @@ public final class AprConformanceTest {
     }
 
     private static void expressionBinding() {
-        try { Apr.parse("{\"version\":\"1.0-beta\",\"metadata\":{\"title\":\"T\"},\"sections\":[]}"); throw new AssertionError("legacy APR version was accepted"); } catch (AprException expected) { }
-        AprDocument document=Apr.parse("{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"qty\",\"label\":\"Quantity\",\"response\":\"3\",\"hints\":{\"expectedDataType\":\"number\"}},{\"id\":\"price\",\"label\":\"Price\",\"response\":\"12.5\",\"hints\":{\"expectedDataType\":\"currency\"}},{\"id\":\"total\",\"label\":\"Total\",\"response\":\"\",\"hints\":{\"expectedDataType\":\"currency\",\"exprValue\":\"qty * price\"}}]}]}");
+        try { Apr.parse("{\"aprVersion\":\"1.0-beta\",\"metadata\":{\"title\":\"T\"},\"sections\":[]}"); throw new AssertionError("legacy APR version was accepted"); } catch (AprException expected) { }
+        AprDocument document=Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"qty\",\"label\":\"Quantity\",\"response\":\"3\",\"hints\":{\"expectedDataType\":\"number\"}},{\"id\":\"price\",\"label\":\"Price\",\"response\":\"12.5\",\"hints\":{\"expectedDataType\":\"currency\"}},{\"id\":\"total\",\"label\":\"Total\",\"response\":\"\",\"hints\":{\"expectedDataType\":\"currency\",\"exprValue\":\"qty * price\"}}]}]}");
         if (!AprExpressions.recomputeComputedValues(document) || !document.toJson().contains("\"response\":\"37.5\"")) throw new AssertionError("CEL binding did not compute typed value");
         document.setResponse("total", "40");
         if (AprExpressions.recomputeComputedValues(document) || !document.toJson().contains("\"response\":\"40\"")) throw new AssertionError("CEL binding overwrote human correction");
     }
     private static void beta6() {
-        String form = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"Ada\"}]}]}";
+        String form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"Ada\"}]}]}";
         AprDocument jsonc = AprBeta6.readForm("// comment\n" + form.substring(0, form.length() - 1) + ",}", AprBeta6.Representation.JSONC);
         AprDocument yaml = AprBeta6.readForm(AprBeta6.writeForm(jsonc, AprBeta6.Representation.YAML), AprBeta6.Representation.YAML);
         if (!"Ada".equals(((java.util.Map<?,?>)((java.util.List<?>)((java.util.Map<?,?>)yaml.sections().getFirst()).get("prompts")).getFirst()).get("response"))) throw new AssertionError("beta.6 YAML changed a response");
         // An anchor, alias or tag is a node property (specification 4.5): "&", "*" and "!" inside a plain scalar's content are ordinary characters.
-        String yamlForm = "version: \"1.0-beta.6\"\nmetadata:\n  title: T\n  \"<<\": not a merge key\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        hints:\n          exprValue: string(fee_count * 8.0)\n        response: a * b & c! d\n";
+        String yamlForm = "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: T\n  \"<<\": not a merge key\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        hints:\n          exprValue: string(fee_count * 8.0)\n        response: a * b & c! d\n";
         var yamlPrompt = (java.util.Map<?,?>)((java.util.List<?>)((java.util.Map<?,?>)((java.util.List<?>)((AprBeta6.FormRecord)AprBeta6.readStream(yamlForm, AprBeta6.Representation.YAML).getFirst()).value().get("sections")).getFirst()).get("prompts")).getFirst();
         if (!"string(fee_count * 8.0)".equals(((java.util.Map<?,?>)yamlPrompt.get("hints")).get("exprValue")) || !"a * b & c! d".equals(yamlPrompt.get("response"))) throw new AssertionError("beta.6 YAML did not read indicator characters inside a plain scalar as content");
         String[][] excluded = {
@@ -114,7 +114,7 @@ public final class AprConformanceTest {
             try { AprBeta6.readStream(excludedCase[0], AprBeta6.Representation.YAML); throw new AssertionError("beta.6 YAML accepted an excluded construct in:\n" + excludedCase[0]); }
             catch (AprException expected) { if (!expected.getMessage().contains(excludedCase[1])) throw new AssertionError("beta.6 YAML rejected " + excludedCase[1] + " for another reason: " + expected.getMessage()); }
         }
-        String attestation = "{\"recordType\":\"attestation\",\"version\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"entries\":[]},\"proofs\":[],\"witnesses\":[]}";
+        String attestation = "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:0000000000000000000000000000000000000000000000000000000000000000\",\"entries\":[]},\"proofs\":[],\"witnesses\":[]}";
         String stream = "\u001e" + attestation + "\n\u001e" + form + "\n\u001e" + form;
         java.util.List<AprBeta6.Record> records = AprBeta6.readStream(stream, AprBeta6.Representation.JSONC);
         if (records.size() != 3 || records.stream().filter(record -> record instanceof AprBeta6.FormRecord).count() != 2) throw new AssertionError("beta.6 stream lost an occurrence");
@@ -122,13 +122,32 @@ public final class AprConformanceTest {
         try { AprBeta6.readForm(form.substring(0, form.length() - 1) + ",\"signatures\":[]}", AprBeta6.Representation.JSONC); throw new AssertionError("beta.6 accepted embedded signatures"); } catch (AprException expected) { if (!expected.getMessage().contains("RETIRED_EMBEDDED_SIGNATURES")) throw expected; }
         try { AprBeta6.readForm(form.replace("\"metadata\":", "\"metadata\":{},\"metadata\":"), AprBeta6.Representation.JSONC); throw new AssertionError("beta.6 accepted duplicate JSONC members"); } catch (AprException expected) { }
         Object value = Json.parse(form);
-        if (!"sha256:9d7899e7f997eeb08d72e55fe9ee0ed9278748eaa415061cac9b11c142cac01d".equals(AprBeta6Integrity.digest(value))) throw new AssertionError("beta.6 digest is not representation-neutral");
+        if (!"sha256:b944624a9883f7317f9415090804ddea080806c28ff531664d7d63a66cef50a2".equals(AprBeta6Integrity.digest(value))) throw new AssertionError("beta.6 digest is not representation-neutral");
         var manifest = AprBeta6Integrity.createManifest(value);
-        var assertion = new java.util.LinkedHashMap<String,Object>(); assertion.put("recordType","attestation"); assertion.put("version","1.0-beta.6"); assertion.put("subject", java.util.Map.of("digest",manifest.root(),"canonicalization","jcs-sha256")); assertion.put("scope",java.util.Map.of("kind","document")); assertion.put("manifest",java.util.Map.of("root",manifest.root(),"entries",manifest.entries().stream().map(entry->java.util.Map.of("path",entry.path(),"digest",entry.digest())).toList())); assertion.put("proofs",java.util.List.of()); assertion.put("witnesses",java.util.List.of());
+        var assertion = new java.util.LinkedHashMap<String,Object>(); assertion.put("recordType","attestation"); assertion.put("aprVersion","1.0-beta.6"); assertion.put("subject", java.util.Map.of("digest",manifest.root(),"canonicalization","jcs-sha256")); assertion.put("scope",java.util.Map.of("kind","document")); assertion.put("manifest",java.util.Map.of("root",manifest.root(),"entries",manifest.entries().stream().map(entry->java.util.Map.of("path",entry.path(),"digest",entry.digest())).toList())); assertion.put("proofs",java.util.List.of()); assertion.put("witnesses",java.util.List.of());
         if (!"unverifiable".equals(AprBeta6Integrity.resolve(java.util.List.of(new AprBeta6.FormRecord(AprBeta6.readForm(form,AprBeta6.Representation.JSONC)),new AprBeta6.AttestationRecord(assertion))).getFirst().state())) throw new AssertionError("unsigned beta.6 attestation must be unverifiable");
         var fieldManifest = new java.util.LinkedHashMap<String,Object>(); fieldManifest.put("root",manifest.root()); fieldManifest.put("entries",manifest.entries().stream().filter(entry -> !entry.path().equals("/sections/0/prompts/0/response")).map(entry->java.util.Map.of("path",entry.path(),"digest",entry.digest())).toList()); assertion.put("scope",java.util.Map.of("kind","fields","fields",java.util.List.of("p"))); assertion.put("manifest",fieldManifest);
         if (!"invalid".equals(AprBeta6Integrity.resolve(java.util.List.of(new AprBeta6.FormRecord(AprBeta6.readForm(form,AprBeta6.Representation.JSONC)),new AprBeta6.AttestationRecord(assertion))).getFirst().state())) throw new AssertionError("fields scope without response must be invalid");
     }
+    /**
+     * Restores RFC 7464 framing to an APR-JSONC stream the specification prints with {@code ---}.
+     *
+     * A record separator is invisible on a page, so the specification stands one in with a
+     * {@code ---} line. Handing that prose form straight to the reader tests the reader against a
+     * document the format never defines. APR-YAML streams are untouched: there {@code ---} is
+     * genuinely the separator, not a stand-in for one.
+     *
+     * Mirrors {@code Framed()} in tests/PromptResponse.Core.Tests/Beta6/SpecExampleTests.cs.
+     */
+    private static String framed(String document) {
+        StringBuilder framed = new StringBuilder();
+        for (String part : document.split("(?m)^---$")) {
+            if (part.isBlank()) continue;
+            framed.append('\u001e').append(part.strip()).append('\n');
+        }
+        return framed.toString();
+    }
+
     /** RFC 8785 Appendix B number vectors, plus the representation-neutral digest pinned across SDKs. */
     private static void jcsNumbers() {
         String[][] vectors = {
@@ -151,10 +170,10 @@ public final class AprConformanceTest {
         if (!AprBeta6Integrity.digest(Json.parse("{\"maxRows\":5}")).equals(AprBeta6Integrity.digest(Json.parse("{\"maxRows\":5.0}"))))
             throw new AssertionError("JCS digest depends on the spelling of an integral number");
         try { AprBeta6Integrity.canonicalize(Double.POSITIVE_INFINITY); throw new AssertionError("non-finite number was canonicalized"); } catch (AprException expected) { }
-        String expected = "sha256:b2d48b3e183f16894e16b4c94f99f340d2c2fc5dcc32e68938f61bebcc404d0a";
-        String jsonc = "{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"\",\"com.example.canAddRows\":true,\"com.example.maxRows\":5,\"com.example.min\":1996,\"com.example.step\":0.5,\"com.example.scale\":1e21,\"com.example.epsilon\":1e-7}]}]}";
+        String expected = "sha256:df7259065a4e63df08be70e66bfe7c85412e42a3af6d477ccab2d285a62c9fa8";
+        String jsonc = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"\",\"com.example.canAddRows\":true,\"com.example.maxRows\":5,\"com.example.min\":1996,\"com.example.step\":0.5,\"com.example.scale\":1e21,\"com.example.epsilon\":1e-7}]}]}";
         String yaml = String.join("\n",
-            "version: \"1.0-beta.6\"", "metadata: { title: T }", "sections:", "  - id: s", "    title: S", "    prompts:",
+            "aprVersion: \"1.0-beta.6\"", "metadata: { title: T }", "sections:", "  - id: s", "    title: S", "    prompts:",
             "      - id: p", "        label: P", "        response: \"\"", "        com.example.canAddRows: true", "        com.example.maxRows: 5",
             "        com.example.min: 1996.0", "        com.example.step: 0.5", "        com.example.scale: 1000000000000000000000", "        com.example.epsilon: 0.0000001", "");
         for (var pair : java.util.Map.of(AprBeta6.Representation.JSONC, jsonc, AprBeta6.Representation.YAML, yaml).entrySet()) {
@@ -162,7 +181,7 @@ public final class AprConformanceTest {
             String actual = AprBeta6Integrity.digest(record.value());
             if (!expected.equals(actual)) throw new AssertionError(pair.getKey() + " numeric extension digest was " + actual + ": " + AprBeta6Integrity.canonicalize(record.value()));
         }
-        var resolved = (AprBeta6.FormRecord) AprBeta6.readStream("version: \"1.0-beta.6\"\nmetadata: { title: T, com.example.count: 5, com.example.lead: 012, com.example.quoted: '5' }\nsections: []\n", AprBeta6.Representation.YAML).getFirst();
+        var resolved = (AprBeta6.FormRecord) AprBeta6.readStream("aprVersion: \"1.0-beta.6\"\nmetadata: { title: T, com.example.count: 5, com.example.lead: 012, com.example.quoted: '5' }\nsections: []\n", AprBeta6.Representation.YAML).getFirst();
         java.util.Map<?,?> metadata = (java.util.Map<?,?>) resolved.value().get("metadata");
         if (!(metadata.get("com.example.count") instanceof Long) || !"012".equals(metadata.get("com.example.lead")) || !"5".equals(metadata.get("com.example.quoted")))
             throw new AssertionError("APR YAML integer resolution differs from JSON: " + metadata);
@@ -186,7 +205,7 @@ public final class AprConformanceTest {
         if (!"valid".equals(AprBeta6Integrity.resolve(java.util.List.of(new AprBeta6.FormRecord(jsonc), cms.getFirst())).getFirst().state())) throw new AssertionError("CMS proof did not verify");
         var rewritten = AprBeta6.readStream(AprBeta6.writeStream(java.util.List.of(new AprBeta6.FormRecord(jsonc), cms.getFirst()), AprBeta6.Representation.JSONC), AprBeta6.Representation.JSONC);
         if (!"valid".equals(AprBeta6Integrity.resolve(rewritten).getFirst().state())) throw new AssertionError("stream rewrite changed CMS subject semantics");
-        var extension = AprBeta6.readStream("{\"version\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}],\"x-vendor\":{\"enabled\":true}}", AprBeta6.Representation.JSONC);
+        var extension = AprBeta6.readStream("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[]}],\"x-vendor\":{\"enabled\":true}}", AprBeta6.Representation.JSONC);
         if (!AprBeta6.writeStream(extension, AprBeta6.Representation.JSONC).contains("\"x-vendor\":{\"enabled\":true}")) throw new AssertionError("stream rewrite lost extension member");
         String tamperedCms = Files.readString(beta6.resolve("attestations/permit.cms.attestation.jsonc")).replace("\"kind\": \"document\"", "\"kind\": \"fields\", \"fields\": [\"name\"]");
         var tampered = AprBeta6.readStream(tamperedCms, AprBeta6.Representation.JSONC);

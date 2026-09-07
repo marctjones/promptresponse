@@ -58,7 +58,7 @@ public final class AprBeta6 {
         Object parsed = Json.parse(json);
         if (!(parsed instanceof Map<?,?> raw)) throw new AprException("An APR beta.6 record must be an object");
         Map<String,Object> value = (Map<String,Object>) raw;
-        if (!VERSION.equals(value.get("version"))) throw new AprException("APR beta.6 records must declare version " + VERSION);
+        if (!VERSION.equals(value.get("aprVersion"))) throw new AprException("APR beta.6 records must declare aprVersion " + VERSION);
         if (value.containsKey("recordType")) {
             if (!"attestation".equals(value.get("recordType"))) throw new AprException("Unknown APR beta.6 stream record type");
             validateAttestation(value);

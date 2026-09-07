@@ -16,7 +16,6 @@ import java.util.*;
 /** APR's optional CEL expression binding. Evaluation is pure and advisory. */
 public final class AprExpressions {
     public static final String PROFILE = "core+expressions";
-    public static final String COMPUTED_SOURCE = "computed";
     private AprExpressions() { }
 
     public static boolean recomputeComputedValues(AprDocument document) {
@@ -28,13 +27,14 @@ public final class AprExpressions {
                 String expression = AprDocument.string(hints.get("exprValue"));
                 if (blank(expression)) continue;
                 String response = Optional.ofNullable(AprDocument.string(prompt.get("response"))).orElse("");
-                Map<String,Object> responseMetadata = map(prompt.get("responseMetadata"));
-                if (!response.isEmpty() && !COMPUTED_SOURCE.equals(AprDocument.string(responseMetadata.get("source")))) continue;
+                // Every non-empty response in the document as it was read is authored,
+                // whatever produced it, and APR-EXPR-001 says an expression must not
+                // rewrite one. Only what this session computed may be recomputed.
+                if (!response.isEmpty() && !document.computedThisSession().contains(prompt)) continue;
                 String result = context.evaluate(prompt, expression);
                 if (result != null && !result.equals(response)) {
                     prompt.put("response", result);
-                    responseMetadata.put("source", COMPUTED_SOURCE);
-                    prompt.put("responseMetadata", responseMetadata);
+                    document.computedThisSession().add(prompt);
                     changedThisPass = changed = true;
                 }
             }
