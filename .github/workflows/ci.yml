@@ -380,6 +380,8 @@ jobs:
         # a person runs is. A defect in the library shows in both; a defect in the
         # command line's own layer shows in one, and neither could say that alone.
         run: |
-          dotnet build tools/PromptResponse.ConformanceDriver src/PromptResponse.Cli -v q
+          # One project per invocation: MSBuild refuses two (MSB1008).
+          dotnet build tools/PromptResponse.ConformanceDriver -v q
+          dotnet build src/PromptResponse.Cli -v q
           python3 scripts/run-conformance.py --driver "dotnet run --project tools/PromptResponse.ConformanceDriver --no-build -v q"
           python3 scripts/run-conformance.py --driver "dotnet run --project src/PromptResponse.Cli --no-build -v q -- conformance"
