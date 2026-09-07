@@ -55,6 +55,17 @@ Rendered against a real theme, at a real size, with a real display. The format s
 nothing about this and the harness measures nothing about it, so it is listed to say
 that its absence from the automated evidence is deliberate.
 
+### R7. The template editor — measured, but not against a rule
+
+`documentType` decides which of two interfaces a document produces, and the renderer
+drivers score the filling one, because that is what chapter 13 legislates. The editor
+is held by the GUI suite instead: 158 of the inventory's elements are on that surface
+against 58 on the filling one, and the activation ratchet holds 127 of them.
+
+That is coverage, not conformance. Whether chapter 13's rules bind the editor is an
+open question for the specification, and until it is answered the editor's
+accessibility rests on the checklist below and on the GUI suite.
+
 ### R6. Whether the answers a document carries reach the interface — no rule
 
 A field node in the snapshot carries the response the interface shows, and no check

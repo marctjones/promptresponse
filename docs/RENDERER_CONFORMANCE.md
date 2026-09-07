@@ -136,6 +136,25 @@ The scorer could work it out only by evaluating CEL, and the harness keeps its
 oracle free of any SDK: embedding a CEL implementation in the thing that judges
 CEL implementations is how a harness stops measuring.
 
+### Which surface a driver scores
+
+A document produces two interfaces in the desktop client, and `documentType`
+decides which: a template opens in the editor, a filled form in the filling views.
+The drivers score the **filling** surface, because that is the presentation chapter
+13 legislates — labels as accessible names, help text associated, a computed field
+still editable, a hint mismatch not blocking a save. Several of those rules do not
+even parse against an editor, where a prompt's label is the *value* of a field
+rather than the name of one.
+
+So the Avalonia driver sets `documentType` to `filledForm` on the model it hands
+the shell, and says so. The editor is not unmeasured — `tests/gui-inventory.json`
+records 158 elements on that surface against 58 on the filling one, and the
+activation ratchet holds 127 of them — but it is measured by the GUI suite rather
+than by a rule.
+
+Whether chapter 13 also binds the editor is a question for the specification, not
+for this contract to assume either way.
+
 ### `value` is reported and nothing checks it
 
 Every field node carries the response the interface shows, and no check reads it.

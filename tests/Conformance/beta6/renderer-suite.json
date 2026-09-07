@@ -3,7 +3,7 @@
   "suiteVersion": "apr-beta6-renderer-conformance-1",
   "formatVersion": "1.0-beta.6",
   "specificationSha256": "sha256:ed1f8ac936cdb2510f0a220ad946c1567bc38536846d282963bf62c96752ccfa",
-  "contractSha256": "sha256:644c17c6760f086a7e9fda797a1726381f5cbd073fb3a761b10eea496aeaf86d",
+  "contractSha256": "sha256:21067669ea918d95f303e8a75c5f635a33da88a77dff0cc23fa112ba25f8b529",
   "cases": [
     {
       "id": "renderer:a-filled-form-renders-its-answers",
