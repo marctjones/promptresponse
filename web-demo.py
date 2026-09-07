@@ -12,7 +12,10 @@ of tables or roles.
     python3 web-demo.py filled.aprf --port 8080
 
 Templates (.aprt) render blank, filled forms (.aprf) render with their answers.
-Submitting writes a filled document beside the source and prints it.
+Submitting writes a filled document beside the source and prints it. The saved
+file keeps the representation (JSONC or APR-YAML) of the document that was
+opened - a ``.apr.yaml`` source is answered with ``.apr.yaml``, everything else
+with JSON - unless ``--format`` says otherwise.
 """
 
 import argparse
@@ -27,6 +30,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / "python"))
 import promptresponse as pr
 from promptresponse import roles as role_api
 from promptresponse import validation
+from promptresponse.beta6 import read_beta6_form, write_beta6_form
 
 try:
     from flask import Flask, request
@@ -40,6 +44,19 @@ SOURCE_PATH = None
 OUTPUT_PATH = None      # the file this session keeps updating
 OUTPUT_DIR = None       # where submissions are written
 UPDATE_IN_PLACE = True  # keep updating that same file for the rest of the session
+OUTPUT_REPRESENTATION = "jsonc"  # "jsonc" or "yaml"; --format, else the source's own
+
+
+def representation_of(path):
+    """Which beta.6 representation a path's own extension implies.
+
+    ``.apr.yaml``/``.yaml`` is APR-YAML; everything else this demo accepts
+    (``.aprt``, ``.aprf``, ``.apr``, ``.apr.jsonc``, ``.json``) is JSONC. This
+    is extension-based inference for a demo's convenience, not a format rule -
+    the specification does not require the two to match.
+    """
+    suffixes = "".join(path.suffixes).lower()
+    return "yaml" if suffixes.endswith(".yaml") or suffixes.endswith(".yml") else "jsonc"
 
 
 # ── Rendering ────────────────────────────────────────────────────────────────
@@ -207,13 +224,6 @@ def render_notices(document):
         blocks.append(
             f'<div class="notice advisory"><strong>Advisories.</strong> Every one of these '
             f"is allowed: a hint suggests, it never restricts.<ul>{items}{more}</ul></div>"
-        )
-
-    if document.signatures:
-        blocks.append(
-            f'<div class="notice"><strong>{len(document.signatures)} signature(s) present, '
-            "not checked.</strong> This demo implements the core profile, so it preserves "
-            "signatures and has no verdict to give about them.</div>"
         )
 
     return "".join(blocks)
@@ -384,12 +394,14 @@ def submit():
         OUTPUT_PATH = _next_output_path()
     out = OUTPUT_PATH
     out.parent.mkdir(parents=True, exist_ok=True)
-    pr.dump(DOCUMENT, out)
+    out.write_text(write_beta6_form(DOCUMENT, OUTPUT_REPRESENTATION), encoding="utf-8")
 
     result = pr.validate(DOCUMENT)
     print(f"\n{'=' * 60}\nSubmitted {datetime.now().isoformat(timespec='seconds')}")
-    print(f"Wrote {out}")
+    print(f"Wrote {out} ({OUTPUT_REPRESENTATION})")
     print(f"Valid: {result.is_valid}  Advisories: {len(result.warnings)}")
+    # This preview is always JSON, regardless of the save format above: it is a
+    # debug convenience printed to the terminal, not the saved artifact.
     print(json.dumps(json.loads(pr.dumps(DOCUMENT)), indent=2)[:2000])
 
     answered = sum(1 for p in DOCUMENT.all_prompts() if p.response)
@@ -414,12 +426,18 @@ def _next_output_path():
     collecting separate submissions.
     """
     directory = OUTPUT_DIR or SOURCE_PATH.parent
+    # SOURCE_PATH.stem only strips one suffix, so an ``.apr.yaml`` source's
+    # stem is "name.apr" - strip that trailing ".apr" too, so the filled file
+    # doesn't end up ``name.apr.aprf`` or ``name.apr.apr.yaml``.
     stem = SOURCE_PATH.stem
+    if stem.endswith(".apr"):
+        stem = stem[: -len(".apr")]
+    suffix = ".apr.yaml" if OUTPUT_REPRESENTATION == "yaml" else ".aprf"
     if UPDATE_IN_PLACE:
-        return directory / f"{stem}.aprf"
+        return directory / f"{stem}{suffix}"
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    return directory / f"{stem}-{stamp}.aprf"
+    return directory / f"{stem}-{stamp}{suffix}"
 
 
 def main():
@@ -436,17 +454,29 @@ def main():
     parser.add_argument("--new-file-each-time", action="store_true",
                         help="write a timestamped file per submission instead of "
                              "updating one document for the session")
+    parser.add_argument("--format", choices=["jsonc", "yaml"],
+                        help="representation to save submissions in "
+                             "(default: whatever the source file's own extension is)")
     args = parser.parse_args()
 
     global OUTPUT_DIR, UPDATE_IN_PLACE
     OUTPUT_DIR = args.output_dir
     UPDATE_IN_PLACE = not args.new_file_each_time
 
-    global DOCUMENT, SOURCE_PATH
+    global DOCUMENT, SOURCE_PATH, OUTPUT_REPRESENTATION
     SOURCE_PATH = pathlib.Path(args.file)
+    source_representation = representation_of(SOURCE_PATH)
+    OUTPUT_REPRESENTATION = args.format or source_representation
 
     try:
-        DOCUMENT = pr.load(SOURCE_PATH)
+        if source_representation == "yaml":
+            # pr.load is JSON-only by design; a YAML source needs the
+            # representation-aware reader instead.
+            DOCUMENT = read_beta6_form(
+                SOURCE_PATH.read_text(encoding="utf-8-sig"), "yaml"
+            )
+        else:
+            DOCUMENT = pr.load(SOURCE_PATH)
     except pr.AprParseError as exc:
         sys.exit(f"Error: {args.file} is not a readable APR document: {exc}")
     except FileNotFoundError:
