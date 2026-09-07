@@ -49,7 +49,13 @@ public sealed class AprBeta6Reader
     private const string Beta6 = "1.0-beta.6";
     private readonly AprJsonSerializer _forms = new();
     private readonly IDeserializer _yaml = new DeserializerBuilder().Build();
-    private readonly ISerializer _yamlWriter = new SerializerBuilder().Build();
+    // Without this, a string value that happens to spell a plain-scalar null/bool/number
+    // (e.g. a templateVersion of "1.0", or a text response of "42") round-trips through
+    // YAML as that other type instead: WriteYamlScalar above resolves an unquoted "1.0" to
+    // a JSON number on read, and APR's own structural types (and its string-response rule)
+    // require a string there. Quoting exactly the values that need it to stay strings is
+    // what makes this writer's output readable by this reader's own resolution rules.
+    private readonly ISerializer _yamlWriter = new SerializerBuilder().WithQuotingNecessaryStrings(false).Build();
 
     /// <summary>Reads exactly one form; streams require explicit iteration.</summary>
     public AprDocument ReadForm(string source, AprRepresentation representation)
