@@ -42,6 +42,15 @@ public sealed partial class TableCellViewModel : ObservableObject, IDisposable
         _vm.PropertyChanged += OnVmPropertyChanged;
     }
 
+    /// <summary>The document id of the prompt this cell renders.</summary>
+    /// <remarks>
+    /// `ColumnId` is the part after the dot and says which column; this says which cell.
+    /// A table's cells are prompts like any others, and automation has to be able to name
+    /// the one it is looking at — the row that repeats "Amount" is exactly the case where
+    /// matching on a label cannot.
+    /// </remarks>
+    public string PromptId => _vm.Model.Id;
+
     /// <summary>Stable column identifier — declares which column this cell belongs to.</summary>
     public string ColumnId { get; }
 

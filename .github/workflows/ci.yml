@@ -386,6 +386,16 @@ jobs:
           python3 scripts/run-conformance.py --driver "dotnet run --project tools/PromptResponse.ConformanceDriver --no-build -v q"
           python3 scripts/run-conformance.py --driver "dotnet run --project src/PromptResponse.Cli --no-build -v q -- conformance"
 
+      - name: Score the Avalonia client against the renderer suite
+        # The desktop client is the one renderer a person actually uses, and until this
+        # step it was the only one with no evidence at all. It boots the shipped App
+        # headlessly and reports accessible names and roles read off the automation tree a
+        # screen reader consumes, the focus order from real Tab traversal, and the network
+        # requests the runtime made.
+        run: |
+          dotnet build tools/PromptResponse.RendererDriver.Avalonia -v q
+          python3 scripts/run-renderer-conformance.py --driver "dotnet run --project tools/PromptResponse.RendererDriver.Avalonia --no-build -v q"
+
       - name: Score the PDF exporter against the renderer suite
         # APR-RENDER-009 says an export is never written back, which is a rule about the
         # thing that exports. Avalonia does not export, so this driver is the only place

@@ -178,7 +178,9 @@
                             <DataTemplate>
                                 <Border MinWidth="160"
                                         Padding="10,8"
-                                        BorderThickness="0,0,1,1">
+                                        BorderThickness="0,0,1,1"
+                                        AutomationProperties.IsColumnHeader="True"
+                                        AutomationProperties.Name="{Binding Label}">
                                     <SelectableTextBlock Text="{Binding Label}"
                                                FontWeight="SemiBold"
                                                FontSize="13"
@@ -194,7 +196,9 @@
                               AutomationProperties.Name="Table rows">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="vm:SectionViewModel">
-                            <StackPanel Orientation="Horizontal" Spacing="0">
+                            <StackPanel Orientation="Horizontal" Spacing="0"
+                                        AutomationProperties.AutomationId="{Binding Id}"
+                                        AutomationProperties.Name="{Binding Title}">
                                 <!-- Row label cell + remove button -->
                                 <Border MinWidth="160"
                                         Padding="10,8"
@@ -232,7 +236,8 @@
                                         <DataTemplate DataType="vmp:TableCellViewModel">
                                             <Border MinWidth="160"
                                                     BorderThickness="0,0,1,1"
-                                                    Background="#08000000">
+                                                    Background="#08000000"
+                                                    AutomationProperties.AutomationId="{Binding PromptId}">
                                                 <TextBox Text="{Binding Value, Mode=TwoWay}"
                                                          PlaceholderText="{Binding Placeholder}"
                                                          Background="Transparent"
