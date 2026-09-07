@@ -35,10 +35,31 @@ async function loadExamples(): Promise<Example[]> {
   return (JSON.parse(raw) as { examples: Example[] }).examples;
 }
 
+/**
+ * Restores RFC 7464 framing to an APR-JSONC stream the specification prints with `---`.
+ *
+ * A record separator is invisible on a page, so the specification stands one in with a
+ * `---` line. Handing that prose form straight to the reader tests the reader against a
+ * document the format never defines. APR-YAML streams are untouched: there `---` is
+ * genuinely the separator, not a stand-in for one.
+ *
+ * Mirrors `Framed()` in tests/PromptResponse.Core.Tests/Beta6/SpecExampleTests.cs.
+ */
+function framed(document: string): string {
+  return document
+    .split(/^---$/m)
+    .filter(part => part.trim().length > 0)
+    .map(part => `\u001e${part.replace(/^\n+|\n+$/g, "")}\n`)
+    .join("");
+}
+
 function read(example: Example): unknown {
   const representation = example.representation.startsWith("yaml") ? "yaml" : "jsonc";
   if (example.representation.endsWith("-stream")) {
-    return readBeta6Stream(example.document, representation);
+    return readBeta6Stream(
+      representation === "jsonc" ? framed(example.document) : example.document,
+      representation,
+    );
   }
   return readBeta6Form(example.document, representation);
 }

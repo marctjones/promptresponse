@@ -2,7 +2,6 @@
 import { Environment } from "@marcbachmann/cel-js";
 import type { AprDocument, Prompt, Section } from "./model.js";
 
-export const COMPUTED_SOURCE = "computed";
 type ContextValues = Record<string, string>;
 
 function prompts(sections: Section[]): Prompt[] {
@@ -108,9 +107,12 @@ export function recomputeComputedValues(document: AprDocument, today?: string, c
     const context = buildExpressionContext(document, today, ctx); let changedThisPass = false;
     for (const prompt of prompts(document.sections)) {
       if (!prompt.hints.exprValue) continue;
-      if (prompt.response && prompt.responseMetadata.source !== COMPUTED_SOURCE) continue;
+      // Every non-empty response in the document as it was read is authored, whatever
+      // produced it, and APR-EXPR-001 says an expression must not rewrite one. Only what
+      // this session computed may be recomputed.
+      if (prompt.response && !prompt.computedInThisSession) continue;
       const value = computeValue(prompt, context);
-      if (value !== undefined && value !== prompt.response) { prompt.response = value; prompt.responseMetadata.source = COMPUTED_SOURCE; changed = changedThisPass = true; }
+      if (value !== undefined && value !== prompt.response) { prompt.response = value; prompt.computedInThisSession = true; changed = changedThisPass = true; }
     }
     if (!changedThisPass) break;
   }

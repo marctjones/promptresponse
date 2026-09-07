@@ -1,5 +1,5 @@
 import { AprParseError } from "./errors.js";
-import { AprDocument, JsonObject, JsonValue, Metadata, Prompt, PromptHints, ResponseMetadata, RETIRED_MEMBERS, RoleDefinition, Section } from "./model.js";
+import { AprDocument, JsonObject, JsonValue, Metadata, Prompt, PromptHints, RETIRED_MEMBERS, RoleDefinition, Section } from "./model.js";
 import { normalize } from "./text.js";
 
 export const CURRENT_VERSION = "1.0-beta.6";
@@ -13,6 +13,40 @@ const string = (node: JsonObject, key: string, what: string): string | undefined
   if (typeof value !== "string") throw new AprParseError(`${what}.${key} must be a string; APR values are never coerced.`);
   return value;
 };
+// A structural member of the wrong JSON type is WRONG_TYPE, not a generic parse
+// failure: the record is well formed and says something the format does not allow.
+// An explicit null is absence — a member table types a value that is present.
+const wrongType = (what: string, key: string, wanted: string, value: JsonValue): AprParseError =>
+  new AprParseError(`${what}.${key} is ${spell(value)} where the format declares ${wanted}; `
+    + "APR values are never coerced.", "WRONG_TYPE");
+const spell = (value: JsonValue): string =>
+  value === null ? "null"
+    : Array.isArray(value) ? "an array"
+    : typeof value === "object" ? "an object"
+    : typeof value === "string" ? "a string"
+    : typeof value === "number" ? "a number" : "a boolean";
+const boolean = (node: JsonObject, key: string, what: string): boolean | undefined => {
+  const value = node[key];
+  if (value === undefined || value === null) return undefined;
+  if (typeof value !== "boolean") throw wrongType(what, key, "a boolean", value);
+  return value;
+};
+const number = (node: JsonObject, key: string, what: string): number | undefined => {
+  const value = node[key];
+  if (value === undefined || value === null) return undefined;
+  if (typeof value !== "number") throw wrongType(what, key, "a number", value);
+  return value;
+};
+// `min` and `max` are a number on an ordered numeric field and a canonical-form string
+// on a temporal one, so both spellings are the format's own.
+const numberOrString = (node: JsonObject, key: string, what: string): number | string | undefined => {
+  const value = node[key];
+  if (value === undefined || value === null) return undefined;
+  if (typeof value !== "number" && typeof value !== "string") {
+    throw wrongType(what, key, "a number or a string", value);
+  }
+  return value;
+};
 const strings = (value: JsonValue | undefined, what: string): string[] => {
   if (value === undefined || value === null) return [];
   if (!Array.isArray(value) || value.some(item => typeof item !== "string")) throw new AprParseError(`${what} must be an array of strings`);
@@ -23,27 +57,23 @@ const optionalObject = (value: JsonValue | undefined, what: string): JsonObject 
 
 function parseHints(value: JsonObject): PromptHints {
   const known = new Set(["expectedDataType", "placeholder", "helpText", "validationPattern", "suggestedValues", "min", "max", "step", "exprHidden", "exprValue", "exprExpected", "exprValidation", "exprReadOnly"]);
-  return { expectedDataType: string(value, "expectedDataType", "hints"), placeholder: normalize(string(value, "placeholder", "hints")), helpText: normalize(string(value, "helpText", "hints")), validationPattern: string(value, "validationPattern", "hints"), suggestedValues: strings(value.suggestedValues, "hints.suggestedValues").map(value => normalize(value)!), min: string(value, "min", "hints"), max: string(value, "max", "hints"), step: string(value, "step", "hints"), exprHidden: string(value, "exprHidden", "hints"), exprValue: string(value, "exprValue", "hints"), exprExpected: string(value, "exprExpected", "hints"), exprValidation: string(value, "exprValidation", "hints"), exprReadOnly: string(value, "exprReadOnly", "hints"), extra: rest(value, known) };
-}
-function parseResponseMetadata(value: JsonObject): ResponseMetadata {
-  const known = new Set(["inferredDataType", "source", "lastModified"]);
-  return { inferredDataType: string(value, "inferredDataType", "responseMetadata"), source: string(value, "source", "responseMetadata"), lastModified: string(value, "lastModified", "responseMetadata"), extra: rest(value, known) };
+  return { expectedDataType: string(value, "expectedDataType", "hints"), placeholder: normalize(string(value, "placeholder", "hints")), helpText: normalize(string(value, "helpText", "hints")), validationPattern: string(value, "validationPattern", "hints"), suggestedValues: strings(value.suggestedValues, "hints.suggestedValues").map(value => normalize(value)!), min: numberOrString(value, "min", "hints"), max: numberOrString(value, "max", "hints"), step: number(value, "step", "hints"), exprHidden: string(value, "exprHidden", "hints"), exprValue: string(value, "exprValue", "hints"), exprExpected: string(value, "exprExpected", "hints"), exprValidation: string(value, "exprValidation", "hints"), exprReadOnly: string(value, "exprReadOnly", "hints"), extra: rest(value, known) };
 }
 function parsePrompt(value: JsonValue): Prompt {
-  const node = object(value, "prompt"); const known = new Set(["id", "label", "response", "role", "hints", "responseMetadata"]);
-  const hints = optionalObject(node.hints, "hints"); const responseMetadata = optionalObject(node.responseMetadata, "responseMetadata");
-  return { id: string(node, "id", "prompt") ?? "", label: normalize(string(node, "label", "prompt")) ?? "", response: string(node, "response", "prompt") ?? "", role: string(node, "role", "prompt"), hints: hints ? parseHints(hints) : { suggestedValues: [], extra: {} }, responseMetadata: responseMetadata ? parseResponseMetadata(responseMetadata) : { extra: {} }, extra: rest(node, known) };
+  const node = object(value, "prompt"); const known = new Set(["id", "label", "response", "role", "hints"]);
+  const hints = optionalObject(node.hints, "hints");
+  return { id: string(node, "id", "prompt") ?? "", label: normalize(string(node, "label", "prompt")) ?? "", response: string(node, "response", "prompt") ?? "", role: string(node, "role", "prompt"), hints: hints ? parseHints(hints) : { suggestedValues: [], extra: {} }, extra: rest(node, known) };
 }
 function parseSection(value: JsonValue): Section {
   const node = object(value, "section"); const known = new Set(["id", "title", "description", "kind", "canAddRows", "maxRows", "role", "prompts", "sections"]);
   const prompts = node.prompts ?? []; const sections = node.sections ?? [];
   if (!Array.isArray(prompts) || !Array.isArray(sections)) throw new AprParseError("section.prompts and section.sections must be arrays");
-  return { id: string(node, "id", "section") ?? "", title: normalize(string(node, "title", "section")) ?? "", description: normalize(string(node, "description", "section")), kind: string(node, "kind", "section"), canAddRows: string(node, "canAddRows", "section"), maxRows: string(node, "maxRows", "section"), role: string(node, "role", "section"), prompts: prompts.map(parsePrompt), sections: sections.map(parseSection), extra: rest(node, known) };
+  return { id: string(node, "id", "section") ?? "", title: normalize(string(node, "title", "section")) ?? "", description: normalize(string(node, "description", "section")), kind: string(node, "kind", "section"), canAddRows: boolean(node, "canAddRows", "section"), maxRows: number(node, "maxRows", "section"), role: string(node, "role", "section"), prompts: prompts.map(parsePrompt), sections: sections.map(parseSection), extra: rest(node, known) };
 }
 function parseMetadata(value: JsonValue): Metadata {
   if (object(value, "metadata").submissionUrl !== undefined) throw new AprParseError("metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings");
-  const node = object(value, "metadata"); const known = new Set(["title", "description", "author", "created", "modified", "templateId", "templateVersion", "filledBy", "filledDate", "publisher", "submissionUrls"]);
-  return { title: normalize(string(node, "title", "metadata")) ?? "", description: normalize(string(node, "description", "metadata")), author: normalize(string(node, "author", "metadata")), created: string(node, "created", "metadata"), modified: string(node, "modified", "metadata"), templateId: string(node, "templateId", "metadata"), templateVersion: string(node, "templateVersion", "metadata"), filledBy: normalize(string(node, "filledBy", "metadata")), filledDate: string(node, "filledDate", "metadata"), publisher: normalize(string(node, "publisher", "metadata")), submissionUrls: strings(node.submissionUrls, "metadata.submissionUrls"), extra: rest(node, known) };
+  const node = object(value, "metadata"); const known = new Set(["title", "description", "author", "created", "modified", "templateId", "templateVersion", "publisher", "submissionUrls"]);
+  return { title: normalize(string(node, "title", "metadata")) ?? "", description: normalize(string(node, "description", "metadata")), author: normalize(string(node, "author", "metadata")), created: string(node, "created", "metadata"), modified: string(node, "modified", "metadata"), templateId: string(node, "templateId", "metadata"), templateVersion: string(node, "templateVersion", "metadata"), publisher: normalize(string(node, "publisher", "metadata")), submissionUrls: strings(node.submissionUrls, "metadata.submissionUrls"), extra: rest(node, known) };
 }
 function parseRole(value: JsonValue): RoleDefinition {
   const node = object(value, "role"); const known = new Set(["id", "name", "description"]);
@@ -67,11 +97,11 @@ export function loads(text: string): AprDocument {
 }
 const compact = (node: Record<string, JsonValue | undefined>): JsonObject => Object.fromEntries(Object.entries(node).filter(([, value]) => value !== undefined && value !== null && !(Array.isArray(value) && value.length === 0) && !(typeof value === "object" && !Array.isArray(value) && Object.keys(value as object).length === 0))) as JsonObject;
 function hintsJson(hints: PromptHints): JsonObject { return { ...compact({ expectedDataType: hints.expectedDataType, placeholder: hints.placeholder, helpText: hints.helpText, validationPattern: hints.validationPattern, suggestedValues: hints.suggestedValues, min: hints.min, max: hints.max, step: hints.step, exprHidden: hints.exprHidden, exprValue: hints.exprValue, exprExpected: hints.exprExpected, exprValidation: hints.exprValidation, exprReadOnly: hints.exprReadOnly }), ...hints.extra }; }
-function promptJson(prompt: Prompt): JsonObject { const node: JsonObject = { id: prompt.id, label: prompt.label, response: prompt.response }; if (prompt.role) node.role = prompt.role; const hints = hintsJson(prompt.hints); if (Object.keys(hints).length) node.hints = hints; const responseMetadata = { ...compact({ inferredDataType: prompt.responseMetadata.inferredDataType, source: prompt.responseMetadata.source, lastModified: prompt.responseMetadata.lastModified }), ...prompt.responseMetadata.extra }; if (Object.keys(responseMetadata).length) node.responseMetadata = responseMetadata; return { ...node, ...prompt.extra }; }
+function promptJson(prompt: Prompt): JsonObject { const node: JsonObject = { id: prompt.id, label: prompt.label, response: prompt.response }; if (prompt.role) node.role = prompt.role; const hints = hintsJson(prompt.hints); if (Object.keys(hints).length) node.hints = hints; return { ...node, ...prompt.extra }; }
 function sectionJson(section: Section): JsonObject { const node: JsonObject = { id: section.id, title: section.title, ...compact({ description: section.description, kind: section.kind, canAddRows: section.canAddRows, maxRows: section.maxRows, role: section.role }) }; if (section.prompts.length) node.prompts = section.prompts.map(promptJson); if (section.sections.length) node.sections = section.sections.map(sectionJson); return { ...node, ...section.extra }; }
 /** Serialize an APR document while preserving unknown non-retired members. */
 export function dumps(document: AprDocument, indent = 2): string {
   if (!isSupportedVersion(document.version)) throw new AprParseError(`Unsupported APR version ${document.version}; this build accepts only ${CURRENT_VERSION}`);
-  const metadata: JsonObject = { title: document.metadata.title, ...compact({ description: document.metadata.description, author: document.metadata.author, created: document.metadata.created, modified: document.metadata.modified, templateId: document.metadata.templateId, templateVersion: document.metadata.templateVersion, filledBy: document.metadata.filledBy, filledDate: document.metadata.filledDate, publisher: document.metadata.publisher, submissionUrls: document.metadata.submissionUrls }), ...document.metadata.extra };
+  const metadata: JsonObject = { title: document.metadata.title, ...compact({ description: document.metadata.description, author: document.metadata.author, created: document.metadata.created, modified: document.metadata.modified, templateId: document.metadata.templateId, templateVersion: document.metadata.templateVersion, publisher: document.metadata.publisher, submissionUrls: document.metadata.submissionUrls }), ...document.metadata.extra };
   const node: JsonObject = { aprVersion: document.version, metadata, sections: document.sections.map(sectionJson) }; if (document.documentType) node.documentType = document.documentType; if (document.roles) node.roles = document.roles.map(role => ({ ...compact({ id: role.id, name: role.name, description: role.description }), ...role.extra })); return JSON.stringify({ ...node, ...document.extra }, null, indent);
 }

@@ -68,7 +68,7 @@ function syncResponses(): void {
   }
   recomputeComputedValues(documentModel);
   for (const prompt of allPrompts(documentModel)) {
-    if (prompt.responseMetadata.source === "computed") {
+    if (prompt.computedInThisSession) {
       const field = fields.get(prompt.id);
       if (field) field.value = prompt.response;
     }
@@ -90,7 +90,6 @@ function download(): void {
   if (!documentModel) return;
   syncResponses();
   documentModel.documentType = "filledForm";
-  documentModel.metadata.filledDate = new Date().toISOString();
   documentModel.metadata.templateId ||= sourceStem;
   documentModel.version = "1.0-beta.6";
   const blob = new Blob([writeBeta6Form(documentModel, "jsonc") + "\n"], { type: "application/json" });
