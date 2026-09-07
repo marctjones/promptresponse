@@ -13,7 +13,15 @@
 // nothing touches a trust store.
 //
 //     dotnet run --project tools/PromptResponse.GuiSubmitDemo.Avalonia -- \
-//         <template.aprt> <presignedPutUrl> <minio-cert.crt> <screenshot.png> <captured-body.aprf>
+//         <template.aprt> <presignedPutUrl> <minio-cert.crt> <screenshot.png> \
+//         <captured-body.aprf> <local-save.aprf>
+//
+// The last two outputs exist for verification a caller (demo.sh) does afterward: the real
+// FileService (not a stub -- see Shell.cs) saves a local copy the same way a person clicking
+// Save would, and a DelegatingHandler captures the exact bytes the HTTP client put on the
+// wire. Both should end up identical to each other and to what MinIO ends up holding --
+// nothing between "Save" and "Submit" here re-serializes or re-stamps the document, so they
+// aren't expected to merely agree in content, they're expected to be byte-identical.
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using Avalonia;
@@ -30,14 +38,15 @@ using PromptResponse.GuiSubmitDemo.Avalonia;
 
 const double Width = 1200, Height = 900;
 
-if (args.Length != 5)
+if (args.Length != 6)
 {
     Console.Error.WriteLine(
-        "Usage: <template.aprt> <presignedPutUrl> <minio-cert.crt> <screenshot.png> <captured-body.aprf>");
+        "Usage: <template.aprt> <presignedPutUrl> <minio-cert.crt> <screenshot.png> "
+        + "<captured-body.aprf> <local-save.aprf>");
     return 1;
 }
-var (templatePath, presignedUrl, certPath, screenshotPath, capturedBodyPath) =
-    (args[0], args[1], args[2], args[3], args[4]);
+var (templatePath, presignedUrl, certPath, screenshotPath, capturedBodyPath, localSavePath) =
+    (args[0], args[1], args[2], args[3], args[4], args[5]);
 
 // The values a person would type into this form -- distinct from the CLI demo's Rex/Jane
 // pair, so the two objects landing in the same bucket are visibly two different demo paths.
@@ -99,6 +108,24 @@ using (var fs = File.Create(screenshotPath))
     frame.Save(fs, Avalonia.Media.Imaging.PngBitmapEncoderOptions.Default);
 }
 Console.WriteLine($"Screenshot of the filled form: {screenshotPath}");
+
+// The same real FileService a "Save" menu action would use, saving the same in-session
+// document Submit is about to read from -- so this file and what reaches MinIO should be
+// byte-identical, the same relationship the CLI demo checks between its own filled file
+// and what it submits.
+//
+// Not a plain `await`: SetupWithoutStarting() installs no dispatcher loop, so a
+// continuation posted back to it (as an unconfigured await inside SaveFileAsync's own
+// file I/O would) never runs unless something pumps it -- the same reason
+// SubmitViaHttpsCommand below is driven by hand rather than awaited directly.
+var saveTask = shell.Files.SaveFileAsync(document, localSavePath);
+while (!saveTask.IsCompleted)
+{
+    Dispatcher.UIThread.RunJobs();
+    Thread.Sleep(20);
+}
+saveTask.GetAwaiter().GetResult();
+Console.WriteLine($"Saved locally (same as a real \"Save\" action would): {localSavePath}");
 
 if (!shell.ViewModel.CanSubmitViaHttps())
 {

@@ -45,12 +45,22 @@
 #      pins trust to this MinIO instance's exact certificate bytes for this
 #      one HttpClient instance, rather than asking anything to trust it more
 #      broadly. A screenshot of the filled form is saved so you can see what
-#      the GUI actually rendered.
-#   7. Downloads both objects back from MinIO: the CLI's is diffed
-#      byte-for-byte against the file it submitted; the GUI's is diffed
-#      against the exact bytes its own HTTP client sent (captured before the
-#      request left the process, since the GUI never writes its completed
-#      copy to disk) and validated with the real CLI.
+#      the GUI actually rendered, and a real "Save" (the same FileService a
+#      Save menu action uses) writes a local copy beside it, both filled
+#      with different test data than the CLI's own (Buddy/Beagle/Sam Rivera
+#      vs. Rex/Labrador/Jane Doe) so the two objects are visibly distinct.
+#   7. Downloads both objects back from MinIO and checks each two ways: a
+#      byte diff against the local file it came from (for the GUI, that's a
+#      three-way check -- local save, the exact bytes its HTTP client put on
+#      the wire, and the download all have to be identical, since nothing
+#      in between re-serializes the document), and `apr diff` -- the real
+#      CLI's semantic, form-level comparison (documentType, section/prompt
+#      structure, every response by prompt id) rather than a byte diff.
+#      `apr diff` reads APR-JSONC and APR-YAML alike and compares the parsed
+#      forms, so it agrees two files are the same form even if one is JSON
+#      and the other is YAML -- not exercised by this demo since both paths
+#      here use JSON, but not a byte-level trick either. The GUI's object is
+#      also validated with the real CLI.
 #   8. Opens a fresh, disposable Chrome window on the MinIO Console's file
 #      browser for the bucket, so you can see both files listed yourself --
 #      launched with a throwaway profile and --ignore-certificate-errors so
@@ -265,31 +275,50 @@ git -C "$REPO_ROOT" checkout -- \
   src/PromptResponse.Desktop/packages.lock.json \
   src/PromptResponse.Rendering.Pdf/packages.lock.json 2>/dev/null || true
 GUI_CAPTURED_BODY="$WORK_DIR/gui-captured-body.aprf"
+GUI_LOCAL_SAVE="$WORK_DIR/gui-local-save.aprf"
 dotnet run --project "$REPO_ROOT/tools/PromptResponse.GuiSubmitDemo.Avalonia" -c Release --no-build -- \
   "$SCRIPT_DIR/dog-license.aprt" "$GUI_PRESIGNED_URL" "$WORK_DIR/minio.crt" \
-  "$GUI_SCREENSHOT" "$GUI_CAPTURED_BODY"
+  "$GUI_SCREENSHOT" "$GUI_CAPTURED_BODY" "$GUI_LOCAL_SAVE"
 print_ok "GUI submission complete -- screenshot of the filled form: $GUI_SCREENSHOT"
 
 print_header "7. Download both objects back from MinIO and verify each"
+print_info "Byte level first (diff), then form level (apr diff -- see below for what"
+print_info "that checks that a byte diff can't: it parses both sides and compares"
+print_info "documentType, section/prompt structure, and every response by prompt id,"
+print_info "so it's the same check whether both files are JSON, both are APR-YAML, or"
+print_info "one is each. Everything in this demo happens to be JSON; apr diff doesn't care.)"
+echo
+
 DOWNLOADED="$WORK_DIR/downloaded.aprf"
 mc cat "localminio/$BUCKET/$OBJECT_KEY" > "$DOWNLOADED"
 if diff -q "$FILLED" "$DOWNLOADED" >/dev/null; then
-  print_ok "CLI: byte-for-byte identical to what was submitted."
+  print_ok "CLI: downloaded object is byte-for-byte identical to the local file it submitted."
 else
   print_err "CLI MISMATCH -- the downloaded file differs from what was submitted:"
   diff "$FILLED" "$DOWNLOADED" || true
   exit 1
 fi
+print_cmd "apr diff dog-license.aprf downloaded.aprf   # local file vs. what MinIO holds"
+dotnet run --project "$REPO_ROOT/src/PromptResponse.Cli" -c Release --no-build -- \
+  diff "$FILLED" "$DOWNLOADED"
 
 GUI_DOWNLOADED="$WORK_DIR/gui-downloaded.aprf"
 mc cat "localminio/$BUCKET/$GUI_OBJECT_KEY" > "$GUI_DOWNLOADED"
-if diff -q "$GUI_CAPTURED_BODY" "$GUI_DOWNLOADED" >/dev/null; then
-  print_ok "GUI: byte-for-byte identical to what its HTTP client actually sent."
+# Three-way: the file the GUI's own Save action wrote, the exact bytes its HTTP client
+# put on the wire, and what MinIO ends up holding -- nothing in between re-serializes
+# the document, so all three are expected to be byte-identical, not just equivalent.
+if diff -q "$GUI_LOCAL_SAVE" "$GUI_CAPTURED_BODY" >/dev/null && diff -q "$GUI_CAPTURED_BODY" "$GUI_DOWNLOADED" >/dev/null; then
+  print_ok "GUI: local save, captured wire bytes, and the downloaded object are all byte-for-byte identical."
 else
-  print_err "GUI MISMATCH -- the downloaded file differs from what was captured on the wire:"
+  print_err "GUI MISMATCH -- local save, wire capture, and download don't all agree:"
+  diff "$GUI_LOCAL_SAVE" "$GUI_CAPTURED_BODY" || true
   diff "$GUI_CAPTURED_BODY" "$GUI_DOWNLOADED" || true
   exit 1
 fi
+print_cmd "apr diff gui-local-save.aprf gui-downloaded.aprf   # local save vs. what MinIO holds"
+dotnet run --project "$REPO_ROOT/src/PromptResponse.Cli" -c Release --no-build -- \
+  diff "$GUI_LOCAL_SAVE" "$GUI_DOWNLOADED"
+
 GUI_VALIDATE="$(podman run --rm --network=host \
   -v "$GUI_DOWNLOADED:/data/gui-downloaded.aprf:Z" \
   apr-cli-verify-minio:demo validate /data/gui-downloaded.aprf)"
