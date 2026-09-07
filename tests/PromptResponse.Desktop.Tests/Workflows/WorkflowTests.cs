@@ -64,7 +64,9 @@ public partial class WorkflowTests : IDisposable
 
         public Task<AprDocument?> OpenFileAsync() => _real.OpenFileAsync();
         public Task<AprDocument?> LoadFileAsync(string filePath) => _real.LoadFileAsync(filePath);
-        public Task<bool> SaveFileAsAsync(AprDocument document) => _real.SaveFileAsAsync(document);
+        public Task<bool> SaveFileAsAsync(AprDocument document,
+            Func<string, Task<bool>>? confirmExtensionMismatch = null)
+            => _real.SaveFileAsAsync(document, confirmExtensionMismatch);
         public Task SaveFileAsync(AprDocument document, string filePath) => _real.SaveFileAsync(document, filePath);
         public Task<string?> PickPdfImportPathAsync() => _real.PickPdfImportPathAsync();
         public string? CurrentFilePath => _real.CurrentFilePath;

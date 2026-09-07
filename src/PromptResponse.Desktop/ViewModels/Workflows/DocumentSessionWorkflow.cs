@@ -110,7 +110,7 @@ internal sealed class DocumentSessionWorkflow
     {
         if (!_session.HasDocument) return;
         if (string.IsNullOrEmpty(_fileService.CurrentFilePath))
-            await _fileService.SaveFileAsAsync(_session.CurrentDocument!);
+            await _fileService.SaveFileAsAsync(_session.CurrentDocument!, WarnAboutExtension);
         else
             await _fileService.SaveFileAsync(_session.CurrentDocument!, _fileService.CurrentFilePath);
         _session.MarkClean();
@@ -120,9 +120,28 @@ internal sealed class DocumentSessionWorkflow
     public async Task SaveAsAsync()
     {
         if (!_session.HasDocument) return;
-        await _fileService.SaveFileAsAsync(_session.CurrentDocument!);
+        await _fileService.SaveFileAsAsync(_session.CurrentDocument!, WarnAboutExtension);
         _session.MarkClean();
         _addToRecent(_fileService.CurrentFilePath, _session.CurrentDocument?.Metadata.Title);
+    }
+
+    /// <summary>Says that the chosen extension disagrees, and changes nothing either way.</summary>
+    /// <remarks>
+    /// APR-SEC-006 asks an implementation to warn on a mismatch rather than silently
+    /// honouring either one. Honouring the extension would rewrite the document
+    /// (APR-SEC-007 forbids it); honouring `documentType` in silence would leave somebody
+    /// with a file whose name says the opposite of what it holds. So the person is told,
+    /// and decides.
+    /// </remarks>
+    private Task<bool> WarnAboutExtension(string path)
+    {
+        var kind = _session.CurrentDocument?.DocumentType == DocumentType.Template
+            ? "a template" : "a filled form";
+        return _dialogService.ShowConfirmationAsync(
+            "The extension does not match this document",
+            $"{Path.GetFileName(path)} names the other kind of APR file, and this document "
+            + $"is {kind}. The name will not change what it is — `documentType` decides "
+            + $"that. Save it under this name anyway?");
     }
 
     public async Task ImportPdfAsync()

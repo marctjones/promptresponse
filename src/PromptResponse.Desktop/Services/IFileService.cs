@@ -26,8 +26,16 @@ public interface IFileService
     /// Shows a save file dialog and saves an APR document.
     /// </summary>
     /// <param name="document">The document to save.</param>
+    /// <param name="confirmExtensionMismatch">
+    /// Asked, with the chosen filename, when the extension disagrees with the document's
+    /// `documentType`; returning false abandons the save. A caller that passes nothing
+    /// saves without asking. The extension never changes the document: it is a desktop
+    /// affordance and not part of the data model (APR-SEC-005, APR-SEC-007), and warning
+    /// is what APR-SEC-006 asks for instead of silently honouring either one.
+    /// </param>
     /// <returns>True if saved successfully.</returns>
-    Task<bool> SaveFileAsAsync(AprDocument document);
+    Task<bool> SaveFileAsAsync(AprDocument document,
+        Func<string, Task<bool>>? confirmExtensionMismatch = null);
 
     /// <summary>
     /// Saves an APR document to a specific path.

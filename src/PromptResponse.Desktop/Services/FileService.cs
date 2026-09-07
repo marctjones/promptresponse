@@ -84,7 +84,8 @@ public class FileService : IFileService
         return await LoadFileAsync(files[0].Path.LocalPath);
     }
 
-    public async Task<bool> SaveFileAsAsync(AprDocument document)
+    public async Task<bool> SaveFileAsAsync(AprDocument document,
+        Func<string, Task<bool>>? confirmExtensionMismatch = null)
     {
         var window = GetMainWindow();
         if (window == null) return false;
@@ -114,20 +115,26 @@ public class FileService : IFileService
             return false;
         }
 
-        _currentFilePath = file.Path.LocalPath;
+        var chosenPath = file.Path.LocalPath;
 
-        // Update DocumentType based on chosen extension (extension determines type)
-        var chosenExtension = Path.GetExtension(_currentFilePath).ToLowerInvariant();
-        if (chosenExtension == ".aprt")
+        // The extension names nothing. `documentType` is authoritative and a reader must
+        // determine the kind of document from that member alone (APR-SEC-005), and must
+        // not infer it from an extension (APR-SEC-007) — a rule that cannot even be
+        // stated where a filename does not exist, which is most places a document
+        // travels. This used to assign DocumentType from the picker, so saving a filled
+        // form as .aprt turned it into a template: not the explicit conversion
+        // APR-SEC-008 describes, which also records templateId, and one that leaves
+        // behind a document the validator rejects.
+        var chosenExtension = Path.GetExtension(chosenPath).ToLowerInvariant();
+        var expected = document.DocumentType == DocumentType.Template ? ".aprt" : ".aprf";
+        if (confirmExtensionMismatch is not null
+            && chosenExtension is ".aprt" or ".aprf" && chosenExtension != expected
+            && !await confirmExtensionMismatch(chosenPath))
         {
-            document.DocumentType = DocumentType.Template;
+            return false;
         }
-        else if (chosenExtension == ".aprf")
-        {
-            document.DocumentType = DocumentType.FilledForm;
-        }
-        // .apr keeps current DocumentType
 
+        _currentFilePath = chosenPath;
         await SaveFileAsync(document, _currentFilePath);
 
         return true;

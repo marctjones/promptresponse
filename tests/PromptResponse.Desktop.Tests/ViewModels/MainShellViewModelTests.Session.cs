@@ -118,7 +118,8 @@ public partial class MainShellViewModelTests
     {
         var fs = Substitute.For<IFileService>(); fs.CurrentFilePath.Returns((string?)null); var session = new DocumentSessionService();
         var shell = CreateShell(fileService: fs, session: session); session.Set(MakeTemplate(), null, dirty: true); await shell.Save();
-        _ = fs.Received(1).SaveFileAsAsync(Arg.Any<AprDocument>());
+        _ = fs.Received(1).SaveFileAsAsync(Arg.Any<AprDocument>(),
+            Arg.Any<Func<string, Task<bool>>?>());
     }
 
     [Fact]
