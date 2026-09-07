@@ -43,7 +43,7 @@ function parseRecord(raw: string): Beta6Record {
   try { rejectDuplicateObjectMembers(raw); value = JSON.parse(raw); } catch (error) { throw new AprParseError(`not valid beta.6 representation: ${(error as Error).message}`); }
   if (value === null || typeof value !== "object" || Array.isArray(value)) throw new AprParseError("an APR beta.6 record must be an object");
   const object = value as JsonObject;
-  if (object.version !== VERSION) throw new AprParseError(`APR beta.6 records must declare version ${VERSION}`);
+  if (object.aprVersion !== VERSION) throw new AprParseError(`APR beta.6 records must declare aprVersion ${VERSION}`);
   if (object.recordType !== undefined) {
     if (object.recordType !== "attestation") throw new AprParseError("unknown APR beta.6 stream record type");
     validateAttestation(object);

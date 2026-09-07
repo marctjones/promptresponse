@@ -3,7 +3,7 @@ import test from "node:test";
 import { buildExpressionContext, computeValue, AprParseError, beta6FormValue, canonicalizeBeta6, createBeta6Manifest, digestBeta6, readBeta6Form, readBeta6Stream, resolveBeta6Attestations, resolveBeta6AttestationsAsync, verifyBeta6CmsProof, writeBeta6Form, writeBeta6Stream } from "../index.js";
 import { readFile } from "node:fs/promises";
 
-const form = `{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}`;
+const form = `{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}`;
 
 test("beta.6 shared JSONC and YAML corpus forms have equal semantics", async () => {
   const corpus = "../../../tests/Conformance/beta6/forms/";
@@ -37,10 +37,10 @@ test("beta.6 canonical numbers match RFC 8785 Appendix B", () => {
 });
 
 test("beta.6 numeric extension members digest identically from JSONC and YAML", () => {
-  const expected = "sha256:b2d48b3e183f16894e16b4c94f99f340d2c2fc5dcc32e68938f61bebcc404d0a";
-  const jsonc = `{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"","com.example.canAddRows":true,"com.example.maxRows":5,"com.example.min":1996,"com.example.step":0.5,"com.example.scale":1e21,"com.example.epsilon":1e-7}]}]}`;
+  const expected = "sha256:df7259065a4e63df08be70e66bfe7c85412e42a3af6d477ccab2d285a62c9fa8";
+  const jsonc = `{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"","com.example.canAddRows":true,"com.example.maxRows":5,"com.example.min":1996,"com.example.step":0.5,"com.example.scale":1e21,"com.example.epsilon":1e-7}]}]}`;
   const yaml = [
-    `version: "1.0-beta.6"`, "metadata: { title: T }", "sections:", "  - id: s", "    title: S", "    prompts:",
+    `aprVersion: "1.0-beta.6"`, "metadata: { title: T }", "sections:", "  - id: s", "    title: S", "    prompts:",
     "      - id: p", "        label: P", `        response: ""`, "        com.example.canAddRows: true", "        com.example.maxRows: 5",
     "        com.example.min: 1996.0", "        com.example.step: 0.5", "        com.example.scale: 1000000000000000000000", "        com.example.epsilon: 0.0000001", "",
   ].join("\n");
@@ -49,7 +49,7 @@ test("beta.6 numeric extension members digest identically from JSONC and YAML", 
     assert.equal(record.type, "form");
     assert.equal(digestBeta6(record.value!), expected, representation);
   }
-  assert.throws(() => readBeta6Stream(`version: "1.0-beta.6"\nmetadata: { title: T, com.example.big: 1e999 }\nsections: []\n`, "yaml"), /non-finite/);
+  assert.throws(() => readBeta6Stream(`aprVersion: "1.0-beta.6"\nmetadata: { title: T, com.example.big: 1e999 }\nsections: []\n`, "yaml"), /non-finite/);
 });
 
 test("beta.6 JSONC and YAML decode to the same form", () => {
@@ -61,7 +61,7 @@ test("beta.6 JSONC and YAML decode to the same form", () => {
 });
 
 test("beta.6 streams preserve duplicate forms and reject implicit selection", () => {
-  const attestation = `{"recordType":"attestation","version":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}`;
+  const attestation = `{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:0000000000000000000000000000000000000000000000000000000000000000","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:0000000000000000000000000000000000000000000000000000000000000000","entries":[]},"proofs":[],"witnesses":[]}`;
   const source = `\u001e${attestation}\n\u001e${form}\n\u001e${form}\n`;
   const records = readBeta6Stream(source, "jsonc");
   assert.equal(records.length, 3);
@@ -85,7 +85,7 @@ test("beta.6 YAML indicator characters inside a plain scalar are ordinary conten
   // An anchor, alias or tag is a node property (specification 4.5); "&", "*" and
   // "!" inside a scalar's content are just characters of a string, and a quoted
   // "<<" is a string key rather than a merge key.
-  const form = (response: string) => `version: "1.0-beta.6"\nmetadata:\n  title: T\n  "<<": not a merge key\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        hints:\n          exprValue: string(fee_count * 8.0)\n        response: ${response}\n`;
+  const form = (response: string) => `aprVersion: "1.0-beta.6"\nmetadata:\n  title: T\n  "<<": not a merge key\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        hints:\n          exprValue: string(fee_count * 8.0)\n        response: ${response}\n`;
   const record = readBeta6Stream(form("a * b & c! d"), "yaml")[0];
   assert.equal(record.type, "form");
   const prompt = (record.value as { sections: { prompts: { hints: Record<string, unknown>; response: unknown }[] }[] }).sections[0].prompts[0];
@@ -121,15 +121,18 @@ test("beta.6 shared malformed corpus is rejected", async () => {
 test("beta.6 shared digest and an unsigned attestation resolve without a validity claim", async () => {
   const document = readBeta6Form(await readFile(new URL("../../../tests/Conformance/beta6/forms/permit.apr.jsonc", import.meta.url), "utf8"), "jsonc");
   const value = beta6FormValue(document), manifest = createBeta6Manifest(value);
-  assert.equal(digestBeta6(value), "sha256:d06b9720c44d64b368e93bd6765cad81bfa1e8ea9b767b4acd1ffc57c26b0253");
-  const attestation = { recordType: "attestation", version: "1.0-beta.6", subject: { digest: manifest.root, canonicalization: "jcs-sha256" }, scope: { kind: "document" }, manifest, proofs: [], witnesses: [] };
+  // Recomputed when the format version member became `aprVersion`; the value is
+  // scripts/aprlib.py's, not this reader's, so the constant is an oracle and not
+  // an echo of the code it checks.
+  assert.equal(digestBeta6(value), "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675");
+  const attestation = { recordType: "attestation", aprVersion: "1.0-beta.6", subject: { digest: manifest.root, canonicalization: "jcs-sha256" }, scope: { kind: "document" }, manifest, proofs: [], witnesses: [] };
   assert.equal(resolveBeta6Attestations([{ type: "form", document }, { type: "attestation", value: attestation }])[0].state, "unverifiable");
 });
 
 test("beta.6 fields scope is invalid when its selected response is absent from the manifest", () => {
   const document = readBeta6Form(form, "jsonc"), value = beta6FormValue(document), complete = createBeta6Manifest(value);
   const manifest = { ...complete, entries: complete.entries.filter(entry => entry.path !== "/sections/0/prompts/0/response") };
-  const attestation = { recordType: "attestation", version: "1.0-beta.6", subject: { digest: complete.root, canonicalization: "jcs-sha256" }, scope: { kind: "fields", fields: ["p"] }, manifest, proofs: [], witnesses: [] };
+  const attestation = { recordType: "attestation", aprVersion: "1.0-beta.6", subject: { digest: complete.root, canonicalization: "jcs-sha256" }, scope: { kind: "fields", fields: ["p"] }, manifest, proofs: [], witnesses: [] };
   const result = resolveBeta6Attestations([{ type: "form", document }, { type: "attestation", value: attestation }])[0];
   assert.equal(result.state, "invalid");
   assert.ok(result.differingPaths.includes("/sections/0/prompts/0/response"));
@@ -166,7 +169,7 @@ test("beta.6 CMS corpus proof verifies the exact detached envelope", async () =>
 });
 
 test("beta.6 stream rewrite preserves semantic extensions and CMS subjects", async () => {
-  const source = '{"version":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[]}],"x-vendor":{"enabled":true}}';
+  const source = '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[]}],"x-vendor":{"enabled":true}}';
   assert.match(writeBeta6Stream(readBeta6Stream(source, "jsonc"), "jsonc"), /"x-vendor":\{"enabled":true\}/);
 
   const form = readBeta6Stream(await readFile(new URL("../../../tests/Conformance/beta6/forms/permit.apr.jsonc", import.meta.url), "utf8"), "jsonc")[0]!;
@@ -190,7 +193,7 @@ test("beta.6 unsupported proof remains explicitly unverifiable", async () => {
 
 test("the expression activation binds every name the specification defines", () => {
   const document = readBeta6Form(JSON.stringify({
-    version: "1.0-beta.6", metadata: { title: "T" },
+    aprVersion: "1.0-beta.6", metadata: { title: "T" },
     sections: [{ id: "s", title: "S", prompts: [
       { id: "echo_id", label: "E", response: "", hints: { exprValue: "_id" } },
       { id: "echo_today", label: "T", response: "", hints: { exprValue: "_today" } },
@@ -211,7 +214,7 @@ test("the expression activation binds every name the specification defines", () 
 test("temporal names are unbound when the caller supplies nothing", () => {
   // Reading the host clock would make the same inputs evaluate differently twice.
   const document = readBeta6Form(JSON.stringify({
-    version: "1.0-beta.6", metadata: { title: "T" },
+    aprVersion: "1.0-beta.6", metadata: { title: "T" },
     sections: [{ id: "s", title: "S", prompts: [
       { id: "t", label: "T", response: "kept", hints: { exprValue: "_today" } },
     ] }],

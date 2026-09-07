@@ -7,7 +7,7 @@ export interface ValidationResult { errors: ValidationIssue[]; warnings: Validat
 export function validate(document: AprDocument): ValidationResult {
   const errors: ValidationIssue[] = []; const warnings: ValidationIssue[] = [];
   const required = (value: string | undefined, path: string, label: string) => { if (!value?.trim()) errors.push({ code: "REQUIRED_FIELD", message: `${label} is required.`, path }); };
-  required(document.version, "version", "version"); if (document.version && !isSupportedVersion(document.version)) errors.push({ code: "UNSUPPORTED_VERSION", message: `Unsupported APR version ${document.version}.`, path: "version" });
+  required(document.version, "aprVersion", "aprVersion"); if (document.version && !isSupportedVersion(document.version)) errors.push({ code: "UNSUPPORTED_VERSION", message: `Unsupported APR version ${document.version}.`, path: "aprVersion" });
   required(document.metadata.title, "metadata.title", "metadata.title"); if (!document.sections.length) errors.push({ code: "REQUIRED_FIELD", message: "A document must have at least one section.", path: "sections" });
   if (document.documentType === "filledForm") required(document.metadata.templateId, "metadata.templateId", "A filled form templateId");
   const sectionIds: string[] = []; const promptIds: string[] = [];
