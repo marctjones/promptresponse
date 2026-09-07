@@ -41,7 +41,14 @@ public class AprBeta6ReaderTests
         form.Sections.Single().Prompts.Single().Id.Should().Be("p");
     }
 
-    private const string YamlForm = """
+    // Normalised, not raw. A raw string literal carries the line endings the compiler
+    // found in the source file, so on a CRLF checkout every fixture mutation below that
+    // searches for "\n" silently matches nothing and asserts against an unmutated
+    // document. That is how Yaml_MergeKey_IsRejected passed on Linux and failed on
+    // Windows while the reader was correct on both.
+    private static readonly string YamlForm = RawYamlForm.ReplaceLineEndings("\n");
+
+    private const string RawYamlForm = """
         aprVersion: "1.0-beta.6"
         metadata:
           title: T
@@ -85,9 +92,30 @@ public class AprBeta6ReaderTests
     [Fact]
     public void Yaml_MergeKey_IsRejected()
     {
-        var source = YamlForm.Replace("    title: S\n", "    title: S\n    <<: {description: merged}\n", StringComparison.Ordinal);
-        var read = () => _reader.ReadStream(source, AprRepresentation.Yaml);
+        var read = () => _reader.ReadStream(WithAMergeKey("\n"), AprRepresentation.Yaml);
         read.Should().Throw<SerializationException>().WithMessage("*merge keys*");
+    }
+
+    [Fact]
+    public void Yaml_MergeKey_IsRejectedWhateverTheLineEndings()
+    {
+        // The rejection reads the parser's event stream rather than the text, so it holds
+        // for a document written on Windows. Nothing covered that until a CRLF checkout
+        // made the LF-only fixture stop carrying a merge key at all.
+        var read = () => _reader.ReadStream(WithAMergeKey("\r\n"), AprRepresentation.Yaml);
+        read.Should().Throw<SerializationException>().WithMessage("*merge keys*");
+    }
+
+    private static string WithAMergeKey(string newline)
+    {
+        var document = YamlForm.ReplaceLineEndings(newline);
+        var anchor = $"    title: S{newline}";
+        var mutated = document.Replace(anchor, anchor + $"    <<: {{description: merged}}{newline}",
+            StringComparison.Ordinal);
+        // A fixture mutation that silently does not apply leaves the assertion below with
+        // nothing to reject, which reads as a passing test.
+        mutated.Should().NotBe(document, "the merge key must actually reach the document");
+        return mutated;
     }
 
     [Theory]

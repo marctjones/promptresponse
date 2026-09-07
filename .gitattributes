@@ -1,0 +1,9 @@
+# Line endings are content here: a raw string literal in a test carries whatever the
+# checkout produced, and a fixture that changes shape by platform tests a different
+# document on each. Normalise in the repository so every platform compiles the same bytes.
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.p12 binary
+*.cer binary
+*.ico binary
