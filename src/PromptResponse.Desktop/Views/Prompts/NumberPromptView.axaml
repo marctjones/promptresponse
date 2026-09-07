@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
              x:Class="PromptResponse.Desktop.Views.Prompts.NumberPromptView"
-             x:DataType="vm:NumberPromptViewModel">
+             x:DataType="vm:NumberPromptViewModel"
+             AutomationProperties.AutomationId="{Binding Id}">
     <StackPanel Spacing="6">
         <TextBlock Text="{Binding Label}"
                    FontWeight="SemiBold"

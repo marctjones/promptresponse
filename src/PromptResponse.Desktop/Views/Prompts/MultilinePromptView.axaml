@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:PromptResponse.Desktop.ViewModels.Prompts"
              x:Class="PromptResponse.Desktop.Views.Prompts.MultilinePromptView"
-             x:DataType="vm:MultilinePromptViewModel">
+             x:DataType="vm:MultilinePromptViewModel"
+             AutomationProperties.AutomationId="{Binding Id}">
     <StackPanel Spacing="6">
         <TextBlock Text="{Binding Label}"
                    FontWeight="SemiBold"

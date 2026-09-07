@@ -4,6 +4,7 @@
              xmlns:editor="using:PromptResponse.Desktop.Views.Editor"
              x:Class="PromptResponse.Desktop.Views.Editor.SectionEditorView"
              x:DataType="vm:SectionViewModel"
+             AutomationProperties.AutomationId="{Binding Id}"
              AutomationProperties.Name="{Binding Title}"
              AutomationProperties.HelpText="{Binding Description}">
 

@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vmp="using:PromptResponse.Desktop.ViewModels.Prompts"
              x:Class="PromptResponse.Desktop.Views.Editor.PromptEditorView"
-             x:DataType="vmp:PromptViewModelBase">
+             x:DataType="vmp:PromptViewModelBase"
+             AutomationProperties.AutomationId="{Binding Id}">
     <Border BorderThickness="1"
             CornerRadius="3"
             Padding="10"

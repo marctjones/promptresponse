@@ -6,6 +6,7 @@
              xmlns:promptViews="using:PromptResponse.Desktop.Views.Prompts"
              x:Class="PromptResponse.Desktop.Views.SectionView"
              x:DataType="vm:SectionViewModel"
+             AutomationProperties.AutomationId="{Binding Id}"
              AutomationProperties.Name="{Binding Title}"
              AutomationProperties.HelpText="{Binding Description}">
 
