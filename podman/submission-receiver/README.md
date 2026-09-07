@@ -355,11 +355,12 @@ needed: "any receiver that accepts a plain PUT of a body satisfies it
 identically," and "no processing on the receiving side is assumed or
 permitted to be needed." A minimal stdlib HTTP server that stores what it's
 given is a faithful, sufficient stand-in for the pre-signed target this
-transport describes. If a *more* realistic demo — one that actually
-exercises S3 pre-signed-URL generation and semantics, not just PUT
-acceptance — is wanted, that would mean rehabilitating a MinIO-based setup
-(possibly starting from the legacy pair above) rather than extending this
-one; ask if that's the goal and it can be built separately.
+transport describes. A more realistic demo that actually exercises real S3 pre-signed-URL
+generation and signature verification, not just PUT acceptance, now
+exists at [`../minio-put-test/`](../minio-put-test/) — built fresh rather
+than rehabilitating the legacy pair above, since that pair tests the wrong
+transport (POST) against pre-beta.6 wire format regardless of the server
+behind it.
 
 ## Related: a hosted version of this same receiver
 
