@@ -3,26 +3,18 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-
-    <!--
-      Coverage ratchet. Resolved 2026-05-01.
-      Per-class line coverage:
-        ValidateCommand 100% · NewCommand 100% · StatsCommand 91.8% ·
-        InfoCommand 90.6% · FormFillingApi 89.1% · ExportCommand 87.2% ·
-        DiffCommand 82.8% · FillCommand 81.3%
-
-      Floor set to 80% so any commit that drops a tested target below 80%
-      fails CI. Program.cs is excluded — its Main is the Avalonia app boot,
-      exercised by integration tests rather than unit tests.
-
-      Run with: dotnet test /p:CollectCoverage=true
-    -->
-    <Threshold>80</Threshold>
-    <ThresholdType>line</ThresholdType>
-    <ThresholdStat>total</ThresholdStat>
-    <ExcludeByFile>**/Program.cs</ExcludeByFile>
-    <Include>[apr]*</Include>
   </PropertyGroup>
+
+  <!--
+    Coverage threshold, Include and Exclude live in .github/workflows/ci.yml's "Cli
+    coverage gate" step, not here. They used to be duplicated in both places with
+    different values (28% on the command line CI actually used, 80% here, neither
+    reconciled since 2026-05-01) — the command line wins under MSBuild precedence, so
+    the 80% floor here silently stopped being enforced anywhere the moment CI started
+    passing an override, and drifted to failing-if-honored (actual: 76.89%) without
+    anyone noticing (#345). One source of truth now.
+  -->
+
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="10.0.1">

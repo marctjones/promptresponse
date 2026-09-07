@@ -279,21 +279,19 @@ jobs:
           /p:ThresholdStat=total
           /p:Exclude="[xunit.*]*%2c[*.Tests]*%2c[*.Tests.*]*"
 
-      # Cli coverage is being ramped up. The gate ratchets
-      # up over successive PRs; do NOT lower it without a follow-up plan.
       - name: Desktop coverage gate
         # Desktop was excluded from coverage gating entirely while its GUI suite could
-        # not run (issue #30). With all 759 tests reporting, the measured figure is
-        # 74.31% line coverage, so the bar is set just below it: high enough that a
-        # regression fails, low enough that it does not fail on noise. Raise it as
-        # coverage improves rather than leaving headroom permanently.
+        # not run (issue #30). Re-measured 2026-09-07 with 2246 tests reporting
+        # solution-wide: 82.08% line coverage, so the bar is set just below it: high
+        # enough that a regression fails, low enough that it does not fail on noise.
+        # Raise it as coverage improves rather than leaving headroom permanently.
         run: >-
           dotnet test tests/PromptResponse.Desktop.Tests
           --configuration Release
           -m:1
           /p:CollectCoverage=true
           /p:CoverletOutputFormat=cobertura
-          /p:Threshold=72
+          /p:Threshold=80
           /p:ThresholdType=line
           /p:ThresholdStat=total
           /p:Include="[PromptResponse.Desktop]*"
@@ -308,15 +306,24 @@ jobs:
         run: python3 scripts/check-gui-coverage.py --gate
 
       - name: Cli coverage gate (ratcheting)
+        # Measured 2026-09-07: 76.89% line coverage on the apr assembly alone (the
+        # CLI's AssemblyName; /p:Include scopes coverlet to it explicitly rather than
+        # relying on the default assembly-discovery behavior, which happened to
+        # produce the same figure but shouldn't be trusted to keep doing so). The
+        # previous 28% threshold predated this measurement and never moved once
+        # coverage grew past it, so it had stopped ratcheting anything (#345). Bar set
+        # just below the verified baseline, same convention as the Core and Desktop
+        # gates above; raise it as coverage improves.
         run: >-
           dotnet test tests/PromptResponse.Cli.Tests
           --configuration Release
           /p:CollectCoverage=true
           /p:CoverletOutputFormat=cobertura
-          /p:Threshold=28
+          /p:Threshold=74
           /p:ThresholdType=line
           /p:ThresholdStat=total
-          /p:Exclude="[xunit.*]*%2c[*.Tests]*%2c[*.Tests.*]*%2c[PromptResponse.Cli]PromptResponse.Cli.Program"
+          /p:Include="[apr]*"
+          /p:Exclude="[xunit.*]*%2c[*.Tests]*%2c[*.Tests.*]*%2c[apr]PromptResponse.Cli.Program"
 
   sdk-suites:
     name: SDK suites (Python, TypeScript, browser demo, Java)
