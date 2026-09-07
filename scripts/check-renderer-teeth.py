@@ -33,6 +33,18 @@ MUTANTS = {
 for node in snapshot["nodes"]:
     node["name"] = ""
 '''),
+    "role-in-the-name": ("appends a prompt's role to its accessible name", "APR-RENDER-001", '''
+document = json.loads(case["document"])
+names = {role["id"]: role.get("name") or role["id"] for role in document.get("roles") or []}
+for section in document.get("sections") or []:
+    for index, prompt in enumerate(section.get("prompts") or []):
+        if not prompt.get("role"):
+            continue
+        pointer = "/sections/0/prompts/%d" % index
+        for node in snapshot["nodes"]:
+            if node.get("documentPointer") == pointer:
+                node["name"] = "%s For %s" % (node["name"], names.get(prompt["role"], prompt["role"]))
+'''),
     "placeholder-as-label": ("names a field by its placeholder", "APR-RENDER-002", '''
 document = json.loads(case["document"])
 for section in document.get("sections") or []:
