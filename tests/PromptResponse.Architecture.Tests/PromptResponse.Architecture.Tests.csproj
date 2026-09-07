@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <!--
+    This project has no product code of its own. It exists to hold fitness-function
+    tests over the dependency directions docs/ARCHITECTURE.md decides: which projects
+    may reference which. It references every project it constrains so it can load
+    their built assemblies and inspect what they actually depend on, not what a
+    document says they should.
+  -->
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="10.0.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
+    <PackageReference Include="xunit.v3.mtp-off" Version="3.2.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="NetArchTest.Rules" Version="1.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\PromptResponse.Core\PromptResponse.Core.csproj" />
+    <ProjectReference Include="..\..\src\PromptResponse.Host.Abstractions\PromptResponse.Host.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\PromptResponse.Desktop\PromptResponse.Desktop.csproj" />
+    <ProjectReference Include="..\..\src\PromptResponse.Cli\PromptResponse.Cli.csproj" />
+    <ProjectReference Include="..\..\src\PromptResponse.Rendering.Pdf\PromptResponse.Rendering.Pdf.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -40,6 +40,7 @@ the shell.
 | Corpus, schema, SDK runners | APR interoperability drift |
 | Test registry check | unowned format requirements |
 | Accessibility and GUI tests | interaction and palette regressions |
+| Architecture dependency-rule tests (`tests/PromptResponse.Architecture.Tests`) | Core, Host.Abstractions, or the PDF renderer acquiring a UI-framework or platform dependency they must not own |
 | Coverage thresholds | untested regressions |
 | Release smoke checklist | source-versus-artifact gap |
 

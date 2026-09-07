@@ -64,6 +64,16 @@ defined transport; hand off to mail), `ISigningKeys` (produce proof material ove
 canonical beta.6 proof input, without exposing private-key bytes),
 `IHostPreferences` (reduced motion, contrast, scale), `INotifications`.
 
+**Enforcement.** `tests/PromptResponse.Architecture.Tests` holds the dependency
+directions above as fitness-function tests over the built assemblies, not only
+as this prose: Core has no dependency on Avalonia, a platform-specific
+namespace, or a host project; `PromptResponse.Host.Abstractions` has no
+dependency on Avalonia, a platform-specific namespace, Core, or a host
+project; the PDF renderer/importer has no dependency on Avalonia. A violation
+fails CI. `tests/PromptResponse.HostAbstractions.Tests` covers the one thing
+`Host.Abstractions` currently contains beyond interfaces — the `DeliveryResult`
+factory methods.
+
 **Rules.**
 
 - Core, the language SDKs and the conformance tooling depend on none of this.
