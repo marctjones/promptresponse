@@ -179,27 +179,36 @@ public class AutomationTreeTests
     }
 
     [AvaloniaFact]
-    public void EveryPromptInForm_HasAccessibleNameMatchingItsLabel()
+    public void EveryPromptInForm_HasAccessibleNameMatchingItsLabel_AprRender001()
     {
-        // A blind user navigating a form by Tab needs each input announced as
-        // "Full name, edit". This test asserts that for every Prompt model in
-        // the document, the corresponding TextBox has its Label as its
-        // AutomationProperties.Name.
+        // A blind person navigating a form by Tab needs each input announced as "Full
+        // name, edit". APR-RENDER-001 asks for the label as the accessible name, and this
+        // asserts it per prompt rather than by looking for a few labels somewhere among
+        // the names: the join is the AutomationId #369 put on every prompt view, so a
+        // renderer that named the right number of fields wrongly is caught.
         var (view, _, session) = Build();
-        session.Set(SmallDoc(), filePath: null);
+        var document = SmallDoc();
+        session.Set(document, filePath: null);
         view.ShowInWindow(width: 1200, height: 800);
 
-        var nameableInputs = view.GetVisualDescendants().OfType<TextBox>()
-            .Where(tb => tb.IsEffectivelyVisible)
-            .Select(tb => new { Tb = tb, Name = AutomationProperties.GetName(tb) })
-            .ToList();
+        var labels = document.Sections
+            .SelectMany(section => section.Prompts)
+            .ToDictionary(prompt => prompt.Id, prompt => prompt.Label, StringComparer.Ordinal);
 
-        // Among the visible TextBoxes we should find ones named "Full name",
-        // "Email", "Current employer" — the prompt labels.
-        var names = nameableInputs.Select(x => x.Name ?? string.Empty).ToList();
-        names.Should().Contain("Full name");
-        names.Should().Contain("Email");
-        names.Should().Contain("Current employer");
+        var named = view.GetVisualDescendants().OfType<Control>()
+            .Where(control => labels.ContainsKey(AutomationProperties.GetAutomationId(control) ?? ""))
+            .ToDictionary(
+                control => AutomationProperties.GetAutomationId(control)!,
+                control => control.GetVisualDescendants().OfType<TextBox>()
+                    .Select(AutomationProperties.GetName).FirstOrDefault(),
+                StringComparer.Ordinal);
+
+        named.Keys.Should().BeEquivalentTo(labels.Keys, "every prompt is rendered");
+        foreach (var (id, label) in labels)
+        {
+            named[id].Should().Be(label,
+                "the field rendering {0} must be announced by its label", id);
+        }
     }
 
     [AvaloniaFact]

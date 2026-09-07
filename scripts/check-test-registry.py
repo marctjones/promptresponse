@@ -21,6 +21,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "tests" / "registry.json"
+RENDERER_SUITE = ROOT / "tests" / "Conformance" / "beta6" / "renderer-suite.json"
 CORPUS = ROOT / "tests" / "Conformance" / "beta6"
 SPEC = ROOT / "docs" / "APR_SPECIFICATION.md"
 
@@ -114,6 +115,17 @@ def main():
     claimed_fixtures = set()
     suite_ids = {s["id"] for s in registry["suites"]}
 
+    # Renderer cases, so a rule about rendering can cite the case that scores it rather
+    # than the suite that contains it. A case gate is checked twice over: the case has to
+    # exist, and it has to name the rule the requirement claims — a citation pointing at
+    # a case that exercises something else is the failure this catches.
+    renderer_cases = {}
+    if RENDERER_SUITE.exists():
+        renderer_cases = {
+            case["id"]: set(case.get("rules") or [])
+            for case in json.loads(RENDERER_SUITE.read_text(encoding="utf-8"))["cases"]
+        }
+
     # 1. Every referenced gate must exist.
     for req in registry["requirements"]:
         for gate in req.get("gates", []):
@@ -139,6 +151,14 @@ def main():
                             f"{req['id']}: test method not found in {rel} — {method}")
                 elif not _declares(src, ref):
                     problems.append(f"{req['id']}: test method not found in source — {ref}")
+            elif kind == "case":
+                if ref not in renderer_cases:
+                    problems.append(f"{req['id']}: renderer case not in the suite — {ref}")
+                elif not (set(req.get("rules") or []) & renderer_cases[ref]):
+                    problems.append(
+                        f"{req['id']}: cites {ref}, which names "
+                        f"{', '.join(sorted(renderer_cases[ref])) or 'no rule'} and none "
+                        f"of the rules this requirement claims")
             elif kind == "suite":
                 if ref not in suite_ids:
                     problems.append(f"{req['id']}: unknown suite id — {ref}")

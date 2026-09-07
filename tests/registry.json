@@ -252,7 +252,7 @@
       "id": "conformance.renderer",
       "path": "tests/Conformance/beta6/renderer-suite.json",
       "runsInCi": true,
-      "note": "Thirteen renderer cases scored by scripts/run-renderer-conformance.py, with scripts/check-renderer-teeth.py proving the scorer fails a broken renderer. Reaches the rules no document vector can."
+      "note": "Fifteen renderer cases scored by scripts/run-renderer-conformance.py, answered by four drivers — a reference renderer, the TypeScript HTML renderer, the Avalonia desktop client and the PDF exporter — with scripts/check-renderer-teeth.py proving the scorer fails a broken renderer. Reaches the rules no document vector can."
     }
   ],
   "testKinds": [
@@ -567,6 +567,10 @@
       "statement": "Export layout is never written back into the document",
       "strength": "gated",
       "gates": [
+        {
+          "type": "case",
+          "ref": "renderer:an-export-is-not-written-back"
+        },
         {
           "type": "suite",
           "ref": "conformance.renderer"
@@ -1042,6 +1046,10 @@
       "strength": "gated",
       "gates": [
         {
+          "type": "case",
+          "ref": "renderer:order-is-document-order"
+        },
+        {
           "type": "suite",
           "ref": "conformance.renderer"
         },
@@ -1179,24 +1187,60 @@
       "strength": "gated",
       "gates": [
         {
-          "type": "suite",
-          "ref": "conformance.renderer"
+          "type": "case",
+          "ref": "renderer:accessible-name"
         },
         {
-          "type": "suite",
-          "ref": "accessibility"
+          "type": "case",
+          "ref": "renderer:a-role-does-not-become-the-name"
         },
         {
-          "type": "suite",
-          "ref": "desktop.unit"
+          "type": "case",
+          "ref": "renderer:placeholder-is-not-a-label"
+        },
+        {
+          "type": "case",
+          "ref": "renderer:help-text-associated"
+        },
+        {
+          "type": "case",
+          "ref": "renderer:nesting-is-structural"
+        },
+        {
+          "type": "case",
+          "ref": "renderer:every-prompt-is-reachable"
+        },
+        {
+          "type": "case",
+          "ref": "renderer:a-hidden-prompt-may-be-absent"
+        },
+        {
+          "type": "case",
+          "ref": "renderer:a-hint-mismatch-does-not-block-saving"
+        },
+        {
+          "type": "case",
+          "ref": "renderer:table-cells-name-their-header"
+        },
+        {
+          "type": "test",
+          "ref": "EveryPromptInForm_HasAccessibleNameMatchingItsLabel_AprRender001"
+        },
+        {
+          "type": "test",
+          "ref": "APlaceholderIsNeverTheAccessibleName_AprRender002"
         },
         {
           "type": "test",
           "ref": "HelpText_IsProgrammaticallyAssociatedWithItsControl_AprRender003"
         },
         {
-          "type": "test",
-          "ref": "APlaceholderIsNeverTheAccessibleName_AprRender002"
+          "type": "suite",
+          "ref": "conformance.renderer"
+        },
+        {
+          "type": "suite",
+          "ref": "accessibility"
         }
       ],
       "rules": [
