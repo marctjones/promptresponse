@@ -121,7 +121,7 @@ internal static class Program
     /// <summary>One node per rendered section and prompt, in the order Tab visits them.</summary>
     private static JsonArray Nodes(Window window, IReadOnlyDictionary<string, string> pointers)
     {
-        var order = FocusOrder.Of(window);
+        var reach = FocusOrder.Of(window);
         var nodes = new JsonArray();
         var headers = Headers(window, nodes);
 
@@ -149,16 +149,25 @@ internal static class Program
                        ?? AutomationProperties.GetHelpText(container);
             if (!string.IsNullOrEmpty(help)) node["helpText"] = help;
 
-            if (Column(container, headers) is { } column) node["columnHeader"] = column;
+            if (isPrompt && Column(container, headers) is { } column)
+                node["columnHeader"] = column;
 
             if (input is not null)
             {
                 node["editable"] = input is TextBox box ? !box.IsReadOnly && box.IsEnabled
                                                         : input.IsEnabled;
                 node["value"] = input is TextBox text ? text.Text ?? string.Empty : string.Empty;
-                if (order.TryGetValue(input, out var position)) node["keyboardOrder"] = position;
+                if (reach.Order.TryGetValue(input, out var position))
+                {
+                    node["keyboardOrder"] = position;
+                    // Claimed only where it was shown. A control the headless pipeline
+                    // cannot drive is left unclaimed rather than claimed false.
+                    if (reach.Completed.Contains(input)) node["completedByKeyboard"] = true;
+                    else if (input is TextBox) node["completedByKeyboard"] = false;
+                    if (!reach.Backwards.Contains(input)) node["reachableBackwards"] = false;
+                }
             }
-            else if (order.TryGetValue(container, out var position))
+            else if (reach.Order.TryGetValue(container, out var position))
             {
                 node["keyboardOrder"] = position;
             }

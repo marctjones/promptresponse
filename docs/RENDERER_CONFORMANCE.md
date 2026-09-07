@@ -82,6 +82,8 @@ carries — nothing here is invented for the harness.
 | `labelledBy`, `columnHeader` | the element that names this one | `APR-RENDER-003`, `APR-RENDER-007` |
 | `documentPointer` | RFC 6901 pointer into the document | Ties every node to what it renders, so `APR-RENDER-008` is checkable |
 | `keyboardOrder` | position in the focus order, or absent if unreachable | `APR-RENDER-005` |
+| `completedByKeyboard` | whether a response could actually be entered there, or absent if the driver cannot type | `APR-RENDER-005` — reachable is half the rule |
+| `reachableBackwards` | false when Shift-Tab never returns to it | `APR-RENDER-005` |
 | `editable` | whether typing is accepted | `APR-EXPR-014` — a computed field stays editable |
 | `saveResult` | whether a save was written, and what blocked it | `APR-RENDER-006`, `APR-MODEL-004`, `APR-VAL-006` |
 | `exportedDocument` | the document as it stands after an export | `APR-RENDER-009` |
@@ -108,7 +110,7 @@ Windows-only contract wearing a platform-neutral name.
 | `APR-RENDER-002` | a prompt with a placeholder and no label has no node, because the document is invalid; a prompt with both takes its `name` from the label |
 | `APR-RENDER-003` | a prompt with `helpText` has it on the node or reachable through `labelledBy`, not merely as a neighbouring text node |
 | `APR-RENDER-004` | nested sections produce nodes whose `headingLevel` increases with depth, or groups that nest — indentation alone produces neither |
-| `APR-RENDER-005` | every prompt's node has a `keyboardOrder` |
+| `APR-RENDER-005` | every prompt's node has a `keyboardOrder`, and no node says `completedByKeyboard: false` or `reachableBackwards: false`. Both claims are optional: a driver that renders to markup cannot type, and absent means unproven rather than passing |
 | `APR-RENDER-006` | after a response contradicting `expectedDataType`, `saveResult.written` is true |
 | `APR-RENDER-007` | every cell node carries `columnHeader` naming a node whose `isColumnHeader` is true |
 | `APR-RENDER-008` | `keyboardOrder` is non-decreasing in document-pointer order |

@@ -73,6 +73,19 @@ for node in snapshot["nodes"]:
         node.pop("keyboardOrder", None)
         break
 '''),
+    "focus-without-entry": ("takes focus on a field nothing can be typed into",
+                            "APR-RENDER-005", '''
+for node in snapshot["nodes"]:
+    if node.get("keyboardOrder") is not None and node.get("role") == "textbox":
+        node["completedByKeyboard"] = False
+        break
+'''),
+    "one-way-focus": ("has a field Shift-Tab never returns to", "APR-RENDER-005", '''
+for node in snapshot["nodes"]:
+    if node.get("keyboardOrder") is not None and node.get("role") == "textbox":
+        node["reachableBackwards"] = False
+        break
+'''),
     "blocks-saving": ("refuses to save while an advisory stands", "APR-RENDER-006", '''
 snapshot["saveResult"] = {"written": False, "blockedBy": "the response is not a number"}
 '''),

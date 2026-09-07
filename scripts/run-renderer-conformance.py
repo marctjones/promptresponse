@@ -129,6 +129,14 @@ def nesting_is_structural(document, snapshot):
 
 
 def every_prompt_is_reachable(document, snapshot):
+    """APR-RENDER-005: reachable *and completable*, and the second half is optional.
+
+    A driver that renders to markup cannot type, so it cannot honestly say whether a
+    field can be filled in from the keyboard; one driving a live application can. So
+    `completedByKeyboard` is a claim a driver makes only where it proved it, and saying
+    it is false fails the case. Absent means unproven, which is not the same as passing
+    and is why the driver that can prove it says so.
+    """
     found = by_pointer(snapshot)
     for pointer, kind, _ in walk(document):
         if kind != "prompt":
@@ -136,6 +144,12 @@ def every_prompt_is_reachable(document, snapshot):
         node = found.get(pointer) or {}
         if node.get("keyboardOrder") is None:
             return f"{pointer} is not in the keyboard order, so it cannot be completed"
+        if node.get("completedByKeyboard") is False:
+            return (f"{pointer} takes focus and does not accept a response from the "
+                    f"keyboard; reaching a field is not completing it")
+        if node.get("reachableBackwards") is False:
+            return (f"{pointer} is reachable forwards and not backwards; a field somebody "
+                    f"can Tab into and not Tab back to is reachable only on a checklist")
     return None
 
 

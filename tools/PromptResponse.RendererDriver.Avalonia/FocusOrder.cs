@@ -19,16 +19,47 @@ internal static class FocusOrder
 {
     private const int Limit = 400;
 
-    internal static IReadOnlyDictionary<Control, int> Of(Window window)
+    /// <summary>What the keyboard reached, and what it could actually fill in.</summary>
+    internal static Reach Of(Window window)
     {
         var order = new Dictionary<Control, int>();
+        var completed = new HashSet<Control>();
         for (var step = 0; step < Limit; step++)
         {
             window.KeyPressQwerty(PhysicalKey.Tab, RawInputModifiers.None);
             if (window.FocusManager?.GetFocusedElement() is not Control focused) break;
             if (!order.TryAdd(focused, order.Count)) break;   // the ring closed
+            if (CanBeCompleted(window, focused)) completed.Add(focused);
         }
-        return order;
+
+        // Backwards as well. A field a person can Tab into and not Tab out of, or one
+        // only reachable in one direction, is reachable in the sense a checklist means
+        // and not in the sense a keyboard user does.
+        var backwards = new HashSet<Control>();
+        for (var step = 0; step < Limit; step++)
+        {
+            window.KeyPressQwerty(PhysicalKey.Tab, RawInputModifiers.Shift);
+            if (window.FocusManager?.GetFocusedElement() is not Control focused) break;
+            if (!backwards.Add(focused)) break;
+        }
+        return new Reach(order, completed, backwards);
+    }
+
+    /// <summary>Types into the focused control and puts back what was there.</summary>
+    /// <remarks>
+    /// APR-RENDER-005 says every prompt is "reachable **and completable** by keyboard",
+    /// and traversal only shows the first half. Only text entry is proven: the headless
+    /// input pipeline does not toggle a ToggleButton on Space, so a checkbox is left
+    /// unclaimed rather than claimed false — an unproven branch, not a passing one.
+    /// </remarks>
+    private static bool CanBeCompleted(Window window, Control focused)
+    {
+        if (focused is not TextBox box || box.IsReadOnly) return false;
+        var before = box.Text;
+        window.KeyTextInput("k");
+        var typed = box.Text != before;
+        box.Text = before;
+        return typed;
     }
 
     /// <summary>The control inside a prompt's view that a person types into.</summary>
@@ -53,3 +84,9 @@ internal static class FocusOrder
         control is TextBox or CheckBox or ComboBox or ToggleButton
         && control.IsEffectivelyVisible && control.Focusable;
 }
+
+/// <summary>Where the keyboard went, forwards and back, and what it could fill in.</summary>
+internal sealed record Reach(
+    IReadOnlyDictionary<Control, int> Order,
+    IReadOnlySet<Control> Completed,
+    IReadOnlySet<Control> Backwards);
