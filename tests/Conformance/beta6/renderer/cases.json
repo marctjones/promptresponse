@@ -1,0 +1,510 @@
+{
+  "$comment": "Renderer conformance cases. Documents are inline rather than one file each: a renderer case is defined by what it asks of a renderer, and splitting the document from the question across two files makes neither readable. See docs/RENDERER_CONFORMANCE.md.",
+  "cases": [
+    {
+      "id": "accessible-name",
+      "rules": [
+        "APR-RENDER-001"
+      ],
+      "asks": "every section and prompt node takes its name from the title or label",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "applicant",
+            "title": "Applicant",
+            "prompts": [
+              {
+                "id": "full_name",
+                "label": "Full name"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "placeholder-is-not-a-label",
+      "rules": [
+        "APR-RENDER-002"
+      ],
+      "asks": "a prompt with both takes its name from the label, never the placeholder",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "s",
+            "title": "S",
+            "prompts": [
+              {
+                "id": "email",
+                "label": "Email address",
+                "hints": {
+                  "placeholder": "you@example.gov"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "help-text-associated",
+      "rules": [
+        "APR-RENDER-003"
+      ],
+      "asks": "helpText reaches the prompt's node, not a neighbouring text node",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "s",
+            "title": "S",
+            "prompts": [
+              {
+                "id": "passport",
+                "label": "Full name",
+                "hints": {
+                  "helpText": "As it appears on your passport"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "nesting-is-structural",
+      "rules": [
+        "APR-RENDER-004"
+      ],
+      "asks": "a nested section deepens headingLevel; indentation alone does not",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "outer",
+            "title": "Outer",
+            "prompts": [
+              {
+                "id": "a",
+                "label": "A"
+              }
+            ],
+            "sections": [
+              {
+                "id": "inner",
+                "title": "Inner",
+                "prompts": [
+                  {
+                    "id": "b",
+                    "label": "B"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "every-prompt-is-reachable",
+      "rules": [
+        "APR-RENDER-005"
+      ],
+      "asks": "every prompt node carries a keyboardOrder",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "s",
+            "title": "S",
+            "prompts": [
+              {
+                "id": "a",
+                "label": "A"
+              },
+              {
+                "id": "b",
+                "label": "B"
+              },
+              {
+                "id": "c",
+                "label": "C"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "a-hint-mismatch-does-not-block-saving",
+      "rules": [
+        "APR-RENDER-006",
+        "APR-MODEL-004",
+        "APR-VAL-006"
+      ],
+      "asks": "saveResult.written is true though the response contradicts its declared type",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "s",
+            "title": "S",
+            "prompts": [
+              {
+                "id": "age",
+                "label": "Age",
+                "response": "not a number",
+                "hints": {
+                  "expectedDataType": "number"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "table-cells-name-their-header",
+      "rules": [
+        "APR-RENDER-007"
+      ],
+      "asks": "every cell node names a header node, and the header says it is one",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "items",
+            "title": "Line items",
+            "kind": "table",
+            "sections": [
+              {
+                "id": "r1",
+                "title": "Item 1",
+                "prompts": [
+                  {
+                    "id": "r1_desc",
+                    "label": "Description"
+                  },
+                  {
+                    "id": "r1_amount",
+                    "label": "Amount"
+                  }
+                ]
+              },
+              {
+                "id": "r2",
+                "title": "Item 2",
+                "prompts": [
+                  {
+                    "id": "r2_desc",
+                    "label": "Description"
+                  },
+                  {
+                    "id": "r2_amount",
+                    "label": "Amount"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "order-is-document-order",
+      "rules": [
+        "APR-RENDER-008"
+      ],
+      "asks": "keyboardOrder never decreases as the document pointer advances",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "first",
+            "title": "First",
+            "prompts": [
+              {
+                "id": "f1",
+                "label": "F1"
+              },
+              {
+                "id": "f2",
+                "label": "F2"
+              }
+            ]
+          },
+          {
+            "id": "second",
+            "title": "Second",
+            "prompts": [
+              {
+                "id": "s1",
+                "label": "S1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "nothing-in-a-document-executes",
+      "rules": [
+        "APR-SEC-009"
+      ],
+      "asks": "text that looks like script renders as text",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "s",
+            "title": "Report <script>alert(1)</script>",
+            "prompts": [
+              {
+                "id": "p",
+                "label": "${7*7}",
+                "response": "<img src=x onerror=alert(1)>"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "opening-fetches-nothing",
+      "rules": [
+        "APR-SEC-010"
+      ],
+      "asks": "requests is empty; a submission target is data until somebody acts",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T",
+          "submissionUrls": [
+            "https://example.gov/drop/a"
+          ]
+        },
+        "sections": [
+          {
+            "id": "s",
+            "title": "S",
+            "prompts": [
+              {
+                "id": "p",
+                "label": "P"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sixteen-levels-render",
+      "rules": [
+        "APR-SEC-011",
+        "APR-MODEL-015"
+      ],
+      "asks": "the depth the format requires is rendered, not refused",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "d1",
+            "title": "Level 1",
+            "sections": [
+              {
+                "id": "d2",
+                "title": "Level 2",
+                "sections": [
+                  {
+                    "id": "d3",
+                    "title": "Level 3",
+                    "sections": [
+                      {
+                        "id": "d4",
+                        "title": "Level 4",
+                        "sections": [
+                          {
+                            "id": "d5",
+                            "title": "Level 5",
+                            "sections": [
+                              {
+                                "id": "d6",
+                                "title": "Level 6",
+                                "sections": [
+                                  {
+                                    "id": "d7",
+                                    "title": "Level 7",
+                                    "sections": [
+                                      {
+                                        "id": "d8",
+                                        "title": "Level 8",
+                                        "sections": [
+                                          {
+                                            "id": "d9",
+                                            "title": "Level 9",
+                                            "sections": [
+                                              {
+                                                "id": "d10",
+                                                "title": "Level 10",
+                                                "sections": [
+                                                  {
+                                                    "id": "d11",
+                                                    "title": "Level 11",
+                                                    "sections": [
+                                                      {
+                                                        "id": "d12",
+                                                        "title": "Level 12",
+                                                        "sections": [
+                                                          {
+                                                            "id": "d13",
+                                                            "title": "Level 13",
+                                                            "sections": [
+                                                              {
+                                                                "id": "d14",
+                                                                "title": "Level 14",
+                                                                "sections": [
+                                                                  {
+                                                                    "id": "d15",
+                                                                    "title": "Level 15",
+                                                                    "sections": [
+                                                                      {
+                                                                        "id": "d16",
+                                                                        "title": "Level 16",
+                                                                        "prompts": [
+                                                                          {
+                                                                            "id": "leaf",
+                                                                            "label": "Leaf"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "a-computed-prompt-stays-editable",
+      "rules": [
+        "APR-EXPR-014"
+      ],
+      "asks": "editable is true on a computed prompt; a total a person must correct is correctable",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "s",
+            "title": "S",
+            "prompts": [
+              {
+                "id": "qty",
+                "label": "Quantity",
+                "response": "2",
+                "hints": {
+                  "expectedDataType": "number"
+                }
+              },
+              {
+                "id": "total",
+                "label": "Total",
+                "hints": {
+                  "expectedDataType": "number",
+                  "exprValue": "qty * 2.0"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "an-export-is-not-written-back",
+      "rules": [
+        "APR-RENDER-009"
+      ],
+      "asks": "exportedDocument is byte-identical to the input; export is a derived artefact",
+      "surface": "exporter",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "s",
+            "title": "S",
+            "prompts": [
+              {
+                "id": "p",
+                "label": "P",
+                "response": "Ada"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

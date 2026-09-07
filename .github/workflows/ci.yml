@@ -155,6 +155,20 @@ jobs:
         # harness works; a real implementation supplies its own driver.
         run: python3 scripts/run-conformance.py --driver "python3 scripts/reference-driver.py"
 
+      - name: Verify the renderer suite is current
+        run: python3 scripts/build-renderer-suite.py
+
+      - name: Score the reference renderer against the renderer suite
+        # Twelve rules no document vector can reach. A renderer driver reports what a
+        # person ended up in front of, and these check that against chapter 13.
+        run: python3 scripts/run-renderer-conformance.py --driver "python3 scripts/reference-renderer-driver.py"
+
+      - name: Prove the renderer scorer fails a broken renderer
+        # More exposed than the document harness: these checks are judgements about a
+        # snapshot rather than comparisons against a digest, so a check that quietly
+        # stopped deciding would look exactly like one that passes.
+        run: python3 scripts/check-renderer-teeth.py
+
       - name: Prove the harness fails a broken driver
         # The harness was exercised by one driver, written by its own author,
         # which passes everything. Eight mutant drivers — each correct except in
