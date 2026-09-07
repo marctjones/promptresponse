@@ -125,8 +125,10 @@ Windows-only contract wearing a platform-neutral name.
 **Whether a renderer is any good.** Legibility, contrast against a real
 background, whether a screen reader's utterance is comprehensible, whether the
 tab order is *sensible* rather than merely present. Those are the human-judgement
-residue, and naming them is a separate deliverable — a contract that quietly
-claimed them would be worse than one that says where it stops.
+residue, and a contract that quietly claimed them would be worse than one that
+says where it stops. They are named against the rules they stand in for in
+[docs/release/ACCESSIBILITY_SIGNOFF.md](release/ACCESSIBILITY_SIGNOFF.md), which
+is a per-release, per-platform checklist rather than a script.
 
 **Whether a platform actually emits these.** The properties exist in Avalonia's
 API on every backend; that they reach AT-SPI, NSAccessibility and UIA at runtime

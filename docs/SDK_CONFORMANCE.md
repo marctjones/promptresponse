@@ -159,6 +159,37 @@ Each profile has a checklist in the specification. Work through it; the suite
 does not cover everything a checklist states, and the gap is named per rule in
 `tests/registry.json`.
 
+## What conformance does not decide
+
+Chapter 13 is scored by renderer drivers against
+[the renderer contract](RENDERER_CONFORMANCE.md), and three of them ship: a reference
+renderer, the TypeScript HTML renderer, and the Avalonia desktop client. They decide
+whether a section is named, whether help text reached the control rather than the
+paragraph beside it, whether a table's cells name their column, whether the keyboard
+reaches every field and can fill it in, and whether anything was fetched while
+rendering.
+
+They do not decide whether the result is **usable**. Two of the residues resist
+mechanization outright:
+
+- **Whether the structure a renderer conveys is comprehensible.** `APR-RENDER-004`
+  can be checked as "conveyed as a heading level or a group, not as indentation".
+  Whether the levels correspond to how the form is organised is a judgement.
+- **How the narration sounds under a real screen reader.** `APR-RENDER-001`,
+  `002`, `003` and `007` can be checked as properties of a snapshot. Whether the
+  utterance Orca, NVDA or VoiceOver produces is comprehensible, well-timed, and not
+  drowned in repeated table context is a judgement. `tests/at-spi/README.md` records
+  the same boundary one layer down.
+
+Both, with the tab-order and legibility residues and the two branches the headless
+input pipeline cannot drive, are named against the rules they stand in for in
+[docs/release/ACCESSIBILITY_SIGNOFF.md](release/ACCESSIBILITY_SIGNOFF.md), which is a
+per-release, per-platform checklist rather than a script.
+
+Saying this is what lets every other rule be asserted without hedging. An
+implementation that passes the drivers has met chapter 13 as far as chapter 13 can be
+mechanically met, and that claim is worth more for being bounded.
+
 ## Gates that hold the artifacts themselves honest
 
 These run in CI and are part of the specification review checklist. They check

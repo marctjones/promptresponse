@@ -118,7 +118,7 @@ scripts/verify-macos-accessibility.sh dist/PromptResponse.app
 ```
 
 The capture writes a timestamped JSON accessibility tree and fails when core
-menu controls are unnamed. Complete `docs/release/MACOS_ACCESSIBILITY.md` as the
+menu controls are unnamed. Complete `docs/release/ACCESSIBILITY_SIGNOFF.md` as the
 human VoiceOver evidence for that same build.
 
 ## Architecture
