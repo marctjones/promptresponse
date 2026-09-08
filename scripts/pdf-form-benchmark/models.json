@@ -1,0 +1,40 @@
+{
+  "models": [
+    {
+      "id": "granite-docling-258m",
+      "display_name": "IBM Granite-Docling 258M",
+      "repo": "ibm-granite/granite-docling-258M-mlx",
+      "trust_remote_code": false,
+      "params": "258M",
+      "strategy": "doctags",
+      "notes": "Document-conversion specialist. Emits DocTags markup with a bounding box, page index, and structural role per element."
+    },
+    {
+      "id": "qwen3-vl-8b",
+      "display_name": "Qwen3-VL-8B-Instruct (4-bit)",
+      "repo": "mlx-community/Qwen3-VL-8B-Instruct-4bit",
+      "trust_remote_code": false,
+      "params": "8B",
+      "strategy": "chat-json",
+      "notes": "Generalist chat VLM. Prompted directly for an APR-shaped intermediate JSON (sections/fields/labels/types)."
+    },
+    {
+      "id": "dots-ocr",
+      "display_name": "dots.ocr (converted MLX 4-bit)",
+      "repo": "local_models/dots.ocr-mlx-4bit",
+      "trust_remote_code": true,
+      "params": "~3B (1.2B ViT + 1.7B LLM)",
+      "strategy": "dots-ocr-native",
+      "notes": "OCR/layout specialist. No genuine MLX build existed on the Hub (the only 'dots.ocr-4bit' upload found was bitsandbytes-quantized, incompatible with mlx-vlm) so this was converted in-house from dots-studio/dots.ocr via `mlx_vlm convert --quantize --q-bits 4`. Native output is a JSON list of {bbox, category, text} per detected element."
+    },
+    {
+      "id": "florence-2-base",
+      "display_name": "Florence-2-base-ft (4-bit)",
+      "repo": "mlx-community/Florence-2-base-ft-4bit",
+      "trust_remote_code": true,
+      "params": "0.23B",
+      "strategy": "florence-detection",
+      "notes": "Pure grounding/detection specialist (task-token interface, no chat). Used with <OCR_WITH_REGION>; label/field pairing is done by a deterministic geometry heuristic in this harness, not by the model. NOTE: Florence-2-large-ft-4bit and -bf16 both hit a confirmed mlx-vlm compatibility bug (the model only ever emits the BOS token, verified empirically) as of mlx-vlm 0.7.0 in Sept 2026 -- base-ft is the variant that actually works, so it stands in for the whole Florence-2 family here. This is a real, reportable finding, not a benchmark design choice."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+.venv/
+local_models/
+results/pages/
+results/download_models.log
+results/convert_dots_ocr.log

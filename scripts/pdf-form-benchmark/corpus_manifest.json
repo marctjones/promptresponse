@@ -1,0 +1,92 @@
+{
+  "forms": [
+    {
+      "id": "fed-w9",
+      "name": "IRS Form W-9 (Request for Taxpayer Identification Number)",
+      "jurisdiction": "federal",
+      "agency": "IRS",
+      "url": "https://www.irs.gov/pub/irs-pdf/fw9.pdf",
+      "difficulty": "simple"
+    },
+    {
+      "id": "fed-w4",
+      "name": "IRS Form W-4 (Employee's Withholding Certificate)",
+      "jurisdiction": "federal",
+      "agency": "IRS",
+      "url": "https://www.irs.gov/pub/irs-pdf/fw4.pdf",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fed-ss4",
+      "name": "IRS Form SS-4 (Application for Employer Identification Number)",
+      "jurisdiction": "federal",
+      "agency": "IRS",
+      "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fed-8822",
+      "name": "IRS Form 8822 (Change of Address)",
+      "jurisdiction": "federal",
+      "agency": "IRS",
+      "url": "https://www.irs.gov/pub/irs-pdf/f8822.pdf",
+      "difficulty": "simple"
+    },
+    {
+      "id": "fed-i9",
+      "name": "USCIS Form I-9 (Employment Eligibility Verification)",
+      "jurisdiction": "federal",
+      "agency": "USCIS",
+      "url": "https://www.uscis.gov/sites/default/files/document/forms/i-9.pdf",
+      "difficulty": "complex"
+    },
+    {
+      "id": "ct-w4",
+      "name": "Connecticut Form CT-W4 (Employee's Withholding Certificate)",
+      "jurisdiction": "connecticut",
+      "agency": "DRS",
+      "url": "https://portal.ct.gov/-/media/drs/forms/2026/wth/ct-w4_1225fillable.pdf",
+      "difficulty": "medium"
+    },
+    {
+      "id": "ct-dmv-j23",
+      "name": "Connecticut DMV Form J23 (Copy Records Request)",
+      "jurisdiction": "connecticut",
+      "agency": "DMV",
+      "url": "https://portal.ct.gov/-/media/DMV/20/29/J23pdf.pdf",
+      "difficulty": "simple"
+    },
+    {
+      "id": "ct-dmv-b58ind",
+      "name": "Connecticut DMV Form B-58 (Change of Address, Individual)",
+      "jurisdiction": "connecticut",
+      "agency": "DMV",
+      "url": "https://portal.ct.gov/-/media/DMV/20/29/B58INDpdf.pdf",
+      "difficulty": "simple"
+    },
+    {
+      "id": "ct-dmv-a25",
+      "name": "Connecticut DMV Form A-25 (Request for Hearing to Contest Vehicle Towing)",
+      "jurisdiction": "connecticut",
+      "agency": "DMV",
+      "url": "https://portal.ct.gov/-/media/DMV/20/29/A25pdf.pdf",
+      "difficulty": "medium"
+    },
+    {
+      "id": "ct-dmv-a83",
+      "name": "Connecticut DMV Form A-83 (Special Power of Attorney)",
+      "jurisdiction": "connecticut",
+      "agency": "DMV",
+      "url": "https://portal.ct.gov/-/media/DMV/20/29/A83pdf.pdf",
+      "difficulty": "medium"
+    },
+    {
+      "id": "ct-dmv-b225p",
+      "name": "Connecticut DMV Form B-225P (Disabled Parking Placard, Renewable)",
+      "jurisdiction": "connecticut",
+      "agency": "DMV",
+      "url": "https://portal.ct.gov/-/media/DMV/20/29/B225Ppdf.pdf",
+      "difficulty": "complex"
+    }
+  ]
+}
