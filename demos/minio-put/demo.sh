@@ -3,10 +3,8 @@
 # End-to-end demo: a real MinIO instance, real presigned PUT URLs, and three
 # independent clients -- the real unmodified `apr` CLI, the real Avalonia
 # desktop GUI, and the real Python SDK -- each filling and submitting their
-# own "dog license" form, in both APR-JSONC and APR-YAML, verification that
-# what MinIO holds matches what each client actually sent, and a Chrome
-# window pointed at the bucket so you can see all four submitted files
-# listed there yourself.
+# own "dog license" form, in both APR-JSONC and APR-YAML, and verification
+# that what MinIO holds matches what each client actually sent.
 #
 # Non-persistent: MinIO runs with no volume mount, so all of it -- the
 # bucket, the object, everything -- disappears the moment the container is
@@ -79,18 +77,16 @@
 #      answers. The GUI's and Python's objects are also validated with the
 #      real CLI, and each YAML object's stored `Content-Type` is confirmed
 #      from MinIO's own response header, not assumed.
-#  10. Opens a fresh, disposable Chrome window on the MinIO Console's file
-#      browser for the bucket, so you can see all four files listed yourself
-#      -- launched with a throwaway profile and --ignore-certificate-errors
-#      so it doesn't stop at a certificate warning first. Nothing on your
-#      main Chrome profile or your Mac's own trust store is touched.
+#  10. Prints the raw S3 ListObjects listing for the bucket, so you can see
+#      all four submitted files without opening anything -- plus the MinIO
+#      Console URL and login, if you want to look yourself.
 #
 # What this does not cover: a mail handoff leg. The desktop has no mail
 # compose integration yet -- issue #103 is open -- so there is nothing here
 # for this script to drive; it isn't a gap in the script.
 #
-# Leaves the MinIO container (and that Chrome window) running so you can
-# look around. Cleanup instructions print at the end.
+# Leaves the MinIO container running so you can look around. Cleanup
+# instructions print at the end.
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -132,12 +128,6 @@ ROOT_USER="root"
 ROOT_PASSWORD="password"
 WORK_DIR="$(mktemp -d)"
 trap 'rm -rf "$WORK_DIR"' EXIT
-
-# The Chrome profile is deliberately outside WORK_DIR: WORK_DIR is deleted at
-# script exit, but Chrome itself keeps running afterward (see step 7), so its
-# profile has to survive that cleanup. Wiped at the *start* of each run instead.
-CHROME_PROFILE="$SCRIPT_DIR/.chrome-profile"
-rm -rf "$CHROME_PROFILE"
 
 mc() {
   podman run --rm --network=host -v "$SCRIPT_DIR/mc-config:/root/.mc:Z" \
@@ -447,37 +437,14 @@ else
   exit 1
 fi
 
-print_header "10. Open a directory listing of everything PUT into the bucket"
+print_header "10. Directory listing of everything PUT into the bucket"
 BUCKET_URL="https://localhost:9000/$BUCKET/"
 CONSOLE_URL="https://localhost:9001/browser/$BUCKET"
-print_info "Raw S3 ListObjects response for '$BUCKET' (this is the actual, unfiltered"
-print_info "directory listing -- printed here so it's visible even if the browser"
-print_info "step below doesn't apply to your setup):"
+print_info "Raw S3 ListObjects response for '$BUCKET':"
 echo
 curl -sk "$BUCKET_URL" | sed 's/></>\n</g'
 echo
-print_info "Opening the same listing as a file browser in a fresh, disposable Chrome"
-print_info "window (its own throwaway profile -- your main Chrome profile, and your"
-print_info "Mac's own certificate trust store, are both left untouched). It's launched"
-print_info "with --ignore-certificate-errors so it lands on the MinIO Console's login"
-print_info "screen directly, with no certificate warning first."
-print_info "Console login: $ROOT_USER / $ROOT_PASSWORD"
-if [ "$(uname)" = "Darwin" ] && [ -x "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" ]; then
-  mkdir -p "$CHROME_PROFILE"
-  nohup "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-    --user-data-dir="$CHROME_PROFILE" \
-    --no-first-run --no-default-browser-check \
-    --ignore-certificate-errors \
-    "$CONSOLE_URL" >/dev/null 2>&1 &
-  disown
-  print_ok "Chrome opened on $CONSOLE_URL"
-elif command -v xdg-open >/dev/null 2>&1; then
-  print_info "No Chrome-flag workaround applied on this platform -- your browser may"
-  print_info "still show its own certificate warning; click through it once."
-  xdg-open "$CONSOLE_URL"
-else
-  print_info "Could not auto-launch a browser. Open this yourself: $CONSOLE_URL"
-fi
+print_info "To browse it yourself: $CONSOLE_URL (login: $ROOT_USER / $ROOT_PASSWORD)"
 
 print_header "Done"
 echo "MinIO is still running (non-persistent -- no data survives removing it)."
@@ -485,5 +452,5 @@ echo "The GUI's filled-form screenshot is at: $GUI_SCREENSHOT"
 echo "When you're done looking around:"
 echo
 print_cmd "podman rm -f $CONTAINER_NAME"
-print_cmd "rm -rf \"$CHROME_PROFILE\" \"$GUI_SCREENSHOT\""
+print_cmd "rm -f \"$GUI_SCREENSHOT\""
 echo
