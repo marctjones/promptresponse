@@ -27,6 +27,12 @@ _NON_FINITE = re.compile(r"^[-+]?\.(?:inf|Inf|INF|nan|NaN|NAN)$")
 class AprYamlError(ValueError):
     """The source uses a YAML construct or value APR-YAML excludes."""
 
+    def __init__(self, message: str, code: str | None = None) -> None:
+        super().__init__(message)
+        #: The format's own diagnostic, e.g. ``YAML_ANCHOR_FORBIDDEN`` --
+        #: mirrors AprParseError.code so beta6.py can carry it through.
+        self.code = code
+
 
 class AprYamlLoader(yaml.SafeLoader):
     """A YAML loader whose scalar resolution is the specification's, not YAML 1.1's."""
@@ -71,21 +77,27 @@ def reject_yaml_features(source: str) -> None:
     for event, is_key in _events_with_key_position(source):
         if isinstance(event, yaml.DocumentStartEvent):
             if event.version is not None or event.tags:
-                raise AprYamlError("APR YAML forbids directives, including %YAML and %TAG")
+                raise AprYamlError(
+                    "APR YAML forbids directives, including %YAML and %TAG",
+                    "YAML_DIRECTIVE_FORBIDDEN")
         elif isinstance(event, yaml.AliasEvent):
-            raise AprYamlError("APR YAML forbids aliases")
+            # An alias references an anchor, so it is refused under the same
+            # diagnostic as the anchor itself (matching the .NET reader).
+            raise AprYamlError("APR YAML forbids aliases", "YAML_ANCHOR_FORBIDDEN")
         elif isinstance(event, yaml.NodeEvent):
             if event.anchor is not None:
-                raise AprYamlError("APR YAML forbids anchors")
+                raise AprYamlError("APR YAML forbids anchors", "YAML_ANCHOR_FORBIDDEN")
             if event.tag is not None:
-                raise AprYamlError("APR YAML forbids tags")
+                raise AprYamlError("APR YAML forbids tags", "YAML_TAG_FORBIDDEN")
             if isinstance(event, yaml.ScalarEvent) and event.style is None:
                 if is_key and event.value == "<<":
-                    raise AprYamlError("APR YAML forbids merge keys")
+                    raise AprYamlError("APR YAML forbids merge keys", "YAML_MERGE_KEY_FORBIDDEN")
                 if _NON_FINITE.match(event.value):
                     # A non-finite float has no JSON value, so it is refused
                     # rather than coerced. [APR-REP-011]
-                    raise AprYamlError("APR YAML forbids a non-finite number: JSON cannot represent it")
+                    raise AprYamlError(
+                        "APR YAML forbids a non-finite number: JSON cannot represent it",
+                        "YAML_NON_FINITE_NUMBER")
 
 
 def _events_with_key_position(source: str) -> Iterator[tuple[yaml.Event, bool]]:

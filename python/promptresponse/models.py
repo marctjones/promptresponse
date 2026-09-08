@@ -68,6 +68,16 @@ class Prompt:
     # produced it, so what may be recomputed is a fact about this session rather
     # than about the file.
     computed_in_this_session: bool = field(default=False, compare=False, repr=False)
+    # Whether the source document carried a `response` member at all.
+    #
+    # A dataclass default cannot tell "the document said response: ''" from
+    # "the document said nothing" -- both parse to the same Python string. The
+    # digest and a round trip both see the difference: an absent response
+    # reads as the empty string (specification 4.7), but adding an explicit
+    # `"response": ""` a source never carried is a different document by the
+    # same rule that makes an added or dropped member matter anywhere else.
+    # Not a member, never compared.
+    response_is_declared: bool = field(default=False, compare=False, repr=False)
 
 
 @dataclass

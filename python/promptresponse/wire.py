@@ -25,7 +25,8 @@ def string_member(node: Dict[str, Any], key: str, what: str):
         raise AprParseError(
             f"{what}.{key} must be a string; got {type(value).__name__}. "
             "Every value in an APR document is a string (specification 3.2), and a "
-            "reader must refuse rather than coerce."
+            "reader must refuse rather than coerce.",
+            "WRONG_TYPE",
         )
     return value
 
@@ -35,7 +36,7 @@ def string_list_member(node: Dict[str, Any], key: str, what: str):
         return None
     value = node[key]
     if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
-        raise AprParseError(f"{what}.{key} must be an array of strings")
+        raise AprParseError(f"{what}.{key} must be an array of strings", "WRONG_TYPE")
     return value
 
 

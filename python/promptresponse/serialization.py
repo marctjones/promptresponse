@@ -130,6 +130,7 @@ def _parse_prompt(node) -> Prompt:
         role=_string(node, "role", "prompt"),
         hints=_parse_hints(node["hints"]) if node.get("hints") else PromptHints(),
         extra=_rest(node, known),
+        response_is_declared="response" in node,
     )
 
 
@@ -266,10 +267,18 @@ def _hints_json(hints: PromptHints) -> Dict[str, Any]:
 
 
 def _prompt_json(prompt: Prompt) -> Dict[str, Any]:
-    # response is always written, empty or not. The reference implementation does,
-    # and an explicitly empty response is data: "asked and left blank" is a
-    # different document from "never asked", and round-tripping must not merge them.
-    node: Dict[str, Any] = {"id": prompt.id, "label": prompt.label, "response": prompt.response}
+    # A dataclass default cannot tell "the source said response: ''" from "the
+    # source said nothing" -- both parse to the same Python "". Writing an
+    # explicit "" for a response the source never carried adds a member nobody
+    # wrote, which is a different document by the same rule that makes any
+    # other added or dropped member matter (specification 4.7's "read as the
+    # empty string" is silent on what a writer does with that reading). Written
+    # whenever the source declared it, or the response is non-empty regardless
+    # of source -- so a response an application fills in after loading a
+    # template is still written.
+    node: Dict[str, Any] = {"id": prompt.id, "label": prompt.label}
+    if prompt.response_is_declared or prompt.response:
+        node["response"] = prompt.response
     if prompt.role:
         node["role"] = prompt.role
     hints = _hints_json(prompt.hints)

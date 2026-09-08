@@ -38,17 +38,41 @@ Beta6Record = Union[Beta6FormRecord, Beta6AttestationRecord]
 def read_beta6_stream(source: str, representation: str) -> List[Beta6Record]:
     """Read every independent beta.6 occurrence without inferring relationships."""
     if representation == "jsonc":
-        raw = [_strip_jsonc(record) for record in _split_jsonc(source)]
-    elif representation == "yaml":
+        parts = _split_jsonc(source)
+        return [_parse_jsonc_record(part, is_stream="\x1e" in source) for part in parts]
+    if representation == "yaml":
         try:
             raw = [json.dumps(document, ensure_ascii=False) for document in _load_yaml(source)]
         except AprYamlError as exc:
-            raise AprParseError(str(exc)) from exc
+            raise AprParseError(str(exc), exc.code) from exc
         except yaml.YAMLError as exc:
-            raise AprParseError(f"invalid APR YAML: {exc}") from exc
-    else:
-        raise ValueError("representation must be 'jsonc' or 'yaml'")
-    return [_parse_record(record) for record in raw]
+            raise AprParseError(f"invalid APR YAML: {exc}", "PARSE_ERROR") from exc
+        return [_parse_record(record) for record in raw]
+    raise ValueError("representation must be 'jsonc' or 'yaml'")
+
+
+def _parse_jsonc_record(part: str, is_stream: bool) -> Beta6Record:
+    stripped = _strip_jsonc(part)
+    try:
+        return _parse_record(stripped)
+    except AprParseError as failure:
+        # A record in a jsonc-stream that will not decode as JSON at all is
+        # either malformed or written in the other representation, and those
+        # are different faults: reporting "invalid JSON" for a YAML record
+        # would name the symptom and hide the rule actually broken. Only
+        # worth telling apart in an actual stream -- a lone malformed document
+        # has nothing to be mixed with.
+        if failure.code != "PARSE_ERROR" or not is_stream:
+            raise
+        try:
+            other = _load_yaml(part)
+        except Exception:
+            raise failure from None
+        if other:
+            raise AprParseError(
+                "this stream mixes APR-JSONC and APR-YAML records",
+                "APR_STREAM_MIXED_REPRESENTATIONS") from failure
+        raise
 
 
 def read_beta6_form(source: str, representation: str) -> AprDocument:
@@ -79,18 +103,21 @@ def _parse_record(raw: str) -> Beta6Record:
     try:
         value = json.loads(raw, object_pairs_hook=_unique_object)
     except (json.JSONDecodeError, TypeError) as exc:
-        raise AprParseError(f"not valid beta.6 representation: {exc}") from exc
+        raise AprParseError(f"not valid beta.6 representation: {exc}", "PARSE_ERROR") from exc
     if not isinstance(value, dict):
-        raise AprParseError("an APR beta.6 record must be an object")
+        raise AprParseError("an APR beta.6 record must be an object", "PARSE_ERROR")
     if value.get("aprVersion") != VERSION:
-        raise AprParseError(f"APR beta.6 records must declare aprVersion {VERSION}")
+        raise AprParseError(
+            f"APR beta.6 records must declare aprVersion {VERSION}", "UNSUPPORTED_VERSION")
     if "recordType" in value:
         if value["recordType"] != "attestation":
-            raise AprParseError("unknown APR beta.6 stream record type")
+            raise AprParseError("unknown APR beta.6 stream record type", "WRONG_TYPE")
         _validate_attestation(value)
         return Beta6AttestationRecord(value)
     if "signatures" in value:
-        raise AprParseError("RETIRED_EMBEDDED_SIGNATURES")
+        raise AprParseError(
+            "beta.6 forms carry attestations as independent stream records, not an "
+            "embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES")
     return Beta6FormRecord(loads(json.dumps(value, ensure_ascii=False)), value)
 
 
@@ -99,7 +126,7 @@ def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     value: dict[str, Any] = {}
     for key, item in pairs:
         if key in value:
-            raise AprParseError(f"APR JSONC object has duplicate member {key!r}")
+            raise AprParseError(f"APR JSONC object has duplicate member {key!r}", "DUPLICATE_MEMBER")
         value[key] = item
     return value
 
