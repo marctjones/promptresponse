@@ -90,6 +90,9 @@ export function loads(text: string): AprDocument {
   for (const member of ["aprVersion", "metadata", "sections"]) if (!(member in node)) throw new AprParseError(`${member} is required. A document missing it is a structurally wrong shape, which is a parse failure rather than a validation error (specification 6.3).`, "REQUIRED_FIELD");
   if (!Array.isArray(node.sections)) throw new AprParseError("sections must be an array", "WRONG_TYPE");
   if (!isSupportedVersion(string(node, "aprVersion", "document"))) throw new AprParseError(`Unsupported APR version ${String(node.aprVersion)}; this build accepts only ${CURRENT_VERSION}`, "UNSUPPORTED_VERSION");
+  // Present-but-null is a value, and this member has no null spelling: a
+  // document either declares a kind or leaves the member out entirely.
+  if ("documentType" in node && node.documentType === null) throw new AprParseError("documentType, if present, must be a string", "PARSE_ERROR");
   if (node.roles !== undefined && !Array.isArray(node.roles)) throw new AprParseError("roles must be an array", "WRONG_TYPE");
   if (node.signatures !== undefined) throw new AprParseError("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
   const known = new Set(["aprVersion", "documentType", "metadata", "sections", "roles", "signatures"]);
