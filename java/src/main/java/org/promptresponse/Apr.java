@@ -362,18 +362,17 @@ public final class Apr {
     }
 
     /**
-     * Workflow state beta.6 retired, dropped rather than carried forward.
+     * Members retired from the format: the pre-1.0 table-column presentation set
+     * (specification 5.8.1) plus the workflow state beta.6 retired.
      *
      * None carried a claim whose silent loss would be worse than its removal — unlike
      * embedded {@code signatures}, which is refused with a diagnostic because a document
      * holding it was making a cryptographic claim beta.6 cannot honour. Preserving these
      * would write them back into a document the format says has none.
-     *
-     * The pre-1.0 presentation members are deliberately absent: .NET and the scripting
-     * SDKs retire different sets of those, and which list is right is a question for the
-     * specification rather than for this reader to guess (issue #376).
      */
-    private static final Set<String> RETIRED_MEMBERS = Set.of("responseMetadata", "filledBy", "filledDate");
+    private static final Set<String> RETIRED_MEMBERS = Set.of(
+        "width", "alignment", "color", "background", "fontSize", "bold", "style",
+        "responseMetadata", "filledBy", "filledDate");
 
     @SuppressWarnings("unchecked") private static void dropRetiredMembers(Object node) {
         if (node instanceof Map<?,?> raw) {

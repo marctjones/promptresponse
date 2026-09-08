@@ -7,6 +7,7 @@ public final class AprConformanceTest {
     public static void main(String[] args) throws Exception {
         expressionBinding();
         beta6();
+        retiredMembers();
         jcsNumbers();
         beta6Corpus();
         specificationExamples();
@@ -14,6 +15,20 @@ public final class AprConformanceTest {
         validationVocabulary();
         expressionEdgeCases();
         System.out.println("Java APR beta.6 conformance passed");
+    }
+
+    /**
+     * Specification 5.8.1 retires the table-column presentation set ("width" and
+     * its siblings), not "tableLayout", the wrapper that used to carry them. A
+     * name only the specification retires is dropped; anything merely
+     * unfamiliar -- including a name that only resembles a retired one -- is
+     * preserved (issue #376).
+     */
+    private static void retiredMembers() {
+        String withExtras = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"width\":40,\"tableLayout\":{\"columns\":[]},\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"Ada\"}]}]}";
+        String written = AprBeta6.writeForm(AprBeta6.readForm(withExtras, AprBeta6.Representation.JSONC), AprBeta6.Representation.JSONC);
+        if (written.contains("\"width\"")) throw new AssertionError("a retired presentation member must be dropped: " + written);
+        if (!written.contains("\"tableLayout\"")) throw new AssertionError("a name that merely resembles a retired one must be preserved: " + written);
     }
 
     /** The text floor, confusable-script-mix, and table-shape checks added while building AprConformanceDriver. */
