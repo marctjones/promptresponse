@@ -87,6 +87,22 @@ internal sealed class DocumentDeliveryWorkflow
         var targets = source?.Metadata.SubmissionUrls?.Where(IsHttpsTarget).ToList() ?? [];
         if (targets.Count == 0) return;
 
+        // A submission URL is where this document's completed data goes; a
+        // hidden character in it (zero-width, bidi override) can make it
+        // display as one host while resolving to another. Unlike a title or
+        // label, which only ever warns, an address used to route data gets
+        // refused outright -- there is no legitimate reason a real hostname
+        // needs an invisible character.
+        var hiddenTarget = targets.FirstOrDefault(Core.Text.StringSanitizer.ContainsHiddenCharacters);
+        if (hiddenTarget is not null)
+        {
+            await _dialogService.ShowConfirmationAsync("Submit via HTTPS",
+                $"The submission URL {hiddenTarget} contains a hidden character (zero-width, "
+                + "bidi, or similar) and may display as a different address than it actually "
+                + "is. Retype it in the template rather than editing it, then try again.");
+            return;
+        }
+
         var selectedIndex = await _dialogService.ShowChoiceAsync(
             "Submit via HTTPS",
             "Choose one destination. PromptResponse will PUT only after you confirm; it never follows redirects or falls back.",

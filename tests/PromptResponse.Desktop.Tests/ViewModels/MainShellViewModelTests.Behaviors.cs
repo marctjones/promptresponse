@@ -186,6 +186,24 @@ public partial class MainShellViewModelTests
     }
 
     [Fact]
+    public async Task SubmitViaHttps_RefusesAHiddenCharacterInTheSubmissionUrlWithoutSubmitting()
+    {
+        // A zero-width space can make a submission URL display as one host while
+        // routing to another. Unlike a title or label, which only ever warns, an
+        // address used to route data is refused outright -- no choice dialog, no
+        // PUT, before the person can even be asked to confirm it.
+        var fileService = Substitute.For<IFileService>(); var dialogs = Substitute.For<IDialogService>(); var submission = Substitute.For<IHttpsSubmissionService>(); var session = new DocumentSessionService(); var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false); var document = MakeTemplate(); document.Metadata.SubmissionUrls = ["https://exa​mple.com/submit"]; session.Set(document, null, dirty: true); dialogs.ShowConfirmationAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(Task.FromResult(true));
+        var shell = new MainShellViewModel(fileService, dialogs, session, profile, new PromptViewModelFactory(profile), httpsSubmission: submission);
+
+        await shell.SubmitViaHttps();
+
+        await submission.DidNotReceive().SubmitAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>());
+        await dialogs.DidNotReceive().ShowChoiceAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<IReadOnlyList<string>>());
+        await dialogs.Received(1).ShowConfirmationAsync("Submit via HTTPS",
+            Arg.Is<string>(message => message.Contains("hidden character")));
+    }
+
+    [Fact]
     public async Task SubmitViaHttps_IgnoresAnOutOfRangeDestinationChoice()
     {
         var fileService = Substitute.For<IFileService>(); var dialogs = Substitute.For<IDialogService>(); var submission = Substitute.For<IHttpsSubmissionService>(); var session = new DocumentSessionService(); var profile = new ProfileService(new StubProbe(), applyAffordanceDefaults: false); var document = MakeTemplate(); document.Metadata.SubmissionUrls = ["https://example.com/submit"]; session.Set(document, null, dirty: true); dialogs.ShowChoiceAsync("Submit via HTTPS", Arg.Any<string>(), Arg.Any<IReadOnlyList<string>>()).Returns(Task.FromResult<int?>(4));

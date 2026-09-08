@@ -82,6 +82,25 @@ public class AprAttestationResolverTests
     }
 
     [Fact]
+    public void Factory_RefusesToSignAFormWhoseSubmissionUrlHasAHiddenCharacter()
+    {
+        // A submission URL is bound into the manifest this attestation signs. A
+        // signer who cannot see a hidden character in it (here, a zero-width
+        // space) would be attesting to a target that is not the one displayed
+        // to them -- unlike a title or label, which only ever warns, an
+        // identifier used in a trust decision is refused outright.
+        var form = (AprFormRecord)_reader.ReadStream("""
+            {"aprVersion":"1.0-beta.6","metadata":{"title":"T","submissionUrls":["https://exa​mple.com/drop"]},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}
+            """, AprRepresentation.Jsonc).Single();
+        using var certificate = SignatureCertificates.CreateSelfSigned("Ada", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddDays(1));
+
+        var act = () => AprAttestationFactory.Create(form.Value, certificate);
+
+        act.Should().Throw<InvalidOperationException>()
+            .WithMessage("*hidden character*");
+    }
+
+    [Fact]
     public void FieldsScope_MustCarryPromptResponseAndSectionContext()
     {
         var form = FormRecord();
