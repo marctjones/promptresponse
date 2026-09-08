@@ -241,6 +241,16 @@
       ]
     },
     {
+      "id": "yaml-quoted-scalar-stays-string",
+      "rule": "yaml-resolution",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Quoted template version\n  templateVersion: \"1.0\"\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "rules": [
+        "APR-REP-017"
+      ]
+    },
+    {
       "id": "yaml-sexagesimal-is-a-string",
       "rule": "yaml-resolution",
       "representation": "yaml",
@@ -272,6 +282,17 @@
         "APR-REP-008",
         "APR-REP-012"
       ]
+    },
+    {
+      "id": "yaml-unquoted-scalar-wrong-type",
+      "rule": "yaml-resolution",
+      "representation": "yaml",
+      "expect": "reject",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Unquoted template version\n  templateVersion: 1.0\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "rules": [
+        "APR-REP-017"
+      ],
+      "diagnostic": "WRONG_TYPE"
     }
   ]
 }

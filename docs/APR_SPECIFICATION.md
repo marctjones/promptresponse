@@ -577,6 +577,51 @@ a scalar resolved. Anywhere else, an author who means the *string* `true` or
 `25` — as a suggested value, say — **MUST** quote it, exactly as a JSON author
 must; the table above is the only thing that decides. [APR-REP-017]
 
+An unquoted `metadata.templateVersion: 1.0` resolves as the number `1.0` by the
+table above, and `templateVersion` is declared a string, so the document is
+rejected — the same `WRONG_TYPE` a JSON author gets from writing
+`"templateVersion": 1.0`. Quoting the scalar is what an author who means the
+*string* `"1.0"` must do; a writer that emits the unquoted form for a value it
+knows to be a string has produced a document that fails to parse.
+
+```apr-example
+id: yaml-unquoted-scalar-wrong-type
+rule: yaml-resolution
+rules: APR-REP-017
+representation: yaml
+expect: reject
+diagnostic: WRONG_TYPE
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Unquoted template version
+  templateVersion: 1.0
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
+
+```apr-example
+id: yaml-quoted-scalar-stays-string
+rule: yaml-resolution
+rules: APR-REP-017
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Quoted template version
+  templateVersion: "1.0"
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
 
 The excluded constructs, each with its vector.
 

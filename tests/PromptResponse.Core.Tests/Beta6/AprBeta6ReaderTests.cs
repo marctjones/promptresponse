@@ -291,6 +291,29 @@ public class AprBeta6ReaderTests
         roundTripped.Sections.Single().Prompts.Single().Response.Should().Be("Ada");
     }
 
+    [Theory]
+    [InlineData("1.0")]
+    [InlineData("42")]
+    [InlineData("true")]
+    [InlineData("null")]
+    public void Writer_QuotesStringsThatWouldOtherwisePlainScalarResolveToAnotherType(string value)
+    {
+        // APR-REP-017: an author who means the *string* "1.0" must have it quoted in the
+        // YAML this writer produces, or this same reader's own plain-scalar resolution
+        // (APR-REP-008) reads it back as a number/boolean/null instead and the document
+        // fails WRONG_TYPE on its very next read -- exactly what happened before
+        // WithQuotingNecessaryStrings was added to the YAML SerializerBuilder.
+        var form = _reader.ReadForm($$"""
+            {"aprVersion":"1.0-beta.6","metadata":{"title":"T","templateVersion":"{{value}}"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"{{value}}"}]}]}
+            """, AprRepresentation.Jsonc);
+
+        var yaml = _reader.WriteForm(form, AprRepresentation.Yaml);
+        var roundTripped = _reader.ReadForm(yaml, AprRepresentation.Yaml);
+
+        roundTripped.Metadata.TemplateVersion.Should().Be(value);
+        roundTripped.Sections.Single().Prompts.Single().Response.Should().Be(value);
+    }
+
     [Fact]
     public void Writer_PreservesEveryStreamOccurrence()
     {
