@@ -11,8 +11,96 @@ public final class AprConformanceTest {
         beta6Corpus();
         specificationExamples();
         expressionActivation();
+        validationVocabulary();
+        expressionEdgeCases();
         System.out.println("Java APR beta.6 conformance passed");
     }
+
+    /** The text floor, confusable-script-mix, and table-shape checks added while building AprConformanceDriver. */
+    private static void validationVocabulary() {
+        String decomposed = "Café"; // "Café" spelled with a combining acute accent
+        AprDocument nonNfc = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"" + decomposed + "\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}");
+        if (!decomposed.equals(nonNfc.metadata().get("title"))) throw new AssertionError("a reader must preserve human-facing text exactly, never rewrite it");
+        if (!codes(Apr.validate(nonNfc).warnings()).equals(java.util.List.of("NON_NFC_TEXT"))) throw new AssertionError("non-NFC title must be reported, not silently cleaned: " + codes(Apr.validate(nonNfc).warnings()));
+
+        AprDocument hidden = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Permit​application\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}");
+        if (!codes(Apr.validate(hidden).warnings()).equals(java.util.List.of("FORBIDDEN_CODE_POINT"))) throw new AssertionError("hidden zero-width space must be reported");
+
+        AprDocument confusable = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Pаypal Permit\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}"); // Cyrillic а (U+0430) hidden in a Latin title
+        if (!codes(Apr.validate(confusable).warnings()).equals(java.util.List.of("CONFUSABLE_SCRIPT_MIX"))) throw new AssertionError("Latin/Cyrillic mix must be reported");
+
+        AprDocument legitimate = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Toyota パーツ Order Form\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}"); // Katakana パーツ ("parts")
+        if (!Apr.validate(legitimate).warnings().isEmpty()) throw new AssertionError("Latin+Katakana is not a confusable mix: " + codes(Apr.validate(legitimate).warnings()));
+
+        AprDocument unregistered = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"hints\":{\"expectedDataType\":\"carrier-pigeon\"}}]}]}");
+        if (!codes(Apr.validate(unregistered).warnings()).equals(java.util.List.of("UNREGISTERED_DATA_TYPE"))) throw new AssertionError("an unregistered expectedDataType is a warning, not a rejection");
+
+        AprDocument ragged = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"t\",\"title\":\"T\",\"kind\":\"table\",\"sections\":["
+            + "{\"id\":\"r1\",\"title\":\"R1\",\"prompts\":[{\"id\":\"r1.a\",\"label\":\"A\"},{\"id\":\"r1.b\",\"label\":\"B\"}]},"
+            + "{\"id\":\"r2\",\"title\":\"R2\",\"prompts\":[{\"id\":\"r2.a\",\"label\":\"A\"}]}]}]}");
+        // A ragged row also can't have its labels compared meaningfully against the first row, so both codes fire.
+        if (!codes(Apr.validate(ragged).warnings()).equals(java.util.List.of("TABLE_LABEL_MISMATCH", "TABLE_RAGGED"))) throw new AssertionError("mismatched table row length must report TABLE_RAGGED and TABLE_LABEL_MISMATCH: " + codes(Apr.validate(ragged).warnings()));
+
+        AprDocument emptyTable = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"t\",\"title\":\"T\",\"kind\":\"table\",\"sections\":[]}]}");
+        ValidationResult tableResult = Apr.validate(emptyTable);
+        if (tableResult.isValid() || !codes(tableResult.errors()).equals(java.util.List.of("EMPTY_TABLE"))) throw new AssertionError("an empty table section is a structural error");
+
+        System.out.println("Java validation vocabulary passed");
+    }
+    private static java.util.List<String> codes(java.util.List<ValidationIssue> issues) {
+        return issues.stream().map(ValidationIssue::code).sorted().toList();
+    }
+
+    /** CEL bugs found while building AprConformanceDriver, all masked by Context's blanket catch. */
+    private static void expressionEdgeCases() {
+        // A prompt named ctx does not break the reserved ctx binding (addVar throws on
+        // a second registration for one name rather than letting the later, reserved
+        // registration win).
+        AprDocument ctxDocument = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":["
+            + "{\"id\":\"ctx\",\"label\":\"Ctx\",\"response\":\"a prompt, not the context\",\"hints\":{\"expectedDataType\":\"text\"}},"
+            + "{\"id\":\"org\",\"label\":\"Org\",\"hints\":{\"expectedDataType\":\"text\",\"exprValue\":\"ctx.org\"}}]}]}");
+        var context = new AprExpressions.Context(ctxDocument, null, java.util.Map.of("org", "Skeptical Engineering"));
+        var orgPrompt = ((java.util.List<?>) ((java.util.Map<?,?>) ctxDocument.sections().get(0)).get("prompts")).get(1);
+        if (!"Skeptical Engineering".equals(context.evaluate((java.util.Map<String,Object>) orgPrompt, "ctx.org")))
+            throw new AssertionError("a field named ctx must not break the reserved ctx binding");
+
+        // The CEL strings extension (trim, split, join, ...) is not part of the standard
+        // library the specification requires, and dev.cel provides it unconditionally.
+        AprDocument trimDocument = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":["
+            + "{\"id\":\"n\",\"label\":\"N\",\"response\":\"Ada\",\"hints\":{\"expectedDataType\":\"text\"}},"
+            + "{\"id\":\"trimmed\",\"label\":\"Trimmed\",\"hints\":{\"expectedDataType\":\"text\",\"exprValue\":\"n.trim()\"}}]}]}");
+        var trimContext = new AprExpressions.Context(trimDocument, null, null);
+        var trimmedPrompt = (java.util.Map<String,Object>) ((java.util.List<?>) ((java.util.Map<?,?>) trimDocument.sections().get(0)).get("prompts")).get(1);
+        if (trimContext.evaluateRaw(trimmedPrompt, "n.trim()") != null) throw new AssertionError("a CEL extension function must be refused, not evaluated");
+
+        // exprValidation is typed string; "2 + 2" evaluating to the number 4 is the
+        // same failure as a compile error, not a value to stringify into "4".
+        AprDocument validationDocument = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"h\",\"label\":\"H\",\"hints\":{\"exprValidation\":\"2 + 2\"}}]}]}");
+        var validationContext = new AprExpressions.Context(validationDocument, null, null);
+        var hPrompt = (java.util.Map<String,Object>) ((java.util.List<?>) ((java.util.Map<?,?>) validationDocument.sections().get(0)).get("prompts")).get(0);
+        Object raw = validationContext.evaluateRaw(hPrompt, "2 + 2");
+        if (raw instanceof String) throw new AssertionError("a numeric exprValidation result must not be treated as a validation message");
+
+        // size(n) is a CEL int; the stored response must read "3", not "3.0".
+        AprDocument lengthDocument = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":["
+            + "{\"id\":\"n\",\"label\":\"N\",\"response\":\"Ada\",\"hints\":{\"expectedDataType\":\"text\"}},"
+            + "{\"id\":\"len\",\"label\":\"Len\",\"hints\":{\"expectedDataType\":\"number\",\"exprValue\":\"double(size(n))\"}}]}]}");
+        AprExpressions.recomputeComputedValues(lengthDocument);
+        var lenPrompt = (java.util.Map<String,Object>) ((java.util.List<?>) ((java.util.Map<?,?>) lengthDocument.sections().get(0)).get("prompts")).get(1);
+        if (!"3".equals(lenPrompt.get("response"))) throw new AssertionError("a computed numeric response must be spelled '3', not '3.0': " + lenPrompt.get("response"));
+
+        // A field whose response does not parse as its expectedDataType is declared but
+        // unbound; dev.cel resolves that into a CelUnknownSet rather than throwing.
+        AprDocument unknownDocument = Apr.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":["
+            + "{\"id\":\"qty\",\"label\":\"Qty\",\"response\":\"about twelve\",\"hints\":{\"expectedDataType\":\"number\"}},"
+            + "{\"id\":\"cost\",\"label\":\"Cost\",\"hints\":{\"expectedDataType\":\"number\",\"exprValue\":\"qty * 2.0\"}}]}]}");
+        AprExpressions.recomputeComputedValues(unknownDocument);
+        var costPrompt = (java.util.Map<String,Object>) ((java.util.List<?>) ((java.util.Map<?,?>) unknownDocument.sections().get(0)).get("prompts")).get(1);
+        if (costPrompt.get("response") != null && !"".equals(costPrompt.get("response"))) throw new AssertionError("an unparsed field must not leak CelUnknownSet's toString() as a computed value: " + costPrompt.get("response"));
+
+        System.out.println("Java expression edge cases passed");
+    }
+
     /**
      * Runs the executable examples embedded in the specification.
      *
