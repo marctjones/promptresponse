@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildExpressionContext, computeValue, AprParseError, beta6FormValue, canonicalizeBeta6, createBeta6Manifest, digestBeta6, readBeta6Form, readBeta6Stream, resolveBeta6Attestations, resolveBeta6AttestationsAsync, verifyBeta6CmsProof, writeBeta6Form, writeBeta6Stream } from "../index.js";
+import { buildExpressionContext, computeValue, validationMessage, AprParseError, beta6FormValue, canonicalizeBeta6, createBeta6Manifest, digestBeta6, readBeta6Form, readBeta6Stream, resolveBeta6Attestations, resolveBeta6AttestationsAsync, verifyBeta6CmsProof, writeBeta6Form, writeBeta6Stream } from "../index.js";
 import { readFile } from "node:fs/promises";
 
 const form = `{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}`;
@@ -209,6 +209,51 @@ test("the expression activation binds every name the specification defines", () 
   assert.equal(value("echo_today"), "2026-09-01");
   assert.equal(value("echo_ctx"), "records");
   assert.equal(value("echo_this"), "seed");
+});
+
+test("a prompt named ctx does not break the reserved ctx binding", () => {
+  // The activation's reserved names take precedence over a same-named prompt
+  // field (specification: a prompt id "not reserved" gets a direct binding).
+  // cel-js throws on a second registerVariable call for one name rather than
+  // letting the later registration win, so this failed every expression in
+  // the document until the field loop started skipping reserved names.
+  const document = readBeta6Form(JSON.stringify({
+    aprVersion: "1.0-beta.6", metadata: { title: "T" },
+    sections: [{ id: "s", title: "S", prompts: [
+      { id: "ctx", label: "Ctx", response: "a prompt, not the context", hints: { expectedDataType: "text" } },
+      { id: "org", label: "Org", hints: { expectedDataType: "text", exprValue: "ctx.org" } },
+    ] }],
+  }), "jsonc");
+  const context = buildExpressionContext(document, undefined, { org: "Skeptical Engineering" });
+  assert.equal(computeValue(document.sections[0].prompts[1], context), "Skeptical Engineering");
+});
+
+test("an expression using a CEL extension function is refused, not evaluated", () => {
+  // The specification requires the CEL standard library and macros only ("no
+  // extension library or custom function"); cel-js bakes the strings
+  // extension's member functions into every environment regardless.
+  const document = readBeta6Form(JSON.stringify({
+    aprVersion: "1.0-beta.6", metadata: { title: "T" },
+    sections: [{ id: "s", title: "S", prompts: [
+      { id: "n", label: "N", response: "Ada", hints: { expectedDataType: "text" } },
+      { id: "trimmed", label: "Trimmed", hints: { expectedDataType: "text", exprValue: "n.trim()" } },
+    ] }],
+  }), "jsonc");
+  const context = buildExpressionContext(document);
+  assert.equal(computeValue(document.sections[0].prompts[1], context), undefined);
+});
+
+test("a non-string exprValidation result is not a validation message", () => {
+  // exprValidation is typed string; "2 + 2" evaluating to the number 4 is the
+  // same failure as a compile error, not a value to stringify into "4".
+  const document = readBeta6Form(JSON.stringify({
+    aprVersion: "1.0-beta.6", metadata: { title: "T" },
+    sections: [{ id: "s", title: "S", prompts: [
+      { id: "h", label: "H", hints: { exprValidation: "2 + 2" } },
+    ] }],
+  }), "jsonc");
+  const context = buildExpressionContext(document);
+  assert.equal(validationMessage(document.sections[0].prompts[0], context), undefined);
 });
 
 test("temporal names are unbound when the caller supplies nothing", () => {
