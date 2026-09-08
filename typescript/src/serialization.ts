@@ -10,7 +10,7 @@ const object = (value: unknown, what: string): JsonObject => {
 const string = (node: JsonObject, key: string, what: string): string | undefined => {
   const value = node[key];
   if (value === undefined || value === null) return undefined;
-  if (typeof value !== "string") throw new AprParseError(`${what}.${key} must be a string; APR values are never coerced.`);
+  if (typeof value !== "string") throw new AprParseError(`${what}.${key} must be a string; APR values are never coerced.`, "WRONG_TYPE");
   return value;
 };
 // A structural member of the wrong JSON type is WRONG_TYPE, not a generic parse
@@ -49,7 +49,7 @@ const numberOrString = (node: JsonObject, key: string, what: string): number | s
 };
 const strings = (value: JsonValue | undefined, what: string): string[] => {
   if (value === undefined || value === null) return [];
-  if (!Array.isArray(value) || value.some(item => typeof item !== "string")) throw new AprParseError(`${what} must be an array of strings`);
+  if (!Array.isArray(value) || value.some(item => typeof item !== "string")) throw new AprParseError(`${what} must be an array of strings`, "WRONG_TYPE");
   return value as string[];
 };
 const rest = (node: JsonObject, known: Set<string>): JsonObject => Object.fromEntries(Object.entries(node).filter(([key]) => !known.has(key) && !RETIRED_MEMBERS.has(key)));
@@ -67,7 +67,7 @@ function parsePrompt(value: JsonValue): Prompt {
 function parseSection(value: JsonValue): Section {
   const node = object(value, "section"); const known = new Set(["id", "title", "description", "kind", "canAddRows", "maxRows", "role", "prompts", "sections"]);
   const prompts = node.prompts ?? []; const sections = node.sections ?? [];
-  if (!Array.isArray(prompts) || !Array.isArray(sections)) throw new AprParseError("section.prompts and section.sections must be arrays");
+  if (!Array.isArray(prompts) || !Array.isArray(sections)) throw new AprParseError("section.prompts and section.sections must be arrays", "WRONG_TYPE");
   return { id: string(node, "id", "section") ?? "", title: normalize(string(node, "title", "section")) ?? "", description: normalize(string(node, "description", "section")), kind: string(node, "kind", "section"), canAddRows: boolean(node, "canAddRows", "section"), maxRows: number(node, "maxRows", "section"), role: string(node, "role", "section"), prompts: prompts.map(parsePrompt), sections: sections.map(parseSection), extra: rest(node, known) };
 }
 function parseMetadata(value: JsonValue): Metadata {
@@ -85,13 +85,13 @@ export function isSupportedVersion(version: string | undefined): boolean {
 }
 /** Parse document bytes. Structural defects remain validation errors where APR requires that separation. */
 export function loads(text: string): AprDocument {
-  let parsed: unknown; try { parsed = JSON.parse(text.replace(/^\ufeff/, "")); } catch (error) { throw new AprParseError(`not valid JSON: ${(error as Error).message}`); }
+  let parsed: unknown; try { parsed = JSON.parse(text.replace(/^\ufeff/, "")); } catch (error) { throw new AprParseError(`not valid JSON: ${(error as Error).message}`, "PARSE_ERROR"); }
   const node = object(parsed, "APR document");
-  for (const member of ["aprVersion", "metadata", "sections"]) if (!(member in node)) throw new AprParseError(`${member} is required`);
-  if (!Array.isArray(node.sections)) throw new AprParseError("sections must be an array");
-  if (!isSupportedVersion(string(node, "aprVersion", "document"))) throw new AprParseError(`Unsupported APR version ${String(node.aprVersion)}; this build accepts only ${CURRENT_VERSION}`);
-  if (node.roles !== undefined && !Array.isArray(node.roles)) throw new AprParseError("roles must be an array");
-  if (node.signatures !== undefined) throw new AprParseError("RETIRED_EMBEDDED_SIGNATURES");
+  for (const member of ["aprVersion", "metadata", "sections"]) if (!(member in node)) throw new AprParseError(`${member} is required. A document missing it is a structurally wrong shape, which is a parse failure rather than a validation error (specification 6.3).`, "REQUIRED_FIELD");
+  if (!Array.isArray(node.sections)) throw new AprParseError("sections must be an array", "WRONG_TYPE");
+  if (!isSupportedVersion(string(node, "aprVersion", "document"))) throw new AprParseError(`Unsupported APR version ${String(node.aprVersion)}; this build accepts only ${CURRENT_VERSION}`, "UNSUPPORTED_VERSION");
+  if (node.roles !== undefined && !Array.isArray(node.roles)) throw new AprParseError("roles must be an array", "WRONG_TYPE");
+  if (node.signatures !== undefined) throw new AprParseError("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
   const known = new Set(["aprVersion", "documentType", "metadata", "sections", "roles", "signatures"]);
   return { version: string(node, "aprVersion", "document") ?? "", documentType: string(node, "documentType", "document"), metadata: parseMetadata(node.metadata), sections: (node.sections as JsonValue[]).map(parseSection), roles: node.roles === undefined ? undefined : (node.roles as JsonValue[]).map(parseRole), extra: rest(node, known) };
 }

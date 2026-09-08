@@ -104,7 +104,7 @@ test("beta.6 YAML indicator characters inside a plain scalar are ordinary conten
 
 test("beta.6 rejects the retired root signatures field", () => {
   const retired = `${form.slice(0, -1)},"signatures":[]}`;
-  assert.throws(() => readBeta6Form(retired, "jsonc"), /RETIRED_EMBEDDED_SIGNATURES/);
+  assert.throws(() => readBeta6Form(retired, "jsonc"), (error: unknown) => error instanceof AprParseError && error.code === "RETIRED_EMBEDDED_SIGNATURES");
 });
 
 test("beta.6 rejects duplicate JSONC members", () => {

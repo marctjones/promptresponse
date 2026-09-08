@@ -11,8 +11,31 @@ const VERSION = "1.0-beta.6";
 
 /** Reads all stream occurrences without assigning meaning from their order. */
 export function readBeta6Stream(source: string, representation: Beta6Representation): Beta6Record[] {
-  const raw = representation === "jsonc" ? splitJsonc(source).map(stripJsonc) : splitYaml(source);
-  return raw.map(parseRecord);
+  if (representation === "yaml") return splitYaml(source).map(parseRecord);
+  const isStream = source.includes("");
+  return splitJsonc(source).map(part => parseJsoncRecord(part, isStream));
+}
+
+function parseJsoncRecord(part: string, isStream: boolean): Beta6Record {
+  const stripped = stripJsonc(part);
+  try {
+    return parseRecord(stripped);
+  } catch (failure) {
+    // A record in a jsonc-stream that will not decode as JSON at all is either
+    // malformed or written in the other representation, and those are different
+    // faults: reporting PARSE_ERROR for a YAML record would name the symptom and
+    // hide the rule actually broken. Only worth telling apart in an actual
+    // stream -- a lone malformed document has nothing to be mixed with.
+    if (!(failure instanceof AprParseError) || failure.code !== "PARSE_ERROR" || !isStream) throw failure;
+    let other: string[];
+    try {
+      other = splitYaml(part);
+    } catch {
+      throw failure;
+    }
+    if (other.length) throw new AprParseError("this stream mixes APR-JSONC and APR-YAML records", "APR_STREAM_MIXED_REPRESENTATIONS");
+    throw failure;
+  }
 }
 
 /** Reads exactly one form; a stream must be handled through readBeta6Stream. */
@@ -40,16 +63,23 @@ export function writeBeta6Stream(records: Iterable<Beta6Record>, representation:
 
 function parseRecord(raw: string): Beta6Record {
   let value: unknown;
-  try { rejectDuplicateObjectMembers(raw); value = JSON.parse(raw); } catch (error) { throw new AprParseError(`not valid beta.6 representation: ${(error as Error).message}`); }
-  if (value === null || typeof value !== "object" || Array.isArray(value)) throw new AprParseError("an APR beta.6 record must be an object");
+  try {
+    rejectDuplicateObjectMembers(raw);
+    value = JSON.parse(raw);
+  } catch (error) {
+    const message = (error as Error).message;
+    const code = message.startsWith("duplicate member") ? "DUPLICATE_MEMBER" : "PARSE_ERROR";
+    throw new AprParseError(`not valid beta.6 representation: ${message}`, code);
+  }
+  if (value === null || typeof value !== "object" || Array.isArray(value)) throw new AprParseError("an APR beta.6 record must be an object", "PARSE_ERROR");
   const object = value as JsonObject;
-  if (object.aprVersion !== VERSION) throw new AprParseError(`APR beta.6 records must declare aprVersion ${VERSION}`);
+  if (object.aprVersion !== VERSION) throw new AprParseError(`APR beta.6 records must declare aprVersion ${VERSION}`, "UNSUPPORTED_VERSION");
   if (object.recordType !== undefined) {
-    if (object.recordType !== "attestation") throw new AprParseError("unknown APR beta.6 stream record type");
+    if (object.recordType !== "attestation") throw new AprParseError("unknown APR beta.6 stream record type", "WRONG_TYPE");
     validateAttestation(object);
     return { type: "attestation", value: object };
   }
-  if (object.signatures !== undefined) throw new AprParseError("RETIRED_EMBEDDED_SIGNATURES");
+  if (object.signatures !== undefined) throw new AprParseError("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
   return { type: "form", document: loads(JSON.stringify(object)), value: object };
 }
 
@@ -99,7 +129,7 @@ function isObject(value: JsonValue | undefined): value is JsonObject {
 }
 
 function splitJsonc(source: string): string[] {
-  const records = source.includes("\u001e") ? source.split("\u001e").filter(Boolean) : [source];
+  const records = source.includes("\u001e") ? source.split("\u001e").filter(record => record.trim()) : [source];
   if (!records.length) throw new AprParseError("an APR JSONC stream has no records");
   return records;
 }
@@ -115,10 +145,10 @@ function resolvePlainScalar(text: string): JsonValue {
   if (text === "" || text === "~" || text === "null" || text === "Null" || text === "NULL") return null;
   if (text === "true" || text === "True" || text === "TRUE") return true;
   if (text === "false" || text === "False" || text === "FALSE") return false;
-  if (NON_FINITE.test(text)) throw new AprParseError("APR YAML forbids a non-finite number: JSON cannot represent it");
+  if (NON_FINITE.test(text)) throw new AprParseError("APR YAML forbids a non-finite number: JSON cannot represent it", "YAML_NON_FINITE_NUMBER");
   if (JSON_NUMBER.test(text)) {
     const number = Number(text);
-    if (!Number.isFinite(number)) throw new AprParseError("APR YAML forbids a non-finite number: JSON cannot represent it");
+    if (!Number.isFinite(number)) throw new AprParseError("APR YAML forbids a non-finite number: JSON cannot represent it", "YAML_NON_FINITE_NUMBER");
     return number;
   }
   return text;
@@ -156,24 +186,24 @@ const DEFAULT_TAG_HANDLES: Record<string, string> = { "!": "!", "!!": "tag:yaml.
 function rejectYamlFeatures(document: Document): void {
   const directives = document.directives;
   const customTag = Object.entries(directives?.tags ?? {}).some(([handle, prefix]) => DEFAULT_TAG_HANDLES[handle] !== prefix);
-  if (directives?.yaml.explicit || customTag) throw new AprParseError("APR YAML forbids directives, including %YAML and %TAG");
+  if (directives?.yaml.explicit || customTag) throw new AprParseError("APR YAML forbids directives, including %YAML and %TAG", "YAML_DIRECTIVE_FORBIDDEN");
   visit(document, (_key, node) => {
-    if (isAlias(node)) throw new AprParseError("APR YAML forbids aliases");
+    if (isAlias(node)) throw new AprParseError("APR YAML forbids aliases", "YAML_ANCHOR_FORBIDDEN");
     if (isPair(node)) {
       const key = node.key;
-      if (isScalar(key) && (key.type === Scalar.PLAIN || key.type === undefined) && key.value === "<<") throw new AprParseError("APR YAML forbids merge keys");
+      if (isScalar(key) && (key.type === Scalar.PLAIN || key.type === undefined) && key.value === "<<") throw new AprParseError("APR YAML forbids merge keys", "YAML_MERGE_KEY_FORBIDDEN");
       return;
     }
     if (!isNode(node)) return;
-    if (node.anchor !== undefined) throw new AprParseError("APR YAML forbids anchors");
-    if (node.tag !== undefined) throw new AprParseError("APR YAML forbids tags");
+    if (node.anchor !== undefined) throw new AprParseError("APR YAML forbids anchors", "YAML_ANCHOR_FORBIDDEN");
+    if (node.tag !== undefined) throw new AprParseError("APR YAML forbids tags", "YAML_TAG_FORBIDDEN");
   });
 }
 
 function splitYaml(source: string): string[] {
   const documents = parseAllDocuments(source, { schema: "failsafe" });
   return documents.map(document => {
-    if (document.errors.length) throw new AprParseError(`invalid APR YAML: ${document.errors[0].message}`);
+    if (document.errors.length) throw new AprParseError(`invalid APR YAML: ${document.errors[0].message}`, "PARSE_ERROR");
     rejectYamlFeatures(document);
     return JSON.stringify(aprResolve(document.contents) as JsonValue);
   });
