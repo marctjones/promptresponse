@@ -1,0 +1,59 @@
+{
+  "form_id": "fed-w4",
+  "form_name": "IRS Form W-4 (Employee's Withholding Certificate)",
+  "page_count": 5,
+  "sections": [
+    {"id": "step1", "title": "Step 1: Enter Personal Information"},
+    {"id": "step2", "title": "Step 2: Multiple Jobs or Spouse Works"},
+    {"id": "step3", "title": "Step 3: Claim Dependent and Other Credits"},
+    {"id": "step4", "title": "Step 4: Other Adjustments"},
+    {"id": "exempt", "title": "Exempt from withholding"},
+    {"id": "step5", "title": "Step 5: Sign Here"},
+    {"id": "employers-only", "title": "Employers Only"}
+  ],
+  "fields": [
+    {"id": "first-name-mi", "label": "(a) First name and middle initial", "expected_data_type": "text", "required": true, "section_id": "step1", "field_kind": "text_line"},
+    {"id": "last-name", "label": "Last name", "expected_data_type": "text", "required": true, "section_id": "step1", "field_kind": "text_line"},
+    {"id": "address", "label": "Address", "expected_data_type": "text", "required": true, "section_id": "step1", "field_kind": "text_line"},
+    {"id": "city-state-zip", "label": "City or town, state, and ZIP code", "expected_data_type": "text", "required": true, "section_id": "step1", "field_kind": "text_line"},
+    {"id": "ssn", "label": "(b) Social security number", "expected_data_type": "text", "required": true, "section_id": "step1", "field_kind": "text_line"},
+    {
+      "id": "filing-status",
+      "label": "(c) Single or Married filing separately",
+      "expected_data_type": "text",
+      "required": true,
+      "section_id": "step1",
+      "field_kind": "choice",
+      "choices": ["Single or Married filing separately", "Married filing jointly or Qualifying surviving spouse", "Head of household"],
+      "notes": "Three mutually-exclusive checkboxes stacked under (c); Head of household has an additional visible qualifying condition."
+    },
+    {
+      "id": "two-jobs-checkbox",
+      "label": "If there are only two jobs total, you may check this box.",
+      "expected_data_type": "boolean",
+      "required": false,
+      "section_id": "step2",
+      "field_kind": "checkbox",
+      "notes": "This is option (c) of Step 2; options (a) and (b) point to an external online estimator and a worksheet respectively and have no blank of their own on the submitted form (the worksheet result is entered in Step 4(c))."
+    },
+    {"id": "step3a", "label": "3(a) Multiply the number of qualifying children under age 17 by $2,200", "expected_data_type": "currency", "required": false, "section_id": "step3", "field_kind": "text_line"},
+    {"id": "step3b", "label": "3(b) Multiply the number of other dependents by $500", "expected_data_type": "currency", "required": false, "section_id": "step3", "field_kind": "text_line"},
+    {"id": "step3-total", "label": "Add the amounts from Steps 3(a) and 3(b), plus the amount for other credits. Enter the total here", "expected_data_type": "currency", "required": false, "section_id": "step3", "field_kind": "text_line"},
+    {"id": "step4a", "label": "4(a) Other income (not from jobs).", "expected_data_type": "currency", "required": false, "section_id": "step4", "field_kind": "text_line"},
+    {"id": "step4b", "label": "4(b) Deductions.", "expected_data_type": "currency", "required": false, "section_id": "step4", "field_kind": "text_line"},
+    {"id": "step4c", "label": "4(c) Extra withholding. Enter any additional tax you want withheld each pay period.", "expected_data_type": "currency", "required": false, "section_id": "step4", "field_kind": "text_line"},
+    {
+      "id": "exempt-checkbox",
+      "label": "I claim exemption from withholding for 2026, and I certify that I meet both of the conditions for exemption for 2026.",
+      "expected_data_type": "boolean",
+      "required": false,
+      "section_id": "exempt",
+      "field_kind": "checkbox"
+    },
+    {"id": "signature", "label": "Employee's signature (This form is not valid unless you sign it.)", "expected_data_type": "text", "required": true, "section_id": "step5", "field_kind": "signature"},
+    {"id": "date", "label": "Date", "expected_data_type": "date", "required": true, "section_id": "step5", "field_kind": "date_field"},
+    {"id": "employer-name-address", "label": "Employer's name and address", "expected_data_type": "text", "required": true, "section_id": "employers-only", "field_kind": "text_line"},
+    {"id": "first-date-employment", "label": "First date of employment", "expected_data_type": "date", "required": true, "section_id": "employers-only", "field_kind": "date_field"},
+    {"id": "employer-ein", "label": "Employer identification number (EIN)", "expected_data_type": "text", "required": true, "section_id": "employers-only", "field_kind": "text_line"}
+  ]
+}
