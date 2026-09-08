@@ -329,9 +329,10 @@ jobs:
     name: SDK suites (Python, TypeScript, browser demo, Java)
     runs-on: ubuntu-latest
     # Separate from the language-neutral gate on purpose. These four suites are
-    # implementations measured against the specification, and no SDK is aligned
-    # to beta.6 yet, so this job is expected to fail until the alignment lands.
-    # It must not be able to take the specification gates down with it.
+    # implementations measured against the specification. Every SDK's wire format
+    # is aligned to beta.6, but only Python is scored against the conformance
+    # suite itself so far (issue #379); TypeScript and Java still need a driver.
+    # This job must not be able to take the specification gates down with it.
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -368,6 +369,16 @@ jobs:
         run: |
           uv sync --all-extras --locked
           uv run pytest -q
+
+      - name: Score the Python SDK against the conformance suite
+        # python/conformance_driver.py answers with the shipped promptresponse
+        # package (not scripts/aprlib.py's SDK-free oracle), run through the same
+        # uv environment `uv sync` just built so it has celpy and PyYAML. Claims
+        # core, core+streams and core+expressions; core+attestations is
+        # deliberately unclaimed, matching both .NET drivers below.
+        run: >-
+          python3 scripts/run-conformance.py
+          --driver "python/.venv/bin/python python/conformance_driver.py"
 
       - name: Python dead-code check
         # vulture's default per-kind confidence for an unused function or method is
