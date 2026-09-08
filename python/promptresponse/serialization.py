@@ -93,7 +93,7 @@ def _parse_hints(node) -> PromptHints:
     if suggested is None:
         suggested = []
     if not isinstance(suggested, list) or any(not isinstance(s, str) for s in suggested):
-        raise AprParseError("hints.suggestedValues must be an array of strings")
+        raise AprParseError("hints.suggestedValues must be an array of strings", "WRONG_TYPE")
 
     known = {
         "expectedDataType", "placeholder", "helpText", "validationPattern",
@@ -143,9 +143,9 @@ def _parse_section(node) -> Section:
     prompts = node.get("prompts") or []
     sections = node.get("sections") or []
     if not isinstance(prompts, list):
-        raise AprParseError("section.prompts must be an array")
+        raise AprParseError("section.prompts must be an array", "WRONG_TYPE")
     if not isinstance(sections, list):
-        raise AprParseError("section.sections must be an array")
+        raise AprParseError("section.sections must be an array", "WRONG_TYPE")
 
     return Section(
         id=_string(node, "id", "section") or "",
@@ -190,11 +190,11 @@ def loads(text: str) -> AprDocument:
     try:
         node = json.loads(text)
     except (json.JSONDecodeError, UnicodeDecodeError) as exc:
-        raise AprParseError(f"not valid JSON: {exc}") from exc
+        raise AprParseError(f"not valid JSON: {exc}", "PARSE_ERROR") from exc
 
     if not isinstance(node, dict):
         raise AprParseError(
-            f"an APR document is a JSON object, not {type(node).__name__}"
+            f"an APR document is a JSON object, not {type(node).__name__}", "PARSE_ERROR"
         )
 
     for required in ("aprVersion", "metadata", "sections"):
@@ -202,15 +202,21 @@ def loads(text: str) -> AprDocument:
             raise AprParseError(
                 f"{required} is required. A document missing it is a structurally "
                 "wrong shape, which is a parse failure rather than a validation "
-                "error (specification 6.3)."
+                "error (specification 6.3).",
+                "REQUIRED_FIELD",
             )
 
     if not isinstance(node["sections"], list):
-        raise AprParseError("sections must be an array")
+        raise AprParseError("sections must be an array", "WRONG_TYPE")
+
+    if "documentType" in node and node["documentType"] is None:
+        # Present-but-null is a value, and this member has no null spelling: a
+        # document either declares a kind or leaves the member out entirely.
+        raise AprParseError("documentType, if present, must be a string", "PARSE_ERROR")
 
     roles = node.get("roles")
     if roles is not None and not isinstance(roles, list):
-        raise AprParseError("roles must be an array")
+        raise AprParseError("roles must be an array", "WRONG_TYPE")
 
     known = {"aprVersion", "documentType", "metadata", "sections", "roles", "signatures"}
     document = AprDocument(
@@ -234,9 +240,13 @@ def loads(text: str) -> AprDocument:
         extra=_rest(node, known),
     )
     if not is_supported_version(document.version):
-        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}")
+        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}", "UNSUPPORTED_VERSION")
     if "signatures" in node:
-        raise AprParseError("RETIRED_EMBEDDED_SIGNATURES")
+        raise AprParseError(
+            "beta.6 forms carry attestations as independent stream records, not an "
+            "embedded signatures member",
+            "RETIRED_EMBEDDED_SIGNATURES",
+        )
     return document
 
 
@@ -308,7 +318,7 @@ def _section_json(section: Section) -> Dict[str, Any]:
 def dumps(document: AprDocument, indent: int = 2) -> str:
     """Writes APR JSON, preserving every member this reader did not recognise."""
     if not is_supported_version(document.version):
-        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}")
+        raise AprParseError(f"Unsupported APR version {document.version!r}; this build accepts only {CURRENT_VERSION}", "UNSUPPORTED_VERSION")
     metadata = {"title": document.metadata.title}
     metadata.update(_compact({
         "description": document.metadata.description,
