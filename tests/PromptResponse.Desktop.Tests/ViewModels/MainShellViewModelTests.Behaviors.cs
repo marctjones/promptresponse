@@ -174,6 +174,15 @@ public partial class MainShellViewModelTests
 
         await submission.Received(1).SubmitAsync("https://example.com/submit", Arg.Is<string>(json => new AprJsonSerializer().Deserialize(json).DocumentType == DocumentType.FilledForm), Arg.Any<CancellationToken>());
         document.DocumentType.Should().Be(DocumentType.Template, "the submitted copy must not mutate the open document");
+        // The wire behavior is PUT (specification 5.2.1); what a person is asked to
+        // confirm must say so. This regressed once already: the dialogs still said
+        // "POST" after the wire behavior was fixed, and a wildcard Arg.Any<string>()
+        // match on this same confirmation call did not notice.
+        await dialogs.Received(1).ShowChoiceAsync("Submit via HTTPS",
+            Arg.Is<string>(message => message.Contains("PUT") && !message.Contains("POST")),
+            Arg.Any<IReadOnlyList<string>>());
+        await dialogs.Received(1).ShowConfirmationAsync("Submit completed APR",
+            Arg.Is<string>(message => message.Contains("PUT") && !message.Contains("POST")));
     }
 
     [Fact]
