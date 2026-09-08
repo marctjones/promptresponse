@@ -92,7 +92,7 @@ final class Json {
     private void take(char expected) { white(); if (!peek(expected)) throw error("expected '" + expected + "'"); at++; }
     private boolean peek(char c) { return at < input.length() && input.charAt(at) == c; }
     private void white() { while (at < input.length() && Character.isWhitespace(input.charAt(at))) at++; }
-    private AprException error(String message) { return new AprException("Invalid JSON at offset " + at + ": " + message); }
+    private AprException error(String message) { return new AprException("Invalid JSON at offset " + at + ": " + message, "PARSE_ERROR"); }
     @SuppressWarnings("unchecked")
     private static void write(Object value, StringBuilder out) {
         if (value == null) { out.append("null"); return; }

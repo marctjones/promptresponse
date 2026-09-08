@@ -118,8 +118,8 @@ public final class AprConformanceTest {
         String stream = "\u001e" + attestation + "\n\u001e" + form + "\n\u001e" + form;
         java.util.List<AprBeta6.Record> records = AprBeta6.readStream(stream, AprBeta6.Representation.JSONC);
         if (records.size() != 3 || records.stream().filter(record -> record instanceof AprBeta6.FormRecord).count() != 2) throw new AssertionError("beta.6 stream lost an occurrence");
-        try { AprBeta6.readForm(stream, AprBeta6.Representation.JSONC); throw new AssertionError("stream selected a record implicitly"); } catch (AprException expected) { if (!expected.getMessage().contains("APR_STREAM_REQUIRES_ITERATION")) throw expected; }
-        try { AprBeta6.readForm(form.substring(0, form.length() - 1) + ",\"signatures\":[]}", AprBeta6.Representation.JSONC); throw new AssertionError("beta.6 accepted embedded signatures"); } catch (AprException expected) { if (!expected.getMessage().contains("RETIRED_EMBEDDED_SIGNATURES")) throw expected; }
+        try { AprBeta6.readForm(stream, AprBeta6.Representation.JSONC); throw new AssertionError("stream selected a record implicitly"); } catch (AprException expected) { if (!"APR_STREAM_REQUIRES_ITERATION".equals(expected.code())) throw expected; }
+        try { AprBeta6.readForm(form.substring(0, form.length() - 1) + ",\"signatures\":[]}", AprBeta6.Representation.JSONC); throw new AssertionError("beta.6 accepted embedded signatures"); } catch (AprException expected) { if (!"RETIRED_EMBEDDED_SIGNATURES".equals(expected.code())) throw expected; }
         try { AprBeta6.readForm(form.replace("\"metadata\":", "\"metadata\":{},\"metadata\":"), AprBeta6.Representation.JSONC); throw new AssertionError("beta.6 accepted duplicate JSONC members"); } catch (AprException expected) { }
         Object value = Json.parse(form);
         if (!"sha256:b944624a9883f7317f9415090804ddea080806c28ff531664d7d63a66cef50a2".equals(AprBeta6Integrity.digest(value))) throw new AssertionError("beta.6 digest is not representation-neutral");

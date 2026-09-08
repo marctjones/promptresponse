@@ -25,21 +25,41 @@ public final class AprBeta6 {
 
     /** Reads all independent occurrences without deriving a relationship from order. */
     public static List<Record> readStream(String source, Representation representation) {
-        List<String> values = representation == Representation.JSONC ? splitJsonc(source) : yamlDocuments(source);
-        return values.stream().map(AprBeta6::parseRecord).toList();
+        if (representation == Representation.YAML) return yamlDocuments(source).stream().map(AprBeta6::parseRecord).toList();
+        boolean isStream = source.indexOf('') >= 0;
+        return splitJsonc(source).stream().map(part -> parseJsoncRecord(part, isStream)).toList();
+    }
+
+    /**
+     * A record in a jsonc-stream that will not decode as JSON at all is either
+     * malformed or written in the other representation, and those are different
+     * faults: reporting PARSE_ERROR for a YAML record would name the symptom and
+     * hide the rule actually broken. Only worth telling apart in an actual
+     * stream -- a lone malformed document has nothing to be mixed with.
+     */
+    private static Record parseJsoncRecord(String part, boolean isStream) {
+        try {
+            return parseRecord(stripJsonc(part));
+        } catch (AprException failure) {
+            if (!"PARSE_ERROR".equals(failure.code()) || !isStream) throw failure;
+            List<String> other;
+            try { other = yamlDocuments(part); } catch (RuntimeException ignored) { throw failure; }
+            if (!other.isEmpty()) throw new AprException("this stream mixes APR-JSONC and APR-YAML records", "APR_STREAM_MIXED_REPRESENTATIONS");
+            throw failure;
+        }
     }
 
     /** Reads one form, explicitly refusing to select a stream record by position. */
     public static AprDocument readForm(String source, Representation representation) {
         List<Record> records = readStream(source, representation);
-        if (records.size() != 1 || !(records.getFirst() instanceof FormRecord form)) throw new AprException("APR_STREAM_REQUIRES_ITERATION");
+        if (records.size() != 1 || !(records.getFirst() instanceof FormRecord form)) throw new AprException("a stream must be handled through readStream, not readForm", "APR_STREAM_REQUIRES_ITERATION");
         return form.document();
     }
 
     /** Writes a beta.6 form in the requested representation. */
     public static String writeForm(AprDocument document, Representation representation) {
         if (!VERSION.equals(document.version())) throw new AprException("APR beta.6 writers require version " + VERSION);
-        if (document.raw().containsKey("signatures")) throw new AprException("RETIRED_EMBEDDED_SIGNATURES");
+        if (document.raw().containsKey("signatures")) throw new AprException("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
         return writeJson(document.toJson(), representation);
     }
 
@@ -58,21 +78,21 @@ public final class AprBeta6 {
     @SuppressWarnings("unchecked") private static Record parseRecord(String json) {
         rejectDuplicateObjectMembers(json);
         Object parsed = Json.parse(json);
-        if (!(parsed instanceof Map<?,?> raw)) throw new AprException("An APR beta.6 record must be an object");
+        if (!(parsed instanceof Map<?,?> raw)) throw new AprException("An APR beta.6 record must be an object", "PARSE_ERROR");
         Map<String,Object> value = (Map<String,Object>) raw;
-        if (!VERSION.equals(value.get("aprVersion"))) throw new AprException("APR beta.6 records must declare aprVersion " + VERSION);
+        if (!VERSION.equals(value.get("aprVersion"))) throw new AprException("APR beta.6 records must declare aprVersion " + VERSION, "UNSUPPORTED_VERSION");
         if (value.containsKey("recordType")) {
-            if (!"attestation".equals(value.get("recordType"))) throw new AprException("Unknown APR beta.6 stream record type");
+            if (!"attestation".equals(value.get("recordType"))) throw new AprException("Unknown APR beta.6 stream record type", "WRONG_TYPE");
             validateAttestation(value);
             return new AttestationRecord(Map.copyOf(value));
         }
-        if (value.containsKey("signatures")) throw new AprException("RETIRED_EMBEDDED_SIGNATURES");
+        if (value.containsKey("signatures")) throw new AprException("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
         return new FormRecord(Apr.parse(Json.write(value)), value);
     }
 
     private static List<String> splitJsonc(String source) {
         String[] split = source.indexOf('\u001e') >= 0 ? source.split("\\u001e") : new String[] { source };
-        return Arrays.stream(split).filter(value -> !value.isBlank()).map(AprBeta6::stripJsonc).toList();
+        return Arrays.stream(split).filter(value -> !value.isBlank()).toList();
     }
 
     /**
@@ -121,16 +141,16 @@ public final class AprBeta6 {
             if (event instanceof DocumentStartEvent start) {
                 boolean customTag = start.getTags() != null && start.getTags().entrySet().stream()
                     .anyMatch(tag -> !tag.getValue().equals(DEFAULT_TAG_HANDLES.get(tag.getKey())));
-                if (start.getVersion() != null || customTag) throw new AprException("APR YAML forbids directives, including %YAML and %TAG");
+                if (start.getVersion() != null || customTag) throw new AprException("APR YAML forbids directives, including %YAML and %TAG", "YAML_DIRECTIVE_FORBIDDEN");
             } else if (event instanceof AliasEvent) {
-                throw new AprException("APR YAML forbids aliases");
+                throw new AprException("APR YAML forbids aliases", "YAML_ANCHOR_FORBIDDEN");
             } else if (event instanceof NodeEvent node) {
-                if (node.getAnchor() != null) throw new AprException("APR YAML forbids anchors");
+                if (node.getAnchor() != null) throw new AprException("APR YAML forbids anchors", "YAML_ANCHOR_FORBIDDEN");
                 if (event instanceof ScalarEvent scalar) {
-                    if (scalar.getTag() != null) throw new AprException("APR YAML forbids tags");
-                    if (isKey && scalar.getScalarStyle() == DumperOptions.ScalarStyle.PLAIN && "<<".equals(scalar.getValue())) throw new AprException("APR YAML forbids merge keys");
+                    if (scalar.getTag() != null) throw new AprException("APR YAML forbids tags", "YAML_TAG_FORBIDDEN");
+                    if (isKey && scalar.getScalarStyle() == DumperOptions.ScalarStyle.PLAIN && "<<".equals(scalar.getValue())) throw new AprException("APR YAML forbids merge keys", "YAML_MERGE_KEY_FORBIDDEN");
                 } else if (event instanceof CollectionStartEvent collection) {
-                    if (collection.getTag() != null) throw new AprException("APR YAML forbids tags");
+                    if (collection.getTag() != null) throw new AprException("APR YAML forbids tags", "YAML_TAG_FORBIDDEN");
                     frames.push(new int[] { event instanceof MappingStartEvent ? 1 : 0, 0 });
                 }
             } else if (event instanceof CollectionEndEvent) {
@@ -140,12 +160,21 @@ public final class AprBeta6 {
     }
 
     private static List<String> yamlDocuments(String source) {
-        if (source.matches("(?s).*(?m):\\s*[-+]?\\.(?:inf|Inf|INF|nan|NaN|NAN)\\s*$.*")) throw new AprException("APR YAML forbids a non-finite number: JSON cannot represent it");
+        if (source.matches("(?s).*(?m):\\s*[-+]?\\.(?:inf|Inf|INF|nan|NaN|NAN)\\s*$.*")) throw new AprException("APR YAML forbids a non-finite number: JSON cannot represent it", "YAML_NON_FINITE_NUMBER");
         Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()), new org.yaml.snakeyaml.representer.Representer(new org.yaml.snakeyaml.DumperOptions()), new org.yaml.snakeyaml.DumperOptions(), new AprResolver());
-        rejectYamlFeatures(yaml, source);
-        List<String> values = new ArrayList<>();
-        for (Object value : yaml.loadAll(source)) values.add(Json.write(normalizeYaml(value)));
-        return values;
+        try {
+            rejectYamlFeatures(yaml, source);
+            List<String> values = new ArrayList<>();
+            for (Object value : yaml.loadAll(source)) values.add(Json.write(normalizeYaml(value)));
+            return values;
+        } catch (AprException excluded) {
+            throw excluded;
+        } catch (RuntimeException malformed) {
+            // SnakeYAML's own exceptions (ScannerException, ParserException, ...) are not
+            // AprException and carry no code; a document that is not well-formed YAML at
+            // all is a parse failure regardless of which of those it throws.
+            throw new AprException("invalid APR YAML: " + malformed.getMessage(), "PARSE_ERROR");
+        }
     }
 
     @SuppressWarnings("unchecked") private static Object normalizeYaml(Object value) {
@@ -188,7 +217,7 @@ public final class AprBeta6 {
             if (quote) { output.append(c); if (escaped) escaped=false; else if(c=='\\') escaped=true; else if(c=='"') quote=false; continue; }
             if (c=='"') { quote=true; output.append(c); continue; }
             if (c=='/' && i+1<input.length() && input.charAt(i+1)=='/') { while(i<input.length() && input.charAt(i)!='\n') i++; if(i<input.length()) output.append('\n'); continue; }
-            if (c=='/' && i+1<input.length() && input.charAt(i+1)=='*') { i+=2; while(i+1<input.length() && !(input.charAt(i)=='*' && input.charAt(i+1)=='/')) i++; if(i+1>=input.length()) throw new AprException("Unterminated JSONC comment"); i++; continue; }
+            if (c=='/' && i+1<input.length() && input.charAt(i+1)=='*') { i+=2; while(i+1<input.length() && !(input.charAt(i)=='*' && input.charAt(i+1)=='/')) i++; if(i+1>=input.length()) throw new AprException("Unterminated JSONC comment", "PARSE_ERROR"); i++; continue; }
             output.append(c);
         }
         return output.toString().replaceAll(",(\\s*[}\\]])", "$1");
@@ -207,17 +236,17 @@ public final class AprBeta6 {
             if (current == '"') {
                 int start = i++; boolean escaped = false;
                 while (i < source.length()) { char c = source.charAt(i++); if (escaped) escaped = false; else if (c == '\\') escaped = true; else if (c == '"') break; }
-                if (i > source.length() || source.charAt(i - 1) != '"') throw new AprException("Unterminated JSON string");
+                if (i > source.length() || source.charAt(i - 1) != '"') throw new AprException("Unterminated JSON string", "PARSE_ERROR");
                 int next = i; while (next < source.length() && Character.isWhitespace(source.charAt(next))) next++;
                 if (next < source.length() && source.charAt(next) == ':' && !containers.isEmpty() && containers.peek()) {
                     String key = (String) Json.parse(source.substring(start, i));
-                    if (!objects.peek().add(key)) throw new AprException("APR JSONC object has duplicate member '" + key + "'.");
+                    if (!objects.peek().add(key)) throw new AprException("APR JSONC object has duplicate member '" + key + "'.", "DUPLICATE_MEMBER");
                 }
                 continue;
             }
             i++;
         }
-        if (!containers.isEmpty()) throw new AprException("Unclosed JSON container");
+        if (!containers.isEmpty()) throw new AprException("Unclosed JSON container", "PARSE_ERROR");
     }
 
     @SuppressWarnings("unchecked") private static Map<String,Object> cast(Object value) {

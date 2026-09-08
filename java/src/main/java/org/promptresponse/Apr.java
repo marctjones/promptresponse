@@ -12,14 +12,14 @@ public final class Apr {
     private Apr() { }
     public static AprDocument parse(String json) {
         Object parsed = Json.parse(json);
-        if (!(parsed instanceof Map<?, ?> map)) throw new AprException("An APR document must be a JSON object");
+        if (!(parsed instanceof Map<?, ?> map)) throw new AprException("An APR document must be a JSON object", "PARSE_ERROR");
         @SuppressWarnings("unchecked") Map<String,Object> root = (Map<String,Object>) map;
-        for (String required : List.of("aprVersion", "metadata", "sections")) if (!root.containsKey(required)) throw new AprException(required + " is required");
-        if (!(root.get("aprVersion") instanceof String)) throw new AprException("aprVersion must be a string");
-        if (!VERSION.equals(root.get("aprVersion"))) throw new AprException("Unsupported APR version " + root.get("aprVersion") + "; this build accepts only " + VERSION);
-        if (!(root.get("metadata") instanceof Map<?, ?>)) throw new AprException("metadata must be an object");
-        if (!(root.get("sections") instanceof List<?>)) throw new AprException("sections must be an array");
-        if (root.containsKey("signatures")) throw new AprException("RETIRED_EMBEDDED_SIGNATURES");
+        for (String required : List.of("aprVersion", "metadata", "sections")) if (!root.containsKey(required)) throw new AprException(required + " is required. A document missing it is a structurally wrong shape, which is a parse failure rather than a validation error (specification 6.3).", "REQUIRED_FIELD");
+        if (!(root.get("aprVersion") instanceof String)) throw new AprException("aprVersion must be a string", "WRONG_TYPE");
+        if (!VERSION.equals(root.get("aprVersion"))) throw new AprException("Unsupported APR version " + root.get("aprVersion") + "; this build accepts only " + VERSION, "UNSUPPORTED_VERSION");
+        if (!(root.get("metadata") instanceof Map<?, ?>)) throw new AprException("metadata must be an object", "WRONG_TYPE");
+        if (!(root.get("sections") instanceof List<?>)) throw new AprException("sections must be an array", "WRONG_TYPE");
+        if (root.containsKey("signatures")) throw new AprException("beta.6 forms carry attestations as independent stream records, not an embedded signatures member", "RETIRED_EMBEDDED_SIGNATURES");
         rejectBadShape(root);
         dropRetiredMembers(root);
         return new AprDocument(root);
@@ -29,7 +29,7 @@ public final class Apr {
         return parse(json.startsWith("\uFEFF") ? json.substring(1) : json);
     }
     public static void write(AprDocument document, Path path) throws IOException {
-        if (!VERSION.equals(document.version())) throw new AprException("Unsupported APR version " + document.version() + "; this build accepts only " + VERSION);
+        if (!VERSION.equals(document.version())) throw new AprException("Unsupported APR version " + document.version() + "; this build accepts only " + VERSION, "UNSUPPORTED_VERSION");
         Files.writeString(path, document.toJson(), StandardCharsets.UTF_8);
     }
     public static ValidationResult validate(AprDocument document) {
@@ -57,7 +57,7 @@ public final class Apr {
     @SuppressWarnings("unchecked") private static void rejectBadShape(Map<String,Object> root) {
         Map<String,Object> metadata=(Map<String,Object>)root.get("metadata"); if(metadata.containsKey("submissionUrl")) throw new AprException("metadata.submissionUrl is retired; use submissionUrls array");
         strings(metadata,"submissionUrls","metadata.submissionUrls");
-        if(root.containsKey("roles") && !(root.get("roles") instanceof List<?>)) throw new AprException("roles must be an array");
+        if(root.containsKey("roles") && !(root.get("roles") instanceof List<?>)) throw new AprException("roles must be an array", "WRONG_TYPE");
         structuralTypes(root, DOCUMENT, "");
         structuralTypes(metadata, METADATA, "/metadata");
         sections((List<Object>)root.get("sections"));
@@ -139,9 +139,9 @@ public final class Apr {
             if (allowed == null || member.getValue() == null) continue;
             boolean ok = false;
             for (Class<?> type : allowed) if (type.isInstance(member.getValue())) ok = true;
-            if (!ok) throw new AprException("WRONG_TYPE: " + path + "/" + member.getKey() + " is "
+            if (!ok) throw new AprException(path + "/" + member.getKey() + " is "
                 + spell(member.getValue()) + " where the format declares " + spell(allowed)
-                + "; APR values are never coerced.");
+                + "; APR values are never coerced.", "WRONG_TYPE");
         }
     }
     private static String spell(Object value) {
@@ -158,6 +158,6 @@ public final class Apr {
             : type == String.class ? "a string" : type == List.class ? "an array" : "an object");
         return String.join(" or ", names);
     }
-    @SuppressWarnings("unchecked") private static void sections(List<Object> list) { for(Object item:list) { if(!(item instanceof Map<?,?>)) throw new AprException("section must be an object"); Map<String,Object>s=(Map<String,Object>)item; structuralTypes(s, SECTION, "/sections"); if(s.containsKey("prompts") && !(s.get("prompts") instanceof List<?>)) throw new AprException("section.prompts must be an array"); if(s.containsKey("sections") && !(s.get("sections") instanceof List<?>)) throw new AprException("section.sections must be an array"); for(Object p:(List<Object>)s.getOrDefault("prompts",List.of())) { if(!(p instanceof Map<?,?>)) throw new AprException("prompt must be an object"); Map<String,Object>pm=(Map<String,Object>)p; Object response=pm.get("response"); if(response != null && !(response instanceof String)) throw new AprException("prompt.response must be a string"); structuralTypes(pm, PROMPT, "/prompts"); if(pm.get("hints") instanceof Map<?,?> h) structuralTypes((Map<String,Object>)h, HINTS, "/prompts/hints"); } sections((List<Object>)s.getOrDefault("sections",List.of())); } }
-    private static void strings(Map<String,Object> map,String key,String path) { if(map.containsKey(key) && (!(map.get(key) instanceof List<?> values) || values.stream().anyMatch(value -> !(value instanceof String)))) throw new AprException(path+" must be an array of strings"); }
+    @SuppressWarnings("unchecked") private static void sections(List<Object> list) { for(Object item:list) { if(!(item instanceof Map<?,?>)) throw new AprException("section must be an object"); Map<String,Object>s=(Map<String,Object>)item; structuralTypes(s, SECTION, "/sections"); if(s.containsKey("prompts") && !(s.get("prompts") instanceof List<?>)) throw new AprException("section.prompts must be an array", "WRONG_TYPE"); if(s.containsKey("sections") && !(s.get("sections") instanceof List<?>)) throw new AprException("section.sections must be an array", "WRONG_TYPE"); for(Object p:(List<Object>)s.getOrDefault("prompts",List.of())) { if(!(p instanceof Map<?,?>)) throw new AprException("prompt must be an object"); Map<String,Object>pm=(Map<String,Object>)p; Object response=pm.get("response"); if(response != null && !(response instanceof String)) throw new AprException("prompt.response must be a string", "WRONG_TYPE"); structuralTypes(pm, PROMPT, "/prompts"); if(pm.get("hints") instanceof Map<?,?> h) structuralTypes((Map<String,Object>)h, HINTS, "/prompts/hints"); } sections((List<Object>)s.getOrDefault("sections",List.of())); } }
+    private static void strings(Map<String,Object> map,String key,String path) { if(map.containsKey(key) && (!(map.get(key) instanceof List<?> values) || values.stream().anyMatch(value -> !(value instanceof String)))) throw new AprException(path+" must be an array of strings", "WRONG_TYPE"); }
 }
