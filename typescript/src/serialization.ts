@@ -62,7 +62,7 @@ function parseHints(value: JsonObject): PromptHints {
 function parsePrompt(value: JsonValue): Prompt {
   const node = object(value, "prompt"); const known = new Set(["id", "label", "response", "role", "hints"]);
   const hints = optionalObject(node.hints, "hints");
-  return { id: string(node, "id", "prompt") ?? "", label: normalize(string(node, "label", "prompt")) ?? "", response: string(node, "response", "prompt") ?? "", role: string(node, "role", "prompt"), hints: hints ? parseHints(hints) : { suggestedValues: [], extra: {} }, extra: rest(node, known) };
+  return { id: string(node, "id", "prompt") ?? "", label: normalize(string(node, "label", "prompt")) ?? "", response: string(node, "response", "prompt") ?? "", role: string(node, "role", "prompt"), hints: hints ? parseHints(hints) : { suggestedValues: [], extra: {} }, extra: rest(node, known), responseIsDeclared: "response" in node };
 }
 function parseSection(value: JsonValue): Section {
   const node = object(value, "section"); const known = new Set(["id", "title", "description", "kind", "canAddRows", "maxRows", "role", "prompts", "sections"]);
@@ -97,7 +97,16 @@ export function loads(text: string): AprDocument {
 }
 const compact = (node: Record<string, JsonValue | undefined>): JsonObject => Object.fromEntries(Object.entries(node).filter(([, value]) => value !== undefined && value !== null && !(Array.isArray(value) && value.length === 0) && !(typeof value === "object" && !Array.isArray(value) && Object.keys(value as object).length === 0))) as JsonObject;
 function hintsJson(hints: PromptHints): JsonObject { return { ...compact({ expectedDataType: hints.expectedDataType, placeholder: hints.placeholder, helpText: hints.helpText, validationPattern: hints.validationPattern, suggestedValues: hints.suggestedValues, min: hints.min, max: hints.max, step: hints.step, exprHidden: hints.exprHidden, exprValue: hints.exprValue, exprExpected: hints.exprExpected, exprValidation: hints.exprValidation, exprReadOnly: hints.exprReadOnly }), ...hints.extra }; }
-function promptJson(prompt: Prompt): JsonObject { const node: JsonObject = { id: prompt.id, label: prompt.label, response: prompt.response }; if (prompt.role) node.role = prompt.role; const hints = hintsJson(prompt.hints); if (Object.keys(hints).length) node.hints = hints; return { ...node, ...prompt.extra }; }
+// A missing field default cannot tell "the source said response: ''" from "the
+// source said nothing" -- both parse to the same empty string. Writing an
+// explicit "" for a response the source never carried adds a member nobody
+// wrote, which is a different document by the same rule that makes any other
+// added or dropped member matter (specification 4.7's "read as the empty
+// string" is silent on what a writer does with that reading). Written
+// whenever the source declared it, or the response is non-empty regardless of
+// source -- so a response an application fills in after loading a template is
+// still written.
+function promptJson(prompt: Prompt): JsonObject { const node: JsonObject = { id: prompt.id, label: prompt.label }; if (prompt.responseIsDeclared || prompt.response) node.response = prompt.response; if (prompt.role) node.role = prompt.role; const hints = hintsJson(prompt.hints); if (Object.keys(hints).length) node.hints = hints; return { ...node, ...prompt.extra }; }
 function sectionJson(section: Section): JsonObject { const node: JsonObject = { id: section.id, title: section.title, ...compact({ description: section.description, kind: section.kind, canAddRows: section.canAddRows, maxRows: section.maxRows, role: section.role }) }; if (section.prompts.length) node.prompts = section.prompts.map(promptJson); if (section.sections.length) node.sections = section.sections.map(sectionJson); return { ...node, ...section.extra }; }
 /** Serialize an APR document while preserving unknown non-retired members. */
 export function dumps(document: AprDocument, indent = 2): string {

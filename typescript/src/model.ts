@@ -22,6 +22,18 @@ export interface Prompt {
    * session rather than about the file.
    */
   computedInThisSession?: boolean;
+  /**
+   * Whether the source document carried a `response` member at all.
+   *
+   * Absence and `response: ""` both parse to the same empty string, but the
+   * digest and a round trip both see the difference: an absent response reads
+   * as the empty string (specification 4.7), while writing an explicit
+   * `"response": ""` a source never carried is a different document, by the
+   * same rule that makes any other added or dropped member matter.
+   *
+   * Not a member, and never written directly.
+   */
+  responseIsDeclared?: boolean;
 }
 export interface Section {
   id: string; title: string; description?: string; kind?: string;
