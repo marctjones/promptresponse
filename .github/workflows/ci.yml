@@ -330,8 +330,9 @@ jobs:
     runs-on: ubuntu-latest
     # Separate from the language-neutral gate on purpose. These four suites are
     # implementations measured against the specification. Every SDK's wire format
-    # is aligned to beta.6, but only Python and TypeScript are scored against the
-    # conformance suite itself so far (issue #379); Java still needs a driver.
+    # is aligned to beta.6, and as of issue #379, Python, TypeScript and Java are
+    # all scored against the conformance suite itself, alongside the two .NET
+    # drivers in conformance-drivers below.
     # This job must not be able to take the specification gates down with it.
     steps:
       - name: Checkout
@@ -437,6 +438,16 @@ jobs:
         # gap hides the state of three others: unmeasured reads as neither red nor green.
         if: ${{ !cancelled() }}
         run: java/run-tests.sh
+
+      - name: Score the Java SDK against the conformance suite
+        # java/run-conformance-driver.sh answers with the built org.promptresponse
+        # classes -- the actual library a caller depends on. Claims core,
+        # core+streams and core+expressions; core+attestations is deliberately
+        # unclaimed, matching the Python, TypeScript and .NET drivers.
+        if: ${{ !cancelled() }}
+        run: >-
+          python3 scripts/run-conformance.py
+          --driver "java/run-conformance-driver.sh"
 
   conformance-drivers:
     name: Conformance drivers (library, CLI, desktop client, exporter)
