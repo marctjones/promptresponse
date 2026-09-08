@@ -33,6 +33,10 @@ DOTS_OCR_PROMPT = """Please output the layout information from the PDF image, in
 # quad-box, which is the closest Florence-2 task to what we need.
 FLORENCE_TASK_TOKEN = "<OCR_WITH_REGION>"
 
+# PaliGemma 2's prompt vocabulary is plain lowercase task words, not special
+# tokens. "ocr" is its documented full-page OCR-with-localization task.
+PALIGEMMA_PROMPT = "ocr"
+
 CHAT_JSON_SCHEMA_PROMPT = """You are looking at one page of a government form. Identify every section heading and every fillable field (blank, checkbox, line, or labeled space a person is meant to write in) that is VISIBLE ON THIS PAGE ONLY. Do not invent fields that aren't there, and do not list purely instructional/explanatory text as a field.
 
 Respond with ONLY a single JSON object, no prose before or after, matching this exact shape:
@@ -68,6 +72,8 @@ def build_prompt(strategy: str) -> str:
         return DOTS_OCR_PROMPT
     if strategy == "florence-detection":
         return FLORENCE_TASK_TOKEN
+    if strategy == "paligemma-detection":
+        return PALIGEMMA_PROMPT
     if strategy == "chat-json":
         return CHAT_JSON_SCHEMA_PROMPT
     raise ValueError(f"unknown strategy: {strategy!r}")

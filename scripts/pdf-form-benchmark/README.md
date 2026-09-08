@@ -21,7 +21,7 @@ full model survey; this directory is the empirical follow-up.
 corpus_manifest.json   11 real PDF forms (5 federal, 6 Connecticut), verified URLs
 corpus/                the downloaded PDFs
 ground_truth/          hand-verified {sections, fields} per form -- the answer key
-models.json            the 4 models under test, their MLX repo, and prompting strategy
+models.json            the models under test, their MLX repo, and prompting strategy
 prompts.py             each model's own recommended/native prompt (not one generic prompt)
 parsers.py             raw model output -> shared intermediate representation (IR)
 apr_schema.py          IR -> a strictly valid .aprt (same builder for every model)
@@ -29,10 +29,58 @@ validate_apr.py        shells out to this repo's own `apr` CLI -- the one source
 render_pdf.py          PDF -> page PNGs (poppler)
 fetch_corpus.py        downloads corpus_manifest.json's PDFs
 download_models.py     pre-downloads every model in models.json
-run_benchmark.py        orchestrator: load each model once, run every form, validate
+resource_guard.py      memory caps + a live watchdog -- see "Resource safety" below
+run_benchmark.py       supervisor: spawns worker.py once per (model, form), enforces
+                       a timeout and memory floor, is the only entry point you should run
+worker.py              loads ONE model, runs it over the forms it's given -- never run
+                       this directly for a real benchmark; it has no safety net of its own
 score.py               compare results/aprt/*/*.aprt against ground_truth/*.json
 results/               raw model output, generated .aprt files, scorecard, report
 ```
+
+## Resource safety (read this before running it)
+
+An earlier version of this harness ran every model in one long-lived process
+and, once, an ad hoc second smoke-test process alongside it. On this
+machine (a 24GB-RAM MacBook Air also running Claude Desktop and several
+concurrent Claude Code sessions), that took the whole machine down --
+`uptime`/`last reboot` and a `shutdown_stall` diagnostic report from that
+timestamp confirm it, not just a guess. No benchmark *results* were lost
+(every completed pair is written to disk immediately -- see below), but the
+machine needed a hard restart, which is a real cost independent of the data.
+
+`run_benchmark.py` is a supervisor, not a runner, specifically because of
+that. For every `(model, form)` pair it:
+- spawns `worker.py` as its own subprocess (so it can be SIGKILLed and have
+  its memory actually released, which an in-process hang can't offer),
+- enforces a hard wall-clock timeout (`resource_guard.PER_FORM_TIMEOUT_SECONDS`,
+  1200s -- the slowest real page seen so far was ~500s, so this bounds a
+  genuine hang without false-triggering on a model that's just slow),
+- runs a live memory-watchdog thread alongside it that polls actual system
+  free memory (via `vm_stat`, not just what MLX thinks it's using) every
+  few seconds and kills the worker outright if free memory drops below
+  `resource_guard.MIN_FREE_MEMORY_GB` (3GB), and
+- checks free memory again before even starting the next pair, backing off
+  30s and retrying once before skipping a pair it can't safely run.
+
+Inside the worker, `resource_guard.set_mlx_safety_limits()` also caps MLX's
+own allocator (`mx.set_memory_limit`) at 40% of physical RAM (capped at
+10GB regardless of how much RAM the box has), so the allocator refuses to
+grow past a safe ceiling on its own rather than relying only on the
+watchdog to notice after the fact.
+
+`run_benchmark.py` also takes a lock (`.benchmark.lock`, PID-checked, stale
+locks from a killed run are detected and cleared automatically) so a second
+invocation -- or a one-off `mlx_vlm.generate` smoke test run by hand in
+another terminal -- can't run concurrently and reproduce the exact failure
+mode this exists to prevent. **Don't run ad hoc model probes while
+`run_benchmark.py` is active; use `worker.py --model <id> --forms <id>`
+directly instead, one at a time, if you need to.**
+
+Every safety intervention is logged to `results/run_log.jsonl` just like a
+normal result (`timed_out`, `killed_low_memory`, or `skipped_low_memory`
+keys), so the run's own defensive behavior is visible in the same place as
+its results, not silently swallowed.
 
 ## Running it
 
@@ -48,11 +96,12 @@ python3 -m venv .venv
 `run_benchmark.py --models <id> --forms <id>` runs a subset. It skips
 (model, form) pairs that already have a `.aprt` in `results/aprt/`, so a
 crashed or interrupted run resumes where it left off; add `--force` to redo.
+Run only one `run_benchmark.py` at a time -- see "Resource safety" below.
 
-## The 4 models
+## The 7 models
 
-Chosen to span the real design space, not just four sizes of one family --
-see `models.json` for exact repos and notes:
+Chosen to span the real design space, not just different sizes of one
+family -- see `models.json` for exact repos and notes:
 
 - **Granite-Docling-258M** (IBM) -- tiny document-structure specialist,
   emits `DocTags` markup with a bounding box per element.
@@ -70,6 +119,24 @@ see `models.json` for exact repos and notes:
   emits the BOS token, verified empirically, not a prompting issue. `base-ft`
   is the variant that actually works, so it stands in for the family here.
   Worth re-testing once mlx-vlm fixes this upstream.
+- **Qwen3-VL-4B-Instruct** (4-bit) -- same family/prompt/strategy as the 8B,
+  added to answer the resource-load question directly: the 8B is very slow
+  (single pages routinely 100-500+s), so does 4B actually cost real quality?
+- **InternVL3-8B** (MLX 4-bit) -- a second generalist chat family, to check
+  whether Qwen3-VL's results reflect the model or just the default
+  assumption that Qwen is best.
+- **PaliGemma 2 3B mix** (448, 4-bit) -- substituted for Moondream2, which
+  turned out to be a dead end: `vikhyatk/moondream2`'s own `config.json`
+  declares `model_type: "moondream1"`, which mlx-vlm's registry does not
+  implement (it only has `moondream2`/`moondream3`) -- a real incompatibility,
+  confirmed by trying the conversion, not a prompting workaround away.
+  PaliGemma 2 fills the same "second detection/grounding specialist vs.
+  Florence-2" role and has confirmed real mlx-community builds. Also worth
+  noting empirically: despite Google's own documentation describing
+  PaliGemma 2's OCR task as producing `{transcription, bbox}` pairs, the
+  `"ocr"` prompt on this quantized MLX build returns flat text with **no**
+  location tokens at all -- treated honestly here as a text-only source,
+  not patched to look like something it isn't.
 
 ## Methodology notes (read before trusting the numbers)
 

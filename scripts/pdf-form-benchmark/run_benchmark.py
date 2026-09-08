@@ -1,41 +1,43 @@
 #!/usr/bin/env python3
-"""Run every model in models.json against every form in corpus_manifest.json.
+"""Supervisor: runs worker.py as a subprocess once per (model, form) pair.
 
-For each model: load weights ONCE, then loop over every form's rendered
-pages, generate, save the raw output, and (once all of a form's pages are
-in) parse -> build .aprt -> validate. Progress is appended to
-results/run_log.jsonl as it happens so a crash partway through doesn't lose
-completed work; rerun and already-done (model, form) pairs are skipped.
+Why a subprocess per pair, reloading the model each time, instead of one
+long-lived process looping every form (which is what this script used to
+do): a subprocess is the only thing this supervisor can reliably KILL and
+have its memory actually released back to the OS. Running everything
+in-process, this benchmark once took down the machine -- see
+resource_guard.py's docstring. The model-reload cost (a few seconds per
+the load times observed so far) is cheap next to generation time (30-500+s
+per page) and cheap next to "the machine needs a hard reboot."
+
+Every (model, form) pair is bounded by:
+  - a hard wall-clock timeout (resource_guard.PER_FORM_TIMEOUT_SECONDS)
+  - a live memory watchdog that kills the worker if system free memory
+    drops below resource_guard.MIN_FREE_MEMORY_GB
+  - a lock file so a second invocation of this script (or an ad hoc
+    mlx_vlm smoke test run by hand) can't run concurrently and contend
+    for the same memory -- concurrent loads are exactly what caused the
+    crash this replaces.
+
+Progress is still resumable exactly as before: a (model, form) pair with an
+existing results/aprt/<model>/<form>.aprt is skipped unless --force.
 """
 import argparse
 import json
+import os
+import subprocess
+import sys
 import time
-import traceback
 from pathlib import Path
 
-import mlx.core as mx
-from mlx_vlm import load, generate
-from mlx_vlm.prompt_utils import apply_chat_template
-from mlx_vlm.utils import load_config
-
-import apr_schema
-import parsers
-import prompts
-from render_pdf import render
-from validate_apr import validate
+import resource_guard
 
 HERE = Path(__file__).parent
 RESULTS = HERE / "results"
-RAW_DIR = RESULTS / "raw"
 APRT_DIR = RESULTS / "aprt"
 LOG_PATH = RESULTS / "run_log.jsonl"
-
-MAX_TOKENS = {
-    "doctags": 4096,
-    "dots-ocr-native": 6000,
-    "florence-detection": 2048,
-    "chat-json": 8000,
-}
+LOCK_PATH = HERE / ".benchmark.lock"
+VENV_PYTHON = HERE / ".venv" / "bin" / "python3"
 
 
 def load_json(path: Path) -> dict:
@@ -51,49 +53,71 @@ def log_event(event: dict) -> None:
         f.write(json.dumps(event) + "\n")
 
 
-def run_model_on_form(model, processor, config, strategy: str, model_id: str,
-                       form_id: str, form_name: str, pages: list[Path]) -> None:
-    prompt_text = prompts.build_prompt(strategy)
-    max_tokens = MAX_TOKENS[strategy]
-    raw_pages = []
-    page_timings = []
+def acquire_lock() -> None:
+    if LOCK_PATH.exists():
+        try:
+            pid = int(LOCK_PATH.read_text().strip())
+            os.kill(pid, 0)  # raises if not alive
+            print(f"ERROR: another benchmark run (pid {pid}) appears to be active "
+                  f"({LOCK_PATH}). Refusing to start a second one concurrently -- "
+                  f"that's exactly what caused the earlier crash.", file=sys.stderr)
+            sys.exit(1)
+        except (ValueError, ProcessLookupError, PermissionError):
+            pass  # stale lock from a killed/crashed run; safe to take over
+    LOCK_PATH.write_text(str(os.getpid()))
 
-    out_dir = RAW_DIR / model_id / form_id
-    out_dir.mkdir(parents=True, exist_ok=True)
 
-    for i, page_path in enumerate(pages, start=1):
-        formatted = apply_chat_template(processor, config, prompt_text, num_images=1)
-        t0 = time.time()
-        result = generate(
-            model, processor, formatted, [str(page_path)],
-            max_tokens=max_tokens, temperature=0.0, verbose=False,
-        )
-        dt = time.time() - t0
-        text = result.text if hasattr(result, "text") else str(result)
-        raw_pages.append(text)
-        page_timings.append(dt)
-        (out_dir / f"page-{i}.txt").write_text(text)
+def release_lock() -> None:
+    try:
+        if LOCK_PATH.exists() and LOCK_PATH.read_text().strip() == str(os.getpid()):
+            LOCK_PATH.unlink()
+    except OSError:
+        pass
 
-    ir = parsers.parse(strategy, raw_pages)
-    doc = apr_schema.build_aprt(form_name, ir)
 
-    aprt_dir = APRT_DIR / model_id
-    aprt_dir.mkdir(parents=True, exist_ok=True)
-    aprt_path = aprt_dir / f"{form_id}.aprt"
-    aprt_path.write_text(json.dumps(doc, indent=2))
+def run_pair(model_id: str, form_id: str) -> None:
+    free_gb = resource_guard.free_memory_gb()
+    if free_gb < resource_guard.MIN_FREE_MEMORY_GB:
+        print(f"    {form_id}: SKIPPED -- only {free_gb:.2f}GB free "
+              f"(floor {resource_guard.MIN_FREE_MEMORY_GB}GB); waiting 30s and retrying once")
+        time.sleep(30)
+        free_gb = resource_guard.free_memory_gb()
+        if free_gb < resource_guard.MIN_FREE_MEMORY_GB:
+            log_event({"model_id": model_id, "form_id": form_id,
+                       "skipped_low_memory": True, "free_gb": round(free_gb, 2)})
+            print(f"    {form_id}: still low on memory ({free_gb:.2f}GB free) -- skipping this pair")
+            return
 
-    validation = validate(aprt_path)
+    proc = subprocess.Popen(
+        [str(VENV_PYTHON), "worker.py", "--model", model_id, "--forms", form_id],
+        cwd=HERE,
+    )
+    watchdog = resource_guard.MemoryWatchdog(proc)
+    watchdog.start()
+    t0 = time.time()
+    try:
+        proc.wait(timeout=resource_guard.PER_FORM_TIMEOUT_SECONDS)
+        timed_out = False
+    except subprocess.TimeoutExpired:
+        proc.kill()
+        proc.wait()
+        timed_out = True
+    finally:
+        watchdog.stop()
+    elapsed = time.time() - t0
 
-    log_event({
-        "model_id": model_id, "form_id": form_id,
-        "pages": len(pages), "page_seconds": page_timings,
-        "total_seconds": sum(page_timings),
-        "field_count": len(ir["fields"]), "section_count": len(doc["sections"]),
-        "table_count": len(ir["tables"]), "parse_errors": ir["parse_errors"],
-        "valid": validation.get("valid"), "validation_errors": validation.get("errors"),
-    })
-    print(f"    {form_id}: {len(pages)} page(s), {sum(page_timings):.1f}s, "
-          f"{len(ir['fields'])} fields, valid={validation.get('valid')}")
+    if timed_out:
+        log_event({"model_id": model_id, "form_id": form_id, "timed_out": True,
+                   "timeout_seconds": resource_guard.PER_FORM_TIMEOUT_SECONDS})
+        print(f"    {form_id}: KILLED -- exceeded {resource_guard.PER_FORM_TIMEOUT_SECONDS}s timeout")
+    elif watchdog.event.triggered:
+        log_event({"model_id": model_id, "form_id": form_id, "killed_low_memory": True,
+                   "reason": watchdog.event.reason})
+        print(f"    {form_id}: KILLED by memory watchdog -- {watchdog.event.reason}")
+    elif proc.returncode != 0:
+        log_event({"model_id": model_id, "form_id": form_id,
+                   "worker_exit_code": proc.returncode})
+        print(f"    {form_id}: worker exited with code {proc.returncode} after {elapsed:.1f}s")
 
 
 def main() -> int:
@@ -103,48 +127,33 @@ def main() -> int:
     ap.add_argument("--force", action="store_true", help="rerun even if output exists")
     args = ap.parse_args()
 
-    models = load_json(HERE / "models.json")["models"]
-    forms = load_json(HERE / "corpus_manifest.json")["forms"]
-    if args.models:
-        models = [m for m in models if m["id"] in args.models]
-    if args.forms:
-        forms = [f for f in forms if f["id"] in args.forms]
+    acquire_lock()
+    try:
+        models = load_json(HERE / "models.json")["models"]
+        forms = load_json(HERE / "corpus_manifest.json")["forms"]
+        if args.models:
+            models = [m for m in models if m["id"] in args.models]
+        if args.forms:
+            forms = [f for f in forms if f["id"] in args.forms]
 
-    for model_cfg in models:
-        model_id = model_cfg["id"]
-        print(f"\n=== Loading {model_id} ({model_cfg['repo']}) ===")
-        t0 = time.time()
-        try:
-            model, processor = load(model_cfg["repo"], trust_remote_code=model_cfg.get("trust_remote_code", False))
-            config = load_config(model_cfg["repo"], trust_remote_code=model_cfg.get("trust_remote_code", False))
-        except Exception:
-            print(f"  FAILED to load {model_id}:\n{traceback.format_exc()}")
-            log_event({"model_id": model_id, "form_id": None, "load_error": traceback.format_exc()})
-            continue
-        print(f"  loaded in {time.time() - t0:.1f}s")
+        print(f"MLX memory cap: {resource_guard.MLX_MEMORY_LIMIT_GB:.1f}GB | "
+              f"free-memory floor: {resource_guard.MIN_FREE_MEMORY_GB}GB | "
+              f"per-form timeout: {resource_guard.PER_FORM_TIMEOUT_SECONDS}s | "
+              f"total RAM: {resource_guard.TOTAL_RAM_GB:.1f}GB")
 
-        for form in forms:
-            form_id, form_name = form["id"], form["name"]
-            if not args.force and already_done(model_id, form_id):
-                print(f"    {form_id}: skip (already done)")
-                continue
-            pages_dir = RESULTS / "pages" / form_id
-            pages = sorted(pages_dir.glob("page-*.png")) or sorted(pages_dir.glob("page*.png"))
-            if not pages:
-                pages = render(form_id)
-            try:
-                run_model_on_form(model, processor, config, model_cfg["strategy"],
-                                   model_id, form_id, form_name, pages)
-            except Exception:
-                err = traceback.format_exc()
-                print(f"    {form_id}: FAILED\n{err}")
-                log_event({"model_id": model_id, "form_id": form_id, "run_error": err})
-
-        del model, processor
-        mx.clear_cache()
-
-    print("\nDone.")
-    return 0
+        for model_cfg in models:
+            model_id = model_cfg["id"]
+            print(f"\n=== {model_id} ===")
+            for form in forms:
+                form_id = form["id"]
+                if not args.force and already_done(model_id, form_id):
+                    print(f"    {form_id}: skip (already done)")
+                    continue
+                run_pair(model_id, form_id)
+        print("\nDone.")
+        return 0
+    finally:
+        release_lock()
 
 
 if __name__ == "__main__":

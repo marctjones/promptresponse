@@ -391,11 +391,43 @@ def parse_chat_json_pages(raw_pages: list[str]) -> dict:
     return ir
 
 
+# --------------------------------------------------------------------------
+# PaliGemma 2 "ocr": plain full-page text transcript, no location tokens at
+# all in this quantized MLX build -- despite the model's own documentation
+# describing OCR-with-localization ({transcription, bbox} pairs), empirical
+# testing showed flat text only. Real finding, not a bug: treated honestly
+# as a text-only source using the same label heuristic as the other
+# non-instructed models, just without bbox data.
+# --------------------------------------------------------------------------
+def parse_paligemma_pages(raw_pages: list[str]) -> dict:
+    ir = _mk_ir()
+    seen_ids = set()
+    default_section = None
+    for page_no, raw in enumerate(raw_pages, start=1):
+        try:
+            lines = [l.strip() for l in raw.splitlines() if l.strip()]
+            if lines and default_section is None:
+                default_section = _add_section(ir, "Form", seen_ids)
+            for line in lines:
+                if _looks_like_label(line):
+                    kind = "multiline" if len(line.split()) > 8 else "text_line"
+                    ir["fields"].append({
+                        "label": line, "section_id": default_section,
+                        "field_kind": kind,
+                        "expected_data_type": _guess_data_type(line, kind),
+                        "required": None, "choices": None, "bbox": None, "page": page_no,
+                    })
+        except Exception as exc:  # noqa: BLE001
+            ir["parse_errors"].append(f"page {page_no}: {exc}")
+    return ir
+
+
 PARSERS = {
     "doctags": parse_doctags_pages,
     "dots-ocr-native": parse_dots_ocr_pages,
     "florence-detection": parse_florence_pages,
     "chat-json": parse_chat_json_pages,
+    "paligemma-detection": parse_paligemma_pages,
 }
 
 
