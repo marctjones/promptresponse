@@ -1,0 +1,215 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form A-83 (Special Power of Attorney)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "special-power-of-attorney",
+          "label": "SPECIAL POWER OF ATTORNEY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-63-rev-6-2008",
+          "label": "A-63 REV. 6-2008",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connecticut",
+          "label": "STATE OF CONNECTICUT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-motor-vehicles",
+          "label": "DEPARTMENT OF MOTOR VEHICLES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "60-state-street-wethersfield-ct-06161",
+          "label": "60 STATE STREET, WETHERSFIELD, CT 06161",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "do-hereby-appoint",
+          "label": "do hereby appoint",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "print-your-full-name-above",
+          "label": "(Print your full name above)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "as-my-attorney-in-fact",
+          "label": "as my attorney-in-fact",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "print-your-full-name-of-your-agent-above",
+          "label": "(Print your full name of your agent above)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of-2",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "l-s",
+          "label": "(L.S.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "principal",
+          "label": "Principal:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "sign-your-full-name-as-above",
+          "label": "(Sign your full name as above)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-witness",
+          "label": "(Signature of Witness)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-witness-2",
+          "label": "(Signature of Witness)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connecticut-2",
+          "label": "STATE OF CONNECTICUT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "county-of",
+          "label": "COUNTY OF",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "ss",
+          "label": "SS:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-agent",
+          "label": "(Signature of Agent)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of-3",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "full-name-of-principal",
+          "label": "(Full name of Principal)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of-4",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "seal-of-the-notary-public-justice-of-peace",
+          "label": "Seal of the Notary Public/Justice of Peace",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires",
+          "label": "My commission expires:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

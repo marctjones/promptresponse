@@ -1,0 +1,30 @@
+```json
+{
+  "sections": [
+    {
+      "id": "page-title",
+      "title": "Do I Need an EIN?"
+    },
+    {
+      "id": "instructions",
+      "title": "Instructions"
+    }
+  ],
+  "fields": [
+    {
+      "label": "File Form SS-4 if the applicant entity doesn’t already have an EIN but is required to show an EIN on any return, statement, or other document.",
+      "section_id": "instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "IF the applicant... AND... THEN...",
+      "section_id": "instructions",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}
+```

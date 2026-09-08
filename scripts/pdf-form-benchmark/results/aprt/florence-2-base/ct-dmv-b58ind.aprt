@@ -1,0 +1,303 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form B-58 (Change of Address, Individual)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "b-8-ind-no-10-2019",
+          "label": "B-8-IND NO. 10:2019",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "state-of-connecticut",
+          "label": "STATE OF CONNECTICUT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-motor-vehicles",
+          "label": "DEPARTMENT OF MOTOR VEHICLES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "for-dmi-internal-use-only",
+          "label": "FOR DMI INTERNAL USE ONLY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "licensed-changes-comleted",
+          "label": "LICENSED CHANGES COMLETED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "licensed-changes-comleted-2",
+          "label": "LICENSED CHANGES COMLETED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "about-you",
+          "label": "About You",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "you-have-provided-your",
+          "label": "You have provided your",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-first-first-middle",
+          "label": "Name: First. First. Middle",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "operator-licensed-number",
+          "label": "OPERATOR LICENSED NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "birth-date",
+          "label": "BIRTH DATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "street-address",
+          "label": "STREET ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "unitapt-4",
+          "label": "UNITAPT.4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "your-residence",
+          "label": "Your Residence",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "this-must-a",
+          "label": "THIS must a",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-2",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-3",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "this-must-a-2",
+          "label": "This must a",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-4",
+          "label": "CITY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "dy-shares-residence-address-updates-with-town-registered",
+          "label": "DY shares residence address updates with town registered",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "1-you-are",
+          "label": "(1) you are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-you-are-2",
+          "label": "(1) you are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-you-are-3",
+          "label": "(1) you are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-you-are-4",
+          "label": "(1) you are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-you-are-5",
+          "label": "(1) you are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-you-are-6",
+          "label": "(1) you are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-you-are-7",
+          "label": "(1) you are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-you-are-8",
+          "label": "(1) you are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-your-making",
+          "label": "(1) your MAKING",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-your",
+          "label": "(1) your",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-your-2",
+          "label": "(1) your",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-you-are-9",
+          "label": "(1) you are",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "organ-and-tissue",
+          "label": "Organ and Tissue",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1007 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form A-83 (Special Power of Attorney)"
+  },
+  "sections": [
+    {
+      "id": "state-of-connecticut-department-of-motor-vehicles-60-state-street-wethersfield-ct-06161",
+      "title": "STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES 60 STATE STREET, WETHERSFIELD, CT 06161",
+      "prompts": [
+        {
+          "id": "please-note-the-following-carefully",
+          "label": "Please note the following carefully:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "do-hereby-appoint",
+          "label": ", do hereby appoint",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "print-your-full-name-above",
+          "label": "(Print your full name above)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "as-my-attorney-in-fact",
+          "label": ", as my attorney-in-fact",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "20",
+          "label": ", 20",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "principal",
+          "label": "Principal:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "l-s",
+          "label": "(L.S.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-witness",
+          "label": "(Signature of Witness)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connecticut",
+          "label": "STATE OF CONNECTICUT)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "county-of",
+          "label": "COUNTY OF",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "ss",
+          "label": ") SS:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "personally-appeared",
+          "label": "Personally appeared",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of-2",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "20-2",
+          "label": ", 20",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-2",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-3",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-4",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-5",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-6",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-7",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-8",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-9",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-10",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-11",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-12",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-13",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-14",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-15",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-16",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-17",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-18",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-19",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-20",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-21",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-22",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-23",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-24",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-25",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-26",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-27",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-28",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-29",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-30",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-31",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-32",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-33",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-34",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-35",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-36",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-37",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-38",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-39",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-40",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-41",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-42",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-43",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-44",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-45",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-46",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-47",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-48",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-49",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-50",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-51",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-52",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-53",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-54",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-55",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-56",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-57",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-58",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-59",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-60",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-61",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-62",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-63",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-64",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-65",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-66",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-67",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-68",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-69",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-70",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-71",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-72",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-73",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-74",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-75",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-76",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-77",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-78",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-79",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-80",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-81",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-82",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-83",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-84",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-85",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-86",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-87",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-88",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-89",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-90",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-91",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-92",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-93",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-94",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-95",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-96",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-97",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-98",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-99",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-100",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-101",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-102",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-103",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-104",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-105",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-106",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-107",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-108",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires-109",
+          "label": "My commission expires:__________________",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

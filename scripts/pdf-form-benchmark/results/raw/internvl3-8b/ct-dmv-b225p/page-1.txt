@@ -1,0 +1,237 @@
+```json
+{
+  "sections": [
+    {
+      "id": "part-a",
+      "title": "Part A - Completed by Applicant"
+    },
+    {
+      "id": "part-b",
+      "title": "Part B - Completed by Physician, APRN, Physician Assistant, Optometrist, Ophthalmologist, Bes or USFDA Psychiatric"
+    },
+    {
+      "id": "criteria",
+      "title": "Criteria to Qualify"
+    },
+    {
+      "id": "additional-certification",
+      "title": "Additional Certification May Be Required at the Time of the Original Application or Any Time Thereafter If There Is Cause to Believe That the Ability to Walk Is Not Seriously and Permanently Impaired"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Type of Application",
+      "section_id": "part-a",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "New (1st issue)",
+        "Replacement",
+        "Renewal"
+      ]
+    },
+    {
+      "label": "Applicant is",
+      "section_id": "part-a",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "Guardian of Blind or Disabled Person",
+        "Disabled",
+        "Blind",
+        "Disabled Person",
+        "Qualifying Veteran (See C below)"
+      ]
+    },
+    {
+      "label": "Name of Person Who is Blind or Disabled",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Date of Birth (Required)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "CT Driver License/ID Card Number (Required)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Address",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or Town",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Mailing Address",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or Town",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "I certify under penalty of false statement",
+      "section_id": "part-a",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Applicant's Signature",
+      "section_id": "part-a",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date Signed",
+      "section_id": "part-a",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Signature of Applicant/Parent/Guardian (or Power of Attorney)",
+      "section_id": "part-a",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date Signed",
+      "section_id": "part-a",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Criteria to Qualify",
+      "section_id": "criteria",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Medical License Number (Required)",
+      "section_id": "additional-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Office Address",
+      "section_id": "additional-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or Town",
+      "section_id": "additional-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "additional-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "additional-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Office Telephone Number",
+      "section_id": "additional-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Physician, Physician Assistant, APRN, Optometrist, Ophthalmologist, USFDA Psychiatric",
+      "section_id": "additional-certification",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "Physician Assistant",
+        "BESB",
+        "USFDA Psychiatric"
+      ]
+    },
+    {
+      "label": "Signature of Physician, PA, APRN, Optometrist, Ophthalmologist, or USFDA Psychiatric",
+      "section_id": "additional-certification",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date Signed",
+      "section_id": "additional-certification",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    }
+  ]
+}
+```

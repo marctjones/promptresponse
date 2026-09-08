@@ -1,0 +1,50 @@
+{
+  "sections": [
+    {
+      "id": "exempt-payees-list",
+      "title": "Exempt Payees List"
+    },
+    {
+      "id": "line-5-address",
+      "title": "Line 5: Address"
+    },
+    {
+      "id": "line-6-city-state-zip",
+      "title": "Line 6: City, State, and ZIP Code"
+    },
+    {
+      "id": "part-i-tin",
+      "title": "Part I. Taxpayer Identification Number (TIN)"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Enter your address (number, street, and apartment or suite number).",
+      "section_id": "line-5-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Enter your city, state, and ZIP code.",
+      "section_id": "line-6-city-state-zip",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Enter your TIN in the appropriate box.",
+      "section_id": "part-i-tin",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Applied For",
+      "section_id": "part-i-tin",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}

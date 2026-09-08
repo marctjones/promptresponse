@@ -125,7 +125,7 @@ def main() -> int:
         by_model.setdefault(r["model_id"], []).append(r)
 
     lines = ["# PDF-form-to-APR open-weight VLM benchmark", ""]
-    lines.append(f"11 real government forms (5 federal, 6 Connecticut) x 4 open-weight models, "
+    lines.append(f"11 real government forms (5 federal, 6 Connecticut) x {len(MODELS)} open-weight models, "
                  f"all running locally via MLX. Field matching is fuzzy-label similarity "
                  f"(threshold {MATCH_THRESHOLD}) against hand-verified ground truth, not exact string match.")
     lines.append("")

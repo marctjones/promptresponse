@@ -1,0 +1,861 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "USCIS Form I-9 (Employment Eligibility Verification)"
+  },
+  "sections": [
+    {
+      "id": "section-1-employee-information-and-attestation",
+      "title": "Section 1. Employee Information and Attestation",
+      "prompts": [
+        {
+          "id": "last-name-family-name",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any",
+          "label": "Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-last-names-used-if-any",
+          "label": "Other Last Names Used (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "apt-number-if-any",
+          "label": "Apt. Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth-mm-dd-yyyy",
+          "label": "Date of Birth (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "u-s-social-security-number",
+          "label": "U.S. Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "employee-s-email-address",
+          "label": "Employee's Email Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "email"
+          }
+        },
+        {
+          "id": "employee-s-telephone-number",
+          "label": "Employee's Telephone Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "check-one-of-the-following-boxes-to-attest-to-your-citizenship-or-immigration-status",
+          "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "1. A citizen of the United States",
+              "2. A noncitizen national of the United States (See Instructions.)",
+              "3. A lawful permanent resident (Enter USCIS or A-Number.)",
+              "4. An alien authorized to work until (exp. date, if any)"
+            ]
+          }
+        },
+        {
+          "id": "uscis-a-number",
+          "label": "USCIS A-Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-i-94-admission-number",
+          "label": "Form I-94 Admission Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-passport-number-and-country-of-issuance",
+          "label": "Foreign Passport Number and Country of Issuance",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employee",
+          "label": "Signature of Employee",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "today-s-date-mm-dd-yyyy",
+          "label": "Today's Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-2-employer-review-and-verification",
+      "title": "Section 2. Employer Review and Verification",
+      "prompts": [
+        {
+          "id": "document-title-1",
+          "label": "Document Title 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "document-title-2-if-any",
+          "label": "Document Title 2 (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-2",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-2",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-2",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "document-title-3-if-any",
+          "label": "Document Title 3 (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-3",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-3",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-3",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "check-here-if-you-used-an-alternative-procedure-authorized-by-dhs-to-examine-documents",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "first-day-of-employment-mm-dd-yyyy",
+          "label": "First Day of Employment (mm/dd/yyyy):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-first-name-and-title-of-employer-or-authorized-representative",
+          "label": "Last Name, First Name and Title of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representative",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "today-s-date-mm-dd-yyyy-2",
+          "label": "Today's Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employer-s-business-or-organization-name",
+          "label": "Employer's Business or Organization Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-business-or-organization-address-city-or-town-state-zip-code",
+          "label": "Employer's Business or Organization Address, City or Town, State, ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "supplement-a-preparer-and-or-translator-certification-for-section-1",
+      "title": "Supplement A, Preparer and/or Translator Certification for Section 1",
+      "prompts": [
+        {
+          "id": "last-name-family-name-from-section-1",
+          "label": "Last Name (Family Name) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-from-section-1",
+          "label": "First Name (Given Name) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-from-section-1",
+          "label": "Middle initial (if any) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "instructions-this-supplement-must-be-completed-by-any-preparer-and-or-translator-who-assists-an-employee-in-completing-section-1-of-form-i-9-the-preparer-and-or-translator-must-enter-the-employee-s-name-in-the-spaces-provided-above-each-preparer-or-translator-must-complete-sign-and-date-a-separate-certification-area-employers-must-retain-completed-supplement-sheets-with-the-employee-s-completed-form-i-9",
+          "label": "Instructions: This supplement must be completed by any preparer and/or translator who assists an employee in completing Section 1 of Form I-9. The preparer and/or translator must enter the employee's name in the spaces provided above. Each preparer or translator must complete, sign, and date a separ",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "i-attest-under-penalty-of-perjury-that-i-have-assisted-in-the-completion-of-section-1-of-this-form-and-that-to-the-best-of-my-knowledge-the-information-is-true-and-correct",
+          "label": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my knowledge the information is true and correct.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-mm-dd-yyyy",
+          "label": "Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-family-name-2",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-2",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-2",
+          "label": "Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name-2",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-2",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-attest-under-penalty-of-perjury-that-i-have-assisted-in-the-completion-of-section-1-of-this-form-and-that-to-the-best-of-my-knowledge-the-information-is-true-and-correct-2",
+          "label": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my knowledge the information is true and correct.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator-2",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-mm-dd-yyyy-2",
+          "label": "Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-family-name-3",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-3",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-3",
+          "label": "Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name-3",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-3",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-3",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-3",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-attest-under-penalty-of-perjury-that-i-have-assisted-in-the-completion-of-section-1-of-this-form-and-that-to-the-best-of-my-knowledge-the-information-is-true-and-correct-3",
+          "label": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my knowledge the information is true and correct.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator-3",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-mm-dd-yyyy-3",
+          "label": "Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-family-name-4",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-4",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-4",
+          "label": "Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name-4",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-4",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-4",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-4",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-attest-under-penalty-of-perjury-that-i-have-assisted-in-the-completion-of-section-1-of-this-form-and-that-to-the-best-of-my-knowledge-the-information-is-true-and-correct-4",
+          "label": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my knowledge the information is true and correct.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator-4",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-mm-dd-yyyy-4",
+          "label": "Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-family-name-5",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-5",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-5",
+          "label": "Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name-5",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-5",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-5",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-5",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "supplement-b-reverification-and-rehire-formerly-section-3",
+      "title": "Supplement B, Reverification and Rehire (formerly Section 3)",
+      "prompts": [
+        {
+          "id": "last-name-family-name-from-section-1-2",
+          "label": "Last Name (Family Name) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-from-section-1-2",
+          "label": "First Name (Given Name) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-from-section-1-2",
+          "label": "Middle initial (if any) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "instructions",
+      "title": "Instructions",
+      "prompts": [
+        {
+          "id": "date-of-rehire-if-applicable",
+          "label": "Date of Rehire (if applicable)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "new-name-if-applicable",
+          "label": "New Name (if applicable)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reverification",
+      "title": "Reverification",
+      "prompts": [
+        {
+          "id": "date-mm-dd-yyyy-5",
+          "label": "Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-family-name-6",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-6",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial",
+          "label": "Middle Initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title",
+          "label": "Document Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-4",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-mm-dd-yyyy",
+          "label": "Expiration Date (if any) (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "i-attest-under-penalty-of-perjury",
+      "title": "I attest, under penalty of perjury...",
+      "prompts": [
+        {
+          "id": "name-of-employer-or-authorized-representative",
+          "label": "Name of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representative-2",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "today-s-date-mm-dd-yyyy-3",
+          "label": "Today's Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "additional-information",
+      "title": "Additional Information",
+      "prompts": [
+        {
+          "id": "additional-information-initial-and-date-each-notation",
+          "label": "Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "check-here-if-you-used-an-alternative-procedure-authorized-by-dhs-to-examine-documents",
+      "title": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "prompts": [
+        {
+          "id": "check-here-if-you-used-an-alternative-procedure-authorized-by-dhs-to-examine-documents-2",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    }
+  ]
+}

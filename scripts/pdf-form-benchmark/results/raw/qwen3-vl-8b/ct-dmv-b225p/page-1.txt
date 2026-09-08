@@ -1,0 +1,324 @@
+{
+  "sections": [
+    {
+      "id": "header",
+      "title": "Department of Motor Vehicles Header"
+    },
+    {
+      "id": "form_title",
+      "title": "Renewable Parking Placard Application"
+    },
+    {
+      "id": "instructions",
+      "title": "Instructions"
+    },
+    {
+      "id": "part_a",
+      "title": "PART A - COMPLETED BY APPLICANT"
+    },
+    {
+      "id": "part_b",
+      "title": "PART B - COMPLETED BY PHYSICIAN, APRN, PHYSICIAN ASSISTANT, OPTOMETRIST, OPHTHALMOLOGIST, BESB OR USDVA PSYCHIATRIST"
+    },
+    {
+      "id": "criteria_to_qualify",
+      "title": "CRITERIA TO QUALIFY"
+    }
+  ],
+  "fields": [
+    {
+      "label": "DMV USE ONLY",
+      "section_id": "header",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "NEW",
+      "section_id": "header",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "REPLACEMENT",
+      "section_id": "header",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "PERMIT NUMBER(S)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "PLATE NUMBER",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "EXPIRES",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "MO.",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "YEAR",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part_a",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "NEW (1st issue)",
+        "REPLACEMENT",
+        "RENEWAL"
+      ]
+    },
+    {
+      "label": "APPLICANT IS (Check One)",
+      "section_id": "part_a",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "DISABLED",
+        "BLIND",
+        "GUARDIAN OF BLIND OR DISABLED PERSON",
+        "ORGANIZATION TRANSPORTING BLIND OR DISABLED PERSON",
+        "QUALIFYING VETERAN (See C below)"
+      ]
+    },
+    {
+      "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle Initial)",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "GUARDIAN OR ORGANIZATION",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "DATE OF BIRTH (Required)",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "CT DRIVER LICENSE/ID CARD NUMBER (Required)",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "DAYTIME TELEPHONE NUMBER",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "ADDRESS (No. and Street)",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "City or Town",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "State",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "MAILING ADDRESS (No. and Street)",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "City or Town",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "State",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "part_a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "I certify under penalty of false statement ...",
+      "section_id": "part_a",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "APPLICANT'S SIGNATURE",
+      "section_id": "part_a",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "SIGNATURE OF APPLICANT/PARENT/GUARDIAN (or Power of Attorney)",
+      "section_id": "part_a",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "DATE SIGNED",
+      "section_id": "part_a",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "CERTIFIER'S NAME (Please print)",
+      "section_id": "part_b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "CHECK ONE",
+      "section_id": "part_b",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "PHYSICIAN ASSISTANT",
+        "BESB",
+        "USVA PSYCHIATRIST",
+        "PHYSICIAN",
+        "APRN",
+        "OPTOMETRIST",
+        "OPHTHALMOLOGIST"
+      ]
+    },
+    {
+      "label": "MEDICAL LICENSE NUMBER (Required)",
+      "section_id": "part_b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MEDICAL LICENSING STATE (Required)",
+      "section_id": "part_b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "OFFICE ADDRESS (No. and Street)",
+      "section_id": "part_b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "City or Town",
+      "section_id": "part_b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "State",
+      "section_id": "part_b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "part_b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "OFFICE TELEPHONE NUMBER",
+      "section_id": "part_b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "I certify under the penalty of false statement ...",
+      "section_id": "part_b",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "SIGNATURE OF PHYSICIAN, PA, APRN, OPTOMETRIST, OPHTHALMOLOGIST, OR USDVA PSYCHIATRIST",
+      "section_id": "part_b",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "DATE SIGNED",
+      "section_id": "part_b",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    }
+  ]
+}

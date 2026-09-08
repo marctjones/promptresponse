@@ -1,0 +1,218 @@
+```json
+{
+  "sections": [
+    {
+      "id": "step-1",
+      "title": "Step 1: Enter Personal Information"
+    },
+    {
+      "id": "step-2",
+      "title": "Step 2: Multiple Jobs or Spouse Works"
+    },
+    {
+      "id": "step-3",
+      "title": "Step 3: Claim Dependent and Other Credits"
+    },
+    {
+      "id": "step-4",
+      "title": "Step 4: Other Adjustments"
+    },
+    {
+      "id": "step-5",
+      "title": "Step 5: Sign Here"
+    }
+  ],
+  "fields": [
+    {
+      "label": "First name and middle initial",
+      "section_id": "step-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Last name",
+      "section_id": "step-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Social security number",
+      "section_id": "step-1",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "Does your name match the name on your social security card?",
+      "section_id": "step-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Single or Married filing separately",
+      "section_id": "step-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": ["Single", "Married filing jointly or Qualifying surviving spouse", "Head of household"]
+    },
+    {
+      "label": "Use the estimator at www.irs.gov/W4App",
+      "section_id": "step-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Complete this step if you (1) hold more than one job at a time, or (2) are married filing jointly and your spouse also works",
+      "section_id": "step-2",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Do only one of the following",
+      "section_id": "step-2",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Use the estimator at www.irs.gov/W4App",
+      "section_id": "step-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Use the Multiple Jobs Worksheet on page 3",
+      "section_id": "step-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If there are only two jobs total, you may check this box",
+      "section_id": "step-2",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Complete Steps 3-4(b) on Form W-4 for the highest paying job",
+      "section_id": "step-2",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If your total income will be $200,000 or less ($400,000 or less if married filing jointly)",
+      "section_id": "step-3",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Multiply the number of qualifying children under age 17 by $2,200",
+      "section_id": "step-3",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "Multiply the number of other dependents by $500",
+      "section_id": "step-3",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "Add the amounts from Steps 3(a) and 3(b), plus the amount for other credits",
+      "section_id": "step-3",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "Other income (not from jobs)",
+      "section_id": "step-4",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "Deductions",
+      "section_id": "step-4",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "Extra withholding",
+      "section_id": "step-4",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "Exempt from withholding",
+      "section_id": "step-5",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "I claim exemption from withholding for 2026",
+      "section_id": "step-5",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "I certify that I meet both of the conditions for exemption for 2026",
+      "section_id": "step-5",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Employee's signature",
+      "section_id": "step-5",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date",
+      "section_id": "step-5",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Employer's name and address",
+      "section_id": "step-5",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "First date of employment",
+      "section_id": "step-5",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Employer identification number (EIN)",
+      "section_id": "step-5",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    }
+  ]
+}
+```

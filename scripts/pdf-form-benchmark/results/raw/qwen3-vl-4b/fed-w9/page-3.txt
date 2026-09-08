@@ -1,0 +1,57 @@
+{
+  "sections": [
+    {
+      "id": "what-is-fatca-reporting",
+      "title": "What Is FATCA Reporting?"
+    },
+    {
+      "id": "updating-your-information",
+      "title": "Updating Your Information"
+    },
+    {
+      "id": "penalties",
+      "title": "Penalties"
+    },
+    {
+      "id": "specific-instructions",
+      "title": "Specific Instructions"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Line 1",
+      "section_id": "specific-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Line 2",
+      "section_id": "specific-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Line 3a",
+      "section_id": "specific-instructions",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "Line 3b",
+      "section_id": "specific-instructions",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "Line 4",
+      "section_id": "specific-instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}

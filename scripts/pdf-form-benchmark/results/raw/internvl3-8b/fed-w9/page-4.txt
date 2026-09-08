@@ -1,0 +1,61 @@
+```json
+{
+  "sections": [
+    {
+      "id": "part-i",
+      "title": "Part I. Taxpayer Identification Number (TIN)"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Enter your TIN in the appropriate box.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Note: You may wish to consult with the financial institution requesting this form to determine whether the FATCA code and/or exempt payee code should be completed.",
+      "section_id": "part-i",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Line 5",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Enter your address (number, street, and apartment or suite number).",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "This is where the requestor of this Form W-9 will mail your information returns. If this address differs from the one the requestor already has on file, enter 'NEW' at the top of the file. If a new address is provided, there is still a chance the old address will be used until the payer changes your address in their records.",
+      "section_id": "part-i",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Line 6",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Enter your city, state, and ZIP code.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}
+```

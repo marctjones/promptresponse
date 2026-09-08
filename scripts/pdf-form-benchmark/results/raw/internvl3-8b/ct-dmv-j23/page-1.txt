@@ -1,0 +1,332 @@
+```json
+{
+  "sections": [
+    {
+      "id": "request",
+      "title": "License Records, Check Request(s) Below"
+    },
+    {
+      "id": "registration",
+      "title": "Registration Records"
+    },
+    {
+      "id": "misc",
+      "title": "Miscellaneous Request"
+    },
+    {
+      "id": "applicant",
+      "title": "Applicant"
+    }
+  ],
+  "fields": [
+    {
+      "label": "License Records, Check Request(s) Below",
+      "section_id": "request",
+      "field_kind": "text_line",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Driver License Information",
+      "section_id": "request",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Driver License Application",
+      "section_id": "request",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Driving History",
+      "section_id": "request",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "REG",
+      "section_id": "request",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "CDL",
+      "section_id": "request",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "REGISTRATION RECORDS",
+      "section_id": "registration",
+      "field_kind": "text_line",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Registration File Information",
+      "section_id": "registration",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Registration Certificate",
+      "section_id": "registration",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Registration Return Plate Receipt",
+      "section_id": "registration",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Insurance Information Only",
+      "section_id": "registration",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "Miscellaneous Request",
+      "section_id": "misc",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "Multiple Requests?",
+      "section_id": "misc",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": false
+    },
+    {
+      "label": "ATTORNEY'S JURIS #",
+      "section_id": "misc",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "DECLARATION",
+      "section_id": "applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "SIGNATURE OF APPLICANT",
+      "section_id": "applicant",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "PRINTED NAME OF APPLICANT",
+      "section_id": "applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "DATE SIGNED",
+      "section_id": "applicant",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "QTY.",
+      "section_id": "misc",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "UNIT PRICE",
+      "section_id": "misc",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "AMOUNT",
+      "section_id": "misc",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "DRIVER'S NAME (Last, First, Middle Initial)",
+      "section_id": "section1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "DRIVER'S LICENSE NUMBER",
+      "section_id": "section1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "DRIVER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+      "section_id": "section1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "DRIVER'S DATE OF BIRTH",
+      "section_id": "section1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "OWNER'S NAME (Last, First, Middle Initial)",
+      "section_id": "section2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "OWNER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+      "section_id": "section2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "VEHICLE IDENTIFICATION NUMBER",
+      "section_id": "section3",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "VEHICLE MAKE",
+      "section_id": "section3",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "VEHICLE YEAR",
+      "section_id": "section3",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "REGISTRATION PLATE NUMBER",
+      "section_id": "section3",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "AS OF (Date)",
+      "section_id": "section3",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "MISCELLANEOUS REQUEST (Please Specify)",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "CUSTOMER NUMBER",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "OPERATOR'S LICENSE NO. or FED. EMPLOYER ID NO.",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "TELEPHONE NO. (Required)",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "required": true
+    },
+    {
+      "label": "NAME",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "NUMBER AND STREET",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "CITY OR TOWN",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "STATE",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP CODE",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "TOTAL",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "DMV USE ONLY",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "AMOUNT RECEIVED",
+      "section_id": "section4",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    }
+  ]
+}
+```

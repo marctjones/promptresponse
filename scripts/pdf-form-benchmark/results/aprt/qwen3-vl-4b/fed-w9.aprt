@@ -1,0 +1,290 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-9 (Request for Taxpayer Identification Number)"
+  },
+  "sections": [
+    {
+      "id": "part-i-taxpayer-identification-number-tin",
+      "title": "Part I Taxpayer Identification Number (TIN)",
+      "prompts": [
+        {
+          "id": "name-of-entity-individual-an-entry-is-required-for-a-sole-proprietor-or-disregarded-entity-enter-the-owner-s-name-on-line-1-and-enter-the-business-disregarded-entity-s-name-on-line-2",
+          "label": "Name of entity/individual. An entry is required. (For a sole proprietor or disregarded entity, enter the owner\u2019s name on line 1, and enter the business/disregarded entity\u2019s name on line 2.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "business-name-disregarded-entity-name-if-different-from-above",
+          "label": "Business name/disregarded entity name, if different from above.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-the-appropriate-box-for-federal-tax-classification-of-the-entity-individual-whose-name-is-entered-on-line-1-check-only-one-of-the-following-seven-boxes",
+          "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Individual/sole proprietor",
+              "C corporation",
+              "S corporation",
+              "Partnership",
+              "Trust/estate",
+              "LLC",
+              "Other (see instructions)"
+            ]
+          }
+        },
+        {
+          "id": "if-on-line-3a-you-checked-partnership-or-trust-estate-or-checked-llc-and-entered-p-as-its-tax-classification-and-you-are-providing-this-form-to-a-partnership-trust-or-estate-in-which-you-have-an-ownership-interest-check-this-box-if-you-have-any-foreign-partners-owners-or-beneficiaries",
+          "label": "If on line 3a you checked \u201cPartnership\u201d or \u201cTrust/estate,\u201d or checked \u201cLLC\u201d and entered \u201cP\u201d as its tax classification, and you are providing this form to a partnership, trust, or estate in which you have an ownership interest, check this box if you have any foreign partners, owners, or beneficiaries",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "address-number-street-and-apt-or-suite-no-see-instructions",
+          "label": "Address (number, street, and apt. or suite no.). See instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-zip-code",
+          "label": "City, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-account-number-s-here-optional",
+          "label": "List account number(s) here (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "exemptions-codes-apply-only-to-certain-entities-not-individuals-see-instructions-on-page-3",
+          "label": "Exemptions (codes apply only to certain entities, not individuals; see instructions on page 3):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "exempt-payee-code-if-any",
+          "label": "Exempt payee code (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "exemption-from-foreign-account-tax-compliance-act-fatca-reporting-code-if-any",
+          "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "requester-s-name-and-address-optional",
+          "label": "Requester\u2019s name and address (optional)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-identification-number",
+          "label": "Employer identification number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-ii-certification",
+      "title": "Part II Certification",
+      "prompts": [
+        {
+          "id": "signature-of-u-s-person",
+          "label": "Signature of U.S. person",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "specific-instructions",
+      "title": "Specific Instructions",
+      "prompts": [
+        {
+          "id": "line-1",
+          "label": "Line 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "line-2",
+          "label": "Line 2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "line-3a",
+          "label": "Line 3a",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "line-3b",
+          "label": "Line 3b",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "line-4",
+          "label": "Line 4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "line-5-address",
+      "title": "Line 5: Address",
+      "prompts": [
+        {
+          "id": "enter-your-address-number-street-and-apartment-or-suite-number",
+          "label": "Enter your address (number, street, and apartment or suite number).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "line-6-city-state-and-zip-code",
+      "title": "Line 6: City, State, and ZIP Code",
+      "prompts": [
+        {
+          "id": "enter-your-city-state-and-zip-code",
+          "label": "Enter your city, state, and ZIP code.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-i-taxpayer-identification-number-tin-2",
+      "title": "Part I. Taxpayer Identification Number (TIN)",
+      "prompts": [
+        {
+          "id": "enter-your-tin-in-the-appropriate-box",
+          "label": "Enter your TIN in the appropriate box.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "applied-for",
+          "label": "Applied For",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-ii-certification-2",
+      "title": "Part II. Certification",
+      "prompts": [
+        {
+          "id": "for-this-type-of-account",
+          "label": "For this type of account:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "give-name-and-ein-of",
+          "label": "Give name and EIN of:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "what-name-and-number-to-give-the-requester",
+      "title": "What Name and Number To Give the Requester",
+      "prompts": [
+        {
+          "id": "for-this-type-of-account-2",
+          "label": "For this type of account:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "give-name-and-ssn-of",
+          "label": "Give name and SSN of:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

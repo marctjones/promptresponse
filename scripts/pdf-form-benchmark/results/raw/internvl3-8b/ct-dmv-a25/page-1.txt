@@ -1,0 +1,171 @@
+```json
+{
+  "sections": [
+    {
+      "id": "request-for-hearing",
+      "title": "REQUEST FOR HEARING TO CONTEST VEHICLE TOWING"
+    },
+    {
+      "id": "instructions",
+      "title": "INSTRUCTIONS"
+    },
+    {
+      "id": "vehicle-information",
+      "title": "VEHICLE INFORMATION"
+    },
+    {
+      "id": "hearing-request",
+      "title": "HEARING REQUEST"
+    }
+  ],
+  "fields": [
+    {
+      "label": "REQUEST FOR HEARING TO CONTEST VEHICLE TOWING",
+      "section_id": "request-for-hearing",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "INSTRUCTIONS",
+      "section_id": "instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "1. This form is used to contest the towing of an abandoned, unregistered or improperly parked vehicle by the police.",
+      "section_id": "instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "2. The request for a hearing must be made within TEN (10) days from the mailing date of the written notice of the tow.",
+      "section_id": "instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "3. Mail this completed form to the CHIEF EXECUTIVE OFFICER of the town from which the vehicle was towed.",
+      "section_id": "instructions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "NAME",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ADDRESS",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City/Town",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "VEHICLE TAKEN INTO CUSTODY BY (Name of Law Enforcement Agency)",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MARKER PLATE NO.",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MAKE",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MODEL",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "YEAR",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "VEHICLE IDENTIFICATION NUMBER",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "STATE OF LAST REGISTRATION",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "I HEREBY REQUEST A HEARING TO DETERMINE WHETHER THE TOWING OF MY VEHICLE WAS AUTHORIZED UNDER THE PROVISIONS OF SECTION 14-150 OR SECTION 14-307 OF THE CONNECTICUT GENERAL STATUTES.",
+      "section_id": "hearing-request",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "SIGNATURE (Owner)",
+      "section_id": "hearing-request",
+      "field_kind": "signature",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "DATE SIGNED",
+      "section_id": "hearing-request",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "X",
+      "section_id": "hearing-request",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    }
+  ]
+}
+```

@@ -1,0 +1,59 @@
+<doctag><picture><loc_29><loc_20><loc_69><loc_51></picture>
+<section_header_level_1><loc_136><loc_11><loc_364><loc_33>Supplement B, Reverification and Rehire (formerly Section 3)</section_header_level_1>
+<section_header_level_1><loc_184><loc_36><loc_316><loc_45>Department of Homeland Security</section_header_level_1>
+<text><loc_172><loc_44><loc_328><loc_54>U.S. Citizenship and Immigration Services</text>
+<text><loc_33><loc_66><loc_145><loc_72>Last Name (Family Name) from Section 1.</text>
+<text><loc_216><loc_66><loc_323><loc_72>First Name (Given Name) from Section 1.</text>
+<text><loc_362><loc_66><loc_456><loc_72>Middle initial (if any) from Section 1.</text>
+<text><loc_29><loc_87><loc_464><loc_119>Instructions: This supplement replaces Section 3 on the previous version of Form I-9. Only use this page if your employee requires reverification, is rehired within three years of the date the original Form I-9 was completed, or provides proof of a legal name change. Enter the employee's name in the fields above. Use a new section for each reverification or rehire. Review the Form I-9 instructions before completing this page. Keep this page as part of the employee's Form I-9 record. Additional guidance can be found in the Handbook for Employers: Guidance for Completing Form I-9 (M-274)</text>
+<text><loc_34><loc_123><loc_112><loc_129>Date of Rehire (if applicable)</text>
+<text><loc_117><loc_123><loc_170><loc_129>New Name (if applicable)</text>
+<text><loc_34><loc_131><loc_83><loc_137>Date (mm/dd/yyyy)</text>
+<text><loc_117><loc_131><loc_185><loc_137>Last Name (Family Name)</text>
+<text><loc_279><loc_131><loc_345><loc_137>First Name (Given Name)</text>
+<text><loc_426><loc_131><loc_460><loc_137>Middle Initial</text>
+<text><loc_29><loc_150><loc_456><loc_163>Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show continued employment authorization. Enter the document information in the spaces below.</text>
+<text><loc_34><loc_165><loc_72><loc_171>Document Title</text>
+<text><loc_200><loc_165><loc_270><loc_171>Document Number (if any)</text>
+<text><loc_368><loc_165><loc_462><loc_171>Expiration Date (if any) (mm/dd/yyyy)</text>
+<text><loc_34><loc_181><loc_466><loc_194>I attest, under penalty of perjury, that to the best of my knowledge, this employee is authorized to work in the United States, and if the employee presented documentation, the documentation I examined appears to be genuine and to relate to the individual who presented it.</text>
+<text><loc_34><loc_198><loc_112><loc_204>Name of Employer or Authorized Representative</text>
+<text><loc_200><loc_198><loc_334><loc_204>Signature of Employer or Authorized Representative</text>
+<text><loc_368><loc_198><loc_454><loc_204>Today's Date (mm/dd/yyyy)</text>
+<text><loc_34><loc_217><loc_189><loc_224>Additional Information (Initial and date each notation.)</text>
+<text><loc_368><loc_217><loc_466><loc_234>Check here if you used an alternative procedure authorized by DHS to examine documents.</text>
+<text><loc_34><loc_240><loc_108><loc_247>Date of Rehire (if applicable)</text>
+<text><loc_115><loc_240><loc_179><loc_247>New Name (if applicable)</text>
+<text><loc_34><loc_248><loc_83><loc_254>Date (mm/dd/yyyy)</text>
+<text><loc_115><loc_248><loc_179><loc_254>Last Name (Family Name)</text>
+<text><loc_279><loc_240><loc_345><loc_247>First Name (Given Name)</text>
+<text><loc_426><loc_240><loc_460><loc_247>Middle Initial</text>
+<text><loc_29><loc_265><loc_456><loc_279>Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show continued employment authorization. Enter the document information in the spaces below.</text>
+<text><loc_34><loc_281><loc_72><loc_287>Document Title</text>
+<text><loc_200><loc_281><loc_270><loc_287>Document Number (if any)</text>
+<text><loc_368><loc_281><loc_462><loc_287>Expiration Date (if any) (mm/dd/yyyy)</text>
+<text><loc_34><loc_297><loc_466><loc_310>I attest, under penalty of perjury, that to the best of my knowledge, this employee is authorized to work in the United States, and if the employee presented documentation, the documentation I examined appears to be genuine and to relate to the individual who presented it.</text>
+<text><loc_34><loc_314><loc_158><loc_320>Name of Employer or Authorized Representative</text>
+<text><loc_200><loc_314><loc_334><loc_320>Signature of Employer or Authorized Representative</text>
+<text><loc_368><loc_314><loc_456><loc_320>Today's Date (mm/dd/yyyy)</text>
+<text><loc_34><loc_333><loc_189><loc_340>Additional Information (Initial and date each notation.)</text>
+<text><loc_368><loc_333><loc_466><loc_350>Check here if you used an alternative procedure authorized by DHS to examine documents.</text>
+<text><loc_34><loc_358><loc_112><loc_365>Date of Rehire (if applicable)</text>
+<text><loc_115><loc_358><loc_179><loc_365>New Name (if applicable)</text>
+<text><loc_34><loc_366><loc_83><loc_372>Date (mm/dd/yyyy)</text>
+<text><loc_115><loc_366><loc_185><loc_372>Last Name (Family Name)</text>
+<text><loc_279><loc_358><loc_345><loc_365>First Name (Given Name)</text>
+<text><loc_426><loc_358><loc_460><loc_365>Middle Initial</text>
+<text><loc_29><loc_382><loc_456><loc_396>Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show continued employment authorization. Enter the document information in the spaces below.</text>
+<text><loc_34><loc_398><loc_72><loc_404>Document Title</text>
+<text><loc_200><loc_398><loc_270><loc_404>Document Number (if any)</text>
+<text><loc_368><loc_398><loc_462><loc_404>Expiration Date (if any) (mm/dd/yyyy)</text>
+<text><loc_34><loc_414><loc_466><loc_427>I attest, under penalty of perjury, that to the best of my knowledge, this employee is authorized to work in the United States, and if the employee presented documentation, the documentation I examined appears to be genuine and to relate to the individual who presented it.</text>
+<text><loc_34><loc_431><loc_158><loc_437>Name of Employer or Authorized Representative</text>
+<text><loc_200><loc_431><loc_334><loc_437>Signature of Employer or Authorized Representative</text>
+<text><loc_368><loc_431><loc_456><loc_437>Today's Date (mm/dd/yyyy)</text>
+<text><loc_34><loc_450><loc_189><loc_457>Additional Information (Initial and date each notation.)</text>
+<text><loc_368><loc_450><loc_466><loc_468>Check here if you used an alternative procedure authorized by DHS to examine documents.</text>
+<page_footer><loc_29><loc_480><loc_115><loc_486>Form I-9 Edition 01/20/25</page_footer>
+<page_footer><loc_437><loc_480><loc_471><loc_486>Page 4 of 4</page_footer>
+</doctag>

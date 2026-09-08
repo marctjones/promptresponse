@@ -1,0 +1,355 @@
+```json
+{
+  "sections": [
+    {
+      "id": "page",
+      "title": "Page"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Form W-9 (Rev. 3-2024)",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "must obtain your correct taxpayer identification number (TIN), which may be your social security number (SSN), individual taxpayer identification number (ITIN), adoption taxpayer identification number (ATIN), or employer identification number (EIN), to report on an information return. Examples of information returns include, but are not limited to, the following.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1099-INT (interest earned or paid).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1099-DIV (dividends, including those from stocks or mutual funds).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1099-MISC (various types of income, prizes, awards, or gross proceeds).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1099-NEC (nonemployee compensation).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1099-B (stock or mutual fund sales and certain other transactions by brokers).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1099-S (proceeds from real estate transactions).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1099-K (merchant card and third-party network transactions).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1098 (home mortgage interest), 1098-E (student loan interest), and 1098-T (tuition).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1099-C (canceled debt).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Form 1099-A (acquisition or abandonment of secured property).",
+      "section_id": "page",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Use Form W-9 only if you are a U.S. person (including a resident alien), to provide your correct TIN.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Caution: If you don’t return Form W-9 to the requester with a TIN, you might be subject to backup withholding. See What is backup withholding, later.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "By signing the filled-out form, you:",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "1. Certify that the TIN you are giving is correct (or you are waiting for a number to be issued);",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "2. Certify that you are not subject to backup withholding; or",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "3. Claim exemption from backup withholding if you are a U.S. exempt payee; and",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "4. Certify to your non-foreign status for purposes of withholding under chapter 3 or 4 of the Code (if applicable); and",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "5. Certify that FATCA codes(s) entered on this form (if any) indicating that you are exempt from the FATCA reporting is correct. See What Is FATCA Reporting, later, for further information.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Note: If you are a U.S. person and a requester gives you a form other than Form W-9 to request your TIN, you must use the requester’s form if it is substantially similar to this Form W-9.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Definition of a U.S. person. For federal tax purposes, you are:",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "• An individual who is a U.S. citizen or U.S. resident alien;",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "• A partnership, corporation, company, or association created or organized in the United States or under the laws of the United States;",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "• An estate (other than a foreign estate); or",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "• A domestic trust (as defined in Regulations section 301.7701-7).",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Establishing U.S. status for purposes of chapter 3 and chapter 4 withholding. Payments made to foreign persons, including certain payments made to foreign corporations, partnerships, trusts, estates, and individuals, may be subject to withholding under chapter 3 or chapter 4 of the Code (sections 1441-1447). Under those rules, if a Form W-9 or other certification of non-foreign status has not been received, a withholding agent, transferee, or partnership (payer) generally applies presumption rules that may require the payer to withhold applicable tax from the recipient, owner, transferor, or partner (payee). See Pub. 515, Withholding of Tax on Nonresident Aliens and Foreign Entities.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "The following persons must provide Form W-9 to the payor for purposes of establishing its non-foreign status.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "• In the case of a disregarded entity with a U.S. owner, the U.S. owner of the disregarded entity and not the disregarded entity.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "• In the case of a grantor trust with a U.S. grantor or other U.S. owner, generally, the U.S. grantor or other U.S. owner of the grantor trust and not the grantor trust.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "• In the case of a U.S. trust (other than a grantor trust), the U.S. trust and not the beneficiaries of the trust.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "See Pub. 515 for more information on providing a Form W-9 or a certification of non-foreign status to avoid withholding.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Foreign person. If you are a foreign person or the U.S. branch of a foreign bank that has elected to be treated as a U.S. person (under Regulations section 1.1441-1(b)(2)(iv) or other applicable section for chapter 3 or 4 purposes), do not use Form W-9. Instead, use the appropriate Form W-8 or Form 8233 (see Pub. 515).",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Nonresident alien who becomes a resident alien. Generally, only a nonresident alien individual may use the terms of a tax treaty to reduce or eliminate U.S. tax on certain types of income. However, most tax treaties contain a provision known as a saving clause. Exceptions specified in the saving clause may permit an exemption from tax to continue for certain types of income even after the payee has otherwise become a U.S. resident alien for tax purposes.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If you are a U.S. resident alien who is relying on an exception contained in the saving clause of a tax treaty to claim an exemption from U.S. tax on certain types of income, you must attach a statement to Form W-9 that specifies the following five items.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "1. The treaty country. Generally, this must be the same treaty under which you claimed exemption from tax as a nonresident alien.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "2. The treaty article addressing the income.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "3. The article number (or location) in the tax treaty that contains the saving clause and its exceptions.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "4. The type and amount of income that qualifies for the exemption from tax.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "5. Sufficient facts to justify the exemption from tax under the terms of the treaty article.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Example. Article 20 of the U.S.-China income tax treaty allows an exemption from tax for scholarship income received by a Chinese student temporarily present in the United States. Under U.S. law, this student will become a resident alien for tax purposes if their stay in the United States exceeds 5 calendar years. However, paragraph 2 of the first Protocol to the U.S.-China treaty (dated April 30, 1984) allows the student to continue to apply even after the Chinese provisions of Article 20 to become a resident alien of the United States. A Chinese student who qualifies for this exception (under paragraph 2 of the first Protocol) and is relying on this exception to claim an exemption from tax on their scholarship or fellowship income would attach to Form W-9 a statement that includes the information described above to support that exemption.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Backup Withholding",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "What is backup withholding? Persons making certain payments to you must under certain conditions withhold and pay to the IRS 24% of such payments. This is called “backup withholding.” Payments that may be subject to backup withholding include, but are not limited to, interest, dividends, broker and barter exchange transactions, rents, royalties, nonemployee pay, payments made in settlement of payment card and third-party network transactions, and certain payments from fish and boat operators. Real estate transactions are not subject to backup withholding.",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Payments you receive will be subject to backup withholding if:",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "1. You do not furnish your TIN to the requester;",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "2. You do not certify your TIN when required (see the instructions for Part II for details);",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "3. The IRS tells the requester that you furnished an incorrect TIN;",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "4. The IRS tells you that you are subject to backup withholding because you did not report all your interest and dividends on your tax return (for reportable interest and dividends only); or",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "5. You do not certify to the requester that you are not subject to backup withholding, as described in item 4 under “By signing the filled-out form” above (for reportable interest and dividends accounts opened after 1983 only).",
+      "section_id": "page",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}
+```

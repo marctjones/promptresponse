@@ -1,0 +1,89 @@
+<doctag><page_header><loc_23><loc_13><loc_92><loc_19>B-58 IND Rev. 10-2019</page_header>
+<section_header_level_1><loc_154><loc_13><loc_271><loc_26>STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES</section_header_level_1>
+<text><loc_22><loc_30><loc_345><loc_43>Please mail completed form to: DMV Change of Address Unit, 60 State Street, Wethersfield, CT 06161-1015</text>
+<text><loc_22><loc_48><loc_72><loc_55>About You</text>
+<text><loc_22><loc_57><loc_89><loc_75>You must provide your name, license/ID number and birth date.</text>
+<text><loc_22><loc_89><loc_79><loc_104>Your Residence Address</text>
+<text><loc_22><loc_106><loc_79><loc_119>This must be a Connecticut address.</text>
+<text><loc_22><loc_133><loc_67><loc_147>Your Mailing Address</text>
+<text><loc_22><loc_149><loc_82><loc_161>If different from your residence address.</text>
+<text><loc_22><loc_164><loc_90><loc_177>Organ and Tissue Donor Status</text>
+<text><loc_22><loc_184><loc_63><loc_197>Your E-mail Address</text>
+<text><loc_22><loc_201><loc_81><loc_215>Your Vehicles/Vessels</text>
+<text><loc_22><loc_219><loc_51><loc_232>STOP!</text>
+<text><loc_22><loc_235><loc_88><loc_269>ONLY list vehicles/vessels garaged somewhere other than your new residence address.</text>
+<text><loc_22><loc_274><loc_66><loc_281>SIGNATURE</text>
+<text><loc_22><loc_286><loc_454><loc_293>DO NOT COMPLETE BELOW THIS LINE UNLESS YOU WANT TO REGISTER TO VOTE OR CHANGE YOUR POLITICAL PARTY AFFILIATION.</text>
+<text><loc_22><loc_347><loc_85><loc_379>Voter Registration Application Section</text>
+<text><loc_22><loc_389><loc_94><loc_444>ONLY complete this section if you would like to apply for voter registration or if you are already registered to vote and want to change your political party affiliation.</text>
+<text><loc_114><loc_48><loc_182><loc_54>NAME (Last, First, Middle)</text>
+<text><loc_114><loc_62><loc_207><loc_68>OPERATOR LICENSE/ID NUMBER</text>
+<text><loc_114><loc_77><loc_167><loc_83>STREET ADDRESS</text>
+<text><loc_268><loc_77><loc_301><loc_83>UNIT/APT. #</text>
+<text><loc_114><loc_95><loc_130><loc_101>CITY</text>
+<text><loc_114><loc_104><loc_130><loc_110>DMV</text>
+<text><loc_114><loc_112><loc_130><loc_118>of voters</text>
+<text><loc_114><loc_120><loc_130><loc_126>a registered</text>
+<text><loc_114><loc_128><loc_130><loc_134>STREET</text>
+<text><loc_114><loc_145><loc_130><loc_151>CITY</text>
+<text><loc_114><loc_153><loc_130><loc_159>DIT</text>
+<text><loc_114><loc_162><loc_130><loc_168>I</text>
+<text><loc_114><loc_170><loc_130><loc_176>and wish</text>
+<text><loc_114><loc_184><loc_130><loc_190>If</text>
+<text><loc_114><loc_192><loc_130><loc_198>renew</text>
+<text><loc_114><loc_201><loc_130><loc_207>Check</text>
+<text><loc_114><loc_209><loc_130><loc_215>PLATE/</text>
+<text><loc_114><loc_215><loc_130><loc_221>VESSEL</text>
+<text><loc_114><loc_224><loc_130><loc_230>PLATE/</text>
+<text><loc_114><loc_232><loc_130><loc_238>VESSEL</text>
+<text><loc_114><loc_239><loc_130><loc_245>NO</text>
+<text><loc_114><loc_255><loc_130><loc_261>LIST</text>
+<text><loc_114><loc_262><loc_130><loc_268>*All</text>
+<text><loc_114><loc_270><loc_130><loc_276>SIGNATURE</text>
+<text><loc_114><loc_284><loc_454><loc_291>DO NOT COMPLETE BELOW THIS LINE UNLESS YOU WANT TO REGISTER TO VOTE OR CHANGE YOUR POLITICAL PARTY AFFILIATION.</text>
+<text><loc_114><loc_299><loc_130><loc_305>Are</text>
+<text><loc_114><loc_307><loc_130><loc_313>You</text>
+<text><loc_114><loc_315><loc_454><loc_327>If you checked "NO" in response to either of these questions, do NOT complete below this line as you cannot register to vote.</text>
+<text><loc_114><loc_332><loc_242><loc_338>Do you wish to enroll in a political party?</text>
+<text><loc_114><loc_350><loc_391><loc_357>NO I do not wish to enroll in a party at this time and will be registered as UNAFFILIATED.</text>
+<text><loc_114><loc_360><loc_438><loc_373>Note: Declaring a party enables you to vote in the party's primary election, which is open only to party members. You may later choose to switch enrollment to or from a political party.</text>
+<text><loc_114><loc_376><loc_409><loc_382>LEAVING THIS BOX BLANK WILL AUTOMATICALLY RESULT IN SELECTING "UNAFFILIATED".</text>
+<text><loc_114><loc_389><loc_325><loc_395>VOTER DECLARATION - I swear or affirm under penalty of perjury that:</text>
+<text><loc_114><loc_398><loc_184><loc_404>* I am a U.S. Citizen;</text>
+<text><loc_114><loc_406><loc_369><loc_412>* I am at least 17 years old and will be at least 18 years old on or before election day;</text>
+<text><loc_114><loc_414><loc_270><loc_420>* I live in Connecticut at the address shown above;</text>
+<text><loc_114><loc_422><loc_398><loc_428>* I have not been convicted of a disenfranchising felony, or if so, I am eligible to register to vote.</text>
+<text><loc_114><loc_430><loc_444><loc_442>The information that I have provided is true to the best of my knowledge under penalty of perjury. If I have provided false information, I may be subject to a fine or imprisonment or both under federal or state laws.</text>
+<text><loc_114><loc_445><loc_456><loc_457>By signing this Voter Declaration, I am applying to register to vote or changing my existing party affiliation, and I agree to allow the signature from my license record to be used as the signature on my voter registration record.</text>
+<text><loc_140><loc_460><loc_283><loc_466>X SIGNATURE FOR VOTER REGISTRATION ONLY **</text>
+<text><loc_380><loc_460><loc_419><loc_466>DATE SIGNED</text>
+<text><loc_114><loc_477><loc_334><loc_484>** Voter registrations without signatures will not be processed.</text>
+<text><loc_114><loc_299><loc_130><loc_305>YES</text>
+<text><loc_114><loc_307><loc_130><loc_313>NO</text>
+<text><loc_114><loc_315><loc_454><loc_327>If you checked "NO" in response to either of these questions, do NOT complete below this line as you cannot register to vote.</text>
+<text><loc_114><loc_332><loc_242><loc_338>Do you wish to enroll in a political party?</text>
+<text><loc_114><loc_350><loc_391><loc_357>NO I do not wish to enroll in a party at this time and will be registered as UNAFFILIATED.</text>
+<text><loc_114><loc_360><loc_438><loc_373>NOTE: Declaring a party enables you to vote in the party's primary election, which is open only to party members. You may later choose to switch enrollment to or from a political party.</text>
+<text><loc_114><loc_376><loc_409><loc_382>LEAVING THIS BOX BLANK WILL AUTOMATICALLY RESULT IN SELECTING "UNAFFILIATED".</text>
+<text><loc_114><loc_389><loc_325><loc_395>VOTER DECLARATION - I swear or affirm under penalty of perjury that:</text>
+<text><loc_114><loc_398><loc_184><loc_404>* I am a U.S. Citizen;</text>
+<text><loc_114><loc_406><loc_369><loc_412>* I am at least 17 years old and will be at least 18 years old on or before election day;</text>
+<text><loc_114><loc_414><loc_270><loc_420>* I live in Connecticut at the address shown above;</text>
+<text><loc_114><loc_422><loc_398><loc_428>* I have not been convicted of a disenfranchising felony, or if so, I am eligible to register to vote.</text>
+<text><loc_114><loc_430><loc_444><loc_442>The information that I have provided is true to the best of my knowledge under penalty of perjury. If I have provided false information, I may be subject to a fine or imprisonment or both under federal or state laws.</text>
+<text><loc_114><loc_445><loc_456><loc_457>By signing this Voter Declaration, I am applying to register to vote or changing my existing party affiliation, and I agree to allow the signature from my license record to be used as the signature on my voter registration record.</text>
+<picture><loc_112><loc_459><loc_136><loc_476></picture>
+<text><loc_114><loc_477><loc_334><loc_484>** Voter registrations without signatures will not be processed.</text>
+<text><loc_114><loc_299><loc_130><loc_305>YES</text>
+<text><loc_114><loc_307><loc_130><loc_313>NO</text>
+<text><loc_114><loc_315><loc_454><loc_327>If you checked "NO" in response to either of these questions, do NOT complete below this line as you cannot register to vote.</text>
+<text><loc_114><loc_332><loc_242><loc_338>Do you wish to enroll in a political party?</text>
+<text><loc_114><loc_350><loc_391><loc_357>NO I do not wish to enroll in a party at this time and will be registered as UNAFFILIATED.</text>
+<text><loc_114><loc_360><loc_438><loc_373>NOTE: Declaring a party enables you to vote in the party's primary election, which is open only to party members. You may later choose to switch enrollment to or from a political party.</text>
+<text><loc_114><loc_375><loc_409><loc_381>LEAVING THIS BOX BLANK WILL AUTOMATICALLY RESULT IN SELECTING "UNAFFILIATED".</text>
+<text><loc_114><loc_389><loc_325><loc_395>VOTER DECLARATION - I swear or affirm under penalty of perjury that:</text>
+<text><loc_114><loc_398><loc_184><loc_404>* I am a U.S. Citizen;</text>
+<text><loc_114><loc_406><loc_369><loc_412>* I am at least 17 years old and will be at least 18 years old on or before election day;</text>
+<text><loc_114><loc_414><loc_270><loc_420>* I live in Connecticut at the address shown above;</text>
+<text><loc_114><loc_422><loc_398><loc_428>* I have not been convicted of a disenfranchising felony, or if so, I am eligible to register to vote.</text>
+</doctag>

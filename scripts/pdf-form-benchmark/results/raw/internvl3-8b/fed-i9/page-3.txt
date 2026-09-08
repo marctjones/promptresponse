@@ -1,0 +1,244 @@
+```json
+{
+  "sections": [
+    {
+      "id": "supplement-a",
+      "title": "Supplement A"
+    },
+    {
+      "id": "instructions",
+      "title": "Instructions"
+    },
+    {
+      "id": "attestation",
+      "title": "I attest"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Last Name (Family Name) from Section 1.",
+      "section_id": "supplement-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "First Name (Given Name) from Section 1.",
+      "section_id": "supplement-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Middle initial (if any) from Section 1.",
+      "section_id": "supplement-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Signature of Preparer or Translator",
+      "section_id": "supplement-a",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "supplement-a",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Last Name (Family Name)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "First Name (Given Name)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Middle Initial (if any)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Address (Street Number and Name)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or Town",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP Code",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Signature of Preparer or Translator",
+      "section_id": "attestation",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "attestation",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Last Name (Family Name)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "First Name (Given Name)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Middle Initial (if any)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Address (Street Number and Name)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or Town",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP Code",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Signature of Preparer or Translator",
+      "section_id": "attestation",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "attestation",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "Last Name (Family Name)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "First Name (Given Name)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Middle Initial (if any)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Address (Street Number and Name)",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or Town",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "ZIP Code",
+      "section_id": "attestation",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Signature of Preparer or Translator",
+      "section_id": "attestation",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "attestation",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    }
+  ]
+}
+```

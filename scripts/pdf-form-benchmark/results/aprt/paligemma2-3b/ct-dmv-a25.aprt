@@ -1,0 +1,167 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form A-25 (Request for Hearing to Contest Vehicle Towing)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "request-for-hearing-to-contest-vehicle-towing",
+          "label": "REQUEST FOR HEARING TO CONTEST VEHICLE TOWING",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "r-d-8835-2-18",
+          "label": "R.D. 8835 2/18",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-connecticut",
+          "label": "STATE OF CONNECTICUT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "department-of-motor-vehicles",
+          "label": "DEPARTMENT OF MOTOR VEHICLES",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "instructions",
+          "label": "INSTRUCTIONS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "vehicle-owner-information",
+          "label": "VEHICLE OWNER INFORMATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-no-street",
+          "label": "ADDRESS No. & Street",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "city-town",
+          "label": "City/Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "Zip Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "vehicle-information",
+          "label": "VEHICLE INFORMATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "make",
+          "label": "MAKE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "year",
+          "label": "YEAR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-last-registration",
+          "label": "STATE OF LAST REGISTRATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "VEHICLE IDENTIFICATION NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "hearing-request",
+          "label": "HEARING REQUEST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-name-town",
+          "label": "STATE NAME (Town)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-code",
+          "label": "STATE CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

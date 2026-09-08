@@ -1,0 +1,423 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form SS-4 (Application for Employer Identification Number)"
+  },
+  "sections": [
+    {
+      "id": "entity-information",
+      "title": "Entity Information",
+      "prompts": [
+        {
+          "id": "legal-name-of-entity-or-individual-for-whom-the-ein-is-being-requested",
+          "label": "Legal name of entity (or individual) for whom the EIN is being requested",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "trade-name-of-business-if-different-from-name-on-line-1",
+          "label": "Trade name of business (if different from name on line 1)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "executor-administrator-trustee-care-of-name",
+          "label": "Executor, administrator, trustee, \"care of\" name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "address-information",
+      "title": "Address Information",
+      "prompts": [
+        {
+          "id": "mailing-address-room-apt-suite-no-and-street-or-p-o-box",
+          "label": "Mailing address (room, apt., suite no. and street, or P.O. box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-zip-code-if-foreign-see-instructions",
+          "label": "City, state, and ZIP code (if foreign, see instructions)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "street-address-if-different-don-t-enter-a-p-o-box",
+          "label": "Street address (if different) (Don\u2019t enter a P.O. box.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-zip-code-if-foreign-see-instructions-2",
+          "label": "City, state, and ZIP code (if foreign, see instructions)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "county-and-state-where-principal-business-is-located",
+          "label": "County and state where principal business is located",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "responsible-party",
+      "title": "Responsible Party",
+      "prompts": [
+        {
+          "id": "name-of-responsible-party",
+          "label": "Name of responsible party",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "ssn-itin-or-ein",
+          "label": "SSN, ITIN, or EIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "is-this-application-for-a-limited-liability-company-llc-or-a-foreign-equivalent",
+          "label": "Is this application for a limited liability company (LLC) (or a foreign equivalent)?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
+          }
+        },
+        {
+          "id": "if-8a-is-yes-was-the-llc-organized-in-the-united-states",
+          "label": "If 8a is \"Yes,\" was the LLC organized in the United States?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "entity-type",
+      "title": "Entity Type",
+      "prompts": [
+        {
+          "id": "type-of-entity-check-only-one-box-caution-if-8a-is-yes-see-the-instructions-for-the-correct-box-to-check",
+          "label": "Type of entity (check only one box). Caution: If 8a is \"Yes,\" see the instructions for the correct box to check.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Sole proprietor (SSN)",
+              "Partnership",
+              "Corporation (enter form number to be filed)",
+              "Personal service corporation",
+              "Church or church-controlled organization",
+              "Other nonprofit organization (specify)",
+              "Other (specify)",
+              "Estate (SSN of decedent)",
+              "Plan administrator (TIN)",
+              "Trust (TIN of grantor)",
+              "Military/National Guard",
+              "State/local government",
+              "Federal government",
+              "Farmers\u2019 cooperative",
+              "REMIC",
+              "Indian tribal governments/enterprises"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "incorporation",
+      "title": "Incorporation",
+      "prompts": [
+        {
+          "id": "if-a-corporation-name-the-state-or-foreign-country-if-applicable-where-incorporated",
+          "label": "If a corporation, name the state or foreign country (if applicable) where incorporated",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reason-for-applying",
+      "title": "Reason for Applying",
+      "prompts": [
+        {
+          "id": "reason-for-applying-check-only-one-box",
+          "label": "Reason for applying (check only one box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Started new business (specify type)",
+              "Changed type of organization (specify new type)",
+              "Hired employees (Check the box and see line 13.)",
+              "Compliance with IRS withholding regulations",
+              "Other (specify)",
+              "Purchased going business",
+              "Created a trust (specify type)",
+              "Created a pension plan (specify type)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "business-details",
+      "title": "Business Details",
+      "prompts": [
+        {
+          "id": "date-business-started-or-acquired-month-day-year-see-instructions",
+          "label": "Date business started or acquired (month, day, year). See instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "closing-month-of-accounting-year",
+          "label": "Closing month of accounting year",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "highest-number-of-employees-expected-in-the-next-12-months-enter-0-if-none-if-no-employees-expected-skip-line-14",
+          "label": "Highest number of employees expected in the next 12 months (enter -0- if none). If no employees expected, skip line 14.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "if-you-expect-your-employment-tax-liability-to-be-1-000-or-less-in-a-full-calendar-year-and-want-to-file-form-944-annually-instead-of-forms-941-quarterly-check-here",
+          "label": "If you expect your employment tax liability to be $1,000 or less in a full calendar year and want to file Form 944 annually instead of Forms 941 quarterly, check here.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "first-date-wages-or-annuities-were-paid-month-day-year-note-if-applicant-is-a-withholding-agent-enter-date-income-will-first-be-paid-to-nonresident-alien-month-day-year",
+          "label": "First date wages or annuities were paid (month, day, year). Note: If applicant is a withholding agent, enter date income will first be paid to nonresident alien (month, day, year)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "principal-activity",
+      "title": "Principal Activity",
+      "prompts": [
+        {
+          "id": "check-one-box-that-best-describes-the-principal-activity-of-your-business",
+          "label": "Check one box that best describes the principal activity of your business.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Health care & social assistance",
+              "Wholesale\u2014agent/broker",
+              "Construction",
+              "Rental & leasing",
+              "Transportation & warehousing",
+              "Accommodation & food service",
+              "Wholesale\u2014other",
+              "Retail",
+              "Real estate",
+              "Manufacturing",
+              "Finance & insurance",
+              "Other (specify)"
+            ]
+          }
+        },
+        {
+          "id": "indicate-principal-line-of-merchandise-sold-specific-construction-work-done-products-produced-or-services-provided",
+          "label": "Indicate principal line of merchandise sold, specific construction work done, products produced, or services provided.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "previous-ein",
+      "title": "Previous EIN",
+      "prompts": [
+        {
+          "id": "has-the-applicant-entity-shown-on-line-1-ever-applied-for-and-received-an-ein",
+          "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "Yes",
+              "No"
+            ]
+          }
+        },
+        {
+          "id": "if-yes-write-previous-ein-here",
+          "label": "If \"Yes,\" write previous EIN here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "third-party-designee",
+      "title": "Third Party Designee",
+      "prompts": [
+        {
+          "id": "designee-s-name",
+          "label": "Designee\u2019s name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "designee-s-telephone-number-include-area-code",
+          "label": "Designee\u2019s telephone number (include area code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "designee-s-fax-number-include-area-code",
+          "label": "Designee\u2019s fax number (include area code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "address-and-zip-code",
+          "label": "Address and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "applicant-s-telephone-number-include-area-code",
+          "label": "Applicant\u2019s telephone number (include area code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "applicant-s-fax-number-include-area-code",
+          "label": "Applicant\u2019s fax number (include area code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        }
+      ]
+    },
+    {
+      "id": "declaration",
+      "title": "Declaration",
+      "prompts": [
+        {
+          "id": "name-and-title-type-or-print-clearly",
+          "label": "Name and title (type or print clearly)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature",
+          "label": "Signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "do-i-need-an-ein",
+      "title": "Do I Need an EIN?",
+      "prompts": [
+        {
+          "id": "if-the-applicant",
+          "label": "IF the applicant...",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "and",
+          "label": "AND...",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "then",
+          "label": "THEN...",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

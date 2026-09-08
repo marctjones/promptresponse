@@ -1,0 +1,31 @@
+{
+  "sections": [
+    {
+      "id": "do-i-need-an-ein",
+      "title": "Do I Need an EIN?"
+    }
+  ],
+  "fields": [
+    {
+      "label": "IF the applicant...",
+      "section_id": "do-i-need-an-ein",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "AND...",
+      "section_id": "do-i-need-an-ein",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "THEN...",
+      "section_id": "do-i-need-an-ein",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}

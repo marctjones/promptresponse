@@ -1,0 +1,171 @@
+{
+  "sections": [
+    {
+      "id": "step-4b-deductions-worksheet",
+      "title": "Step 4(b)—Deductions Worksheet (Keep for your records.)"
+    }
+  ],
+  "fields": [
+    {
+      "label": "1a $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "1b $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "1c $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "2 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "3a $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "3b $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "4 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "5 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "6a $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "6b $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "6c $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "6d $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "6e $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "7 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "8a $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "8b $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "9 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "10 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "11 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "12 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "13 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "14 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    },
+    {
+      "label": "15 $",
+      "section_id": "step-4b-deductions-worksheet",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": false
+    }
+  ]
+}

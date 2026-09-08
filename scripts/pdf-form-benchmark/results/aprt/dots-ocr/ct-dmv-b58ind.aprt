@@ -1,0 +1,23 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form B-58 (Change of Address, Individual)"
+  },
+  "sections": [
+    {
+      "id": "individual-change-of-address-organ-tissue-donor-status-voter-registration-application",
+      "title": "Individual Change of Address/Organ & Tissue Donor Status/Voter Registration Application",
+      "prompts": [
+        {
+          "id": "license-id-changes-completed-registration-changes-completed",
+          "label": "\u2610 LICENSE/ID CHANGES COMPLETED \u2610 REGISTRATION CHANGES COMPLETED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

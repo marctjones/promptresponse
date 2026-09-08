@@ -1,0 +1,62 @@
+```json
+{
+  "sections": [
+    {
+      "id": "married-filing- jointly-or-surviving-spouse",
+      "title": "Married Filing Jointly or Qualifying Surviving Spouse"
+    },
+    {
+      "id": "single-or-married-filing-separately",
+      "title": "Single or Married Filing Separately"
+    },
+    {
+      "id": "head-of-household",
+      "title": "Head of Household"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Higher Paying Job Annual Taxable Wage & Salary",
+      "section_id": "married-filing- jointly-or-surviving-spouse",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Lower Paying Job Annual Taxable Wage & Salary",
+      "section_id": "married-filing- jointly-or-surviving-spouse",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Higher Paying Job Annual Taxable Wage & Salary",
+      "section_id": "single-or-married-filing-separately",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Lower Paying Job Annual Taxable Wage & Salary",
+      "section_id": "single-or-married-filing-separately",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Higher Paying Job Annual Taxable Wage & Salary",
+      "section_id": "head-of-household",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Lower Paying Job Annual Taxable Wage & Salary",
+      "section_id": "head-of-household",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    }
+  ]
+}
+```

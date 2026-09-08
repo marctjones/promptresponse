@@ -1,0 +1,13 @@
+{
+  "sections": [
+    {
+      "id": "general-instructions",
+      "title": "General Instructions"
+    },
+    {
+      "id": "specific-instructions",
+      "title": "Specific Instructions"
+    }
+  ],
+  "fields": []
+}

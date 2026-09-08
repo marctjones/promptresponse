@@ -1,0 +1,9 @@
+<doctag><page_header><loc_29><loc_23><loc_72><loc_28>Form W-4 (2026)</page_header>
+<page_header><loc_451><loc_23><loc_471><loc_29>Page 5</page_header>
+<section_header_level_1><loc_138><loc_34><loc_362><loc_42>Married Filing Jointly or Qualifying Surviving Spouse</section_header_level_1>
+<otsl><loc_28><loc_46><loc_471><loc_187></otsl>
+<section_header_level_1><loc_176><loc_189><loc_324><loc_197>Single or Married Filing Separately</section_header_level_1>
+<otsl><loc_28><loc_200><loc_471><loc_334></otsl>
+<section_header_level_1><loc_209><loc_337><loc_291><loc_344>Head of Household</section_header_level_1>
+<otsl><loc_28><loc_347><loc_471><loc_482></otsl>
+</doctag>

@@ -1,0 +1,193 @@
+{
+  "sections": [
+    {
+      "id": "part-ii-certification",
+      "title": "Part II. Certification"
+    },
+    {
+      "id": "what-name-and-number-to-give-the-requester",
+      "title": "What Name and Number To Give the Requester"
+    },
+    {
+      "id": "secure-your-tax-records-from-identity-theft",
+      "title": "Secure Your Tax Records From Identity Theft"
+    }
+  ],
+  "fields": [
+    {
+      "label": "For this type of account:",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Give name and SSN of:",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "For this type of account:",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Give name and EIN of:",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "1. Interest, dividend, and barter exchange accounts opened before 1984 and broker accounts considered active during 1983.",
+      "section_id": "part-ii-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "2. Interest, dividend, broker, and barter exchange accounts opened after 1983 and broker accounts considered inactive during 1983.",
+      "section_id": "part-ii-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "3. Real estate transactions.",
+      "section_id": "part-ii-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "4. Other payments.",
+      "section_id": "part-ii-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "5. Mortgage interest paid by you, acquisition or abandonment of secured property, cancellation of debt, qualified tuition program payments (under section 529), ABLE accounts (under section 529A), IRA, Coverdell ESA, Archer MSA or HSA contributions or distributions, and pension distributions.",
+      "section_id": "part-ii-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "1. Individual",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "2. Two or more individuals (joint account) other than an account maintained by an FFI",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "3. Two or more U.S. persons (joint account maintained by an FFI)",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "4. Custodial account of a minor (Uniform Gift to Minors Act)",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "5. a. The usual revocable savings trust (grantor is also trustee)",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "5. b. So-called trust account that is not a legal or valid trust under state law",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "6. Sole proprietorship or disregarded entity owned by an individual",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "7. Grantor trust filing under Optional Filing Method 1 (see Regulations section 1.671-4(b)(2)(i)(A))**",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "8. Disregarded entity not owned by an individual",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "9. A valid trust, estate, or pension trust",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "10. Corporation or LLC electing corporate status on Form 8832 or Form 2553",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "11. Association, club, religious, charitable, educational, or other tax-exempt organization",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "12. Partnership or multi-member LLC",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "13. A broker or registered nominee",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "14. Account with the Department of Agriculture in the name of a public entity (such as a state or local government, school district, or prison) that receives agricultural program payments",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "15. Grantor trust filing Form 1041 or under the Optional Filing Method 2, requiring Form 1099 (see Regulations section 1.671-4(b)(2)(i)(B))**",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}

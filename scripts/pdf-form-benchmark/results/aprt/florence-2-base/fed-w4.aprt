@@ -1,0 +1,975 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-4 (Employee's Withholding Certificate)"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "w-4",
+          "label": "W-4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-withholding-certificate",
+          "label": "Employee's Withholding Certificate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "omb-no-1556-074",
+          "label": "OMB No. 1556-074",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "dentment-of-the-first-first",
+          "label": "Dentment of the First First",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-1",
+          "label": "Step 1:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-1-2",
+          "label": "Step 1:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-1-3",
+          "label": "Step 1:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-1-4",
+          "label": "Step 1:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-1-5",
+          "label": "Step 1:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter",
+          "label": "Enter",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "date-your-name-match-the",
+          "label": "Date your name match the",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "information",
+          "label": "Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-own-stna-and-zp-code",
+          "label": "City or own. Stna. and ZP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-your-name-match-the-2",
+          "label": "Date your name match the",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "general-instructions",
+          "label": "General Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "general-instructions-2",
+          "label": "General Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1992-supplement-form-it-s-a-nonresidentien-see-notice",
+          "label": "1992. SUPPLEMENT FORM. It's a nonresidentien, see Notice",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1992-supplement-form-it-s-a-instructions-for-nonesient",
+          "label": "1992. SUPPLEMENT FORM. It's a instructions for Nonesient",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "select-instructions",
+          "label": "Select instructions:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "select-instructions-2",
+          "label": "Select instructions:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "specific-instructions",
+          "label": "Specific Instructions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "for-the-latest-development-related-to-form",
+          "label": "For the latest development related to Form",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-16-check-your-artificial-status-this-will",
+          "label": "Step 16, check your artificial status. This will",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w-a-2069",
+          "label": "Form W-A-2069",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-2b-multiple-jobs-worksheet-keep-for-your-records",
+          "label": "Step 2b-Multiple Jobs Worksheet (Keep for your records)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2a-s",
+          "label": "2a S",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-w4-2009",
+          "label": "Form W4 (2009)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "step-4-deductions-worksheet-keep-for-your-records",
+          "label": "Step 4 (DedUCTions Worksheet) (Keep for your records.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-qualified-tips-000-000-000-000-000-000-000-000",
+          "label": "A Qualified tips,000,000,000,000,000,000,000,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1a",
+          "label": "1a $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "qualified-passenger-000-000-000-000",
+          "label": "Qualified passenger,000,000,000,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "marrative-filing-000-000-000-000-000-000-000",
+          "label": "marrative filing,000,000,000,000,000,000,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3a",
+          "label": "3a $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "3a-2",
+          "label": "3a $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "3a-3",
+          "label": "3a $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "a-medical-andentalized-expenses-including-your-20-ized-formula",
+          "label": "a Medical andENTalized expenses, including your 20%ized formula",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-medical-andentalized-expenses-000-000-000-000-000-000-000",
+          "label": "a Medical andENTALized expenses,000,000,000,000,000,000,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "0-000-000-000-000-000-000-000-000-000-000-000-000-000",
+          "label": "$0,000,000,000,000,000,000,000,000,000,000,000,000,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "form-w4-2026",
+          "label": "Form W4-2026",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "married-filing-jointty-or-qualityaringaring-spouse",
+          "label": "Married Filing Jointty or Qualityaringaring Spouse",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "higher-paying-job",
+          "label": "Higher Paying Job",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "lower-paying-job-annual-taxable-wage-salary",
+          "label": "Lower Paying Job Annual Taxable Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "higher-paying-job-2",
+          "label": "Higher Paying Job",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "low-paying-job-annual-taxable-wage-salary",
+          "label": "Low Paying Job Annual Taxable Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "wage-salary",
+          "label": "Wage & Salary",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-2",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-3",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-4",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-5",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-6",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-7",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-8",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-9",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-10",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-11",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-12",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-13",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-14",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-15",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-16",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-17",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-18",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-19",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-20",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-21",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-22",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-23",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-24",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-25",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-26",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-27",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-28",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-29",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-30",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-31",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-32",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-33",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-34",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-35",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-36",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-37",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-38",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-39",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-40",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-41",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-42",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-43",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-44",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-45",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-46",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-47",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-48",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-49",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-50",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-51",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-52",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-53",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-54",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-55",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-56",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-57",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-58",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-59",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-60",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-61",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-62",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-63",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-64",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-65",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-66",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-67",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-68",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-69",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-70",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-71",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-72",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-73",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "0-00-74",
+          "label": "$0.00",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    }
+  ]
+}

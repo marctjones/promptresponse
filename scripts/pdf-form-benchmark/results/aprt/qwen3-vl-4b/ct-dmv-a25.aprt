@@ -1,0 +1,163 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form A-25 (Request for Hearing to Contest Vehicle Towing)"
+  },
+  "sections": [
+    {
+      "id": "vehicle-owner-information",
+      "title": "Vehicle Owner Information",
+      "prompts": [
+        {
+          "id": "name",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no-street",
+          "label": "No. & Street",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-town",
+          "label": "City/Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "Zip Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vehicle-information",
+      "title": "Vehicle Information",
+      "prompts": [
+        {
+          "id": "vehicle-taken-into-custody-by-name-of-law-enforcement-agency",
+          "label": "VEHICLE TAKEN INTO CUSTODY BY (Name of Law Enforcement Agency)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "marker-plate-no",
+          "label": "MARKER PLATE NO.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "make",
+          "label": "MAKE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "model",
+          "label": "MODEL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "year",
+          "label": "YEAR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "VEHICLE IDENTIFICATION NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-last-registration",
+          "label": "STATE OF LAST REGISTRATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hearing-request",
+      "title": "Hearing Request",
+      "prompts": [
+        {
+          "id": "i-hereby-request-a-hearing-to-determine-whether-the-towing-of-my-vehicle-was-authorized-under-the-provisions-of-section-14-150-or-section-14-307-of-the-connecticut-general-statutes",
+          "label": "I HEREBY REQUEST A HEARING TO DETERMINE WHETHER THE TOWING OF MY VEHICLE WAS AUTHORIZED UNDER THE PROVISIONS OF SECTION 14-150 OR SECTION 14-307 OF THE CONNECTICUT GENERAL STATUTES.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "signature-owner",
+          "label": "SIGNATURE (Owner)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    }
+  ]
+}

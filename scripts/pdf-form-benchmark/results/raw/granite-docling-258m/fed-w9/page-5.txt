@@ -1,0 +1,37 @@
+<doctag><page_header><loc_29><loc_23><loc_91><loc_28>Form W-9 (Rev. 3-2024)</page_header>
+<page_header><loc_451><loc_23><loc_471><loc_29>Page</page_header>
+<page_header><loc_467><loc_23><loc_471><loc_29>5</page_header>
+<section_header_level_1><loc_29><loc_35><loc_120><loc_43>Part II. Certification</section_header_level_1>
+<text><loc_29><loc_45><loc_241><loc_63>To establish the withholding agent that you are a U.S. person, or resident alien, sign Form W-9. You may be requested to sign by the withholding agent even if item 1, 4, or 5 below indicates otherwise.</text>
+<text><loc_29><loc_65><loc_241><loc_88>For a joint account, only the person whose TIN is shown in Part I should sign (when required). In the case of a disregarded entity, the person identified on line 1 must sign. Exempt payees, see Exempt payee code , earlier.</text>
+<text><loc_29><loc_90><loc_226><loc_102>Signature requirements. Complete the certification as indicated in items 1 through 5 below.</text>
+<unordered_list><list_item><loc_29><loc_104><loc_231><loc_121>1. Interest, dividend, and barter exchange accounts opened before 1984 and broker accounts considered active during 1983. You must give your correct TIN, but you do not have to sign the certification.</list_item>
+<list_item><loc_29><loc_125><loc_241><loc_159>2. Interest, dividend, broker, and barter exchange accounts opened after 1983 and broker accounts considered inactive during 1983. You must sign the certification or backup withholding will apply. If you are subject to backup withholding and you are merely providing your correct TIN to the requester, you must cross out item 2 in the certification before signing the form.</list_item>
+<list_item><loc_29><loc_162><loc_241><loc_174>3. Real estate transactions. You must sign the certification. You may cross out item 2 of the certification.</list_item>
+<list_item><loc_29><loc_176><loc_237><loc_233>4. Other payments. You must give your correct TIN, but you do not have to sign the certification unless you have been notified that you have previously given an incorrect TIN. "Other payments" include payments made in the course of the requester's trade or business for rents, royalties, goods (other than bills for merchandise), medical and health care services (including payments to corporations), payments to a nonemployee for services, payments made in settlement of payment card and third-party network transactions, payments to certain fishing boat crew members and fishermen, and gross proceeds paid to attorneys (including payments to corporations).</list_item>
+<list_item><loc_29><loc_235><loc_241><loc_268>5. Mortgage interest paid by you, acquisition or abandonment of secured property, cancellation of debt, qualified tuition program payments (under section 529), ABLE accounts (under section 529A), IRA, Coverdell ESA, Archer MSA or HSA contributions or distributions, and pension distributions. You must give your correct TIN, but you do not have to sign the certification.</list_item>
+</unordered_list>
+<section_header_level_1><loc_29><loc_272><loc_241><loc_281>What Name and Number To Give the Requester</section_header_level_1>
+<otsl><loc_29><loc_282><loc_241><loc_397></otsl>
+<otsl><loc_259><loc_36><loc_471><loc_97></otsl>
+<otsl><loc_259><loc_102><loc_471><loc_127></otsl>
+<text><loc_259><loc_132><loc_271><loc_137>payments</text>
+<text><loc_259><loc_140><loc_367><loc_161>15. Grantor trust filing Form 1041 or under the Optional Filing Method 2, requiring Form 1099 (see Regulations section 1.671-4(b)(2)(i)(B))**</text>
+<text><loc_259><loc_165><loc_468><loc_183>1 List first and circle the name of the person whose number you furnish. If only one person on a joint account has an SSN, that person's number must be furnished.</text>
+<text><loc_259><loc_186><loc_418><loc_192>2 Circle the minor's name and furnish the minor's SSN.</text>
+<text><loc_259><loc_194><loc_472><loc_212>3 You must show your individual name on line 1, and enter your business or DBA name, if any, on line 2. You may use either your SSN or EIN (if you have one), but the IRS encourages you to use your SSN.</text>
+<text><loc_259><loc_214><loc_465><loc_232>4 List first and circle the name of the trust, estate, or pension trust. (Do not furnish the TIN of the personal representative or trustee unless the legal entity itself is not designated in the account title.)</text>
+<text><loc_259><loc_234><loc_465><loc_245>* Note: The grantor must also provide a Form W-9 to the trustee of the trust.</text>
+<text><loc_259><loc_247><loc_470><loc_257>** For more information on optional filing methods for grantor trusts, see the Instructions for Form 1041.</text>
+<text><loc_259><loc_259><loc_455><loc_270>Note: If no name is circled when more than one name is listed, the number will be considered to be that of the first name listed.</text>
+<section_header_level_1><loc_259><loc_274><loc_466><loc_282>Secure Your Tax Records From Identity Theft</section_header_level_1>
+<text><loc_259><loc_284><loc_472><loc_315>Identity theft occurs when someone uses your personal information, such as your name, SSN, or other identifying information, without your permission to commit fraud or other crimes. An identity thief may use your SSN to get a job or may file a tax return using your SSN to receive a refund.</text>
+<text><loc_259><loc_317><loc_325><loc_322>To reduce your risk:</text>
+<unordered_list><list_item><loc_259><loc_324><loc_319><loc_329>· Protect your SSN,</list_item>
+<list_item><loc_259><loc_331><loc_411><loc_337>· Ensure your employer is protecting your SSN, and</list_item>
+<list_item><loc_259><loc_339><loc_404><loc_344>· Be careful when choosing a tax return preparer.</list_item>
+</unordered_list>
+<text><loc_259><loc_346><loc_470><loc_363>If your tax records are affected by identity theft and you receive a notice from the IRS, respond right away to the name and phone number printed on the IRS notice or letter.</text>
+<text><loc_259><loc_365><loc_470><loc_382>If your tax records are not currently affected by identity theft but you think you are at risk due to a lost or stolen purse or wallet, questionable credit card activity, or a questionable credit report, contact the IRS Identity Theft Hotline at 800-908-4490 or submit Form 14039.</text>
+<text><loc_259><loc_385><loc_461><loc_396>For more information, see Pub. 5027, Identity Theft Information for Taxpayers.</text>
+</doctag>

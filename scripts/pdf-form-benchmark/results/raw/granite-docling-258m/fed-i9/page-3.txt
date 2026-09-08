@@ -1,0 +1,51 @@
+<doctag><picture><loc_29><loc_20><loc_69><loc_51></picture>
+<section_header_level_1><loc_118><loc_12><loc_382><loc_32>Supplement A, Preparer and/or Translator Certification for Section 1</section_header_level_1>
+<section_header_level_1><loc_184><loc_36><loc_316><loc_43>Department of Homeland Security</section_header_level_1>
+<text><loc_172><loc_44><loc_327><loc_52>U.S. Citizenship and Immigration Services</text>
+<text><loc_33><loc_66><loc_143><loc_71>Last Name (Family Name) from Section 1.</text>
+<text><loc_216><loc_66><loc_323><loc_71>First Name (Given Name) from Section 1.</text>
+<text><loc_362><loc_66><loc_455><loc_71>Middle initial (if any) from Section 1.</text>
+<text><loc_30><loc_87><loc_470><loc_114>Instructions: This supplement must be completed by any preparer and/or translator who assists an employee in completing Section 1 of Form I-9. The preparer and/or translator must enter the employee's name in the spaces provided above.  Each preparer or translator must complete, sign, and date a separate certification area.  Employers must retain completed supplement sheets with the employee's completed Form I-9.</text>
+<text><loc_30><loc_121><loc_455><loc_134>I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my knowledge the information is true and correct.</text>
+<text><loc_32><loc_137><loc_133><loc_143>Signature of Preparer or Translator</text>
+<text><loc_341><loc_137><loc_395><loc_143>Date (mm/dd/yyyy)</text>
+<text><loc_32><loc_161><loc_108><loc_167>Last Name (Family Name)</text>
+<text><loc_223><loc_161><loc_297><loc_167>First Name (Given Name)</text>
+<text><loc_404><loc_161><loc_462><loc_167>Middle Initial (if any)</text>
+<text><loc_32><loc_180><loc_136><loc_186>Address (Street Number and Name)</text>
+<text><loc_242><loc_180><loc_280><loc_186>City or Town</text>
+<text><loc_370><loc_180><loc_385><loc_186>State</text>
+<text><loc_404><loc_180><loc_434><loc_186>ZIP Code</text>
+<text><loc_30><loc_200><loc_455><loc_214>I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my knowledge the information is true and correct.</text>
+<text><loc_32><loc_217><loc_133><loc_223>Signature of Preparer or Translator</text>
+<text><loc_341><loc_217><loc_395><loc_223>Date (mm/dd/yyyy)</text>
+<text><loc_32><loc_240><loc_108><loc_246>Last Name (Family Name)</text>
+<text><loc_223><loc_240><loc_297><loc_246>First Name (Given Name)</text>
+<text><loc_404><loc_240><loc_462><loc_246>Middle Initial (if any)</text>
+<text><loc_32><loc_260><loc_136><loc_266>Address (Street Number and Name)</text>
+<text><loc_242><loc_260><loc_280><loc_266>City or Town</text>
+<text><loc_370><loc_260><loc_385><loc_266>State</text>
+<text><loc_404><loc_260><loc_434><loc_266>ZIP Code</text>
+<text><loc_30><loc_281><loc_455><loc_294>I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my knowledge the information is true and correct.</text>
+<text><loc_32><loc_297><loc_133><loc_303>Signature of Preparer or Translator</text>
+<text><loc_341><loc_297><loc_395><loc_303>Date (mm/dd/yyyy)</text>
+<text><loc_32><loc_320><loc_108><loc_326>Last Name (Family Name)</text>
+<text><loc_223><loc_320><loc_297><loc_326>First Name (Given Name)</text>
+<text><loc_404><loc_320><loc_462><loc_326>Middle Initial (if any)</text>
+<text><loc_32><loc_340><loc_136><loc_346>Address (Street Number and Name)</text>
+<text><loc_242><loc_340><loc_280><loc_346>City or Town</text>
+<text><loc_370><loc_340><loc_385><loc_346>State</text>
+<text><loc_404><loc_340><loc_434><loc_346>ZIP Code</text>
+<text><loc_30><loc_360><loc_455><loc_373>I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my knowledge the information is true and correct.</text>
+<text><loc_32><loc_376><loc_133><loc_382>Signature of Preparer or Translator</text>
+<text><loc_341><loc_376><loc_395><loc_382>Date (mm/dd/yyyy)</text>
+<text><loc_32><loc_400><loc_108><loc_406>Last Name (Family Name)</text>
+<text><loc_223><loc_400><loc_297><loc_406>First Name (Given Name)</text>
+<text><loc_404><loc_400><loc_462><loc_406>Middle Initial (if any)</text>
+<text><loc_32><loc_419><loc_136><loc_425>Address (Street Number and Name)</text>
+<text><loc_242><loc_419><loc_280><loc_425>City or Town</text>
+<text><loc_370><loc_419><loc_385><loc_425>State</text>
+<text><loc_404><loc_419><loc_434><loc_425>ZIP Code</text>
+<page_footer><loc_29><loc_481><loc_114><loc_487>Form I-9 Edition 01/20/25</page_footer>
+<page_footer><loc_437><loc_481><loc_471><loc_487>Page 3 of 4</page_footer>
+</doctag>

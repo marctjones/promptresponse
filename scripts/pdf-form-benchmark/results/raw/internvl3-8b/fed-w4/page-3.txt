@@ -1,0 +1,61 @@
+```json
+{
+  "sections": [
+    {
+      "id": "step-2b",
+      "title": "Step 2(b) – Multiple Jobs Worksheet"
+    }
+  ],
+  "fields": [
+    {
+      "label": "1",
+      "section_id": "step-2b",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "2",
+      "section_id": "step-2b",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "2a",
+      "section_id": "step-2b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "2b",
+      "section_id": "step-2b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "2c",
+      "section_id": "step-2b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "3",
+      "section_id": "step-2b",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": true
+    },
+    {
+      "label": "4",
+      "section_id": "step-2b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    }
+  ]
+}
+```

@@ -1,0 +1,143 @@
+{
+  "sections": [
+    {
+      "id": "form-header",
+      "title": "Form W-9 Request for Taxpayer Identification Number and Certification"
+    },
+    {
+      "id": "before-you-begin",
+      "title": "Before you begin"
+    },
+    {
+      "id": "entity-information",
+      "title": "Entity Information"
+    },
+    {
+      "id": "tax-classification",
+      "title": "Tax Classification"
+    },
+    {
+      "id": "exemptions",
+      "title": "Exemptions"
+    },
+    {
+      "id": "address-and-account-info",
+      "title": "Address and Account Info"
+    },
+    {
+      "id": "part-i-tin",
+      "title": "Part I Taxpayer Identification Number (TIN)"
+    },
+    {
+      "id": "part-ii-certification",
+      "title": "Part II Certification"
+    },
+    {
+      "id": "general-instructions",
+      "title": "General Instructions"
+    },
+    {
+      "id": "whats-new",
+      "title": "What's New"
+    },
+    {
+      "id": "purpose-of-form",
+      "title": "Purpose of Form"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Name of entity/individual",
+      "section_id": "entity-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Business name/disregarded entity name, if different from above",
+      "section_id": "entity-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1",
+      "section_id": "tax-classification",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": [
+        "Individual/sole proprietor",
+        "C corporation",
+        "S corporation",
+        "Partnership",
+        "Trust/estate",
+        "LLC",
+        "Other (see instructions)"
+      ]
+    },
+    {
+      "label": "Exempt payee code (if any)",
+      "section_id": "exemptions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+      "section_id": "exemptions",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Address (number, street, and apt. or suite no.)",
+      "section_id": "address-and-account-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City, state, and ZIP code",
+      "section_id": "address-and-account-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "List account number(s) here (optional)",
+      "section_id": "address-and-account-info",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Social security number",
+      "section_id": "part-i-tin",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "Employer identification number",
+      "section_id": "part-i-tin",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "required": false
+    },
+    {
+      "label": "Signature of U.S. person",
+      "section_id": "part-ii-certification",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "Date",
+      "section_id": "part-ii-certification",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    }
+  ]
+}

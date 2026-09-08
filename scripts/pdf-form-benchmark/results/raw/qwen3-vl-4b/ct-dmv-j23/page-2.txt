@@ -1,0 +1,63 @@
+{
+  "sections": [
+    {
+      "id": "identification-requirements",
+      "title": "IDENTIFICATION REQUIREMENTS"
+    },
+    {
+      "id": "special-instructions-for-others",
+      "title": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO OBTAIN RECORD INFORMATION ON OTHERS"
+    },
+    {
+      "id": "special-instructions-for-self",
+      "title": "SPECIAL INSTRUCTIONS FOR THOSE WHO WISH TO OBTAIN THEIR OWN RECORD INFORMATION"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Specify the applicable code below in the space on the front of this form in the REQUEST SECTION.",
+      "section_id": "special-instructions-for-others",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ]
+    },
+    {
+      "label": "Specify the code below in the space on the front of this form in the REQUEST SECTION",
+      "section_id": "special-instructions-for-self",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ]
+    },
+    {
+      "label": "The applicant signature",
+      "section_id": "special-instructions-for-self",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}

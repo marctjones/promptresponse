@@ -1,0 +1,102 @@
+```json
+{
+  "sections": [
+    {
+      "id": "future-developments",
+      "title": "Future Developments"
+    },
+    {
+      "id": "purpose-of-form",
+      "title": "Purpose of Form"
+    },
+    {
+      "id": "where-to-file",
+      "title": "Where To File"
+    },
+    {
+      "id": "privacy-act",
+      "title": "Privacy Act and Paperwork Reduction Act Notice"
+    }
+  ],
+  "fields": [
+    {
+      "label": "If you checked the box on line 2, send Form 8822 to:",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If you did not check the box on line 2, send Form 8822 to the address shown here that applies to you:",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "IF your old home mailing address was in...",
+      "section_id": "where-to-file",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": false,
+      "choices": [
+        "Alabama, Arkansas, Delaware, Georgia, Illinois, Indiana, Iowa, Kentucky, Maine, Massachusetts, Minnesota, Missouri, New Hampshire, New Jersey, New York, North Carolina, Oklahoma, South Carolina, Tennessee, Vermont, Virginia, Wisconsin",
+        "Florida, Louisiana, Mississippi, Texas",
+        "Alaska, Arizona, California, Colorado, Connecticut, District of Columbia, Hawaii, Idaho, Kansas, Maryland, Michigan, Montana, Nebraska, Nevada, New Mexico, North Dakota, Ohio, Oregon, Pennsylvania, Rhode Island, South Dakota, Utah, Washington, West Virginia, Wyoming",
+        "A foreign country, American Samoa, or Puerto Rico (or are excluding income under Internal Revenue Code section 933), use an APO or FPO address, or file Form 2555, 2555-EZ, or 4563, or are a dual-status alien or non bona fide resident of Guam or the Virgin Islands",
+        "Guam: bona fide residents",
+        "Virgin Islands: bona fide residents"
+      ]
+    },
+    {
+      "label": "THEN use this address...",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Enter your box number instead of your street address only if your post office does not deliver mail to your street address.",
+      "section_id": "addresses",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Follow the country’s practice for entering the postal code. Please do not abbreviate the country.",
+      "section_id": "foreign-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If you receive your mail in care of a third party (such as an accountant or attorney), enter 'C/O' followed by the third party’s name and street address or P.O. box.",
+      "section_id": "in-care-of",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "The taxpayer, executor, donor, or an authorized representative must sign. If your last return was a joint return, your spouse must also sign (unless you have indicated by checking the box on line 1 that you are establishing a separate residence).",
+      "section_id": "signature",
+      "field_kind": "signature",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "If you are a representative signing on behalf of the taxpayer, you must attach to Form 8822 a copy of your power of attorney. To do this, you can use Form 2848. The Internal Revenue Service will not complete an address change from an 'unauthorized' third party.",
+      "section_id": "signature",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Comments. You can send comments from www.irs.gov/FormComments. Or you can write to the Internal Revenue Service, Tax Forms and Publications Division, 1111 Constitution Ave. NW, IR-6526, Washington, DC 20224. DO NOT SEND THE FORM TO THIS ADDRESS. Instead, see Where To File, earlier.",
+      "section_id": "comments",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}
+```

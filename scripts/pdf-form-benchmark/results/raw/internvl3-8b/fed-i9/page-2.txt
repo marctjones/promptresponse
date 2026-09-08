@@ -1,0 +1,349 @@
+```json
+{
+  "sections": [
+    {
+      "id": "lists-of-acceptable-documents",
+      "title": "Lists of Acceptable Documents"
+    },
+    {
+      "id": "examples-of-many-of-these-documents",
+      "title": "Examples of many of these documents appear in the Handbook for Employers (M-274)"
+    },
+    {
+      "id": "acceptable-receipts",
+      "title": "Acceptable Receipts"
+    }
+  ],
+  "fields": [
+    {
+      "label": "All documents containing an expiration date must be unexpired.",
+      "section_id": "lists-of-acceptable-documents",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Documents extended by the issuing authority are considered unexpired.",
+      "section_id": "lists-of-acceptable-documents",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Employees may present one selection from List A or a combination of one selection from List A and one selection from List B and one selection from List C.",
+      "section_id": "lists-of-acceptable-documents",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Examples of many of these documents appear in the Handbook for Employers (M-274).",
+      "section_id": "examples-of-many-of-these-documents",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+        "label": "LIST A",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Documents that Establish Both Identity and Employment Authorization",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "LIST B",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Documents that Establish Identity",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "AND",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Documents that Establish Employment Authorization",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "LIST C",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "A Social Security Account Number card, unless the card includes one of the following restrictions:",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "1. U.S. Passport or U.S. Passport Card",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "2. Permanent Resident Card or Alien Registration Receipt Card (Form I-551)",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "3. Foreign passport that contains a temporary I-551 stamp or temporary I-551 printed notation on a machine-readable immigrant visa",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "4. Employment Authorization Document that contains a photograph (Form I-766)",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "5. For an individual temporarily authorized to work for a specific employer because of his or her status or parole:",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "a. Foreign passport; and",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "b. Form I-94 or Form I-94A that has the following:",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "(1) The same name as the passport; and",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "(2) An endorsement of the individual's status or parole as long as that period of endorsement has not yet expired and the proposed employment is not in conflict with any restrictions or limitations identified on the form.",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "6. Passport from the Federated States of Micronesia (FSM) or the Republic of the Marshall Islands (RMI) with Form I-94 or Form I-94A indicating nonimmigrant admission under the Compact of Free Association Between the United States and the FSM or RMI",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "1. Driver's license or ID card issued by a State or outlying possession of the United States provided it contains a photograph or information such as name, date of birth, sex, height, eye color, and address",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "2. ID card issued by federal, state or local government agencies or entities, provided it contains a photograph or information such as name, date of birth, sex, height, eye color, and address",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "3. School ID card with a photograph",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "4. Voter's registration card",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "5. U.S. Military card or draft record",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "6. Military dependent's ID card",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "7. U.S. Coast Guard Merchant Mariner Card",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "8. Native American tribal document",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "9. Driver's license issued by a Canadian government authority",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "5. U.S. Citizen ID Card (Form I-197)",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "6. Identification Card for Use of Resident Citizen in the United States (Form I-179)",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "For persons under age 18 who are unable to present a document listed above:",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "10. School record or report card",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "11. Clinic, doctor, or hospital record",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "12. Day-care or nursery school record",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "For examples, see Section 7 and Section 13 of the M-274 on uscis.gov/i-9-central.",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Form I-766, Employment Authorization Document, is a List A, Item Number 4 document, not a List C document.",
+        "section_id": "lists-of-acceptable-documents",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Acceptable Receipts",
+        "section_id": "acceptable-receipts",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "May be presented in lieu of a document listed above for a temporary period.",
+        "section_id": "acceptable-receipts",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "For receipt validity dates, see the M-274.",
+        "section_id": "acceptable-receipts",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Receipt for a replacement of a lost, stolen, or damaged List A document.",
+        "section_id": "acceptable-receipts",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Form I-94 issued to a lawful permanent resident that contains an I-551 stamp and a photograph of the individual.",
+        "section_id": "acceptable-receipts",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Form I-94 with 'RE' notation or refugee stamp issued to a refugee.",
+        "section_id": "acceptable-receipts",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Receipt for a replacement of a lost, stolen, or damaged List B document.",
+        "section_id": "acceptable-receipts",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      },
+      {
+        "label": "Receipt for a replacement of a lost, stolen, or damaged List C document.",
+        "section_id": "acceptable-receipts",
+        "field_kind": "text_line",
+        "expected_data_type": "text",
+        "required": false
+      }
+  ]
+}
+```

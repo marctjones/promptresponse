@@ -1,0 +1,216 @@
+{
+  "sections": [
+    {
+      "id": "future-developments",
+      "title": "Future Developments"
+    },
+    {
+      "id": "purpose-of-form",
+      "title": "Purpose of Form"
+    },
+    {
+      "id": "prior-names",
+      "title": "Prior Name(s)"
+    },
+    {
+      "id": "addresses",
+      "title": "Addresses"
+    },
+    {
+      "id": "where-to-file",
+      "title": "Where To File"
+    },
+    {
+      "id": "privacy-act-and-paperwork-reduction-act-notice",
+      "title": "Privacy Act and Paperwork Reduction Act Notice"
+    },
+    {
+      "id": "comments",
+      "title": "Comments"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Information about developments affecting Form 8822 (such as legislation enacted after we release it) is at www.irs.gov/form8822.",
+      "section_id": "future-developments",
+      "field_kind": "text_line",
+      "expected_data_type": "url",
+      "required": false
+    },
+    {
+      "label": "You can use Form 8822 to notify the Internal Revenue Service if you changed your home mailing address. If this change also affects the mailing address for your children who filed income tax returns, complete and file a separate Form 8822 for each child. If you are a representative signing for the taxpayer, attach to Form 8822 a copy of your power of attorney. Generally, it takes 4 to 6 weeks to process a change of address.",
+      "section_id": "purpose-of-form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Changing both home and business addresses? Use Form 8822-B to change your business address.",
+      "section_id": "purpose-of-form",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If you or your spouse changed your name because of marriage, divorce, etc., complete line 5. Also, be sure to notify the Social Security Administration of your new name so that it has the same name in its records that you have on your tax return. This prevents delays in processing your return and issuing refunds. It also safeguards your future social security benefits.",
+      "section_id": "prior-names",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Be sure to include any apartment, room, or suite number in the space provided.",
+      "section_id": "addresses",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Enter your box number instead of your street address only if your post office does not deliver mail to your street address.",
+      "section_id": "p-o-box",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Follow the country's practice for entering the postal code. Please do not abbreviate the country.",
+      "section_id": "foreign-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If you receive your mail in care of a third party (such as an accountant or attorney), enter “C/O” followed by the third party’s name and street address or P.O. box.",
+      "section_id": "in-care-of-address",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "The taxpayer, executor, donor, or an authorized representative must sign. If your last return was a joint return, your spouse must also sign (unless you have indicated by checking the box on line 1 that you are establishing a separate residence).",
+      "section_id": "signature",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "required": true
+    },
+    {
+      "label": "If you are a representative signing on behalf of the taxpayer, you must attach to Form 8822 a copy of your power of attorney. To do this, you can use Form 2848. The Internal Revenue Service will not complete an address change from an “unauthorized” third party.",
+      "section_id": "signature",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If you checked the box on line 2, send Form 8822 to: Department of the Treasury, Internal Revenue Service Center, Kansas City, MO 64999-0023.",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If you did not check the box on line 2, send Form 8822 to the address shown here that applies to you:",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "IF your old home mailing address was in ...",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "THEN use this address ...",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Alabama, Arkansas, Delaware, Georgia, Illinois, Indiana, Iowa, Kentucky, Maine, Massachusetts, Minnesota, Missouri, New Hampshire, New Jersey, New York, North Carolina, Oklahoma, South Carolina, Tennessee, Vermont, Virginia, Wisconsin",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Department of the Treasury Internal Revenue Service Kansas City, MO 64999-0023",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Florida, Louisiana, Mississippi, Texas",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Department of the Treasury Internal Revenue Service Austin, TX 73301-0023",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Alaska, Arizona, California, Colorado, Connecticut, District of Columbia, Hawaii, Idaho, Kansas, Maryland, Michigan, Montana, Nebraska, Nevada, New Mexico, North Dakota, Ohio, Oregon, Pennsylvania, Rhode Island, South Dakota, Utah, Washington, West Virginia, Wyoming",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Department of the Treasury Internal Revenue Service Ogden, UT 84201-0023",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "A foreign country, American Samoa, or Puerto Rico (or are excluding income under Internal Revenue Code section 933), or use an APO or FPO address, or file Form 2555, 2555-EZ, or 4563, or are a dual-status alien or non bona fide resident of Guam or the Virgin Islands.",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Department of the Treasury Internal Revenue Service Austin, TX 73301-0023",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Guam: bona fide residents",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Department of Revenue and Taxation Government of Guam P.O. Box 23607 GMF, GU 96921",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Virgin Islands: bona fide residents",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "V.I. Bureau of Internal Revenue 6115 Estate Smith Bay, Suite 225 St. Thomas, VI 00802",
+      "section_id": "where-to-file",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form A-25 (Request for Hearing to Contest Vehicle Towing)"
+  },
+  "sections": [
+    {
+      "id": "request-for-hearing-to-contest-vehicle-towing",
+      "title": "REQUEST FOR HEARING TO CONTEST VEHICLE TOWING",
+      "prompts": [
+        {
+          "id": "request-for-hearing-to-contest-vehicle-towing",
+          "label": "REQUEST FOR HEARING TO CONTEST VEHICLE TOWING",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "instructions",
+      "title": "INSTRUCTIONS",
+      "prompts": [
+        {
+          "id": "instructions",
+          "label": "INSTRUCTIONS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-this-form-is-used-to-contest-the-towing-of-an-abandoned-unregistered-or-improperly-parked-vehicle-by-the-police",
+          "label": "1. This form is used to contest the towing of an abandoned, unregistered or improperly parked vehicle by the police.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2-the-request-for-a-hearing-must-be-made-within-ten-10-days-from-the-mailing-date-of-the-written-notice-of-the-tow",
+          "label": "2. The request for a hearing must be made within TEN (10) days from the mailing date of the written notice of the tow.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3-mail-this-completed-form-to-the-chief-executive-officer-of-the-town-from-which-the-vehicle-was-towed",
+          "label": "3. Mail this completed form to the CHIEF EXECUTIVE OFFICER of the town from which the vehicle was towed.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vehicle-information",
+      "title": "VEHICLE INFORMATION",
+      "prompts": [
+        {
+          "id": "name",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-town",
+          "label": "City/Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "Zip Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-taken-into-custody-by-name-of-law-enforcement-agency",
+          "label": "VEHICLE TAKEN INTO CUSTODY BY (Name of Law Enforcement Agency)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "marker-plate-no",
+          "label": "MARKER PLATE NO.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "make",
+          "label": "MAKE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "model",
+          "label": "MODEL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "year",
+          "label": "YEAR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "VEHICLE IDENTIFICATION NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-last-registration",
+          "label": "STATE OF LAST REGISTRATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hearing-request",
+      "title": "HEARING REQUEST",
+      "prompts": [
+        {
+          "id": "i-hereby-request-a-hearing-to-determine-whether-the-towing-of-my-vehicle-was-authorized-under-the-provisions-of-section-14-150-or-section-14-307-of-the-connecticut-general-statutes",
+          "label": "I HEREBY REQUEST A HEARING TO DETERMINE WHETHER THE TOWING OF MY VEHICLE WAS AUTHORIZED UNDER THE PROVISIONS OF SECTION 14-150 OR SECTION 14-307 OF THE CONNECTICUT GENERAL STATUTES.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-owner",
+          "label": "SIGNATURE (Owner)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "x",
+          "label": "X",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    }
+  ]
+}

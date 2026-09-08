@@ -1,0 +1,201 @@
+```json
+{
+  "sections": [
+    {
+      "id": "step-4b",
+      "title": "Step 4(b) – Deductions Worksheet"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Qualified tips.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Qualified overtime compensation.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Qualified passenger vehicle loan interest.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Add lines 1a, 1b, and 1c.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Seniors age 65 or older.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Enter $6,000 if you are age 65 or older before the end of the year.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Enter $6,000 if your spouse is age 65 or older before the end of the year and has a social security number valid for employment.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Add lines 3a and 3b.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses, alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for more information.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Itemized deductions.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Medical and dental expenses.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "State and local taxes.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Home mortgage interest.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Gifts to charities.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Other itemized deductions.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Add lines 6a, 6b, 6c, 6d, and 6e.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Limitation on itemized deductions.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Enter your total income.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Subtract line 4 from line 8a.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Enter:",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "If line 9 is greater than line 8b, enter the amount from line 7. Otherwise, multiply line 7 by 94% (0.94).",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Standard deduction.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Cash gifts to charities.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Add lines 11 and 12.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is greater than line 10, enter the amount from line 12.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    },
+    {
+      "label": "Add lines 2, 4, 5, and 14.",
+      "section_id": "step-4b",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "required": true
+    }
+  ]
+}
+```

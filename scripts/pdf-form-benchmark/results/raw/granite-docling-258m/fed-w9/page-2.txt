@@ -1,0 +1,60 @@
+<doctag><page_header><loc_29><loc_23><loc_91><loc_28>Form W-9 (Rev. 3-2024)</page_header>
+<page_header><loc_451><loc_22><loc_471><loc_30>Page</page_header>
+<text><loc_29><loc_34><loc_235><loc_77>must obtain your correct taxpayer identification number (TIN), which may be your social security number (SSN), individual taxpayer identification number (ITIN), adoption taxpayer identification number (ATIN), or employer identification number (EIN), to report on an information return the amount paid to you, or other amount reportable on an information return. Examples of information returns include, but are not limited to, the following.</text>
+<unordered_list><list_item><loc_29><loc_77><loc_152><loc_84>· Form 1099-INT (interest earned or paid).</list_item>
+<list_item><loc_29><loc_84><loc_226><loc_96>· Form 1099-DIV (dividends, including those from stocks or mutual funds).</list_item>
+<list_item><loc_29><loc_97><loc_233><loc_110>· Form 1099-MISC (various types of income, prizes, awards, or gross proceeds).</list_item>
+<list_item><loc_29><loc_110><loc_172><loc_117>· Form 1099-NEC (nonemployee compensation).</list_item>
+<list_item><loc_29><loc_117><loc_206><loc_131>· Form 1099-B (stock or mutual fund sales and certain other transactions by brokers).</list_item>
+<list_item><loc_29><loc_131><loc_193><loc_138>· Form 1099-S (proceeds from real estate transactions).</list_item>
+<list_item><loc_29><loc_138><loc_206><loc_145>· Form 1099-K (merchant card and third-party network transactions).</list_item>
+<list_item><loc_29><loc_145><loc_233><loc_158>· Form 1098 (home mortgage interest), 1098-E (student loan interest), and 1098-T (tuition).</list_item>
+<list_item><loc_29><loc_159><loc_122><loc_166>· Form 1099-C (canceled debt).</list_item>
+<list_item><loc_29><loc_166><loc_236><loc_173>· Form 1099-A (acquisition or abandonment of secured property).</list_item>
+</unordered_list>
+<text><loc_29><loc_174><loc_225><loc_186>Use Form W-9 only if you are a U.S. person (including a resident alien), to provide your correct TIN.</text>
+<text><loc_29><loc_187><loc_235><loc_205>Caution: If you don't return Form W-9 to the requester with a TIN, you might be subject to backup withholding. See What is backup withholding , later.</text>
+<section_header_level_1><loc_35><loc_207><loc_142><loc_213>By signing the filled-out form, you:</section_header_level_1>
+<unordered_list><list_item><loc_29><loc_214><loc_242><loc_226>1. Certify that the TIN you are giving is correct (or you are waiting for a number to be issued);</list_item>
+<list_item><loc_29><loc_228><loc_210><loc_234>2. Certify that you are not subject to backup withholding; or</list_item>
+<list_item><loc_29><loc_236><loc_241><loc_248>3. Claim exemption from backup withholding if you are a U.S. exempt payee; and</list_item>
+<list_item><loc_29><loc_249><loc_242><loc_261>4. Certify to your non-foreign status for purposes of withholding under chapter 3 or 4 of the Code (if applicable); and</list_item>
+<list_item><loc_29><loc_262><loc_234><loc_280>5. Certify that FATCA code(s) entered on this form (if any) indicating that you are exempt from the FATCA reporting is correct. See What Is FATCA Reporting , later, for further information.</list_item>
+</unordered_list>
+<text><loc_29><loc_282><loc_242><loc_299>Note: If you are a U.S. person and a requester gives you a form other than Form W-9 to request your TIN, you must use the requester's form if it is substantially similar to this Form W-9.</text>
+<text><loc_29><loc_300><loc_212><loc_312>Definition of a U.S. person. For federal tax purposes, you are considered a U.S. person if you are:</text>
+<unordered_list><list_item><loc_29><loc_313><loc_198><loc_320>· An individual who is a U.S. citizen or U.S. resident alien;</list_item>
+<list_item><loc_29><loc_320><loc_234><loc_333>· A partnership, corporation, company, or association created or organized in the United States or under the laws of the United States;</list_item>
+<list_item><loc_29><loc_334><loc_154><loc_341>· An estate (other than a foreign estate); or</list_item>
+<list_item><loc_29><loc_342><loc_222><loc_349>· A domestic trust (as defined in Regulations section 301.7701-7).</list_item>
+</unordered_list>
+<section_header_level_1><loc_29><loc_350><loc_229><loc_356>Establishing U.S. status for purposes of chapter 3 and chapter 4</section_header_level_1>
+<text><loc_29><loc_356><loc_239><loc_407>withholding. Payments made to foreign persons, including certain distributions, allocations of income, or transfers of sales proceeds, may be subject to withholding under chapter 3 or chapter 4 of the Code (sections 1441-1474). Under those rules, if a Form W-9 or other certification of non-foreign status has not been received, a withholding agent, transferee, or partnership (payor) generally applies presumption rules that may require the payor to withhold applicable tax from the recipient, owner, transferor, or partner (payee). See Pub. 515, Withholding of Tax on Nonresident Aliens and Foreign Entities.</text>
+<text><loc_29><loc_408><loc_220><loc_420>The following persons must provide Form W-9 to the payor for purposes of establishing its non-foreign status.</text>
+<unordered_list><list_item><loc_29><loc_421><loc_235><loc_433>· In the case of a disregarded entity with a U.S. owner, the U.S. owner of the disregarded entity and not the disregarded entity.</list_item>
+<list_item><loc_29><loc_434><loc_235><loc_452>· In the case of a grantor trust with a U.S. grantor or other U.S. owner, generally, the U.S. grantor or other U.S. owner of the grantor trust and not the grantor trust.</list_item>
+<list_item><loc_29><loc_453><loc_231><loc_465>· In the case of a U.S. trust (other than a grantor trust), the U.S. trust and not the beneficiaries of the trust.</list_item>
+</unordered_list>
+<text><loc_29><loc_466><loc_219><loc_478>See Pub. 515 for more information on providing a Form W-9 or a certification of non-foreign status to avoid withholding.</text>
+<text><loc_258><loc_35><loc_471><loc_93>Foreign person. If you are a foreign person or the U.S. branch of a foreign bank that has elected to be treated as a U.S. person (under Regulations section 1.1441-1(b)(2)(iv) or other applicable section for chapter 3 or 4 purposes), do not use Form W-9. Instead, use the appropriate Form W-8 or Form 8233 (see Pub. 515). If you are a qualified foreign pension fund under Regulations section 1.897(l)-1(d), or a partnership that is wholly owned by qualified foreign pension funds, that is treated as a non-foreign person for purposes of section 1445 withholding, do not use Form W-9. Instead, use Form W-8EXP (or other certification of non-foreign status).</text>
+<text><loc_258><loc_94><loc_468><loc_137>Nonresident alien who becomes a resident alien. Generally, only a nonresident alien individual may use the terms of a tax treaty to reduce or eliminate U.S. tax on certain types of income. However, most tax treaties contain a provision known as a saving clause. Exceptions specified in the saving clause may permit an exemption from tax to continue for certain types of income even after the payee has otherwise become a U.S. resident alien for tax purposes.</text>
+<text><loc_258><loc_138><loc_465><loc_161>If you are a U.S. resident alien who is relying on an exception contained in the saving clause of a tax treaty to claim an exemption from U.S. tax on certain types of income, you must attach a statement to Form W-9 that specifies the following five items.</text>
+<unordered_list><list_item><loc_258><loc_162><loc_464><loc_174>1. The treaty country. Generally, this must be the same treaty under which you claimed exemption from tax as a nonresident alien.</list_item>
+<list_item><loc_264><loc_175><loc_392><loc_182>2. The treaty article addressing the income.</list_item>
+<list_item><loc_258><loc_182><loc_463><loc_195>3. The article number (or location) in the tax treaty that contains the saving clause and its exceptions.</list_item>
+<list_item><loc_258><loc_196><loc_458><loc_208>4. The type and amount of income that qualifies for the exemption from tax.</list_item>
+<list_item><loc_258><loc_209><loc_468><loc_221>5. Sufficient facts to justify the exemption from tax under the terms of the treaty article.</list_item>
+</unordered_list>
+<text><loc_258><loc_222><loc_471><loc_295>Example. Article 20 of the U.S.-China income tax treaty allows an exemption from tax for scholarship income received by a Chinese student temporarily present in the United States. Under U.S. law, this student will become a resident alien for tax purposes if their stay in the United States exceeds 5 calendar years. However, paragraph 2 of the first Protocol to the U.S.-China treaty (dated April 30, 1984) allows the provisions of Article 20 to continue to apply even after the Chinese student becomes a resident alien of the United States. A Chinese student who qualifies for this exception (under paragraph 2 of the first Protocol) and is relying on this exception to claim an exemption from tax on their scholarship or fellowship income would attach to Form W-9 a statement that includes the information described above to support that exemption.</text>
+<text><loc_258><loc_296><loc_470><loc_308>If you are a nonresident alien or a foreign entity, give the requester the appropriate completed Form W-8 or Form 8233.</text>
+<section_header_level_1><loc_258><loc_311><loc_353><loc_320>Backup Withholding</section_header_level_1>
+<text><loc_258><loc_321><loc_471><loc_375>What is backup withholding? Persons making certain payments to you must under certain conditions withhold and pay to the IRS 24% of such payments. This is called "backup withholding." Payments that may be subject to backup withholding include, but are not limited to, interest, tax-exempt interest, dividends, broker and barter exchange transactions, rents, royalties, nonemployee pay, payments made in settlement of payment card and third-party network transactions, and certain payments from fishing boat operators. Real estate transactions are not subject to backup withholding.</text>
+<text><loc_258><loc_376><loc_471><loc_393>You will not be subject to backup withholding on payments you receive if you give the requester your correct TIN, make the proper certifications, and report all your taxable interest and dividends on your tax return.</text>
+<section_header_level_1><loc_258><loc_394><loc_453><loc_401>Payments you receive will be subject to backup withholding if:</section_header_level_1>
+<unordered_list><list_item><loc_258><loc_403><loc_404><loc_409>1. You do not furnish your TIN to the requester;</list_item>
+<list_item><loc_258><loc_410><loc_466><loc_423>2. You do not certify your TIN when required (see the instructions for Part II for details);</list_item>
+<list_item><loc_264><loc_424><loc_455><loc_431>3. The IRS tells the requester that you furnished an incorrect TIN;</list_item>
+<list_item><loc_258><loc_432><loc_471><loc_450>4. The IRS tells you that you are subject to backup withholding because you did not report all your interest and dividends on your tax return (for reportable interest and dividends only); or</list_item>
+<list_item><loc_258><loc_451><loc_467><loc_474>5. You do not certify to the requester that you are not subject to backup withholding, as described in item 4 under "By signing the filledout form" above (for reportable interest and dividend accounts opened after 1983 only).</list_item>
+</unordered_list>
+</doctag>

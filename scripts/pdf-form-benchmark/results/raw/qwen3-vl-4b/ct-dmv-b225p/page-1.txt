@@ -1,0 +1,270 @@
+{
+  "sections": [
+    {
+      "id": "top-header",
+      "title": "Renewable Parking Placard - Application for a Person Who Is Blind or Has a Disability"
+    },
+    {
+      "id": "part-a",
+      "title": "Part A - Completed by Applicant"
+    },
+    {
+      "id": "part-b",
+      "title": "Part B - Completed by Physician, APRN, Physician Assistant, Optometrist, Ophthalmologist, BESB or USDVA Psychiatrist"
+    }
+  ],
+  "fields": [
+    {
+      "label": "DMV USE ONLY",
+      "section_id": "top-header",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "NEW",
+      "section_id": "top-header",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "REPLACEMENT",
+      "section_id": "top-header",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "required": true
+    },
+    {
+      "label": "PERMIT NUMBER(S)",
+      "section_id": "top-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "PLATE NUMBER",
+      "section_id": "top-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MO. YEAR",
+      "section_id": "top-header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part-a",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "NEW (1st issue)",
+        "REPLACEMENT",
+        "RENEWAL"
+      ]
+    },
+    {
+      "label": "APPLICANT IS (Check One)",
+      "section_id": "part-a",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "DISABLED",
+        "BLIND",
+        "GUARDIAN OF BLIND OR DISABLED PERSON",
+        "ORGANIZATION TRANSPORTING BLIND OR DISABLED PERSON",
+        "QUALIFYING VETERAN (See C below)"
+      ]
+    },
+    {
+      "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle Initial)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "DATE OF BIRTH (Required)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "CT DRIVER LICENSE/ID CARD NUMBER (Required)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "DAYTIME TELEPHONE NUMBER",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "required": true
+    },
+    {
+      "label": "ADDRESS (No. and Street)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or Town",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MAILING ADDRESS (No. and Street)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or Town",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "APPLICANT'S SIGNATURE",
+      "section_id": "part-a",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "DATE SIGNED",
+      "section_id": "part-a",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    },
+    {
+      "label": "CERTIFIER'S NAME (Please print)",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "CHECK ONE",
+      "section_id": "part-b",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "PHYSICIAN ASSISTANT",
+        "BESB",
+        "USVA PSYCHIATRIST",
+        "PHYSICIAN",
+        "APRN",
+        "OPTOMETRIST",
+        "OPHTHALMOLOGIST"
+      ]
+    },
+    {
+      "label": "MEDICAL LICENSE NUMBER (Required)",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "MEDICAL LICENSING STATE (Required)",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "OFFICE ADDRESS (No. and Street)",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "City or Town",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "State",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Zip Code",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "OFFICE TELEPHONE NUMBER",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "required": true
+    },
+    {
+      "label": "SIGNATURE OF PHYSICIAN, PA, APRN, OPTOMETRIST, OPHTHALMOLOGIST, OR USDVA PSYCHIATRIST",
+      "section_id": "part-b",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "DATE SIGNED",
+      "section_id": "part-b",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "required": true
+    }
+  ]
+}

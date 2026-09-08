@@ -1,0 +1,23 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-9 (Request for Taxpayer Identification Number)"
+  },
+  "sections": [
+    {
+      "id": "to-reduce-your-risk",
+      "title": "### To reduce your risk:",
+      "prompts": [
+        {
+          "id": "protect-your-ssn",
+          "label": "* Protect your SSN,",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

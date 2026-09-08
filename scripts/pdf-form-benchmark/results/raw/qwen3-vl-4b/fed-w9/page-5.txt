@@ -1,0 +1,46 @@
+{
+  "sections": [
+    {
+      "id": "part-ii-certification",
+      "title": "Part II. Certification"
+    },
+    {
+      "id": "what-name-and-number-to-give-the-requester",
+      "title": "What Name and Number To Give the Requester"
+    },
+    {
+      "id": "secure-your-tax-records-from-identity-theft",
+      "title": "Secure Your Tax Records From Identity Theft"
+    }
+  ],
+  "fields": [
+    {
+      "label": "For this type of account:",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Give name and EIN of:",
+      "section_id": "part-ii-certification",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "For this type of account:",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Give name and SSN of:",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "table_cell",
+      "expected_data_type": "text",
+      "required": true
+    }
+  ]
+}

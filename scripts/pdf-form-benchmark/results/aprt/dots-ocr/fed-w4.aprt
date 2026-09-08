@@ -1,0 +1,51 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "IRS Form W-4 (Employee's Withholding Certificate)"
+  },
+  "sections": [
+    {
+      "id": "form-w-4-employee-s-withholding-certificate-complete-form-w-4-so-that-your-employer-can-withhold-the-correct-federal-income-tax-from-your-pay-give-form-w-4-to-your-employer-your-withholding-is-subject-to-review-by-the-irs",
+      "title": "Form W-4 **Employee's Withholding Certificate** Complete Form W-4 so that your employer can withhold the correct federal income tax from your pay. Giv",
+      "prompts": [
+        {
+          "id": "omb-no-1545-0074",
+          "label": "OMB No. 1545-0074",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "purpose-of-form",
+      "title": "# Purpose of Form",
+      "prompts": [
+        {
+          "id": "when-to-use-the-estimator-consider-using-the-estimator-at-www-irs-gov-w4app-if-you",
+          "label": "**When to use the estimator.** Consider using the estimator at www.irs.gov/W4App if you:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "8-limitation-on-itemized-deductions",
+      "title": "8 Limitation on itemized deductions.",
+      "prompts": [
+        {
+          "id": "a-enter-your-total-income-8a",
+          "label": "a Enter your total income. 8a $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    }
+  ]
+}

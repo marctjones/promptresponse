@@ -1,0 +1,39 @@
+<doctag><section_header_level_1><loc_23><loc_146><loc_233><loc_160>REQUEST FOR HEARING TO CONTEST VEHICLE TOWING A-25 REV. 2-98</section_header_level_1>
+<section_header_level_1><loc_215><loc_165><loc_291><loc_171>STATE OF CONNECTICUT</section_header_level_1>
+<section_header_level_1><loc_184><loc_172><loc_319><loc_179>DEPARTMENT OF MOTOR VEHICLES</section_header_level_1>
+<picture><loc_388><loc_151><loc_441><loc_182><logo></picture>
+<section_header_level_1><loc_21><loc_188><loc_91><loc_197>INSTRUCTIONS</section_header_level_1>
+<unordered_list><list_item><loc_21><loc_197><loc_466><loc_204>1. This form is used to contest the towing of an abandoned, unregistered or improperly parked vehicle by the police.</list_item>
+<list_item><loc_21><loc_204><loc_475><loc_212>2. The request for a hearing must be made within TEN (10) days from the mailing date of the written notice of the tow.</list_item>
+<list_item><loc_21><loc_212><loc_439><loc_220>3. Mail this completed form to the CHIEF EXECUTIVE OFFICER of the town from which the vehicle was towed.</list_item>
+</unordered_list>
+<text><loc_42><loc_232><loc_87><loc_248>VEHICLE OWNER INFORMATION</text>
+<text><loc_42><loc_268><loc_87><loc_284>VEHICLE INFORMATION</text>
+<text><loc_42><loc_321><loc_74><loc_337>HEARING REQUEST</text>
+<text><loc_42><loc_347><loc_139><loc_354>SIGNATURE (Owner)</text>
+<text><loc_42><loc_355><loc_53><loc_363>X</text>
+<text><loc_42><loc_385><loc_53><loc_393>X</text>
+<text><loc_42><loc_400><loc_53><loc_408>X</text>
+<text><loc_42><loc_417><loc_53><loc_425>X</text>
+<text><loc_42><loc_432><loc_53><loc_440>X</text>
+<text><loc_42><loc_448><loc_53><loc_456>X</text>
+<text><loc_42><loc_465><loc_53><loc_473>X</text>
+<text><loc_42><loc_480><loc_53><loc_488>X</text>
+<text><loc_108><loc_232><loc_121><loc_238>NAME</text>
+<text><loc_108><loc_245><loc_139><loc_251>ADDRESS</text>
+<text><loc_125><loc_245><loc_153><loc_251>No. & Street</text>
+<text><loc_238><loc_245><loc_264><loc_251>City/Town</text>
+<text><loc_338><loc_232><loc_386><loc_238>TELEPHONE NUMBER</text>
+<text><loc_338><loc_245><loc_380><loc_251>State</text>
+<text><loc_402><loc_245><loc_438><loc_251>Zip Code</text>
+<text><loc_108><loc_268><loc_235><loc_274>VEHICLE TAKEN INTO CUSTODY BY (Name of Law Enforcement Agency)</text>
+<text><loc_108><loc_282><loc_137><loc_287>MARKER PLATE NO.</text>
+<text><loc_108><loc_294><loc_170><loc_299>VEHICLE IDENTIFICATION NUMBER</text>
+<text><loc_338><loc_282><loc_357><loc_287>MODEL</text>
+<text><loc_442><loc_282><loc_456><loc_287>YEAR</text>
+<text><loc_338><loc_294><loc_410><loc_299>STATE OF LAST REGISTRATION</text>
+<text><loc_113><loc_314><loc_477><loc_337>I HEREBY REQUEST A HEARING TO DETERMINE WHETHER THE TOWING OF MY VEHICLE WAS AUTHORIZED UNDER THE PROVISIONS OF SECTION 14-150 OR SECTION 14-307 OF THE CONNECTICUT GENERAL STATUTES.</text>
+<text><loc_108><loc_345><loc_140><loc_350>SIGNATURE (Owner)</text>
+<text><loc_338><loc_345><loc_373><loc_350>DATE SIGNED</text>
+<text><loc_108><loc_355><loc_115><loc_362>X</text>
+</doctag>

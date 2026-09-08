@@ -1,0 +1,14 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form A-25 (Request for Hearing to Contest Vehicle Towing)"
+  },
+  "sections": [
+    {
+      "id": "state-of-connecticut-department-of-motor-vehicles",
+      "title": "STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES",
+      "prompts": []
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Connecticut DMV Form A-83 (Special Power of Attorney)"
+  },
+  "sections": [
+    {
+      "id": "declaration",
+      "title": "Declaration",
+      "prompts": [
+        {
+          "id": "print-your-full-name-above",
+          "label": "Print your full name above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "appointment",
+      "title": "Appointment",
+      "prompts": [
+        {
+          "id": "print-full-name-of-your-agent-above",
+          "label": "Print full name of your agent above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "witness",
+      "title": "Witness",
+      "prompts": [
+        {
+          "id": "in-witness-whereof-i-have-hereunto-signed-my-name-below-on-this-day-of-20",
+          "label": "IN WITNESS WHEREOF, I have hereunto signed my name below on this ____ day of ____, 20__",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "signatures",
+      "title": "Signatures",
+      "prompts": [
+        {
+          "id": "principal",
+          "label": "Principal:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "l-s",
+          "label": "L.S.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-witness",
+          "label": "Signature of Witness",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        }
+      ]
+    },
+    {
+      "id": "notary",
+      "title": "Notary",
+      "prompts": [
+        {
+          "id": "signature-of-witness-2",
+          "label": "Signature of Witness",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "county-of",
+          "label": "County of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "ss",
+          "label": "SS:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "personally-appeared",
+          "label": "Personally appeared",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "full-name-of-principal",
+          "label": "Full name of Principal",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "acknowledged-the-same-as-his-or-her-free-act-and-deed-before-me-this-day-of-20",
+          "label": "acknowledged the same as his or her free act and deed, before me, this ____ day of ____, 20__",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "notary-public-justice-of-peace",
+          "label": "Notary Public/Justice of Peace",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "commissioner-of-the-superior-court",
+          "label": "Commissioner of the Superior Court",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "my-commission-expires",
+          "label": "My commission expires:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

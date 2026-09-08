@@ -1,0 +1,50 @@
+<doctag><page_header><loc_29><loc_23><loc_91><loc_28>Form W-9 (Rev. 3-2024)</page_header>
+<page_header><loc_451><loc_23><loc_471><loc_29>Page</page_header>
+<unordered_list><list_item><loc_33><loc_35><loc_221><loc_41>2-The United States or any of its agencies or instrumentalities.</list_item>
+<list_item><loc_29><loc_43><loc_221><loc_55>3-A state, the District of Columbia, a U.S. commonwealth or territory, or any of their political subdivisions or instrumentalities.</list_item>
+<list_item><loc_29><loc_57><loc_239><loc_68>4-A foreign government or any of its political subdivisions, agencies, or instrumentalities.</list_item>
+<list_item><loc_33><loc_70><loc_88><loc_76>5-A corporation.</list_item>
+<list_item><loc_29><loc_78><loc_228><loc_95>6-A dealer in securities or commodities required to register in the United States, the District of Columbia, or a U.S. commonwealth or territory.</list_item>
+<list_item><loc_29><loc_97><loc_230><loc_108>7-A futures commission merchant registered with the Commodity Futures Trading Commission.</list_item>
+<list_item><loc_33><loc_110><loc_132><loc_116>8-A real estate investment trust.</list_item>
+<list_item><loc_29><loc_118><loc_221><loc_130>9-An entity registered at all times during the tax year under the Investment Company Act of 1940.</list_item>
+<list_item><loc_29><loc_132><loc_227><loc_138>10-A common trust fund operated by a bank under section 584(a).</list_item>
+<list_item><loc_29><loc_140><loc_192><loc_145>11-A financial institution as defined under section 581.</list_item>
+<list_item><loc_29><loc_147><loc_239><loc_158>12-A middleman known in the investment community as a nominee or custodian.</list_item>
+<list_item><loc_29><loc_160><loc_237><loc_171>13-A trust exempt from tax under section 664 or described in section 4947.</list_item>
+</unordered_list>
+<text><loc_29><loc_173><loc_240><loc_190>The following chart shows types of payments that may be exempt from backup withholding. The chart applies to the exempt payees listed above, 1 through 13.</text>
+<otsl><loc_28><loc_189><loc_242><loc_312></otsl>
+<text><loc_29><loc_314><loc_239><loc_328>$^{1}$See Form 1099-MISC, Miscellaneous Information, and its instructions. $^{2}$However, the following payments made to a corporation and reportable on Form 1099-MISC are not exempt from backup withholding: medical and health care payments, attorneys' fees, gross</text>
+<text><loc_29><loc_328><loc_235><loc_355>proceeds paid to an attorney reportable under section 6045(f), and payments for services paid by a federal executive agency. $^{3}$Exemption from FATCA reporting code. The following codes identify payees that are exempt from reporting under FATCA. These codes apply to persons submitting this form for accounts maintained outside of the United States by certain foreign financial institutions. Therefore, if you are only submitting this form for an account you hold in the United States, you may leave this field blank.</text>
+<text><loc_29><loc_356><loc_241><loc_411>you request this form if you are uncertain if the financial institution is subject to these requirements. A requester may indicate that a code is not required by providing you with a Form W-9 with "Not Applicable" (or any similar indication) entered on the line for a FATCA exemption code. A-An organization exempt from tax under section 501(a) or any individual retirement plan as defined in section 7701(a)(37).</text>
+<unordered_list><list_item><loc_33><loc_413><loc_225><loc_424>B-The United States or any of its agencies or instrumentalities.</list_item>
+<list_item><loc_33><loc_426><loc_223><loc_432>C-A state, the District of Columbia, a U.S. commonwealth or</list_item>
+<list_item><loc_29><loc_433><loc_218><loc_445>territory, or any of their political subdivisions or instrumentalities.</list_item>
+<list_item><loc_29><loc_446><loc_227><loc_463>D-A corporation the stock of which is regularly traded on one or more established securities markets, as described in Regulations section 1.1472-1(c)(1)(i).</list_item>
+<list_item><loc_29><loc_465><loc_242><loc_476>E-A corporation that is a member of the same expanded affiliated group as a corporation described in Regulations section 1.1472-1(c)(1)(i).</list_item>
+</unordered_list>
+<text><loc_258><loc_35><loc_461><loc_58>F-A dealer in securities, commodities, or derivative financial instruments (including notional principal contracts, futures, forwards, and options) that is registered as such under the laws of the United States or any state.</text>
+<unordered_list><list_item><loc_265><loc_60><loc_364><loc_66>G-A real estate investment trust.</list_item>
+<list_item><loc_258><loc_68><loc_465><loc_86>H-A regulated investment company as defined in section 851 or an entity registered at all times during the tax year under the Investment Company Act of 1940.</list_item>
+<list_item><loc_265><loc_88><loc_420><loc_93>I-A common trust fund as defined in section 584(a).</list_item>
+<list_item><loc_265><loc_96><loc_374><loc_101>J-A bank as defined in section 581.</list_item>
+<list_item><loc_265><loc_103><loc_305><loc_108>K-A broker.</list_item>
+<list_item><loc_258><loc_110><loc_469><loc_121>L-A trust exempt from tax under section 664 or described in section 4947(a)(1).</list_item>
+<list_item><loc_258><loc_123><loc_465><loc_134>M-A tax-exempt trust under a section 403(b) plan or section 457(g) plan.</list_item>
+<list_item><loc_258><loc_136><loc_465><loc_153>Note: You may wish to consult with the financial institution requesting this form to determine whether the FATCA code and/or exempt payee code should be completed.</list_item>
+</unordered_list>
+<section_header_level_1><loc_258><loc_156><loc_285><loc_163>Line 5</section_header_level_1>
+<text><loc_258><loc_165><loc_470><loc_199>Enter your address (number, street, and apartment or suite number). This is where the requester of this Form W-9 will mail your information returns. If this address differs from the one the requester already has on file, enter "NEW" at the top. If a new address is provided, there is still a chance the old address will be used until the payor changes your address in their records.</text>
+<section_header_level_1><loc_258><loc_202><loc_285><loc_209>Line 6</section_header_level_1>
+<text><loc_258><loc_211><loc_364><loc_216>Enter your city, state, and ZIP code.</text>
+<section_header_level_1><loc_258><loc_220><loc_461><loc_228>Part I. Taxpayer Identification Number (TIN)</section_header_level_1>
+<text><loc_258><loc_230><loc_472><loc_253>Enter your TIN in the appropriate box. If you are a resident alien and you do not have, and are not eligible to get, an SSN, your TIN is your IRS ITIN. Enter it in the entry space for the Social security number. If you do not have an ITIN, see How to get a TIN below.</text>
+<text><loc_258><loc_255><loc_470><loc_274>If you are a sole proprietor and you have an EIN, you may enter either your SSN or EIN.</text>
+<text><loc_258><loc_274><loc_470><loc_291>If you are a single-member LLC that is disregarded as an entity separate from its owner, enter the owner's SSN (or EIN, if the owner has one). If the LLC is classified as a corporation or partnership, enter the entity's EIN.</text>
+<text><loc_258><loc_294><loc_458><loc_305>Note: See What Name and Number To Give the Requester , later, for further clarification of name and TIN combinations.</text>
+<text><loc_258><loc_307><loc_472><loc_376>How to get a TIN. If you do not have a TIN, apply for one immediately. To apply for an SSN, get Form SS-5, Application for a Social Security Card, from your local SSA office or get this form online at www.SSA.gov . You may also get this form by calling 800-772-1213. Use Form W-7, Application for IRS Individual Taxpayer Identification Number, to apply for an ITIN, or Form SS-4, Application for Employer Identification Number, to apply for an EIN. You can apply for an EIN online by accessing the IRS website at www.irs.gov/EIN . Go to www.irs.gov/Forms to view, download, or print Form W-7 and/or Form SS-4. Or, you can go to www.irs.gov/OrderForms to place an order and have Form W-7 and/or Form SS-4 mailed to you within 15 business days.</text>
+<text><loc_258><loc_378><loc_470><loc_428>If you are asked to complete Form W-9 but do not have a TIN, apply for a TIN and enter "Applied For" in the space for the TIN, sign and date the form, and give it to the requester. For interest and dividend payments, and certain payments made with respect to readily tradable instruments, you will generally have 60 days to get a TIN and give it to the requester before you are subject to backup withholding on payments. The 60-day rule does not apply to other types of payments. You will be subject to backup withholding on all such payments until you provide your TIN to the requester.</text>
+<text><loc_258><loc_430><loc_468><loc_458>Note: Entering "Applied For" means that you have already applied for a TIN or that you intend to apply for one soon. See also Establishing U.S. status for purposes of chapter 3 and chapter 4 withholding , earlier, for when you may instead be subject to withholding under chapter 3 or 4 of the Code.</text>
+<text><loc_258><loc_460><loc_463><loc_471>Caution: A disregarded U.S. entity that has a foreign owner must use the appropriate Form W-8.</text>
+</doctag>

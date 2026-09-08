@@ -1,0 +1,176 @@
+<doctag><text><loc_48><loc_7><loc_106><loc_16>Print Form</text>
+<text><loc_29><loc_22><loc_127><loc_34>Department of Revenue Services State of Connecticut</text>
+<text><loc_29><loc_36><loc_65><loc_42>(Rev. 12/25)</text>
+<section_header_level_1><loc_29><loc_46><loc_104><loc_52>Employee Instructions</section_header_level_1>
+<unordered_list><list_item><loc_29><loc_54><loc_150><loc_60>• Read the instructions on Page 2 before completing this form.</list_item>
+<list_item><loc_29><loc_62><loc_246><loc_74>• Select the filing status you expect to report on your Connecticut income tax return.</list_item>
+</unordered_list>
+<text><loc_29><loc_80><loc_150><loc_87>Married Filing Jointly</text>
+<text><loc_29><loc_90><loc_214><loc_114>Our expected combined annual gross income is less than or equal to $24,000 or I am claiming exemption under the Military Spouses Residency Relief Act (MSRRA)* and no withholding is necessary.</text>
+<text><loc_29><loc_116><loc_150><loc_129>My spouse is employed and our expected combined annual gross income is greater than $24,000 and less than or equal to $100,500. See</text>
+<text><loc_29><loc_133><loc_197><loc_145>My spouse is not employed and our expected combined annual gross income is greater than $24,000.</text>
+<text><loc_29><loc_149><loc_185><loc_161>My spouse is employed and our expected combined annual gross income is greater than $100,500.</text>
+<text><loc_29><loc_165><loc_150><loc_177>I have significant nonwage income and wish to avoid having too little tax withheld.</text>
+<text><loc_29><loc_181><loc_150><loc_187>I am a nonresident of Connecticut with substantial other income.</text>
+<text><loc_29><loc_191><loc_150><loc_197>Qualifying Surviving Spouse</text>
+<text><loc_29><loc_201><loc_207><loc_219>My expected annual gross income is less than or equal to $24,000 or I am claiming exemption under the MSRRA* and no withholding is necessary.</text>
+<text><loc_29><loc_223><loc_150><loc_229>My expected annual gross income is</text>
+<text><loc_29><loc_233><loc_150><loc_245>I have significant nonwage income and wish to avoid having too little tax withheld.</text>
+<text><loc_29><loc_249><loc_353><loc_255>I am a nonresident of Connecticut with substantial other income.</text>
+<text><loc_29><loc_258><loc_355><loc_264>* If you are claiming the Military Spouses Residency Relief Act (MSRRA) exemption, see instructions on Page 2.</text>
+<text><loc_29><loc_270><loc_127><loc_276>Employees: See</text>
+<text><loc_29><loc_279><loc_150><loc_285>1. Withholding Code: Enter</text>
+<text><loc_29><loc_291><loc_150><loc_296>2. Additional withholding amount per pay period: If any, see instructions.</text>
+<text><loc_29><loc_302><loc_150><loc_308>3. Reduced withholding amount per pay period: If any, see instructions.</text>
+<text><loc_29><loc_313><loc_65><loc_319>First name</text>
+<text><loc_29><loc_328><loc_259><loc_334>Home address (number and street, apartment number, suite number, PO Box)</text>
+<text><loc_29><loc_343><loc_65><loc_349>City/town</text>
+<text><loc_29><loc_361><loc_472><loc_373>Declaration : I declare under penalty of law that I have examined this certificate and, to the best of my knowledge and belief, it is true, complete, and correct. I understand the penalty for reporting false information is a fine of not more than $5,000, imprisonment for not more than five years, or both.</text>
+<text><loc_29><loc_376><loc_95><loc_382>Employee's signature</text>
+<text><loc_324><loc_376><loc_338><loc_382>Date</text>
+<text><loc_29><loc_395><loc_190><loc_401>Employers: See</text>
+<text><loc_29><loc_405><loc_140><loc_411>Is this a new or rehired employee?</text>
+<checkbox_unselected><loc_160><loc_405><loc_183><loc_411>No</checkbox_unselected>
+<checkbox_unselected><loc_193><loc_405><loc_290><loc_411>Yes      Enter date hired:</checkbox_unselected>
+<text><loc_29><loc_419><loc_120><loc_425>Employer's business name</text>
+<text><loc_324><loc_419><loc_439><loc_425>Federal Employer Identification Number</text>
+<text><loc_29><loc_435><loc_118><loc_441>Employer's business address</text>
+<text><loc_29><loc_450><loc_61><loc_456>City/town</text>
+<text><loc_29><loc_465><loc_77><loc_471>Contact person</text>
+<text><loc_324><loc_465><loc_379><loc_471>Telephone number</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc_471>State</text>
+<text><loc_176><loc_450><loc_198><loc_456>State</text>
+<text><loc_176><loc_465><loc_198><loc

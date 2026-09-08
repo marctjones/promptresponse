@@ -1,0 +1,136 @@
+```json
+{
+  "sections": [
+    {
+      "id": "general-instructions",
+      "title": "General Instructions"
+    },
+    {
+      "id": "specific-instructions",
+      "title": "Specific Instructions"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Future Developments",
+      "section_id": "general-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Purpose of Form",
+      "section_id": "general-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Exemption from withholding",
+      "section_id": "general-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Your privacy",
+      "section_id": "general-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "When to use the estimator",
+      "section_id": "general-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Self-employment",
+      "section_id": "general-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Nonresident alien",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Step 1(c)",
+      "section_id": "specific-instructions",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "required": true,
+      "choices": ["(a) most accurately calculates the additional tax", "(b) does so with a little less accuracy"]
+    },
+    {
+      "label": "Step 2",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Option (a)",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Option (b)",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Multiple jobs",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Step 3",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Step 4",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Step 4(a)",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Step 4(b)",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Step 4(c)",
+      "section_id": "specific-instructions",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}
+```

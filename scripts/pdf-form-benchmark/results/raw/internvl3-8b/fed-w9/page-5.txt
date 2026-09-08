@@ -1,0 +1,232 @@
+```json
+{
+  "sections": [
+    {
+      "id": "part-ii-certification",
+      "title": "Part II. Certification"
+    },
+    {
+      "id": "what-name-and-number-to-give-the-requester",
+      "title": "What Name and Number To Give the Requester"
+    },
+    {
+      "id": "secure-your-tax-records-from-identity-theft",
+      "title": "Secure Your Tax Records From Identity Theft"
+    }
+  ],
+  "fields": [
+    {
+      "label": "For this type of account:",
+      "section_id": "part-ii-certification",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "Individual",
+        "Two or more individuals (joint account) other than an account maintained by an FFI",
+        "Two or more U.S. persons (joint account maintained by an FFI)",
+        "Custodial account of a minor (Uniform Gift to Minors Act)",
+        "a. The usual revocable savings trust (grantor is also trustee)",
+        "b. So-called trust account that is not a legal or valid trust under state law",
+        "Sole proprietorship or disregarded entity owned by an individual",
+        "Grantor trust filing under Optional Filing Method 1 (see Regulations section 1.671-4(b)(2)(O)(A))",
+        "8. Disregarded entity not owned by an individual",
+        "9. A valid trust, estate, or pension trust",
+        "10. Corporation or LLC electing corporate status on Form 8832 or Form 2553",
+        "11. Association, club, religious, charitable, educational, or other tax-exempt organization",
+        "12. Partnership or multi-member LLC",
+        "13. A broker or registered nominee",
+        "14. Account with the Department of Agriculture in the name of a public entity (such as a state or local government, school district, or prison that receives agricultural program payments)",
+        "15. Grantor trust filing Form 1041 or under the Optional Filing Method 2, requiring Form 1099 (see Regulations section 1.671-4(b)(2)(O)(A)(**))"
+      ]
+    },
+    {
+      "label": "Give name and EIN of:",
+      "section_id": "part-ii-certification",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "List first and circle the name of the person whose number you furnish.",
+      "section_id": "part-ii-certification",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "If only one person on a joint account has an SSN, that person's number must be furnished."
+      ]
+    },
+    {
+      "label": "Circle the minor's name and furnish the minor's SSN.",
+      "section_id": "part-ii-certification",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "You DBA must show your individual name on line 1, and enter your business name, if any, on line 2. You may use either your SSN or EIN (if you have one), but the IRS encourages you to use your SSN."
+      ]
+    },
+    {
+      "label": "List first and circle the name of the trust, estate, or pension trust.",
+      "section_id": "part-ii-certification",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "Do not furnish the TIN of the personal representative or trustee unless the legal entity itself is not designated in the account title."
+      ]
+    },
+    {
+      "label": "Note: The grantor must also provide a Form W-9 to the trustee of the trust.",
+      "section_id": "part-ii-certification",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "** For more information on optional filing methods for grantor trusts, see the Instructions for Form 1041.",
+      "section_id": "part-ii-certification",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Note: If no name is circled and when more than one name is listed, the number will be considered to be that of the first name listed.",
+      "section_id": "part-ii-certification",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "For this type of account:",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "required": true,
+      "choices": [
+        "1. Individual",
+        "2. Two or more individuals (joint account) other than an account maintained by an FFI",
+        "3. Two or more U.S. persons (joint account maintained by an FFI)",
+        "4. Custodial account of a minor (Uniform Gift to Minors Act)",
+        "a. The usual revocable savings trust (grantor is also trustee)",
+        "b. So-called trust account that is not a legal or valid trust under state law",
+        "6. Sole proprietorship or disregarded entity owned by an individual",
+        "7. Grantor trust filing under Optional Filing Method 1 (see Regulations section 1.671-4(b)(2)(O)(A))"
+      ]
+    },
+    {
+      "label": "Give name and SSN of:",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "The individual",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "The actual owner of the account or, if combined funds, the first individual on the account",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Each holder of the account",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "The minor",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "The grantor-trustee",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "The actual owner",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "The owner",
+      "section_id": "what-name-and-number-to-give-the-requester",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "required": true
+    },
+    {
+      "label": "Identity theft occurs when someone uses your personal information, such as your name, SSN, or other identifying information, without your permission to commit fraud or other crimes. An identity thief may use your SSN to get a job or file a tax return using your SSN to receive a refund.",
+      "section_id": "secure-your-tax-records-from-identity-theft",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "To reduce your risk:",
+      "section_id": "secure-your-tax-records-from-identity-theft",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Protect your SSN,",
+      "section_id": "secure-your-tax-records-from-identity-theft",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Ensure your employer is protecting your SSN,",
+      "section_id": "secure-your-tax-records-from-identity-theft",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "Be careful when choosing a tax return preparer.",
+      "section_id": "secure-your-tax-records-from-identity-theft",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If your tax records are affected by identity theft and you receive a notice from the IRS, respond right away to the name and phone number printed on the IRS notice or letter.",
+      "section_id": "secure-your-tax-records-from-identity-theft",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "If your tax records are not currently affected by identity theft but you think you are at risk due to a lost or stolen purse or wallet, questionable credit card activity, or a questionable credit report, contact the IRS Identity Theft Hotline at 800-908-4490 or submit Form 14039.",
+      "section_id": "secure-your-tax-records-from-identity-theft",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    },
+    {
+      "label": "For more information, see Pub. 5027, Identity Theft Information for Taxpayers.",
+      "section_id": "secure-your-tax-records-from-identity-theft",
+      "field_kind": "text",
+      "expected_data_type": "text",
+      "required": false
+    }
+  ]
+}
+```
