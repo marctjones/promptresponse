@@ -65,9 +65,21 @@ public final class AprExpressions {
             }
             bindings.put("ctx", context == null ? Map.of() : Map.copyOf(context));
         }
+        /** Evaluates and stringifies. Use {@link #evaluateRaw} where the CEL type itself matters. */
         public String evaluate(Map<String,Object> prompt, String expression) {
+            Object result = evaluateRaw(prompt, expression);
+            return result == null ? null : stored(result);
+        }
+        /**
+         * Evaluates and returns the raw CEL result, or {@code null} on a compile or
+         * evaluation failure. exprValidation is typed string (specification's
+         * expression profile): a result of any other CEL type is the same failure
+         * as a compile error, not a value to stringify -- {@code 2 + 2} is not
+         * almost a validation message, and only a caller holding the raw result can
+         * tell the difference.
+         */
+        public Object evaluateRaw(Map<String,Object> prompt, String expression) {
             try {
-                CelFactory.standardCelBuilder().build();
                 var builder = CelFactory.standardCelBuilder();
                 for (Map.Entry<String,Map<String,Object>> entry : prompts.entrySet()) builder.addVar(entry.getKey(), typeOf(entry.getValue()));
                 // Declared only when bound. A declared but unbound name does not
@@ -84,7 +96,7 @@ public final class AprExpressions {
                 if (checked.hasError()) return null;
                 Map<String,Object> values = new LinkedHashMap<>(bindings); Object current = bind(prompt); if (current != null) values.put("_this", current);
                 values.put("_id", AprDocument.string(prompt.get("id")));
-                return stored(cel.createProgram(checked.getAst()).eval(values));
+                return cel.createProgram(checked.getAst()).eval(values);
             } catch (Exception ignored) { return null; }
         }
     }
