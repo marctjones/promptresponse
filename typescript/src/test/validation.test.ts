@@ -88,3 +88,20 @@ test("an empty table section is a structural error", () => {
   assert.equal(result.isValid, false);
   assert.deepEqual(codes(result.errors), ["EMPTY_TABLE"]);
 });
+
+test("maxRows must be an integer, and at least 1", () => {
+  // docs/BETA6_WIRE_DELTA.md types maxRows as "integer, at least 1". .NET's
+  // model declares it C# int?, so a fractional JSON number fails to
+  // deserialize at all; JSON has no separate integer type, so loads() must
+  // check explicitly (issue #378).
+  const section = (maxRows: number) => JSON.stringify({
+    aprVersion: "1.0-beta.6", metadata: { title: "T" },
+    sections: [{ id: "t", title: "T", kind: "table", maxRows, sections: [{ id: "r", title: "R", prompts: [{ id: "p", label: "P" }] }] }],
+  });
+  assert.throws(() => loads(section(2.5)), (error: unknown) => error instanceof Error && (error as { code?: string }).code === "WRONG_TYPE");
+  for (const maxRows of [0, -3]) {
+    const document = loads(section(maxRows));
+    assert.deepEqual(codes(validate(document).errors), ["WRONG_TYPE"]);
+  }
+  assert.equal(validate(loads(section(5))).isValid, true);
+});

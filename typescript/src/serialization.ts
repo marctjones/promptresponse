@@ -37,6 +37,15 @@ const number = (node: JsonObject, key: string, what: string): number | undefined
   if (typeof value !== "number") throw wrongType(what, key, "a number", value);
   return value;
 };
+// docs/BETA6_WIRE_DELTA.md types maxRows as "integer, at least 1". .NET's model
+// declares it `int?`, so System.Text.Json refuses a fractional JSON number at
+// deserialization for free; JSON has no separate integer type, so this is the
+// explicit equivalent.
+const integer = (node: JsonObject, key: string, what: string): number | undefined => {
+  const value = number(node, key, what);
+  if (value !== undefined && !Number.isInteger(value)) throw wrongType(what, key, "an integer", value);
+  return value;
+};
 // `min` and `max` are a number on an ordered numeric field and a canonical-form string
 // on a temporal one, so both spellings are the format's own.
 const numberOrString = (node: JsonObject, key: string, what: string): number | string | undefined => {
@@ -68,7 +77,7 @@ function parseSection(value: JsonValue): Section {
   const node = object(value, "section"); const known = new Set(["id", "title", "description", "kind", "canAddRows", "maxRows", "role", "prompts", "sections"]);
   const prompts = node.prompts ?? []; const sections = node.sections ?? [];
   if (!Array.isArray(prompts) || !Array.isArray(sections)) throw new AprParseError("section.prompts and section.sections must be arrays", "WRONG_TYPE");
-  return { id: string(node, "id", "section") ?? "", title: string(node, "title", "section") ?? "", description: string(node, "description", "section"), kind: string(node, "kind", "section"), canAddRows: boolean(node, "canAddRows", "section"), maxRows: number(node, "maxRows", "section"), role: string(node, "role", "section"), prompts: prompts.map(parsePrompt), sections: sections.map(parseSection), extra: rest(node, known) };
+  return { id: string(node, "id", "section") ?? "", title: string(node, "title", "section") ?? "", description: string(node, "description", "section"), kind: string(node, "kind", "section"), canAddRows: boolean(node, "canAddRows", "section"), maxRows: integer(node, "maxRows", "section"), role: string(node, "role", "section"), prompts: prompts.map(parsePrompt), sections: sections.map(parseSection), extra: rest(node, known) };
 }
 function parseMetadata(value: JsonValue): Metadata {
   if (object(value, "metadata").submissionUrl !== undefined) throw new AprParseError("metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings");
