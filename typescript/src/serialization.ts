@@ -62,18 +62,18 @@ function parseHints(value: JsonObject): PromptHints {
 function parsePrompt(value: JsonValue): Prompt {
   const node = object(value, "prompt"); const known = new Set(["id", "label", "response", "role", "hints"]);
   const hints = optionalObject(node.hints, "hints");
-  return { id: string(node, "id", "prompt") ?? "", label: normalize(string(node, "label", "prompt")) ?? "", response: string(node, "response", "prompt") ?? "", role: string(node, "role", "prompt"), hints: hints ? parseHints(hints) : { suggestedValues: [], extra: {} }, extra: rest(node, known), responseIsDeclared: "response" in node };
+  return { id: string(node, "id", "prompt") ?? "", label: string(node, "label", "prompt") ?? "", response: string(node, "response", "prompt") ?? "", role: string(node, "role", "prompt"), hints: hints ? parseHints(hints) : { suggestedValues: [], extra: {} }, extra: rest(node, known), responseIsDeclared: "response" in node };
 }
 function parseSection(value: JsonValue): Section {
   const node = object(value, "section"); const known = new Set(["id", "title", "description", "kind", "canAddRows", "maxRows", "role", "prompts", "sections"]);
   const prompts = node.prompts ?? []; const sections = node.sections ?? [];
   if (!Array.isArray(prompts) || !Array.isArray(sections)) throw new AprParseError("section.prompts and section.sections must be arrays", "WRONG_TYPE");
-  return { id: string(node, "id", "section") ?? "", title: normalize(string(node, "title", "section")) ?? "", description: normalize(string(node, "description", "section")), kind: string(node, "kind", "section"), canAddRows: boolean(node, "canAddRows", "section"), maxRows: number(node, "maxRows", "section"), role: string(node, "role", "section"), prompts: prompts.map(parsePrompt), sections: sections.map(parseSection), extra: rest(node, known) };
+  return { id: string(node, "id", "section") ?? "", title: string(node, "title", "section") ?? "", description: string(node, "description", "section"), kind: string(node, "kind", "section"), canAddRows: boolean(node, "canAddRows", "section"), maxRows: number(node, "maxRows", "section"), role: string(node, "role", "section"), prompts: prompts.map(parsePrompt), sections: sections.map(parseSection), extra: rest(node, known) };
 }
 function parseMetadata(value: JsonValue): Metadata {
   if (object(value, "metadata").submissionUrl !== undefined) throw new AprParseError("metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings");
   const node = object(value, "metadata"); const known = new Set(["title", "description", "author", "created", "modified", "templateId", "templateVersion", "publisher", "submissionUrls"]);
-  return { title: normalize(string(node, "title", "metadata")) ?? "", description: normalize(string(node, "description", "metadata")), author: normalize(string(node, "author", "metadata")), created: string(node, "created", "metadata"), modified: string(node, "modified", "metadata"), templateId: string(node, "templateId", "metadata"), templateVersion: string(node, "templateVersion", "metadata"), publisher: normalize(string(node, "publisher", "metadata")), submissionUrls: strings(node.submissionUrls, "metadata.submissionUrls"), extra: rest(node, known) };
+  return { title: string(node, "title", "metadata") ?? "", description: string(node, "description", "metadata"), author: string(node, "author", "metadata"), created: string(node, "created", "metadata"), modified: string(node, "modified", "metadata"), templateId: string(node, "templateId", "metadata"), templateVersion: string(node, "templateVersion", "metadata"), publisher: string(node, "publisher", "metadata"), submissionUrls: strings(node.submissionUrls, "metadata.submissionUrls"), extra: rest(node, known) };
 }
 function parseRole(value: JsonValue): RoleDefinition {
   const node = object(value, "role"); const known = new Set(["id", "name", "description"]);
