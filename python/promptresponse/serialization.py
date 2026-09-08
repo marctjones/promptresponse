@@ -78,6 +78,18 @@ def _number(node, key: str, what: str):
     return value
 
 
+def _integer(node, key: str, what: str):
+    # docs/BETA6_WIRE_DELTA.md types maxRows as "integer, at least 1". .NET's
+    # model declares it C# int?, so a fractional JSON number fails to
+    # deserialize at all; JSON has no separate integer type, so this checks
+    # the value rather than json.loads's int-vs-float spelling -- 5.0 and 5
+    # are the same integer, and only 2.5 is not one (issue #378).
+    value = _number(node, key, what)
+    if isinstance(value, float) and not value.is_integer():
+        raise _wrong_type(what, key, "an integer", value)
+    return value
+
+
 def _number_or_string(node, key: str, what: str):
     value = node.get(key)
     if value is None:
@@ -157,7 +169,7 @@ def _parse_section(node) -> Section:
         description=_string(node, "description", "section"),
         kind=_string(node, "kind", "section"),
         can_add_rows=_boolean(node, "canAddRows", "section"),
-        max_rows=_number(node, "maxRows", "section"),
+        max_rows=_integer(node, "maxRows", "section"),
         role=_string(node, "role", "section"),
         prompts=[_parse_prompt(p) for p in prompts],
         sections=[_parse_section(s) for s in sections],
