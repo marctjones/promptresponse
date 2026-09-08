@@ -47,7 +47,9 @@ public final class AprBeta6 {
     public static String writeStream(Iterable<Record> records, Representation representation) {
         List<String> output = new ArrayList<>();
         for (Record record : records) {
-            String json = record instanceof FormRecord form ? Json.write(form.value()) : Json.write(((AttestationRecord) record).value());
+            String json = record instanceof FormRecord form
+                ? form.value() != null ? Json.write(form.value()) : writeForm(form.document(), Representation.JSONC)
+                : Json.write(((AttestationRecord) record).value());
             output.add(writeJson(json, representation));
         }
         return representation == Representation.JSONC ? output.stream().map(value -> "\u001e" + value + "\n").reduce("", String::concat) : String.join("---\n", output);
