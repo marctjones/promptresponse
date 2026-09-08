@@ -45,10 +45,26 @@ public final class AprConformanceTest {
         ValidationResult tableResult = Apr.validate(emptyTable);
         if (tableResult.isValid() || !codes(tableResult.errors()).equals(java.util.List.of("EMPTY_TABLE"))) throw new AssertionError("an empty table section is a structural error");
 
+        // docs/BETA6_WIRE_DELTA.md types maxRows as "integer, at least 1"; .NET's
+        // model declares it C# int?, so a fractional JSON number fails to
+        // deserialize at all. 5.0 and 5 are the same integer and both still
+        // parse; only a genuinely fractional value is refused (issue #378).
+        try { Apr.parse(table(2.5)); throw new AssertionError("maxRows 2.5 must be refused as WRONG_TYPE"); }
+        catch (AprException expected) { if (!"WRONG_TYPE".equals(expected.code())) throw expected; }
+        Apr.parse(table(5.0));
+        for (double zeroOrNegative : new double[] { 0, -3 }) {
+            AprDocument capped = Apr.parse(table(zeroOrNegative));
+            if (!codes(Apr.validate(capped).errors()).equals(java.util.List.of("WRONG_TYPE"))) throw new AssertionError("maxRows " + zeroOrNegative + " must be a validation error");
+        }
+
         System.out.println("Java validation vocabulary passed");
     }
     private static java.util.List<String> codes(java.util.List<ValidationIssue> issues) {
         return issues.stream().map(ValidationIssue::code).sorted().toList();
+    }
+    private static String table(double maxRows) {
+        return "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"t\",\"title\":\"T\",\"kind\":\"table\",\"maxRows\":" + maxRows
+            + ",\"sections\":[{\"id\":\"r\",\"title\":\"R\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}]}";
     }
 
     /** CEL bugs found while building AprConformanceDriver, all masked by Context's blanket catch. */
