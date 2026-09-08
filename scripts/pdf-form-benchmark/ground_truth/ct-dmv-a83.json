@@ -1,0 +1,29 @@
+{
+  "form_id": "ct-dmv-a83",
+  "form_name": "Connecticut DMV Form A-83 (Special Power of Attorney)",
+  "page_count": 1,
+  "sections": [
+    {"id": "declaration", "title": "Power of Attorney Declaration"},
+    {"id": "signatures", "title": "Signatures"},
+    {"id": "acknowledgment", "title": "Acknowledgment"}
+  ],
+  "fields": [
+    {"id": "principal-full-name", "label": "(Print your full name above)", "expected_data_type": "text", "required": true, "section_id": "declaration", "field_kind": "text_line", "notes": "Blank in the sentence 'that I, ___, do hereby appoint'."},
+    {"id": "agent-full-name", "label": "(Print full name of your agent above)", "expected_data_type": "text", "required": true, "section_id": "declaration", "field_kind": "text_line", "notes": "Blank in the sentence '..., do hereby appoint ___, as my attorney-in-fact'."},
+    {"id": "execution-day", "label": "day of", "expected_data_type": "text", "required": true, "section_id": "declaration", "field_kind": "text_line", "notes": "First of three blanks in 'I have hereunto signed my name below on this ___ day of ___, 20___.'"},
+    {"id": "execution-month", "label": "day of [month blank]", "expected_data_type": "text", "required": true, "section_id": "declaration", "field_kind": "text_line", "notes": "Second of three blanks (month name) in the execution-date sentence."},
+    {"id": "execution-year", "label": "20___", "expected_data_type": "text", "required": true, "section_id": "declaration", "field_kind": "text_line", "notes": "Third blank (last two digits of year) in the execution-date sentence."},
+
+    {"id": "principal-signature", "label": "Principal: (Sign your full name as above)", "expected_data_type": "text", "required": true, "section_id": "signatures", "field_kind": "signature"},
+    {"id": "witness-1-signature", "label": "(Signature of Witness)", "expected_data_type": "text", "required": true, "section_id": "signatures", "field_kind": "signature"},
+    {"id": "witness-2-signature", "label": "(Signature of Witness)", "expected_data_type": "text", "required": true, "section_id": "signatures", "field_kind": "signature", "notes": "Second, identically-labeled witness signature line; form requires two witnesses."},
+
+    {"id": "county", "label": "COUNTY OF", "expected_data_type": "text", "required": true, "section_id": "acknowledgment", "field_kind": "text_line"},
+    {"id": "acknowledged-principal-name", "label": "Personally appeared , signer and sealer of the foregoing Power of Attorney", "expected_data_type": "text", "required": true, "section_id": "acknowledgment", "field_kind": "text_line", "notes": "Blank filled in by the notary/officer with the principal's full name."},
+    {"id": "acknowledgment-day", "label": "before me, this ___ day of", "expected_data_type": "text", "required": true, "section_id": "acknowledgment", "field_kind": "text_line", "notes": "First of three blanks in the acknowledgment date sentence."},
+    {"id": "acknowledgment-month", "label": "day of ___, 20___", "expected_data_type": "text", "required": true, "section_id": "acknowledgment", "field_kind": "text_line", "notes": "Second blank (month name) in the acknowledgment date sentence."},
+    {"id": "acknowledgment-year", "label": "20___", "expected_data_type": "text", "required": true, "section_id": "acknowledgment", "field_kind": "text_line", "notes": "Third blank (last two digits of year) in the acknowledgment date sentence."},
+    {"id": "notary-signature", "label": "Notary Public/Justice of Peace Commissioner of the Superior Court", "expected_data_type": "text", "required": true, "section_id": "acknowledgment", "field_kind": "signature", "notes": "Unlabeled signature line above the printed 'Notary Public/Justice of Peace / Commissioner of the Superior Court' caption."},
+    {"id": "commission-expires", "label": "My commission expires:", "expected_data_type": "text", "required": false, "section_id": "acknowledgment", "field_kind": "text_line", "notes": "Applicable only when the signing officer is a Notary Public (not a Justice of the Peace or Commissioner of the Superior Court)."}
+  ]
+}
