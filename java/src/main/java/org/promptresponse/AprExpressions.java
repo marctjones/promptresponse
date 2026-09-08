@@ -19,9 +19,12 @@ public final class AprExpressions {
     private AprExpressions() { }
 
     public static boolean recomputeComputedValues(AprDocument document) {
+        return recomputeComputedValues(document, null, null);
+    }
+    public static boolean recomputeComputedValues(AprDocument document, String today, Map<String,String> ctx) {
         boolean changed = false;
         for (int pass = 0; pass < 5; pass++) {
-            Context context = new Context(document); boolean changedThisPass = false;
+            Context context = new Context(document, today, ctx); boolean changedThisPass = false;
             for (Map<String,Object> prompt : prompts(document.sections())) {
                 Map<String,Object> hints = map(prompt.get("hints"));
                 String expression = AprDocument.string(hints.get("exprValue"));
