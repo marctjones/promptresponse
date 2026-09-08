@@ -1174,6 +1174,20 @@
         "FORBIDDEN_CODE_POINT"
       ]
     },
+    "rules/apr-text-012-satisfies.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-TEXT-012"
+      ],
+      "anchors": []
+    },
+    "rules/apr-text-012-warns.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-TEXT-012"
+      ],
+      "anchors": []
+    },
     "rules/apr-model-023-roundtrip.apr.jsonc": {
       "expect": "valid",
       "rules": [

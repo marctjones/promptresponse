@@ -231,16 +231,86 @@ internal static class AdvisoryVocabulary
         HoldToTheFloor(document.Metadata?.Description, "metadata.description", result);
         HoldToTheFloor(document.Metadata?.Author, "metadata.author", result);
         HoldToTheFloor(document.Metadata?.Publisher, "metadata.publisher", result);
+        LookForConfusableScriptMix(document.Metadata?.Title, "metadata.title", result);
+        LookForConfusableScriptMix(document.Metadata?.Description, "metadata.description", result);
+        LookForConfusableScriptMix(document.Metadata?.Author, "metadata.author", result);
+        LookForConfusableScriptMix(document.Metadata?.Publisher, "metadata.publisher", result);
         foreach (var (section, path) in Walk(document))
         {
             HoldToTheFloor(section.Title, $"{path}.title", result);
             HoldToTheFloor(section.Description, $"{path}.description", result);
+            LookForConfusableScriptMix(section.Title, $"{path}.title", result);
+            LookForConfusableScriptMix(section.Description, $"{path}.description", result);
             for (var index = 0; index < (section.Prompts?.Count ?? 0); index++)
             {
                 HoldToTheFloor(section.Prompts![index].Label, $"{path}.prompts[{index}].label", result);
+                LookForConfusableScriptMix(section.Prompts![index].Label, $"{path}.prompts[{index}].label", result);
             }
         }
     }
+
+    /// <summary>
+    /// APR-TEXT-012: "SHOULD apply the confusable and mixed-script detection of
+    /// UTS #39... report what it finds." Full UTS #39 restriction-level analysis
+    /// needs a declared document language to avoid flagging ordinary multi-script
+    /// text (Japanese Han+Hiragana+Katakana, Korean Hangul+Han, Latin loanwords
+    /// in Indic/Arabic/Hebrew text) -- APR has no metadata.language member yet,
+    /// so that full analysis isn't attempted here.
+    /// </summary>
+    /// <remarks>
+    /// What doesn't need a declared language: Latin, Cyrillic and Greek have
+    /// extensive letter-shape homoglyphs between them (Cyrillic а/Latin a, Greek
+    /// Α/Latin A) and essentially no legitimate reason to co-occur within one
+    /// title or label -- unlike CJK/Hangul/Indic scripts, which routinely mix
+    /// with Latin for brand names, loanwords and numerals. Flagging only these
+    /// three scripts mixing with each other is a narrow, script-agnostic slice
+    /// of UTS #39 that produces zero known false positives on real multi-script
+    /// text.
+    ///
+    /// Not in specification 7.2's warnings table -- CONFUSABLE_SCRIPT_MIX is
+    /// this implementation's own spelling of an APR-VAL-002 "MAY surface any
+    /// warning, including conditions this table does not name" extension, not a
+    /// code every implementation must use.
+    ///
+    /// .NET's BCL has no Unicode Script property (unlike ICU), so script is
+    /// approximated with compact code-point ranges rather than character names.
+    /// A code point outside all three ranges is simply not counted -- a miss
+    /// there is a false negative, the safe direction for an advisory check.
+    /// </remarks>
+    private static void LookForConfusableScriptMix(string? value, string path, ValidationResult result)
+    {
+        if (value is not { Length: > 0 }) return;
+        var scripts = new SortedSet<string>(StringComparer.Ordinal);
+        foreach (var rune in value.EnumerateRunes())
+        {
+            if (System.Globalization.CharUnicodeInfo.GetUnicodeCategory(rune.Value) is not
+                (System.Globalization.UnicodeCategory.UppercaseLetter
+                or System.Globalization.UnicodeCategory.LowercaseLetter
+                or System.Globalization.UnicodeCategory.TitlecaseLetter
+                or System.Globalization.UnicodeCategory.ModifierLetter
+                or System.Globalization.UnicodeCategory.OtherLetter))
+            {
+                continue;   // Digits, punctuation and spaces are script-neutral.
+            }
+            var script = ConfusableScriptOf(rune.Value);
+            if (script is not null) scripts.Add(script);
+        }
+        if (scripts.Count <= 1) return;
+        result.AddWarning(new ValidationWarning(
+            $"mixes {string.Join(", ", scripts)} letters in one field; Latin, Cyrillic "
+            + "and Greek share look-alike letters, and a mix within one title or label "
+            + "is rarely intentional.", path, "CONFUSABLE_SCRIPT_MIX"));
+    }
+
+    private static string? ConfusableScriptOf(int codePoint) => codePoint switch
+    {
+        (>= 0x0041 and <= 0x005A) or (>= 0x0061 and <= 0x007A)
+            or (>= 0x00C0 and <= 0x024F) or (>= 0x1E00 and <= 0x1EFF) => "Latin",
+        (>= 0x0400 and <= 0x052F) or (>= 0x1C80 and <= 0x1C8F)
+            or (>= 0x2DE0 and <= 0x2DFF) or (>= 0xA640 and <= 0xA69F) => "Cyrillic",
+        (>= 0x0370 and <= 0x03FF) or (>= 0x1F00 and <= 0x1FFF) => "Greek",
+        _ => null,
+    };
 
     // Specification 8.2.3 places NON_NFC_TEXT and FORBIDDEN_CODE_POINT in the
     // warnings table (7.2), not the errors table (7.1, stated exhaustive by

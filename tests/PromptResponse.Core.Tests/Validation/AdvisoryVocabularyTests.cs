@@ -216,10 +216,39 @@ public class AdvisoryVocabularyTests
         document.Metadata.Title = "Zürich — 東京 — 😀";
 
         var result = Check(document);
-        result.Errors.Should().NotContain(e => e.ErrorCode == "NON_NFC_TEXT",
+        result.Warnings.Should().NotContain(w => w.WarningCode == "NON_NFC_TEXT",
             "the floor excludes what renders as nothing, not what is unfamiliar");
-        result.Errors.Should().NotContain(e => e.ErrorCode == "FORBIDDEN_CODE_POINT",
+        result.Warnings.Should().NotContain(w => w.WarningCode == "FORBIDDEN_CODE_POINT",
             "an emoji and a CJK character render as themselves");
+        result.Warnings.Should().NotContain(w => w.WarningCode == "CONFUSABLE_SCRIPT_MIX",
+            "Latin, an em dash, CJK and an emoji are not a Latin/Cyrillic/Greek mix");
+    }
+
+    [Fact]
+    public void ACyrillicLetterHiddenInALatinTitle_IsReported()
+    {
+        // The classic homoglyph spoof (APR-TEXT-012): a Cyrillic 'а' (U+0430)
+        // standing in for a Latin 'a'. Latin, Cyrillic and Greek share
+        // look-alike letters with no legitimate reason to co-occur, unlike
+        // CJK/Hangul/Indic scripts routinely mixing with Latin.
+        var document = Form(new Prompt { Id = "p", Label = "P" });
+        document.Metadata.Title = "PаyPal Permit";
+
+        var result = Check(document);
+        result.IsValid.Should().BeTrue("a warning must never make the document invalid");
+        result.Warnings.Should().Contain(w => w.WarningCode == "CONFUSABLE_SCRIPT_MIX");
+    }
+
+    [Theory]
+    [InlineData("Toyota パーツ")]   // CJK + Latin brand name
+    [InlineData("한국 Corp")]       // Hangul + Latin
+    [InlineData("PayPal")]         // pure Latin
+    public void LegitimateMultiScriptText_IsNotReportedAsConfusable(string title)
+    {
+        var document = Form(new Prompt { Id = "p", Label = "P" });
+        document.Metadata.Title = title;
+
+        Check(document).Warnings.Should().NotContain(w => w.WarningCode == "CONFUSABLE_SCRIPT_MIX");
     }
 
     [Fact]

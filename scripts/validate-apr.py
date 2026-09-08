@@ -220,6 +220,49 @@ def check_text(report: Report, path: str, value: str) -> None:
                         "APR-TEXT-011")
 
 
+# APR-TEXT-012: "SHOULD apply the confusable and mixed-script detection of
+# UTS #39... report what it finds." Full UTS #39 restriction-level analysis
+# needs a declared document language to avoid flagging ordinary multi-script
+# text (Japanese Han+Hiragana+Katakana, Korean Hangul+Han, Latin loanwords in
+# Indic/Arabic/Hebrew text) -- APR has no metadata.language member yet, so
+# that full analysis isn't attempted here.
+#
+# What doesn't need a declared language: Latin, Cyrillic and Greek have
+# extensive letter-shape homoglyphs between them (Cyrillic а/Latin a, Greek
+# Α/Latin A) and essentially no legitimate reason to co-occur within one
+# title or label -- unlike CJK/Hangul/Indic scripts, which routinely mix with
+# Latin for brand names, loanwords and numerals. Flagging only these three
+# scripts mixing with each other is a narrow, script-agnostic slice of UTS #39
+# that produces zero known false positives on real multi-script text.
+#
+# Not in specification 7.2's warnings table -- CONFUSABLE_SCRIPT_MIX is this
+# implementation's own spelling of an APR-VAL-002 "MAY surface any warning,
+# including conditions this table does not name" extension, not a code every
+# implementation must use.
+_CONFUSABLE_SCRIPTS = ("LATIN", "CYRILLIC", "GREEK")
+
+
+def _confusable_script_of(char: str) -> str | None:
+    if not unicodedata.category(char).startswith("L"):
+        return None  # Not a letter: digits, punctuation and spaces are script-neutral.
+    name = unicodedata.name(char, "")
+    for script in _CONFUSABLE_SCRIPTS:
+        if name.startswith(script):
+            return script
+    return None
+
+
+def check_confusable_script_mix(report: Report, path: str, value: str) -> None:
+    scripts = {_confusable_script_of(char) for char in value}
+    scripts.discard(None)
+    if len(scripts) > 1:
+        report.warn("CONFUSABLE_SCRIPT_MIX", path,
+                    f"mixes {', '.join(sorted(scripts)).title()} letters in one field; "
+                    "Latin, Cyrillic and Greek share look-alike letters, and a mix "
+                    "within one title or label is rarely intentional",
+                    "APR-TEXT-012")
+
+
 def check_object(report: Report, node, kind: str, path: str, members) -> None:
     declared = members[kind]
     for name, (declared_type, required) in declared.items():
@@ -255,6 +298,7 @@ def check_object(report: Report, node, kind: str, path: str, members) -> None:
                          f"got {type(node[name]).__name__}", *rules)
         if (kind, name) in HUMAN_TEXT and isinstance(node.get(name), str):
             check_text(report, f"{path}/{name}", node[name])
+            check_confusable_script_mix(report, f"{path}/{name}", node[name])
     for name in node:
         if name in declared:
             continue

@@ -5,6 +5,8 @@ documents. These check the rules that are about *behaviour* - what happens on a
 round trip, what is refused, what is left alone.
 """
 
+import json
+
 import pytest
 
 import promptresponse as pr
@@ -117,6 +119,37 @@ def test_non_nfc_titles_are_preserved_and_reported_not_silently_cleaned():
     report = pr.validate(document)
     assert report.is_valid
     assert any(w.code == "NON_NFC_TEXT" for w in report.warnings)
+
+
+# ── APR-TEXT-012 confusable/mixed-script detection ──────────────────────────
+
+def test_a_cyrillic_letter_hidden_in_a_latin_title_is_reported():
+    """A Cyrillic 'a' (U+0430) inside an otherwise-Latin title is the classic
+    homoglyph spoof (APR-TEXT-012): reported, never rejected -- Latin,
+    Cyrillic and Greek share look-alike letters with no legitimate reason to
+    co-occur, unlike CJK/Hangul/Indic scripts routinely mixing with Latin."""
+    document = pr.loads(
+        '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":'
+        '[{"id":"s","title":"P\\u0430yPal Permit","prompts":'
+        '[{"id":"p","label":"L","response":""}]}]}'
+    )
+    report = pr.validate(document)
+    assert report.is_valid
+    assert any(w.code == "CONFUSABLE_SCRIPT_MIX" for w in report.warnings)
+
+
+def test_legitimate_multi_script_titles_are_not_flagged():
+    """CJK+Latin, Hangul+Latin and accented-Latin text are ordinary multi-script
+    or single-script text, not a confusable mix, and must never warn."""
+    for title in ("Toyota パーツ", "한국 Corp", "Café", "PayPal"):
+        document = pr.loads(json.dumps({
+            "aprVersion": "1.0-beta.6",
+            "metadata": {"title": title},
+            "sections": [{"id": "s", "title": "S", "prompts":
+                          [{"id": "p", "label": "L", "response": ""}]}],
+        }))
+        codes = [w.code for w in pr.validate(document).warnings]
+        assert "CONFUSABLE_SCRIPT_MIX" not in codes, title
 
 
 def test_a_bidi_override_is_preserved_and_reported_in_a_response():

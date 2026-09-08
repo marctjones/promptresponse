@@ -2176,6 +2176,34 @@
       ]
     },
     {
+      "id": "corpus:rules/apr-text-012-satisfies.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-TEXT-012"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Toyota パーツ Order Form\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:0db65cd7577d355a45fc882dcb63d49c381a83b784142841a293fcd61592c5b3"
+    },
+    {
+      "id": "corpus:rules/apr-text-012-warns.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-TEXT-012"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Pаypal Permit\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:9a7465134f46ec26180d7c4bd00ca0027912eb6e4fe8e82deb8b383485dba781"
+    },
+    {
       "id": "corpus:rules/apr-val-002-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",

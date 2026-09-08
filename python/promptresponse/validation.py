@@ -23,6 +23,7 @@ def validate(document: AprDocument) -> ValidationResult:
     _validate_document_fields(document, result)
     _validate_shape(document, result)
     _validate_text_floor(document, result)
+    _check_confusable_script_mix(document, result)
     _validate_hint_bounds(document, result)
     section_ids: List[str] = []
     prompt_ids: List[str] = []
@@ -146,6 +147,66 @@ def _validate_text_floor(document: AprDocument, result: ValidationResult) -> Non
         _hold_to_the_floor(section.description, f"{path}.description", result)
         for index, prompt in enumerate(section.prompts):
             _hold_to_the_floor(prompt.label, f"{path}.prompts[{index}].label", result)
+
+
+# Specification 8.2.3/APR-TEXT-012: "SHOULD apply the confusable and
+# mixed-script detection of UTS #39... report what it finds." Full UTS #39
+# restriction-level analysis needs a declared document language to avoid
+# flagging ordinary multi-script text (Japanese Han+Hiragana+Katakana, Korean
+# Hangul+Han, Latin loanwords in Indic/Arabic/Hebrew text) -- APR has no
+# metadata.language member yet, so that full analysis isn't attempted here.
+#
+# What doesn't need a declared language: Latin, Cyrillic and Greek have
+# extensive letter-shape homoglyphs between them (Cyrillic а/Latin a, Greek
+# Α/Latin A) and essentially no legitimate reason to co-occur within one
+# title or label -- unlike CJK/Hangul/Indic scripts, which routinely mix with
+# Latin for brand names, loanwords and numerals. Flagging only these three
+# scripts mixing with each other is a narrow, script-agnostic slice of UTS #39
+# that produces zero known false positives on real multi-script text.
+#
+# Not in specification 7.2's warnings table -- CONFUSABLE_SCRIPT_MIX is this
+# implementation's own spelling of an APR-VAL-002 "MAY surface any warning,
+# including conditions this table does not name" extension, not a code every
+# implementation must use. See the tracking issue for whether it should be
+# proposed for formal registration once a language declaration exists to
+# support the fuller check.
+_CONFUSABLE_SCRIPTS = ("LATIN", "CYRILLIC", "GREEK")
+
+
+def _confusable_script_of(character: str) -> str | None:
+    if not unicodedata.category(character).startswith("L"):
+        return None  # Not a letter: digits, punctuation and spaces are script-neutral.
+    name = unicodedata.name(character, "")
+    for script in _CONFUSABLE_SCRIPTS:
+        if name.startswith(script):
+            return script
+    return None
+
+
+def _check_field_for_confusable_mix(value, path: str, result: ValidationResult) -> None:
+    if not value:
+        return
+    scripts = {_confusable_script_of(character) for character in value}
+    scripts.discard(None)
+    if len(scripts) > 1:
+        result.warnings.append(ValidationWarning(
+            "CONFUSABLE_SCRIPT_MIX",
+            f"Mixes {', '.join(sorted(scripts)).title()} letters in one field; "
+            "Latin, Cyrillic and Greek share look-alike letters, and a mix within "
+            "one title or label is rarely intentional.", path))
+
+
+def _check_confusable_script_mix(document: AprDocument, result: ValidationResult) -> None:
+    """A response is not human-facing text in this sense; only titles and labels are."""
+    _check_field_for_confusable_mix(document.metadata.title, "metadata.title", result)
+    _check_field_for_confusable_mix(document.metadata.description, "metadata.description", result)
+    _check_field_for_confusable_mix(document.metadata.author, "metadata.author", result)
+    _check_field_for_confusable_mix(document.metadata.publisher, "metadata.publisher", result)
+    for section, path in _walk_sections(document.sections, "sections"):
+        _check_field_for_confusable_mix(section.title, f"{path}.title", result)
+        _check_field_for_confusable_mix(section.description, f"{path}.description", result)
+        for index, prompt in enumerate(section.prompts):
+            _check_field_for_confusable_mix(prompt.label, f"{path}.prompts[{index}].label", result)
 
 
 def _validate_hint_bounds(document: AprDocument, result: ValidationResult) -> None:
