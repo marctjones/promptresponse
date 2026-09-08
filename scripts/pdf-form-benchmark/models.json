@@ -61,7 +61,8 @@
       "trust_remote_code": true,
       "params": "3B",
       "strategy": "paligemma-detection",
-      "notes": "Substituted for Moondream2: vikhyatk/moondream2's own config.json declares model_type 'moondream1', which mlx-vlm's registry does not implement (only moondream2/moondream3) -- a confirmed, real incompatibility, not a workaround-able prompting issue. PaliGemma 2 fills the same 'detection/grounding specialist, second opinion vs. Florence-2' niche and has confirmed real mlx-community builds. Google's own training mixture includes OCR-with-localization producing {transcription, bbox} pairs."
+      "generate_kwargs": {"repetition_penalty": 1.3, "repetition_context_size": 64},
+      "notes": "Substituted for Moondream2: vikhyatk/moondream2's own config.json declares model_type 'moondream1', which mlx-vlm's registry does not implement (only moondream2/moondream3) -- a confirmed, real incompatibility, not a workaround-able prompting issue. PaliGemma 2 fills the same 'detection/grounding specialist, second opinion vs. Florence-2' niche and has confirmed real mlx-community builds. Google's own training mixture includes OCR-with-localization producing {transcription, bbox} pairs. First run used greedy decoding (temperature=0, uniform across all 7 models for fairness) which sent this model into repetition loops on several forms (one page repeated \"Corporation\" until the token cap, producing 2005 spurious 'fields'); repetition_penalty=1.3 confirmed empirically to eliminate the loop without changing temperature."
     }
   ]
 }

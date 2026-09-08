@@ -124,6 +124,23 @@ family -- see `models.json` for exact repos and notes:
   existed on the Hub for this one (the only "-4bit" upload found was
   bitsandbytes-quantized, incompatible with mlx-vlm), so it was converted
   in-house from `dots-studio/dots.ocr` via `mlx_vlm convert --quantize`.
+
+  It's also the worst performer here (F1 0.11, 82% valid), and this looked
+  at first like a benchmark-fairness problem -- it wasn't. On several forms
+  (e.g. Form 8822) it classifies the ENTIRE fillable body of the form as
+  one `"Picture"` element, and per its own prompt spec `"Picture"` elements
+  have their text omitted -- so the whole form contributes zero fields.
+  Tested at 300 DPI (up from the standard 200) to rule out a resolution
+  problem: identical result, same giant Picture block. Tested at 400 DPI to
+  push further: that instead exceeded the model's own documented pixel
+  ceiling (11.29M px) and just hung. The real explanation is in dots.ocr's
+  own known-issues list: "continuous special characters, such as ellipses
+  and underscores, may cause the prediction output to repeat endlessly" --
+  and U.S. government forms are built almost entirely out of underscore/
+  rule-line blank-fill areas, a content type its training data (general
+  document layout parsing -- papers, reports) evidently never covered. This
+  is a genuine, reproducible content-type mismatch, confirmed at multiple
+  resolutions, not a prompting or benchmark-design error.
 - **Florence-2-base-ft** (4-bit) -- a pure grounding/detection specialist
   with a fixed task-token interface (`<OCR_WITH_REGION>`), not a chat model.
   `Florence-2-large-ft` (both the 4-bit and bf16 builds) hit a **confirmed
@@ -149,6 +166,24 @@ family -- see `models.json` for exact repos and notes:
   `"ocr"` prompt on this quantized MLX build returns flat text with **no**
   location tokens at all -- treated honestly here as a text-only source,
   not patched to look like something it isn't.
+
+  A second issue surfaced after the first full run: at temperature=0
+  (greedy decoding, used uniformly across all 7 models for reproducibility)
+  this model fell into repetition loops on several forms -- e.g. one page
+  of the W-9 correctly started listing tax-classification checkboxes
+  ("Corporation, Partnership, Trust...") then got stuck repeating
+  "Corporation" until the token cap, producing 2005 spurious "fields" on a
+  form with 16 real ones. Confirmed via `mlx_vlm`'s own `repetition_penalty`
+  support (`sample_utils.py`) that this is a standard, well-documented
+  failure mode of greedy decoding on long enumerative outputs, not specific
+  tuning PaliGemma2 needs beyond that. Added `generate_kwargs:
+  {"repetition_penalty": 1.3, "repetition_context_size": 64}` to its
+  `models.json` entry (still temperature=0, still deterministic) and
+  reran: F1 went from 0.14 to 0.45, and average time per form dropped from
+  245s to 78s (repetition was also why it was slow -- it was generating to
+  the token cap on every affected form instead of stopping naturally). The
+  pre-fix results are kept for comparison in
+  `results/{aprt,raw}/paligemma2-3b-BEFORE-FIX/`.
 
 ## Methodology notes (read before trusting the numbers)
 

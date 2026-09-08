@@ -18,24 +18,16 @@
           }
         },
         {
-          "id": "r-d-8835-2-18",
-          "label": "R.D. 8835 2/18",
+          "id": "r-d-863-2149",
+          "label": "R.D 863,2149",
           "response": "",
           "hints": {
             "expectedDataType": "text"
           }
         },
         {
-          "id": "state-of-connecticut",
-          "label": "STATE OF CONNECTICUT",
-          "response": "",
-          "hints": {
-            "expectedDataType": "text"
-          }
-        },
-        {
-          "id": "department-of-motor-vehicles",
-          "label": "DEPARTMENT OF MOTOR VEHICLES",
+          "id": "state-of-connecticut-department-of-motor-vehicles",
+          "label": "STATE OF CONNECTICUT DEPARTMENT OF MOTOR VEHICLES",
           "response": "",
           "hints": {
             "expectedDataType": "text"
@@ -51,7 +43,7 @@
         },
         {
           "id": "name",
-          "label": "NAME",
+          "label": "NAME:",
           "response": "",
           "hints": {
             "expectedDataType": "text"
@@ -59,7 +51,7 @@
         },
         {
           "id": "telephone-number",
-          "label": "TELEPHONE NUMBER",
+          "label": "TELEPHONE NUMBER:",
           "response": "",
           "hints": {
             "expectedDataType": "phone"
@@ -74,19 +66,19 @@
           }
         },
         {
-          "id": "address-no-street",
-          "label": "ADDRESS No. & Street",
+          "id": "address-no-street-city-town",
+          "label": "ADDRESS No. & Street City/Town",
           "response": "",
           "hints": {
             "expectedDataType": "number"
           }
         },
         {
-          "id": "city-town",
-          "label": "City/Town",
+          "id": "date",
+          "label": "Date",
           "response": "",
           "hints": {
-            "expectedDataType": "text"
+            "expectedDataType": "date"
           }
         },
         {
@@ -98,16 +90,16 @@
           }
         },
         {
-          "id": "vehicle-information",
-          "label": "VEHICLE INFORMATION",
+          "id": "vehicle-tabs-incorporated-by-name-of-law-enforcement-agency",
+          "label": "VEHICLE TABS (INCORPORATED BY Name of Law Enforcement Agency)",
           "response": "",
           "hints": {
-            "expectedDataType": "text"
+            "expectedDataType": "multiline"
           }
         },
         {
           "id": "make",
-          "label": "MAKE",
+          "label": "MAKE:",
           "response": "",
           "hints": {
             "expectedDataType": "text"
@@ -115,10 +107,26 @@
         },
         {
           "id": "year",
-          "label": "YEAR",
+          "label": "YEAR:",
           "response": "",
           "hints": {
             "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "model",
+          "label": "MODEL:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "vehicle identification number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
           }
         },
         {
@@ -130,14 +138,6 @@
           }
         },
         {
-          "id": "vehicle-identification-number",
-          "label": "VEHICLE IDENTIFICATION NUMBER",
-          "response": "",
-          "hints": {
-            "expectedDataType": "number"
-          }
-        },
-        {
           "id": "hearing-request",
           "label": "HEARING REQUEST",
           "response": "",
@@ -146,19 +146,19 @@
           }
         },
         {
-          "id": "state-name-town",
-          "label": "STATE NAME (Town)",
+          "id": "signature-owner",
+          "label": "SIGNATURE (Owner)",
           "response": "",
           "hints": {
             "expectedDataType": "text"
           }
         },
         {
-          "id": "state-code",
-          "label": "STATE CODE",
+          "id": "date-signed",
+          "label": "DATE SIGNED",
           "response": "",
           "hints": {
-            "expectedDataType": "text"
+            "expectedDataType": "date"
           }
         }
       ]

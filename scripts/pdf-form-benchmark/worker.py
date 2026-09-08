@@ -51,7 +51,8 @@ def log_event(event: dict) -> None:
 
 
 def run_model_on_form(model, processor, config, strategy: str, model_id: str,
-                       form_id: str, form_name: str, pages: list[Path]) -> None:
+                       form_id: str, form_name: str, pages: list[Path],
+                       generate_kwargs: dict | None = None) -> None:
     prompt_text = prompts.build_prompt(strategy)
     max_tokens = MAX_TOKENS[strategy]
     raw_pages, page_timings = [], []
@@ -65,6 +66,7 @@ def run_model_on_form(model, processor, config, strategy: str, model_id: str,
         result = generate(
             model, processor, formatted, [str(page_path)],
             max_tokens=max_tokens, temperature=0.0, verbose=False,
+            **(generate_kwargs or {}),
         )
         dt = time.time() - t0
         text = result.text if hasattr(result, "text") else str(result)
@@ -124,7 +126,8 @@ def main() -> int:
             pages = render(form_id)
         try:
             run_model_on_form(model, processor, config, model_cfg["strategy"],
-                               model_cfg["id"], form_id, form["name"], pages)
+                               model_cfg["id"], form_id, form["name"], pages,
+                               generate_kwargs=model_cfg.get("generate_kwargs"))
         except Exception:
             err = traceback.format_exc()
             print(f"    {form_id}: FAILED\n{err}", flush=True)

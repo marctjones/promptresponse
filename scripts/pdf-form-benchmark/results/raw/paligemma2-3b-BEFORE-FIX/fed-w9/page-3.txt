@@ -1,0 +1,44 @@
+Form W-9 Rev. 3-2014
+Page 3
+example, if a foreign LLC that is treated as a disregarded entity for U.S. tax purposes is subject to a tax report on Form W-9, then the name of the owner's name is required to be provided on line 1. If the direct owner of the foreign LLC is a corporation, the name of the corporation is required on line 2. If the foreign LLC is a limited liability company, the name of the limited liability company is required on line 3. If the foreign LLC is a corporation with a foreign person as a U.S. person (see Examples from FATCA reporting code), take and enter the name of the foreign person on line 2.
+Certain payments and payments are exempt from backup withholding under Form W-9 for U.S. tax information.
+What is FATCA Reporting?
+The Foreign Account Tax Compliance Act (FATCA) requires U.S. tax payers to report payments made to foreign persons on Form W-9. You can find more information about FATCA reporting. See Examples from FATCA reporting code, table and figure 1 for U.S. tax information.
+Line 2
+If you have a business name, trade name, DBA name, or disregarded entity, check only one box on line 3.
+Line 2a
+Check the appropriate box for line 2a for the U.S. federal tax. Check only one box on line 2a for the foreign tax.
+updating your information
+If you want to update your information to stay up to date on your account, you are required to be an exempt person if you are not longer an exempt person. For example, you may need to provide updated information if you are a foreign person on Form W-9 to avoid a tax penalty. If you are not an exempt person, you must provide the name and tax information of the person, for example, in the grantor of a tax return.
+Check the appropriate box for line 2b
+If you are an individual on line 2b
+then check the box for
+it is mine
+• Individual or
+Corporation.
+• Individual or
+Limited liability company and corporation.
+Limited liability company and corporation.
+Penalties
+If you are a foreign person, if you fall to furnish your correct TIN to a regulator, you are subject to a penalty of $50 for each such failure. If you are a foreign person on Form W-9, you are required to provide the name and tax information of the person on line 2b. If you are a foreign person with no income with which to compute the penalty for furnishing information, you must provide the name and tax information of the person on line 2b.
+• LLC that has filed Form 8302 or
+• LLC that is a limited liability company and corporation.
+• Partnership.
+• Corporation.
+• Partnership.
+• Trust estate.
+• Trust estate.
+• Partnership.
+• Trust estate.
+• Criminal penalty for falsifying information. Willfully falsifying information is a serious tax violation and can result in a substantial penalty.
+Check this box if you are a partnership including an LLC classified as a foreign corporation or a foreign limited liability company and you are providing the name and tax information of the foreign person and corporation.
+Specific Instructions
+Line 1
+• If you are a foreign person, you are exempt from backup withholding under Form W-9 for U.S. tax information.
+• If you are a foreign corporation or a limited liability company, you must enter the name as shown on line 1.
+• An exempt person is a person who is not a U.S. person.
+• If you are a foreign corporation or a limited liability company, you must enter the name as shown on line 2.
+• If you are a foreign person on Form W-9, you must enter the name as shown on line 3.
+• If you are a foreign person on Form W-9, you must enter the name as shown on line 4.
+• If you are a foreign person on Form W-9, you must enter the name as shown on line 5.
+• If you are a foreign person on Form W-9, you must enter the name as shown on line 6.

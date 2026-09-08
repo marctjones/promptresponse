@@ -1,36 +1,30 @@
 Page 4
-Form 99-9 (Rev. 3-2014)
-2-A. The United States or any of its agencies or instrumentalities;
-F-A. dealer in securities, commodities, or derivative financial instruments;
-3-B. a corporation or any of its affiliated companies; or any of its political subdivisions or instrumentalities;
-and (optional) that is registered as such under the laws of the United States or any of its affiliated companies;
-3-C. a limited company or any of its affiliated companies; or
-4-A. a regulated investment company as defined in section 561(a);
-6-A. a limited company or any of its affiliated companies; or
-6-B. a trust in the states of Delaware, or a U.S. corporation or any of its affiliated companies; or
-7-A. a future commission merchant registered with the Commodity Exchange Commission;
-8-A. a real estate investment trust;
-9-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-10-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-11-A. a common trust fund operated by a bank under section 56(6);
-12-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-Note: You may wish to consult with the financial institution requesting this form to determine whether the FATCA code and/or exempt payee information is accurate.
-13-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-The following chart shows types of payments that may be exempt from the tax on payments made under section 564(a) or described in section 4174(a)(7)(b).
-14-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-15-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-16-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-17-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-18-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-19-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-20-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-21-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-22-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-23-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-24-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-25-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-26-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-27-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-28-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-29-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b);
-30-A. a trust exempt from tax under section 564(a) or described in section 4174(a)(7)(b).
+Form W-9 (Rev. 3-2014)
+F-A dealer in securities, commodities, or derivative financial instruments; and a registered investment company under section 75(a)(6), and optional that is registered as such under the laws of the United States or its states.
+2- The United States or any of its agencies or instrumentalities;
+3- A corporation organized under one or more state government, whether or any of their political subdivisions or instrumentalities;
+4- An association in commerce between two governments; and 5- Any other political subdivision or instrumentality;
+6- A regulated investment company as defined in section 851 (or an entity that is a registered investment company under the Investment Company Act of 1960).
+7- The government of any state, city, or local municipality;
+8- An corporation in Delaware or Columbia, or a U.S. corporation or limited liability company; and
+9- A trust exempt from tax under section 56(a);
+A trust exempt from tax is defined as a trust (or described in section 4174).
+10- The estate of a person who dies during the five year under the provisions of subsection 3.28; and
+11- A common trust fund operated by a bank under section 56(a);
+Note: You may want to consult with the financial institution requesting this form to determine whether the FATCA code or any exempt payee is included in its list of payments for your account.
+11A - Trust exempt from tax under section 56(a) (or described in section 4174).
+12- A trust exempt from tax under section 56(a); and
+The following chart shows types of payments that may be exempt from the requirement to report a U.S. payment for any person or entity other than an exempt payee as defined by subsection 3.28;
+12A - Common trust fund operated by a bank under section 56(a).
+THEN the payment is exempt (except in cases of exchange transactions and patronage dividends)
+Line 9
+If the payment is for...
+Interest and divided payments except interest, cash or checks;
+Part B. Taxpayer Identification Number (TIN)
+1- Your address (number, street, and apartment or suite number), This form will be requested if this Form W75 is filed by you in your state of residence from the date on which it was returned to you as required under section 403(a)(6). You are not eligible to get a TIN when you have received an exempt payee code because they do not meet any requirements listed prior to 2012.
+or its number; and your state or city name, street address or suite number; returns, if the assets (either from the one in which they already has on account) are transferred from a U.S. payment company to an exempt payee for which you change the address will be used until the payer changes your address.
+13- A trust exempt from tax under section 56(a); and
+Line 8
+EXCEPT payments (through a bank or financial institution in any state, city or suite number) through U.S. payment company; or through an entity other than a U.S. payment company as defined by subsection 3.28;
+14- Register exchange transactions and patronage dividends;
+Generally, exempt pays except for: (a) payments made to the government in any state, city or suite number; (b) direct sales over $5,000 per year; and (c) other income taxes under section 7.38(1)(d).
