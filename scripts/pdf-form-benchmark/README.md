@@ -50,18 +50,30 @@ timestamp confirm it, not just a guess. No benchmark *results* were lost
 machine needed a hard restart, which is a real cost independent of the data.
 
 `run_benchmark.py` is a supervisor, not a runner, specifically because of
-that. For every `(model, form)` pair it:
-- spawns `worker.py` as its own subprocess (so it can be SIGKILLed and have
-  its memory actually released, which an in-process hang can't offer),
-- enforces a hard wall-clock timeout (`resource_guard.PER_FORM_TIMEOUT_SECONDS`,
-  1200s -- the slowest real page seen so far was ~500s, so this bounds a
-  genuine hang without false-triggering on a model that's just slow),
-- runs a live memory-watchdog thread alongside it that polls actual system
-  free memory (via `vm_stat`, not just what MLX thinks it's using) every
-  few seconds and kills the worker outright if free memory drops below
-  `resource_guard.MIN_FREE_MEMORY_GB` (3GB), and
-- checks free memory again before even starting the next pair, backing off
-  30s and retrying once before skipping a pair it can't safely run.
+that -- but it still loads each model only ONCE per model, not once per
+form. (An earlier version spawned a fresh worker per form specifically so
+it could be killed safely; that measurably made things worse -- reloading
+an 8B model 9 times under memory pressure took successive loads from 1.7s
+to 6.3s, on top of being pure overhead in the normal case. Load-once-per-
+model is both faster and gentler on an already memory-constrained machine;
+safety doesn't require paying that cost.) For every model it:
+- spawns `worker.py --model <id> --forms <all remaining forms>` as its own
+  subprocess (so it can be SIGKILLed and have its memory actually released,
+  which an in-process hang can't offer) -- the worker loads the model once
+  and loops every form it's given,
+- runs a live watchdog thread alongside it that polls actual system free
+  memory (via `vm_stat`, not just what MLX thinks it's using) every few
+  seconds and kills the worker outright if free memory drops below
+  `resource_guard.MIN_FREE_MEMORY_GB` (3GB), and separately kills it if no
+  form has completed in `resource_guard.STALL_TIMEOUT_SECONDS` (1200s -- a
+  stall detector, not a per-form timeout, since the worker legitimately
+  runs long across many forms; the slowest single page seen so far was
+  ~500s, so 20 minutes with zero completions is a genuine hang), and
+- if killed with forms still remaining, retries with a fresh subprocess
+  covering only what's left, up to `MAX_RESTARTS_PER_MODEL` (2) times, then
+  gives up on that model's leftover forms for this run (already-completed
+  ones are kept; rerun with `--force` to redo a model from scratch) and
+  moves on to the next model rather than blocking the whole run.
 
 Inside the worker, `resource_guard.set_mlx_safety_limits()` also caps MLX's
 own allocator (`mx.set_memory_limit`) at 40% of physical RAM (capped at
@@ -78,9 +90,9 @@ mode this exists to prevent. **Don't run ad hoc model probes while
 directly instead, one at a time, if you need to.**
 
 Every safety intervention is logged to `results/run_log.jsonl` just like a
-normal result (`timed_out`, `killed_low_memory`, or `skipped_low_memory`
-keys), so the run's own defensive behavior is visible in the same place as
-its results, not silently swallowed.
+normal result (`killed`, `skipped_low_memory`, or `gave_up` keys), so the
+run's own defensive behavior is visible in the same place as its results,
+not silently swallowed.
 
 ## Running it
 
