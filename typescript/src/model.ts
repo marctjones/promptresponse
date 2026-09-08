@@ -53,7 +53,7 @@ export interface AprDocument {
 
 export const RETIRED_MEMBERS = new Set([
   // Table column presentation, removed before 1.0.
-  "tableLayout", "columns", "fixedRows",
+  "width", "alignment", "color", "background", "fontSize", "bold", "style",
   // Workflow state, retired in beta.6. Dropped rather than preserved into `extra`:
   // none carried a claim whose silent loss would be worse than its removal, and
   // preserving them would write them back into a document the format says has none.
