@@ -187,24 +187,37 @@ class Report:
 
 
 def check_text(report: Report, path: str, value: str) -> None:
-    """The Unicode floor for text meant to be read or heard by a person."""
+    """The Unicode floor for text meant to be read or heard by a person.
+
+    Specification 8.2.3 places NON_NFC_TEXT and FORBIDDEN_CODE_POINT in the
+    warnings table (7.2), not the errors table (7.1, stated exhaustive by
+    APR-VAL-008): a validator MUST report them, but a warning MUST NOT affect
+    validity or block saving (APR-VAL-006, APR-VAL-007). report.error() here
+    would reject a document the format requires to stay valid.
+    """
     if unicodedata.normalize("NFC", value) != value:
-        report.error("NON_NFC_TEXT", path,
-                     "human-facing text must be in Normalization Form C",
-                     "APR-TEXT-011")
+        report.warn("NON_NFC_TEXT", path,
+                    "human-facing text must be in Normalization Form C",
+                    "APR-TEXT-011")
     for char in value:
         point = ord(char)
         category = unicodedata.category(char)
         if category == "Cc" and point not in CONTROL_OK:
-            report.error("FORBIDDEN_CODE_POINT", path,
-                         f"U+{point:04X} is a control character", "APR-TEXT-011")
+            report.warn("FORBIDDEN_CODE_POINT", path,
+                        f"U+{point:04X} is a control character", "APR-TEXT-011")
         elif category in {"Cs", "Co", "Cn"}:
-            report.error("FORBIDDEN_CODE_POINT", path,
+            report.warn("FORBIDDEN_CODE_POINT", path,
                          f"U+{point:04X} is a surrogate, private-use or unassigned",
                          "APR-TEXT-011")
         elif category == "Cf":
-            report.error("FORBIDDEN_CODE_POINT", path,
-                         f"U+{point:04X} is invisible and carries no rendering", "APR-TEXT-011")
+            # Category Cf ("Format") is not uniformly invisible: it also holds ZWJ
+            # and ZWNJ, load-bearing for correct glyph shaping in Persian, Hindi and
+            # other scripts. The floor still flags the whole category (UTS #39
+            # classifies most of it Default_Ignorable regardless of rendering
+            # effect), so the message says what the rule actually is, not why.
+            report.warn("FORBIDDEN_CODE_POINT", path,
+                        f"U+{point:04X} is a code point the human-facing text floor excludes",
+                        "APR-TEXT-011")
 
 
 def check_object(report: Report, node, kind: str, path: str, members) -> None:

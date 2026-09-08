@@ -170,7 +170,12 @@ public class AdvisoryVocabularyTests
         var document = Form(new Prompt { Id = "p", Label = "P" });
         document.Metadata.Title = "Café";   // decomposed
 
-        Check(document).Errors.Should().Contain(e => e.ErrorCode == "NON_NFC_TEXT",
+        // NON_NFC_TEXT is a warning (specification 7.2), not an error (7.1 is
+        // exhaustive per APR-VAL-008): it must be reported, but a warning must
+        // never affect validity (APR-VAL-007) or block saving (APR-VAL-006).
+        var result = Check(document);
+        result.IsValid.Should().BeTrue("a warning must never make the document invalid");
+        result.Warnings.Should().Contain(w => w.WarningCode == "NON_NFC_TEXT",
             "two spellings of one word are two strings to everything that compares them");
     }
 
@@ -195,8 +200,13 @@ public class AdvisoryVocabularyTests
         var document = Form(new Prompt { Id = "p", Label = "P" });
         document.Metadata.Title = $"Permit{hidden}Application";
 
-        Check(document).Errors.Should().Contain(e => e.ErrorCode == "FORBIDDEN_CODE_POINT",
-            "a character that renders as nothing can make one label look like another");
+        // FORBIDDEN_CODE_POINT is a warning (specification 7.2), not an error
+        // (7.1 is exhaustive per APR-VAL-008): it must be reported, but a warning
+        // must never affect validity (APR-VAL-007) or block saving (APR-VAL-006).
+        var result = Check(document);
+        result.IsValid.Should().BeTrue("a warning must never make the document invalid");
+        result.Warnings.Should().Contain(w => w.WarningCode == "FORBIDDEN_CODE_POINT",
+            "a code point the human-facing text floor excludes was in the title");
     }
 
     [Fact]

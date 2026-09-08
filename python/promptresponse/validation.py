@@ -103,20 +103,35 @@ def _below_floor(character: str) -> bool:
 
 
 def _hold_to_the_floor(value, path: str, result: ValidationResult) -> None:
-    # NFC is not separately checked here: text.normalize() already NFC-normalises
-    # every field this walks, at parse time, so a source spelling that was not
-    # NFC never survives to reach validate(). What can still reach it is a
-    # default-ignorable or otherwise excluded code point normalize() does not
-    # strip (a zero-width space, for one) -- that is what this still catches.
+    # Specification 8.2.3 places NON_NFC_TEXT and FORBIDDEN_CODE_POINT in the
+    # warnings table (7.2), not the errors table (7.1, stated exhaustive by
+    # APR-VAL-008): a validator MUST report them, but a warning MUST NOT affect
+    # validity or block saving (APR-VAL-006, APR-VAL-007). Reporting them as
+    # errors would reject a document the format requires to stay valid.
+    #
+    # 8.2.3 also requires a reader to preserve this text exactly ("a reader that
+    # meets one in a published form... never rewrites it") -- serialization.py no
+    # longer runs these fields through text.normalize() at parse time, so a
+    # non-NFC spelling or an excluded code point in the source survives to be
+    # reported here instead of being silently cleaned away before anyone sees it.
     if not value:
         return
+    if not unicodedata.is_normalized("NFC", value):
+        result.warnings.append(ValidationWarning(
+            "NON_NFC_TEXT",
+            "Human-facing text must be in Normalization Form C; two spellings of "
+            "one word are two different strings to everything that compares "
+            "them.", path))
     for character in value:
         if _below_floor(character):
-            result.errors.append(ValidationError(
+            # Not uniformly "renders as nothing": this category also holds ZWJ and
+            # ZWNJ, load-bearing for correct glyph shaping in Persian, Hindi and
+            # other scripts. Say what the rule is, not a rendering claim that's
+            # false for part of the set it covers.
+            result.warnings.append(ValidationWarning(
                 "FORBIDDEN_CODE_POINT",
-                f"Human-facing text carries U+{ord(character):04X}, which the format "
-                "excludes: a character that renders as nothing can make one label look "
-                "like another.", path))
+                f"Human-facing text carries U+{ord(character):04X}, which the "
+                "human-facing text floor excludes.", path))
             return  # One report names the member; listing every offender adds noise.
 
 

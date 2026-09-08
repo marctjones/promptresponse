@@ -2159,7 +2159,7 @@
       "digest": "sha256:7546b6b2a76c75838cab6cbe6681805d476188264e4812577439735f86e88dd4"
     },
     {
-      "id": "corpus:rules/apr-text-011-violates.apr.jsonc",
+      "id": "corpus:rules/apr-text-011-warns.apr.jsonc",
       "source": "corpus",
       "rule": "rules",
       "anchors": [],
@@ -2167,10 +2167,13 @@
         "APR-TEXT-011"
       ],
       "representation": "jsonc",
-      "expect": "reject",
+      "expect": "valid",
       "profile": "core",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Permit​Application\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
-      "diagnostic": "FORBIDDEN_CODE_POINT"
+      "digest": "sha256:1e3fb41249cdfba59cca6fbe08c8e9cd740e300ef76e892bd6fdb87bea8638ca",
+      "warns": [
+        "FORBIDDEN_CODE_POINT"
+      ]
     },
     {
       "id": "corpus:rules/apr-val-002-satisfies.apr.jsonc",

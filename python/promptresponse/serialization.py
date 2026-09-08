@@ -123,7 +123,11 @@ def _parse_prompt(node) -> Prompt:
     known = {"id", "label", "response", "role", "hints"}
     return Prompt(
         id=_string(node, "id", "prompt") or "",
-        label=normalize(_string(node, "label", "prompt")) or "",
+        # Human-facing text is preserved exactly and validated to a floor
+        # (NON_NFC_TEXT, FORBIDDEN_CODE_POINT in validation.py), not silently
+        # cleaned here -- specification 8.2.3 requires a reader to render this
+        # text defensively rather than rewrite it.
+        label=_string(node, "label", "prompt") or "",
         # Responses are evidence supplied by a person. Preserve their exact bytes;
         # safe display is the renderer's responsibility, not a parser rewrite.
         response=_string(node, "response", "prompt") or "",
@@ -149,8 +153,8 @@ def _parse_section(node) -> Section:
 
     return Section(
         id=_string(node, "id", "section") or "",
-        title=normalize(_string(node, "title", "section")) or "",
-        description=normalize(_string(node, "description", "section")),
+        title=_string(node, "title", "section") or "",
+        description=_string(node, "description", "section"),
         kind=_string(node, "kind", "section"),
         can_add_rows=_boolean(node, "canAddRows", "section"),
         max_rows=_number(node, "maxRows", "section"),
@@ -170,14 +174,14 @@ def _parse_metadata(node) -> Metadata:
         "templateVersion", "publisher", "submissionUrls",
     }
     return Metadata(
-        title=normalize(_string(node, "title", "metadata")) or "",
-        description=normalize(_string(node, "description", "metadata")),
-        author=normalize(_string(node, "author", "metadata")),
+        title=_string(node, "title", "metadata") or "",
+        description=_string(node, "description", "metadata"),
+        author=_string(node, "author", "metadata"),
         created=_string(node, "created", "metadata"),
         modified=_string(node, "modified", "metadata"),
         template_id=_string(node, "templateId", "metadata"),
         template_version=_string(node, "templateVersion", "metadata"),
-        publisher=normalize(_string(node, "publisher", "metadata")),
+        publisher=_string(node, "publisher", "metadata"),
         # Deliberately not normalised: machine-consumed and signature-bound, so a
         # hidden character is reported rather than quietly cleaned to another host.
         submission_urls=_strings(node, "submissionUrls", "metadata"),

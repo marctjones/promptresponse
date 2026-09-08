@@ -101,15 +101,22 @@ def test_a_section_and_a_prompt_may_share_an_id():
 
 # ── 7.1 normalisation ────────────────────────────────────────────────────────
 
-def test_labels_are_nfc_normalised():
+def test_non_nfc_titles_are_preserved_and_reported_not_silently_cleaned():
+    """Specification 8.2.3: a reader that meets non-NFC human-facing text in a
+    published form 'renders it defensively and never rewrites it'. NON_NFC_TEXT
+    is a warning (7.2), not an error (7.1 is exhaustive) - it must be reported,
+    but must never change what was read or block the document from validating."""
     document = pr.loads(
         '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"Cafe\\u0301","prompts":'
         '[{"id":"p","label":"L","response":""}]}]}'
     )
-    assert document.sections[0].title == "Caf\u00e9", (
-        "the same word typed on two keyboards must compare equal"
+    assert document.sections[0].title == "Cafe\u0301", (
+        "the exact bytes on the wire, not a normalised rewrite"
     )
+    report = pr.validate(document)
+    assert report.is_valid
+    assert any(w.code == "NON_NFC_TEXT" for w in report.warnings)
 
 
 def test_a_bidi_override_is_preserved_and_reported_in_a_response():

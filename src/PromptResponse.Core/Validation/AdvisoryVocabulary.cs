@@ -242,12 +242,17 @@ internal static class AdvisoryVocabulary
         }
     }
 
+    // Specification 8.2.3 places NON_NFC_TEXT and FORBIDDEN_CODE_POINT in the
+    // warnings table (7.2), not the errors table (7.1, stated exhaustive by
+    // APR-VAL-008): a validator MUST report them, but a warning MUST NOT affect
+    // validity or block saving (APR-VAL-006, APR-VAL-007). AddError here would
+    // reject a document the format requires to stay valid.
     private static void HoldToTheFloor(string? value, string path, ValidationResult result)
     {
         if (value is not { Length: > 0 }) return;
         if (!value.IsNormalized(System.Text.NormalizationForm.FormC))
         {
-            result.AddError(new ValidationError(
+            result.AddWarning(new ValidationWarning(
                 "human-facing text must be in Normalization Form C; two spellings of one "
                 + "word are two different strings to everything that compares them.",
                 path, "NON_NFC_TEXT"));
@@ -255,10 +260,13 @@ internal static class AdvisoryVocabulary
         foreach (var rune in value.EnumerateRunes())
         {
             if (!BelowTheFloor(rune)) continue;
-            result.AddError(new ValidationError(
-                $"human-facing text carries U+{rune.Value:X4}, which the format excludes: "
-                + "a character that renders as nothing can make one label look like "
-                + "another.", path, "FORBIDDEN_CODE_POINT"));
+            // Not uniformly "renders as nothing": this category also holds ZWJ and
+            // ZWNJ, load-bearing for correct glyph shaping in Persian, Hindi and
+            // other scripts. Say what the rule is, not a rendering claim that's
+            // false for part of the set it covers.
+            result.AddWarning(new ValidationWarning(
+                $"human-facing text carries U+{rune.Value:X4}, which the human-facing "
+                + "text floor excludes.", path, "FORBIDDEN_CODE_POINT"));
             return;   // One report names the member; listing every offender adds noise.
         }
     }

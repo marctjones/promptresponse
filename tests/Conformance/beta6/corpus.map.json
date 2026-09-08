@@ -1164,13 +1164,15 @@
       ],
       "anchors": []
     },
-    "rules/apr-text-011-violates.apr.jsonc": {
-      "expect": "reject",
+    "rules/apr-text-011-warns.apr.jsonc": {
+      "expect": "valid",
       "rules": [
         "APR-TEXT-011"
       ],
       "anchors": [],
-      "diagnostic": "FORBIDDEN_CODE_POINT"
+      "warns": [
+        "FORBIDDEN_CODE_POINT"
+      ]
     },
     "rules/apr-model-023-roundtrip.apr.jsonc": {
       "expect": "valid",
