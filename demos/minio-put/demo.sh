@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 #
-# End-to-end demo: a real MinIO instance, a real presigned PUT URL, the real
-# unmodified `apr` CLI *and* the real Avalonia desktop GUI each filling and
-# submitting their own "dog license" form, verification that what MinIO holds
-# matches what each client actually sent, and a Chrome window pointed at the
-# bucket so you can see both submitted files listed there yourself.
+# End-to-end demo: a real MinIO instance, real presigned PUT URLs, and three
+# independent clients -- the real unmodified `apr` CLI, the real Avalonia
+# desktop GUI, and the real Python SDK -- each filling and submitting their
+# own "dog license" form, in both APR-JSONC and APR-YAML, verification that
+# what MinIO holds matches what each client actually sent, and a Chrome
+# window pointed at the bucket so you can see all four submitted files
+# listed there yourself.
 #
 # Non-persistent: MinIO runs with no volume mount, so all of it -- the
 # bucket, the object, everything -- disappears the moment the container is
@@ -49,7 +51,21 @@
 #      Save menu action uses) writes a local copy beside it, both filled
 #      with different test data than the CLI's own (Buddy/Beagle/Sam Rivera
 #      vs. Rex/Labrador/Jane Doe) so the two objects are visibly distinct.
-#   7. Downloads both objects back from MinIO and checks each two ways: a
+#   7. Submits a second representation of the *same* CLI-filled answers --
+#      APR-YAML this time, not APR-JSONC -- with the same real, unmodified
+#      `apr` CLI, to a third presigned URL whose signature is bound to
+#      `application/vnd.apr+yaml` (specification 5.2.1 / APR-SEC-012-014).
+#      `SubmitCommand.MediaTypeFor` picks that content type from the
+#      `.apr.yaml` extension, the same convention `FilledFormWriter` and the
+#      desktop's `AprDocumentPersistence` use to choose a representation on
+#      write.
+#   8. Submits a third, independent client's representation: the real Python
+#      SDK (`python/.venv`, not a container) fills the same template with its
+#      own answers and writes APR-YAML using the writer landed for issue
+#      #402 -- before that fix Python could read APR-YAML but had no writer
+#      for it at all -- then PUTs it with `urllib`, pinned to this MinIO
+#      instance's certificate, to a fourth presigned URL.
+#   9. Downloads all four objects back from MinIO and checks each two ways: a
 #      byte diff against the local file it came from (for the GUI, that's a
 #      three-way check -- local save, the exact bytes its HTTP client put on
 #      the wire, and the download all have to be identical, since nothing
@@ -58,14 +74,20 @@
 #      structure, every response by prompt id) rather than a byte diff.
 #      `apr diff` reads APR-JSONC and APR-YAML alike and compares the parsed
 #      forms, so it agrees two files are the same form even if one is JSON
-#      and the other is YAML -- not exercised by this demo since both paths
-#      here use JSON, but not a byte-level trick either. The GUI's object is
-#      also validated with the real CLI.
-#   8. Opens a fresh, disposable Chrome window on the MinIO Console's file
-#      browser for the bucket, so you can see both files listed yourself --
-#      launched with a throwaway profile and --ignore-certificate-errors so
-#      it doesn't stop at a certificate warning first. Nothing on your main
-#      Chrome profile or your Mac's own trust store is touched.
+#      and the other is YAML: the CLI's own YAML object is diffed against its
+#      JSON one here to prove exactly that, since both carry identical
+#      answers. The GUI's and Python's objects are also validated with the
+#      real CLI, and each YAML object's stored `Content-Type` is confirmed
+#      from MinIO's own response header, not assumed.
+#  10. Opens a fresh, disposable Chrome window on the MinIO Console's file
+#      browser for the bucket, so you can see all four files listed yourself
+#      -- launched with a throwaway profile and --ignore-certificate-errors
+#      so it doesn't stop at a certificate warning first. Nothing on your
+#      main Chrome profile or your Mac's own trust store is touched.
+#
+# What this does not cover: a mail handoff leg. The desktop has no mail
+# compose integration yet -- issue #103 is open -- so there is nothing here
+# for this script to drive; it isn't a gap in the script.
 #
 # Leaves the MinIO container (and that Chrome window) running so you can
 # look around. Cleanup instructions print at the end.
@@ -100,6 +122,8 @@ IMAGE_NAME="apr-minio-put-test:demo"
 BUCKET="dog-licenses"
 OBJECT_KEY="submissions/dog-license-$(date +%Y%m%dT%H%M%S).aprf"
 GUI_OBJECT_KEY="submissions/dog-license-gui-$(date +%Y%m%dT%H%M%S).aprf"
+YAML_OBJECT_KEY="submissions/dog-license-yaml-$(date +%Y%m%dT%H%M%S).apr.yaml"
+PYTHON_OBJECT_KEY="submissions/dog-license-python-$(date +%Y%m%dT%H%M%S).apr.yaml"
 GUI_SCREENSHOT="$SCRIPT_DIR/gui-submission-screenshot.png"
 # MinIO has no built-in default credential: MINIO_ROOT_USER (>=3 chars) and
 # MINIO_ROOT_PASSWORD (>=8 chars) must be set explicitly for it to start at
@@ -123,6 +147,9 @@ mc() {
 for tool in podman uv curl diff jq; do
   command -v "$tool" >/dev/null 2>&1 || { print_err "'$tool' is required and not on PATH."; exit 1; }
 done
+
+PYTHON_VENV="$REPO_ROOT/python/.venv/bin/python3"
+[ -x "$PYTHON_VENV" ] || { print_err "'$PYTHON_VENV' not found -- set up the Python SDK's venv first (see python/README.md)."; exit 1; }
 
 if [ -z "${DOTNET_ROOT:-}" ] && [ -d "$HOME/.dotnet" ]; then
   export DOTNET_ROOT="$HOME/.dotnet"
@@ -281,12 +308,61 @@ dotnet run --project "$REPO_ROOT/tools/PromptResponse.GuiSubmitDemo.Avalonia" -c
   "$GUI_SCREENSHOT" "$GUI_CAPTURED_BODY" "$GUI_LOCAL_SAVE"
 print_ok "GUI submission complete -- screenshot of the filled form: $GUI_SCREENSHOT"
 
-print_header "7. Download both objects back from MinIO and verify each"
+print_header "7. Submit the CLI's same answers again, as APR-YAML this time"
+print_info "Same template, same --set-prompt_* values as step 5 -- only the"
+print_info "representation differs, so step 9's apr diff has something to prove."
+YAML_PRESIGNED_URL="$(cd "$SCRIPT_DIR" && uv run --with boto3 python3 presign.py "$BUCKET" "$YAML_OBJECT_KEY" \
+  --content-type "application/vnd.apr+yaml" \
+  --access-key "$ROOT_USER" --secret-key "$ROOT_PASSWORD" 2>/dev/null | tail -1)"
+print_ok "A third presigned URL, its signature bound to application/vnd.apr+yaml:"
+echo "  $YAML_PRESIGNED_URL"
+YAML_FILLED="$WORK_DIR/dog-license.apr.yaml"
+dotnet run --project "$REPO_ROOT/src/PromptResponse.Cli" -c Release --no-build -- \
+  fill "$TEMPLATE" --non-interactive \
+  --set-prompt_dog_name="Rex" \
+  --set-prompt_breed="Labrador Retriever" \
+  --set-prompt_owner_name="Jane Doe" \
+  --set-prompt_owner_phone="+1 (555) 123-4567" \
+  --set-prompt_rabies_vaccination_date="$(date +%Y-%m-%d)" \
+  --output="$YAML_FILLED"
+print_ok "Filled form saved to $YAML_FILLED"
+echo
+cat "$YAML_FILLED"
+echo
+print_cmd "apr submit dog-license.apr.yaml --url=\"\$YAML_PRESIGNED_URL\" --yes"
+echo
+YAML_SUBMIT_OUTPUT="$(podman run --rm --network=host \
+  -v "$YAML_FILLED:/data/dog-license.apr.yaml:Z" \
+  apr-cli-verify-minio:demo submit /data/dog-license.apr.yaml --url="$YAML_PRESIGNED_URL" --yes)"
+echo "$YAML_SUBMIT_OUTPUT"
+if echo "$YAML_SUBMIT_OUTPUT" | grep -q "delivered to"; then
+  print_ok "Submitted as APR-YAML."
+else
+  print_err "YAML submission did not report success -- see output above."
+  exit 1
+fi
+
+print_header "8. Submit a third client's own answers: the real Python SDK, writing APR-YAML"
+print_info "python/.venv, not a container -- the same interpreter the conformance"
+print_info "driver uses. Exercises the YAML writer landed for issue #402."
+PYTHON_PRESIGNED_URL="$(cd "$SCRIPT_DIR" && uv run --with boto3 python3 presign.py "$BUCKET" "$PYTHON_OBJECT_KEY" \
+  --content-type "application/vnd.apr+yaml" \
+  --access-key "$ROOT_USER" --secret-key "$ROOT_PASSWORD" 2>/dev/null | tail -1)"
+print_ok "A fourth presigned URL, also bound to application/vnd.apr+yaml:"
+echo "  $PYTHON_PRESIGNED_URL"
+PYTHON_FILLED="$WORK_DIR/dog-license-python.apr.yaml"
+"$PYTHON_VENV" "$SCRIPT_DIR/python_submit.py" "$TEMPLATE" "$PYTHON_FILLED" "$PYTHON_PRESIGNED_URL" "$WORK_DIR/minio.crt"
+echo
+cat "$PYTHON_FILLED"
+echo
+print_ok "Python client submitted its own filled form as APR-YAML."
+
+print_header "9. Download all four objects back from MinIO and verify each"
 print_info "Byte level first (diff), then form level (apr diff -- see below for what"
 print_info "that checks that a byte diff can't: it parses both sides and compares"
 print_info "documentType, section/prompt structure, and every response by prompt id,"
 print_info "so it's the same check whether both files are JSON, both are APR-YAML, or"
-print_info "one is each. Everything in this demo happens to be JSON; apr diff doesn't care.)"
+print_info "one is each -- steps 7 and 8 below are the \"one is each\" case, for real.)"
 echo
 
 DOWNLOADED="$WORK_DIR/downloaded.aprf"
@@ -330,7 +406,48 @@ else
   exit 1
 fi
 
-print_header "8. Open a directory listing of everything PUT into the bucket"
+YAML_DOWNLOADED="$WORK_DIR/downloaded.apr.yaml"
+mc cat "localminio/$BUCKET/$YAML_OBJECT_KEY" > "$YAML_DOWNLOADED"
+if diff -q "$YAML_FILLED" "$YAML_DOWNLOADED" >/dev/null; then
+  print_ok "CLI/YAML: downloaded object is byte-for-byte identical to the local file it submitted."
+else
+  print_err "CLI/YAML MISMATCH -- the downloaded file differs from what was submitted:"
+  diff "$YAML_FILLED" "$YAML_DOWNLOADED" || true
+  exit 1
+fi
+YAML_CONTENT_TYPE="$(curl -sk -D - -o /dev/null "https://localhost:9000/$BUCKET/$YAML_OBJECT_KEY" | tr -d '\r' | grep -i '^Content-Type:')"
+if echo "$YAML_CONTENT_TYPE" | grep -qi "application/vnd.apr+yaml"; then
+  print_ok "MinIO stored it with $YAML_CONTENT_TYPE -- the presigned URL's bound content type actually made it onto the wire."
+else
+  print_err "Expected application/vnd.apr+yaml on the stored object, got: $YAML_CONTENT_TYPE"
+  exit 1
+fi
+print_cmd "apr diff downloaded.aprf downloaded.apr.yaml   # same CLI answers, JSON vs. YAML"
+dotnet run --project "$REPO_ROOT/src/PromptResponse.Cli" -c Release --no-build -- \
+  diff "$DOWNLOADED" "$YAML_DOWNLOADED"
+print_ok "Identical answers, two representations -- apr diff agrees they're the same form."
+
+PYTHON_DOWNLOADED="$WORK_DIR/downloaded-python.apr.yaml"
+mc cat "localminio/$BUCKET/$PYTHON_OBJECT_KEY" > "$PYTHON_DOWNLOADED"
+if diff -q "$PYTHON_FILLED" "$PYTHON_DOWNLOADED" >/dev/null; then
+  print_ok "Python: downloaded object is byte-for-byte identical to the local file it submitted."
+else
+  print_err "Python MISMATCH -- the downloaded file differs from what was submitted:"
+  diff "$PYTHON_FILLED" "$PYTHON_DOWNLOADED" || true
+  exit 1
+fi
+PYTHON_VALIDATE="$(podman run --rm --network=host \
+  -v "$PYTHON_DOWNLOADED:/data/downloaded-python.apr.yaml:Z" \
+  apr-cli-verify-minio:demo validate /data/downloaded-python.apr.yaml)"
+echo "$PYTHON_VALIDATE"
+if echo "$PYTHON_VALIDATE" | grep -q '"valid": true'; then
+  print_ok "Python's submission validates cleanly with the real CLI."
+else
+  print_err "Python's submission failed validation -- see output above."
+  exit 1
+fi
+
+print_header "10. Open a directory listing of everything PUT into the bucket"
 BUCKET_URL="https://localhost:9000/$BUCKET/"
 CONSOLE_URL="https://localhost:9001/browser/$BUCKET"
 print_info "Raw S3 ListObjects response for '$BUCKET' (this is the actual, unfiltered"
