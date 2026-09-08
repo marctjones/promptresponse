@@ -72,14 +72,25 @@ it byte-for-byte and with `apr diff`.
   1 hour). The signature travels in the query string; no credential does.
   Specification 5.2.1's own rationale is exactly this: "the grant travels in
   the query string, so the client never holds a credential."
-- **The one real gap**: unlike a presigned *POST*, a presigned PUT has no
-  built-in size cap -- S3's `content-length-range` condition is a POST
-  policy feature, and specification 5.2.1 deliberately excludes POST as a
-  submission mechanism at all ("a pre-signed browser POST is deliberately
-  absent"). So nothing here stops someone holding a PUT link from uploading
-  a large object to that one key before it expires. Fine for a small number
-  of trusted testers; something to know before handing PUT links out more
-  broadly.
+- **No size cap, and this is accepted rather than worked around.** Confirmed
+  against both Cloudflare's and AWS's own documentation: `content-length-range`
+  is a presigned-*POST*-only condition (a POST policy-document field), not
+  something a presigned PUT's SigV4 query-string signature carries -- on R2
+  or on real AWS S3. The one adjacent capability, pinning an exact
+  `ContentLength` in the signature, rejects any size *other than* that one
+  number, which isn't a ceiling and doesn't fit a form with variable-length
+  answers. Specification 5.2.1 deliberately excludes POST as a submission
+  mechanism at all ("a pre-signed browser POST is deliberately absent"), so
+  the one mechanism that could cap size is off the table by the format's own
+  design, not by omission here. A byte-count gate could still be added in
+  front of R2 (a thin proxy checking only `Content-Length`, never parsing
+  the document -- categorically different from the server-side APR
+  validation this demo already rejected once), but the deliberate choice for
+  this demo is to leave the gap as an honest, documented property of
+  presigned-PUT submission rather than build one. Anyone holding a valid PUT
+  link can write up to R2's own multi-terabyte object ceiling before it
+  expires; keep that in mind before handing PUT links out beyond a small
+  number of trusted testers.
 - **Never share the write token.** It can write (and, depending on exact
   permission chosen, delete) inside the bucket; a presigned link it signs
   can only touch the one object it was signed for.
