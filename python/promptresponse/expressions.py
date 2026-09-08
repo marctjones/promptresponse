@@ -109,7 +109,13 @@ class ExpressionContext:
         # Declared map<string, string> so an expression over ctx type-checks the
         # same way in every implementation.
         self.types["ctx"] = celtypes.MapType
-        self.bindings["ctx"] = {str(k): str(v) for k, v in dict(ctx or {}).items()}
+        # celpy resolves `ctx.org` by looking up a celtypes.StringType key inside a
+        # celtypes.MapType; a plain Python dict of plain strings does not satisfy
+        # that lookup; the expression compiles but reading a member of it fails
+        # silently into this class's own blanket `except Exception: return None`.
+        self.bindings["ctx"] = celtypes.MapType(
+            {celtypes.StringType(str(k)): celtypes.StringType(str(v)) for k, v in dict(ctx or {}).items()}
+        )
 
     def evaluate(self, prompt: Prompt, expression: str):
         annotations = dict(self.types)
@@ -147,7 +153,12 @@ def validation_message(prompt: Prompt, context: ExpressionContext) -> Optional[s
     if not expression or not expression.strip():
         return None
     result = context.evaluate(prompt, expression)
-    message = None if result is None else _stored(result)
+    # exprValidation is typed "string" (specification's expression profile): a
+    # result of any other CEL type is the same failure as a compile error, not
+    # a value to stringify -- 2 + 2 is not almost a validation message.
+    if not isinstance(result, (celtypes.StringType, str)):
+        return None
+    message = _stored(result)
     return message or None
 
 
