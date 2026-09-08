@@ -30,7 +30,7 @@ sys.path.insert(0, str(REPO_ROOT / "python"))
 
 import promptresponse as pr
 from promptresponse import roles as role_api
-from promptresponse import validation
+from promptresponse.advisories import advisories_for
 from promptresponse.beta6 import read_beta6_form, write_beta6_form
 
 try:
@@ -351,8 +351,9 @@ def check():
     # Check against the typed value without committing it to the document; the
     # answer is not saved until submit.
     previous, prompt.response = prompt.response, value
+    roles = {role.id for role in (DOCUMENT.roles or []) if role.id}
     try:
-        found = validation.advisories_for(prompt)
+        found = advisories_for(prompt, roles)
     finally:
         prompt.response = previous
 
