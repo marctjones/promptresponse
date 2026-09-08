@@ -67,6 +67,31 @@ continue to find their fixtures. Do not use it for release verification: CI
 retains normal output paths and generates XML documentation during its release
 build.
 
+## Exercising submission locally
+
+`metadata.submissionUrls` and `IHttpsSubmissionService`/`IDelivery` have real
+local targets to submit to rather than only a description in the
+specification:
+
+- [`demos/submission-receiver/podman/`](../demos/submission-receiver/podman/) —
+  a minimal HTTPS receiver that accepts exactly one PUT and records what it
+  got, for a person or a test to inspect. `README.md` there covers `podman
+  build`/`run`, and a worked example submitting a real filled form with the
+  real CLI or desktop client. This is the fastest way to check "did this
+  actually PUT, and with the right content-type" by hand.
+- [`demos/minio-put/`](../demos/minio-put/) — the same question against a
+  real S3-compatible server rather than a purpose-built test double: real
+  pre-signed URL signature verification, real rejection of a method the
+  signature wasn't computed for. `./demo.sh` is one command: it fills and
+  submits a form with the real CLI, does the same again by driving the real
+  desktop GUI headlessly, and verifies both landed correctly two ways — a
+  byte diff against the local file each came from, and `apr diff`'s
+  semantic, form-level comparison.
+
+Neither runs in CI today; both are for exercising a real submission by hand
+during development. Both are non-persistent — nothing they hold survives
+removing the container.
+
 Use corpus/schema/specification for format behavior and product, architecture, and UX documents for product behavior.
 
 1. Add or update the focused test before changing behavior.
