@@ -48,19 +48,22 @@ four implementations.
 
 ### What remains
 
-1. **Scoring the other three SDKs.** Conformance is asked two ways, and only one
-   of them is hard. A suite that *exercises* an implementation checks it reads the
-   corpus without failing. A suite that *scores* it withholds the answers, demands
-   a named diagnostic for every rejection and compares a computed digest per case.
-   The .NET library, the command line, the desktop client and the PDF exporter are
-   scored. Python, TypeScript and Java are exercised, and each of the three passed
-   its own suite for weeks while unable to read a beta.6 document at all.
-2. **Reaching every rule.** 84 of 166 rules are fully evidenced — enforced by a
-   check, shown satisfied, shown violated, and the violation caught. The rest are
-   reached partly or not at all, and each gap is recorded rather than rounded up.
+1. ~~Scoring the other three SDKs.~~ **Done.** Conformance is asked two ways, and
+   only one of them is hard. A suite that *exercises* an implementation checks it
+   reads the corpus without failing. A suite that *scores* it withholds the
+   answers, demands a named diagnostic for every rejection and compares a
+   computed digest per case. The .NET library, the command line, the desktop
+   client, the PDF exporter, and now Python, TypeScript, and Java are all scored
+   at 153/153 (#379).
+2. **Reaching every rule.** 97 of 166 rules are named outright by a conformance
+   case; crediting a case with every rule in the section it cites reaches 116.
+   The remaining 50 are reached by nothing, though every one carries a recorded
+   explanation in `tests/registry.json` rather than being silently rounded up
+   (`scripts/check-suite-coverage.py --gaps`, and #323's suggested order).
 3. **Gates that decide what they claim to.** A skipped step, an unapplied fixture
    and a threshold set below what already passes all report the same green as a
-   working check. Several were found this way and the class is not exhausted.
+   working check. Several were found this way (most recently the CLI coverage
+   ratchet, #345) and the class is not exhausted.
 4. **Stabilization** — only after those do cross-platform release and
    maintainability gates become the final pass.
 
