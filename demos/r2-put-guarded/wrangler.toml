@@ -1,0 +1,13 @@
+name = "apr-r2-put-guarded"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# A content-blind size/overwrite gate in front of a real R2 bucket -- see
+# worker.js's own header comment and README.md for what this is and, just as
+# importantly, what it deliberately still doesn't do (no APR parsing, no
+# structural validation -- demos/submission-receiver/cloudflare/ tried that
+# and it was reverted).
+
+[[r2_buckets]]
+binding = "SUBMISSIONS"
+bucket_name = "apr-submission-demo"

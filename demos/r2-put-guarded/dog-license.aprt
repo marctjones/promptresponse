@@ -1,0 +1,71 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "Dog License Application",
+    "description": "A small, deliberately simple form for demoing APR submission end to end.",
+    "created": "2026-09-07T00:00:00Z",
+    "modified": "2026-09-07T00:00:00Z",
+    "author": "PromptResponse Demo",
+    "templateId": "tag:promptresponse.example,2026:demo/dog-license",
+    "templateVersion": "1.0"
+  },
+  "sections": [
+    {
+      "id": "section_dog_and_owner",
+      "title": "Dog and Owner Information",
+      "description": "Tell us about the dog and who's responsible for it.",
+      "prompts": [
+        {
+          "id": "prompt_dog_name",
+          "label": "Dog's Name",
+          "response": "",
+          "hints": {
+            "placeholder": "Rex",
+            "expectedDataType": "text",
+            "helpText": "The name your dog answers to"
+          }
+        },
+        {
+          "id": "prompt_breed",
+          "label": "Breed",
+          "response": "",
+          "hints": {
+            "placeholder": "Labrador Retriever",
+            "expectedDataType": "text",
+            "helpText": "Breed or mix, best guess is fine"
+          }
+        },
+        {
+          "id": "prompt_owner_name",
+          "label": "Owner's Name",
+          "response": "",
+          "hints": {
+            "placeholder": "Jane Doe",
+            "expectedDataType": "text",
+            "helpText": "The person responsible for this license"
+          }
+        },
+        {
+          "id": "prompt_owner_phone",
+          "label": "Owner's Phone",
+          "response": "",
+          "hints": {
+            "placeholder": "+1 (555) 123-4567",
+            "expectedDataType": "phone",
+            "helpText": "In case animal control needs to reach you"
+          }
+        },
+        {
+          "id": "prompt_rabies_vaccination_date",
+          "label": "Most Recent Rabies Vaccination Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date",
+            "helpText": "Required for a license to be issued"
+          }
+        }
+      ]
+    }
+  ]
+}
