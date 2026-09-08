@@ -1,8 +1,30 @@
 /** APR's optional CEL expression binding. Expressions are advisory and pure. */
-import { Environment } from "@marcbachmann/cel-js";
+import { Environment, parse } from "@marcbachmann/cel-js";
 import type { AprDocument, Prompt, Section } from "./model.js";
 
 type ContextValues = Record<string, string>;
+
+// Specification: "Provide the CEL standard library and standard macros, and no
+// extension library or custom function" (the CEL strings extension is
+// explicitly not required). cel-js, unlike celpy, bakes the strings and bytes
+// extension member functions into every environment with no option to
+// disable them, so an expression using one would evaluate here and fail
+// identically in Python and .NET -- a cross-SDK divergence a conformance
+// suite exists to catch. Names are exactly the cel-js built-ins absent from
+// celpy's base registry (functions.js's functionOverload calls, diffed
+// against celpy's activation dump).
+const EXTENSION_FUNCTIONS = new Set([
+  "lowerAscii", "upperAscii", "trim", "indexOf", "lastIndexOf", "substring", "split", "join",
+  "json", "hex", "base64", "at",
+]);
+function usesExtensionFunction(node: unknown): boolean {
+  if (Array.isArray(node)) return node.some(usesExtensionFunction);
+  if (!node || typeof node !== "object") return false;
+  const { op, args } = node as { op?: string; args?: unknown };
+  const name = Array.isArray(args) ? args[0] : undefined;
+  if ((op === "call" || op === "rcall") && typeof name === "string" && EXTENSION_FUNCTIONS.has(name)) return true;
+  return usesExtensionFunction(args);
+}
 
 function prompts(sections: Section[]): Prompt[] {
   return sections.flatMap(section => [...section.prompts, ...prompts(section.sections)]);
@@ -47,6 +69,8 @@ function stored(value: unknown): string {
   return value == null ? "" : String(value);
 }
 
+const RESERVED_NAMES = new Set(["_now", "_today", "_id", "_this", "ctx"]);
+
 export class ExpressionContext {
   private readonly fields: Map<string, Prompt>;
   private readonly bindings: Record<string, unknown> = {};
@@ -69,8 +93,15 @@ export class ExpressionContext {
   }
   evaluate(prompt: Prompt, expression: string): unknown | undefined {
     try {
+      if (usesExtensionFunction(parse(expression).ast)) return undefined;
       const environment = new Environment({ unlistedVariablesAreDyn: false });
-      for (const field of this.fields.values()) environment.registerVariable(field.id, typeFor(field.hints.expectedDataType));
+      // The activation's reserved names (specification: "that prompt's bound
+      // type... where the id is a valid CEL identifier and not reserved") take
+      // precedence over a same-named prompt field. cel-js throws on a second
+      // registerVariable call for the same name rather than letting the later
+      // one win, so a document with a field literally named "ctx" would
+      // otherwise fail every expression in it via the catch below.
+      for (const field of this.fields.values()) if (!RESERVED_NAMES.has(field.id)) environment.registerVariable(field.id, typeFor(field.hints.expectedDataType));
       environment
         .registerVariable("_today", "string")
         .registerVariable("_now", "dyn")
@@ -98,8 +129,11 @@ export function validationMessage(prompt: Prompt, context: ExpressionContext): s
   const expression = prompt.hints.exprValidation;
   if (!expression?.trim()) return undefined;
   const value = context.evaluate(prompt, expression);
-  const message = value === undefined ? "" : stored(value);
-  return message || undefined;
+  // exprValidation is typed "string" (specification's expression profile): a
+  // result of any other CEL type is the same failure as a compile error, not
+  // a value to stringify -- 2 + 2 is not almost a validation message.
+  if (typeof value !== "string") return undefined;
+  return value || undefined;
 }
 export function recomputeComputedValues(document: AprDocument, today?: string, ctx?: ContextValues): boolean {
   let changed = false;
