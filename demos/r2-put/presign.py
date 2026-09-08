@@ -37,6 +37,14 @@ def main():
     parser.add_argument("key")
     parser.add_argument("--content-type", default="application/vnd.apr+json")
     parser.add_argument("--expires", type=int, default=3600, help="seconds (default: 1 hour; R2's own maximum is 7 days)")
+    parser.add_argument(
+        "--if-none-match", action="store_true",
+        help="Bind If-None-Match: * into the presigned URL's own signature, so the PUT "
+             "only validates if the client sends that exact header -- not optional, "
+             "not something a careless client can skip. R2 (and S3) then reject the "
+             "write with 412 if an object already exists at this key: first write wins, "
+             "every later one to the same key fails instead of overwriting it.",
+    )
     parser.add_argument("--account-id", default=os.environ.get("R2_ACCOUNT_ID"))
     parser.add_argument("--access-key", default=os.environ.get("R2_ACCESS_KEY_ID"))
     parser.add_argument("--secret-key", default=os.environ.get("R2_SECRET_ACCESS_KEY"))
@@ -54,15 +62,11 @@ def main():
         region_name="auto",  # required by the SDK; not used by R2 itself
     )
 
-    url = client.generate_presigned_url(
-        "put_object",
-        Params={
-            "Bucket": args.bucket,
-            "Key": args.key,
-            "ContentType": args.content_type,
-        },
-        ExpiresIn=args.expires,
-    )
+    params = {"Bucket": args.bucket, "Key": args.key, "ContentType": args.content_type}
+    if args.if_none_match:
+        params["IfNoneMatch"] = "*"
+
+    url = client.generate_presigned_url("put_object", Params=params, ExpiresIn=args.expires)
     print(url)
 
 

@@ -16,12 +16,21 @@
 # object back with the same real R2 credentials it used to presign the PUT,
 # rather than emulating a client that has to work around not holding any.
 #
+# Also proves the fix for a real concern raised while building this: many
+# fillers could be handed a submission link, and a bare presigned PUT has no
+# way to stop one from overwriting another's already-submitted object at the
+# same key. Step 5 shows the actual R2/S3 mechanism for that -- binding
+# `If-None-Match: *` into the presigned URL's own signature, so a second PUT
+# to the same key gets 412, not a silent overwrite, and the header can't be
+# left off since it's part of what's signed.
+#
 # Requires (see README.md for how to get each):
 #   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET
 #
-# Nothing here is deleted automatically: the object this writes stays in your
-# R2 bucket (R2's own lifecycle rules are day-granularity, not something a
-# demo run should wait on) until you remove it yourself -- printed at the end.
+# Nothing here is deleted automatically: the two objects this writes stay in
+# your R2 bucket (R2's own lifecycle rules are day-granularity, not something
+# a demo run should wait on) until you remove them yourself -- printed at the
+# end.
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -114,10 +123,56 @@ print_cmd "apr diff dog-license.aprf downloaded.aprf   # local file vs. what R2 
 dotnet run --project "$REPO_ROOT/src/PromptResponse.Cli" -c Release --no-build -- \
   diff "$FILLED" "$DOWNLOADED"
 
-print_header "Done"
-echo "Object left in your bucket (R2 has no sub-day lifecycle rule to expire it"
-echo "automatically -- see README.md if you want a scheduled cleanup):"
-echo "  s3://$R2_BUCKET/$OBJECT_KEY"
+print_header "5. Prove If-None-Match: * stops a second submission from overwriting the first"
+print_info "This is not routed through the real apr CLI -- SubmitCommand doesn't send"
+print_info "this header today (that's a separate, open question: see the linked issue"
+print_info "in README.md on whether APR's https submission clients should). This step"
+print_info "proves the underlying R2/S3 mechanism itself, with curl, independent of"
+print_info "whether any client has adopted it yet."
+IFNM_KEY="submissions/dog-license-ifnm-$(date +%Y%m%dT%H%M%S).aprf"
+IFNM_URL="$(cd "$SCRIPT_DIR" && uv run --with boto3 python3 presign.py "$R2_BUCKET" "$IFNM_KEY" --if-none-match \
+  --account-id "$R2_ACCOUNT_ID" --access-key "$R2_ACCESS_KEY_ID" --secret-key "$R2_SECRET_ACCESS_KEY" 2>/dev/null | tail -1)"
+print_ok "Presigned URL with If-None-Match: * bound into its own signature:"
+echo "  $IFNM_URL"
+
 echo
-echo "To remove it yourself:"
-print_cmd "uv run --with boto3 python3 -c \"import boto3,os; boto3.client('s3', endpoint_url='$ENDPOINT', aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'], region_name='auto').delete_object(Bucket='$R2_BUCKET', Key='$OBJECT_KEY')\""
+print_cmd "curl -X PUT --data-binary @dog-license.aprf -H 'Content-Type: application/vnd.apr+json' -H 'If-None-Match: *' \"\$IFNM_URL\""
+FIRST_STATUS="$(curl -s -o /dev/null -w '%{http_code}' -X PUT --data-binary @"$FILLED" \
+  -H "Content-Type: application/vnd.apr+json" -H "If-None-Match: *" "$IFNM_URL")"
+if [ "$FIRST_STATUS" = "200" ]; then
+  print_ok "First PUT: HTTP $FIRST_STATUS -- accepted, nothing existed at this key yet."
+else
+  print_err "First PUT expected 200, got HTTP $FIRST_STATUS."
+  exit 1
+fi
+
+echo
+print_info "Same URL, same header, second attempt -- an object now exists at this key:"
+SECOND_STATUS="$(curl -s -o /dev/null -w '%{http_code}' -X PUT --data-binary @"$FILLED" \
+  -H "Content-Type: application/vnd.apr+json" -H "If-None-Match: *" "$IFNM_URL")"
+if [ "$SECOND_STATUS" = "412" ]; then
+  print_ok "Second PUT: HTTP $SECOND_STATUS Precondition Failed -- rejected, not silently overwritten."
+else
+  print_err "Second PUT expected 412, got HTTP $SECOND_STATUS."
+  exit 1
+fi
+
+echo
+print_info "Same URL, header omitted -- it's bound into the signature, not optional:"
+THIRD_STATUS="$(curl -s -o /dev/null -w '%{http_code}' -X PUT --data-binary @"$FILLED" \
+  -H "Content-Type: application/vnd.apr+json" "$IFNM_URL")"
+if [ "$THIRD_STATUS" = "403" ]; then
+  print_ok "PUT without the header: HTTP $THIRD_STATUS -- signature doesn't validate without it."
+else
+  print_err "PUT without the header expected 403 (signature mismatch), got HTTP $THIRD_STATUS."
+  exit 1
+fi
+
+print_header "Done"
+echo "Two objects left in your bucket (R2 has no sub-day lifecycle rule to expire"
+echo "them automatically -- see README.md if you want a scheduled cleanup):"
+echo "  s3://$R2_BUCKET/$OBJECT_KEY"
+echo "  s3://$R2_BUCKET/$IFNM_KEY"
+echo
+echo "To remove them yourself:"
+print_cmd "uv run --with boto3 python3 -c \"import boto3,os; c=boto3.client('s3', endpoint_url='$ENDPOINT', aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'], region_name='auto'); [c.delete_object(Bucket='$R2_BUCKET', Key=k) for k in ('$OBJECT_KEY', '$IFNM_KEY')]\""
