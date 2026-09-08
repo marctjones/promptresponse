@@ -40,7 +40,7 @@ public final class Apr {
         if(document.sections().isEmpty()) issue(errors,"REQUIRED_FIELD","sections","A document must have at least one section.");
         if("filledForm".equals(document.documentType()) && blank(AprDocument.string(document.metadata().get("templateId")))) issue(errors,"REQUIRED_FIELD","metadata.templateId","A filled form must record templateId.");
         Set<String> sectionIds=new HashSet<>(), promptIds=new HashSet<>(); validateSections(document.sections(), "sections", errors, sectionIds, promptIds);
-        return new ValidationResult(List.copyOf(errors));
+        return new ValidationResult(List.copyOf(errors), List.of());
     }
     private static boolean blank(String value) { return value == null || value.trim().isEmpty(); }
     private static void issue(List<ValidationIssue> list,String code,String path,String message){ list.add(new ValidationIssue(code,path,message)); }
