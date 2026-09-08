@@ -330,8 +330,8 @@ jobs:
     runs-on: ubuntu-latest
     # Separate from the language-neutral gate on purpose. These four suites are
     # implementations measured against the specification. Every SDK's wire format
-    # is aligned to beta.6, but only Python is scored against the conformance
-    # suite itself so far (issue #379); TypeScript and Java still need a driver.
+    # is aligned to beta.6, but only Python and TypeScript are scored against the
+    # conformance suite itself so far (issue #379); Java still needs a driver.
     # This job must not be able to take the specification gates down with it.
     steps:
       - name: Checkout
@@ -401,6 +401,16 @@ jobs:
         run: |
           npm ci
           npm test
+
+      - name: Score the TypeScript SDK against the conformance suite
+        # typescript/conformance-driver.mjs answers with the built dist/ output --
+        # the actual package a caller installs, not a hand-rolled parser. Claims
+        # core, core+streams and core+expressions; core+attestations is
+        # deliberately unclaimed, matching the Python and .NET drivers.
+        if: ${{ !cancelled() }}
+        run: >-
+          python3 scripts/run-conformance.py
+          --driver "node typescript/conformance-driver.mjs"
 
       - name: TypeScript dead-export and unused-dependency check
         # An unused dependency or export doesn't fail a build, so nothing else here
