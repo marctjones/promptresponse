@@ -1,6 +1,5 @@
 using PromptResponse.Core;
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
@@ -11,14 +10,13 @@ namespace PromptResponse.Core.Serialization;
 /// JSON serializer for APR documents using System.Text.Json.
 /// </summary>
 /// <remarks>
-/// Sanitizes every string field at the serialization boundary via
-/// <see cref="StringSanitizer.NormalizeAndStrip"/>: NFC normalize so equal-looking
-/// strings store as equal bytes, and strip the always-abusive character set
-/// (BOM mid-string, bidi overrides, lone surrogates, control characters except
-/// tab/LF/CR, non-character codepoints). Sanitization runs on both write AND read
-/// so a tampered file fed in from outside is normalised before downstream code
-/// sees it. Vision invariant preserved: legitimate Unicode (Persian ZWNJ, emoji
-/// ZWJ sequences, bidi marks, combining accents) survives untouched.
+/// Does not normalize or strip any string field. Specification 8.2.3 requires
+/// human-facing text to be preserved exactly and never rewritten by a reader;
+/// <see cref="Validation.AdvisoryVocabulary"/> reports what it finds
+/// (NON_NFC_TEXT, FORBIDDEN_CODE_POINT, CONFUSABLE_SCRIPT_MIX) as warnings
+/// instead, and <see cref="Text.StringSanitizer.ContainsHiddenCharacters"/>
+/// refuses a submission URL outright at the point it's used, rather than this
+/// serializer silently changing bytes on every read and write.
 /// </remarks>
 public class AprJsonSerializer : IAprSerializer
 {
