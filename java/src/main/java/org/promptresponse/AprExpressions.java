@@ -7,6 +7,7 @@ import dev.cel.common.types.CelType;
 import dev.cel.common.types.ListType;
 import dev.cel.common.types.MapType;
 import dev.cel.common.types.SimpleType;
+import dev.cel.runtime.CelUnknownSet;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -46,6 +47,8 @@ public final class AprExpressions {
         return changed;
     }
 
+    private static final Set<String> RESERVED_NAMES = Set.of("_now", "_today", "_id", "_this", "ctx");
+
     public static final class Context {
         private final Map<String,Map<String,Object>> prompts = new LinkedHashMap<>();
         private final Map<String,Object> bindings = new LinkedHashMap<>();
@@ -84,7 +87,14 @@ public final class AprExpressions {
         public Object evaluateRaw(Map<String,Object> prompt, String expression) {
             try {
                 var builder = CelFactory.standardCelBuilder();
-                for (Map.Entry<String,Map<String,Object>> entry : prompts.entrySet()) builder.addVar(entry.getKey(), typeOf(entry.getValue()));
+                // The activation's reserved names take precedence over a same-named
+                // prompt field (specification: a prompt id gets a direct binding only
+                // "where the id is a valid CEL identifier and not reserved"). addVar
+                // throws on a second registration for one name rather than letting the
+                // later registration win, so a document with a field literally named
+                // "ctx" would otherwise fail every expression in it via the catch below.
+                for (Map.Entry<String,Map<String,Object>> entry : prompts.entrySet())
+                    if (!RESERVED_NAMES.contains(entry.getKey())) builder.addVar(entry.getKey(), typeOf(entry.getValue()));
                 // Declared only when bound. A declared but unbound name does not
                 // reliably error: it can evaluate to a default, so an expression
                 // referencing an unsupplied _today would produce a value rather
@@ -99,7 +109,15 @@ public final class AprExpressions {
                 if (checked.hasError()) return null;
                 Map<String,Object> values = new LinkedHashMap<>(bindings); Object current = bind(prompt); if (current != null) values.put("_this", current);
                 values.put("_id", AprDocument.string(prompt.get("id")));
-                return cel.createProgram(checked.getAst()).eval(values);
+                Object result = cel.createProgram(checked.getAst()).eval(values);
+                // Every prompt id is declared so a reference to any of them type-checks,
+                // but a field whose response does not parse as its expectedDataType (or
+                // simply carries none) has nothing in `values` to bind that name to.
+                // dev.cel resolves that at eval time into an "unknown" partial-evaluation
+                // result rather than throwing, unlike celpy and cel-js, so an expression
+                // referencing such a field would otherwise store the object's own
+                // toString() ("CelUnknownSet{...}") as if it were the computed value.
+                return result instanceof CelUnknownSet ? null : result;
             } catch (Exception ignored) { return null; }
         }
     }
@@ -132,7 +150,15 @@ public final class AprExpressions {
     private static String stored(Object value) {
         if (value == null) return "";
         if (value instanceof Boolean b) return b ? "true" : "false";
-        if (value instanceof Number n) return Double.toString(n.doubleValue());
+        // CEL's int type (a Java Long, e.g. from size()) and double type both stringify
+        // through the format the rest of the SDK already uses for a JSON number's
+        // canonical spelling: Double.toString would print size(n) as "3.0", which is a
+        // different response than the "3" a person typed and every other numeric field
+        // stores.
+        if (value instanceof Number n) {
+            try { return AprBeta6Integrity.canonicalNumber(n.doubleValue()); }
+            catch (AprException nonFinite) { return Double.toString(n.doubleValue()); }
+        }
         if (value instanceof Instant instant) return instant.toString();
         if (value instanceof Iterable<?> values) { List<String> parts = new ArrayList<>(); for (Object item : values) parts.add(String.valueOf(item)); return String.join("\n", parts); }
         return String.valueOf(value);
