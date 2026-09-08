@@ -262,15 +262,13 @@ Both answer all 171 cases with zero failures, claiming `core`, `core+streams` an
 proof and reporting what verification found, and the harness does not yet score
 what a verifier reports.
 
-**Python and TypeScript are scored.** `python/conformance_driver.py` and
-`typescript/conformance-driver.mjs` each answer all 153 cases within their
-claimed profiles with zero failures, claiming `core`, `core+streams` and
-`core+expressions` — the same three the .NET drivers claim, `core+attestations`
-unclaimed for the same reason. Both are wired into CI's `sdk-suites` job
-alongside their SDK's own tests.
-
-**Java is not aligned.** It has no driver, and its suite has not been re-run
-since the beta.6 changes. Until it is scored, it should not claim any profile.
+**Python, TypeScript and Java are scored.** `python/conformance_driver.py`,
+`typescript/conformance-driver.mjs` and `java/run-conformance-driver.sh` each
+answer all 153 cases within their claimed profiles with zero failures,
+claiming `core`, `core+streams` and `core+expressions` — the same three the
+.NET drivers claim, `core+attestations` unclaimed for the same reason. All
+three are wired into CI's `sdk-suites` job alongside their SDK's own tests.
+Issue #379, which tracked closing this gap for all three, is resolved.
 
 ## Required behaviours
 
