@@ -10,10 +10,10 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union
 
 # Members retired from the format. Dropped on write rather than preserved, so a
-# document does not carry a contradiction forward (specification 4.8.1).
+# document does not carry a contradiction forward (specification 5.8.1).
 RETIRED_MEMBERS = frozenset([
     # Table column presentation, removed before 1.0.
-    "tableLayout", "columns", "fixedRows",
+    "width", "alignment", "color", "background", "fontSize", "bold", "style",
     # Workflow state, retired in beta.6. Dropped rather than preserved into `extra`:
     # none carried a claim whose silent loss would be worse than its removal, and
     # preserving them would write them back into a document the format says has none.

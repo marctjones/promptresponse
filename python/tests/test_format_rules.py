@@ -79,13 +79,26 @@ def test_an_old_version_is_rejected():
 def test_retired_members_are_dropped_rather_than_carried_forward():
     written = pr.dumps(pr.loads(
         '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":'
+        '[{"id":"s","title":"S","width":40,"prompts":'
+        '[{"id":"p","label":"L","response":""}]}]}'
+    ))
+    assert "width" not in written, (
+        "a retired member is dropped, not preserved, so a document does not carry "
+        "a contradiction forward (specification 5.8.1)"
+    )
+
+
+def test_a_name_that_merely_resembles_a_retired_member_is_preserved():
+    # "tableLayout" is not itself a retired name -- specification 5.8.1 retires
+    # the presentation set ("width", "alignment", ...), not the wrapper that used
+    # to carry them. A name only this specification retires is dropped; anything
+    # merely unfamiliar is preserved (issue #376).
+    written = pr.dumps(pr.loads(
+        '{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":'
         '[{"id":"s","title":"S","tableLayout":{"columns":[]},"prompts":'
         '[{"id":"p","label":"L","response":""}]}]}'
     ))
-    assert "tableLayout" not in written, (
-        "a retired member is dropped, not preserved, so a document does not carry "
-        "a contradiction forward (specification 4.8.1)"
-    )
+    assert "tableLayout" in written
 
 
 # ── 6.1 the error list is exhaustive ─────────────────────────────────────────
