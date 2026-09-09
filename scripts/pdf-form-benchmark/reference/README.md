@@ -29,6 +29,7 @@ that extraction can be trusted differs by part.
 | widget rectangles, page sizes | **1** | stated |
 | line text and its box | **1** | stated, subject to the grouping note below |
 | a field's `label` (`/TU`) | **1** where present | the form author's own words — only ~34% of fields have one |
+| `declarationOrder` on fields | **1** | the AcroForm's own field sequence, usually the tab order |
 | `order` on fields and lines | **inferred** | geometric, see below |
 
 ## The two judgement calls, stated plainly
@@ -40,11 +41,27 @@ two columns joined into a sentence nobody wrote, which would then read as a
 label for whatever field sits nearby. The split cut lines spanning most of the
 page width from 29% to 8%.
 
-**Reading order.** Derived geometrically: by page, then down, then across. Right
-for a single-column form, approximate for a multi-column one. It is recorded
-because order is a real property a conversion must get right — a form asked
-backwards is wrong even when every field is present — but it is review material,
-not an oracle to grade against unchecked.
+**Reading order.** Two orderings are recorded because they disagree and neither
+is authoritative alone.
+
+`declarationOrder` is the AcroForm's own field sequence — stated by the PDF, and
+usually the tab order the author intended. W-9 names one of its groups
+`Boxes3a-b_ReadOrder`, so the IRS clearly encoded reading intent there. But it
+can also be arbitrary: `ct-dmv-j23` declares `CheckBox12` before `CheckBox4`.
+
+`order` is derived geometrically — by page, then down, then across. Right for a
+single-column form, a poor model for a dense multi-column one.
+
+Measured across the corpus with Kendall's tau, the two agree between **0.55 and
+1.00**: `fed-8822` and `ct-dmv-a83` match exactly, `ct-dmv-j23` scores 0.55 and
+`fed-i9` 0.76. A converter reading a *flattened* form has no access to
+declaration order at all, so geometric order is the only reference available
+there — which is exactly why its approximation is worth knowing about. Read a low
+geometric score as a prompt to look, not as proof of a bug.
+
+Order is recorded because it is a real property a conversion must get right: a
+form asked backwards is wrong even when every field is present, and field
+coverage — being a multiset comparison — scores that a perfect 1.00.
 
 ## What is deliberately absent
 

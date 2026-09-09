@@ -23,7 +23,17 @@ public sealed record ReferenceRect(double Left, double Bottom, double Right, dou
 }
 
 /// <summary>One field the PDF declares, with everything mechanically knowable about it.</summary>
-/// <param name="Order">Position in geometric reading order across the document.</param>
+/// <param name="Order">
+/// Position in geometric reading order across the document — down each page,
+/// then across. Inferred, and only approximate on a multi-column form.
+/// </param>
+/// <param name="DeclarationOrder">
+/// Position in the order the AcroForm declares its fields, which is the form
+/// author's own sequencing and usually the tab order. Stated by the PDF rather
+/// than inferred, but not always the order a reader sees: measured across the
+/// corpus the two agree with a Kendall tau of 0.55 to 1.00, so neither is
+/// authoritative alone and both are recorded.
+/// </param>
 /// <param name="Name">The fully qualified AcroForm field name.</param>
 /// <param name="Type">Text, Button, Choice, Signature.</param>
 /// <param name="Page">1-based page.</param>
@@ -35,6 +45,7 @@ public sealed record ReferenceRect(double Left, double Bottom, double Right, dou
 /// <param name="OptionCount">Choice options offered.</param>
 public sealed record ReferenceField(
     int Order,
+    int DeclarationOrder,
     string Name,
     string Type,
     int Page,
@@ -176,19 +187,24 @@ public static class PdfReferenceExtractor
             .Select((l, i) => l with { Order = i })
             .ToList();
 
-        var fields = PdfWidgetManifest.Extract(path).Importable
+        var declared = PdfWidgetManifest.Extract(path).Importable
             .Where(e => e.Rect is not null && e.PageNumber is not null)
-            .OrderBy(e => e.PageNumber!.Value)
-            .ThenByDescending(e => e.Rect!.Value.Top)
-            .ThenBy(e => e.Rect!.Value.Left)
-            .Select((e, i) => new ReferenceField(
+            .Select((e, declarationOrder) => (Entry: e, DeclarationOrder: declarationOrder))
+            .ToList();
+
+        var fields = declared
+            .OrderBy(x => x.Entry.PageNumber!.Value)
+            .ThenByDescending(x => x.Entry.Rect!.Value.Top)
+            .ThenBy(x => x.Entry.Rect!.Value.Left)
+            .Select((x, i) => new ReferenceField(
                 i,
-                e.FullName,
-                e.FieldType.ToString(),
-                e.PageNumber!.Value,
-                ReferenceRect.From(e.Rect!.Value),
-                e.Tooltip,
-                e.OptionCount))
+                x.DeclarationOrder,
+                x.Entry.FullName,
+                x.Entry.FieldType.ToString(),
+                x.Entry.PageNumber!.Value,
+                ReferenceRect.From(x.Entry.Rect!.Value),
+                x.Entry.Tooltip,
+                x.Entry.OptionCount))
             .ToList();
 
         return new PdfStructuredReference(formId, doc.Pages.Count, pages, fields, ordered);

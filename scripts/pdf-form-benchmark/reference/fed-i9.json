@@ -26,6 +26,7 @@
   "fields": [
     {
       "order": 0,
+      "declarationOrder": 5,
       "name": "First Name Given Name",
       "type": "Text",
       "page": 1,
@@ -40,6 +41,7 @@
     },
     {
       "order": 1,
+      "declarationOrder": 6,
       "name": "Employee Middle Initial (if any)",
       "type": "Text",
       "page": 1,
@@ -54,6 +56,7 @@
     },
     {
       "order": 2,
+      "declarationOrder": 98,
       "name": "Last Name (Family Name)",
       "type": "Text",
       "page": 1,
@@ -68,6 +71,7 @@
     },
     {
       "order": 3,
+      "declarationOrder": 7,
       "name": "Employee Other Last Names Used (if any)",
       "type": "Text",
       "page": 1,
@@ -82,6 +86,7 @@
     },
     {
       "order": 4,
+      "declarationOrder": 99,
       "name": "Address Street Number and Name",
       "type": "Text",
       "page": 1,
@@ -96,6 +101,7 @@
     },
     {
       "order": 5,
+      "declarationOrder": 100,
       "name": "Apt Number (if any)",
       "type": "Text",
       "page": 1,
@@ -110,6 +116,7 @@
     },
     {
       "order": 6,
+      "declarationOrder": 101,
       "name": "City or Town",
       "type": "Text",
       "page": 1,
@@ -124,6 +131,7 @@
     },
     {
       "order": 7,
+      "declarationOrder": 93,
       "name": "State",
       "type": "Choice",
       "page": 1,
@@ -138,6 +146,7 @@
     },
     {
       "order": 8,
+      "declarationOrder": 94,
       "name": "ZIP Code",
       "type": "Text",
       "page": 1,
@@ -152,6 +161,7 @@
     },
     {
       "order": 9,
+      "declarationOrder": 97,
       "name": "Telephone Number",
       "type": "Text",
       "page": 1,
@@ -166,6 +176,7 @@
     },
     {
       "order": 10,
+      "declarationOrder": 95,
       "name": "Date of Birth mmddyyyy",
       "type": "Text",
       "page": 1,
@@ -180,6 +191,7 @@
     },
     {
       "order": 11,
+      "declarationOrder": 102,
       "name": "Employees E-mail Address",
       "type": "Text",
       "page": 1,
@@ -194,6 +206,7 @@
     },
     {
       "order": 12,
+      "declarationOrder": 96,
       "name": "US Social Security Number",
       "type": "Text",
       "page": 1,
@@ -208,6 +221,7 @@
     },
     {
       "order": 13,
+      "declarationOrder": 47,
       "name": "CB_1",
       "type": "Button",
       "page": 1,
@@ -222,6 +236,7 @@
     },
     {
       "order": 14,
+      "declarationOrder": 48,
       "name": "CB_2",
       "type": "Button",
       "page": 1,
@@ -236,6 +251,7 @@
     },
     {
       "order": 15,
+      "declarationOrder": 0,
       "name": "3 A lawful permanent resident Enter USCIS or ANumber",
       "type": "Text",
       "page": 1,
@@ -250,6 +266,7 @@
     },
     {
       "order": 16,
+      "declarationOrder": 49,
       "name": "CB_3",
       "type": "Button",
       "page": 1,
@@ -264,6 +281,7 @@
     },
     {
       "order": 17,
+      "declarationOrder": 103,
       "name": "Exp Date mmddyyyy",
       "type": "Text",
       "page": 1,
@@ -278,6 +296,7 @@
     },
     {
       "order": 18,
+      "declarationOrder": 50,
       "name": "CB_4",
       "type": "Button",
       "page": 1,
@@ -292,6 +311,7 @@
     },
     {
       "order": 19,
+      "declarationOrder": 104,
       "name": "USCIS ANumber",
       "type": "Text",
       "page": 1,
@@ -306,6 +326,7 @@
     },
     {
       "order": 20,
+      "declarationOrder": 105,
       "name": "Form I94 Admission Number",
       "type": "Text",
       "page": 1,
@@ -320,6 +341,7 @@
     },
     {
       "order": 21,
+      "declarationOrder": 106,
       "name": "Foreign Passport Number and Country of IssuanceRow1",
       "type": "Text",
       "page": 1,
@@ -334,6 +356,7 @@
     },
     {
       "order": 22,
+      "declarationOrder": 8,
       "name": "Today\u0027s Date mmddyyy",
       "type": "Text",
       "page": 1,
@@ -348,6 +371,7 @@
     },
     {
       "order": 23,
+      "declarationOrder": 1,
       "name": "Signature of Employee",
       "type": "Text",
       "page": 1,
@@ -362,6 +386,7 @@
     },
     {
       "order": 24,
+      "declarationOrder": 13,
       "name": "List B Document 1 Title",
       "type": "Text",
       "page": 1,
@@ -376,6 +401,7 @@
     },
     {
       "order": 25,
+      "declarationOrder": 117,
       "name": "List C Document Title 1",
       "type": "Text",
       "page": 1,
@@ -390,6 +416,7 @@
     },
     {
       "order": 26,
+      "declarationOrder": 116,
       "name": "List C Issuing Authority 1",
       "type": "Text",
       "page": 1,
@@ -404,6 +431,7 @@
     },
     {
       "order": 27,
+      "declarationOrder": 125,
       "name": "List B Issuing Authority 1",
       "type": "Text",
       "page": 1,
@@ -418,6 +446,7 @@
     },
     {
       "order": 28,
+      "declarationOrder": 108,
       "name": "Issuing Authority 1",
       "type": "Text",
       "page": 1,
@@ -432,6 +461,7 @@
     },
     {
       "order": 29,
+      "declarationOrder": 126,
       "name": "List B Document Number 1",
       "type": "Text",
       "page": 1,
@@ -446,6 +476,7 @@
     },
     {
       "order": 30,
+      "declarationOrder": 115,
       "name": "List C Document Number 1",
       "type": "Text",
       "page": 1,
@@ -460,6 +491,7 @@
     },
     {
       "order": 31,
+      "declarationOrder": 109,
       "name": "Document Number 0 (if any)",
       "type": "Text",
       "page": 1,
@@ -474,6 +506,7 @@
     },
     {
       "order": 32,
+      "declarationOrder": 127,
       "name": "List B Expiration Date 1",
       "type": "Text",
       "page": 1,
@@ -488,6 +521,7 @@
     },
     {
       "order": 33,
+      "declarationOrder": 114,
       "name": "List C Expiration Date 1",
       "type": "Text",
       "page": 1,
@@ -502,6 +536,7 @@
     },
     {
       "order": 34,
+      "declarationOrder": 124,
       "name": "Expiration Date if any",
       "type": "Text",
       "page": 1,
@@ -516,6 +551,7 @@
     },
     {
       "order": 35,
+      "declarationOrder": 110,
       "name": "Document Title 2 If any",
       "type": "Text",
       "page": 1,
@@ -530,6 +566,7 @@
     },
     {
       "order": 36,
+      "declarationOrder": 14,
       "name": "Additional Information",
       "type": "Text",
       "page": 1,
@@ -544,6 +581,7 @@
     },
     {
       "order": 37,
+      "declarationOrder": 111,
       "name": "Issuing Authority_2",
       "type": "Text",
       "page": 1,
@@ -558,6 +596,7 @@
     },
     {
       "order": 38,
+      "declarationOrder": 112,
       "name": "Document Number If any_2",
       "type": "Text",
       "page": 1,
@@ -572,6 +611,7 @@
     },
     {
       "order": 39,
+      "declarationOrder": 9,
       "name": "List A.  Document 2. Expiration Date (if any)",
       "type": "Text",
       "page": 1,
@@ -586,6 +626,7 @@
     },
     {
       "order": 40,
+      "declarationOrder": 10,
       "name": "List A.   Document Title 3.  If any",
       "type": "Text",
       "page": 1,
@@ -600,6 +641,7 @@
     },
     {
       "order": 41,
+      "declarationOrder": 11,
       "name": "List A. Document 3.  Enter Issuing Authority",
       "type": "Text",
       "page": 1,
@@ -614,6 +656,7 @@
     },
     {
       "order": 42,
+      "declarationOrder": 12,
       "name": "List A.  Document 3 Number.  If any",
       "type": "Text",
       "page": 1,
@@ -628,6 +671,7 @@
     },
     {
       "order": 43,
+      "declarationOrder": 113,
       "name": "Document Number if any_3",
       "type": "Text",
       "page": 1,
@@ -642,6 +686,7 @@
     },
     {
       "order": 44,
+      "declarationOrder": 90,
       "name": "CB_Alt",
       "type": "Button",
       "page": 1,
@@ -656,6 +701,7 @@
     },
     {
       "order": 45,
+      "declarationOrder": 118,
       "name": "FirstDayEmployed mmddyyyy",
       "type": "Text",
       "page": 1,
@@ -670,6 +716,7 @@
     },
     {
       "order": 46,
+      "declarationOrder": 120,
       "name": "Last Name First Name and Title of Employer or Authorized Representative",
       "type": "Text",
       "page": 1,
@@ -684,6 +731,7 @@
     },
     {
       "order": 47,
+      "declarationOrder": 121,
       "name": "Signature of Employer or AR",
       "type": "Text",
       "page": 1,
@@ -698,6 +746,7 @@
     },
     {
       "order": 48,
+      "declarationOrder": 119,
       "name": "S2 Todays Date mmddyyyy",
       "type": "Text",
       "page": 1,
@@ -712,6 +761,7 @@
     },
     {
       "order": 49,
+      "declarationOrder": 122,
       "name": "Employers Business or Org Name",
       "type": "Text",
       "page": 1,
@@ -726,6 +776,7 @@
     },
     {
       "order": 50,
+      "declarationOrder": 123,
       "name": "Employers Business or Org Address",
       "type": "Text",
       "page": 1,
@@ -740,6 +791,7 @@
     },
     {
       "order": 51,
+      "declarationOrder": 2,
       "name": "Last Name Family Name from Section 1",
       "type": "Text",
       "page": 3,
@@ -754,6 +806,7 @@
     },
     {
       "order": 52,
+      "declarationOrder": 3,
       "name": "First Name Given Name from Section 1",
       "type": "Text",
       "page": 3,
@@ -768,6 +821,7 @@
     },
     {
       "order": 53,
+      "declarationOrder": 4,
       "name": "Middle initial if any from Section 1",
       "type": "Text",
       "page": 3,
@@ -782,6 +836,7 @@
     },
     {
       "order": 54,
+      "declarationOrder": 20,
       "name": "Signature of Preparer or Translator 0",
       "type": "Text",
       "page": 3,
@@ -796,6 +851,7 @@
     },
     {
       "order": 55,
+      "declarationOrder": 17,
       "name": "Sig Date mmddyyyy 0",
       "type": "Text",
       "page": 3,
@@ -810,6 +866,7 @@
     },
     {
       "order": 56,
+      "declarationOrder": 31,
       "name": "Preparer or Translator First Name (Given Name) 0",
       "type": "Text",
       "page": 3,
@@ -824,6 +881,7 @@
     },
     {
       "order": 57,
+      "declarationOrder": 66,
       "name": "PT Middle Initial 0",
       "type": "Text",
       "page": 3,
@@ -838,6 +896,7 @@
     },
     {
       "order": 58,
+      "declarationOrder": 24,
       "name": "Preparer or Translator Last Name (Family Name) 0",
       "type": "Text",
       "page": 3,
@@ -852,6 +911,7 @@
     },
     {
       "order": 59,
+      "declarationOrder": 35,
       "name": "Preparer or Translator City or Town 0",
       "type": "Text",
       "page": 3,
@@ -866,6 +926,7 @@
     },
     {
       "order": 60,
+      "declarationOrder": 39,
       "name": "Preparer State 0",
       "type": "Choice",
       "page": 3,
@@ -880,6 +941,7 @@
     },
     {
       "order": 61,
+      "declarationOrder": 43,
       "name": "Zip Code 0",
       "type": "Text",
       "page": 3,
@@ -894,6 +956,7 @@
     },
     {
       "order": 62,
+      "declarationOrder": 27,
       "name": "Preparer or Translator Address (Street Number and Name) 0",
       "type": "Text",
       "page": 3,
@@ -908,6 +971,7 @@
     },
     {
       "order": 63,
+      "declarationOrder": 21,
       "name": "Signature of Preparer or Translator 1",
       "type": "Text",
       "page": 3,
@@ -922,6 +986,7 @@
     },
     {
       "order": 64,
+      "declarationOrder": 16,
       "name": "Sig Date mmddyyyy 1",
       "type": "Text",
       "page": 3,
@@ -936,6 +1001,7 @@
     },
     {
       "order": 65,
+      "declarationOrder": 32,
       "name": "Preparer or Translator Last Name (Family Name) 1",
       "type": "Text",
       "page": 3,
@@ -950,6 +1016,7 @@
     },
     {
       "order": 66,
+      "declarationOrder": 67,
       "name": "PT Middle Initial 1",
       "type": "Text",
       "page": 3,
@@ -964,6 +1031,7 @@
     },
     {
       "order": 67,
+      "declarationOrder": 36,
       "name": "Preparer or Translator City or Town 1",
       "type": "Text",
       "page": 3,
@@ -978,6 +1046,7 @@
     },
     {
       "order": 68,
+      "declarationOrder": 40,
       "name": "Preparer State 1",
       "type": "Choice",
       "page": 3,
@@ -992,6 +1061,7 @@
     },
     {
       "order": 69,
+      "declarationOrder": 44,
       "name": "Zip Code 1",
       "type": "Text",
       "page": 3,
@@ -1006,6 +1076,7 @@
     },
     {
       "order": 70,
+      "declarationOrder": 28,
       "name": "Preparer or Translator Address (Street Number and Name) 1",
       "type": "Text",
       "page": 3,
@@ -1020,6 +1091,7 @@
     },
     {
       "order": 71,
+      "declarationOrder": 22,
       "name": "Signature of Preparer or Translator 2",
       "type": "Text",
       "page": 3,
@@ -1034,6 +1106,7 @@
     },
     {
       "order": 72,
+      "declarationOrder": 18,
       "name": "Sig Date mmddyyyy 2",
       "type": "Text",
       "page": 3,
@@ -1048,6 +1121,7 @@
     },
     {
       "order": 73,
+      "declarationOrder": 25,
       "name": "Preparer or Translator Last Name (Family Name) 2",
       "type": "Text",
       "page": 3,
@@ -1062,6 +1136,7 @@
     },
     {
       "order": 74,
+      "declarationOrder": 33,
       "name": "Preparer or Translator First Name (Given Name) 2",
       "type": "Text",
       "page": 3,
@@ -1076,6 +1151,7 @@
     },
     {
       "order": 75,
+      "declarationOrder": 68,
       "name": "PT Middle Initial 2",
       "type": "Text",
       "page": 3,
@@ -1090,6 +1166,7 @@
     },
     {
       "order": 76,
+      "declarationOrder": 41,
       "name": "Preparer State 2",
       "type": "Choice",
       "page": 3,
@@ -1104,6 +1181,7 @@
     },
     {
       "order": 77,
+      "declarationOrder": 29,
       "name": "Preparer or Translator Address (Street Number and Name) 2",
       "type": "Text",
       "page": 3,
@@ -1118,6 +1196,7 @@
     },
     {
       "order": 78,
+      "declarationOrder": 37,
       "name": "Preparer or Translator City or Town 2",
       "type": "Text",
       "page": 3,
@@ -1132,6 +1211,7 @@
     },
     {
       "order": 79,
+      "declarationOrder": 45,
       "name": "Zip Code 2",
       "type": "Text",
       "page": 3,
@@ -1146,6 +1226,7 @@
     },
     {
       "order": 80,
+      "declarationOrder": 23,
       "name": "Signature of Preparer or Translator 3",
       "type": "Text",
       "page": 3,
@@ -1160,6 +1241,7 @@
     },
     {
       "order": 81,
+      "declarationOrder": 19,
       "name": "Sig Date mmddyyyy 3",
       "type": "Text",
       "page": 3,
@@ -1174,6 +1256,7 @@
     },
     {
       "order": 82,
+      "declarationOrder": 26,
       "name": "Preparer or Translator Last Name (Family Name) 3",
       "type": "Text",
       "page": 3,
@@ -1188,6 +1271,7 @@
     },
     {
       "order": 83,
+      "declarationOrder": 34,
       "name": "Preparer or Translator First Name (Given Name) 3",
       "type": "Text",
       "page": 3,
@@ -1202,6 +1286,7 @@
     },
     {
       "order": 84,
+      "declarationOrder": 69,
       "name": "PT Middle Initial 3",
       "type": "Text",
       "page": 3,
@@ -1216,6 +1301,7 @@
     },
     {
       "order": 85,
+      "declarationOrder": 42,
       "name": "Preparer State 3",
       "type": "Choice",
       "page": 3,
@@ -1230,6 +1316,7 @@
     },
     {
       "order": 86,
+      "declarationOrder": 38,
       "name": "Preparer or Translator City or Town 3",
       "type": "Text",
       "page": 3,
@@ -1244,6 +1331,7 @@
     },
     {
       "order": 87,
+      "declarationOrder": 46,
       "name": "Zip Code 3",
       "type": "Text",
       "page": 3,
@@ -1258,6 +1346,7 @@
     },
     {
       "order": 88,
+      "declarationOrder": 30,
       "name": "Preparer or Translator Address (Street Number and Name) 3",
       "type": "Text",
       "page": 3,
@@ -1272,6 +1361,7 @@
     },
     {
       "order": 89,
+      "declarationOrder": 91,
       "name": "Last Name Family Name from Section 1-2",
       "type": "Text",
       "page": 4,
@@ -1286,6 +1376,7 @@
     },
     {
       "order": 90,
+      "declarationOrder": 92,
       "name": "First Name Given Name from Section 1-2",
       "type": "Text",
       "page": 4,
@@ -1300,6 +1391,7 @@
     },
     {
       "order": 91,
+      "declarationOrder": 15,
       "name": "Middle initial if any from Section 1-2",
       "type": "Text",
       "page": 4,
@@ -1314,6 +1406,7 @@
     },
     {
       "order": 92,
+      "declarationOrder": 57,
       "name": "Last Name 0",
       "type": "Text",
       "page": 4,
@@ -1328,6 +1421,7 @@
     },
     {
       "order": 93,
+      "declarationOrder": 60,
       "name": "First Name 0",
       "type": "Text",
       "page": 4,
@@ -1342,6 +1436,7 @@
     },
     {
       "order": 94,
+      "declarationOrder": 63,
       "name": "Middle Initial 0",
       "type": "Text",
       "page": 4,
@@ -1356,6 +1451,7 @@
     },
     {
       "order": 95,
+      "declarationOrder": 51,
       "name": "Date of Rehire 0",
       "type": "Text",
       "page": 4,
@@ -1370,6 +1466,7 @@
     },
     {
       "order": 96,
+      "declarationOrder": 70,
       "name": "Document Title 0",
       "type": "Text",
       "page": 4,
@@ -1384,6 +1481,7 @@
     },
     {
       "order": 97,
+      "declarationOrder": 72,
       "name": "Document Number 0",
       "type": "Text",
       "page": 4,
@@ -1398,6 +1496,7 @@
     },
     {
       "order": 98,
+      "declarationOrder": 75,
       "name": "Expiration Date 0",
       "type": "Text",
       "page": 4,
@@ -1412,6 +1511,7 @@
     },
     {
       "order": 99,
+      "declarationOrder": 78,
       "name": "Name of Emp or Auth Rep 0",
       "type": "Text",
       "page": 4,
@@ -1426,6 +1526,7 @@
     },
     {
       "order": 100,
+      "declarationOrder": 81,
       "name": "Signature of Emp Rep 0",
       "type": "Text",
       "page": 4,
@@ -1440,6 +1541,7 @@
     },
     {
       "order": 101,
+      "declarationOrder": 54,
       "name": "Todays Date 0",
       "type": "Text",
       "page": 4,
@@ -1454,6 +1556,7 @@
     },
     {
       "order": 102,
+      "declarationOrder": 87,
       "name": "Addtl Info 0",
       "type": "Text",
       "page": 4,
@@ -1468,6 +1571,7 @@
     },
     {
       "order": 103,
+      "declarationOrder": 84,
       "name": "CB_Alt_0",
       "type": "Button",
       "page": 4,
@@ -1482,6 +1586,7 @@
     },
     {
       "order": 104,
+      "declarationOrder": 52,
       "name": "Date of Rehire 1",
       "type": "Text",
       "page": 4,
@@ -1496,6 +1601,7 @@
     },
     {
       "order": 105,
+      "declarationOrder": 58,
       "name": "Last Name 1",
       "type": "Text",
       "page": 4,
@@ -1510,6 +1616,7 @@
     },
     {
       "order": 106,
+      "declarationOrder": 61,
       "name": "First Name 1",
       "type": "Text",
       "page": 4,
@@ -1524,6 +1631,7 @@
     },
     {
       "order": 107,
+      "declarationOrder": 64,
       "name": "Middle Initial 1",
       "type": "Text",
       "page": 4,
@@ -1538,6 +1646,7 @@
     },
     {
       "order": 108,
+      "declarationOrder": 107,
       "name": "Document Title 1",
       "type": "Text",
       "page": 4,
@@ -1552,6 +1661,7 @@
     },
     {
       "order": 109,
+      "declarationOrder": 73,
       "name": "Document Number 1",
       "type": "Text",
       "page": 4,
@@ -1566,6 +1676,7 @@
     },
     {
       "order": 110,
+      "declarationOrder": 77,
       "name": "Expiration Date 1",
       "type": "Text",
       "page": 4,
@@ -1580,6 +1691,7 @@
     },
     {
       "order": 111,
+      "declarationOrder": 82,
       "name": "Signature of Emp Rep 1",
       "type": "Text",
       "page": 4,
@@ -1594,6 +1706,7 @@
     },
     {
       "order": 112,
+      "declarationOrder": 55,
       "name": "Todays Date 1",
       "type": "Text",
       "page": 4,
@@ -1608,6 +1721,7 @@
     },
     {
       "order": 113,
+      "declarationOrder": 79,
       "name": "Name of Emp or Auth Rep 1",
       "type": "Text",
       "page": 4,
@@ -1622,6 +1736,7 @@
     },
     {
       "order": 114,
+      "declarationOrder": 89,
       "name": "Addtl Info 1",
       "type": "Text",
       "page": 4,
@@ -1636,6 +1751,7 @@
     },
     {
       "order": 115,
+      "declarationOrder": 85,
       "name": "CB_Alt_1",
       "type": "Button",
       "page": 4,
@@ -1650,6 +1766,7 @@
     },
     {
       "order": 116,
+      "declarationOrder": 53,
       "name": "Date of Rehire 2",
       "type": "Text",
       "page": 4,
@@ -1664,6 +1781,7 @@
     },
     {
       "order": 117,
+      "declarationOrder": 59,
       "name": "Last Name 2",
       "type": "Text",
       "page": 4,
@@ -1678,6 +1796,7 @@
     },
     {
       "order": 118,
+      "declarationOrder": 62,
       "name": "First Name 2",
       "type": "Text",
       "page": 4,
@@ -1692,6 +1811,7 @@
     },
     {
       "order": 119,
+      "declarationOrder": 65,
       "name": "Middle Initial 2",
       "type": "Text",
       "page": 4,
@@ -1706,6 +1826,7 @@
     },
     {
       "order": 120,
+      "declarationOrder": 71,
       "name": "Document Title 2",
       "type": "Text",
       "page": 4,
@@ -1720,6 +1841,7 @@
     },
     {
       "order": 121,
+      "declarationOrder": 74,
       "name": "Document Number 2",
       "type": "Text",
       "page": 4,
@@ -1734,6 +1856,7 @@
     },
     {
       "order": 122,
+      "declarationOrder": 76,
       "name": "Expiration Date 2",
       "type": "Text",
       "page": 4,
@@ -1748,6 +1871,7 @@
     },
     {
       "order": 123,
+      "declarationOrder": 80,
       "name": "Name of Emp or Auth Rep 2",
       "type": "Text",
       "page": 4,
@@ -1762,6 +1886,7 @@
     },
     {
       "order": 124,
+      "declarationOrder": 83,
       "name": "Signature of Emp Rep 2",
       "type": "Text",
       "page": 4,
@@ -1776,6 +1901,7 @@
     },
     {
       "order": 125,
+      "declarationOrder": 56,
       "name": "Todays Date 2",
       "type": "Text",
       "page": 4,
@@ -1790,6 +1916,7 @@
     },
     {
       "order": 126,
+      "declarationOrder": 88,
       "name": "Addtl Info 2",
       "type": "Text",
       "page": 4,
@@ -1804,6 +1931,7 @@
     },
     {
       "order": 127,
+      "declarationOrder": 86,
       "name": "CB_Alt_2",
       "type": "Button",
       "page": 4,

@@ -11,6 +11,7 @@
   "fields": [
     {
       "order": 0,
+      "declarationOrder": 0,
       "name": "FillText1",
       "type": "Text",
       "page": 1,
@@ -24,6 +25,7 @@
     },
     {
       "order": 1,
+      "declarationOrder": 1,
       "name": "FillText2",
       "type": "Text",
       "page": 1,
@@ -37,6 +39,7 @@
     },
     {
       "order": 2,
+      "declarationOrder": 2,
       "name": "FillText3",
       "type": "Text",
       "page": 1,
@@ -50,6 +53,7 @@
     },
     {
       "order": 3,
+      "declarationOrder": 3,
       "name": "FillText4",
       "type": "Text",
       "page": 1,
@@ -63,6 +67,7 @@
     },
     {
       "order": 4,
+      "declarationOrder": 4,
       "name": "FillText5",
       "type": "Text",
       "page": 1,
@@ -76,6 +81,7 @@
     },
     {
       "order": 5,
+      "declarationOrder": 5,
       "name": "FillText6",
       "type": "Text",
       "page": 1,
@@ -89,6 +95,7 @@
     },
     {
       "order": 6,
+      "declarationOrder": 6,
       "name": "FillText7",
       "type": "Text",
       "page": 1,
@@ -102,6 +109,7 @@
     },
     {
       "order": 7,
+      "declarationOrder": 7,
       "name": "FillText8",
       "type": "Text",
       "page": 1,
@@ -115,6 +123,7 @@
     },
     {
       "order": 8,
+      "declarationOrder": 8,
       "name": "FillText9",
       "type": "Text",
       "page": 1,
