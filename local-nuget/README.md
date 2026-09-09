@@ -10,7 +10,7 @@ PromptResponse build is reproducible without the pdfe source checked out.
 
 | Package | Version | Purpose |
 |---------|---------|---------|
-| `Excise.Core` | 3.8.0 | Pure-managed PDF authoring engine (MIT). Used by `PromptResponse.Rendering.Pdf` for PDF export. |
+| `Excise.Core` | 3.9.4 | Pure-managed PDF engine (MIT). Used by `PromptResponse.Rendering.Pdf` for PDF export and AcroForm import. |
 
 ## Refreshing after a pdfe change
 

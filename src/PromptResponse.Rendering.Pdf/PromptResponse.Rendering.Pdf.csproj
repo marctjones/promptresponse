@@ -11,7 +11,7 @@
       ../../local-nuget/README.md). MIT is compatible with the project's
       AGPL-3.0-or-later license.
     -->
-    <PackageReference Include="Excise.Core" Version="3.8.0" />
+    <PackageReference Include="Excise.Core" Version="3.9.4" />
   </ItemGroup>
 
   <ItemGroup>
