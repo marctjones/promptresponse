@@ -147,12 +147,40 @@ public class PdfWidgetManifestTests
     }
 
     [Fact]
+    public void ADerivedFlatFormInheritsItsSourcesFieldListAsAnAnswerKey()
+    {
+        // The reason the derived fixtures are worth more than the non-fillable
+        // forms found in the wild. `fed-w9-flat` is what a converter must handle:
+        // a printed federal form with no fields of its own. But it was made by
+        // flattening `fed-w9`, so `fed-w9`'s AcroForm states exactly which fields
+        // a correct conversion should recover -- names, types, options, and widget
+        // geometry -- with no human and no model in the loop.
+        //
+        // This is the only route to mechanical ground truth for the converter's
+        // actual target case, and `derivedFrom` in corpus_manifest.json is the
+        // link that makes it available.
+        var flat = PdfWidgetManifest.Extract(CorpusPath("fed-w9-flat"));
+        var oracle = PdfWidgetManifest.Extract(CorpusPath("fed-w9"));
+
+        flat.Importable.Should().BeEmpty("the flattened form declares no fields of its own");
+        oracle.Importable.Should().NotBeEmpty(
+            "its source does, and that list is the answer key for converting the flat one");
+
+        // Guard the link itself: if flattening ever started preserving widgets,
+        // or the two files drifted apart, the answer key would stop describing
+        // the fixture it is supposed to grade.
+        PdfSourceDetector.Detect(CorpusPath("fed-w9-flat")).Pages.Count
+            .Should().Be(PdfSourceDetector.Detect(CorpusPath("fed-w9")).Pages.Count,
+                "an answer key only applies if it describes the same pages");
+    }
+
+    [Fact]
     public void ANonFillableFormHasNoMechanicalOracle()
     {
         // The converter-development half of the corpus. Being honest about this is
         // the point: for the converter's actual target case, "did we find every
         // field" has no free answer and needs real reference data.
-        var path = Path.Combine(RepoRoot, "scripts", "pdf-form-benchmark", "corpus", "bloomfield-citizen-complaint.pdf");
+        var path = CorpusPath("bloomfield-citizen-complaint");
         File.Exists(path).Should().BeTrue();
 
         var manifest = PdfWidgetManifest.Extract(path);
@@ -163,6 +191,9 @@ public class PdfWidgetManifestTests
             "this oracle cannot grade the converter's target case, and must not be read as " +
             "evidence that it did well");
     }
+
+    private static string CorpusPath(string id) =>
+        Path.Combine(RepoRoot, "scripts", "pdf-form-benchmark", "corpus", $"{id}.pdf");
 
     private static string RepoRoot => Path.GetFullPath(
         Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", ".."));

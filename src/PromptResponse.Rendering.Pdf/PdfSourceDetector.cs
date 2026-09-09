@@ -93,9 +93,10 @@ public static class PdfSourceDetector
     /// Non-whitespace characters a page needs before its text layer counts as usable.
     /// </summary>
     /// <remarks>
-    /// Measured across the 11 real federal and Connecticut forms in
-    /// <c>scripts/pdf-form-benchmark/corpus/</c>, the split is not close: the one
-    /// scanned form (CT DMV A-25) extracts <b>0</b> characters, while every
+    /// Measured across the real federal and Connecticut forms in
+    /// <c>scripts/pdf-form-benchmark/corpus/</c>, the split is not close: the
+    /// image-only forms (CT DMV A-25, and the two derived fixtures built from a
+    /// scan and a rasterized printout) extract <b>0</b> characters, while every
     /// digitally-authored form yields <b>2,673-31,411</b> for the document. There is
     /// no middle ground to adjudicate, so this sits just clear of zero rather than
     /// at some fraction of the observed range — the point is to ignore a stray mark

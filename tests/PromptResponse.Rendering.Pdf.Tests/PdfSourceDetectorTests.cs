@@ -111,6 +111,7 @@ public class PdfSourceDetectorTests
         var both = PdfSourceDetector.Detect(new FillablePdfDocumentRenderer().RenderToBytes(SourceForm()));
         var textOnly = PdfSourceDetector.Detect(new PdfDocumentRenderer().RenderToBytes(SourceForm()));
         var fieldsOnly = PdfSourceDetector.Detect(ScannedCorpusForm());
+        var neither = PdfSourceDetector.Detect(CorpusForm("ct-dmv-a25-flat"));
 
         // The point of a flags enum here: "has an AcroForm" and "has text" are
         // independent facts, and the interesting case is holding both at once.
@@ -118,11 +119,55 @@ public class PdfSourceDetectorTests
         textOnly.Sources.Should().Be(PdfFieldSources.TextLayer);
         fieldsOnly.Sources.Should().Be(PdfFieldSources.AcroForm);
 
-        // Three of the four combinations, from real and rendered documents. The
-        // fourth -- None, a scan with no widgets over it -- has no fixture: every
-        // one of the 11 corpus forms turned out to carry an AcroForm. Rather than
-        // assert it against a document that does not exist, this is left uncovered
-        // and recorded as a corpus gap.
+        // The fourth combination, which went uncovered while every corpus form
+        // turned out to carry an AcroForm. It is the same A-25 scan as
+        // `fieldsOnly` with its widgets removed, so the pair isolates exactly one
+        // variable: same pixels, same absent text, AcroForm or not.
+        neither.Sources.Should().Be(PdfFieldSources.None);
+        neither.IsImageOnly.Should().BeTrue(
+            "pixels are all there is, so this is the one case that genuinely needs OCR");
+    }
+
+    [Fact]
+    public void TheDerivedFixturesAreWhatTheManifestClaims()
+    {
+        // Fixtures synthesized by scripts/pdf-form-benchmark/synthesize_fixtures.py.
+        // They exist because agencies have almost entirely moved to fillable PDFs:
+        // all five federal corpus forms carry an AcroForm, so without these there
+        // is no federal non-AcroForm case and no image-only case at all.
+        //
+        // Asserting the claim rather than trusting it matters here, because the
+        // flattener is a third-party tool: if a poppler upgrade started preserving
+        // widgets, or dropped the text layer, these fixtures would quietly stop
+        // testing what they were built to test.
+        foreach (var id in new[] { "fed-w9-flat", "fed-ss4-flat", "fed-8822-flat", "ct-w4-flat", "ct-dmv-j23-flat" })
+        {
+            var report = PdfSourceDetector.Detect(CorpusForm(id));
+            report.HasAcroForm.Should().BeFalse($"{id} was printed to a flat PDF, which drops the widgets");
+            report.HasTextLayer.Should().BeTrue($"{id} was printed, not scanned, so its text survives exactly");
+            report.Sources.Should().Be(PdfFieldSources.TextLayer);
+        }
+
+        foreach (var id in new[] { "ct-dmv-a25-flat", "fed-8822-scan" })
+        {
+            PdfSourceDetector.Detect(CorpusForm(id)).IsImageOnly.Should().BeTrue(
+                $"{id} is an image-only page and must stay one");
+        }
+    }
+
+    [Fact]
+    public void AFlattenedFormKeepsEveryWordOfItsSource()
+    {
+        // The reason a flattened fixture is a fair test of the converter's
+        // text-layer path and not a degraded one: printing to PDF re-encodes the
+        // page, and a flattener that subtly dropped or reordered text would make
+        // the fixture easier or harder than the form it came from, invisibly.
+        var source = PdfSourceDetector.Detect(CorpusForm("fed-w9"));
+        var flat = PdfSourceDetector.Detect(CorpusForm("fed-w9-flat"));
+
+        flat.CharacterCount.Should().Be(source.CharacterCount,
+            "flattening removes the widgets, not the words");
+        flat.Pages.Should().HaveCount(source.Pages.Count);
     }
 
     /// <summary>
@@ -131,13 +176,19 @@ public class PdfSourceDetectorTests
     /// corpus rather than copied into <c>tests/Fixtures</c>, because that folder's
     /// README states source PDFs are deliberately not committed there.
     /// </summary>
-    private static byte[] ScannedCorpusForm()
+    private static byte[] ScannedCorpusForm() => CorpusForm("ct-dmv-a25");
+
+    /// <summary>
+    /// Reads a form from the benchmark corpus rather than <c>tests/Fixtures</c>,
+    /// because that folder's README states source PDFs are deliberately not
+    /// committed there.
+    /// </summary>
+    private static byte[] CorpusForm(string id)
     {
-        var path = Path.Combine(RepoRoot, "scripts", "pdf-form-benchmark", "corpus", "ct-dmv-a25.pdf");
+        var path = Path.Combine(RepoRoot, "scripts", "pdf-form-benchmark", "corpus", $"{id}.pdf");
         File.Exists(path).Should().BeTrue(
-            $"the scanned fixture is committed at {path}; without it this suite would " +
-            "silently stop covering the no-text-layer case, which is the one a binary " +
-            "scanned/not-scanned check gets wrong");
+            $"{id} is a committed corpus form; without it this suite would silently " +
+            "stop covering whichever source combination it stands for");
         return File.ReadAllBytes(path);
     }
 
