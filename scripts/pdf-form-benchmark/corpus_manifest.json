@@ -6,7 +6,10 @@
       "jurisdiction": "federal",
       "agency": "IRS",
       "url": "https://www.irs.gov/pub/irs-pdf/fw9.pdf",
-      "difficulty": "simple"
+      "difficulty": "simple",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
     },
     {
       "id": "fed-w4",
@@ -14,7 +17,10 @@
       "jurisdiction": "federal",
       "agency": "IRS",
       "url": "https://www.irs.gov/pub/irs-pdf/fw4.pdf",
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
     },
     {
       "id": "fed-ss4",
@@ -22,7 +28,10 @@
       "jurisdiction": "federal",
       "agency": "IRS",
       "url": "https://www.irs.gov/pub/irs-pdf/fss4.pdf",
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
     },
     {
       "id": "fed-8822",
@@ -30,7 +39,10 @@
       "jurisdiction": "federal",
       "agency": "IRS",
       "url": "https://www.irs.gov/pub/irs-pdf/f8822.pdf",
-      "difficulty": "simple"
+      "difficulty": "simple",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
     },
     {
       "id": "fed-i9",
@@ -38,7 +50,10 @@
       "jurisdiction": "federal",
       "agency": "USCIS",
       "url": "https://www.uscis.gov/sites/default/files/document/forms/i-9.pdf",
-      "difficulty": "complex"
+      "difficulty": "complex",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
     },
     {
       "id": "ct-w4",
@@ -46,7 +61,10 @@
       "jurisdiction": "connecticut",
       "agency": "DRS",
       "url": "https://portal.ct.gov/-/media/drs/forms/2026/wth/ct-w4_1225fillable.pdf",
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
     },
     {
       "id": "ct-dmv-j23",
@@ -54,7 +72,10 @@
       "jurisdiction": "connecticut",
       "agency": "DMV",
       "url": "https://portal.ct.gov/-/media/DMV/20/29/J23pdf.pdf",
-      "difficulty": "simple"
+      "difficulty": "simple",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
     },
     {
       "id": "ct-dmv-b58ind",
@@ -62,7 +83,10 @@
       "jurisdiction": "connecticut",
       "agency": "DMV",
       "url": "https://portal.ct.gov/-/media/DMV/20/29/B58INDpdf.pdf",
-      "difficulty": "simple"
+      "difficulty": "simple",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
     },
     {
       "id": "ct-dmv-a25",
@@ -70,7 +94,10 @@
       "jurisdiction": "connecticut",
       "agency": "DMV",
       "url": "https://portal.ct.gov/-/media/DMV/20/29/A25pdf.pdf",
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": false
     },
     {
       "id": "ct-dmv-a83",
@@ -78,7 +105,10 @@
       "jurisdiction": "connecticut",
       "agency": "DMV",
       "url": "https://portal.ct.gov/-/media/DMV/20/29/A83pdf.pdf",
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
     },
     {
       "id": "ct-dmv-b225p",
@@ -86,7 +116,98 @@
       "jurisdiction": "connecticut",
       "agency": "DMV",
       "url": "https://portal.ct.gov/-/media/DMV/20/29/B225Ppdf.pdf",
-      "difficulty": "complex"
+      "difficulty": "complex",
+      "role": "model-benchmark",
+      "hasAcroForm": true,
+      "hasTextLayer": true
+    },
+    {
+      "id": "bloomfield-vacant-house",
+      "name": "Town of Bloomfield CT Form BPD-Z18 (Vacant House Notice)",
+      "jurisdiction": "connecticut",
+      "agency": "Town of Bloomfield",
+      "url": "https://www.bloomfieldct.gov/DocumentCenter/View/533/BPD-Z18-Vacant-House-Notice-PDF",
+      "difficulty": "simple",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true
+    },
+    {
+      "id": "bloomfield-records-request",
+      "name": "Town of Bloomfield CT Form BPD-Z15 (Public Records Request)",
+      "jurisdiction": "connecticut",
+      "agency": "Town of Bloomfield",
+      "url": "https://www.bloomfieldct.gov/DocumentCenter/View/532/BPD-Z15-Public-Records-Request-PDF",
+      "difficulty": "simple",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true
+    },
+    {
+      "id": "bloomfield-child-safety-seat",
+      "name": "Town of Bloomfield CT Child Safety Seat Installation Request",
+      "jurisdiction": "connecticut",
+      "agency": "Town of Bloomfield",
+      "url": "https://www.bloomfieldct.gov/DocumentCenter/View/537/Child-Safety-Seat-Installation-PDF",
+      "difficulty": "simple",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true
+    },
+    {
+      "id": "bloomfield-citation-appeal",
+      "name": "Town of Bloomfield CT Form BPD-134 (Citation Appeal)",
+      "jurisdiction": "connecticut",
+      "agency": "Town of Bloomfield",
+      "url": "https://www.bloomfieldct.gov/DocumentCenter/View/539/BPD-134-Citation-Appeal-Form-PDF",
+      "difficulty": "simple",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true
+    },
+    {
+      "id": "bloomfield-commend-employee",
+      "name": "Town of Bloomfield CT Form BPD-Z01 (Commend a Police Department Employee)",
+      "jurisdiction": "connecticut",
+      "agency": "Town of Bloomfield",
+      "url": "https://www.bloomfieldct.gov/DocumentCenter/View/542/BPD-Z01-Commend-a-Police-Department-Employee-PDF",
+      "difficulty": "simple",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true
+    },
+    {
+      "id": "bloomfield-citizen-complaint",
+      "name": "Town of Bloomfield CT Form BPD-Z03 (Uniform Citizen's Complaint Report)",
+      "jurisdiction": "connecticut",
+      "agency": "Town of Bloomfield",
+      "url": "https://www.bloomfieldct.gov/DocumentCenter/View/531/BPD-Z03-Uniform-Citizens-Complaint-Report-PDF",
+      "difficulty": "medium",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true
+    },
+    {
+      "id": "bloomfield-program-waiver",
+      "name": "Town of Bloomfield CT Form BPD-Z32 (Police Program Application and Waiver)",
+      "jurisdiction": "connecticut",
+      "agency": "Town of Bloomfield",
+      "url": "https://www.bloomfieldct.gov/DocumentCenter/View/534/BPD-Z32-Police-Program-Application-and-Waiver-PDF",
+      "difficulty": "medium",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true
+    },
+    {
+      "id": "bloomfield-dog-adoption",
+      "name": "Town of Bloomfield CT Form BPD-D30 (Dog Adoption Application)",
+      "jurisdiction": "connecticut",
+      "agency": "Town of Bloomfield",
+      "url": "https://www.bloomfieldct.gov/DocumentCenter/View/540/BPD-D30-Dog-Adoption-Application-PDF",
+      "difficulty": "medium",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true
     }
   ]
 }

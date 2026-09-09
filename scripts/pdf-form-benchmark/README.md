@@ -18,7 +18,8 @@ full model survey; this directory is the empirical follow-up.
 ## What's here
 
 ```
-corpus_manifest.json   11 real PDF forms (5 federal, 6 Connecticut), verified URLs
+corpus_manifest.json   19 real PDF forms, verified URLs, each tagged with its role
+                       and its measured composition (hasAcroForm / hasTextLayer)
 corpus/                the downloaded PDFs
 ground_truth/          hand-verified {sections, fields} per form -- the answer key
 models.json            the models under test, their MLX repo, and prompting strategy
@@ -37,6 +38,33 @@ worker.py              loads ONE model, runs it over the forms it's given -- nev
 score.py               compare results/aprt/*/*.aprt against ground_truth/*.json
 results/               raw model output, generated .aprt files, scorecard, report
 ```
+
+## The corpus has two halves, for two different jobs
+
+`corpus_manifest.json` tags each form with a `role`:
+
+- **`model-benchmark`** (11 forms: 5 federal, 6 Connecticut) — what the model
+  comparison below was scored on. Ground truth exists for these.
+- **`converter-development`** (8 forms, Town of Bloomfield CT) — added later,
+  for the deterministic converter. No ground truth yet.
+
+The split exists because measuring the original 11 with `PdfSourceDetector`
+turned up something that undercut them as converter fixtures: **all 11 carry an
+AcroForm.** Every document the vision models were asked to read visually could
+have been imported mechanically instead. That does not invalidate the model
+scores — they measure visual reading, which is what those models do — but it
+means the corpus contained no example of the converter's actual target case, a
+form with no form fields at all.
+
+The eight Bloomfield forms fill that gap: municipal print-and-fill forms,
+0 AcroForm fields, 577–6,459 characters of real text, 1–4 pages. Each was
+vetted with the detector before being added rather than assumed non-fillable —
+two further candidates were rejected for turning out to have AcroForms.
+
+One form is worth knowing about individually: **`ct-dmv-a25` is a scan with
+real AcroForm widgets laid over it** — 0 extractable characters and 10
+importable fields. It is the case a binary "is this scanned?" check gets wrong,
+and the only no-text-layer example available.
 
 ## Resource safety (read this before running it)
 
