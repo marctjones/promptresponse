@@ -8,14 +8,18 @@ It carries content only — no layout, no styling, no code.
 
 ```json
 {
-  "version": "1.0",
+  "aprVersion": "1.0-beta.6",
   "documentType": "template",
   "metadata": { ... },
   "sections": [ ... ]
 }
 ```
 
-- `version` — always `"1.0"`.
+- `aprVersion` — the format version this document declares. Use
+  `"1.0-beta.6"`: that is what the current validator accepts, and a document
+  declaring anything else is rejected. (The key is `aprVersion`, not
+  `version`; a document using `version` fails validation with
+  `UNSUPPORTED_VERSION`.)
 - `documentType` — `"template"` (blank form) or `"filledForm"` (has answers). When
   importing, always `"template"`.
 - `metadata` — see below.

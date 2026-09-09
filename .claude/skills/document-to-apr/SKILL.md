@@ -101,7 +101,9 @@ reconstruct it faithfully. That is the whole point of doing this as a skill.
 
 ## Hard rules (these make or break validation)
 
-- `version` is `"1.0"`; `documentType` is `"template"`.
+- `aprVersion` is `"1.0-beta.6"` (the key is `aprVersion`, not `version` —
+  a document using `version` is rejected with `UNSUPPORTED_VERSION`);
+  `documentType` is `"template"`.
 - `metadata.title` is **required** and non-empty.
 - At least one section; **every section needs a non-empty `title`** and a unique
   non-empty `id`.

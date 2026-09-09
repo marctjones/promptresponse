@@ -16,44 +16,45 @@ PromptResponse build is reproducible without the pdfe source checked out.
 
 When pdfe ships a new version you want to pick up:
 
+Pack from a **tag**, not a branch, so the build stays reproducible — see
+"Upgrading" below for why that matters. Replace `X.Y.Z` throughout:
+
 ```bash
-# 1. Pack the new version from your local pdfe checkout
-dotnet pack ~/Projects/pdfe/Pdfe.Core/Pdfe.Core.csproj -c Release -o /tmp/pdfe-pack
+# 1. Pack the tagged version from an isolated worktree of the excise checkout
+git -C ../excise worktree add --detach /tmp/excise-pack vX.Y.Z
+dotnet pack /tmp/excise-pack/Excise.Core/Excise.Core.csproj \
+    -c Release -p:Version=X.Y.Z -o local-nuget/
+git -C ../excise worktree remove /tmp/excise-pack --force
 
-# 2. Copy the .nupkg here
-cp /tmp/pdfe-pack/Pdfe.Core.<version>.nupkg local-nuget/
-
-# 3. Bump the <PackageReference Version="..."> in
+# 2. Drop the old package and bump the two PackageReference versions
+rm local-nuget/Excise.Core.<old>.nupkg local-nuget/Excise.Core.<old>.snupkg
 #    src/PromptResponse.Rendering.Pdf/PromptResponse.Rendering.Pdf.csproj
-#    and remove the old .nupkg from this folder.
+#    tests/PromptResponse.Rendering.Pdf.Tests/PromptResponse.Rendering.Pdf.Tests.csproj
 
-# 4. Restore
-dotnet restore
+# 3. Restore the whole solution — eight projects reach Excise.Core
+#    transitively, and their packages.lock.json files all need refreshing.
+dotnet restore PromptResponse.sln
 ```
+
+The csproj on `develop` does not carry the release version, so `-p:Version`
+is required and must match the tag.
+
+⚠️ **Verify the tag points where you think.** The `v3.9.2` tag was once cut
+from a lineage that was not an ancestor of `develop`, and `v3.9.3` was later
+re-pointed to a different commit. Before trusting a build, check
+`git merge-base --is-ancestor vX.Y.Z origin/develop` and confirm the commit
+the tag resolves to is the one you meant to package.
 
 > Once pdfe publishes `Pdfe.Core` to nuget.org (tracked upstream in
 > marctjones/pdfe#383), this local feed can be dropped in favor of the public
 > package.
 
-## Upgrading
+## History
 
 The engine was renamed `pdfe` → `Excise` at 3.0.0; the changelog records the
 rename as the whole of the breaking change, with the engine byte-for-byte
 identical underneath. Upgrading from `Pdfe.Core` 2.9.0 was therefore mechanical:
 swap the package id and the `Pdfe.*` namespaces for `Excise.*`.
-
-To vendor a new release, pack from a tag rather than a branch so the build stays
-reproducible:
-
-```bash
-git -C ../excise worktree add --detach /tmp/excise-tag vX.Y.Z
-dotnet pack /tmp/excise-tag/Excise.Core/Excise.Core.csproj \
-    -c Release -p:Version=X.Y.Z -o local-nuget/
-git -C ../excise worktree remove /tmp/excise-tag
-```
-
-The csproj on `develop` does not carry the release version, so `-p:Version` is
-required and must match the tag.
 
 Note that 3.x pulls in a JPEG 2000 codec (CSJ2K, BSD) and its two Microsoft
 transitive dependencies. All three are disclosed in the About dialog, which

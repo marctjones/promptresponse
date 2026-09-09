@@ -24,7 +24,7 @@ Three patterns. Each shows the kind of source you'd see and the `.aprt` to emit.
 
 ```json
 {
-  "version": "1.0",
+  "aprVersion": "1.0-beta.6",
   "documentType": "template",
   "metadata": {
     "title": "Volunteer Sign-Up",
