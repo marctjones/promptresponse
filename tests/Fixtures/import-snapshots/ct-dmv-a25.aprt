@@ -1,0 +1,109 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-a25",
+    "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
+    "templateId": "tag:skpt.cl,2026:imported/ct-dmv-a25",
+    "templateVersion": "1.0-beta.6"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "description": "Fields from page 1 of the source PDF.",
+      "prompts": [
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[0]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[0]"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[1]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[1]"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[2]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[2]"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[3]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[3]"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[4]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[4]"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[5]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[5]"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[6]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[6]"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[7]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[7]"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[8]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[8]"
+          }
+        },
+        {
+          "id": "topmostSubform[0].Page1[0].TextField1[9]",
+          "label": "TextField1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: TextField1[9]"
+          }
+        }
+      ]
+    }
+  ]
+}

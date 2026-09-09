@@ -1,0 +1,91 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-a83",
+    "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
+    "templateId": "tag:skpt.cl,2026:imported/ct-dmv-a83",
+    "templateVersion": "1.0-beta.6"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "description": "Fields from page 1 of the source PDF.",
+      "prompts": [
+        {
+          "id": "FillText1",
+          "label": "FillText1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText2",
+          "label": "FillText2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText3",
+          "label": "FillText3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText4",
+          "label": "FillText4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText5",
+          "label": "FillText5",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText6",
+          "label": "FillText6",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText7",
+          "label": "FillText7",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText8",
+          "label": "FillText8",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText9",
+          "label": "FillText9",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

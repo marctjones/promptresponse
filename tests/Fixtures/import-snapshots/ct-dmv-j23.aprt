@@ -1,0 +1,371 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-j23",
+    "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
+    "templateId": "tag:skpt.cl,2026:imported/ct-dmv-j23",
+    "templateVersion": "1.0-beta.6"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "description": "Fields from page 1 of the source PDF.",
+      "prompts": [
+        {
+          "id": "CheckBox1",
+          "label": "CheckBox1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox2",
+          "label": "CheckBox2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox3",
+          "label": "CheckBox3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox4",
+          "label": "CheckBox4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox5",
+          "label": "CheckBox5",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox6",
+          "label": "CheckBox6",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox7",
+          "label": "CheckBox7",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox9",
+          "label": "CheckBox9",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox8",
+          "label": "CheckBox8",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox10",
+          "label": "CheckBox10",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "FillText1",
+          "label": "FillText1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText2",
+          "label": "FillText2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText4",
+          "label": "FillText4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText5",
+          "label": "FillText5",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText6",
+          "label": "FillText6",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText7",
+          "label": "FillText7",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText8",
+          "label": "FillText8",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText9",
+          "label": "FillText9",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText10",
+          "label": "FillText10",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText11",
+          "label": "FillText11",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText12",
+          "label": "FillText12",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText13",
+          "label": "FillText13",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText14",
+          "label": "FillText14",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText15",
+          "label": "FillText15",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText16",
+          "label": "FillText16",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText17",
+          "label": "FillText17",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText18",
+          "label": "FillText18",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText19",
+          "label": "FillText19",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText20",
+          "label": "FillText20",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText21",
+          "label": "FillText21",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText22",
+          "label": "FillText22",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText23",
+          "label": "FillText23",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText24",
+          "label": "FillText24",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "FillText25",
+          "label": "FillText25",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "FillText26",
+          "label": "FillText26",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "FillText27",
+          "label": "FillText27",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "FillText28",
+          "label": "FillText28",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "FillText29",
+          "label": "FillText29",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline"
+          }
+        },
+        {
+          "id": "FillText30",
+          "label": "FillText30",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText31",
+          "label": "FillText31",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText32",
+          "label": "FillText32",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "FillText33",
+          "label": "FillText33",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "CheckBox12",
+          "label": "CheckBox12",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "CheckBox13",
+          "label": "CheckBox13",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    }
+  ]
+}

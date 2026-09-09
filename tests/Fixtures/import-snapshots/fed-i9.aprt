@@ -1,0 +1,1484 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-i9",
+    "description": "Imported from a fillable PDF (AcroForm). Review labels and field types.",
+    "templateId": "tag:skpt.cl,2026:imported/fed-i9",
+    "templateVersion": "1.0-beta.6"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "description": "Fields from page 1 of the source PDF.",
+      "prompts": [
+        {
+          "id": "3 A lawful permanent resident Enter USCIS or ANumber",
+          "label": "Section 1., If selected Item Number 3. enter Alien Registration Number or USCIS Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: 3 A lawful permanent resident Enter USCIS or ANumber"
+          }
+        },
+        {
+          "id": "Signature of Employee",
+          "label": "Section 1.  Employee Information and Attestation.  Enter Signature of Employee.  If a preparer and or translator who assisted you in completing Section 1 that person must complete the Preparer and/or Translator Certification on Page 3.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Signature of Employee"
+          }
+        },
+        {
+          "id": "First Name Given Name",
+          "label": "Section 1., Enter First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: First Name Given Name"
+          }
+        },
+        {
+          "id": "Employee Middle Initial (if any)",
+          "label": "Section 1., Enter Middle Initial, if any",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Employee Middle Initial (if any)"
+          }
+        },
+        {
+          "id": "Employee Other Last Names Used (if any)",
+          "label": "Section 1., Enter Other Last Names Used (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Employee Other Last Names Used (if any)"
+          }
+        },
+        {
+          "id": "Today\u0027s Date mmddyyy",
+          "label": "Section 1., Enter Today\u0027s Date of Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Today\u0027s Date mmddyyy"
+          }
+        },
+        {
+          "id": "List A.  Document 2. Expiration Date (if any)",
+          "label": "Section 2. Employer Review and Verification. List A.  Enter Expiration Date 2 as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Expiration Date (if any)"
+          }
+        },
+        {
+          "id": "List A.   Document Title 3.  If any",
+          "label": "Section 2. Employer Review and Verification.  List A.  Enter Document Title 3.  If any.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: If any"
+          }
+        },
+        {
+          "id": "List A. Document 3.  Enter Issuing Authority",
+          "label": "Section 2. Employer Review and Verification. List A. Enter Issuing Authority 3.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Enter Issuing Authority"
+          }
+        },
+        {
+          "id": "List A.  Document 3 Number.  If any",
+          "label": "Section 2. Employer Review and Verification. List A.  Enter Document Number 3.  If any.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: If any"
+          }
+        },
+        {
+          "id": "List B Document 1 Title",
+          "label": "List B Document 1 Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Additional Information",
+          "label": "Enter Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "PDF field: Additional Information"
+          }
+        },
+        {
+          "id": "CB_1",
+          "label": "Section 1.  Employee Information and Attestation.   I am aware that federal law provides for imprisonment and/or fines for false statements, or the use of false documents, in connection with the completion of this form.  I attest, under penalty of perjury, that this information, including my selection of the box attesting to my citizenship or immigration status, is true and correct. Check one of the following boxes to attest to your citizenship or immigration status (See page 2 and 3 of the instructions.):  1.  A citizen of the United States.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "PDF field: CB_1"
+          }
+        },
+        {
+          "id": "CB_2",
+          "label": "Section 1.  Employee Information and Attestation.    2.  A noncitizen of the United States. (See Instructions)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "PDF field: CB_2"
+          }
+        },
+        {
+          "id": "CB_3",
+          "label": "Section 1.  Employee Information and Attestation. 3. A lawful permanent resident.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "PDF field: CB_3"
+          }
+        },
+        {
+          "id": "CB_4",
+          "label": "Section 1.  Employee Information and Attestation.  4.  An alien authorized to work until (exp. date, if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "PDF field: CB_4"
+          }
+        },
+        {
+          "id": "CB_Alt",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "PDF field: CB_Alt"
+          }
+        },
+        {
+          "id": "State",
+          "label": "Section 1., Select State from the drop down list.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "AK",
+              "AL",
+              "AR",
+              "AS",
+              "AZ",
+              "CA",
+              "CO",
+              "CT",
+              "DC",
+              "DE",
+              "FL",
+              "GA",
+              "GU",
+              "HI",
+              "IA",
+              "ID",
+              "IL",
+              "IN",
+              "KS",
+              "KY",
+              "LA",
+              "MA",
+              "MD",
+              "ME",
+              "MI",
+              "MN",
+              "MO",
+              "MP",
+              "MS",
+              "MT",
+              "NC",
+              "ND",
+              "NE",
+              "NH",
+              "NJ",
+              "NM",
+              "NV",
+              "NY",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "PR",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VA",
+              "VI",
+              "VT",
+              "WA",
+              "WI",
+              "WV",
+              "WY",
+              "CAN",
+              "MEX"
+            ],
+            "helpText": "PDF field: State"
+          }
+        },
+        {
+          "id": "ZIP Code",
+          "label": "Section 1., Enter ZIP Code.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: ZIP Code"
+          }
+        },
+        {
+          "id": "Date of Birth mmddyyyy",
+          "label": "Section 1., Enter Date of Birth as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Date of Birth mmddyyyy"
+          }
+        },
+        {
+          "id": "US Social Security Number",
+          "label": "Section 1: Enter U.S. Social Security Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: US Social Security Number"
+          }
+        },
+        {
+          "id": "Telephone Number",
+          "label": "Section 1., Enter Employee\u0027s Telephone Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Telephone Number"
+          }
+        },
+        {
+          "id": "Last Name (Family Name)",
+          "label": "Employee Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Last Name (Family Name)"
+          }
+        },
+        {
+          "id": "Address Street Number and Name",
+          "label": "Section 1., Enter Address (Street Number and Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Address Street Number and Name"
+          }
+        },
+        {
+          "id": "Apt Number (if any)",
+          "label": "Section 1., Enter Apartment Number, if any",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Apt Number (if any)"
+          }
+        },
+        {
+          "id": "City or Town",
+          "label": "Section 1., Enter City or Town.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: City or Town"
+          }
+        },
+        {
+          "id": "Employees E-mail Address",
+          "label": "Section 1., Enter Employee\u0027s E-mail Address.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Employees E-mail Address"
+          }
+        },
+        {
+          "id": "Exp Date mmddyyyy",
+          "label": "Exp. Date mmddyyyy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Exp Date mmddyyyy"
+          }
+        },
+        {
+          "id": "USCIS ANumber",
+          "label": "Section 1., Employee Information and Attestation.  If you checked Item Number 4., enter one of these.  USCIS/A-Number or Form I-94 Admission Number or Foreign Passport Number and Country of Issuance.  Enter USCIS Alien Registration Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: USCIS ANumber"
+          }
+        },
+        {
+          "id": "Form I94 Admission Number",
+          "label": "Section 1., Employee Information and Attestation.  Enter Form I-94 Admission Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Form I94 Admission Number"
+          }
+        },
+        {
+          "id": "Foreign Passport Number and Country of IssuanceRow1",
+          "label": "Section 1., Employee Information and Attestation.  Enter Foreign Passport Number and Country of Issuance.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Foreign Passport Number and Country of IssuanceRow1"
+          }
+        },
+        {
+          "id": "Issuing Authority 1",
+          "label": "Section 2.  List A.  Issuing Authority 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Issuing Authority 1"
+          }
+        },
+        {
+          "id": "Document Number 0 (if any)",
+          "label": "Section 2.  List A. Document Number 1. (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Number 0 (if any)"
+          }
+        },
+        {
+          "id": "Document Title 2 If any",
+          "label": "Section 2. Employer Review and Verification.  Enter Document Title 2. If any.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Title 2 If any"
+          }
+        },
+        {
+          "id": "Issuing Authority_2",
+          "label": "Section 2. Employer Review and Verification. List A.  Enter Issuing Authority 2.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Issuing Authority_2"
+          }
+        },
+        {
+          "id": "Document Number If any_2",
+          "label": "Section 2. Employer Review and Verification. List A. Enter Document Number 2. If any.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Number If any_2"
+          }
+        },
+        {
+          "id": "Document Number if any_3",
+          "label": "Section 2. Employer Review and Verification. List A.  Enter Expiration Date 3 as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Number if any_3"
+          }
+        },
+        {
+          "id": "List C Expiration Date 1",
+          "label": "Section 2. Employer Review and Verification.  List C.  Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: List C Expiration Date 1"
+          }
+        },
+        {
+          "id": "List C Document Number 1",
+          "label": "Section 2. Employer Review and Verification.  List C.  Enter Document Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: List C Document Number 1"
+          }
+        },
+        {
+          "id": "List C Issuing Authority 1",
+          "label": "Section 2. Employer Review and Verification.  List C.  Enter Issuing Authority.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: List C Issuing Authority 1"
+          }
+        },
+        {
+          "id": "List C Document Title 1",
+          "label": "Section 2. Employer Review and Verification.  List C.  Enter Document Title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: List C Document Title 1"
+          }
+        },
+        {
+          "id": "FirstDayEmployed mmddyyyy",
+          "label": "Section 2. Employer Review and Verification. Enter First Day of Employment as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: FirstDayEmployed mmddyyyy"
+          }
+        },
+        {
+          "id": "S2 Todays Date mmddyyyy",
+          "label": "Section 2., Enter Today\u0027s Date of Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: S2 Todays Date mmddyyyy"
+          }
+        },
+        {
+          "id": "Last Name First Name and Title of Employer or Authorized Representative",
+          "label": "Section 2. Employer Review and Verification.   Enter Last Name, First Name and Title of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Last Name First Name and Title of Employer or Authorized Representative"
+          }
+        },
+        {
+          "id": "Signature of Employer or AR",
+          "label": "Section 2. Employer Review and Verification.  Enter Signature of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Signature of Employer or AR"
+          }
+        },
+        {
+          "id": "Employers Business or Org Name",
+          "label": "Section 2., Employer Review and Verification.  Enter Employer\u0027s Business or Organization Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Employers Business or Org Name"
+          }
+        },
+        {
+          "id": "Employers Business or Org Address",
+          "label": "Employer\u0027s Business or Organization Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Employers Business or Org Address"
+          }
+        },
+        {
+          "id": "Expiration Date if any",
+          "label": "Section 2.  List A. Enter Expiration Date 1.  (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Expiration Date if any"
+          }
+        },
+        {
+          "id": "List B Issuing Authority 1",
+          "label": "Section 2. Employer Review and Verification.  List B.  Enter Issuing Authority.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: List B Issuing Authority 1"
+          }
+        },
+        {
+          "id": "List B Document Number 1",
+          "label": "Section 2. Employer Review and Verification.  List B.  Enter Document Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: List B Document Number 1"
+          }
+        },
+        {
+          "id": "List B Expiration Date 1",
+          "label": "Section 2. Employer Review and Verification.  List B.  Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: List B Expiration Date 1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-3",
+      "title": "Page 3",
+      "description": "Fields from page 3 of the source PDF.",
+      "prompts": [
+        {
+          "id": "Last Name Family Name from Section 1",
+          "label": "Supplement A, Preparer and / or Translator Certification for Section 1. Employee Information from Section 1. Enter the Last Name (Family Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Last Name Family Name from Section 1"
+          }
+        },
+        {
+          "id": "First Name Given Name from Section 1",
+          "label": "Supplement A, Preparer and / or Translator Certification for Section 1. Employee Information from Section 1. Enter the First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: First Name Given Name from Section 1"
+          }
+        },
+        {
+          "id": "Middle initial if any from Section 1",
+          "label": "Supplement A, Preparer and / or Translator Certification for Section 1. Employee Information from Section 1. Enter the Middle Initial (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Middle initial if any from Section 1"
+          }
+        },
+        {
+          "id": "Sig Date mmddyyyy 1",
+          "label": "Signature Date mm/dd/yyyy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Sig Date mmddyyyy 1"
+          }
+        },
+        {
+          "id": "Sig Date mmddyyyy 0",
+          "label": "Signature Date mm/dd/yyyy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Sig Date mmddyyyy 0"
+          }
+        },
+        {
+          "id": "Sig Date mmddyyyy 2",
+          "label": "Signature Date mm/dd/yyyy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Sig Date mmddyyyy 2"
+          }
+        },
+        {
+          "id": "Sig Date mmddyyyy 3",
+          "label": "Signature Date mm/dd/yyyy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Sig Date mmddyyyy 3"
+          }
+        },
+        {
+          "id": "Signature of Preparer or Translator 0",
+          "label": "Signature of Preparer or Translator: This field cannot be signed electronically. Please print and sign in ink.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Signature of Preparer or Translator 0"
+          }
+        },
+        {
+          "id": "Signature of Preparer or Translator 1",
+          "label": "Signature of Preparer or Translator: This field cannot be signed electronically. Please print and sign in ink.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Signature of Preparer or Translator 1"
+          }
+        },
+        {
+          "id": "Signature of Preparer or Translator 2",
+          "label": "Signature of Preparer or Translator: This field cannot be signed electronically. Please print and sign in ink.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Signature of Preparer or Translator 2"
+          }
+        },
+        {
+          "id": "Signature of Preparer or Translator 3",
+          "label": "Signature of Preparer or Translator: This field cannot be signed electronically. Please print and sign in ink.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Signature of Preparer or Translator 3"
+          }
+        },
+        {
+          "id": "Preparer or Translator Last Name (Family Name) 0",
+          "label": "Preparer or Translator Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator Last Name (Family Name) 0"
+          }
+        },
+        {
+          "id": "Preparer or Translator Last Name (Family Name) 2",
+          "label": "Preparer or Translator Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator Last Name (Family Name) 2"
+          }
+        },
+        {
+          "id": "Preparer or Translator Last Name (Family Name) 3",
+          "label": "Preparer or Translator Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator Last Name (Family Name) 3"
+          }
+        },
+        {
+          "id": "Preparer or Translator Address (Street Number and Name) 0",
+          "label": "Preparer or Translator Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator Address (Street Number and Name) 0"
+          }
+        },
+        {
+          "id": "Preparer or Translator Address (Street Number and Name) 1",
+          "label": "Preparer or Translator Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator Address (Street Number and Name) 1"
+          }
+        },
+        {
+          "id": "Preparer or Translator Address (Street Number and Name) 2",
+          "label": "Preparer or Translator Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator Address (Street Number and Name) 2"
+          }
+        },
+        {
+          "id": "Preparer or Translator Address (Street Number and Name) 3",
+          "label": "Preparer or Translator Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator Address (Street Number and Name) 3"
+          }
+        },
+        {
+          "id": "Preparer or Translator First Name (Given Name) 0",
+          "label": "Preparer or Translator First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator First Name (Given Name) 0"
+          }
+        },
+        {
+          "id": "Preparer or Translator Last Name (Family Name) 1",
+          "label": "Preparer or Translator Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator Last Name (Family Name) 1"
+          }
+        },
+        {
+          "id": "Preparer or Translator First Name (Given Name) 2",
+          "label": "Preparer or Translator First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator First Name (Given Name) 2"
+          }
+        },
+        {
+          "id": "Preparer or Translator First Name (Given Name) 3",
+          "label": "Preparer or Translator First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator First Name (Given Name) 3"
+          }
+        },
+        {
+          "id": "Preparer or Translator City or Town 0",
+          "label": "Preparer or Translator City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator City or Town 0"
+          }
+        },
+        {
+          "id": "Preparer or Translator City or Town 1",
+          "label": "Preparer or Translator City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator City or Town 1"
+          }
+        },
+        {
+          "id": "Preparer or Translator City or Town 2",
+          "label": "Preparer or Translator City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator City or Town 2"
+          }
+        },
+        {
+          "id": "Preparer or Translator City or Town 3",
+          "label": "Preparer or Translator City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Preparer or Translator City or Town 3"
+          }
+        },
+        {
+          "id": "Preparer State 0",
+          "label": "Preparer and or Translator State:  Enter the State.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "AK",
+              "AL",
+              "AR",
+              "AS",
+              "AZ",
+              "CA",
+              "CO",
+              "CT",
+              "DC",
+              "DE",
+              "FL",
+              "GA",
+              "GU",
+              "HI",
+              "IA",
+              "ID",
+              "IL",
+              "IN",
+              "KS",
+              "KY",
+              "LA",
+              "MA",
+              "MD",
+              "ME",
+              "MI",
+              "MN",
+              "MO",
+              "MP",
+              "MS",
+              "MT",
+              "NC",
+              "ND",
+              "NE",
+              "NH",
+              "NJ",
+              "NM",
+              "NV",
+              "NY",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "PR",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VA",
+              "VI",
+              "VT",
+              "WA",
+              "WI",
+              "WV",
+              "WY",
+              "CAN",
+              "MEX"
+            ],
+            "helpText": "PDF field: Preparer State 0"
+          }
+        },
+        {
+          "id": "Preparer State 1",
+          "label": "Preparer and or Translator State:  Enter the State.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "AK",
+              "AL",
+              "AR",
+              "AS",
+              "AZ",
+              "CA",
+              "CO",
+              "CT",
+              "DC",
+              "DE",
+              "FL",
+              "GA",
+              "GU",
+              "HI",
+              "IA",
+              "ID",
+              "IL",
+              "IN",
+              "KS",
+              "KY",
+              "LA",
+              "MA",
+              "MD",
+              "ME",
+              "MI",
+              "MN",
+              "MO",
+              "MP",
+              "MS",
+              "MT",
+              "NC",
+              "ND",
+              "NE",
+              "NH",
+              "NJ",
+              "NM",
+              "NV",
+              "NY",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "PR",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VA",
+              "VI",
+              "VT",
+              "WA",
+              "WI",
+              "WV",
+              "WY",
+              "CAN",
+              "MEX"
+            ],
+            "helpText": "PDF field: Preparer State 1"
+          }
+        },
+        {
+          "id": "Preparer State 2",
+          "label": "Preparer and or Translator State:  Enter the State.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "AK",
+              "AL",
+              "AR",
+              "AS",
+              "AZ",
+              "CA",
+              "CO",
+              "CT",
+              "DC",
+              "DE",
+              "FL",
+              "GA",
+              "GU",
+              "HI",
+              "IA",
+              "ID",
+              "IL",
+              "IN",
+              "KS",
+              "KY",
+              "LA",
+              "MA",
+              "MD",
+              "ME",
+              "MI",
+              "MN",
+              "MO",
+              "MP",
+              "MS",
+              "MT",
+              "NC",
+              "ND",
+              "NE",
+              "NH",
+              "NJ",
+              "NM",
+              "NV",
+              "NY",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "PR",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VA",
+              "VI",
+              "VT",
+              "WA",
+              "WI",
+              "WV",
+              "WY",
+              "CAN",
+              "MEX"
+            ],
+            "helpText": "PDF field: Preparer State 2"
+          }
+        },
+        {
+          "id": "Preparer State 3",
+          "label": "Preparer and or Translator State:  Enter the State.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "AK",
+              "AL",
+              "AR",
+              "AS",
+              "AZ",
+              "CA",
+              "CO",
+              "CT",
+              "DC",
+              "DE",
+              "FL",
+              "GA",
+              "GU",
+              "HI",
+              "IA",
+              "ID",
+              "IL",
+              "IN",
+              "KS",
+              "KY",
+              "LA",
+              "MA",
+              "MD",
+              "ME",
+              "MI",
+              "MN",
+              "MO",
+              "MP",
+              "MS",
+              "MT",
+              "NC",
+              "ND",
+              "NE",
+              "NH",
+              "NJ",
+              "NM",
+              "NV",
+              "NY",
+              "OH",
+              "OK",
+              "OR",
+              "PA",
+              "PR",
+              "RI",
+              "SC",
+              "SD",
+              "TN",
+              "TX",
+              "UT",
+              "VA",
+              "VI",
+              "VT",
+              "WA",
+              "WI",
+              "WV",
+              "WY",
+              "CAN",
+              "MEX"
+            ],
+            "helpText": "PDF field: Preparer State 3"
+          }
+        },
+        {
+          "id": "Zip Code 0",
+          "label": "Preparer  or  Translator  Zip Code.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Zip Code 0"
+          }
+        },
+        {
+          "id": "Zip Code 1",
+          "label": "Supplement A, Preparer and or  Translator Certification for Section 1.   Enter Zip Code.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Zip Code 1"
+          }
+        },
+        {
+          "id": "Zip Code 2",
+          "label": "Preparer or Translator ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Zip Code 2"
+          }
+        },
+        {
+          "id": "Zip Code 3",
+          "label": "Preparer or Translator ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Zip Code 3"
+          }
+        },
+        {
+          "id": "PT Middle Initial 0",
+          "label": "Enter Preparer or Translator Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: PT Middle Initial 0"
+          }
+        },
+        {
+          "id": "PT Middle Initial 1",
+          "label": "Enter Preparer or Translator Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: PT Middle Initial 1"
+          }
+        },
+        {
+          "id": "PT Middle Initial 2",
+          "label": "Enter Preparer or Translator Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: PT Middle Initial 2"
+          }
+        },
+        {
+          "id": "PT Middle Initial 3",
+          "label": "Enter Preparer or Translator Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: PT Middle Initial 3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-4",
+      "title": "Page 4",
+      "description": "Fields from page 4 of the source PDF.",
+      "prompts": [
+        {
+          "id": "Middle initial if any from Section 1-2",
+          "label": "Supplement B, Re verification and Rehire (formerly Section 3). Employee Information from Section 1. Enter the Middle Initial (if any). Instructions: This supplement replaces Section 3 on the previous version of Form I-9. Only use this page if your employee requires reverification, is rehired within three years of the date the original Form I-9 was completed, or provides proof of a legal name change.  Enter the employee\u0027s name in the fields above. Use a new section for each reverification or rehire. Review the Form I-9 instructions before completing this page. Keep this page as part of the employee\u0027s Form I-9 record. Additional guidance can be found in the Handbood for Employers: Guidance for Completing Form I-9 (M-274) at  https://www.uscis.gov/i-9-central/form-i-9-resources/handbook-for-employers-m-274",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Middle initial if any from Section 1-2"
+          }
+        },
+        {
+          "id": "Date of Rehire 0",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Date of Rehire, if applicable. Enter Date as 2 digit month, 2 digit day and 4 digit year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Date of Rehire 0"
+          }
+        },
+        {
+          "id": "Date of Rehire 1",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Date of Rehire, if applicable. Enter Date as 2 digit month, 2 digit day and 4 digit year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Date of Rehire 1"
+          }
+        },
+        {
+          "id": "Date of Rehire 2",
+          "label": "Reverification and Rehires. Date of Rehire, if applicable. Enter Date mmddyyyy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Date of Rehire 2"
+          }
+        },
+        {
+          "id": "Todays Date 0",
+          "label": "Supplement B. Re verification and Rehire (formerly Section 3) Enter Today\u0027s date of Authorized Representative Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Todays Date 0"
+          }
+        },
+        {
+          "id": "Todays Date 1",
+          "label": "Supplement B. Re verification and Rehire (formerly Section 3) Enter Today\u0027s date of Authorized Representative Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Todays Date 1"
+          }
+        },
+        {
+          "id": "Todays Date 2",
+          "label": "Supplement B. Re verification and Rehire (formerly Section 3) Enter Today\u0027s date of Authorized Representative Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Todays Date 2"
+          }
+        },
+        {
+          "id": "Last Name 0",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Last Name (Family Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Last Name 0"
+          }
+        },
+        {
+          "id": "Last Name 1",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Last Name (Family Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Last Name 1"
+          }
+        },
+        {
+          "id": "Last Name 2",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Last Name (Family Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Last Name 2"
+          }
+        },
+        {
+          "id": "First Name 0",
+          "label": "Reverification and Rehire. New Name, if applicable.  First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: First Name 0"
+          }
+        },
+        {
+          "id": "First Name 1",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: First Name 1"
+          }
+        },
+        {
+          "id": "First Name 2",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: First Name 2"
+          }
+        },
+        {
+          "id": "Middle Initial 0",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Middle Initial.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Middle Initial 0"
+          }
+        },
+        {
+          "id": "Middle Initial 1",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Middle Initial.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Middle Initial 1"
+          }
+        },
+        {
+          "id": "Middle Initial 2",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Middle Initial.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Middle Initial 2"
+          }
+        },
+        {
+          "id": "Document Title 0",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Title 0"
+          }
+        },
+        {
+          "id": "Document Title 2",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Title 2"
+          }
+        },
+        {
+          "id": "Document Number 0",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Number (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Number 0"
+          }
+        },
+        {
+          "id": "Document Number 1",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Number (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Number 1"
+          }
+        },
+        {
+          "id": "Document Number 2",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Number (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Number 2"
+          }
+        },
+        {
+          "id": "Expiration Date 0",
+          "label": "Supplement B.  Re verification and Rehire (formerly Section 3). Expiration Date (if any) (mm/dd/yyyy). Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Expiration Date 0"
+          }
+        },
+        {
+          "id": "Expiration Date 2",
+          "label": "Supplement B.  Re verification and Rehire (formerly Section 3). Expiration Date (if any) (mm/dd/yyyy). Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Expiration Date 2"
+          }
+        },
+        {
+          "id": "Expiration Date 1",
+          "label": "Supplement B.  Re verification and Rehire (formerly Section 3). Expiration Date (if any) (mm/dd/yyyy). Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Expiration Date 1"
+          }
+        },
+        {
+          "id": "Name of Emp or Auth Rep 0",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter name of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Name of Emp or Auth Rep 0"
+          }
+        },
+        {
+          "id": "Name of Emp or Auth Rep 1",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter name of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Name of Emp or Auth Rep 1"
+          }
+        },
+        {
+          "id": "Name of Emp or Auth Rep 2",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter name of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Name of Emp or Auth Rep 2"
+          }
+        },
+        {
+          "id": "Signature of Emp Rep 0",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Signature of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Signature of Emp Rep 0"
+          }
+        },
+        {
+          "id": "Signature of Emp Rep 1",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Signature of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Signature of Emp Rep 1"
+          }
+        },
+        {
+          "id": "Signature of Emp Rep 2",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Signature of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Signature of Emp Rep 2"
+          }
+        },
+        {
+          "id": "CB_Alt_0",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "PDF field: CB_Alt_0"
+          }
+        },
+        {
+          "id": "CB_Alt_1",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "PDF field: CB_Alt_1"
+          }
+        },
+        {
+          "id": "CB_Alt_2",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "helpText": "PDF field: CB_Alt_2"
+          }
+        },
+        {
+          "id": "Addtl Info 0",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "PDF field: Addtl Info 0"
+          }
+        },
+        {
+          "id": "Addtl Info 2",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "PDF field: Addtl Info 2"
+          }
+        },
+        {
+          "id": "Addtl Info 1",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "multiline",
+            "helpText": "PDF field: Addtl Info 1"
+          }
+        },
+        {
+          "id": "Last Name Family Name from Section 1-2",
+          "label": "Reverification and Rehire. Employee Information from Section 1. Last Name (Family Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Last Name Family Name from Section 1-2"
+          }
+        },
+        {
+          "id": "First Name Given Name from Section 1-2",
+          "label": "Reverification and Rehire. Employee Information from Section 1. First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: First Name Given Name from Section 1-2"
+          }
+        },
+        {
+          "id": "Document Title 1",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "helpText": "PDF field: Document Title 1"
+          }
+        }
+      ]
+    }
+  ]
+}
