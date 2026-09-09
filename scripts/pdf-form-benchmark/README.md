@@ -18,9 +18,10 @@ full model survey; this directory is the empirical follow-up.
 ## What's here
 
 ```
-corpus_manifest.json   19 real PDF forms, verified URLs, each tagged with its role
-                       and its measured composition (hasAcroForm / hasTextLayer)
-corpus/                the downloaded PDFs
+corpus_manifest.json   26 PDF forms -- 19 real ones with verified URLs plus 7 derived
+                       from them -- each tagged with its role and its measured
+                       composition (hasAcroForm / hasTextLayer)
+corpus/                the downloaded and derived PDFs
 ground_truth/          hand-verified {sections, fields} per form -- the answer key
 models.json            the models under test, their MLX repo, and prompting strategy
 prompts.py             each model's own recommended/native prompt (not one generic prompt)
@@ -29,6 +30,8 @@ apr_schema.py          IR -> a strictly valid .aprt (same builder for every mode
 validate_apr.py        shells out to this repo's own `apr` CLI -- the one source of truth
 render_pdf.py          PDF -> page PNGs (poppler)
 fetch_corpus.py        downloads corpus_manifest.json's PDFs
+synthesize_fixtures.py derives the non-AcroForm fixtures from the fillable ones, and
+                       `--verify` re-checks the committed ones against their sources
 download_models.py     pre-downloads every model in models.json
 resource_guard.py      memory caps + a live watchdog -- see "Resource safety" below
 run_benchmark.py       supervisor: spawns worker.py once per (model, form), enforces
@@ -45,8 +48,9 @@ results/               raw model output, generated .aprt files, scorecard, repor
 
 - **`model-benchmark`** (11 forms: 5 federal, 6 Connecticut) — what the model
   comparison below was scored on. Ground truth exists for these.
-- **`converter-development`** (8 forms, Town of Bloomfield CT) — added later,
-  for the deterministic converter. No ground truth yet.
+- **`converter-development`** (15 forms: 8 found, 7 derived) — for the
+  deterministic converter. No hand-written ground truth yet, though the seven
+  derived ones come with a mechanical answer key (see below).
 
 The split exists because measuring the original 11 with `PdfSourceDetector`
 turned up something that undercut them as converter fixtures: **all 11 carry an
@@ -63,8 +67,56 @@ two further candidates were rejected for turning out to have AcroForms.
 
 One form is worth knowing about individually: **`ct-dmv-a25` is a scan with
 real AcroForm widgets laid over it** — 0 extractable characters and 10
-importable fields. It is the case a binary "is this scanned?" check gets wrong,
-and the only no-text-layer example available.
+importable fields. It is the case a binary "is this scanned?" check gets wrong.
+
+### The derived half, and why it carries better ground truth
+
+Two gaps survived the Bloomfield additions. Every one of them is municipal, so
+there was still **no federal form without an AcroForm**; and every one has a
+real text layer, so there was still **no image-only page** — the fourth source
+combination had no fixture at all.
+
+Neither gap could be closed by looking harder. Agencies have moved to fillable
+PDFs almost universally: all five federal corpus forms carry an AcroForm, and
+so did two further non-fillable candidates that were checked and rejected.
+
+`synthesize_fixtures.py` closes both by putting fillable forms through the
+transformations the world puts them through — printing to PDF, and scanning a
+printout:
+
+| fixture | from | via | sources |
+| --- | --- | --- | --- |
+| `fed-w9-flat`, `fed-ss4-flat`, `fed-8822-flat` | the IRS originals | flatten | text only |
+| `ct-w4-flat`, `ct-dmv-j23-flat` | the CT originals | flatten | text only |
+| `ct-dmv-a25-flat` | the A-25 scan | flatten | **image only** |
+| `fed-8822-scan` | Form 8822 | rasterize | **image only** |
+
+The point is not only coverage. **A derived fixture inherits its source's
+AcroForm as a complete mechanical answer key.** `fed-w9-flat` declares no
+fields of its own, but `fed-w9` states exactly which fields a converter reading
+the flat version should recover — names, types, options, and widget geometry —
+with no human and no model in the loop. `derivedFrom` in the manifest is the
+link; `PdfWidgetManifest.Extract` on the source is how you read it. That is the
+only route to mechanical ground truth for the converter's actual target case,
+and it is why the eight Bloomfield forms, real as they are, remain the harder
+half to measure.
+
+`ct-dmv-a25-flat` is the best of the seven: its source is *already* a scan with
+widgets over it, so removing the widgets leaves a genuine image-only page with
+real scanner artifacts, which no rasterization reproduces.
+
+Two honest caveats. These are derived, not observed — they inherit their
+source's layout conventions, and `fed-8822-scan` is a clean 150 DPI bitonal
+render with none of the skew or speckle a real scan has, so it is the easy end
+of the image-only case. And `ct-dmv-a25-flat` is the one fixture whose geometry
+oracle does not transfer unchanged: flattening bakes in its source's CropBox,
+moving the page origin, so the source's widget `Rect`s need `y-198`.
+
+`synthesize_fixtures.py --verify` re-checks every committed fixture against its
+source — page count, page geometry, word retention, and that no AcroForm
+survived. Each of those failures is otherwise invisible: a fixture that lost a
+column of text still reports as text-layer-only and still passes every test
+downstream, while no longer being the document it claims to be.
 
 ## Resource safety (read this before running it)
 
@@ -128,6 +180,7 @@ not silently swallowed.
 python3 -m venv .venv
 .venv/bin/pip install mlx mlx-vlm huggingface_hub pillow torch torchvision
 .venv/bin/python3 fetch_corpus.py
+.venv/bin/python3 synthesize_fixtures.py  # derives the 7 non-AcroForm fixtures
 .venv/bin/python3 download_models.py      # ~12GB
 .venv/bin/python3 run_benchmark.py        # takes 60-90+ min; loads each model once
 .venv/bin/python3 score.py                # writes results/REPORT.md and scorecard.json

@@ -143,6 +143,13 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", nargs="*", help="subset of model ids to run")
     ap.add_argument("--forms", nargs="*", help="subset of form ids to run")
+    ap.add_argument(
+        "--role", default="model-benchmark",
+        choices=["model-benchmark", "converter-development", "all"],
+        help="which half of the corpus to run (default: model-benchmark, the 11 forms "
+             "with ground truth). The converter-development forms have no answer key, "
+             "so running models over them costs hours and produces nothing scoreable.",
+    )
     ap.add_argument("--force", action="store_true", help="rerun even if output exists (deletes existing .aprt first)")
     args = ap.parse_args()
 
@@ -152,9 +159,15 @@ def main() -> int:
         forms = load_json(HERE / "corpus_manifest.json")["forms"]
         if args.models:
             models = [m for m in models if m["id"] in args.models]
+        # An explicit --forms list wins: naming a form is asking for it by name,
+        # whatever half of the corpus it belongs to.
         if args.forms:
             forms = [f for f in forms if f["id"] in args.forms]
+        elif args.role != "all":
+            forms = [f for f in forms if f.get("role") == args.role]
         form_ids = [f["id"] for f in forms]
+        print(f"corpus: {len(form_ids)} form(s) "
+              f"({'named explicitly' if args.forms else f'role={args.role}'})")
 
         if args.force:
             for m in models:
