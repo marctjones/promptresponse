@@ -3,6 +3,9 @@
 
 Idempotent: skips files that already exist with a non-zero size. Every form
 here is a public-domain government form fetched from its own agency's site.
+
+Entries carrying `synthesis` rather than `url` are derived from another form in
+the corpus and are built by synthesize_fixtures.py, which must run after this.
 """
 import hashlib
 import json
@@ -31,8 +34,10 @@ def fetch(form: dict) -> None:
 def main() -> int:
     manifest = json.loads(MANIFEST.read_text())
     CORPUS_DIR.mkdir(exist_ok=True)
+    downloadable = [f for f in manifest["forms"] if "url" in f]
+    derived = len(manifest["forms"]) - len(downloadable)
     failures = []
-    for form in manifest["forms"]:
+    for form in downloadable:
         try:
             fetch(form)
         except Exception as exc:  # noqa: BLE001 - report and continue
@@ -41,7 +46,9 @@ def main() -> int:
     if failures:
         print(f"\n{len(failures)} form(s) failed to download.", file=sys.stderr)
         return 1
-    print(f"\nAll {len(manifest['forms'])} forms present in {CORPUS_DIR}")
+    print(f"\nAll {len(downloadable)} downloadable forms present in {CORPUS_DIR}")
+    if derived:
+        print(f"{derived} derived fixture(s) still to build: run synthesize_fixtures.py")
     return 0
 
 
