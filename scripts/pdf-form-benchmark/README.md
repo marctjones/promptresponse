@@ -237,5 +237,26 @@ family -- see `models.json` for exact repos and notes:
 - The label-classification heuristic, while shared fairly across models,
   is still a heuristic -- it will sometimes call real instructional text a
   field, or miss a genuine field with unusual phrasing.
-- Timing numbers are single-run wall-clock on one Mac; they say "roughly
-  this ballpark," not "reproducible to the second."
+- Timing numbers are single-run wall-clock on one Mac, and that Mac was under
+  heavy memory contention during the run -- around 20 concurrent Claude Code
+  sessions plus a 3.2GB unrelated process, which is why 36 memory-watchdog
+  interventions appear in `run_log.jsonl`. Treat them as ballpark ordering,
+  not measurements. The one timing conclusion robust to this is the large
+  one: Qwen3-VL-4B beat its own 8B sibling on quality while running ~2.4x
+  faster, a gap far wider than the noise.
+- Nobody has re-run the suite to get variance. Every number here is n=1.
+- **Ground truth is unverified by a human.** An AI agent read the 11 PDFs and
+  produced the 313-field answer key, flagging its own ambiguous calls in
+  `ground_truth/README.md` (checkbox grouping on SS-4, worksheet scope on
+  W-4, repeating-grid modelling on I-9). Those flags have not been checked by
+  a person. The answer key was produced by the same class of system being
+  scored, which is the weakest link in every number here.
+- Two harness bugs silently deflated scores during the first full run: a
+  regex that swallowed every DocTags element whenever generation terminated
+  cleanly, and a `max_tokens` cutoff that truncated JSON mid-object so a page
+  with ~35 correctly-extracted fields parsed as zero. Both were caught by
+  eyeballing raw output, not by any gate. `score.py` now flags suspect rows
+  (parse failure, zero extraction, field count an order of magnitude past
+  ground truth), but there is still **no canary fixture** proving each
+  parser handles known-exact input -- so the next parser regression could
+  again read as a model being bad. See the milestone's evaluation issues.

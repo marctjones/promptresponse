@@ -4,15 +4,40 @@
 
 ## Aggregate results
 
-| Model | Valid .aprt | Precision | Recall | F1 | Type agreement | Avg time/form |
-|---|---:|---:|---:|---:|---:|---:|
-| IBM Granite-Docling 258M | 100% | 0.17 | 0.34 | 0.18 | 0.86 | 50.7s |
-| Qwen3-VL-8B-Instruct (4-bit) | 100% | 0.59 | 0.82 | 0.66 | 0.87 | 255.0s |
-| dots.ocr (converted MLX 4-bit) | 82% | 0.13 | 0.09 | 0.11 | 0.71 | 147.9s |
-| Florence-2-base-ft (4-bit) | 100% | 0.19 | 0.28 | 0.20 | 0.75 | 10.8s |
-| Qwen3-VL-4B-Instruct (4-bit) | 100% | 0.67 | 0.83 | 0.71 | 0.90 | 106.1s |
-| InternVL3-8B (MLX 4-bit) | 100% | 0.52 | 0.78 | 0.57 | 0.78 | 219.9s |
-| PaliGemma 2 3B mix (448, 4-bit) | 100% | 0.43 | 0.54 | 0.45 | 0.72 | 77.8s |
+| Model | Valid .aprt | Precision | Recall | F1 | Type agreement | Avg time/form | Suspect rows |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| IBM Granite-Docling 258M | 100% | 0.17 | 0.34 | 0.18 | 0.86 | 50.7s | 0 |
+| Qwen3-VL-8B-Instruct (4-bit) | 100% | 0.59 | 0.82 | 0.66 | 0.87 | 255.0s | 0 |
+| dots.ocr (converted MLX 4-bit) | 82% | 0.13 | 0.09 | 0.11 | 0.71 | 147.9s | 2 |
+| Florence-2-base-ft (4-bit) | 100% | 0.19 | 0.28 | 0.20 | 0.75 | 10.8s | 0 |
+| Qwen3-VL-4B-Instruct (4-bit) | 100% | 0.67 | 0.83 | 0.71 | 0.90 | 106.1s | 0 |
+| InternVL3-8B (MLX 4-bit) | 100% | 0.52 | 0.78 | 0.57 | 0.78 | 219.9s | 0 |
+| PaliGemma 2 3B mix (448, 4-bit) | 100% | 0.43 | 0.54 | 0.45 | 0.72 | 77.8s | 0 |
+
+### Suspect rows — read before trusting the means above
+
+A row lands here when its score may reflect a harness or decoding failure rather than model quality: the output failed to parse, nothing was extracted at all, or the field count is an order of magnitude past ground truth (the signature of a decoding repetition loop). Their scores are still included in the aggregates above — this is a caveat, not an exclusion.
+
+| Model | Form | Pred | GT | Why suspect |
+|---|---|---:|---:|---|
+| dots.ocr (converted MLX 4-bit) | fed-8822 | 0 | 31 | zero fields extracted |
+| dots.ocr (converted MLX 4-bit) | ct-dmv-a25 | 0 | 15 | zero fields extracted |
+
+## Match-threshold sensitivity
+
+Mean F1 re-scored at several label-similarity cutoffs. The headline table uses 0.55, which is a judgement call; this shows what that call costs. **The winner is the same at every cutoff (Qwen3-VL-4B-Instruct (4-bit)).**
+
+Pairs that trade places somewhere in the range (all well behind the leader, so this does not affect model choice): Florence-2-base-ft (4-bit) / IBM Granite-Docling 258M.
+
+| Model | F1 @ 0.4 | F1 @ 0.55 | F1 @ 0.7 | F1 @ 0.85 |
+|---|---:|---:|---:|---:|
+| Qwen3-VL-4B-Instruct (4-bit) | 0.75 | 0.71 | 0.68 | 0.65 |
+| Qwen3-VL-8B-Instruct (4-bit) | 0.72 | 0.66 | 0.64 | 0.60 |
+| InternVL3-8B (MLX 4-bit) | 0.64 | 0.57 | 0.53 | 0.49 |
+| PaliGemma 2 3B mix (448, 4-bit) | 0.57 | 0.45 | 0.38 | 0.29 |
+| Florence-2-base-ft (4-bit) | 0.39 | 0.20 | 0.14 | 0.11 |
+| IBM Granite-Docling 258M | 0.25 | 0.18 | 0.16 | 0.14 |
+| dots.ocr (converted MLX 4-bit) | 0.20 | 0.11 | 0.09 | 0.07 |
 
 ## Per-form detail
 
