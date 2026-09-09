@@ -33,18 +33,23 @@ Tool choice
 -----------
 `pdftocairo -pdf`, which renders the page the way a print-to-PDF driver does.
 
-Ghostscript with `-dPreserveAnnots=false` was measured against it and produces
-a materially equivalent result: on all eleven fillable corpus forms both tools
-keep the field boxes and both drop the JavaScript "Print Form"/"Clear Fields"
-push-buttons, which is the correct outcome for a printed form. Nine of the
-eleven draw their field boxes in the page content stream, so no annotation
-handling is involved at all; on `ct-w4` and `fed-i9` -- the two whose widgets
-draw anything -- what the widgets contribute is the push-buttons plus a few
-checkbox glyphs, and both tools bake the checkboxes in.
+Ghostscript with `-dPreserveAnnots=false` was measured against it and, on this
+corpus, produces an equivalent result. Rendering each of the eleven fillable
+forms with and without annotations shows that nine draw their field boxes in
+the page content stream, so no annotation handling is involved for them at
+all. Only two have widgets that draw anything:
+
+- `ct-w4` -- the JavaScript "Print Form" and "Clear Fields" push-buttons plus
+  three checkbox glyphs. Both tools keep the checkboxes and drop the buttons,
+  which is the right outcome: a printed form has no buttons. That loss is why
+  ct-w4-flat retains 99.75% of its source's words rather than 100%.
+- `fed-i9` -- a single checkbox on page 1, which both tools bake in
+  identically (mean ink 158.7 in that region for each, against 255.0 blank).
 
 Cairo is used because it is the smaller dependency and preserves text and page
 geometry exactly (`verify_flatten` checks both), not because Ghostscript was
-found wanting.
+found wanting. An earlier version of this file claimed gs erased ct-w4's field
+boxes; that was wrong, and the amplified diffs above are what corrected it.
 """
 import argparse
 import glob
@@ -96,12 +101,28 @@ def rasterize(source: Path, dest: Path) -> None:
 
 SYNTHESIZERS = {"flatten": flatten, "rasterize": rasterize}
 
-def page_sizes(pdf: Path) -> list[str]:
-    out = subprocess.run(
+def pdf_info(pdf: Path) -> str:
+    return subprocess.run(
         ["pdfinfo", "-l", "9999", str(pdf)], capture_output=True, text=True, check=True
     ).stdout
-    per_page = re.findall(r"Page +\d+ size: +([\d.]+ x [\d.]+)", out)
-    return per_page or re.findall(r"Page size: +([\d.]+ x [\d.]+)", out)
+
+
+def page_sizes(info: str) -> list[str]:
+    per_page = re.findall(r"Page +\d+ size: +([\d.]+ x [\d.]+)", info)
+    return per_page or re.findall(r"Page size: +([\d.]+ x [\d.]+)", info)
+
+
+def has_acroform(info: str) -> bool:
+    """Whether a PDF declares an AcroForm, read from a parsed document.
+
+    Deliberately not a search for b"/AcroForm" in the raw bytes. PDF stores
+    objects in compressed object streams (/ObjStm), where a perfectly live
+    AcroForm is invisible to a byte scan -- a fixture rebuilt with
+    `qpdf --object-streams=generate` greps clean while pdfinfo still reports
+    `Form: AcroForm`. A raw-byte check here would be a gate that passes
+    whatever it is shown.
+    """
+    return bool(re.search(r"^Form: +(?!none\b)\S+", info, re.MULTILINE))
 
 
 # A flattened form may legitimately shed a few words: the JavaScript "Print
@@ -147,7 +168,9 @@ def verify_flatten(source: Path, dest: Path) -> str | None:
     equivalent in what they keep -- so the metric ranks outputs by how they
     antialias text. Words and page geometry are exact, and are what matter.
     """
-    before_sizes, after_sizes = page_sizes(source), page_sizes(dest)
+    source_info, dest_info = pdf_info(source), pdf_info(dest)
+
+    before_sizes, after_sizes = page_sizes(source_info), page_sizes(dest_info)
     if len(before_sizes) != len(after_sizes):
         return f"page count changed: {len(before_sizes)} -> {len(after_sizes)}"
     for i, (a, b) in enumerate(zip(before_sizes, after_sizes), start=1):
@@ -166,13 +189,33 @@ def verify_flatten(source: Path, dest: Path) -> str | None:
                 f"(floor {MIN_WORD_RETENTION:.0%}); missing: {worst}"
             )
 
-    if b"/AcroForm" in dest.read_bytes():
-        return "output still contains an /AcroForm; it would not be a non-fillable fixture"
+    if has_acroform(dest_info):
+        return "output still declares an AcroForm; it would not be a non-fillable fixture"
 
     return None
 
 
-VERIFIERS = {"flatten": verify_flatten}
+def verify_rasterize(source: Path, dest: Path) -> str | None:
+    """Confirm a rasterized fixture really is pixels and nothing else."""
+    source_info, dest_info = pdf_info(source), pdf_info(dest)
+
+    before, after = len(page_sizes(source_info)), len(page_sizes(dest_info))
+    if before != after:
+        return f"page count changed: {before} -> {after}"
+
+    if has_acroform(dest_info):
+        return "output still declares an AcroForm; scanning a printout cannot preserve one"
+
+    # The whole point of this fixture is that there is nothing to read but pixels.
+    # The bar matches PdfSourceDetector.MinCharactersForTextLayer.
+    characters = sum(len(w) * n for w, n in word_counts(dest).items())
+    if characters >= 25:
+        return f"output still yields {characters} characters of text; it is not image-only"
+
+    return None
+
+
+VERIFIERS = {"flatten": verify_flatten, "rasterize": verify_rasterize}
 
 
 def derived_forms(manifest: dict) -> list[dict]:
@@ -186,7 +229,7 @@ def synthesize(form: dict, force: bool, verify_only: bool = False) -> str:
     if verify_only:
         verifier = VERIFIERS.get(form["synthesis"])
         if verifier is None:
-            return f"  n/a        {form['id']} ({form['synthesis']} is lossy by design)"
+            return f"  n/a        {form['id']} (no verifier for {form['synthesis']})"
         if not dest.exists():
             raise FileNotFoundError(f"{form['id']} has not been built")
         problem = verifier(source, dest)
