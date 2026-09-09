@@ -19,13 +19,20 @@ namespace PromptResponse.Rendering.Pdf;
 /// Whether this is a JavaScript action button rather than a field. Recorded
 /// rather than dropped so the exclusion stays visible in the manifest.
 /// </param>
+/// <param name="Rect">
+/// Where the widget sits on its page, in PDF user space. This is the half of
+/// the answer key that survives flattening: a converter reading a flattened
+/// form cannot know the field's name, but it can find the blank, so geometry
+/// is the only key that turns for the derived fixtures.
+/// </param>
 public sealed record WidgetManifestEntry(
     string FullName,
     PdfFieldType FieldType,
     int? PageNumber,
     bool HasTooltip,
     int OptionCount,
-    bool IsPushButton = false)
+    bool IsPushButton = false,
+    PdfRectangle? Rect = null)
 {
     /// <summary>
     /// Whether the importer should produce a prompt for this field — signature
@@ -128,7 +135,8 @@ public static class PdfWidgetManifest
             f.PageNumber,
             HasTooltip: !string.IsNullOrWhiteSpace(f.RawDictionary.GetStringOrNull("TU")),
             OptionCount: f.Options?.Count ?? 0,
-            IsPushButton: f.IsPushButton)),
+            IsPushButton: f.IsPushButton,
+            Rect: f.Rect)),
     ]);
 
     /// <summary>
