@@ -18,7 +18,7 @@ full model survey; this directory is the empirical follow-up.
 ## What's here
 
 ```
-corpus_manifest.json   26 PDF forms -- 19 real ones with verified URLs plus 7 derived
+corpus_manifest.json   28 PDF forms -- 19 real ones with verified URLs plus 9 derived
                        from them -- each tagged with its role and its measured
                        composition (hasAcroForm / hasTextLayer)
 corpus/                the downloaded and derived PDFs
@@ -48,8 +48,8 @@ results/               raw model output, generated .aprt files, scorecard, repor
 
 - **`model-benchmark`** (11 forms: 5 federal, 6 Connecticut) — what the model
   comparison below was scored on. Ground truth exists for these.
-- **`converter-development`** (15 forms: 8 found, 7 derived) — for the
-  deterministic converter. No hand-written ground truth yet, though the seven
+- **`converter-development`** (17 forms: 8 found, 9 derived) — for the
+  deterministic converter. No hand-written ground truth yet, though the nine
   derived ones come with a mechanical answer key (see below).
 
 The split exists because measuring the original 11 with `PdfSourceDetector`
@@ -84,12 +84,20 @@ so did two further non-fillable candidates that were checked and rejected.
 transformations the world puts them through — printing to PDF, and scanning a
 printout:
 
-| fixture | from | via | sources |
-| --- | --- | --- | --- |
-| `fed-w9-flat`, `fed-ss4-flat`, `fed-8822-flat` | the IRS originals | flatten | text only |
-| `ct-w4-flat`, `ct-dmv-j23-flat` | the CT originals | flatten | text only |
-| `ct-dmv-a25-flat` | the A-25 scan | flatten | **image only** |
-| `fed-8822-scan` | Form 8822 | rasterize | **image only** |
+| fixture | from | via | sources | answer key |
+| --- | --- | --- | --- | ---: |
+| `fed-w9-flat` | fed-w9 | flatten | text only | 23 fields |
+| `fed-ss4-flat` | fed-ss4 | flatten | text only | 89 fields |
+| `fed-8822-flat` | fed-8822 | flatten | text only | 25 fields |
+| `fed-w4-flat` | fed-w4 | flatten | text only | 48 fields |
+| `fed-i9-flat` | fed-i9 | flatten | text only | 130 fields |
+| `ct-w4-flat` | ct-w4 | flatten | text only | 21 fields |
+| `ct-dmv-j23-flat` | ct-dmv-j23 | flatten | text only | 44 fields |
+| `ct-dmv-a25-flat` | ct-dmv-a25 | flatten | **image only** | 10 fields |
+| `fed-8822-scan` | fed-8822 | rasterize | **image only** | 25 fields |
+
+All five federal forms are now represented, so every federal form in the
+corpus exists in both a fillable and a non-fillable version.
 
 The point is not only coverage. **A derived fixture inherits its source's
 AcroForm as a complete mechanical answer key.** `fed-w9-flat` declares no
@@ -101,7 +109,7 @@ only route to mechanical ground truth for the converter's actual target case,
 and it is why the eight Bloomfield forms, real as they are, remain the harder
 half to measure.
 
-`ct-dmv-a25-flat` is the best of the seven: its source is *already* a scan with
+`ct-dmv-a25-flat` is the best of the nine: its source is *already* a scan with
 widgets over it, so removing the widgets leaves a genuine image-only page with
 real scanner artifacts, which no rasterization reproduces.
 
@@ -180,7 +188,7 @@ not silently swallowed.
 python3 -m venv .venv
 .venv/bin/pip install mlx mlx-vlm huggingface_hub pillow torch torchvision
 .venv/bin/python3 fetch_corpus.py
-.venv/bin/python3 synthesize_fixtures.py  # derives the 7 non-AcroForm fixtures
+.venv/bin/python3 synthesize_fixtures.py  # derives the 9 non-AcroForm fixtures
 .venv/bin/python3 download_models.py      # ~12GB
 .venv/bin/python3 run_benchmark.py        # takes 60-90+ min; loads each model once
 .venv/bin/python3 score.py                # writes results/REPORT.md and scorecard.json

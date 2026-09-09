@@ -247,6 +247,31 @@
       "hasTextLayer": true
     },
     {
+      "id": "fed-w4-flat",
+      "name": "IRS Form W-4, printed to a flat PDF",
+      "jurisdiction": "federal",
+      "agency": "IRS",
+      "derivedFrom": "fed-w4",
+      "synthesis": "flatten",
+      "difficulty": "medium",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true
+    },
+    {
+      "id": "fed-i9-flat",
+      "name": "USCIS Form I-9, printed to a flat PDF",
+      "jurisdiction": "federal",
+      "agency": "USCIS",
+      "derivedFrom": "fed-i9",
+      "synthesis": "flatten",
+      "difficulty": "complex",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": true,
+      "note": "The hardest federal case in the corpus: four pages, repeating-grid structure, and the only other form whose widgets draw anything (a single checkbox on page 1, which flattening bakes into the content)."
+    },
+    {
       "id": "ct-w4-flat",
       "name": "Connecticut Form CT-W4, printed to a flat PDF",
       "jurisdiction": "connecticut",

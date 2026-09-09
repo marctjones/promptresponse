@@ -11,7 +11,8 @@ form with no AcroForm, and a page with no text layer at all.
 
 Both are produced here by putting a fillable form through the same
 transformations the world puts them through: "printing" it to a new PDF, and
-scanning a printout.
+scanning a printout. All five federal forms are now flattened, so every one
+exists in both a fillable and a non-fillable version.
 
 The derived-oracle trick
 ------------------------

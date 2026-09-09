@@ -140,7 +140,11 @@ public class PdfSourceDetectorTests
         // flattener is a third-party tool: if a poppler upgrade started preserving
         // widgets, or dropped the text layer, these fixtures would quietly stop
         // testing what they were built to test.
-        foreach (var id in new[] { "fed-w9-flat", "fed-ss4-flat", "fed-8822-flat", "ct-w4-flat", "ct-dmv-j23-flat" })
+        foreach (var id in new[]
+                 {
+                     "fed-w9-flat", "fed-ss4-flat", "fed-8822-flat", "fed-w4-flat", "fed-i9-flat",
+                     "ct-w4-flat", "ct-dmv-j23-flat",
+                 })
         {
             var report = PdfSourceDetector.Detect(CorpusForm(id));
             report.HasAcroForm.Should().BeFalse($"{id} was printed to a flat PDF, which drops the widgets");
