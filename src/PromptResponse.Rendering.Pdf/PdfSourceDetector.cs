@@ -137,8 +137,26 @@ public static class PdfSourceDetector
 
         foreach (var field in doc.GetAcroForm()?.Fields ?? [])
         {
-            var isSignature = field.FieldType == PdfFieldType.Signature;
-            if (isSignature) totalSignature++; else totalImportable++;
+            // A field that carries no answer must not count toward "this PDF has
+            // an AcroForm worth importing" — that verdict routes the whole
+            // document. A flat form whose only widget is a "Print Form" push
+            // button would otherwise look importable and never reach the
+            // text-layer path, which is the only path that could read it.
+            if (!PdfImportableField.CarriesAnAnswer(field))
+            {
+                if (field.FieldType == PdfFieldType.Signature)
+                {
+                    totalSignature++;
+                    if (field.PageNumber is { } signaturePage)
+                    {
+                        signatureByPage[signaturePage] = signatureByPage.GetValueOrDefault(signaturePage) + 1;
+                    }
+                }
+
+                continue;
+            }
+
+            totalImportable++;
 
             // A field need not sit on a page: §12.7.3.2 non-terminal nodes in the
             // field tree carry a name and children but no widget (excise's 3.9.4
@@ -148,12 +166,11 @@ public static class PdfSourceDetector
             // or blaming page 0.
             if (field.PageNumber is not { } page)
             {
-                if (!isSignature) unplacedImportable++;
+                unplacedImportable++;
                 continue;
             }
 
-            var target = isSignature ? signatureByPage : importableByPage;
-            target[page] = target.GetValueOrDefault(page) + 1;
+            importableByPage[page] = importableByPage.GetValueOrDefault(page) + 1;
         }
 
         var pages = new List<PdfPageEvidence>();

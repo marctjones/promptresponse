@@ -60,9 +60,9 @@ public sealed class PdfFormImporter
 
         foreach (var field in form.Fields)
         {
-            if (field.FieldType == PdfFieldType.Signature)
+            if (!PdfImportableField.CarriesAnAnswer(field))
             {
-                continue; // not a fillable data field
+                continue;
             }
 
             mappings.Add(PdfImportFieldMapper.Map(field, ++fieldIndex, seenPromptIds));

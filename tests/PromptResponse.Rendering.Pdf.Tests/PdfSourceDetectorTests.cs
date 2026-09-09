@@ -129,6 +129,22 @@ public class PdfSourceDetectorTests
     }
 
     [Fact]
+    public void APushButtonIsNotAFieldWorthRouting()
+    {
+        // "Print Form" and "Clear Fields" are JavaScript actions. Counting them
+        // as importable fields is not a cosmetic error: ImportableFieldCount is
+        // what decides whether a document goes down the AcroForm path at all, so
+        // a flat form carrying nothing but a Print button would be routed to an
+        // importer with nothing to import, and never reach the text-layer path
+        // that could actually read it.
+        var report = PdfSourceDetector.Detect(CorpusForm("ct-w4"));
+
+        report.ImportableFieldCount.Should().Be(19,
+            "CT-W4 declares 21 AcroForm fields, two of which are push buttons");
+        report.HasAcroForm.Should().BeTrue("the other 19 are real fields");
+    }
+
+    [Fact]
     public void TheDerivedFixturesAreWhatTheManifestClaims()
     {
         // Fixtures synthesized by scripts/pdf-form-benchmark/synthesize_fixtures.py.

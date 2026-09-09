@@ -132,6 +132,46 @@ public class PdfFormImporterTests
     }
 
     [Fact]
+    public void Import_SkipsPushButtons_BecauseTheyCarryNoAnswer()
+    {
+        // A push button is a JavaScript action -- "Print Form", "Clear Fields" --
+        // not a field anybody fills in. Importing one produces a yes/no question
+        // that cannot be answered and that nothing on the real form asks.
+        //
+        // CT-W4 is the corpus fixture that has them: two push buttons among 21
+        // AcroForm fields. They are also the only reason its flattened twin loses
+        // any words at all, since flattening correctly drops the buttons.
+        var path = Path.Combine(RepoRoot, "scripts", "pdf-form-benchmark", "corpus", "ct-w4.pdf");
+        File.Exists(path).Should().BeTrue();
+
+        var imported = new PdfFormImporter().Import(path, "CT-W4");
+        var prompts = imported.Sections.SelectMany(s => s.Prompts).ToList();
+
+        prompts.Select(p => p.Id).Should().NotContain(["Print Form", "Clear Fields"],
+            "a push button is an action, not a question");
+        prompts.Should().HaveCount(19, "21 AcroForm fields minus the 2 push buttons");
+    }
+
+    [Fact]
+    public void TheWidgetOracleExcludesPushButtonsToo()
+    {
+        // Otherwise the mechanical oracle would expect the importer to account for
+        // fields it is right to skip, and report a correct import as incomplete.
+        var path = Path.Combine(RepoRoot, "scripts", "pdf-form-benchmark", "corpus", "ct-w4.pdf");
+
+        var manifest = PdfWidgetManifest.Extract(path);
+        manifest.Importable.Select(e => e.FullName).Should().NotContain(["Print Form", "Clear Fields"]);
+
+        var coverage = PdfWidgetManifest.Compare(manifest, new PdfFormImporter().Import(path, "CT-W4"));
+        coverage.IsComplete.Should().BeTrue(
+            $"missing: {string.Join(", ", coverage.MissingFieldNames)}");
+        coverage.UnaccountedPromptIds.Should().BeEmpty();
+    }
+
+    private static string RepoRoot => Path.GetFullPath(
+        Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", ".."));
+
+    [Fact]
     public void QualityAssessor_DuplicateReadableLabels_AppliesPenaltyAndFlagsEveryPrompt()
     {
         var mappings = new[]

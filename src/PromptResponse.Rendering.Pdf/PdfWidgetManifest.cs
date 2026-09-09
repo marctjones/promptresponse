@@ -15,15 +15,25 @@ namespace PromptResponse.Rendering.Pdf;
 /// <param name="PageNumber">1-based page, or null for a non-terminal field-tree node.</param>
 /// <param name="HasTooltip">Whether <c>/TU</c> is present — i.e. whether the field arrives with a human-readable name.</param>
 /// <param name="OptionCount">Choice options offered, if any.</param>
+/// <param name="IsPushButton">
+/// Whether this is a JavaScript action button rather than a field. Recorded
+/// rather than dropped so the exclusion stays visible in the manifest.
+/// </param>
 public sealed record WidgetManifestEntry(
     string FullName,
     PdfFieldType FieldType,
     int? PageNumber,
     bool HasTooltip,
-    int OptionCount)
+    int OptionCount,
+    bool IsPushButton = false)
 {
-    /// <summary>Signature fields carry no answer, so the importer skips them.</summary>
-    public bool IsImportable => FieldType != PdfFieldType.Signature;
+    /// <summary>
+    /// Whether the importer should produce a prompt for this field — signature
+    /// fields and push buttons carry no answer. Mirrors
+    /// <see cref="PdfImportableField.CarriesAnAnswer"/>, which is the single
+    /// definition both sides read.
+    /// </summary>
+    public bool IsImportable => FieldType != PdfFieldType.Signature && !IsPushButton;
 }
 
 /// <summary>
@@ -52,7 +62,15 @@ public sealed record WidgetManifest(IReadOnlyList<WidgetManifestEntry> Entries)
         [.. Entries.Where(e => e.IsImportable)];
 
     /// <summary>Signature fields, excluded from importable — reported so the exclusion is visible.</summary>
-    public int SignatureCount => Entries.Count - Importable.Count;
+    /// <remarks>
+    /// Counted directly rather than as <c>Entries.Count - Importable.Count</c>:
+    /// that difference is every excluded field, and push buttons are excluded
+    /// too, so the subtraction would silently report them as signatures.
+    /// </remarks>
+    public int SignatureCount => Entries.Count(e => e.FieldType == PdfFieldType.Signature);
+
+    /// <summary>Push-button actions, excluded from importable — reported so the exclusion is visible.</summary>
+    public int PushButtonCount => Entries.Count(e => e.IsPushButton);
 
     /// <summary>How many importable fields arrived with a <c>/TU</c> human-readable name.</summary>
     public int TooltipCount => Importable.Count(e => e.HasTooltip);
@@ -109,7 +127,8 @@ public static class PdfWidgetManifest
             f.FieldType,
             f.PageNumber,
             HasTooltip: !string.IsNullOrWhiteSpace(f.RawDictionary.GetStringOrNull("TU")),
-            OptionCount: f.Options?.Count ?? 0)),
+            OptionCount: f.Options?.Count ?? 0,
+            IsPushButton: f.IsPushButton)),
     ]);
 
     /// <summary>
