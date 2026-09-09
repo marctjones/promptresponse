@@ -92,8 +92,8 @@ public class PdfWidgetManifestTests
         // prompts to be satisfied.
         var manifest = new WidgetManifest(
         [
-            new WidgetManifestEntry("dupe", Excise.Core.Document.PdfFieldType.Text, 1, HasTooltip: false, OptionCount: 0),
-            new WidgetManifestEntry("dupe", Excise.Core.Document.PdfFieldType.Text, 1, HasTooltip: false, OptionCount: 0),
+            new WidgetManifestEntry("dupe", Excise.Core.Document.PdfFieldType.Text, 1, OptionCount: 0),
+            new WidgetManifestEntry("dupe", Excise.Core.Document.PdfFieldType.Text, 1, OptionCount: 0),
         ]);
 
         var onlyOne = new AprDocument

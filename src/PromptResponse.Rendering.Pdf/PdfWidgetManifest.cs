@@ -13,7 +13,13 @@ namespace PromptResponse.Rendering.Pdf;
 /// </param>
 /// <param name="FieldType">Text, Button, Choice, Signature.</param>
 /// <param name="PageNumber">1-based page, or null for a non-terminal field-tree node.</param>
-/// <param name="HasTooltip">Whether <c>/TU</c> is present — i.e. whether the field arrives with a human-readable name.</param>
+/// <param name="Tooltip">
+/// The field's <c>/TU</c> alternate name, or null when it has none. This is the
+/// form author's own human-readable label, and where it exists it is the one
+/// Tier 1 answer available for "what should this prompt say" — nobody inferred
+/// it, the form states it. Only 34% of the corpus's 446 importable fields carry
+/// one, which is what makes label recovery (#426) necessary for the rest.
+/// </param>
 /// <param name="OptionCount">Choice options offered, if any.</param>
 /// <param name="IsPushButton">
 /// Whether this is a JavaScript action button rather than a field. Recorded
@@ -29,11 +35,14 @@ public sealed record WidgetManifestEntry(
     string FullName,
     PdfFieldType FieldType,
     int? PageNumber,
-    bool HasTooltip,
     int OptionCount,
     bool IsPushButton = false,
-    PdfRectangle? Rect = null)
+    PdfRectangle? Rect = null,
+    string? Tooltip = null)
 {
+    /// <summary>Whether the field arrived with a human-readable name.</summary>
+    public bool HasTooltip => !string.IsNullOrWhiteSpace(Tooltip);
+
     /// <summary>
     /// Whether the importer should produce a prompt for this field — signature
     /// fields and push buttons carry no answer. Mirrors
@@ -133,10 +142,10 @@ public static class PdfWidgetManifest
             f.FullName ?? string.Empty,
             f.FieldType,
             f.PageNumber,
-            HasTooltip: !string.IsNullOrWhiteSpace(f.RawDictionary.GetStringOrNull("TU")),
             OptionCount: f.Options?.Count ?? 0,
             IsPushButton: f.IsPushButton,
-            Rect: f.Rect)),
+            Rect: f.Rect,
+            Tooltip: Trimmed(f.RawDictionary.GetStringOrNull("TU")))),
     ]);
 
     /// <summary>
@@ -168,6 +177,9 @@ public static class PdfWidgetManifest
 
         return new WidgetCoverage(expected.Count, expected.Count - missing.Count, missing, remaining);
     }
+
+    private static string? Trimmed(string? value) =>
+        string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 
     /// <summary>
     /// Removes the <c>#2</c>/<c>#3</c> suffix the importer appends to make a repeated

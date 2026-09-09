@@ -1,0 +1,3784 @@
+{
+  "formId": "fed-ss4",
+  "pageCount": 2,
+  "pages": [
+    {
+      "number": 1,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 2,
+      "width": 612,
+      "height": 828
+    }
+  ],
+  "fields": [
+    {
+      "order": 0,
+      "name": "topmostSubform[0].Page1[0].PgHeader[0].f1_1[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 440.2,
+        "bottom": 707.97,
+        "right": 576,
+        "top": 734.07
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 1,
+      "name": "topmostSubform[0].Page1[0].f1_2[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 51.4,
+        "bottom": 683.97,
+        "right": 576,
+        "top": 697.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 2,
+      "name": "topmostSubform[0].Page1[0].f1_3[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 51.4,
+        "bottom": 659.97,
+        "right": 294.45,
+        "top": 673.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 3,
+      "name": "topmostSubform[0].Page1[0].f1_4[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 296.2,
+        "bottom": 659.97,
+        "right": 576,
+        "top": 673.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 4,
+      "name": "topmostSubform[0].Page1[0].Line4ReadOrder[0].f1_5[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 51.4,
+        "bottom": 635.97,
+        "right": 294.45,
+        "top": 649.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 5,
+      "name": "topmostSubform[0].Page1[0].f1_7[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 296.2,
+        "bottom": 635.97,
+        "right": 576,
+        "top": 649.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 6,
+      "name": "topmostSubform[0].Page1[0].Line4ReadOrder[0].f1_6[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 51.4,
+        "bottom": 611.97,
+        "right": 294.45,
+        "top": 625.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 7,
+      "name": "topmostSubform[0].Page1[0].f1_8[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 296.2,
+        "bottom": 611.97,
+        "right": 576,
+        "top": 625.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 8,
+      "name": "topmostSubform[0].Page1[0].f1_9[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 51.4,
+        "bottom": 587.97,
+        "right": 576,
+        "top": 601.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 9,
+      "name": "topmostSubform[0].Page1[0].f1_10[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 51.4,
+        "bottom": 563.97,
+        "right": 330.45,
+        "top": 577.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 10,
+      "name": "topmostSubform[0].Page1[0].f1_11[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 332.2,
+        "bottom": 563.97,
+        "right": 576,
+        "top": 577.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 11,
+      "name": "topmostSubform[0].Page1[0].f1_12[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 496.8,
+        "bottom": 539.97,
+        "right": 576,
+        "top": 551.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 12,
+      "name": "topmostSubform[0].Page1[0].c1_1[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 255.2,
+        "bottom": 542.47,
+        "right": 263.2,
+        "top": 550.47
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 13,
+      "name": "topmostSubform[0].Page1[0].c1_1[1]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 298.4,
+        "bottom": 542.47,
+        "right": 306.4,
+        "top": 550.47
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 14,
+      "name": "topmostSubform[0].Page1[0].c1_2[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 492.8,
+        "bottom": 529.97,
+        "right": 500.8,
+        "top": 537.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 15,
+      "name": "topmostSubform[0].Page1[0].c1_2[1]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 543.2,
+        "bottom": 529.97,
+        "right": 551.2,
+        "top": 537.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 16,
+      "name": "topmostSubform[0].Page1[0].f1_13[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 158.4,
+        "bottom": 503.97,
+        "right": 259.2,
+        "top": 515.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 17,
+      "name": "topmostSubform[0].Page1[0].f1_14[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 446.4,
+        "bottom": 503.97,
+        "right": 576,
+        "top": 515.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 18,
+      "name": "topmostSubform[0].Page1[0].c1_3[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 505.97,
+        "right": 68.8,
+        "top": 513.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 19,
+      "name": "topmostSubform[0].Page1[0].c1_3[1]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 334.4,
+        "bottom": 505.97,
+        "right": 342.4,
+        "top": 513.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 20,
+      "name": "topmostSubform[0].Page1[0].f1_15[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 439.2,
+        "bottom": 491.97,
+        "right": 576,
+        "top": 503.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 21,
+      "name": "topmostSubform[0].Page1[0].c1_3[2]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 493.97,
+        "right": 68.8,
+        "top": 501.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 22,
+      "name": "topmostSubform[0].Page1[0].c1_3[3]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 334.4,
+        "bottom": 493.97,
+        "right": 342.4,
+        "top": 501.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 23,
+      "name": "topmostSubform[0].Page1[0].f1_16[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 237.6,
+        "bottom": 479.97,
+        "right": 324,
+        "top": 491.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 24,
+      "name": "topmostSubform[0].Page1[0].f1_17[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 432,
+        "bottom": 479.97,
+        "right": 576,
+        "top": 491.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 25,
+      "name": "topmostSubform[0].Page1[0].c1_3[4]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 481.97,
+        "right": 68.8,
+        "top": 489.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 26,
+      "name": "topmostSubform[0].Page1[0].c1_3[5]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 334.4,
+        "bottom": 481.97,
+        "right": 342.4,
+        "top": 489.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 27,
+      "name": "topmostSubform[0].Page1[0].c1_3[6]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 469.97,
+        "right": 68.8,
+        "top": 477.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 28,
+      "name": "topmostSubform[0].Page1[0].c1_3[7]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 334.4,
+        "bottom": 469.97,
+        "right": 342.4,
+        "top": 477.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 29,
+      "name": "topmostSubform[0].Page1[0].c1_3[8]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 442.4,
+        "bottom": 469.97,
+        "right": 450.4,
+        "top": 477.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 30,
+      "name": "topmostSubform[0].Page1[0].c1_3[9]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 457.97,
+        "right": 68.8,
+        "top": 465.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 31,
+      "name": "topmostSubform[0].Page1[0].c1_3[10]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 334.4,
+        "bottom": 457.97,
+        "right": 342.4,
+        "top": 465.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 32,
+      "name": "topmostSubform[0].Page1[0].c1_3[11]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 442.4,
+        "bottom": 457.97,
+        "right": 450.4,
+        "top": 465.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 33,
+      "name": "topmostSubform[0].Page1[0].f1_18[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 216,
+        "bottom": 443.97,
+        "right": 324,
+        "top": 455.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 34,
+      "name": "topmostSubform[0].Page1[0].c1_3[12]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 445.97,
+        "right": 68.8,
+        "top": 453.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 35,
+      "name": "topmostSubform[0].Page1[0].c1_3[13]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 334.4,
+        "bottom": 445.97,
+        "right": 342.4,
+        "top": 453.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 36,
+      "name": "topmostSubform[0].Page1[0].c1_3[14]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 442.4,
+        "bottom": 445.97,
+        "right": 450.4,
+        "top": 453.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 37,
+      "name": "topmostSubform[0].Page1[0].f1_19[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 144,
+        "bottom": 431.97,
+        "right": 324,
+        "top": 443.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 38,
+      "name": "topmostSubform[0].Page1[0].f1_20[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 472.97,
+        "bottom": 431.97,
+        "right": 576,
+        "top": 443.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 39,
+      "name": "topmostSubform[0].Page1[0].c1_3[15]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 433.97,
+        "right": 68.8,
+        "top": 441.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 40,
+      "name": "topmostSubform[0].Page1[0].f1_21[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 274.6,
+        "bottom": 407.97,
+        "right": 402.45,
+        "top": 421.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 41,
+      "name": "topmostSubform[0].Page1[0].f1_22[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 404.2,
+        "bottom": 407.97,
+        "right": 576,
+        "top": 421.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 42,
+      "name": "topmostSubform[0].Page1[0].f1_24[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 424.8,
+        "bottom": 395.97,
+        "right": 576,
+        "top": 407.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 43,
+      "name": "topmostSubform[0].Page1[0].c1_4[8]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 276.8,
+        "bottom": 396.97,
+        "right": 284.8,
+        "top": 404.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 44,
+      "name": "topmostSubform[0].Page1[0].f1_25[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 208.8,
+        "bottom": 383.97,
+        "right": 266.4,
+        "top": 395.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 45,
+      "name": "topmostSubform[0].Page1[0].f1_27[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 468,
+        "bottom": 383.97,
+        "right": 576,
+        "top": 395.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 46,
+      "name": "topmostSubform[0].Page1[0].c1_4[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 385.97,
+        "right": 68.8,
+        "top": 393.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 47,
+      "name": "topmostSubform[0].Page1[0].c1_4[1]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 276.8,
+        "bottom": 384.97,
+        "right": 284.8,
+        "top": 392.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 48,
+      "name": "topmostSubform[0].Page1[0].f1_26[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 57.6,
+        "bottom": 371.97,
+        "right": 266.4,
+        "top": 383.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 49,
+      "name": "topmostSubform[0].Page1[0].c1_4[2]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 276.8,
+        "bottom": 372.97,
+        "right": 284.8,
+        "top": 380.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 50,
+      "name": "topmostSubform[0].Page1[0].f1_28[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 403.2,
+        "bottom": 359.97,
+        "right": 576,
+        "top": 371.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 51,
+      "name": "topmostSubform[0].Page1[0].c1_4[3]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 360.97,
+        "right": 68.8,
+        "top": 368.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 52,
+      "name": "topmostSubform[0].Page1[0].c1_4[4]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 276.8,
+        "bottom": 360.97,
+        "right": 284.8,
+        "top": 368.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 53,
+      "name": "topmostSubform[0].Page1[0].f1_29[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 432,
+        "bottom": 347.97,
+        "right": 576,
+        "top": 359.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 54,
+      "name": "topmostSubform[0].Page1[0].c1_4[5]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 348.97,
+        "right": 68.8,
+        "top": 356.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 55,
+      "name": "topmostSubform[0].Page1[0].c1_4[6]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 276.8,
+        "bottom": 348.97,
+        "right": 284.8,
+        "top": 356.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 56,
+      "name": "topmostSubform[0].Page1[0].f1_30[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 136.8,
+        "bottom": 335.97,
+        "right": 576,
+        "top": 347.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 57,
+      "name": "topmostSubform[0].Page1[0].c1_4[7]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 337.97,
+        "right": 68.8,
+        "top": 345.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 58,
+      "name": "topmostSubform[0].Page1[0].f1_32[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 353.6,
+        "bottom": 311.97,
+        "right": 576,
+        "top": 326.76
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 59,
+      "name": "topmostSubform[0].Page1[0].f1_31[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 57.6,
+        "bottom": 311.97,
+        "right": 331.2,
+        "top": 325.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 60,
+      "name": "topmostSubform[0].Page1[0].f1_33[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 57.6,
+        "bottom": 251.97,
+        "right": 144,
+        "top": 265.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 61,
+      "name": "topmostSubform[0].Page1[0].f1_34[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 144,
+        "bottom": 251.97,
+        "right": 230.4,
+        "top": 265.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 62,
+      "name": "topmostSubform[0].Page1[0].f1_35[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 230.4,
+        "bottom": 251.97,
+        "right": 331.2,
+        "top": 265.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 63,
+      "name": "topmostSubform[0].Page1[0].c1_5[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 563.6,
+        "bottom": 253.97,
+        "right": 571.6,
+        "top": 261.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 64,
+      "name": "topmostSubform[0].Page1[0].f1_36[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 396,
+        "bottom": 227.97,
+        "right": 576,
+        "top": 239.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 65,
+      "name": "topmostSubform[0].Page1[0].c1_6[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 320,
+        "bottom": 217.97,
+        "right": 328,
+        "top": 225.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 66,
+      "name": "topmostSubform[0].Page1[0].c1_6[1]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 449.6,
+        "bottom": 217.97,
+        "right": 457.6,
+        "top": 225.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 67,
+      "name": "topmostSubform[0].Page1[0].c1_6[2]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 205.97,
+        "right": 68.8,
+        "top": 213.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 68,
+      "name": "topmostSubform[0].Page1[0].c1_6[3]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 125.6,
+        "bottom": 205.97,
+        "right": 133.6,
+        "top": 213.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 69,
+      "name": "topmostSubform[0].Page1[0].c1_6[4]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 204.8,
+        "bottom": 205.97,
+        "right": 212.8,
+        "top": 213.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 70,
+      "name": "topmostSubform[0].Page1[0].c1_6[5]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 320,
+        "bottom": 205.97,
+        "right": 328,
+        "top": 213.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 71,
+      "name": "topmostSubform[0].Page1[0].c1_6[6]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 449.6,
+        "bottom": 205.97,
+        "right": 457.6,
+        "top": 213.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 72,
+      "name": "topmostSubform[0].Page1[0].c1_6[7]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 536,
+        "bottom": 205.97,
+        "right": 544,
+        "top": 213.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 73,
+      "name": "topmostSubform[0].Page1[0].f1_37[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 396,
+        "bottom": 191.97,
+        "right": 576,
+        "top": 203.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 74,
+      "name": "topmostSubform[0].Page1[0].c1_6[8]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 60.8,
+        "bottom": 193.97,
+        "right": 68.8,
+        "top": 201.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 75,
+      "name": "topmostSubform[0].Page1[0].c1_6[9]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 125.6,
+        "bottom": 193.97,
+        "right": 133.6,
+        "top": 201.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 76,
+      "name": "topmostSubform[0].Page1[0].c1_6[10]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 204.8,
+        "bottom": 193.97,
+        "right": 212.8,
+        "top": 201.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 77,
+      "name": "topmostSubform[0].Page1[0].c1_6[11]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 320,
+        "bottom": 193.97,
+        "right": 328,
+        "top": 201.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 78,
+      "name": "topmostSubform[0].Page1[0].f1_38[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 57.6,
+        "bottom": 167.97,
+        "right": 576,
+        "top": 181.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 79,
+      "name": "topmostSubform[0].Page1[0].c1_7[0]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 356,
+        "bottom": 157.97,
+        "right": 364,
+        "top": 165.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 80,
+      "name": "topmostSubform[0].Page1[0].c1_7[1]",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 399.2,
+        "bottom": 157.97,
+        "right": 407.2,
+        "top": 165.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 81,
+      "name": "topmostSubform[0].Page1[0].f1_39[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 177.06,
+        "bottom": 143.97,
+        "right": 280.8,
+        "top": 155.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 82,
+      "name": "topmostSubform[0].Page1[0].f1_40[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 87.4,
+        "bottom": 107.97,
+        "right": 431.25,
+        "top": 121.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 83,
+      "name": "topmostSubform[0].Page1[0].f1_41[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 433,
+        "bottom": 107.97,
+        "right": 576,
+        "top": 121.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 84,
+      "name": "topmostSubform[0].Page1[0].f1_42[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 87.4,
+        "bottom": 83.97,
+        "right": 431.25,
+        "top": 97.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 85,
+      "name": "topmostSubform[0].Page1[0].f1_43[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 433,
+        "bottom": 83.97,
+        "right": 576,
+        "top": 97.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 86,
+      "name": "topmostSubform[0].Page1[0].f1_45[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 433,
+        "bottom": 59.97,
+        "right": 576,
+        "top": 73.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 87,
+      "name": "topmostSubform[0].Page1[0].f1_44[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 150.99,
+        "bottom": 59.97,
+        "right": 431.25,
+        "top": 71.97
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 88,
+      "name": "topmostSubform[0].Page1[0].f1_46[0]",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 433,
+        "bottom": 35.97,
+        "right": 576,
+        "top": 49.97
+      },
+      "optionCount": 0
+    }
+  ],
+  "lines": [
+    {
+      "page": 1,
+      "order": 0,
+      "text": "Form SS-4 EIN",
+      "rect": {
+        "left": 36,
+        "bottom": 737.32,
+        "right": 455.99,
+        "top": 762.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 1,
+      "text": "Application for Employer Identification Number",
+      "rect": {
+        "left": 131.04,
+        "bottom": 746.36,
+        "right": 423.36,
+        "top": 760.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 2,
+      "text": "OMB No. 1545-0003",
+      "rect": {
+        "left": 475.11,
+        "bottom": 748.41,
+        "right": 540.09,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 3,
+      "text": "(For use by employers, corporations, partnerships, trusts, estates, churches,",
+      "rect": {
+        "left": 131.57,
+        "bottom": 736.76,
+        "right": 422.84,
+        "top": 744.76
+      }
+    },
+    {
+      "page": 1,
+      "order": 4,
+      "text": "government agencies, Indian tribal entities, certain individuals, and others.)",
+      "rect": {
+        "left": 134.27,
+        "bottom": 728.86,
+        "right": 420.13,
+        "top": 736.86
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "(Rev. December 2025)",
+      "rect": {
+        "left": 36,
+        "bottom": 728.89,
+        "right": 105.5,
+        "top": 735.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 6,
+      "text": "See separate instructions for each line. Keep a copy for your records.",
+      "rect": {
+        "left": 144.9,
+        "bottom": 719.46,
+        "right": 409.49,
+        "top": 727.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "Department of the Treasury",
+      "rect": {
+        "left": 36,
+        "bottom": 717.77,
+        "right": 112.39,
+        "top": 724.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
+      "text": "Go to www.irs.gov/FormSS4 for instructions and the latest information.",
+      "rect": {
+        "left": 141.79,
+        "bottom": 710.76,
+        "right": 412.6,
+        "top": 718.76
+      }
+    },
+    {
+      "page": 1,
+      "order": 9,
+      "text": "Internal Revenue Service",
+      "rect": {
+        "left": 36,
+        "bottom": 710.77,
+        "right": 105.11,
+        "top": 717.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 10,
+      "text": "1",
+      "rect": {
+        "left": 54.4,
+        "bottom": 700.46,
+        "right": 58.85,
+        "top": 708.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 11,
+      "text": "Legal name of entity (or individual) for whom the EIN is being requested",
+      "rect": {
+        "left": 74.42,
+        "bottom": 700.46,
+        "right": 329.27,
+        "top": 708.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 12,
+      "text": ".",
+      "rect": {
+        "left": 35.34,
+        "bottom": 682.07,
+        "right": 45.34,
+        "top": 684.85
+      }
+    },
+    {
+      "page": 1,
+      "order": 13,
+      "text": "2",
+      "rect": {
+        "left": 54.4,
+        "bottom": 676.46,
+        "right": 58.85,
+        "top": 684.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 14,
+      "text": "Trade name of business (if different from name on line 1)",
+      "rect": {
+        "left": 74.42,
+        "bottom": 676.46,
+        "right": 275.65,
+        "top": 684.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 15,
+      "text": "3",
+      "rect": {
+        "left": 299.2,
+        "bottom": 676.46,
+        "right": 303.65,
+        "top": 684.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 16,
+      "text": "Executor, administrator, trustee, \u201Ccare of\u201D name",
+      "rect": {
+        "left": 316.99,
+        "bottom": 676.46,
+        "right": 487.69,
+        "top": 684.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 17,
+      "text": "rly",
+      "rect": {
+        "left": 35.34,
+        "bottom": 670.41,
+        "right": 45.34,
+        "top": 682.07
+      }
+    },
+    {
+      "page": 1,
+      "order": 18,
+      "text": "a",
+      "rect": {
+        "left": 35.34,
+        "bottom": 664.67,
+        "right": 45.34,
+        "top": 670.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 19,
+      "text": "le",
+      "rect": {
+        "left": 35.34,
+        "bottom": 656.35,
+        "right": 45.34,
+        "top": 664.67
+      }
+    },
+    {
+      "page": 1,
+      "order": 20,
+      "text": "4a",
+      "rect": {
+        "left": 54.4,
+        "bottom": 652.46,
+        "right": 63.44,
+        "top": 660.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 21,
+      "text": "Mailing address (room, apt., suite no. and street, or P.O. box) 5a",
+      "rect": {
+        "left": 74.56,
+        "bottom": 652.46,
+        "right": 308.24,
+        "top": 660.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
+      "text": "Street address (if different) (Don\u2019t enter a P.O. box.)",
+      "rect": {
+        "left": 317.14,
+        "bottom": 652.46,
+        "right": 500.42,
+        "top": 660.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 23,
+      "text": "c",
+      "rect": {
+        "left": 35.34,
+        "bottom": 650.61,
+        "right": 45.34,
+        "top": 656.35
+      }
+    },
+    {
+      "page": 1,
+      "order": 24,
+      "text": "t",
+      "rect": {
+        "left": 35.34,
+        "bottom": 644.31,
+        "right": 45.34,
+        "top": 647.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 25,
+      "text": "rin",
+      "rect": {
+        "left": 35.34,
+        "bottom": 631.91,
+        "right": 45.34,
+        "top": 644.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 26,
+      "text": "4b",
+      "rect": {
+        "left": 54.4,
+        "bottom": 628.46,
+        "right": 63.74,
+        "top": 636.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 27,
+      "text": "City, state, and ZIP code (if foreign, see instructions)",
+      "rect": {
+        "left": 74.86,
+        "bottom": 628.46,
+        "right": 261.69,
+        "top": 636.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 28,
+      "text": "5b",
+      "rect": {
+        "left": 299.2,
+        "bottom": 628.46,
+        "right": 308.54,
+        "top": 636.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 29,
+      "text": "City, state, and ZIP code (if foreign, see instructions)",
+      "rect": {
+        "left": 317.43,
+        "bottom": 628.46,
+        "right": 504.26,
+        "top": 636.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 30,
+      "text": "p",
+      "rect": {
+        "left": 35.34,
+        "bottom": 625.8,
+        "right": 45.34,
+        "top": 631.91
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": "r",
+      "rect": {
+        "left": 35.34,
+        "bottom": 619.13,
+        "right": 45.34,
+        "top": 623.02
+      }
+    },
+    {
+      "page": 1,
+      "order": 32,
+      "text": "o",
+      "rect": {
+        "left": 35.34,
+        "bottom": 613.02,
+        "right": 45.34,
+        "top": 619.13
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "6",
+      "rect": {
+        "left": 54.4,
+        "bottom": 604.46,
+        "right": 58.85,
+        "top": 612.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "County and state where principal business is located",
+      "rect": {
+        "left": 74.42,
+        "bottom": 604.46,
+        "right": 263.18,
+        "top": 612.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 35,
+      "text": "e",
+      "rect": {
+        "left": 35.34,
+        "bottom": 604.5,
+        "right": 45.34,
+        "top": 610.24
+      }
+    },
+    {
+      "page": 1,
+      "order": 36,
+      "text": "p",
+      "rect": {
+        "left": 35.34,
+        "bottom": 598.39,
+        "right": 45.34,
+        "top": 604.5
+      }
+    },
+    {
+      "page": 1,
+      "order": 37,
+      "text": "y",
+      "rect": {
+        "left": 35.34,
+        "bottom": 593.2,
+        "right": 45.34,
+        "top": 598.39
+      }
+    },
+    {
+      "page": 1,
+      "order": 38,
+      "text": "T",
+      "rect": {
+        "left": 35.34,
+        "bottom": 587.09,
+        "right": 45.34,
+        "top": 593.2
+      }
+    },
+    {
+      "page": 1,
+      "order": 39,
+      "text": "7a",
+      "rect": {
+        "left": 54.4,
+        "bottom": 580.46,
+        "right": 63.44,
+        "top": 588.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 40,
+      "text": "Name of responsible party",
+      "rect": {
+        "left": 74.56,
+        "bottom": 580.46,
+        "right": 168.94,
+        "top": 588.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
+      "text": "7b SSN, ITIN, or EIN",
+      "rect": {
+        "left": 335.2,
+        "bottom": 580.46,
+        "right": 412.98,
+        "top": 588.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 42,
+      "text": "8a Is this application for a limited liability company (LLC)",
+      "rect": {
+        "left": 36,
+        "bottom": 555.26,
+        "right": 251.98,
+        "top": 563.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 43,
+      "text": "8b If 8a is \u201CYes,\u201D enter the number of",
+      "rect": {
+        "left": 336.26,
+        "bottom": 555.26,
+        "right": 489.62,
+        "top": 563.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "(or a foreign equivalent)? . . . . . . . .",
+      "rect": {
+        "left": 57.58,
+        "bottom": 544.26,
+        "right": 242.2,
+        "top": 552.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 45,
+      "text": "LLC members . . . . . . .",
+      "rect": {
+        "left": 352.82,
+        "bottom": 544.26,
+        "right": 482.25,
+        "top": 552.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 46,
+      "text": "Yes No",
+      "rect": {
+        "left": 266.8,
+        "bottom": 542.26,
+        "right": 320.37,
+        "top": 550.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 47,
+      "text": "8c If 8a is \u201CYes,\u201D was the LLC organized in the United States? . . . . . . . . . . . . . . . . . . Yes",
+      "rect": {
+        "left": 36,
+        "bottom": 530.26,
+        "right": 517.88,
+        "top": 539.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 48,
+      "text": "No",
+      "rect": {
+        "left": 554.8,
+        "bottom": 530.26,
+        "right": 565.17,
+        "top": 538.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": "9a",
+      "rect": {
+        "left": 36,
+        "bottom": 518.26,
+        "right": 45.04,
+        "top": 526.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 50,
+      "text": "Type of entity (check only one box). Caution: If 8a is \u201CYes,\u201D see the instructions for the correct box to check.",
+      "rect": {
+        "left": 57.6,
+        "bottom": 518.26,
+        "right": 448.17,
+        "top": 526.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 51,
+      "text": "Sole proprietor (SSN)",
+      "rect": {
+        "left": 73.2,
+        "bottom": 506.26,
+        "right": 149.04,
+        "top": 514.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": "Estate (SSN of decedent)",
+      "rect": {
+        "left": 346.8,
+        "bottom": 506.26,
+        "right": 436.88,
+        "top": 514.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 53,
+      "text": "Partnership",
+      "rect": {
+        "left": 73.2,
+        "bottom": 494.26,
+        "right": 114.24,
+        "top": 502.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 54,
+      "text": "Plan administrator (TIN)",
+      "rect": {
+        "left": 346.8,
+        "bottom": 494.26,
+        "right": 430.66,
+        "top": 502.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 55,
+      "text": "Corporation (enter form number to be filed)",
+      "rect": {
+        "left": 73.2,
+        "bottom": 482.26,
+        "right": 226.56,
+        "top": 490.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 56,
+      "text": "Trust (TIN of grantor)",
+      "rect": {
+        "left": 346.8,
+        "bottom": 482.26,
+        "right": 421.02,
+        "top": 490.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": "Personal service corporation",
+      "rect": {
+        "left": 73.2,
+        "bottom": 470.26,
+        "right": 175.42,
+        "top": 478.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
+      "text": "Military/National Guard",
+      "rect": {
+        "left": 346.8,
+        "bottom": 470.26,
+        "right": 429.17,
+        "top": 478.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 59,
+      "text": "State/local government",
+      "rect": {
+        "left": 454.8,
+        "bottom": 470.26,
+        "right": 537.92,
+        "top": 478.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 60,
+      "text": "Church or church-controlled organization",
+      "rect": {
+        "left": 73.2,
+        "bottom": 458.26,
+        "right": 220.46,
+        "top": 466.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
+      "text": "Farmers\u2019 cooperative",
+      "rect": {
+        "left": 346.8,
+        "bottom": 458.26,
+        "right": 418.86,
+        "top": 466.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 62,
+      "text": "Federal government",
+      "rect": {
+        "left": 454.8,
+        "bottom": 458.26,
+        "right": 526.37,
+        "top": 466.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 63,
+      "text": "Other nonprofit organization (specify)",
+      "rect": {
+        "left": 73.2,
+        "bottom": 446.26,
+        "right": 205.5,
+        "top": 454.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 64,
+      "text": "REMIC",
+      "rect": {
+        "left": 346.8,
+        "bottom": 446.26,
+        "right": 371.98,
+        "top": 454.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 65,
+      "text": "Indian tribal governments/enterprises",
+      "rect": {
+        "left": 454.83,
+        "bottom": 446.26,
+        "right": 574.58,
+        "top": 454.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 66,
+      "text": "Other (specify)",
+      "rect": {
+        "left": 73.2,
+        "bottom": 434.26,
+        "right": 125.06,
+        "top": 442.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 67,
+      "text": "Group Exemption Number (GEN) if any",
+      "rect": {
+        "left": 331.2,
+        "bottom": 434.26,
+        "right": 469.59,
+        "top": 442.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 68,
+      "text": "State",
+      "rect": {
+        "left": 277.6,
+        "bottom": 424.26,
+        "right": 296.42,
+        "top": 432.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 69,
+      "text": "Foreign country",
+      "rect": {
+        "left": 407.2,
+        "bottom": 424.26,
+        "right": 463.35,
+        "top": 432.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 70,
+      "text": "If a corporation, name the state or foreign country (if",
+      "rect": {
+        "left": 57.6,
+        "bottom": 423.26,
+        "right": 243.7,
+        "top": 431.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 71,
+      "text": "9b",
+      "rect": {
+        "left": 36,
+        "bottom": 422.26,
+        "right": 45.34,
+        "top": 430.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 72,
+      "text": "applicable) where incorporated",
+      "rect": {
+        "left": 57.6,
+        "bottom": 412.26,
+        "right": 168.26,
+        "top": 420.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 73,
+      "text": "10",
+      "rect": {
+        "left": 36,
+        "bottom": 398.26,
+        "right": 44.9,
+        "top": 406.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 74,
+      "text": "Reason for applying (check only one box)",
+      "rect": {
+        "left": 57.6,
+        "bottom": 398.26,
+        "right": 210.04,
+        "top": 406.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 75,
+      "text": "Banking purpose (specify purpose)",
+      "rect": {
+        "left": 289.2,
+        "bottom": 398.26,
+        "right": 413.66,
+        "top": 406.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 76,
+      "text": "Started new business (specify type)",
+      "rect": {
+        "left": 73.2,
+        "bottom": 386.26,
+        "right": 200.02,
+        "top": 394.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 77,
+      "text": "Changed type of organization (specify new type)",
+      "rect": {
+        "left": 289.2,
+        "bottom": 386.26,
+        "right": 461.5,
+        "top": 394.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 78,
+      "text": "Purchased going business",
+      "rect": {
+        "left": 289.2,
+        "bottom": 374.26,
+        "right": 383.74,
+        "top": 382.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 79,
+      "text": "Hired employees (Check the box and see line 13.)",
+      "rect": {
+        "left": 73.2,
+        "bottom": 362.26,
+        "right": 250.42,
+        "top": 370.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 80,
+      "text": "Created a trust (specify type)",
+      "rect": {
+        "left": 289.2,
+        "bottom": 362.26,
+        "right": 392.32,
+        "top": 370.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 81,
+      "text": "Compliance with IRS withholding regulations",
+      "rect": {
+        "left": 73.2,
+        "bottom": 350.26,
+        "right": 233.06,
+        "top": 358.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 82,
+      "text": "Created a pension plan (specify type)",
+      "rect": {
+        "left": 289.2,
+        "bottom": 350.26,
+        "right": 421.96,
+        "top": 358.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 83,
+      "text": "Other (specify)",
+      "rect": {
+        "left": 73.2,
+        "bottom": 338.26,
+        "right": 125.06,
+        "top": 346.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 84,
+      "text": "Closing month of accounting year",
+      "rect": {
+        "left": 353.6,
+        "bottom": 327.45,
+        "right": 474.22,
+        "top": 335.45
+      }
+    },
+    {
+      "page": 1,
+      "order": 85,
+      "text": "11",
+      "rect": {
+        "left": 36,
+        "bottom": 327.26,
+        "right": 44.9,
+        "top": 335.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 86,
+      "text": "12",
+      "rect": {
+        "left": 336.7,
+        "bottom": 326.85,
+        "right": 345.6,
+        "top": 334.85
+      }
+    },
+    {
+      "page": 1,
+      "order": 87,
+      "text": "Date business started or acquired (month, day, year). See instructions.",
+      "rect": {
+        "left": 57.6,
+        "bottom": 326.65,
+        "right": 309.06,
+        "top": 334.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 88,
+      "text": "13",
+      "rect": {
+        "left": 36,
+        "bottom": 302.26,
+        "right": 44.9,
+        "top": 310.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 89,
+      "text": "Highest number of employees expected in the next 12 months (enter -0- if none). 14 If you expect your employment tax liability to be $1,000 or less in a",
+      "rect": {
+        "left": 57.6,
+        "bottom": 301.26,
+        "right": 565.32,
+        "top": 309.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 90,
+      "text": "full calendar year and want to file Form 944 annually instead of Forms",
+      "rect": {
+        "left": 350.6,
+        "bottom": 292.16,
+        "right": 574.9,
+        "top": 300.16
+      }
+    },
+    {
+      "page": 1,
+      "order": 91,
+      "text": "If no employees expected, skip line 14.",
+      "rect": {
+        "left": 57.6,
+        "bottom": 290.26,
+        "right": 188.54,
+        "top": 298.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 92,
+      "text": "941 quarterly, check here. (Your employment tax liability will generally",
+      "rect": {
+        "left": 350.6,
+        "bottom": 282.66,
+        "right": 574.36,
+        "top": 290.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 93,
+      "text": "be $1,000 or less if you expect to pay $5,000 or less, $6,536 or less if",
+      "rect": {
+        "left": 350.6,
+        "bottom": 273.17,
+        "right": 573.6,
+        "top": 281.17
+      }
+    },
+    {
+      "page": 1,
+      "order": 94,
+      "text": "Agricultural Household Other",
+      "rect": {
+        "left": 80.58,
+        "bottom": 268.46,
+        "right": 290.8,
+        "top": 276.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 95,
+      "text": "you\u0027re in a U.S. territory, in total wages.) If you don\u0027t check this box,",
+      "rect": {
+        "left": 350.6,
+        "bottom": 263.67,
+        "right": 568.76,
+        "top": 271.67
+      }
+    },
+    {
+      "page": 1,
+      "order": 96,
+      "text": "you must file Form 941 for every quarter",
+      "rect": {
+        "left": 350.6,
+        "bottom": 254.18,
+        "right": 479.43,
+        "top": 262.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 97,
+      "text": ".",
+      "rect": {
+        "left": 492,
+        "bottom": 254.18,
+        "right": 494,
+        "top": 262.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 98,
+      "text": ".",
+      "rect": {
+        "left": 504,
+        "bottom": 254.18,
+        "right": 506,
+        "top": 262.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 99,
+      "text": ".",
+      "rect": {
+        "left": 516.01,
+        "bottom": 254.18,
+        "right": 518.01,
+        "top": 262.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 100,
+      "text": ".",
+      "rect": {
+        "left": 528.01,
+        "bottom": 254.18,
+        "right": 530.01,
+        "top": 262.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 101,
+      "text": ".",
+      "rect": {
+        "left": 540.01,
+        "bottom": 254.18,
+        "right": 542.01,
+        "top": 262.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 102,
+      "text": ".",
+      "rect": {
+        "left": 552.01,
+        "bottom": 254.18,
+        "right": 554.01,
+        "top": 262.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 103,
+      "text": "15",
+      "rect": {
+        "left": 36,
+        "bottom": 242.26,
+        "right": 44.9,
+        "top": 250.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 104,
+      "text": "First date wages or annuities were paid (month, day, year). Note: If applicant is a withholding agent, enter date income will first be paid to",
+      "rect": {
+        "left": 57.6,
+        "bottom": 242.26,
+        "right": 576,
+        "top": 250.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 105,
+      "text": "nonresident alien (month, day, year) . . . . . . . . . . . . . . . . .",
+      "rect": {
+        "left": 57.6,
+        "bottom": 231.26,
+        "right": 386.22,
+        "top": 239.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 106,
+      "text": "16",
+      "rect": {
+        "left": 36,
+        "bottom": 218.26,
+        "right": 44.9,
+        "top": 226.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 107,
+      "text": "Check one box that best describes the principal activity of your business.",
+      "rect": {
+        "left": 57.6,
+        "bottom": 218.26,
+        "right": 307.32,
+        "top": 226.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 108,
+      "text": "Health care \u0026 social assistance",
+      "rect": {
+        "left": 332.4,
+        "bottom": 218.26,
+        "right": 438.1,
+        "top": 226.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 109,
+      "text": "Wholesale\u2014agent/broker",
+      "rect": {
+        "left": 462,
+        "bottom": 218.26,
+        "right": 552.82,
+        "top": 226.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 110,
+      "text": "Construction",
+      "rect": {
+        "left": 73.2,
+        "bottom": 206.26,
+        "right": 114.67,
+        "top": 214.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 111,
+      "text": "Rental \u0026 leasing",
+      "rect": {
+        "left": 138,
+        "bottom": 206.26,
+        "right": 195.49,
+        "top": 214.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 112,
+      "text": "Transportation \u0026 warehousing",
+      "rect": {
+        "left": 217.2,
+        "bottom": 206.26,
+        "right": 308.37,
+        "top": 214.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 113,
+      "text": "Accommodation \u0026 food service",
+      "rect": {
+        "left": 332.4,
+        "bottom": 206.26,
+        "right": 439.1,
+        "top": 214.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 114,
+      "text": "Wholesale\u2014other",
+      "rect": {
+        "left": 462,
+        "bottom": 206.26,
+        "right": 525.41,
+        "top": 214.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 115,
+      "text": "Retail",
+      "rect": {
+        "left": 548.4,
+        "bottom": 206.26,
+        "right": 568.54,
+        "top": 214.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 116,
+      "text": "Real estate",
+      "rect": {
+        "left": 73.2,
+        "bottom": 194.26,
+        "right": 113.2,
+        "top": 202.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 117,
+      "text": "Manufacturing",
+      "rect": {
+        "left": 138,
+        "bottom": 194.26,
+        "right": 189.57,
+        "top": 202.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 118,
+      "text": "Finance \u0026 insurance",
+      "rect": {
+        "left": 217.2,
+        "bottom": 194.26,
+        "right": 289.51,
+        "top": 202.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 119,
+      "text": "Other (specify)",
+      "rect": {
+        "left": 332.4,
+        "bottom": 194.26,
+        "right": 384.26,
+        "top": 202.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 120,
+      "text": "Indicate principal line of merchandise sold, specific construction work done, products produced, or services provided.",
+      "rect": {
+        "left": 57.6,
+        "bottom": 182.66,
+        "right": 479.44,
+        "top": 190.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 121,
+      "text": "17",
+      "rect": {
+        "left": 36,
+        "bottom": 182.26,
+        "right": 44.9,
+        "top": 190.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 122,
+      "text": "18",
+      "rect": {
+        "left": 36,
+        "bottom": 158.26,
+        "right": 44.9,
+        "top": 166.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 123,
+      "text": "Has the applicant entity shown on line 1 ever applied for and received an EIN?",
+      "rect": {
+        "left": 57.6,
+        "bottom": 158.26,
+        "right": 336.9,
+        "top": 166.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 124,
+      "text": "Yes",
+      "rect": {
+        "left": 368.4,
+        "bottom": 158.26,
+        "right": 381.88,
+        "top": 166.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 125,
+      "text": "No",
+      "rect": {
+        "left": 411.6,
+        "bottom": 158.26,
+        "right": 421.97,
+        "top": 166.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 126,
+      "text": "If \u201CYes,\u201D write previous EIN here",
+      "rect": {
+        "left": 57.6,
+        "bottom": 146.26,
+        "right": 171.96,
+        "top": 154.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 127,
+      "text": "Complete this section only if you want to authorize the named individual to receive the entity\u2019s EIN and answer questions about the completion of this form.",
+      "rect": {
+        "left": 90.4,
+        "bottom": 135.26,
+        "right": 575.34,
+        "top": 143.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 128,
+      "text": "Designee\u2019s name",
+      "rect": {
+        "left": 90.4,
+        "bottom": 124.26,
+        "right": 152.05,
+        "top": 132.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 129,
+      "text": "Third",
+      "rect": {
+        "left": 36,
+        "bottom": 122.84,
+        "right": 58.16,
+        "top": 131.84
+      }
+    },
+    {
+      "page": 1,
+      "order": 130,
+      "text": "Designee\u2019s telephone number (include area code)",
+      "rect": {
+        "left": 434,
+        "bottom": 123.97,
+        "right": 576.43,
+        "top": 130.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 131,
+      "text": "Party",
+      "rect": {
+        "left": 36,
+        "bottom": 112.04,
+        "right": 58.51,
+        "top": 121.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 132,
+      "text": "Designee",
+      "rect": {
+        "left": 36,
+        "bottom": 101.24,
+        "right": 76.16,
+        "top": 110.24
+      }
+    },
+    {
+      "page": 1,
+      "order": 133,
+      "text": "Address and ZIP code",
+      "rect": {
+        "left": 90.4,
+        "bottom": 100.26,
+        "right": 170.26,
+        "top": 108.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 134,
+      "text": "Designee\u2019s fax number (include area code)",
+      "rect": {
+        "left": 434,
+        "bottom": 99.97,
+        "right": 567.28,
+        "top": 106.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 135,
+      "text": "Under penalties of perjury, I declare that I have examined this application, and to the best of my knowledge and belief, it is true, correct, and complete. Applicant\u2019s telephone number (include area code)",
+      "rect": {
+        "left": 36,
+        "bottom": 74.97,
+        "right": 576.34,
+        "top": 84.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 136,
+      "text": "Name and title (type or print clearly)",
+      "rect": {
+        "left": 36,
+        "bottom": 62.47,
+        "right": 147.24,
+        "top": 69.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 137,
+      "text": "Applicant\u2019s fax number (include area code)",
+      "rect": {
+        "left": 434,
+        "bottom": 52.26,
+        "right": 556.6,
+        "top": 60.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 138,
+      "text": "Signature Date",
+      "rect": {
+        "left": 36,
+        "bottom": 38.97,
+        "right": 345.85,
+        "top": 45.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 139,
+      "text": "Form SS-4 (Rev. 12-2025) Created 10/17/25",
+      "rect": {
+        "left": 429.76,
+        "bottom": 25.83,
+        "right": 576,
+        "top": 35.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 140,
+      "text": "For Privacy Act and Paperwork Reduction Act Notice, see separate instructions.",
+      "rect": {
+        "left": 36,
+        "bottom": 26.26,
+        "right": 341.18,
+        "top": 34.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 141,
+      "text": "Cat. No. 16055N",
+      "rect": {
+        "left": 359.01,
+        "bottom": 25.97,
+        "right": 411.39,
+        "top": 32.97
+      }
+    },
+    {
+      "page": 2,
+      "order": 142,
+      "text": "Page 2",
+      "rect": {
+        "left": 552.42,
+        "bottom": 783.86,
+        "right": 576,
+        "top": 793.86
+      }
+    },
+    {
+      "page": 2,
+      "order": 143,
+      "text": "Form SS-4 (Rev. 12-2025)",
+      "rect": {
+        "left": 36,
+        "bottom": 784.44,
+        "right": 117.56,
+        "top": 791.44
+      }
+    },
+    {
+      "page": 2,
+      "order": 144,
+      "text": "See below to determine whether you need an EIN. However, for further information on applying for an EIN, including how to submit",
+      "rect": {
+        "left": 68.41,
+        "bottom": 769.49,
+        "right": 535.42,
+        "top": 777.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 145,
+      "text": "an EIN application, see the separate instructions at www.irs.gov/FormSS4.",
+      "rect": {
+        "left": 68.41,
+        "bottom": 761.49,
+        "right": 335.08,
+        "top": 769.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 146,
+      "text": "Do I Need an EIN?",
+      "rect": {
+        "left": 245.34,
+        "bottom": 736,
+        "right": 366.66,
+        "top": 750
+      }
+    },
+    {
+      "page": 2,
+      "order": 147,
+      "text": "File Form SS-4 if the applicant entity doesn\u2019t already have an EIN but is required to show an EIN on any return, statement, or other",
+      "rect": {
+        "left": 64.8,
+        "bottom": 721.49,
+        "right": 530.08,
+        "top": 729.49
+      }
+    },
+    {
+      "page": 2,
+      "order": 148,
+      "text": "document.1 See also the separate instructions for each line on Form SS-4.",
+      "rect": {
+        "left": 64.8,
+        "bottom": 712.92,
+        "right": 329.86,
+        "top": 720.92
+      }
+    },
+    {
+      "page": 2,
+      "order": 149,
+      "text": "IF the applicant... AND...",
+      "rect": {
+        "left": 36,
+        "bottom": 700.29,
+        "right": 183.21,
+        "top": 708.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 150,
+      "text": "THEN...",
+      "rect": {
+        "left": 368,
+        "bottom": 700.29,
+        "right": 396.6,
+        "top": 708.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 151,
+      "text": "started a new business",
+      "rect": {
+        "left": 36,
+        "bottom": 688.29,
+        "right": 118.53,
+        "top": 696.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 152,
+      "text": "doesn\u2019t currently have (nor expect to have)",
+      "rect": {
+        "left": 159.2,
+        "bottom": 688.29,
+        "right": 311.82,
+        "top": 696.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 153,
+      "text": "complete lines 1, 2, 4a\u20138a, 8b\u2013c (if applicable), 9a,",
+      "rect": {
+        "left": 368,
+        "bottom": 688.29,
+        "right": 548.2,
+        "top": 696.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 154,
+      "text": "9b (if applicable), 10\u201314, and 16\u201318.",
+      "rect": {
+        "left": 368,
+        "bottom": 679.29,
+        "right": 497.09,
+        "top": 687.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 155,
+      "text": "employees",
+      "rect": {
+        "left": 159.2,
+        "bottom": 678.29,
+        "right": 198.02,
+        "top": 686.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 156,
+      "text": "hired (or will hire) employees,",
+      "rect": {
+        "left": 36,
+        "bottom": 664.29,
+        "right": 139.85,
+        "top": 672.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 157,
+      "text": "doesn\u2019t already have an EIN",
+      "rect": {
+        "left": 159.2,
+        "bottom": 664.29,
+        "right": 259.51,
+        "top": 672.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 158,
+      "text": "complete lines 1, 2, 4a\u20136, 7a\u2013b, 8a,",
+      "rect": {
+        "left": 368,
+        "bottom": 664.29,
+        "right": 494.42,
+        "top": 672.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 159,
+      "text": "including household employees",
+      "rect": {
+        "left": 36,
+        "bottom": 655.29,
+        "right": 148.92,
+        "top": 663.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 160,
+      "text": "8b\u2013c (if applicable), 9a, 9b (if applicable), and 10\u201318.",
+      "rect": {
+        "left": 368,
+        "bottom": 655.29,
+        "right": 555.46,
+        "top": 663.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 161,
+      "text": "opened a bank account",
+      "rect": {
+        "left": 36,
+        "bottom": 640.28,
+        "right": 120.62,
+        "top": 648.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 162,
+      "text": "needs an EIN for banking purposes only",
+      "rect": {
+        "left": 159.2,
+        "bottom": 640.28,
+        "right": 302.19,
+        "top": 648.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 163,
+      "text": "complete lines 1\u20135b, 7a\u2013b, 8a, 8b\u2013c",
+      "rect": {
+        "left": 368,
+        "bottom": 640.28,
+        "right": 496.79,
+        "top": 648.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 164,
+      "text": "(if applicable), 9a, 9b (if applicable), 10, and 18.",
+      "rect": {
+        "left": 368,
+        "bottom": 631.28,
+        "right": 536.19,
+        "top": 639.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 165,
+      "text": "changed type of organization",
+      "rect": {
+        "left": 36,
+        "bottom": 616.28,
+        "right": 140.15,
+        "top": 624.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 166,
+      "text": "either the legal character of the organization or its",
+      "rect": {
+        "left": 159.2,
+        "bottom": 616.28,
+        "right": 336.38,
+        "top": 624.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 167,
+      "text": "complete lines 1\u201318 (as applicable).",
+      "rect": {
+        "left": 368,
+        "bottom": 616.28,
+        "right": 495.29,
+        "top": 624.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 168,
+      "text": "ownership changed (for example, you incorporate a",
+      "rect": {
+        "left": 159.2,
+        "bottom": 607.28,
+        "right": 343.22,
+        "top": 615.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 169,
+      "text": "sole proprietorship or form a partnership)2",
+      "rect": {
+        "left": 159.2,
+        "bottom": 597.72,
+        "right": 309.21,
+        "top": 605.72
+      }
+    },
+    {
+      "page": 2,
+      "order": 170,
+      "text": "doesn\u2019t already have an EIN",
+      "rect": {
+        "left": 159.2,
+        "bottom": 580.28,
+        "right": 259.51,
+        "top": 588.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 171,
+      "text": "complete lines 1\u201318 (as applicable).",
+      "rect": {
+        "left": 368,
+        "bottom": 580.28,
+        "right": 495.29,
+        "top": 588.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 172,
+      "text": "purchased a going business3",
+      "rect": {
+        "left": 36,
+        "bottom": 579.71,
+        "right": 139.95,
+        "top": 587.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 173,
+      "text": "created a trust",
+      "rect": {
+        "left": 36,
+        "bottom": 568.28,
+        "right": 88.01,
+        "top": 576.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 174,
+      "text": "the trust is other than a grantor trust or an IRA",
+      "rect": {
+        "left": 159.2,
+        "bottom": 568.28,
+        "right": 323.82,
+        "top": 576.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 175,
+      "text": "complete lines 1\u201318 (as applicable).",
+      "rect": {
+        "left": 368,
+        "bottom": 568.28,
+        "right": 495.29,
+        "top": 576.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 176,
+      "text": "trust4",
+      "rect": {
+        "left": 159.2,
+        "bottom": 558.72,
+        "right": 178.69,
+        "top": 566.72
+      }
+    },
+    {
+      "page": 2,
+      "order": 177,
+      "text": "created a pension plan as a",
+      "rect": {
+        "left": 36,
+        "bottom": 544.28,
+        "right": 134.69,
+        "top": 552.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 178,
+      "text": "needs an EIN for reporting purposes",
+      "rect": {
+        "left": 159.2,
+        "bottom": 544.28,
+        "right": 288.99,
+        "top": 552.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 179,
+      "text": "complete lines 1, 3, 4a\u20135b, 7a\u2013b, 9a, 10, and 18.",
+      "rect": {
+        "left": 368,
+        "bottom": 544.28,
+        "right": 541.57,
+        "top": 552.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 180,
+      "text": "plan administrator5",
+      "rect": {
+        "left": 36,
+        "bottom": 534.72,
+        "right": 103.94,
+        "top": 542.72
+      }
+    },
+    {
+      "page": 2,
+      "order": 181,
+      "text": "is a foreign person needing an",
+      "rect": {
+        "left": 36,
+        "bottom": 520.28,
+        "right": 144.02,
+        "top": 528.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 182,
+      "text": "needs an EIN to complete a Form W-8 (other than",
+      "rect": {
+        "left": 159.2,
+        "bottom": 520.28,
+        "right": 337.18,
+        "top": 528.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 183,
+      "text": "complete lines 1\u20135b, 7a\u2013b (SSN or ITIN as applicable),",
+      "rect": {
+        "left": 368,
+        "bottom": 520.28,
+        "right": 562.1,
+        "top": 528.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 184,
+      "text": "EIN to comply with IRS",
+      "rect": {
+        "left": 36,
+        "bottom": 511.28,
+        "right": 118.52,
+        "top": 519.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 185,
+      "text": "Form W-8ECI), avoid withholding on portfolio assets,",
+      "rect": {
+        "left": 159.2,
+        "bottom": 511.28,
+        "right": 347.81,
+        "top": 519.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 186,
+      "text": "8a, 8b\u2013c (if applicable), 9a, 9b (if applicable), 10,",
+      "rect": {
+        "left": 368,
+        "bottom": 511.28,
+        "right": 540.04,
+        "top": 519.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 187,
+      "text": "withholding regulations",
+      "rect": {
+        "left": 36,
+        "bottom": 502.28,
+        "right": 118.82,
+        "top": 510.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 188,
+      "text": "and 18.",
+      "rect": {
+        "left": 368,
+        "bottom": 502.28,
+        "right": 394.83,
+        "top": 510.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 189,
+      "text": "or claim tax treaty benefits6",
+      "rect": {
+        "left": 159.2,
+        "bottom": 501.72,
+        "right": 257.36,
+        "top": 509.72
+      }
+    },
+    {
+      "page": 2,
+      "order": 190,
+      "text": "is administering an estate",
+      "rect": {
+        "left": 36,
+        "bottom": 484.28,
+        "right": 127.28,
+        "top": 492.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 191,
+      "text": "needs an EIN to report estate income on Form 1041",
+      "rect": {
+        "left": 159.2,
+        "bottom": 484.28,
+        "right": 344.74,
+        "top": 492.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 192,
+      "text": "complete lines 1\u20137b, 9a, 10\u201312, 13\u201317 (if applicable),",
+      "rect": {
+        "left": 368,
+        "bottom": 484.28,
+        "right": 557.1,
+        "top": 492.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 193,
+      "text": "and 18.",
+      "rect": {
+        "left": 368,
+        "bottom": 475.28,
+        "right": 394.83,
+        "top": 483.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 194,
+      "text": "is a withholding agent for",
+      "rect": {
+        "left": 36,
+        "bottom": 460.28,
+        "right": 125.93,
+        "top": 468.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 195,
+      "text": "is an agent, broker, fiduciary, manager, tenant, or",
+      "rect": {
+        "left": 159.2,
+        "bottom": 460.28,
+        "right": 335.24,
+        "top": 468.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 196,
+      "text": "complete lines 1, 2, 3 (if applicable), 4a\u20135b, 7a\u2013b, 8a,",
+      "rect": {
+        "left": 368,
+        "bottom": 460.28,
+        "right": 557.54,
+        "top": 468.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 197,
+      "text": "taxes on nonwage income",
+      "rect": {
+        "left": 36,
+        "bottom": 451.28,
+        "right": 129.94,
+        "top": 459.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 198,
+      "text": "spouse who is required to file Form 1042, Annual",
+      "rect": {
+        "left": 159.2,
+        "bottom": 451.28,
+        "right": 334.2,
+        "top": 459.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 199,
+      "text": "8b\u2013c (if applicable), 9a, 9b (if applicable), 10, and 18.",
+      "rect": {
+        "left": 368,
+        "bottom": 451.28,
+        "right": 555.9,
+        "top": 459.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 200,
+      "text": "paid to an alien (that is,",
+      "rect": {
+        "left": 36,
+        "bottom": 442.28,
+        "right": 118.98,
+        "top": 450.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 201,
+      "text": "Withholding Tax Return for U.S. Source Income of",
+      "rect": {
+        "left": 159.2,
+        "bottom": 442.28,
+        "right": 338.18,
+        "top": 450.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 202,
+      "text": "individual, corporation, or",
+      "rect": {
+        "left": 36,
+        "bottom": 433.28,
+        "right": 127.12,
+        "top": 441.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 203,
+      "text": "Foreign Persons",
+      "rect": {
+        "left": 159.2,
+        "bottom": 433.28,
+        "right": 217.57,
+        "top": 441.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 204,
+      "text": "partnership, etc.)",
+      "rect": {
+        "left": 36,
+        "bottom": 424.28,
+        "right": 96.46,
+        "top": 432.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 205,
+      "text": "is a state or local agency",
+      "rect": {
+        "left": 36,
+        "bottom": 412.28,
+        "right": 124.74,
+        "top": 420.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 206,
+      "text": "serves as a tax reporting agent for public assistance",
+      "rect": {
+        "left": 159.2,
+        "bottom": 412.28,
+        "right": 345.58,
+        "top": 420.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 207,
+      "text": "complete lines 1, 2, 4a\u20135b, 7a\u2013b, 9a, 10, and 18.",
+      "rect": {
+        "left": 368,
+        "bottom": 412.28,
+        "right": 541.57,
+        "top": 420.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 208,
+      "text": "recipients under Rev. Proc. 80-4, 1980-1 C.B. 5817",
+      "rect": {
+        "left": 159.2,
+        "bottom": 403.28,
+        "right": 341,
+        "top": 411.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 209,
+      "text": "is a single-member LLC (or",
+      "rect": {
+        "left": 36,
+        "bottom": 388.28,
+        "right": 132.62,
+        "top": 396.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 210,
+      "text": "needs an EIN to file Form 8832, Entity Classification",
+      "rect": {
+        "left": 159.2,
+        "bottom": 388.28,
+        "right": 344.12,
+        "top": 396.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 211,
+      "text": "complete lines 1\u201318 (as applicable).",
+      "rect": {
+        "left": 368,
+        "bottom": 388.28,
+        "right": 495.29,
+        "top": 396.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 212,
+      "text": "similar single-member entity)",
+      "rect": {
+        "left": 36,
+        "bottom": 379.28,
+        "right": 138.84,
+        "top": 387.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 213,
+      "text": "Election, for filing employment tax returns and excise",
+      "rect": {
+        "left": 159.2,
+        "bottom": 379.28,
+        "right": 348.56,
+        "top": 387.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 214,
+      "text": "tax returns, or for state reporting purposes8, or is a",
+      "rect": {
+        "left": 159.2,
+        "bottom": 369.71,
+        "right": 340.62,
+        "top": 377.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 215,
+      "text": "foreign-owned U.S. disregarded entity and needs an",
+      "rect": {
+        "left": 159.2,
+        "bottom": 361.28,
+        "right": 346.33,
+        "top": 369.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 216,
+      "text": "EIN to file Form 5472, Information Return of a 25%",
+      "rect": {
+        "left": 159.2,
+        "bottom": 352.28,
+        "right": 340.57,
+        "top": 360.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 217,
+      "text": "Foreign-Owned U.S. Corporation or a Foreign",
+      "rect": {
+        "left": 159.2,
+        "bottom": 343.28,
+        "right": 322.6,
+        "top": 351.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 218,
+      "text": "Corporation Engaged in a U.S. Trade or Business",
+      "rect": {
+        "left": 159.2,
+        "bottom": 334.28,
+        "right": 335.51,
+        "top": 342.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 219,
+      "text": "is an S corporation",
+      "rect": {
+        "left": 36,
+        "bottom": 316.28,
+        "right": 103.56,
+        "top": 324.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 220,
+      "text": "needs an EIN to file Form 2553, Election by a Small",
+      "rect": {
+        "left": 159.2,
+        "bottom": 316.28,
+        "right": 342.21,
+        "top": 324.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 221,
+      "text": "complete lines 1\u201318 (as applicable).",
+      "rect": {
+        "left": 368,
+        "bottom": 316.28,
+        "right": 495.29,
+        "top": 324.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 222,
+      "text": "Business Corporation9",
+      "rect": {
+        "left": 159.2,
+        "bottom": 306.71,
+        "right": 239.87,
+        "top": 314.71
+      }
+    },
+    {
+      "page": 2,
+      "order": 223,
+      "text": "1 For example, a sole proprietorship or self-employed farmer who establishes a qualified retirement plan, or is required to file excise, employment, alcohol, tobacco, or",
+      "rect": {
+        "left": 36,
+        "bottom": 277.43,
+        "right": 557.39,
+        "top": 284.43
+      }
+    },
+    {
+      "page": 2,
+      "order": 224,
+      "text": "firearms returns, must have an EIN. A partnership, corporation, REMIC (real estate mortgage investment conduit), nonprofit organization (church, club, etc.), or farmers\u2019",
+      "rect": {
+        "left": 43.5,
+        "bottom": 268.93,
+        "right": 565.22,
+        "top": 275.93
+      }
+    },
+    {
+      "page": 2,
+      "order": 225,
+      "text": "cooperative must use an EIN for any tax-related purpose even if the entity doesn\u2019t have employees.",
+      "rect": {
+        "left": 43.5,
+        "bottom": 260.43,
+        "right": 354.03,
+        "top": 267.43
+      }
+    },
+    {
+      "page": 2,
+      "order": 226,
+      "text": "2 However, don\u2019t apply for a new EIN if the existing entity only (a) changed its business name, (b) elected on Form 8832 to change the way it is taxed (or is covered by the",
+      "rect": {
+        "left": 36,
+        "bottom": 248.86,
+        "right": 567.36,
+        "top": 255.86
+      }
+    },
+    {
+      "page": 2,
+      "order": 227,
+      "text": "default rules), or (c) terminated its partnership status because at least 50% of the total interests in partnership capital and profits were sold or exchanged within a 12-",
+      "rect": {
+        "left": 43.5,
+        "bottom": 240.36,
+        "right": 559.24,
+        "top": 247.36
+      }
+    },
+    {
+      "page": 2,
+      "order": 228,
+      "text": "month period. The EIN of the terminated partnership should continue to be used. See Regulations section 301.6109-1(d)(2)(iii).",
+      "rect": {
+        "left": 43.5,
+        "bottom": 231.86,
+        "right": 436.77,
+        "top": 238.86
+      }
+    },
+    {
+      "page": 2,
+      "order": 229,
+      "text": "3 Don\u2019t use the EIN of the prior business unless you became the \u201Cowner\u201D of a corporation by acquiring its stock.",
+      "rect": {
+        "left": 36,
+        "bottom": 220.29,
+        "right": 387.42,
+        "top": 227.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 230,
+      "text": "4 However, grantor trusts that don\u2019t file using Optional Method 1 and IRA trusts that are required to file Form 990-T, Exempt Organization Business Income Tax Return,",
+      "rect": {
+        "left": 36,
+        "bottom": 208.29,
+        "right": 559.48,
+        "top": 215.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 231,
+      "text": "must have an EIN. For more information on grantor trusts, see the Instructions for Form 1041.",
+      "rect": {
+        "left": 43.5,
+        "bottom": 199.79,
+        "right": 335.37,
+        "top": 206.79
+      }
+    },
+    {
+      "page": 2,
+      "order": 232,
+      "text": "5 A plan administrator is the person or group of persons specified as the administrator by the instrument under which the plan is operated.",
+      "rect": {
+        "left": 36,
+        "bottom": 188.22,
+        "right": 469.25,
+        "top": 195.22
+      }
+    },
+    {
+      "page": 2,
+      "order": 233,
+      "text": "6 Entities applying to be a Qualified Intermediary (QI) need a QI-EIN even if they already have an EIN. See Rev. Proc. 2000-12.",
+      "rect": {
+        "left": 36,
+        "bottom": 176.22,
+        "right": 429.7,
+        "top": 183.22
+      }
+    },
+    {
+      "page": 2,
+      "order": 234,
+      "text": "7 See also Household employer agent in the instructions. Note: State or local agencies may need an EIN for other reasons, for example, hired employees.",
+      "rect": {
+        "left": 36,
+        "bottom": 164.22,
+        "right": 516.8,
+        "top": 171.22
+      }
+    },
+    {
+      "page": 2,
+      "order": 235,
+      "text": "8 See Disregarded entities in the instructions for details on completing Form SS-4 for an LLC.",
+      "rect": {
+        "left": 36,
+        "bottom": 152.22,
+        "right": 328.43,
+        "top": 159.22
+      }
+    },
+    {
+      "page": 2,
+      "order": 236,
+      "text": "9 An existing corporation that is electing or revoking S corporation status should use its previously assigned EIN.",
+      "rect": {
+        "left": 36,
+        "bottom": 140.22,
+        "right": 389.08,
+        "top": 147.22
+      }
+    }
+  ]
+}

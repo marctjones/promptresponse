@@ -1,0 +1,1634 @@
+{
+  "formId": "ct-dmv-b58ind",
+  "pageCount": 1,
+  "pages": [
+    {
+      "number": 1,
+      "width": 612,
+      "height": 792
+    }
+  ],
+  "fields": [
+    {
+      "order": 0,
+      "name": "FillText1",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 139,
+        "bottom": 695,
+        "right": 452,
+        "top": 708
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 1,
+      "name": "FillText2",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 460,
+        "bottom": 695,
+        "right": 586,
+        "top": 708
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 2,
+      "name": "FillText3",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 140,
+        "bottom": 668,
+        "right": 412,
+        "top": 682
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 3,
+      "name": "FillText4",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 424,
+        "bottom": 668,
+        "right": 587,
+        "top": 682
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 4,
+      "name": "FillText5",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 140,
+        "bottom": 642,
+        "right": 586,
+        "top": 655
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 5,
+      "name": "FillText24",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 503,
+        "bottom": 618,
+        "right": 517,
+        "top": 632
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 6,
+      "name": "FillText25",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 519,
+        "bottom": 618,
+        "right": 533,
+        "top": 632
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 7,
+      "name": "FillText26",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 536,
+        "bottom": 618,
+        "right": 550,
+        "top": 632
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 8,
+      "name": "FillText27",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 141,
+        "bottom": 615,
+        "right": 382,
+        "top": 629
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 9,
+      "name": "CheckBox1",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 381,
+        "bottom": 602,
+        "right": 389,
+        "top": 610
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 10,
+      "name": "FillText9",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 140,
+        "bottom": 562,
+        "right": 587,
+        "top": 576
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 11,
+      "name": "FillText32",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 489,
+        "bottom": 538,
+        "right": 503,
+        "top": 552
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 12,
+      "name": "FillText33",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 505,
+        "bottom": 538,
+        "right": 519,
+        "top": 552
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 13,
+      "name": "FillText34",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 522,
+        "bottom": 538,
+        "right": 536,
+        "top": 552
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 14,
+      "name": "FillText36",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 539,
+        "bottom": 538,
+        "right": 553,
+        "top": 552
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 15,
+      "name": "FillText37",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 556,
+        "bottom": 538,
+        "right": 570,
+        "top": 552
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 16,
+      "name": "FillText35",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 140,
+        "bottom": 535,
+        "right": 447,
+        "top": 549
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 17,
+      "name": "CheckBox2",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 143,
+        "bottom": 522,
+        "right": 151,
+        "top": 530
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 18,
+      "name": "CheckBox3",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 310,
+        "bottom": 522,
+        "right": 318,
+        "top": 530
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 19,
+      "name": "FillText38",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 325,
+        "bottom": 484,
+        "right": 586,
+        "top": 497
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 20,
+      "name": "CheckBox4",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 141,
+        "bottom": 473,
+        "right": 148,
+        "top": 481
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 21,
+      "name": "FillText13",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 140,
+        "bottom": 443,
+        "right": 585,
+        "top": 457
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 22,
+      "name": "FillText14",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 140,
+        "bottom": 417,
+        "right": 585,
+        "top": 430
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 23,
+      "name": "FillText15",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 140,
+        "bottom": 390,
+        "right": 586,
+        "top": 404
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 24,
+      "name": "CheckBox5",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 325,
+        "bottom": 311,
+        "right": 333,
+        "top": 319
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 25,
+      "name": "CheckBox6",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 361,
+        "bottom": 311,
+        "right": 368,
+        "top": 319
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 26,
+      "name": "CheckBox7",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 368,
+        "bottom": 298,
+        "right": 376,
+        "top": 306
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 27,
+      "name": "CheckBox8",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 404,
+        "bottom": 298,
+        "right": 412,
+        "top": 306
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 28,
+      "name": "CheckBox9",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 142,
+        "bottom": 243,
+        "right": 150,
+        "top": 251
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 29,
+      "name": "CheckBox10",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 257,
+        "bottom": 243,
+        "right": 265,
+        "top": 251
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 30,
+      "name": "CheckBox11",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 333,
+        "bottom": 243,
+        "right": 341,
+        "top": 251
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 31,
+      "name": "CheckBox12",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 405,
+        "bottom": 243,
+        "right": 413,
+        "top": 251
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 32,
+      "name": "FillText17",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 449,
+        "bottom": 238,
+        "right": 588,
+        "top": 251
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 33,
+      "name": "CheckBox13",
+      "type": "Button",
+      "page": 1,
+      "rect": {
+        "left": 142,
+        "bottom": 226,
+        "right": 150,
+        "top": 234
+      },
+      "optionCount": 0
+    }
+  ],
+  "lines": [
+    {
+      "page": 1,
+      "order": 0,
+      "text": "STATE OF CONNECTICUT",
+      "rect": {
+        "left": 209.99,
+        "bottom": 764.33,
+        "right": 309.99,
+        "top": 772.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 1,
+      "text": "B-58 IND Rev. 10-2019",
+      "rect": {
+        "left": 28.4,
+        "bottom": 764.14,
+        "right": 112.43,
+        "top": 772.14
+      }
+    },
+    {
+      "page": 1,
+      "order": 2,
+      "text": "FOR DMV INTERNAL USE ONLY",
+      "rect": {
+        "left": 436.1,
+        "bottom": 760.48,
+        "right": 558.77,
+        "top": 768.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 3,
+      "text": "DEPARTMENT OF MOTOR VEHICLES",
+      "rect": {
+        "left": 188.44,
+        "bottom": 755.15,
+        "right": 331.56,
+        "top": 763.15
+      }
+    },
+    {
+      "page": 1,
+      "order": 4,
+      "text": "LICENSE/ID CHANGES COMPLETED",
+      "rect": {
+        "left": 449.7,
+        "bottom": 749.06,
+        "right": 570.66,
+        "top": 756.06
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "Individual Change of Address/Organ \u0026 Tissue Donor Status/Voter Registration Application",
+      "rect": {
+        "left": 27.1,
+        "bottom": 741.96,
+        "right": 414.17,
+        "top": 750.96
+      }
+    },
+    {
+      "page": 1,
+      "order": 6,
+      "text": "REGISTRATION CHANGES COMPLETED",
+      "rect": {
+        "left": 449.86,
+        "bottom": 735.6,
+        "right": 584.44,
+        "top": 742.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "Please mail completed form to: DMV Change of Address Unit, 60 State Street, Wethersfield, CT 06161-1015",
+      "rect": {
+        "left": 26.39,
+        "bottom": 730.58,
+        "right": 422.06,
+        "top": 738.58
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
+      "text": "NAME (Last, First, Middle)",
+      "rect": {
+        "left": 139.89,
+        "bottom": 713.72,
+        "right": 222.34,
+        "top": 720.72
+      }
+    },
+    {
+      "page": 1,
+      "order": 9,
+      "text": "BIRTH DATE",
+      "rect": {
+        "left": 461.14,
+        "bottom": 713.37,
+        "right": 503.52,
+        "top": 720.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 10,
+      "text": "About You",
+      "rect": {
+        "left": 28.61,
+        "bottom": 708.37,
+        "right": 74.1,
+        "top": 717.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 11,
+      "text": "You must provide your",
+      "rect": {
+        "left": 28.99,
+        "bottom": 695.19,
+        "right": 109.02,
+        "top": 703.19
+      }
+    },
+    {
+      "page": 1,
+      "order": 12,
+      "text": "1",
+      "rect": {
+        "left": 122.63,
+        "bottom": 690.38,
+        "right": 129.3,
+        "top": 702.38
+      }
+    },
+    {
+      "page": 1,
+      "order": 13,
+      "text": "TELEPHONE NUMBER",
+      "rect": {
+        "left": 424,
+        "bottom": 687.46,
+        "right": 499.44,
+        "top": 694.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 14,
+      "text": "name, license/ID",
+      "rect": {
+        "left": 28.99,
+        "bottom": 686.02,
+        "right": 88.57,
+        "top": 694.02
+      }
+    },
+    {
+      "page": 1,
+      "order": 15,
+      "text": "OPERATOR LICENSE/ID NUMBER",
+      "rect": {
+        "left": 139.52,
+        "bottom": 686.97,
+        "right": 253.08,
+        "top": 693.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 16,
+      "text": "number and birth date.",
+      "rect": {
+        "left": 28.99,
+        "bottom": 676.84,
+        "right": 109.48,
+        "top": 684.84
+      }
+    },
+    {
+      "page": 1,
+      "order": 17,
+      "text": "UNIT/APT. #",
+      "rect": {
+        "left": 327.93,
+        "bottom": 660.79,
+        "right": 367.99,
+        "top": 667.79
+      }
+    },
+    {
+      "page": 1,
+      "order": 18,
+      "text": "STREET ADDRESS",
+      "rect": {
+        "left": 140.26,
+        "bottom": 660.78,
+        "right": 204.05,
+        "top": 667.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 19,
+      "text": "Your Residence",
+      "rect": {
+        "left": 28.24,
+        "bottom": 642.53,
+        "right": 96.26,
+        "top": 651.53
+      }
+    },
+    {
+      "page": 1,
+      "order": 20,
+      "text": "STATE ZIP CODE",
+      "rect": {
+        "left": 395.47,
+        "bottom": 634.23,
+        "right": 523.46,
+        "top": 641.24
+      }
+    },
+    {
+      "page": 1,
+      "order": 21,
+      "text": "CITY",
+      "rect": {
+        "left": 143.29,
+        "bottom": 634.22,
+        "right": 159.23,
+        "top": 641.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
+      "text": "Address",
+      "rect": {
+        "left": 28.24,
+        "bottom": 632.21,
+        "right": 64.24,
+        "top": 641.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 23,
+      "text": "2",
+      "rect": {
+        "left": 123.1,
+        "bottom": 623.77,
+        "right": 129.77,
+        "top": 635.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 24,
+      "text": "CT 06",
+      "rect": {
+        "left": 399.98,
+        "bottom": 620.66,
+        "right": 501.39,
+        "top": 630.95
+      }
+    },
+    {
+      "page": 1,
+      "order": 25,
+      "text": "This must be a",
+      "rect": {
+        "left": 28.62,
+        "bottom": 618.63,
+        "right": 81.08,
+        "top": 626.63
+      }
+    },
+    {
+      "page": 1,
+      "order": 26,
+      "text": "Connecticut address.",
+      "rect": {
+        "left": 28.62,
+        "bottom": 609.45,
+        "right": 103.76,
+        "top": 617.45
+      }
+    },
+    {
+      "page": 1,
+      "order": 27,
+      "text": "DMV shares residence address updates with town registrars",
+      "rect": {
+        "left": 140.26,
+        "bottom": 606.93,
+        "right": 369.67,
+        "top": 614.93
+      }
+    },
+    {
+      "page": 1,
+      "order": 28,
+      "text": "Check here if you do NOT want your voting address",
+      "rect": {
+        "left": 395.47,
+        "bottom": 603.65,
+        "right": 579.1,
+        "top": 611.65
+      }
+    },
+    {
+      "page": 1,
+      "order": 29,
+      "text": "of voters so they can update your voting address, if you are",
+      "rect": {
+        "left": 140.26,
+        "bottom": 598.93,
+        "right": 367.44,
+        "top": 606.93
+      }
+    },
+    {
+      "page": 1,
+      "order": 30,
+      "text": "automatically updated.",
+      "rect": {
+        "left": 395.47,
+        "bottom": 594.47,
+        "right": 475.51,
+        "top": 602.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": "a registered voter.",
+      "rect": {
+        "left": 140.26,
+        "bottom": 590.93,
+        "right": 209.62,
+        "top": 598.93
+      }
+    },
+    {
+      "page": 1,
+      "order": 32,
+      "text": "UNIT/APT. #",
+      "rect": {
+        "left": 327.59,
+        "bottom": 580.87,
+        "right": 367.65,
+        "top": 587.87
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "STREET ADDRESS",
+      "rect": {
+        "left": 140.26,
+        "bottom": 580.86,
+        "right": 204.05,
+        "top": 587.86
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "Your Mailing",
+      "rect": {
+        "left": 28.61,
+        "bottom": 574.84,
+        "right": 82.62,
+        "top": 583.84
+      }
+    },
+    {
+      "page": 1,
+      "order": 35,
+      "text": "Address",
+      "rect": {
+        "left": 28.61,
+        "bottom": 564.51,
+        "right": 64.62,
+        "top": 573.51
+      }
+    },
+    {
+      "page": 1,
+      "order": 36,
+      "text": "3",
+      "rect": {
+        "left": 122.65,
+        "bottom": 557.5,
+        "right": 129.32,
+        "top": 569.5
+      }
+    },
+    {
+      "page": 1,
+      "order": 37,
+      "text": "CODEIf different from your",
+      "rect": {
+        "left": 28.01,
+        "bottom": 550.95,
+        "right": 522.96,
+        "top": 561.2
+      }
+    },
+    {
+      "page": 1,
+      "order": 38,
+      "text": "CITY STATE ZIP",
+      "rect": {
+        "left": 142.78,
+        "bottom": 554.18,
+        "right": 500.79,
+        "top": 561.2
+      }
+    },
+    {
+      "page": 1,
+      "order": 39,
+      "text": "residence address.",
+      "rect": {
+        "left": 28.01,
+        "bottom": 541.77,
+        "right": 95.59,
+        "top": 549.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 40,
+      "text": "Organ and Tissue",
+      "rect": {
+        "left": 28.24,
+        "bottom": 524.06,
+        "right": 104.26,
+        "top": 533.06
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
+      "text": "I consent to organ and tissue donation",
+      "rect": {
+        "left": 156.85,
+        "bottom": 523.63,
+        "right": 292.49,
+        "top": 531.63
+      }
+    },
+    {
+      "page": 1,
+      "order": 42,
+      "text": "I no longer wish to be in the donor registry",
+      "rect": {
+        "left": 323.47,
+        "bottom": 522.89,
+        "right": 472.43,
+        "top": 530.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 43,
+      "text": "4",
+      "rect": {
+        "left": 122.46,
+        "bottom": 517.5,
+        "right": 129.13,
+        "top": 529.5
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "Donor Status",
+      "rect": {
+        "left": 28.24,
+        "bottom": 513.73,
+        "right": 84.74,
+        "top": 522.73
+      }
+    },
+    {
+      "page": 1,
+      "order": 45,
+      "text": "and wish to be in the donor registry",
+      "rect": {
+        "left": 156.85,
+        "bottom": 514.46,
+        "right": 281.35,
+        "top": 522.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 46,
+      "text": "E-MAIL",
+      "rect": {
+        "left": 325.32,
+        "bottom": 501.34,
+        "right": 349.43,
+        "top": 508.34
+      }
+    },
+    {
+      "page": 1,
+      "order": 47,
+      "text": "If you provide an e-mail address, your registration",
+      "rect": {
+        "left": 141.76,
+        "bottom": 498.17,
+        "right": 317.38,
+        "top": 506.17
+      }
+    },
+    {
+      "page": 1,
+      "order": 48,
+      "text": "Your E-mail",
+      "rect": {
+        "left": 27.11,
+        "bottom": 491.77,
+        "right": 77.13,
+        "top": 500.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": "5",
+      "rect": {
+        "left": 122.46,
+        "bottom": 485.48,
+        "right": 129.13,
+        "top": 497.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 50,
+      "text": "renewal notices will only be sent to your e-mail.",
+      "rect": {
+        "left": 141.76,
+        "bottom": 488.99,
+        "right": 310.7,
+        "top": 496.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 51,
+      "text": "Address",
+      "rect": {
+        "left": 27.11,
+        "bottom": 481.44,
+        "right": 63.12,
+        "top": 490.44
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": "Check here to remove an e-mail address already on file and have your registration renewal reminders sent to you by mail.",
+      "rect": {
+        "left": 154.14,
+        "bottom": 474.2,
+        "right": 584.53,
+        "top": 482.2
+      }
+    },
+    {
+      "page": 1,
+      "order": 53,
+      "text": "Your PLATE/VESSEL NO: ADDRESS",
+      "rect": {
+        "left": 27.11,
+        "bottom": 460.68,
+        "right": 297.5,
+        "top": 469.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 54,
+      "text": "Vehicles/Vessels",
+      "rect": {
+        "left": 27.11,
+        "bottom": 450.36,
+        "right": 99.66,
+        "top": 459.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 55,
+      "text": "PLATE/VESSEL NO: ADDRESS",
+      "rect": {
+        "left": 140.26,
+        "bottom": 435.77,
+        "right": 297.5,
+        "top": 442.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 56,
+      "text": "6",
+      "rect": {
+        "left": 122.4,
+        "bottom": 412.62,
+        "right": 129.07,
+        "top": 424.62
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": "ONLY list PLATE/VESSEL NO: ADDRESS",
+      "rect": {
+        "left": 25.62,
+        "bottom": 408.33,
+        "right": 297.49,
+        "top": 417.33
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
+      "text": "vehicles/vessels",
+      "rect": {
+        "left": 25.62,
+        "bottom": 398.01,
+        "right": 90.64,
+        "top": 407.01
+      }
+    },
+    {
+      "page": 1,
+      "order": 59,
+      "text": "garaged somewhere",
+      "rect": {
+        "left": 25.62,
+        "bottom": 387.69,
+        "right": 107.66,
+        "top": 396.69
+      }
+    },
+    {
+      "page": 1,
+      "order": 60,
+      "text": "(List any additional vehicles on a separate sheet and attach it to this form.)",
+      "rect": {
+        "left": 140.76,
+        "bottom": 380.77,
+        "right": 424.84,
+        "top": 388.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
+      "text": "other than your new",
+      "rect": {
+        "left": 25.62,
+        "bottom": 377.36,
+        "right": 105.16,
+        "top": 386.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 62,
+      "text": "*All vehicles will be changed to your new residence address unless specified here.*",
+      "rect": {
+        "left": 140.76,
+        "bottom": 369.06,
+        "right": 458.22,
+        "top": 377.06
+      }
+    },
+    {
+      "page": 1,
+      "order": 63,
+      "text": "residence address.",
+      "rect": {
+        "left": 25.62,
+        "bottom": 367.04,
+        "right": 101.65,
+        "top": 376.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 64,
+      "text": "SIGNATURE REQUIRED DATE",
+      "rect": {
+        "left": 141.49,
+        "bottom": 356.24,
+        "right": 463.39,
+        "top": 363.52
+      }
+    },
+    {
+      "page": 1,
+      "order": 65,
+      "text": "SIGNATURE X",
+      "rect": {
+        "left": 26.99,
+        "bottom": 346.45,
+        "right": 129.78,
+        "top": 358.45
+      }
+    },
+    {
+      "page": 1,
+      "order": 66,
+      "text": "DO NOT COMPLETE BELOW THIS LINE UNLESS YOU WANT TO REGISTER TO VOTE OR CHANGE YOUR POLITICAL PARTY AFFILIATION.",
+      "rect": {
+        "left": 27.55,
+        "bottom": 327.44,
+        "right": 556.94,
+        "top": 335.44
+      }
+    },
+    {
+      "page": 1,
+      "order": 67,
+      "text": "NO",
+      "rect": {
+        "left": 373.9,
+        "bottom": 311.37,
+        "right": 385.9,
+        "top": 319.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 68,
+      "text": "YES",
+      "rect": {
+        "left": 337.97,
+        "bottom": 311.36,
+        "right": 353.98,
+        "top": 319.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 69,
+      "text": "Are you a citizen of the United States of America?",
+      "rect": {
+        "left": 141.4,
+        "bottom": 311.35,
+        "right": 317.93,
+        "top": 319.35
+      }
+    },
+    {
+      "page": 1,
+      "order": 70,
+      "text": "Will you be at least 18 years of age on or before election day?",
+      "rect": {
+        "left": 141.45,
+        "bottom": 298.36,
+        "right": 360.68,
+        "top": 306.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 71,
+      "text": "NO",
+      "rect": {
+        "left": 417.05,
+        "bottom": 298.28,
+        "right": 429.05,
+        "top": 306.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 72,
+      "text": "YES",
+      "rect": {
+        "left": 381.12,
+        "bottom": 298.27,
+        "right": 397.13,
+        "top": 306.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 73,
+      "text": "If you checked \u0022NO\u0022 in response to either of these questions, do NOT complete below this line as you cannot",
+      "rect": {
+        "left": 140.9,
+        "bottom": 285.83,
+        "right": 556.15,
+        "top": 293.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 74,
+      "text": "register to vote.",
+      "rect": {
+        "left": 140.9,
+        "bottom": 276.65,
+        "right": 200.92,
+        "top": 284.65
+      }
+    },
+    {
+      "page": 1,
+      "order": 75,
+      "text": "Do you wish to enroll in a political party?",
+      "rect": {
+        "left": 140.82,
+        "bottom": 259.21,
+        "right": 296.86,
+        "top": 267.21
+      }
+    },
+    {
+      "page": 1,
+      "order": 76,
+      "text": "YES NAME OF PARTY: DEMOCRATIC REPUBLICAN OTHER:",
+      "rect": {
+        "left": 155.03,
+        "bottom": 243.58,
+        "right": 448.67,
+        "top": 252.07
+      }
+    },
+    {
+      "page": 1,
+      "order": 77,
+      "text": "Voter",
+      "rect": {
+        "left": 58.17,
+        "bottom": 238.36,
+        "right": 86.29,
+        "top": 249.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 78,
+      "text": "Registration",
+      "rect": {
+        "left": 40.15,
+        "bottom": 225.74,
+        "right": 104.32,
+        "top": 236.74
+      }
+    },
+    {
+      "page": 1,
+      "order": 79,
+      "text": "I do not wish to enroll in a party at this time and will be registered as UNAFFILIATED.",
+      "rect": {
+        "left": 178.21,
+        "bottom": 226.49,
+        "right": 479.66,
+        "top": 234.49
+      }
+    },
+    {
+      "page": 1,
+      "order": 80,
+      "text": "NO",
+      "rect": {
+        "left": 155.27,
+        "bottom": 226.48,
+        "right": 167.27,
+        "top": 234.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 81,
+      "text": "Application",
+      "rect": {
+        "left": 42.28,
+        "bottom": 213.13,
+        "right": 102.18,
+        "top": 224.13
+      }
+    },
+    {
+      "page": 1,
+      "order": 82,
+      "text": "Note: Declaring a party enables you to vote in the party\u0027s primary election, which is open only to party members.",
+      "rect": {
+        "left": 140.22,
+        "bottom": 212.09,
+        "right": 536.13,
+        "top": 220.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 83,
+      "text": "Section",
+      "rect": {
+        "left": 52.37,
+        "bottom": 200.51,
+        "right": 92.1,
+        "top": 211.51
+      }
+    },
+    {
+      "page": 1,
+      "order": 84,
+      "text": "You may later choose to switch enrollment to or from a political party.",
+      "rect": {
+        "left": 140.22,
+        "bottom": 202.91,
+        "right": 384.75,
+        "top": 210.91
+      }
+    },
+    {
+      "page": 1,
+      "order": 85,
+      "text": "7",
+      "rect": {
+        "left": 122.97,
+        "bottom": 193.89,
+        "right": 129.64,
+        "top": 205.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 86,
+      "text": "LEAVING THIS BOX BLANK WILL AUTOMATICALLY RESULT IN SELECTING \u0022UNAFFILIATED\u0022.",
+      "rect": {
+        "left": 139.84,
+        "bottom": 189.07,
+        "right": 501.21,
+        "top": 197.07
+      }
+    },
+    {
+      "page": 1,
+      "order": 87,
+      "text": "VOTER DECLARATION - I swear or affirm under penalty of perjury that:",
+      "rect": {
+        "left": 141.15,
+        "bottom": 170.01,
+        "right": 397.67,
+        "top": 178.01
+      }
+    },
+    {
+      "page": 1,
+      "order": 88,
+      "text": "ONLY complete this",
+      "rect": {
+        "left": 31.33,
+        "bottom": 164.61,
+        "right": 111.85,
+        "top": 173.61
+      }
+    },
+    {
+      "page": 1,
+      "order": 89,
+      "text": "* I am a U.S. Citizen;",
+      "rect": {
+        "left": 150.38,
+        "bottom": 155.81,
+        "right": 224.63,
+        "top": 163.81
+      }
+    },
+    {
+      "page": 1,
+      "order": 90,
+      "text": "section if you would",
+      "rect": {
+        "left": 32.33,
+        "bottom": 154.28,
+        "right": 110.86,
+        "top": 163.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 91,
+      "text": "like to apply for voter",
+      "rect": {
+        "left": 30.07,
+        "bottom": 143.96,
+        "right": 113.1,
+        "top": 152.96
+      }
+    },
+    {
+      "page": 1,
+      "order": 92,
+      "text": "* I am at least 17 years old and will be at least 18 years old on or before election day;",
+      "rect": {
+        "left": 150.38,
+        "bottom": 143.81,
+        "right": 451.42,
+        "top": 151.81
+      }
+    },
+    {
+      "page": 1,
+      "order": 93,
+      "text": "registration or if you",
+      "rect": {
+        "left": 32.07,
+        "bottom": 133.64,
+        "right": 111.1,
+        "top": 142.64
+      }
+    },
+    {
+      "page": 1,
+      "order": 94,
+      "text": "* I live in Connecticut at the address shown above;",
+      "rect": {
+        "left": 150.38,
+        "bottom": 131.81,
+        "right": 329.58,
+        "top": 139.81
+      }
+    },
+    {
+      "page": 1,
+      "order": 95,
+      "text": "are already registered",
+      "rect": {
+        "left": 27.82,
+        "bottom": 123.31,
+        "right": 115.36,
+        "top": 132.31
+      }
+    },
+    {
+      "page": 1,
+      "order": 96,
+      "text": "* I have not been convicted of a disenfranchising felony, or if so, I am eligible to register to vote.",
+      "rect": {
+        "left": 150.38,
+        "bottom": 119.81,
+        "right": 487.88,
+        "top": 127.81
+      }
+    },
+    {
+      "page": 1,
+      "order": 97,
+      "text": "to vote and want to",
+      "rect": {
+        "left": 33.56,
+        "bottom": 112.99,
+        "right": 109.62,
+        "top": 121.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 98,
+      "text": "The information that I have provided is true to the best of my knowledge under penalty of perjury. If I have",
+      "rect": {
+        "left": 140.97,
+        "bottom": 106.61,
+        "right": 543.29,
+        "top": 114.61
+      }
+    },
+    {
+      "page": 1,
+      "order": 99,
+      "text": "change your political",
+      "rect": {
+        "left": 30.57,
+        "bottom": 102.66,
+        "right": 112.6,
+        "top": 111.66
+      }
+    },
+    {
+      "page": 1,
+      "order": 100,
+      "text": "provided false information, I may be subject to a fine or imprisonment or both under federal or state laws.",
+      "rect": {
+        "left": 140.97,
+        "bottom": 97.43,
+        "right": 541.96,
+        "top": 105.43
+      }
+    },
+    {
+      "page": 1,
+      "order": 101,
+      "text": "party affiliation.",
+      "rect": {
+        "left": 41.33,
+        "bottom": 92.34,
+        "right": 101.86,
+        "top": 101.34
+      }
+    },
+    {
+      "page": 1,
+      "order": 102,
+      "text": "By signing this Voter Declaration, I am applying to register to vote or changing my existing party affiliation, and I agree",
+      "rect": {
+        "left": 141.35,
+        "bottom": 83.04,
+        "right": 557.98,
+        "top": 91.04
+      }
+    },
+    {
+      "page": 1,
+      "order": 103,
+      "text": "to allow the signature from my license record to be used as the signature on my voter registration record.",
+      "rect": {
+        "left": 141.35,
+        "bottom": 73.86,
+        "right": 511.73,
+        "top": 81.86
+      }
+    },
+    {
+      "page": 1,
+      "order": 104,
+      "text": "**X SIGNEDSIGNATURE FOR VOTER REGISTRATION ONLY",
+      "rect": {
+        "left": 171.49,
+        "bottom": 57.52,
+        "right": 512.18,
+        "top": 66.7
+      }
+    },
+    {
+      "page": 1,
+      "order": 105,
+      "text": "DATE",
+      "rect": {
+        "left": 464.34,
+        "bottom": 59.41,
+        "right": 483.39,
+        "top": 66.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 106,
+      "text": "** Voter registrations without signatures will not be processed.",
+      "rect": {
+        "left": 140.62,
+        "bottom": 26.07,
+        "right": 409.19,
+        "top": 35.07
+      }
+    }
+  ]
+}

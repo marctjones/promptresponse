@@ -1,0 +1,279 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Excise.Core.Document;
+using PdfeDoc = Excise.Core.Document.PdfDocument;
+
+namespace PromptResponse.Rendering.Pdf;
+
+/// <summary>A rectangle in PDF user space, in a shape that serializes readably.</summary>
+/// <remarks>
+/// Deliberately not Excise's <c>PdfRectangle</c>: this is written to a file that
+/// outlives any package version, so it carries its own plain shape rather than
+/// pinning the reference format to a dependency's type.
+/// </remarks>
+public sealed record ReferenceRect(double Left, double Bottom, double Right, double Top)
+{
+    /// <summary>Builds a reference rectangle from Excise's.</summary>
+    public static ReferenceRect From(PdfRectangle r) =>
+        new(Round(r.Left), Round(r.Bottom), Round(r.Right), Round(r.Top));
+
+    // Two decimals is well below the precision any pairing decision needs, and
+    // keeps the committed file diffable instead of churning on float noise.
+    private static double Round(double v) => Math.Round(v, 2);
+}
+
+/// <summary>One field the PDF declares, with everything mechanically knowable about it.</summary>
+/// <param name="Order">Position in geometric reading order across the document.</param>
+/// <param name="Name">The fully qualified AcroForm field name.</param>
+/// <param name="Type">Text, Button, Choice, Signature.</param>
+/// <param name="Page">1-based page.</param>
+/// <param name="Rect">Where the answer goes.</param>
+/// <param name="Label">
+/// The form author's own <c>/TU</c> label, or null. Where present this is the
+/// only label answer nobody inferred — the form states it.
+/// </param>
+/// <param name="OptionCount">Choice options offered.</param>
+public sealed record ReferenceField(
+    int Order,
+    string Name,
+    string Type,
+    int Page,
+    ReferenceRect Rect,
+    string? Label,
+    int OptionCount);
+
+/// <summary>One line of printed text, with where it sits.</summary>
+/// <param name="Page">1-based page.</param>
+/// <param name="Order">Position in geometric reading order within the document.</param>
+/// <param name="Text">The line's text, words joined by single spaces.</param>
+/// <param name="Rect">The line's bounding box.</param>
+public sealed record ReferenceLine(int Page, int Order, string Text, ReferenceRect Rect);
+
+/// <summary>A page's dimensions, so a rectangle can be interpreted without the PDF.</summary>
+public sealed record ReferencePage(int Number, double Width, double Height);
+
+/// <summary>
+/// Everything a PDF states about itself that can be extracted without judgement,
+/// in a form a person or a later process can read, diff, and verify against.
+/// </summary>
+/// <remarks>
+/// <para>
+/// APR is not a visual format, so a conversion cannot be checked by looking at it.
+/// It is checked structurally: are all the fields here, which are missing, which
+/// text belongs to which field, and are the questions asked in the right order.
+/// That needs the PDF's content as <em>data</em>, which is what this is.
+/// </para>
+/// <para>
+/// <b>What tier each part is, and why it matters.</b> The PDF remains the source
+/// of truth; this is its extracted form, and how much that extraction can be
+/// trusted differs by field:
+/// </para>
+/// <list type="bullet">
+/// <item><description>
+/// <b>Tier 1, definitional</b> — the field list, types, option counts, widget
+/// rectangles, page sizes, and the text of each line with its box. The PDF
+/// answers these by stating them; no inference is involved, so grading a
+/// converter against them is sound.
+/// </description></item>
+/// <item><description>
+/// <b>Tier 1 where present</b> — a field's <c>/TU</c> label, which is the form
+/// author's own words. Only about a third of the corpus's fields carry one.
+/// </description></item>
+/// <item><description>
+/// <b>Inferred, and labelled as such</b> — <see cref="ReferenceField.Order"/> and
+/// <see cref="ReferenceLine.Order"/>. Reading order is derived geometrically
+/// (down the page, then across), which is right for a single-column form and
+/// wrong for a two-column one. It is recorded because order is a real property a
+/// conversion must get right, and useful even when approximate — but it is a
+/// starting point for review, not an oracle to grade against unchecked.
+/// </description></item>
+/// </list>
+/// <para>
+/// Nothing here is an opinion about which text labels which field. That pairing
+/// is exactly what the converter is being graded on, so deriving it here with the
+/// same logic would be grading the converter against itself.
+/// </para>
+/// </remarks>
+public sealed record PdfStructuredReference(
+    string FormId,
+    int PageCount,
+    IReadOnlyList<ReferencePage> Pages,
+    IReadOnlyList<ReferenceField> Fields,
+    IReadOnlyList<ReferenceLine> Lines)
+{
+    /// <summary>Fields carrying the form author's own label.</summary>
+    [JsonIgnore]
+    public int LabelledFieldCount => Fields.Count(f => !string.IsNullOrWhiteSpace(f.Label));
+}
+
+/// <summary>Extracts a <see cref="PdfStructuredReference"/> from a PDF.</summary>
+public static class PdfReferenceExtractor
+{
+    /// <summary>
+    /// How close two words' baselines must be to count as the same line, in points.
+    /// </summary>
+    /// <remarks>
+    /// Grouping words into lines is geometric rather than interpretive, but it is
+    /// not free of choices: this is the one. Body text on the corpus forms runs
+    /// 6-10pt, so words on one line share a baseline to well under a point, while
+    /// the next line is a full leading away.
+    /// </remarks>
+    public const double LineBaselineTolerance = 2.0;
+
+    /// <summary>
+    /// How much wider than a line's own typical word gap a gap must be before it
+    /// is read as a column break rather than a space.
+    /// </summary>
+    /// <remarks>
+    /// Sharing a baseline does not make two runs of text one line. A form's
+    /// header puts "Form W-9" at the left margin and "Give form to the" in a box
+    /// at the right, and grouping by baseline alone joins them into a sentence
+    /// nobody wrote — which then reads as a label for whatever field is nearby.
+    /// Splitting on a gap that is several times the line's own word spacing
+    /// separates them without needing to detect columns properly, and scales
+    /// itself to each line's font size instead of assuming one.
+    /// </remarks>
+    public const double ColumnGapMultiple = 3.0;
+
+    /// <summary>
+    /// The smallest gap that may be treated as a column break, in points.
+    /// </summary>
+    /// <remarks>
+    /// Guards the relative rule on a line whose words happen to sit unusually
+    /// tight, where three times a tiny median would split ordinary spacing.
+    /// </remarks>
+    public const double MinimumColumnGap = 8.0;
+
+    /// <summary>Serializer options that produce a stable, readable, diffable file.</summary>
+    public static JsonSerializerOptions JsonOptions { get; } = new()
+    {
+        WriteIndented = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        PropertyNameCaseInsensitive = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+    };
+
+    /// <summary>Extracts the reference from a PDF on disk.</summary>
+    public static PdfStructuredReference Extract(string path, string formId)
+    {
+        using var doc = PdfeDoc.Open(path);
+
+        var pages = new List<ReferencePage>();
+        var lines = new List<ReferenceLine>();
+
+        for (var number = 1; number <= doc.Pages.Count; number++)
+        {
+            var page = doc.GetPage(number);
+            pages.Add(new ReferencePage(number, Math.Round(page.Width, 2), Math.Round(page.Height, 2)));
+            lines.AddRange(LinesOnPage(page, number));
+        }
+
+        // One order across the document: page, then down the page, then across.
+        var ordered = lines
+            .OrderBy(l => l.Page)
+            .ThenByDescending(l => l.Rect.Top)
+            .ThenBy(l => l.Rect.Left)
+            .Select((l, i) => l with { Order = i })
+            .ToList();
+
+        var fields = PdfWidgetManifest.Extract(path).Importable
+            .Where(e => e.Rect is not null && e.PageNumber is not null)
+            .OrderBy(e => e.PageNumber!.Value)
+            .ThenByDescending(e => e.Rect!.Value.Top)
+            .ThenBy(e => e.Rect!.Value.Left)
+            .Select((e, i) => new ReferenceField(
+                i,
+                e.FullName,
+                e.FieldType.ToString(),
+                e.PageNumber!.Value,
+                ReferenceRect.From(e.Rect!.Value),
+                e.Tooltip,
+                e.OptionCount))
+            .ToList();
+
+        return new PdfStructuredReference(formId, doc.Pages.Count, pages, fields, ordered);
+    }
+
+    /// <summary>Serializes a reference to its committed JSON form.</summary>
+    public static string ToJson(PdfStructuredReference reference) =>
+        JsonSerializer.Serialize(reference, JsonOptions);
+
+    private static IEnumerable<ReferenceLine> LinesOnPage(PdfPage page, int number)
+    {
+        var words = page.GetWords()
+            .Where(w => !string.IsNullOrWhiteSpace(w.Text))
+            .ToList();
+
+        // Group by baseline, then read each line left to right. Order is assigned
+        // document-wide by the caller, so 0 here is a placeholder.
+        var groups = new List<List<Excise.Core.Text.Word>>();
+        foreach (var word in words.OrderByDescending(w => w.BoundingBox.Bottom))
+        {
+            var group = groups.FirstOrDefault(g =>
+                Math.Abs(g[0].BoundingBox.Bottom - word.BoundingBox.Bottom) <= LineBaselineTolerance);
+            if (group is null)
+            {
+                groups.Add([word]);
+            }
+            else
+            {
+                group.Add(word);
+            }
+        }
+
+        foreach (var group in groups)
+        {
+            foreach (var run in SplitAtColumnGaps(group.OrderBy(w => w.BoundingBox.Left).ToList()))
+            {
+                var text = string.Join(" ", run.Select(w => w.Text.Trim()));
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    continue;
+                }
+
+                yield return new ReferenceLine(
+                    number,
+                    0,
+                    text,
+                    new ReferenceRect(
+                        Math.Round(run.Min(w => w.BoundingBox.Left), 2),
+                        Math.Round(run.Min(w => w.BoundingBox.Bottom), 2),
+                        Math.Round(run.Max(w => w.BoundingBox.Right), 2),
+                        Math.Round(run.Max(w => w.BoundingBox.Top), 2)));
+            }
+        }
+    }
+
+    /// <summary>Breaks one baseline's words wherever the spacing says a column ended.</summary>
+    private static List<List<Excise.Core.Text.Word>> SplitAtColumnGaps(List<Excise.Core.Text.Word> inOrder)
+    {
+        if (inOrder.Count < 2)
+        {
+            return [inOrder];
+        }
+
+        var gaps = new double[inOrder.Count - 1];
+        for (var i = 1; i < inOrder.Count; i++)
+        {
+            gaps[i - 1] = inOrder[i].BoundingBox.Left - inOrder[i - 1].BoundingBox.Right;
+        }
+
+        var sorted = gaps.Where(g => g > 0).Order().ToArray();
+        var median = sorted.Length == 0 ? 0 : sorted[sorted.Length / 2];
+        var threshold = Math.Max(MinimumColumnGap, median * ColumnGapMultiple);
+
+        var runs = new List<List<Excise.Core.Text.Word>>();
+        runs.Add([inOrder[0]]);
+        for (var i = 1; i < inOrder.Count; i++)
+        {
+            if (gaps[i - 1] > threshold)
+            {
+                runs.Add([]);
+            }
+
+            runs[^1].Add(inOrder[i]);
+        }
+
+        return runs;
+    }
+}

@@ -1,0 +1,715 @@
+{
+  "formId": "ct-dmv-a83",
+  "pageCount": 1,
+  "pages": [
+    {
+      "number": 1,
+      "width": 612,
+      "height": 792
+    }
+  ],
+  "fields": [
+    {
+      "order": 0,
+      "name": "FillText1",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 522,
+        "right": 468,
+        "top": 536
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 1,
+      "name": "FillText2",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 27,
+        "bottom": 495,
+        "right": 468,
+        "top": 508
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 2,
+      "name": "FillText3",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 360,
+        "bottom": 361,
+        "right": 405,
+        "top": 375
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 3,
+      "name": "FillText4",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 441,
+        "bottom": 361,
+        "right": 531,
+        "top": 375
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 4,
+      "name": "FillText5",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 549,
+        "bottom": 361,
+        "right": 576,
+        "top": 375
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 5,
+      "name": "FillText6",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 126,
+        "bottom": 164,
+        "right": 306,
+        "top": 177
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 6,
+      "name": "FillText7",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 351,
+        "bottom": 139,
+        "right": 396,
+        "top": 152
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 7,
+      "name": "FillText8",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 432,
+        "bottom": 139,
+        "right": 522,
+        "top": 152
+      },
+      "optionCount": 0
+    },
+    {
+      "order": 8,
+      "name": "FillText9",
+      "type": "Text",
+      "page": 1,
+      "rect": {
+        "left": 540,
+        "bottom": 139,
+        "right": 567,
+        "top": 152
+      },
+      "optionCount": 0
+    }
+  ],
+  "lines": [
+    {
+      "page": 1,
+      "order": 0,
+      "text": "SPECIAL POWER OF ATTORNEY",
+      "rect": {
+        "left": 28,
+        "bottom": 763.48,
+        "right": 186.35,
+        "top": 773.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 1,
+      "text": "STATE OF CONNECTICUT",
+      "rect": {
+        "left": 256.22,
+        "bottom": 756.32,
+        "right": 355.78,
+        "top": 764.32
+      }
+    },
+    {
+      "page": 1,
+      "order": 2,
+      "text": "A-83 REV. 6-2008",
+      "rect": {
+        "left": 28,
+        "bottom": 753.89,
+        "right": 95.14,
+        "top": 761.89
+      }
+    },
+    {
+      "page": 1,
+      "order": 3,
+      "text": "DEPARTMENT OF MOTOR VEHICLES",
+      "rect": {
+        "left": 216.55,
+        "bottom": 745.26,
+        "right": 395.45,
+        "top": 755.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 4,
+      "text": "60 STATE STREET, WETHERSFIELD, CT 06161",
+      "rect": {
+        "left": 217.31,
+        "bottom": 735.67,
+        "right": 394.69,
+        "top": 743.67
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "INSTRUCTIONS: The form below may be used as a special Power of Attorney to authorize, according to Connecticut law, another person",
+      "rect": {
+        "left": 28,
+        "bottom": 712.26,
+        "right": 584.26,
+        "top": 721.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 6,
+      "text": "designated by you to make, to complete and to sign on your behalf an application for a motor vehicle registration and certificate of title, or",
+      "rect": {
+        "left": 28,
+        "bottom": 701.94,
+        "right": 584,
+        "top": 710.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "other written document, form or application that is required to be filed with the Commissioner of Motor Vehicles in connection with any other",
+      "rect": {
+        "left": 28,
+        "bottom": 691.61,
+        "right": 583.97,
+        "top": 700.61
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
+      "text": "transactions involving a motor vehicle registration or title.",
+      "rect": {
+        "left": 28,
+        "bottom": 681.29,
+        "right": 254.08,
+        "top": 690.29
+      }
+    },
+    {
+      "page": 1,
+      "order": 9,
+      "text": "Please note the following carefully:",
+      "rect": {
+        "left": 37,
+        "bottom": 662.37,
+        "right": 187.54,
+        "top": 671.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 10,
+      "text": "1. This form must be completed in its entirety. The form requires your signature, the signature of two witnesses, and the signature of an",
+      "rect": {
+        "left": 23.25,
+        "bottom": 652.05,
+        "right": 584,
+        "top": 661.29
+      }
+    },
+    {
+      "page": 1,
+      "order": 11,
+      "text": "officer authorized to take acknowledgments (a Notary Public, Justice of the Peace, or Commissioner of the Superior Court).",
+      "rect": {
+        "left": 37,
+        "bottom": 641.72,
+        "right": 527.19,
+        "top": 650.72
+      }
+    },
+    {
+      "page": 1,
+      "order": 12,
+      "text": "2. The Special Power of Attorney does not authorize your agent to perform transactions related to your motor vehicle operator\u0027s license or",
+      "rect": {
+        "left": 23.25,
+        "bottom": 631.4,
+        "right": 584,
+        "top": 640.65
+      }
+    },
+    {
+      "page": 1,
+      "order": 13,
+      "text": "identification card, or other transactions with the Commissioner that are unrelated to a motor vehicle registration or title.",
+      "rect": {
+        "left": 37,
+        "bottom": 621.07,
+        "right": 510.69,
+        "top": 630.07
+      }
+    },
+    {
+      "page": 1,
+      "order": 14,
+      "text": "3. This Special Power of Attorney, bearing original signatures must be shown and will be returned to you.",
+      "rect": {
+        "left": 23.25,
+        "bottom": 610.75,
+        "right": 444.18,
+        "top": 620
+      }
+    },
+    {
+      "page": 1,
+      "order": 15,
+      "text": "4. The grantor of any Special Power of Attorney or the attorney-in-fact may make application to any Court of Probate for an accounting, as",
+      "rect": {
+        "left": 23.25,
+        "bottom": 600.43,
+        "right": 583.98,
+        "top": 609.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 16,
+      "text": "provided in subsection (b) of section 45a-175 of the Connecticut General Statutes.",
+      "rect": {
+        "left": 37,
+        "bottom": 590.1,
+        "right": 364.17,
+        "top": 599.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 17,
+      "text": "KNOW ALL PERSONS BY THESE PRESENTS, which are intended to constitute a Special Power of Attorney, that I,",
+      "rect": {
+        "left": 28,
+        "bottom": 545.78,
+        "right": 545.97,
+        "top": 555.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 18,
+      "text": ", do hereby appoint",
+      "rect": {
+        "left": 469,
+        "bottom": 525.23,
+        "right": 554.61,
+        "top": 535.23
+      }
+    },
+    {
+      "page": 1,
+      "order": 19,
+      "text": "(Print your full name above)",
+      "rect": {
+        "left": 183.31,
+        "bottom": 513.55,
+        "right": 306.13,
+        "top": 523.55
+      }
+    },
+    {
+      "page": 1,
+      "order": 20,
+      "text": ", as my attorney-in-fact",
+      "rect": {
+        "left": 469,
+        "bottom": 498.01,
+        "right": 570.7,
+        "top": 508.01
+      }
+    },
+    {
+      "page": 1,
+      "order": 21,
+      "text": "(Print full name of your agent above)",
+      "rect": {
+        "left": 163.85,
+        "bottom": 485.44,
+        "right": 325.59,
+        "top": 495.44
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
+      "text": "to act in my name, place and stead in any way which I myself could do, as if I were personally present, to the full extent",
+      "rect": {
+        "left": 28,
+        "bottom": 470.94,
+        "right": 584,
+        "top": 480.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 23,
+      "text": "permitted by law to act as an agent, to make, to complete, and to execute any application or other written document or form",
+      "rect": {
+        "left": 28,
+        "bottom": 456.94,
+        "right": 583.99,
+        "top": 466.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 24,
+      "text": "that is required to be filed with the Commissioner of Motor Vehicles of the State of Connecticut, pursuant to the authority that",
+      "rect": {
+        "left": 28,
+        "bottom": 442.94,
+        "right": 584.01,
+        "top": 452.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 25,
+      "text": "is granted to the said Commissioner by any provision of the General Statutes of Connecticut or the regulations of Connecticut",
+      "rect": {
+        "left": 28,
+        "bottom": 428.94,
+        "right": 584.02,
+        "top": 438.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 26,
+      "text": "State Agencies, in connection with the registration of any motor vehicle or the certificate of title to any motor vehicle. This",
+      "rect": {
+        "left": 28,
+        "bottom": 414.94,
+        "right": 583.98,
+        "top": 424.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 27,
+      "text": "Special Power of Attorney is granted and is valid only for the express purposes stated herein, and may not be used for any",
+      "rect": {
+        "left": 28,
+        "bottom": 400.94,
+        "right": 583.96,
+        "top": 410.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 28,
+      "text": "transaction involving any other person or party who is not named herein.",
+      "rect": {
+        "left": 28,
+        "bottom": 386.94,
+        "right": 347.59,
+        "top": 396.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 29,
+      "text": "day of",
+      "rect": {
+        "left": 406,
+        "bottom": 364.22,
+        "right": 433.24,
+        "top": 374.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 30,
+      "text": ", 20 .",
+      "rect": {
+        "left": 532,
+        "bottom": 364.22,
+        "right": 579.78,
+        "top": 374.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": "IN WITNESS WHEREOF, I have hereunto signed my name below on this",
+      "rect": {
+        "left": 28,
+        "bottom": 362.09,
+        "right": 352.56,
+        "top": 372.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 32,
+      "text": "(L.S.)",
+      "rect": {
+        "left": 307,
+        "bottom": 339.42,
+        "right": 331.45,
+        "top": 349.42
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "Principal:",
+      "rect": {
+        "left": 28,
+        "bottom": 334.88,
+        "right": 69.12,
+        "top": 344.88
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "(Sign your full name as above)",
+      "rect": {
+        "left": 118.42,
+        "bottom": 323.54,
+        "right": 254.03,
+        "top": 333.54
+      }
+    },
+    {
+      "page": 1,
+      "order": 35,
+      "text": "Attested and subscribed in the presence of the Principal",
+      "rect": {
+        "left": 28,
+        "bottom": 300.86,
+        "right": 275.35,
+        "top": 310.86
+      }
+    },
+    {
+      "page": 1,
+      "order": 36,
+      "text": "and subsequent to the Principal subscribing same:",
+      "rect": {
+        "left": 28,
+        "bottom": 289.4,
+        "right": 251.44,
+        "top": 299.4
+      }
+    },
+    {
+      "page": 1,
+      "order": 37,
+      "text": "(Signature of Witness)",
+      "rect": {
+        "left": 100.76,
+        "bottom": 253.24,
+        "right": 199.68,
+        "top": 263.24
+      }
+    },
+    {
+      "page": 1,
+      "order": 38,
+      "text": "(Signature of Witness)",
+      "rect": {
+        "left": 397.76,
+        "bottom": 253.24,
+        "right": 496.68,
+        "top": 263.24
+      }
+    },
+    {
+      "page": 1,
+      "order": 39,
+      "text": "STATE OF CONNECTICUT)",
+      "rect": {
+        "left": 28,
+        "bottom": 226.03,
+        "right": 155.78,
+        "top": 236.03
+      }
+    },
+    {
+      "page": 1,
+      "order": 40,
+      "text": ")",
+      "rect": {
+        "left": 153.1,
+        "bottom": 214.56,
+        "right": 156.43,
+        "top": 224.56
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
+      "text": "COUNTY OF",
+      "rect": {
+        "left": 28,
+        "bottom": 203.09,
+        "right": 86.89,
+        "top": 213.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 42,
+      "text": ") SS:",
+      "rect": {
+        "left": 153.61,
+        "bottom": 203.09,
+        "right": 188.12,
+        "top": 213.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 43,
+      "text": ", signer and sealer of the foregoing Power of Attorney, who",
+      "rect": {
+        "left": 307,
+        "bottom": 167.07,
+        "right": 567.69,
+        "top": 177.07
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "Personally appeared",
+      "rect": {
+        "left": 28,
+        "bottom": 164.8,
+        "right": 119.71,
+        "top": 174.8
+      }
+    },
+    {
+      "page": 1,
+      "order": 45,
+      "text": "(Full name of Principal)",
+      "rect": {
+        "left": 161.82,
+        "bottom": 153.46,
+        "right": 264.62,
+        "top": 163.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 46,
+      "text": ", 20 .",
+      "rect": {
+        "left": 523,
+        "bottom": 141.98,
+        "right": 570.78,
+        "top": 151.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 47,
+      "text": "acknowledged the same as his or her free act and deed, before me, this",
+      "rect": {
+        "left": 28,
+        "bottom": 139.86,
+        "right": 345.94,
+        "top": 149.86
+      }
+    },
+    {
+      "page": 1,
+      "order": 48,
+      "text": "day of",
+      "rect": {
+        "left": 397,
+        "bottom": 139.71,
+        "right": 424.24,
+        "top": 149.71
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": "Notary Public/Justice of Peace",
+      "rect": {
+        "left": 352,
+        "bottom": 83.16,
+        "right": 487.61,
+        "top": 93.16
+      }
+    },
+    {
+      "page": 1,
+      "order": 50,
+      "text": "Commissioner of the Superior Court",
+      "rect": {
+        "left": 352,
+        "bottom": 65.96,
+        "right": 511.49,
+        "top": 75.96
+      }
+    },
+    {
+      "page": 1,
+      "order": 51,
+      "text": "expires:________________Seal of the Notary Public or Justice of Peace",
+      "rect": {
+        "left": 55,
+        "bottom": 46.88,
+        "right": 547.64,
+        "top": 58.76
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": "My commission",
+      "rect": {
+        "left": 352,
+        "bottom": 48.76,
+        "right": 420.89,
+        "top": 58.76
+      }
+    }
+  ]
+}
