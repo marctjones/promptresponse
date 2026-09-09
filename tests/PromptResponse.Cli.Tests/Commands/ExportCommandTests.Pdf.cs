@@ -53,7 +53,9 @@ public partial class ExportCommandTests
             (await _command.ExecuteAsync([inputFile, "--format=pdf", "--fillable", $"--output={outputFile}"])).Should().Be(0);
             var bytes = await File.ReadAllBytesAsync(outputFile);
             System.Text.Encoding.ASCII.GetString(bytes, 0, 5).Should().Be("%PDF-");
-            System.Text.Encoding.Latin1.GetString(bytes).Should().Contain("/AcroForm");
+            using var opened = Excise.Core.Document.PdfDocument.Open(bytes);
+            opened.GetAcroForm().Should().NotBeNull("--fillable must produce a real form, "
+                + "and a byte-grep for \"/AcroForm\" cannot see one packed into a compressed object stream");
         }
         finally
         {
