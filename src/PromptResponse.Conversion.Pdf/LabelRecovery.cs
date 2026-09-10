@@ -117,7 +117,7 @@ public static class LabelRecovery
         // however close to it it happens to sit.
         var eligible = spans
             .Select((span, index) => (span, index))
-            .Where(s => s.span.Role is SpanRole.Unclassified)
+            .Where(s => s.span.Role is SpanRole.Unclassified && IsUsableLabel(s.span.Text))
             .ToList();
 
         var wanting = fields
@@ -188,6 +188,18 @@ public static class LabelRecovery
 
         return new LabelRecoveryResult(updatedFields, updatedSpans, labels.Count, rejected.Count);
     }
+
+    /// <summary>
+    /// Whether a run could be anybody's question at all.
+    /// </summary>
+    /// <remarks>
+    /// A stray glyph is not a label however close it sits. W-9's address field
+    /// was labelled "S" — the tail of a split run — which no distance rule would
+    /// ever reject, because it genuinely is the nearest text.
+    /// </remarks>
+    private static bool IsUsableLabel(string text) =>
+        text.Split([' '], StringSplitOptions.RemoveEmptyEntries)
+            .Any(w => w.Count(char.IsLetter) >= 2);
 
     private sealed record Proposal(int FieldIndex, int SpanIndex, LabelDirection Direction, double Distance);
 

@@ -95,7 +95,30 @@ public sealed class ConversionPipeline(IReadOnlyList<IConversionPhase> phases)
     [
         new DetectSourcesPhase(),
         new ExtractTextPhase(),
-        new DiscoverAcroFormFieldsPhase(),
+        new DiscoverAcroFormFieldsPhase(honourFormAuthorLabels: true),
+        new DiscoverTextLayerFieldsPhase(),
+        new ClassifySpansPhase(),
+        new RecoverLabelsPhase(),
+        new AssembleDocumentPhase(),
+        new ModelTouchUpPhase(),
+    ]);
+
+    /// <summary>
+    /// The same pipeline with the form author's own labels held back, so label
+    /// recovery can be graded against them.
+    /// </summary>
+    /// <remarks>
+    /// Not a debugging switch — it is the only mechanical oracle this project
+    /// has for whether a recovered label is the <em>right</em> label. A form's
+    /// <c>/TU</c> text is the author's own words for the field, so hiding it and
+    /// then comparing what recovery found against it needs no human and no
+    /// model. It is worth 128 checks on <c>fed-i9</c> alone.
+    /// </remarks>
+    public static ConversionPipeline WithoutFormAuthorLabels() => new(
+    [
+        new DetectSourcesPhase(),
+        new ExtractTextPhase(),
+        new DiscoverAcroFormFieldsPhase(honourFormAuthorLabels: false),
         new DiscoverTextLayerFieldsPhase(),
         new ClassifySpansPhase(),
         new RecoverLabelsPhase(),

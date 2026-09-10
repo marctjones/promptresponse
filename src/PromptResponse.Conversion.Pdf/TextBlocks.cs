@@ -49,6 +49,17 @@ public static class TextBlocks
     /// </remarks>
     public const double IndentTolerance = 2.0;
 
+    /// <summary>How far a continuation may be indented past its block, as a multiple of line height.</summary>
+    /// <remarks>
+    /// "Indented under" needs a bound, or a block runs on into whatever follows
+    /// it. Measured on W-9: a genuine hanging indent is 12pt against a 7pt body
+    /// (1.7×), while the jump from the masthead "Department of the Treasury
+    /// Internal Revenue Service" to question 1 is 25.6pt — a new block that an
+    /// unbounded rule swallowed, giving field 1 the label "Internal Revenue
+    /// Service Before you begin."
+    /// </remarks>
+    public const double IndentMultiple = 3.0;
+
     /// <summary>Assembles runs into blocks, keeping fields as block boundaries.</summary>
     /// <param name="runs">One run per baseline, as extraction produced them.</param>
     /// <param name="fields">
@@ -68,31 +79,50 @@ public static class TextBlocks
         foreach (var page in runs.GroupBy(r => r.PageNumber))
         {
             var onPage = fields.Where(f => f.Page == page.Key).Select(f => f.Rect).ToList();
-            MeasuredSpan? open = null;
+
+            // Several blocks are open at once, because a page is not one column.
+            // Scanning top-down with a single open block breaks every multi-column
+            // layout: the next run down the page belongs to the other column, fails
+            // to continue this block, and closes it -- which is how W-9's
+            // "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting
+            // code (if any)" lost everything after its first line.
+            var open = new List<MeasuredSpan>();
 
             foreach (var run in page.OrderByDescending(r => r.Rect.Top).ThenBy(r => r.Rect.Left))
             {
-                if (open is not null && Continues(open, run, onPage))
+                // A block the scan has passed can never be continued, since runs
+                // only ever arrive further down the page.
+                for (var i = open.Count - 1; i >= 0; i--)
                 {
-                    open = Join(open, run);
-                    continue;
+                    if (open[i].Rect.Bottom - run.Rect.Top > open[i].Height * LineGapMultiple)
+                    {
+                        blocks.Add(open[i]);
+                        open.RemoveAt(i);
+                    }
                 }
 
-                if (open is not null)
+                var at = open.FindIndex(b => Continues(b, run, onPage));
+                if (at >= 0)
                 {
-                    blocks.Add(open);
+                    open[at] = Join(open[at], run);
                 }
-
-                open = run;
+                else
+                {
+                    open.Add(run);
+                }
             }
 
-            if (open is not null)
-            {
-                blocks.Add(open);
-            }
+            blocks.AddRange(open);
         }
 
-        return [.. blocks.Select(Split)];
+        return
+        [
+            .. blocks
+                .Select(Split)
+                .OrderBy(b => b.PageNumber)
+                .ThenByDescending(b => b.Rect.Top)
+                .ThenBy(b => b.Rect.Left),
+        ];
     }
 
     /// <summary>Whether a run is the continuation of the block above it.</summary>
@@ -104,8 +134,23 @@ public static class TextBlocks
             return false;
         }
 
-        // Flush with the block or indented under it, and starting within it.
+        // Flush with the block or indented under it, and starting within it --
+        // but only so far indented. See IndentMultiple.
         if (next.Rect.Left < block.Rect.Left - IndentTolerance || next.Rect.Left >= block.Rect.Right)
+        {
+            return false;
+        }
+
+        if (next.Rect.Left - block.Rect.Left > block.Height * IndentMultiple)
+        {
+            return false;
+        }
+
+        // A numbered lead-in starts an item; it never continues one. This is the
+        // boundary the page draws and the extractor cannot see -- W-9, W-4, SS-4
+        // and 8822 all number their questions, and without it the masthead runs
+        // straight on into question 1.
+        if (StartsNewItem(next.Text))
         {
             return false;
         }
@@ -122,6 +167,31 @@ public static class TextBlocks
             f.Top <= block.Rect.Bottom + IndentTolerance
             && f.Bottom >= next.Rect.Top - IndentTolerance
             && f.Right > next.Rect.Left && f.Left < block.Rect.Right);
+    }
+
+    /// <summary>Whether a run opens a numbered item, like "1 ", "3a " or "10b ".</summary>
+    private static bool StartsNewItem(string text)
+    {
+        var trimmed = text.AsSpan().TrimStart();
+        var i = 0;
+        while (i < trimmed.Length && char.IsAsciiDigit(trimmed[i]))
+        {
+            i++;
+        }
+
+        if (i == 0)
+        {
+            return false;
+        }
+
+        if (i < trimmed.Length && char.IsAsciiLetterLower(trimmed[i]))
+        {
+            i++;
+        }
+
+        // A number followed by more number-ish text ("2024 tax year") is not an
+        // item lead-in; a number followed by a space and a word is.
+        return i < trimmed.Length && trimmed[i] is ' ' or '.';
     }
 
     private static MeasuredSpan Join(MeasuredSpan block, MeasuredSpan next) => block with

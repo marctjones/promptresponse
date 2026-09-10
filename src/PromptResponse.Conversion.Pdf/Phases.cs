@@ -80,7 +80,15 @@ public sealed class ExtractTextPhase : IConversionPhase
 /// their options and where each one sits. Nothing later can improve on that, so
 /// it runs before any inference and later phases only fill gaps it leaves.
 /// </remarks>
-public sealed class DiscoverAcroFormFieldsPhase : IConversionPhase
+/// <param name="honourFormAuthorLabels">
+/// Whether a field's <c>/TU</c> tooltip may be used as its label. Setting this
+/// false is what makes the tooltip a held-out answer key: 152 of the corpus's
+/// 444 fields carry the form author's own words, and hiding them forces label
+/// recovery to find the question on the page and be scored against what the
+/// author actually wrote. Without it those fields short-circuit and grade
+/// nothing — <c>fed-i9</c> scores 128/128 while exercising no pairing at all.
+/// </param>
+public sealed class DiscoverAcroFormFieldsPhase(bool honourFormAuthorLabels = true) : IConversionPhase
 {
     /// <inheritdoc/>
     public string Name => "discover-acroform";
@@ -132,8 +140,13 @@ public sealed class DiscoverAcroFormFieldsPhase : IConversionPhase
             $"{fields.Count - labelled} need one recovered");
     }
 
-    private static bool Meaningful(string? tooltip)
+    private bool Meaningful(string? tooltip)
     {
+        if (!honourFormAuthorLabels)
+        {
+            return false;
+        }
+
         // A present tooltip is not a good tooltip: every field in ct-dmv-a25
         // carries a /TU and every one of them says "TextField1". Treating those
         // as labels would report the problem as solved.
