@@ -27,6 +27,7 @@ public static class Program
         var output = ValueOf(args, "--output");
         var title = ValueOf(args, "--title");
         var quiet = args.Contains("--quiet");
+        var fieldsOut = ValueOf(args, "--fields");
 
         if (!File.Exists(input))
         {
@@ -50,11 +51,57 @@ public static class Program
             return 1;
         }
 
+        if (fieldsOut is not null)
+        {
+            File.WriteAllText(fieldsOut, FieldsAsJson(result));
+            if (!quiet)
+            {
+                Console.WriteLine($"Wrote {fieldsOut}");
+            }
+        }
+
         var destination = output ?? Path.ChangeExtension(input, ".aprt");
         File.WriteAllText(destination, new AprJsonSerializer().Serialize(result.State.Document!));
         Console.WriteLine();
         Console.WriteLine($"Wrote {destination}");
         return 0;
+    }
+
+    /// <summary>
+    /// Where each field sits, as JSON, for a caller that needs the geometry the
+    /// APR document deliberately does not carry.
+    /// </summary>
+    /// <remarks>
+    /// APR is layout-free, so a converted template has no coordinates in it at
+    /// all. Anything that wants to point at the page — a reviewer, a renderer
+    /// drawing the fields it found, or a model being asked what each blank is
+    /// called — needs them separately, and this is that side channel.
+    /// <para>
+    /// A field the form printed as several boxes reports one entry per box, so
+    /// the geometry still describes the page even though the question is one.
+    /// </para>
+    /// </remarks>
+    private static string FieldsAsJson(ConversionResult result)
+    {
+        var rows = result.State.FieldsOrEmpty
+            .Where(f => f.TargetRect is not null)
+            .SelectMany(f => f.PlacedAt.Select((rect, i) => new
+            {
+                id = f.AccountsFor.Count > i ? f.AccountsFor[i] : f.Id,
+                promptId = f.Id,
+                page = f.PageNumber,
+                left = Math.Round(rect.Left, 2),
+                bottom = Math.Round(rect.Bottom, 2),
+                right = Math.Round(rect.Right, 2),
+                top = Math.Round(rect.Top, 2),
+                dataType = f.ExpectedDataType,
+                label = f.Label,
+                needsReview = f.NeedsReview is { Count: > 0 },
+            }))
+            .ToList();
+
+        return System.Text.Json.JsonSerializer.Serialize(
+            rows, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
     }
 
     private static void WriteReport(ConversionResult result)
@@ -105,7 +152,9 @@ public static class Program
 
     private static void PrintUsage()
     {
-        Console.Error.WriteLine("Usage: convert-pdf <file.pdf> [--output=<file.aprt>] [--title=<title>] [--quiet]");
+        Console.Error.WriteLine(
+            "Usage: convert-pdf <file.pdf> [--output=<file.aprt>] [--fields=<file.json>] " +
+            "[--title=<title>] [--quiet]");
         Console.Error.WriteLine();
         Console.Error.WriteLine("Converts a PDF form into an APR template, reporting what each phase did.");
         Console.Error.WriteLine("Standalone while the pipeline is built; it does not touch the `apr` CLI.");
