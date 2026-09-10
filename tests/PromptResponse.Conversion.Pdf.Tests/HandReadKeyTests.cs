@@ -48,7 +48,7 @@ public class HandReadKeyTests
     /// </remarks>
     public static TheoryData<string, double, double> Keys() => new()
     {
-        { "fed-w9", 0.82, 0.88 },
+        { "fed-w9", 0.86, 0.90 },
         { "fed-8822", 0.75, 0.90 },
         { "fed-ss4", 0.78, 0.91 },
     };

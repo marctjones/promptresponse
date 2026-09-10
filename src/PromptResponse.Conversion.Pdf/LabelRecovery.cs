@@ -575,12 +575,33 @@ public static class LabelRecovery
         var far = direction is LabelDirection.Left ? field.Left : span.Left;
         var band = (Bottom: Math.Max(field.Bottom, span.Bottom), Top: Math.Min(field.Top, span.Top));
 
-        return rulings.Any(r => r.PageNumber == page
-            && r.Kind is RulingKind.VerticalRule
-            && r.Rect.Left > near + EdgeTolerance
-            && r.Rect.Right < far - EdgeTolerance
-            && r.Rect.Bottom < band.Top - EdgeTolerance
-            && r.Rect.Top > band.Bottom + EdgeTolerance);
+        // Box edges count here, and only here. A drawn box's SIDE between a
+        // field and text beside it means a different column of the form, which
+        // is what stops W-9's middle social security box reaching left out of
+        // the TIN block to take "Enter your TIN in the appropriate box.".
+        //
+        // Its top and bottom edges are deliberately NOT used the same way for a
+        // caption above, because a form routinely rules between a caption and
+        // the field it names -- W-9 boxes the words "Social security number"
+        // separately from the boxes you write the number in -- so treating a
+        // horizontal edge as a barrier severs correct pairs. Tried as
+        // containment instead ("is the caption in the same box as the field")
+        // and it was worse still: fed-i9-flat fell from 57% usable to 52%,
+        // because a caption in its own sub-box counts as outside the field's.
+        var barriers = rulings.Where(r => r.PageNumber == page).SelectMany(r => r.Kind switch
+        {
+            RulingKind.VerticalRule => new[] { r.Rect },
+            RulingKind.Box when r.Width > EdgeTolerance => [
+                new PdfRectangle(r.Rect.Left, r.Rect.Bottom, r.Rect.Left, r.Rect.Top),
+                new PdfRectangle(r.Rect.Right, r.Rect.Bottom, r.Rect.Right, r.Rect.Top),
+            ],
+            _ => [],
+        });
+
+        return barriers.Any(b => b.Left > near + EdgeTolerance
+            && b.Right < far - EdgeTolerance
+            && b.Bottom < band.Top - EdgeTolerance
+            && b.Top > band.Bottom + EdgeTolerance);
     }
 
     /// <summary>Whether a field is a tick box rather than a write-on blank.</summary>
