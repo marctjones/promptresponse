@@ -65,10 +65,10 @@ public class W9LabelKeyTests
             [.. key.Labels.Select(kv => (kv.Key, kv.Value))],
             recovered);
 
-        result.Recall.Should().BeGreaterThanOrEqualTo(0.60,
+        result.Recall.Should().BeGreaterThanOrEqualTo(0.78,
             $"agreed {result.Agreed} of {result.Gradable}; " +
             $"worst: {string.Join(" | ", result.Matches.Where(m => !m.IsAgreement).Take(4).Select(m => $"got '{m.Recovered ?? "(none)"}' want '{m.Expected}'"))}");
-        result.Precision.Should().BeGreaterThanOrEqualTo(0.82,
+        result.Precision.Should().BeGreaterThanOrEqualTo(0.85,
             $"of {result.Attempted} labels recovered, {result.Agreed} match the form");
     }
 

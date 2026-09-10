@@ -60,6 +60,12 @@ public static class TextBlocks
     /// </remarks>
     public const double IndentMultiple = 3.0;
 
+    /// <summary>How close a field must sit to a run's left for the run to be its caption, in points.</summary>
+    /// <remarks>
+    /// W-9's tick boxes sit 5-6pt to the left of the text naming them.
+    /// </remarks>
+    public const double CaptionGap = 12.0;
+
     /// <summary>Assembles runs into blocks, keeping fields as block boundaries.</summary>
     /// <param name="runs">One run per baseline, as extraction produced them.</param>
     /// <param name="fields">
@@ -158,6 +164,22 @@ public static class TextBlocks
         // Same size of type. A caption and the heading above it can be adjacent
         // and aligned without being one block.
         if (Math.Max(block.Height, next.Height) > Math.Min(block.Height, next.Height) * 1.5)
+        {
+            return false;
+        }
+
+        // A run with a field immediately to its left, on its own line, is that
+        // field's caption and starts a block of its own. Without this, W-9's
+        // left-hand tick-box captions chain upward into the instruction above
+        // them: "Individual/sole proprietor", "LLC. Enter the tax
+        // classification..." and "Other (see instructions)" merged into a
+        // single run, which was then ruled out as an instruction and cost all
+        // three boxes their labels at once.
+        if (fields.Any(f =>
+                f.Top > next.Rect.Bottom + IndentTolerance
+                && f.Bottom < next.Rect.Top - IndentTolerance
+                && f.Right <= next.Rect.Left + IndentTolerance
+                && next.Rect.Left - f.Right <= CaptionGap))
         {
             return false;
         }
