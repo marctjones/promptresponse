@@ -68,6 +68,50 @@ public class LabelAgreementTests
         suppressed.Should().Be(0, "and the graded run must not be allowed to see any of them");
     }
 
+    [Fact]
+    public void TheRemainingFailuresAreMissingLabels_NotWrongOnes()
+    {
+        // Which half of the problem is left. Filtering rules -- alignment,
+        // containment, size similarity -- can only raise precision, so knowing
+        // precision is close to solved is what says not to build them.
+        //
+        // Two such rules were measured and rejected: requiring the label to
+        // line up with the field, and requiring it to sit within the field's
+        // width. Both keep roughly as many wrong pairs as right ones, and
+        // containment additionally destroys the Left/Right rules outright,
+        // since a caption beside a field is by definition not within it.
+        var man = PdfWidgetManifest.Extract(CorpusPath("fed-i9"));
+        var expected = man.Importable
+            .Where(e => e.HasTooltip && !ImportQualityHeuristics.LooksCryptic(e.Tooltip!))
+            .ToDictionary(e => e.FullName, e => e.Tooltip!);
+        var fields = ConversionPipeline.WithoutFormAuthorLabels().Convert(CorpusPath("fed-i9"), "fed-i9")
+            .State.FieldsOrEmpty.GroupBy(f => f.Id).ToDictionary(g => g.Key, g => g.First());
+        var boilerplate = LabelAgreement.Boilerplate(expected.Values);
+
+        var attempted = expected
+            .Where(e => !string.IsNullOrWhiteSpace(fields.GetValueOrDefault(e.Key)?.Label))
+            .ToList();
+
+        // A label the oracle scores wrong but which the author's own text
+        // contains is right; the two-distinctive-word floor simply cannot see
+        // a correct answer as short as "State" or "List B".
+        var reallyWrong = attempted.Count(e =>
+        {
+            var got = fields[e.Key].Label!;
+            if (LabelAgreement.Score(got, e.Value, boilerplate) >= LabelAgreement.AgreementThreshold) return false;
+            var words = got.Split(' ', StringSplitOptions.RemoveEmptyEntries).Count(w => w.Count(char.IsLetter) >= 2);
+            return words >= 2 && !e.Value.Contains(got.Trim(' ', '.', ':'), StringComparison.OrdinalIgnoreCase);
+        });
+
+        var missing = expected.Count - attempted.Count;
+
+        ((double)reallyWrong / attempted.Count).Should().BeLessThan(0.10,
+            $"only {reallyWrong} of {attempted.Count} recovered labels are actually wrong");
+        missing.Should().BeGreaterThan(reallyWrong,
+            "the remaining work is fields that find no label at all, not fields given the wrong one; " +
+            $"missing={missing} genuinely-wrong={reallyWrong}");
+    }
+
     private static FormLabelAgreement Grade(string id)
     {
         var path = CorpusPath(id);
