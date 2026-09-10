@@ -66,6 +66,23 @@ public static class TextBlocks
     /// </remarks>
     public const double CaptionGap = 12.0;
 
+    /// <summary>How far a line's spacing may differ from the block's established pitch, in points.</summary>
+    /// <remarks>
+    /// Once a block has two lines it has a leading of its own, and a third line
+    /// has to match it. A paragraph does not change its line spacing halfway
+    /// through, so a bigger step is a different block that merely fell inside
+    /// the generous fixed limit.
+    /// <para>
+    /// This is the single most valuable rule in the phase. Measured against the
+    /// label oracles it is worth 13 fields on its own — fed-i9 goes from 73% to
+    /// 83% recall — where every other block rule tried was worth one or two.
+    /// </para>
+    /// </remarks>
+    public const double PitchTolerance = 2.0;
+
+    /// <summary>Characters a form uses to open a bulleted or arrowed item.</summary>
+    public const string ItemMarkers = "\u25b6\u2022\u2023\u25aa\u25cf\u2219\u00bb";
+
     /// <summary>Assembles runs into blocks, keeping fields as block boundaries.</summary>
     /// <param name="runs">One run per baseline, as extraction produced them.</param>
     /// <param name="fields">
@@ -93,6 +110,7 @@ public static class TextBlocks
             // "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting
             // code (if any)" lost everything after its first line.
             var open = new List<MeasuredSpan>();
+            var pitch = new List<double?>();
 
             foreach (var run in page.OrderByDescending(r => r.Rect.Top).ThenBy(r => r.Rect.Left))
             {
@@ -104,17 +122,29 @@ public static class TextBlocks
                     {
                         blocks.Add(open[i]);
                         open.RemoveAt(i);
+                        pitch.RemoveAt(i);
                     }
                 }
 
-                var at = open.FindIndex(b => Continues(b, run, onPage));
+                var at = -1;
+                for (var i = 0; i < open.Count; i++)
+                {
+                    if (Continues(open[i], run, onPage, pitch[i]))
+                    {
+                        at = i;
+                        break;
+                    }
+                }
+
                 if (at >= 0)
                 {
+                    pitch[at] = open[at].Rect.Bottom - run.Rect.Top;
                     open[at] = Join(open[at], run);
                 }
                 else
                 {
                     open.Add(run);
+                    pitch.Add(null);
                 }
             }
 
@@ -132,10 +162,27 @@ public static class TextBlocks
     }
 
     /// <summary>Whether a run is the continuation of the block above it.</summary>
-    private static bool Continues(MeasuredSpan block, MeasuredSpan next, List<PdfRectangle> fields)
+    private static bool Continues(MeasuredSpan block, MeasuredSpan next, List<PdfRectangle> fields, double? pitch)
     {
         var gap = block.Rect.Bottom - next.Rect.Top;
         if (gap < -IndentTolerance || gap > block.Height * LineGapMultiple)
+        {
+            return false;
+        }
+
+        // The block's own leading, once it has one. See PitchTolerance.
+        if (pitch is { } established
+            && Math.Abs(gap - established) > PitchTolerance)
+        {
+            return false;
+        }
+
+        // A bullet or an arrow opens an item exactly as a number does. 8822
+        // writes its sub-conditions as "> If your last return was a joint
+        // return...", directly under the caption of the tick box above, and
+        // merging the two buried both. Worth one field on its own.
+        if (next.Text.TrimStart().Length > 0
+            && ItemMarkers.Contains(next.Text.TrimStart()[0]))
         {
             return false;
         }
