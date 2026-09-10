@@ -53,24 +53,33 @@ only to name the ones already found.
 
 ## Measured
 
-Mean F1 against hand-authored ground truth, four benchmark forms:
+Mean F1 against hand-authored ground truth, four benchmark forms. Produced by
+running this tool, not a private copy of its logic — regenerate with
+`python3 scripts/pdf-form-benchmark/score_pdf2apr.py`:
 
-| approach | mean F1 |
-|---|---|
-| **this pipeline** | **0.79** |
-| the model alone, given the page | 0.71 |
-| the deterministic pipeline alone | 0.58 |
+| form | pdf2apr | model alone | deterministic alone |
+|---|---|---|---|
+| fed-w9 | 0.68 | 0.55 | 0.56 |
+| ct-w4 | 0.77 | **1.00** | 0.68 |
+| fed-8822 | 0.84 | 0.88 | 0.79 |
+| fed-i9 | **0.76** | 0.43 | 0.28 |
+| **mean** | **0.76** | 0.71 | 0.58 |
 
 The gain is largest where a form has many boxes and few questions. USCIS Form
 I-9 has 128 fillable widgets and 44 real questions; naming them from the page
-collapses 128 boxes into 53 prompts and takes F1 from 0.28 to 0.78.
+collapses 128 boxes into 53 prompts and takes F1 from 0.28 to 0.76.
+
+An earlier draft of this file said 0.79. That came from the experiment script
+this tool was built from, which differs in small ways that have not been run
+down; the number above is what the shipped `convert()` produces.
 
 ### Two findings worth keeping
 
 **Guiding caps recall.** The model only names what stage 1 found, so where
 detection under-reads, guiding hides fields the model would have spotted alone.
 On CT-W4 the deterministic pass finds 19 blanks against 25 real questions, and
-guiding takes a perfect 1.00 down to 0.77.
+guiding takes a perfect 1.00 down to 0.77. That is the one form in the table
+where the model alone wins, and it wins by a distance.
 
 **Inviting the model to add fields makes it worse; accepting the ones it offers
 does not.** The obvious fix — "add any field you see that has no box" — drops
@@ -132,7 +141,8 @@ point back at the page.
   would be a different tool.
 - **Four forms is a small sample.** The numbers above come from the benchmark
   corpus in `scripts/pdf-form-benchmark/`, and three of the four are forms the
-  deterministic stage was tuned against.
+  deterministic stage was tuned against. `fed-ss4`, `fed-w4` and the CT DMV set
+  have not been run against this design at all.
 - **Check the output.** A converted form is a draft. The model reads the page
   the way a person does, including when it reads it wrong.
 
