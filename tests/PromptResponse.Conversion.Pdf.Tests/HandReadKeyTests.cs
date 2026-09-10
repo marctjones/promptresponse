@@ -50,7 +50,7 @@ public class HandReadKeyTests
     {
         { "fed-w9", 0.86, 0.90 },
         { "fed-8822", 0.80, 0.90 },
-        { "fed-ss4", 0.79, 0.89 },
+        { "fed-ss4", 0.82, 0.92 },
     };
 
     [Theory]
