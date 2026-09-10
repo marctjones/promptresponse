@@ -1,0 +1,167 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-w4"
+  },
+  "sections": [
+    {
+      "id": "page-1",
+      "title": "Page 1",
+      "prompts": [
+        {
+          "id": "Telephone number",
+          "label": "Telephone number \u2013 \u2013",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1",
+          "label": "1. Withholding Code: Enter Withholding Code letter chosen from above. .......................1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "2",
+          "label": "2. Additional withholding amount per pay period: If any, see instructions. . .....................2. $",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "3",
+          "label": "3. Reduced withholding amount per pay period: If any, see instructions. ........................3. $ First name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Check Box1",
+          "label": "the MSRRA exemption residence/domicile:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "residencedomicile",
+          "label": "residence/domicile",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "First name Ml Last name",
+          "label": "First name Ml Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "SSN",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Home address number and street apartment number suite number PO Box",
+          "label": "Home address (number and street, apartment number, suite number, PO Box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Citytown State ZIP code",
+          "label": "City/town State ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Check Box2",
+          "label": "\uF072 Yes",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "Check Box3",
+          "label": "Enter date hired:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "Yes  Enter date hired",
+          "label": "Yes  Enter date hired",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Text3",
+          "label": "Employer\u2019s business name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Text4",
+          "label": "Federal Employer Identification Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Employers business address",
+          "label": "Employer\u2019s business address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Citytown State ZIP code_2",
+          "label": "City/town State ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "Contact person",
+          "label": "Contact person",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}
