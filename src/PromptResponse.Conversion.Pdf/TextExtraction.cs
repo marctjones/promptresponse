@@ -156,12 +156,18 @@ public static class TextExtraction
 /// <param name="Rect">Its bounding box in PDF user space.</param>
 /// <param name="Height">Tallest glyph box in the run — the usable size signal.</param>
 /// <param name="BodyHeight">The modal run height on this page, i.e. body text size.</param>
+/// <param name="HelpText">
+/// The rest of the block after its opening question, or null when the block is
+/// all one thing. See <see cref="TextBlocks.Split"/> — this is how a form's
+/// guidance is kept and attached to the prompt it explains, rather than dropped.
+/// </param>
 public sealed record MeasuredSpan(
     int PageNumber,
     string Text,
     PdfRectangle Rect,
     double Height,
-    double BodyHeight)
+    double BodyHeight,
+    string? HelpText = null)
 {
     /// <summary>How large this run is relative to the page's body text.</summary>
     public double RelativeSize => BodyHeight <= 0 ? 1 : Height / BodyHeight;

@@ -62,18 +62,12 @@ public sealed class ExtractTextPhase : IConversionPhase
                 "no text layer; the pixels would need OCR, which is not built");
         }
 
-        // Reuses the committed reference extractor rather than a second copy of
-        // the same logic, so the text the converter reads is exactly the text
-        // the reference files record and grade against.
-        var reference = PdfReferenceExtractor.Extract(state.SourcePath, state.Title);
-        var spans = reference.Lines
-            .Select(l => new TextSpan(
-                l.Page,
-                l.Text,
-                new PdfRectangle(l.Rect.Left, l.Rect.Bottom, l.Rect.Right, l.Rect.Top)))
+        var measured = TextExtraction.Extract(state.SourcePath);
+        var spans = measured
+            .Select(m => new TextSpan(m.PageNumber, m.Text, m.Rect))
             .ToList();
 
-        return (state with { Spans = spans }, PhaseStatus.Completed,
+        return (state with { Spans = spans, Measured = measured }, PhaseStatus.Completed,
             $"{spans.Count} text span(s) with geometry");
     }
 }
@@ -219,13 +213,33 @@ public sealed class ClassifySpansPhase : IConversionPhase
     /// <inheritdoc/>
     public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
     {
-        if (state.SpansOrEmpty.Count == 0)
+        if (state.MeasuredOrEmpty.Count == 0)
         {
             return (state, PhaseStatus.Skipped, "no text to classify");
         }
 
-        return (state, PhaseStatus.NotImplemented,
-            $"{state.SpansOrEmpty.Count} span(s) left unclassified (#422)");
+        // Blocks, not baselines. A wrapped question is one thing to classify,
+        // and the fields are what tell one block from the next -- which is why
+        // this happens here, after discovery, rather than in extract-text.
+        var blocks = TextBlocks.Assemble(
+            state.MeasuredOrEmpty,
+            [.. state.FieldsOrEmpty
+                .Where(f => f.TargetRect is not null)
+                .Select(f => (f.PageNumber, f.TargetRect!.Value))]);
+
+        var classified = SpanClassifier.Classify(blocks);
+        var counts = classified
+            .GroupBy(s => s.Role!.Value)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        string Count(SpanRole role) => counts.TryGetValue(role, out var n) ? n.ToString() : "0";
+
+        // Label is deliberately absent from this report: this phase cannot
+        // produce one. What it hands on is a pool of runs it could not rule
+        // out, which recover-labels then competes fields over.
+        return (state with { Spans = classified }, PhaseStatus.Completed,
+            $"{Count(SpanRole.Heading)} heading(s), {Count(SpanRole.Instruction)} instruction(s), " +
+            $"{Count(SpanRole.Furniture)} furniture, {Count(SpanRole.Unclassified)} left as label candidates");
     }
 }
 
@@ -269,8 +283,17 @@ public sealed class RecoverLabelsPhase : IConversionPhase
             return (state, PhaseStatus.Skipped, "no text layer to recover labels from");
         }
 
-        return (state, PhaseStatus.NotImplemented,
-            $"{needing} field(s) still need a label (#426)");
+        var result = LabelRecovery.Recover(state.FieldsOrEmpty, state.SpansOrEmpty);
+        var stillNeeding = needing - result.Recovered;
+
+        var groups = result.GroupInstructions == 0
+            ? string.Empty
+            : $"; {result.GroupInstructions} run(s) rejected as group instructions, wanted by " +
+              $"{LabelRecovery.GroupInstructionClaims}+ fields each";
+
+        return (state with { Fields = result.Fields, Spans = result.Spans }, PhaseStatus.Completed,
+            $"{result.Recovered} of {needing} label(s) recovered from nearby text, " +
+            $"{stillNeeding} still unresolved{groups}");
     }
 }
 

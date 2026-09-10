@@ -44,6 +44,11 @@ public enum LabelSource
 /// <param name="TargetRect">Where the answer goes, in PDF user space.</param>
 /// <param name="ExpectedDataType">An APR hint — text, boolean, and so on.</param>
 /// <param name="Options">Choice options, when the field offers a fixed set.</param>
+/// <param name="HelpText">
+/// The form's own guidance for this field — the remainder of the block whose
+/// first sentence became the label. Carried so instructions survive conversion
+/// attached to the prompt they explain, rather than being discarded as prose.
+/// </param>
 /// <param name="NeedsReview">
 /// Why this field could not be resolved deterministically. This list is the
 /// model phase's work queue: an empty list on every field means the model never
@@ -58,7 +63,8 @@ public sealed record DiscoveredField(
     PdfRectangle? TargetRect,
     string? ExpectedDataType = null,
     IReadOnlyList<string>? Options = null,
-    IReadOnlyList<string>? NeedsReview = null)
+    IReadOnlyList<string>? NeedsReview = null,
+    string? HelpText = null)
 {
     /// <summary>Whether a human-readable question was resolved for this field.</summary>
     public bool HasLabel => !string.IsNullOrWhiteSpace(Label);
@@ -69,11 +75,24 @@ public sealed record DiscoveredField(
 /// <param name="Text">The text.</param>
 /// <param name="Rect">Its bounding box in PDF user space.</param>
 /// <param name="Role">What the pipeline believes this text is; null until classified.</param>
-public sealed record TextSpan(int PageNumber, string Text, PdfRectangle Rect, SpanRole? Role = null);
+/// <param name="HelpText">Guidance that followed the question in the same block, if any.</param>
+public sealed record TextSpan(
+    int PageNumber,
+    string Text,
+    PdfRectangle Rect,
+    SpanRole? Role = null,
+    string? HelpText = null);
 
 /// <summary>What a run of printed text is doing on the page.</summary>
 public enum SpanRole
 {
+    /// <summary>
+    /// Not yet decided. Text shape can rule a run <em>out</em> of being a
+    /// question, but nothing about how a run reads makes it one — that is
+    /// settled by whether a field lays claim to it in <see cref="LabelRecovery"/>.
+    /// </summary>
+    Unclassified,
+
     /// <summary>A section heading.</summary>
     Heading,
 
@@ -102,14 +121,23 @@ public enum SpanRole
 /// <param name="Fields">Fields discovered so far.</param>
 /// <param name="Spans">Printed text with geometry.</param>
 /// <param name="Document">The assembled template, once assembly has run.</param>
+/// <param name="Measured">
+/// The same text runs as <paramref name="Spans"/>, carrying the size metrics the
+/// classifier needs. Kept alongside rather than folded in so a consumer that
+/// only wants text and position is not forced to reason about typography.
+/// </param>
 public sealed record ConversionState(
     string SourcePath,
     string Title,
     PdfSourceReport? Sources = null,
     IReadOnlyList<DiscoveredField>? Fields = null,
     IReadOnlyList<TextSpan>? Spans = null,
-    AprDocument? Document = null)
+    AprDocument? Document = null,
+    IReadOnlyList<MeasuredSpan>? Measured = null)
 {
+    /// <summary>Text runs with their size metrics, never null.</summary>
+    public IReadOnlyList<MeasuredSpan> MeasuredOrEmpty => Measured ?? [];
+
     /// <summary>Fields discovered so far, never null.</summary>
     public IReadOnlyList<DiscoveredField> FieldsOrEmpty => Fields ?? [];
 
