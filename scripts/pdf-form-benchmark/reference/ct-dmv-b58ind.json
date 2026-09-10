@@ -710,10 +710,10 @@
     {
       "page": 1,
       "order": 20,
-      "text": "STATE ZIP CODE",
+      "text": "ZIP CODE",
       "rect": {
-        "left": 395.47,
-        "bottom": 634.23,
+        "left": 490.4,
+        "bottom": 634.24,
         "right": 523.46,
         "top": 641.24
       }
@@ -721,6 +721,17 @@
     {
       "page": 1,
       "order": 21,
+      "text": "STATE",
+      "rect": {
+        "left": 395.47,
+        "bottom": 634.23,
+        "right": 418.41,
+        "top": 641.23
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
       "text": "CITY",
       "rect": {
         "left": 143.29,
@@ -731,7 +742,7 @@
     },
     {
       "page": 1,
-      "order": 22,
+      "order": 23,
       "text": "Address",
       "rect": {
         "left": 28.24,
@@ -742,7 +753,7 @@
     },
     {
       "page": 1,
-      "order": 23,
+      "order": 24,
       "text": "2",
       "rect": {
         "left": 123.1,
@@ -753,7 +764,7 @@
     },
     {
       "page": 1,
-      "order": 24,
+      "order": 25,
       "text": "CT 06",
       "rect": {
         "left": 399.98,
@@ -764,7 +775,7 @@
     },
     {
       "page": 1,
-      "order": 25,
+      "order": 26,
       "text": "This must be a",
       "rect": {
         "left": 28.62,
@@ -775,7 +786,7 @@
     },
     {
       "page": 1,
-      "order": 26,
+      "order": 27,
       "text": "Connecticut address.",
       "rect": {
         "left": 28.62,
@@ -786,7 +797,7 @@
     },
     {
       "page": 1,
-      "order": 27,
+      "order": 28,
       "text": "DMV shares residence address updates with town registrars",
       "rect": {
         "left": 140.26,
@@ -797,7 +808,7 @@
     },
     {
       "page": 1,
-      "order": 28,
+      "order": 29,
       "text": "Check here if you do NOT want your voting address",
       "rect": {
         "left": 395.47,
@@ -808,7 +819,7 @@
     },
     {
       "page": 1,
-      "order": 29,
+      "order": 30,
       "text": "of voters so they can update your voting address, if you are",
       "rect": {
         "left": 140.26,
@@ -819,7 +830,7 @@
     },
     {
       "page": 1,
-      "order": 30,
+      "order": 31,
       "text": "automatically updated.",
       "rect": {
         "left": 395.47,
@@ -830,7 +841,7 @@
     },
     {
       "page": 1,
-      "order": 31,
+      "order": 32,
       "text": "a registered voter.",
       "rect": {
         "left": 140.26,
@@ -841,7 +852,7 @@
     },
     {
       "page": 1,
-      "order": 32,
+      "order": 33,
       "text": "UNIT/APT. #",
       "rect": {
         "left": 327.59,
@@ -852,7 +863,7 @@
     },
     {
       "page": 1,
-      "order": 33,
+      "order": 34,
       "text": "STREET ADDRESS",
       "rect": {
         "left": 140.26,
@@ -863,7 +874,7 @@
     },
     {
       "page": 1,
-      "order": 34,
+      "order": 35,
       "text": "Your Mailing",
       "rect": {
         "left": 28.61,
@@ -874,7 +885,7 @@
     },
     {
       "page": 1,
-      "order": 35,
+      "order": 36,
       "text": "Address",
       "rect": {
         "left": 28.61,
@@ -885,7 +896,7 @@
     },
     {
       "page": 1,
-      "order": 36,
+      "order": 37,
       "text": "3",
       "rect": {
         "left": 122.65,
@@ -896,7 +907,7 @@
     },
     {
       "page": 1,
-      "order": 37,
+      "order": 38,
       "text": "CODEIf different from your",
       "rect": {
         "left": 28.01,
@@ -907,18 +918,29 @@
     },
     {
       "page": 1,
-      "order": 38,
-      "text": "CITY STATE ZIP",
+      "order": 39,
+      "text": "STATE ZIP",
       "rect": {
-        "left": 142.78,
-        "bottom": 554.18,
+        "left": 394.96,
+        "bottom": 554.2,
         "right": 500.79,
         "top": 561.2
       }
     },
     {
       "page": 1,
-      "order": 39,
+      "order": 40,
+      "text": "CITY",
+      "rect": {
+        "left": 142.78,
+        "bottom": 554.18,
+        "right": 158.73,
+        "top": 561.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
       "text": "residence address.",
       "rect": {
         "left": 28.01,
@@ -929,7 +951,7 @@
     },
     {
       "page": 1,
-      "order": 40,
+      "order": 42,
       "text": "Organ and Tissue",
       "rect": {
         "left": 28.24,
@@ -940,7 +962,7 @@
     },
     {
       "page": 1,
-      "order": 41,
+      "order": 43,
       "text": "I consent to organ and tissue donation",
       "rect": {
         "left": 156.85,
@@ -951,7 +973,7 @@
     },
     {
       "page": 1,
-      "order": 42,
+      "order": 44,
       "text": "I no longer wish to be in the donor registry",
       "rect": {
         "left": 323.47,
@@ -962,7 +984,7 @@
     },
     {
       "page": 1,
-      "order": 43,
+      "order": 45,
       "text": "4",
       "rect": {
         "left": 122.46,
@@ -973,7 +995,7 @@
     },
     {
       "page": 1,
-      "order": 44,
+      "order": 46,
       "text": "Donor Status",
       "rect": {
         "left": 28.24,
@@ -984,7 +1006,7 @@
     },
     {
       "page": 1,
-      "order": 45,
+      "order": 47,
       "text": "and wish to be in the donor registry",
       "rect": {
         "left": 156.85,
@@ -995,7 +1017,7 @@
     },
     {
       "page": 1,
-      "order": 46,
+      "order": 48,
       "text": "E-MAIL",
       "rect": {
         "left": 325.32,
@@ -1006,7 +1028,7 @@
     },
     {
       "page": 1,
-      "order": 47,
+      "order": 49,
       "text": "If you provide an e-mail address, your registration",
       "rect": {
         "left": 141.76,
@@ -1017,7 +1039,7 @@
     },
     {
       "page": 1,
-      "order": 48,
+      "order": 50,
       "text": "Your E-mail",
       "rect": {
         "left": 27.11,
@@ -1028,7 +1050,7 @@
     },
     {
       "page": 1,
-      "order": 49,
+      "order": 51,
       "text": "5",
       "rect": {
         "left": 122.46,
@@ -1039,7 +1061,7 @@
     },
     {
       "page": 1,
-      "order": 50,
+      "order": 52,
       "text": "renewal notices will only be sent to your e-mail.",
       "rect": {
         "left": 141.76,
@@ -1050,7 +1072,7 @@
     },
     {
       "page": 1,
-      "order": 51,
+      "order": 53,
       "text": "Address",
       "rect": {
         "left": 27.11,
@@ -1061,7 +1083,7 @@
     },
     {
       "page": 1,
-      "order": 52,
+      "order": 54,
       "text": "Check here to remove an e-mail address already on file and have your registration renewal reminders sent to you by mail.",
       "rect": {
         "left": 154.14,
@@ -1072,18 +1094,40 @@
     },
     {
       "page": 1,
-      "order": 53,
-      "text": "Your PLATE/VESSEL NO: ADDRESS",
+      "order": 55,
+      "text": "Your",
       "rect": {
         "left": 27.11,
         "bottom": 460.68,
-        "right": 297.5,
+        "right": 47.62,
         "top": 469.68
       }
     },
     {
       "page": 1,
-      "order": 54,
+      "order": 56,
+      "text": "ADDRESS",
+      "rect": {
+        "left": 263.28,
+        "bottom": 462.36,
+        "right": 297.5,
+        "top": 469.36
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": "PLATE/VESSEL NO:",
+      "rect": {
+        "left": 140.26,
+        "bottom": 462.35,
+        "right": 207.56,
+        "top": 469.35
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
       "text": "Vehicles/Vessels",
       "rect": {
         "left": 27.11,
@@ -1094,18 +1138,29 @@
     },
     {
       "page": 1,
-      "order": 55,
-      "text": "PLATE/VESSEL NO: ADDRESS",
+      "order": 59,
+      "text": "ADDRESS",
       "rect": {
-        "left": 140.26,
-        "bottom": 435.77,
+        "left": 263.27,
+        "bottom": 435.78,
         "right": 297.5,
         "top": 442.78
       }
     },
     {
       "page": 1,
-      "order": 56,
+      "order": 60,
+      "text": "PLATE/VESSEL NO:",
+      "rect": {
+        "left": 140.26,
+        "bottom": 435.77,
+        "right": 207.55,
+        "top": 442.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
       "text": "6",
       "rect": {
         "left": 122.4,
@@ -1116,18 +1171,40 @@
     },
     {
       "page": 1,
-      "order": 57,
-      "text": "ONLY list PLATE/VESSEL NO: ADDRESS",
+      "order": 62,
+      "text": "ONLY list",
       "rect": {
         "left": 25.62,
         "bottom": 408.33,
-        "right": 297.49,
+        "right": 64.12,
         "top": 417.33
       }
     },
     {
       "page": 1,
-      "order": 58,
+      "order": 63,
+      "text": "ADDRESS",
+      "rect": {
+        "left": 263.27,
+        "bottom": 409.28,
+        "right": 297.49,
+        "top": 416.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 64,
+      "text": "PLATE/VESSEL NO:",
+      "rect": {
+        "left": 140.26,
+        "bottom": 409.26,
+        "right": 207.55,
+        "top": 416.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 65,
       "text": "vehicles/vessels",
       "rect": {
         "left": 25.62,
@@ -1138,7 +1215,7 @@
     },
     {
       "page": 1,
-      "order": 59,
+      "order": 66,
       "text": "garaged somewhere",
       "rect": {
         "left": 25.62,
@@ -1149,7 +1226,7 @@
     },
     {
       "page": 1,
-      "order": 60,
+      "order": 67,
       "text": "(List any additional vehicles on a separate sheet and attach it to this form.)",
       "rect": {
         "left": 140.76,
@@ -1160,7 +1237,7 @@
     },
     {
       "page": 1,
-      "order": 61,
+      "order": 68,
       "text": "other than your new",
       "rect": {
         "left": 25.62,
@@ -1171,7 +1248,7 @@
     },
     {
       "page": 1,
-      "order": 62,
+      "order": 69,
       "text": "*All vehicles will be changed to your new residence address unless specified here.*",
       "rect": {
         "left": 140.76,
@@ -1182,7 +1259,7 @@
     },
     {
       "page": 1,
-      "order": 63,
+      "order": 70,
       "text": "residence address.",
       "rect": {
         "left": 25.62,
@@ -1193,18 +1270,29 @@
     },
     {
       "page": 1,
-      "order": 64,
-      "text": "SIGNATURE REQUIRED DATE",
+      "order": 71,
+      "text": "DATE",
       "rect": {
-        "left": 141.49,
-        "bottom": 356.24,
+        "left": 444.34,
+        "bottom": 356.52,
         "right": 463.39,
         "top": 363.52
       }
     },
     {
       "page": 1,
-      "order": 65,
+      "order": 72,
+      "text": "SIGNATURE REQUIRED",
+      "rect": {
+        "left": 141.49,
+        "bottom": 356.24,
+        "right": 221.61,
+        "top": 363.24
+      }
+    },
+    {
+      "page": 1,
+      "order": 73,
       "text": "SIGNATURE X",
       "rect": {
         "left": 26.99,
@@ -1215,7 +1303,7 @@
     },
     {
       "page": 1,
-      "order": 66,
+      "order": 74,
       "text": "DO NOT COMPLETE BELOW THIS LINE UNLESS YOU WANT TO REGISTER TO VOTE OR CHANGE YOUR POLITICAL PARTY AFFILIATION.",
       "rect": {
         "left": 27.55,
@@ -1226,7 +1314,7 @@
     },
     {
       "page": 1,
-      "order": 67,
+      "order": 75,
       "text": "NO",
       "rect": {
         "left": 373.9,
@@ -1237,7 +1325,7 @@
     },
     {
       "page": 1,
-      "order": 68,
+      "order": 76,
       "text": "YES",
       "rect": {
         "left": 337.97,
@@ -1248,7 +1336,7 @@
     },
     {
       "page": 1,
-      "order": 69,
+      "order": 77,
       "text": "Are you a citizen of the United States of America?",
       "rect": {
         "left": 141.4,
@@ -1259,7 +1347,7 @@
     },
     {
       "page": 1,
-      "order": 70,
+      "order": 78,
       "text": "Will you be at least 18 years of age on or before election day?",
       "rect": {
         "left": 141.45,
@@ -1270,7 +1358,7 @@
     },
     {
       "page": 1,
-      "order": 71,
+      "order": 79,
       "text": "NO",
       "rect": {
         "left": 417.05,
@@ -1281,7 +1369,7 @@
     },
     {
       "page": 1,
-      "order": 72,
+      "order": 80,
       "text": "YES",
       "rect": {
         "left": 381.12,
@@ -1292,7 +1380,7 @@
     },
     {
       "page": 1,
-      "order": 73,
+      "order": 81,
       "text": "If you checked \u0022NO\u0022 in response to either of these questions, do NOT complete below this line as you cannot",
       "rect": {
         "left": 140.9,
@@ -1303,7 +1391,7 @@
     },
     {
       "page": 1,
-      "order": 74,
+      "order": 82,
       "text": "register to vote.",
       "rect": {
         "left": 140.9,
@@ -1314,7 +1402,7 @@
     },
     {
       "page": 1,
-      "order": 75,
+      "order": 83,
       "text": "Do you wish to enroll in a political party?",
       "rect": {
         "left": 140.82,
@@ -1325,18 +1413,51 @@
     },
     {
       "page": 1,
-      "order": 76,
-      "text": "YES NAME OF PARTY: DEMOCRATIC REPUBLICAN OTHER:",
+      "order": 84,
+      "text": "YES NAME OF PARTY:",
       "rect": {
         "left": 155.03,
         "bottom": 243.58,
-        "right": 448.67,
+        "right": 245.97,
         "top": 252.07
       }
     },
     {
       "page": 1,
-      "order": 77,
+      "order": 85,
+      "text": "OTHER:",
+      "rect": {
+        "left": 418.45,
+        "bottom": 243.62,
+        "right": 448.67,
+        "top": 251.62
+      }
+    },
+    {
+      "page": 1,
+      "order": 86,
+      "text": "REPUBLICAN",
+      "rect": {
+        "left": 346.11,
+        "bottom": 243.6,
+        "right": 397.23,
+        "top": 251.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 87,
+      "text": "DEMOCRATIC",
+      "rect": {
+        "left": 270.27,
+        "bottom": 243.59,
+        "right": 324.05,
+        "top": 251.59
+      }
+    },
+    {
+      "page": 1,
+      "order": 88,
       "text": "Voter",
       "rect": {
         "left": 58.17,
@@ -1347,7 +1468,7 @@
     },
     {
       "page": 1,
-      "order": 78,
+      "order": 89,
       "text": "Registration",
       "rect": {
         "left": 40.15,
@@ -1358,7 +1479,7 @@
     },
     {
       "page": 1,
-      "order": 79,
+      "order": 90,
       "text": "I do not wish to enroll in a party at this time and will be registered as UNAFFILIATED.",
       "rect": {
         "left": 178.21,
@@ -1369,7 +1490,7 @@
     },
     {
       "page": 1,
-      "order": 80,
+      "order": 91,
       "text": "NO",
       "rect": {
         "left": 155.27,
@@ -1380,7 +1501,7 @@
     },
     {
       "page": 1,
-      "order": 81,
+      "order": 92,
       "text": "Application",
       "rect": {
         "left": 42.28,
@@ -1391,7 +1512,7 @@
     },
     {
       "page": 1,
-      "order": 82,
+      "order": 93,
       "text": "Note: Declaring a party enables you to vote in the party\u0027s primary election, which is open only to party members.",
       "rect": {
         "left": 140.22,
@@ -1402,7 +1523,7 @@
     },
     {
       "page": 1,
-      "order": 83,
+      "order": 94,
       "text": "Section",
       "rect": {
         "left": 52.37,
@@ -1413,7 +1534,7 @@
     },
     {
       "page": 1,
-      "order": 84,
+      "order": 95,
       "text": "You may later choose to switch enrollment to or from a political party.",
       "rect": {
         "left": 140.22,
@@ -1424,7 +1545,7 @@
     },
     {
       "page": 1,
-      "order": 85,
+      "order": 96,
       "text": "7",
       "rect": {
         "left": 122.97,
@@ -1435,7 +1556,7 @@
     },
     {
       "page": 1,
-      "order": 86,
+      "order": 97,
       "text": "LEAVING THIS BOX BLANK WILL AUTOMATICALLY RESULT IN SELECTING \u0022UNAFFILIATED\u0022.",
       "rect": {
         "left": 139.84,
@@ -1446,7 +1567,7 @@
     },
     {
       "page": 1,
-      "order": 87,
+      "order": 98,
       "text": "VOTER DECLARATION - I swear or affirm under penalty of perjury that:",
       "rect": {
         "left": 141.15,
@@ -1457,7 +1578,7 @@
     },
     {
       "page": 1,
-      "order": 88,
+      "order": 99,
       "text": "ONLY complete this",
       "rect": {
         "left": 31.33,
@@ -1468,7 +1589,7 @@
     },
     {
       "page": 1,
-      "order": 89,
+      "order": 100,
       "text": "* I am a U.S. Citizen;",
       "rect": {
         "left": 150.38,
@@ -1479,7 +1600,7 @@
     },
     {
       "page": 1,
-      "order": 90,
+      "order": 101,
       "text": "section if you would",
       "rect": {
         "left": 32.33,
@@ -1490,7 +1611,7 @@
     },
     {
       "page": 1,
-      "order": 91,
+      "order": 102,
       "text": "like to apply for voter",
       "rect": {
         "left": 30.07,
@@ -1501,7 +1622,7 @@
     },
     {
       "page": 1,
-      "order": 92,
+      "order": 103,
       "text": "* I am at least 17 years old and will be at least 18 years old on or before election day;",
       "rect": {
         "left": 150.38,
@@ -1512,7 +1633,7 @@
     },
     {
       "page": 1,
-      "order": 93,
+      "order": 104,
       "text": "registration or if you",
       "rect": {
         "left": 32.07,
@@ -1523,7 +1644,7 @@
     },
     {
       "page": 1,
-      "order": 94,
+      "order": 105,
       "text": "* I live in Connecticut at the address shown above;",
       "rect": {
         "left": 150.38,
@@ -1534,7 +1655,7 @@
     },
     {
       "page": 1,
-      "order": 95,
+      "order": 106,
       "text": "are already registered",
       "rect": {
         "left": 27.82,
@@ -1545,7 +1666,7 @@
     },
     {
       "page": 1,
-      "order": 96,
+      "order": 107,
       "text": "* I have not been convicted of a disenfranchising felony, or if so, I am eligible to register to vote.",
       "rect": {
         "left": 150.38,
@@ -1556,7 +1677,7 @@
     },
     {
       "page": 1,
-      "order": 97,
+      "order": 108,
       "text": "to vote and want to",
       "rect": {
         "left": 33.56,
@@ -1567,7 +1688,7 @@
     },
     {
       "page": 1,
-      "order": 98,
+      "order": 109,
       "text": "The information that I have provided is true to the best of my knowledge under penalty of perjury. If I have",
       "rect": {
         "left": 140.97,
@@ -1578,7 +1699,7 @@
     },
     {
       "page": 1,
-      "order": 99,
+      "order": 110,
       "text": "change your political",
       "rect": {
         "left": 30.57,
@@ -1589,7 +1710,7 @@
     },
     {
       "page": 1,
-      "order": 100,
+      "order": 111,
       "text": "provided false information, I may be subject to a fine or imprisonment or both under federal or state laws.",
       "rect": {
         "left": 140.97,
@@ -1600,7 +1721,7 @@
     },
     {
       "page": 1,
-      "order": 101,
+      "order": 112,
       "text": "party affiliation.",
       "rect": {
         "left": 41.33,
@@ -1611,7 +1732,7 @@
     },
     {
       "page": 1,
-      "order": 102,
+      "order": 113,
       "text": "By signing this Voter Declaration, I am applying to register to vote or changing my existing party affiliation, and I agree",
       "rect": {
         "left": 141.35,
@@ -1622,7 +1743,7 @@
     },
     {
       "page": 1,
-      "order": 103,
+      "order": 114,
       "text": "to allow the signature from my license record to be used as the signature on my voter registration record.",
       "rect": {
         "left": 141.35,
@@ -1633,7 +1754,7 @@
     },
     {
       "page": 1,
-      "order": 104,
+      "order": 115,
       "text": "**X SIGNEDSIGNATURE FOR VOTER REGISTRATION ONLY",
       "rect": {
         "left": 171.49,
@@ -1644,7 +1765,7 @@
     },
     {
       "page": 1,
-      "order": 105,
+      "order": 116,
       "text": "DATE",
       "rect": {
         "left": 464.34,
@@ -1655,7 +1776,7 @@
     },
     {
       "page": 1,
-      "order": 106,
+      "order": 117,
       "text": "** Voter registrations without signatures will not be processed.",
       "rect": {
         "left": 140.62,

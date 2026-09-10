@@ -132,17 +132,49 @@ public static class PdfReferenceExtractor
     public const double LineBaselineTolerance = 2.0;
 
     /// <summary>
-    /// How much wider than a line's own typical word gap a gap must be before it
-    /// is read as a column break rather than a space.
+    /// A gap this many times the line's typical word gap ends a run.
     /// </summary>
     /// <remarks>
+    /// <para>
     /// Sharing a baseline does not make two runs of text one line. A form's
     /// header puts "Form W-9" at the left margin and "Give form to the" in a box
     /// at the right, and grouping by baseline alone joins them into a sentence
     /// nobody wrote — which then reads as a label for whatever field is nearby.
-    /// Splitting on a gap that is several times the line's own word spacing
-    /// separates them without needing to detect columns properly, and scales
-    /// itself to each line's font size instead of assuming one.
+    /// </para>
+    /// <para>
+    /// <b>"Typical" is the lower quartile of the line's gaps, not the median.</b>
+    /// That is a correction, and the second time this rule has been wrong. A
+    /// median assumes most gaps on a line are word gaps, which fails exactly
+    /// where splitting matters most: W-9's tax-classification row is five
+    /// captions separated by tick boxes, so of its seven gaps four are ~23pt
+    /// column breaks and three are ~2pt word spaces. The median is then 23pt,
+    /// the threshold 69pt, and the whole row survives as one run — handing five
+    /// checkboxes' captions to whichever one claims it first.
+    /// </para>
+    /// <para>
+    /// The lower quartile is the fix because the contamination is always in the
+    /// upper tail: column breaks are the <em>large</em> gaps, so a statistic
+    /// taken from the small end estimates word spacing whatever the mix.
+    /// </para>
+    /// <para>
+    /// Glyph height was tried as the yardstick instead and rejected as the less
+    /// conservative of the two: it splits at a fixed fraction of the type size
+    /// and so cannot see stretched word spacing, which is real on this corpus —
+    /// <c>fed-w4</c> is justified. It produced 1018 lines against the quartile
+    /// rule's 678 without a demonstrated benefit, so the quartile rule wins on
+    /// caution rather than on a measured defect in the alternative.
+    /// </para>
+    /// <para>
+    /// One consequence is worth stating because it looks alarming and is not.
+    /// Splitting more finely drops <c>fed-w4</c>'s median line from 10 words to
+    /// 3, which reads like shredding. It is dot leaders: the form rules its
+    /// figures with runs of widely spaced periods, and the old threshold welded
+    /// them to the label, yielding "2 Add lines 1a, 1b, and 1c. Enter the result
+    /// here . . . . . . . 2 $" as a single line. Splitting that leaves a clean
+    /// label and a row of dots that carry no letters, which page-furniture
+    /// detection then discards. The line count rose because the extraction got
+    /// better, not worse.
+    /// </para>
     /// </remarks>
     public const double ColumnGapMultiple = 3.0;
 
@@ -151,7 +183,7 @@ public static class PdfReferenceExtractor
     /// </summary>
     /// <remarks>
     /// Guards the relative rule on a line whose words happen to sit unusually
-    /// tight, where three times a tiny median would split ordinary spacing.
+    /// tight, where three times a tiny quartile would split ordinary spacing.
     /// </remarks>
     public const double MinimumColumnGap = 8.0;
 
@@ -274,9 +306,12 @@ public static class PdfReferenceExtractor
             gaps[i - 1] = inOrder[i].BoundingBox.Left - inOrder[i - 1].BoundingBox.Right;
         }
 
+        // Lower quartile, not median: column breaks are the large gaps, so a
+        // statistic taken from the small end still estimates word spacing on a
+        // line that is mostly column breaks. See ColumnGapMultiple.
         var sorted = gaps.Where(g => g > 0).Order().ToArray();
-        var median = sorted.Length == 0 ? 0 : sorted[sorted.Length / 2];
-        var threshold = Math.Max(MinimumColumnGap, median * ColumnGapMultiple);
+        var typical = sorted.Length == 0 ? 0 : sorted[sorted.Length / 4];
+        var threshold = Math.Max(MinimumColumnGap, typical * ColumnGapMultiple);
 
         var runs = new List<List<Excise.Core.Text.Word>>();
         runs.Add([inOrder[0]]);

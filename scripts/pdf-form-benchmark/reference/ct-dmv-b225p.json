@@ -246,9 +246,9 @@
     {
       "page": 1,
       "order": 2,
-      "text": "MO. YEAR DEPARTMENT OF MOTOR VEHICLES",
+      "text": "DEPARTMENT OF MOTOR VEHICLES",
       "rect": {
-        "left": 345.3,
+        "left": 405.56,
         "bottom": 765.4,
         "right": 584.46,
         "top": 775.4
@@ -268,9 +268,20 @@
     {
       "page": 1,
       "order": 4,
-      "text": "PERMIT NUMBER(S) PLATE NUMBER",
+      "text": "PERMIT NUMBER(S)",
       "rect": {
         "left": 131.67,
+        "bottom": 767.37,
+        "right": 190.33,
+        "top": 773.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "PLATE NUMBER",
+      "rect": {
+        "left": 215.92,
         "bottom": 767.37,
         "right": 263.58,
         "top": 773.37
@@ -278,7 +289,29 @@
     },
     {
       "page": 1,
-      "order": 5,
+      "order": 6,
+      "text": "MO.",
+      "rect": {
+        "left": 345.3,
+        "bottom": 767.37,
+        "right": 356.63,
+        "top": 773.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "YEAR",
+      "rect": {
+        "left": 372.36,
+        "bottom": 767.37,
+        "right": 389.03,
+        "top": 773.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
       "text": "NEW",
       "rect": {
         "left": 66.8,
@@ -289,7 +322,7 @@
     },
     {
       "page": 1,
-      "order": 6,
+      "order": 9,
       "text": "USE",
       "rect": {
         "left": 23.28,
@@ -300,7 +333,7 @@
     },
     {
       "page": 1,
-      "order": 7,
+      "order": 10,
       "text": "EXPIRES",
       "rect": {
         "left": 302.16,
@@ -311,7 +344,7 @@
     },
     {
       "page": 1,
-      "order": 8,
+      "order": 11,
       "text": "OVER THE COUNTER SALES UNIT",
       "rect": {
         "left": 429.22,
@@ -322,7 +355,7 @@
     },
     {
       "page": 1,
-      "order": 9,
+      "order": 12,
       "text": "REPLACEMENT",
       "rect": {
         "left": 66.8,
@@ -333,7 +366,7 @@
     },
     {
       "page": 1,
-      "order": 10,
+      "order": 13,
       "text": "ONLY",
       "rect": {
         "left": 20.39,
@@ -344,7 +377,7 @@
     },
     {
       "page": 1,
-      "order": 11,
+      "order": 14,
       "text": "60 STATE STREET, WETHERSFIELD CT",
       "rect": {
         "left": 419.66,
@@ -355,7 +388,7 @@
     },
     {
       "page": 1,
-      "order": 12,
+      "order": 15,
       "text": "RENEWABLE PARKING PLACARD -",
       "rect": {
         "left": 18.98,
@@ -366,7 +399,7 @@
     },
     {
       "page": 1,
-      "order": 13,
+      "order": 16,
       "text": "06161-5052 Telephone: (860) 263-5154",
       "rect": {
         "left": 424.06,
@@ -377,7 +410,7 @@
     },
     {
       "page": 1,
-      "order": 14,
+      "order": 17,
       "text": "On the web at ct.gov/dmv",
       "rect": {
         "left": 449.45,
@@ -388,7 +421,7 @@
     },
     {
       "page": 1,
-      "order": 15,
+      "order": 18,
       "text": "APPLICATION FOR A PERSON WHO IS BLIND OR HAS A DISABILITY",
       "rect": {
         "left": 18.98,
@@ -399,7 +432,7 @@
     },
     {
       "page": 1,
-      "order": 16,
+      "order": 19,
       "text": "B-225P Rev. 9-2024",
       "rect": {
         "left": 18.98,
@@ -410,7 +443,7 @@
     },
     {
       "page": 1,
-      "order": 17,
+      "order": 20,
       "text": "INSTRUCTIONS:",
       "rect": {
         "left": 18.98,
@@ -421,7 +454,7 @@
     },
     {
       "page": 1,
-      "order": 18,
+      "order": 21,
       "text": "PART A must be completed by applicant. Applicant must have a Connecticut License or ID card. If you are blind and hold a license, you may surrender it at a",
       "rect": {
         "left": 18.99,
@@ -432,7 +465,7 @@
     },
     {
       "page": 1,
-      "order": 19,
+      "order": 22,
       "text": "full service office of the DMV when this application is submitted. A non-driver photo ID may be obtained in place of the license. For additional questions please",
       "rect": {
         "left": 18.99,
@@ -443,7 +476,7 @@
     },
     {
       "page": 1,
-      "order": 20,
+      "order": 23,
       "text": "call.",
       "rect": {
         "left": 18.99,
@@ -454,7 +487,7 @@
     },
     {
       "page": 1,
-      "order": 21,
+      "order": 24,
       "text": "PART B must be completed and signed by a physician, APRN, physician assistant or in the case of a veteran with PTSD, by a psychiatrist with the U.S.",
       "rect": {
         "left": 18.99,
@@ -465,7 +498,7 @@
     },
     {
       "page": 1,
-      "order": 22,
+      "order": 25,
       "text": "Department of Veterans Affairs. In the case of blindness, an optometrist, ophthalmologist or the Connecticut Board of Education and Services for the Blind",
       "rect": {
         "left": 18.99,
@@ -476,7 +509,7 @@
     },
     {
       "page": 1,
-      "order": 23,
+      "order": 26,
       "text": "may complete PART B or submit a copy of certificate of blindness. Stamped signatures are not permissible.",
       "rect": {
         "left": 18.99,
@@ -487,7 +520,7 @@
     },
     {
       "page": 1,
-      "order": 24,
+      "order": 27,
       "text": "The applicant must return this form by mail to the address above, online, or in person at any DMV branch office by appointment. There is no charge for a",
       "rect": {
         "left": 18.99,
@@ -498,7 +531,7 @@
     },
     {
       "page": 1,
-      "order": 25,
+      "order": 28,
       "text": "renewable permit.",
       "rect": {
         "left": 18.99,
@@ -509,7 +542,7 @@
     },
     {
       "page": 1,
-      "order": 26,
+      "order": 29,
       "text": "Before renewal of your permit, the driver\u0027s license or non-driver identification card must be renewed.",
       "rect": {
         "left": 18.99,
@@ -520,7 +553,7 @@
     },
     {
       "page": 1,
-      "order": 27,
+      "order": 30,
       "text": "PART A - COMPLETED BY APPLICANT",
       "rect": {
         "left": 19,
@@ -531,7 +564,7 @@
     },
     {
       "page": 1,
-      "order": 28,
+      "order": 31,
       "text": "TYPE OF APPLICATION",
       "rect": {
         "left": 19,
@@ -542,10 +575,32 @@
     },
     {
       "page": 1,
-      "order": 29,
-      "text": "NEW (1st issue) REPLACEMENT RENEWAL",
+      "order": 32,
+      "text": "NEW (1st issue)",
       "rect": {
         "left": 110.73,
+        "bottom": 571.93,
+        "right": 168.51,
+        "top": 579.93
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "REPLACEMENT",
+      "rect": {
+        "left": 272.73,
+        "bottom": 571.93,
+        "right": 333.62,
+        "top": 579.93
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "RENEWAL",
+      "rect": {
+        "left": 443.73,
         "bottom": 571.93,
         "right": 484.17,
         "top": 579.93
@@ -553,7 +608,7 @@
     },
     {
       "page": 1,
-      "order": 30,
+      "order": 35,
       "text": "APPLICANT IS (Check One)",
       "rect": {
         "left": 19,
@@ -564,7 +619,7 @@
     },
     {
       "page": 1,
-      "order": 31,
+      "order": 36,
       "text": "ORGANIZATION TRANSPORTING",
       "rect": {
         "left": 259.73,
@@ -575,7 +630,7 @@
     },
     {
       "page": 1,
-      "order": 32,
+      "order": 37,
       "text": "GUARDIAN OF BLIND OR",
       "rect": {
         "left": 140.56,
@@ -586,7 +641,7 @@
     },
     {
       "page": 1,
-      "order": 33,
+      "order": 38,
       "text": "DISABLED",
       "rect": {
         "left": 28.68,
@@ -597,7 +652,7 @@
     },
     {
       "page": 1,
-      "order": 34,
+      "order": 39,
       "text": "BLIND",
       "rect": {
         "left": 93.39,
@@ -608,7 +663,7 @@
     },
     {
       "page": 1,
-      "order": 35,
+      "order": 40,
       "text": "QUALIFYING VETERAN (See C below)",
       "rect": {
         "left": 405.73,
@@ -619,7 +674,7 @@
     },
     {
       "page": 1,
-      "order": 36,
+      "order": 41,
       "text": "BLIND OR DISABLED PERSON",
       "rect": {
         "left": 259.73,
@@ -630,7 +685,7 @@
     },
     {
       "page": 1,
-      "order": 37,
+      "order": 42,
       "text": "DISABLED PERSON",
       "rect": {
         "left": 140.56,
@@ -641,7 +696,7 @@
     },
     {
       "page": 1,
-      "order": 38,
+      "order": 43,
       "text": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle Initial)",
       "rect": {
         "left": 101.04,
@@ -652,7 +707,7 @@
     },
     {
       "page": 1,
-      "order": 39,
+      "order": 44,
       "text": "GUARDIAN OR ORGANIZATION",
       "rect": {
         "left": 360.04,
@@ -663,7 +718,7 @@
     },
     {
       "page": 1,
-      "order": 40,
+      "order": 45,
       "text": "DATE OF BIRTH (Required)",
       "rect": {
         "left": 101.04,
@@ -674,7 +729,7 @@
     },
     {
       "page": 1,
-      "order": 41,
+      "order": 46,
       "text": "CT DRIVER LICENSE/ID CARD NUMBER (Required)",
       "rect": {
         "left": 200.04,
@@ -685,7 +740,7 @@
     },
     {
       "page": 1,
-      "order": 42,
+      "order": 47,
       "text": "DAYTIME TELEPHONE NUMBER",
       "rect": {
         "left": 425.04,
@@ -696,7 +751,7 @@
     },
     {
       "page": 1,
-      "order": 43,
+      "order": 48,
       "text": "IDENTIFICATION",
       "rect": {
         "left": 26.23,
@@ -707,7 +762,7 @@
     },
     {
       "page": 1,
-      "order": 44,
+      "order": 49,
       "text": "OF",
       "rect": {
         "left": 52.67,
@@ -718,18 +773,40 @@
     },
     {
       "page": 1,
-      "order": 45,
-      "text": "APPLICANT ADDRESS (No. and Street)",
+      "order": 50,
+      "text": "APPLICANT",
       "rect": {
         "left": 35.34,
         "bottom": 482.9,
-        "right": 196.68,
+        "right": 81.11,
         "top": 490.9
       }
     },
     {
       "page": 1,
-      "order": 46,
+      "order": 51,
+      "text": "ADDRESS",
+      "rect": {
+        "left": 101.04,
+        "bottom": 483.78,
+        "right": 130.37,
+        "top": 489.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": "(No. and Street)",
+      "rect": {
+        "left": 154,
+        "bottom": 483.78,
+        "right": 196.68,
+        "top": 489.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 53,
       "text": "(City or Town)",
       "rect": {
         "left": 262,
@@ -740,7 +817,7 @@
     },
     {
       "page": 1,
-      "order": 47,
+      "order": 54,
       "text": "(State)",
       "rect": {
         "left": 379,
@@ -751,7 +828,7 @@
     },
     {
       "page": 1,
-      "order": 48,
+      "order": 55,
       "text": "(Zip Code)",
       "rect": {
         "left": 487,
@@ -762,7 +839,7 @@
     },
     {
       "page": 1,
-      "order": 49,
+      "order": 56,
       "text": "(Please Print)",
       "rect": {
         "left": 31.78,
@@ -773,7 +850,7 @@
     },
     {
       "page": 1,
-      "order": 50,
+      "order": 57,
       "text": "MAILING ADDRESS",
       "rect": {
         "left": 101.04,
@@ -784,7 +861,7 @@
     },
     {
       "page": 1,
-      "order": 51,
+      "order": 58,
       "text": "(No. and Street)",
       "rect": {
         "left": 181,
@@ -795,7 +872,7 @@
     },
     {
       "page": 1,
-      "order": 52,
+      "order": 59,
       "text": "(City or Town)",
       "rect": {
         "left": 262,
@@ -806,7 +883,7 @@
     },
     {
       "page": 1,
-      "order": 53,
+      "order": 60,
       "text": "(State)",
       "rect": {
         "left": 379,
@@ -817,7 +894,7 @@
     },
     {
       "page": 1,
-      "order": 54,
+      "order": 61,
       "text": "(Zip Code)",
       "rect": {
         "left": 487,
@@ -828,7 +905,7 @@
     },
     {
       "page": 1,
-      "order": 55,
+      "order": 62,
       "text": "I certify under penalty of false statement that I am blind, or a person who has a disability that limits or impairs the ability to walk, as described in Part B, or a veteran with PTSD and a",
       "rect": {
         "left": 19,
@@ -839,7 +916,7 @@
     },
     {
       "page": 1,
-      "order": 56,
+      "order": 63,
       "text": "disability defined in C below, or I am the parent or guardian of such person and certifying such condition on his or her behalf. If a Power of Attorney is submitted, it must be attached to",
       "rect": {
         "left": 19,
@@ -850,7 +927,7 @@
     },
     {
       "page": 1,
-      "order": 57,
+      "order": 64,
       "text": "this application.",
       "rect": {
         "left": 19,
@@ -861,7 +938,7 @@
     },
     {
       "page": 1,
-      "order": 58,
+      "order": 65,
       "text": "SIGNEDSIGNATURE OF APPLICANT/PARENT/GUARDIAN (or Power of Attorney)",
       "rect": {
         "left": 101.03,
@@ -872,7 +949,7 @@
     },
     {
       "page": 1,
-      "order": 59,
+      "order": 66,
       "text": "DATE",
       "rect": {
         "left": 496,
@@ -883,7 +960,7 @@
     },
     {
       "page": 1,
-      "order": 60,
+      "order": 67,
       "text": "APPLICANT\u0027S",
       "rect": {
         "left": 31.99,
@@ -894,7 +971,7 @@
     },
     {
       "page": 1,
-      "order": 61,
+      "order": 68,
       "text": "SIGNATURE",
       "rect": {
         "left": 34.94,
@@ -905,7 +982,7 @@
     },
     {
       "page": 1,
-      "order": 62,
+      "order": 69,
       "text": "X",
       "rect": {
         "left": 104.67,
@@ -916,7 +993,7 @@
     },
     {
       "page": 1,
-      "order": 63,
+      "order": 70,
       "text": "PART B - COMPLETED BY PHYSICIAN, APRN, PHYSICIAN ASSISTANT, OPTOMETRIST, OPHTHALMOLOGIST, BESB OR USDVA PSYCHIATRIST",
       "rect": {
         "left": 19,
@@ -927,7 +1004,7 @@
     },
     {
       "page": 1,
-      "order": 64,
+      "order": 71,
       "text": "If completed by USDVA psychiatrist, you are also certifying that the person is a veteran as defined in CGS section 27-103(a) and has one or more physical disabilities that limit or impair",
       "rect": {
         "left": 19,
@@ -938,7 +1015,7 @@
     },
     {
       "page": 1,
-      "order": 65,
+      "order": 72,
       "text": "the ability to walk as defined in #B 1 through 6 of the criteria below.",
       "rect": {
         "left": 19,
@@ -949,7 +1026,7 @@
     },
     {
       "page": 1,
-      "order": 66,
+      "order": 73,
       "text": "CRITERIA TO QUALIFY",
       "rect": {
         "left": 19,
@@ -960,7 +1037,7 @@
     },
     {
       "page": 1,
-      "order": 67,
+      "order": 74,
       "text": "The applicant may obtain a placard if they meet one or more of the following conditions:",
       "rect": {
         "left": 28,
@@ -971,7 +1048,7 @@
     },
     {
       "page": 1,
-      "order": 68,
+      "order": 75,
       "text": "A.The applicant is blind (Must be certified by an optometrist, ophthalmologist or by Board of Education and Services for the Blind- BESB); OR",
       "rect": {
         "left": 28,
@@ -982,7 +1059,7 @@
     },
     {
       "page": 1,
-      "order": 69,
+      "order": 76,
       "text": "B. The applicant has a disability that limits or impairs their ability to walk. These conditions are defined in 23 CFR 1235.2 and are listed below (Must be",
       "rect": {
         "left": 28,
@@ -993,7 +1070,7 @@
     },
     {
       "page": 1,
-      "order": 70,
+      "order": 77,
       "text": "certified by Physician, Physician Assistant or Advance Practice Registered Nurse- APRN):",
       "rect": {
         "left": 28,
@@ -1004,7 +1081,7 @@
     },
     {
       "page": 1,
-      "order": 71,
+      "order": 78,
       "text": "1.The applicant cannot walk two hundred feet without stopping to rest; or",
       "rect": {
         "left": 28,
@@ -1015,7 +1092,7 @@
     },
     {
       "page": 1,
-      "order": 72,
+      "order": 79,
       "text": "2.The applicant cannot walk without the use of, or assistance from, a brace, cane, crutch, another person, prosthetic device, wheelchair, or other device; or",
       "rect": {
         "left": 28,
@@ -1026,7 +1103,7 @@
     },
     {
       "page": 1,
-      "order": 73,
+      "order": 80,
       "text": "3.The applicant is restricted by lung disease to such an extent that the person\u0027s forced (respiratory) expiratory volume for one second, when measured by",
       "rect": {
         "left": 28,
@@ -1037,7 +1114,7 @@
     },
     {
       "page": 1,
-      "order": 74,
+      "order": 81,
       "text": "spirometry, is less than one liter, or the arterial oxygen tension is less than sixty mm/hg on room air at rest; or",
       "rect": {
         "left": 28,
@@ -1048,7 +1125,7 @@
     },
     {
       "page": 1,
-      "order": 75,
+      "order": 82,
       "text": "4.The applicant uses portable oxygen; or",
       "rect": {
         "left": 28,
@@ -1059,7 +1136,7 @@
     },
     {
       "page": 1,
-      "order": 76,
+      "order": 83,
       "text": "5.The applicant has a cardiac condition to the extent that the their functional limitations are classified in severity as Class III or Class IV according to",
       "rect": {
         "left": 28,
@@ -1070,7 +1147,7 @@
     },
     {
       "page": 1,
-      "order": 77,
+      "order": 84,
       "text": "standards set by the American Heart Association; or",
       "rect": {
         "left": 28,
@@ -1081,7 +1158,7 @@
     },
     {
       "page": 1,
-      "order": 78,
+      "order": 85,
       "text": "6.The applicant is severely limited in the ability to walk due to an arthritic, neurological, or orthopedic condition; OR",
       "rect": {
         "left": 28,
@@ -1092,7 +1169,7 @@
     },
     {
       "page": 1,
-      "order": 79,
+      "order": 86,
       "text": "C. The applicant is a veteran with PTSD and a disability that limits or impairs the ability to walk, as defined in # B1 through 6 above (PTSD and veteran",
       "rect": {
         "left": 28,
@@ -1103,7 +1180,7 @@
     },
     {
       "page": 1,
-      "order": 80,
+      "order": 87,
       "text": "status must be certified by a psychiatrist with the U.S. Department of Veterans Affairs-USDVA)",
       "rect": {
         "left": 28,
@@ -1114,7 +1191,7 @@
     },
     {
       "page": 1,
-      "order": 81,
+      "order": 88,
       "text": "CERTIFIER\u0027S NAME (Please print)",
       "rect": {
         "left": 19,
@@ -1125,7 +1202,7 @@
     },
     {
       "page": 1,
-      "order": 82,
+      "order": 89,
       "text": "CHECK ONE",
       "rect": {
         "left": 281.04,
@@ -1136,10 +1213,32 @@
     },
     {
       "page": 1,
-      "order": 83,
-      "text": "PHYSICIAN ASSISTANT BESB USVA PSYCHIATRIST",
+      "order": 90,
+      "text": "PHYSICIAN ASSISTANT",
       "rect": {
         "left": 344.73,
+        "bottom": 179.27,
+        "right": 435.85,
+        "top": 187.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 91,
+      "text": "BESB",
+      "rect": {
+        "left": 461.73,
+        "bottom": 179.27,
+        "right": 483.95,
+        "top": 187.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 92,
+      "text": "USVA PSYCHIATRIST",
+      "rect": {
+        "left": 506.73,
         "bottom": 179.27,
         "right": 589.85,
         "top": 187.27
@@ -1147,7 +1246,7 @@
     },
     {
       "page": 1,
-      "order": 84,
+      "order": 93,
       "text": "PHYSICIAN APRN OPTOMETRIST OPHTHALMOLOGIST",
       "rect": {
         "left": 299.73,
@@ -1158,7 +1257,7 @@
     },
     {
       "page": 1,
-      "order": 85,
+      "order": 94,
       "text": "MEDICAL LICENSE NUMBER (Required)",
       "rect": {
         "left": 19,
@@ -1169,7 +1268,7 @@
     },
     {
       "page": 1,
-      "order": 86,
+      "order": 95,
       "text": "MEDICAL LICENSING STATE (Required)",
       "rect": {
         "left": 326.04,
@@ -1180,7 +1279,7 @@
     },
     {
       "page": 1,
-      "order": 87,
+      "order": 96,
       "text": "OFFICE ADDRESS (No. and Street)",
       "rect": {
         "left": 19,
@@ -1191,7 +1290,7 @@
     },
     {
       "page": 1,
-      "order": 88,
+      "order": 97,
       "text": "(City or Town)",
       "rect": {
         "left": 163,
@@ -1202,7 +1301,7 @@
     },
     {
       "page": 1,
-      "order": 89,
+      "order": 98,
       "text": "(State)",
       "rect": {
         "left": 289,
@@ -1213,7 +1312,7 @@
     },
     {
       "page": 1,
-      "order": 90,
+      "order": 99,
       "text": "(Zip Code)",
       "rect": {
         "left": 370,
@@ -1224,7 +1323,7 @@
     },
     {
       "page": 1,
-      "order": 91,
+      "order": 100,
       "text": "OFFICE TELEPHONE NUMBER",
       "rect": {
         "left": 425.04,
@@ -1235,7 +1334,7 @@
     },
     {
       "page": 1,
-      "order": 92,
+      "order": 101,
       "text": "ADDITIONAL CERTIFICATION MAY BE REQUIRED AT THE TIME OF THE ORIGINAL APPLICATION OR ANY TIME THEREAFTER IF THERE IS CAUSE TO BELIEVE THAT THE",
       "rect": {
         "left": 19,
@@ -1246,7 +1345,7 @@
     },
     {
       "page": 1,
-      "order": 93,
+      "order": 102,
       "text": "ABILITY TO WALK IS NOT SERIOUSLY AND PERMANENTLY IMPAIRED.",
       "rect": {
         "left": 19,
@@ -1257,7 +1356,7 @@
     },
     {
       "page": 1,
-      "order": 94,
+      "order": 103,
       "text": "I certify under the penalty of false statement in accordance with sections 14-110 and 53a-157b of the Connecticut General Statutes that",
       "rect": {
         "left": 109.69,
@@ -1268,7 +1367,7 @@
     },
     {
       "page": 1,
-      "order": 95,
+      "order": 104,
       "text": "PHYSICIAN, PHYSICIAN",
       "rect": {
         "left": 22.94,
@@ -1279,7 +1378,7 @@
     },
     {
       "page": 1,
-      "order": 96,
+      "order": 105,
       "text": "the person named in this application meets one or more of the qualifying criteria defined above. I understand that if I make a",
       "rect": {
         "left": 109.69,
@@ -1290,7 +1389,7 @@
     },
     {
       "page": 1,
-      "order": 97,
+      "order": 106,
       "text": "ASSISTANT, APRN,",
       "rect": {
         "left": 30.33,
@@ -1301,7 +1400,7 @@
     },
     {
       "page": 1,
-      "order": 98,
+      "order": 107,
       "text": "certification that I know or believe is not true with the intent to mislead the Commissioner, I will be subject to prosecution under the",
       "rect": {
         "left": 109.69,
@@ -1312,7 +1411,7 @@
     },
     {
       "page": 1,
-      "order": 99,
+      "order": 108,
       "text": "OPTOMETRIST,",
       "rect": {
         "left": 36.75,
@@ -1323,7 +1422,7 @@
     },
     {
       "page": 1,
-      "order": 100,
+      "order": 109,
       "text": "above-cited laws. The applicant\u0027s condition is PERMANENT (Up to 8 years).",
       "rect": {
         "left": 109.69,
@@ -1334,7 +1433,7 @@
     },
     {
       "page": 1,
-      "order": 101,
+      "order": 110,
       "text": "OPHTHALMOLOGIST,",
       "rect": {
         "left": 26.44,
@@ -1345,7 +1444,7 @@
     },
     {
       "page": 1,
-      "order": 102,
+      "order": 111,
       "text": "USDVA PSYCHIATRIST,",
       "rect": {
         "left": 23.14,
@@ -1356,7 +1455,7 @@
     },
     {
       "page": 1,
-      "order": 103,
+      "order": 112,
       "text": "SIGNEDSIGNATURE OF PHYSICIAN, PA, APRN, OPTOMETRIST, OPHTHALMOLOGIST, OR USDVA PSYCHIATRIST",
       "rect": {
         "left": 110.73,
@@ -1367,7 +1466,7 @@
     },
     {
       "page": 1,
-      "order": 104,
+      "order": 113,
       "text": "DATE",
       "rect": {
         "left": 497.73,
@@ -1378,7 +1477,7 @@
     },
     {
       "page": 1,
-      "order": 105,
+      "order": 114,
       "text": "STATEMENT AND",
       "rect": {
         "left": 33.06,
@@ -1389,7 +1488,7 @@
     },
     {
       "page": 1,
-      "order": 106,
+      "order": 115,
       "text": "SIGNATURE",
       "rect": {
         "left": 42.38,
@@ -1400,7 +1499,7 @@
     },
     {
       "page": 1,
-      "order": 107,
+      "order": 116,
       "text": "X",
       "rect": {
         "left": 113.67,
@@ -1411,7 +1510,7 @@
     },
     {
       "page": 1,
-      "order": 108,
+      "order": 117,
       "text": "Note: Only 1 placard will be issued per disabled individual.",
       "rect": {
         "left": 138.34,

@@ -470,9 +470,20 @@
     {
       "page": 1,
       "order": 30,
-      "text": ", 20 .",
+      "text": ", 20",
       "rect": {
         "left": 532,
+        "bottom": 364.22,
+        "right": 548.68,
+        "top": 374.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": ".",
+      "rect": {
+        "left": 577,
         "bottom": 364.22,
         "right": 579.78,
         "top": 374.22
@@ -480,7 +491,7 @@
     },
     {
       "page": 1,
-      "order": 31,
+      "order": 32,
       "text": "IN WITNESS WHEREOF, I have hereunto signed my name below on this",
       "rect": {
         "left": 28,
@@ -491,7 +502,7 @@
     },
     {
       "page": 1,
-      "order": 32,
+      "order": 33,
       "text": "(L.S.)",
       "rect": {
         "left": 307,
@@ -502,7 +513,7 @@
     },
     {
       "page": 1,
-      "order": 33,
+      "order": 34,
       "text": "Principal:",
       "rect": {
         "left": 28,
@@ -513,7 +524,7 @@
     },
     {
       "page": 1,
-      "order": 34,
+      "order": 35,
       "text": "(Sign your full name as above)",
       "rect": {
         "left": 118.42,
@@ -524,7 +535,7 @@
     },
     {
       "page": 1,
-      "order": 35,
+      "order": 36,
       "text": "Attested and subscribed in the presence of the Principal",
       "rect": {
         "left": 28,
@@ -535,7 +546,7 @@
     },
     {
       "page": 1,
-      "order": 36,
+      "order": 37,
       "text": "and subsequent to the Principal subscribing same:",
       "rect": {
         "left": 28,
@@ -546,7 +557,7 @@
     },
     {
       "page": 1,
-      "order": 37,
+      "order": 38,
       "text": "(Signature of Witness)",
       "rect": {
         "left": 100.76,
@@ -557,7 +568,7 @@
     },
     {
       "page": 1,
-      "order": 38,
+      "order": 39,
       "text": "(Signature of Witness)",
       "rect": {
         "left": 397.76,
@@ -568,7 +579,7 @@
     },
     {
       "page": 1,
-      "order": 39,
+      "order": 40,
       "text": "STATE OF CONNECTICUT)",
       "rect": {
         "left": 28,
@@ -579,7 +590,7 @@
     },
     {
       "page": 1,
-      "order": 40,
+      "order": 41,
       "text": ")",
       "rect": {
         "left": 153.1,
@@ -590,7 +601,7 @@
     },
     {
       "page": 1,
-      "order": 41,
+      "order": 42,
       "text": "COUNTY OF",
       "rect": {
         "left": 28,
@@ -601,10 +612,21 @@
     },
     {
       "page": 1,
-      "order": 42,
-      "text": ") SS:",
+      "order": 43,
+      "text": ")",
       "rect": {
         "left": 153.61,
+        "bottom": 203.09,
+        "right": 156.94,
+        "top": 213.09
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "SS:",
+      "rect": {
+        "left": 172,
         "bottom": 203.09,
         "right": 188.12,
         "top": 213.09
@@ -612,7 +634,7 @@
     },
     {
       "page": 1,
-      "order": 43,
+      "order": 45,
       "text": ", signer and sealer of the foregoing Power of Attorney, who",
       "rect": {
         "left": 307,
@@ -623,7 +645,7 @@
     },
     {
       "page": 1,
-      "order": 44,
+      "order": 46,
       "text": "Personally appeared",
       "rect": {
         "left": 28,
@@ -634,7 +656,7 @@
     },
     {
       "page": 1,
-      "order": 45,
+      "order": 47,
       "text": "(Full name of Principal)",
       "rect": {
         "left": 161.82,
@@ -645,10 +667,21 @@
     },
     {
       "page": 1,
-      "order": 46,
-      "text": ", 20 .",
+      "order": 48,
+      "text": ", 20",
       "rect": {
         "left": 523,
+        "bottom": 141.98,
+        "right": 539.68,
+        "top": 151.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": ".",
+      "rect": {
+        "left": 568,
         "bottom": 141.98,
         "right": 570.78,
         "top": 151.98
@@ -656,7 +689,7 @@
     },
     {
       "page": 1,
-      "order": 47,
+      "order": 50,
       "text": "acknowledged the same as his or her free act and deed, before me, this",
       "rect": {
         "left": 28,
@@ -667,7 +700,7 @@
     },
     {
       "page": 1,
-      "order": 48,
+      "order": 51,
       "text": "day of",
       "rect": {
         "left": 397,
@@ -678,7 +711,7 @@
     },
     {
       "page": 1,
-      "order": 49,
+      "order": 52,
       "text": "Notary Public/Justice of Peace",
       "rect": {
         "left": 352,
@@ -689,7 +722,7 @@
     },
     {
       "page": 1,
-      "order": 50,
+      "order": 53,
       "text": "Commissioner of the Superior Court",
       "rect": {
         "left": 352,
@@ -700,7 +733,7 @@
     },
     {
       "page": 1,
-      "order": 51,
+      "order": 54,
       "text": "expires:________________Seal of the Notary Public or Justice of Peace",
       "rect": {
         "left": 55,
@@ -711,7 +744,7 @@
     },
     {
       "page": 1,
-      "order": 52,
+      "order": 55,
       "text": "My commission",
       "rect": {
         "left": 352,

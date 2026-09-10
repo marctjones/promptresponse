@@ -2565,9 +2565,31 @@
     {
       "page": 1,
       "order": 56,
-      "text": "List A OR List B AND List C",
+      "text": "List A",
       "rect": {
         "left": 183.89,
+        "bottom": 363.68,
+        "right": 206.11,
+        "top": 371.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": "List B",
+      "rect": {
+        "left": 333.89,
+        "bottom": 363.68,
+        "right": 356.11,
+        "top": 371.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
+      "text": "List C",
+      "rect": {
+        "left": 492.89,
         "bottom": 363.68,
         "right": 515.11,
         "top": 371.68
@@ -2575,7 +2597,29 @@
     },
     {
       "page": 1,
-      "order": 57,
+      "order": 59,
+      "text": "AND",
+      "rect": {
+        "left": 412.42,
+        "bottom": 363.97,
+        "right": 427.58,
+        "top": 370.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 60,
+      "text": "OR",
+      "rect": {
+        "left": 265.5,
+        "bottom": 364.27,
+        "right": 274.5,
+        "top": 370.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
       "text": "Document Title 1",
       "rect": {
         "left": 38,
@@ -2586,7 +2630,7 @@
     },
     {
       "page": 1,
-      "order": 58,
+      "order": 62,
       "text": "Issuing Authority",
       "rect": {
         "left": 38,
@@ -2597,7 +2641,7 @@
     },
     {
       "page": 1,
-      "order": 59,
+      "order": 63,
       "text": "Document Number (if any)",
       "rect": {
         "left": 38,
@@ -2608,7 +2652,7 @@
     },
     {
       "page": 1,
-      "order": 60,
+      "order": 64,
       "text": "Expiration Date (if any)",
       "rect": {
         "left": 38,
@@ -2619,7 +2663,7 @@
     },
     {
       "page": 1,
-      "order": 61,
+      "order": 65,
       "text": "Additional Information",
       "rect": {
         "left": 267.03,
@@ -2630,7 +2674,7 @@
     },
     {
       "page": 1,
-      "order": 62,
+      "order": 66,
       "text": "Document Title 2 (if any)",
       "rect": {
         "left": 38,
@@ -2641,7 +2685,7 @@
     },
     {
       "page": 1,
-      "order": 63,
+      "order": 67,
       "text": "Issuing Authority",
       "rect": {
         "left": 38,
@@ -2652,7 +2696,7 @@
     },
     {
       "page": 1,
-      "order": 64,
+      "order": 68,
       "text": "Document Number (if any)",
       "rect": {
         "left": 38,
@@ -2663,7 +2707,7 @@
     },
     {
       "page": 1,
-      "order": 65,
+      "order": 69,
       "text": "Expiration Date (if any)",
       "rect": {
         "left": 38,
@@ -2674,7 +2718,7 @@
     },
     {
       "page": 1,
-      "order": 66,
+      "order": 70,
       "text": "Document Title 3 (if any)",
       "rect": {
         "left": 38,
@@ -2685,7 +2729,7 @@
     },
     {
       "page": 1,
-      "order": 67,
+      "order": 71,
       "text": "Issuing Authority",
       "rect": {
         "left": 38,
@@ -2696,7 +2740,7 @@
     },
     {
       "page": 1,
-      "order": 68,
+      "order": 72,
       "text": "Document Number (if any)",
       "rect": {
         "left": 38,
@@ -2707,7 +2751,7 @@
     },
     {
       "page": 1,
-      "order": 69,
+      "order": 73,
       "text": "Expiration Date (if any)",
       "rect": {
         "left": 38,
@@ -2718,7 +2762,7 @@
     },
     {
       "page": 1,
-      "order": 70,
+      "order": 74,
       "text": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
       "rect": {
         "left": 279.36,
@@ -2729,7 +2773,7 @@
     },
     {
       "page": 1,
-      "order": 71,
+      "order": 75,
       "text": "First Day of Employment",
       "rect": {
         "left": 462,
@@ -2740,7 +2784,7 @@
     },
     {
       "page": 1,
-      "order": 72,
+      "order": 76,
       "text": "Certification: I attest, under penalty of perjury, that (1) I have examined the documentation presented by the above-named",
       "rect": {
         "left": 38,
@@ -2751,7 +2795,7 @@
     },
     {
       "page": 1,
-      "order": 73,
+      "order": 77,
       "text": "(mm/dd/yyyy):",
       "rect": {
         "left": 462,
@@ -2762,7 +2806,7 @@
     },
     {
       "page": 1,
-      "order": 74,
+      "order": 78,
       "text": "employee, (2) the above-listed documentation appears to be genuine and to relate to the employee named, and (3) to the",
       "rect": {
         "left": 38,
@@ -2773,7 +2817,7 @@
     },
     {
       "page": 1,
-      "order": 75,
+      "order": 79,
       "text": "best of my knowledge, the employee is authorized to work in the United States.",
       "rect": {
         "left": 38,
@@ -2784,7 +2828,7 @@
     },
     {
       "page": 1,
-      "order": 76,
+      "order": 80,
       "text": "Last Name, First Name and Title of Employer or Authorized Representative",
       "rect": {
         "left": 37.92,
@@ -2795,7 +2839,7 @@
     },
     {
       "page": 1,
-      "order": 77,
+      "order": 81,
       "text": "Signature of Employer or Authorized Representative",
       "rect": {
         "left": 294,
@@ -2806,7 +2850,7 @@
     },
     {
       "page": 1,
-      "order": 78,
+      "order": 82,
       "text": "Today\u0027s Date (mm/dd/yyyy)",
       "rect": {
         "left": 488.93,
@@ -2817,7 +2861,7 @@
     },
     {
       "page": 1,
-      "order": 79,
+      "order": 83,
       "text": "Employer\u0027s Business or Organization Name",
       "rect": {
         "left": 38,
@@ -2828,7 +2872,7 @@
     },
     {
       "page": 1,
-      "order": 80,
+      "order": 84,
       "text": "Employer\u0027s Business or Organization Address, City or Town, State, ZIP Code",
       "rect": {
         "left": 246,
@@ -2839,7 +2883,7 @@
     },
     {
       "page": 1,
-      "order": 81,
+      "order": 85,
       "text": "For reverification or rehire, complete Supplement B, Reverification and Rehire on Page 4.",
       "rect": {
         "left": 136.62,
@@ -2850,7 +2894,7 @@
     },
     {
       "page": 1,
-      "order": 82,
+      "order": 86,
       "text": "Form I-9 Edition 01/20/25",
       "rect": {
         "left": 36,
@@ -2861,7 +2905,7 @@
     },
     {
       "page": 1,
-      "order": 83,
+      "order": 87,
       "text": "Page 1 of 4",
       "rect": {
         "left": 535.26,
@@ -2872,7 +2916,7 @@
     },
     {
       "page": 2,
-      "order": 84,
+      "order": 88,
       "text": "LISTS OF ACCEPTABLE DOCUMENTS",
       "rect": {
         "left": 178.67,
@@ -2883,7 +2927,7 @@
     },
     {
       "page": 2,
-      "order": 85,
+      "order": 89,
       "text": "All documents containing an expiration date must be unexpired.",
       "rect": {
         "left": 152.29,
@@ -2894,7 +2938,7 @@
     },
     {
       "page": 2,
-      "order": 86,
+      "order": 90,
       "text": "* Documents extended by the issuing authority are considered unexpired.",
       "rect": {
         "left": 128.45,
@@ -2905,7 +2949,7 @@
     },
     {
       "page": 2,
-      "order": 87,
+      "order": 91,
       "text": "Employees may present one selection from List A or a",
       "rect": {
         "left": 175.24,
@@ -2916,7 +2960,7 @@
     },
     {
       "page": 2,
-      "order": 88,
+      "order": 92,
       "text": "combination of one selection from List B and one selection from List C.",
       "rect": {
         "left": 135.19,
@@ -2927,7 +2971,7 @@
     },
     {
       "page": 2,
-      "order": 89,
+      "order": 93,
       "text": "Examples of many of these documents appear in the Handbook for Employers (M-274).",
       "rect": {
         "left": 80.23,
@@ -2938,7 +2982,7 @@
     },
     {
       "page": 2,
-      "order": 90,
+      "order": 94,
       "text": "LIST A",
       "rect": {
         "left": 104.33,
@@ -2949,7 +2993,7 @@
     },
     {
       "page": 2,
-      "order": 91,
+      "order": 95,
       "text": "LIST B",
       "rect": {
         "left": 287.33,
@@ -2960,7 +3004,7 @@
     },
     {
       "page": 2,
-      "order": 92,
+      "order": 96,
       "text": "LIST C",
       "rect": {
         "left": 476.33,
@@ -2971,7 +3015,7 @@
     },
     {
       "page": 2,
-      "order": 93,
+      "order": 97,
       "text": "Documents that Establish Both Identity",
       "rect": {
         "left": 42.33,
@@ -2982,7 +3026,7 @@
     },
     {
       "page": 2,
-      "order": 94,
+      "order": 98,
       "text": "Documents that Establish Employment",
       "rect": {
         "left": 417.77,
@@ -2993,7 +3037,7 @@
     },
     {
       "page": 2,
-      "order": 95,
+      "order": 99,
       "text": "OR",
       "rect": {
         "left": 201,
@@ -3004,7 +3048,7 @@
     },
     {
       "page": 2,
-      "order": 96,
+      "order": 100,
       "text": "Documents that Establish Identity",
       "rect": {
         "left": 238.55,
@@ -3015,7 +3059,7 @@
     },
     {
       "page": 2,
-      "order": 97,
+      "order": 101,
       "text": "AND",
       "rect": {
         "left": 387.34,
@@ -3026,7 +3070,7 @@
     },
     {
       "page": 2,
-      "order": 98,
+      "order": 102,
       "text": "and Employment Authorization",
       "rect": {
         "left": 57.89,
@@ -3037,7 +3081,7 @@
     },
     {
       "page": 2,
-      "order": 99,
+      "order": 103,
       "text": "Authorization",
       "rect": {
         "left": 466.24,
@@ -3048,7 +3092,7 @@
     },
     {
       "page": 2,
-      "order": 100,
+      "order": 104,
       "text": "1. A Social Security Account Number card,",
       "rect": {
         "left": 404.01,
@@ -3059,7 +3103,7 @@
     },
     {
       "page": 2,
-      "order": 101,
+      "order": 105,
       "text": "1. U.S. Passport or U.S. Passport Card",
       "rect": {
         "left": 42.01,
@@ -3070,7 +3114,7 @@
     },
     {
       "page": 2,
-      "order": 102,
+      "order": 106,
       "text": "1. Driver\u0027s license or ID card issued by a State or",
       "rect": {
         "left": 222.01,
@@ -3081,7 +3125,7 @@
     },
     {
       "page": 2,
-      "order": 103,
+      "order": 107,
       "text": "unless the card includes one of the following",
       "rect": {
         "left": 416.01,
@@ -3092,7 +3136,7 @@
     },
     {
       "page": 2,
-      "order": 104,
+      "order": 108,
       "text": "outlying possession of the United States",
       "rect": {
         "left": 234.01,
@@ -3103,7 +3147,7 @@
     },
     {
       "page": 2,
-      "order": 105,
+      "order": 109,
       "text": "restrictions:",
       "rect": {
         "left": 416.01,
@@ -3114,7 +3158,7 @@
     },
     {
       "page": 2,
-      "order": 106,
+      "order": 110,
       "text": "2. Permanent Resident Card or Alien",
       "rect": {
         "left": 42.01,
@@ -3125,7 +3169,7 @@
     },
     {
       "page": 2,
-      "order": 107,
+      "order": 111,
       "text": "provided it contains a photograph or",
       "rect": {
         "left": 234.01,
@@ -3136,7 +3180,7 @@
     },
     {
       "page": 2,
-      "order": 108,
+      "order": 112,
       "text": "Registration Receipt Card (Form I-551)",
       "rect": {
         "left": 54.01,
@@ -3147,7 +3191,7 @@
     },
     {
       "page": 2,
-      "order": 109,
+      "order": 113,
       "text": "information such as name, date of birth,",
       "rect": {
         "left": 234.01,
@@ -3158,7 +3202,7 @@
     },
     {
       "page": 2,
-      "order": 110,
+      "order": 114,
       "text": "(1) NOT VALID FOR EMPLOYMENT",
       "rect": {
         "left": 438.01,
@@ -3169,7 +3213,7 @@
     },
     {
       "page": 2,
-      "order": 111,
+      "order": 115,
       "text": "sex, height, eye color, and address",
       "rect": {
         "left": 234.01,
@@ -3180,7 +3224,7 @@
     },
     {
       "page": 2,
-      "order": 112,
+      "order": 116,
       "text": "(2) VALID FOR WORK ONLY WITH",
       "rect": {
         "left": 438.01,
@@ -3191,7 +3235,7 @@
     },
     {
       "page": 2,
-      "order": 113,
+      "order": 117,
       "text": "3. Foreign passport that contains a",
       "rect": {
         "left": 42.01,
@@ -3202,7 +3246,7 @@
     },
     {
       "page": 2,
-      "order": 114,
+      "order": 118,
       "text": "INS AUTHORIZATION",
       "rect": {
         "left": 452.5,
@@ -3213,7 +3257,7 @@
     },
     {
       "page": 2,
-      "order": 115,
+      "order": 119,
       "text": "temporary I-551 stamp or temporary",
       "rect": {
         "left": 54.01,
@@ -3224,7 +3268,7 @@
     },
     {
       "page": 2,
-      "order": 116,
+      "order": 120,
       "text": "2. ID card issued by federal, state or local",
       "rect": {
         "left": 222.01,
@@ -3235,7 +3279,7 @@
     },
     {
       "page": 2,
-      "order": 117,
+      "order": 121,
       "text": "I-551 printed notation on a machine-",
       "rect": {
         "left": 54.01,
@@ -3246,7 +3290,7 @@
     },
     {
       "page": 2,
-      "order": 118,
+      "order": 122,
       "text": "government agencies or entities, provided it",
       "rect": {
         "left": 234.01,
@@ -3257,7 +3301,7 @@
     },
     {
       "page": 2,
-      "order": 119,
+      "order": 123,
       "text": "(3) VALID FOR WORK ONLY WITH",
       "rect": {
         "left": 438.01,
@@ -3268,7 +3312,7 @@
     },
     {
       "page": 2,
-      "order": 120,
+      "order": 124,
       "text": "readable immigrant visa",
       "rect": {
         "left": 54.01,
@@ -3279,7 +3323,7 @@
     },
     {
       "page": 2,
-      "order": 121,
+      "order": 125,
       "text": "contains a photograph or information such as",
       "rect": {
         "left": 234.01,
@@ -3290,7 +3334,7 @@
     },
     {
       "page": 2,
-      "order": 122,
+      "order": 126,
       "text": "DHS AUTHORIZATION",
       "rect": {
         "left": 452.5,
@@ -3301,7 +3345,7 @@
     },
     {
       "page": 2,
-      "order": 123,
+      "order": 127,
       "text": "name, date of birth, sex, height, eye color,",
       "rect": {
         "left": 234.01,
@@ -3312,7 +3356,7 @@
     },
     {
       "page": 2,
-      "order": 124,
+      "order": 128,
       "text": "4. Employment Authorization Document",
       "rect": {
         "left": 42.01,
@@ -3323,7 +3367,7 @@
     },
     {
       "page": 2,
-      "order": 125,
+      "order": 129,
       "text": "and address",
       "rect": {
         "left": 234.01,
@@ -3334,7 +3378,7 @@
     },
     {
       "page": 2,
-      "order": 126,
+      "order": 130,
       "text": "that contains a photograph (Form I-766)",
       "rect": {
         "left": 54.01,
@@ -3345,7 +3389,7 @@
     },
     {
       "page": 2,
-      "order": 127,
+      "order": 131,
       "text": "2. Certification of report of birth issued by the",
       "rect": {
         "left": 410.01,
@@ -3356,7 +3400,7 @@
     },
     {
       "page": 2,
-      "order": 128,
+      "order": 132,
       "text": "Department of State (Forms DS-1350,",
       "rect": {
         "left": 422.01,
@@ -3367,7 +3411,7 @@
     },
     {
       "page": 2,
-      "order": 129,
+      "order": 133,
       "text": "photograph5. For an individual temporarily authorized",
       "rect": {
         "left": 42.01,
@@ -3378,7 +3422,7 @@
     },
     {
       "page": 2,
-      "order": 130,
+      "order": 134,
       "text": "3. School ID card with a",
       "rect": {
         "left": 222.01,
@@ -3389,7 +3433,7 @@
     },
     {
       "page": 2,
-      "order": 131,
+      "order": 135,
       "text": "FS-545, FS-240)",
       "rect": {
         "left": 422.01,
@@ -3400,7 +3444,7 @@
     },
     {
       "page": 2,
-      "order": 132,
+      "order": 136,
       "text": "to work for a specific employer because",
       "rect": {
         "left": 54.01,
@@ -3411,7 +3455,7 @@
     },
     {
       "page": 2,
-      "order": 133,
+      "order": 137,
       "text": "4. Voter\u0027s registration card",
       "rect": {
         "left": 222.01,
@@ -3422,7 +3466,7 @@
     },
     {
       "page": 2,
-      "order": 134,
+      "order": 138,
       "text": "3. Original or certified copy of birth certificate",
       "rect": {
         "left": 410.01,
@@ -3433,7 +3477,7 @@
     },
     {
       "page": 2,
-      "order": 135,
+      "order": 139,
       "text": "of his or her status or parole:",
       "rect": {
         "left": 54.01,
@@ -3444,7 +3488,7 @@
     },
     {
       "page": 2,
-      "order": 136,
+      "order": 140,
       "text": "issued by a State, county, municipal",
       "rect": {
         "left": 422.01,
@@ -3455,7 +3499,7 @@
     },
     {
       "page": 2,
-      "order": 137,
+      "order": 141,
       "text": "5. U.S. Military card or draft record",
       "rect": {
         "left": 222.01,
@@ -3466,7 +3510,7 @@
     },
     {
       "page": 2,
-      "order": 138,
+      "order": 142,
       "text": "a. Foreign passport; and",
       "rect": {
         "left": 54.03,
@@ -3477,7 +3521,7 @@
     },
     {
       "page": 2,
-      "order": 139,
+      "order": 143,
       "text": "authority, or territory of the United States",
       "rect": {
         "left": 422.01,
@@ -3488,7 +3532,7 @@
     },
     {
       "page": 2,
-      "order": 140,
+      "order": 144,
       "text": "bearing an official seal",
       "rect": {
         "left": 422.01,
@@ -3499,7 +3543,7 @@
     },
     {
       "page": 2,
-      "order": 141,
+      "order": 145,
       "text": "b. Form I-94 or Form I-94A that has",
       "rect": {
         "left": 54.03,
@@ -3510,7 +3554,7 @@
     },
     {
       "page": 2,
-      "order": 142,
+      "order": 146,
       "text": "6. Military dependent\u0027s ID card",
       "rect": {
         "left": 222.01,
@@ -3521,7 +3565,7 @@
     },
     {
       "page": 2,
-      "order": 143,
+      "order": 147,
       "text": "the following:",
       "rect": {
         "left": 65.51,
@@ -3532,7 +3576,7 @@
     },
     {
       "page": 2,
-      "order": 144,
+      "order": 148,
       "text": "4. Native American tribal document",
       "rect": {
         "left": 410.01,
@@ -3543,7 +3587,7 @@
     },
     {
       "page": 2,
-      "order": 145,
+      "order": 149,
       "text": "7. U.S. Coast Guard Merchant Mariner Card",
       "rect": {
         "left": 222.01,
@@ -3554,7 +3598,7 @@
     },
     {
       "page": 2,
-      "order": 146,
+      "order": 150,
       "text": "(1) The same name as the",
       "rect": {
         "left": 65.98,
@@ -3565,7 +3609,7 @@
     },
     {
       "page": 2,
-      "order": 147,
+      "order": 151,
       "text": "5. U.S. Citizen ID Card (Form I-197)",
       "rect": {
         "left": 410.01,
@@ -3576,7 +3620,7 @@
     },
     {
       "page": 2,
-      "order": 148,
+      "order": 152,
       "text": "passport; and",
       "rect": {
         "left": 80.01,
@@ -3587,7 +3631,7 @@
     },
     {
       "page": 2,
-      "order": 149,
+      "order": 153,
       "text": "8. Native American tribal document",
       "rect": {
         "left": 222.01,
@@ -3598,7 +3642,7 @@
     },
     {
       "page": 2,
-      "order": 150,
+      "order": 154,
       "text": "(2) An endorsement of the",
       "rect": {
         "left": 65.98,
@@ -3609,7 +3653,7 @@
     },
     {
       "page": 2,
-      "order": 151,
+      "order": 155,
       "text": "6. Identification Card for Use of Resident",
       "rect": {
         "left": 410.01,
@@ -3620,7 +3664,7 @@
     },
     {
       "page": 2,
-      "order": 152,
+      "order": 156,
       "text": "I-179)9. Citizen in the United States (Form",
       "rect": {
         "left": 222.01,
@@ -3631,7 +3675,7 @@
     },
     {
       "page": 2,
-      "order": 153,
+      "order": 157,
       "text": "Driver\u0027s license issued by a Canadian",
       "rect": {
         "left": 233.13,
@@ -3642,7 +3686,7 @@
     },
     {
       "page": 2,
-      "order": 154,
+      "order": 158,
       "text": "individual\u0027s status or parole as",
       "rect": {
         "left": 80.01,
@@ -3653,7 +3697,7 @@
     },
     {
       "page": 2,
-      "order": 155,
+      "order": 159,
       "text": "government authority",
       "rect": {
         "left": 234.01,
@@ -3664,7 +3708,7 @@
     },
     {
       "page": 2,
-      "order": 156,
+      "order": 160,
       "text": "long as that period of",
       "rect": {
         "left": 80.01,
@@ -3675,7 +3719,7 @@
     },
     {
       "page": 2,
-      "order": 157,
+      "order": 161,
       "text": "endorsement has not yet",
       "rect": {
         "left": 80.01,
@@ -3686,7 +3730,7 @@
     },
     {
       "page": 2,
-      "order": 158,
+      "order": 162,
       "text": "7. Employment authorization document",
       "rect": {
         "left": 410.01,
@@ -3697,7 +3741,7 @@
     },
     {
       "page": 2,
-      "order": 159,
+      "order": 163,
       "text": "For persons under age 18 who are",
       "rect": {
         "left": 226.35,
@@ -3708,7 +3752,7 @@
     },
     {
       "page": 2,
-      "order": 160,
+      "order": 164,
       "text": "expired and the proposed",
       "rect": {
         "left": 80.01,
@@ -3719,7 +3763,7 @@
     },
     {
       "page": 2,
-      "order": 161,
+      "order": 165,
       "text": "issued by the Department of Homeland",
       "rect": {
         "left": 421.01,
@@ -3730,7 +3774,7 @@
     },
     {
       "page": 2,
-      "order": 162,
+      "order": 166,
       "text": "unable to present a document",
       "rect": {
         "left": 236.8,
@@ -3741,7 +3785,7 @@
     },
     {
       "page": 2,
-      "order": 163,
+      "order": 167,
       "text": "employment is not in conflict",
       "rect": {
         "left": 80.01,
@@ -3752,7 +3796,7 @@
     },
     {
       "page": 2,
-      "order": 164,
+      "order": 168,
       "text": "Security",
       "rect": {
         "left": 421.01,
@@ -3763,7 +3807,7 @@
     },
     {
       "page": 2,
-      "order": 165,
+      "order": 169,
       "text": "listed above:",
       "rect": {
         "left": 277.96,
@@ -3774,7 +3818,7 @@
     },
     {
       "page": 2,
-      "order": 166,
+      "order": 170,
       "text": "with any restrictions or",
       "rect": {
         "left": 80.01,
@@ -3785,7 +3829,7 @@
     },
     {
       "page": 2,
-      "order": 167,
+      "order": 171,
       "text": "For examples, see Section 7 and",
       "rect": {
         "left": 421.97,
@@ -3796,7 +3840,7 @@
     },
     {
       "page": 2,
-      "order": 168,
+      "order": 172,
       "text": "limitations identified on the form.",
       "rect": {
         "left": 80.01,
@@ -3807,7 +3851,7 @@
     },
     {
       "page": 2,
-      "order": 169,
+      "order": 173,
       "text": "Section 13 of the M-274 on",
       "rect": {
         "left": 421.01,
@@ -3818,7 +3862,7 @@
     },
     {
       "page": 2,
-      "order": 170,
+      "order": 174,
       "text": "10. School record or report card",
       "rect": {
         "left": 222,
@@ -3829,7 +3873,7 @@
     },
     {
       "page": 2,
-      "order": 171,
+      "order": 175,
       "text": "uscis.gov/i-9-central.",
       "rect": {
         "left": 421.01,
@@ -3840,7 +3884,7 @@
     },
     {
       "page": 2,
-      "order": 172,
+      "order": 176,
       "text": "6. Passport from the Federated States of",
       "rect": {
         "left": 42,
@@ -3851,7 +3895,7 @@
     },
     {
       "page": 2,
-      "order": 173,
+      "order": 177,
       "text": "11. Clinic, doctor, or hospital record",
       "rect": {
         "left": 222,
@@ -3862,7 +3906,7 @@
     },
     {
       "page": 2,
-      "order": 174,
+      "order": 178,
       "text": "Micronesia (FSM) or the Republic of the",
       "rect": {
         "left": 54,
@@ -3873,7 +3917,7 @@
     },
     {
       "page": 2,
-      "order": 175,
+      "order": 179,
       "text": "The Form I-766, Employment",
       "rect": {
         "left": 421.97,
@@ -3884,7 +3928,7 @@
     },
     {
       "page": 2,
-      "order": 176,
+      "order": 180,
       "text": "Marshall Islands (RMI) with Form I-94 or",
       "rect": {
         "left": 54,
@@ -3895,7 +3939,7 @@
     },
     {
       "page": 2,
-      "order": 177,
+      "order": 181,
       "text": "Authorization Document, is a List A, Item",
       "rect": {
         "left": 422.01,
@@ -3906,7 +3950,7 @@
     },
     {
       "page": 2,
-      "order": 178,
+      "order": 182,
       "text": "12. Day-care or nursery school record",
       "rect": {
         "left": 222,
@@ -3917,7 +3961,7 @@
     },
     {
       "page": 2,
-      "order": 179,
+      "order": 183,
       "text": "Form I-94A indicating nonimmigrant",
       "rect": {
         "left": 54,
@@ -3928,7 +3972,7 @@
     },
     {
       "page": 2,
-      "order": 180,
+      "order": 184,
       "text": "Number 4. document, not a List C",
       "rect": {
         "left": 422.01,
@@ -3939,7 +3983,7 @@
     },
     {
       "page": 2,
-      "order": 181,
+      "order": 185,
       "text": "admission under the Compact of Free",
       "rect": {
         "left": 54,
@@ -3950,7 +3994,7 @@
     },
     {
       "page": 2,
-      "order": 182,
+      "order": 186,
       "text": "document.",
       "rect": {
         "left": 422.01,
@@ -3961,7 +4005,7 @@
     },
     {
       "page": 2,
-      "order": 183,
+      "order": 187,
       "text": "Association Between the United States",
       "rect": {
         "left": 54,
@@ -3972,7 +4016,7 @@
     },
     {
       "page": 2,
-      "order": 184,
+      "order": 188,
       "text": "and the FSM or RMI",
       "rect": {
         "left": 54,
@@ -3983,7 +4027,7 @@
     },
     {
       "page": 2,
-      "order": 185,
+      "order": 189,
       "text": "Acceptable Receipts",
       "rect": {
         "left": 252.2,
@@ -3994,7 +4038,7 @@
     },
     {
       "page": 2,
-      "order": 186,
+      "order": 190,
       "text": "May be presented in lieu of a document listed above for a temporary period.",
       "rect": {
         "left": 138.41,
@@ -4005,7 +4049,7 @@
     },
     {
       "page": 2,
-      "order": 187,
+      "order": 191,
       "text": "For receipt validity dates, see the M-274.",
       "rect": {
         "left": 215.68,
@@ -4016,7 +4060,7 @@
     },
     {
       "page": 2,
-      "order": 188,
+      "order": 192,
       "text": "Receipt for a replacement of a lost, stolen, or",
       "rect": {
         "left": 222,
@@ -4027,7 +4071,7 @@
     },
     {
       "page": 2,
-      "order": 189,
+      "order": 193,
       "text": "Receipt for a replacement of a lost, stolen, or",
       "rect": {
         "left": 408,
@@ -4038,7 +4082,7 @@
     },
     {
       "page": 2,
-      "order": 190,
+      "order": 194,
       "text": "\u25CF Receipt for a replacement of a lost,",
       "rect": {
         "left": 42,
@@ -4049,7 +4093,7 @@
     },
     {
       "page": 2,
-      "order": 191,
+      "order": 195,
       "text": "OR",
       "rect": {
         "left": 201,
@@ -4060,7 +4104,7 @@
     },
     {
       "page": 2,
-      "order": 192,
+      "order": 196,
       "text": "damaged List B document.",
       "rect": {
         "left": 222,
@@ -4071,7 +4115,7 @@
     },
     {
       "page": 2,
-      "order": 193,
+      "order": 197,
       "text": "damaged List C document.",
       "rect": {
         "left": 408,
@@ -4082,7 +4126,7 @@
     },
     {
       "page": 2,
-      "order": 194,
+      "order": 198,
       "text": "stolen, or damaged List A document.",
       "rect": {
         "left": 55,
@@ -4093,7 +4137,7 @@
     },
     {
       "page": 2,
-      "order": 195,
+      "order": 199,
       "text": "\u25CF Form I-94 issued to a lawful",
       "rect": {
         "left": 42,
@@ -4104,7 +4148,7 @@
     },
     {
       "page": 2,
-      "order": 196,
+      "order": 200,
       "text": "permanent resident that contains an",
       "rect": {
         "left": 55,
@@ -4115,7 +4159,7 @@
     },
     {
       "page": 2,
-      "order": 197,
+      "order": 201,
       "text": "I-551 stamp and a photograph of the",
       "rect": {
         "left": 55,
@@ -4126,7 +4170,7 @@
     },
     {
       "page": 2,
-      "order": 198,
+      "order": 202,
       "text": "individual.",
       "rect": {
         "left": 55,
@@ -4137,7 +4181,7 @@
     },
     {
       "page": 2,
-      "order": 199,
+      "order": 203,
       "text": "\u25CF Form I-94 with \u201CRE\u201D notation or",
       "rect": {
         "left": 42,
@@ -4148,7 +4192,7 @@
     },
     {
       "page": 2,
-      "order": 200,
+      "order": 204,
       "text": "refugee stamp issued to a refugee.",
       "rect": {
         "left": 55,
@@ -4159,7 +4203,7 @@
     },
     {
       "page": 2,
-      "order": 201,
+      "order": 205,
       "text": "*Refer to the Employment Authorization Extensions page on I-9 Central for more information.",
       "rect": {
         "left": 36,
@@ -4170,7 +4214,7 @@
     },
     {
       "page": 2,
-      "order": 202,
+      "order": 206,
       "text": "Form I-9 Edition 01/20/25",
       "rect": {
         "left": 36,
@@ -4181,7 +4225,7 @@
     },
     {
       "page": 2,
-      "order": 203,
+      "order": 207,
       "text": "Page 2 of 4",
       "rect": {
         "left": 535.26,
@@ -4192,7 +4236,7 @@
     },
     {
       "page": 3,
-      "order": 204,
+      "order": 208,
       "text": "Supplement A,",
       "rect": {
         "left": 263.16,
@@ -4203,7 +4247,7 @@
     },
     {
       "page": 3,
-      "order": 205,
+      "order": 209,
       "text": "USCIS",
       "rect": {
         "left": 516.92,
@@ -4214,7 +4258,7 @@
     },
     {
       "page": 3,
-      "order": 206,
+      "order": 210,
       "text": "Preparer and/or Translator Certification for Section 1",
       "rect": {
         "left": 143.87,
@@ -4225,7 +4269,7 @@
     },
     {
       "page": 3,
-      "order": 207,
+      "order": 211,
       "text": "Form I-9",
       "rect": {
         "left": 511.9,
@@ -4236,7 +4280,7 @@
     },
     {
       "page": 3,
-      "order": 208,
+      "order": 212,
       "text": "Supplement A",
       "rect": {
         "left": 499.66,
@@ -4247,7 +4291,7 @@
     },
     {
       "page": 3,
-      "order": 209,
+      "order": 213,
       "text": "Department of Homeland Security",
       "rect": {
         "left": 224.89,
@@ -4258,7 +4302,7 @@
     },
     {
       "page": 3,
-      "order": 210,
+      "order": 214,
       "text": "OMB No. 1615-0047",
       "rect": {
         "left": 494.5,
@@ -4269,7 +4313,7 @@
     },
     {
       "page": 3,
-      "order": 211,
+      "order": 215,
       "text": "U.S. Citizenship and Immigration Services",
       "rect": {
         "left": 211.6,
@@ -4280,7 +4324,7 @@
     },
     {
       "page": 3,
-      "order": 212,
+      "order": 216,
       "text": "Expires 05/31/2027",
       "rect": {
         "left": 497.75,
@@ -4291,7 +4335,7 @@
     },
     {
       "page": 3,
-      "order": 213,
+      "order": 217,
       "text": "Middle initial (if any) from Section 1.",
       "rect": {
         "left": 444,
@@ -4302,7 +4346,7 @@
     },
     {
       "page": 3,
-      "order": 214,
+      "order": 218,
       "text": "Last Name (Family Name) from Section 1.",
       "rect": {
         "left": 42,
@@ -4313,7 +4357,7 @@
     },
     {
       "page": 3,
-      "order": 215,
+      "order": 219,
       "text": "First Name (Given Name) from Section 1.",
       "rect": {
         "left": 264,
@@ -4324,7 +4368,7 @@
     },
     {
       "page": 3,
-      "order": 216,
+      "order": 220,
       "text": "Instructions: This supplement must be completed by any preparer and/or translator who assists an employee in completing Section 1",
       "rect": {
         "left": 37.42,
@@ -4335,7 +4379,7 @@
     },
     {
       "page": 3,
-      "order": 217,
+      "order": 221,
       "text": "of Form I-9. The preparer and/or translator must enter the employee\u0027s name in the spaces provided above. Each preparer or translator",
       "rect": {
         "left": 37.42,
@@ -4346,7 +4390,7 @@
     },
     {
       "page": 3,
-      "order": 218,
+      "order": 222,
       "text": "must complete, sign, and date a separate certification area. Employers must retain completed supplement sheets with the employee\u0027s",
       "rect": {
         "left": 37.42,
@@ -4357,7 +4401,7 @@
     },
     {
       "page": 3,
-      "order": 219,
+      "order": 223,
       "text": "completed Form I-9.",
       "rect": {
         "left": 37.42,
@@ -4368,7 +4412,7 @@
     },
     {
       "page": 3,
-      "order": 220,
+      "order": 224,
       "text": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my",
       "rect": {
         "left": 37.42,
@@ -4379,7 +4423,7 @@
     },
     {
       "page": 3,
-      "order": 221,
+      "order": 225,
       "text": "knowledge the information is true and correct.",
       "rect": {
         "left": 37.42,
@@ -4390,7 +4434,7 @@
     },
     {
       "page": 3,
-      "order": 222,
+      "order": 226,
       "text": "Signature of Preparer or Translator",
       "rect": {
         "left": 38.84,
@@ -4401,7 +4445,7 @@
     },
     {
       "page": 3,
-      "order": 223,
+      "order": 227,
       "text": "Date (mm/dd/yyyy)",
       "rect": {
         "left": 417.12,
@@ -4412,7 +4456,7 @@
     },
     {
       "page": 3,
-      "order": 224,
+      "order": 228,
       "text": "Last Name (Family Name)",
       "rect": {
         "left": 38.84,
@@ -4423,7 +4467,7 @@
     },
     {
       "page": 3,
-      "order": 225,
+      "order": 229,
       "text": "First Name (Given Name)",
       "rect": {
         "left": 272.84,
@@ -4434,7 +4478,7 @@
     },
     {
       "page": 3,
-      "order": 226,
+      "order": 230,
       "text": "Middle Initial (if any)",
       "rect": {
         "left": 494.84,
@@ -4445,7 +4489,7 @@
     },
     {
       "page": 3,
-      "order": 227,
+      "order": 231,
       "text": "City or Town",
       "rect": {
         "left": 296.84,
@@ -4456,7 +4500,7 @@
     },
     {
       "page": 3,
-      "order": 228,
+      "order": 232,
       "text": "State",
       "rect": {
         "left": 452.84,
@@ -4467,7 +4511,7 @@
     },
     {
       "page": 3,
-      "order": 229,
+      "order": 233,
       "text": "ZIP Code",
       "rect": {
         "left": 497,
@@ -4478,7 +4522,7 @@
     },
     {
       "page": 3,
-      "order": 230,
+      "order": 234,
       "text": "Address (Street Number and Name)",
       "rect": {
         "left": 38.84,
@@ -4489,7 +4533,7 @@
     },
     {
       "page": 3,
-      "order": 231,
+      "order": 235,
       "text": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my",
       "rect": {
         "left": 37.42,
@@ -4500,7 +4544,7 @@
     },
     {
       "page": 3,
-      "order": 232,
+      "order": 236,
       "text": "knowledge the information is true and correct.",
       "rect": {
         "left": 37.42,
@@ -4511,7 +4555,7 @@
     },
     {
       "page": 3,
-      "order": 233,
+      "order": 237,
       "text": "Signature of Preparer or Translator",
       "rect": {
         "left": 38.84,
@@ -4522,7 +4566,7 @@
     },
     {
       "page": 3,
-      "order": 234,
+      "order": 238,
       "text": "Date (mm/dd/yyyy)",
       "rect": {
         "left": 417.12,
@@ -4533,7 +4577,7 @@
     },
     {
       "page": 3,
-      "order": 235,
+      "order": 239,
       "text": "Last Name (Family Name)",
       "rect": {
         "left": 38.84,
@@ -4544,7 +4588,7 @@
     },
     {
       "page": 3,
-      "order": 236,
+      "order": 240,
       "text": "First Name (Given Name)",
       "rect": {
         "left": 272.84,
@@ -4555,7 +4599,7 @@
     },
     {
       "page": 3,
-      "order": 237,
+      "order": 241,
       "text": "Middle Initial (if any)",
       "rect": {
         "left": 494.84,
@@ -4566,7 +4610,7 @@
     },
     {
       "page": 3,
-      "order": 238,
+      "order": 242,
       "text": "City or Town",
       "rect": {
         "left": 296.04,
@@ -4577,7 +4621,7 @@
     },
     {
       "page": 3,
-      "order": 239,
+      "order": 243,
       "text": "State",
       "rect": {
         "left": 457.5,
@@ -4588,7 +4632,7 @@
     },
     {
       "page": 3,
-      "order": 240,
+      "order": 244,
       "text": "ZIP Code",
       "rect": {
         "left": 497,
@@ -4599,7 +4643,7 @@
     },
     {
       "page": 3,
-      "order": 241,
+      "order": 245,
       "text": "Address (Street Number and Name)",
       "rect": {
         "left": 38.89,
@@ -4610,7 +4654,7 @@
     },
     {
       "page": 3,
-      "order": 242,
+      "order": 246,
       "text": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my",
       "rect": {
         "left": 37.42,
@@ -4621,7 +4665,7 @@
     },
     {
       "page": 3,
-      "order": 243,
+      "order": 247,
       "text": "knowledge the information is true and correct.",
       "rect": {
         "left": 37.42,
@@ -4632,7 +4676,7 @@
     },
     {
       "page": 3,
-      "order": 244,
+      "order": 248,
       "text": "Signature of Preparer or Translator",
       "rect": {
         "left": 38.84,
@@ -4643,7 +4687,7 @@
     },
     {
       "page": 3,
-      "order": 245,
+      "order": 249,
       "text": "Date (mm/dd/yyyy)",
       "rect": {
         "left": 417.12,
@@ -4654,7 +4698,7 @@
     },
     {
       "page": 3,
-      "order": 246,
+      "order": 250,
       "text": "Last Name (Family Name)",
       "rect": {
         "left": 38.84,
@@ -4665,7 +4709,7 @@
     },
     {
       "page": 3,
-      "order": 247,
+      "order": 251,
       "text": "First Name (Given Name)",
       "rect": {
         "left": 272.84,
@@ -4676,7 +4720,7 @@
     },
     {
       "page": 3,
-      "order": 248,
+      "order": 252,
       "text": "Middle Initial (if any)",
       "rect": {
         "left": 494.84,
@@ -4687,7 +4731,7 @@
     },
     {
       "page": 3,
-      "order": 249,
+      "order": 253,
       "text": "City or Town",
       "rect": {
         "left": 296.04,
@@ -4698,7 +4742,7 @@
     },
     {
       "page": 3,
-      "order": 250,
+      "order": 254,
       "text": "State",
       "rect": {
         "left": 455.33,
@@ -4709,7 +4753,7 @@
     },
     {
       "page": 3,
-      "order": 251,
+      "order": 255,
       "text": "ZIP Code",
       "rect": {
         "left": 497,
@@ -4720,7 +4764,7 @@
     },
     {
       "page": 3,
-      "order": 252,
+      "order": 256,
       "text": "Address (Street Number and Name)",
       "rect": {
         "left": 38.89,
@@ -4731,7 +4775,7 @@
     },
     {
       "page": 3,
-      "order": 253,
+      "order": 257,
       "text": "I attest, under penalty of perjury, that I have assisted in the completion of Section 1 of this form and that to the best of my",
       "rect": {
         "left": 37.42,
@@ -4742,7 +4786,7 @@
     },
     {
       "page": 3,
-      "order": 254,
+      "order": 258,
       "text": "knowledge the information is true and correct.",
       "rect": {
         "left": 37.42,
@@ -4753,7 +4797,7 @@
     },
     {
       "page": 3,
-      "order": 255,
+      "order": 259,
       "text": "Signature of Preparer or Translator",
       "rect": {
         "left": 38.84,
@@ -4764,7 +4808,7 @@
     },
     {
       "page": 3,
-      "order": 256,
+      "order": 260,
       "text": "Date (mm/dd/yyyy)",
       "rect": {
         "left": 417.12,
@@ -4775,7 +4819,7 @@
     },
     {
       "page": 3,
-      "order": 257,
+      "order": 261,
       "text": "Last Name (Family Name)",
       "rect": {
         "left": 38.84,
@@ -4786,7 +4830,7 @@
     },
     {
       "page": 3,
-      "order": 258,
+      "order": 262,
       "text": "First Name (Given Name)",
       "rect": {
         "left": 272.84,
@@ -4797,7 +4841,7 @@
     },
     {
       "page": 3,
-      "order": 259,
+      "order": 263,
       "text": "Middle Initial (if any)",
       "rect": {
         "left": 494.84,
@@ -4808,7 +4852,7 @@
     },
     {
       "page": 3,
-      "order": 260,
+      "order": 264,
       "text": "City or Town",
       "rect": {
         "left": 296.84,
@@ -4819,7 +4863,7 @@
     },
     {
       "page": 3,
-      "order": 261,
+      "order": 265,
       "text": "State",
       "rect": {
         "left": 452.84,
@@ -4830,7 +4874,7 @@
     },
     {
       "page": 3,
-      "order": 262,
+      "order": 266,
       "text": "ZIP Code",
       "rect": {
         "left": 497,
@@ -4841,7 +4885,7 @@
     },
     {
       "page": 3,
-      "order": 263,
+      "order": 267,
       "text": "Address (Street Number and Name)",
       "rect": {
         "left": 38.84,
@@ -4852,7 +4896,7 @@
     },
     {
       "page": 3,
-      "order": 264,
+      "order": 268,
       "text": "Form I-9 Edition 01/20/25",
       "rect": {
         "left": 36.01,
@@ -4863,7 +4907,7 @@
     },
     {
       "page": 3,
-      "order": 265,
+      "order": 269,
       "text": "Page 3 of 4",
       "rect": {
         "left": 535.26,
@@ -4874,7 +4918,7 @@
     },
     {
       "page": 4,
-      "order": 266,
+      "order": 270,
       "text": "Supplement B,",
       "rect": {
         "left": 263.55,
@@ -4885,7 +4929,7 @@
     },
     {
       "page": 4,
-      "order": 267,
+      "order": 271,
       "text": "USCIS",
       "rect": {
         "left": 516.93,
@@ -4896,7 +4940,7 @@
     },
     {
       "page": 4,
-      "order": 268,
+      "order": 272,
       "text": "Form I-9",
       "rect": {
         "left": 511.9,
@@ -4907,7 +4951,7 @@
     },
     {
       "page": 4,
-      "order": 269,
+      "order": 273,
       "text": "Reverification and Rehire (formerly Section 3)",
       "rect": {
         "left": 167.02,
@@ -4918,7 +4962,7 @@
     },
     {
       "page": 4,
-      "order": 270,
+      "order": 274,
       "text": "Supplement B",
       "rect": {
         "left": 499.97,
@@ -4929,7 +4973,7 @@
     },
     {
       "page": 4,
-      "order": 271,
+      "order": 275,
       "text": "Department of Homeland Security",
       "rect": {
         "left": 224.89,
@@ -4940,7 +4984,7 @@
     },
     {
       "page": 4,
-      "order": 272,
+      "order": 276,
       "text": "OMB No. 1615-0047",
       "rect": {
         "left": 494.51,
@@ -4951,7 +4995,7 @@
     },
     {
       "page": 4,
-      "order": 273,
+      "order": 277,
       "text": "U.S. Citizenship and Immigration Services",
       "rect": {
         "left": 211.6,
@@ -4962,7 +5006,7 @@
     },
     {
       "page": 4,
-      "order": 274,
+      "order": 278,
       "text": "Expires 05/31/2027",
       "rect": {
         "left": 497.76,
@@ -4973,7 +5017,7 @@
     },
     {
       "page": 4,
-      "order": 275,
+      "order": 279,
       "text": "Last Name (Family Name) from Section 1.",
       "rect": {
         "left": 42,
@@ -4984,7 +5028,7 @@
     },
     {
       "page": 4,
-      "order": 276,
+      "order": 280,
       "text": "First Name (Given Name) from Section 1.",
       "rect": {
         "left": 264,
@@ -4995,7 +5039,7 @@
     },
     {
       "page": 4,
-      "order": 277,
+      "order": 281,
       "text": "Middle initial (if any) from Section 1.",
       "rect": {
         "left": 444,
@@ -5006,7 +5050,7 @@
     },
     {
       "page": 4,
-      "order": 278,
+      "order": 282,
       "text": "Instructions: This supplement replaces Section 3 on the previous version of Form I-9. Only use this page if your employee requires",
       "rect": {
         "left": 36,
@@ -5017,7 +5061,7 @@
     },
     {
       "page": 4,
-      "order": 279,
+      "order": 283,
       "text": "reverification, is rehired within three years of the date the original Form I-9 was completed, or provides proof of a legal name change. Enter",
       "rect": {
         "left": 36,
@@ -5028,7 +5072,7 @@
     },
     {
       "page": 4,
-      "order": 280,
+      "order": 284,
       "text": "the employee\u0027s name in the fields above. Use a new section for each reverification or rehire. Review the Form I-9 instructions before",
       "rect": {
         "left": 36,
@@ -5039,7 +5083,7 @@
     },
     {
       "page": 4,
-      "order": 281,
+      "order": 285,
       "text": "completing this page. Keep this page as part of the employee\u0027s Form I-9 record. Additional guidance can be found in the",
       "rect": {
         "left": 36,
@@ -5050,7 +5094,7 @@
     },
     {
       "page": 4,
-      "order": 282,
+      "order": 286,
       "text": "Handbook for Employers: Guidance for Completing Form I-9 (M-274)",
       "rect": {
         "left": 36,
@@ -5061,7 +5105,7 @@
     },
     {
       "page": 4,
-      "order": 283,
+      "order": 287,
       "text": "applicable)Date of Rehire (if applicable)",
       "rect": {
         "left": 42,
@@ -5072,7 +5116,7 @@
     },
     {
       "page": 4,
-      "order": 284,
+      "order": 288,
       "text": "New Name (if",
       "rect": {
         "left": 140,
@@ -5083,7 +5127,7 @@
     },
     {
       "page": 4,
-      "order": 285,
+      "order": 289,
       "text": "Last Name (Family Name)",
       "rect": {
         "left": 144,
@@ -5094,7 +5138,7 @@
     },
     {
       "page": 4,
-      "order": 286,
+      "order": 290,
       "text": "First Name (Given Name)",
       "rect": {
         "left": 342,
@@ -5105,7 +5149,7 @@
     },
     {
       "page": 4,
-      "order": 287,
+      "order": 291,
       "text": "Middle Initial",
       "rect": {
         "left": 522,
@@ -5116,7 +5160,7 @@
     },
     {
       "page": 4,
-      "order": 288,
+      "order": 292,
       "text": "Date (mm/dd/yyyy)",
       "rect": {
         "left": 42,
@@ -5127,7 +5171,7 @@
     },
     {
       "page": 4,
-      "order": 289,
+      "order": 293,
       "text": "Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show",
       "rect": {
         "left": 36,
@@ -5138,7 +5182,7 @@
     },
     {
       "page": 4,
-      "order": 290,
+      "order": 294,
       "text": "continued employment authorization. Enter the document information in the spaces below.",
       "rect": {
         "left": 36,
@@ -5149,7 +5193,7 @@
     },
     {
       "page": 4,
-      "order": 291,
+      "order": 295,
       "text": "Document Title",
       "rect": {
         "left": 42,
@@ -5160,7 +5204,7 @@
     },
     {
       "page": 4,
-      "order": 292,
+      "order": 296,
       "text": "Document Number (if any)",
       "rect": {
         "left": 246,
@@ -5171,7 +5215,7 @@
     },
     {
       "page": 4,
-      "order": 293,
+      "order": 297,
       "text": "Expiration Date (if any) (mm/dd/yyyy)",
       "rect": {
         "left": 450,
@@ -5182,7 +5226,7 @@
     },
     {
       "page": 4,
-      "order": 294,
+      "order": 298,
       "text": "I attest, under penalty of perjury, that to the best of my knowledge, this employee is authorized to work in the United States, and if the",
       "rect": {
         "left": 42,
@@ -5193,7 +5237,7 @@
     },
     {
       "page": 4,
-      "order": 295,
+      "order": 299,
       "text": "employee presented documentation, the documentation I examined appears to be genuine and to relate to the individual who presented it.",
       "rect": {
         "left": 42,
@@ -5204,7 +5248,7 @@
     },
     {
       "page": 4,
-      "order": 296,
+      "order": 300,
       "text": "Name of Employer or Authorized Representative",
       "rect": {
         "left": 42,
@@ -5215,7 +5259,7 @@
     },
     {
       "page": 4,
-      "order": 297,
+      "order": 301,
       "text": "Signature of Employer or Authorized Representative",
       "rect": {
         "left": 246,
@@ -5226,7 +5270,7 @@
     },
     {
       "page": 4,
-      "order": 298,
+      "order": 302,
       "text": "Today\u0027s Date (mm/dd/yyyy)",
       "rect": {
         "left": 474,
@@ -5237,7 +5281,7 @@
     },
     {
       "page": 4,
-      "order": 299,
+      "order": 303,
       "text": "Additional Information (Initial and date each notation.)",
       "rect": {
         "left": 42,
@@ -5248,7 +5292,7 @@
     },
     {
       "page": 4,
-      "order": 300,
+      "order": 304,
       "text": "Check here if you used an",
       "rect": {
         "left": 469.31,
@@ -5259,7 +5303,7 @@
     },
     {
       "page": 4,
-      "order": 301,
+      "order": 305,
       "text": "alternative procedure authorized",
       "rect": {
         "left": 469.31,
@@ -5270,7 +5314,7 @@
     },
     {
       "page": 4,
-      "order": 302,
+      "order": 306,
       "text": "by DHS to examine documents.",
       "rect": {
         "left": 469.31,
@@ -5281,7 +5325,7 @@
     },
     {
       "page": 4,
-      "order": 303,
+      "order": 307,
       "text": "Date of Rehire (if applicable)",
       "rect": {
         "left": 42,
@@ -5292,7 +5336,7 @@
     },
     {
       "page": 4,
-      "order": 304,
+      "order": 308,
       "text": "New Name (if applicable)",
       "rect": {
         "left": 140,
@@ -5303,7 +5347,7 @@
     },
     {
       "page": 4,
-      "order": 305,
+      "order": 309,
       "text": "Date (mm/dd/yyyy)",
       "rect": {
         "left": 42,
@@ -5314,7 +5358,7 @@
     },
     {
       "page": 4,
-      "order": 306,
+      "order": 310,
       "text": "Last Name (Family Name)",
       "rect": {
         "left": 144,
@@ -5325,7 +5369,7 @@
     },
     {
       "page": 4,
-      "order": 307,
+      "order": 311,
       "text": "First Name (Given Name)",
       "rect": {
         "left": 341.99,
@@ -5336,7 +5380,7 @@
     },
     {
       "page": 4,
-      "order": 308,
+      "order": 312,
       "text": "Middle Initial",
       "rect": {
         "left": 524,
@@ -5347,7 +5391,7 @@
     },
     {
       "page": 4,
-      "order": 309,
+      "order": 313,
       "text": "Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show",
       "rect": {
         "left": 36,
@@ -5358,7 +5402,7 @@
     },
     {
       "page": 4,
-      "order": 310,
+      "order": 314,
       "text": "continued employment authorization. Enter the document information in the spaces below.",
       "rect": {
         "left": 36,
@@ -5369,7 +5413,7 @@
     },
     {
       "page": 4,
-      "order": 311,
+      "order": 315,
       "text": "Document Title",
       "rect": {
         "left": 42,
@@ -5380,7 +5424,7 @@
     },
     {
       "page": 4,
-      "order": 312,
+      "order": 316,
       "text": "Document Number (if any)",
       "rect": {
         "left": 246,
@@ -5391,7 +5435,7 @@
     },
     {
       "page": 4,
-      "order": 313,
+      "order": 317,
       "text": "Expiration Date (if any) (mm/dd/yyyy)",
       "rect": {
         "left": 450,
@@ -5402,7 +5446,7 @@
     },
     {
       "page": 4,
-      "order": 314,
+      "order": 318,
       "text": "I attest, under penalty of perjury, that to the best of my knowledge, this employee is authorized to work in the United States, and if the",
       "rect": {
         "left": 42,
@@ -5413,7 +5457,7 @@
     },
     {
       "page": 4,
-      "order": 315,
+      "order": 319,
       "text": "employee presented documentation, the documentation I examined appears to be genuine and to relate to the individual who presented it.",
       "rect": {
         "left": 42,
@@ -5424,7 +5468,7 @@
     },
     {
       "page": 4,
-      "order": 316,
+      "order": 320,
       "text": "Name of Employer or Authorized Representative",
       "rect": {
         "left": 42,
@@ -5435,7 +5479,7 @@
     },
     {
       "page": 4,
-      "order": 317,
+      "order": 321,
       "text": "Signature of Employer or Authorized Representative",
       "rect": {
         "left": 245.21,
@@ -5446,7 +5490,7 @@
     },
     {
       "page": 4,
-      "order": 318,
+      "order": 322,
       "text": "Today\u0027s Date (mm/dd/yyyy)",
       "rect": {
         "left": 474,
@@ -5457,7 +5501,7 @@
     },
     {
       "page": 4,
-      "order": 319,
+      "order": 323,
       "text": "Additional Information (Initial and date each notation.)",
       "rect": {
         "left": 42,
@@ -5468,7 +5512,7 @@
     },
     {
       "page": 4,
-      "order": 320,
+      "order": 324,
       "text": "Check here if you used an",
       "rect": {
         "left": 469.31,
@@ -5479,7 +5523,7 @@
     },
     {
       "page": 4,
-      "order": 321,
+      "order": 325,
       "text": "alternative procedure authorized",
       "rect": {
         "left": 469.31,
@@ -5490,7 +5534,7 @@
     },
     {
       "page": 4,
-      "order": 322,
+      "order": 326,
       "text": "by DHS to examine documents.",
       "rect": {
         "left": 469.31,
@@ -5501,7 +5545,7 @@
     },
     {
       "page": 4,
-      "order": 323,
+      "order": 327,
       "text": "Date of Rehire (if applicable)",
       "rect": {
         "left": 42,
@@ -5512,7 +5556,7 @@
     },
     {
       "page": 4,
-      "order": 324,
+      "order": 328,
       "text": "New Name (if applicable)",
       "rect": {
         "left": 140,
@@ -5523,7 +5567,7 @@
     },
     {
       "page": 4,
-      "order": 325,
+      "order": 329,
       "text": "Date (mm/dd/yyyy)",
       "rect": {
         "left": 42,
@@ -5534,7 +5578,7 @@
     },
     {
       "page": 4,
-      "order": 326,
+      "order": 330,
       "text": "Last Name (Family Name)",
       "rect": {
         "left": 144,
@@ -5545,7 +5589,7 @@
     },
     {
       "page": 4,
-      "order": 327,
+      "order": 331,
       "text": "First Name (Given Name)",
       "rect": {
         "left": 342,
@@ -5556,7 +5600,7 @@
     },
     {
       "page": 4,
-      "order": 328,
+      "order": 332,
       "text": "Middle Initial",
       "rect": {
         "left": 524,
@@ -5567,7 +5611,7 @@
     },
     {
       "page": 4,
-      "order": 329,
+      "order": 333,
       "text": "Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show",
       "rect": {
         "left": 36,
@@ -5578,7 +5622,7 @@
     },
     {
       "page": 4,
-      "order": 330,
+      "order": 334,
       "text": "continued employment authorization. Enter the document information in the spaces below.",
       "rect": {
         "left": 36,
@@ -5589,7 +5633,7 @@
     },
     {
       "page": 4,
-      "order": 331,
+      "order": 335,
       "text": "Document Title",
       "rect": {
         "left": 44,
@@ -5600,7 +5644,7 @@
     },
     {
       "page": 4,
-      "order": 332,
+      "order": 336,
       "text": "Document Number (if any)",
       "rect": {
         "left": 246,
@@ -5611,7 +5655,7 @@
     },
     {
       "page": 4,
-      "order": 333,
+      "order": 337,
       "text": "Expiration Date (if any) (mm/dd/yyyy)",
       "rect": {
         "left": 450.13,
@@ -5622,7 +5666,7 @@
     },
     {
       "page": 4,
-      "order": 334,
+      "order": 338,
       "text": "I attest, under penalty of perjury, that to the best of my knowledge, this employee is authorized to work in the United States, and if the",
       "rect": {
         "left": 42,
@@ -5633,7 +5677,7 @@
     },
     {
       "page": 4,
-      "order": 335,
+      "order": 339,
       "text": "employee presented documentation, the documentation I examined appears to be genuine and to relate to the individual who presented it.",
       "rect": {
         "left": 42,
@@ -5644,7 +5688,7 @@
     },
     {
       "page": 4,
-      "order": 336,
+      "order": 340,
       "text": "Name of Employer or Authorized Representative",
       "rect": {
         "left": 42,
@@ -5655,7 +5699,7 @@
     },
     {
       "page": 4,
-      "order": 337,
+      "order": 341,
       "text": "Signature of Employer or Authorized Representative",
       "rect": {
         "left": 246,
@@ -5666,7 +5710,7 @@
     },
     {
       "page": 4,
-      "order": 338,
+      "order": 342,
       "text": "Today\u0027s Date (mm/dd/yyyy)",
       "rect": {
         "left": 474,
@@ -5677,7 +5721,7 @@
     },
     {
       "page": 4,
-      "order": 339,
+      "order": 343,
       "text": "Additional Information (Initial and date each notation.)",
       "rect": {
         "left": 42,
@@ -5688,7 +5732,7 @@
     },
     {
       "page": 4,
-      "order": 340,
+      "order": 344,
       "text": "Check here if you used an",
       "rect": {
         "left": 469.31,
@@ -5699,7 +5743,7 @@
     },
     {
       "page": 4,
-      "order": 341,
+      "order": 345,
       "text": "alternative procedure authorized",
       "rect": {
         "left": 469.31,
@@ -5710,7 +5754,7 @@
     },
     {
       "page": 4,
-      "order": 342,
+      "order": 346,
       "text": "by DHS to examine documents.",
       "rect": {
         "left": 469.31,
@@ -5721,7 +5765,7 @@
     },
     {
       "page": 4,
-      "order": 343,
+      "order": 347,
       "text": "Form I-9 Edition 01/20/25",
       "rect": {
         "left": 36,
@@ -5732,7 +5776,7 @@
     },
     {
       "page": 4,
-      "order": 344,
+      "order": 348,
       "text": "Page 4 of 4",
       "rect": {
         "left": 535.26,

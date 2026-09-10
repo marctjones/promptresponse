@@ -1421,9 +1421,31 @@
     {
       "page": 1,
       "order": 102,
-      "text": "City/town State ZIP code",
+      "text": "City/town",
       "rect": {
         "left": 40,
+        "bottom": 244.1,
+        "right": 72.9,
+        "top": 252.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 103,
+      "text": "State",
+      "rect": {
+        "left": 216,
+        "bottom": 244.1,
+        "right": 234.68,
+        "top": 252.1
+      }
+    },
+    {
+      "page": 1,
+      "order": 104,
+      "text": "ZIP code",
+      "rect": {
+        "left": 288,
         "bottom": 244.1,
         "right": 320.02,
         "top": 252.1
@@ -1431,7 +1453,7 @@
     },
     {
       "page": 1,
-      "order": 103,
+      "order": 105,
       "text": "Declaration: I declare under penalty of law that I have examined this certificate and, to the best of my knowledge and belief, it is true, complete, and",
       "rect": {
         "left": 36.6,
@@ -1442,7 +1464,7 @@
     },
     {
       "page": 1,
-      "order": 104,
+      "order": 106,
       "text": "correct. I understand the penalty for reporting false information is a fine of not more than $5,000, imprisonment for not more than five years, or both.",
       "rect": {
         "left": 36.6,
@@ -1453,10 +1475,21 @@
     },
     {
       "page": 1,
-      "order": 105,
-      "text": "Employee\u2019s signature Date",
+      "order": 107,
+      "text": "Employee\u2019s signature",
       "rect": {
         "left": 40,
+        "bottom": 191.94,
+        "right": 116.45,
+        "top": 199.94
+      }
+    },
+    {
+      "page": 1,
+      "order": 108,
+      "text": "Date",
+      "rect": {
+        "left": 396,
         "bottom": 191.94,
         "right": 412.9,
         "top": 199.94
@@ -1464,7 +1497,7 @@
     },
     {
       "page": 1,
-      "order": 106,
+      "order": 109,
       "text": "Employers: See Employer Instructions, on Page 2.",
       "rect": {
         "left": 36,
@@ -1475,7 +1508,7 @@
     },
     {
       "page": 1,
-      "order": 107,
+      "order": 110,
       "text": "\uF072 No",
       "rect": {
         "left": 198,
@@ -1486,7 +1519,7 @@
     },
     {
       "page": 1,
-      "order": 108,
+      "order": 111,
       "text": "\uF072 Yes",
       "rect": {
         "left": 247.5,
@@ -1497,7 +1530,7 @@
     },
     {
       "page": 1,
-      "order": 109,
+      "order": 112,
       "text": "Is this a new or rehired employee?",
       "rect": {
         "left": 36,
@@ -1508,7 +1541,7 @@
     },
     {
       "page": 1,
-      "order": 110,
+      "order": 113,
       "text": "Enter date hired:",
       "rect": {
         "left": 290.25,
@@ -1519,7 +1552,7 @@
     },
     {
       "page": 1,
-      "order": 111,
+      "order": 114,
       "text": "mm/dd/yyyy",
       "rect": {
         "left": 385.82,
@@ -1530,7 +1563,7 @@
     },
     {
       "page": 1,
-      "order": 112,
+      "order": 115,
       "text": "Employer\u2019s business name",
       "rect": {
         "left": 40,
@@ -1541,7 +1574,7 @@
     },
     {
       "page": 1,
-      "order": 113,
+      "order": 116,
       "text": "Federal Employer Identification Number",
       "rect": {
         "left": 396,
@@ -1552,7 +1585,7 @@
     },
     {
       "page": 1,
-      "order": 114,
+      "order": 117,
       "text": "Employer\u2019s business address",
       "rect": {
         "left": 40,
@@ -1563,10 +1596,32 @@
     },
     {
       "page": 1,
-      "order": 115,
-      "text": "City/town State ZIP code",
+      "order": 118,
+      "text": "City/town",
       "rect": {
         "left": 40,
+        "bottom": 75.22,
+        "right": 72.9,
+        "top": 83.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 119,
+      "text": "State",
+      "rect": {
+        "left": 216,
+        "bottom": 75.22,
+        "right": 234.68,
+        "top": 83.22
+      }
+    },
+    {
+      "page": 1,
+      "order": 120,
+      "text": "ZIP code",
+      "rect": {
+        "left": 288,
         "bottom": 75.22,
         "right": 320.02,
         "top": 83.22
@@ -1574,7 +1629,7 @@
     },
     {
       "page": 1,
-      "order": 116,
+      "order": 121,
       "text": "Contact person",
       "rect": {
         "left": 40,
@@ -1585,7 +1640,7 @@
     },
     {
       "page": 1,
-      "order": 117,
+      "order": 122,
       "text": "Telephone number",
       "rect": {
         "left": 396,
@@ -1596,7 +1651,7 @@
     },
     {
       "page": 1,
-      "order": 118,
+      "order": 123,
       "text": "\u2013 \u2013",
       "rect": {
         "left": 453.75,
@@ -1607,7 +1662,7 @@
     },
     {
       "page": 1,
-      "order": 119,
+      "order": 124,
       "text": "Visit us at portal.ct.gov/DRS for more information.",
       "rect": {
         "left": 193.56,
@@ -1618,7 +1673,7 @@
     },
     {
       "page": 2,
-      "order": 120,
+      "order": 125,
       "text": "Form CT-W4 Instructions",
       "rect": {
         "left": 234.66,
@@ -1629,7 +1684,7 @@
     },
     {
       "page": 2,
-      "order": 121,
+      "order": 126,
       "text": "Form CT-W4NA and Form CT-W4 will help your employer determine",
       "rect": {
         "left": 313.2,
@@ -1640,7 +1695,7 @@
     },
     {
       "page": 2,
-      "order": 122,
+      "order": 127,
       "text": "Employee General Instructions",
       "rect": {
         "left": 86.4,
@@ -1651,7 +1706,7 @@
     },
     {
       "page": 2,
-      "order": 123,
+      "order": 128,
       "text": "how much to withhold from your wages for services performed",
       "rect": {
         "left": 313.2,
@@ -1662,7 +1717,7 @@
     },
     {
       "page": 2,
-      "order": 124,
+      "order": 129,
       "text": "Form CT-W4, Employee\u2019s Withholding Certificate, provides your",
       "rect": {
         "left": 36,
@@ -1673,7 +1728,7 @@
     },
     {
       "page": 2,
-      "order": 125,
+      "order": 130,
       "text": "within Connecticut. Residents of states with a \u201Cconvenience of the",
       "rect": {
         "left": 313.2,
@@ -1684,7 +1739,7 @@
     },
     {
       "page": 2,
-      "order": 126,
+      "order": 131,
       "text": "employer with the necessary information to withhold the correct",
       "rect": {
         "left": 36,
@@ -1695,7 +1750,7 @@
     },
     {
       "page": 2,
-      "order": 127,
+      "order": 132,
       "text": "employer\u201D test will be subject to similar rules for work performed for",
       "rect": {
         "left": 313.2,
@@ -1706,7 +1761,7 @@
     },
     {
       "page": 2,
-      "order": 128,
+      "order": 133,
       "text": "amount of Connecticut income tax from your wages to ensure that",
       "rect": {
         "left": 36,
@@ -1717,7 +1772,7 @@
     },
     {
       "page": 2,
-      "order": 129,
+      "order": 134,
       "text": "a Connecticut employer. Any nonresident who expects to have no",
       "rect": {
         "left": 313.2,
@@ -1728,7 +1783,7 @@
     },
     {
       "page": 2,
-      "order": 130,
+      "order": 135,
       "text": "you will not be underwithheld or overwithheld.",
       "rect": {
         "left": 36,
@@ -1739,7 +1794,7 @@
     },
     {
       "page": 2,
-      "order": 131,
+      "order": 136,
       "text": "Connecticut income tax liability should choose Withholding Code \u201CE.\u201D",
       "rect": {
         "left": 313.2,
@@ -1750,7 +1805,7 @@
     },
     {
       "page": 2,
-      "order": 132,
+      "order": 137,
       "text": "You are required to pay Connecticut income tax as income is earned",
       "rect": {
         "left": 36,
@@ -1761,7 +1816,7 @@
     },
     {
       "page": 2,
-      "order": 133,
+      "order": 138,
       "text": "Armed Forces Personnel and Veterans",
       "rect": {
         "left": 313.2,
@@ -1772,7 +1827,7 @@
     },
     {
       "page": 2,
-      "order": 134,
+      "order": 139,
       "text": "or received during the year. You should complete a new Form CT-W4",
       "rect": {
         "left": 36,
@@ -1783,7 +1838,7 @@
     },
     {
       "page": 2,
-      "order": 135,
+      "order": 140,
       "text": "If you are a Connecticut resident, your armed forces pay is subject",
       "rect": {
         "left": 313.2,
@@ -1794,7 +1849,7 @@
     },
     {
       "page": 2,
-      "order": 136,
+      "order": 141,
       "text": "at least once a year or if your tax situation changes.",
       "rect": {
         "left": 36,
@@ -1805,7 +1860,7 @@
     },
     {
       "page": 2,
-      "order": 137,
+      "order": 142,
       "text": "to Connecticut income tax withholding unless you qualify as a",
       "rect": {
         "left": 313.2,
@@ -1816,7 +1871,7 @@
     },
     {
       "page": 2,
-      "order": 138,
+      "order": 143,
       "text": "If your circumstances change, such as you receive a bonus or your",
       "rect": {
         "left": 36,
@@ -1827,7 +1882,7 @@
     },
     {
       "page": 2,
-      "order": 139,
+      "order": 144,
       "text": "nonresident for Connecticut income tax purposes. If you qualify as",
       "rect": {
         "left": 313.2,
@@ -1838,7 +1893,7 @@
     },
     {
       "page": 2,
-      "order": 140,
+      "order": 145,
       "text": "filing status changes, you must furnish your employer with a new",
       "rect": {
         "left": 36,
@@ -1849,7 +1904,7 @@
     },
     {
       "page": 2,
-      "order": 141,
+      "order": 146,
       "text": "a nonresident, you may request that no Connecticut income tax",
       "rect": {
         "left": 313.2,
@@ -1860,7 +1915,7 @@
     },
     {
       "page": 2,
-      "order": 142,
+      "order": 147,
       "text": "Form CT-W4 within ten days of the change.",
       "rect": {
         "left": 36,
@@ -1871,7 +1926,7 @@
     },
     {
       "page": 2,
-      "order": 143,
+      "order": 148,
       "text": "be withheld from your armed forces pay by entering Withholding",
       "rect": {
         "left": 313.2,
@@ -1882,7 +1937,7 @@
     },
     {
       "page": 2,
-      "order": 144,
+      "order": 149,
       "text": "Code \u201CE\u201D on Line 1.",
       "rect": {
         "left": 313.2,
@@ -1893,7 +1948,7 @@
     },
     {
       "page": 2,
-      "order": 145,
+      "order": 150,
       "text": "Gross Income",
       "rect": {
         "left": 36,
@@ -1904,7 +1959,7 @@
     },
     {
       "page": 2,
-      "order": 146,
+      "order": 151,
       "text": "For Form CT-W4 purposes, gross income means all income from",
       "rect": {
         "left": 36,
@@ -1915,7 +1970,7 @@
     },
     {
       "page": 2,
-      "order": 147,
+      "order": 152,
       "text": "Military Spouses Residency Relief Act (MSRRA)",
       "rect": {
         "left": 313.2,
@@ -1926,7 +1981,7 @@
     },
     {
       "page": 2,
-      "order": 148,
+      "order": 153,
       "text": "all sources, whether received in the form of money, goods, property,",
       "rect": {
         "left": 36,
@@ -1937,7 +1992,7 @@
     },
     {
       "page": 2,
-      "order": 149,
+      "order": 154,
       "text": "If you are claiming an exemption from Connecticut income tax under",
       "rect": {
         "left": 313.2,
@@ -1948,7 +2003,7 @@
     },
     {
       "page": 2,
-      "order": 150,
+      "order": 155,
       "text": "or services, not exempt from federal income tax, and includes any",
       "rect": {
         "left": 36,
@@ -1959,7 +2014,7 @@
     },
     {
       "page": 2,
-      "order": 151,
+      "order": 156,
       "text": "the MSRRA, you must provide your employer with a copy of your",
       "rect": {
         "left": 313.2,
@@ -1970,7 +2025,7 @@
     },
     {
       "page": 2,
-      "order": 152,
+      "order": 157,
       "text": "additions to income from Schedule 1 of Form CT-1040, Connecticut",
       "rect": {
         "left": 36,
@@ -1981,7 +2036,7 @@
     },
     {
       "page": 2,
-      "order": 153,
+      "order": 158,
       "text": "military spouse\u2019s Leave and Earnings Statement (LES) and a copy",
       "rect": {
         "left": 313.2,
@@ -1992,7 +2047,7 @@
     },
     {
       "page": 2,
-      "order": 154,
+      "order": 159,
       "text": "Resident Income Tax Return, or Form CT-1040NR/PY, Connecticut",
       "rect": {
         "left": 36,
@@ -2003,7 +2058,7 @@
     },
     {
       "page": 2,
-      "order": 155,
+      "order": 160,
       "text": "of your military dependent ID card.",
       "rect": {
         "left": 313.2,
@@ -2014,7 +2069,7 @@
     },
     {
       "page": 2,
-      "order": 156,
+      "order": 161,
       "text": "Nonresident and Part\u2011Year Resident Income Tax Return.",
       "rect": {
         "left": 36,
@@ -2025,7 +2080,7 @@
     },
     {
       "page": 2,
-      "order": 157,
+      "order": 162,
       "text": "See Informational Publication 2019(5), Connecticut Income Tax",
       "rect": {
         "left": 313.2,
@@ -2036,7 +2091,7 @@
     },
     {
       "page": 2,
-      "order": 158,
+      "order": 163,
       "text": "Filing Status",
       "rect": {
         "left": 36,
@@ -2047,7 +2102,7 @@
     },
     {
       "page": 2,
-      "order": 159,
+      "order": 164,
       "text": "Information for Armed Forces Personnel and Veterans.",
       "rect": {
         "left": 313.2,
@@ -2058,7 +2113,7 @@
     },
     {
       "page": 2,
-      "order": 160,
+      "order": 165,
       "text": "Generally, the filing status you expect to report on your Connecticut",
       "rect": {
         "left": 36,
@@ -2069,7 +2124,7 @@
     },
     {
       "page": 2,
-      "order": 161,
+      "order": 166,
       "text": "income tax return is the same as the filing status you expect to report",
       "rect": {
         "left": 36,
@@ -2080,7 +2135,7 @@
     },
     {
       "page": 2,
-      "order": 162,
+      "order": 167,
       "text": "Employer Instructions",
       "rect": {
         "left": 397.09,
@@ -2091,7 +2146,7 @@
     },
     {
       "page": 2,
-      "order": 163,
+      "order": 168,
       "text": "on your federal income tax return. However, special rules apply to",
       "rect": {
         "left": 36,
@@ -2102,7 +2157,7 @@
     },
     {
       "page": 2,
-      "order": 164,
+      "order": 169,
       "text": "For any employee who does not complete Form CT-W4, you are",
       "rect": {
         "left": 313.2,
@@ -2113,7 +2168,7 @@
     },
     {
       "page": 2,
-      "order": 165,
+      "order": 170,
       "text": "married individuals who file a joint federal return but have a different",
       "rect": {
         "left": 36,
@@ -2124,7 +2179,7 @@
     },
     {
       "page": 2,
-      "order": 166,
+      "order": 171,
       "text": "required to withhold at the highest marginal rate of 6.99% without",
       "rect": {
         "left": 313.2,
@@ -2135,7 +2190,7 @@
     },
     {
       "page": 2,
-      "order": 167,
+      "order": 172,
       "text": "residency status. Nonresidents and part-year residents should see",
       "rect": {
         "left": 36,
@@ -2146,7 +2201,7 @@
     },
     {
       "page": 2,
-      "order": 168,
+      "order": 173,
       "text": "allowance for exemption. You are required to keep Form CT\u2011W4 in",
       "rect": {
         "left": 313.2,
@@ -2157,7 +2212,7 @@
     },
     {
       "page": 2,
-      "order": 169,
+      "order": 174,
       "text": "the instructions to Form CT\u20111040NR/PY.",
       "rect": {
         "left": 36,
@@ -2168,7 +2223,7 @@
     },
     {
       "page": 2,
-      "order": 170,
+      "order": 175,
       "text": "your files for each employee.",
       "rect": {
         "left": 313.2,
@@ -2179,7 +2234,7 @@
     },
     {
       "page": 2,
-      "order": 171,
+      "order": 176,
       "text": "Check Your Withholding",
       "rect": {
         "left": 36,
@@ -2190,7 +2245,7 @@
     },
     {
       "page": 2,
-      "order": 172,
+      "order": 177,
       "text": "Report Certain Employees Claiming Exemption From",
       "rect": {
         "left": 313.2,
@@ -2201,7 +2256,7 @@
     },
     {
       "page": 2,
-      "order": 173,
+      "order": 178,
       "text": "You may be underwithheld if any of the following apply:",
       "rect": {
         "left": 36,
@@ -2212,7 +2267,7 @@
     },
     {
       "page": 2,
-      "order": 174,
+      "order": 179,
       "text": "Withholding to DRS",
       "rect": {
         "left": 313.2,
@@ -2223,7 +2278,7 @@
     },
     {
       "page": 2,
-      "order": 175,
+      "order": 180,
       "text": "\u2022",
       "rect": {
         "left": 36,
@@ -2234,7 +2289,7 @@
     },
     {
       "page": 2,
-      "order": 176,
+      "order": 181,
       "text": "You have more than one job;",
       "rect": {
         "left": 49.5,
@@ -2245,7 +2300,7 @@
     },
     {
       "page": 2,
-      "order": 177,
+      "order": 182,
       "text": "Employers are required to file copies of Form CT\u2011W4 with DRS for",
       "rect": {
         "left": 313.2,
@@ -2256,7 +2311,7 @@
     },
     {
       "page": 2,
-      "order": 178,
+      "order": 183,
       "text": "\u2022",
       "rect": {
         "left": 36,
@@ -2267,7 +2322,7 @@
     },
     {
       "page": 2,
-      "order": 179,
+      "order": 184,
       "text": "You qualify under Certain Married Individuals; or",
       "rect": {
         "left": 49.5,
@@ -2278,7 +2333,7 @@
     },
     {
       "page": 2,
-      "order": 180,
+      "order": 185,
       "text": "certain employees claiming \u201CE\u201D (no withholding is necessary). Mail",
       "rect": {
         "left": 313.2,
@@ -2289,7 +2344,7 @@
     },
     {
       "page": 2,
-      "order": 181,
+      "order": 186,
       "text": "\u2022",
       "rect": {
         "left": 36,
@@ -2300,7 +2355,7 @@
     },
     {
       "page": 2,
-      "order": 182,
+      "order": 187,
       "text": "You have substantial nonwage income.",
       "rect": {
         "left": 49.5,
@@ -2311,7 +2366,7 @@
     },
     {
       "page": 2,
-      "order": 183,
+      "order": 188,
       "text": "copies of Forms CT-W4 to:",
       "rect": {
         "left": 313.2,
@@ -2322,7 +2377,7 @@
     },
     {
       "page": 2,
-      "order": 184,
+      "order": 189,
       "text": "Department of Revenue Services",
       "rect": {
         "left": 340.2,
@@ -2333,7 +2388,7 @@
     },
     {
       "page": 2,
-      "order": 185,
+      "order": 190,
       "text": "If you are underwithheld, you should consider adjusting your",
       "rect": {
         "left": 36,
@@ -2344,7 +2399,7 @@
     },
     {
       "page": 2,
-      "order": 186,
+      "order": 191,
       "text": "PO Box 2931",
       "rect": {
         "left": 340.2,
@@ -2355,7 +2410,7 @@
     },
     {
       "page": 2,
-      "order": 187,
+      "order": 192,
       "text": "withholding or making estimated payments using Form CT-1040ES,",
       "rect": {
         "left": 36,
@@ -2366,7 +2421,7 @@
     },
     {
       "page": 2,
-      "order": 188,
+      "order": 193,
       "text": "Hartford CT 06104\u20112931",
       "rect": {
         "left": 340.2,
@@ -2377,7 +2432,7 @@
     },
     {
       "page": 2,
-      "order": 189,
+      "order": 194,
       "text": "Estimated Connecticut Income Tax Payment Coupon for Individuals.",
       "rect": {
         "left": 36,
@@ -2388,7 +2443,7 @@
     },
     {
       "page": 2,
-      "order": 190,
+      "order": 195,
       "text": "You may also select Withholding Code \u201CD\u201D to elect the highest level",
       "rect": {
         "left": 36,
@@ -2399,7 +2454,7 @@
     },
     {
       "page": 2,
-      "order": 191,
+      "order": 196,
       "text": "Report New and Rehired Employees to the Department of Labor",
       "rect": {
         "left": 313.2,
@@ -2410,7 +2465,7 @@
     },
     {
       "page": 2,
-      "order": 192,
+      "order": 197,
       "text": "of withholding.",
       "rect": {
         "left": 36,
@@ -2421,7 +2476,7 @@
     },
     {
       "page": 2,
-      "order": 193,
+      "order": 198,
       "text": "New employees are workers not previously employed by your",
       "rect": {
         "left": 313.2,
@@ -2432,7 +2487,7 @@
     },
     {
       "page": 2,
-      "order": 194,
+      "order": 199,
       "text": "If you owe $1,000 or more, after subtracting from your Connecticut",
       "rect": {
         "left": 36,
@@ -2443,7 +2498,7 @@
     },
     {
       "page": 2,
-      "order": 195,
+      "order": 200,
       "text": "business, or workers rehired after having been separated from your",
       "rect": {
         "left": 313.2,
@@ -2454,7 +2509,7 @@
     },
     {
       "page": 2,
-      "order": 196,
+      "order": 201,
       "text": "income tax the amount withheld from your income for the prior",
       "rect": {
         "left": 36,
@@ -2465,7 +2520,7 @@
     },
     {
       "page": 2,
-      "order": 197,
+      "order": 202,
       "text": "business for more than sixty consecutive days.",
       "rect": {
         "left": 313.2,
@@ -2476,7 +2531,7 @@
     },
     {
       "page": 2,
-      "order": 198,
+      "order": 203,
       "text": "taxable year, and any PE Tax Credit, you may be subject to interest",
       "rect": {
         "left": 36,
@@ -2487,7 +2542,7 @@
     },
     {
       "page": 2,
-      "order": 199,
+      "order": 204,
       "text": "Employers with offices in Connecticut or transacting business in",
       "rect": {
         "left": 313.2,
@@ -2498,7 +2553,7 @@
     },
     {
       "page": 2,
-      "order": 200,
+      "order": 205,
       "text": "on the underpayment at the rate of 1% per month or fraction of a",
       "rect": {
         "left": 36,
@@ -2509,7 +2564,7 @@
     },
     {
       "page": 2,
-      "order": 201,
+      "order": 206,
       "text": "Connecticut are required to report new hires to the Department of",
       "rect": {
         "left": 313.2,
@@ -2520,7 +2575,7 @@
     },
     {
       "page": 2,
-      "order": 202,
+      "order": 207,
       "text": "month.",
       "rect": {
         "left": 36,
@@ -2531,7 +2586,7 @@
     },
     {
       "page": 2,
-      "order": 203,
+      "order": 208,
       "text": "Labor (DOL) within 20 days of the date of hire.",
       "rect": {
         "left": 313.2,
@@ -2542,7 +2597,7 @@
     },
     {
       "page": 2,
-      "order": 204,
+      "order": 209,
       "text": "Certain Married Individuals",
       "rect": {
         "left": 36,
@@ -2553,7 +2608,7 @@
     },
     {
       "page": 2,
-      "order": 205,
+      "order": 210,
       "text": "New hires can be reported by:",
       "rect": {
         "left": 313.2,
@@ -2564,7 +2619,7 @@
     },
     {
       "page": 2,
-      "order": 206,
+      "order": 211,
       "text": "If you are a married individual filing jointly and you and your spouse",
       "rect": {
         "left": 36,
@@ -2575,7 +2630,7 @@
     },
     {
       "page": 2,
-      "order": 207,
+      "order": 212,
       "text": "\u2022 Using the Connecticut New Hire Reporting website at",
       "rect": {
         "left": 313.2,
@@ -2586,7 +2641,7 @@
     },
     {
       "page": 2,
-      "order": 208,
+      "order": 213,
       "text": "both select Withholding Code \u201CA,\u201D you may have too much or too",
       "rect": {
         "left": 36,
@@ -2597,7 +2652,7 @@
     },
     {
       "page": 2,
-      "order": 209,
+      "order": 214,
       "text": "www1.ctdol.state.ct.us/newhires;",
       "rect": {
         "left": 324.2,
@@ -2608,7 +2663,7 @@
     },
     {
       "page": 2,
-      "order": 210,
+      "order": 215,
       "text": "little Connecticut income tax withheld from your pay. This is because",
       "rect": {
         "left": 36,
@@ -2619,7 +2674,7 @@
     },
     {
       "page": 2,
-      "order": 211,
+      "order": 216,
       "text": "the phase\u2011out of the personal exemption and credit is based on your",
       "rect": {
         "left": 36,
@@ -2630,7 +2685,7 @@
     },
     {
       "page": 2,
-      "order": 212,
+      "order": 217,
       "text": "\u2022 Faxing copies of completed Forms CT\u2011W4 to 800-816-1108; or",
       "rect": {
         "left": 313.2,
@@ -2641,7 +2696,7 @@
     },
     {
       "page": 2,
-      "order": 213,
+      "order": 218,
       "text": "combined incomes. The withholding tables cannot reflect your exact",
       "rect": {
         "left": 36,
@@ -2652,7 +2707,7 @@
     },
     {
       "page": 2,
-      "order": 214,
+      "order": 219,
       "text": "\u2022 Mailing copies of completed Forms CT-W4 to:",
       "rect": {
         "left": 313.2,
@@ -2663,7 +2718,7 @@
     },
     {
       "page": 2,
-      "order": 215,
+      "order": 220,
       "text": "withholding requirement without considering the income of your",
       "rect": {
         "left": 36,
@@ -2674,7 +2729,7 @@
     },
     {
       "page": 2,
-      "order": 216,
+      "order": 221,
       "text": "Connecticut Department of Labor",
       "rect": {
         "left": 340.2,
@@ -2685,7 +2740,7 @@
     },
     {
       "page": 2,
-      "order": 217,
+      "order": 222,
       "text": "spouse.",
       "rect": {
         "left": 36,
@@ -2696,7 +2751,7 @@
     },
     {
       "page": 2,
-      "order": 218,
+      "order": 223,
       "text": "Office of Research, CT\u2011W4",
       "rect": {
         "left": 340.2,
@@ -2707,7 +2762,7 @@
     },
     {
       "page": 2,
-      "order": 219,
+      "order": 224,
       "text": "200 Folly Brook Blvd",
       "rect": {
         "left": 340.2,
@@ -2718,7 +2773,7 @@
     },
     {
       "page": 2,
-      "order": 220,
+      "order": 225,
       "text": "To minimize this problem and determine if you need to adjust your",
       "rect": {
         "left": 36,
@@ -2729,7 +2784,7 @@
     },
     {
       "page": 2,
-      "order": 221,
+      "order": 226,
       "text": "Wethersfield CT 06109",
       "rect": {
         "left": 340.2,
@@ -2740,7 +2795,7 @@
     },
     {
       "page": 2,
-      "order": 222,
+      "order": 227,
       "text": "withholding using Line 2 or Line 3, see Supplemental Tables in",
       "rect": {
         "left": 36,
@@ -2751,7 +2806,7 @@
     },
     {
       "page": 2,
-      "order": 223,
+      "order": 228,
       "text": "Informational Publication 2026(7), Is My Connecticut Withholding",
       "rect": {
         "left": 36,
@@ -2762,7 +2817,7 @@
     },
     {
       "page": 2,
-      "order": 224,
+      "order": 229,
       "text": "For more information on DOL requirements or for alternative",
       "rect": {
         "left": 313.2,
@@ -2773,7 +2828,7 @@
     },
     {
       "page": 2,
-      "order": 225,
+      "order": 230,
       "text": "Correct?",
       "rect": {
         "left": 36,
@@ -2784,7 +2839,7 @@
     },
     {
       "page": 2,
-      "order": 226,
+      "order": 231,
       "text": "reporting options, visit the DOL website at portal.ct.gov/dol or call",
       "rect": {
         "left": 313.2,
@@ -2795,7 +2850,7 @@
     },
     {
       "page": 2,
-      "order": 227,
+      "order": 232,
       "text": "DOL at 860\u2011263\u20116310.",
       "rect": {
         "left": 313.2,
@@ -2806,7 +2861,7 @@
     },
     {
       "page": 2,
-      "order": 228,
+      "order": 233,
       "text": "Nonresident Employees Working Partly Within and Partly",
       "rect": {
         "left": 36,
@@ -2817,7 +2872,7 @@
     },
     {
       "page": 2,
-      "order": 229,
+      "order": 234,
       "text": "Outside of Connecticut",
       "rect": {
         "left": 36,
@@ -2828,7 +2883,7 @@
     },
     {
       "page": 2,
-      "order": 230,
+      "order": 235,
       "text": "If you work partly within and partly outside of Connecticut for",
       "rect": {
         "left": 36,
@@ -2839,7 +2894,7 @@
     },
     {
       "page": 2,
-      "order": 231,
+      "order": 236,
       "text": "the same employer, you should also complete Form CT-W4NA,",
       "rect": {
         "left": 36,
@@ -2850,7 +2905,7 @@
     },
     {
       "page": 2,
-      "order": 232,
+      "order": 237,
       "text": "Employee\u2019s Withholding or Exemption Certificate - Nonresident",
       "rect": {
         "left": 36,
@@ -2861,7 +2916,7 @@
     },
     {
       "page": 2,
-      "order": 233,
+      "order": 238,
       "text": "Apportionment, and provide it to your employer. The information on",
       "rect": {
         "left": 36,
@@ -2872,7 +2927,7 @@
     },
     {
       "page": 2,
-      "order": 234,
+      "order": 239,
       "text": "Page 2 of 2",
       "rect": {
         "left": 529.96,
@@ -2883,7 +2938,7 @@
     },
     {
       "page": 2,
-      "order": 235,
+      "order": 240,
       "text": "Form CT-W4 (Rev. 12/25)",
       "rect": {
         "left": 36,

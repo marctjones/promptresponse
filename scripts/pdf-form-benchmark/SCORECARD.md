@@ -29,7 +29,7 @@ because no code exists yet to convert one.
 
 ## Totals
 
-- **444 fields** across 11 forms, **2725 lines** of reference text
+- **444 fields** across 11 forms, **3005 lines** of reference text
 - Field coverage: **100.0 %**, invented fields: **0**
 - Tooltip coverage: **34 %** of fields carry the form author's own label
 - Order vs geometric reading order: mean tau **0.845** (range 0.55–1.00)
