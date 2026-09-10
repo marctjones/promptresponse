@@ -963,9 +963,20 @@
     {
       "page": 1,
       "order": 54,
-      "text": "\u25B2 \u25B2",
+      "text": "\u25B2",
       "rect": {
         "left": 77.18,
+        "bottom": 155.88,
+        "right": 86.18,
+        "top": 179.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 55,
+      "text": "\u25B2",
+      "rect": {
+        "left": 329.18,
         "bottom": 155.88,
         "right": 338.18,
         "top": 179.97
@@ -973,7 +984,7 @@
     },
     {
       "page": 1,
-      "order": 55,
+      "order": 56,
       "text": "Sign",
       "rect": {
         "left": 36,
@@ -984,7 +995,7 @@
     },
     {
       "page": 1,
-      "order": 56,
+      "order": 57,
       "text": "Your signature",
       "rect": {
         "left": 86.4,
@@ -995,7 +1006,7 @@
     },
     {
       "page": 1,
-      "order": 57,
+      "order": 58,
       "text": "Date",
       "rect": {
         "left": 277.6,
@@ -1006,7 +1017,7 @@
     },
     {
       "page": 1,
-      "order": 58,
+      "order": 59,
       "text": "Signature of representative, executor, administrator/if applicable Date",
       "rect": {
         "left": 338.4,
@@ -1017,7 +1028,7 @@
     },
     {
       "page": 1,
-      "order": 59,
+      "order": 60,
       "text": "Here",
       "rect": {
         "left": 36,
@@ -1028,10 +1039,21 @@
     },
     {
       "page": 1,
-      "order": 60,
-      "text": "\u25B2 \u25B2",
+      "order": 61,
+      "text": "\u25B2",
       "rect": {
         "left": 77.18,
+        "bottom": 131.88,
+        "right": 86.18,
+        "top": 155.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 62,
+      "text": "\u25B2",
+      "rect": {
+        "left": 329.18,
         "bottom": 131.88,
         "right": 338.18,
         "top": 155.97
@@ -1039,7 +1061,7 @@
     },
     {
       "page": 1,
-      "order": 61,
+      "order": 63,
       "text": "If joint return, spouse\u2019s signature",
       "rect": {
         "left": 86.4,
@@ -1050,7 +1072,7 @@
     },
     {
       "page": 1,
-      "order": 62,
+      "order": 64,
       "text": "Date",
       "rect": {
         "left": 277.6,
@@ -1061,7 +1083,7 @@
     },
     {
       "page": 1,
-      "order": 63,
+      "order": 65,
       "text": "Title",
       "rect": {
         "left": 338.4,
@@ -1072,7 +1094,7 @@
     },
     {
       "page": 1,
-      "order": 64,
+      "order": 66,
       "text": "Form 8822 (Rev. 2-2021)",
       "rect": {
         "left": 487.05,
@@ -1083,7 +1105,7 @@
     },
     {
       "page": 1,
-      "order": 65,
+      "order": 67,
       "text": "For Privacy Act and Paperwork Reduction Act Notice, see back of form.",
       "rect": {
         "left": 36,
@@ -1094,7 +1116,7 @@
     },
     {
       "page": 1,
-      "order": 66,
+      "order": 68,
       "text": "Cat. No. 12081V",
       "rect": {
         "left": 366.6,
@@ -1105,7 +1127,7 @@
     },
     {
       "page": 2,
-      "order": 67,
+      "order": 69,
       "text": "Page 2",
       "rect": {
         "left": 550.48,
@@ -1116,7 +1138,7 @@
     },
     {
       "page": 2,
-      "order": 68,
+      "order": 70,
       "text": "Form 8822 (Rev. 2-2021)",
       "rect": {
         "left": 36,
@@ -1127,7 +1149,7 @@
     },
     {
       "page": 2,
-      "order": 69,
+      "order": 71,
       "text": "Future Developments",
       "rect": {
         "left": 36,
@@ -1138,7 +1160,7 @@
     },
     {
       "page": 2,
-      "order": 70,
+      "order": 72,
       "text": "Privacy Act and Paperwork Reduction Act",
       "rect": {
         "left": 410.4,
@@ -1149,7 +1171,7 @@
     },
     {
       "page": 2,
-      "order": 71,
+      "order": 73,
       "text": "Where To File",
       "rect": {
         "left": 229.2,
@@ -1160,7 +1182,7 @@
     },
     {
       "page": 2,
-      "order": 72,
+      "order": 74,
       "text": "Notice. We ask for the information on this",
       "rect": {
         "left": 410.4,
@@ -1171,7 +1193,7 @@
     },
     {
       "page": 2,
-      "order": 73,
+      "order": 75,
       "text": "Information about developments affecting",
       "rect": {
         "left": 36,
@@ -1182,7 +1204,7 @@
     },
     {
       "page": 2,
-      "order": 74,
+      "order": 76,
       "text": "form to carry out the Internal Revenue laws of",
       "rect": {
         "left": 410.4,
@@ -1193,7 +1215,7 @@
     },
     {
       "page": 2,
-      "order": 75,
+      "order": 77,
       "text": "Form 8822 (such as legislation enacted after",
       "rect": {
         "left": 36,
@@ -1204,7 +1226,7 @@
     },
     {
       "page": 2,
-      "order": 76,
+      "order": 78,
       "text": "the United States. Our legal right to ask for",
       "rect": {
         "left": 410.4,
@@ -1215,7 +1237,7 @@
     },
     {
       "page": 2,
-      "order": 77,
+      "order": 79,
       "text": "\u2022 If you checked the box on line 2, send",
       "rect": {
         "left": 229.2,
@@ -1226,7 +1248,7 @@
     },
     {
       "page": 2,
-      "order": 78,
+      "order": 80,
       "text": "we release it) is at www.irs.gov/form8822.",
       "rect": {
         "left": 36,
@@ -1237,7 +1259,7 @@
     },
     {
       "page": 2,
-      "order": 79,
+      "order": 81,
       "text": "information is Internal Revenue Code sections",
       "rect": {
         "left": 410.4,
@@ -1248,7 +1270,7 @@
     },
     {
       "page": 2,
-      "order": 80,
+      "order": 82,
       "text": "Form 8822 to: Department of the",
       "rect": {
         "left": 235.2,
@@ -1259,7 +1281,7 @@
     },
     {
       "page": 2,
-      "order": 81,
+      "order": 83,
       "text": "6001 and 6011, which require you to file a",
       "rect": {
         "left": 410.4,
@@ -1270,7 +1292,7 @@
     },
     {
       "page": 2,
-      "order": 82,
+      "order": 84,
       "text": "Treasury, Internal Revenue Service",
       "rect": {
         "left": 235.2,
@@ -1281,7 +1303,7 @@
     },
     {
       "page": 2,
-      "order": 83,
+      "order": 85,
       "text": "Purpose of Form",
       "rect": {
         "left": 36,
@@ -1292,7 +1314,7 @@
     },
     {
       "page": 2,
-      "order": 84,
+      "order": 86,
       "text": "statement with us for any tax for which you",
       "rect": {
         "left": 410.4,
@@ -1303,7 +1325,7 @@
     },
     {
       "page": 2,
-      "order": 85,
+      "order": 87,
       "text": "Center, Kansas City, MO 64999-0023.",
       "rect": {
         "left": 235.2,
@@ -1314,7 +1336,7 @@
     },
     {
       "page": 2,
-      "order": 86,
+      "order": 88,
       "text": "are liable. Section 6109 requires that you",
       "rect": {
         "left": 410.4,
@@ -1325,7 +1347,7 @@
     },
     {
       "page": 2,
-      "order": 87,
+      "order": 89,
       "text": "You can use Form 8822 to notify the Internal",
       "rect": {
         "left": 36,
@@ -1336,7 +1358,7 @@
     },
     {
       "page": 2,
-      "order": 88,
+      "order": 90,
       "text": "\u2022 If you did not check the box on line 2,",
       "rect": {
         "left": 229.2,
@@ -1347,7 +1369,7 @@
     },
     {
       "page": 2,
-      "order": 89,
+      "order": 91,
       "text": "provide your social security number on what",
       "rect": {
         "left": 410.4,
@@ -1358,7 +1380,7 @@
     },
     {
       "page": 2,
-      "order": 90,
+      "order": 92,
       "text": "Revenue Service if you changed your home",
       "rect": {
         "left": 36,
@@ -1369,7 +1391,7 @@
     },
     {
       "page": 2,
-      "order": 91,
+      "order": 93,
       "text": "send Form 8822 to the address shown",
       "rect": {
         "left": 235.2,
@@ -1380,7 +1402,7 @@
     },
     {
       "page": 2,
-      "order": 92,
+      "order": 94,
       "text": "you file. This is so we know who you are, and",
       "rect": {
         "left": 410.4,
@@ -1391,7 +1413,7 @@
     },
     {
       "page": 2,
-      "order": 93,
+      "order": 95,
       "text": "mailing address. If this change also affects",
       "rect": {
         "left": 36,
@@ -1402,7 +1424,7 @@
     },
     {
       "page": 2,
-      "order": 94,
+      "order": 96,
       "text": "here that applies to you:",
       "rect": {
         "left": 235.2,
@@ -1413,7 +1435,7 @@
     },
     {
       "page": 2,
-      "order": 95,
+      "order": 97,
       "text": "can process your form and other papers.",
       "rect": {
         "left": 410.4,
@@ -1424,7 +1446,7 @@
     },
     {
       "page": 2,
-      "order": 96,
+      "order": 98,
       "text": "the mailing address for your children who",
       "rect": {
         "left": 36,
@@ -1435,7 +1457,7 @@
     },
     {
       "page": 2,
-      "order": 97,
+      "order": 99,
       "text": "IF your old home mailing",
       "rect": {
         "left": 229.2,
@@ -1446,7 +1468,7 @@
     },
     {
       "page": 2,
-      "order": 98,
+      "order": 100,
       "text": "THEN use this",
       "rect": {
         "left": 325.2,
@@ -1457,7 +1479,7 @@
     },
     {
       "page": 2,
-      "order": 99,
+      "order": 101,
       "text": "filed income tax returns, complete and file a",
       "rect": {
         "left": 36,
@@ -1468,7 +1490,7 @@
     },
     {
       "page": 2,
-      "order": 100,
+      "order": 102,
       "text": "Generally, tax returns and return",
       "rect": {
         "left": 418.4,
@@ -1479,7 +1501,7 @@
     },
     {
       "page": 2,
-      "order": 101,
+      "order": 103,
       "text": "address was in . . .",
       "rect": {
         "left": 229.2,
@@ -1490,7 +1512,7 @@
     },
     {
       "page": 2,
-      "order": 102,
+      "order": 104,
       "text": "address . . .",
       "rect": {
         "left": 325.2,
@@ -1501,7 +1523,7 @@
     },
     {
       "page": 2,
-      "order": 103,
+      "order": 105,
       "text": "separate Form 8822 for each child. If you are",
       "rect": {
         "left": 36,
@@ -1512,7 +1534,7 @@
     },
     {
       "page": 2,
-      "order": 104,
+      "order": 106,
       "text": "information are confidential, as required by",
       "rect": {
         "left": 410.4,
@@ -1523,7 +1545,7 @@
     },
     {
       "page": 2,
-      "order": 105,
+      "order": 107,
       "text": "a representative signing for the taxpayer,",
       "rect": {
         "left": 36,
@@ -1534,7 +1556,7 @@
     },
     {
       "page": 2,
-      "order": 106,
+      "order": 108,
       "text": "section 6103. However, we may give the",
       "rect": {
         "left": 410.4,
@@ -1545,7 +1567,7 @@
     },
     {
       "page": 2,
-      "order": 107,
+      "order": 109,
       "text": "Alabama, Arkansas,",
       "rect": {
         "left": 229.2,
@@ -1556,7 +1578,7 @@
     },
     {
       "page": 2,
-      "order": 108,
+      "order": 110,
       "text": "Department of the",
       "rect": {
         "left": 326,
@@ -1567,7 +1589,7 @@
     },
     {
       "page": 2,
-      "order": 109,
+      "order": 111,
       "text": "attach to Form 8822 a copy of your power of",
       "rect": {
         "left": 36,
@@ -1578,7 +1600,7 @@
     },
     {
       "page": 2,
-      "order": 110,
+      "order": 112,
       "text": "information to the Department of Justice and",
       "rect": {
         "left": 410.4,
@@ -1589,7 +1611,7 @@
     },
     {
       "page": 2,
-      "order": 111,
+      "order": 113,
       "text": "Delaware, Georgia, Illinois,",
       "rect": {
         "left": 229.2,
@@ -1600,7 +1622,7 @@
     },
     {
       "page": 2,
-      "order": 112,
+      "order": 114,
       "text": "Treasury",
       "rect": {
         "left": 355.71,
@@ -1611,7 +1633,7 @@
     },
     {
       "page": 2,
-      "order": 113,
+      "order": 115,
       "text": "Indiana, Iowa, Kentucky,",
       "rect": {
         "left": 229.2,
@@ -1622,7 +1644,7 @@
     },
     {
       "page": 2,
-      "order": 114,
+      "order": 116,
       "text": "Internal Revenue",
       "rect": {
         "left": 330.29,
@@ -1633,7 +1655,7 @@
     },
     {
       "page": 2,
-      "order": 115,
+      "order": 117,
       "text": "attorney. Generally, it takes 4 to 6 weeks to",
       "rect": {
         "left": 36,
@@ -1644,7 +1666,7 @@
     },
     {
       "page": 2,
-      "order": 116,
+      "order": 118,
       "text": "to other federal agencies, as provided by law.",
       "rect": {
         "left": 410.4,
@@ -1655,7 +1677,7 @@
     },
     {
       "page": 2,
-      "order": 117,
+      "order": 119,
       "text": "Maine, Massachusetts,",
       "rect": {
         "left": 229.2,
@@ -1666,7 +1688,7 @@
     },
     {
       "page": 2,
-      "order": 118,
+      "order": 120,
       "text": "Service",
       "rect": {
         "left": 359.6,
@@ -1677,7 +1699,7 @@
     },
     {
       "page": 2,
-      "order": 119,
+      "order": 121,
       "text": "process a change of address.",
       "rect": {
         "left": 36,
@@ -1688,7 +1710,7 @@
     },
     {
       "page": 2,
-      "order": 120,
+      "order": 122,
       "text": "We may give it to cities, states, the District of",
       "rect": {
         "left": 410.4,
@@ -1699,7 +1721,7 @@
     },
     {
       "page": 2,
-      "order": 121,
+      "order": 123,
       "text": "Minnesota, Missouri, New",
       "rect": {
         "left": 229.2,
@@ -1710,7 +1732,7 @@
     },
     {
       "page": 2,
-      "order": 122,
+      "order": 124,
       "text": "Kansas City, MO",
       "rect": {
         "left": 330.15,
@@ -1721,7 +1743,7 @@
     },
     {
       "page": 2,
-      "order": 123,
+      "order": 125,
       "text": "Columbia, and U.S. commonwealths or",
       "rect": {
         "left": 410.4,
@@ -1732,7 +1754,7 @@
     },
     {
       "page": 2,
-      "order": 124,
+      "order": 126,
       "text": "Changing both home and business",
       "rect": {
         "left": 36,
@@ -1743,7 +1765,7 @@
     },
     {
       "page": 2,
-      "order": 125,
+      "order": 127,
       "text": "Hampshire, New Jersey,",
       "rect": {
         "left": 229.2,
@@ -1754,7 +1776,7 @@
     },
     {
       "page": 2,
-      "order": 126,
+      "order": 128,
       "text": "64999-0023",
       "rect": {
         "left": 345.05,
@@ -1765,7 +1787,7 @@
     },
     {
       "page": 2,
-      "order": 127,
+      "order": 129,
       "text": "possessions to carry out their tax laws. We",
       "rect": {
         "left": 410.4,
@@ -1776,7 +1798,7 @@
     },
     {
       "page": 2,
-      "order": 128,
+      "order": 130,
       "text": "addresses? Use Form 8822-B to change",
       "rect": {
         "left": 36,
@@ -1787,7 +1809,7 @@
     },
     {
       "page": 2,
-      "order": 129,
+      "order": 131,
       "text": "New York, North Carolina,",
       "rect": {
         "left": 229.2,
@@ -1798,7 +1820,7 @@
     },
     {
       "page": 2,
-      "order": 130,
+      "order": 132,
       "text": "may also disclose this information to other",
       "rect": {
         "left": 410.4,
@@ -1809,7 +1831,7 @@
     },
     {
       "page": 2,
-      "order": 131,
+      "order": 133,
       "text": "Oklahoma, South Carolina,",
       "rect": {
         "left": 229.2,
@@ -1820,7 +1842,7 @@
     },
     {
       "page": 2,
-      "order": 132,
+      "order": 134,
       "text": "your business address.",
       "rect": {
         "left": 36,
@@ -1831,7 +1853,7 @@
     },
     {
       "page": 2,
-      "order": 133,
+      "order": 135,
       "text": "countries under a tax treaty, to federal and",
       "rect": {
         "left": 410.4,
@@ -1842,7 +1864,7 @@
     },
     {
       "page": 2,
-      "order": 134,
+      "order": 136,
       "text": "Tennessee, Vermont,",
       "rect": {
         "left": 229.2,
@@ -1853,7 +1875,7 @@
     },
     {
       "page": 2,
-      "order": 135,
+      "order": 137,
       "text": "Prior Name(s)",
       "rect": {
         "left": 36,
@@ -1864,7 +1886,7 @@
     },
     {
       "page": 2,
-      "order": 136,
+      "order": 138,
       "text": "state agencies to enforce federal nontax",
       "rect": {
         "left": 410.4,
@@ -1875,7 +1897,7 @@
     },
     {
       "page": 2,
-      "order": 137,
+      "order": 139,
       "text": "Virginia, Wisconsin",
       "rect": {
         "left": 229.2,
@@ -1886,7 +1908,7 @@
     },
     {
       "page": 2,
-      "order": 138,
+      "order": 140,
       "text": "criminal laws, or to federal law enforcement",
       "rect": {
         "left": 410.4,
@@ -1897,7 +1919,7 @@
     },
     {
       "page": 2,
-      "order": 139,
+      "order": 141,
       "text": "Florida, Louisiana,",
       "rect": {
         "left": 229.2,
@@ -1908,7 +1930,7 @@
     },
     {
       "page": 2,
-      "order": 140,
+      "order": 142,
       "text": "Department of the",
       "rect": {
         "left": 326,
@@ -1919,7 +1941,7 @@
     },
     {
       "page": 2,
-      "order": 141,
+      "order": 143,
       "text": "If you or your spouse changed your name",
       "rect": {
         "left": 36,
@@ -1930,7 +1952,7 @@
     },
     {
       "page": 2,
-      "order": 142,
+      "order": 144,
       "text": "and intelligence agencies to combat terrorism.",
       "rect": {
         "left": 410.4,
@@ -1941,7 +1963,7 @@
     },
     {
       "page": 2,
-      "order": 143,
+      "order": 145,
       "text": "Mississippi, Texas",
       "rect": {
         "left": 229.2,
@@ -1952,7 +1974,7 @@
     },
     {
       "page": 2,
-      "order": 144,
+      "order": 146,
       "text": "Treasury",
       "rect": {
         "left": 355.71,
@@ -1963,7 +1985,7 @@
     },
     {
       "page": 2,
-      "order": 145,
+      "order": 147,
       "text": "because of marriage, divorce, etc., complete",
       "rect": {
         "left": 36,
@@ -1974,7 +1996,7 @@
     },
     {
       "page": 2,
-      "order": 146,
+      "order": 148,
       "text": "The use of this form is voluntary. However,",
       "rect": {
         "left": 418.4,
@@ -1985,7 +2007,7 @@
     },
     {
       "page": 2,
-      "order": 147,
+      "order": 149,
       "text": "Internal Revenue",
       "rect": {
         "left": 330.29,
@@ -1996,7 +2018,7 @@
     },
     {
       "page": 2,
-      "order": 148,
+      "order": 150,
       "text": "line 5. Also, be sure to notify the Social",
       "rect": {
         "left": 36,
@@ -2007,7 +2029,7 @@
     },
     {
       "page": 2,
-      "order": 149,
+      "order": 151,
       "text": "if you fail to provide the Internal Revenue",
       "rect": {
         "left": 410.4,
@@ -2018,7 +2040,7 @@
     },
     {
       "page": 2,
-      "order": 150,
+      "order": 152,
       "text": "Service",
       "rect": {
         "left": 359.6,
@@ -2029,7 +2051,7 @@
     },
     {
       "page": 2,
-      "order": 151,
+      "order": 153,
       "text": "Security Administration of your new name so",
       "rect": {
         "left": 36,
@@ -2040,7 +2062,7 @@
     },
     {
       "page": 2,
-      "order": 152,
+      "order": 154,
       "text": "Austin, TX",
       "rect": {
         "left": 351.04,
@@ -2051,7 +2073,7 @@
     },
     {
       "page": 2,
-      "order": 153,
+      "order": 155,
       "text": "Service with your current mailing address, you",
       "rect": {
         "left": 410.4,
@@ -2062,7 +2084,7 @@
     },
     {
       "page": 2,
-      "order": 154,
+      "order": 156,
       "text": "that it has the same name in its records that",
       "rect": {
         "left": 36,
@@ -2073,7 +2095,7 @@
     },
     {
       "page": 2,
-      "order": 155,
+      "order": 157,
       "text": "73301-0023",
       "rect": {
         "left": 345.05,
@@ -2084,7 +2106,7 @@
     },
     {
       "page": 2,
-      "order": 156,
+      "order": 158,
       "text": "may not receive a notice of deficiency or a",
       "rect": {
         "left": 410.4,
@@ -2095,7 +2117,7 @@
     },
     {
       "page": 2,
-      "order": 157,
+      "order": 159,
       "text": "you have on your tax return. This prevents",
       "rect": {
         "left": 36,
@@ -2106,7 +2128,7 @@
     },
     {
       "page": 2,
-      "order": 158,
+      "order": 160,
       "text": "notice and demand for tax. Despite the failure",
       "rect": {
         "left": 410.4,
@@ -2117,7 +2139,7 @@
     },
     {
       "page": 2,
-      "order": 159,
+      "order": 161,
       "text": "Alaska, Arizona, California,",
       "rect": {
         "left": 229.2,
@@ -2128,7 +2150,7 @@
     },
     {
       "page": 2,
-      "order": 160,
+      "order": 162,
       "text": "Department of the",
       "rect": {
         "left": 326,
@@ -2139,7 +2161,7 @@
     },
     {
       "page": 2,
-      "order": 161,
+      "order": 163,
       "text": "delays in processing your return and issuing",
       "rect": {
         "left": 36,
@@ -2150,7 +2172,7 @@
     },
     {
       "page": 2,
-      "order": 162,
+      "order": 164,
       "text": "to receive such notices, penalties and interest",
       "rect": {
         "left": 410.4,
@@ -2161,7 +2183,7 @@
     },
     {
       "page": 2,
-      "order": 163,
+      "order": 165,
       "text": "Colorado, Connecticut,",
       "rect": {
         "left": 229.2,
@@ -2172,7 +2194,7 @@
     },
     {
       "page": 2,
-      "order": 164,
+      "order": 166,
       "text": "Treasury",
       "rect": {
         "left": 355.71,
@@ -2183,7 +2205,7 @@
     },
     {
       "page": 2,
-      "order": 165,
+      "order": 167,
       "text": "refunds. It also safeguards your future social",
       "rect": {
         "left": 36,
@@ -2194,7 +2216,7 @@
     },
     {
       "page": 2,
-      "order": 166,
+      "order": 168,
       "text": "District of Columbia,",
       "rect": {
         "left": 229.2,
@@ -2205,7 +2227,7 @@
     },
     {
       "page": 2,
-      "order": 167,
+      "order": 169,
       "text": "Internal Revenue",
       "rect": {
         "left": 330.29,
@@ -2216,7 +2238,7 @@
     },
     {
       "page": 2,
-      "order": 168,
+      "order": 170,
       "text": "will continue to accrue on the tax deficiencies.",
       "rect": {
         "left": 410.4,
@@ -2227,7 +2249,7 @@
     },
     {
       "page": 2,
-      "order": 169,
+      "order": 171,
       "text": "security benefits.",
       "rect": {
         "left": 36,
@@ -2238,7 +2260,7 @@
     },
     {
       "page": 2,
-      "order": 170,
+      "order": 172,
       "text": "Hawaii, Idaho, Kansas,",
       "rect": {
         "left": 229.2,
@@ -2249,7 +2271,7 @@
     },
     {
       "page": 2,
-      "order": 171,
+      "order": 173,
       "text": "Service",
       "rect": {
         "left": 359.6,
@@ -2260,7 +2282,7 @@
     },
     {
       "page": 2,
-      "order": 172,
+      "order": 174,
       "text": "You are not required to provide the",
       "rect": {
         "left": 418.4,
@@ -2271,7 +2293,7 @@
     },
     {
       "page": 2,
-      "order": 173,
+      "order": 175,
       "text": "Maryland, Michigan,",
       "rect": {
         "left": 229.2,
@@ -2282,7 +2304,7 @@
     },
     {
       "page": 2,
-      "order": 174,
+      "order": 176,
       "text": "Ogden, UT",
       "rect": {
         "left": 348.7,
@@ -2293,7 +2315,7 @@
     },
     {
       "page": 2,
-      "order": 175,
+      "order": 177,
       "text": "Addresses",
       "rect": {
         "left": 36,
@@ -2304,7 +2326,7 @@
     },
     {
       "page": 2,
-      "order": 176,
+      "order": 178,
       "text": "information requested on a form that is",
       "rect": {
         "left": 410.4,
@@ -2315,7 +2337,7 @@
     },
     {
       "page": 2,
-      "order": 177,
+      "order": 179,
       "text": "Montana, Nebraska,",
       "rect": {
         "left": 229.2,
@@ -2326,7 +2348,7 @@
     },
     {
       "page": 2,
-      "order": 178,
+      "order": 180,
       "text": "84201-0023",
       "rect": {
         "left": 345.05,
@@ -2337,7 +2359,7 @@
     },
     {
       "page": 2,
-      "order": 179,
+      "order": 181,
       "text": "subject to the Paperwork Reduction Act",
       "rect": {
         "left": 410.4,
@@ -2348,7 +2370,7 @@
     },
     {
       "page": 2,
-      "order": 180,
+      "order": 182,
       "text": "Nevada, New Mexico,",
       "rect": {
         "left": 229.2,
@@ -2359,7 +2381,7 @@
     },
     {
       "page": 2,
-      "order": 181,
+      "order": 183,
       "text": "Be sure to include any apartment, room, or",
       "rect": {
         "left": 36,
@@ -2370,7 +2392,7 @@
     },
     {
       "page": 2,
-      "order": 182,
+      "order": 184,
       "text": "North Dakota, Ohio,",
       "rect": {
         "left": 229.2,
@@ -2381,7 +2403,7 @@
     },
     {
       "page": 2,
-      "order": 183,
+      "order": 185,
       "text": "unless the form displays a valid OMB control",
       "rect": {
         "left": 410.4,
@@ -2392,7 +2414,7 @@
     },
     {
       "page": 2,
-      "order": 184,
+      "order": 186,
       "text": "suite number in the space provided.",
       "rect": {
         "left": 36,
@@ -2403,7 +2425,7 @@
     },
     {
       "page": 2,
-      "order": 185,
+      "order": 187,
       "text": "Oregon, Pennsylvania,",
       "rect": {
         "left": 229.2,
@@ -2414,7 +2436,7 @@
     },
     {
       "page": 2,
-      "order": 186,
+      "order": 188,
       "text": "number. Books or records relating to a form",
       "rect": {
         "left": 410.4,
@@ -2425,7 +2447,7 @@
     },
     {
       "page": 2,
-      "order": 187,
+      "order": 189,
       "text": "Rhode Island, South",
       "rect": {
         "left": 229.2,
@@ -2436,7 +2458,7 @@
     },
     {
       "page": 2,
-      "order": 188,
+      "order": 190,
       "text": "or its instructions must be retained as long as",
       "rect": {
         "left": 410.4,
@@ -2447,7 +2469,7 @@
     },
     {
       "page": 2,
-      "order": 189,
+      "order": 191,
       "text": "P.O. Box",
       "rect": {
         "left": 36,
@@ -2458,7 +2480,7 @@
     },
     {
       "page": 2,
-      "order": 190,
+      "order": 192,
       "text": "Dakota, Utah, Washington,",
       "rect": {
         "left": 229.2,
@@ -2469,7 +2491,7 @@
     },
     {
       "page": 2,
-      "order": 191,
+      "order": 193,
       "text": "their contents may become material in the",
       "rect": {
         "left": 410.4,
@@ -2480,7 +2502,7 @@
     },
     {
       "page": 2,
-      "order": 192,
+      "order": 194,
       "text": "West Virginia, Wyoming",
       "rect": {
         "left": 229.2,
@@ -2491,7 +2513,7 @@
     },
     {
       "page": 2,
-      "order": 193,
+      "order": 195,
       "text": "Enter your box number instead of your street",
       "rect": {
         "left": 36,
@@ -2502,7 +2524,7 @@
     },
     {
       "page": 2,
-      "order": 194,
+      "order": 196,
       "text": "administration of any Internal Revenue law.",
       "rect": {
         "left": 410.4,
@@ -2513,7 +2535,7 @@
     },
     {
       "page": 2,
-      "order": 195,
+      "order": 197,
       "text": "address only if your post office does not",
       "rect": {
         "left": 36,
@@ -2524,7 +2546,7 @@
     },
     {
       "page": 2,
-      "order": 196,
+      "order": 198,
       "text": "A foreign country,",
       "rect": {
         "left": 229.2,
@@ -2535,7 +2557,7 @@
     },
     {
       "page": 2,
-      "order": 197,
+      "order": 199,
       "text": "Department of the",
       "rect": {
         "left": 326,
@@ -2546,7 +2568,7 @@
     },
     {
       "page": 2,
-      "order": 198,
+      "order": 200,
       "text": "The time needed to complete and file this",
       "rect": {
         "left": 418.4,
@@ -2557,7 +2579,7 @@
     },
     {
       "page": 2,
-      "order": 199,
+      "order": 201,
       "text": "deliver mail to your street address.",
       "rect": {
         "left": 36,
@@ -2568,7 +2590,7 @@
     },
     {
       "page": 2,
-      "order": 200,
+      "order": 202,
       "text": "American Samoa, or",
       "rect": {
         "left": 229.2,
@@ -2579,7 +2601,7 @@
     },
     {
       "page": 2,
-      "order": 201,
+      "order": 203,
       "text": "Treasury",
       "rect": {
         "left": 355.71,
@@ -2590,7 +2612,7 @@
     },
     {
       "page": 2,
-      "order": 202,
+      "order": 204,
       "text": "form will vary depending on individual",
       "rect": {
         "left": 410.4,
@@ -2601,7 +2623,7 @@
     },
     {
       "page": 2,
-      "order": 203,
+      "order": 205,
       "text": "Puerto Rico (or are",
       "rect": {
         "left": 229.2,
@@ -2612,7 +2634,7 @@
     },
     {
       "page": 2,
-      "order": 204,
+      "order": 206,
       "text": "Internal Revenue",
       "rect": {
         "left": 330.29,
@@ -2623,7 +2645,7 @@
     },
     {
       "page": 2,
-      "order": 205,
+      "order": 207,
       "text": "Foreign Address",
       "rect": {
         "left": 36,
@@ -2634,7 +2656,7 @@
     },
     {
       "page": 2,
-      "order": 206,
+      "order": 208,
       "text": "circumstances. The estimated average time is",
       "rect": {
         "left": 410.4,
@@ -2645,7 +2667,7 @@
     },
     {
       "page": 2,
-      "order": 207,
+      "order": 209,
       "text": "excluding income under",
       "rect": {
         "left": 229.2,
@@ -2656,7 +2678,7 @@
     },
     {
       "page": 2,
-      "order": 208,
+      "order": 210,
       "text": "Service",
       "rect": {
         "left": 359.6,
@@ -2667,7 +2689,7 @@
     },
     {
       "page": 2,
-      "order": 209,
+      "order": 211,
       "text": "16 minutes.",
       "rect": {
         "left": 410.4,
@@ -2678,7 +2700,7 @@
     },
     {
       "page": 2,
-      "order": 210,
+      "order": 212,
       "text": "Internal Revenue Code",
       "rect": {
         "left": 229.2,
@@ -2689,7 +2711,7 @@
     },
     {
       "page": 2,
-      "order": 211,
+      "order": 213,
       "text": "Austin, TX",
       "rect": {
         "left": 351.04,
@@ -2700,7 +2722,7 @@
     },
     {
       "page": 2,
-      "order": 212,
+      "order": 214,
       "text": "Follow the country\u2019s practice for entering the",
       "rect": {
         "left": 36,
@@ -2711,7 +2733,7 @@
     },
     {
       "page": 2,
-      "order": 213,
+      "order": 215,
       "text": "section 933), or use an",
       "rect": {
         "left": 229.2,
@@ -2722,7 +2744,7 @@
     },
     {
       "page": 2,
-      "order": 214,
+      "order": 216,
       "text": "73301-0023",
       "rect": {
         "left": 345.05,
@@ -2733,7 +2755,7 @@
     },
     {
       "page": 2,
-      "order": 215,
+      "order": 217,
       "text": "Comments. You can send comments from",
       "rect": {
         "left": 410.4,
@@ -2744,7 +2766,7 @@
     },
     {
       "page": 2,
-      "order": 216,
+      "order": 218,
       "text": "postal code. Please do not abbreviate the",
       "rect": {
         "left": 36,
@@ -2755,7 +2777,7 @@
     },
     {
       "page": 2,
-      "order": 217,
+      "order": 219,
       "text": "APO or FPO address, or",
       "rect": {
         "left": 229.2,
@@ -2766,7 +2788,7 @@
     },
     {
       "page": 2,
-      "order": 218,
+      "order": 220,
       "text": "www.irs.gov/FormComments. Or you can write",
       "rect": {
         "left": 410.4,
@@ -2777,7 +2799,7 @@
     },
     {
       "page": 2,
-      "order": 219,
+      "order": 221,
       "text": "country.",
       "rect": {
         "left": 36,
@@ -2788,7 +2810,7 @@
     },
     {
       "page": 2,
-      "order": 220,
+      "order": 222,
       "text": "file Form 2555, 2555-EZ,",
       "rect": {
         "left": 229.2,
@@ -2799,7 +2821,7 @@
     },
     {
       "page": 2,
-      "order": 221,
+      "order": 223,
       "text": "to the Internal Revenue Service, Tax Forms",
       "rect": {
         "left": 410.4,
@@ -2810,7 +2832,7 @@
     },
     {
       "page": 2,
-      "order": 222,
+      "order": 224,
       "text": "or 4563, or are a dual-",
       "rect": {
         "left": 229.2,
@@ -2821,7 +2843,7 @@
     },
     {
       "page": 2,
-      "order": 223,
+      "order": 225,
       "text": "\u201CIn Care of\u201D Address",
       "rect": {
         "left": 36,
@@ -2832,7 +2854,7 @@
     },
     {
       "page": 2,
-      "order": 224,
+      "order": 226,
       "text": "and Publications Division, 1111 Constitution",
       "rect": {
         "left": 410.4,
@@ -2843,7 +2865,7 @@
     },
     {
       "page": 2,
-      "order": 225,
+      "order": 227,
       "text": "status alien or non bona",
       "rect": {
         "left": 229.2,
@@ -2854,7 +2876,7 @@
     },
     {
       "page": 2,
-      "order": 226,
+      "order": 228,
       "text": "Ave. NW, IR-6526, Washington, DC 20224. DO",
       "rect": {
         "left": 410.4,
@@ -2865,7 +2887,7 @@
     },
     {
       "page": 2,
-      "order": 227,
+      "order": 229,
       "text": "fide resident of Guam or",
       "rect": {
         "left": 229.2,
@@ -2876,7 +2898,7 @@
     },
     {
       "page": 2,
-      "order": 228,
+      "order": 230,
       "text": "If you receive your mail in care of a third party",
       "rect": {
         "left": 36,
@@ -2887,7 +2909,7 @@
     },
     {
       "page": 2,
-      "order": 229,
+      "order": 231,
       "text": "NOT SEND THE FORM TO THIS ADDRESS.",
       "rect": {
         "left": 410.4,
@@ -2898,7 +2920,7 @@
     },
     {
       "page": 2,
-      "order": 230,
+      "order": 232,
       "text": "the Virgin Islands.",
       "rect": {
         "left": 229.2,
@@ -2909,7 +2931,7 @@
     },
     {
       "page": 2,
-      "order": 231,
+      "order": 233,
       "text": "(such as an accountant or attorney), enter",
       "rect": {
         "left": 36,
@@ -2920,7 +2942,7 @@
     },
     {
       "page": 2,
-      "order": 232,
+      "order": 234,
       "text": "Instead, see Where To File, earlier.",
       "rect": {
         "left": 410.4,
@@ -2931,7 +2953,7 @@
     },
     {
       "page": 2,
-      "order": 233,
+      "order": 235,
       "text": "\u201CC/O\u201D followed by the third party\u2019s name and",
       "rect": {
         "left": 36,
@@ -2942,7 +2964,7 @@
     },
     {
       "page": 2,
-      "order": 234,
+      "order": 236,
       "text": "Guam:",
       "rect": {
         "left": 229.2,
@@ -2953,7 +2975,7 @@
     },
     {
       "page": 2,
-      "order": 235,
+      "order": 237,
       "text": "Department of",
       "rect": {
         "left": 337.8,
@@ -2964,7 +2986,7 @@
     },
     {
       "page": 2,
-      "order": 236,
+      "order": 238,
       "text": "street address or P.O. box.",
       "rect": {
         "left": 36,
@@ -2975,7 +2997,7 @@
     },
     {
       "page": 2,
-      "order": 237,
+      "order": 239,
       "text": "bona fide residents",
       "rect": {
         "left": 229.2,
@@ -2986,7 +3008,7 @@
     },
     {
       "page": 2,
-      "order": 238,
+      "order": 240,
       "text": "Revenue and",
       "rect": {
         "left": 341.7,
@@ -2997,7 +3019,7 @@
     },
     {
       "page": 2,
-      "order": 239,
+      "order": 241,
       "text": "Signature",
       "rect": {
         "left": 36,
@@ -3008,7 +3030,7 @@
     },
     {
       "page": 2,
-      "order": 240,
+      "order": 242,
       "text": "Taxation",
       "rect": {
         "left": 355.97,
@@ -3019,7 +3041,7 @@
     },
     {
       "page": 2,
-      "order": 241,
+      "order": 243,
       "text": "Government of",
       "rect": {
         "left": 336.12,
@@ -3030,7 +3052,7 @@
     },
     {
       "page": 2,
-      "order": 242,
+      "order": 244,
       "text": "Guam",
       "rect": {
         "left": 363.87,
@@ -3041,7 +3063,7 @@
     },
     {
       "page": 2,
-      "order": 243,
+      "order": 245,
       "text": "The taxpayer, executor, donor, or an",
       "rect": {
         "left": 36,
@@ -3052,7 +3074,7 @@
     },
     {
       "page": 2,
-      "order": 244,
+      "order": 246,
       "text": "P.O. Box 23607",
       "rect": {
         "left": 333.26,
@@ -3063,7 +3085,7 @@
     },
     {
       "page": 2,
-      "order": 245,
+      "order": 247,
       "text": "authorized representative must sign. If your",
       "rect": {
         "left": 36,
@@ -3074,7 +3096,7 @@
     },
     {
       "page": 2,
-      "order": 246,
+      "order": 248,
       "text": "GMF, GU 96921",
       "rect": {
         "left": 331.71,
@@ -3085,7 +3107,7 @@
     },
     {
       "page": 2,
-      "order": 247,
+      "order": 249,
       "text": "last return was a joint return, your spouse",
       "rect": {
         "left": 36,
@@ -3096,7 +3118,7 @@
     },
     {
       "page": 2,
-      "order": 248,
+      "order": 250,
       "text": "Virgin Islands:",
       "rect": {
         "left": 229.2,
@@ -3107,7 +3129,7 @@
     },
     {
       "page": 2,
-      "order": 249,
+      "order": 251,
       "text": "V.I. Bureau of",
       "rect": {
         "left": 340.41,
@@ -3118,7 +3140,7 @@
     },
     {
       "page": 2,
-      "order": 250,
+      "order": 252,
       "text": "must also sign (unless you have indicated by",
       "rect": {
         "left": 36,
@@ -3129,7 +3151,7 @@
     },
     {
       "page": 2,
-      "order": 251,
+      "order": 253,
       "text": "bona fide residents",
       "rect": {
         "left": 229.2,
@@ -3140,7 +3162,7 @@
     },
     {
       "page": 2,
-      "order": 252,
+      "order": 254,
       "text": "Internal Revenue",
       "rect": {
         "left": 330.29,
@@ -3151,7 +3173,7 @@
     },
     {
       "page": 2,
-      "order": 253,
+      "order": 255,
       "text": "checking the box on line 1 that you are",
       "rect": {
         "left": 36,
@@ -3162,7 +3184,7 @@
     },
     {
       "page": 2,
-      "order": 254,
+      "order": 256,
       "text": "6115 Estate",
       "rect": {
         "left": 345.58,
@@ -3173,7 +3195,7 @@
     },
     {
       "page": 2,
-      "order": 255,
+      "order": 257,
       "text": "establishing a separate residence).",
       "rect": {
         "left": 36,
@@ -3184,7 +3206,7 @@
     },
     {
       "page": 2,
-      "order": 256,
+      "order": 258,
       "text": "Smith Bay,",
       "rect": {
         "left": 348.7,
@@ -3195,7 +3217,7 @@
     },
     {
       "page": 2,
-      "order": 257,
+      "order": 259,
       "text": "\u25B2! must attach to Form 8822 a copy",
       "rect": {
         "left": 37.77,
@@ -3206,7 +3228,7 @@
     },
     {
       "page": 2,
-      "order": 258,
+      "order": 260,
       "text": "Suite 225",
       "rect": {
         "left": 353.23,
@@ -3217,7 +3239,7 @@
     },
     {
       "page": 2,
-      "order": 259,
+      "order": 261,
       "text": "If you are a representative signing",
       "rect": {
         "left": 78,
@@ -3228,7 +3250,7 @@
     },
     {
       "page": 2,
-      "order": 260,
+      "order": 262,
       "text": "St. Thomas, VI 00802",
       "rect": {
         "left": 318.31,
@@ -3239,7 +3261,7 @@
     },
     {
       "page": 2,
-      "order": 261,
+      "order": 263,
       "text": "on behalf of the taxpayer, you",
       "rect": {
         "left": 78,
@@ -3250,7 +3272,7 @@
     },
     {
       "page": 2,
-      "order": 262,
+      "order": 264,
       "text": "CAUTION",
       "rect": {
         "left": 38.41,
@@ -3261,7 +3283,7 @@
     },
     {
       "page": 2,
-      "order": 263,
+      "order": 265,
       "text": "of your power of attorney. To do",
       "rect": {
         "left": 78,
@@ -3272,7 +3294,7 @@
     },
     {
       "page": 2,
-      "order": 264,
+      "order": 266,
       "text": "this, you can use Form 2848. The Internal",
       "rect": {
         "left": 36,
@@ -3283,7 +3305,7 @@
     },
     {
       "page": 2,
-      "order": 265,
+      "order": 267,
       "text": "Revenue Service will not complete an",
       "rect": {
         "left": 36,
@@ -3294,7 +3316,7 @@
     },
     {
       "page": 2,
-      "order": 266,
+      "order": 268,
       "text": "address change from an \u201Cunauthorized\u201D third",
       "rect": {
         "left": 36,
@@ -3305,7 +3327,7 @@
     },
     {
       "page": 2,
-      "order": 267,
+      "order": 269,
       "text": "party.",
       "rect": {
         "left": 36,

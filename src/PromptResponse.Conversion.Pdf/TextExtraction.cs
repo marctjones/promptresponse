@@ -42,6 +42,17 @@ public static class TextExtraction
     /// <summary>The smallest gap that may end the run, in points.</summary>
     public const double MinimumColumnGap = 8.0;
 
+    /// <summary>A gap this many times the glyph height is a column break whatever else is on the line.</summary>
+    /// <remarks>
+    /// The ceiling on the relative rule. Swept against the label oracles: 3
+    /// and 4 score 212 and 213 agreed, 6 and 8 both score 215, and no ceiling
+    /// at all scores 213. Six is where it settles — tight enough to break
+    /// SS-4's one-word caption cells, loose enough not to cut into the
+    /// stretched word spacing of justified text, which is what a smaller cap
+    /// does to fed-ss4's precision (94% down to 89% at a cap of 3).
+    /// </remarks>
+    public const double AbsoluteBreakMultiple = 6.0;
+
     /// <summary>Reads every page's text runs, with page-relative size metrics.</summary>
     public static IReadOnlyList<MeasuredSpan> Extract(string path)
     {
@@ -132,7 +143,18 @@ public static class TextExtraction
         // line that is mostly column breaks. See ColumnGapMultiple.
         var sorted = gaps.Where(g => g > 0).Order().ToArray();
         var typical = sorted.Length == 0 ? 0 : sorted[sorted.Length / 4];
-        var threshold = Math.Max(MinimumColumnGap, typical * ColumnGapMultiple);
+
+        // Capped at a few times the line's own glyph height, because the
+        // quartile has nothing to work with when EVERY gap on the line is a
+        // column break. SS-4's line 13 is three one-word captions --
+        // "Agricultural", "Household", "Other" -- in three ruled cells, so both
+        // its gaps are ~50pt, the quartile is 50, the threshold becomes 150 and
+        // the row survives as one run. A 50pt gap in 8pt type is a column break
+        // whatever the rest of the line looks like.
+        var height = inOrder.Max(w => w.BoundingBox.Height);
+        var threshold = Math.Min(
+            Math.Max(MinimumColumnGap, typical * ColumnGapMultiple),
+            Math.Max(MinimumColumnGap, height * AbsoluteBreakMultiple));
 
         var runs = new List<List<Word>>();
         runs.Add([inOrder[0]]);

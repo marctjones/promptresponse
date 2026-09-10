@@ -2541,9 +2541,20 @@
     {
       "page": 1,
       "order": 116,
-      "text": "Agricultural Household Other",
+      "text": "Agricultural Household",
       "rect": {
         "left": 80.58,
+        "bottom": 268.46,
+        "right": 206.54,
+        "top": 276.46
+      }
+    },
+    {
+      "page": 1,
+      "order": 117,
+      "text": "Other",
+      "rect": {
+        "left": 270.8,
         "bottom": 268.46,
         "right": 290.8,
         "top": 276.46
@@ -2551,7 +2562,7 @@
     },
     {
       "page": 1,
-      "order": 117,
+      "order": 118,
       "text": "you\u0027re in a U.S. territory, in total wages.) If you don\u0027t check this box,",
       "rect": {
         "left": 350.6,
@@ -2562,7 +2573,7 @@
     },
     {
       "page": 1,
-      "order": 118,
+      "order": 119,
       "text": "you must file Form 941 for every quarter",
       "rect": {
         "left": 350.6,
@@ -2573,7 +2584,7 @@
     },
     {
       "page": 1,
-      "order": 119,
+      "order": 120,
       "text": ".",
       "rect": {
         "left": 492,
@@ -2584,7 +2595,7 @@
     },
     {
       "page": 1,
-      "order": 120,
+      "order": 121,
       "text": ".",
       "rect": {
         "left": 504,
@@ -2595,7 +2606,7 @@
     },
     {
       "page": 1,
-      "order": 121,
+      "order": 122,
       "text": ".",
       "rect": {
         "left": 516.01,
@@ -2606,7 +2617,7 @@
     },
     {
       "page": 1,
-      "order": 122,
+      "order": 123,
       "text": ".",
       "rect": {
         "left": 528.01,
@@ -2617,7 +2628,7 @@
     },
     {
       "page": 1,
-      "order": 123,
+      "order": 124,
       "text": ".",
       "rect": {
         "left": 540.01,
@@ -2628,7 +2639,7 @@
     },
     {
       "page": 1,
-      "order": 124,
+      "order": 125,
       "text": ".",
       "rect": {
         "left": 552.01,
@@ -2639,7 +2650,7 @@
     },
     {
       "page": 1,
-      "order": 125,
+      "order": 126,
       "text": "15",
       "rect": {
         "left": 36,
@@ -2650,7 +2661,7 @@
     },
     {
       "page": 1,
-      "order": 126,
+      "order": 127,
       "text": "First date wages or annuities were paid (month, day, year). Note: If applicant is a withholding agent, enter date income will first be paid to",
       "rect": {
         "left": 57.6,
@@ -2661,7 +2672,7 @@
     },
     {
       "page": 1,
-      "order": 127,
+      "order": 128,
       "text": "nonresident alien (month, day, year) . . . . . . . . . . . . . . . . .",
       "rect": {
         "left": 57.6,
@@ -2672,7 +2683,7 @@
     },
     {
       "page": 1,
-      "order": 128,
+      "order": 129,
       "text": "16",
       "rect": {
         "left": 36,
@@ -2683,7 +2694,7 @@
     },
     {
       "page": 1,
-      "order": 129,
+      "order": 130,
       "text": "Check one box that best describes the principal activity of your business.",
       "rect": {
         "left": 57.6,
@@ -2694,7 +2705,7 @@
     },
     {
       "page": 1,
-      "order": 130,
+      "order": 131,
       "text": "Health care \u0026 social assistance",
       "rect": {
         "left": 332.4,
@@ -2705,7 +2716,7 @@
     },
     {
       "page": 1,
-      "order": 131,
+      "order": 132,
       "text": "Wholesale\u2014agent/broker",
       "rect": {
         "left": 462,
@@ -2716,7 +2727,7 @@
     },
     {
       "page": 1,
-      "order": 132,
+      "order": 133,
       "text": "Construction",
       "rect": {
         "left": 73.2,
@@ -2727,7 +2738,7 @@
     },
     {
       "page": 1,
-      "order": 133,
+      "order": 134,
       "text": "Rental \u0026 leasing",
       "rect": {
         "left": 138,
@@ -2738,7 +2749,7 @@
     },
     {
       "page": 1,
-      "order": 134,
+      "order": 135,
       "text": "Transportation \u0026 warehousing",
       "rect": {
         "left": 217.2,
@@ -2749,7 +2760,7 @@
     },
     {
       "page": 1,
-      "order": 135,
+      "order": 136,
       "text": "Accommodation \u0026 food service",
       "rect": {
         "left": 332.4,
@@ -2760,7 +2771,7 @@
     },
     {
       "page": 1,
-      "order": 136,
+      "order": 137,
       "text": "Wholesale\u2014other",
       "rect": {
         "left": 462,
@@ -2771,7 +2782,7 @@
     },
     {
       "page": 1,
-      "order": 137,
+      "order": 138,
       "text": "Retail",
       "rect": {
         "left": 548.4,
@@ -2782,7 +2793,7 @@
     },
     {
       "page": 1,
-      "order": 138,
+      "order": 139,
       "text": "Real estate",
       "rect": {
         "left": 73.2,
@@ -2793,7 +2804,7 @@
     },
     {
       "page": 1,
-      "order": 139,
+      "order": 140,
       "text": "Manufacturing",
       "rect": {
         "left": 138,
@@ -2804,7 +2815,7 @@
     },
     {
       "page": 1,
-      "order": 140,
+      "order": 141,
       "text": "Finance \u0026 insurance",
       "rect": {
         "left": 217.2,
@@ -2815,7 +2826,7 @@
     },
     {
       "page": 1,
-      "order": 141,
+      "order": 142,
       "text": "Other (specify)",
       "rect": {
         "left": 332.4,
@@ -2826,7 +2837,7 @@
     },
     {
       "page": 1,
-      "order": 142,
+      "order": 143,
       "text": "Indicate principal line of merchandise sold, specific construction work done, products produced, or services provided.",
       "rect": {
         "left": 57.6,
@@ -2837,7 +2848,7 @@
     },
     {
       "page": 1,
-      "order": 143,
+      "order": 144,
       "text": "17",
       "rect": {
         "left": 36,
@@ -2848,7 +2859,7 @@
     },
     {
       "page": 1,
-      "order": 144,
+      "order": 145,
       "text": "18",
       "rect": {
         "left": 36,
@@ -2859,7 +2870,7 @@
     },
     {
       "page": 1,
-      "order": 145,
+      "order": 146,
       "text": "Has the applicant entity shown on line 1 ever applied for and received an EIN?",
       "rect": {
         "left": 57.6,
@@ -2870,7 +2881,7 @@
     },
     {
       "page": 1,
-      "order": 146,
+      "order": 147,
       "text": "Yes",
       "rect": {
         "left": 368.4,
@@ -2881,7 +2892,7 @@
     },
     {
       "page": 1,
-      "order": 147,
+      "order": 148,
       "text": "No",
       "rect": {
         "left": 411.6,
@@ -2892,7 +2903,7 @@
     },
     {
       "page": 1,
-      "order": 148,
+      "order": 149,
       "text": "If \u201CYes,\u201D write previous EIN here",
       "rect": {
         "left": 57.6,
@@ -2903,7 +2914,7 @@
     },
     {
       "page": 1,
-      "order": 149,
+      "order": 150,
       "text": "Complete this section only if you want to authorize the named individual to receive the entity\u2019s EIN and answer questions about the completion of this form.",
       "rect": {
         "left": 90.4,
@@ -2914,7 +2925,7 @@
     },
     {
       "page": 1,
-      "order": 150,
+      "order": 151,
       "text": "Designee\u2019s name",
       "rect": {
         "left": 90.4,
@@ -2925,7 +2936,7 @@
     },
     {
       "page": 1,
-      "order": 151,
+      "order": 152,
       "text": "Third",
       "rect": {
         "left": 36,
@@ -2936,7 +2947,7 @@
     },
     {
       "page": 1,
-      "order": 152,
+      "order": 153,
       "text": "Designee\u2019s telephone number (include area code)",
       "rect": {
         "left": 434,
@@ -2947,7 +2958,7 @@
     },
     {
       "page": 1,
-      "order": 153,
+      "order": 154,
       "text": "Party",
       "rect": {
         "left": 36,
@@ -2958,7 +2969,7 @@
     },
     {
       "page": 1,
-      "order": 154,
+      "order": 155,
       "text": "Designee",
       "rect": {
         "left": 36,
@@ -2969,7 +2980,7 @@
     },
     {
       "page": 1,
-      "order": 155,
+      "order": 156,
       "text": "Address and ZIP code",
       "rect": {
         "left": 90.4,
@@ -2980,7 +2991,7 @@
     },
     {
       "page": 1,
-      "order": 156,
+      "order": 157,
       "text": "Designee\u2019s fax number (include area code)",
       "rect": {
         "left": 434,
@@ -2991,7 +3002,7 @@
     },
     {
       "page": 1,
-      "order": 157,
+      "order": 158,
       "text": "Under penalties of perjury, I declare that I have examined this application, and to the best of my knowledge and belief, it is true, correct, and complete. Applicant\u2019s telephone number (include area code)",
       "rect": {
         "left": 36,
@@ -3002,7 +3013,7 @@
     },
     {
       "page": 1,
-      "order": 158,
+      "order": 159,
       "text": "Name and title (type or print clearly)",
       "rect": {
         "left": 36,
@@ -3013,7 +3024,7 @@
     },
     {
       "page": 1,
-      "order": 159,
+      "order": 160,
       "text": "Applicant\u2019s fax number (include area code)",
       "rect": {
         "left": 434,
@@ -3024,10 +3035,21 @@
     },
     {
       "page": 1,
-      "order": 160,
-      "text": "Signature Date",
+      "order": 161,
+      "text": "Signature",
       "rect": {
         "left": 36,
+        "bottom": 38.97,
+        "right": 65.95,
+        "top": 45.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 162,
+      "text": "Date",
+      "rect": {
+        "left": 331.2,
         "bottom": 38.97,
         "right": 345.85,
         "top": 45.97
@@ -3035,7 +3057,7 @@
     },
     {
       "page": 1,
-      "order": 161,
+      "order": 163,
       "text": "Form SS-4 (Rev. 12-2025) Created 10/17/25",
       "rect": {
         "left": 429.76,
@@ -3046,7 +3068,7 @@
     },
     {
       "page": 1,
-      "order": 162,
+      "order": 164,
       "text": "For Privacy Act and Paperwork Reduction Act Notice, see separate instructions.",
       "rect": {
         "left": 36,
@@ -3057,7 +3079,7 @@
     },
     {
       "page": 1,
-      "order": 163,
+      "order": 165,
       "text": "Cat. No. 16055N",
       "rect": {
         "left": 359.01,
@@ -3068,7 +3090,7 @@
     },
     {
       "page": 2,
-      "order": 164,
+      "order": 166,
       "text": "Page 2",
       "rect": {
         "left": 552.42,
@@ -3079,7 +3101,7 @@
     },
     {
       "page": 2,
-      "order": 165,
+      "order": 167,
       "text": "Form SS-4 (Rev. 12-2025)",
       "rect": {
         "left": 36,
@@ -3090,7 +3112,7 @@
     },
     {
       "page": 2,
-      "order": 166,
+      "order": 168,
       "text": "See below to determine whether you need an EIN. However, for further information on applying for an EIN, including how to submit",
       "rect": {
         "left": 68.41,
@@ -3101,7 +3123,7 @@
     },
     {
       "page": 2,
-      "order": 167,
+      "order": 169,
       "text": "an EIN application, see the separate instructions at www.irs.gov/FormSS4.",
       "rect": {
         "left": 68.41,
@@ -3112,7 +3134,7 @@
     },
     {
       "page": 2,
-      "order": 168,
+      "order": 170,
       "text": "Do I Need an EIN?",
       "rect": {
         "left": 245.34,
@@ -3123,7 +3145,7 @@
     },
     {
       "page": 2,
-      "order": 169,
+      "order": 171,
       "text": "File Form SS-4 if the applicant entity doesn\u2019t already have an EIN but is required to show an EIN on any return, statement, or other",
       "rect": {
         "left": 64.8,
@@ -3134,7 +3156,7 @@
     },
     {
       "page": 2,
-      "order": 170,
+      "order": 172,
       "text": "document.1 See also the separate instructions for each line on Form SS-4.",
       "rect": {
         "left": 64.8,
@@ -3145,7 +3167,7 @@
     },
     {
       "page": 2,
-      "order": 171,
+      "order": 173,
       "text": "IF the applicant...",
       "rect": {
         "left": 36,
@@ -3156,7 +3178,7 @@
     },
     {
       "page": 2,
-      "order": 172,
+      "order": 174,
       "text": "AND...",
       "rect": {
         "left": 159.2,
@@ -3167,7 +3189,7 @@
     },
     {
       "page": 2,
-      "order": 173,
+      "order": 175,
       "text": "THEN...",
       "rect": {
         "left": 368,
@@ -3178,7 +3200,7 @@
     },
     {
       "page": 2,
-      "order": 174,
+      "order": 176,
       "text": "started a new business",
       "rect": {
         "left": 36,
@@ -3189,7 +3211,7 @@
     },
     {
       "page": 2,
-      "order": 175,
+      "order": 177,
       "text": "doesn\u2019t currently have (nor expect to have)",
       "rect": {
         "left": 159.2,
@@ -3200,7 +3222,7 @@
     },
     {
       "page": 2,
-      "order": 176,
+      "order": 178,
       "text": "complete lines 1, 2, 4a\u20138a, 8b\u2013c (if applicable), 9a,",
       "rect": {
         "left": 368,
@@ -3211,7 +3233,7 @@
     },
     {
       "page": 2,
-      "order": 177,
+      "order": 179,
       "text": "9b (if applicable), 10\u201314, and 16\u201318.",
       "rect": {
         "left": 368,
@@ -3222,7 +3244,7 @@
     },
     {
       "page": 2,
-      "order": 178,
+      "order": 180,
       "text": "employees",
       "rect": {
         "left": 159.2,
@@ -3233,7 +3255,7 @@
     },
     {
       "page": 2,
-      "order": 179,
+      "order": 181,
       "text": "hired (or will hire) employees,",
       "rect": {
         "left": 36,
@@ -3244,7 +3266,7 @@
     },
     {
       "page": 2,
-      "order": 180,
+      "order": 182,
       "text": "doesn\u2019t already have an EIN",
       "rect": {
         "left": 159.2,
@@ -3255,7 +3277,7 @@
     },
     {
       "page": 2,
-      "order": 181,
+      "order": 183,
       "text": "complete lines 1, 2, 4a\u20136, 7a\u2013b, 8a,",
       "rect": {
         "left": 368,
@@ -3266,7 +3288,7 @@
     },
     {
       "page": 2,
-      "order": 182,
+      "order": 184,
       "text": "including household employees",
       "rect": {
         "left": 36,
@@ -3277,7 +3299,7 @@
     },
     {
       "page": 2,
-      "order": 183,
+      "order": 185,
       "text": "8b\u2013c (if applicable), 9a, 9b (if applicable), and 10\u201318.",
       "rect": {
         "left": 368,
@@ -3288,7 +3310,7 @@
     },
     {
       "page": 2,
-      "order": 184,
+      "order": 186,
       "text": "opened a bank account",
       "rect": {
         "left": 36,
@@ -3299,7 +3321,7 @@
     },
     {
       "page": 2,
-      "order": 185,
+      "order": 187,
       "text": "needs an EIN for banking purposes only",
       "rect": {
         "left": 159.2,
@@ -3310,7 +3332,7 @@
     },
     {
       "page": 2,
-      "order": 186,
+      "order": 188,
       "text": "complete lines 1\u20135b, 7a\u2013b, 8a, 8b\u2013c",
       "rect": {
         "left": 368,
@@ -3321,7 +3343,7 @@
     },
     {
       "page": 2,
-      "order": 187,
+      "order": 189,
       "text": "(if applicable), 9a, 9b (if applicable), 10, and 18.",
       "rect": {
         "left": 368,
@@ -3332,7 +3354,7 @@
     },
     {
       "page": 2,
-      "order": 188,
+      "order": 190,
       "text": "changed type of organization",
       "rect": {
         "left": 36,
@@ -3343,7 +3365,7 @@
     },
     {
       "page": 2,
-      "order": 189,
+      "order": 191,
       "text": "either the legal character of the organization or its",
       "rect": {
         "left": 159.2,
@@ -3354,7 +3376,7 @@
     },
     {
       "page": 2,
-      "order": 190,
+      "order": 192,
       "text": "complete lines 1\u201318 (as applicable).",
       "rect": {
         "left": 368,
@@ -3365,7 +3387,7 @@
     },
     {
       "page": 2,
-      "order": 191,
+      "order": 193,
       "text": "ownership changed (for example, you incorporate a",
       "rect": {
         "left": 159.2,
@@ -3376,7 +3398,7 @@
     },
     {
       "page": 2,
-      "order": 192,
+      "order": 194,
       "text": "sole proprietorship or form a partnership)2",
       "rect": {
         "left": 159.2,
@@ -3387,7 +3409,7 @@
     },
     {
       "page": 2,
-      "order": 193,
+      "order": 195,
       "text": "doesn\u2019t already have an EIN",
       "rect": {
         "left": 159.2,
@@ -3398,7 +3420,7 @@
     },
     {
       "page": 2,
-      "order": 194,
+      "order": 196,
       "text": "complete lines 1\u201318 (as applicable).",
       "rect": {
         "left": 368,
@@ -3409,7 +3431,7 @@
     },
     {
       "page": 2,
-      "order": 195,
+      "order": 197,
       "text": "purchased a going business3",
       "rect": {
         "left": 36,
@@ -3420,7 +3442,7 @@
     },
     {
       "page": 2,
-      "order": 196,
+      "order": 198,
       "text": "created a trust",
       "rect": {
         "left": 36,
@@ -3431,7 +3453,7 @@
     },
     {
       "page": 2,
-      "order": 197,
+      "order": 199,
       "text": "the trust is other than a grantor trust or an IRA",
       "rect": {
         "left": 159.2,
@@ -3442,7 +3464,7 @@
     },
     {
       "page": 2,
-      "order": 198,
+      "order": 200,
       "text": "complete lines 1\u201318 (as applicable).",
       "rect": {
         "left": 368,
@@ -3453,7 +3475,7 @@
     },
     {
       "page": 2,
-      "order": 199,
+      "order": 201,
       "text": "trust4",
       "rect": {
         "left": 159.2,
@@ -3464,7 +3486,7 @@
     },
     {
       "page": 2,
-      "order": 200,
+      "order": 202,
       "text": "created a pension plan as a",
       "rect": {
         "left": 36,
@@ -3475,7 +3497,7 @@
     },
     {
       "page": 2,
-      "order": 201,
+      "order": 203,
       "text": "needs an EIN for reporting purposes",
       "rect": {
         "left": 159.2,
@@ -3486,7 +3508,7 @@
     },
     {
       "page": 2,
-      "order": 202,
+      "order": 204,
       "text": "complete lines 1, 3, 4a\u20135b, 7a\u2013b, 9a, 10, and 18.",
       "rect": {
         "left": 368,
@@ -3497,7 +3519,7 @@
     },
     {
       "page": 2,
-      "order": 203,
+      "order": 205,
       "text": "plan administrator5",
       "rect": {
         "left": 36,
@@ -3508,7 +3530,7 @@
     },
     {
       "page": 2,
-      "order": 204,
+      "order": 206,
       "text": "is a foreign person needing an",
       "rect": {
         "left": 36,
@@ -3519,7 +3541,7 @@
     },
     {
       "page": 2,
-      "order": 205,
+      "order": 207,
       "text": "needs an EIN to complete a Form W-8 (other than",
       "rect": {
         "left": 159.2,
@@ -3530,7 +3552,7 @@
     },
     {
       "page": 2,
-      "order": 206,
+      "order": 208,
       "text": "complete lines 1\u20135b, 7a\u2013b (SSN or ITIN as applicable),",
       "rect": {
         "left": 368,
@@ -3541,7 +3563,7 @@
     },
     {
       "page": 2,
-      "order": 207,
+      "order": 209,
       "text": "EIN to comply with IRS",
       "rect": {
         "left": 36,
@@ -3552,7 +3574,7 @@
     },
     {
       "page": 2,
-      "order": 208,
+      "order": 210,
       "text": "Form W-8ECI), avoid withholding on portfolio assets,",
       "rect": {
         "left": 159.2,
@@ -3563,7 +3585,7 @@
     },
     {
       "page": 2,
-      "order": 209,
+      "order": 211,
       "text": "8a, 8b\u2013c (if applicable), 9a, 9b (if applicable), 10,",
       "rect": {
         "left": 368,
@@ -3574,7 +3596,7 @@
     },
     {
       "page": 2,
-      "order": 210,
+      "order": 212,
       "text": "withholding regulations",
       "rect": {
         "left": 36,
@@ -3585,7 +3607,7 @@
     },
     {
       "page": 2,
-      "order": 211,
+      "order": 213,
       "text": "and 18.",
       "rect": {
         "left": 368,
@@ -3596,7 +3618,7 @@
     },
     {
       "page": 2,
-      "order": 212,
+      "order": 214,
       "text": "or claim tax treaty benefits6",
       "rect": {
         "left": 159.2,
@@ -3607,7 +3629,7 @@
     },
     {
       "page": 2,
-      "order": 213,
+      "order": 215,
       "text": "is administering an estate",
       "rect": {
         "left": 36,
@@ -3618,7 +3640,7 @@
     },
     {
       "page": 2,
-      "order": 214,
+      "order": 216,
       "text": "needs an EIN to report estate income on Form 1041",
       "rect": {
         "left": 159.2,
@@ -3629,7 +3651,7 @@
     },
     {
       "page": 2,
-      "order": 215,
+      "order": 217,
       "text": "complete lines 1\u20137b, 9a, 10\u201312, 13\u201317 (if applicable),",
       "rect": {
         "left": 368,
@@ -3640,7 +3662,7 @@
     },
     {
       "page": 2,
-      "order": 216,
+      "order": 218,
       "text": "and 18.",
       "rect": {
         "left": 368,
@@ -3651,7 +3673,7 @@
     },
     {
       "page": 2,
-      "order": 217,
+      "order": 219,
       "text": "is a withholding agent for",
       "rect": {
         "left": 36,
@@ -3662,7 +3684,7 @@
     },
     {
       "page": 2,
-      "order": 218,
+      "order": 220,
       "text": "is an agent, broker, fiduciary, manager, tenant, or",
       "rect": {
         "left": 159.2,
@@ -3673,7 +3695,7 @@
     },
     {
       "page": 2,
-      "order": 219,
+      "order": 221,
       "text": "complete lines 1, 2, 3 (if applicable), 4a\u20135b, 7a\u2013b, 8a,",
       "rect": {
         "left": 368,
@@ -3684,7 +3706,7 @@
     },
     {
       "page": 2,
-      "order": 220,
+      "order": 222,
       "text": "taxes on nonwage income",
       "rect": {
         "left": 36,
@@ -3695,7 +3717,7 @@
     },
     {
       "page": 2,
-      "order": 221,
+      "order": 223,
       "text": "spouse who is required to file Form 1042, Annual",
       "rect": {
         "left": 159.2,
@@ -3706,7 +3728,7 @@
     },
     {
       "page": 2,
-      "order": 222,
+      "order": 224,
       "text": "8b\u2013c (if applicable), 9a, 9b (if applicable), 10, and 18.",
       "rect": {
         "left": 368,
@@ -3717,7 +3739,7 @@
     },
     {
       "page": 2,
-      "order": 223,
+      "order": 225,
       "text": "paid to an alien (that is,",
       "rect": {
         "left": 36,
@@ -3728,7 +3750,7 @@
     },
     {
       "page": 2,
-      "order": 224,
+      "order": 226,
       "text": "Withholding Tax Return for U.S. Source Income of",
       "rect": {
         "left": 159.2,
@@ -3739,7 +3761,7 @@
     },
     {
       "page": 2,
-      "order": 225,
+      "order": 227,
       "text": "individual, corporation, or",
       "rect": {
         "left": 36,
@@ -3750,7 +3772,7 @@
     },
     {
       "page": 2,
-      "order": 226,
+      "order": 228,
       "text": "Foreign Persons",
       "rect": {
         "left": 159.2,
@@ -3761,7 +3783,7 @@
     },
     {
       "page": 2,
-      "order": 227,
+      "order": 229,
       "text": "partnership, etc.)",
       "rect": {
         "left": 36,
@@ -3772,7 +3794,7 @@
     },
     {
       "page": 2,
-      "order": 228,
+      "order": 230,
       "text": "is a state or local agency",
       "rect": {
         "left": 36,
@@ -3783,7 +3805,7 @@
     },
     {
       "page": 2,
-      "order": 229,
+      "order": 231,
       "text": "serves as a tax reporting agent for public assistance",
       "rect": {
         "left": 159.2,
@@ -3794,7 +3816,7 @@
     },
     {
       "page": 2,
-      "order": 230,
+      "order": 232,
       "text": "complete lines 1, 2, 4a\u20135b, 7a\u2013b, 9a, 10, and 18.",
       "rect": {
         "left": 368,
@@ -3805,7 +3827,7 @@
     },
     {
       "page": 2,
-      "order": 231,
+      "order": 233,
       "text": "recipients under Rev. Proc. 80-4, 1980-1 C.B. 5817",
       "rect": {
         "left": 159.2,
@@ -3816,7 +3838,7 @@
     },
     {
       "page": 2,
-      "order": 232,
+      "order": 234,
       "text": "is a single-member LLC (or",
       "rect": {
         "left": 36,
@@ -3827,7 +3849,7 @@
     },
     {
       "page": 2,
-      "order": 233,
+      "order": 235,
       "text": "needs an EIN to file Form 8832, Entity Classification",
       "rect": {
         "left": 159.2,
@@ -3838,7 +3860,7 @@
     },
     {
       "page": 2,
-      "order": 234,
+      "order": 236,
       "text": "complete lines 1\u201318 (as applicable).",
       "rect": {
         "left": 368,
@@ -3849,7 +3871,7 @@
     },
     {
       "page": 2,
-      "order": 235,
+      "order": 237,
       "text": "similar single-member entity)",
       "rect": {
         "left": 36,
@@ -3860,7 +3882,7 @@
     },
     {
       "page": 2,
-      "order": 236,
+      "order": 238,
       "text": "Election, for filing employment tax returns and excise",
       "rect": {
         "left": 159.2,
@@ -3871,7 +3893,7 @@
     },
     {
       "page": 2,
-      "order": 237,
+      "order": 239,
       "text": "tax returns, or for state reporting purposes8, or is a",
       "rect": {
         "left": 159.2,
@@ -3882,7 +3904,7 @@
     },
     {
       "page": 2,
-      "order": 238,
+      "order": 240,
       "text": "foreign-owned U.S. disregarded entity and needs an",
       "rect": {
         "left": 159.2,
@@ -3893,7 +3915,7 @@
     },
     {
       "page": 2,
-      "order": 239,
+      "order": 241,
       "text": "EIN to file Form 5472, Information Return of a 25%",
       "rect": {
         "left": 159.2,
@@ -3904,7 +3926,7 @@
     },
     {
       "page": 2,
-      "order": 240,
+      "order": 242,
       "text": "Foreign-Owned U.S. Corporation or a Foreign",
       "rect": {
         "left": 159.2,
@@ -3915,7 +3937,7 @@
     },
     {
       "page": 2,
-      "order": 241,
+      "order": 243,
       "text": "Corporation Engaged in a U.S. Trade or Business",
       "rect": {
         "left": 159.2,
@@ -3926,7 +3948,7 @@
     },
     {
       "page": 2,
-      "order": 242,
+      "order": 244,
       "text": "is an S corporation",
       "rect": {
         "left": 36,
@@ -3937,7 +3959,7 @@
     },
     {
       "page": 2,
-      "order": 243,
+      "order": 245,
       "text": "needs an EIN to file Form 2553, Election by a Small",
       "rect": {
         "left": 159.2,
@@ -3948,7 +3970,7 @@
     },
     {
       "page": 2,
-      "order": 244,
+      "order": 246,
       "text": "complete lines 1\u201318 (as applicable).",
       "rect": {
         "left": 368,
@@ -3959,7 +3981,7 @@
     },
     {
       "page": 2,
-      "order": 245,
+      "order": 247,
       "text": "Business Corporation9",
       "rect": {
         "left": 159.2,
@@ -3970,7 +3992,7 @@
     },
     {
       "page": 2,
-      "order": 246,
+      "order": 248,
       "text": "1 For example, a sole proprietorship or self-employed farmer who establishes a qualified retirement plan, or is required to file excise, employment, alcohol, tobacco, or",
       "rect": {
         "left": 36,
@@ -3981,7 +4003,7 @@
     },
     {
       "page": 2,
-      "order": 247,
+      "order": 249,
       "text": "firearms returns, must have an EIN. A partnership, corporation, REMIC (real estate mortgage investment conduit), nonprofit organization (church, club, etc.), or farmers\u2019",
       "rect": {
         "left": 43.5,
@@ -3992,7 +4014,7 @@
     },
     {
       "page": 2,
-      "order": 248,
+      "order": 250,
       "text": "cooperative must use an EIN for any tax-related purpose even if the entity doesn\u2019t have employees.",
       "rect": {
         "left": 43.5,
@@ -4003,7 +4025,7 @@
     },
     {
       "page": 2,
-      "order": 249,
+      "order": 251,
       "text": "2 However, don\u2019t apply for a new EIN if the existing entity only (a) changed its business name, (b) elected on Form 8832 to change the way it is taxed (or is covered by the",
       "rect": {
         "left": 36,
@@ -4014,7 +4036,7 @@
     },
     {
       "page": 2,
-      "order": 250,
+      "order": 252,
       "text": "default rules), or (c) terminated its partnership status because at least 50% of the total interests in partnership capital and profits were sold or exchanged within a 12-",
       "rect": {
         "left": 43.5,
@@ -4025,7 +4047,7 @@
     },
     {
       "page": 2,
-      "order": 251,
+      "order": 253,
       "text": "month period. The EIN of the terminated partnership should continue to be used. See Regulations section 301.6109-1(d)(2)(iii).",
       "rect": {
         "left": 43.5,
@@ -4036,7 +4058,7 @@
     },
     {
       "page": 2,
-      "order": 252,
+      "order": 254,
       "text": "3 Don\u2019t use the EIN of the prior business unless you became the \u201Cowner\u201D of a corporation by acquiring its stock.",
       "rect": {
         "left": 36,
@@ -4047,7 +4069,7 @@
     },
     {
       "page": 2,
-      "order": 253,
+      "order": 255,
       "text": "4 However, grantor trusts that don\u2019t file using Optional Method 1 and IRA trusts that are required to file Form 990-T, Exempt Organization Business Income Tax Return,",
       "rect": {
         "left": 36,
@@ -4058,7 +4080,7 @@
     },
     {
       "page": 2,
-      "order": 254,
+      "order": 256,
       "text": "must have an EIN. For more information on grantor trusts, see the Instructions for Form 1041.",
       "rect": {
         "left": 43.5,
@@ -4069,7 +4091,7 @@
     },
     {
       "page": 2,
-      "order": 255,
+      "order": 257,
       "text": "5 A plan administrator is the person or group of persons specified as the administrator by the instrument under which the plan is operated.",
       "rect": {
         "left": 36,
@@ -4080,7 +4102,7 @@
     },
     {
       "page": 2,
-      "order": 256,
+      "order": 258,
       "text": "6 Entities applying to be a Qualified Intermediary (QI) need a QI-EIN even if they already have an EIN. See Rev. Proc. 2000-12.",
       "rect": {
         "left": 36,
@@ -4091,7 +4113,7 @@
     },
     {
       "page": 2,
-      "order": 257,
+      "order": 259,
       "text": "7 See also Household employer agent in the instructions. Note: State or local agencies may need an EIN for other reasons, for example, hired employees.",
       "rect": {
         "left": 36,
@@ -4102,7 +4124,7 @@
     },
     {
       "page": 2,
-      "order": 258,
+      "order": 260,
       "text": "8 See Disregarded entities in the instructions for details on completing Form SS-4 for an LLC.",
       "rect": {
         "left": 36,
@@ -4113,7 +4135,7 @@
     },
     {
       "page": 2,
-      "order": 259,
+      "order": 261,
       "text": "9 An existing corporation that is electing or revoking S corporation status should use its previously assigned EIN.",
       "rect": {
         "left": 36,
