@@ -104,18 +104,42 @@ public static class BlankDetector
                 .Select(r => Field(page.Key, r, "text")));
         }
 
+        // A form draws the same rule twice often enough to matter -- a cell
+        // border shared by the row above and below, or a box stroked over a
+        // rule. Those are one blank, and emitting both would place two prompts
+        // on one answer.
+        var distinct = found
+            .GroupBy(f => (
+                f.PageNumber,
+                Math.Round(f.TargetRect!.Value.Left, 1),
+                Math.Round(f.TargetRect.Value.Bottom, 1),
+                Math.Round(f.TargetRect.Value.Right, 1),
+                Math.Round(f.TargetRect.Value.Top, 1)))
+            .Select(g => g.First());
+
         // Ids are positional so a snapshot is stable: nothing about a flattened
-        // form supplies a name, and a counter would renumber everything when one
-        // field is found or lost.
+        // form supplies a name, and a counter would renumber everything after a
+        // field that was found or lost. Position alone is not unique though --
+        // a rule and a box can share a corner -- so width disambiguates, and a
+        // suffix covers what is left. An APR id must be unique or two prompts
+        // collide and the document cannot round-trip.
+        var seen = new HashSet<string>(StringComparer.Ordinal);
         return
         [
-            .. found
+            .. distinct
                 .OrderBy(f => f.PageNumber)
                 .ThenByDescending(f => f.TargetRect!.Value.Top)
                 .ThenBy(f => f.TargetRect!.Value.Left)
-                .Select(f => f with
+                .Select(f =>
                 {
-                    Id = $"p{f.PageNumber}-{f.TargetRect!.Value.Left:F0}-{f.TargetRect.Value.Bottom:F0}",
+                    var r = f.TargetRect!.Value;
+                    var id = $"p{f.PageNumber}-{r.Left:F0}-{r.Bottom:F0}-{r.Right - r.Left:F0}";
+                    for (var n = 2; !seen.Add(id); n++)
+                    {
+                        id = $"p{f.PageNumber}-{r.Left:F0}-{r.Bottom:F0}-{r.Right - r.Left:F0}#{n}";
+                    }
+
+                    return f with { Id = id };
                 }),
         ];
     }

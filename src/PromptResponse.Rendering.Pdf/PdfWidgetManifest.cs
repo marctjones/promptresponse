@@ -106,12 +106,49 @@ public sealed record WidgetManifest(IReadOnlyList<WidgetManifestEntry> Entries)
 /// the printed page may legitimately find something the AcroForm omits — but on a
 /// pure AcroForm import it means an invented field.
 /// </param>
+/// <param name="Matches">
+/// Which prompt was placed on which declared field. Empty for name-based
+/// comparison, populated by <see cref="PdfGeometryCoverage.Compare"/>.
+/// </param>
 public sealed record WidgetCoverage(
     int Expected,
     int Covered,
     IReadOnlyList<string> MissingFieldNames,
-    IReadOnlyList<string> UnaccountedPromptIds)
+    IReadOnlyList<string> UnaccountedPromptIds,
+    IReadOnlyList<GeometryMatch>? Matches = null)
 {
+    /// <summary>Field-to-prompt pairings established by position, never null.</summary>
+    public IReadOnlyList<GeometryMatch> MatchesOrEmpty => Matches ?? [];
+
+    /// <summary>Of the prompts placed, the fraction that landed on a declared field.</summary>
+    /// <remarks>
+    /// The precision half. <see cref="Fraction"/> is recall and rises when a
+    /// converter simply guesses more, so the two must always be read together.
+    /// </remarks>
+    public double Precision
+    {
+        get
+        {
+            var placed = Covered + UnaccountedPromptIds.Count;
+            return placed == 0 ? 0 : (double)Covered / placed;
+        }
+    }
+
+    /// <summary>Recall and precision combined, weighting recall <paramref name="beta"/> times as heavily.</summary>
+    /// <remarks>
+    /// Beta above 1 favours finding everything, which is the right bias for
+    /// field <em>discovery</em>: a missed field cannot be recovered by any later
+    /// phase, because nothing downstream re-reads the page, while a spurious one
+    /// can still be pruned. Beta of 1 is the right bias for the finished
+    /// document, where both errors are equally visible to the person filling it.
+    /// </remarks>
+    public double FScore(double beta = 1.0)
+    {
+        var (p, r) = (Precision, Fraction);
+        var b2 = beta * beta;
+        return p + r == 0 ? 0 : (1 + b2) * p * r / ((b2 * p) + r);
+    }
+
     /// <summary>Fraction of declared fields accounted for, 0-1. Vacuously 1 when the PDF declared none.</summary>
     public double Fraction => Expected == 0 ? 1.0 : (double)Covered / Expected;
 

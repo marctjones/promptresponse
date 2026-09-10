@@ -8,6 +8,19 @@ namespace PromptResponse.Rendering.Pdf;
 /// <param name="Rect">The target's rectangle in PDF user space.</param>
 public sealed record PlacedPrompt(string PromptId, int PageNumber, PdfRectangle Rect);
 
+/// <summary>A declared field and the prompt that was placed on it.</summary>
+/// <param name="FieldName">The source PDF's fully qualified field name.</param>
+/// <param name="PromptId">The id the converter invented for it.</param>
+/// <remarks>
+/// The pairing that geometry establishes, kept rather than discarded. A
+/// converter reading a flattened form invents its own ids, so without this the
+/// only thing knowable is <em>how many</em> fields it placed correctly. With it,
+/// a field matched by position can then be graded on its <em>label</em> against
+/// the source's <c>/TU</c> text — which is what makes a flat fixture gradable
+/// end to end rather than on placement alone.
+/// </remarks>
+public sealed record GeometryMatch(string FieldName, string PromptId);
+
 /// <summary>
 /// Grades a conversion against a source PDF's widget rectangles, matching on
 /// <em>where</em> each field is rather than what it is called.
@@ -126,6 +139,7 @@ public static class PdfGeometryCoverage
 
         var unmatched = new List<PlacedPrompt>(placed);
         var missing = new List<string>();
+        var matched = new List<GeometryMatch>();
 
         foreach (var widget in expected)
         {
@@ -158,6 +172,7 @@ public static class PdfGeometryCoverage
 
             if (best >= 0)
             {
+                matched.Add(new GeometryMatch(widget.FullName, unmatched[best].PromptId));
                 unmatched.RemoveAt(best);
             }
             else
@@ -170,7 +185,8 @@ public static class PdfGeometryCoverage
             expected.Count,
             expected.Count - missing.Count,
             missing,
-            [.. unmatched.Select(p => p.PromptId)]);
+            [.. unmatched.Select(p => p.PromptId)],
+            matched);
     }
 
     /// <summary>
