@@ -104,6 +104,7 @@ public static class LabelRecovery
     /// </remarks>
     public const int GroupInstructionClaims = 3;
 
+
     /// <summary>Attaches printed text to the fields that have no label yet.</summary>
     public static LabelRecoveryResult Recover(
         IReadOnlyList<DiscoveredField> fields,
@@ -175,6 +176,7 @@ public static class LabelRecovery
                     Label = spans[found.SpanIndex].Text.Trim(),
                     LabelSource = LabelSource.NearbyText,
                     HelpText = spans[found.SpanIndex].HelpText,
+                    LabelFoundAt = found.Direction,
                     NeedsReview = null,
                 }
                 : field)
@@ -220,6 +222,11 @@ public static class LabelRecovery
         // above it in a boxed form. Preference order matters more than the set:
         // a tick box usually has *something* above it too, and that something is
         // usually the instruction for its whole group.
+        // Preference beats proximity, measured: ranking every direction by
+        // distance instead scores 80 against this order's 81 on fed-i9 and ties
+        // on ct-w4. Left and Right are exactly right when they fire (15 of 15
+        // on I-9) while Above is right 81% of the time, so trying the reliable
+        // sides first is worth more than taking whatever is nearest.
         var order = IsCheckbox(field, rect)
             ? new[] { LabelDirection.Right, LabelDirection.Above }
             : [LabelDirection.Left, LabelDirection.Above];

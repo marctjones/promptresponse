@@ -16,7 +16,7 @@ public class LabelAgreementTests
     public static TheoryData<string, double, double> Gradable() => new()
     {
         // form, minimum recall, minimum precision -- floors, not targets.
-        { "fed-i9", 0.60, 0.80 },
+        { "fed-i9", 0.65, 0.82 },
         { "ct-w4", 0.45, 0.70 },
     };
 

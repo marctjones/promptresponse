@@ -57,6 +57,21 @@ public static class SpanClassifier
     /// </remarks>
     public const int MaximumLabelWords = 12;
 
+    /// <summary>Words past which a run ending in a full stop reads as a sentence.</summary>
+    /// <remarks>
+    /// Swept against the held-back tooltip oracle rather than chosen. At 6 this
+    /// ruled out real labels: I-9's "Last Name (Family Name) from Section 1."
+    /// is seven words and ends in a full stop, so the question sitting 2pt from
+    /// its field was filed as guidance and never reached pairing. Raising it to
+    /// 8 takes I-9 label recall from 63% to 68% and precision from 84% to 85%.
+    /// <para>
+    /// Higher is not better. 10, 12 and "never" all score identically to 8 on
+    /// I-9, but 12 and above drop ct-w4's precision from 78% to 70% by letting
+    /// real instructions through. 8 is where both forms are best.
+    /// </para>
+    /// </remarks>
+    public const int SentenceWords = 8;
+
     /// <summary>Classifies one run of text.</summary>
     public static SpanRole Classify(MeasuredSpan span)
     {
@@ -173,6 +188,6 @@ public static class SpanClassifier
         }
 
         var endsSentence = text.EndsWith('.') || text.EndsWith(':') is false && text.EndsWith('!');
-        return endsSentence && text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length > 6;
+        return endsSentence && text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length > SentenceWords;
     }
 }

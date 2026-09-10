@@ -44,6 +44,12 @@ public enum LabelSource
 /// <param name="TargetRect">Where the answer goes, in PDF user space.</param>
 /// <param name="ExpectedDataType">An APR hint — text, boolean, and so on.</param>
 /// <param name="Options">Choice options, when the field offers a fixed set.</param>
+/// <param name="LabelFoundAt">
+/// Which side of the field its label was printed on. Diagnostic: a wrong label
+/// is much easier to reason about when the side it came from is known, and the
+/// side is also the strongest clue that a pairing rule rather than the text is
+/// at fault.
+/// </param>
 /// <param name="HelpText">
 /// The form's own guidance for this field — the remainder of the block whose
 /// first sentence became the label. Carried so instructions survive conversion
@@ -64,7 +70,8 @@ public sealed record DiscoveredField(
     string? ExpectedDataType = null,
     IReadOnlyList<string>? Options = null,
     IReadOnlyList<string>? NeedsReview = null,
-    string? HelpText = null)
+    string? HelpText = null,
+    LabelDirection? LabelFoundAt = null)
 {
     /// <summary>Whether a human-readable question was resolved for this field.</summary>
     public bool HasLabel => !string.IsNullOrWhiteSpace(Label);
