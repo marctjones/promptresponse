@@ -37,7 +37,7 @@ public class ConversionAccuracyTests
         // measuring end to end rather than per phase.
         score.Placement.Fraction.Should().BeGreaterThanOrEqualTo(0.95,
             "the blanks are drawn on the page and geometry finds them");
-        score.Usable.Should().BeGreaterThanOrEqualTo(0.35,
+        score.Usable.Should().BeGreaterThanOrEqualTo(0.44,
             $"only {score.CorrectlyLabelled} of {score.RealFields} fields are both found and " +
             "correctly labelled; labelling is the binding constraint, not discovery");
     }

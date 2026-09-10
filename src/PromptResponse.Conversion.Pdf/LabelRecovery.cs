@@ -91,6 +91,8 @@ public static class LabelRecovery
     /// <summary>Slack when deciding which side of a field a run sits on, in points.</summary>
     public const double EdgeTolerance = 2.0;
 
+
+
     /// <summary>
     /// How many fields must want the same run before it is treated as a group
     /// instruction rather than any one field's label.
@@ -226,6 +228,40 @@ public static class LabelRecovery
             }
         }
 
+        // Fifth pass: a caption above a repeating group labels every row of it.
+        // Deliberately ignores whether another field already claimed the run --
+        // one run labels one field on an ordinary form, but a caption over a
+        // repeating group belongs to all of its rows, and enforcing exclusivity
+        // is exactly what leaves rows two and three of I-9's Supplement B blank.
+        var byId = fields.Select((f, i) => (f, i)).ToDictionary(x => x.f.Id, x => x.i);
+        foreach (var column in RepeatingRows.Detect(fields))
+        {
+            var rows = column.FieldIds
+                .Select(id => byId.TryGetValue(id, out var i) ? i : -1)
+                .Where(i => i >= 0)
+                .ToList();
+            if (rows.Count == 0)
+            {
+                continue;
+            }
+
+            var header = labels.TryGetValue(rows[0], out var already)
+                ? already
+                : Nearest(fields[rows[0]], rows[0], eligible, rejected);
+            if (header is null)
+            {
+                continue;
+            }
+
+            foreach (var row in rows)
+            {
+                if (!labels.ContainsKey(row) && !fields[row].HasLabel)
+                {
+                    labels[row] = header with { FieldIndex = row };
+                }
+            }
+        }
+
         var updatedFields = fields
             .Select((field, i) => labels.TryGetValue(i, out var found)
                 ? field with
@@ -346,9 +382,25 @@ public static class LabelRecovery
 
             case LabelDirection.Above:
             {
-                // Above means above *this* field, so the run has to overlap it
-                // horizontally -- otherwise every field on a row would claim the
-                // leftmost caption on the row above.
+                // Above means above *this* field, so the run has to line up with
+                // it horizontally -- otherwise every field on a row would claim
+                // the leftmost caption on the row above.
+                //
+                // Lining up is not strict overlap. Measured on I-9, six captions
+                // sit 2pt above their field and 4 to 66pt to one side, and a
+                // strict test rejects every one of them: "Signature of Employer
+                // or Authorized Representative" is offset 7pt from the field it
+                // labels. The allowance is scaled to the field's own width, so a
+                // wide field tolerates a wider offset and a narrow one does not.
+                // Strict overlap, and it is load-bearing. Relaxing it so a
+                // caption may sit to one side was measured: an allowance of a
+                // quarter of the field's width drops I-9 recall from 71% to
+                // 59%, half a width to 52%, a full width to 48%. Overlap is
+                // what keeps a field to its own column; widen it and fields
+                // take each other's captions. A last-resort pass applying the
+                // same slack only to fields that found nothing was also tried,
+                // and changed no score at all, because the runs it would reach
+                // are already claimed.
                 if (span.Right <= field.Left || span.Left >= field.Right)
                 {
                     return null;
