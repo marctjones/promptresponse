@@ -70,6 +70,37 @@ public class ConversionAccuracyTests
         placement.Fraction.Should().BeGreaterThan(placement.Precision);
     }
 
+    [Fact]
+    public void DiscardingCandidatesThatFoundNoLabelWouldCostMoreThanItSaves()
+    {
+        // The obvious precision lever, measured rather than assumed. A drawn
+        // rule that no caption points at is often not a field -- but on I-9 the
+        // filter also throws away 30 real ones, and nothing downstream can put
+        // those back, because no later phase re-reads the page.
+        //
+        // Kept as a test rather than a comment so the trade is re-measured if
+        // the detector changes and someone reaches for this again.
+        var root = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", ".."));
+        string Corpus(string id) => Path.Combine(root, "scripts", "pdf-form-benchmark", "corpus", $"{id}.pdf");
+
+        var fields = ConversionPipeline.Default().Convert(Corpus("fed-i9-flat"), "flat")
+            .State.FieldsOrEmpty.Where(f => f.TargetRect is not null).ToList();
+        var manifest = PdfWidgetManifest.Extract(Corpus("fed-i9"));
+
+        WidgetCoverage Score(IEnumerable<DiscoveredField> chosen) => PdfGeometryCoverage.Compare(
+            manifest, [.. chosen.Select(f => new PlacedPrompt(f.Id, f.PageNumber, f.TargetRect!.Value))]);
+
+        var everything = Score(fields);
+        var labelledOnly = Score(fields.Where(f => f.HasLabel));
+
+        labelledOnly.Precision.Should().BeGreaterThan(everything.Precision,
+            "the filter does what it looks like it does");
+        labelledOnly.FScore(2).Should().BeLessThan(everything.FScore(2),
+            $"and still loses, because recall is what cannot be recovered later: " +
+            $"{everything.Fraction:P0} -> {labelledOnly.Fraction:P0} recall to buy " +
+            $"{everything.Precision:P0} -> {labelledOnly.Precision:P0} precision");
+    }
+
     private static (WidgetCoverage Placement, double Usable, int CorrectlyLabelled, int RealFields)
         Measure(string flat, string source)
     {

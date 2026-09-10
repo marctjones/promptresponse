@@ -153,7 +153,27 @@ public static class BlankDetector
         TargetRect: rect,
         ExpectedDataType: dataType,
         Options: null,
-        NeedsReview: ["no label yet: discovered from page geometry, which supplies no name"]);
+        NeedsReview: [WhatAReviewerMustDecide]);
+
+    /// <summary>
+    /// What a later phase has to settle about a field found in the page's ink.
+    /// </summary>
+    /// <remarks>
+    /// Two questions, not one, and the second is the one that is easy to
+    /// forget. A drawn rule that no caption points at is often not a field at
+    /// all: measured on <c>fed-i9-flat</c>, keeping only the candidates that
+    /// acquired a label raises placement precision from 56% to 76% — but drops
+    /// recall from 98% to 75%, because 30 real fields also failed to find one.
+    /// <para>
+    /// So the filter is deliberately NOT applied here. A missed field cannot be
+    /// recovered by anything downstream, while a spurious one can still be
+    /// pruned by something that reads the page. Saying so in the review queue
+    /// is what lets that pruning happen where it is cheap.
+    /// </para>
+    /// </remarks>
+    public const string WhatAReviewerMustDecide =
+        "found from the page's ink, so it has no name and no certainty: needs a label, " +
+        "and needs confirming that it is a field at all rather than a printed rule";
 
     private static bool IsTickBox(Ruling box)
     {
