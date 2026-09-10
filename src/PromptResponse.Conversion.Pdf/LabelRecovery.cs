@@ -228,13 +228,17 @@ public static class LabelRecovery
             }
         }
 
-        // Fifth pass: a caption above a repeating group labels every row of it.
+        // Fifth pass: a caption above a group of fields labels every member of
+        // it -- rows of a repeating block, and boxes of one entry split across a
+        // line. W-9's social security number is three boxes separated by printed
+        // dashes under a single caption; without this the first box takes it and
+        // the other two are left blank.
         // Deliberately ignores whether another field already claimed the run --
         // one run labels one field on an ordinary form, but a caption over a
         // repeating group belongs to all of its rows, and enforcing exclusivity
         // is exactly what leaves rows two and three of I-9's Supplement B blank.
         var byId = fields.Select((f, i) => (f, i)).ToDictionary(x => x.f.Id, x => x.i);
-        foreach (var column in RepeatingRows.Detect(fields))
+        foreach (var column in RepeatingRows.Detect(fields).Concat(RepeatingRows.DetectRows(fields)))
         {
             var rows = column.FieldIds
                 .Select(id => byId.TryGetValue(id, out var i) ? i : -1)

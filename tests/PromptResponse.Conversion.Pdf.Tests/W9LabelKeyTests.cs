@@ -65,7 +65,7 @@ public class W9LabelKeyTests
             [.. key.Labels.Select(kv => (kv.Key, kv.Value))],
             recovered);
 
-        result.Recall.Should().BeGreaterThanOrEqualTo(0.52,
+        result.Recall.Should().BeGreaterThanOrEqualTo(0.60,
             $"agreed {result.Agreed} of {result.Gradable}; " +
             $"worst: {string.Join(" | ", result.Matches.Where(m => !m.IsAgreement).Take(4).Select(m => $"got '{m.Recovered ?? "(none)"}' want '{m.Expected}'"))}");
         result.Precision.Should().BeGreaterThanOrEqualTo(0.82,

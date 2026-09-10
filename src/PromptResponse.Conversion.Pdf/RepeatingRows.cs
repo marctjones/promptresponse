@@ -93,6 +93,73 @@ public static class RepeatingRows
         return found;
     }
 
+    /// <summary>How far apart two fields on one line may sit and still be one entry, in points.</summary>
+    /// <remarks>
+    /// W-9 splits a social security number into three boxes separated by the
+    /// printed dashes, 14.4pt apart, and an EIN into two the same way. They are
+    /// one question with one caption above the group, so the caption has to
+    /// reach all of them.
+    /// </remarks>
+    public const double AdjacentFieldGap = 20.0;
+
+    /// <summary>
+    /// Finds runs of adjacent fields sharing one line, which one caption above
+    /// the group labels.
+    /// </summary>
+    /// <remarks>
+    /// The horizontal counterpart of <see cref="Detect"/>. Without it the first
+    /// box of W-9's SSN takes "Social security number" and the other two get
+    /// nothing, because a run may otherwise label only one field.
+    /// </remarks>
+    public static IReadOnlyList<RepeatingColumn> DetectRows(IReadOnlyList<DiscoveredField> fields)
+    {
+        ArgumentNullException.ThrowIfNull(fields);
+        var found = new List<RepeatingColumn>();
+
+        foreach (var page in fields.Where(f => f.TargetRect is not null).GroupBy(f => f.PageNumber))
+        {
+            // Fields sharing a line: same top and bottom, to the point.
+            foreach (var band in page.GroupBy(f => (
+                         Bottom: Math.Round(f.TargetRect!.Value.Bottom),
+                         Top: Math.Round(f.TargetRect!.Value.Top))))
+            {
+                var ordered = band.OrderBy(f => f.TargetRect!.Value.Left).ToList();
+                if (ordered.Count < 2)
+                {
+                    continue;
+                }
+
+                // Split the band wherever the fields stop touching: two entries
+                // at opposite ends of a row are not one question.
+                var run = new List<DiscoveredField> { ordered[0] };
+                for (var i = 1; i <= ordered.Count; i++)
+                {
+                    var breaks = i == ordered.Count
+                        || ordered[i].TargetRect!.Value.Left - ordered[i - 1].TargetRect!.Value.Right > AdjacentFieldGap;
+
+                    if (breaks)
+                    {
+                        if (run.Count >= 2)
+                        {
+                            found.Add(new RepeatingColumn(page.Key, [.. run.Select(f => f.Id)], 0));
+                        }
+
+                        if (i < ordered.Count)
+                        {
+                            run = [ordered[i]];
+                        }
+                    }
+                    else
+                    {
+                        run.Add(ordered[i]);
+                    }
+                }
+            }
+        }
+
+        return found;
+    }
+
     /// <summary>
     /// Groups fields whose left edge and width are within
     /// <see cref="ColumnTolerance"/> of each other.
