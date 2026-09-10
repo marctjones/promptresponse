@@ -284,9 +284,7 @@ public static class LabelRecovery
         // on ct-w4. Left and Right are exactly right when they fire (15 of 15
         // on I-9) while Above is right 81% of the time, so trying the reliable
         // sides first is worth more than taking whatever is nearest.
-        var order = IsCheckbox(field, rect)
-            ? new[] { LabelDirection.Right, LabelDirection.Above }
-            : [LabelDirection.Left, LabelDirection.Above];
+        var order = DirectionsFor(field, rect);
 
         foreach (var direction in order)
         {
@@ -305,8 +303,14 @@ public static class LabelRecovery
         return null;
     }
 
+    /// <summary>The sides a field looks for its label on, in preference order.</summary>
+    public static LabelDirection[] DirectionsFor(DiscoveredField field, PdfRectangle rect) =>
+        IsCheckbox(field, rect)
+            ? [LabelDirection.Right, LabelDirection.Above]
+            : [LabelDirection.Left, LabelDirection.Above];
+
     /// <summary>Whether a field is a tick box rather than a write-on blank.</summary>
-    private static bool IsCheckbox(DiscoveredField field, PdfRectangle rect) =>
+    public static bool IsCheckbox(DiscoveredField field, PdfRectangle rect) =>
         field.ExpectedDataType == "boolean"
         || (rect.Right - rect.Left <= CheckboxMaximumSide && rect.Top - rect.Bottom <= CheckboxMaximumSide);
 
@@ -314,7 +318,12 @@ public static class LabelRecovery
     /// How far a run sits from a field in a given direction, or null when it is
     /// not in that direction at all.
     /// </summary>
-    private static double? Distance(PdfRectangle field, PdfRectangle span, LabelDirection direction)
+    /// <summary>
+    /// How far a run sits from a field in a given direction, or null when it is
+    /// not in that direction at all. Public so a diagnostic can ask whether a
+    /// run was ever reachable, rather than re-deriving these rules and drifting.
+    /// </summary>
+    public static double? Distance(PdfRectangle field, PdfRectangle span, LabelDirection direction)
     {
         switch (direction)
         {
