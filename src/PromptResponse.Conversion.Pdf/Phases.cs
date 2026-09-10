@@ -370,19 +370,53 @@ public sealed class AssembleDocumentPhase : IConversionPhase
             Sections = sections,
         };
 
+        var placeholders = fields.Count(f => !f.HasLabel);
+        var guidance = fields.Count(f => !string.IsNullOrWhiteSpace(f.HelpText));
+
+        // Say how many prompts carry a placeholder instead of a question. The
+        // document cannot show it: APR requires a non-empty label, so an
+        // unlabelled field ships with its id in the label, and a bare
+        // "43 prompt(s)" would read as 43 usable questions.
+        var caveat = placeholders == 0
+            ? string.Empty
+            : $"; {placeholders} carry the field id as a placeholder, not a recovered question";
+
         return (state with { Document = document }, PhaseStatus.Completed,
-            $"{sections.Count} section(s), {fields.Count} prompt(s)");
+            $"{sections.Count} section(s), {fields.Count} prompt(s), " +
+            $"{guidance} with the form's own guidance attached{caveat}");
     }
 
-    private static Prompt ToPrompt(DiscoveredField field) => new()
+    private static Prompt ToPrompt(DiscoveredField field)
     {
-        Id = field.Id,
-        // Falling back to the id keeps the prompt valid (APR requires a
-        // non-empty label) while leaving the deficiency visible in the report.
-        Label = field.HasLabel ? field.Label! : field.Id,
-        Response = string.Empty,
-        Hints = new PromptHints { ExpectedDataType = field.ExpectedDataType },
-    };
+        var hints = new PromptHints { ExpectedDataType = field.ExpectedDataType };
+
+        // The remainder of the block whose first sentence became the label.
+        // This is how a form's instructions survive conversion attached to the
+        // prompt they explain, rather than being dropped as prose -- it was
+        // being computed and then discarded here.
+        if (!string.IsNullOrWhiteSpace(field.HelpText))
+        {
+            hints.HelpText = field.HelpText;
+        }
+
+        // Assigned only when there are options: the setter records that
+        // suggested values were declared, and declaring an empty set says
+        // something different from saying nothing.
+        if (field.Options is { Count: > 0 } options)
+        {
+            hints.SuggestedValues = [.. options];
+        }
+
+        return new Prompt
+        {
+            Id = field.Id,
+            // Falling back to the id keeps the prompt valid -- APR requires a
+            // non-empty label -- and the phase report says how many did so.
+            Label = field.HasLabel ? field.Label! : field.Id,
+            Response = string.Empty,
+            Hints = hints,
+        };
+    }
 }
 
 /// <summary>
