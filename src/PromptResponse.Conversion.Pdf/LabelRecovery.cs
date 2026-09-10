@@ -445,9 +445,11 @@ public static class LabelRecovery
         foreach (var direction in order)
         {
             var best = candidates
-                .Select(c => (c.index, distance: Distance(rect, c.span.Rect, direction)))
+                .Select(c => (c.index, distance: Distance(rect, c.span.Rect, direction),
+                              fit: Fit(rect, c.span.Rect, direction)))
                 .Where(c => c.distance is not null)
                 .OrderBy(c => c.distance!.Value)
+                .ThenByDescending(c => c.fit)
                 .ToList();
 
             if (best.Count > 0)
@@ -480,6 +482,48 @@ public static class LabelRecovery
         IsCheckbox(field, rect)
             ? [LabelDirection.Right, LabelDirection.Above]
             : [LabelDirection.Left, LabelDirection.Above];
+
+    /// <summary>
+    /// How well a run lines up with the extent of the field it might label,
+    /// 0-1: across the field's width for a run above it, down the field's
+    /// height for a run beside it.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Used only to break ties between candidates at the same distance, and
+    /// that limit is not a matter of taste. <b>Weighting distance by fit does
+    /// nothing at all</b> — measured at 2, 5, 10, 25 and 60 points of distance
+    /// per unit of misfit, every weight scores identically. The reason is that
+    /// this measure saturates: a caption is nearly always narrower than the
+    /// field it labels and sits wholly inside its span, so almost every
+    /// candidate scores 1.0 and there is nothing to rank by.
+    /// </para>
+    /// <para>
+    /// The obvious repair — score how closely the run's width MATCHES the
+    /// field's, rather than whether it fits inside it — is worse than useless.
+    /// Measured on I-9's recovered pairs, a correct label runs about half its
+    /// field's width (median 0.52) while a wrong one is much closer to it
+    /// (0.84), so rewarding a similar width rewards the wrong candidate.
+    /// </para>
+    /// <para>
+    /// As a tie-break it is worth one field on fed-ss4 and nothing elsewhere,
+    /// which is about what a rule that only separates exact distance ties
+    /// should be worth.
+    /// </para>
+    /// </remarks>
+    public static double Fit(PdfRectangle field, PdfRectangle span, LabelDirection direction)
+    {
+        if (direction is LabelDirection.Above)
+        {
+            var shared = Math.Min(field.Right, span.Right) - Math.Max(field.Left, span.Left);
+            var narrower = Math.Min(field.Right - field.Left, span.Right - span.Left);
+            return narrower <= 0 ? 0 : Math.Clamp(shared / narrower, 0, 1);
+        }
+
+        var band = Math.Min(field.Top, span.Top) - Math.Max(field.Bottom, span.Bottom);
+        var shorter = Math.Min(field.Top - field.Bottom, span.Top - span.Bottom);
+        return shorter <= 0 ? 0 : Math.Clamp(band / shorter, 0, 1);
+    }
 
     /// <summary>Whether a field is a tick box rather than a write-on blank.</summary>
     public static bool IsCheckbox(DiscoveredField field, PdfRectangle rect) =>
