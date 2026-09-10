@@ -199,6 +199,47 @@ python3 -m venv .venv
 crashed or interrupted run resumes where it left off; add `--force` to redo.
 Run only one `run_benchmark.py` at a time -- see "Resource safety" below.
 
+## What the F1 column does and does not say about a model
+
+The scorecard ranks every model on one task: produce a field-and-label list
+matching hand-authored ground truth. That is fair to a model asked directly for
+an APR-shaped answer. It is **not** a verdict on a model whose native output is
+something else, because the gap between that output and a field list is our
+inference code, and its failures land on the model's row.
+
+Granite-Docling-258M is the clearest case. It scores 0.18 mean F1, next to last,
+and its actual DocTags output is clean and correct:
+
+```
+<section_header_level_1><loc_23><loc_146><loc_233><loc_160>REQUEST FOR HEARING TO CONTEST VEHICLE TOWING</section_header_level_1>
+<unordered_list><list_item><loc_21><loc_197><loc_466><loc_204>1. This form is used to contest the towing ...</list_item>
+```
+
+Text, role and bounding box per element — exactly what the model is for, and it
+was given IBM's own one-line prompt. What it does not emit, and was never meant
+to, is *which of those elements is a form field*. `parse_doctags_pages` infers
+that with a `_looks_like_label` heuristic, and the per-form numbers are that
+heuristic's, not the model's: 8 predicted fields against 16 on `fed-w9`, and
+130, 164 and 177 against 19, 25 and 52 on the prose-heavy `fed-w4`, `ct-w4` and
+`fed-ss4`. Under-reading a sparse form and over-reading a wordy one is what a
+label heuristic does, not what a document converter does.
+
+Read against the job it is built for, the same run says something much more
+useful. On `ct-dmv-a25` it scores **0.79 in 7 seconds** — and that form has **no
+text layer at all** (`pdftotext` returns zero characters), so the deterministic
+pipeline scores 0.00 on it and cannot do otherwise. A 258M model reading pixels
+beat a pipeline that had nothing to read.
+
+So the right way to use Granite-Docling here is not as a converter to be ranked
+against the others. It is a candidate for the one phase the deterministic
+pipeline does not have: turning an image-only page into text with positions and
+roles, which is the input `extract-text` needs and cannot get from a PDF with no
+text in it.
+
+dots.ocr's 0.11 has a similar shape — one predicted field on `fed-w9`, zero on
+`fed-8822` — and would need the same kind of second look before it is called
+bad at OCR.
+
 ## The 7 models
 
 Chosen to span the real design space, not just different sizes of one
