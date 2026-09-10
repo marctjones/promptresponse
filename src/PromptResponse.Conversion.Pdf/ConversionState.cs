@@ -128,6 +128,10 @@ public enum SpanRole
 /// <param name="Fields">Fields discovered so far.</param>
 /// <param name="Spans">Printed text with geometry.</param>
 /// <param name="Document">The assembled template, once assembly has run.</param>
+/// <param name="Rulings">
+/// The lines and boxes the pages draw. A form uses them to fence a caption in
+/// with the field it belongs to, so they say which text a field may look at.
+/// </param>
 /// <param name="Measured">
 /// The same text runs as <paramref name="Spans"/>, carrying the size metrics the
 /// classifier needs. Kept alongside rather than folded in so a consumer that
@@ -140,8 +144,12 @@ public sealed record ConversionState(
     IReadOnlyList<DiscoveredField>? Fields = null,
     IReadOnlyList<TextSpan>? Spans = null,
     AprDocument? Document = null,
-    IReadOnlyList<MeasuredSpan>? Measured = null)
+    IReadOnlyList<MeasuredSpan>? Measured = null,
+    IReadOnlyList<Ruling>? Rulings = null)
 {
+    /// <summary>Drawn rules and boxes, never null.</summary>
+    public IReadOnlyList<Ruling> RulingsOrEmpty => Rulings ?? [];
+
     /// <summary>Text runs with their size metrics, never null.</summary>
     public IReadOnlyList<MeasuredSpan> MeasuredOrEmpty => Measured ?? [];
 

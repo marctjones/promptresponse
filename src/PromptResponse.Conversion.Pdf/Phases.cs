@@ -197,12 +197,17 @@ public sealed class DiscoverTextLayerFieldsPhase : IConversionPhase
     /// <inheritdoc/>
     public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
     {
+        // Read even when the AcroForm made discovery unnecessary: the rules are
+        // what tell label recovery which text is fenced in with which field.
+        var rulings = PageRulings.ReadAll(state.SourcePath);
+        state = state with { Rulings = rulings };
+
         if (state.Sources?.HasAcroForm == true)
         {
-            return (state, PhaseStatus.Skipped, "the AcroForm already stated every field");
+            return (state, PhaseStatus.Skipped,
+                $"the AcroForm already stated every field; {rulings.Count} drawn rule(s) kept for labelling");
         }
 
-        var rulings = PageRulings.ReadAll(state.SourcePath);
         if (rulings.Count == 0)
         {
             return (state, PhaseStatus.Skipped,
@@ -312,7 +317,7 @@ public sealed class RecoverLabelsPhase : IConversionPhase
             return (state, PhaseStatus.Skipped, "no text layer to recover labels from");
         }
 
-        var result = LabelRecovery.Recover(state.FieldsOrEmpty, state.SpansOrEmpty);
+        var result = LabelRecovery.Recover(state.FieldsOrEmpty, state.SpansOrEmpty, state.RulingsOrEmpty);
         var stillNeeding = needing - result.Recovered;
 
         var groups = result.GroupInstructions == 0

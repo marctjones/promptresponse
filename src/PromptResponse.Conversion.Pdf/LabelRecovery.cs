@@ -139,10 +139,12 @@ public static class LabelRecovery
     /// <summary>Attaches printed text to the fields that have no label yet.</summary>
     public static LabelRecoveryResult Recover(
         IReadOnlyList<DiscoveredField> fields,
-        IReadOnlyList<TextSpan> spans)
+        IReadOnlyList<TextSpan> spans,
+        IReadOnlyList<Ruling>? rulings = null)
     {
         ArgumentNullException.ThrowIfNull(fields);
         ArgumentNullException.ThrowIfNull(spans);
+        var fences = rulings ?? [];
 
         // Only runs that survived classification are eligible. A heading, a
         // sentence of guidance, or page furniture is not a field's question
@@ -167,7 +169,7 @@ public static class LabelRecovery
         for (var round = 0; ; round++)
         {
             proposals = [.. wanting
-                .Select(f => Nearest(f.field, f.index, eligible, rejected))
+                .Select(f => Nearest(f.field, f.index, eligible, rejected, fences))
                 .OfType<Proposal>()];
 
             var overClaimed = proposals
@@ -223,7 +225,7 @@ public static class LabelRecovery
                 continue;
             }
 
-            var rescue = Nearest(field, index, rescuedFrom, rejected);
+            var rescue = Nearest(field, index, rescuedFrom, rejected, fences);
             if (rescue is not null && !taken.Contains(rescue.SpanIndex))
             {
                 taken.Add(rescue.SpanIndex);
@@ -254,7 +256,7 @@ public static class LabelRecovery
 
             var header = labels.TryGetValue(rows[0], out var already)
                 ? already
-                : Nearest(fields[rows[0]], rows[0], eligible, rejected);
+                : Nearest(fields[rows[0]], rows[0], eligible, rejected, fences);
             if (header is null)
             {
                 continue;
@@ -412,7 +414,8 @@ public static class LabelRecovery
         DiscoveredField field,
         int fieldIndex,
         List<(TextSpan span, int index)> eligible,
-        HashSet<int> rejected)
+        HashSet<int> rejected,
+        IReadOnlyList<Ruling> fences)
     {
         var rect = field.TargetRect!.Value;
         var candidates = eligible.Where(e => e.span.PageNumber == field.PageNumber && !rejected.Contains(e.index));
@@ -446,8 +449,10 @@ public static class LabelRecovery
         {
             var best = candidates
                 .Select(c => (c.index, distance: Distance(rect, c.span.Rect, direction),
-                              fit: Fit(rect, c.span.Rect, direction)))
-                .Where(c => c.distance is not null)
+                              fit: Fit(rect, c.span.Rect, direction),
+                              span: c.span.Rect))
+                .Where(c => c.distance is not null
+                    && !IsFencedOff(rect, c.span, direction, field.PageNumber, fences))
                 .OrderBy(c => c.distance!.Value)
                 .ThenByDescending(c => c.fit)
                 .ToList();
@@ -523,6 +528,59 @@ public static class LabelRecovery
         var band = Math.Min(field.Top, span.Top) - Math.Max(field.Bottom, span.Bottom);
         var shorter = Math.Min(field.Top - field.Bottom, span.Top - span.Bottom);
         return shorter <= 0 ? 0 : Math.Clamp(band / shorter, 0, 1);
+    }
+
+    /// <summary>
+    /// Whether a printed line stands between a field and a candidate label.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A form draws boxes to say what belongs together. Text on the far side of
+    /// a ruled line is in a different cell of the form, and a caption cannot
+    /// reach across one — distance alone cannot see that, because the nearest
+    /// text to a field is often the next cell's caption sitting a couple of
+    /// points away on the other side of a border.
+    /// </para>
+    /// <para>
+    /// A rule only fences if it actually spans the gap: a horizontal rule
+    /// between a field and the text above it must also cover the width they
+    /// share, or it is a rule belonging to some other part of the row.
+    /// </para>
+    /// </remarks>
+    public static bool IsFencedOff(
+        PdfRectangle field,
+        PdfRectangle span,
+        LabelDirection direction,
+        int page,
+        IReadOnlyList<Ruling> rulings)
+    {
+        ArgumentNullException.ThrowIfNull(rulings);
+
+        if (direction is LabelDirection.Above)
+        {
+            var low = Math.Min(field.Top, span.Bottom);
+            var high = Math.Max(field.Top, span.Bottom);
+            var left = Math.Max(field.Left, span.Left);
+            var right = Math.Min(field.Right, span.Right);
+
+            return rulings.Any(r => r.PageNumber == page
+                && r.Kind is RulingKind.HorizontalRule
+                && r.Rect.Bottom > low + EdgeTolerance
+                && r.Rect.Top < high - EdgeTolerance
+                && r.Rect.Left < right - EdgeTolerance
+                && r.Rect.Right > left + EdgeTolerance);
+        }
+
+        var near = direction is LabelDirection.Left ? span.Right : field.Right;
+        var far = direction is LabelDirection.Left ? field.Left : span.Left;
+        var band = (Bottom: Math.Max(field.Bottom, span.Bottom), Top: Math.Min(field.Top, span.Top));
+
+        return rulings.Any(r => r.PageNumber == page
+            && r.Kind is RulingKind.VerticalRule
+            && r.Rect.Left > near + EdgeTolerance
+            && r.Rect.Right < far - EdgeTolerance
+            && r.Rect.Bottom < band.Top - EdgeTolerance
+            && r.Rect.Top > band.Bottom + EdgeTolerance);
     }
 
     /// <summary>Whether a field is a tick box rather than a write-on blank.</summary>
