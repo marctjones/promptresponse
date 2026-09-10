@@ -1,6 +1,6 @@
 ---
 name: document-to-apr
-version: 1.2.0
+version: 1.3.0
 description: >-
   Convert an existing form into a PromptResponse APR template (.aprt). Use when
   the user wants to import, recreate, or "turn into a fillable form" a PDF, Word
@@ -55,7 +55,8 @@ reconstruct it faithfully. That is the whole point of doing this as a skill.
   - **Regroup** the flat per-page sections into the form's actual Parts/Sections,
     and set sensible `expectedDataType`s.
   - **Merge** sets of checkboxes that are really "choose one" into a single
-    dropdown (`suggestedValues`) where it's safe to do so.
+    `select` prompt (and "check all that apply" into one `multichoice` prompt),
+    with each box's caption in `suggestedValues`.
   - Treat the imported file as ground truth for *what fields exist* and use its
     count as a checklist so you don't miss or duplicate any.
 
@@ -121,25 +122,36 @@ reconstruct it faithfully. That is the whole point of doing this as a skill.
 
 ## Data-type hint vocabulary
 
-Set `hints.expectedDataType` to the closest of: `text`, `multiline`, `email`,
-`phone`, `url`, `number`, `currency`, `date`, `time`, `datetime`, `boolean`.
-- Checkbox / yes-no → `boolean`.
-- A field offering a fixed set of options → keep the type (often `text`) and add
-  `hints.suggestedValues: ["…","…"]` (this becomes a dropdown).
+Set `hints.expectedDataType` to the closest registered type. The full registry,
+and a table of which to choose for what a form shows, is in the
+`working-with-apr` skill. The ones conversions most often get wrong:
+- A single yes/no box → `boolean`.
+- "Check one" among several boxes → **one** prompt, `select`, with each box's
+  caption in `suggestedValues` — not one `boolean` per box.
+- "Check all that apply" → **one** prompt, `multichoice`, with `suggestedValues`.
+- Telephone or fax → `phone`. Any amount of money → `currency`, not `number`.
+- SSN, EIN, ZIP and similar → `text` with a `validationPattern`.
 - A large free-text area → `multiline`.
+- A signature line is **not a prompt**: APR has no signature type
+  `[APR-MODEL-030]`. The date beside it is a `date` prompt.
 
 ## Tables
 
-If the form has a grid where columns are fields and rows repeat (e.g. "Income by
-year", line items, a schedule), model it as a **table section** — see the table
-example in `reference/examples.md`. Key points:
-- The section carries a `tableLayout` (`columns`, plus either `fixedRows` for a
-  known set of rows, or `dynamicRows` for user-added rows).
-- For **fixed** rows, also create one child section per row whose prompts are the
-  cells, with ids `"{rowId}.{columnId}"`. These cells become individually
-  fillable in the PDF/web exports.
-- For **dynamic** rows (unbounded line items), define `dynamicRows` and no child
-  sections.
+If the form has a grid whose rows repeat — "Income by year", line items, List A /
+List B / List C — model it as a **table section**:
+- The section carries `"kind": "table"`. That, and only that, makes it a table.
+- Each **row is a child section** with its own `title`; its prompts are that row's
+  cells. Prompts in the same position correspond across rows, and a column header
+  *is* that prompt's `label` — there are no column definitions.
+- Use ids `"{rowId}.{columnId}"`.
+- A known set of rows: write every row. Rows a filler may add: set
+  `"canAddRows": true` (optionally `"maxRows"`) and still write at least one row —
+  a table with no child sections is `EMPTY_TABLE`.
+- **Never write `tableLayout`, `columns`, `fixedRows` or `dynamicRows`.** They are
+  an earlier design that is not APR. The validator still calls such a document
+  valid, with an `UNPREFIXED_MEMBER` warning, and the table silently disappears.
+
+See the table example in `reference/examples.md`.
 
 ## Computed & conditional fields (optional, advanced)
 
