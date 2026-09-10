@@ -65,20 +65,34 @@ public class RecoverLabelsTests
     [Fact]
     public void OneSpanIsNotUsedAsTheLabelForManyFields()
     {
-        // The competition rule. A line claimed by several fields is a group
-        // instruction, not a label, and handing it to all of them manufactures
-        // duplicate questions that read as plausible.
+        // The competition rule. A line claimed by several scattered fields is a
+        // group instruction, not a label, and handing it to all of them
+        // manufactures duplicate questions that read as plausible.
+        //
+        // Sharing is not banned outright, and this test used to ban it. W-9
+        // writes a social security number as three boxes split by the printed
+        // dashes under one caption, so "Social security number" is the right
+        // label for all three. What must not happen is the same line landing on
+        // fields that are not one entry, so the check is that every shared
+        // label belongs to a detected group.
         var result = ConversionPipeline.Default().Convert(CorpusPath("fed-w9"), "fed-w9");
+        var fields = result.State.FieldsOrEmpty;
 
-        var duplicated = result.State.FieldsOrEmpty
+        var grouped = RepeatingRows.Detect(fields)
+            .Concat(RepeatingRows.DetectRows(fields))
+            .SelectMany(c => c.FieldIds)
+            .ToHashSet(StringComparer.Ordinal);
+
+        var loose = fields
             .Where(f => f.HasLabel)
             .GroupBy(f => f.Label!, StringComparer.OrdinalIgnoreCase)
-            .Where(g => g.Count() > 2)
+            .Where(g => g.Count() > 2 && g.Any(f => !grouped.Contains(f.Id)))
             .Select(g => $"'{g.Key}' x{g.Count()}")
             .ToList();
 
-        duplicated.Should().BeEmpty(
-            $"no single line should become the label for three or more fields: {string.Join(", ", duplicated)}");
+        loose.Should().BeEmpty(
+            "a line may label several fields only when they are one entry the form split up; " +
+            $"these are shared by fields that are not: {string.Join(", ", loose)}");
     }
 
     [Fact]
