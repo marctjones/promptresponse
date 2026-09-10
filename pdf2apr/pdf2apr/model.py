@@ -57,7 +57,10 @@ class Question:
 
     label: str
     blanks: list[Blank]
-    """Every blank this one question is answered in. Usually one."""
+    """Every blank this one question is answered in. Usually one, and empty for
+    a question printed on the page that the form declares no field for — a
+    signature line, typically. APR needs no geometry, so it is still a
+    question; there is simply nowhere on the source page to point at."""
     section: str | None = None
     field_kind: str = "text_line"
     data_type: str = "text"

@@ -44,12 +44,22 @@ class TestParseReply:
         assert len(questions) == 1
         assert len(questions[0].blanks) == 3, "every box is kept, so geometry survives"
 
-    def test_a_box_number_outside_the_page_is_ignored(self):
-        # The model is told how many boxes there are, but it can still miscount,
-        # and an out-of-range index would otherwise mislabel a real field.
+    def test_a_box_number_outside_the_page_never_claims_a_real_box(self):
+        # This test used to assert such an entry was DROPPED, on the theory
+        # that a miscount would mislabel a real field. The premise was right
+        # and the remedy was wrong: the entries are usually questions printed
+        # on the page that the form declares no widget for, and discarding
+        # them cost four points of F1. What must hold is only that they never
+        # take a box that belongs to something else.
         questions, _ = parse_reply(
-            json.dumps({"fields": [{"n": 9, "label": "Nope"}]}), [blank(1)])
-        assert questions == []
+            json.dumps({"fields": [
+                {"n": 1, "label": "Real field"},
+                {"n": 9, "label": "Something the model saw"},
+            ]}),
+            [blank(1)],
+        )
+        assert questions[0].blanks == [blank(1)]
+        assert questions[1].blanks == []
 
     def test_prose_around_the_json_is_tolerated(self):
         questions, _ = parse_reply(
@@ -120,3 +130,37 @@ class TestAgainstARealForm:
         assert result.document is not None
         assert len(result.questions) == len(result.blanks)
         assert not result.used_model
+
+
+class TestQuestionsWithNoField:
+    """The model sometimes names a question stage 1 did not find."""
+
+    def test_a_number_past_the_last_box_is_kept(self):
+        # W-9's signature and date lines are printed on the page but are not
+        # AcroForm widgets, so they get no box; the model numbers them anyway.
+        # Dropping them as out of range cost four points of F1.
+        questions, _ = parse_reply(
+            json.dumps({"fields": [
+                {"n": 1, "label": "Name"},
+                {"n": 2, "label": "Signature of U.S. person"},
+            ]}),
+            [blank(1)],
+        )
+        assert [q.label for q in questions] == ["Name", "Signature of U.S. person"]
+        assert questions[1].blanks == [], "there is nowhere on the page to point at"
+
+    def test_such_a_question_still_reaches_the_document(self):
+        questions, _ = parse_reply(
+            json.dumps({"fields": [{"n": 9, "label": "Date"}]}), [blank(1)])
+        doc = build_document("t", questions, [])
+        assert doc["sections"][0]["prompts"][0]["label"] == "Date"
+
+    def test_each_unplaced_question_stays_separate(self):
+        # They share no box, so they must not collapse into one another.
+        questions, _ = parse_reply(
+            json.dumps({"fields": [
+                {"n": 8, "label": "Signature"}, {"n": 9, "label": "Date"},
+            ]}),
+            [blank(1)],
+        )
+        assert [q.label for q in questions] == ["Signature", "Date"]

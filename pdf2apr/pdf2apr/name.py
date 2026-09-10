@@ -111,20 +111,32 @@ def parse_reply(text: str, blanks: list[Blank]) -> tuple[list[Question], list[di
     # every box so the geometry still describes the page.
     grouped: dict[str, Question] = {}
     order: list[str] = []
-    for entry in obj.get("fields", []):
+    for i, entry in enumerate(obj.get("fields", [])):
         label = (entry.get("label") or "").strip()
-        n = entry.get("n")
-        if not label or not isinstance(n, int) or not (1 <= n <= len(blanks)):
+        if not label:
             continue
-        blank = blanks[n - 1]
-        key = entry.get("group") or f"#{n}"
+        n = entry.get("n")
+
+        # A number past the last box is a question the model saw that stage 1
+        # did not: W-9's signature and date lines are printed on the page but
+        # are not AcroForm widgets, and the model numbers them 24, 25, 26.
+        # Those are right, and dropping them cost four points of F1.
+        #
+        # Note this is NOT the same as inviting additions. Asked to add
+        # anything it sees, the model stops grouping and the mean falls from
+        # 0.79 to 0.70; left alone it adds a few and keeps grouping. So they
+        # are accepted when offered and never solicited.
+        in_range = isinstance(n, int) and 1 <= n <= len(blanks)
+        blank = blanks[n - 1] if in_range else None
+        key = entry.get("group") or (f"#{n}" if in_range else f"~{i}")
         if key in grouped:
-            grouped[key].blanks.append(blank)
+            if blank is not None:
+                grouped[key].blanks.append(blank)
             continue
         order.append(key)
         grouped[key] = Question(
             label=label,
-            blanks=[blank],
+            blanks=[blank] if blank is not None else [],
             section=entry.get("section_id"),
             field_kind=entry.get("field_kind") or "text_line",
             data_type=entry.get("expected_data_type") or "text",

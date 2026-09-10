@@ -72,10 +72,18 @@ detection under-reads, guiding hides fields the model would have spotted alone.
 On CT-W4 the deterministic pass finds 19 blanks against 25 real questions, and
 guiding takes a perfect 1.00 down to 0.77.
 
-**Letting the model add fields makes it worse, not better.** The obvious fix —
-"add any field you see that has no box" — drops the mean from 0.79 to **0.70**,
-below the unaided model. Permission to add also stops it grouping: I-9 went from
-53 prompts to 103. The instruction not to add was doing double duty.
+**Inviting the model to add fields makes it worse; accepting the ones it offers
+does not.** The obvious fix — "add any field you see that has no box" — drops
+the mean from 0.79 to **0.70**, below the unaided model, because permission to
+add also stops it grouping: I-9 went from 53 prompts to 103.
+
+Left alone, though, it adds a few anyway and keeps grouping. On W-9 it returns
+26 entries for 23 boxes, numbering the signature and date lines 24, 25 and 26 —
+questions genuinely printed on the page that the form declares no widget for.
+Those are right, and discarding them as out of range cost four points of F1. So
+extras are accepted when offered and never solicited, and they arrive as
+questions with no blank attached: APR needs no geometry, so there is simply
+nowhere on the source page to point at.
 
 ## Using it as a library
 
