@@ -13,7 +13,6 @@ public enum LabelDirection
 
     /// <summary>Printed to the right, which is where a tick box's name always sits.</summary>
     Right,
-
 }
 
 /// <summary>What label recovery did, in terms a caller can check.</summary>
@@ -422,11 +421,25 @@ public static class LabelRecovery
         // above it in a boxed form. Preference order matters more than the set:
         // a tick box usually has *something* above it too, and that something is
         // usually the instruction for its whole group.
-        // Preference beats proximity, measured: ranking every direction by
-        // distance instead scores 80 against this order's 81 on fed-i9 and ties
-        // on ct-w4. Left and Right are exactly right when they fire (15 of 15
-        // on I-9) while Above is right 81% of the time, so trying the reliable
-        // sides first is worth more than taking whatever is nearest.
+        // Preference beats proximity, and by a wide margin. Re-measured across
+        // all five label-graded forms, counting the fields whose recovered
+        // label agrees with the oracle:
+        //
+        //   this order                                   211
+        //   rank every direction by distance             199
+        //   primary side, then nearer of above / below   182
+        //
+        // The nearest run is very often a DIFFERENT field's caption, and the
+        // denser the form the worse that gets: ranking purely by distance costs
+        // fed-w9 nine points of recall and fed-ss4 ten. Which side a caption
+        // sits on is real information about the layout, and distance alone
+        // discards it.
+        //
+        // Searching BELOW the field was measured as part of that third row, and
+        // it is the worst of the three. Form 8822 does print "Title" under the
+        // rule you write the title on, and that one field stays wrong: below a
+        // field is usually the next field's caption, so admitting the direction
+        // to fix one field misreads twenty-nine others.
         var order = DirectionsFor(field, rect);
 
         foreach (var direction in order)
