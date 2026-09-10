@@ -209,7 +209,6 @@
       "hasAcroForm": false,
       "hasTextLayer": true
     },
-
     {
       "id": "fed-w9-flat",
       "name": "IRS Form W-9, printed to a flat PDF",
@@ -270,6 +269,19 @@
       "hasAcroForm": false,
       "hasTextLayer": true,
       "note": "The hardest federal case in the corpus: four pages, repeating-grid structure, and the only other form whose widgets draw anything (a single checkbox on page 1, which flattening bakes into the content)."
+    },
+    {
+      "id": "fed-i9-scan",
+      "name": "USCIS Form I-9, printed and scanned",
+      "jurisdiction": "federal",
+      "agency": "USCIS",
+      "derivedFrom": "fed-i9",
+      "synthesis": "rasterize",
+      "difficulty": "complex",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": false,
+      "note": "The image-only case at its hardest: four pages of dense grid layout, and the one form whose 128 fields all carry the author's own /TU text, so the source's tooltips remain a mechanical answer key even for a page that is nothing but pixels. Clean 150 DPI bitonal -- no skew or speckle."
     },
     {
       "id": "ct-w4-flat",
