@@ -13,6 +13,7 @@ public enum LabelDirection
 
     /// <summary>Printed to the right, which is where a tick box's name always sits.</summary>
     Right,
+
 }
 
 /// <summary>What label recovery did, in terms a caller can check.</summary>
@@ -80,6 +81,8 @@ public static class LabelRecovery
     /// neighbour's label.
     /// </remarks>
     public const double MaximumHorizontalGap = 96.0;
+
+
 
     /// <summary>How far above a field a run may sit and still be its label, in points.</summary>
     /// <remarks>
@@ -186,6 +189,7 @@ public static class LabelRecovery
         // two fields sharing a caption cannot both claim it -- the closer one
         // wins and the other is left for the review queue.
         var labels = new Dictionary<int, Proposal>();
+        var qualified = new Dictionary<int, string>();
         var taken = new HashSet<int>();
         foreach (var proposal in proposals.OrderBy(p => p.Distance))
         {
@@ -266,11 +270,93 @@ public static class LabelRecovery
             }
         }
 
+        // A caption printed between two fields on one line belongs to both.
+        // SS-4 writes "[x] Sole proprietor (SSN) ______", where the tick box
+        // claims the caption from its right and the entry line beside it is
+        // then left with nothing. Sharing is allowed only when the two fields
+        // sit on OPPOSITE sides of the run, which is what distinguishes this
+        // from two unrelated fields both reaching for the same text.
+        var claimant = labels
+            .GroupBy(kv => kv.Value.SpanIndex)
+            .ToDictionary(g => g.Key, g => g.First().Key);
+
+        foreach (var (field, index) in wanting)
+        {
+            if (labels.ContainsKey(index) || field.TargetRect is not { } rect)
+            {
+                continue;
+            }
+
+            foreach (var pair in claimant)
+            {
+                var spanIndex = pair.Key;
+                var ownerIndex = pair.Value;
+                var span = spans[spanIndex].Rect;
+                if (spans[spanIndex].PageNumber != field.PageNumber
+                    || fields[ownerIndex].TargetRect is not { } owner)
+                {
+                    continue;
+                }
+
+                // Same line as the run, and on the far side of it from the
+                // field that already claimed it.
+                var shares = span.Top > rect.Bottom + EdgeTolerance && span.Bottom < rect.Top - EdgeTolerance;
+                var opposite = (owner.Right <= span.Left + EdgeTolerance && rect.Left >= span.Right - EdgeTolerance)
+                    || (owner.Left >= span.Right - EdgeTolerance && rect.Right <= span.Left + EdgeTolerance);
+                var gap = rect.Left >= span.Right ? rect.Left - span.Right : span.Left - rect.Right;
+
+                if (shares && opposite && gap >= -EdgeTolerance && gap <= MaximumHorizontalGap)
+                {
+                    labels[index] = labels[ownerIndex] with { FieldIndex = index };
+                    break;
+                }
+            }
+        }
+
+        // A tick box whose caption is only "Yes" or "No" has a label that says
+        // nothing on its own: SS-4 asks "Is this application for a limited
+        // liability company (LLC)?" once and then offers two boxes. The answer
+        // word is correct and useless, so the question printed at the head of
+        // the same line is prefixed to it.
+        foreach (var (field, index) in wanting)
+        {
+            if (!labels.TryGetValue(index, out var found)
+                || !IsBareAnswer(spans[found.SpanIndex].Text)
+                || field.TargetRect is not { } box)
+            {
+                continue;
+            }
+
+            // Searched over every classified run, not just the label
+            // candidates. The question a Yes/No pair answers is usually long
+            // enough to have been ruled out as an instruction -- SS-4's "Is
+            // this application for a limited liability company (LLC) (or a
+            // foreign equivalent)?" is exactly that -- and it is still the
+            // question. Nothing is consumed here, so this cannot starve
+            // another field.
+            var question = spans
+                .Where(s => s.PageNumber == field.PageNumber
+                    && s.Role != SpanRole.Furniture
+                    && !IsBareAnswer(s.Text)
+                    && IsUsableLabel(s.Text)
+                    && s.Rect.Right <= box.Left + EdgeTolerance
+                    && s.Rect.Top > box.Bottom + EdgeTolerance
+                    && s.Rect.Bottom < box.Top - EdgeTolerance)
+                .OrderBy(s => box.Left - s.Rect.Right)
+                .Select(s => s.Text.Trim())
+                .FirstOrDefault();
+
+            if (!string.IsNullOrWhiteSpace(question))
+            {
+                qualified[index] = $"{question} {spans[found.SpanIndex].Text.Trim()}";
+            }
+        }
+
         var updatedFields = fields
             .Select((field, i) => labels.TryGetValue(i, out var found)
                 ? field with
                 {
-                    Label = spans[found.SpanIndex].Text.Trim(),
+                    Label = qualified.TryGetValue(i, out var full) ? full : spans[found.SpanIndex].Text.Trim(),
                     LabelSource = LabelSource.NearbyText,
                     HelpText = spans[found.SpanIndex].HelpText,
                     LabelFoundAt = found.Direction,
@@ -296,6 +382,23 @@ public static class LabelRecovery
     /// was labelled "S" — the tail of a split run — which no distance rule would
     /// ever reject, because it genuinely is the nearest text.
     /// </remarks>
+    /// <summary>
+    /// Whether a run is nothing but answer words, and so carries no question.
+    /// </summary>
+    /// <remarks>
+    /// Tests every token rather than the whole string, because the answer words
+    /// of one line often arrive as a single run: SS-4's line 8c extracts as
+    /// "Yes No .", which a whole-string test treats as a question and prefixes,
+    /// producing the label "Yes No . Yes".
+    /// </remarks>
+    private static bool IsBareAnswer(string text)
+    {
+        var words = text.Split([' ', '.', ',', ':', ';'], StringSplitOptions.RemoveEmptyEntries);
+        return words.Length > 0 && words.All(w =>
+            w.Equals("yes", StringComparison.OrdinalIgnoreCase)
+            || w.Equals("no", StringComparison.OrdinalIgnoreCase));
+    }
+
     private static bool IsUsableLabel(string text) =>
         text.Split([' '], StringSplitOptions.RemoveEmptyEntries)
             .Any(w => w.Count(char.IsLetter) >= 2);

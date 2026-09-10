@@ -74,10 +74,15 @@ public class ConversionPipelineTests
         // empty queue. Reporting the second as the first is a phase claiming
         // credit for work that never happened, and it is the exact shape of a
         // green check that measures nothing.
-        var found = ConversionPipeline.Default().Convert(CorpusPath("fed-w9"), "w9");
+        // fed-w9 was the example here until label recovery started finding a
+        // label for all 23 of its fields, which emptied its queue for the right
+        // reason. fed-w9-flat still has fields nothing could name, so it is the
+        // fixture that exercises a non-empty queue now.
+        var found = ConversionPipeline.Default().Convert(CorpusPath("fed-w9-flat"), "w9flat");
         var nothing = ConversionPipeline.Default().Convert(CorpusPath("ct-dmv-a25-flat"), "scan");
 
-        found.ReviewQueueSize.Should().BeGreaterThan(0, "W-9's fields are all cryptic");
+        found.ReviewQueueSize.Should().BeGreaterThan(0,
+            "a flattened form yields blanks whose label was never recovered");
         nothing.ReviewQueueSize.Should().Be(0);
         nothing.Phases.Single(p => p.Name == "model-touch-up").Detail
             .Should().Contain("found nothing",
