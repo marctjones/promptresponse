@@ -41,17 +41,21 @@ public class ConversionPipelineTests
     }
 
     [Fact]
-    public void AFlatFormProducesNothingYet_AndSaysWhy()
+    public void AFlatFormNowYieldsFieldsFromWhatThePageDraws()
     {
-        // The converter's actual target case, and it is honestly unbuilt. This
-        // test exists so that stops being true loudly rather than quietly: when
-        // #424 lands it fails, and the failure is the signal to update it.
+        // The converter's actual target case. This test previously asserted the
+        // opposite -- that a flat form produced nothing and said so -- and was
+        // written to fail loudly when #424 landed. It has.
         var result = ConversionPipeline.Default().Convert(CorpusPath("fed-w9-flat"), "flat");
 
-        result.Succeeded.Should().BeFalse("no phase can find a field on a form that declares none");
-        result.Unbuilt.Select(p => p.Name).Should().Contain("discover-text-layer");
-        result.Phases.Single(p => p.Name == "extract-text").Status.Should().Be(PhaseStatus.Completed,
-            "the text is there and is read; it is the field-finding that is missing");
+        result.Succeeded.Should().BeTrue("the blanks are drawn on the page even with no AcroForm");
+        result.Unbuilt.Select(p => p.Name).Should().NotContain("discover-text-layer");
+
+        result.Phases.Single(p => p.Name == "discover-acroform").Status.Should().Be(PhaseStatus.Skipped,
+            "there is no AcroForm to read; every field here came from the page's own ink");
+        result.State.FieldsOrEmpty.Should().OnlyContain(f => f.Origin == FieldOrigin.TextLayer);
+        result.State.FieldsOrEmpty.Should().OnlyContain(f => f.TargetRect != null,
+            "a field found by geometry always knows where it is, which is what makes it gradable");
     }
 
     [Fact]

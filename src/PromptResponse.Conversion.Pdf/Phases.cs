@@ -202,8 +202,24 @@ public sealed class DiscoverTextLayerFieldsPhase : IConversionPhase
             return (state, PhaseStatus.Skipped, "the AcroForm already stated every field");
         }
 
-        return (state, PhaseStatus.NotImplemented,
-            "no vector-geometry discovery yet (#424); a form without an AcroForm yields no fields");
+        var rulings = PageRulings.ReadAll(state.SourcePath);
+        if (rulings.Count == 0)
+        {
+            return (state, PhaseStatus.Skipped,
+                "the page draws no rules or boxes; with no AcroForm either, there is nothing to find");
+        }
+
+        var found = BlankDetector.Detect(rulings, state.MeasuredOrEmpty);
+        if (found.Count == 0)
+        {
+            return (state, PhaseStatus.Completed,
+                $"{rulings.Count} drawn rule(s) read, none of which is a blank");
+        }
+
+        var ticks = found.Count(f => f.ExpectedDataType == "boolean");
+        return (state with { Fields = [.. state.FieldsOrEmpty, .. found] }, PhaseStatus.Completed,
+            $"{found.Count} field(s) found in {rulings.Count} drawn rule(s): " +
+            $"{ticks} tick box(es), {found.Count - ticks} write-on blank(s)");
     }
 }
 
