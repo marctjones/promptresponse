@@ -222,6 +222,19 @@
       "hasTextLayer": true
     },
     {
+      "id": "fed-w9-scan",
+      "name": "IRS Form W-9, printed and scanned",
+      "jurisdiction": "federal",
+      "agency": "IRS",
+      "derivedFrom": "fed-w9",
+      "synthesis": "rasterize",
+      "difficulty": "moderate",
+      "role": "converter-development",
+      "hasAcroForm": false,
+      "hasTextLayer": false,
+      "note": "Completes W-9 and I-9 as the two forms that exist in all three states -- fillable, flattened, and image-only -- so a converter change can be measured across the whole degradation path on the same document. Clean 150 DPI bitonal."
+    },
+    {
       "id": "fed-ss4-flat",
       "name": "IRS Form SS-4, printed to a flat PDF",
       "jurisdiction": "federal",

@@ -1,0 +1,8092 @@
+{
+  "formId": "fed-w9-flat",
+  "pageCount": 6,
+  "pages": [
+    {
+      "number": 1,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 2,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 3,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 4,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 5,
+      "width": 611.98,
+      "height": 791.97
+    },
+    {
+      "number": 6,
+      "width": 611.98,
+      "height": 791.97
+    }
+  ],
+  "fields": [],
+  "lines": [
+    {
+      "page": 1,
+      "order": 0,
+      "text": "Form W-9",
+      "rect": {
+        "left": 36,
+        "bottom": 738.83,
+        "right": 96.21,
+        "top": 762.83
+      }
+    },
+    {
+      "page": 1,
+      "order": 1,
+      "text": "Request for Taxpayer",
+      "rect": {
+        "left": 239.21,
+        "bottom": 743.37,
+        "right": 372.77,
+        "top": 757.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 2,
+      "text": "Give form to the",
+      "rect": {
+        "left": 496.58,
+        "bottom": 739.77,
+        "right": 565.57,
+        "top": 748.77
+      }
+    },
+    {
+      "page": 1,
+      "order": 3,
+      "text": "Identification Number and Certification",
+      "rect": {
+        "left": 184.05,
+        "bottom": 728.37,
+        "right": 427.92,
+        "top": 742.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 4,
+      "text": "requester. Do not",
+      "rect": {
+        "left": 496.58,
+        "bottom": 728.97,
+        "right": 571.59,
+        "top": 737.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 5,
+      "text": "(Rev. March 2024)",
+      "rect": {
+        "left": 36,
+        "bottom": 729.41,
+        "right": 92.92,
+        "top": 736.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 6,
+      "text": "send to the IRS.",
+      "rect": {
+        "left": 496.58,
+        "bottom": 718.17,
+        "right": 564.75,
+        "top": 727.17
+      }
+    },
+    {
+      "page": 1,
+      "order": 7,
+      "text": "Department of the Treasury",
+      "rect": {
+        "left": 36,
+        "bottom": 719.37,
+        "right": 119.25,
+        "top": 726.37
+      }
+    },
+    {
+      "page": 1,
+      "order": 8,
+      "text": "Go to www.irs.gov/FormW9 for instructions and the latest information.",
+      "rect": {
+        "left": 172,
+        "bottom": 714.12,
+        "right": 439.98,
+        "top": 722.12
+      }
+    },
+    {
+      "page": 1,
+      "order": 9,
+      "text": "Internal Revenue Service",
+      "rect": {
+        "left": 36,
+        "bottom": 710.97,
+        "right": 111.32,
+        "top": 717.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 10,
+      "text": "Before you begin. For guidance related to the purpose of Form W-9, see Purpose of Form, below.",
+      "rect": {
+        "left": 36,
+        "bottom": 699.26,
+        "right": 388.17,
+        "top": 707.26
+      }
+    },
+    {
+      "page": 1,
+      "order": 11,
+      "text": "1 Name of entity/individual. An entry is required. (For a sole proprietor or disregarded entity, enter the owner\u2019s name on line 1, and enter the business/disregarded",
+      "rect": {
+        "left": 61.6,
+        "bottom": 687.97,
+        "right": 572.67,
+        "top": 694.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 12,
+      "text": "entity\u2019s name on line 2.)",
+      "rect": {
+        "left": 73.6,
+        "bottom": 679.57,
+        "right": 147.64,
+        "top": 686.57
+      }
+    },
+    {
+      "page": 1,
+      "order": 13,
+      "text": "2 Business name/disregarded entity name, if different from above.",
+      "rect": {
+        "left": 61.6,
+        "bottom": 651.97,
+        "right": 273.84,
+        "top": 658.97
+      }
+    },
+    {
+      "page": 1,
+      "order": 14,
+      "text": "3.",
+      "rect": {
+        "left": 44.31,
+        "bottom": 630.65,
+        "right": 52.31,
+        "top": 637.32
+      }
+    },
+    {
+      "page": 1,
+      "order": 15,
+      "text": "3a Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check",
+      "rect": {
+        "left": 61.6,
+        "bottom": 627.98,
+        "right": 442.49,
+        "top": 634.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 16,
+      "text": "4 Exemptions (codes apply only to",
+      "rect": {
+        "left": 457.58,
+        "bottom": 626.98,
+        "right": 567.4,
+        "top": 633.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 17,
+      "text": "page",
+      "rect": {
+        "left": 44.31,
+        "bottom": 610.5,
+        "right": 52.31,
+        "top": 628.43
+      }
+    },
+    {
+      "page": 1,
+      "order": 18,
+      "text": "only one of the following seven boxes.",
+      "rect": {
+        "left": 73.6,
+        "bottom": 619.58,
+        "right": 194.02,
+        "top": 626.58
+      }
+    },
+    {
+      "page": 1,
+      "order": 19,
+      "text": "certain entities, not individuals;",
+      "rect": {
+        "left": 465.58,
+        "bottom": 618.58,
+        "right": 562.17,
+        "top": 625.58
+      }
+    },
+    {
+      "page": 1,
+      "order": 20,
+      "text": "see instructions on page 3):",
+      "rect": {
+        "left": 465.58,
+        "bottom": 610.18,
+        "right": 551.93,
+        "top": 617.18
+      }
+    },
+    {
+      "page": 1,
+      "order": 21,
+      "text": "Individual/sole proprietor",
+      "rect": {
+        "left": 86.6,
+        "bottom": 604.98,
+        "right": 164.37,
+        "top": 611.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 22,
+      "text": "C corporation",
+      "rect": {
+        "left": 193.59,
+        "bottom": 604.98,
+        "right": 236.63,
+        "top": 611.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 23,
+      "text": "S corporation",
+      "rect": {
+        "left": 265.59,
+        "bottom": 604.98,
+        "right": 308.11,
+        "top": 611.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 24,
+      "text": "Partnership",
+      "rect": {
+        "left": 337.58,
+        "bottom": 604.98,
+        "right": 373.49,
+        "top": 611.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 25,
+      "text": "Trust/estate",
+      "rect": {
+        "left": 402.39,
+        "bottom": 604.98,
+        "right": 439.85,
+        "top": 611.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 26,
+      "text": "on",
+      "rect": {
+        "left": 44.31,
+        "bottom": 599.23,
+        "right": 52.31,
+        "top": 608.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 27,
+      "text": "Exempt payee code (if any)",
+      "rect": {
+        "left": 457.58,
+        "bottom": 592.48,
+        "right": 539.83,
+        "top": 599.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 28,
+      "text": "LLC. Enter the tax classification (C = C corporation, S = S corporation, P = Partnership) ....",
+      "rect": {
+        "left": 86.4,
+        "bottom": 591.48,
+        "right": 374.21,
+        "top": 598.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 29,
+      "text": "rint Instructions",
+      "rect": {
+        "left": 34.71,
+        "bottom": 550.72,
+        "right": 52.31,
+        "top": 597.01
+      }
+    },
+    {
+      "page": 1,
+      "order": 30,
+      "text": "type.",
+      "rect": {
+        "left": 34.71,
+        "bottom": 575.9,
+        "right": 42.71,
+        "top": 594.57
+      }
+    },
+    {
+      "page": 1,
+      "order": 31,
+      "text": "Note: Check the \u201CLLC\u201D box above and, in the entry space, enter the appropriate code (C, S, or P) for the tax",
+      "rect": {
+        "left": 86.4,
+        "bottom": 581.6,
+        "right": 420.63,
+        "top": 588.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 32,
+      "text": "Exemption from Foreign Account Tax",
+      "rect": {
+        "left": 457.58,
+        "bottom": 574.38,
+        "right": 574.26,
+        "top": 581.38
+      }
+    },
+    {
+      "page": 1,
+      "order": 33,
+      "text": "classification of the LLC, unless it is a disregarded entity. A disregarded entity should instead check the appropriate",
+      "rect": {
+        "left": 86.4,
+        "bottom": 573.85,
+        "right": 443.98,
+        "top": 580.85
+      }
+    },
+    {
+      "page": 1,
+      "order": 34,
+      "text": "or",
+      "rect": {
+        "left": 34.71,
+        "bottom": 565.68,
+        "right": 42.71,
+        "top": 573.68
+      }
+    },
+    {
+      "page": 1,
+      "order": 35,
+      "text": "box for the tax classification of its owner.",
+      "rect": {
+        "left": 86.4,
+        "bottom": 566.11,
+        "right": 213.43,
+        "top": 573.11
+      }
+    },
+    {
+      "page": 1,
+      "order": 36,
+      "text": "Compliance Act (FATCA) reporting",
+      "rect": {
+        "left": 457.58,
+        "bottom": 565.98,
+        "right": 565.43,
+        "top": 572.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 37,
+      "text": "code (if any)",
+      "rect": {
+        "left": 458.03,
+        "bottom": 556.98,
+        "right": 496.01,
+        "top": 563.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 38,
+      "text": "Other (see instructions)",
+      "rect": {
+        "left": 86.4,
+        "bottom": 554.98,
+        "right": 158.74,
+        "top": 561.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 39,
+      "text": "P",
+      "rect": {
+        "left": 34.71,
+        "bottom": 545.38,
+        "right": 42.71,
+        "top": 550.72
+      }
+    },
+    {
+      "page": 1,
+      "order": 40,
+      "text": "pecific",
+      "rect": {
+        "left": 44.31,
+        "bottom": 523.82,
+        "right": 52.31,
+        "top": 549.16
+      }
+    },
+    {
+      "page": 1,
+      "order": 41,
+      "text": "3b If on line 3a you checked \u201CPartnership\u201D or \u201CTrust/estate,\u201D or checked \u201CLLC\u201D and entered \u201CP\u201D as its tax classification,",
+      "rect": {
+        "left": 61.6,
+        "bottom": 538.78,
+        "right": 434.14,
+        "top": 545.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 42,
+      "text": "(Applies to accounts maintained",
+      "rect": {
+        "left": 464.86,
+        "bottom": 534.38,
+        "right": 564.7,
+        "top": 541.38
+      }
+    },
+    {
+      "page": 1,
+      "order": 43,
+      "text": "and you are providing this form to a partnership, trust, or estate in which you have an ownership interest, check",
+      "rect": {
+        "left": 73.6,
+        "bottom": 530.38,
+        "right": 423.38,
+        "top": 537.38
+      }
+    },
+    {
+      "page": 1,
+      "order": 44,
+      "text": "outside the United States.)",
+      "rect": {
+        "left": 473.42,
+        "bottom": 525.98,
+        "right": 556.14,
+        "top": 532.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 45,
+      "text": "this box if you have any foreign partners, owners, or beneficiaries. See instructions .......",
+      "rect": {
+        "left": 73.63,
+        "bottom": 521.98,
+        "right": 355.91,
+        "top": 528.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 46,
+      "text": "..",
+      "rect": {
+        "left": 420,
+        "bottom": 521.98,
+        "right": 425.33,
+        "top": 528.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 47,
+      "text": "S",
+      "rect": {
+        "left": 44.31,
+        "bottom": 518.64,
+        "right": 52.31,
+        "top": 523.82
+      }
+    },
+    {
+      "page": 1,
+      "order": 48,
+      "text": "ee",
+      "rect": {
+        "left": 44.31,
+        "bottom": 507.82,
+        "right": 52.31,
+        "top": 516.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 49,
+      "text": "5 Address (number, street, and apt. or suite no.). See instructions.",
+      "rect": {
+        "left": 61.6,
+        "bottom": 507.98,
+        "right": 273.21,
+        "top": 514.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 50,
+      "text": "Requester\u2019s name and address (optional)",
+      "rect": {
+        "left": 392.78,
+        "bottom": 507.98,
+        "right": 521.27,
+        "top": 514.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 51,
+      "text": "S",
+      "rect": {
+        "left": 44.31,
+        "bottom": 502.64,
+        "right": 52.31,
+        "top": 507.82
+      }
+    },
+    {
+      "page": 1,
+      "order": 52,
+      "text": "6 City, state, and ZIP code",
+      "rect": {
+        "left": 61.6,
+        "bottom": 483.98,
+        "right": 150.8,
+        "top": 490.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 53,
+      "text": "7 List account number(s) here (optional)",
+      "rect": {
+        "left": 61.6,
+        "bottom": 459.98,
+        "right": 191.13,
+        "top": 466.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 54,
+      "text": "Part I",
+      "rect": {
+        "left": 41.22,
+        "bottom": 434.84,
+        "right": 66.77,
+        "top": 444.84
+      }
+    },
+    {
+      "page": 1,
+      "order": 55,
+      "text": "Taxpayer Identification Number (TIN)",
+      "rect": {
+        "left": 86.4,
+        "bottom": 434.84,
+        "right": 261.51,
+        "top": 444.84
+      }
+    },
+    {
+      "page": 1,
+      "order": 56,
+      "text": "Social security number",
+      "rect": {
+        "left": 421.58,
+        "bottom": 424.98,
+        "right": 498.17,
+        "top": 431.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 57,
+      "text": "Enter your TIN in the appropriate box. The TIN provided must match the name given on line 1 to avoid",
+      "rect": {
+        "left": 36,
+        "bottom": 420.67,
+        "right": 399.78,
+        "top": 428.67
+      }
+    },
+    {
+      "page": 1,
+      "order": 58,
+      "text": "backup withholding. For individuals, this is generally your social security number (SSN). However, for a",
+      "rect": {
+        "left": 36,
+        "bottom": 411.07,
+        "right": 401.94,
+        "top": 419.07
+      }
+    },
+    {
+      "page": 1,
+      "order": 59,
+      "text": "\u2013 \u2013",
+      "rect": {
+        "left": 465.98,
+        "bottom": 405.27,
+        "right": 478.88,
+        "top": 413.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 60,
+      "text": "resident alien, sole proprietor, or disregarded entity, see the instructions for Part I, later. For other",
+      "rect": {
+        "left": 36,
+        "bottom": 401.47,
+        "right": 382.98,
+        "top": 409.47
+      }
+    },
+    {
+      "page": 1,
+      "order": 61,
+      "text": "entities, it is your employer identification number (EIN). If you do not have a number, see How to get a",
+      "rect": {
+        "left": 36,
+        "bottom": 391.87,
+        "right": 398.29,
+        "top": 399.87
+      }
+    },
+    {
+      "page": 1,
+      "order": 62,
+      "text": "or",
+      "rect": {
+        "left": 417.58,
+        "bottom": 387.56,
+        "right": 426.58,
+        "top": 396.56
+      }
+    },
+    {
+      "page": 1,
+      "order": 63,
+      "text": "TIN, later.",
+      "rect": {
+        "left": 36,
+        "bottom": 382.27,
+        "right": 70.66,
+        "top": 390.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 64,
+      "text": "Employer identification number",
+      "rect": {
+        "left": 421.58,
+        "bottom": 376.99,
+        "right": 526.14,
+        "top": 383.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 65,
+      "text": "Note: If the account is in more than one name, see the instructions for line 1. See also What Name and",
+      "rect": {
+        "left": 36,
+        "bottom": 366.01,
+        "right": 402.31,
+        "top": 374.01
+      }
+    },
+    {
+      "page": 1,
+      "order": 66,
+      "text": "\u2013",
+      "rect": {
+        "left": 451.58,
+        "bottom": 357.27,
+        "right": 455.58,
+        "top": 365.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 67,
+      "text": "Number To Give the Requester for guidelines on whose number to enter.",
+      "rect": {
+        "left": 36,
+        "bottom": 356.41,
+        "right": 295.43,
+        "top": 364.41
+      }
+    },
+    {
+      "page": 1,
+      "order": 68,
+      "text": "Part II",
+      "rect": {
+        "left": 39.75,
+        "bottom": 338.85,
+        "right": 68.25,
+        "top": 348.85
+      }
+    },
+    {
+      "page": 1,
+      "order": 69,
+      "text": "Certification",
+      "rect": {
+        "left": 86.4,
+        "bottom": 338.85,
+        "right": 145.06,
+        "top": 348.85
+      }
+    },
+    {
+      "page": 1,
+      "order": 70,
+      "text": "Under penalties of perjury, I certify that:",
+      "rect": {
+        "left": 36,
+        "bottom": 326.27,
+        "right": 177.19,
+        "top": 334.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 71,
+      "text": "1. The number shown on this form is my correct taxpayer identification number (or I am waiting for a number to be issued to me); and",
+      "rect": {
+        "left": 36,
+        "bottom": 314.28,
+        "right": 511.51,
+        "top": 322.27
+      }
+    },
+    {
+      "page": 1,
+      "order": 72,
+      "text": "2. I am not subject to backup withholding because (a) I am exempt from backup withholding, or (b) I have not been notified by the Internal Revenue",
+      "rect": {
+        "left": 36,
+        "bottom": 303.48,
+        "right": 560.56,
+        "top": 311.48
+      }
+    },
+    {
+      "page": 1,
+      "order": 73,
+      "text": "Service (IRS) that I am subject to backup withholding as a result of a failure to report all interest or dividends, or (c) the IRS has notified me that I am",
+      "rect": {
+        "left": 45,
+        "bottom": 293.88,
+        "right": 572.32,
+        "top": 301.88
+      }
+    },
+    {
+      "page": 1,
+      "order": 74,
+      "text": "no longer subject to backup withholding; and",
+      "rect": {
+        "left": 45,
+        "bottom": 284.28,
+        "right": 206.51,
+        "top": 292.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 75,
+      "text": "3. I am a U.S. citizen or other U.S. person (defined below); and",
+      "rect": {
+        "left": 36,
+        "bottom": 272.28,
+        "right": 259.13,
+        "top": 280.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 76,
+      "text": "4. The FATCA code(s) entered on this form (if any) indicating that I am exempt from FATCA reporting is correct.",
+      "rect": {
+        "left": 36,
+        "bottom": 260.28,
+        "right": 432.05,
+        "top": 268.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 77,
+      "text": "Certification instructions. You must cross out item 2 above if you have been notified by the IRS that you are currently subject to backup withholding",
+      "rect": {
+        "left": 36,
+        "bottom": 247.58,
+        "right": 548.76,
+        "top": 255.58
+      }
+    },
+    {
+      "page": 1,
+      "order": 78,
+      "text": "because you have failed to report all interest and dividends on your tax return. For real estate transactions, item 2 does not apply. For mortgage interest paid,",
+      "rect": {
+        "left": 36,
+        "bottom": 237.98,
+        "right": 575.24,
+        "top": 245.98
+      }
+    },
+    {
+      "page": 1,
+      "order": 79,
+      "text": "acquisition or abandonment of secured property, cancellation of debt, contributions to an individual retirement arrangement (IRA), and, generally, payments",
+      "rect": {
+        "left": 36,
+        "bottom": 228.38,
+        "right": 568.29,
+        "top": 236.38
+      }
+    },
+    {
+      "page": 1,
+      "order": 80,
+      "text": "other than interest and dividends, you are not required to sign the certification, but you must provide your correct TIN. See the instructions for Part II, later.",
+      "rect": {
+        "left": 36,
+        "bottom": 218.78,
+        "right": 565.28,
+        "top": 226.78
+      }
+    },
+    {
+      "page": 1,
+      "order": 81,
+      "text": "Sign",
+      "rect": {
+        "left": 36,
+        "bottom": 205.6,
+        "right": 57.11,
+        "top": 215.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 82,
+      "text": "Signature of",
+      "rect": {
+        "left": 76,
+        "bottom": 204.39,
+        "right": 116.7,
+        "top": 211.39
+      }
+    },
+    {
+      "page": 1,
+      "order": 83,
+      "text": "Here",
+      "rect": {
+        "left": 36,
+        "bottom": 195.6,
+        "right": 58.78,
+        "top": 205.6
+      }
+    },
+    {
+      "page": 1,
+      "order": 84,
+      "text": "U.S. person",
+      "rect": {
+        "left": 76,
+        "bottom": 195.99,
+        "right": 114.77,
+        "top": 202.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 85,
+      "text": "Date",
+      "rect": {
+        "left": 385.58,
+        "bottom": 195.99,
+        "right": 401.27,
+        "top": 202.99
+      }
+    },
+    {
+      "page": 1,
+      "order": 86,
+      "text": "General Instructions",
+      "rect": {
+        "left": 36,
+        "bottom": 172,
+        "right": 171.56,
+        "top": 186
+      }
+    },
+    {
+      "page": 1,
+      "order": 87,
+      "text": "New line 3b has been added to this form. A flow-through entity is",
+      "rect": {
+        "left": 324.79,
+        "bottom": 176.28,
+        "right": 557.11,
+        "top": 184.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 88,
+      "text": "required to complete this line to indicate that it has direct or indirect",
+      "rect": {
+        "left": 316.79,
+        "bottom": 167.28,
+        "right": 558.75,
+        "top": 175.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 89,
+      "text": "Section references are to the Internal Revenue Code unless otherwise",
+      "rect": {
+        "left": 36,
+        "bottom": 158.28,
+        "right": 285.19,
+        "top": 166.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 90,
+      "text": "foreign partners, owners, or beneficiaries when it provides the Form W-9",
+      "rect": {
+        "left": 316.79,
+        "bottom": 158.28,
+        "right": 575.46,
+        "top": 166.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 91,
+      "text": "noted.",
+      "rect": {
+        "left": 36,
+        "bottom": 149.28,
+        "right": 58.82,
+        "top": 157.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 92,
+      "text": "to another flow-through entity in which it has an ownership interest. This",
+      "rect": {
+        "left": 316.79,
+        "bottom": 149.28,
+        "right": 574.43,
+        "top": 157.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 93,
+      "text": "change is intended to provide a flow-through entity with information",
+      "rect": {
+        "left": 316.79,
+        "bottom": 140.28,
+        "right": 558.74,
+        "top": 148.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 94,
+      "text": "Future developments. For the latest information about developments",
+      "rect": {
+        "left": 36,
+        "bottom": 137.28,
+        "right": 286.26,
+        "top": 145.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 95,
+      "text": "regarding the status of its indirect foreign partners, owners, or",
+      "rect": {
+        "left": 316.79,
+        "bottom": 131.28,
+        "right": 537.83,
+        "top": 139.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 96,
+      "text": "related to Form W-9 and its instructions, such as legislation enacted",
+      "rect": {
+        "left": 36,
+        "bottom": 128.28,
+        "right": 279.3,
+        "top": 136.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 97,
+      "text": "beneficiaries, so that it can satisfy any applicable reporting",
+      "rect": {
+        "left": 316.79,
+        "bottom": 122.28,
+        "right": 526.28,
+        "top": 130.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 98,
+      "text": "after they were published, go to www.irs.gov/FormW9.",
+      "rect": {
+        "left": 36,
+        "bottom": 119.28,
+        "right": 230.95,
+        "top": 127.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 99,
+      "text": "requirements. For example, a partnership that has any indirect foreign",
+      "rect": {
+        "left": 316.79,
+        "bottom": 113.28,
+        "right": 565.87,
+        "top": 121.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 100,
+      "text": "What\u2019s New",
+      "rect": {
+        "left": 36,
+        "bottom": 101.43,
+        "right": 104.22,
+        "top": 113.43
+      }
+    },
+    {
+      "page": 1,
+      "order": 101,
+      "text": "partners may be required to complete Schedules K-2 and K-3. See the",
+      "rect": {
+        "left": 316.79,
+        "bottom": 104.28,
+        "right": 569.15,
+        "top": 112.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 102,
+      "text": "Partnership Instructions for Schedules K-2 and K-3 (Form 1065).",
+      "rect": {
+        "left": 316.79,
+        "bottom": 95.28,
+        "right": 546.62,
+        "top": 103.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 103,
+      "text": "Line 3a has been modified to clarify how a disregarded entity completes",
+      "rect": {
+        "left": 36,
+        "bottom": 88.28,
+        "right": 293.22,
+        "top": 96.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 104,
+      "text": "Purpose of Form",
+      "rect": {
+        "left": 316.79,
+        "bottom": 77.43,
+        "right": 412.56,
+        "top": 89.43
+      }
+    },
+    {
+      "page": 1,
+      "order": 105,
+      "text": "this line. An LLC that is a disregarded entity should check the",
+      "rect": {
+        "left": 36,
+        "bottom": 79.28,
+        "right": 255.01,
+        "top": 87.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 106,
+      "text": "appropriate box for the tax classification of its owner. Otherwise, it",
+      "rect": {
+        "left": 36,
+        "bottom": 70.28,
+        "right": 273.32,
+        "top": 78.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 107,
+      "text": "An individual or entity (Form W-9 requester) who is required to file an",
+      "rect": {
+        "left": 316.79,
+        "bottom": 64.28,
+        "right": 561.99,
+        "top": 72.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 108,
+      "text": "should check the \u201CLLC\u201D box and enter its appropriate tax classification.",
+      "rect": {
+        "left": 36,
+        "bottom": 61.28,
+        "right": 290.7,
+        "top": 69.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 109,
+      "text": "information return with the IRS is giving you this form because they",
+      "rect": {
+        "left": 316.79,
+        "bottom": 55.28,
+        "right": 556.23,
+        "top": 63.28
+      }
+    },
+    {
+      "page": 1,
+      "order": 110,
+      "text": "Form W-9 (Rev. 3-2024)",
+      "rect": {
+        "left": 494.93,
+        "bottom": 37.86,
+        "right": 575.98,
+        "top": 47.86
+      }
+    },
+    {
+      "page": 1,
+      "order": 111,
+      "text": "Cat. No. 10231X",
+      "rect": {
+        "left": 236.99,
+        "bottom": 38,
+        "right": 288.59,
+        "top": 45
+      }
+    },
+    {
+      "page": 2,
+      "order": 112,
+      "text": "Page 2",
+      "rect": {
+        "left": 552.4,
+        "bottom": 747.83,
+        "right": 575.98,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 2,
+      "order": 113,
+      "text": "Form W-9 (Rev. 3-2024)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 111.08,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 2,
+      "order": 114,
+      "text": "must obtain your correct taxpayer identification number (TIN), which",
+      "rect": {
+        "left": 36,
+        "bottom": 728.26,
+        "right": 278.84,
+        "top": 736.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 115,
+      "text": "Foreign person. If you are a foreign person or the U.S. branch of a",
+      "rect": {
+        "left": 316.79,
+        "bottom": 728.26,
+        "right": 556.06,
+        "top": 736.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 116,
+      "text": "may be your social security number (SSN), individual taxpayer",
+      "rect": {
+        "left": 36,
+        "bottom": 719.26,
+        "right": 257.06,
+        "top": 727.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 117,
+      "text": "foreign bank that has elected to be treated as a U.S. person (under",
+      "rect": {
+        "left": 316.79,
+        "bottom": 719.26,
+        "right": 555.5,
+        "top": 727.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 118,
+      "text": "identification number (ITIN), adoption taxpayer identification number",
+      "rect": {
+        "left": 36,
+        "bottom": 710.26,
+        "right": 279,
+        "top": 718.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 119,
+      "text": "Regulations section 1.1441-1(b)(2)(iv) or other applicable section for",
+      "rect": {
+        "left": 316.79,
+        "bottom": 710.26,
+        "right": 557.99,
+        "top": 718.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 120,
+      "text": "(ATIN), or employer identification number (EIN), to report on an",
+      "rect": {
+        "left": 36,
+        "bottom": 701.26,
+        "right": 258.98,
+        "top": 709.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 121,
+      "text": "chapter 3 or 4 purposes), do not use Form W-9. Instead, use the",
+      "rect": {
+        "left": 316.79,
+        "bottom": 701.26,
+        "right": 546.78,
+        "top": 709.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 122,
+      "text": "information return the amount paid to you, or other amount reportable",
+      "rect": {
+        "left": 36,
+        "bottom": 692.26,
+        "right": 285.4,
+        "top": 700.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 123,
+      "text": "appropriate Form W-8 or Form 8233 (see Pub. 515). If you are a",
+      "rect": {
+        "left": 316.79,
+        "bottom": 692.26,
+        "right": 544.1,
+        "top": 700.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 124,
+      "text": "on an information return. Examples of information returns include, but",
+      "rect": {
+        "left": 36,
+        "bottom": 683.26,
+        "right": 284.35,
+        "top": 691.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 125,
+      "text": "qualified foreign pension fund under Regulations section 1.897(l)-1(d), or",
+      "rect": {
+        "left": 316.79,
+        "bottom": 683.26,
+        "right": 574.46,
+        "top": 691.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 126,
+      "text": "are not limited to, the following.",
+      "rect": {
+        "left": 36,
+        "bottom": 674.26,
+        "right": 148.45,
+        "top": 682.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 127,
+      "text": "a partnership that is wholly owned by qualified foreign pension funds,",
+      "rect": {
+        "left": 316.79,
+        "bottom": 674.26,
+        "right": 564.51,
+        "top": 682.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 128,
+      "text": "that is treated as a non-foreign person for purposes of section 1445",
+      "rect": {
+        "left": 316.79,
+        "bottom": 665.26,
+        "right": 558.6,
+        "top": 673.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 129,
+      "text": "\u2022 Form 1099-INT (interest earned or paid).",
+      "rect": {
+        "left": 36,
+        "bottom": 662.26,
+        "right": 185.8,
+        "top": 670.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 130,
+      "text": "withholding, do not use Form W-9. Instead, use Form W-8EXP (or other",
+      "rect": {
+        "left": 316.79,
+        "bottom": 656.26,
+        "right": 571.95,
+        "top": 664.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 131,
+      "text": "\u2022 Form 1099-DIV (dividends, including those from stocks or mutual",
+      "rect": {
+        "left": 36,
+        "bottom": 650.26,
+        "right": 274.73,
+        "top": 658.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 132,
+      "text": "certification of non-foreign status).",
+      "rect": {
+        "left": 316.79,
+        "bottom": 647.26,
+        "right": 439.45,
+        "top": 655.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 133,
+      "text": "funds).",
+      "rect": {
+        "left": 36,
+        "bottom": 641.26,
+        "right": 60.3,
+        "top": 649.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 134,
+      "text": "Nonresident alien who becomes a resident alien. Generally, only a",
+      "rect": {
+        "left": 316.79,
+        "bottom": 635.26,
+        "right": 563.69,
+        "top": 643.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 135,
+      "text": "\u2022 Form 1099-MISC (various types of income, prizes, awards, or gross",
+      "rect": {
+        "left": 36,
+        "bottom": 629.26,
+        "right": 283.56,
+        "top": 637.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 136,
+      "text": "nonresident alien individual may use the terms of a tax treaty to reduce",
+      "rect": {
+        "left": 316.79,
+        "bottom": 626.26,
+        "right": 569.87,
+        "top": 634.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 137,
+      "text": "proceeds).",
+      "rect": {
+        "left": 36,
+        "bottom": 620.26,
+        "right": 73.93,
+        "top": 628.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 138,
+      "text": "or eliminate U.S. tax on certain types of income. However, most tax",
+      "rect": {
+        "left": 316.79,
+        "bottom": 617.26,
+        "right": 557.99,
+        "top": 625.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 139,
+      "text": "\u2022 Form 1099-NEC (nonemployee compensation).",
+      "rect": {
+        "left": 36,
+        "bottom": 608.26,
+        "right": 210.42,
+        "top": 616.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 140,
+      "text": "treaties contain a provision known as a saving clause. Exceptions",
+      "rect": {
+        "left": 316.79,
+        "bottom": 608.26,
+        "right": 550.87,
+        "top": 616.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 141,
+      "text": "specified in the saving clause may permit an exemption from tax to",
+      "rect": {
+        "left": 316.79,
+        "bottom": 599.26,
+        "right": 556.1,
+        "top": 607.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 142,
+      "text": "\u2022 Form 1099-B (stock or mutual fund sales and certain other",
+      "rect": {
+        "left": 36,
+        "bottom": 596.26,
+        "right": 251.17,
+        "top": 604.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 143,
+      "text": "continue for certain types of income even after the payee has otherwise",
+      "rect": {
+        "left": 316.79,
+        "bottom": 590.27,
+        "right": 572.22,
+        "top": 598.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 144,
+      "text": "transactions by brokers).",
+      "rect": {
+        "left": 36,
+        "bottom": 587.27,
+        "right": 124.45,
+        "top": 595.26
+      }
+    },
+    {
+      "page": 2,
+      "order": 145,
+      "text": "become a U.S. resident alien for tax purposes.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 581.27,
+        "right": 482.73,
+        "top": 589.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 146,
+      "text": "\u2022 Form 1099-S (proceeds from real estate transactions).",
+      "rect": {
+        "left": 36,
+        "bottom": 575.27,
+        "right": 235.58,
+        "top": 583.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 147,
+      "text": "If you are a U.S. resident alien who is relying on an exception",
+      "rect": {
+        "left": 324.79,
+        "bottom": 569.27,
+        "right": 542.57,
+        "top": 577.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 148,
+      "text": "\u2022 Form 1099-K (merchant card and third-party network transactions).",
+      "rect": {
+        "left": 36,
+        "bottom": 563.27,
+        "right": 282.42,
+        "top": 571.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 149,
+      "text": "contained in the saving clause of a tax treaty to claim an exemption",
+      "rect": {
+        "left": 316.79,
+        "bottom": 560.27,
+        "right": 557.57,
+        "top": 568.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 150,
+      "text": "\u2022 Form 1098 (home mortgage interest), 1098-E (student loan interest),",
+      "rect": {
+        "left": 36,
+        "bottom": 551.27,
+        "right": 284.66,
+        "top": 559.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 151,
+      "text": "from U.S. tax on certain types of income, you must attach a statement",
+      "rect": {
+        "left": 316.79,
+        "bottom": 551.27,
+        "right": 567.82,
+        "top": 559.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 152,
+      "text": "and 1098-T (tuition).",
+      "rect": {
+        "left": 36,
+        "bottom": 542.27,
+        "right": 107.88,
+        "top": 550.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 153,
+      "text": "to Form W-9 that specifies the following five items.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 542.27,
+        "right": 497.99,
+        "top": 550.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 154,
+      "text": "\u2022 Form 1099-C (canceled debt).",
+      "rect": {
+        "left": 36,
+        "bottom": 530.27,
+        "right": 149.36,
+        "top": 538.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 155,
+      "text": "1. The treaty country. Generally, this must be the same treaty under",
+      "rect": {
+        "left": 324.79,
+        "bottom": 530.27,
+        "right": 565.74,
+        "top": 538.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 156,
+      "text": "which you claimed exemption from tax as a nonresident alien.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 521.27,
+        "right": 537.56,
+        "top": 529.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 157,
+      "text": "\u2022 Form 1099-A (acquisition or abandonment of secured property).",
+      "rect": {
+        "left": 36,
+        "bottom": 518.27,
+        "right": 270.42,
+        "top": 526.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 158,
+      "text": "2. The treaty article addressing the income.",
+      "rect": {
+        "left": 324.79,
+        "bottom": 509.27,
+        "right": 479.33,
+        "top": 517.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 159,
+      "text": "Use Form W-9 only if you are a U.S. person (including a resident",
+      "rect": {
+        "left": 44,
+        "bottom": 506.27,
+        "right": 273.51,
+        "top": 514.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 160,
+      "text": "alien), to provide your correct TIN.",
+      "rect": {
+        "left": 36,
+        "bottom": 497.27,
+        "right": 157.63,
+        "top": 505.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 161,
+      "text": "3. The article number (or location) in the tax treaty that contains the",
+      "rect": {
+        "left": 324.79,
+        "bottom": 497.27,
+        "right": 564.39,
+        "top": 505.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 162,
+      "text": "saving clause and its exceptions.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 488.27,
+        "right": 435.02,
+        "top": 496.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 163,
+      "text": "Caution: If you don\u2019t return Form W-9 to the requester with a TIN, you",
+      "rect": {
+        "left": 36,
+        "bottom": 485.27,
+        "right": 286.7,
+        "top": 493.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 164,
+      "text": "might be subject to backup withholding. See What is backup",
+      "rect": {
+        "left": 36,
+        "bottom": 476.27,
+        "right": 252.65,
+        "top": 484.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 165,
+      "text": "4. The type and amount of income that qualifies for the exemption",
+      "rect": {
+        "left": 324.79,
+        "bottom": 476.27,
+        "right": 560.41,
+        "top": 484.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 166,
+      "text": "withholding, later.",
+      "rect": {
+        "left": 36,
+        "bottom": 467.27,
+        "right": 99.41,
+        "top": 475.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 167,
+      "text": "from tax.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 467.27,
+        "right": 348.64,
+        "top": 475.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 168,
+      "text": "By signing the filled-out form, you:",
+      "rect": {
+        "left": 43,
+        "bottom": 455.27,
+        "right": 173.18,
+        "top": 463.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 169,
+      "text": "5. Sufficient facts to justify the exemption from tax under the terms of",
+      "rect": {
+        "left": 324.79,
+        "bottom": 455.27,
+        "right": 572.54,
+        "top": 463.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 170,
+      "text": "the treaty article.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 446.27,
+        "right": 376.64,
+        "top": 454.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 171,
+      "text": "1. Certify that the TIN you are giving is correct (or you are waiting for a",
+      "rect": {
+        "left": 44,
+        "bottom": 443.27,
+        "right": 294.51,
+        "top": 451.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 172,
+      "text": "number to be issued);",
+      "rect": {
+        "left": 36,
+        "bottom": 434.27,
+        "right": 113.8,
+        "top": 442.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 173,
+      "text": "Example. Article 20 of the U.S.-China income tax treaty allows an",
+      "rect": {
+        "left": 324.79,
+        "bottom": 434.27,
+        "right": 559.76,
+        "top": 442.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 174,
+      "text": "exemption from tax for scholarship income received by a Chinese",
+      "rect": {
+        "left": 316.79,
+        "bottom": 425.27,
+        "right": 551.19,
+        "top": 433.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 175,
+      "text": "2. Certify that you are not subject to backup withholding; or",
+      "rect": {
+        "left": 44,
+        "bottom": 422.27,
+        "right": 256.48,
+        "top": 430.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 176,
+      "text": "student temporarily present in the United States. Under U.S. law, this",
+      "rect": {
+        "left": 316.79,
+        "bottom": 416.27,
+        "right": 563.64,
+        "top": 424.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 177,
+      "text": "3. Claim exemption from backup withholding if you are a U.S. exempt",
+      "rect": {
+        "left": 44,
+        "bottom": 410.27,
+        "right": 292.49,
+        "top": 418.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 178,
+      "text": "student will become a resident alien for tax purposes if their stay in the",
+      "rect": {
+        "left": 316.79,
+        "bottom": 407.27,
+        "right": 568.96,
+        "top": 415.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 179,
+      "text": "payee; and",
+      "rect": {
+        "left": 36,
+        "bottom": 401.27,
+        "right": 75.57,
+        "top": 409.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 180,
+      "text": "United States exceeds 5 calendar years. However, paragraph 2 of the",
+      "rect": {
+        "left": 316.79,
+        "bottom": 398.27,
+        "right": 565.54,
+        "top": 406.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 181,
+      "text": "4. Certify to your non-foreign status for purposes of withholding under",
+      "rect": {
+        "left": 44,
+        "bottom": 389.27,
+        "right": 294.09,
+        "top": 397.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 182,
+      "text": "first Protocol to the U.S.-China treaty (dated April 30, 1984) allows the",
+      "rect": {
+        "left": 316.79,
+        "bottom": 389.27,
+        "right": 566.29,
+        "top": 397.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 183,
+      "text": "chapter 3 or 4 of the Code (if applicable); and",
+      "rect": {
+        "left": 36,
+        "bottom": 380.27,
+        "right": 197.8,
+        "top": 388.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 184,
+      "text": "provisions of Article 20 to continue to apply even after the Chinese",
+      "rect": {
+        "left": 316.79,
+        "bottom": 380.27,
+        "right": 554.3,
+        "top": 388.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 185,
+      "text": "student becomes a resident alien of the United States. A Chinese",
+      "rect": {
+        "left": 316.79,
+        "bottom": 371.27,
+        "right": 549.72,
+        "top": 379.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 186,
+      "text": "5. Certify that FATCA code(s) entered on this form (if any) indicating",
+      "rect": {
+        "left": 44,
+        "bottom": 368.27,
+        "right": 284.91,
+        "top": 376.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 187,
+      "text": "student who qualifies for this exception (under paragraph 2 of the first",
+      "rect": {
+        "left": 316.79,
+        "bottom": 362.27,
+        "right": 565.7,
+        "top": 370.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 188,
+      "text": "that you are exempt from the FATCA reporting is correct. See What Is",
+      "rect": {
+        "left": 36,
+        "bottom": 359.27,
+        "right": 284.47,
+        "top": 367.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 189,
+      "text": "Protocol) and is relying on this exception to claim an exemption from tax",
+      "rect": {
+        "left": 316.79,
+        "bottom": 353.27,
+        "right": 575.34,
+        "top": 361.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 190,
+      "text": "FATCA Reporting, later, for further information.",
+      "rect": {
+        "left": 36,
+        "bottom": 350.27,
+        "right": 203.42,
+        "top": 358.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 191,
+      "text": "on their scholarship or fellowship income would attach to Form W-9 a",
+      "rect": {
+        "left": 316.79,
+        "bottom": 344.28,
+        "right": 565.4,
+        "top": 352.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 192,
+      "text": "Note: If you are a U.S. person and a requester gives you a form other",
+      "rect": {
+        "left": 36,
+        "bottom": 338.28,
+        "right": 283.44,
+        "top": 346.27
+      }
+    },
+    {
+      "page": 2,
+      "order": 193,
+      "text": "statement that includes the information described above to support that",
+      "rect": {
+        "left": 316.79,
+        "bottom": 335.28,
+        "right": 573.75,
+        "top": 343.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 194,
+      "text": "than Form W-9 to request your TIN, you must use the requester\u2019s form if",
+      "rect": {
+        "left": 36,
+        "bottom": 329.28,
+        "right": 294.28,
+        "top": 337.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 195,
+      "text": "exemption.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 326.28,
+        "right": 356.65,
+        "top": 334.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 196,
+      "text": "it is substantially similar to this Form W-9.",
+      "rect": {
+        "left": 36,
+        "bottom": 320.28,
+        "right": 185.06,
+        "top": 328.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 197,
+      "text": "If you are a nonresident alien or a foreign entity, give the requester the",
+      "rect": {
+        "left": 324.79,
+        "bottom": 314.28,
+        "right": 574.74,
+        "top": 322.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 198,
+      "text": "Definition of a U.S. person. For federal tax purposes, you are",
+      "rect": {
+        "left": 36,
+        "bottom": 308.28,
+        "right": 258.51,
+        "top": 316.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 199,
+      "text": "appropriate completed Form W-8 or Form 8233.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 305.28,
+        "right": 489.13,
+        "top": 313.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 200,
+      "text": "considered a U.S. person if you are:",
+      "rect": {
+        "left": 36,
+        "bottom": 299.28,
+        "right": 164.31,
+        "top": 307.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 201,
+      "text": "Backup Withholding",
+      "rect": {
+        "left": 316.79,
+        "bottom": 287.42,
+        "right": 431.86,
+        "top": 299.42
+      }
+    },
+    {
+      "page": 2,
+      "order": 202,
+      "text": "\u2022 An individual who is a U.S. citizen or U.S. resident alien;",
+      "rect": {
+        "left": 36,
+        "bottom": 287.28,
+        "right": 241.63,
+        "top": 295.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 203,
+      "text": "\u2022 A partnership, corporation, company, or association created or",
+      "rect": {
+        "left": 36,
+        "bottom": 275.28,
+        "right": 266.84,
+        "top": 283.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 204,
+      "text": "What is backup withholding? Persons making certain payments to you",
+      "rect": {
+        "left": 316.79,
+        "bottom": 274.28,
+        "right": 574.87,
+        "top": 282.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 205,
+      "text": "organized in the United States or under the laws of the United States;",
+      "rect": {
+        "left": 36,
+        "bottom": 266.28,
+        "right": 283.87,
+        "top": 274.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 206,
+      "text": "must under certain conditions withhold and pay to the IRS 24% of such",
+      "rect": {
+        "left": 316.79,
+        "bottom": 265.28,
+        "right": 572.4,
+        "top": 273.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 207,
+      "text": "payments. This is called \u201Cbackup withholding.\u201D Payments that may be",
+      "rect": {
+        "left": 316.79,
+        "bottom": 256.28,
+        "right": 566.34,
+        "top": 264.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 208,
+      "text": "\u2022 An estate (other than a foreign estate); or",
+      "rect": {
+        "left": 36,
+        "bottom": 254.28,
+        "right": 188.16,
+        "top": 262.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 209,
+      "text": "subject to backup withholding include, but are not limited to, interest,",
+      "rect": {
+        "left": 316.79,
+        "bottom": 247.28,
+        "right": 564.4,
+        "top": 255.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 210,
+      "text": "\u2022 A domestic trust (as defined in Regulations section 301.7701-7).",
+      "rect": {
+        "left": 36,
+        "bottom": 242.28,
+        "right": 271.02,
+        "top": 250.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 211,
+      "text": "tax-exempt interest, dividends, broker and barter exchange",
+      "rect": {
+        "left": 316.79,
+        "bottom": 238.28,
+        "right": 529.11,
+        "top": 246.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 212,
+      "text": "Establishing U.S. status for purposes of chapter 3 and chapter 4",
+      "rect": {
+        "left": 36,
+        "bottom": 230.28,
+        "right": 279.71,
+        "top": 238.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 213,
+      "text": "transactions, rents, royalties, nonemployee pay, payments made in",
+      "rect": {
+        "left": 316.79,
+        "bottom": 229.28,
+        "right": 555.81,
+        "top": 237.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 214,
+      "text": "withholding. Payments made to foreign persons, including certain",
+      "rect": {
+        "left": 36,
+        "bottom": 221.28,
+        "right": 273.34,
+        "top": 229.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 215,
+      "text": "settlement of payment card and third-party network transactions, and",
+      "rect": {
+        "left": 316.79,
+        "bottom": 220.28,
+        "right": 565.43,
+        "top": 228.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 216,
+      "text": "distributions, allocations of income, or transfers of sales proceeds, may",
+      "rect": {
+        "left": 36,
+        "bottom": 212.28,
+        "right": 290.84,
+        "top": 220.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 217,
+      "text": "certain payments from fishing boat operators. Real estate transactions",
+      "rect": {
+        "left": 316.79,
+        "bottom": 211.28,
+        "right": 568.23,
+        "top": 219.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 218,
+      "text": "be subject to withholding under chapter 3 or chapter 4 of the Code",
+      "rect": {
+        "left": 36,
+        "bottom": 203.28,
+        "right": 275.01,
+        "top": 211.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 219,
+      "text": "are not subject to backup withholding.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 202.28,
+        "right": 454,
+        "top": 210.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 220,
+      "text": "(sections 1441\u20131474). Under those rules, if a Form W-9 or other",
+      "rect": {
+        "left": 36,
+        "bottom": 194.28,
+        "right": 263.16,
+        "top": 202.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 221,
+      "text": "You will not be subject to backup withholding on payments you receive",
+      "rect": {
+        "left": 324.79,
+        "bottom": 190.28,
+        "right": 575.53,
+        "top": 198.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 222,
+      "text": "certification of non-foreign status has not been received, a withholding",
+      "rect": {
+        "left": 36,
+        "bottom": 185.28,
+        "right": 287.87,
+        "top": 193.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 223,
+      "text": "if you give the requester your correct TIN, make the proper certifications,",
+      "rect": {
+        "left": 316.79,
+        "bottom": 181.28,
+        "right": 572.47,
+        "top": 189.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 224,
+      "text": "agent, transferee, or partnership (payor) generally applies presumption",
+      "rect": {
+        "left": 36,
+        "bottom": 176.28,
+        "right": 287.13,
+        "top": 184.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 225,
+      "text": "and report all your taxable interest and dividends on your tax return.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 172.28,
+        "right": 555.7,
+        "top": 180.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 226,
+      "text": "rules that may require the payor to withhold applicable tax from the",
+      "rect": {
+        "left": 36,
+        "bottom": 167.28,
+        "right": 275.89,
+        "top": 175.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 227,
+      "text": "Payments you receive will be subject to backup withholding if:",
+      "rect": {
+        "left": 316.79,
+        "bottom": 160.28,
+        "right": 553.76,
+        "top": 168.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 228,
+      "text": "recipient, owner, transferor, or partner (payee). See Pub. 515,",
+      "rect": {
+        "left": 36,
+        "bottom": 158.28,
+        "right": 254.68,
+        "top": 166.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 229,
+      "text": "Withholding of Tax on Nonresident Aliens and Foreign Entities.",
+      "rect": {
+        "left": 36,
+        "bottom": 149.28,
+        "right": 259.28,
+        "top": 157.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 230,
+      "text": "1. You do not furnish your TIN to the requester;",
+      "rect": {
+        "left": 324.79,
+        "bottom": 148.28,
+        "right": 493.41,
+        "top": 156.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 231,
+      "text": "The following persons must provide Form W-9 to the payor for",
+      "rect": {
+        "left": 44,
+        "bottom": 137.28,
+        "right": 266.84,
+        "top": 145.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 232,
+      "text": "2. You do not certify your TIN when required (see the instructions for",
+      "rect": {
+        "left": 324.79,
+        "bottom": 136.28,
+        "right": 569.25,
+        "top": 144.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 233,
+      "text": "purposes of establishing its non-foreign status.",
+      "rect": {
+        "left": 36,
+        "bottom": 128.28,
+        "right": 203.87,
+        "top": 136.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 234,
+      "text": "Part II for details);",
+      "rect": {
+        "left": 316.79,
+        "bottom": 127.28,
+        "right": 379.59,
+        "top": 135.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 235,
+      "text": "\u2022 In the case of a disregarded entity with a U.S. owner, the U.S. owner",
+      "rect": {
+        "left": 36,
+        "bottom": 116.28,
+        "right": 286.96,
+        "top": 124.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 236,
+      "text": "3. The IRS tells the requester that you furnished an incorrect TIN;",
+      "rect": {
+        "left": 324.79,
+        "bottom": 115.28,
+        "right": 556.52,
+        "top": 123.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 237,
+      "text": "of the disregarded entity and not the disregarded entity.",
+      "rect": {
+        "left": 36,
+        "bottom": 107.28,
+        "right": 235.29,
+        "top": 115.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 238,
+      "text": "4. The IRS tells you that you are subject to backup withholding",
+      "rect": {
+        "left": 324.79,
+        "bottom": 103.28,
+        "right": 548.53,
+        "top": 111.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 239,
+      "text": "\u2022 In the case of a grantor trust with a U.S. grantor or other U.S. owner,",
+      "rect": {
+        "left": 36,
+        "bottom": 95.29,
+        "right": 286.96,
+        "top": 103.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 240,
+      "text": "because you did not report all your interest and dividends on your tax",
+      "rect": {
+        "left": 316.79,
+        "bottom": 94.29,
+        "right": 564.98,
+        "top": 102.28
+      }
+    },
+    {
+      "page": 2,
+      "order": 241,
+      "text": "generally, the U.S. grantor or other U.S. owner of the grantor trust and",
+      "rect": {
+        "left": 36,
+        "bottom": 86.29,
+        "right": 286.38,
+        "top": 94.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 242,
+      "text": "return (for reportable interest and dividends only); or",
+      "rect": {
+        "left": 316.79,
+        "bottom": 85.29,
+        "right": 502.58,
+        "top": 93.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 243,
+      "text": "not the grantor trust.",
+      "rect": {
+        "left": 36,
+        "bottom": 77.29,
+        "right": 109.64,
+        "top": 85.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 244,
+      "text": "5. You do not certify to the requester that you are not subject to",
+      "rect": {
+        "left": 324.79,
+        "bottom": 73.29,
+        "right": 552.54,
+        "top": 81.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 245,
+      "text": "\u2022 In the case of a U.S. trust (other than a grantor trust), the U.S. trust",
+      "rect": {
+        "left": 36,
+        "bottom": 65.29,
+        "right": 280.49,
+        "top": 73.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 246,
+      "text": "backup withholding, as described in item 4 under \u201CBy signing the filled-",
+      "rect": {
+        "left": 316.79,
+        "bottom": 64.29,
+        "right": 571.2,
+        "top": 72.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 247,
+      "text": "and not the beneficiaries of the trust.",
+      "rect": {
+        "left": 36,
+        "bottom": 56.29,
+        "right": 167.28,
+        "top": 64.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 248,
+      "text": "out form\u201D above (for reportable interest and dividend accounts opened",
+      "rect": {
+        "left": 316.79,
+        "bottom": 55.29,
+        "right": 568.97,
+        "top": 63.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 249,
+      "text": "after 1983 only).",
+      "rect": {
+        "left": 316.79,
+        "bottom": 46.29,
+        "right": 374.28,
+        "top": 54.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 250,
+      "text": "See Pub. 515 for more information on providing a Form W-9 or a",
+      "rect": {
+        "left": 36,
+        "bottom": 44.29,
+        "right": 266.57,
+        "top": 52.29
+      }
+    },
+    {
+      "page": 2,
+      "order": 251,
+      "text": "certification of non-foreign status to avoid withholding.",
+      "rect": {
+        "left": 36,
+        "bottom": 35.29,
+        "right": 230.97,
+        "top": 43.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 252,
+      "text": "Page 3",
+      "rect": {
+        "left": 552.4,
+        "bottom": 747.83,
+        "right": 575.98,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 3,
+      "order": 253,
+      "text": "Form W-9 (Rev. 3-2024)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 111.08,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 3,
+      "order": 254,
+      "text": "Certain payees and payments are exempt from backup withholding.",
+      "rect": {
+        "left": 44,
+        "bottom": 728.26,
+        "right": 286.42,
+        "top": 736.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 255,
+      "text": "example, if a foreign LLC that is treated as a disregarded entity for U.S.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 728.26,
+        "right": 571.03,
+        "top": 736.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 256,
+      "text": "See Exempt payee code, later, and the separate Instructions for the",
+      "rect": {
+        "left": 36,
+        "bottom": 719.26,
+        "right": 276.92,
+        "top": 727.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 257,
+      "text": "federal tax purposes has a single owner that is a U.S. person, the U.S.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 719.26,
+        "right": 567.47,
+        "top": 727.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 258,
+      "text": "Requester of Form W-9 for more information.",
+      "rect": {
+        "left": 36,
+        "bottom": 710.26,
+        "right": 197.21,
+        "top": 718.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 259,
+      "text": "owner\u2019s name is required to be provided on line 1. If the direct owner of",
+      "rect": {
+        "left": 316.79,
+        "bottom": 710.26,
+        "right": 572.22,
+        "top": 718.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 260,
+      "text": "the entity is also a disregarded entity, enter the first owner that is not",
+      "rect": {
+        "left": 316.79,
+        "bottom": 701.26,
+        "right": 561.85,
+        "top": 709.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 261,
+      "text": "See also Establishing U.S. status for purposes of chapter 3 and",
+      "rect": {
+        "left": 44,
+        "bottom": 698.26,
+        "right": 268.91,
+        "top": 706.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 262,
+      "text": "disregarded for federal tax purposes. Enter the disregarded entity\u2019s",
+      "rect": {
+        "left": 316.79,
+        "bottom": 692.26,
+        "right": 556.8,
+        "top": 700.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 263,
+      "text": "chapter 4 withholding, earlier.",
+      "rect": {
+        "left": 36,
+        "bottom": 689.26,
+        "right": 141.64,
+        "top": 697.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 264,
+      "text": "name on line 2. If the owner of the disregarded entity is a foreign person,",
+      "rect": {
+        "left": 316.79,
+        "bottom": 683.26,
+        "right": 575.93,
+        "top": 691.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 265,
+      "text": "the owner must complete an appropriate Form W-8 instead of a Form",
+      "rect": {
+        "left": 316.79,
+        "bottom": 674.26,
+        "right": 565.43,
+        "top": 682.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 266,
+      "text": "What Is FATCA Reporting?",
+      "rect": {
+        "left": 36,
+        "bottom": 669.41,
+        "right": 188.64,
+        "top": 681.41
+      }
+    },
+    {
+      "page": 3,
+      "order": 267,
+      "text": "W-9. This is the case even if the foreign person has a U.S. TIN.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 665.26,
+        "right": 542.89,
+        "top": 673.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 268,
+      "text": "The Foreign Account Tax Compliance Act (FATCA) requires a",
+      "rect": {
+        "left": 36,
+        "bottom": 656.26,
+        "right": 254.37,
+        "top": 664.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 269,
+      "text": "Line 2",
+      "rect": {
+        "left": 316.79,
+        "bottom": 649.83,
+        "right": 345.31,
+        "top": 659.83
+      }
+    },
+    {
+      "page": 3,
+      "order": 270,
+      "text": "participating foreign financial institution to report all U.S. account",
+      "rect": {
+        "left": 36,
+        "bottom": 647.26,
+        "right": 268.01,
+        "top": 655.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 271,
+      "text": "holders that are specified U.S. persons. Certain payees are exempt from",
+      "rect": {
+        "left": 36,
+        "bottom": 638.26,
+        "right": 294.4,
+        "top": 646.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 272,
+      "text": "If you have a business name, trade name, DBA name, or disregarded",
+      "rect": {
+        "left": 316.79,
+        "bottom": 637.26,
+        "right": 562.92,
+        "top": 645.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 273,
+      "text": "FATCA reporting. See Exemption from FATCA reporting code, later, and",
+      "rect": {
+        "left": 36,
+        "bottom": 629.26,
+        "right": 293.34,
+        "top": 637.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 274,
+      "text": "entity name, enter it on line 2.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 628.26,
+        "right": 422.3,
+        "top": 636.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 275,
+      "text": "the Instructions for the Requester of Form W-9 for more information.",
+      "rect": {
+        "left": 36,
+        "bottom": 620.26,
+        "right": 280.04,
+        "top": 628.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 276,
+      "text": "Line 3a",
+      "rect": {
+        "left": 316.79,
+        "bottom": 612.84,
+        "right": 351.05,
+        "top": 622.84
+      }
+    },
+    {
+      "page": 3,
+      "order": 277,
+      "text": "Updating Your Information",
+      "rect": {
+        "left": 36,
+        "bottom": 602.41,
+        "right": 188.18,
+        "top": 614.41
+      }
+    },
+    {
+      "page": 3,
+      "order": 278,
+      "text": "Check the appropriate box on line 3a for the U.S. federal tax",
+      "rect": {
+        "left": 316.79,
+        "bottom": 600.26,
+        "right": 532.07,
+        "top": 608.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 279,
+      "text": "classification of the person whose name is entered on line 1. Check only",
+      "rect": {
+        "left": 316.79,
+        "bottom": 591.27,
+        "right": 574.75,
+        "top": 599.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 280,
+      "text": "You must provide updated information to any person to whom you",
+      "rect": {
+        "left": 36,
+        "bottom": 589.27,
+        "right": 273.84,
+        "top": 597.26
+      }
+    },
+    {
+      "page": 3,
+      "order": 281,
+      "text": "one box on line 3a.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 582.27,
+        "right": 384.8,
+        "top": 590.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 282,
+      "text": "claimed to be an exempt payee if you are no longer an exempt payee",
+      "rect": {
+        "left": 36,
+        "bottom": 580.27,
+        "right": 283.31,
+        "top": 588.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 283,
+      "text": "and anticipate receiving reportable payments in the future from this",
+      "rect": {
+        "left": 36,
+        "bottom": 571.27,
+        "right": 275.75,
+        "top": 579.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 284,
+      "text": "IF the entity/individual on line 1",
+      "rect": {
+        "left": 320.79,
+        "bottom": 566.27,
+        "right": 439.13,
+        "top": 574.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 285,
+      "text": "THEN check the box for . . .",
+      "rect": {
+        "left": 450.38,
+        "bottom": 566.27,
+        "right": 554.55,
+        "top": 574.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 286,
+      "text": "person. For example, you may need to provide updated information if",
+      "rect": {
+        "left": 36,
+        "bottom": 562.27,
+        "right": 283.76,
+        "top": 570.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 287,
+      "text": "is a(n) . . .",
+      "rect": {
+        "left": 320.79,
+        "bottom": 557.27,
+        "right": 356.79,
+        "top": 565.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 288,
+      "text": "you are a C corporation that elects to be an S corporation, or if you are",
+      "rect": {
+        "left": 36,
+        "bottom": 553.27,
+        "right": 289.05,
+        "top": 561.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 289,
+      "text": "no longer tax exempt. In addition, you must furnish a new Form W-9 if",
+      "rect": {
+        "left": 36,
+        "bottom": 544.27,
+        "right": 285.83,
+        "top": 552.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 290,
+      "text": "\u2022 Corporation",
+      "rect": {
+        "left": 318.79,
+        "bottom": 543.27,
+        "right": 369.9,
+        "top": 551.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 291,
+      "text": "Corporation.",
+      "rect": {
+        "left": 450.38,
+        "bottom": 543.27,
+        "right": 495.27,
+        "top": 551.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 292,
+      "text": "the name or TIN changes for the account, for example, if the grantor of a",
+      "rect": {
+        "left": 36,
+        "bottom": 535.27,
+        "right": 295,
+        "top": 543.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 293,
+      "text": "\u2022 Individual or",
+      "rect": {
+        "left": 318.79,
+        "bottom": 531.27,
+        "right": 370.79,
+        "top": 539.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 294,
+      "text": "Individual/sole proprietor.",
+      "rect": {
+        "left": 450.38,
+        "bottom": 531.27,
+        "right": 541.49,
+        "top": 539.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 295,
+      "text": "grantor trust dies.",
+      "rect": {
+        "left": 36,
+        "bottom": 526.27,
+        "right": 99.41,
+        "top": 534.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 296,
+      "text": "\u2022 Sole proprietorship",
+      "rect": {
+        "left": 318.79,
+        "bottom": 519.27,
+        "right": 395.53,
+        "top": 527.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 297,
+      "text": "Penalties",
+      "rect": {
+        "left": 36,
+        "bottom": 508.41,
+        "right": 88.64,
+        "top": 520.41
+      }
+    },
+    {
+      "page": 3,
+      "order": 298,
+      "text": "\u2022 LLC classified as a partnership",
+      "rect": {
+        "left": 318.79,
+        "bottom": 507.27,
+        "right": 437.32,
+        "top": 515.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 299,
+      "text": "Limited liability company and",
+      "rect": {
+        "left": 450.38,
+        "bottom": 507.27,
+        "right": 554.56,
+        "top": 515.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 300,
+      "text": "for U.S. federal tax purposes or",
+      "rect": {
+        "left": 318.79,
+        "bottom": 498.27,
+        "right": 431.08,
+        "top": 506.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 301,
+      "text": "enter the appropriate tax",
+      "rect": {
+        "left": 450.38,
+        "bottom": 498.27,
+        "right": 538.83,
+        "top": 506.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 302,
+      "text": "Failure to furnish TIN. If you fail to furnish your correct TIN to a",
+      "rect": {
+        "left": 36,
+        "bottom": 495.27,
+        "right": 264.13,
+        "top": 503.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 303,
+      "text": "classification:",
+      "rect": {
+        "left": 450.38,
+        "bottom": 489.27,
+        "right": 498.82,
+        "top": 497.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 304,
+      "text": "requester, you are subject to a penalty of $50 for each such failure",
+      "rect": {
+        "left": 36,
+        "bottom": 486.27,
+        "right": 272.77,
+        "top": 494.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 305,
+      "text": "\u2022 LLC that has filed Form 8832 or",
+      "rect": {
+        "left": 318.79,
+        "bottom": 486.27,
+        "right": 440.45,
+        "top": 494.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 306,
+      "text": "P = Partnership,",
+      "rect": {
+        "left": 450.38,
+        "bottom": 478.27,
+        "right": 508.08,
+        "top": 486.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 307,
+      "text": "unless your failure is due to reasonable cause and not to willful neglect.",
+      "rect": {
+        "left": 36,
+        "bottom": 477.27,
+        "right": 290.68,
+        "top": 485.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 308,
+      "text": "2553 electing to be taxed as a",
+      "rect": {
+        "left": 318.79,
+        "bottom": 477.27,
+        "right": 426.66,
+        "top": 485.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 309,
+      "text": "C = C corporation, or",
+      "rect": {
+        "left": 450.38,
+        "bottom": 469.27,
+        "right": 526.29,
+        "top": 477.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 310,
+      "text": "corporation",
+      "rect": {
+        "left": 318.79,
+        "bottom": 468.27,
+        "right": 359.97,
+        "top": 476.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 311,
+      "text": "Civil penalty for false information with respect to withholding. If you",
+      "rect": {
+        "left": 36,
+        "bottom": 465.27,
+        "right": 291.9,
+        "top": 473.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 312,
+      "text": "S = S corporation.",
+      "rect": {
+        "left": 450.38,
+        "bottom": 460.27,
+        "right": 515.63,
+        "top": 468.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 313,
+      "text": "make a false statement with no reasonable basis that results in no",
+      "rect": {
+        "left": 36,
+        "bottom": 456.27,
+        "right": 271.6,
+        "top": 464.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 314,
+      "text": "backup withholding, you are subject to a $500 penalty.",
+      "rect": {
+        "left": 36,
+        "bottom": 447.27,
+        "right": 231.75,
+        "top": 455.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 315,
+      "text": "\u2022 Partnership",
+      "rect": {
+        "left": 318.79,
+        "bottom": 447.27,
+        "right": 368.27,
+        "top": 455.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 316,
+      "text": "Partnership.",
+      "rect": {
+        "left": 450.38,
+        "bottom": 447.27,
+        "right": 493.64,
+        "top": 455.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 317,
+      "text": "Criminal penalty for falsifying information. Willfully falsifying",
+      "rect": {
+        "left": 36,
+        "bottom": 435.27,
+        "right": 258.41,
+        "top": 443.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 318,
+      "text": "\u2022 Trust/estate",
+      "rect": {
+        "left": 318.79,
+        "bottom": 435.27,
+        "right": 370.05,
+        "top": 443.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 319,
+      "text": "Trust/estate.",
+      "rect": {
+        "left": 450.38,
+        "bottom": 435.27,
+        "right": 495.42,
+        "top": 443.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 320,
+      "text": "certifications or affirmations may subject you to criminal penalties",
+      "rect": {
+        "left": 36,
+        "bottom": 426.27,
+        "right": 269.95,
+        "top": 434.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 321,
+      "text": "Line 3b",
+      "rect": {
+        "left": 316.79,
+        "bottom": 417.84,
+        "right": 351.42,
+        "top": 427.84
+      }
+    },
+    {
+      "page": 3,
+      "order": 322,
+      "text": "including fines and/or imprisonment.",
+      "rect": {
+        "left": 36,
+        "bottom": 417.27,
+        "right": 166.4,
+        "top": 425.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 323,
+      "text": "Misuse of TINs. If the requester discloses or uses TINs in violation of",
+      "rect": {
+        "left": 36,
+        "bottom": 405.27,
+        "right": 283.68,
+        "top": 413.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 324,
+      "text": "Check this box if you are a partnership (including an LLC classified as a",
+      "rect": {
+        "left": 316.79,
+        "bottom": 405.27,
+        "right": 571.93,
+        "top": 413.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 325,
+      "text": "federal law, the requester may be subject to civil and criminal penalties.",
+      "rect": {
+        "left": 36,
+        "bottom": 396.27,
+        "right": 291.14,
+        "top": 404.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 326,
+      "text": "partnership for U.S. federal tax purposes), trust, or estate that has any",
+      "rect": {
+        "left": 316.79,
+        "bottom": 396.27,
+        "right": 566.89,
+        "top": 404.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 327,
+      "text": "foreign partners, owners, or beneficiaries, and you are providing this",
+      "rect": {
+        "left": 316.79,
+        "bottom": 387.27,
+        "right": 560.05,
+        "top": 395.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 328,
+      "text": "Specific Instructions",
+      "rect": {
+        "left": 36,
+        "bottom": 374.99,
+        "right": 173.1,
+        "top": 388.99
+      }
+    },
+    {
+      "page": 3,
+      "order": 329,
+      "text": "form to a partnership, trust, or estate, in which you have an ownership",
+      "rect": {
+        "left": 316.79,
+        "bottom": 378.27,
+        "right": 567.04,
+        "top": 386.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 330,
+      "text": "interest. You must check the box on line 3b if you receive a Form W-8",
+      "rect": {
+        "left": 316.79,
+        "bottom": 369.27,
+        "right": 566.18,
+        "top": 377.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 331,
+      "text": "(or documentary evidence) from any partner, owner, or beneficiary",
+      "rect": {
+        "left": 316.79,
+        "bottom": 360.27,
+        "right": 552.8,
+        "top": 368.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 332,
+      "text": "Line 1",
+      "rect": {
+        "left": 36,
+        "bottom": 357.85,
+        "right": 64.52,
+        "top": 367.85
+      }
+    },
+    {
+      "page": 3,
+      "order": 333,
+      "text": "establishing foreign status or if you receive a Form W-9 from any",
+      "rect": {
+        "left": 316.79,
+        "bottom": 351.27,
+        "right": 547.63,
+        "top": 359.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 334,
+      "text": "You must enter one of the following on this line; do not leave this line",
+      "rect": {
+        "left": 36,
+        "bottom": 345.28,
+        "right": 283.14,
+        "top": 353.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 335,
+      "text": "partner, owner, or beneficiary that has checked the box on line 3b.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 342.28,
+        "right": 554.15,
+        "top": 350.27
+      }
+    },
+    {
+      "page": 3,
+      "order": 336,
+      "text": "blank. The name should match the name on your tax return.",
+      "rect": {
+        "left": 36,
+        "bottom": 336.28,
+        "right": 249.56,
+        "top": 344.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 337,
+      "text": "Note: A partnership that provides a Form W-9 and checks box 3b may",
+      "rect": {
+        "left": 316.79,
+        "bottom": 330.28,
+        "right": 569,
+        "top": 338.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 338,
+      "text": "If this Form W-9 is for a joint account (other than an account",
+      "rect": {
+        "left": 44,
+        "bottom": 324.28,
+        "right": 259.15,
+        "top": 332.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 339,
+      "text": "be required to complete Schedules K-2 and K-3 (Form 1065). For more",
+      "rect": {
+        "left": 316.79,
+        "bottom": 321.28,
+        "right": 570.19,
+        "top": 329.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 340,
+      "text": "maintained by a foreign financial institution (FFI)), list first, and then",
+      "rect": {
+        "left": 36,
+        "bottom": 315.28,
+        "right": 274.25,
+        "top": 323.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 341,
+      "text": "information, see the Partnership Instructions for Schedules K-2 and K-3",
+      "rect": {
+        "left": 316.79,
+        "bottom": 312.28,
+        "right": 572.39,
+        "top": 320.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 342,
+      "text": "circle, the name of the person or entity whose number you entered in",
+      "rect": {
+        "left": 36,
+        "bottom": 306.28,
+        "right": 282.27,
+        "top": 314.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 343,
+      "text": "(Form 1065).",
+      "rect": {
+        "left": 316.79,
+        "bottom": 303.28,
+        "right": 361.84,
+        "top": 311.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 344,
+      "text": "Part I of Form W-9. If you are providing Form W-9 to an FFI to document",
+      "rect": {
+        "left": 36,
+        "bottom": 297.28,
+        "right": 295.01,
+        "top": 305.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 345,
+      "text": "If you are required to complete line 3b but fail to do so, you may not",
+      "rect": {
+        "left": 324.79,
+        "bottom": 291.28,
+        "right": 567.36,
+        "top": 299.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 346,
+      "text": "a joint account, each holder of the account that is a U.S. person must",
+      "rect": {
+        "left": 36,
+        "bottom": 288.28,
+        "right": 284.2,
+        "top": 296.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 347,
+      "text": "receive the information necessary to file a correct information return with",
+      "rect": {
+        "left": 316.79,
+        "bottom": 282.28,
+        "right": 575.61,
+        "top": 290.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 348,
+      "text": "provide a Form W-9.",
+      "rect": {
+        "left": 36,
+        "bottom": 279.28,
+        "right": 109.64,
+        "top": 287.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 349,
+      "text": "the IRS or furnish a correct payee statement to your partners or",
+      "rect": {
+        "left": 316.79,
+        "bottom": 273.28,
+        "right": 543.33,
+        "top": 281.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 350,
+      "text": "\u2022 Individual. Generally, enter the name shown on your tax return. If you",
+      "rect": {
+        "left": 36,
+        "bottom": 267.28,
+        "right": 290.67,
+        "top": 275.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 351,
+      "text": "beneficiaries. See, for example, sections 6698, 6722, and 6724 for",
+      "rect": {
+        "left": 316.79,
+        "bottom": 264.28,
+        "right": 553.14,
+        "top": 272.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 352,
+      "text": "have changed your last name without informing the Social Security",
+      "rect": {
+        "left": 36,
+        "bottom": 258.28,
+        "right": 274.55,
+        "top": 266.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 353,
+      "text": "penalties that may apply.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 255.28,
+        "right": 406.3,
+        "top": 263.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 354,
+      "text": "Administration (SSA) of the name change, enter your first name, the last",
+      "rect": {
+        "left": 36,
+        "bottom": 249.28,
+        "right": 291.6,
+        "top": 257.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 355,
+      "text": "Line 4 Exemptions",
+      "rect": {
+        "left": 316.79,
+        "bottom": 239.85,
+        "right": 404.35,
+        "top": 249.85
+      }
+    },
+    {
+      "page": 3,
+      "order": 356,
+      "text": "name as shown on your social security card, and your new last name.",
+      "rect": {
+        "left": 36,
+        "bottom": 240.28,
+        "right": 284.77,
+        "top": 248.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 357,
+      "text": "Note for ITIN applicant: Enter your individual name as it was entered",
+      "rect": {
+        "left": 36,
+        "bottom": 228.28,
+        "right": 284.72,
+        "top": 236.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 358,
+      "text": "If you are exempt from backup withholding and/or FATCA reporting,",
+      "rect": {
+        "left": 316.79,
+        "bottom": 227.28,
+        "right": 559.92,
+        "top": 235.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 359,
+      "text": "on your Form W-7 application, line 1a. This should also be the same as",
+      "rect": {
+        "left": 36,
+        "bottom": 219.28,
+        "right": 289.54,
+        "top": 227.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 360,
+      "text": "enter in the appropriate space on line 4 any code(s) that may apply to",
+      "rect": {
+        "left": 316.79,
+        "bottom": 218.28,
+        "right": 564.55,
+        "top": 226.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 361,
+      "text": "the name you entered on the Form 1040 you filed with your application.",
+      "rect": {
+        "left": 36,
+        "bottom": 210.28,
+        "right": 290.88,
+        "top": 218.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 362,
+      "text": "you.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 209.28,
+        "right": 332.05,
+        "top": 217.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 363,
+      "text": "\u2022 Sole proprietor. Enter your individual name as shown on your Form",
+      "rect": {
+        "left": 36,
+        "bottom": 198.28,
+        "right": 285.2,
+        "top": 206.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 364,
+      "text": "Exempt payee code.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 197.28,
+        "right": 394.26,
+        "top": 205.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 365,
+      "text": "1040 on line 1. Enter your business, trade, or \u201Cdoing business as\u201D (DBA)",
+      "rect": {
+        "left": 36,
+        "bottom": 189.28,
+        "right": 292.35,
+        "top": 197.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 366,
+      "text": "\u2022 Generally, individuals (including sole proprietors) are not exempt from",
+      "rect": {
+        "left": 316.79,
+        "bottom": 185.28,
+        "right": 573.11,
+        "top": 193.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 367,
+      "text": "name on line 2.",
+      "rect": {
+        "left": 36,
+        "bottom": 180.28,
+        "right": 90.54,
+        "top": 188.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 368,
+      "text": "backup withholding.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 176.28,
+        "right": 389.1,
+        "top": 184.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 369,
+      "text": "\u2022 Partnership, C corporation, S corporation, or LLC, other than a",
+      "rect": {
+        "left": 36,
+        "bottom": 168.28,
+        "right": 280.77,
+        "top": 176.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 370,
+      "text": "\u2022 Except as provided below, corporations are exempt from backup",
+      "rect": {
+        "left": 316.79,
+        "bottom": 164.28,
+        "right": 557.85,
+        "top": 172.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 371,
+      "text": "disregarded entity. Enter the entity\u2019s name as shown on the entity\u2019s tax",
+      "rect": {
+        "left": 36,
+        "bottom": 159.28,
+        "right": 294.4,
+        "top": 167.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 372,
+      "text": "withholding for certain payments, including interest and dividends.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 155.28,
+        "right": 553.87,
+        "top": 163.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 373,
+      "text": "return on line 1 and any business, trade, or DBA name on line 2.",
+      "rect": {
+        "left": 36,
+        "bottom": 150.28,
+        "right": 264.06,
+        "top": 158.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 374,
+      "text": "\u2022 Corporations are not exempt from backup withholding for payments",
+      "rect": {
+        "left": 316.79,
+        "bottom": 143.28,
+        "right": 568.39,
+        "top": 151.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 375,
+      "text": "\u2022 Other entities. Enter your name as shown on required U.S. federal tax",
+      "rect": {
+        "left": 36,
+        "bottom": 138.28,
+        "right": 294.08,
+        "top": 146.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 376,
+      "text": "made in settlement of payment card or third-party network transactions.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 134.28,
+        "right": 574.32,
+        "top": 142.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 377,
+      "text": "documents on line 1. This name should match the name shown on the",
+      "rect": {
+        "left": 36,
+        "bottom": 129.28,
+        "right": 286.91,
+        "top": 137.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 378,
+      "text": "\u2022 Corporations are not exempt from backup withholding with respect to",
+      "rect": {
+        "left": 316.79,
+        "bottom": 122.28,
+        "right": 574.59,
+        "top": 130.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 379,
+      "text": "charter or other legal document creating the entity. Enter any business,",
+      "rect": {
+        "left": 36,
+        "bottom": 120.28,
+        "right": 289.52,
+        "top": 128.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 380,
+      "text": "attorneys\u2019 fees or gross proceeds paid to attorneys, and corporations",
+      "rect": {
+        "left": 316.79,
+        "bottom": 113.28,
+        "right": 564.95,
+        "top": 121.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 381,
+      "text": "trade, or DBA name on line 2.",
+      "rect": {
+        "left": 36,
+        "bottom": 111.28,
+        "right": 141.51,
+        "top": 119.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 382,
+      "text": "that provide medical or health care services are not exempt with respect",
+      "rect": {
+        "left": 316.79,
+        "bottom": 104.28,
+        "right": 575.03,
+        "top": 112.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 383,
+      "text": "\u2022 Disregarded entity. In general, a business entity that has a single",
+      "rect": {
+        "left": 36,
+        "bottom": 99.28,
+        "right": 277.21,
+        "top": 107.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 384,
+      "text": "to payments reportable on Form 1099-MISC.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 95.29,
+        "right": 477.57,
+        "top": 103.28
+      }
+    },
+    {
+      "page": 3,
+      "order": 385,
+      "text": "owner, including an LLC, and is not a corporation, is disregarded as an",
+      "rect": {
+        "left": 36,
+        "bottom": 90.29,
+        "right": 289.07,
+        "top": 98.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 386,
+      "text": "The following codes identify payees that are exempt from backup",
+      "rect": {
+        "left": 324.79,
+        "bottom": 83.29,
+        "right": 558.59,
+        "top": 91.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 387,
+      "text": "entity separate from its owner (a disregarded entity). See Regulations",
+      "rect": {
+        "left": 36,
+        "bottom": 81.29,
+        "right": 282.52,
+        "top": 89.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 388,
+      "text": "withholding. Enter the appropriate code in the space on line 4.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 74.29,
+        "right": 538.9,
+        "top": 82.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 389,
+      "text": "section 301.7701-2(c)(2). A disregarded entity should check the",
+      "rect": {
+        "left": 36,
+        "bottom": 72.29,
+        "right": 261.98,
+        "top": 80.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 390,
+      "text": "appropriate box for the tax classification of its owner. Enter the owner\u2019s",
+      "rect": {
+        "left": 36,
+        "bottom": 63.29,
+        "right": 291.24,
+        "top": 71.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 391,
+      "text": "1\u2014An organization exempt from tax under section 501(a), any IRA, or",
+      "rect": {
+        "left": 321.79,
+        "bottom": 62.29,
+        "right": 569.67,
+        "top": 70.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 392,
+      "text": "name on line 1. The name of the owner entered on line 1 should never",
+      "rect": {
+        "left": 36,
+        "bottom": 54.29,
+        "right": 285.24,
+        "top": 62.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 393,
+      "text": "a custodial account under section 403(b)(7) if the account satisfies the",
+      "rect": {
+        "left": 316.79,
+        "bottom": 53.29,
+        "right": 566.61,
+        "top": 61.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 394,
+      "text": "be a disregarded entity. The name on line 1 should be the name shown",
+      "rect": {
+        "left": 36,
+        "bottom": 45.29,
+        "right": 289.55,
+        "top": 53.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 395,
+      "text": "requirements of section 401(f)(2).",
+      "rect": {
+        "left": 316.79,
+        "bottom": 44.29,
+        "right": 433.99,
+        "top": 52.29
+      }
+    },
+    {
+      "page": 3,
+      "order": 396,
+      "text": "on the income tax return on which the income should be reported. For",
+      "rect": {
+        "left": 36,
+        "bottom": 36.29,
+        "right": 286.42,
+        "top": 44.29
+      }
+    },
+    {
+      "page": 4,
+      "order": 397,
+      "text": "Page 4",
+      "rect": {
+        "left": 552.4,
+        "bottom": 747.83,
+        "right": 575.98,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 4,
+      "order": 398,
+      "text": "Form W-9 (Rev. 3-2024)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 111.08,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 4,
+      "order": 399,
+      "text": "2\u2014The United States or any of its agencies or instrumentalities.",
+      "rect": {
+        "left": 41,
+        "bottom": 728.26,
+        "right": 268.29,
+        "top": 736.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 400,
+      "text": "F\u2014A dealer in securities, commodities, or derivative financial",
+      "rect": {
+        "left": 324.79,
+        "bottom": 728.26,
+        "right": 542.28,
+        "top": 736.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 401,
+      "text": "instruments (including notional principal contracts, futures, forwards,",
+      "rect": {
+        "left": 316.79,
+        "bottom": 719.26,
+        "right": 561.85,
+        "top": 727.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 402,
+      "text": "3\u2014A state, the District of Columbia, a U.S. commonwealth or territory,",
+      "rect": {
+        "left": 41,
+        "bottom": 716.26,
+        "right": 292.44,
+        "top": 724.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 403,
+      "text": "and options) that is registered as such under the laws of the United",
+      "rect": {
+        "left": 316.79,
+        "bottom": 710.26,
+        "right": 556.38,
+        "top": 718.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 404,
+      "text": "or any of their political subdivisions or instrumentalities.",
+      "rect": {
+        "left": 36,
+        "bottom": 707.26,
+        "right": 233.94,
+        "top": 715.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 405,
+      "text": "States or any state.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 701.26,
+        "right": 386.13,
+        "top": 709.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 406,
+      "text": "4\u2014A foreign government or any of its political subdivisions, agencies,",
+      "rect": {
+        "left": 41,
+        "bottom": 695.26,
+        "right": 289.61,
+        "top": 703.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 407,
+      "text": "G\u2014A real estate investment trust.",
+      "rect": {
+        "left": 324.79,
+        "bottom": 689.26,
+        "right": 445.4,
+        "top": 697.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 408,
+      "text": "or instrumentalities.",
+      "rect": {
+        "left": 36,
+        "bottom": 686.26,
+        "right": 106.08,
+        "top": 694.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 409,
+      "text": "H\u2014A regulated investment company as defined in section 851 or an",
+      "rect": {
+        "left": 324.79,
+        "bottom": 677.26,
+        "right": 568.4,
+        "top": 685.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 410,
+      "text": "5\u2014A corporation.",
+      "rect": {
+        "left": 41,
+        "bottom": 674.26,
+        "right": 104.26,
+        "top": 682.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 411,
+      "text": "entity registered at all times during the tax year under the Investment",
+      "rect": {
+        "left": 316.79,
+        "bottom": 668.26,
+        "right": 562.17,
+        "top": 676.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 412,
+      "text": "6\u2014A dealer in securities or commodities required to register in the",
+      "rect": {
+        "left": 41,
+        "bottom": 662.26,
+        "right": 277.77,
+        "top": 670.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 413,
+      "text": "Company Act of 1940.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 659.26,
+        "right": 397.11,
+        "top": 667.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 414,
+      "text": "United States, the District of Columbia, or a U.S. commonwealth or",
+      "rect": {
+        "left": 36,
+        "bottom": 653.26,
+        "right": 275.89,
+        "top": 661.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 415,
+      "text": "I\u2014A common trust fund as defined in section 584(a).",
+      "rect": {
+        "left": 324.79,
+        "bottom": 647.26,
+        "right": 512.69,
+        "top": 655.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 416,
+      "text": "territory.",
+      "rect": {
+        "left": 36,
+        "bottom": 644.26,
+        "right": 65.92,
+        "top": 652.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 417,
+      "text": "J\u2014A bank as defined in section 581.",
+      "rect": {
+        "left": 324.79,
+        "bottom": 635.26,
+        "right": 455.79,
+        "top": 643.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 418,
+      "text": "7\u2014A futures commission merchant registered with the Commodity",
+      "rect": {
+        "left": 41,
+        "bottom": 632.26,
+        "right": 279.42,
+        "top": 640.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 419,
+      "text": "Futures Trading Commission.",
+      "rect": {
+        "left": 36,
+        "bottom": 623.26,
+        "right": 141.35,
+        "top": 631.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 420,
+      "text": "K\u2014A broker.",
+      "rect": {
+        "left": 324.79,
+        "bottom": 623.26,
+        "right": 370.87,
+        "top": 631.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 421,
+      "text": "8\u2014A real estate investment trust.",
+      "rect": {
+        "left": 41,
+        "bottom": 611.26,
+        "right": 159.99,
+        "top": 619.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 422,
+      "text": "L\u2014A trust exempt from tax under section 664 or described in section",
+      "rect": {
+        "left": 324.79,
+        "bottom": 611.26,
+        "right": 572.1,
+        "top": 619.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 423,
+      "text": "4947(a)(1).",
+      "rect": {
+        "left": 316.79,
+        "bottom": 602.26,
+        "right": 353.83,
+        "top": 610.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 424,
+      "text": "9\u2014An entity registered at all times during the tax year under the",
+      "rect": {
+        "left": 41,
+        "bottom": 599.26,
+        "right": 269.04,
+        "top": 607.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 425,
+      "text": "Investment Company Act of 1940.",
+      "rect": {
+        "left": 36,
+        "bottom": 590.27,
+        "right": 157.97,
+        "top": 598.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 426,
+      "text": "M\u2014A tax-exempt trust under a section 403(b) plan or section 457(g)",
+      "rect": {
+        "left": 324.79,
+        "bottom": 590.27,
+        "right": 567.8,
+        "top": 598.26
+      }
+    },
+    {
+      "page": 4,
+      "order": 427,
+      "text": "plan.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 581.27,
+        "right": 334.27,
+        "top": 589.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 428,
+      "text": "10\u2014A common trust fund operated by a bank under section 584(a).",
+      "rect": {
+        "left": 36,
+        "bottom": 578.27,
+        "right": 277.41,
+        "top": 586.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 429,
+      "text": "Note: You may wish to consult with the financial institution requesting",
+      "rect": {
+        "left": 316.79,
+        "bottom": 569.27,
+        "right": 566.45,
+        "top": 577.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 430,
+      "text": "11\u2014A financial institution as defined under section 581.",
+      "rect": {
+        "left": 36,
+        "bottom": 566.27,
+        "right": 235.01,
+        "top": 574.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 431,
+      "text": "this form to determine whether the FATCA code and/or exempt payee",
+      "rect": {
+        "left": 316.79,
+        "bottom": 560.27,
+        "right": 566.31,
+        "top": 568.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 432,
+      "text": "12\u2014A middleman known in the investment community as a nominee or",
+      "rect": {
+        "left": 36,
+        "bottom": 554.27,
+        "right": 290.61,
+        "top": 562.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 433,
+      "text": "code should be completed.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 551.27,
+        "right": 414.74,
+        "top": 559.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 434,
+      "text": "custodian.",
+      "rect": {
+        "left": 36,
+        "bottom": 545.27,
+        "right": 73.34,
+        "top": 553.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 435,
+      "text": "Line 5",
+      "rect": {
+        "left": 316.79,
+        "bottom": 535.84,
+        "right": 345.31,
+        "top": 545.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 436,
+      "text": "13\u2014A trust exempt from tax under section 664 or described in section",
+      "rect": {
+        "left": 36,
+        "bottom": 533.27,
+        "right": 287.76,
+        "top": 541.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 437,
+      "text": "4947.",
+      "rect": {
+        "left": 36,
+        "bottom": 524.27,
+        "right": 56.01,
+        "top": 532.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 438,
+      "text": "Enter your address (number, street, and apartment or suite number).",
+      "rect": {
+        "left": 316.79,
+        "bottom": 523.27,
+        "right": 560.41,
+        "top": 531.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 439,
+      "text": "This is where the requester of this Form W-9 will mail your information",
+      "rect": {
+        "left": 316.79,
+        "bottom": 514.27,
+        "right": 566.43,
+        "top": 522.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 440,
+      "text": "The following chart shows types of payments that may be exempt",
+      "rect": {
+        "left": 44,
+        "bottom": 512.27,
+        "right": 279.29,
+        "top": 520.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 441,
+      "text": "returns. If this address differs from the one the requester already has on",
+      "rect": {
+        "left": 316.79,
+        "bottom": 505.27,
+        "right": 572.97,
+        "top": 513.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 442,
+      "text": "from backup withholding. The chart applies to the exempt payees listed",
+      "rect": {
+        "left": 36,
+        "bottom": 503.27,
+        "right": 291.9,
+        "top": 511.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 443,
+      "text": "file, enter \u201CNEW\u201D at the top. If a new address is provided, there is still a",
+      "rect": {
+        "left": 316.79,
+        "bottom": 496.27,
+        "right": 569.84,
+        "top": 504.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 444,
+      "text": "above, 1 through 13.",
+      "rect": {
+        "left": 36,
+        "bottom": 494.27,
+        "right": 110.1,
+        "top": 502.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 445,
+      "text": "chance the old address will be used until the payor changes your",
+      "rect": {
+        "left": 316.79,
+        "bottom": 487.27,
+        "right": 548.97,
+        "top": 495.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 446,
+      "text": "IF the payment is for . . .",
+      "rect": {
+        "left": 36,
+        "bottom": 480.27,
+        "right": 127.55,
+        "top": 488.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 447,
+      "text": "THEN the payment is exempt",
+      "rect": {
+        "left": 169.59,
+        "bottom": 480.27,
+        "right": 280.39,
+        "top": 488.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 448,
+      "text": "address in their records.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 478.27,
+        "right": 403.61,
+        "top": 486.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 449,
+      "text": "for . . .",
+      "rect": {
+        "left": 169.59,
+        "bottom": 471.27,
+        "right": 193.6,
+        "top": 479.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 450,
+      "text": "Line 6",
+      "rect": {
+        "left": 316.79,
+        "bottom": 462.84,
+        "right": 345.31,
+        "top": 472.84
+      }
+    },
+    {
+      "page": 4,
+      "order": 451,
+      "text": "\u2022 Interest and dividend payments",
+      "rect": {
+        "left": 38,
+        "bottom": 457.27,
+        "right": 159.07,
+        "top": 465.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 452,
+      "text": "All exempt payees except",
+      "rect": {
+        "left": 169.59,
+        "bottom": 457.27,
+        "right": 261.75,
+        "top": 465.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 453,
+      "text": "Enter your city, state, and ZIP code.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 450.27,
+        "right": 445.1,
+        "top": 458.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 454,
+      "text": "for 7.",
+      "rect": {
+        "left": 169.59,
+        "bottom": 448.27,
+        "right": 188.11,
+        "top": 456.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 455,
+      "text": "Part I. Taxpayer Identification Number (TIN)",
+      "rect": {
+        "left": 316.79,
+        "bottom": 432.42,
+        "right": 564.25,
+        "top": 444.42
+      }
+    },
+    {
+      "page": 4,
+      "order": 456,
+      "text": "\u2022 Broker transactions",
+      "rect": {
+        "left": 38,
+        "bottom": 436.27,
+        "right": 116.37,
+        "top": 444.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 457,
+      "text": "Exempt payees 1 through 4 and 6",
+      "rect": {
+        "left": 169.59,
+        "bottom": 436.27,
+        "right": 290.52,
+        "top": 444.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 458,
+      "text": "through 11 and all C corporations.",
+      "rect": {
+        "left": 169.59,
+        "bottom": 427.27,
+        "right": 291.84,
+        "top": 435.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 459,
+      "text": "Enter your TIN in the appropriate box. If you are a resident alien and",
+      "rect": {
+        "left": 316.79,
+        "bottom": 419.27,
+        "right": 567.75,
+        "top": 427.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 460,
+      "text": "S corporations must not enter an",
+      "rect": {
+        "left": 169.59,
+        "bottom": 418.27,
+        "right": 287.4,
+        "top": 426.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 461,
+      "text": "you do not have, and are not eligible to get, an SSN, your TIN is your",
+      "rect": {
+        "left": 316.79,
+        "bottom": 410.27,
+        "right": 562.15,
+        "top": 418.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 462,
+      "text": "exempt payee code because they",
+      "rect": {
+        "left": 169.59,
+        "bottom": 409.27,
+        "right": 290.51,
+        "top": 417.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 463,
+      "text": "IRS ITIN. Enter it in the entry space for the Social security number. If you",
+      "rect": {
+        "left": 316.79,
+        "bottom": 401.27,
+        "right": 575.48,
+        "top": 409.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 464,
+      "text": "are exempt only for sales of",
+      "rect": {
+        "left": 169.59,
+        "bottom": 400.27,
+        "right": 268.56,
+        "top": 408.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 465,
+      "text": "do not have an ITIN, see How to get a TIN below.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 392.27,
+        "right": 492.5,
+        "top": 400.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 466,
+      "text": "noncovered securities acquired",
+      "rect": {
+        "left": 169.59,
+        "bottom": 391.27,
+        "right": 281.75,
+        "top": 399.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 467,
+      "text": "prior to 2012.",
+      "rect": {
+        "left": 169.59,
+        "bottom": 382.27,
+        "right": 217.61,
+        "top": 390.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 468,
+      "text": "If you are a sole proprietor and you have an EIN, you may enter either",
+      "rect": {
+        "left": 324.79,
+        "bottom": 380.27,
+        "right": 572.52,
+        "top": 388.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 469,
+      "text": "your SSN or EIN.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 371.27,
+        "right": 377.52,
+        "top": 379.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 470,
+      "text": "\u2022 Barter exchange transactions",
+      "rect": {
+        "left": 38,
+        "bottom": 370.28,
+        "right": 151.48,
+        "top": 378.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 471,
+      "text": "Exempt payees 1 through 4.",
+      "rect": {
+        "left": 169.59,
+        "bottom": 370.28,
+        "right": 270.37,
+        "top": 378.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 472,
+      "text": "and patronage dividends",
+      "rect": {
+        "left": 38,
+        "bottom": 361.28,
+        "right": 126.91,
+        "top": 369.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 473,
+      "text": "If you are a single-member LLC that is disregarded as an entity",
+      "rect": {
+        "left": 324.79,
+        "bottom": 359.27,
+        "right": 549.57,
+        "top": 367.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 474,
+      "text": "separate from its owner, enter the owner\u2019s SSN (or EIN, if the owner has",
+      "rect": {
+        "left": 316.79,
+        "bottom": 350.27,
+        "right": 574.26,
+        "top": 358.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 475,
+      "text": "\u2022 Payments over $600 required to",
+      "rect": {
+        "left": 38,
+        "bottom": 349.28,
+        "right": 160.99,
+        "top": 357.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 476,
+      "text": "Generally, exempt payees",
+      "rect": {
+        "left": 169.59,
+        "bottom": 349.28,
+        "right": 262.34,
+        "top": 357.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 477,
+      "text": "one). If the LLC is classified as a corporation or partnership, enter the",
+      "rect": {
+        "left": 316.79,
+        "bottom": 341.28,
+        "right": 563.92,
+        "top": 349.27
+      }
+    },
+    {
+      "page": 4,
+      "order": 478,
+      "text": "be reported and direct sales over",
+      "rect": {
+        "left": 38,
+        "bottom": 340.28,
+        "right": 156.38,
+        "top": 348.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 479,
+      "text": "1 through 5.2",
+      "rect": {
+        "left": 169.59,
+        "bottom": 338.42,
+        "right": 215.65,
+        "top": 347.42
+      }
+    },
+    {
+      "page": 4,
+      "order": 480,
+      "text": "entity\u2019s EIN.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 332.28,
+        "right": 359.75,
+        "top": 340.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 481,
+      "text": "$5,0001",
+      "rect": {
+        "left": 38,
+        "bottom": 329.42,
+        "right": 65.24,
+        "top": 338.42
+      }
+    },
+    {
+      "page": 4,
+      "order": 482,
+      "text": "Note: See What Name and Number To Give the Requester, later, for",
+      "rect": {
+        "left": 316.79,
+        "bottom": 320.28,
+        "right": 559.78,
+        "top": 328.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 483,
+      "text": "\u2022 Payments made in settlement of Exempt payees 1 through 4.",
+      "rect": {
+        "left": 38,
+        "bottom": 317.28,
+        "right": 270.37,
+        "top": 325.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 484,
+      "text": "further clarification of name and TIN combinations.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 311.28,
+        "right": 497.7,
+        "top": 319.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 485,
+      "text": "payment card or third-party",
+      "rect": {
+        "left": 38,
+        "bottom": 308.28,
+        "right": 136.54,
+        "top": 316.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 486,
+      "text": "network transactions",
+      "rect": {
+        "left": 38,
+        "bottom": 299.28,
+        "right": 112.81,
+        "top": 307.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 487,
+      "text": "How to get a TIN. If you do not have a TIN, apply for one immediately.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 299.28,
+        "right": 569.71,
+        "top": 307.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 488,
+      "text": "To apply for an SSN, get Form SS-5, Application for a Social Security",
+      "rect": {
+        "left": 316.79,
+        "bottom": 290.28,
+        "right": 564.35,
+        "top": 298.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 489,
+      "text": "1",
+      "rect": {
+        "left": 36,
+        "bottom": 288.71,
+        "right": 39.33,
+        "top": 294.71
+      }
+    },
+    {
+      "page": 4,
+      "order": 490,
+      "text": "See Form 1099-MISC, Miscellaneous Information, and its instructions.",
+      "rect": {
+        "left": 40.45,
+        "bottom": 285.71,
+        "right": 290.87,
+        "top": 293.71
+      }
+    },
+    {
+      "page": 4,
+      "order": 491,
+      "text": "Card, from your local SSA office or get this form online at",
+      "rect": {
+        "left": 316.79,
+        "bottom": 281.28,
+        "right": 521.09,
+        "top": 289.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 492,
+      "text": "2",
+      "rect": {
+        "left": 36,
+        "bottom": 276.71,
+        "right": 39.33,
+        "top": 282.71
+      }
+    },
+    {
+      "page": 4,
+      "order": 493,
+      "text": "However, the following payments made to a corporation and",
+      "rect": {
+        "left": 40.45,
+        "bottom": 273.71,
+        "right": 256.76,
+        "top": 281.71
+      }
+    },
+    {
+      "page": 4,
+      "order": 494,
+      "text": "www.SSA.gov. You may also get this form by calling 800-772-1213. Use",
+      "rect": {
+        "left": 316.79,
+        "bottom": 272.28,
+        "right": 575.95,
+        "top": 280.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 495,
+      "text": "reportable on Form 1099-MISC are not exempt from backup",
+      "rect": {
+        "left": 36,
+        "bottom": 265.28,
+        "right": 251.76,
+        "top": 273.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 496,
+      "text": "Form W-7, Application for IRS Individual Taxpayer Identification",
+      "rect": {
+        "left": 316.79,
+        "bottom": 263.28,
+        "right": 543.76,
+        "top": 271.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 497,
+      "text": "withholding: medical and health care payments, attorneys\u2019 fees, gross",
+      "rect": {
+        "left": 36,
+        "bottom": 256.28,
+        "right": 285.96,
+        "top": 264.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 498,
+      "text": "Number, to apply for an ITIN, or Form SS-4, Application for Employer",
+      "rect": {
+        "left": 316.79,
+        "bottom": 254.28,
+        "right": 563.63,
+        "top": 262.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 499,
+      "text": "proceeds paid to an attorney reportable under section 6045(f), and",
+      "rect": {
+        "left": 36,
+        "bottom": 247.28,
+        "right": 273.53,
+        "top": 255.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 500,
+      "text": "Identification Number, to apply for an EIN. You can apply for an EIN",
+      "rect": {
+        "left": 316.79,
+        "bottom": 245.28,
+        "right": 558.3,
+        "top": 253.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 501,
+      "text": "payments for services paid by a federal executive agency.",
+      "rect": {
+        "left": 36,
+        "bottom": 238.28,
+        "right": 243.13,
+        "top": 246.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 502,
+      "text": "online by accessing the IRS website at www.irs.gov/EIN. Go to",
+      "rect": {
+        "left": 316.79,
+        "bottom": 236.28,
+        "right": 540.77,
+        "top": 244.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 503,
+      "text": "www.irs.gov/Forms to view, download, or print Form W-7 and/or Form",
+      "rect": {
+        "left": 316.79,
+        "bottom": 227.28,
+        "right": 568.03,
+        "top": 235.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 504,
+      "text": "Exemption from FATCA reporting code. The following codes identify",
+      "rect": {
+        "left": 36,
+        "bottom": 226.28,
+        "right": 288.4,
+        "top": 234.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 505,
+      "text": "SS-4. Or, you can go to www.irs.gov/OrderForms to place an order and",
+      "rect": {
+        "left": 316.79,
+        "bottom": 218.28,
+        "right": 572.05,
+        "top": 226.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 506,
+      "text": "payees that are exempt from reporting under FATCA. These codes",
+      "rect": {
+        "left": 36,
+        "bottom": 217.28,
+        "right": 273.96,
+        "top": 225.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 507,
+      "text": "have Form W-7 and/or Form SS-4 mailed to you within 15 business",
+      "rect": {
+        "left": 316.79,
+        "bottom": 209.28,
+        "right": 557.43,
+        "top": 217.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 508,
+      "text": "apply to persons submitting this form for accounts maintained outside",
+      "rect": {
+        "left": 36,
+        "bottom": 208.28,
+        "right": 286.58,
+        "top": 216.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 509,
+      "text": "days.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 200.28,
+        "right": 336.05,
+        "top": 208.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 510,
+      "text": "of the United States by certain foreign financial institutions. Therefore, if",
+      "rect": {
+        "left": 36,
+        "bottom": 199.28,
+        "right": 291.72,
+        "top": 207.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 511,
+      "text": "you are only submitting this form for an account you hold in the United",
+      "rect": {
+        "left": 36,
+        "bottom": 190.28,
+        "right": 287.76,
+        "top": 198.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 512,
+      "text": "If you are asked to complete Form W-9 but do not have a TIN, apply",
+      "rect": {
+        "left": 324.79,
+        "bottom": 188.28,
+        "right": 568.4,
+        "top": 196.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 513,
+      "text": "States, you may leave this field blank. Consult with the person",
+      "rect": {
+        "left": 36,
+        "bottom": 181.28,
+        "right": 257.81,
+        "top": 189.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 514,
+      "text": "for a TIN and enter \u201CApplied For\u201D in the space for the TIN, sign and date",
+      "rect": {
+        "left": 316.79,
+        "bottom": 179.28,
+        "right": 572.97,
+        "top": 187.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 515,
+      "text": "requesting this form if you are uncertain if the financial institution is",
+      "rect": {
+        "left": 36,
+        "bottom": 172.28,
+        "right": 274.55,
+        "top": 180.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 516,
+      "text": "the form, and give it to the requester. For interest and dividend",
+      "rect": {
+        "left": 316.79,
+        "bottom": 170.28,
+        "right": 540.54,
+        "top": 178.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 517,
+      "text": "subject to these requirements. A requester may indicate that a code is",
+      "rect": {
+        "left": 36,
+        "bottom": 163.28,
+        "right": 286.57,
+        "top": 171.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 518,
+      "text": "payments, and certain payments made with respect to readily tradable",
+      "rect": {
+        "left": 316.79,
+        "bottom": 161.28,
+        "right": 568.84,
+        "top": 169.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 519,
+      "text": "not required by providing you with a Form W-9 with \u201CNot Applicable\u201D (or",
+      "rect": {
+        "left": 36,
+        "bottom": 154.28,
+        "right": 293.2,
+        "top": 162.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 520,
+      "text": "instruments, you will generally have 60 days to get a TIN and give it to",
+      "rect": {
+        "left": 316.79,
+        "bottom": 152.28,
+        "right": 566.45,
+        "top": 160.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 521,
+      "text": "any similar indication) entered on the line for a FATCA exemption code.",
+      "rect": {
+        "left": 36,
+        "bottom": 145.28,
+        "right": 289.96,
+        "top": 153.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 522,
+      "text": "the requester before you are subject to backup withholding on",
+      "rect": {
+        "left": 316.79,
+        "bottom": 143.28,
+        "right": 539.34,
+        "top": 151.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 523,
+      "text": "payments. The 60-day rule does not apply to other types of payments.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 134.28,
+        "right": 568.42,
+        "top": 142.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 524,
+      "text": "A\u2014An organization exempt from tax under section 501(a) or any",
+      "rect": {
+        "left": 44,
+        "bottom": 133.28,
+        "right": 273.21,
+        "top": 141.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 525,
+      "text": "You will be subject to backup withholding on all such payments until",
+      "rect": {
+        "left": 316.79,
+        "bottom": 125.28,
+        "right": 561.13,
+        "top": 133.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 526,
+      "text": "individual retirement plan as defined in section 7701(a)(37).",
+      "rect": {
+        "left": 36,
+        "bottom": 124.28,
+        "right": 245.53,
+        "top": 132.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 527,
+      "text": "you provide your TIN to the requester.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 116.28,
+        "right": 452.65,
+        "top": 124.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 528,
+      "text": "B\u2014The United States or any of its agencies or instrumentalities.",
+      "rect": {
+        "left": 44,
+        "bottom": 112.28,
+        "right": 272.32,
+        "top": 120.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 529,
+      "text": "Note: Entering \u201CApplied For\u201D means that you have already applied for a",
+      "rect": {
+        "left": 316.79,
+        "bottom": 104.28,
+        "right": 571.35,
+        "top": 112.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 530,
+      "text": "C\u2014A state, the District of Columbia, a U.S. commonwealth or",
+      "rect": {
+        "left": 44,
+        "bottom": 100.28,
+        "right": 264.62,
+        "top": 108.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 531,
+      "text": "TIN or that you intend to apply for one soon. See also Establishing U.S.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 95.29,
+        "right": 570.59,
+        "top": 103.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 532,
+      "text": "territory, or any of their political subdivisions or instrumentalities.",
+      "rect": {
+        "left": 36,
+        "bottom": 91.28,
+        "right": 266.09,
+        "top": 99.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 533,
+      "text": "status for purposes of chapter 3 and chapter 4 withholding, earlier, for",
+      "rect": {
+        "left": 316.79,
+        "bottom": 86.29,
+        "right": 565.86,
+        "top": 94.29
+      }
+    },
+    {
+      "page": 4,
+      "order": 534,
+      "text": "D\u2014A corporation the stock of which is regularly traded on one or",
+      "rect": {
+        "left": 44,
+        "bottom": 79.28,
+        "right": 276.45,
+        "top": 87.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 535,
+      "text": "when you may instead be subject to withholding under chapter 3 or 4 of",
+      "rect": {
+        "left": 316.79,
+        "bottom": 77.29,
+        "right": 573.58,
+        "top": 85.29
+      }
+    },
+    {
+      "page": 4,
+      "order": 536,
+      "text": "more established securities markets, as described in Regulations",
+      "rect": {
+        "left": 36,
+        "bottom": 70.29,
+        "right": 268.18,
+        "top": 78.28
+      }
+    },
+    {
+      "page": 4,
+      "order": 537,
+      "text": "the Code.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 68.29,
+        "right": 351.91,
+        "top": 76.29
+      }
+    },
+    {
+      "page": 4,
+      "order": 538,
+      "text": "section 1.1472-1(c)(1)(i).",
+      "rect": {
+        "left": 36,
+        "bottom": 61.29,
+        "right": 121.35,
+        "top": 69.29
+      }
+    },
+    {
+      "page": 4,
+      "order": 539,
+      "text": "Caution: A disregarded U.S. entity that has a foreign owner must use",
+      "rect": {
+        "left": 316.79,
+        "bottom": 56.29,
+        "right": 564.37,
+        "top": 64.29
+      }
+    },
+    {
+      "page": 4,
+      "order": 540,
+      "text": "E\u2014A corporation that is a member of the same expanded affiliated",
+      "rect": {
+        "left": 44,
+        "bottom": 49.29,
+        "right": 282.32,
+        "top": 57.29
+      }
+    },
+    {
+      "page": 4,
+      "order": 541,
+      "text": "the appropriate Form W-8.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 47.29,
+        "right": 411.92,
+        "top": 55.29
+      }
+    },
+    {
+      "page": 4,
+      "order": 542,
+      "text": "group as a corporation described in Regulations section 1.1472-1(c)(1)(i).",
+      "rect": {
+        "left": 36,
+        "bottom": 40.29,
+        "right": 295.47,
+        "top": 48.29
+      }
+    },
+    {
+      "page": 5,
+      "order": 543,
+      "text": "Page 5",
+      "rect": {
+        "left": 552.4,
+        "bottom": 747.83,
+        "right": 575.98,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 5,
+      "order": 544,
+      "text": "Form W-9 (Rev. 3-2024)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 111.08,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 5,
+      "order": 545,
+      "text": "Part II. Certification",
+      "rect": {
+        "left": 36,
+        "bottom": 725.4,
+        "right": 147.27,
+        "top": 737.4
+      }
+    },
+    {
+      "page": 5,
+      "order": 546,
+      "text": "For this type of account:",
+      "rect": {
+        "left": 338.81,
+        "bottom": 725.26,
+        "right": 431.56,
+        "top": 733.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 547,
+      "text": "Give name and EIN of:",
+      "rect": {
+        "left": 472.57,
+        "bottom": 725.26,
+        "right": 556.99,
+        "top": 733.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 548,
+      "text": "8. Disregarded entity not owned by an",
+      "rect": {
+        "left": 320.79,
+        "bottom": 713.98,
+        "right": 440.2,
+        "top": 720.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 549,
+      "text": "The owner",
+      "rect": {
+        "left": 459.58,
+        "bottom": 713.98,
+        "right": 492.5,
+        "top": 720.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 550,
+      "text": "To establish to the withholding agent that you are a U.S. person, or",
+      "rect": {
+        "left": 36,
+        "bottom": 712.26,
+        "right": 275.44,
+        "top": 720.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 551,
+      "text": "individual",
+      "rect": {
+        "left": 328.79,
+        "bottom": 705.97,
+        "right": 358.35,
+        "top": 712.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 552,
+      "text": "resident alien, sign Form W-9. You may be requested to sign by the",
+      "rect": {
+        "left": 36,
+        "bottom": 703.26,
+        "right": 277.25,
+        "top": 711.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 553,
+      "text": "withholding agent even if item 1, 4, or 5 below indicates otherwise.",
+      "rect": {
+        "left": 36,
+        "bottom": 694.26,
+        "right": 273.94,
+        "top": 702.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 554,
+      "text": "Legal entity4",
+      "rect": {
+        "left": 459.58,
+        "bottom": 694.4,
+        "right": 498.4,
+        "top": 701.4
+      }
+    },
+    {
+      "page": 5,
+      "order": 555,
+      "text": "9. A valid trust, estate, or pension trust",
+      "rect": {
+        "left": 320.78,
+        "bottom": 693.98,
+        "right": 441.75,
+        "top": 700.98
+      }
+    },
+    {
+      "page": 5,
+      "order": 556,
+      "text": "For a joint account, only the person whose TIN is shown in Part I",
+      "rect": {
+        "left": 44,
+        "bottom": 682.26,
+        "right": 274.23,
+        "top": 690.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 557,
+      "text": "10. Corporation or LLC electing corporate",
+      "rect": {
+        "left": 316.79,
+        "bottom": 682.97,
+        "right": 447.59,
+        "top": 689.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 558,
+      "text": "The corporation",
+      "rect": {
+        "left": 459.58,
+        "bottom": 682.97,
+        "right": 509.23,
+        "top": 689.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 559,
+      "text": "status on Form 8832 or Form 2553",
+      "rect": {
+        "left": 328.79,
+        "bottom": 674.97,
+        "right": 437.59,
+        "top": 681.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 560,
+      "text": "should sign (when required). In the case of a disregarded entity, the",
+      "rect": {
+        "left": 36,
+        "bottom": 673.26,
+        "right": 276.33,
+        "top": 681.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 561,
+      "text": "person identified on line 1 must sign. Exempt payees, see Exempt payee",
+      "rect": {
+        "left": 36,
+        "bottom": 664.26,
+        "right": 294.87,
+        "top": 672.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 562,
+      "text": "11. Association, club, religious, charitable,",
+      "rect": {
+        "left": 316.79,
+        "bottom": 662.98,
+        "right": 448.63,
+        "top": 669.98
+      }
+    },
+    {
+      "page": 5,
+      "order": 563,
+      "text": "The organization",
+      "rect": {
+        "left": 459.58,
+        "bottom": 662.97,
+        "right": 511.55,
+        "top": 669.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 564,
+      "text": "code, earlier.",
+      "rect": {
+        "left": 36,
+        "bottom": 655.26,
+        "right": 82.37,
+        "top": 663.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 565,
+      "text": "educational, or other tax-exempt",
+      "rect": {
+        "left": 328.79,
+        "bottom": 654.98,
+        "right": 431.2,
+        "top": 661.98
+      }
+    },
+    {
+      "page": 5,
+      "order": 566,
+      "text": "organization",
+      "rect": {
+        "left": 328.79,
+        "bottom": 646.97,
+        "right": 367.14,
+        "top": 653.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 567,
+      "text": "Signature requirements. Complete the certification as indicated in",
+      "rect": {
+        "left": 36,
+        "bottom": 643.26,
+        "right": 276.45,
+        "top": 651.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 568,
+      "text": "items 1 through 5 below.",
+      "rect": {
+        "left": 36,
+        "bottom": 634.26,
+        "right": 124.61,
+        "top": 642.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 569,
+      "text": "12. Partnership or multi-member LLC",
+      "rect": {
+        "left": 316.79,
+        "bottom": 634.98,
+        "right": 433.23,
+        "top": 641.98
+      }
+    },
+    {
+      "page": 5,
+      "order": 570,
+      "text": "The partnership",
+      "rect": {
+        "left": 459.58,
+        "bottom": 634.97,
+        "right": 508.72,
+        "top": 641.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 571,
+      "text": "13. A broker or registered nominee",
+      "rect": {
+        "left": 316.79,
+        "bottom": 623.97,
+        "right": 425.56,
+        "top": 630.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 572,
+      "text": "The broker or nominee",
+      "rect": {
+        "left": 459.58,
+        "bottom": 623.97,
+        "right": 530.5,
+        "top": 630.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 573,
+      "text": "1. Interest, dividend, and barter exchange accounts opened",
+      "rect": {
+        "left": 44,
+        "bottom": 622.26,
+        "right": 270.53,
+        "top": 630.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 574,
+      "text": "before 1984 and broker accounts considered active during 1983.",
+      "rect": {
+        "left": 36,
+        "bottom": 613.26,
+        "right": 280.91,
+        "top": 621.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 575,
+      "text": "14. Account with the Department of",
+      "rect": {
+        "left": 317.79,
+        "bottom": 612.97,
+        "right": 429.17,
+        "top": 619.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 576,
+      "text": "The public entity",
+      "rect": {
+        "left": 459.58,
+        "bottom": 612.97,
+        "right": 511.32,
+        "top": 619.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 577,
+      "text": "You must give your correct TIN, but you do not have to sign the",
+      "rect": {
+        "left": 36,
+        "bottom": 604.26,
+        "right": 263.16,
+        "top": 612.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 578,
+      "text": "Agriculture in the name of a public",
+      "rect": {
+        "left": 329.79,
+        "bottom": 604.97,
+        "right": 436.88,
+        "top": 611.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 579,
+      "text": "entity (such as a state or local",
+      "rect": {
+        "left": 329.79,
+        "bottom": 596.97,
+        "right": 422.87,
+        "top": 603.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 580,
+      "text": "certification.",
+      "rect": {
+        "left": 36,
+        "bottom": 595.26,
+        "right": 79.85,
+        "top": 603.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 581,
+      "text": "government, school district, or prison)",
+      "rect": {
+        "left": 329.79,
+        "bottom": 588.97,
+        "right": 448.41,
+        "top": 595.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 582,
+      "text": "2. Interest, dividend, broker, and barter exchange accounts",
+      "rect": {
+        "left": 44,
+        "bottom": 583.27,
+        "right": 269.34,
+        "top": 591.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 583,
+      "text": "that receives agricultural program",
+      "rect": {
+        "left": 329.79,
+        "bottom": 580.97,
+        "right": 434.79,
+        "top": 587.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 584,
+      "text": "opened after 1983 and broker accounts considered inactive during",
+      "rect": {
+        "left": 36,
+        "bottom": 574.27,
+        "right": 289.33,
+        "top": 582.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 585,
+      "text": "payments",
+      "rect": {
+        "left": 329.79,
+        "bottom": 572.97,
+        "right": 360.52,
+        "top": 579.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 586,
+      "text": "1983. You must sign the certification or backup withholding will apply. If",
+      "rect": {
+        "left": 36,
+        "bottom": 565.27,
+        "right": 292.92,
+        "top": 573.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 587,
+      "text": "15. Grantor trust filing Form 1041 or",
+      "rect": {
+        "left": 317.79,
+        "bottom": 560.98,
+        "right": 430.07,
+        "top": 567.98
+      }
+    },
+    {
+      "page": 5,
+      "order": 588,
+      "text": "The trust",
+      "rect": {
+        "left": 459.58,
+        "bottom": 560.98,
+        "right": 487.33,
+        "top": 567.98
+      }
+    },
+    {
+      "page": 5,
+      "order": 589,
+      "text": "you are subject to backup withholding and you are merely providing",
+      "rect": {
+        "left": 36,
+        "bottom": 556.27,
+        "right": 278.56,
+        "top": 564.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 590,
+      "text": "under the Optional Filing Method 2,",
+      "rect": {
+        "left": 329.79,
+        "bottom": 552.98,
+        "right": 440.39,
+        "top": 559.98
+      }
+    },
+    {
+      "page": 5,
+      "order": 591,
+      "text": "your correct TIN to the requester, you must cross out item 2 in the",
+      "rect": {
+        "left": 36,
+        "bottom": 547.27,
+        "right": 272.2,
+        "top": 555.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 592,
+      "text": "requiring Form 1099 (see Regulations",
+      "rect": {
+        "left": 329.79,
+        "bottom": 544.97,
+        "right": 446.73,
+        "top": 551.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 593,
+      "text": "certification before signing the form.",
+      "rect": {
+        "left": 36,
+        "bottom": 538.27,
+        "right": 165.04,
+        "top": 546.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 594,
+      "text": "section 1.671-4(b)(2)(i)(B))**",
+      "rect": {
+        "left": 329.79,
+        "bottom": 536.97,
+        "right": 414.18,
+        "top": 543.97
+      }
+    },
+    {
+      "page": 5,
+      "order": 595,
+      "text": "3. Real estate transactions. You must sign the certification. You may",
+      "rect": {
+        "left": 44,
+        "bottom": 526.27,
+        "right": 294.69,
+        "top": 534.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 596,
+      "text": "1",
+      "rect": {
+        "left": 316.79,
+        "bottom": 524.4,
+        "right": 319.57,
+        "top": 529.4
+      }
+    },
+    {
+      "page": 5,
+      "order": 597,
+      "text": "List first and circle the name of the person whose number you furnish.",
+      "rect": {
+        "left": 320.68,
+        "bottom": 521.4,
+        "right": 570.36,
+        "top": 529.4
+      }
+    },
+    {
+      "page": 5,
+      "order": 598,
+      "text": "cross out item 2 of the certification.",
+      "rect": {
+        "left": 36,
+        "bottom": 517.27,
+        "right": 162.39,
+        "top": 525.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 599,
+      "text": "If only one person on a joint account has an SSN, that person\u2019s number",
+      "rect": {
+        "left": 316.78,
+        "bottom": 512.26,
+        "right": 572.4,
+        "top": 520.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 600,
+      "text": "4. Other payments. You must give your correct TIN, but you do not",
+      "rect": {
+        "left": 44,
+        "bottom": 505.27,
+        "right": 286.41,
+        "top": 513.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 601,
+      "text": "must be furnished.",
+      "rect": {
+        "left": 316.78,
+        "bottom": 503.26,
+        "right": 383.48,
+        "top": 511.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 602,
+      "text": "have to sign the certification unless you have been notified that you",
+      "rect": {
+        "left": 36,
+        "bottom": 496.27,
+        "right": 276.49,
+        "top": 504.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 603,
+      "text": "2",
+      "rect": {
+        "left": 316.79,
+        "bottom": 493.41,
+        "right": 319.57,
+        "top": 498.41
+      }
+    },
+    {
+      "page": 5,
+      "order": 604,
+      "text": "Circle the minor\u2019s name and furnish the minor\u2019s SSN.",
+      "rect": {
+        "left": 320.68,
+        "bottom": 490.41,
+        "right": 510.5,
+        "top": 498.41
+      }
+    },
+    {
+      "page": 5,
+      "order": 605,
+      "text": "have previously given an incorrect TIN. \u201COther payments\u201D include",
+      "rect": {
+        "left": 36,
+        "bottom": 487.27,
+        "right": 268.93,
+        "top": 495.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 606,
+      "text": "3",
+      "rect": {
+        "left": 316.79,
+        "bottom": 481.41,
+        "right": 319.57,
+        "top": 486.41
+      }
+    },
+    {
+      "page": 5,
+      "order": 607,
+      "text": "You must show your individual name on line 1, and enter your business",
+      "rect": {
+        "left": 320.68,
+        "bottom": 478.41,
+        "right": 574.97,
+        "top": 486.41
+      }
+    },
+    {
+      "page": 5,
+      "order": 608,
+      "text": "payments made in the course of the requester\u2019s trade or business for",
+      "rect": {
+        "left": 36,
+        "bottom": 478.27,
+        "right": 283.01,
+        "top": 486.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 609,
+      "text": "or DBA name, if any, on line 2. You may use either your SSN or EIN (if",
+      "rect": {
+        "left": 316.78,
+        "bottom": 470.26,
+        "right": 565.26,
+        "top": 478.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 610,
+      "text": "rents, royalties, goods (other than bills for merchandise), medical and",
+      "rect": {
+        "left": 36,
+        "bottom": 469.27,
+        "right": 282.7,
+        "top": 477.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 611,
+      "text": "you have one), but the IRS encourages you to use your SSN.",
+      "rect": {
+        "left": 316.78,
+        "bottom": 461.26,
+        "right": 533.56,
+        "top": 469.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 612,
+      "text": "health care services (including payments to corporations), payments to",
+      "rect": {
+        "left": 36,
+        "bottom": 460.27,
+        "right": 288.78,
+        "top": 468.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 613,
+      "text": "a nonemployee for services, payments made in settlement of payment",
+      "rect": {
+        "left": 36,
+        "bottom": 451.27,
+        "right": 286.88,
+        "top": 459.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 614,
+      "text": "4",
+      "rect": {
+        "left": 316.79,
+        "bottom": 451.41,
+        "right": 319.57,
+        "top": 456.41
+      }
+    },
+    {
+      "page": 5,
+      "order": 615,
+      "text": "List first and circle the name of the trust, estate, or pension trust. (Do",
+      "rect": {
+        "left": 320.68,
+        "bottom": 448.41,
+        "right": 566.36,
+        "top": 456.41
+      }
+    },
+    {
+      "page": 5,
+      "order": 616,
+      "text": "card and third-party network transactions, payments to certain fishing",
+      "rect": {
+        "left": 36,
+        "bottom": 442.27,
+        "right": 285.52,
+        "top": 450.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 617,
+      "text": "not furnish the TIN of the personal representative or trustee unless the",
+      "rect": {
+        "left": 316.78,
+        "bottom": 439.26,
+        "right": 566.74,
+        "top": 447.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 618,
+      "text": "boat crew members and fishermen, and gross proceeds paid to",
+      "rect": {
+        "left": 36,
+        "bottom": 433.27,
+        "right": 263.6,
+        "top": 441.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 619,
+      "text": "legal entity itself is not designated in the account title.)",
+      "rect": {
+        "left": 316.78,
+        "bottom": 430.26,
+        "right": 510.44,
+        "top": 438.26
+      }
+    },
+    {
+      "page": 5,
+      "order": 620,
+      "text": "attorneys (including payments to corporations).",
+      "rect": {
+        "left": 36,
+        "bottom": 424.27,
+        "right": 204.32,
+        "top": 432.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 621,
+      "text": "* Note: The grantor must also provide a Form W-9 to the trustee of the",
+      "rect": {
+        "left": 316.78,
+        "bottom": 418.27,
+        "right": 567.73,
+        "top": 426.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 622,
+      "text": "5. Mortgage interest paid by you, acquisition or abandonment of",
+      "rect": {
+        "left": 44,
+        "bottom": 412.27,
+        "right": 288.26,
+        "top": 420.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 623,
+      "text": "trust.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 409.27,
+        "right": 335.16,
+        "top": 417.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 624,
+      "text": "secured property, cancellation of debt, qualified tuition program",
+      "rect": {
+        "left": 36,
+        "bottom": 403.27,
+        "right": 279.77,
+        "top": 411.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 625,
+      "text": "** For more information on optional filing methods for grantor trusts, see",
+      "rect": {
+        "left": 316.79,
+        "bottom": 397.27,
+        "right": 572.6,
+        "top": 405.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 626,
+      "text": "payments (under section 529), ABLE accounts (under section 529A),",
+      "rect": {
+        "left": 36,
+        "bottom": 394.27,
+        "right": 293.64,
+        "top": 402.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 627,
+      "text": "the Instructions for Form 1041.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 388.27,
+        "right": 427.04,
+        "top": 396.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 628,
+      "text": "IRA, Coverdell ESA, Archer MSA or HSA contributions or",
+      "rect": {
+        "left": 36,
+        "bottom": 385.27,
+        "right": 250.81,
+        "top": 393.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 629,
+      "text": "distributions, and pension distributions. You must give your correct",
+      "rect": {
+        "left": 36,
+        "bottom": 376.27,
+        "right": 285.74,
+        "top": 384.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 630,
+      "text": "Note: If no name is circled when more than one name is listed, the",
+      "rect": {
+        "left": 316.79,
+        "bottom": 376.27,
+        "right": 554.03,
+        "top": 384.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 631,
+      "text": "TIN, but you do not have to sign the certification.",
+      "rect": {
+        "left": 36,
+        "bottom": 367.27,
+        "right": 210.4,
+        "top": 375.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 632,
+      "text": "number will be considered to be that of the first name listed.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 367.27,
+        "right": 531.64,
+        "top": 375.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 633,
+      "text": "What Name and Number To Give the Requester",
+      "rect": {
+        "left": 36,
+        "bottom": 349.42,
+        "right": 294.69,
+        "top": 361.42
+      }
+    },
+    {
+      "page": 5,
+      "order": 634,
+      "text": "Secure Your Tax Records From Identity Theft",
+      "rect": {
+        "left": 316.79,
+        "bottom": 349.41,
+        "right": 570.05,
+        "top": 361.41
+      }
+    },
+    {
+      "page": 5,
+      "order": 635,
+      "text": "For this type of account:",
+      "rect": {
+        "left": 58.02,
+        "bottom": 336.28,
+        "right": 150.77,
+        "top": 344.28
+      }
+    },
+    {
+      "page": 5,
+      "order": 636,
+      "text": "Give name and SSN of:",
+      "rect": {
+        "left": 190.36,
+        "bottom": 336.28,
+        "right": 277.63,
+        "top": 344.28
+      }
+    },
+    {
+      "page": 5,
+      "order": 637,
+      "text": "Identity theft occurs when someone uses your personal information,",
+      "rect": {
+        "left": 316.79,
+        "bottom": 336.27,
+        "right": 559.49,
+        "top": 344.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 638,
+      "text": "such as your name, SSN, or other identifying information, without your",
+      "rect": {
+        "left": 316.79,
+        "bottom": 327.27,
+        "right": 567.79,
+        "top": 335.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 639,
+      "text": "1. Individual",
+      "rect": {
+        "left": 40,
+        "bottom": 324.99,
+        "right": 77.6,
+        "top": 331.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 640,
+      "text": "The individual",
+      "rect": {
+        "left": 178.79,
+        "bottom": 324.99,
+        "right": 221.97,
+        "top": 331.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 641,
+      "text": "permission to commit fraud or other crimes. An identity thief may use",
+      "rect": {
+        "left": 316.79,
+        "bottom": 318.27,
+        "right": 563.67,
+        "top": 326.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 642,
+      "text": "2. Two or more individuals (joint account)",
+      "rect": {
+        "left": 40,
+        "bottom": 313.99,
+        "right": 168.47,
+        "top": 320.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 643,
+      "text": "The actual owner of the account or,",
+      "rect": {
+        "left": 178.79,
+        "bottom": 313.99,
+        "right": 289.89,
+        "top": 320.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 644,
+      "text": "your SSN to get a job or may file a tax return using your SSN to receive",
+      "rect": {
+        "left": 316.79,
+        "bottom": 309.27,
+        "right": 570.87,
+        "top": 317.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 645,
+      "text": "other than an account maintained by",
+      "rect": {
+        "left": 49,
+        "bottom": 305.99,
+        "right": 163.76,
+        "top": 312.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 646,
+      "text": "if combined funds, the first individual",
+      "rect": {
+        "left": 178.79,
+        "bottom": 305.99,
+        "right": 293.93,
+        "top": 312.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 647,
+      "text": "a refund.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 300.27,
+        "right": 348.5,
+        "top": 308.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 648,
+      "text": "an FFI",
+      "rect": {
+        "left": 49,
+        "bottom": 297.99,
+        "right": 68.44,
+        "top": 304.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 649,
+      "text": "on the account1",
+      "rect": {
+        "left": 178.79,
+        "bottom": 297.41,
+        "right": 228.51,
+        "top": 304.42
+      }
+    },
+    {
+      "page": 5,
+      "order": 650,
+      "text": "To reduce your risk:",
+      "rect": {
+        "left": 324.79,
+        "bottom": 288.27,
+        "right": 395.9,
+        "top": 296.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 651,
+      "text": "3. Two or more U.S. persons",
+      "rect": {
+        "left": 40,
+        "bottom": 285.99,
+        "right": 129.97,
+        "top": 292.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 652,
+      "text": "Each holder of the account",
+      "rect": {
+        "left": 178.79,
+        "bottom": 285.99,
+        "right": 263.2,
+        "top": 292.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 653,
+      "text": "(joint account maintained by an FFI)",
+      "rect": {
+        "left": 47.78,
+        "bottom": 277.99,
+        "right": 159.29,
+        "top": 284.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 654,
+      "text": "\u2022 Protect your SSN,",
+      "rect": {
+        "left": 316.79,
+        "bottom": 276.27,
+        "right": 387.6,
+        "top": 284.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 655,
+      "text": "The minor2",
+      "rect": {
+        "left": 178.79,
+        "bottom": 266.42,
+        "right": 212.95,
+        "top": 273.42
+      }
+    },
+    {
+      "page": 5,
+      "order": 656,
+      "text": "4. Custodial account of a minor",
+      "rect": {
+        "left": 40,
+        "bottom": 265.99,
+        "right": 138.15,
+        "top": 272.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 657,
+      "text": "\u2022 Ensure your employer is protecting your SSN, and",
+      "rect": {
+        "left": 316.79,
+        "bottom": 264.27,
+        "right": 502,
+        "top": 272.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 658,
+      "text": "(Uniform Gift to Minors Act)",
+      "rect": {
+        "left": 48,
+        "bottom": 257.99,
+        "right": 133.55,
+        "top": 264.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 659,
+      "text": "\u2022 Be careful when choosing a tax return preparer.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 252.27,
+        "right": 493.38,
+        "top": 260.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 660,
+      "text": "The grantor-trustee1",
+      "rect": {
+        "left": 178.79,
+        "bottom": 246.42,
+        "right": 242.11,
+        "top": 253.42
+      }
+    },
+    {
+      "page": 5,
+      "order": 661,
+      "text": "5. a. The usual revocable savings trust",
+      "rect": {
+        "left": 40,
+        "bottom": 245.99,
+        "right": 159.92,
+        "top": 252.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 662,
+      "text": "If your tax records are affected by identity theft and you receive a",
+      "rect": {
+        "left": 324.79,
+        "bottom": 240.27,
+        "right": 557.69,
+        "top": 248.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 663,
+      "text": "(grantor is also trustee)",
+      "rect": {
+        "left": 48,
+        "bottom": 237.99,
+        "right": 119.55,
+        "top": 244.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 664,
+      "text": "notice from the IRS, respond right away to the name and phone number",
+      "rect": {
+        "left": 316.79,
+        "bottom": 231.27,
+        "right": 573.89,
+        "top": 239.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 665,
+      "text": "The actual owner1",
+      "rect": {
+        "left": 178.79,
+        "bottom": 226.42,
+        "right": 235.36,
+        "top": 235.42
+      }
+    },
+    {
+      "page": 5,
+      "order": 666,
+      "text": "b. So-called trust account that is not",
+      "rect": {
+        "left": 48,
+        "bottom": 226.49,
+        "right": 162.23,
+        "top": 233.49
+      }
+    },
+    {
+      "page": 5,
+      "order": 667,
+      "text": "printed on the IRS notice or letter.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 222.28,
+        "right": 437.84,
+        "top": 230.27
+      }
+    },
+    {
+      "page": 5,
+      "order": 668,
+      "text": "a legal or valid trust under state law",
+      "rect": {
+        "left": 48,
+        "bottom": 218.49,
+        "right": 159.09,
+        "top": 225.49
+      }
+    },
+    {
+      "page": 5,
+      "order": 669,
+      "text": "If your tax records are not currently affected by identity theft but you",
+      "rect": {
+        "left": 324.79,
+        "bottom": 210.28,
+        "right": 568.67,
+        "top": 218.28
+      }
+    },
+    {
+      "page": 5,
+      "order": 670,
+      "text": "The owner3",
+      "rect": {
+        "left": 178.79,
+        "bottom": 207.42,
+        "right": 214.49,
+        "top": 214.42
+      }
+    },
+    {
+      "page": 5,
+      "order": 671,
+      "text": "6. Sole proprietorship or disregarded",
+      "rect": {
+        "left": 40,
+        "bottom": 206.99,
+        "right": 155.24,
+        "top": 213.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 672,
+      "text": "think you are at risk due to a lost or stolen purse or wallet, questionable",
+      "rect": {
+        "left": 316.79,
+        "bottom": 201.28,
+        "right": 571.93,
+        "top": 209.28
+      }
+    },
+    {
+      "page": 5,
+      "order": 673,
+      "text": "entity owned by an individual",
+      "rect": {
+        "left": 48,
+        "bottom": 198.99,
+        "right": 138.88,
+        "top": 205.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 674,
+      "text": "credit card activity, or a questionable credit report, contact the IRS",
+      "rect": {
+        "left": 316.79,
+        "bottom": 192.28,
+        "right": 555.18,
+        "top": 200.28
+      }
+    },
+    {
+      "page": 5,
+      "order": 675,
+      "text": "7. Grantor trust filing under Optional",
+      "rect": {
+        "left": 40,
+        "bottom": 186.99,
+        "right": 152.67,
+        "top": 193.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 676,
+      "text": "The grantor*",
+      "rect": {
+        "left": 178.79,
+        "bottom": 186.99,
+        "right": 217.42,
+        "top": 193.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 677,
+      "text": "Identity Theft Hotline at 800-908-4490 or submit Form 14039.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 183.28,
+        "right": 536.58,
+        "top": 191.28
+      }
+    },
+    {
+      "page": 5,
+      "order": 678,
+      "text": "Filing Method 1 (see Regulations",
+      "rect": {
+        "left": 48,
+        "bottom": 178.99,
+        "right": 150.16,
+        "top": 185.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 679,
+      "text": "For more information, see Pub. 5027, Identity Theft Information for",
+      "rect": {
+        "left": 324.79,
+        "bottom": 171.28,
+        "right": 561.58,
+        "top": 179.28
+      }
+    },
+    {
+      "page": 5,
+      "order": 680,
+      "text": "section 1.671-4(b)(2)(i)(A))**",
+      "rect": {
+        "left": 48,
+        "bottom": 170.99,
+        "right": 132.14,
+        "top": 177.99
+      }
+    },
+    {
+      "page": 5,
+      "order": 681,
+      "text": "Taxpayers.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 162.28,
+        "right": 356.04,
+        "top": 170.28
+      }
+    },
+    {
+      "page": 6,
+      "order": 682,
+      "text": "Page 6",
+      "rect": {
+        "left": 552.4,
+        "bottom": 747.83,
+        "right": 575.98,
+        "top": 757.83
+      }
+    },
+    {
+      "page": 6,
+      "order": 683,
+      "text": "Form W-9 (Rev. 3-2024)",
+      "rect": {
+        "left": 36,
+        "bottom": 748.41,
+        "right": 111.08,
+        "top": 755.41
+      }
+    },
+    {
+      "page": 6,
+      "order": 684,
+      "text": "Privacy Act Notice",
+      "rect": {
+        "left": 316.79,
+        "bottom": 725.4,
+        "right": 422.12,
+        "top": 737.4
+      }
+    },
+    {
+      "page": 6,
+      "order": 685,
+      "text": "Victims of identity theft who are experiencing economic harm or a",
+      "rect": {
+        "left": 44,
+        "bottom": 728.26,
+        "right": 278.54,
+        "top": 736.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 686,
+      "text": "systemic problem, or are seeking help in resolving tax problems that",
+      "rect": {
+        "left": 36,
+        "bottom": 719.26,
+        "right": 279.89,
+        "top": 727.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 687,
+      "text": "Section 6109 of the Internal Revenue Code requires you to provide your",
+      "rect": {
+        "left": 316.79,
+        "bottom": 712.26,
+        "right": 571.2,
+        "top": 720.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 688,
+      "text": "have not been resolved through normal channels, may be eligible for",
+      "rect": {
+        "left": 36,
+        "bottom": 710.26,
+        "right": 280.34,
+        "top": 718.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 689,
+      "text": "correct TIN to persons (including federal agencies) who are required to",
+      "rect": {
+        "left": 316.79,
+        "bottom": 703.26,
+        "right": 566.74,
+        "top": 711.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 690,
+      "text": "Taxpayer Advocate Service (TAS) assistance. You can reach TAS by",
+      "rect": {
+        "left": 36,
+        "bottom": 701.26,
+        "right": 279.7,
+        "top": 709.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 691,
+      "text": "file information returns with the IRS to report interest, dividends, or",
+      "rect": {
+        "left": 316.79,
+        "bottom": 694.26,
+        "right": 552.95,
+        "top": 702.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 692,
+      "text": "calling the TAS toll-free case intake line at 877-777-4778 or TTY/TDD",
+      "rect": {
+        "left": 36,
+        "bottom": 692.26,
+        "right": 283.15,
+        "top": 700.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 693,
+      "text": "certain other income paid to you; mortgage interest you paid; the",
+      "rect": {
+        "left": 316.79,
+        "bottom": 685.26,
+        "right": 547.24,
+        "top": 693.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 694,
+      "text": "800-829-4059.",
+      "rect": {
+        "left": 36,
+        "bottom": 683.26,
+        "right": 88.92,
+        "top": 691.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 695,
+      "text": "acquisition or abandonment of secured property; the cancellation of",
+      "rect": {
+        "left": 316.79,
+        "bottom": 676.26,
+        "right": 557.53,
+        "top": 684.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 696,
+      "text": "Protect yourself from suspicious emails or phishing schemes.",
+      "rect": {
+        "left": 36,
+        "bottom": 671.26,
+        "right": 270.88,
+        "top": 679.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 697,
+      "text": "debt; or contributions you made to an IRA, Archer MSA, or HSA. The",
+      "rect": {
+        "left": 316.79,
+        "bottom": 667.26,
+        "right": 560.32,
+        "top": 675.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 698,
+      "text": "Phishing is the creation and use of email and websites designed to",
+      "rect": {
+        "left": 36,
+        "bottom": 662.26,
+        "right": 274.41,
+        "top": 670.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 699,
+      "text": "person collecting this form uses the information on the form to file",
+      "rect": {
+        "left": 316.79,
+        "bottom": 658.26,
+        "right": 550.17,
+        "top": 666.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 700,
+      "text": "mimic legitimate business emails and websites. The most common act",
+      "rect": {
+        "left": 36,
+        "bottom": 653.26,
+        "right": 288.22,
+        "top": 661.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 701,
+      "text": "information returns with the IRS, reporting the above information.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 649.26,
+        "right": 547.22,
+        "top": 657.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 702,
+      "text": "is sending an email to a user falsely claiming to be an established",
+      "rect": {
+        "left": 36,
+        "bottom": 644.26,
+        "right": 269.37,
+        "top": 652.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 703,
+      "text": "Routine uses of this information include giving it to the Department of",
+      "rect": {
+        "left": 316.79,
+        "bottom": 640.26,
+        "right": 562.54,
+        "top": 648.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 704,
+      "text": "legitimate enterprise in an attempt to scam the user into surrendering",
+      "rect": {
+        "left": 36,
+        "bottom": 635.26,
+        "right": 282.87,
+        "top": 643.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 705,
+      "text": "Justice for civil and criminal litigation and to cities, states, the District of",
+      "rect": {
+        "left": 316.79,
+        "bottom": 631.26,
+        "right": 570.45,
+        "top": 639.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 706,
+      "text": "private information that will be used for identity theft.",
+      "rect": {
+        "left": 36,
+        "bottom": 626.26,
+        "right": 224.17,
+        "top": 634.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 707,
+      "text": "Columbia, and U.S. commonwealths and territories for use in",
+      "rect": {
+        "left": 316.79,
+        "bottom": 622.26,
+        "right": 533.11,
+        "top": 630.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 708,
+      "text": "The IRS does not initiate contacts with taxpayers via emails. Also, the",
+      "rect": {
+        "left": 44,
+        "bottom": 614.26,
+        "right": 292.16,
+        "top": 622.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 709,
+      "text": "administering their laws. The information may also be disclosed to other",
+      "rect": {
+        "left": 316.79,
+        "bottom": 613.26,
+        "right": 571.64,
+        "top": 621.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 710,
+      "text": "IRS does not request personal detailed information through email or ask",
+      "rect": {
+        "left": 36,
+        "bottom": 605.26,
+        "right": 293.08,
+        "top": 613.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 711,
+      "text": "countries under a treaty, to federal and state agencies to enforce civil",
+      "rect": {
+        "left": 316.79,
+        "bottom": 604.26,
+        "right": 562.21,
+        "top": 612.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 712,
+      "text": "taxpayers for the PIN numbers, passwords, or similar secret access",
+      "rect": {
+        "left": 36,
+        "bottom": 596.26,
+        "right": 277.49,
+        "top": 604.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 713,
+      "text": "and criminal laws, or to federal law enforcement and intelligence",
+      "rect": {
+        "left": 316.79,
+        "bottom": 595.26,
+        "right": 544.55,
+        "top": 603.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 714,
+      "text": "information for their credit card, bank, or other financial accounts.",
+      "rect": {
+        "left": 36,
+        "bottom": 587.27,
+        "right": 270.4,
+        "top": 595.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 715,
+      "text": "agencies to combat terrorism. You must provide your TIN whether or not",
+      "rect": {
+        "left": 316.79,
+        "bottom": 586.27,
+        "right": 574.43,
+        "top": 594.26
+      }
+    },
+    {
+      "page": 6,
+      "order": 716,
+      "text": "you are required to file a tax return. Under section 3406, payors must",
+      "rect": {
+        "left": 316.79,
+        "bottom": 577.27,
+        "right": 561.35,
+        "top": 585.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 717,
+      "text": "If you receive an unsolicited email claiming to be from the IRS,",
+      "rect": {
+        "left": 44,
+        "bottom": 575.27,
+        "right": 266.55,
+        "top": 583.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 718,
+      "text": "generally withhold a percentage of taxable interest, dividends, and",
+      "rect": {
+        "left": 316.79,
+        "bottom": 568.27,
+        "right": 552.06,
+        "top": 576.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 719,
+      "text": "forward this message to phishing@irs.gov. You may also report misuse",
+      "rect": {
+        "left": 36,
+        "bottom": 566.27,
+        "right": 288.64,
+        "top": 574.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 720,
+      "text": "certain other payments to a payee who does not give a TIN to the payor.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 559.27,
+        "right": 573.55,
+        "top": 567.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 721,
+      "text": "of the IRS name, logo, or other IRS property to the Treasury Inspector",
+      "rect": {
+        "left": 36,
+        "bottom": 557.27,
+        "right": 285.2,
+        "top": 565.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 722,
+      "text": "Certain penalties may also apply for providing false or fraudulent",
+      "rect": {
+        "left": 316.79,
+        "bottom": 550.27,
+        "right": 545.3,
+        "top": 558.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 723,
+      "text": "General for Tax Administration (TIGTA) at 800-366-4484. You can",
+      "rect": {
+        "left": 36,
+        "bottom": 548.27,
+        "right": 269.52,
+        "top": 556.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 724,
+      "text": "information.",
+      "rect": {
+        "left": 316.79,
+        "bottom": 541.27,
+        "right": 358.99,
+        "top": 549.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 725,
+      "text": "forward suspicious emails to the Federal Trade Commission at",
+      "rect": {
+        "left": 36,
+        "bottom": 539.27,
+        "right": 259.28,
+        "top": 547.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 726,
+      "text": "spam@uce.gov or report them at www.ftc.gov/complaint. You can",
+      "rect": {
+        "left": 36,
+        "bottom": 530.27,
+        "right": 271.61,
+        "top": 538.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 727,
+      "text": "contact the FTC at www.ftc.gov/idtheft or 877-IDTHEFT (877-438-4338).",
+      "rect": {
+        "left": 36,
+        "bottom": 521.27,
+        "right": 294.71,
+        "top": 529.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 728,
+      "text": "If you have been the victim of identity theft, see www.IdentityTheft.gov",
+      "rect": {
+        "left": 36,
+        "bottom": 512.27,
+        "right": 287.14,
+        "top": 520.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 729,
+      "text": "and Pub. 5027.",
+      "rect": {
+        "left": 36,
+        "bottom": 503.27,
+        "right": 90.55,
+        "top": 511.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 730,
+      "text": "Go to www.irs.gov/IdentityTheft to learn more about identity theft and",
+      "rect": {
+        "left": 44,
+        "bottom": 491.27,
+        "right": 292.16,
+        "top": 499.27
+      }
+    },
+    {
+      "page": 6,
+      "order": 731,
+      "text": "how to reduce your risk.",
+      "rect": {
+        "left": 36,
+        "bottom": 482.27,
+        "right": 122.37,
+        "top": 490.27
+      }
+    }
+  ],
+  "answerKey": "fed-w9"
+}

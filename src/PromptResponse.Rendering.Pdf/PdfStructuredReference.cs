@@ -105,12 +105,30 @@ public sealed record ReferencePage(int Number, double Width, double Height);
 /// same logic would be grading the converter against itself.
 /// </para>
 /// </remarks>
+/// <param name="FormId">The corpus id of the form this describes.</param>
+/// <param name="PageCount">Pages in the document.</param>
+/// <param name="Pages">Each page's number and size, in PDF user space.</param>
+/// <param name="Fields">Every field the PDF declares, with its geometry.</param>
+/// <param name="Lines">Every line of printed text, with its geometry.</param>
+/// <param name="AnswerKey">
+/// For a derived fixture, the form whose reference states what a converter
+/// reading this one should recover; null for a form that is its own key.
+/// <para>
+/// This is what makes a flattened or scanned fixture gradable. Extraction here
+/// is honest about what the file itself states — <c>fed-w9-flat</c> declares no
+/// fields, and <c>fed-w9-scan</c> states nothing at all — but that is precisely
+/// the case a converter exists to handle, and the source's reference is the
+/// mechanical ground truth for it. Recording the link in the file means a test
+/// does not have to rediscover it from the corpus manifest.
+/// </para>
+/// </param>
 public sealed record PdfStructuredReference(
     string FormId,
     int PageCount,
     IReadOnlyList<ReferencePage> Pages,
     IReadOnlyList<ReferenceField> Fields,
-    IReadOnlyList<ReferenceLine> Lines)
+    IReadOnlyList<ReferenceLine> Lines,
+    string? AnswerKey = null)
 {
     /// <summary>Fields carrying the form author's own label.</summary>
     [JsonIgnore]
@@ -197,7 +215,7 @@ public static class PdfReferenceExtractor
     };
 
     /// <summary>Extracts the reference from a PDF on disk.</summary>
-    public static PdfStructuredReference Extract(string path, string formId)
+    public static PdfStructuredReference Extract(string path, string formId, string? answerKey = null)
     {
         using var doc = PdfeDoc.Open(path);
 
@@ -239,7 +257,7 @@ public static class PdfReferenceExtractor
                 x.Entry.OptionCount))
             .ToList();
 
-        return new PdfStructuredReference(formId, doc.Pages.Count, pages, fields, ordered);
+        return new PdfStructuredReference(formId, doc.Pages.Count, pages, fields, ordered, answerKey);
     }
 
     /// <summary>Serializes a reference to its committed JSON form.</summary>

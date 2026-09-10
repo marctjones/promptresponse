@@ -18,14 +18,36 @@ public class PdfStructuredReferenceTests
         "ct-w4", "ct-dmv-j23", "ct-dmv-b58ind", "ct-dmv-a25", "ct-dmv-a83", "ct-dmv-b225p",
     ];
 
-    public static TheoryData<string> AllForms() => [.. Forms];
+    /// <summary>
+    /// Derived fixtures and the source whose reference grades them.
+    /// </summary>
+    /// <remarks>
+    /// W-9 and I-9 exist in all three states a form is met in — fillable,
+    /// flattened, and image-only — so a converter change can be measured across
+    /// the whole degradation path on the same document. Their references are
+    /// extracted from each fixture honestly: the flattened ones declare no
+    /// fields, and the scanned ones state nothing at all. What makes them
+    /// gradable is AnswerKey, which names the source that does.
+    /// </remarks>
+    public static readonly (string Id, string AnswerKey)[] Derived =
+    [
+        ("fed-w9-flat", "fed-w9"),
+        ("fed-w9-scan", "fed-w9"),
+        ("fed-i9-flat", "fed-i9"),
+        ("fed-i9-scan", "fed-i9"),
+    ];
+
+    public static TheoryData<string> AllForms() => [.. Forms, .. Derived.Select(d => d.Id)];
 
     [Theory]
     [MemberData(nameof(AllForms))]
     public void TheCommittedReferenceMatchesWhatThePdfStates(string id)
     {
         var actual = PdfReferenceExtractor.ToJson(
-            PdfReferenceExtractor.Extract(CorpusPath(id), id));
+            PdfReferenceExtractor.Extract(
+                CorpusPath(id),
+                id,
+                Derived.FirstOrDefault(d => d.Id == id).AnswerKey));
         var file = Path.Combine(ReferenceDir, $"{id}.json");
 
         if (Environment.GetEnvironmentVariable("UPDATE_PDF_REFERENCE") == "1")
@@ -152,7 +174,8 @@ public class PdfStructuredReferenceTests
         Directory.GetFiles(ReferenceDir, "*.json")
             .Select(Path.GetFileNameWithoutExtension)
             .OrderBy(x => x, StringComparer.Ordinal)
-            .Should().BeEquivalentTo(Forms.OrderBy(x => x, StringComparer.Ordinal));
+            .Should().BeEquivalentTo(
+                Forms.Concat(Derived.Select(d => d.Id)).OrderBy(x => x, StringComparer.Ordinal));
     }
 
     private static PdfStructuredReference Load(string id) =>

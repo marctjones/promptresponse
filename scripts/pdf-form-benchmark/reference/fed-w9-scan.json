@@ -1,0 +1,39 @@
+{
+  "formId": "fed-w9-scan",
+  "pageCount": 6,
+  "pages": [
+    {
+      "number": 1,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 2,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 3,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 4,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 5,
+      "width": 612,
+      "height": 792
+    },
+    {
+      "number": 6,
+      "width": 612,
+      "height": 792
+    }
+  ],
+  "fields": [],
+  "lines": [],
+  "answerKey": "fed-w9"
+}
