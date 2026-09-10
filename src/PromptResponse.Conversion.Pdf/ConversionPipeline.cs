@@ -99,6 +99,7 @@ public sealed class ConversionPipeline(IReadOnlyList<IConversionPhase> phases)
         new DiscoverTextLayerFieldsPhase(),
         new ClassifySpansPhase(),
         new RecoverLabelsPhase(),
+        new MergeSplitEntriesPhase(),
         new AssembleDocumentPhase(),
         new ModelTouchUpPhase(),
     ]);
@@ -122,6 +123,7 @@ public sealed class ConversionPipeline(IReadOnlyList<IConversionPhase> phases)
         new DiscoverTextLayerFieldsPhase(),
         new ClassifySpansPhase(),
         new RecoverLabelsPhase(),
+        new MergeSplitEntriesPhase(),
         new AssembleDocumentPhase(),
         new ModelTouchUpPhase(),
     ]);

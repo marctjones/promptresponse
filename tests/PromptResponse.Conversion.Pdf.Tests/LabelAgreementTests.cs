@@ -122,7 +122,8 @@ public class LabelAgreementTests
 
         var recovered = ConversionPipeline.WithoutFormAuthorLabels().Convert(path, id)
             .State.FieldsOrEmpty
-            .GroupBy(f => f.Id)
+            .SelectMany(f => f.AccountsFor.Select(id => (Id: id, f.Label)))
+            .GroupBy(x => x.Id)
             .ToDictionary(g => g.Key, g => g.First().Label);
 
         return LabelAgreement.Compare(id, expected, recovered);

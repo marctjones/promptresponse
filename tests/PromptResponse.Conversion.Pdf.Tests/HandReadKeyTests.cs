@@ -81,7 +81,8 @@ public class HandReadKeyTests
         var key = Load(id);
         var recovered = ConversionPipeline.Default().Convert(CorpusPath(id), id)
             .State.FieldsOrEmpty
-            .GroupBy(f => f.Id)
+            .SelectMany(f => f.AccountsFor.Select(id => (Id: id, f.Label)))
+            .GroupBy(x => x.Id)
             .ToDictionary(g => g.Key, g => g.First().Label);
 
         var result = LabelAgreement.Compare(

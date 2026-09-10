@@ -332,7 +332,45 @@ public sealed class RecoverLabelsPhase : IConversionPhase
 }
 
 /// <summary>
-/// Phase 7. Turns the discovered fields into an APR template.
+/// Joins the boxes of one split value back into a single question.
+/// </summary>
+/// <remarks>
+/// Runs after labels are recovered, because the label is part of the evidence:
+/// two boxes are pieces of one answer only if they ask the same thing. See
+/// <see cref="SplitEntries"/> for why the printed separator, and not adjacency,
+/// is what decides.
+/// </remarks>
+public sealed class MergeSplitEntriesPhase : IConversionPhase
+{
+    /// <inheritdoc/>
+    public string Name => "merge-split-entries";
+
+    /// <inheritdoc/>
+    public string Purpose => "Ask once for a value the form printed as several boxes.";
+
+    /// <inheritdoc/>
+    public (ConversionState State, PhaseStatus Status, string Detail) Run(ConversionState state)
+    {
+        if (state.FieldsOrEmpty.Count == 0)
+        {
+            return (state, PhaseStatus.Skipped, "no fields were discovered, so there is nothing to join");
+        }
+
+        var merged = SplitEntries.Merge(state.FieldsOrEmpty, state.SpansOrEmpty);
+        var joined = merged.Count(f => f.Parts is { Count: > 1 });
+        if (joined == 0)
+        {
+            return (state, PhaseStatus.Completed, "no value on this form is printed as separated boxes");
+        }
+
+        var boxes = merged.Where(f => f.Parts is { Count: > 1 }).Sum(f => f.Parts!.Count);
+        return (state with { Fields = merged }, PhaseStatus.Completed,
+            $"{boxes} box(es) joined into {joined} question(s); {merged.Count} field(s) remain");
+    }
+}
+
+/// <summary>
+/// Phase 8. Turns the discovered fields into an APR template.
 /// </summary>
 /// <remarks>
 /// The one phase that must never invent: it arranges what earlier phases found

@@ -44,6 +44,12 @@ public enum LabelSource
 /// <param name="TargetRect">Where the answer goes, in PDF user space.</param>
 /// <param name="ExpectedDataType">An APR hint — text, boolean, and so on.</param>
 /// <param name="Options">Choice options, when the field offers a fixed set.</param>
+/// <param name="Parts">
+/// When a form printed one answer as several boxes, the boxes it used. Null for
+/// an ordinary field. The prompt is single — that is the point — but the source
+/// PDF declares one widget per box, so the parts are what let a converted
+/// document still be checked against every field the form declared.
+/// </param>
 /// <param name="LabelFoundAt">
 /// Which side of the field its label was printed on. Diagnostic: a wrong label
 /// is much easier to reason about when the side it came from is known, and the
@@ -71,11 +77,34 @@ public sealed record DiscoveredField(
     IReadOnlyList<string>? Options = null,
     IReadOnlyList<string>? NeedsReview = null,
     string? HelpText = null,
-    LabelDirection? LabelFoundAt = null)
+    LabelDirection? LabelFoundAt = null,
+    IReadOnlyList<FieldPart>? Parts = null)
 {
     /// <summary>Whether a human-readable question was resolved for this field.</summary>
     public bool HasLabel => !string.IsNullOrWhiteSpace(Label);
+
+    /// <summary>
+    /// Every field of the source this one answers for — itself, or all the
+    /// boxes it was joined from.
+    /// </summary>
+    /// <remarks>
+    /// A merged field is one question and several widgets. Coverage has to
+    /// count the widgets, or joining boxes would look like losing fields.
+    /// </remarks>
+    public IReadOnlyList<string> AccountsFor =>
+        Parts is { Count: > 1 } parts ? [.. parts.Select(p => p.Id)] : [Id];
+
+    /// <summary>Where every box of this answer sits, for grading placement.</summary>
+    public IReadOnlyList<PdfRectangle> PlacedAt =>
+        Parts is { Count: > 1 } parts
+            ? [.. parts.Select(p => p.Rect)]
+            : TargetRect is { } rect ? [rect] : [];
 }
+
+/// <summary>One box of an answer the form printed in several pieces.</summary>
+/// <param name="Id">The source field's identity for that box.</param>
+/// <param name="Rect">Where that box sits.</param>
+public sealed record FieldPart(string Id, PdfRectangle Rect);
 
 /// <summary>One run of printed text, with where it sits.</summary>
 /// <param name="PageNumber">1-based page.</param>

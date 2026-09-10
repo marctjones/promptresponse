@@ -18,10 +18,10 @@ public class ConversionPipelineTests
     {
         var result = ConversionPipeline.Default().Convert(CorpusPath("fed-w9"), "fed-w9");
 
-        result.Phases.Should().HaveCount(8);
+        result.Phases.Should().HaveCount(9);
         result.Phases.Select(p => p.Name).Should().Equal(
             "detect-sources", "extract-text", "discover-acroform", "discover-text-layer",
-            "classify-spans", "recover-labels", "assemble", "model-touch-up");
+            "classify-spans", "recover-labels", "merge-split-entries", "assemble", "model-touch-up");
         result.Phases.Should().AllSatisfy(p => p.Detail.Should().NotBeNullOrWhiteSpace(
             "a phase that reports nothing cannot be diagnosed"));
     }
@@ -32,12 +32,20 @@ public class ConversionPipelineTests
         var result = ConversionPipeline.Default().Convert(CorpusPath("fed-w9"), "fed-w9");
 
         result.Succeeded.Should().BeTrue();
-        var coverage = PdfWidgetManifest.Compare(
-            PdfWidgetManifest.Extract(CorpusPath("fed-w9")), result.State.Document!);
 
-        coverage.IsComplete.Should().BeTrue(
-            $"missing: {string.Join(", ", coverage.MissingFieldNames)}");
-        coverage.UnaccountedPromptIds.Should().BeEmpty("the pipeline must invent nothing");
+        // Checked by what the questions ACCOUNT FOR rather than by counting
+        // prompts. W-9's social security number is one question printed as
+        // three boxes, so a faithful conversion has fewer prompts than the form
+        // has widgets while still answering for every one of them.
+        var declared = PdfWidgetManifest.Extract(CorpusPath("fed-w9")).Importable
+            .Select(e => e.FullName)
+            .ToList();
+        var accountedFor = result.State.FieldsOrEmpty.SelectMany(f => f.AccountsFor).ToList();
+
+        accountedFor.Should().BeEquivalentTo(declared,
+            "every field the form declares must be answered for, and nothing invented");
+        result.State.Document!.Sections.SelectMany(s => s.Prompts).Should()
+            .HaveCount(result.State.FieldsOrEmpty.Count, "one question per field, after joining");
     }
 
     [Fact]

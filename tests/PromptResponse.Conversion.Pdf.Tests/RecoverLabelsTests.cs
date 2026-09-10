@@ -19,7 +19,12 @@ public class RecoverLabelsTests
         var result = ConversionPipeline.Default().Convert(CorpusPath("fed-w9"), "fed-w9");
         var fields = result.State.FieldsOrEmpty;
 
-        fields.Should().HaveCount(23);
+        // 20 questions, not 23 widgets: the social security number's three
+        // boxes and the employer identification number's two are each one
+        // answer the form printed in pieces, and are joined before assembly.
+        fields.Should().HaveCount(20);
+        fields.Sum(f => f.AccountsFor.Count).Should().Be(23,
+            "joining boxes must account for every field the form declares, not drop any");
         fields.Count(f => f.HasLabel).Should().BeGreaterThanOrEqualTo(18,
             "the questions are printed beside the fields; failing to find most of them " +
             $"means the pairing is not working. Got: " +

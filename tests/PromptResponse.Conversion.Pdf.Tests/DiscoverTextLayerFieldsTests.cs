@@ -78,10 +78,12 @@ public class DiscoverTextLayerFieldsTests
 
     private static IReadOnlyList<PlacedPrompt> Discover(string id)
     {
+        // A field joined from several boxes is offered once per box. It is one
+        // question, but the source declares a widget per box, so placement is
+        // graded against the boxes.
         var state = ConversionPipeline.Default().Convert(CorpusPath(id), id).State;
         return [.. state.FieldsOrEmpty
-            .Where(f => f.TargetRect is not null)
-            .Select(f => new PlacedPrompt(f.Id, f.PageNumber, f.TargetRect!.Value))];
+            .SelectMany(f => f.PlacedAt.Select((rect, i) => new PlacedPrompt($"{f.Id}#{i}", f.PageNumber, rect)))];
     }
 
     private static WidgetManifest Answer(string id) => PdfWidgetManifest.Extract(CorpusPath(id));
