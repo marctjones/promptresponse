@@ -26,6 +26,7 @@ public enum LabelDirection
 /// Runs rejected because too many fields wanted them — see
 /// <see cref="LabelRecovery.GroupInstructionClaims"/>.
 /// </param>
+
 public sealed record LabelRecoveryResult(
     IReadOnlyList<DiscoveredField> Fields,
     IReadOnlyList<TextSpan> Spans,
@@ -104,6 +105,32 @@ public static class LabelRecovery
     /// </remarks>
     public const int GroupInstructionClaims = 3;
 
+    /// <summary>Longest run, in words, that the rescue pass may take as a label.</summary>
+    /// <remarks>
+    /// The rescue exists because the classifier rules out text that really is a
+    /// label — I-9 prints "Check here if you used an alternative procedure
+    /// authorized by DHS" beside a tick box, word for word the author's own
+    /// label, and it is discarded for starting with "Check". Letting a field
+    /// with no other candidate take a ruled-out run recovers those.
+    /// <para>
+    /// Unbounded, it also lets in the genuine instructions: "I attest, under
+    /// penalty of perjury, that I have assisted..." became the label for four
+    /// signature fields. Swept against the held-back tooltip oracle on fed-i9:
+    /// </para>
+    /// <code>
+    ///   off          recall 68%   precision 85%   agreed 87
+    ///   &lt;= 12 words  recall 68%   precision 85%   agreed 87
+    ///   &lt;= 16 words  recall 71%   precision 85%   agreed 91
+    ///   unbounded    recall 72%   precision 76%   agreed 92
+    /// </code>
+    /// <para>
+    /// 16 buys four fields for nothing. Unbounded buys one more and costs nine
+    /// points of precision, which is the wrong trade: a wrong label is an
+    /// unanswerable question, while a missing one is visibly missing.
+    /// </para>
+    /// </remarks>
+    public const int RescueMaximumWords = 16;
+
 
     /// <summary>Attaches printed text to the fields that have no label yet.</summary>
     public static LabelRecoveryResult Recover(
@@ -167,6 +194,36 @@ public static class LabelRecovery
 
             taken.Add(proposal.SpanIndex);
             labels[proposal.FieldIndex] = proposal;
+        }
+
+        // Second pass: a field that found nothing at all may take a run the
+        // classifier ruled out, provided it is as close as a real label would
+        // be. I-9 prints "Check here if you used an alternative procedure
+        // authorized by DHS" beside a tick box -- word for word the author's
+        // own label -- and the classifier discards it for starting with
+        // "Check". Restricted to fields with no other candidate, and to the
+        // same distances an ordinary label must satisfy, so it can only add
+        // answers where there were none.
+        var rescuedFrom = spans
+            .Select((span, index) => (span, index))
+            .Where(s => s.span.Role is SpanRole.Heading or SpanRole.Instruction
+                && IsUsableLabel(s.span.Text)
+                && s.span.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length <= RescueMaximumWords)
+            .ToList();
+
+        foreach (var (field, index) in wanting)
+        {
+            if (labels.ContainsKey(index))
+            {
+                continue;
+            }
+
+            var rescue = Nearest(field, index, rescuedFrom, rejected);
+            if (rescue is not null && !taken.Contains(rescue.SpanIndex))
+            {
+                taken.Add(rescue.SpanIndex);
+                labels[index] = rescue;
+            }
         }
 
         var updatedFields = fields

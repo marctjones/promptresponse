@@ -20,7 +20,7 @@ because no code exists yet to convert one.
 | `fed-ss4` | 89 | 100 % | 0 | 0 % | 100 % | 0 | F | UseSkillInstead | 1.000 | 0.971 |
 | `fed-8822` | 25 | 100 % | 0 | 0 % | 100 % | 0 | F | UseSkillInstead | 1.000 | 1.000 |
 | `fed-i9` | 128 | 100 % | 0 | 100 % | 0 % | 85 | B | UseDirectly | 0.276 | 0.764 |
-| `ct-w4` | 19 | 100 % | 0 | 74 % | 11 % | 86 | B | UseDirectly | 1.000 | 0.731 |
+| `ct-w4` | 19 | 100 % | 0 | 74 % | 26 % | 71 | C | UseDirectly | 1.000 | 0.731 |
 | `ct-dmv-j23` | 44 | 100 % | 0 | 0 % | 100 % | 0 | F | UseSkillInstead | 1.000 | 0.550 |
 | `ct-dmv-b58ind` | 34 | 100 % | 0 | 0 % | 100 % | 0 | F | UseSkillInstead | 1.000 | 0.971 |
 | `ct-dmv-a25` | 10 | 100 % | 0 | 100 % | 100 % | 0 | F | UseSkillInstead | 1.000 | 0.822 |

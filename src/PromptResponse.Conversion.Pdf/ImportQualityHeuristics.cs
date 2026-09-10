@@ -37,6 +37,18 @@ public static class ImportQualityHeuristics
         }
 
         var trimmed = label.Trim();
+
+        // No letters at all is not a question. ct-w4's author labelled three
+        // fields "1", "2" and "3", which passed as meaningful because the
+        // digit-and-letter test below requires a letter to be present. Those
+        // then graded label recovery, marking a correct "1. Withholding Code:
+        // Enter Withholding Code letter chosen..." as wrong for disagreeing
+        // with "1" -- an oracle scoring a good answer against a useless one.
+        if (!trimmed.Any(char.IsLetter))
+        {
+            return true;
+        }
+
         return trimmed.Contains('[')
             || trimmed.StartsWith('#')
             || (!trimmed.Contains(' ')
