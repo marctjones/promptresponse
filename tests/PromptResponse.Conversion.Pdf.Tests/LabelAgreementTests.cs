@@ -17,7 +17,7 @@ public class LabelAgreementTests
     {
         // form, minimum recall, minimum precision -- floors, not targets.
         { "fed-i9", 0.68, 0.82 },
-        { "ct-w4", 0.60, 0.70 },
+        { "ct-w4", 0.70, 0.85 },
     };
 
     [Theory]

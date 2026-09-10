@@ -164,6 +164,16 @@ public static class LabelAgreement
             return 0;
         }
 
+        // An exact match is never an accident, so it is not subject to the
+        // two-distinctive-word floor below. Without this the oracle marks
+        // verbatim agreement as failure whenever the label is short: on fed-w9
+        // it scored "C corporation" against "C corporation" as WRONG, because
+        // "C" is one letter and "corporation" is then the only token left.
+        if (Normalise(recovered).Equals(Normalise(expected), StringComparison.OrdinalIgnoreCase))
+        {
+            return 1.0;
+        }
+
         var found = Distinctive(recovered, boilerplate);
         var author = Distinctive(expected, boilerplate).ToHashSet(StringComparer.OrdinalIgnoreCase);
 
@@ -176,6 +186,11 @@ public static class LabelAgreement
 
         return found.Count(w => author.Contains(w)) / (double)found.Count;
     }
+
+    /// <summary>Trims and collapses whitespace and trailing punctuation for exact comparison.</summary>
+    private static string Normalise(string text) =>
+        string.Join(' ', text.Split([' ', '\t', '\n', '\r'], StringSplitOptions.RemoveEmptyEntries))
+            .Trim(' ', '.', ':', ',', ';');
 
     private static List<string> Distinctive(string text, IReadOnlySet<string> boilerplate) =>
         [.. Words(text).Where(w => !boilerplate.Contains(w)).Distinct(StringComparer.OrdinalIgnoreCase)];
