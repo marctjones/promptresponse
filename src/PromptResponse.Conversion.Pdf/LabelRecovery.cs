@@ -460,6 +460,22 @@ public static class LabelRecovery
     }
 
     /// <summary>The sides a field looks for its label on, in preference order.</summary>
+    /// <remarks>
+    /// <b>Ordered by how often a direction is right when it fires, not by how
+    /// often it fires.</b> Measured across all five graded forms:
+    /// <code>
+    ///   Right    66/68   = 97%
+    ///   Left     23/27   = 85%
+    ///   Above   122/147  = 83%
+    /// </code>
+    /// <para>
+    /// Above is the most common and the least reliable, which is why putting it
+    /// first is worse even though it wins most often: text-first scores 197
+    /// against this order's 211. A direction that fires rarely and is nearly
+    /// always right belongs ahead of one that fires constantly and is sometimes
+    /// wrong, because the rare one only takes fields it has good reason to.
+    /// </para>
+    /// </remarks>
     public static LabelDirection[] DirectionsFor(DiscoveredField field, PdfRectangle rect) =>
         IsCheckbox(field, rect)
             ? [LabelDirection.Right, LabelDirection.Above]
