@@ -1505,6 +1505,29 @@
       ]
     },
     {
+      "id": "corpus:rules/apr-model-021-case-roundtrip.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-021",
+        "APR-MODEL-029"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"Width\": 40,\n      \"STYLE\": \"bold\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:5411aa14ad906ba22ad5a03bb8ba36e23191743966dcbf84754f5621175238b8",
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/Width",
+        "/sections/0/STYLE"
+      ]
+    },
+    {
       "id": "corpus:rules/apr-model-021-extension-value-roundtrip.apr.jsonc",
       "source": "corpus",
       "rule": "rules",

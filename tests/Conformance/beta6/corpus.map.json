@@ -867,6 +867,22 @@
         "/sections/0/prompts/0/com.example.layout/color"
       ]
     },
+    "rules/apr-model-021-case-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-021",
+        "APR-MODEL-029"
+      ],
+      "anchors": [],
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/Width",
+        "/sections/0/STYLE"
+      ]
+    },
     "rules/apr-model-029-roundtrip.apr.jsonc": {
       "expect": "valid",
       "rules": [
