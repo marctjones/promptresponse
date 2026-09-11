@@ -1,0 +1,196 @@
+{
+  "sections": [
+    {
+      "id": "part-i",
+      "title": "Complete This Part To Change Your Home Mailing Address"
+    },
+    {
+      "id": "part-ii",
+      "title": "Signature"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)",
+      "section_id": "part-i",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 2,
+      "label": "If your last return was a joint return and you are now establishing a residence separate from the spouse with whom you filed that return, check here",
+      "section_id": "part-i",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 3,
+      "label": "Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)",
+      "section_id": "part-i",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 4,
+      "label": "Decedent's name",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "Your name (first name, initial, and last name)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "Your social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "Spouse's name (first name, initial, and last name)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Spouse's social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Your prior name(s). See instructions.",
+      "section_id": "part-i",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "Spouse's prior name(s). See instructions.",
+      "section_id": "part-i",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Your old address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "Foreign country name",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "Foreign province/county",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Foreign postal code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "Spouse's old address, if different from line 6a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "Foreign country name",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "Foreign province/county",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Foreign postal code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "New address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box, see instructions. If foreign address, also complete spaces below, see instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "Foreign country name",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "Foreign province/county",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 23,
+      "label": "Foreign postal code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 24,
+      "label": "Daytime telephone number of person to contact (optional)",
+      "section_id": "part-ii",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "Signature of representative, executor, administrator/if applicable",
+      "section_id": "part-ii",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 26,
+      "label": "Title",
+      "section_id": "part-ii",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    }
+  ]
+}

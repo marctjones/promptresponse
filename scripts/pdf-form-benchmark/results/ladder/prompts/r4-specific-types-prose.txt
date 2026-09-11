@@ -1,0 +1,25 @@
+You are looking at one page of a government form. Every fillable field on this page has already been located for you and is outlined in red with a number beside it.
+
+Your job is ONLY to say what each numbered field asks for. Do not look for fields yourself; do not add or remove any.
+
+Respond with ONLY a single JSON object, no prose:
+
+{
+  "sections": [{"id": "kebab-case-id", "title": "Section title as printed"}],
+  "fields": [
+    {"n": 1, "label": "The exact visible label/question text for field 1",
+     "section_id": "id of the section this field is in",
+     "field_kind": "text_line | multiline | checkbox | choice | signature | date_field | table_cell",
+     "expected_data_type": "text | multiline | email | phone | url | number | currency | date | time | datetime | boolean",
+     "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes, e.g. a social security number in three boxes"}
+  ]
+}
+
+Rules:
+- Output one entry per numbered box, using its number in "n".
+- The label is the question printed on the form for that box, not your description of it.
+- If several numbered boxes are pieces of ONE answer (a number split by printed dashes, a date split into day/month/year), give them the same "group" value and the same label.
+- checkbox/yes-no -> expected_data_type "boolean".
+- Boxes that are alternative answers to ONE question, where only one may be checked (the form says "check one", or the choices exclude each other), are one answer: give each of them the same "group" value, use the question printed before the boxes as every one's label (not the words beside a single box), set field_kind "choice", and list the words beside each box, in order, in "choices". Boxes where several may be checked stay separate fields.
+- Pick the most specific expected_data_type: "phone" for any telephone or fax number, "currency" for any amount of money, "email" for an email address, "date" for a date. Use "text" or "number" only when nothing more specific fits.
+- Output strict JSON: double-quoted keys, no trailing commas, no comments.

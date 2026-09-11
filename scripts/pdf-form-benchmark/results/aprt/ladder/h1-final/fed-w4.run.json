@@ -1,0 +1,10 @@
+{
+ "seconds": 144,
+ "fell_back": true,
+ "report": [
+  "48 blank(s) across 3 page(s)",
+  "3 page(s) rendered at 150 DPI, every blank numbered",
+  "49 question(s) from 48 blank(s); page(s) [3] fell back to deterministic labels",
+  "6 section(s), 49 prompt(s)"
+ ]
+}

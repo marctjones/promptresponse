@@ -1,0 +1,385 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-j23"
+  },
+  "sections": [
+    {
+      "id": "license-records-check",
+      "title": "LICENSE RECORDS, CHECK ( \u2713 )",
+      "prompts": [
+        {
+          "id": "driver-license-file-information-printout-of-lice",
+          "label": "Driver License File Information (Printout of license class, endorsements, restrictions, original issue date and status.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driver-license-application-copy-of-most-current-",
+          "label": "Driver License Application (Copy of most current document). This is NOT a duplicate license",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "driving-history-list-of-violations-and-sanctions",
+          "label": "Driving History (List of violations and sanctions - certified)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "r-4",
+          "label": "R 4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "c-5",
+          "label": "C 5",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "registration-records",
+      "title": "REGISTRATION RECORDS",
+      "prompts": [
+        {
+          "id": "registration-file-information-copy-of-current-co",
+          "label": "Registration File Information (Copy of current computer record)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "registration-certificate-copy-of-most-current-do",
+          "label": "Registration Certificate (Copy of most current document). * This is NOT a duplicate registration*",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "certified-copy-of-uncertified-items",
+          "label": "Certified copy of uncertified items",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "registration-return-plate-receipt-copy-of-curren",
+          "label": "Registration Return Plate Receipt (Copy of current computer record)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "insurance-information-only",
+          "label": "Insurance Information Only",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "attorney-s-juris",
+          "label": "ATTORNEY'S JURIS #",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "miscellaneous-request",
+          "label": "Miscellaneous Request",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "multiple-requests",
+          "label": "Multiple Requests?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "attorney-name-or-case-name-and-court-location",
+          "label": "ATTORNEY NAME OR CASE NAME AND COURT LOCATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "request-section",
+      "title": "REQUEST SECTION",
+      "prompts": [
+        {
+          "id": "code-no",
+          "label": "CODE NO.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "qty",
+          "label": "QTY.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "unit-price",
+          "label": "UNIT PRICE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "amount",
+          "label": "AMOUNT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "applicant-print-or-type-your-name-and-mailing-ad",
+      "title": "APPLICANT: Print or Type Your Name and Mailing Address Below.",
+      "prompts": [
+        {
+          "id": "driver-s-name-last-first-middle-initial",
+          "label": "DRIVER'S NAME (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "driver-s-license-number",
+          "label": "DRIVER'S LICENSE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "driver-s-address-number-and-street-city-or-town-",
+          "label": "DRIVER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "driver-s-date-of-birth",
+          "label": "DRIVER'S DATE OF BIRTH",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "owner-s-name-last-first-middle-initial",
+          "label": "OWNER'S NAME (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "owner-s-address-number-and-street-city-or-town-s",
+          "label": "OWNER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "qty",
+          "label": "QTY.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "unit-price",
+          "label": "UNIT PRICE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "amount",
+          "label": "AMOUNT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "VEHICLE IDENTIFICATION NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "registration-plate-number",
+          "label": "REGISTRATION PLATE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "as-of-date",
+          "label": "AS OF (Date)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "vehicle-make",
+          "label": "VEHICLE MAKE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-year",
+          "label": "VEHICLE YEAR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "qty-2",
+          "label": "QTY.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "unit-price-2",
+          "label": "UNIT PRICE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "amount-2",
+          "label": "AMOUNT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "miscellaneous-request-please-specify",
+          "label": "MISCELLANEOUS REQUEST (Please Specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "total",
+          "label": "TOTAL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "operator-s-license-no-or-fed-employer-id-no",
+          "label": "OPERATOR'S LICENSE NO. or FED. EMPLOYER ID NO.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-no-required",
+          "label": "TELEPHONE NO. (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "name",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "number-and-street",
+          "label": "NUMBER AND STREET",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "CITY OR TOWN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "sections": [
+    {
+      "id": "part-a",
+      "title": "PART A - COMPLETED BY APPLICANT"
+    },
+    {
+      "id": "part-b",
+      "title": "PART B - COMPLETED BY PHYSICIAN, APRN, PHYSICIAN ASSISTANT, OPTOMETRIST, OPHTHALMOLOGIST, BESB OR USDVA PSYCHIATRIST"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part-a",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 2,
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part-a",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 3,
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part-a",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 4,
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part-a",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 5,
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part-a",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 6,
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part-a",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 7,
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part-a",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 8,
+      "label": "TYPE OF APPLICATION",
+      "section_id": "part-a",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 9,
+      "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle Initial)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "GUARDIAN OR ORGANIZATION",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "DATE OF BIRTH (Required)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "CT DRIVER LICENSE/ID CARD NUMBER (Required)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "DAYTIME TELEPHONE NUMBER",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "ADDRESS (No. and Street)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "MAILING ADDRESS (No. and Street)",
+      "section_id": "part-a",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "SIGNATURE OF APPLICANT/PARENT/GUARDIAN (or Power of Attorney)",
+      "section_id": "part-a",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "DATE SIGNED",
+      "section_id": "part-a",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 18,
+      "label": "CERTIFIER'S NAME (Please print)",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "CHECK ONE",
+      "section_id": "part-b",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 20,
+      "label": "CHECK ONE",
+      "section_id": "part-b",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 21,
+      "label": "CHECK ONE",
+      "section_id": "part-b",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 22,
+      "label": "CHECK ONE",
+      "section_id": "part-b",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 23,
+      "label": "CHECK ONE",
+      "section_id": "part-b",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 24,
+      "label": "CHECK ONE",
+      "section_id": "part-b",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 25,
+      "label": "MEDICAL LICENSE NUMBER (Required)",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 26,
+      "label": "MEDICAL LICENSING STATE (Required)",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 27,
+      "label": "OFFICE ADDRESS (No. and Street)",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 28,
+      "label": "OFFICE TELEPHONE NUMBER",
+      "section_id": "part-b",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 29,
+      "label": "SIGNATURE OF PHYSICIAN, PA, APRN, OPTOMETRIST, OPHTHALMOLOGIST, OR USDVA PSYCHIATRIST",
+      "section_id": "part-b",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 30,
+      "label": "DATE SIGNED",
+      "section_id": "part-b",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    }
+  ]
+}

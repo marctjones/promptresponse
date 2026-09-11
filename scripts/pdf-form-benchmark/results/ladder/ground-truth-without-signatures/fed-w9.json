@@ -1,0 +1,158 @@
+{
+ "form_id": "fed-w9",
+ "form_name": "IRS Form W-9 (Request for Taxpayer Identification Number)",
+ "page_count": 6,
+ "sections": [
+  {
+   "id": "general",
+   "title": "Form W-9 (lines 1-7, general information)"
+  },
+  {
+   "id": "part1",
+   "title": "Part I: Taxpayer Identification Number (TIN)"
+  },
+  {
+   "id": "part2",
+   "title": "Part II: Certification"
+  }
+ ],
+ "fields": [
+  {
+   "id": "name",
+   "label": "1 Name of entity/individual.",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "general",
+   "field_kind": "text_line",
+   "notes": "Form text: 'An entry is required.'"
+  },
+  {
+   "id": "business-name",
+   "label": "2 Business name/disregarded entity name, if different from above.",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "tax-classification",
+   "label": "3a Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1.",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "general",
+   "field_kind": "choice",
+   "choices": [
+    "Individual/sole proprietor",
+    "C corporation",
+    "S corporation",
+    "Partnership",
+    "Trust/estate",
+    "LLC",
+    "Other (see instructions)"
+   ],
+   "notes": "Form text: 'Check only one of the following seven boxes.'"
+  },
+  {
+   "id": "llc-tax-classification-code",
+   "label": "LLC. Enter the tax classification (C = C corporation, S = S corporation, P = Partnership)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "text_line",
+   "notes": "Only applicable/fillable when the LLC box in line 3a is checked; conditional field."
+  },
+  {
+   "id": "other-classification-description",
+   "label": "Other (see instructions)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "text_line",
+   "notes": "Free-text entry line next to the 'Other' checkbox in line 3a; conditional on that box being checked. Label text is identical to one of the 'tax-classification' choice values above -- ambiguous by string alone, disambiguate by field_kind/section position."
+  },
+  {
+   "id": "foreign-partners-box",
+   "label": "check this box if you have any foreign partners, owners, or beneficiaries",
+   "expected_data_type": "boolean",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "checkbox",
+   "notes": "Part of the longer line 3b instruction ('If on line 3a you checked \"Partnership\" or \"Trust/estate,\" ... check this box if you have any foreign partners, owners, or beneficiaries. See instructions.'); conditional on line 3a selection."
+  },
+  {
+   "id": "exempt-payee-code",
+   "label": "Exempt payee code (if any)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "fatca-exemption-code",
+   "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "address",
+   "label": "5 Address (number, street, and apt. or suite no.). See instructions.",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "text_line",
+   "notes": "Not marked with an explicit required indicator, but functionally necessary to receive information returns."
+  },
+  {
+   "id": "city-state-zip",
+   "label": "6 City, state, and ZIP code",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "requester-name-address",
+   "label": "Requester's name and address (optional)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "multiline"
+  },
+  {
+   "id": "account-numbers",
+   "label": "7 List account number(s) here (optional)",
+   "expected_data_type": "text",
+   "required": false,
+   "section_id": "general",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "ssn",
+   "label": "Social security number",
+   "expected_data_type": "text",
+   "required": null,
+   "section_id": "part1",
+   "field_kind": "text_line",
+   "notes": "Filer provides either the SSN box or the EIN box, not both; form presents them as two separate boxed entry areas joined by 'or' rather than a checkbox choice group."
+  },
+  {
+   "id": "ein",
+   "label": "Employer identification number",
+   "expected_data_type": "text",
+   "required": null,
+   "section_id": "part1",
+   "field_kind": "text_line",
+   "notes": "Alternative to SSN above; see note on that field."
+  },
+  {
+   "id": "date",
+   "label": "Date",
+   "expected_data_type": "date",
+   "required": true,
+   "section_id": "part2",
+   "field_kind": "date_field"
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+You are looking at one page of a government form. Every fillable field on this page has already been located for you and is outlined in red with a number beside it.
+
+Your job is ONLY to say what each numbered field asks for. Do not look for fields yourself; do not add or remove any.
+
+Respond with ONLY a single JSON object, no prose:
+
+{
+  "sections": [{"id": "kebab-case-id", "title": "Section title as printed"}],
+  "fields": [
+    {"n": 1, "label": "The exact visible label/question text for field 1; if the same words label other boxes on this page, add the column, list, part or row heading that tells this one apart, in parentheses; begin with the item number or letter printed before the question, if there is one; never an instruction such as 'check all that apply' -- the words naming what is asked",
+     "section_id": "id of the section this field is in",
+     "field_kind": "text_line | multiline | checkbox | choice | signature | date_field | table_cell",
+     "expected_data_type": "text | multiline | email | phone (any telephone or fax number) | url | number (a count, never money) | currency (any amount of money) | date | time | datetime | boolean",
+     "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes, e.g. a social security number in three boxes; ALSO shared by boxes that are alternative answers to one question where only one may be checked; each such box then takes that question as its label and field_kind choice",
+     "choices": ["only when field_kind is choice: the words beside each alternative box, in order"]}
+  ]
+}
+
+Rules:
+- Output one entry per numbered box, using its number in "n".
+- The label is the question printed on the form for that box, not your description of it.
+- If several numbered boxes are pieces of ONE answer (a number split by printed dashes, a date split into day/month/year), give them the same "group" value and the same label.
+- checkbox/yes-no -> expected_data_type "boolean".
+- Boxes that are alternative answers to ONE question, where only one may be checked (the form says "check one", or the choices exclude each other), are one answer: give each of them the same "group" value, use the question printed before the boxes as every one's label (not the words beside a single box), set field_kind "choice", and list the words beside each box, in order, in "choices". Boxes where several may be checked stay separate fields.
+- If the same words label more than one box on the page (one question repeated in different columns, lists, parts or rows), add what tells this box apart -- its column, list, part or row heading -- in parentheses after the label, so two different answers never share a label.
+- If the form prints an item number or letter before the question (for example 4, 12b or C), begin the label with it exactly as printed.
+- Pick the most specific expected_data_type: "phone" for any telephone or fax number, "currency" for any amount of money, "email" for an email address, "date" for a date. Use "text" or "number" only when nothing more specific fits.
+- A sentence telling the person what to do ("check all that apply", "complete if you answered yes", "see instructions") is not a label. Use the words that name what the box asks for; if only the instruction names it, use the caption beside the box.
+- Output strict JSON: double-quoted keys, no trailing commas, no comments.
+
+Example -- a page prints "Housing status (check only one)" followed by boxes 14, 15 and 16, captioned "Own", "Rent" and "Other". Those three boxes are one answer:
+{"n": 14, "label": "Housing status", "section_id": "applicant", "field_kind": "choice", "expected_data_type": "text", "group": "housing-status", "choices": ["Own", "Rent", "Other"]}
+{"n": 15, "label": "Housing status", "section_id": "applicant", "field_kind": "choice", "expected_data_type": "text", "group": "housing-status", "choices": ["Own", "Rent", "Other"]}
+{"n": 16, "label": "Housing status", "section_id": "applicant", "field_kind": "choice", "expected_data_type": "text", "group": "housing-status", "choices": ["Own", "Rent", "Other"]}
+Had it printed "check all that apply", each box would be its own field, labelled with its own caption.
+
+Example -- a table has two columns headed "Vehicle 1" and "Vehicle 2", and each column has boxes captioned "Make" and "Year". The four labels are "Make (Vehicle 1)", "Year (Vehicle 1)", "Make (Vehicle 2)" and "Year (Vehicle 2)".
+
+Example -- the form prints "12b  Mailing address, if different" beside box 20. The label is "12b Mailing address, if different".
+
+Example -- "Cell no." is expected_data_type "phone"; "Fee paid $" is "currency"; "Number of dependents" is "number"; "Date of birth" is "date".
+
+Example -- the form prints "If you checked Yes, complete the following:" and under it a box captioned "Date of move". The label is "Date of move", not the instruction.

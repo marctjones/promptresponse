@@ -1,0 +1,749 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-i9"
+  },
+  "sections": [
+    {
+      "id": "employee-information-and-attestation",
+      "title": "Employee Information and Attestation",
+      "prompts": [
+        {
+          "id": "last-name-family-name",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any",
+          "label": "Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-last-names-used-if-any",
+          "label": "Other Last Names Used (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "apt-number-if-any",
+          "label": "Apt. Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-telephone-number",
+          "label": "Employee's Telephone Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "date-of-birth-mm-dd-yyyy",
+          "label": "Date of Birth (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employee-s-email-address",
+          "label": "Employee's Email Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "email"
+          }
+        },
+        {
+          "id": "u-s-social-security-number",
+          "label": "U.S. Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-one-of-the-following-boxes-to-attest-to-yo",
+          "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-one-of-the-following-boxes-to-attest-to-yo-2",
+          "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-one-of-the-following-boxes-to-attest-to-yo-3",
+          "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-one-of-the-following-boxes-to-attest-to-yo-4",
+          "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "check-one-of-the-following-boxes-to-attest-to-yo-5",
+          "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-one-of-the-following-boxes-to-attest-to-yo-6",
+          "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "uscis-a-number",
+          "label": "USCIS A-Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-i-94-admission-number",
+          "label": "Form I-94 Admission Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-passport-number-and-country-of-issuance",
+          "label": "Foreign Passport Number and Country of Issuance",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employee",
+          "label": "Signature of Employee",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-dd-yyyy",
+          "label": "Today's Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-family-name-from-section-1",
+          "label": "Last Name (Family Name) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name-from-section-1-2",
+          "label": "Last Name (Family Name) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-from-section-1",
+          "label": "First Name (Given Name) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-from-section-1",
+          "label": "Middle initial (if any) from Section 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-rehire-if-applicable",
+          "label": "Date of Rehire (if applicable)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "new-name-if-applicable-last-name-family-name",
+          "label": "New Name (if applicable) Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-name-if-applicable-first-name-given-name",
+          "label": "New Name (if applicable) First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-name-if-applicable-middle-initial",
+          "label": "New Name (if applicable) Middle Initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title",
+          "label": "Document Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-mm-dd-yyyy",
+          "label": "Expiration Date (if any) (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "name-of-employer-or-authorized-representative",
+          "label": "Name of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representati",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-dd-yyyy-2",
+          "label": "Today's Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "additional-information-initial-and-date-each-not",
+          "label": "Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-if-you-used-an-alternative-procedure-",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "date-of-rehire-if-applicable-2",
+          "label": "Date of Rehire (if applicable)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "new-name-if-applicable-last-name-family-name-2",
+          "label": "New Name (if applicable) Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-name-if-applicable-first-name-given-name-2",
+          "label": "New Name (if applicable) First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-name-if-applicable-middle-initial-2",
+          "label": "New Name (if applicable) Middle Initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-2",
+          "label": "Document Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-2",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-mm-dd-yyyy-2",
+          "label": "Expiration Date (if any) (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representati-2",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-dd-yyyy-3",
+          "label": "Today's Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "name-of-employer-or-authorized-representative-2",
+          "label": "Name of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-information-initial-and-date-each-not-2",
+          "label": "Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-if-you-used-an-alternative-procedure--2",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "date-of-rehire-if-applicable-3",
+          "label": "Date of Rehire (if applicable)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "new-name-if-applicable-last-name-family-name-3",
+          "label": "New Name (if applicable) Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-name-if-applicable-first-name-given-name-3",
+          "label": "New Name (if applicable) First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-name-if-applicable-middle-initial-3",
+          "label": "New Name (if applicable) Middle Initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-3",
+          "label": "Document Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-3",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-mm-dd-yyyy-3",
+          "label": "Expiration Date (if any) (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "name-of-employer-or-authorized-representative-3",
+          "label": "Name of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representati-3",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-dd-yyyy-4",
+          "label": "Today's Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "additional-information-initial-and-date-each-not-3",
+          "label": "Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-if-you-used-an-alternative-procedure--3",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employer-review-and-verification",
+      "title": "Employer Review and Verification",
+      "prompts": [
+        {
+          "id": "document-title-1",
+          "label": "Document Title 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-2-if-any",
+          "label": "Document Title 2 (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-3-if-any",
+          "label": "Document Title 3 (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-2",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-3",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-4",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-2",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-3",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-2",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-3",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-4",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-5",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-6",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-7",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-8",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-9",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-10",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "check-here-you-used-an-alternative-procedure-aut",
+          "label": "Check here you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "first-day-of-employment-mm-dd-yyyy",
+          "label": "First Day of Employment (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-first-name-and-title-of-employer-or-au",
+          "label": "Last Name, First Name and Title of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representati",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-dd-yyyy",
+          "label": "Today's Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employer-s-business-or-organization-name",
+          "label": "Employer's Business or Organization Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-business-or-organization-address-city",
+          "label": "Employer's Business or Organization Address, City or Town, State, ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

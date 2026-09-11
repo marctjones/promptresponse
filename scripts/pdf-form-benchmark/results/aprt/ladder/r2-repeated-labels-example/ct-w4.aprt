@@ -1,0 +1,165 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-w4"
+  },
+  "sections": [
+    {
+      "id": "employee-s-information",
+      "title": "Employee's Information",
+      "prompts": [
+        {
+          "id": "withholding-code-enter-withholding-code-letter-c",
+          "label": "Withholding Code: Enter Withholding Code letter chosen from above.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-withholding-amount-per-pay-period-if-",
+          "label": "Additional withholding amount per pay period: If any, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "reduced-withholding-amount-per-pay-period-if-any",
+          "label": "Reduced withholding amount per pay period: If any, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "reduced-withholding-amount-per-pay-period-if-any-2",
+          "label": "Reduced withholding amount per pay period: If any, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "check-if-you-are-claiming-the-msrra-exemption-an",
+          "label": "Check if you are claiming the MSRRA exemption and enter state of legal residence/domicile:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name",
+          "label": "First name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "home-address-number-and-street-apartment-number-",
+          "label": "Home address (number and street, apartment number, suite number, PO Box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-town",
+          "label": "City/town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employer-s-information",
+      "title": "Employer's Information",
+      "prompts": [
+        {
+          "id": "enter-date-hired",
+          "label": "Enter date hired:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "is-this-a-new-or-rehired-employee",
+          "label": "Is this a new or rehired employee?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "employer-s-business-name",
+          "label": "Employer's business name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "federal-employer-identification-number",
+          "label": "Federal Employer Identification Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-business-address",
+          "label": "Employer's business address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-town",
+          "label": "City/town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "contact-person",
+          "label": "Contact person",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "Telephone number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        }
+      ]
+    }
+  ]
+}

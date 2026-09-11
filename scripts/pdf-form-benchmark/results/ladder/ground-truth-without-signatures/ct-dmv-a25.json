@@ -1,0 +1,133 @@
+{
+ "form_id": "ct-dmv-a25",
+ "form_name": "Connecticut DMV Form A-25 (Request for Hearing to Contest Vehicle Towing)",
+ "page_count": 1,
+ "sections": [
+  {
+   "id": "vehicle-owner-information",
+   "title": "Vehicle Owner Information"
+  },
+  {
+   "id": "vehicle-information",
+   "title": "Vehicle Information"
+  },
+  {
+   "id": "hearing-request",
+   "title": "Hearing Request"
+  }
+ ],
+ "fields": [
+  {
+   "id": "owner-name",
+   "label": "NAME",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-owner-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "owner-telephone-number",
+   "label": "TELEPHONE NUMBER",
+   "expected_data_type": "phone",
+   "required": false,
+   "section_id": "vehicle-owner-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "owner-address-street",
+   "label": "ADDRESS No. & Street",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-owner-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "owner-city-town",
+   "label": "City/Town",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-owner-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "owner-state",
+   "label": "State",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-owner-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "owner-zip-code",
+   "label": "Zip Code",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-owner-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "vehicle-taken-into-custody-by",
+   "label": "VEHICLE TAKEN INTO CUSTODY BY (Name of Law Enforcement Agency)",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "marker-plate-no",
+   "label": "MARKER PLATE NO.",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "vehicle-make",
+   "label": "MAKE",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "vehicle-model",
+   "label": "MODEL",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "vehicle-year",
+   "label": "YEAR",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "vehicle-identification-number",
+   "label": "VEHICLE IDENTIFICATION NUMBER",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "state-of-last-registration",
+   "label": "STATE OF LAST REGISTRATION",
+   "expected_data_type": "text",
+   "required": true,
+   "section_id": "vehicle-information",
+   "field_kind": "text_line"
+  },
+  {
+   "id": "date-signed",
+   "label": "DATE SIGNED",
+   "expected_data_type": "date",
+   "required": true,
+   "section_id": "hearing-request",
+   "field_kind": "date_field"
+  }
+ ]
+}

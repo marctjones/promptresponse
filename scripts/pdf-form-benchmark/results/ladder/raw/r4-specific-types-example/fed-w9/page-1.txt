@@ -1,0 +1,203 @@
+{
+  "sections": [
+    {
+      "id": "part-i",
+      "title": "Part I Taxpayer Identification Number (TIN)"
+    },
+    {
+      "id": "part-ii",
+      "title": "Part II Certification"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Name of entity/individual. An entry is required. (For a sole proprietor or disregarded entity, enter the owner’s name on line 1, and enter the business/disregarded entity’s name on line 2.)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Business name/disregarded entity name, if different from above.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "tax_classification"
+    },
+    {
+      "n": 4,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "tax_classification"
+    },
+    {
+      "n": 5,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "tax_classification"
+    },
+    {
+      "n": 6,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "tax_classification"
+    },
+    {
+      "n": 7,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "tax_classification"
+    },
+    {
+      "n": 8,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "tax_classification"
+    },
+    {
+      "n": 9,
+      "label": "Exempt payee code (if any)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "tax_classification"
+    },
+    {
+      "n": 11,
+      "label": "Other (see instructions)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Exemption from Foreign Account Tax Compliance Act (FATCA) reporting code (if any)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "tax_classification"
+    },
+    {
+      "n": 14,
+      "label": "Check the appropriate box for federal tax classification of the entity/individual whose name is entered on line 1. Check only one of the following seven boxes.",
+      "section_id": "part-i",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "tax_classification"
+    },
+    {
+      "n": 15,
+      "label": "Address (number, street, and apt. or suite no.). See instructions.",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "Requester’s name and address (optional)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "City, state, and ZIP code",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "List account number(s) here (optional)",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "social_security_number"
+    },
+    {
+      "n": 20,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "social_security_number"
+    },
+    {
+      "n": 21,
+      "label": "Social security number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "social_security_number"
+    },
+    {
+      "n": 22,
+      "label": "Employer identification number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "employer_id_number"
+    },
+    {
+      "n": 23,
+      "label": "Employer identification number",
+      "section_id": "part-i",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "employer_id_number"
+    },
+    {
+      "n": 24,
+      "label": "Signature of U.S. person",
+      "section_id": "part-ii",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "Date",
+      "section_id": "part-ii",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    }
+  ]
+}

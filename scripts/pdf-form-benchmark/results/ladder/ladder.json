@@ -1,0 +1,479 @@
+{
+ "margin": 2,
+ "dev": [
+  "fed-w9",
+  "ct-w4",
+  "fed-8822",
+  "fed-i9"
+ ],
+ "held_out": [
+  "ct-dmv-a25",
+  "ct-dmv-a83",
+  "ct-dmv-b225p",
+  "ct-dmv-b58ind",
+  "ct-dmv-j23",
+  "fed-ss4",
+  "fed-w4"
+ ],
+ "rounds": [
+  {
+   "run": "r0-baseline",
+   "edits": 56,
+   "edits_against_unadjusted_ground_truth": 58,
+   "buckets": {
+    "keep": 74,
+    "fix_label": 10,
+    "fix_type": 4,
+    "rewrite": 9,
+    "delete": 21,
+    "add": 12
+   },
+   "per_form": {
+    "fed-w9": 11,
+    "ct-w4": 10,
+    "fed-8822": 10,
+    "fed-i9": 25
+   },
+   "fell_back": [],
+   "seconds": 485
+  },
+  {
+   "run": "r1-check-one-prose",
+   "rule": "check-one",
+   "kind": "prose",
+   "passes": true,
+   "why": "edits 56 -> 52; target delete+rewrite 30 -> 27",
+   "edits": 52,
+   "edits_against_unadjusted_ground_truth": 56,
+   "buckets": {
+    "keep": 76,
+    "fix_label": 11,
+    "fix_type": 3,
+    "rewrite": 8,
+    "delete": 19,
+    "add": 11
+   },
+   "per_form": {
+    "fed-w9": 12,
+    "ct-w4": 8,
+    "fed-8822": 7,
+    "fed-i9": 25
+   },
+   "fell_back": [],
+   "seconds": 485
+  },
+  {
+   "run": "r1-check-one-example",
+   "rule": "check-one",
+   "kind": "example",
+   "passes": false,
+   "why": "edits 56 -> 109; target delete+rewrite 30 -> 80: needs at least 2 fewer edits",
+   "edits": 109,
+   "edits_against_unadjusted_ground_truth": 112,
+   "buckets": {
+    "keep": 72,
+    "fix_label": 11,
+    "fix_type": 2,
+    "rewrite": 8,
+    "delete": 72,
+    "add": 16
+   },
+   "per_form": {
+    "fed-w9": 12,
+    "ct-w4": 11,
+    "fed-8822": 7,
+    "fed-i9": 79
+   },
+   "fell_back": [],
+   "seconds": 533
+  },
+  {
+   "run": "r1-check-one-schema",
+   "rule": "check-one",
+   "kind": "schema",
+   "passes": false,
+   "why": "edits 56 -> 67; target delete+rewrite 30 -> 42: needs at least 2 fewer edits",
+   "edits": 67,
+   "edits_against_unadjusted_ground_truth": 69,
+   "buckets": {
+    "keep": 75,
+    "fix_label": 10,
+    "fix_type": 2,
+    "rewrite": 9,
+    "delete": 33,
+    "add": 13
+   },
+   "per_form": {
+    "fed-w9": 12,
+    "ct-w4": 8,
+    "fed-8822": 11,
+    "fed-i9": 36
+   },
+   "fell_back": [],
+   "seconds": 694
+  },
+  {
+   "run": "r2-repeated-labels-prose",
+   "rule": "repeated-labels",
+   "kind": "prose",
+   "passes": false,
+   "why": "edits 52 -> 86; target fix_label+delete+rewrite 38 -> 61: needs at least 2 fewer edits",
+   "edits": 86,
+   "edits_against_unadjusted_ground_truth": 89,
+   "buckets": {
+    "keep": 67,
+    "fix_label": 8,
+    "fix_type": 3,
+    "rewrite": 9,
+    "delete": 44,
+    "add": 22
+   },
+   "per_form": {
+    "fed-w9": 13,
+    "ct-w4": 8,
+    "fed-8822": 9,
+    "fed-i9": 56
+   },
+   "fell_back": [],
+   "seconds": 691
+  },
+  {
+   "run": "r2-repeated-labels-example",
+   "rule": "repeated-labels",
+   "kind": "example",
+   "passes": false,
+   "why": "edits 52 -> 88; target fix_label+delete+rewrite 38 -> 71: needs at least 2 fewer edits",
+   "edits": 88,
+   "edits_against_unadjusted_ground_truth": 90,
+   "buckets": {
+    "keep": 71,
+    "fix_label": 8,
+    "fix_type": 5,
+    "rewrite": 13,
+    "delete": 50,
+    "add": 12
+   },
+   "per_form": {
+    "fed-w9": 11,
+    "ct-w4": 10,
+    "fed-8822": 10,
+    "fed-i9": 57
+   },
+   "fell_back": [],
+   "seconds": 522
+  },
+  {
+   "run": "r2-repeated-labels-schema",
+   "rule": "repeated-labels",
+   "kind": "schema",
+   "passes": false,
+   "why": "edits 52 -> 99; target fix_label+delete+rewrite 38 -> 71: needs at least 2 fewer edits",
+   "edits": 99,
+   "edits_against_unadjusted_ground_truth": 100,
+   "buckets": {
+    "keep": 64,
+    "fix_label": 8,
+    "fix_type": 2,
+    "rewrite": 9,
+    "delete": 54,
+    "add": 26
+   },
+   "per_form": {
+    "fed-w9": 13,
+    "ct-w4": 10,
+    "fed-8822": 9,
+    "fed-i9": 67
+   },
+   "fell_back": [],
+   "seconds": 441
+  },
+  {
+   "run": "r3-item-numbers-prose",
+   "rule": "item-numbers",
+   "kind": "prose",
+   "passes": false,
+   "why": "edits 52 -> 88; target fix_label 11 -> 8: needs at least 2 fewer edits",
+   "edits": 88,
+   "edits_against_unadjusted_ground_truth": 90,
+   "buckets": {
+    "keep": 78,
+    "fix_label": 8,
+    "fix_type": 3,
+    "rewrite": 11,
+    "delete": 57,
+    "add": 9
+   },
+   "per_form": {
+    "fed-w9": 10,
+    "ct-w4": 8,
+    "fed-8822": 7,
+    "fed-i9": 63
+   },
+   "fell_back": [],
+   "seconds": 347
+  },
+  {
+   "run": "r3-item-numbers-example",
+   "rule": "item-numbers",
+   "kind": "example",
+   "passes": false,
+   "why": "edits 52 -> 79; target fix_label 11 -> 10: needs at least 2 fewer edits",
+   "edits": 79,
+   "edits_against_unadjusted_ground_truth": 79,
+   "buckets": {
+    "keep": 81,
+    "fix_label": 10,
+    "fix_type": 1,
+    "rewrite": 7,
+    "delete": 51,
+    "add": 10
+   },
+   "per_form": {
+    "fed-w9": 4,
+    "ct-w4": 8,
+    "fed-8822": 8,
+    "fed-i9": 59
+   },
+   "fell_back": [],
+   "seconds": 317
+  },
+  {
+   "run": "r3-item-numbers-schema",
+   "rule": "item-numbers",
+   "kind": "schema",
+   "passes": false,
+   "why": "edits 52 -> 91; target fix_label 11 -> 11: needs at least 2 fewer edits",
+   "edits": 91,
+   "edits_against_unadjusted_ground_truth": 91,
+   "buckets": {
+    "keep": 75,
+    "fix_label": 11,
+    "fix_type": 5,
+    "rewrite": 6,
+    "delete": 57,
+    "add": 12
+   },
+   "per_form": {
+    "fed-w9": 11,
+    "ct-w4": 10,
+    "fed-8822": 9,
+    "fed-i9": 61
+   },
+   "fell_back": [],
+   "seconds": 308
+  },
+  {
+   "run": "r4-specific-types-prose",
+   "rule": "specific-types",
+   "kind": "prose",
+   "passes": false,
+   "why": "edits 52 -> 92; target fix_type 3 -> 0: needs at least 2 fewer edits",
+   "edits": 92,
+   "edits_against_unadjusted_ground_truth": 94,
+   "buckets": {
+    "keep": 80,
+    "fix_label": 10,
+    "fix_type": 0,
+    "rewrite": 7,
+    "delete": 63,
+    "add": 12
+   },
+   "per_form": {
+    "fed-w9": 4,
+    "ct-w4": 8,
+    "fed-8822": 9,
+    "fed-i9": 71
+   },
+   "fell_back": [],
+   "seconds": 312
+  },
+  {
+   "run": "r4-specific-types-example",
+   "rule": "specific-types",
+   "kind": "example",
+   "passes": false,
+   "why": "edits 52 -> 82; target fix_type 3 -> 3: needs at least 2 fewer edits",
+   "edits": 82,
+   "edits_against_unadjusted_ground_truth": 82,
+   "buckets": {
+    "keep": 78,
+    "fix_label": 10,
+    "fix_type": 3,
+    "rewrite": 7,
+    "delete": 51,
+    "add": 11
+   },
+   "per_form": {
+    "fed-w9": 4,
+    "ct-w4": 8,
+    "fed-8822": 9,
+    "fed-i9": 61
+   },
+   "fell_back": [],
+   "seconds": 318
+  },
+  {
+   "run": "r4-specific-types-schema",
+   "rule": "specific-types",
+   "kind": "schema",
+   "passes": true,
+   "why": "edits 52 -> 49; target fix_type 3 -> 1",
+   "edits": 49,
+   "edits_against_unadjusted_ground_truth": 51,
+   "buckets": {
+    "keep": 79,
+    "fix_label": 11,
+    "fix_type": 1,
+    "rewrite": 9,
+    "delete": 19,
+    "add": 9
+   },
+   "per_form": {
+    "fed-w9": 11,
+    "ct-w4": 8,
+    "fed-8822": 6,
+    "fed-i9": 24
+   },
+   "fell_back": [],
+   "seconds": 332
+  },
+  {
+   "run": "r5-instructions-prose",
+   "rule": "instructions",
+   "kind": "prose",
+   "passes": false,
+   "why": "edits 49 -> 58; target delete 19 -> 19: needs at least 2 fewer edits",
+   "edits": 58,
+   "edits_against_unadjusted_ground_truth": 61,
+   "buckets": {
+    "keep": 70,
+    "fix_label": 11,
+    "fix_type": 1,
+    "rewrite": 9,
+    "delete": 19,
+    "add": 18
+   },
+   "per_form": {
+    "fed-w9": 11,
+    "ct-w4": 8,
+    "fed-8822": 15,
+    "fed-i9": 24
+   },
+   "fell_back": [],
+   "seconds": 344
+  },
+  {
+   "run": "r5-instructions-example",
+   "rule": "instructions",
+   "kind": "example",
+   "passes": false,
+   "why": "edits 49 -> 95; target delete 19 -> 57: needs at least 2 fewer edits",
+   "edits": 95,
+   "edits_against_unadjusted_ground_truth": 97,
+   "buckets": {
+    "keep": 71,
+    "fix_label": 10,
+    "fix_type": 1,
+    "rewrite": 9,
+    "delete": 57,
+    "add": 18
+   },
+   "per_form": {
+    "fed-w9": 11,
+    "ct-w4": 8,
+    "fed-8822": 15,
+    "fed-i9": 61
+   },
+   "fell_back": [],
+   "seconds": 347
+  },
+  {
+   "run": "r5-instructions-schema",
+   "rule": "instructions",
+   "kind": "schema",
+   "passes": false,
+   "why": "edits 49 -> 48; target delete 19 -> 19: needs at least 2 fewer edits",
+   "edits": 48,
+   "edits_against_unadjusted_ground_truth": 52,
+   "buckets": {
+    "keep": 80,
+    "fix_label": 10,
+    "fix_type": 0,
+    "rewrite": 10,
+    "delete": 19,
+    "add": 9
+   },
+   "per_form": {
+    "fed-w9": 11,
+    "ct-w4": 8,
+    "fed-8822": 6,
+    "fed-i9": 23
+   },
+   "fell_back": [],
+   "seconds": 344
+  }
+ ],
+ "accepted": [
+  "r1-check-one-prose",
+  "r4-specific-types-schema"
+ ],
+ "skipped": [
+  "repeated-labels",
+  "item-numbers",
+  "instructions"
+ ],
+ "held_out_results": {
+  "h0-baseline": {
+   "edits": 190,
+   "edits_against_unadjusted_ground_truth": 193,
+   "buckets": {
+    "keep": 92,
+    "fix_label": 8,
+    "fix_type": 27,
+    "rewrite": 32,
+    "delete": 97,
+    "add": 26
+   },
+   "per_form": {
+    "ct-dmv-a25": 5,
+    "ct-dmv-a83": 10,
+    "ct-dmv-b225p": 24,
+    "ct-dmv-b58ind": 13,
+    "ct-dmv-j23": 14,
+    "fed-ss4": 77,
+    "fed-w4": 47
+   },
+   "fell_back": [
+    "fed-ss4",
+    "fed-w4"
+   ],
+   "seconds": 484
+  },
+  "h1-final": {
+   "edits": 178,
+   "edits_against_unadjusted_ground_truth": 183,
+   "buckets": {
+    "keep": 95,
+    "fix_label": 9,
+    "fix_type": 20,
+    "rewrite": 30,
+    "delete": 88,
+    "add": 31
+   },
+   "per_form": {
+    "ct-dmv-a25": 5,
+    "ct-dmv-a83": 9,
+    "ct-dmv-b225p": 17,
+    "ct-dmv-b58ind": 9,
+    "ct-dmv-j23": 15,
+    "fed-ss4": 77,
+    "fed-w4": 46
+   },
+   "fell_back": [
+    "fed-ss4",
+    "fed-w4"
+   ],
+   "seconds": 503
+  }
+ }
+}

@@ -1,0 +1,166 @@
+{
+  "sections": [
+    {
+      "id": "employee-section",
+      "title": "Employee's Information"
+    },
+    {
+      "id": "employer-section",
+      "title": "Employer's Information"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Withholding Code: Enter Withholding Code letter chosen from above.",
+      "section_id": "employee-section",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "Additional withholding amount per pay period: If any, see instructions.",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "Reduced withholding amount per pay period: If any, see instructions.",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": null
+    },
+    {
+      "n": 4,
+      "label": "Reduced withholding amount per pay period: If any, see instructions.",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": null
+    },
+    {
+      "n": 5,
+      "label": "Check if you are claiming the MSRRA exemption and enter state of legal residence/domicile:",
+      "section_id": "employee-section",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 6,
+      "label": "Social Security Number",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "social_security_number"
+    },
+    {
+      "n": 7,
+      "label": "First name",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 8,
+      "label": "Home address (number and street, apartment number, suite number, PO Box)",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 9,
+      "label": "City/town",
+      "section_id": "employee-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 10,
+      "label": "Date",
+      "section_id": "employee-section",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 11,
+      "label": "Enter date hired:",
+      "section_id": "employer-section",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 12,
+      "label": "Is this a new or rehired employee?",
+      "section_id": "employer-section",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 13,
+      "label": "Is this a new or rehired employee?",
+      "section_id": "employer-section",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 14,
+      "label": "Employer's business name",
+      "section_id": "employer-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 15,
+      "label": "Federal Employer Identification Number",
+      "section_id": "employer-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 16,
+      "label": "Employer's business address",
+      "section_id": "employer-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 17,
+      "label": "City/town",
+      "section_id": "employer-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 18,
+      "label": "Contact person",
+      "section_id": "employer-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 19,
+      "label": "Telephone number",
+      "section_id": "employer-section",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "group": null
+    }
+  ]
+}
