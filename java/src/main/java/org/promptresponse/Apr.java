@@ -372,7 +372,7 @@ public final class Apr {
      */
     private static final Set<String> RETIRED_MEMBERS = Set.of(
         "width", "alignment", "color", "background", "fontSize", "bold", "style",
-        "responseMetadata", "filledBy", "filledDate");
+        "responseMetadata");
 
     /**
      * Drops retired names from the objects the format defines -- the document, its
