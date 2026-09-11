@@ -99,6 +99,79 @@ public class TableExtensionMemberTests
             .Which.Extensions.Should().ContainKey("com.example.priority");
     }
 
+    [Fact]
+    public void ConvertToTable_RekeysACellAndKeepsItsExtensionMembers()
+    {
+        // Rekeying is renaming: the same prompt, under the row's id. Everything it
+        // carried is still its own.
+        var prompt = new Prompt
+        {
+            Id = "name",
+            Label = "Name",
+            Response = "Ada",
+            Role = "nurse",
+            Extensions = Members(("com.example.priority", "2")),
+            Hints = new PromptHints { Min = 1, Extensions = Members(("com.example.widget", "\"dial\"")) },
+        };
+        var section = new Section { Id = "contact", Title = "Contact", Prompts = [prompt] };
+        var viewModel = new SectionViewModel(section, NewFactory(), depth: 0);
+
+        viewModel.ConvertToFixedTable();
+
+        var cell = section.Sections[0].Prompts[0];
+        cell.Id.Should().Be("contact.row1.name");
+        cell.Response.Should().Be("Ada");
+        cell.Role.Should().Be("nurse");
+        cell.Extensions.Should().ContainKey("com.example.priority");
+        cell.Hints.Extensions.Should().ContainKey("com.example.widget");
+        cell.Hints.Min.Should().Be(1);
+        cell.Hints.Should().NotBeSameAs(prompt.Hints,
+            "a rekeyed cell holds its own hints rather than sharing the original's");
+    }
+
+    [Fact]
+    public void AddRow_GivesTheNewCellTheColumnsShape()
+    {
+        var (table, viewModel, _) = Table();
+
+        viewModel.AddRow();
+
+        var cell = table.Sections[1].Prompts[0];
+        cell.Label.Should().Be("Priority");
+        cell.Role.Should().Be("nurse");
+        cell.Hints.ExpectedDataType.Should().Be("number");
+        cell.Hints.ValidationPattern.Should().Be("^[0-9]+$");
+        cell.Hints.Min.Should().Be(1);
+        cell.Hints.Max.Should().Be(10);
+        cell.Hints.Step.Should().Be(0.5);
+    }
+
+    [Fact]
+    public void AddRow_DoesNotInventTheProducersExtensionMembersOnANewCell()
+    {
+        // A new row is a new object, and it carried nothing when the document was read.
+        // Preservation binds what arrived; copying somebody else's member onto a cell
+        // they never wrote would be authoring their data, not preserving it.
+        var (table, viewModel, _) = Table();
+
+        viewModel.AddRow();
+
+        var cell = table.Sections[1].Prompts[0];
+        cell.Extensions.Should().BeNull();
+        cell.Hints.Extensions.Should().BeNull();
+    }
+
+    [Fact]
+    public void AddRow_LeavesTheTemplateCellsExtensionMembersAlone()
+    {
+        var (table, viewModel, _) = Table();
+
+        viewModel.AddRow();
+
+        table.Sections[0].Prompts[0].Extensions.Should().ContainKey("com.example.priority");
+        table.Sections[0].Prompts[0].Hints.Extensions.Should().ContainKey("com.example.widget");
+    }
+
     private static (Section Table, SectionViewModel ViewModel, EditHistory History) Table()
     {
         var cell = new Prompt
