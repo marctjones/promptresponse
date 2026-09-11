@@ -44,7 +44,9 @@ public static class AprFormat
     /// <c>Extensions</c>, not here.
     /// </remarks>
     public static readonly IReadOnlySet<string> RetiredMembers =
-        new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        // Ordinal, because member names are case-sensitive (specification 5.8): `Width`
+        // is an unknown member to preserve, not the retired `width`.
+        new HashSet<string>(StringComparer.Ordinal)
         {
             // Table column presentation, removed before 1.0 (see specification section 4.5).
             "width", "alignment", "color", "background", "fontSize", "bold", "style",
