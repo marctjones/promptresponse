@@ -1,0 +1,727 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-ss4"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "ein",
+          "label": "EIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "internal-revenue-service-1",
+          "label": "Internal Revenue Service 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "trade-name-of-business-if-different-from-name-on",
+          "label": "Trade name of business (if different from name on line 1)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "executor-administrator-trustee-care-of-name",
+          "label": "Executor, administrator, trustee, \u201ccare of\u201d name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "mailing-address-room-apt-suite-no-and-street-or-",
+          "label": "Mailing address (room, apt., suite no. and street, or P.O. box) 5a",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "street-address-if-different-don-t-enter-a-p-o-bo",
+          "label": "Street address (if different) (Don\u2019t enter a P.O. box.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-zip-code-if-foreign-see-instructi",
+          "label": "City, state, and ZIP code (if foreign, see instructions)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-state-and-zip-code-if-foreign-see-instructi-2",
+          "label": "City, state, and ZIP code (if foreign, see instructions)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "county-and-state-where-principal-business-is-loc",
+          "label": "County and state where principal business is located",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "name-of-responsible-party",
+          "label": "Name of responsible party",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "7b-ssn-itin-or-ein",
+          "label": "7b SSN, ITIN, or EIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-f1-12-0",
+          "label": "topmostSubform[0].Page1[0].f1_12[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "yes-no",
+          "label": "Yes No .",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-c1-1-1",
+          "label": "topmostSubform[0].Page1[0].c1_1[1]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "8b-if-8a-is-yes-enter-the-number-of-llc-members-",
+          "label": "8b If 8a is \u201cYes,\u201d enter the number of LLC members . . . . . . . . Yes",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "8b-if-8a-is-yes-enter-the-number-of-llc-members--2",
+          "label": "8b If 8a is \u201cYes,\u201d enter the number of LLC members . . . . . . . . No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "sole-proprietor-ssn",
+          "label": "Sole proprietor (SSN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "estate-ssn-of-decedent",
+          "label": "Estate (SSN of decedent)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "sole-proprietor-ssn-2",
+          "label": "Sole proprietor (SSN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "estate-ssn-of-decedent-2",
+          "label": "Estate (SSN of decedent)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "plan-administrator-tin",
+          "label": "Plan administrator (TIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "partnership",
+          "label": "Partnership",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "plan-administrator-tin-2",
+          "label": "Plan administrator (TIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "corporation-enter-form-number-to-be-filed",
+          "label": "Corporation (enter form number to be filed)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "trust-tin-of-grantor",
+          "label": "Trust (TIN of grantor)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "corporation-enter-form-number-to-be-filed-2",
+          "label": "Corporation (enter form number to be filed)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "trust-tin-of-grantor-2",
+          "label": "Trust (TIN of grantor)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "personal-service-corporation",
+          "label": "Personal service corporation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "military-national-guard",
+          "label": "Military/National Guard",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "state-local-government",
+          "label": "State/local government",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "church-or-church-controlled-organization",
+          "label": "Church or church-controlled organization",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "farmers-cooperative",
+          "label": "Farmers\u2019 cooperative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "federal-government",
+          "label": "Federal government",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "other-nonprofit-organization-specify",
+          "label": "Other nonprofit organization (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-nonprofit-organization-specify-2",
+          "label": "Other nonprofit organization (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "remic",
+          "label": "REMIC",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "indian-tribal-governments-enterprises",
+          "label": "Indian tribal governments/enterprises",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "group-exemption-number-gen-if-any",
+          "label": "Group Exemption Number (GEN) if any",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "group-exemption-number-gen-if-any-2",
+          "label": "Group Exemption Number (GEN) if any",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-specify",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country",
+          "label": "Foreign country",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "banking-purpose-specify-purpose",
+          "label": "Banking purpose (specify purpose)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "banking-purpose-specify-purpose-2",
+          "label": "Banking purpose (specify purpose)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-f1-25-0",
+          "label": "topmostSubform[0].Page1[0].f1_25[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "changed-type-of-organization-specify-new-type",
+          "label": "Changed type of organization (specify new type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-c1-4-0",
+          "label": "topmostSubform[0].Page1[0].c1_4[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "changed-type-of-organization-specify-new-type-2",
+          "label": "Changed type of organization (specify new type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-f1-26-0",
+          "label": "topmostSubform[0].Page1[0].f1_26[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "purchased-going-business",
+          "label": "Purchased going business",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "created-a-trust-specify-type",
+          "label": "Created a trust (specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "hired-employees-check-the-box-and-see-line-13",
+          "label": "Hired employees (Check the box and see line 13.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "created-a-trust-specify-type-2",
+          "label": "Created a trust (specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "created-a-pension-plan-specify-type",
+          "label": "Created a pension plan (specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "compliance-with-irs-withholding-regulations",
+          "label": "Compliance with IRS withholding regulations",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "created-a-pension-plan-specify-type-2",
+          "label": "Created a pension plan (specify type)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "other-specify-2",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-specify-3",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "closing-month-of-accounting-year",
+          "label": "Closing month of accounting year",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-business-started-or-acquired-month-day-year",
+          "label": "Date business started or acquired (month, day, year).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "agricultural-household",
+          "label": "Agricultural Household",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "agricultural-household-2",
+          "label": "Agricultural Household",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other",
+          "label": "Other",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-c1-5-0",
+          "label": "topmostSubform[0].Page1[0].c1_5[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-f1-36-0",
+          "label": "topmostSubform[0].Page1[0].f1_36[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "health-care-social-assistance",
+          "label": "Health care & social assistance",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "wholesale-agent-broker",
+          "label": "Wholesale\u2014agent/broker",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "construction",
+          "label": "Construction",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "rental-leasing",
+          "label": "Rental & leasing",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "transportation-warehousing",
+          "label": "Transportation & warehousing",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "accommodation-food-service",
+          "label": "Accommodation & food service",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "wholesale-other",
+          "label": "Wholesale\u2014other",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "retail",
+          "label": "Retail",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "other-specify-4",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "real-estate",
+          "label": "Real estate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "manufacturing",
+          "label": "Manufacturing",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "finance-insurance",
+          "label": "Finance & insurance",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "other-specify-5",
+          "label": "Other (specify)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "indicate-principal-line-of-merchandise-sold-spec",
+          "label": "Indicate principal line of merchandise sold, specific construction work done, products produced, or services provided.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "has-the-applicant-entity-shown-on-line-1-ever-ap",
+          "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN? If \u201cYes,\u201d write previous EIN here Yes",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "has-the-applicant-entity-shown-on-line-1-ever-ap-2",
+          "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN? If \u201cYes,\u201d write previous EIN here No",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-f1-39-0",
+          "label": "topmostSubform[0].Page1[0].f1_39[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "third-party-designee",
+          "label": "Third Party Designee",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "designee-s-telephone-number-include-area-code",
+          "label": "Designee\u2019s telephone number (include area code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-and-zip-code",
+          "label": "Address and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "designee-s-fax-number-include-area-code",
+          "label": "Designee\u2019s fax number (include area code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-f1-45-0",
+          "label": "topmostSubform[0].Page1[0].f1_45[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page1-0-f1-44-0",
+          "label": "topmostSubform[0].Page1[0].f1_44[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

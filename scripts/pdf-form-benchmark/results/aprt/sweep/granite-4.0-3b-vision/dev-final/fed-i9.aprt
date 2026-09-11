@@ -1,0 +1,1202 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-i9"
+  },
+  "sections": [
+    {
+      "id": "employee-information-and-attestation",
+      "title": "Employee Information and Attestation",
+      "prompts": [
+        {
+          "id": "employee-s-full-name",
+          "label": "Employee's Full Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-middle-initial-if-any",
+          "label": "Employee's Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-last-names-used-if-any",
+          "label": "Other Last Names (Used, if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth-mm-yyyy",
+          "label": "Date of Birth (mm/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "employee-s-email-address",
+          "label": "Employee's Email Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-telephone-number",
+          "label": "Employee's Telephone Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employee",
+          "label": "Signature of Employee",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-mm-yyyy",
+          "label": "Date (mm/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "provides-information-to-attest-to-your-citizensh",
+          "label": "Provides information to attest to your citizenship or immigration status (see instructions on page 2).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "A noncitizen of the United States",
+              "A naturalized citizen of the United States"
+            ]
+          }
+        },
+        {
+          "id": "a-lawful-permanent-resident-see-instructions",
+          "label": "A lawful permanent resident (see instructions).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "A noncitizen of the United States",
+              "A naturalized citizen of the United States"
+            ]
+          }
+        },
+        {
+          "id": "a-foreign-national-and-country-of-issuance",
+          "label": "A foreign national (and country of issuance).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "A noncitizen of the United States",
+              "A naturalized citizen of the United States"
+            ]
+          }
+        },
+        {
+          "id": "signature-of-employee-or-authorized-representati",
+          "label": "Signature of Employee or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-mm-yyyy-2",
+          "label": "Date (mm/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "attestation",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "date-mm-yyyy-3",
+          "label": "Date (mm/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "attestation-2",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-3",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-4",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-5",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-6",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-7",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-8",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-9",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-10",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-11",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-12",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-13",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-14",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-15",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-16",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-17",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-18",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-19",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-20",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-21",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-22",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-23",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-24",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-25",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-26",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-27",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-28",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-29",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-30",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-31",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-32",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-33",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-34",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-35",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        },
+        {
+          "id": "attestation-36",
+          "label": "Attestation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "I attest that the information provided in this section is true and correct.",
+              "I attest that the information provided in this section is true and correct."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-1",
+      "title": "Section 1",
+      "prompts": [
+        {
+          "id": "last-name-family-name",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-from-section-1",
+          "label": "Middle initial (if any from Section 1)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "instructions-this-supplement-must-be-completed-b",
+          "label": "Instructions: This supplement must be completed by any preparer and/or translator who assists an employee in completing Section 1 of Form 9.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-2",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-family-name-2",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-2",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any",
+          "label": "Middle initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name-3",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-3",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-2",
+          "label": "Middle initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name-2",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-2",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator-2",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-3",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-family-name-4",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-4",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-3",
+          "label": "Middle initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name-3",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-3",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-3",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "under-penalty-of-perjury-that-i-have-assisted-in",
+          "label": "Under penalty of perjury, that I have assisted in the completion of Section 1 of Form 9 and that to the best of my knowledge the information is true and correct.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-4",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "name",
+          "label": "Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-rehire-yyyy-mm-dd",
+          "label": "Date of Rehire (yyyy-mm-dd)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "reason-for-rehire",
+          "label": "Reason for Rehire",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Additional duties",
+              "Workforce adjustment",
+              "Other"
+            ]
+          }
+        },
+        {
+          "id": "reason-for-rehire-2",
+          "label": "Reason for Rehire",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Additional duties",
+              "Workforce adjustment",
+              "Other"
+            ]
+          }
+        },
+        {
+          "id": "reason-for-rehire-3",
+          "label": "Reason for Rehire",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Additional duties",
+              "Workforce adjustment",
+              "Other"
+            ]
+          }
+        },
+        {
+          "id": "document-title",
+          "label": "Document Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number",
+          "label": "Document Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date",
+          "label": "Expiration Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "name-of-employer-or-authorized-representative",
+          "label": "Name of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representati",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-5",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-information",
+          "label": "Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-information-2",
+          "label": "Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Initial",
+              "Date"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "first-name-given-name",
+      "title": "First Name (Given Name)",
+      "prompts": [
+        {
+          "id": "first-name-given-name",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-rehire-yyyy-mm-dd",
+          "label": "Date of Rehire (yyyy-mm-dd)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "last-name-family-name",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-2",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial",
+          "label": "Middle Initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-rehire-yyyy-mm-dd-2",
+          "label": "Date of Rehire (yyyy-mm-dd)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "reason-for-rehire",
+          "label": "Reason for Rehire",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Additional duties",
+              "Workforce adjustment",
+              "Other"
+            ]
+          }
+        },
+        {
+          "id": "document-title",
+          "label": "Document Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number",
+          "label": "Document Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date",
+          "label": "Expiration Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "name-of-employer-or-authorized-representative",
+          "label": "Name of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representati",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-information",
+          "label": "Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-information-2",
+          "label": "Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Initial",
+              "Date"
+            ]
+          }
+        },
+        {
+          "id": "date-of-rehire-yyyy-mm-dd-3",
+          "label": "Date of Rehire (yyyy-mm-dd)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "reason-for-rehire-2",
+          "label": "Reason for Rehire",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Additional duties",
+              "Workforce adjustment",
+              "Other"
+            ]
+          }
+        },
+        {
+          "id": "document-title-2",
+          "label": "Document Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-2",
+          "label": "Document Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-2",
+          "label": "Expiration Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "name-of-employer-or-authorized-representative-2",
+          "label": "Name of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representati-2",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "signature"
+          }
+        },
+        {
+          "id": "date-2",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-information-3",
+          "label": "Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-information-4",
+          "label": "Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Initial",
+              "Date"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "middle-initial",
+      "title": "Middle Initial",
+      "prompts": [
+        {
+          "id": "middle-initial",
+          "label": "Middle Initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

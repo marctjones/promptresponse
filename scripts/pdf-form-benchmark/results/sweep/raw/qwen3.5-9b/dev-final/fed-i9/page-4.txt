@@ -1,0 +1,361 @@
+```json
+{
+  "sections": [
+    {
+      "id": "header",
+      "title": "Supplement B, Reverification and Rehire (formerly Section 3)"
+    },
+    {
+      "id": "instructions",
+      "title": "Instructions"
+    },
+    {
+      "id": "rehire_section_1",
+      "title": "Date of Rehire (if applicable) / New Name (if applicable)"
+    },
+    {
+      "id": "reverification_section_1",
+      "title": "Reverification"
+    },
+    {
+      "id": "attestation_1",
+      "title": "I attest, under penalty of perjury..."
+    },
+    {
+      "id": "employer_signature_1",
+      "title": "Name of Employer or Authorized Representative / Signature of Employer or Authorized Representative / Today's Date (mm/dd/yyyy)"
+    },
+    {
+      "id": "additional_info_1",
+      "title": "Additional Information (Initial and date each notation.)"
+    },
+    {
+      "id": "rehire_section_2",
+      "title": "Date of Rehire (if applicable) / New Name (if applicable)"
+    },
+    {
+      "id": "reverification_section_2",
+      "title": "Reverification"
+    },
+    {
+      "id": "attestation_2",
+      "title": "I attest, under penalty of perjury..."
+    },
+    {
+      "id": "employer_signature_2",
+      "title": "Name of Employer or Authorized Representative / Signature of Employer or Authorized Representative / Today's Date (mm/dd/yyyy)"
+    },
+    {
+      "id": "additional_info_2",
+      "title": "Additional Information (Initial and date each notation.)"
+    },
+    {
+      "id": "rehire_section_3",
+      "title": "Date of Rehire (if applicable) / New Name (if applicable)"
+    },
+    {
+      "id": "reverification_section_3",
+      "title": "Reverification"
+    },
+    {
+      "id": "attestation_3",
+      "title": "I attest, under penalty of perjury..."
+    },
+    {
+      "id": "employer_signature_3",
+      "title": "Name of Employer or Authorized Representative / Signature of Employer or Authorized Representative / Today's Date (mm/dd/yyyy)"
+    },
+    {
+      "id": "additional_info_3",
+      "title": "Additional Information (Initial and date each notation.)"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Last Name (Family Name) from Section 1.",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "First Name (Given Name) from Section 1.",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Middle initial (if any) from Section 1.",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "rehire_section_1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "rehire_section_1"
+    },
+    {
+      "n": 5,
+      "label": "Last Name (Family Name)",
+      "section_id": "rehire_section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "rehire_section_1"
+    },
+    {
+      "n": 6,
+      "label": "First Name (Given Name)",
+      "section_id": "rehire_section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "rehire_section_1"
+    },
+    {
+      "n": 7,
+      "label": "Middle Initial",
+      "section_id": "rehire_section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "rehire_section_1"
+    },
+    {
+      "n": 8,
+      "label": "Document Title",
+      "section_id": "reverification_section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Document Number (if any)",
+      "section_id": "reverification_section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Expiration Date (if any) (mm/dd/yyyy)",
+      "section_id": "reverification_section_1",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 11,
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "employer_signature_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "employer_signature_1",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "employer_signature_1",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 14,
+      "label": "Additional Information (Initial and date each notation.)",
+      "section_id": "additional_info_1",
+      "field_kind": "multiline",
+      "expected_data_type": "multiline"
+    },
+    {
+      "n": 15,
+      "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "section_id": "additional_info_1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 16,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "rehire_section_2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "rehire_section_2"
+    },
+    {
+      "n": 17,
+      "label": "Last Name (Family Name)",
+      "section_id": "rehire_section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "rehire_section_2"
+    },
+    {
+      "n": 18,
+      "label": "First Name (Given Name)",
+      "section_id": "rehire_section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "rehire_section_2"
+    },
+    {
+      "n": 19,
+      "label": "Middle Initial",
+      "section_id": "rehire_section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "rehire_section_2"
+    },
+    {
+      "n": 20,
+      "label": "Document Title",
+      "section_id": "reverification_section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "Document Number (if any)",
+      "section_id": "reverification_section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "Expiration Date (if any) (mm/dd/yyyy)",
+      "section_id": "reverification_section_2",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 23,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "employer_signature_2",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 24,
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "employer_signature_2",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 25,
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "employer_signature_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 26,
+      "label": "Additional Information (Initial and date each notation.)",
+      "section_id": "additional_info_2",
+      "field_kind": "multiline",
+      "expected_data_type": "multiline"
+    },
+    {
+      "n": 27,
+      "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "section_id": "additional_info_2",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 28,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "rehire_section_3",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "rehire_section_3"
+    },
+    {
+      "n": 29,
+      "label": "Last Name (Family Name)",
+      "section_id": "rehire_section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "rehire_section_3"
+    },
+    {
+      "n": 30,
+      "label": "First Name (Given Name)",
+      "section_id": "rehire_section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "rehire_section_3"
+    },
+    {
+      "n": 31,
+      "label": "Middle Initial",
+      "section_id": "rehire_section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "rehire_section_3"
+    },
+    {
+      "n": 32,
+      "label": "Document Title",
+      "section_id": "reverification_section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 33,
+      "label": "Document Number (if any)",
+      "section_id": "reverification_section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 34,
+      "label": "Expiration Date (if any) (mm/dd/yyyy)",
+      "section_id": "reverification_section_3",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 35,
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "employer_signature_3",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 36,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "employer_signature_3",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 37,
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "employer_signature_3",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 38,
+      "label": "Additional Information (Initial and date each notation.)",
+      "section_id": "additional_info_3",
+      "field_kind": "multiline",
+      "expected_data_type": "multiline"
+    },
+    {
+      "n": 39,
+      "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "section_id": "additional_info_3",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    }
+  ]
+}
+```

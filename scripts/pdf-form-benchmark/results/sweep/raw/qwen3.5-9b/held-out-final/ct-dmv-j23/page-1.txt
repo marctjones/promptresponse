@@ -1,0 +1,363 @@
+```json
+{
+  "sections": [
+    {
+      "id": "license_records",
+      "title": "LICENSE RECORDS, CHECK ( √) REQUEST(S) BELOW"
+    },
+    {
+      "id": "registration_records",
+      "title": "REGISTRATION RECORDS"
+    },
+    {
+      "id": "request_section",
+      "title": "REQUEST SECTION"
+    },
+    {
+      "id": "declaration",
+      "title": "DECLARATION"
+    },
+    {
+      "id": "section_1",
+      "title": "SECTION 1"
+    },
+    {
+      "id": "section_2",
+      "title": "SECTION 2"
+    },
+    {
+      "id": "section_3",
+      "title": "SECTION 3"
+    },
+    {
+      "id": "section_4",
+      "title": "SECTION 4"
+    },
+    {
+      "id": "applicant_info",
+      "title": "APPLICANT: Print or Type Your Name and Mailing Address Below. If using a P.O. Box, STREET ADDRESS MUST ALSO BE INCLUDED."
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Driver License File Information (Printout of license class, endorsements, restrictions, original issue date and status.)",
+      "section_id": "license_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 2,
+      "label": "Driver License Application (Copy of most current document). This is NOT a duplicate license",
+      "section_id": "license_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 3,
+      "label": "Driving History (List of violations and sanctions - certified)",
+      "section_id": "license_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 4,
+      "label": "",
+      "section_id": "license_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "driving_history"
+    },
+    {
+      "n": 5,
+      "label": "",
+      "section_id": "license_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "driving_history"
+    },
+    {
+      "n": 6,
+      "label": "Registration File Information (Copy of current computer record)",
+      "section_id": "registration_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 7,
+      "label": "Registration Certificate (Copy of most current document). * This is NOT a duplicate registration*",
+      "section_id": "registration_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 8,
+      "label": "Certified copy of uncertified items (Add $20.00 to unit price per item)",
+      "section_id": "registration_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 9,
+      "label": "Registration Return Plate Receipt (Copy of current computer record)",
+      "section_id": "registration_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 10,
+      "label": "Insurance Information Only",
+      "section_id": "registration_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 11,
+      "label": "ATTORNEY'S JURIS #",
+      "section_id": "registration_records",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Miscellaneous Request",
+      "section_id": "registration_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 13,
+      "label": "Multiple Requests? Instructions: Please complete one J-23 form and attach a separate sheet with required information for each request.",
+      "section_id": "registration_records",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 14,
+      "label": "ATTORNEY NAME OR CASE NAME AND COURT LOCATION",
+      "section_id": "registration_records",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "CODE NO.",
+      "section_id": "request_section",
+      "field_kind": "text_line",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 16,
+      "label": "",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "section_1_table"
+    },
+    {
+      "n": 17,
+      "label": "",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "section_1_table"
+    },
+    {
+      "n": 18,
+      "label": "",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "section_1_table"
+    },
+    {
+      "n": 19,
+      "label": "DRIVER'S NAME (Last, First, Middle Initial)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "DRIVER'S LICENSE NUMBER",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "DRIVER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "DRIVER'S DATE OF BIRTH",
+      "section_id": "section_1",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 23,
+      "label": "OWNER'S NAME (Last, First, Middle Initial)",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 24,
+      "label": "OWNER'S ADDRESS (Number and Street, City or Town, State, Zip Code)",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "",
+      "section_id": "section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "section_3_table"
+    },
+    {
+      "n": 26,
+      "label": "",
+      "section_id": "section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "section_3_table"
+    },
+    {
+      "n": 27,
+      "label": "",
+      "section_id": "section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "section_3_table"
+    },
+    {
+      "n": 28,
+      "label": "VEHICLE IDENTIFICATION NUMBER",
+      "section_id": "section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 29,
+      "label": "REGISTRATION PLATE NUMBER",
+      "section_id": "section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 30,
+      "label": "AS OF (Date)",
+      "section_id": "section_3",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 31,
+      "label": "VEHICLE MAKE",
+      "section_id": "section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 32,
+      "label": "VEHICLE YEAR",
+      "section_id": "section_3",
+      "field_kind": "text_line",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 33,
+      "label": "",
+      "section_id": "section_4",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "section_4_table"
+    },
+    {
+      "n": 34,
+      "label": "",
+      "section_id": "section_4",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "section_4_table"
+    },
+    {
+      "n": 35,
+      "label": "",
+      "section_id": "section_4",
+      "field_kind": "text_line",
+      "expected_data_type": "currency",
+      "group": "section_4_table"
+    },
+    {
+      "n": 36,
+      "label": "MISCELLANEOUS REQUEST (Please Specify)",
+      "section_id": "section_4",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 37,
+      "label": "TOTAL",
+      "section_id": "applicant_info",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 38,
+      "label": "OPERATOR'S LICENSE NO. or FED. EMPLOYER ID NO.",
+      "section_id": "applicant_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 39,
+      "label": "TELEPHONE NO. (Required)",
+      "section_id": "applicant_info",
+      "field_kind": "text_line",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 40,
+      "label": "NAME",
+      "section_id": "applicant_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 41,
+      "label": "NUMBER AND STREET",
+      "section_id": "applicant_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 42,
+      "label": "CITY OR TOWN",
+      "section_id": "applicant_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 43,
+      "label": "STATE",
+      "section_id": "applicant_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 44,
+      "label": "ZIP CODE",
+      "section_id": "applicant_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    }
+  ]
+}
+```

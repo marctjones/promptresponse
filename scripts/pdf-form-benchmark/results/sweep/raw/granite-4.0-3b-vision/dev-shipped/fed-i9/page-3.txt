@@ -1,0 +1,304 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Section 1"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Last Name (Family Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "First Name (Given Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Middle initial (if any)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Instructions: This supplement must be completed by any preparer and/or translator who assists an employee in completing Section 1 of Form 9. Each preparer and/or translator must complete, sign, and date the employee's Form 9. Employers' names must remain in the spaces provided above. Each completed Form 9 must be attached to the employee's Form I-9. The last person to complete Form 9 must sign, date, and certify that to the best of his/her knowledge, the information provided is true and correct.",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "section_1",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "Date",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_ data_type": "date"
+    },
+    {
+      "n": 7,
+      "label": "Last Name (Family Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "First Name (Given Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Middle initial (if any)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Address (Street Number and Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "City or Town",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "State",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "ZIP Code",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "section_1",
+      "field_kind": "signature",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Date",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_ data_type": "date"
+    },
+    {
+      "n": 16,
+      "label": "Last Name (Family Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "First Name (Given Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "Middle initial (if any)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Address (Street Number and Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "City or Town",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "State",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "ZIP Code",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 23,
+      "label": "Under penalty of perjury, under the laws of the United States of America, I state and certify that the information provided in this form is true, correct, and complete. To the best of my knowledge, the information provided is true and correct.",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 24,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "section_1",
+      "field_kind": "signature",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "Date",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_ data_type": "date"
+    },
+    {
+      "n": 26,
+      "label": "Last Name (Family Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 27,
+      "label": "First Name (Given Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 28,
+      "label": "Middle initial (if any)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 29,
+      "label": "Address (Street Number and Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 30,
+      "label": "City or Town",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 31,
+      "label": "State",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 32,
+      "label": "ZIP Code",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 33,
+      "label": "Under penalty of perjury, under the laws of the United States of America, I state and certify that the information provided in this form is true, correct, and complete. To the best of my knowledge, the information provided is true and correct.",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 34,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "section_1",
+      "field_kind": "signature",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 35,
+      "label": "Date",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_ data_type": "date"
+    },
+    {
+      "n": 36,
+      "label": "Last Name (Family Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 37,
+      "label": "First Name (Given Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 38,
+      "label": "Middle initial (if any)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 39,
+      "label": "Address (Street Number and Name)",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 40,
+      "label": "City or Town",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 41,
+      "label": "State",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    },
+    {
+      "n": 42,
+      "label": "ZIP Code",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_ data_type": "text"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "sections": [
+    {
+      "id": "vehicle-owner-information",
+      "title": "VEHICLE OWNER INFORMATION"
+    },
+    {
+      "id": "vehicle-information",
+      "title": "VEHICLE INFORMATION"
+    },
+    {
+      "id": "hearing-request",
+      "title": "HEARING REQUEST"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "NAME",
+      "section_id": "vehicle-owner-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "TELEPHONE NUMBER",
+      "section_id": "vehicle-owner-information",
+      "field_kind": "text_line",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 3,
+      "label": "ADDRESS",
+      "section_id": "vehicle-owner-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "VEHICLE TAKEN INTO CUSTODY BY (Name of Law Enforcement Agency)",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "YEAR",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 6,
+      "label": "MARKER PLATE NO.",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "MAKE",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "MODEL",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "STATE OF LAST REGISTRATION",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "VEHICLE IDENTIFICATION NUMBER",
+      "section_id": "vehicle-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "SIGNATURE (Owner)",
+      "section_id": "hearing-request",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "DATE SIGNED",
+      "section_id": "hearing-request",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    }
+  ]
+}

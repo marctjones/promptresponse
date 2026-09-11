@@ -1,0 +1,250 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Legal name of entity (or individual) for whom the EIN is being requested"
+    },
+    {
+      "id": "section_2",
+      "title": "Trade name of business (different from name on line 1)"
+    },
+    {
+      "id": "section_3",
+      "title": "Executor, administrator, trustee, or care of name"
+    },
+    {
+      "id": "section_4",
+      "title": "Mailing address (room, apt, suite, or P.O. box)"
+    },
+    {
+      "id": "section_5",
+      "title": "Street address (if foreign, see instructions)"
+    },
+    {
+      "id": "section_6",
+      "title": "City, state, and ZIP code (if foreign, see instructions)"
+    },
+    {
+      "id": "section_7",
+      "title": "County and state where principal business is located"
+    },
+    {
+      "id": "section_8",
+      "title": "Name of responsible party"
+    },
+    {
+      "id": "section_9",
+      "title": "SSN, TIN, or EIN"
+    },
+    {
+      "id": "section_10",
+      "title": "Is this application for a limited liability company (LLC)?"
+    },
+    {
+      "id": "section_11",
+      "title": "If 'Yes', enter the number of LLC members."
+    },
+    {
+      "id": "section_12",
+      "title": "Type of sole entity (check ONLY SSN box.)"
+    },
+    {
+      "id": "section_13",
+      "title": "Partnership (enter number if filed)"
+    },
+    {
+      "id": "section_14",
+      "title": "Plan Administrator (TIN)"
+    },
+    {
+      "id": "section_15",
+      "title": "Personal service corporation"
+    },
+    {
+      "id": "section_16",
+      "title": "Military/National Guard or State/local government"
+    },
+    {
+      "id": "section_17",
+      "title": "Church or church-controlled organization"
+    },
+    {
+      "id": "section_18",
+      "title": "Federal government or enterprise"
+    },
+    {
+      "id": "section_19",
+      "title": "Other (specify)"
+    },
+    {
+      "id": "section_20",
+      "title": "Group Exemption Number (G.E.N.) if applicable"
+    },
+    {
+      "id": "section_21",
+      "title": "Reason for incorporation (only one box)"
+    },
+    {
+      "id": "section_22",
+      "title": "Banking purpose (specify purpose)"
+    },
+    {
+      "id": "section_23",
+      "title": "Started new business (specify type)"
+    },
+    {
+      "id": "section_24",
+      "title": "Changed the going of the organization (specify new type)"
+    },
+    {
+      "id": "section_25",
+      "title": "Hired employees (see instructions)"
+    },
+    {
+      "id": "section_26",
+      "title": "Created a partnership (specify type)"
+    },
+    {
+      "id": "section_27",
+      "title": "Other (specify)"
+    },
+    {
+      "id": "section_28",
+      "title": "Operating month of accounting year"
+    },
+    {
+      "id": "section_29",
+      "title": "Closing month of accounting year"
+    },
+    {
+      "id": "section_30",
+      "title": "Date business started or acquired (month, day, year)"
+    },
+    {
+      "id": "section_31",
+      "title": "Highest number of employees expected in the next 12 months (enter -0 if none)"
+    },
+    {
+      "id": "section_32",
+      "title": "Full year or quarterly"
+    },
+    {
+      "id": "section_33",
+      "title": "Date business started or acquired (month, day, year)"
+    },
+    {
+      "id": "section_34",
+      "title": "Expected accounting year"
+    },
+    {
+      "id": "section_35",
+      "title": "Highest number of employees expected in the next 12 months (enter -0 if none)"
+    },
+    {
+      "id": "section_36",
+      "title": "Nonresident alien (member of a foreign country) (only one box)"
+    },
+    {
+      "id": "section_37",
+      "title": "Principal activity of your business (only one box)"
+    },
+    {
+      "id": "section_38",
+      "title": "Health care or social assistance"
+    },
+    {
+      "id": "section_39",
+      "title": "Wholesale or agent/broker"
+    },
+    {
+      "id": "section_40",
+      "title": "Construction"
+    },
+    {
+      "id": "section_41",
+      "title": "Transportation and warehousing"
+    },
+    {
+      "id": "section_42",
+      "title": "Accommodation and food service"
+    },
+    {
+      "id": "section_43",
+      "title": "Wholesale"
+    },
+    {
+      "id": "section_44",
+      "title": "Retail"
+    },
+    {
+      "id": "section_45",
+      "title": "Real estate"
+    },
+    {
+      "id": "section_46",
+      "title": "Manufacturing"
+    },
+    {
+      "id": "section_47",
+      "title": "Finance, insurance, or other"
+    },
+    {
+      "id": "section_48",
+      "title": "Other (specify)"
+    },
+    {
+      "id": "section_49",
+      "title": "Applicant entity shown on line 1 has previously applied for and received an EIN"
+    },
+    {
+      "id": "section_50",
+      "title": "If 'Yes', write previous EIN here."
+    },
+    {
+      "id": "section_51",
+      "title": "Name of individual to whom you want to authorize the named individual to receive the EIN's and answer questions about the completion of this form."
+    },
+    {
+      "id": "section_52",
+      "title": "Designee's name"
+    },
+    {
+      "id": "section_53",
+      "title": "Designee's phone number (include area code)"
+    },
+    {
+      "id": "section_54",
+      "title": "Designee's address and ZIP code"
+    },
+    {
+      "id": "section_55",
+      "title": "Designee's fax number (include area code)"
+    },
+    {
+      "id": "section_56",
+      "title": "Under penalties of perjury, declare that the information provided in this application is true, correct, and complete."
+    },
+    {
+      "id": "section_57",
+      "title": "Designee's name and phone number"
+    },
+    {
+      "id": "section_58",
+      "title": "Applicant's name and title or print clearly"
+    },
+    {
+      "id": "section_59",
+      "title": "Applicant's phone number (include area code)"
+    },
+    {
+      "id": "section_60",
+      "title": "Signature"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Legal name of entity (or individual) for whom the EIN is being requested",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_

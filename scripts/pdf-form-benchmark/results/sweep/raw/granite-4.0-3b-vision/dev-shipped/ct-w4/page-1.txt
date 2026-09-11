@@ -1,0 +1,164 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Employee Information"
+    },
+    {
+      "id": "section_2",
+      "title": "Employee's Withholding Certificate"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Additional Code",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_ data_type": "text",
+      "group": "code"
+    },
+    {
+      "n": 2,
+      "label": "MFS Exempt Status",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "code"
+    },
+    {
+      "n": 3,
+      "label": "Reduced Withholding Amount per Period",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "First Name",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Last Name",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "Social Security Number",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "Home Address",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "City",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "State",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "ZIP Code",
+      "section_id": "section_1",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "Declaration",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Is this a new or rehired employee?",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "code"
+    },
+    {
+      "n": 13,
+      "label": "Date Hired",
+      "section_id": "section_2",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 14,
+      "label": "Employer's Business Name",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Employer's Business Address",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "City",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "State",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "ZIP Code",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Contact Person",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "Telephone Number",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "Visit portal.ct.gov for more information.",
+      "section_id": "section_2",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    }
+  ]
+}

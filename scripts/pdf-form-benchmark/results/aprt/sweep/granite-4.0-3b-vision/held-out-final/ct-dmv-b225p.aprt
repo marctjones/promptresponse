@@ -1,0 +1,241 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-b225p"
+  },
+  "sections": [
+    {
+      "id": "type-of-application",
+      "title": "TYPE OF APPLICATION",
+      "prompts": [
+        {
+          "id": "type-of-application",
+          "label": "TYPE OF APPLICATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "replacement",
+          "label": "REPLACEMENT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "renewal",
+          "label": "RENEWAL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "applicant-information",
+      "title": "APPLICANT INFORMATION",
+      "prompts": [
+        {
+          "id": "applicant-is",
+          "label": "APPLICANT IS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "guardian-of-a-blind-person-or",
+          "label": "GUARDIAN OF A BLIND PERSON OR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "organization-or-disabled-transporting",
+          "label": "ORGANIZATION OR DISABLED TRANSPORTING",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "qualifying-veteran-see-below",
+          "label": "QUALIFYING VETERAN (See below)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "name-of-person-who-is-blind-or-disabled-last-fir",
+          "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth",
+          "label": "DATE OF BIRTH",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "driver-license-id-number",
+          "label": "DRIVER LICENSE/ID NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "time-telephone-number",
+          "label": "TIME TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-no-street",
+          "label": "ADDRESS (No Street)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-town",
+          "label": "CITY TOWN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identification-information",
+      "title": "IDENTIFICATION INFORMATION",
+      "prompts": [
+        {
+          "id": "address-mailing",
+          "label": "ADDRESS (Mailing)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-town",
+          "label": "CITY TOWN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "office-telephone-number",
+          "label": "OFFICE TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-certification-not-seriously-required-",
+          "label": "ADDITIONAL CERTIFICATION NOT SERIOUSLY REQUIRED AT TIME OF ORIGINAL APPLICATION OR ANY TIME THEREAFTER IF THERE IS CAUSE TO BELIEVE THAT THE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "medical-license-number",
+          "label": "MEDICAL LICENSE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "medical-license-arn-required",
+          "label": "MEDICAL LICENSE ARN REQUIRED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "office-telephone-number-2",
+          "label": "OFFICE TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "signature-and-certification",
+      "title": "SIGNATURE AND CERTIFICATION",
+      "prompts": [
+        {
+          "id": "signature-of-applicant-guardian-or-power-of-atto",
+          "label": "SIGNATURE OF APPLICANT/ GUARDIAN (or Power of Attorney)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    }
+  ]
+}

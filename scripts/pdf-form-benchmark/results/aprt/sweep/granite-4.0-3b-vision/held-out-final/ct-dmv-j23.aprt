@@ -1,0 +1,81 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-j23"
+  },
+  "sections": [
+    {
+      "id": "driver-license-information",
+      "title": "Driver License Information",
+      "prompts": [
+        {
+          "id": "endorsements-license-restrictions-application-or",
+          "label": "Endorsements, License Restrictions, Application, Original Issue Date and Status.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "license-restrictions-application-original-issue-",
+      "title": "License Restrictions, Application, Original Issue Date and Status",
+      "prompts": [
+        {
+          "id": "document-this-is-not-a-duplicate-license",
+          "label": "Document. This is NOT a duplicate license.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "driving-history-list-of-violations-and-sanctions",
+      "title": "Driving History (List of violations and sanctions - certified)",
+      "prompts": [
+        {
+          "id": "driving-history-list-of-violations-and-sanctions",
+          "label": "Driving History (List of violations and sanctions - certified)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "registration-records",
+      "title": "Registration Records",
+      "prompts": [
+        {
+          "id": "registration-file-information-copy-of-current-ce",
+          "label": "Registration File Information (Copy of current certificate)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "insurance-information-only",
+          "label": "Insurance Information (Only)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "miscellaneous-request",
+          "label": "Miscellaneous Request",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

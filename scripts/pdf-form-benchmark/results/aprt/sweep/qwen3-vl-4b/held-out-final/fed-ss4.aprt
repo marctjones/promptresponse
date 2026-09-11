@@ -1,0 +1,23 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-ss4"
+  },
+  "sections": [
+    {
+      "id": "application-for-employer-identification-number",
+      "title": "Application for Employer Identification Number",
+      "prompts": [
+        {
+          "id": "ein",
+          "label": "EIN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

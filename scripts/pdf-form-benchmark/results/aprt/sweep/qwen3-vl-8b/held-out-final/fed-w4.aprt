@@ -1,0 +1,419 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-w4"
+  },
+  "sections": [
+    {
+      "id": "step-1-enter-personal-information",
+      "title": "Step 1: Enter Personal Information",
+      "prompts": [
+        {
+          "id": "first-name-and-middle-initial",
+          "label": "First name and middle initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-state-and-zip-code",
+          "label": "City or town, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "single-or-married-filing-separately",
+          "label": "Single or Married filing separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "married-filing-jointly-or-qualifying-surviving-s",
+          "label": "Married filing jointly or Qualifying surviving spouse",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "head-of-household-check-only-if-you-re-unmarried",
+          "label": "Head of household (Check only if you're unmarried and pay more than half the costs of keeping up a home for yourself and a qualifying individual.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2-multiple-jobs-or-spouse-works",
+      "title": "Step 2: Multiple Jobs or Spouse Works",
+      "prompts": [
+        {
+          "id": "if-there-are-only-two-jobs-total-you-may-check-t",
+          "label": "If there are only two jobs total, you may check this box. Do the same on Form W-4 for the other job. This option is generally more accurate than Step 2(b) if pay at the lower paying job is more than half of the pay at the higher paying job. Otherwise, Step 2(b) is more accurate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3-claim-dependent-and-other-credits",
+      "title": "Step 3: Claim Dependent and Other Credits",
+      "prompts": [
+        {
+          "id": "multiply-the-number-of-qualifying-children-under",
+          "label": "Multiply the number of qualifying children under age 17 by $2,200",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "multiply-the-number-of-other-dependents-by-500",
+          "label": "Multiply the number of other dependents by $500",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "add-the-amounts-from-steps-3-a-and-3-b-plus-the-",
+          "label": "Add the amounts from Steps 3(a) and 3(b), plus the amount for other credits. Enter the total here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-other-adjustments",
+      "title": "Step 4: Other Adjustments",
+      "prompts": [
+        {
+          "id": "other-income-not-from-jobs-if-you-want-tax-withh",
+          "label": "Other income (not from jobs). If you want tax withheld for other income you expect this year that won't have withholding, enter the amount of other income here. This may include interest, dividends, and retirement income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "deductions-use-the-deductions-worksheet-on-page-",
+          "label": "Deductions. Use the Deductions Worksheet on page 4 to determine the amount of deductions you may claim, which will reduce your withholding. (If you skip this line, your withholding will be based on the standard deduction.) Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "extra-withholding-enter-any-additional-tax-you-w",
+          "label": "Extra withholding. Enter any additional tax you want withheld each pay period",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-5-sign-here",
+      "title": "Step 5: Sign Here",
+      "prompts": [
+        {
+          "id": "i-claim-exemption-from-withholding-for-2026-and-",
+          "label": "I claim exemption from withholding for 2026, and I certify that I meet both of the conditions for exemption for 2026. See Exemption from withholding on page 2. I understand I will need to submit a new Form W-4 for 2027",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "employee-s-name-and-address",
+          "label": "Employee's name and address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-date-of-employment",
+          "label": "First date of employment",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employer-identification-number-ein",
+          "label": "Employer identification number (EIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "the-amount-from-the-appropriate-table-on-page-5-",
+          "label": "The amount from the appropriate table on page 5 using the annual wages from the highest paying job in the 'Higher Paying Job' row and the annual wages for your next highest paying job in the 'Lower Paying Job' column. Find the value at the intersection of the two household salaries and enter that value on line 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "the-amount-from-the-appropriate-table-on-page-5--2",
+          "label": "The amount from the appropriate table on page 5 using the annual wages from the highest paying job in the 'Higher Paying Job' row and the annual wages for your next highest paying job in the 'Lower Paying Job' column. Find the value at the intersection of the two household salaries and enter that value on line 2a.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "the-number-of-pay-periods-per-year-for-the-highe",
+          "label": "The number of pay periods per year for the highest paying job. For example, if that job pays weekly, enter 52; if it pays every other week, enter 26; if it pays monthly, enter 12, etc.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "divide-the-annual-amount-on-line-1-or-line-2c-by",
+          "label": "Divide the annual amount on line 1 or line 2c by the number of pay periods on line 3. Enter this amount here and in Step 4(c) of Form W-4 for the highest paying job (plus any other additional amount you want withheld).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-b-deductions-worksheet-keep-for-your-reco",
+      "title": "Step 4(b)\u2014Deductions Worksheet (Keep for your records.)",
+      "prompts": [
+        {
+          "id": "a-qualified-tips-if-your-total-income-is-less-th",
+          "label": "a Qualified tips. If your total income is less than $150,000 ($300,000 if married filing jointly), enter an estimate of your qualified tips up to $25,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "b-qualified-overtime-compensation-if-your-total-",
+          "label": "b Qualified overtime compensation. If your total income is less than $150,000 ($300,000 if married filing jointly), enter an estimate of your qualified overtime compensation up to $12,500 ($25,000 if married filing jointly) of the 'and-a-half' portion of time-and-a-half compensation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "c-qualified-passenger-vehicle-loan-interest-if-y",
+          "label": "c Qualified passenger vehicle loan interest. If your total income is less than $100,000 ($200,000 if married filing jointly), enter an estimate of your qualified passenger vehicle loan interest up to $10,000",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-1a-1b-and-1c-enter-the-result-here",
+          "label": "Add lines 1a, 1b, and 1c. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "a-enter-6-000-if-you-are-age-65-or-older-before-",
+          "label": "a Enter $6,000 if you are age 65 or older before the end of the year",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "b-enter-6-000-if-your-spouse-is-age-65-or-older-",
+          "label": "b Enter $6,000 if your spouse is age 65 or older before the end of the year and has a social security number valid for employment",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-3a-and-3b-enter-the-result-here",
+          "label": "Add lines 3a and 3b. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "enter-an-estimate-of-your-student-loan-interest-",
+          "label": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses, alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for more information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "a-medical-and-dental-expenses-enter-expenses-in-",
+          "label": "a Medical and dental expenses. Enter expenses in excess of 7.5% (0.075) of your total income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "b-state-and-local-taxes-if-your-total-income-is-",
+          "label": "b State and local taxes. If your total income is less than $505,000 ($252,500 if married filing separately), enter state and local taxes paid up to $40,400 ($20,200 if married filing separately)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "c-home-mortgage-interest-if-your-home-acquisitio",
+          "label": "c Home mortgage interest. If your home acquisition debt is less than $750,000 ($375,000 if married filing separately), enter your home mortgage interest expense (including mortgage insurance premiums)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "d-gifts-to-charities-enter-contributions-in-exce",
+          "label": "d Gifts to charities. Enter contributions in excess of 0.5% (0.005) of your total income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "e-other-itemized-deductions-enter-the-amount-for",
+          "label": "e Other itemized deductions. Enter the amount for other itemized deductions",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-6a-6b-6c-6d-and-6e-enter-the-result-he",
+          "label": "Add lines 6a, 6b, 6c, 6d, and 6e. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "a-enter-your-total-income",
+          "label": "a Enter your total income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "b-subtract-line-4-from-line-8a-if-line-4-is-grea",
+          "label": "b Subtract line 4 from line 8a. If line 4 is greater than line 8a, enter -0- here and on line 10. Skip line 9",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "enter-768-700-if-you-re-married-filing-jointly-o",
+          "label": "Enter: \u2022 $768,700 if you're married filing jointly or a qualifying surviving spouse \u2022 $640,600 if you're single or head of household \u2022 $384,350 if you're married filing separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "if-line-9-is-greater-than-line-8b-enter-the-amou",
+          "label": "If line 9 is greater than line 8b, enter the amount from line 7. Otherwise, multiply line 7 by 94% (0.94) and enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "a-32-200-if-you-re-married-filing-jointly-or-a-q",
+          "label": "a $32,200 if you're married filing jointly or a qualifying surviving spouse \u2022 $24,150 if you're head of household \u2022 $16,100 if you're single or married filing separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "cash-gifts-to-charities-if-you-take-the-standard",
+          "label": "Cash gifts to charities. If you take the standard deduction, enter cash contributions up to $1,000 ($2,000 if married filing jointly)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-11-and-12-enter-the-result-here",
+          "label": "Add lines 11 and 12. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "if-line-10-is-greater-than-line-13-subtract-line",
+          "label": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is greater than line 10, enter the amount from line 12",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-2-4-5-and-14-enter-the-result-here-and",
+          "label": "Add lines 2, 4, 5, and 14. Enter the result here and in Step 4(b) of Form W-4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    }
+  ]
+}

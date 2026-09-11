@@ -1,0 +1,384 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-w4"
+  },
+  "sections": [
+    {
+      "id": "personal-information",
+      "title": "Personal Information",
+      "prompts": [
+        {
+          "id": "first-name",
+          "label": "First name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial",
+          "label": "Middle initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth",
+          "label": "Date of birth",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "marital-status",
+          "label": "Marital status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Single",
+              "Married"
+            ]
+          }
+        },
+        {
+          "id": "marrying-filing-status",
+          "label": "Marrying filing status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "Single",
+              "Married",
+              "Head of household"
+            ]
+          }
+        },
+        {
+          "id": "number-of-qualifying-children-under-age-17",
+          "label": "Number of qualifying children under age 17",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "total-income-for-the-year",
+          "label": "Total income for the year",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-you-have-two-jobs-or-you-re-married-filing-jo",
+          "label": "If you have two jobs or you're married filing jointly and you and your spouse each have one job, find the amount from the appropriate table on page 5 using the highest paying job row and the highest value on line 1. Skip to line 2.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "if-you-have-three-jobs-or-you-re-married-filing-",
+          "label": "If you have three jobs or you're married filing jointly and you and your spouse each have three jobs, complete lines 2, b, and c.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dependents-and-other-credits",
+      "title": "Dependents and Other Credits",
+      "prompts": [
+        {
+          "id": "number-of-dependents-and-other-credits",
+          "label": "Number of dependents and other credits",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "total-amount-from-steps-3a-and-3b",
+          "label": "Total amount from Steps 3A and 3B",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "amount-from-other-income",
+          "label": "Amount from other income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "other-adjustments",
+      "title": "Other Adjustments",
+      "prompts": [
+        {
+          "id": "other-adjustments",
+          "label": "Other adjustments",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "standard-deduction-amount",
+          "label": "Standard deduction amount",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "withholding-amount",
+          "label": "Withholding amount",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employer-s-information",
+      "title": "Employer's Information",
+      "prompts": [
+        {
+          "id": "employer-s-name",
+          "label": "Employer's name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-identification-number-ein",
+          "label": "Employer's identification number (EIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "an-estimate-of-your-qualified-tips-up-to-25-000-",
+          "label": "an estimate of your qualified tips up to $25,000 . Qualified overtime compensation.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-02-0",
+          "label": "topmostSubform[0].Page4[0].f4_02[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-03-0",
+          "label": "topmostSubform[0].Page4[0].f4_03[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-04-0",
+          "label": "topmostSubform[0].Page4[0].f4_04[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-05-0",
+          "label": "topmostSubform[0].Page4[0].f4_05[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-06-0",
+          "label": "topmostSubform[0].Page4[0].f4_06[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-07-0",
+          "label": "topmostSubform[0].Page4[0].f4_07[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "alimony-paid-and-certain-other-adjustments-from-",
+          "label": "alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "medical-and-dental-expenses",
+          "label": "Medical and dental expenses.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "separately-enter-state-and-local-taxes-paid-up-t",
+          "label": "separately), enter state and local taxes paid up to $40,400 ($20,200 if married filing separately)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-11-0",
+          "label": "topmostSubform[0].Page4[0].f4_11[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "gifts-to-charities",
+          "label": "Gifts to charities.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-13-0",
+          "label": "topmostSubform[0].Page4[0].f4_13[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-14-0",
+          "label": "topmostSubform[0].Page4[0].f4_14[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-15-0",
+          "label": "topmostSubform[0].Page4[0].f4_15[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-16-0",
+          "label": "topmostSubform[0].Page4[0].f4_16[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-17-0",
+          "label": "topmostSubform[0].Page4[0].f4_17[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-18-0",
+          "label": "topmostSubform[0].Page4[0].f4_18[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-19-0",
+          "label": "topmostSubform[0].Page4[0].f4_19[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-20-0",
+          "label": "topmostSubform[0].Page4[0].f4_20[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-21-0",
+          "label": "topmostSubform[0].Page4[0].f4_21[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-22-0",
+          "label": "topmostSubform[0].Page4[0].f4_22[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page4-0-f4-23-0",
+          "label": "topmostSubform[0].Page4[0].f4_23[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

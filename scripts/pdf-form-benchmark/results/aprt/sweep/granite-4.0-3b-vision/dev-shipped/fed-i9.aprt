@@ -1,0 +1,1097 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-i9"
+  },
+  "sections": [
+    {
+      "id": "employee-information-and-attestation",
+      "title": "Employee Information and Attestation",
+      "prompts": [
+        {
+          "id": "employee-s-full-name",
+          "label": "Employee's Full Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-middle-initial-if-any",
+          "label": "Employee's Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-last-names-used-if-any",
+          "label": "Other Last Names (Used, if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth-mm-yyyy",
+          "label": "Date of Birth (mm/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-email-address",
+          "label": "Employee's Email Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-telephone-number",
+          "label": "Employee's Telephone Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "are-you-a-citizen-of-the-united-states-or-a-lawf",
+          "label": "Are you a citizen of the United States or a lawful permanent resident? Check one of the following boxes to attest to your citizenship or immigration status. See instructions on page 2 and 3.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "false-statements-or-documents-if-you-have-made-a",
+          "label": "False statements or documents. If you have made any false statements or used any false documents in this form, check the box and provide the information required on page 2 and 3 of the instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "a-noncitizen-of-the-united-states-see-instructio",
+          "label": "A noncitizen of the United States (See instructions on page 2 and 3).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "a-lawful-temporary-or-authorized-resident-see-in",
+          "label": "A lawful, temporary, or authorized resident (See instructions on page 2 and 3).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "an-alien-including-a-foreign-passport-number-and",
+          "label": "An alien, including a foreign passport number and country of issuance.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employee-or-translator-assisted-in-",
+          "label": "Signature of Employee or Translator Assisted in Completing Section 1, that person MUST sign the certification on page 3.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-yyyy",
+          "label": "Today's Date (mm/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "supplemental-information",
+      "title": "Supplemental Information",
+      "prompts": [
+        {
+          "id": "employer-s-business-or-organization-name",
+          "label": "Employer's Business or Organization Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-business-or-organization-address-city",
+          "label": "Employer's Business or Organization Address, City, Town, ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-name-if-different-from-the-authorized",
+          "label": "Employer's Name (if different from the authorized representative)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-2",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any-2",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any-2",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-3",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any-3",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any-3",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-4",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any-4",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any-4",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-5",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any-5",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any-5",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-6",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any-6",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any-6",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-7",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any-7",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any-7",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-8",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any-8",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any-8",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-9",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any-9",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any-9",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-10",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-if-any-10",
+          "label": "Document Title (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-if-any-10",
+          "label": "Issuing Authority (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-business-or-organization-name-2",
+          "label": "Employer's Business or Organization Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "business-for-reverification-or-rehire-complete-s",
+          "label": "Business for Reverification or Rehire, Complete Supplemental Reverification and Rehire on Page 4.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-1",
+      "title": "Section 1",
+      "prompts": [
+        {
+          "id": "last-name-family-name",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any",
+          "label": "Middle initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "instructions-this-supplement-must-be-completed-b",
+          "label": "Instructions: This supplement must be completed by any preparer and/or translator who assists an employee in completing Section 1 of Form 9. Each preparer and/or translator must complete, sign, and date the employee's Form 9. Employers' names must remain in the spaces provided above. Each completed Form 9 must be attached to the employee's Form I-9. The last person to complete Form 9 must sign, date, and certify that to the best of his/her knowledge, the information provided is true and correct.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name-2",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-2",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-2",
+          "label": "Middle initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator-2",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-2",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name-3",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-3",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-3",
+          "label": "Middle initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name-2",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-2",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "under-penalty-of-perjury-under-the-laws-of-the-u",
+          "label": "Under penalty of perjury, under the laws of the United States of America, I state and certify that the information provided in this form is true, correct, and complete. To the best of my knowledge, the information provided is true and correct.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator-3",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-3",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name-4",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-4",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-4",
+          "label": "Middle initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name-3",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-3",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-3",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-3",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "under-penalty-of-perjury-under-the-laws-of-the-u-2",
+          "label": "Under penalty of perjury, under the laws of the United States of America, I state and certify that the information provided in this form is true, correct, and complete. To the best of my knowledge, the information provided is true and correct.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-preparer-or-translator-4",
+          "label": "Signature of Preparer or Translator",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-4",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name-5",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-5",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-5",
+          "label": "Middle initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name-4",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-4",
+          "label": "City or Town",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-4",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-4",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "reverification-and-rehire-employee-information-f",
+          "label": "Reverification and Rehire. Employee Information from Section 1. Last Name (Family Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "reverification-and-rehire-employee-information-f-2",
+          "label": "Reverification and Rehire. Employee Information from Section 1. First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly",
+          "label": "Supplement B, Re verification and Rehire (formerly Section 3). Employee Information from Section 1. Enter the Middle Initial (if any). Instructions: This supplement replaces Section 3 on the previous version of Form I-9. Only use this page if your employee requires reverification, is rehired within three years of the date the original Form I-9 was completed, or provides proof of a legal name change.  Enter the employee's name in the fields above. Use a new section for each reverification or rehire. Review the Form I-9 instructions before completing this page. Keep this page as part of the employee's Form I-9 record. Additional guidance can be found in the Handbood for Employers: Guidance for Completing Form I-9 (M-274) at  https://www.uscis.gov/i-9-central/form-i-9-resources/handbook-for-employers-m-274",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-2",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Date of Rehire, if applicable. Enter Date as 2 digit month, 2 digit day and 4 digit year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-3",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Last Name (Family Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "reverification-and-rehire-new-name-if-applicable",
+          "label": "Reverification and Rehire. New Name, if applicable.  First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-4",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Middle Initial.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-5",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-6",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Number (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-7",
+          "label": "Supplement B.  Re verification and Rehire (formerly Section 3). Expiration Date (if any) (mm/dd/yyyy). Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-8",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter name of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-9",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Signature of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-10",
+          "label": "Supplement B. Re verification and Rehire (formerly Section 3) Enter Today's date of Authorized Representative Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-11",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-if-you-used-an-alternative-procedure-",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-12",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Date of Rehire, if applicable. Enter Date as 2 digit month, 2 digit day and 4 digit year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-13",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Last Name (Family Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-14",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-15",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Middle Initial.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-16",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-17",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Number (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-18",
+          "label": "Supplement B.  Re verification and Rehire (formerly Section 3). Expiration Date (if any) (mm/dd/yyyy). Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-19",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Signature of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-20",
+          "label": "Supplement B. Re verification and Rehire (formerly Section 3) Enter Today's date of Authorized Representative Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-21",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter name of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-22",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-if-you-used-an-alternative-procedure--2",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "reverification-and-rehires-date-of-rehire-if-app",
+          "label": "Reverification and Rehires. Date of Rehire, if applicable. Enter Date mmddyyyy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-23",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Last Name (Family Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-24",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-25",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  New Name, if applicable. Enter Middle Initial.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-26",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-27",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Number (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-28",
+          "label": "Supplement B.  Re verification and Rehire (formerly Section 3). Expiration Date (if any) (mm/dd/yyyy). Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-29",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter name of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-30",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Signature of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-31",
+          "label": "Supplement B. Re verification and Rehire (formerly Section 3) Enter Today's date of Authorized Representative Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly-32",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3).  Enter Additional Information (Initial and date each notation.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-if-you-used-an-alternative-procedure--3",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    }
+  ]
+}

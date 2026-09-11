@@ -1,0 +1,41 @@
+{
+ "model": "minicpm-v-4.6",
+ "repo": "mlx-community/MiniCPM-V-4.6-5bit",
+ "mode": "split",
+ "prompt": "final",
+ "max_tokens": 8192,
+ "seconds": 19,
+ "pages": [
+  {
+   "page": 1,
+   "blanks": 19,
+   "fell_back": false
+  },
+  {
+   "page": 2,
+   "blanks": 0,
+   "fell_back": false,
+   "skipped": "no widgets of its own"
+  },
+  {
+   "page": 3,
+   "blanks": 6,
+   "fell_back": true
+  },
+  {
+   "page": 4,
+   "blanks": 23,
+   "fell_back": true
+  },
+  {
+   "page": 5,
+   "blanks": 0,
+   "fell_back": false,
+   "skipped": "no widgets of its own"
+  }
+ ],
+ "fell_back": [
+  3,
+  4
+ ]
+}

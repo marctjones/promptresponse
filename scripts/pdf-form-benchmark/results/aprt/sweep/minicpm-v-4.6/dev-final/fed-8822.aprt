@@ -1,0 +1,23 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-8822"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "individual-income-tax-returns-forms-1040-1040-sr",
+          "label": "Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

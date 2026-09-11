@@ -1,0 +1,67 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-a83"
+  },
+  "sections": [
+    {
+      "id": "know-all-persons-by-these-presents",
+      "title": "KNOW ALL PERSONS BY THESE PRESENTS",
+      "prompts": [
+        {
+          "id": "print-your-full-name-above",
+          "label": "Print your full name above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "print-full-name-of-your-agent-above",
+          "label": "Print full name of your agent above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "in-witness-whereof",
+      "title": "IN WITNESS WHEREOF",
+      "prompts": [
+        {
+          "id": "day-of",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    },
+    {
+      "id": "state-of-connecticut",
+      "title": "STATE OF CONNECTICUT",
+      "prompts": [
+        {
+          "id": "full-name-of-principal",
+          "label": "Full name of Principal",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

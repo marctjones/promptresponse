@@ -1,0 +1,79 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-a83"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "do-hereby-appoint",
+          "label": "do hereby appoint",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "as-my-attorney-in-fact",
+          "label": "as my attorney-in-fact",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "20",
+          "label": "20",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "5",
+          "label": "5",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signer-and-sealer-of-the-foregoing-power-of-atto",
+          "label": "signer and sealer of the foregoing Power of Attorney",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day-of-2",
+          "label": "day of",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "20-9",
+          "label": "20 9",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

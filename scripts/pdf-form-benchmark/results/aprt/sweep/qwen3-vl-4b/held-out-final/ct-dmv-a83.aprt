@@ -1,0 +1,47 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-a83"
+  },
+  "sections": [
+    {
+      "id": "special-power-of-attorney",
+      "title": "Special Power of Attorney",
+      "prompts": [
+        {
+          "id": "print-your-full-name-above",
+          "label": "Print your full name above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "print-full-name-of-your-agent-above",
+          "label": "Print full name of your agent above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "day",
+          "label": "day",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "day-2",
+          "label": "day",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

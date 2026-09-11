@@ -1,0 +1,532 @@
+{
+  "sections": [
+    {
+      "id": "section-1",
+      "title": "Application for Employer Identification Number"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "EIN",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 2,
+      "label": "Legal name of entity (or individual) for whom the EIN is being requested",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 3,
+      "label": "Trade name of business (if different from name on line 1)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 4,
+      "label": "Executor, administrator, trustee, \"care of\" name",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 5,
+      "label": "Mailing address (room, apt., suite no. and street, or P.O. box)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 6,
+      "label": "Street address (if different) (Don't enter a P.O. box)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 7,
+      "label": "City, state, and ZIP code (if foreign, see instructions)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 8,
+      "label": "City, state, and ZIP code (if foreign, see instructions)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 9,
+      "label": "County and state where principal business is located",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 10,
+      "label": "Name of responsible party",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 11,
+      "label": "SSN, ITIN, or EIN",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 12,
+      "label": "If 8a is \"Yes,\" enter the number of LLC members",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 13,
+      "label": "Yes",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 14,
+      "label": "No",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 15,
+      "label": "Yes",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 16,
+      "label": "No",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 17,
+      "label": "Sole proprietor (SSN)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 18,
+      "label": "Estate (SSN of decedent)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 19,
+      "label": "Partnership",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 20,
+      "label": "Corporation (enter form number to be filed)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 21,
+      "label": "Plan administrator (TIN)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 22,
+      "label": "Personal service corporation",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 23,
+      "label": "Trust (TIN of grantor)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 24,
+      "label": "Military/National Guard",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 25,
+      "label": "State/local government",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 26,
+      "label": "Church or church-controlled organization",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 27,
+      "label": "Farmers’ cooperative",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 28,
+      "label": "Other nonprofit organization (specify)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 29,
+      "label": "Indian tribal governments/enterprises",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 30,
+      "label": "Federal government",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 31,
+      "label": "Other (specify)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 32,
+      "label": "Group Exemption Number (GEN) if any",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 33,
+      "label": "State",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 34,
+      "label": "Foreign country",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 35,
+      "label": "Banking purpose (specify purpose)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 36,
+      "label": "Started new business (specify type)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 37,
+      "label": "Changed type of organization (specify new type)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 38,
+      "label": "Purchased going business",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 39,
+      "label": "Hired employees (Check the box and see line 13.)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 40,
+      "label": "Compliance with IRS withholding regulations",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 41,
+      "label": "Created a trust (specify type)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 42,
+      "label": "Created a pension plan (specify type)",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 43,
+      "label": "Other (specify)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 44,
+      "label": "Date business started or acquired (month, day, year). See instructions.",
+      "section_id": "section-1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "none"
+    },
+    {
+      "n": 45,
+      "label": "Closing month of accounting year",
+      "section_id": "section-1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "none"
+    },
+    {
+      "n": 46,
+      "label": "Highest number of employees expected in the next 12 months (enter -0- if none). If no employees expected, skip line 14.",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 47,
+      "label": "If you expect your employment tax liability to be $1,000 or less in a full calendar year and want to file Form 944 annually instead of Forms 941 quarterly, check here. (Your employment tax liability will generally be $1,000 or less if you expect to pay $5,000 or less, $6,536 or less if you're in a U.S. territory, in total wages.) If you don't check this box, you must file Form 941 for every quarter",
+      "section_id": "section-1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "none"
+    },
+    {
+      "n": 48,
+      "label": "First date wages or annuities were paid (month, day, year). Note: If applicant is a withholding agent, enter date income will first be paid to nonresident alien (month, day, year)",
+      "section_id": "section-1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "none"
+    },
+    {
+      "n": 49,
+      "label": "Check one box that best describes the principal activity of your business",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "none",
+      "choices": [
+        "Health care & social assistance",
+        "Wholesale—agent/broker",
+        "Construction",
+        "Rental & lease",
+        "Transportation & warehousing",
+        "Accommodation & food service",
+        "Wholesale—other",
+        "Retail",
+        "Real estate",
+        "Manufacturing",
+        "Finance & insurance",
+        "Other (specify)"
+      ]
+    },
+    {
+      "n": 50,
+      "label": "Indicate principal line of merchandise sold, specific construction work done, products produced, or services provided.",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 51,
+      "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN?",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "none",
+      "choices": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "n": 52,
+      "label": "If \"Yes,\" write previous EIN here",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 53,
+      "label": "Third Party Designee",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 54,
+      "label": "Designee’s name",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 55,
+      "label": "Designee’s telephone number (include area code)",
+      "section_id": "section-1",
+      "field_kind": "phone",
+      "expected_data_type": "phone",
+      "group": "none"
+    },
+    {
+      "n": 56,
+      "label": "Designee’s fax number (include area code)",
+      "section_id": "section-1",
+      "field_kind": "phone",
+      "expected_data_type": "phone",
+      "group": "none"
+    },
+    {
+      "n": 57,
+      "label": "Applicant’s telephone number (include area code)",
+      "section_id": "section-1",
+      "field_kind": "phone",
+      "expected_data_type": "phone",
+      "group": "none"
+    },
+    {
+      "n": 58,
+      "label": "Applicant’s fax number (include area code)",
+      "section_id": "section-1",
+      "field_kind": "phone",
+      "expected_data_type": "phone",
+      "group": "none"
+    },
+    {
+      "n": 59,
+      "label": "Signature",
+      "section_id": "section-1",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 60,
+      "label": "Date",
+      "section_id": "section-1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": "none"
+    },
+    {
+      "n": 61,
+      "label": "For Privacy Act and Paperwork Reduction Act Notice, see separate instructions.",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 62,
+      "label": "Cat. No. 16055N",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    },
+    {
+      "n": 63,
+      "label": "Form SS-4 (Rev. 12-2025) Created 10/17/25",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "none"
+    }
+  ]
+}

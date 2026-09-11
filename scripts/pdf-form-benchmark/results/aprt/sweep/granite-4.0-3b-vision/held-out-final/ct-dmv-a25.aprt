@@ -1,0 +1,123 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-a25"
+  },
+  "sections": [
+    {
+      "id": "request-for-hearing-to-contest-vehicle-towing",
+      "title": "REQUEST FOR HEARING TO CONTEST VEHICLE TOWING",
+      "prompts": [
+        {
+          "id": "name",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "town",
+          "label": "TOWN",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-taken-into-ustody-by",
+          "label": "VEHICLE TAKEN INTO USTODY BY",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "make",
+          "label": "MAKE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "model",
+          "label": "MODEL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "year",
+          "label": "YEAR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "VEHICLE IDENTIFICATION NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-last-registration",
+          "label": "STATE OF LAST REGISTRATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "request",
+          "label": "REQUEST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "HEARING TO DETERMINE WHETHER THE TOWING WAS AUTHORIZED UNDER THE PROVISIONS OF SECTION 14-10",
+              "HEARING TO DETERMINE WHETHER THE TOWING WAS AUTHORIZED UNDER THE PROVISIONS OF SECTION 14-15"
+            ]
+          }
+        },
+        {
+          "id": "signature",
+          "label": "SIGNATURE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

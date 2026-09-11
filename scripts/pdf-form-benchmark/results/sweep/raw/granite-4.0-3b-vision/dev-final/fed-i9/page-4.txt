@@ -1,0 +1,328 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Name (Family Name)"
+    },
+    {
+      "id": "section_2",
+      "title": "First Name (Given Name)"
+    },
+    {
+      "id": "section_3",
+      "title": "Middle Initial"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Name",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "First Name (Given Name)",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Middle Initial",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Date of Rehire (yyyy-mm-dd)",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 5,
+      "label": "Reason for Rehire",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Additional duties",
+        "Workforce adjustment",
+        "Other"
+      ]
+    },
+    {
+      "n": 6,
+      "label": "Reason for Rehire",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Additional duties",
+        "Workforce adjustment",
+        "Other"
+      ]
+    },
+    {
+      "n": 7,
+      "label": "Reason for Rehire",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Additional duties",
+        "Workforce adjustment",
+        "Other"
+      ]
+    },
+    {
+      "n": 8,
+      "label": "Document Title",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Document Number",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Expiration Date",
+      "section_id": "section_1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 11,
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "section_1",
+      "field_kind": "signature",
+      "expected_data_type": "signature"
+    },
+    {
+      "n": 13,
+      "label": "Date",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "Additional Information",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Additional Information",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Initial",
+        "Date"
+      ]
+    },
+    {
+      "n": 16,
+      "label": "Date of Rehire (yyyy-mm-dd)",
+      "section_id": "section_2",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 17,
+      "label": "Last Name (Family Name)",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "First Name (Given Name)",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Middle Initial",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "Date of Rehire (yyyy-mm-dd)",
+      "section_id": "section_2",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 21,
+      "label": "Reason for Rehire",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Additional duties",
+        "Workforce adjustment",
+        "Other"
+      ]
+    },
+    {
+      "n": 22,
+      "label": "Document Title",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 23,
+      "label": "Document Number",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 24,
+      "label": "Expiration Date",
+      "section_id": "section_2",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 25,
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 26,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "section_2",
+      "field_kind": "signature",
+      "expected_data_type": "signature"
+    },
+    {
+      "n": 27,
+      "label": "Date",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 28,
+      "label": "Additional Information",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 29,
+      "label": "Additional Information",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Initial",
+        "Date"
+      ]
+    },
+    {
+      "n": 30,
+      "label": "Date of Rehire (yyyy-mm-dd)",
+      "section_id": "section_2",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 31,
+      "label": "Reason for Rehire",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Additional duties",
+        "Workforce adjustment",
+        "Other"
+      ]
+    },
+    {
+      "n": 32,
+      "label": "Document Title",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 33,
+      "label": "Document Number",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 34,
+      "label": "Expiration Date",
+      "section_id": "section_2",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 35,
+      "label": "Name of Employer or Authorized Representative",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 36,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "section_2",
+      "field_kind": "signature",
+      "expected_data_type": "signature"
+    },
+    {
+      "n": 37,
+      "label": "Date",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 38,
+      "label": "Additional Information",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 39,
+      "label": "Additional Information",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Initial",
+        "Date"
+      ]
+    }
+  ]
+}

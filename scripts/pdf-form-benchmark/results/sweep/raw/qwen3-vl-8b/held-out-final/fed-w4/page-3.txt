@@ -1,0 +1,37 @@
+{
+  "sections": [],
+  "fields": [
+    {
+      "n": 1,
+      "label": "The amount from the appropriate table on page 5 using the annual wages from the highest paying job in the 'Higher Paying Job' row and the annual wages for your next highest paying job in the 'Lower Paying Job' column. Find the value at the intersection of the two household salaries and enter that value on line 1.",
+      "section_id": "",
+      "field_kind": "currency",
+      "expected_data_type": "currency",
+      "group": ""
+    },
+    {
+      "n": 2,
+      "label": "The amount from the appropriate table on page 5 using the annual wages from the highest paying job in the 'Higher Paying Job' row and the annual wages for your next highest paying job in the 'Lower Paying Job' column. Find the value at the intersection of the two household salaries and enter that value on line 2a.",
+      "section_id": "",
+      "field_kind": "currency",
+      "expected_data_type": "currency",
+      "group": ""
+    },
+    {
+      "n": 3,
+      "label": "The number of pay periods per year for the highest paying job. For example, if that job pays weekly, enter 52; if it pays every other week, enter 26; if it pays monthly, enter 12, etc.",
+      "section_id": "",
+      "field_kind": "number",
+      "expected_data_type": "number",
+      "group": ""
+    },
+    {
+      "n": 4,
+      "label": "Divide the annual amount on line 1 or line 2c by the number of pay periods on line 3. Enter this amount here and in Step 4(c) of Form W-4 for the highest paying job (plus any other additional amount you want withheld).",
+      "section_id": "",
+      "field_kind": "currency",
+      "expected_data_type": "currency",
+      "group": ""
+    }
+  ]
+}

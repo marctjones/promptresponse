@@ -1,0 +1,189 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Change of Address Transfer Tax Returns"
+    },
+    {
+      "id": "section_2",
+      "title": "Signature and Contact Information"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Individual",
+      "section_id": "section_1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 2,
+      "label": "Individual",
+      "section_id": "section_1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 3,
+      "label": "Gift, estate, or generation-skipping transfer tax returns",
+      "section_id": "section_1",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 4,
+      "label": "Deceased's name",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Social security number",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "Spouse's name",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "Spouse's social security number",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "Your prior name(s)",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Your prior name(s)",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Your prior name(s)",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "Spouse's prior name(s)",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Your old address",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "Spouse's old address",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "Spouse's old address",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Spouse's old address",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "New address",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "New address",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "Foreign country name",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Foreign province/county",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "Foreign postal code",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "Foreign country name",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "Foreign province/county",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 23,
+      "label": "Foreign postal code",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 24,
+      "label": "Daytime telephone number",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "Signature",
+      "section_id": "section_2",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    }
+  ]
+}

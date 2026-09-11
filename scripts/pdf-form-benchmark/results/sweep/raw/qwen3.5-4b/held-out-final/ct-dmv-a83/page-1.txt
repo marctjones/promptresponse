@@ -1,0 +1,112 @@
+```json
+{
+  "sections": [
+    {
+      "id": "connecticut-dmv-special-power-of-attorney",
+      "title": "SPECIAL POWER OF ATTORNEY"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "do hereby appoint",
+      "section_id": "connecticut-dmv-special-power-of-attorney",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "as my attorney-in-fact",
+      "section_id": "connecticut-dmv-special-power-of-attorney",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "day of",
+      "section_id": "connecticut-dmv-special-power-of-attorney",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 4,
+      "label": "month",
+      "section_id": "connecticut-dmv-special-power-of-attorney",
+      "field_kind": "choice",
+      "expected_data_type": "number",
+      "group": null,
+      "choices": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    },
+    {
+      "n": 5,
+      "label": "year",
+      "section_id": "connecticut-dmv-special-power-of-attorney",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": null
+    },
+    {
+      "n": 6,
+      "label": "Full name of Principal",
+      "section_id": "connecticut-dmv-special-power-of-attorney",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 7,
+      "label": "day of",
+      "section_id": "connecticut-dmv-special-power-of-attorney",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 8,
+      "label": "month",
+      "section_id": "connecticut-dmv-special-power-of-attorney",
+      "field_kind": "choice",
+      "expected_data_type": "number",
+      "group": null,
+      "choices": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    },
+    {
+      "n": 9,
+      "label": "year",
+      "section_id": "connecticut-dmv-special-power-of-attorney",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": null
+    }
+  ]
+}
+```

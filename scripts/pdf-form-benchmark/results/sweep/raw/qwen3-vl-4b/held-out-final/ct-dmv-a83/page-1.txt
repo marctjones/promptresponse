@@ -1,0 +1,82 @@
+{
+  "sections": [
+    {
+      "id": "main-section",
+      "title": "Special Power of Attorney"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Print your full name above",
+      "section_id": "main-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "principal-name"
+    },
+    {
+      "n": 2,
+      "label": "Print full name of your agent above",
+      "section_id": "main-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "agent-name"
+    },
+    {
+      "n": 3,
+      "label": "day",
+      "section_id": "main-section",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "date-of-signature"
+    },
+    {
+      "n": 4,
+      "label": "month",
+      "section_id": "main-section",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "date-of-signature"
+    },
+    {
+      "n": 5,
+      "label": "year",
+      "section_id": "main-section",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "date-of-signature"
+    },
+    {
+      "n": 6,
+      "label": "Full name of Principal",
+      "section_id": "main-section",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": "principal-name"
+    },
+    {
+      "n": 7,
+      "label": "day",
+      "section_id": "main-section",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "date-of-acknowledgment"
+    },
+    {
+      "n": 8,
+      "label": "month",
+      "section_id": "main-section",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "date-of-acknowledgment"
+    },
+    {
+      "n": 9,
+      "label": "year",
+      "section_id": "main-section",
+      "field_kind": "date_field",
+      "expected_data_type": "number",
+      "group": "date-of-acknowledgment"
+    }
+  ]
+}

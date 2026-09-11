@@ -1,0 +1,361 @@
+<think>
+We need to process the given form and extract each numbered field's label and what it asks for. The instruction says to only output the JSON with the numbered fields, each with the label and field kind.
+
+Looking at the form, we have sections "Part I" and "Part II". The numbered fields are: 1, 3, 6, 8, 5a, 5b, 6a, 12, 13, 16, 17, 20, 21, 24, and also signs and signatures.
+
+We need to list each numbered field with its label and group.
+
+Let's go through the fields:
+
+1. "Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)" -> label: "Individual income tax returns"
+
+3. "Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)" -> label: "Gift, estate, or generation-skipping transfer tax returns"
+
+6. "Your name (first name, initial, and last name)" -> label: "Your name"
+
+8. "Spouse's name (first name, initial, and last name)" -> label: "Spouse's name"
+
+5a. "Your prior name(s). See instructions." -> label: "Your prior name(s)"
+
+5b. "Spouse's prior name(s). See instructions." -> label: "Spouse's prior name(s)"
+
+6a. "Your old address (no., street, apt. no., city or town, state, and ZIP code)." -> label: "Your old address"
+
+12. "Foreign country name" -> label: "Foreign country name"
+
+13. "Spouse's old address, if different from line 5a (no., street, apt. no., city or town, state, and ZIP code)." -> label: "Spouse's old address"
+
+16. "Foreign country name" -> same as 12? Actually it's "Foreign country name" again, but likely for the new address.
+
+Wait, looking at the form, there are fields for foreign country name for both old and new? Actually, the fields are:
+
+- 12: Foreign country name
+
+- 13: Spouse's old address
+
+- 16: Foreign country name (again)
+
+But from the form, the label for field 16 is "Foreign country name". Similarly, field 7 is "Decedent's name", field 3b is "Your social security number", field 5 is "Social security number", etc.
+
+We need to list each numbered field with its label.
+
+Let's structure the JSON with sections and fields.
+
+The sections are "Part I" and "Part II". But the fields are under Part I and Part II.
+
+We'll create a list of fields under Part I and Part II.
+
+But the instruction says: "Every fillable field on this page has already been located for you and is outlined in red with a number beside it." So we need to extract each numbered field.
+
+Let's list all the numbered fields and their labels:
+
+1. Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)
+
+2. Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)
+
+3. Your name (first name, initial, and last name)
+
+4. Decedent's name
+
+5. Social security number
+
+6. Your social security number
+
+7. Spouse's name (first name, initial, and last name)
+
+8. Spouse's social security number
+
+9. Your prior name(s). See instructions.
+
+10. (not numbered? Actually 10 is under "Your prior name(s)." but the number is 10. Wait, in the form, field 10 is "Your prior name(s). See instructions." So label: "Your prior name(s)."
+
+11. Spouse's prior name(s). See instructions.
+
+12. Foreign country name
+
+13. Spouse's old address, if different from line 5a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box. see instructions. If foreign address, also complete spaces below.
+
+But note: field 13 is for spouse's old address, and field 12 is foreign country name.
+
+14. Foreign province/country (maybe part of 13? Actually 14 is "Foreign province/country" under spouse's old address? Looking at the form, field 14 is "Foreign province/country" under the old address section.
+
+But the numbering: field 13 is "Spouse's old address", field 14 is "Foreign province/country". So field 14 is a separate field.
+
+15. Foreign postal code (under spouse's old address)
+
+16. Foreign country name (again)
+
+Wait, the form shows:
+
+For field 16: "Foreign country name"
+
+For field 17: "New address (no., street, apt. no., city or town, state, and ZIP code)."
+
+18. "18" (maybe a code) but label is not specified? Actually the label is "New address (no., street, apt. no., city or town, state, and ZIP code)." but the number is 17? Wait, looking at the form, the number 17 is for "New address (no., street, apt. no., city or town, state, and ZIP code)." So the numbered field is 17.
+
+20. "Foreign country name" (again)
+
+21. "Foreign province/country" (again)
+
+22. "Foreign postal code" (again)
+
+23. (maybe a phone number? Actually field 23 is "Daytime telephone number of person to contact (optional)". So label: "Daytime telephone number of person to contact (optional)"
+
+24. "Signature" (Part II)
+
+Also, there are signature fields with "Sign Here" and "Date".
+
+Now, we need to output a JSON with sections and fields.
+
+We'll create:
+
+{
+  "sections": [
+    {
+      "id": "Part I",
+      "title": "Part I"
+    },
+    {
+      "id": "Part II",
+      "title": "Part II"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 3,
+      "label": "Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 6,
+      "label": "Your name (first name, initial, and last name)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 4,
+      "label": "Spouse's name (first name, initial, and last name)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 8,
+      "label": "Spouse's social security number",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 5,
+      "label": "Social security number",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 7,
+      "label": "Your social security number",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 9,
+      "label": "Spouse's social security number",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 10,
+      "label": "Your prior name(s). See instructions.",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 11,
+      "label": "Spouse's prior name(s). See instructions.",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 12,
+      "label": "Foreign country name",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 13,
+      "label": "Spouse's old address, if different from line 5a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box. see instructions. If foreign address, also complete spaces below.",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 14,
+      "label": "Foreign province/country",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 15,
+      "label": "Foreign postal code",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 16,
+      "label": "Foreign country name",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 17,
+      "label": "New address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box. see instructions. If foreign address, also complete spaces below.",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 20,
+      "label": "Foreign country name",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 21,
+      "label": "Foreign province/country",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 22,
+      "label": "Foreign postal code",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 23,
+      "label": "Daytime telephone number of person to contact (optional)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 24,
+      "label": "Signature",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    }
+  ]
+}
+
+But note: some fields are repeated (like foreign country name appears multiple times), but we list each numbered field as is.
+
+Also, the group for fields that are one question split into several boxes is "optional: a name shared by every numbered field that is really ONE question split into several boxes". That seems to be the description for fields that are multiple fields for the same question.
+
+We need to output only the JSON, no extra text.
+
+Make sure the keys are double quoted and no commas.
+
+So the final output should be a JSON object with "sections" and "fields".
+</think>
+
+{
+  "sections": [
+    {
+      "id": "Part I",
+      "title": "Part I"
+    },
+    {
+      "id": "Part II",
+      "title": "Part II"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Individual income tax returns (Forms 1040, 1040-SR, 1040-NR, etc.)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 3,
+      "label": "Gift, estate, or generation-skipping transfer tax returns (Forms 706, 709, etc.)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 6,
+      "label": "Your name (first name, initial, and last name)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 4,
+      "label": "Spouse's name (first name, initial, and last name)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 8,
+      "label": "Spouse's social security number",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 5,
+      "label": "Social security number",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 7,
+      "label": "Your social security number",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 9,
+      "label": "Spouse's social security number",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 10,
+      "label": "Your prior name(s). See instructions.",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 11,
+      "label": "Spouse's prior name(s). See instructions.",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 12,
+      "label": "Foreign country name",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 13,
+      "label": "Spouse's old address, if different from line 5a (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box. see instructions. If foreign address, also complete spaces below.",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 14,
+      "label": "Foreign province/country",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 15,
+      "label": "Foreign postal code",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 16,
+      "label": "Foreign country name",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 17,
+      "label": "New address (no., street, apt. no., city or town, state, and ZIP code). If a P.O. box. see instructions. If foreign address, also complete spaces below.",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 20,
+      "label": "Foreign country name",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 21,
+      "label": "Foreign province/country",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 22,
+      "label": "Foreign postal code",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 23,
+      "label": "Daytime telephone number of person to contact (optional)",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    },
+    {
+      "n": 24,
+      "label": "Signature",
+      "group": "optional: a name shared by every numbered field that is really ONE question split into several boxes"
+    }
+  ]
+}

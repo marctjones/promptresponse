@@ -1,0 +1,165 @@
+```json
+{
+  "sections": [
+    {
+      "id": "step-1-enter-personal-information",
+      "title": "Step 1: Enter Personal Information"
+    },
+    {
+      "id": "step-2-multiple-jobs-or-spouse-works",
+      "title": "Step 2: Multiple Jobs or Spouse Works"
+    },
+    {
+      "id": "step-3-claim-dependent-and-other-credits",
+      "title": "Step 3: Claim Dependent and Other Credits"
+    },
+    {
+      "id": "step-4-other-adjustments",
+      "title": "Step 4: Other Adjustments"
+    },
+    {
+      "id": "step-5-sign-here",
+      "title": "Step 5: Sign Here"
+    },
+    {
+      "id": "employers-only",
+      "title": "Employers Only"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "First name and middle initial",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Last name",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Social security number",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Address",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "City or town, state, and ZIP code",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "Single or Married filing separately",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 7,
+      "label": "Married filing jointly or Qualifying surviving spouse",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 8,
+      "label": "Head of household",
+      "section_id": "step-1-enter-personal-information",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 9,
+      "label": "If there are only two jobs total, you may check this box. Do the same on Form W-4 for the other job. This option is generally more accurate than Step 2(b) if pay at the lower paying job is more than half of the pay at the higher paying job. Otherwise, Step 2(b) is more accurate",
+      "section_id": "step-2-multiple-jobs-or-spouse-works",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 10,
+      "label": "Multiply the number of qualifying children under age 17 by $2,200",
+      "section_id": "step-3-claim-dependent-and-other-credits",
+      "field_kind": "text_line",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 11,
+      "label": "Multiply the number of other dependents by $500",
+      "section_id": "step-3-claim-dependent-and-other-credits",
+      "field_kind": "text_line",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 12,
+      "label": "Add the amounts from Steps 3(a) and 3(b), plus the amount for other credits. Enter the total here",
+      "section_id": "step-3-claim-dependent-and-other-credits",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 13,
+      "label": "Other income (not from jobs). If you want tax withheld for other income you expect this year that won't have withholding, enter the amount of other income here. This may include interest, dividends, and retirement income",
+      "section_id": "step-4-other-adjustments",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 14,
+      "label": "Deductions. Use the Deductions Worksheet on page 4 to determine the amount of deductions you may claim, which will reduce your withholding. (If you skip this line, your withholding will be based on the standard deduction.) Enter the result here",
+      "section_id": "step-4-other-adjustments",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 15,
+      "label": "Extra withholding. Enter any additional tax you want withheld each pay period",
+      "section_id": "step-4-other-adjustments",
+      "field_kind": "text_line",
+      "expected_data_type": "currency"
+    },
+    {
+      "n": 16,
+      "label": "I claim exemption from withholding for 2026, and I certify that I meet both of the conditions for exemption for 2026. See Exemption from withholding on page 2. I understand I will need to submit a new Form W-4 for 2027",
+      "section_id": "step-5-sign-here",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 17,
+      "label": "Employer's name and address",
+      "section_id": "employers-only",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "First date of employment",
+      "section_id": "employers-only",
+      "field_kind": "text_line",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 19,
+      "label": "Employer identification number (EIN)",
+      "section_id": "employers-only",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    }
+  ]
+}
+```

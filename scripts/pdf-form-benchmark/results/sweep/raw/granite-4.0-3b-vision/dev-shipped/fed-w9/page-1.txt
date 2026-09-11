@@ -1,0 +1,307 @@
+{
+  "sections": [
+    {
+      "id": "section-1",
+      "title": "Identity Request"
+    },
+    {
+      "id": "section-2",
+      "title": "Certification"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Entity Name",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Business Name/Disregarded Entity",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Type of Entity",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "Type of Entity"
+    },
+    {
+      "n": 4,
+      "label": "Individual/Sole Proprietorship/C Corporation/S Partnership/Trust",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "Type of Entity"
+    },
+    {
+      "n": 5,
+      "label": "C Corporation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "S Corporation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "Trust",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "Resident Alien/Nonresident Alien",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Exempt From Federal Withholding",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Exemption Code",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "Tax Classification",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Applicable Law",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "Specific Instructions",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "Name",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Address",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "Account Number",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "Account Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "Account Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Social Security Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "Employer Identification Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "Employer Identification Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "Employer Identification Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 23,
+      "label": "Employer Identification Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 24,
+      "label": "Taxpayer Identification Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "Taxpayer Identification Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 26,
+      "label": "Taxpayer Identification Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 27,
+      "label": "Taxpayer Identification Number",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 28,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 29,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 30,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 31,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 32,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 33,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 34,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 35,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 36,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 37,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 38,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 39,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 40,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 41,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 42,
+      "label": "Certification",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_

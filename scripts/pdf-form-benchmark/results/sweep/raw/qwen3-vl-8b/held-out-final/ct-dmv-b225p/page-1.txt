@@ -1,0 +1,243 @@
+{
+  "sections": [
+    {
+      "id": "part-a-completed-by-applicant",
+      "title": "PART A - COMPLETED BY APPLICANT"
+    },
+    {
+      "id": "part-b-completed-by-physician",
+      "title": "PART B - COMPLETED BY PHYSICIAN, APRN, PHYSICIAN ASSISTANT, OPTOMETRIST, OPHTHALMOLOGIST, BESB OR USDVA PSYCHIATRIST"
+    },
+    {
+      "id": "criteria-to-qualify",
+      "title": "CRITERIA TO QUALIFY"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "NEW (1st issue)",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "REPLACEMENT",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "RENEWAL",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 4,
+      "label": "GUARDIAN OF BLIND OR DISABLED PERSON",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 5,
+      "label": "DISABLED",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 6,
+      "label": "BLIND",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 7,
+      "label": "ORGANIZATION TRANSPORTING BLIND OR DISABLED PERSON",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 8,
+      "label": "QUALIFYING VETERAN (See C below)",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": null
+    },
+    {
+      "n": 9,
+      "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle Initial)",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 10,
+      "label": "GUARDIAN OR ORGANIZATION",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 11,
+      "label": "DATE OF BIRTH (Required)",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 12,
+      "label": "CT DRIVER LICENSE/ID CARD NUMBER (Required)",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 13,
+      "label": "DAYTIME TELEPHONE NUMBER",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "group": null
+    },
+    {
+      "n": 14,
+      "label": "ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "group": "applicant-address"
+    },
+    {
+      "n": 15,
+      "label": "MAILING ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "group": "applicant-mailing-address"
+    },
+    {
+      "n": 16,
+      "label": "I certify under penalty of false statement that I am blind, or a person who has a disability that limits or impairs the ability to walk, as described in Part B, or a veteran with PTSD and a disability defined in C below, or I am the parent or guardian of such person and certifying such condition on his or her behalf. If a Power of Attorney is submitted, it must be attached to this application.",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 17,
+      "label": "SIGNATURE OF APPLICANT/PARENT/GUARDIAN (or Power of Attorney)",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "group": null
+    },
+    {
+      "n": 18,
+      "label": "DATE SIGNED",
+      "section_id": "part-a-completed-by-applicant",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 19,
+      "label": "CERTIFIER'S NAME (Please print)",
+      "section_id": "part-b-completed-by-physician",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 20,
+      "label": "CHECK ONE",
+      "section_id": "part-b-completed-by-physician",
+      "field_kind": "choice",
+      "expected_data_type": "choice",
+      "group": "certifier-type",
+      "choices": [
+        "PHYSICIAN ASSISTANT",
+        "BESB",
+        "USVA PSYCHIATRIST",
+        "PHYSICIAN",
+        "APRN",
+        "OPTOMETRIST",
+        "OPHTHALMOLOGIST"
+      ]
+    },
+    {
+      "n": 21,
+      "label": "MEDICAL LICENSE NUMBER (Required)",
+      "section_id": "part-b-completed-by-physician",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 22,
+      "label": "MEDICAL LICENSING STATE (Required)",
+      "section_id": "part-b-completed-by-physician",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 23,
+      "label": "OFFICE ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+      "section_id": "part-b-completed-by-physician",
+      "field_kind": "multiline",
+      "expected_data_type": "text",
+      "group": "certifier-address"
+    },
+    {
+      "n": 24,
+      "label": "OFFICE TELEPHONE NUMBER",
+      "section_id": "part-b-completed-by-physician",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "group": null
+    },
+    {
+      "n": 25,
+      "label": "I certify under the penalty of false statement in accordance with sections 14-110 and 53a-157b of the Connecticut General Statutes that the person named in this application meets one or more of the qualifying criteria defined above. I understand that if I make a certification that I know or believe is not true with the intent to mislead the Commissioner, I will be subject to prosecution under the above-cited laws. The applicant's condition is PERMANENT (Up to 8 years).",
+      "section_id": "part-b-completed-by-physician",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 26,
+      "label": "SIGNATURE OF PHYSICIAN, PA, APRN, OPTOMETRIST, OPHTHALMOLOGIST, OR USDVA PSYCHIATRIST",
+      "section_id": "part-b-completed-by-physician",
+      "field_kind": "signature",
+      "expected_data_type": "signature",
+      "group": null
+    },
+    {
+      "n": 27,
+      "label": "DATE SIGNED",
+      "section_id": "part-b-completed-by-physician",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    }
+  ]
+}

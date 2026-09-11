@@ -1,0 +1,511 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-i9"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "employee-last-name-family-name",
+          "label": "Employee Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-first-name-given-name",
+          "label": "Section 1., Enter First Name (Given Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-middle-initial-if-any",
+          "label": "Section 1., Enter Middle Initial, if any",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-other-last-names-used-if-any",
+          "label": "Section 1., Enter Other Last Names Used (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-address-street-number-and-name",
+          "label": "Section 1., Enter Address (Street Number and Name).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-apartment-number-if-any",
+          "label": "Section 1., Enter Apartment Number, if any",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-city-or-town",
+          "label": "Section 1., Enter City or Town.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-select-state-from-the-drop-down-list",
+          "label": "Section 1., Select State from the drop down list.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-zip-code",
+          "label": "Section 1., Enter ZIP Code.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-employee-s-telephone-number",
+          "label": "Section 1., Enter Employee's Telephone Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-date-of-birth-as-2-digit-month-2",
+          "label": "Section 1., Enter Date of Birth as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-employee-s-e-mail-address",
+          "label": "Section 1., Enter Employee's E-mail Address.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-u-s-social-security-number",
+          "label": "Section 1: Enter U.S. Social Security Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-employee-information-and-attestation-i",
+          "label": "Section 1.  Employee Information and Attestation.   I am aware that federal law provides for imprisonment and/or fines for false statements, or the use of false documents, in connection with the completion of this form.  I attest, under penalty of perjury, that this information, including my selection of the box attesting to my citizenship or immigration status, is true and correct. Check one of the following boxes to attest to your citizenship or immigration status (See page 2 and 3 of the instructions.):  1.  A citizen of the United States.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "section-1-employee-information-and-attestation-2",
+          "label": "Section 1.  Employee Information and Attestation.    2.  A noncitizen of the United States. (See Instructions)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "section-1-if-selected-item-number-3-enter-alien-",
+          "label": "Section 1., If selected Item Number 3. enter Alien Registration Number or USCIS Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-employee-information-and-attestation-3",
+          "label": "Section 1.  Employee Information and Attestation. 3. A lawful permanent resident.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "exp-date-mmddyyyy",
+          "label": "Exp. Date mmddyyyy",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-employee-information-and-attestation-4",
+          "label": "Section 1.  Employee Information and Attestation.  4.  An alien authorized to work until (exp. date, if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "section-1-employee-information-and-attestation-i-2",
+          "label": "Section 1., Employee Information and Attestation.  If you checked Item Number 4., enter one of these.  USCIS/A-Number or Form I-94 Admission Number or Foreign Passport Number and Country of Issuance.  Enter USCIS Alien Registration Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-employee-information-and-attestation-e",
+          "label": "Section 1., Employee Information and Attestation.  Enter Form I-94 Admission Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-employee-information-and-attestation-e-2",
+          "label": "Section 1., Employee Information and Attestation.  Enter Foreign Passport Number and Country of Issuance.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-employee-information-and-attestation-e-3",
+          "label": "Section 1.  Employee Information and Attestation.  Enter Signature of Employee.  If a preparer and or translator who assisted you in completing Section 1 that person must complete the Preparer and/or Translator Certification on Page 3.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-1-enter-today-s-date-of-signature-as-2-d",
+          "label": "Section 1., Enter Today's Date of Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-b-document-1-title",
+          "label": "List B Document 1 Title",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list-",
+          "label": "Section 2. Employer Review and Verification.  List C.  Enter Document Title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "supplement-b-re-verification-and-rehire-formerly",
+          "label": "Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Title.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--2",
+          "label": "Section 2. Employer Review and Verification.  List C.  Enter Issuing Authority.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--3",
+          "label": "Section 2. Employer Review and Verification.  List B.  Enter Issuing Authority.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-list-a-issuing-authority-1",
+          "label": "Section 2.  List A.  Issuing Authority 1.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--4",
+          "label": "Section 2. Employer Review and Verification.  List B.  Enter Document Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--5",
+          "label": "Section 2. Employer Review and Verification.  List C.  Enter Document Number.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-list-a-document-number-1-if-any",
+          "label": "Section 2.  List A. Document Number 1. (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--6",
+          "label": "Section 2. Employer Review and Verification.  List B.  Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--7",
+          "label": "Section 2. Employer Review and Verification.  List C.  Enter Expiration Date as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-list-a-enter-expiration-date-1-if-any",
+          "label": "Section 2.  List A. Enter Expiration Date 1.  (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-enter",
+          "label": "Section 2. Employer Review and Verification.  Enter Document Title 2. If any.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter-additional-information",
+          "label": "Enter Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--8",
+          "label": "Section 2. Employer Review and Verification. List A.  Enter Issuing Authority 2.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--9",
+          "label": "Section 2. Employer Review and Verification. List A. Enter Document Number 2. If any.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--10",
+          "label": "Section 2. Employer Review and Verification. List A.  Enter Expiration Date 2 as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--11",
+          "label": "Section 2. Employer Review and Verification.  List A.  Enter Document Title 3.  If any.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--12",
+          "label": "Section 2. Employer Review and Verification. List A. Enter Issuing Authority 3.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--13",
+          "label": "Section 2. Employer Review and Verification. List A.  Enter Document Number 3.  If any.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-list--14",
+          "label": "Section 2. Employer Review and Verification. List A.  Enter Expiration Date 3 as 2 digit for the month, 2 digit for the day and 4 digit for the year (if any).",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-if-you-used-an-alternative-procedure-",
+          "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-enter-2",
+          "label": "Section 2. Employer Review and Verification. Enter First Day of Employment as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-enter-3",
+          "label": "Section 2. Employer Review and Verification.   Enter Last Name, First Name and Title of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-enter-4",
+          "label": "Section 2. Employer Review and Verification.  Enter Signature of Employer or Authorized Representative.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-enter-today-s-date-of-signature-as-2-d",
+          "label": "Section 2., Enter Today's Date of Signature as 2-digit Month, 2-digit Day, and 4-digit Year.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "section-2-employer-review-and-verification-enter-5",
+          "label": "Section 2., Employer Review and Verification.  Enter Employer's Business or Organization Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-business-or-organization-address",
+          "label": "Employer's Business or Organization Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name-from-section-1",
+          "label": "Last Name (Family Name) from Section 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name-from-section-1",
+          "label": "First Name (Given Name) from Section 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any-from-section-1",
+          "label": "Middle initial (if any) from Section 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-rehire-if-applicable",
+          "label": "Date of Rehire (if applicable)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name-family-name",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial",
+          "label": "Middle Initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "reverification-if-the-employee-requires-reverifi",
+          "label": "Reverification: If the employee requires reverification, your employee can choose to present any acceptable List A or List C documentation to show continued employment authorization. Enter the document information in the spaces below.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

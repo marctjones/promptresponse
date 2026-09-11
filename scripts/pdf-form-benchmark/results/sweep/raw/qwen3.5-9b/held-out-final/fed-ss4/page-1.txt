@@ -1,0 +1,764 @@
+```json
+{
+  "sections": [
+    {
+      "id": "header",
+      "title": "Application for Employer Identification Number"
+    },
+    {
+      "id": "entity_info",
+      "title": "Legal name of entity (or individual) for whom the EIN is being requested"
+    },
+    {
+      "id": "entity_type",
+      "title": "Type of entity (check only one box). Caution: If 8a is \"Yes,\" see the instructions for the correct box to check."
+    },
+    {
+      "id": "reason_for_applying",
+      "title": "Reason for applying (check only one box)"
+    },
+    {
+      "id": "business_details",
+      "title": "Date business started or acquired (month, day, year). See instructions."
+    },
+    {
+      "id": "employee_info",
+      "title": "Highest number of employees expected in the next 12 months (enter -0- if none). If no employees expected, skip line 14."
+    },
+    {
+      "id": "wages_info",
+      "title": "First date wages or annuities were paid (month, day, year). Note: If applicant is a withholding agent, enter date income will first be paid to nonresident alien (month, day, year)."
+    },
+    {
+      "id": "principal_activity",
+      "title": "Check one box that best describes the principal activity of your business."
+    },
+    {
+      "id": "previous_ein",
+      "title": "Has the applicant entity shown on line 1 ever applied for and received an EIN?"
+    },
+    {
+      "id": "third_party_designee",
+      "title": "Complete this section only if you want to authorize the named individual to receive the entity's EIN and answer questions about the completion of this form."
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Legal name of entity (or individual) for whom the EIN is being requested",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Trade name of business (if different from name on line 1)",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Executor, administrator, trustee, \"care of\" name",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Mailing address (room, apt., suite no. and street, or P.O. box)",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Street address (if different) (Don't enter a P.O. box.)",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "City, state, and ZIP code (if foreign, see instructions)",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "County and state where principal business is located",
+      "section_id": "entity_info",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "If 8a is \"Yes,\" was the LLC organized in the United States?",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "llc_organized_in_us"
+    },
+    {
+      "n": 9,
+      "label": "Type of entity (check only one box). Caution: If 8a is \"Yes,\" see the instructions for the correct box to check.",
+      "section_id": "entity_type",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Sole proprietor (SSN)",
+        "Estate (SSN of decendent)",
+        "Partnership",
+        "Plan administrator (TIN)",
+        "Corporation (enter form number to be filed)",
+        "Trust (TIN of grantor)",
+        "Personal service corporation",
+        "Military/National Guard",
+        "State/local government",
+        "Church or church-controlled organization",
+        "Farmers' cooperative",
+        "Federal government",
+        "Other nonprofit organization (specify)",
+        "REMIC",
+        "Indian tribal governments/enterprises",
+        "Other (specify)",
+        "Group Exemption Number (GEN) if any"
+      ]
+    },
+    {
+      "n": 10,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Started new business (specify type)",
+        "Banking purpose (specify purpose)",
+        "Changed type of organization (specify new type)",
+        "Purchased going business",
+        "Hired employees (Check the box and see line 13.)",
+        "Created a trust (specify type)",
+        "Compliance with IRS withholding regulations",
+        "Created a pension plan (specify type)",
+        "Other (specify)"
+      ]
+    },
+    {
+      "n": 11,
+      "label": "Date business started or acquired (month, day, year). See instructions.",
+      "section_id": "business_details",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 12,
+      "label": "Closing month of accounting year",
+      "section_id": "business_details",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "Highest number of employees expected in the next 12 months (enter -0- if none). If no employees expected, skip line 14.",
+      "section_id": "employee_info",
+      "field_kind": "table_cell",
+      "expected_data_type": "number",
+      "group": "employee_count"
+    },
+    {
+      "n": 14,
+      "label": "If you expect your employment tax liability to be $1,000 or less in a full calendar year and want to file Form 941 annually instead of Forms 941 quarterly, check here. (Your employment tax liability will generally be $1,000 or less if you expect to pay $5,000 or less, $6,536 or less if you're in a U.S. territory, in total wages.) If you don't check this box, you must file Form 941 for every quarter",
+      "section_id": "employee_info",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 15,
+      "label": "First date wages or annuities were paid (month, day, year). Note: If applicant is a withholding agent, enter date income will first be paid to nonresident alien (month, day, year)",
+      "section_id": "wages_info",
+      "field_kind": "date_field",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 16,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Health care & social assistance",
+        "Wholesale—agent/broker",
+        "Construction",
+        "Rental & leasing",
+        "Transportation & warehousing",
+        "Accommodation & food services",
+        "Wholesale—other",
+        "Retail",
+        "Real estate",
+        "Manufacturing",
+        "Finance & insurance",
+        "Other (specify)"
+      ]
+    },
+    {
+      "n": 17,
+      "label": "Type of entity (check only one box). Caution: If 8a is \"Yes,\" see the instructions for the correct box to check.",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "Estate (SSN of decendent)",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Type of entity (check only one box). Caution: If 8a is \"Yes,\" see the instructions for the correct box to check.",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 20,
+      "label": "Estate (SSN of decendent)",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 21,
+      "label": "Plan administrator (TIN)",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "Partnership",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 23,
+      "label": "Plan administrator (TIN)",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 24,
+      "label": "Corporation (enter form number to be filed)",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "Trust (TIN of grantor)",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 26,
+      "label": "Corporation (enter form number to be filed)",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 27,
+      "label": "Trust (TIN of grantor)",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 28,
+      "label": "Personal service corporation",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 29,
+      "label": "Military/National Guard",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 30,
+      "label": "State/local government",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 31,
+      "label": "Church or church-controlled organization",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 32,
+      "label": "Farmers' cooperative",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 33,
+      "label": "Federal government",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 34,
+      "label": "Other nonprofit organization (specify)",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 35,
+      "label": "Other nonprofit organization (specify)",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 36,
+      "label": "REMIC",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 37,
+      "label": "Indian tribal governments/enterprises",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 38,
+      "label": "Other (specify)",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 39,
+      "label": "Group Exemption Number (GEN) if any",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 40,
+      "label": "Other (specify)",
+      "section_id": "entity_type",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "entity_type"
+    },
+    {
+      "n": 41,
+      "label": "If a corporation, name the state or foreign country (if applicable) where incorporated",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 42,
+      "label": "If a corporation, name the state or foreign country (if applicable) where incorporated",
+      "section_id": "entity_type",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 43,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 44,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 45,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 46,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 47,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 48,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 49,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 50,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 51,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 52,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 53,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 54,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 55,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 56,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 57,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 58,
+      "label": "Reason for applying (check only one box)",
+      "section_id": "reason_for_applying",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "reason_for_applying"
+    },
+    {
+      "n": 59,
+      "label": "Closing month of accounting year",
+      "section_id": "business_details",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 60,
+      "label": "Date business started or acquired (month, day, year). See instructions.",
+      "section_id": "business_details",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 61,
+      "label": "Highest number of employees expected in the next 12 months (enter -0- if none). If no employees expected, skip line 14.",
+      "section_id": "employee_info",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "employee_count"
+    },
+    {
+      "n": 62,
+      "label": "Highest number of employees expected in the next 12 months (enter -0- if none). If no employees expected, skip line 14.",
+      "section_id": "employee_info",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "employee_count"
+    },
+    {
+      "n": 63,
+      "label": "Highest number of employees expected in the next 12 months (enter -0- if none). If no employees expected, skip line 14.",
+      "section_id": "employee_info",
+      "field_kind": "text_line",
+      "expected_data_type": "number",
+      "group": "employee_count"
+    },
+    {
+      "n": 64,
+      "label": "If you expect your employment tax liability to be $1,000 or less in a full calendar year and want to file Form 941 annually instead of Forms 941 quarterly, check here. (Your employment tax liability will generally be $1,000 or less if you expect to pay $5,000 or less, $6,536 or less if you're in a U.S. territory, in total wages.) If you don't check this box, you must file Form 941 for every quarter",
+      "section_id": "employee_info",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 65,
+      "label": "First date wages or annuities were paid (month, day, year). Note: If applicant is a withholding agent, enter date income will first be paid to nonresident alien (month, day, year)",
+      "section_id": "wages_info",
+      "field_kind": "text_line",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 66,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 67,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 68,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 69,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 70,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 71,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 72,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 73,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 74,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 75,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 76,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 77,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 78,
+      "label": "Check one box that best describes the principal activity of your business.",
+      "section_id": "principal_activity",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "principal_activity"
+    },
+    {
+      "n": 79,
+      "label": "Indicate principal line of merchandise sold, specific construction work done, products produced, or services provided.",
+      "section_id": "principal_activity",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 80,
+      "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN?",
+      "section_id": "previous_ein",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "previous_ein"
+    },
+    {
+      "n": 81,
+      "label": "Has the applicant entity shown on line 1 ever applied for and received an EIN?",
+      "section_id": "previous_ein",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean",
+      "group": "previous_ein"
+    },
+    {
+      "n": 82,
+      "label": "If \"Yes,\" write previous EIN here",
+      "section_id": "previous_ein",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 83,
+      "label": "Complete this section only if you want to authorize the named individual to receive the entity's EIN and answer questions about the completion of this form.",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 84,
+      "label": "Complete this section only if you want to authorize the named individual to receive the entity's EIN and answer questions about the completion of this form.",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 85,
+      "label": "Complete this section only if you want to authorize the named individual to receive the entity's EIN and answer questions about the completion of this form.",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 86,
+      "label": "Complete this section only if you want to authorize the named individual to receive the entity's EIN and answer questions about the completion of this form.",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 87,
+      "label": "Complete this section only if you want to authorize the named individual to receive the entity's EIN and answer questions about the completion of this form.",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "phone"
+    },
+    {
+      "n": 88,
+      "label": "Under penalties of perjury, I declare that I have examined this application, and to the best of my knowledge and belief, it is true, correct, and complete. Name and title (type or print clearly)",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 89,
+      "label": "Under penalties of perjury, I declare that I have examined this application, and to the best of my knowledge and belief, it is true, correct, and complete. Applicant's fax number (include area code)",
+      "section_id": "third_party_designee",
+      "field_kind": "text_line",
+      "expected_data_type": "phone"
+    }
+  ]
+}
+```

@@ -1,0 +1,534 @@
+{
+  "sections": [
+    {
+      "id": "section-1",
+      "title": "Employee Information and Attestation"
+    },
+    {
+      "id": "section-2",
+      "title": "Supplemental Information"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Employee's Full Name",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Employee's Middle Initial (if any)",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Other Last Names (Used, if any)",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "Address",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "Date of Birth (mm/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 6,
+      "label": "Social Security Number",
+      "section_id": "section-1",
+      "field_kind": "number",
+      "expected_data_type": "number"
+    },
+    {
+      "n": 7,
+      "label": "Employee's Email Address",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "Employee's Telephone Number",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Signature of Employee",
+      "section_id": "section-1",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Date (mm/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 11,
+      "label": "Provides information to attest to your citizenship or immigration status (see instructions on page 2).",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "A noncitizen of the United States",
+        "A naturalized citizen of the United States"
+      ]
+    },
+    {
+      "n": 12,
+      "label": "A lawful permanent resident (see instructions).",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "A noncitizen of the United States",
+        "A naturalized citizen of the United States"
+      ]
+    },
+    {
+      "n": 13,
+      "label": "A foreign national (and country of issuance).",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "A noncitizen of the United States",
+        "A naturalized citizen of the United States"
+      ]
+    },
+    {
+      "n": 14,
+      "label": "Signature of Employee or Authorized Representative",
+      "section_id": "section-1",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Date (mm/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 16,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 17,
+      "label": "Date (mm/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 18,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 19,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 20,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 21,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 22,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 23,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 24,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 25,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 26,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 27,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 28,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 29,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 30,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 31,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 32,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 33,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 34,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 35,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 36,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 37,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 38,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 39,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 40,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 41,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 42,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 43,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 44,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 45,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 46,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 47,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 48,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 49,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 50,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 51,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    },
+    {
+      "n": 52,
+      "label": "Attestation",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "I attest that the information provided in this section is true and correct.",
+        "I attest that the information provided in this section is true and correct."
+      ]
+    }
+  ]
+}

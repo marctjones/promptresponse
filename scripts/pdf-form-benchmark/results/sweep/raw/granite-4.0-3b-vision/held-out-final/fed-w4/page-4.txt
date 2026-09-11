@@ -1,0 +1,22 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Qualified tips"
+    },
+    {
+      "id": "section_2",
+      "title": "Qualified overtime compensation"
+    },
+    {
+      "id": "section_3",
+      "title": "Qualified passenger vehicle loan interest"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Qualified tips if your qualified income is less than or equal to $25,000 ($30,000 if married filing jointly)",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_

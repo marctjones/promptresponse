@@ -1,0 +1,241 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-w4"
+  },
+  "sections": [
+    {
+      "id": "employees-see-employee-general-instructions-on-p",
+      "title": "Employees: See Employee General Instructions on Page 2. Sign and return Form CT-W4 to your employer. Keep a copy for your records.",
+      "prompts": [
+        {
+          "id": "withholding-code-enter-withholding-code-letter-c",
+          "label": "Withholding Code: Enter Withholding Code letter chosen from above.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-withholding-amount-per-pay-period-if-",
+          "label": "Additional withholding amount per pay period: If any, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "reduced-withholding-amount-per-pay-period-if-any",
+          "label": "Reduced withholding amount per pay period: If any, see instructions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "check-if-you-are-claiming-the-msrra-exemption-an",
+          "label": "Check if you are claiming the MSRRA exemption and enter state of legal residence/domicile:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-if-you-are-claiming-the-msrra-exemption-an-2",
+          "label": "Check if you are claiming the MSRRA exemption and enter state of legal residence/domicile:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "first-name-mi-last-name-social-security-number",
+      "title": "First name MI Last name Social Security Number",
+      "prompts": [
+        {
+          "id": "social-security-number",
+          "label": "Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name",
+          "label": "First name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "home-address-number-and-street-apartment-number-",
+      "title": "Home address (number and street, apartment number, suite number, PO Box)",
+      "prompts": [
+        {
+          "id": "home-address-number-and-street-apartment-number-",
+          "label": "Home address (number and street, apartment number, suite number, PO Box)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "city-town-state-zip-code",
+      "title": "City/town State ZIP code",
+      "prompts": [
+        {
+          "id": "city-town-state-zip-code",
+          "label": "City/town State ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employee-s-signature",
+      "title": "Employee's signature",
+      "prompts": [
+        {
+          "id": "date",
+          "label": "Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "is-this-a-new-or-rehired-employee",
+      "title": "Is this a new or rehired employee?",
+      "prompts": [
+        {
+          "id": "enter-date-hired",
+          "label": "Enter date hired:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "is-this-a-new-or-rehired-employee",
+          "label": "Is this a new or rehired employee?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "No",
+              "Yes"
+            ]
+          }
+        },
+        {
+          "id": "is-this-a-new-or-rehired-employee-2",
+          "label": "Is this a new or rehired employee?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "No",
+              "Yes"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "employer-s-business-name",
+      "title": "Employer's business name",
+      "prompts": [
+        {
+          "id": "employer-s-business-name",
+          "label": "Employer's business name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "federal-employer-identification-number",
+      "title": "Federal Employer Identification Number",
+      "prompts": [
+        {
+          "id": "federal-employer-identification-number",
+          "label": "Federal Employer Identification Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employer-s-business-address",
+      "title": "Employer's business address",
+      "prompts": [
+        {
+          "id": "employer-s-business-address",
+          "label": "Employer's business address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "city-town-state-zip-code-2",
+      "title": "City/town State ZIP code",
+      "prompts": [
+        {
+          "id": "city-town-state-zip-code",
+          "label": "City/town State ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact-person",
+      "title": "Contact person",
+      "prompts": [
+        {
+          "id": "contact-person",
+          "label": "Contact person",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "telephone-number",
+      "title": "Telephone number",
+      "prompts": [
+        {
+          "id": "telephone-number",
+          "label": "Telephone number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        }
+      ]
+    }
+  ]
+}

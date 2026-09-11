@@ -1,0 +1,254 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-b225p"
+  },
+  "sections": [
+    {
+      "id": "part-a-completed-by-applicant",
+      "title": "PART A - COMPLETED BY APPLICANT",
+      "prompts": [
+        {
+          "id": "type-of-application",
+          "label": "TYPE OF APPLICATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "NEW (1st issue)"
+            ]
+          }
+        },
+        {
+          "id": "type-of-application-2",
+          "label": "TYPE OF APPLICATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "REPLACEMENT"
+            ]
+          }
+        },
+        {
+          "id": "type-of-application-3",
+          "label": "TYPE OF APPLICATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "RENEWAL"
+            ]
+          }
+        },
+        {
+          "id": "applicant-is-check-one",
+          "label": "APPLICANT IS (Check One)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "GUARDIAN OF BLIND OR DISABLED PERSON"
+            ]
+          }
+        },
+        {
+          "id": "applicant-is-check-one-2",
+          "label": "APPLICANT IS (Check One)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "DISABLED"
+            ]
+          }
+        },
+        {
+          "id": "applicant-is-check-one-3",
+          "label": "APPLICANT IS (Check One)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "BLIND"
+            ]
+          }
+        },
+        {
+          "id": "applicant-is-check-one-4",
+          "label": "APPLICANT IS (Check One)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "ORGANIZATION TRANSPORTING BLIND OR DISABLED PERSON"
+            ]
+          }
+        },
+        {
+          "id": "applicant-is-check-one-5",
+          "label": "APPLICANT IS (Check One)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "QUALIFYING VETERAN (See C below)"
+            ]
+          }
+        },
+        {
+          "id": "name-of-person-who-is-blind-or-disabled-last-fir",
+          "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle Initial)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "guardian-or-organization",
+          "label": "GUARDIAN OR ORGANIZATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth-required",
+          "label": "DATE OF BIRTH (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "ct-driver-license-id-card-number-required",
+          "label": "CT DRIVER LICENSE/ID CARD NUMBER (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "daytime-telephone-number",
+          "label": "DAYTIME TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "address-no-and-street-city-or-town-state-zip-cod",
+          "label": "ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "mailing-address-no-and-street-city-or-town-state",
+          "label": "MAILING ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-applicant-parent-guardian-or-power-",
+          "label": "SIGNATURE OF APPLICANT/PARENT/GUARDIAN (or Power of Attorney)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "part-b-completed-by-physician-aprn-physician-ass",
+      "title": "PART B - COMPLETED BY PHYSICIAN, APRN, PHYSICIAN ASSISTANT, OPTOMETRIST, OPHTHALMOLOGIST, BESB OR USDVA PSYCHIATRIST",
+      "prompts": [
+        {
+          "id": "certifier-s-name-please-print",
+          "label": "CERTIFIER'S NAME (Please print)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-one",
+          "label": "CHECK ONE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean",
+            "suggestedValues": [
+              "PHYSICIAN ASSISTANT",
+              "BESB",
+              "USVA PSYCHIATRIST",
+              "PHYSICIAN",
+              "APRN",
+              "OPTOMETRIST",
+              "OPHTHALMOLOGIST"
+            ]
+          }
+        },
+        {
+          "id": "medical-license-number-required",
+          "label": "MEDICAL LICENSE NUMBER (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "medical-licensing-state-required",
+          "label": "MEDICAL LICENSING STATE (Required)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "office-address-no-and-street-city-or-town-state-",
+          "label": "OFFICE ADDRESS (No. and Street) (City or Town) (State) (Zip Code)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "office-telephone-number",
+          "label": "OFFICE TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "signature-of-physician-pa-aprn-optometrist-ophth",
+          "label": "SIGNATURE OF PHYSICIAN, PA, APRN, OPTOMETRIST, OPHTHALMOLOGIST, OR USDVA PSYCHIATRIST",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        }
+      ]
+    }
+  ]
+}

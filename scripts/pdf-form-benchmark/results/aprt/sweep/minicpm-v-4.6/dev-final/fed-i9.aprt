@@ -1,0 +1,749 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-i9"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "last-name-family-name",
+          "label": "Last Name (Family Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-name-given-name",
+          "label": "First Name (Given Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "middle-initial-if-any",
+          "label": "Middle Initial (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other-last-names-used-if-any",
+          "label": "Other Last Names Used (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-street-number-and-name",
+          "label": "Address (Street Number and Name)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "u-s-social-security-number",
+          "label": "U.S. Social Security Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-email-address",
+          "label": "Employee's Email Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "State",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employee-s-telephone-number",
+          "label": "Employee's Telephone Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-of-birth-mm-dd-yyyy",
+          "label": "Date of Birth (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-one-of-the-following-boxes-to-attest-to-yo",
+          "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-am-a-citizen-of-the-united-states",
+          "label": "I am a citizen of the United States",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-am-a-citizen-of-the-united-states-2",
+          "label": "I am a citizen of the United States",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-noncitizen-national-of-the-united-states",
+          "label": "A noncitizen national of the United States",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-lawful-permanent-resident-exc-date-if-any",
+          "label": "A lawful permanent resident (exc. date, if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "a-lawful-permanent-resident-exc-uscis-or-a-num",
+          "label": "A lawful permanent resident (exc. USCIS or A-Num)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "exp-date-if-any",
+          "label": "(exp. date, if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "an-alien-authorized-to-work-until",
+          "label": "An alien authorized to work until",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "uscis-a-number",
+          "label": "USCIS A-Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "form-i-94-admission-number",
+          "label": "Form I-94 Admission Number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-passport-number-and-country-of-issuance",
+          "label": "Foreign Passport Number and Country of Issuance",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employee",
+          "label": "Signature of Employee",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date-mm-dd-yyyy",
+          "label": "Today's Date (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-b",
+          "label": "List B",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "and",
+          "label": "And",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-1",
+          "label": "Document Title 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "list-c",
+          "label": "List C",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-2",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "verification-date-if-any",
+          "label": "Verification Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-information",
+          "label": "Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-2-if-any",
+          "label": "Document Title 2 (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "additional-information-2",
+          "label": "Additional Information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-2",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-3",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-2",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-title-3-if-any",
+          "label": "Document Title 3 (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "issuing-authority-3",
+          "label": "Issuing Authority",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "document-number-if-any-4",
+          "label": "Document Number (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "expiration-date-if-any-3",
+          "label": "Expiration Date (if any)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-day-of-employment-mm-dd-yyyy",
+          "label": "First Day of Employment (mm/dd/yyyy)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "certification-latest-under-penalty-of-perjury-th",
+          "label": "Certification: Latest, under penalty of perjury, that (1) I have examined the documentation presented by the above-named employee, (2) the above-listed documentation appears to be genuine and to relate to the employee named, and (3) to the best of my knowledge, the employee is authorized to work in the United States.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature-of-employer-or-authorized-representati",
+          "label": "Signature of Employer or Authorized Representative",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "today-s-date",
+          "label": "Today's Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-business-or-organization-name",
+          "label": "Employer's Business or Organization Name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "employer-s-business-or-organization-address-city",
+          "label": "Employer's Business or Organization Address, City or Town, State, ZIP Code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field-",
+          "label": "The exact visible label/question text for field 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--2",
+          "label": "The exact visible label/question text for field 2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--3",
+          "label": "The exact visible label/question text for field 3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--4",
+          "label": "The exact visible label/question text for field 4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--5",
+          "label": "The exact visible label/question text for field 5",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--6",
+          "label": "The exact visible label/question text for field 6",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--7",
+          "label": "The exact visible label/question text for field 7",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--8",
+          "label": "The exact visible label/question text for field 8",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--9",
+          "label": "The exact visible label/question text for field 9",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--10",
+          "label": "The exact visible label/question text for field 10",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--11",
+          "label": "The exact visible label/question text for field 11",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--12",
+          "label": "The exact visible label/question text for field 12",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--13",
+          "label": "The exact visible label/question text for field 13",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--14",
+          "label": "The exact visible label/question text for field 14",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--15",
+          "label": "The exact visible label/question text for field 15",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--16",
+          "label": "The exact visible label/question text for field 16",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--17",
+          "label": "The exact visible label/question text for field 17",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--18",
+          "label": "The exact visible label/question text for field 18",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--19",
+          "label": "The exact visible label/question text for field 19",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--20",
+          "label": "The exact visible label/question text for field 20",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--21",
+          "label": "The exact visible label/question text for field 21",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--22",
+          "label": "The exact visible label/question text for field 22",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--23",
+          "label": "The exact visible label/question text for field 23",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--24",
+          "label": "The exact visible label/question text for field 24",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--25",
+          "label": "The exact visible label/question text for field 25",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--26",
+          "label": "The exact visible label/question text for field 26",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--27",
+          "label": "The exact visible label/question text for field 27",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--28",
+          "label": "The exact visible label/question text for field 28",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--29",
+          "label": "The exact visible label/question text for field 29",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--30",
+          "label": "The exact visible label/question text for field 30",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--31",
+          "label": "The exact visible label/question text for field 31",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--32",
+          "label": "The exact visible label/question text for field 32",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--33",
+          "label": "The exact visible label/question text for field 33",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--34",
+          "label": "The exact visible label/question text for field 34",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--35",
+          "label": "The exact visible label/question text for field 35",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--36",
+          "label": "The exact visible label/question text for field 36",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--37",
+          "label": "The exact visible label/question text for field 37",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--38",
+          "label": "The exact visible label/question text for field 38",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uscis-preparer-and-translator-certification-for-",
+      "title": "USCIS Preparer and Translator Certification for Section 1",
+      "prompts": [
+        {
+          "id": "the-exact-visible-label-question-text-for-field-",
+          "label": "The exact visible label/question text for field 1",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--2",
+          "label": "The exact visible label/question text for field 2",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--3",
+          "label": "The exact visible label/question text for field 3",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-exact-visible-label-question-text-for-field--4",
+          "label": "The exact visible label/question text for field 4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

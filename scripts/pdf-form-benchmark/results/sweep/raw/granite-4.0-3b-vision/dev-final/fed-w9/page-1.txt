@@ -1,0 +1,211 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "Identity Requester"
+    },
+    {
+      "id": "section_2",
+      "title": "Identification Number and Certification"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Name",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "Entity name",
+      "section_id": "section_1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "Identification Number",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Individual/Sole Proprietorship",
+        "C Corporation",
+        "S Corporation",
+        "Partnership",
+        "Trust",
+        "Exempt Foreign Tax Account (EFTA)",
+        "What's New"
+      ]
+    },
+    {
+      "n": 4,
+      "label": "Exemption",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Exemptions (codes apply only to individuals)",
+        "Individual/Sole Proprietorship",
+        "C Corporation",
+        "S Corporation",
+        "Partnership",
+        "Trust",
+        "Exempt Foreign Tax Account (EFTA)",
+        "What's New"
+      ]
+    },
+    {
+      "n": 5,
+      "label": "Taxpayer Identification Number",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Social Security Number (SSN)",
+        "Employer Identification Number (EIN)",
+        "Employer Identification Number (EIN)"
+      ]
+    },
+    {
+      "n": 6,
+      "label": "Employer Identification Number",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "Social Security Number (SSN)",
+        "Employer Identification Number (EIN)",
+        "Employer Identification Number (EIN)"
+      ]
+    },
+    {
+      "n": 7,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "Address",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "Account Number",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "Account Number",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 21,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 22,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 23,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 24,
+      "label": "Name",
+      "section_id": "section_2",
+      "field_kind": "choice",
+      "expected_data_type": "text"
+    }
+  ]
+}

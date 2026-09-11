@@ -1,0 +1,16 @@
+{
+ "model": "qwen3.5-4b",
+ "repo": "mlx-community/Qwen3.5-4B-MLX-4bit",
+ "mode": "split",
+ "prompt": "final",
+ "max_tokens": 8192,
+ "seconds": 23,
+ "pages": [
+  {
+   "page": 1,
+   "blanks": 10,
+   "fell_back": false
+  }
+ ],
+ "fell_back": []
+}

@@ -1,0 +1,101 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-a25"
+  },
+  "sections": [
+    {
+      "id": "vehicle-owner-information",
+      "title": "VEHICLE OWNER INFORMATION",
+      "prompts": [
+        {
+          "id": "name",
+          "label": "NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "phone"
+          }
+        },
+        {
+          "id": "address",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vehicle-information",
+      "title": "VEHICLE INFORMATION",
+      "prompts": [
+        {
+          "id": "vehicle-taken-into-custody-by-name-of-law-enforc",
+          "label": "VEHICLE TAKEN INTO CUSTODY BY (Name of Law Enforcement Agency)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "year",
+          "label": "YEAR",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "marker-plate-no",
+          "label": "MARKER PLATE NO.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "make",
+          "label": "MAKE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "model",
+          "label": "MODEL",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-of-last-registration",
+          "label": "STATE OF LAST REGISTRATION",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "vehicle-identification-number",
+          "label": "VEHICLE IDENTIFICATION NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

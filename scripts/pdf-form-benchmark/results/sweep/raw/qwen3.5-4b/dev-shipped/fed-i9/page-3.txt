@@ -1,0 +1,316 @@
+```json
+{
+  "sections": [
+    {
+      "id": "header",
+      "title": "Supplement A, Preparer and/or Translator Certification for Section 1"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Last Name (Family Name) from Section 1.",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "First Name (Given Name) from Section 1.",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "Middle initial (if any) from Section 1.",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 4,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "header",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 5,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "header",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 6,
+      "label": "Last Name (Family Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 7,
+      "label": "First Name (Given Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 8,
+      "label": "Middle Initial (if any)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 9,
+      "label": "Address (Street Number and Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 10,
+      "label": "City or Town",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 11,
+      "label": "State",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 12,
+      "label": "ZIP Code",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 13,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "header",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 14,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "header",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 15,
+      "label": "Last Name (Family Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 16,
+      "label": "Middle Initial (if any)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 17,
+      "label": "Address (Street Number and Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 18,
+      "label": "City or Town",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 19,
+      "label": "State",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 20,
+      "label": "ZIP Code",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 21,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "header",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 22,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "header",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 23,
+      "label": "Last Name (Family Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 24,
+      "label": "First Name (Given Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 25,
+      "label": "Middle Initial (if any)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 26,
+      "label": "State",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 27,
+      "label": "Address (Street Number and Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 28,
+      "label": "City or Town",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 29,
+      "label": "ZIP Code",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 30,
+      "label": "Signature of Preparer or Translator",
+      "section_id": "header",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 31,
+      "label": "Date (mm/dd/yyyy)",
+      "section_id": "header",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 32,
+      "label": "Last Name (Family Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 33,
+      "label": "First Name (Given Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 34,
+      "label": "Middle Initial (if any)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 35,
+      "label": "State",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 36,
+      "label": "City or Town",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 37,
+      "label": "ZIP Code",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 38,
+      "label": "Address (Street Number and Name)",
+      "section_id": "header",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    }
+  ]
+}
+```

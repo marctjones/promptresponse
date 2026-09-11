@@ -1,0 +1,335 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "ct-dmv-b58ind"
+  },
+  "sections": [
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "name-last-first-middle",
+          "label": "Name Last First Middle",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "birth-date",
+          "label": "Birth Date",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "operator-license-id-number",
+          "label": "OPERATOR LICENSE/ID NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "telephone-number",
+          "label": "TELEPHONE NUMBER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "street-address-unit-apt",
+          "label": "STREET ADDRESS UNIT/APT. #",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "cty-state-zip-code",
+          "label": "CTY. STATE ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-if-you-do-not-want-your-voting-addres",
+          "label": "Check here if you do NOT want your voting address automatically updated",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "street-address-unit-apt-2",
+          "label": "STREET ADDRESS UNIT/APT. #",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-2",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "state-2",
+          "label": "STATE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "zip-code-3",
+          "label": "ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "cty-state-zip-code-2",
+          "label": "CTY. STATE ZIP CODE",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-consent-to-and-tissue-donation",
+          "label": "1 Consent to and tissue donation",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "1-no-longer-wish-to-be-in-the-donor-registry",
+          "label": "1 No longer wish to be in the donor registry",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "e-mail-registration-renewal-notices-only-will-be",
+          "label": "E-MAIL registration renewal notices only will be sent to your e-mail",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "check-here-to-remove-an-e-mail-address-on-file-a",
+          "label": "Check here to remove an e-mail address on file and attach it to this form.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-2",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address-3",
+          "label": "ADDRESS",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "are-you-a-citizen-of-the-united-states-of-americ",
+          "label": "Are you a citizen of the United States of America",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "no",
+          "label": "NO",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "will-you-be-at-least-18-years-of-age-on-or-befor",
+          "label": "Will you be at least 18 years of age on or before election",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "d",
+          "label": "d",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "do-you-wish-to-enroll-in-a-political-party",
+          "label": "Do you wish to enroll in a political party?",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "yes-name",
+          "label": "YES NAME",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "democrat",
+          "label": "DEMOCRAT",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spublic",
+          "label": "SPUBLIC",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "other",
+          "label": "OTHER",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "voter-registration-application-section",
+          "label": "Voter Registration Application Section",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "voter-declaration-i-swear-or-affirm-under-penalt",
+          "label": "VOTER DECLARATION - I swear or affirm under penalty of perjury that:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-am-a-u-s-citizen",
+          "label": "I am a U.S. citizen",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-am-at-least-17-years-old-and-will-be-at-least-",
+          "label": "I am at least 17 years old and will be at least 18 years old on or before election day",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-live-in-connecticut-at-the-address-shown-above",
+          "label": "I live in Connecticut at the address shown above",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "i-have-not-been-convicted-of-a-disenfranchising-",
+          "label": "I have not been convicted of a disenfranchising felony, or if so, I am eligible to register to vote.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "the-information-that-i-have-provided-is-true-to-",
+          "label": "The information that I have provided is true to the best of my knowledge under penalty of perjury. If I have provided false information, I may be subject to a fine or imprisonment or both under federal or state laws.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "by-signing-this-voter-declaration-i-applying-to-",
+          "label": "By signing This Voter Declaration, I applying to register to vote or changing my existing party affiliation, and I agree to allow the signature from my license record to be used as the signature or my voter registration record. X SIGNATURE FOR VOTER REGISTRATION ONLY **",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "date-signed",
+          "label": "DATE SIGNED",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "voter-registrations-without-signature-will-not-b",
+          "label": "Voter registrations without signature will not be processed",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

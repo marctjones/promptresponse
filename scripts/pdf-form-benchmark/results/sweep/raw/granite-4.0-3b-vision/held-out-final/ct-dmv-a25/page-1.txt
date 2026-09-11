@@ -1,0 +1,105 @@
+{
+  "sections": [
+    {
+      "id": "section-1",
+      "title": "REQUEST FOR HEARING TO CONTEST VEHICLE TOWING"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "NAME",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 2,
+      "label": "ADDRESS",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 3,
+      "label": "TOWN",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 4,
+      "label": "STATE",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 5,
+      "label": "ZIP CODE",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 6,
+      "label": "VEHICLE TAKEN INTO USTODY BY",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 7,
+      "label": "MAKE",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 8,
+      "label": "MODEL",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "YEAR",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 10,
+      "label": "VEHICLE IDENTIFICATION NUMBER",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "STATE OF LAST REGISTRATION",
+      "section_id": "section-1",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "REQUEST",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "choices": [
+        "HEARING TO DETERMINE WHETHER THE TOWING WAS AUTHORIZED UNDER THE PROVISIONS OF SECTION 14-10",
+        "HEARING TO DETERMINE WHETHER THE TOWING WAS AUTHORIZED UNDER THE PROVISIONS OF SECTION 14-15"
+      ]
+    },
+    {
+      "n": 13,
+      "label": "SIGNATURE",
+      "section_id": "section-1",
+      "field_kind": "signature",
+      "expected_data_type": "text"
+    }
+  ]
+}

@@ -1,0 +1,447 @@
+```json
+{
+  "sections": [
+    {
+      "id": "section-1",
+      "title": "Section 1. Employee Information and Attestation"
+    },
+    {
+      "id": "section-2",
+      "title": "Section 2. Employer Review and Verification"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "Last Name (Family Name)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 2,
+      "label": "First Name (Given Name)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 3,
+      "label": "Middle Initial (if any)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 4,
+      "label": "Other Last Names Used (if any)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 5,
+      "label": "Address (Street Number and Name)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 6,
+      "label": "Apt. Number (if any)",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 7,
+      "label": "City or Town",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 8,
+      "label": "State",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 9,
+      "label": "ZIP Code",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 10,
+      "label": "Employee's Telephone Number",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "phone",
+      "group": null
+    },
+    {
+      "n": 11,
+      "label": "Date of Birth (mm/dd/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 12,
+      "label": "Employee's Email Address",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "email",
+      "group": null
+    },
+    {
+      "n": 13,
+      "label": "U.S. Social Security Number",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 14,
+      "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "citizenship_attestation",
+      "choices": [
+        "A citizen of the United States"
+      ]
+    },
+    {
+      "n": 15,
+      "label": "Check one of the following boxes to attest to your citizenship or immigration status",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "citizenship_attestation",
+      "choices": [
+        "A noncitizen national of the United States (See Instructions.)"
+      ]
+    },
+    {
+      "n": 16,
+      "label": "Enter USCIS or A-Number",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 17,
+      "label": "A lawful permanent resident",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "citizenship_attestation",
+      "choices": [
+        "A lawful permanent resident (Enter USCIS or A-Number)"
+      ]
+    },
+    {
+      "n": 18,
+      "label": "(exp. date, if any)",
+      "section_id": "section-1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 19,
+      "label": "An alien authorized to work until",
+      "section_id": "section-1",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "citizenship_attestation",
+      "choices": [
+        "An alien authorized to work until (exp. date, if any)"
+      ]
+    },
+    {
+      "n": 20,
+      "label": "USCIS A-Number",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 21,
+      "label": "Form I-94 Admission Number",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 22,
+      "label": "Foreign Passport Number and Country of Issuance",
+      "section_id": "section-1",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 23,
+      "label": "Signature of Employee",
+      "section_id": "section-1",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 24,
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "section-1",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 25,
+      "label": "Document Title 1",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 26,
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 27,
+      "label": "Document Title 1",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 28,
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 29,
+      "label": "Issuing Authority",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 30,
+      "label": "Issuing Authority",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 31,
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 32,
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 33,
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 34,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 35,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 36,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 37,
+      "label": "Document Title 2 (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 38,
+      "label": "Additional Information",
+      "section_id": "section-2",
+      "field_kind": "multiline",
+      "expected_data_type": "multiline",
+      "group": null
+    },
+    {
+      "n": 39,
+      "label": "Issuing Authority",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 40,
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 41,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 42,
+      "label": "Document Title 3 (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 43,
+      "label": "Issuing Authority",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 44,
+      "label": "Document Number (if any)",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 45,
+      "label": "Expiration Date (if any)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 46,
+      "label": "Check here if you used an alternative procedure authorized by DHS to examine documents.",
+      "section_id": "section-2",
+      "field_kind": "choice",
+      "expected_data_type": "boolean",
+      "group": "alternative_procedure",
+      "choices": [
+        "Check here if you used an alternative procedure authorized by DHS to examine documents."
+      ]
+    },
+    {
+      "n": 47,
+      "label": "First Day of Employment (mm/dd/yyyy):",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 48,
+      "label": "Last Name, First Name and Title of Employer or Authorized Representative",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 49,
+      "label": "Signature of Employer or Authorized Representative",
+      "section_id": "section-2",
+      "field_kind": "signature",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 50,
+      "label": "Today's Date (mm/dd/yyyy)",
+      "section_id": "section-2",
+      "field_kind": "date_field",
+      "expected_data_type": "date",
+      "group": null
+    },
+    {
+      "n": 51,
+      "label": "Employer's Business or Organization Name",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    },
+    {
+      "n": 52,
+      "label": "Employer's Business or Organization Address, City or Town, State, ZIP Code",
+      "section_id": "section-2",
+      "field_kind": "text_line",
+      "expected_data_type": "text",
+      "group": null
+    }
+  ]
+}
+```

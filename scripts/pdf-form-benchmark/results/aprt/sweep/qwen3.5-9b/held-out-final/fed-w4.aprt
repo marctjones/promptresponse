@@ -1,0 +1,382 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-w4"
+  },
+  "sections": [
+    {
+      "id": "step-1-enter-personal-information",
+      "title": "Step 1: Enter Personal Information",
+      "prompts": [
+        {
+          "id": "first-name-and-middle-initial",
+          "label": "First name and middle initial",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "last-name",
+          "label": "Last name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "address",
+          "label": "Address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "city-or-town-state-and-zip-code",
+          "label": "City or town, state, and ZIP code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "single-or-married-filing-separately",
+          "label": "Single or Married filing separately",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "married-filing-jointly-or-qualifying-surviving-s",
+          "label": "Married filing jointly or Qualifying surviving spouse",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "head-of-household",
+          "label": "Head of household",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2-multiple-jobs-or-spouse-works",
+      "title": "Step 2: Multiple Jobs or Spouse Works",
+      "prompts": [
+        {
+          "id": "if-there-are-only-two-jobs-total-you-may-check-t",
+          "label": "If there are only two jobs total, you may check this box. Do the same on Form W-4 for the other job. This option is generally more accurate than Step 2(b) if pay at the lower paying job is more than half of the pay at the higher paying job. Otherwise, Step 2(b) is more accurate",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3-claim-dependent-and-other-credits",
+      "title": "Step 3: Claim Dependent and Other Credits",
+      "prompts": [
+        {
+          "id": "multiply-the-number-of-qualifying-children-under",
+          "label": "Multiply the number of qualifying children under age 17 by $2,200",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "multiply-the-number-of-other-dependents-by-500",
+          "label": "Multiply the number of other dependents by $500",
+          "response": "",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "add-the-amounts-from-steps-3-a-and-3-b-plus-the-",
+          "label": "Add the amounts from Steps 3(a) and 3(b), plus the amount for other credits. Enter the total here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-other-adjustments",
+      "title": "Step 4: Other Adjustments",
+      "prompts": [
+        {
+          "id": "other-income-not-from-jobs-if-you-want-tax-withh",
+          "label": "Other income (not from jobs). If you want tax withheld for other income you expect this year that won't have withholding, enter the amount of other income here. This may include interest, dividends, and retirement income",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "deductions-use-the-deductions-worksheet-on-page-",
+          "label": "Deductions. Use the Deductions Worksheet on page 4 to determine the amount of deductions you may claim, which will reduce your withholding. (If you skip this line, your withholding will be based on the standard deduction.) Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "extra-withholding-enter-any-additional-tax-you-w",
+          "label": "Extra withholding. Enter any additional tax you want withheld each pay period",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-5-sign-here",
+      "title": "Step 5: Sign Here",
+      "prompts": [
+        {
+          "id": "i-claim-exemption-from-withholding-for-2026-and-",
+          "label": "I claim exemption from withholding for 2026, and I certify that I meet both of the conditions for exemption for 2026. See Exemption from withholding on page 2. I understand I will need to submit a new Form W-4 for 2027",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": "employers-only",
+      "title": "Employers Only",
+      "prompts": [
+        {
+          "id": "employer-s-name-and-address",
+          "label": "Employer's name and address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "first-date-of-employment",
+          "label": "First date of employment",
+          "response": "",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "employer-identification-number-ein",
+          "label": "Employer identification number (EIN)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "form",
+      "title": "Form",
+      "prompts": [
+        {
+          "id": "two-jobs",
+          "label": "Two jobs.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page3-0-f3-02-0",
+          "label": "topmostSubform[0].Page3[0].f3_02[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page3-0-f3-03-0",
+          "label": "topmostSubform[0].Page3[0].f3_03[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page3-0-f3-04-0",
+          "label": "topmostSubform[0].Page3[0].f3_04[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter-the-number-of-pay-periods-per-year-for-the",
+          "label": "Enter the number of pay periods per year for the highest paying job.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "topmostsubform-0-page3-0-f3-06-0",
+          "label": "topmostSubform[0].Page3[0].f3_06[0]",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4-b-deductions-worksheet-keep-for-your-reco",
+      "title": "Step 4(b) \u2014 Deductions Worksheet (Keep for your records.)",
+      "prompts": [
+        {
+          "id": "deductions-for-qualified-tips-overtime-compensat",
+          "label": "Deductions for qualified tips, overtime compensation, and passenger vehicle loan interest.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "add-lines-1a-1b-and-1c-enter-the-result-here",
+          "label": "Add lines 1a, 1b, and 1c. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "seniors-age-65-or-older-if-your-total-income-is-",
+          "label": "Seniors age 65 or older. If your total income is less than $75,000 ($150,000 if married filing jointly):",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "add-lines-3a-and-3b-enter-the-result-here",
+          "label": "Add lines 3a and 3b. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "enter-an-estimate-of-your-student-loan-interest-",
+          "label": "Enter an estimate of your student loan interest, deductible IRA contributions, educator expenses, alimony paid, and certain other adjustments from Schedule 1 (Form 1040), Part II. See Pub. 505 for more information",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "itemized-deductions-enter-an-estimate-of-your-20",
+          "label": "Itemized deductions. Enter an estimate of your 2026 itemized deductions from Schedule A (Form 1040). Such deductions may include qualifying:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "add-lines-6a-6b-6c-6d-and-6e-enter-the-result-he",
+          "label": "Add lines 6a, 6b, 6c, 6d, and 6e. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "limitation-on-itemized-deductions",
+          "label": "Limitation on itemized deductions.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "enter",
+          "label": "Enter:",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text",
+            "suggestedValues": [
+              "$768,700 if you're married filing jointly or a qualifying surviving spouse",
+              "$640,600 if you're single or head of household",
+              "$384,350 if you're married filing separately"
+            ]
+          }
+        },
+        {
+          "id": "if-line-9-is-greater-than-line-8b-enter-the-amou",
+          "label": "If line 9 is greater than line 8b, enter the amount from line 7. Otherwise, multiply line 7 by 94% (0.94) and enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "standard-deduction",
+          "label": "Standard deduction.",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "cash-gifts-to-charities-if-you-take-the-standard",
+          "label": "Cash gifts to charities. If you take the standard deduction, enter cash contributions up to $1,000 ($2,000 if married filing jointly)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-11-and-12-enter-the-result-here",
+          "label": "Add lines 11 and 12. Enter the result here",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "if-line-10-is-greater-than-line-13-subtract-line",
+          "label": "If line 10 is greater than line 13, subtract line 11 from line 10 and enter the result here. If line 13 is greater than line 10, enter the amount from line 12",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "add-lines-2-4-5-and-14-enter-the-result-here-and",
+          "label": "Add lines 2, 4, 5, and 14. Enter the result here and in Step 4(b) of Form W-4",
+          "response": "",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "template",
+  "metadata": {
+    "title": "fed-8822"
+  },
+  "sections": [
+    {
+      "id": "change-of-address-transfer-tax-returns",
+      "title": "Change of Address Transfer Tax Returns",
+      "prompts": [
+        {
+          "id": "individual",
+          "label": "Individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "individual-2",
+          "label": "Individual",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "gift-estate-or-generation-skipping-transfer-tax-",
+          "label": "Gift, estate, or generation-skipping transfer tax returns",
+          "response": "",
+          "hints": {
+            "expectedDataType": "boolean"
+          }
+        },
+        {
+          "id": "deceased-s-name",
+          "label": "Deceased's name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "social-security-number",
+          "label": "Social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-name",
+          "label": "Spouse's name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-social-security-number",
+          "label": "Spouse's social security number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-prior-name-s",
+          "label": "Your prior name(s)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-prior-name-s-2",
+          "label": "Your prior name(s)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-prior-name-s-3",
+          "label": "Your prior name(s)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-prior-name-s",
+          "label": "Spouse's prior name(s)",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "your-old-address",
+          "label": "Your old address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-old-address",
+          "label": "Spouse's old address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-old-address-2",
+          "label": "Spouse's old address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "spouse-s-old-address-3",
+          "label": "Spouse's old address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    },
+    {
+      "id": "signature-and-contact-information",
+      "title": "Signature and Contact Information",
+      "prompts": [
+        {
+          "id": "new-address",
+          "label": "New address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "new-address-2",
+          "label": "New address",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-country-name-2",
+          "label": "Foreign country name",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-province-county-2",
+          "label": "Foreign province/county",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "foreign-postal-code-2",
+          "label": "Foreign postal code",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "daytime-telephone-number",
+          "label": "Daytime telephone number",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        },
+        {
+          "id": "signature",
+          "label": "Signature",
+          "response": "",
+          "hints": {
+            "expectedDataType": "text"
+          }
+        }
+      ]
+    }
+  ]
+}

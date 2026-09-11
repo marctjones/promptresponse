@@ -1,0 +1,224 @@
+{
+  "sections": [
+    {
+      "id": "section_1",
+      "title": "TYPE OF APPLICATION"
+    },
+    {
+      "id": "section_2",
+      "title": "APPLICANT INFORMATION"
+    },
+    {
+      "id": "section_3",
+      "title": "IDENTIFICATION INFORMATION"
+    },
+    {
+      "id": "section_4",
+      "title": "SIGNATURE AND CERTIFICATION"
+    }
+  ],
+  "fields": [
+    {
+      "n": 1,
+      "label": "TYPE OF APPLICATION",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "1"
+    },
+    {
+      "n": 2,
+      "label": "REPLACEMENT",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "2"
+    },
+    {
+      "n": 3,
+      "label": "RENEWAL",
+      "section_id": "section_1",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "3"
+    },
+    {
+      "n": 4,
+      "label": "APPLICANT IS",
+      "section_id": "section_2",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 5,
+      "label": "GUARDIAN OF A BLIND PERSON OR",
+      "section_id": "section_2",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 6,
+      "label": "ORGANIZATION OR DISABLED TRANSPORTING",
+      "section_id": "section_2",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 7,
+      "label": "QUALIFYING VETERAN (See below)",
+      "section_id": "section_2",
+      "field_kind": "checkbox",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 8,
+      "label": "NAME OF PERSON WHO IS BLIND OR DISABLED (Last, First, Middle)",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 9,
+      "label": "DATE OF BIRTH",
+      "section_id": "section_2",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    },
+    {
+      "n": 10,
+      "label": "DRIVER LICENSE/ID NUMBER",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 11,
+      "label": "TIME TELEPHONE NUMBER",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 12,
+      "label": "ADDRESS (No Street)",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 13,
+      "label": "CITY TOWN",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 14,
+      "label": "ZIP CODE",
+      "section_id": "section_2",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 15,
+      "label": "ADDRESS (Mailing)",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 16,
+      "label": "CITY TOWN",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 17,
+      "label": "STATE",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 18,
+      "label": "ZIP CODE",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 19,
+      "label": "OFFICE TELEPHONE NUMBER",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 20,
+      "label": "ADDITIONAL CERTIFICATION NOT SERIOUSLY REQUIRED AT TIME OF ORIGINAL APPLICATION OR ANY TIME THEREAFTER IF THERE IS CAUSE TO BELIEVE THAT THE",
+      "section_id": "section_3",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "CERTIFICATION"
+    },
+    {
+      "n": 21,
+      "label": "PHYSICIAN, PARN ASSISTANT, OPTOMETRIST, OPHTHALMOLOGIST, BESS, OR USV PSYCHIATRIST",
+      "section_id": "section_3",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "CERTIFICATION"
+    },
+    {
+      "n": 22,
+      "label": "MEDICAL LICENSE NUMBER",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 23,
+      "label": "PHYSICIAN, MEDICAL LINCENSE ARN REQUIRED",
+      "section_id": "section_3",
+      "field_kind": "choice",
+      "expected_data_type": "text",
+      "group": "CERTIFICATION"
+    },
+    {
+      "n": 24,
+      "label": "MEDICAL LICENSE ARN REQUIRED",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 25,
+      "label": "STATE",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 26,
+      "label": "OFFICE TELEPHONE NUMBER",
+      "section_id": "section_3",
+      "field_kind": "multiline",
+      "expected_data_type": "text"
+    },
+    {
+      "n": 27,
+      "label": "SIGNATURE OF APPLICANT/ GUARDIAN (or Power of Attorney)",
+      "section_id": "section_4",
+      "field_kind": "signature",
+      "expected_data_type": "boolean"
+    },
+    {
+      "n": 28,
+      "label": "DATE SIGNED",
+      "section_id": "section_4",
+      "field_kind": "date",
+      "expected_data_type": "date"
+    }
+  ]
+}
