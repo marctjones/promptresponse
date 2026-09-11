@@ -757,6 +757,14 @@
         {
           "type": "test",
           "ref": "RealFile_RoundTripsWithoutDrift"
+        },
+        {
+          "type": "test",
+          "ref": "Undo_KeepsExtensionMembersOnTableAndCell"
+        },
+        {
+          "type": "test",
+          "ref": "ModelCopierCopiesEveryMember"
         }
       ],
       "rules": [
