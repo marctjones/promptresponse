@@ -104,4 +104,79 @@ public class AprBeta6WriterGuardTests
         var write = () => _reader.WriteForm(form, AprRepresentation.Jsonc);
         write.Should().NotThrow("the retired member is gone, so nothing unprefixed remains");
     }
+
+    private const string CarriedEverywhere =
+        "{\"aprVersion\":\"1.0-beta.6\",\"routing\":\"a\",\"metadata\":{\"title\":\"T\",\"routing\":\"b\"},"
+        + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"tableLayout\":{\"fixedRows\":2},"
+        + "\"sections\":[{\"id\":\"n\",\"title\":\"N\",\"routing\":\"c\",\"prompts\":[{\"id\":\"q\",\"label\":\"Q\"}]}],"
+        + "\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"routing\":\"d\",\"hints\":{\"weight\":\"e\"}}]}]}";
+
+    private const string CarriedEverywhereYaml = """
+        aprVersion: "1.0-beta.6"
+        routing: "a"
+        metadata:
+          title: "T"
+          routing: "b"
+        sections:
+          - id: "s"
+            title: "S"
+            tableLayout:
+              fixedRows: 2
+            sections:
+              - id: "n"
+                title: "N"
+                routing: "c"
+                prompts:
+                  - id: "q"
+                    label: "Q"
+            prompts:
+              - id: "p"
+                label: "P"
+                routing: "d"
+                hints:
+                  weight: "e"
+        """;
+
+    [Theory]
+    [InlineData(AprRepresentation.Jsonc)]
+    [InlineData(AprRepresentation.Yaml)]
+    public void UnprefixedMembersTheDocumentCarried_AreWrittenBack(AprRepresentation representation)
+    {
+        // A writer puts back what it read (APR-MODEL-021). APR-MODEL-031 forbids adding an
+        // unprefixed member, and none of these was added. Every bag the guard checks
+        // carries one: the document, metadata, a section, a nested section, a prompt, hints.
+        var form = _reader.ReadForm(
+            representation == AprRepresentation.Yaml ? CarriedEverywhereYaml : CarriedEverywhere,
+            representation);
+
+        var written = _reader.WriteForm(form, AprRepresentation.Jsonc);
+
+        var root = _reader.ReadStream(written, AprRepresentation.Jsonc)
+            .OfType<AprFormRecord>().Single().Value;
+        var section = root.GetProperty("sections")[0];
+        root.GetProperty("routing").GetString().Should().Be("a");
+        root.GetProperty("metadata").GetProperty("routing").GetString().Should().Be("b");
+        section.GetProperty("tableLayout").GetProperty("fixedRows").ToString().Should().Be("2");
+        section.GetProperty("sections")[0].GetProperty("routing").GetString().Should().Be("c");
+        section.GetProperty("prompts")[0].GetProperty("routing").GetString().Should().Be("d");
+        section.GetProperty("prompts")[0].GetProperty("hints").GetProperty("weight").GetString()
+            .Should().Be("e");
+    }
+
+    [Theory]
+    [InlineData("weight")]
+    [InlineData("TableLayout")]
+    public void AnUnprefixedMemberAddedAfterReading_IsStillRefused(string added)
+    {
+        // What arrived narrows the guard; it does not switch it off. `TableLayout` is
+        // refused although `tableLayout` arrived, because member names are case-sensitive.
+        var form = _reader.ReadForm(CarriedEverywhere, AprRepresentation.Jsonc);
+        form.Sections[0].Extensions![added] = JsonDocument.Parse("\"v\"").RootElement.Clone();
+
+        var write = () => _reader.WriteForm(form, AprRepresentation.Jsonc);
+
+        var refusal = write.Should().Throw<SerializationException>().Which;
+        refusal.Code.Should().Be("UNPREFIXED_MEMBER");
+        refusal.Message.Should().Contain($"'{added}'");
+    }
 }

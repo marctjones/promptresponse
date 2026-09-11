@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 namespace PromptResponse.Core.Models;
@@ -26,6 +27,15 @@ public class AprDocument
     /// </remarks>
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? Extensions { get; set; }
+
+    /// <summary>The names in <see cref="Extensions"/> this object carried when it was read.</summary>
+    /// <remarks>
+    /// Reader state, never written. A writer puts back an unrecognised member it read
+    /// (APR-MODEL-021) but must not add an unprefixed one (APR-MODEL-031), and the
+    /// extension bag alone cannot tell a member that arrived from one set in code.
+    /// </remarks>
+    [JsonIgnore]
+    public IReadOnlySet<string> ArrivedExtensionNames { get; internal set; } = FrozenSet<string>.Empty;
 
     /// <summary>
     /// Gets or sets the format version of this APR document.

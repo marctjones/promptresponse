@@ -60,10 +60,15 @@ public class AprJsonSerializer : IAprSerializer
                 new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
             },
 
-            // Write back the members the document carried, and no others.
+            // Write back the members the document carried, and no others, and remember
+            // which extension members arrived so a writer can tell them from added ones.
             TypeInfoResolver = new DefaultJsonTypeInfoResolver
             {
-                Modifiers = { AprPresenceContract.OmitMembersTheDocumentDidNotCarry },
+                Modifiers =
+                {
+                    AprPresenceContract.OmitMembersTheDocumentDidNotCarry,
+                    AprPresenceContract.RecordExtensionsThatArrived,
+                },
             }
         };
     }
