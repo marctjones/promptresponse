@@ -853,6 +853,20 @@
         "/sections/0/prompts/0/com.example.priority"
       ]
     },
+    "rules/apr-model-021-extension-value-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-021",
+        "APR-MODEL-020"
+      ],
+      "anchors": [],
+      "roundTrip": true,
+      "preserves": [
+        "/metadata/com.example.theme/style",
+        "/metadata/com.example.theme/width",
+        "/sections/0/prompts/0/com.example.layout/color"
+      ]
+    },
     "rules/apr-model-029-roundtrip.apr.jsonc": {
       "expect": "valid",
       "rules": [
