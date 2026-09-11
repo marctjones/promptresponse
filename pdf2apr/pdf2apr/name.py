@@ -66,6 +66,9 @@ class MlxNamer(Namer):
 
     model_id: str = DEFAULT_MODEL
     max_tokens: int = 4000
+    prompt: str = PROMPT
+    """What the model is asked. Changing it is how a new instruction is measured
+    against the shipped one without a private copy of the naming stage."""
 
     def __post_init__(self) -> None:
         from mlx_vlm import load  # imported late: a heavy, platform-specific dep
@@ -77,7 +80,7 @@ class MlxNamer(Namer):
         from mlx_vlm.prompt_utils import apply_chat_template
 
         formatted = apply_chat_template(
-            self._processor, self._model.config, PROMPT, num_images=1)
+            self._processor, self._model.config, self.prompt, num_images=1)
         reply = generate(
             self._model, self._processor, formatted, [str(page.image)],
             max_tokens=self.max_tokens, temperature=0.0, verbose=False,
