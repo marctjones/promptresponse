@@ -1,0 +1,109 @@
+{
+ "fed-w9:1": {
+  "whole": 23,
+  "split": 23,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "ct-w4:1": {
+  "whole": 19,
+  "split": 19,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "fed-8822:1": {
+  "whole": 25,
+  "split": 25,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "fed-i9:1": {
+  "whole": 51,
+  "split": 52,
+  "identical": false,
+  "only_split": [
+   "Document Title 1 | Supplement B,  Re verification and Rehire (formerly Section 3). Enter the Document Title."
+  ],
+  "only_whole": []
+ },
+ "fed-i9:3": {
+  "whole": 38,
+  "split": 38,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "fed-i9:4": {
+  "whole": 39,
+  "split": 39,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "ct-dmv-a25:1": {
+  "whole": 10,
+  "split": 10,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "ct-dmv-a83:1": {
+  "whole": 9,
+  "split": 9,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "ct-dmv-b225p:1": {
+  "whole": 15,
+  "split": 15,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "ct-dmv-b58ind:1": {
+  "whole": 34,
+  "split": 34,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "ct-dmv-j23:1": {
+  "whole": 44,
+  "split": 44,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "fed-ss4:1": {
+  "whole": 89,
+  "split": 89,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "fed-w4:1": {
+  "whole": 19,
+  "split": 19,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "fed-w4:3": {
+  "whole": 6,
+  "split": 6,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ },
+ "fed-w4:4": {
+  "whole": 23,
+  "split": 23,
+  "identical": true,
+  "only_split": [],
+  "only_whole": []
+ }
+}
