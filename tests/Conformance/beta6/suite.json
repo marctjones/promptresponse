@@ -1597,6 +1597,28 @@
       ]
     },
     {
+      "id": "corpus:rules/apr-model-029-roundtrip.apr.jsonc",
+      "source": "corpus",
+      "rule": "rules",
+      "anchors": [],
+      "rules": [
+        "APR-MODEL-029",
+        "APR-MODEL-021"
+      ],
+      "representation": "jsonc",
+      "expect": "valid",
+      "profile": "core",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"tableLayout\": {\n        \"fixedRows\": 2\n      },\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "digest": "sha256:6208c342d51fb728dc78d7915ec4eb22959207c9ca66acf79caba25a1d27a2f8",
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/tableLayout"
+      ]
+    },
+    {
       "id": "corpus:rules/apr-model-029-satisfies.apr.jsonc",
       "source": "corpus",
       "rule": "rules",

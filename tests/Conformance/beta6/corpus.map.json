@@ -853,6 +853,21 @@
         "/sections/0/prompts/0/com.example.priority"
       ]
     },
+    "rules/apr-model-029-roundtrip.apr.jsonc": {
+      "expect": "valid",
+      "rules": [
+        "APR-MODEL-029",
+        "APR-MODEL-021"
+      ],
+      "anchors": [],
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/tableLayout"
+      ]
+    },
     "rules/apr-digest-002-roundtrip.apr.jsonc": {
       "expect": "valid",
       "rules": [
