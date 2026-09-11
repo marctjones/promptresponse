@@ -55,7 +55,7 @@ export const RETIRED_MEMBERS = new Set([
   // Table column presentation, removed before 1.0.
   "width", "alignment", "color", "background", "fontSize", "bold", "style",
   // Workflow state, retired in beta.6. Dropped rather than preserved into `extra`:
-  // none carried a claim whose silent loss would be worse than its removal, and
-  // preserving them would write them back into a document the format says has none.
-  "responseMetadata", "filledBy", "filledDate",
+  // it carried no claim whose silent loss would be worse than its removal, and
+  // preserving it would write it back into a document the format says has none.
+  "responseMetadata",
 ]);
