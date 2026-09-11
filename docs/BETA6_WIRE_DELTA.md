@@ -29,7 +29,7 @@ have to derive each of them.
 | `metadata.regarding` is new | `APR-MODEL-043`, `APR-MODEL-044` | An ordered, duplicate-free array of digests. It asserts context and nothing else — no revision, no chronology, no authority. |
 | `metadata.templateId` is a URI | `APR-MODEL-036` | A slug is not one. **Found:** this rippled through thirty-nine fixtures and assertions, and through the PDF importer, which minted a slug. |
 | Root `signatures` is retired | `APR-MODEL-022` | Report `RETIRED_EMBEDDED_SIGNATURES` rather than dropping it silently: a document carrying it was making a cryptographic claim beta.6 cannot honour. |
-| Extension members carry a reverse-DNS prefix | `APR-MODEL-029`, `APR-MODEL-031` | Unprefixed names are reserved to the specification. A validator **may** warn `UNPREFIXED_MEMBER`; a producer **must not** write one. |
+| Extension members carry a reverse-DNS prefix | `APR-MODEL-029`, `APR-MODEL-031` | Unprefixed names are reserved to the specification. A validator **may** warn `UNPREFIXED_MEMBER`; a producer **must not** add one, but a writer puts back one it read (`APR-MODEL-021`). |
 
 ## 2. Types
 
