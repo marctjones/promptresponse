@@ -74,13 +74,21 @@ MODELS: dict[str, dict] = {
 }
 THINKING = re.compile(r"<think>.*?</think>", re.S)
 
+# pdf2apr ships 4000. SS-4's 89-blank page and a W-4 page need more: the reply is
+# cut off, the page falls back to deterministic labels, and the model is never
+# measured there -- the ladder's held-out run fell back on exactly those. Every
+# sweep job uses this budget, so every model is compared on the same terms.
+MAX_TOKENS = 8192
+
 
 def job(run: str, prompt: str, forms: list[str], mode: str = "split") -> dict:
     return {"run": run, "prompt": prompt, "forms": list(forms), "mode": mode}
 
 
 def default_plan() -> dict[str, list[dict]]:
-    plan = {"qwen3-vl-4b": [job("dev-final", "final", L.DEV)]}
+    # dev-final must reproduce the ladder's whole-file documents; held-out-final is
+    # Qwen3-VL-4B's own row under the same token budget as every other model.
+    plan = {"qwen3-vl-4b": [job("dev-final", "final", L.DEV), job("held-out-final", "final", L.HELD_OUT)]}
     for model in list(MODELS)[1:]:
         # The final prompt on both sets first: that is what decides whether to stop.
         plan[model] = [job("dev-final", "final", L.DEV),
@@ -225,7 +233,8 @@ def run_job(namer: SweepNamer, model: str, spec: dict, repo: str) -> None:
         namer.raw_dir = ROOT / "raw" / model / spec["run"] / fid
         namer.raw_dir.mkdir(parents=True, exist_ok=True)
         t0 = time.time()
-        meta = {"model": model, "repo": repo, "mode": spec["mode"], "prompt": spec["prompt"]}
+        meta = {"model": model, "repo": repo, "mode": spec["mode"], "prompt": spec["prompt"],
+                "max_tokens": namer.max_tokens}
         try:
             document, pages = (convert_split if spec["mode"] == "split" else convert_whole)(namer, fid)
         except Exception as exc:  # noqa: BLE001 -- recorded, never scored as an answer
@@ -280,7 +289,7 @@ def worker(model: str, idle_minutes: float, repo: str | None) -> int:
 
         resource_guard.set_mlx_safety_limits()
         t0 = time.time()
-        namer = SweepNamer(model_id=repo, template=MODELS[model]["template"])
+        namer = SweepNamer(model_id=repo, template=MODELS[model]["template"], max_tokens=MAX_TOKENS)
         print(f"{model}: loaded {repo} in {time.time() - t0:.0f}s", flush=True)
         try:
             idle_since = time.time()
