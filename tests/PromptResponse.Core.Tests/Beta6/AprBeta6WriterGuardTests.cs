@@ -56,6 +56,24 @@ public class AprBeta6WriterGuardTests
     }
 
     [Fact]
+    public void AnUnprefixedMemberThatArrived_IsWrittenBackUnchanged()
+    {
+        // A stream record is written from the value that was read, so nothing in it was
+        // added. APR-MODEL-021 requires a member present on read to be present, unchanged,
+        // on write; APR-MODEL-031 forbids only adding one.
+        var records = _reader.ReadStream(
+            "\u001e{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\","
+            + "\"title\":\"S\",\"tableLayout\":{\"fixedRows\":2},\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n",
+            AprRepresentation.Jsonc);
+
+        var written = _reader.WriteStream(records, AprRepresentation.Jsonc);
+
+        var section = _reader.ReadStream(written, AprRepresentation.Jsonc)
+            .OfType<AprFormRecord>().Single().Value.GetProperty("sections")[0];
+        section.GetProperty("tableLayout").GetProperty("fixedRows").GetInt32().Should().Be(2);
+    }
+
+    [Fact]
     public void AnUnprefixedMemberOnASectionOrPrompt_IsAlsoRefused()
     {
         var document = Form();
