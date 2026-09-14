@@ -37,6 +37,15 @@ class AprYamlError(ValueError):
 class AprYamlLoader(yaml.SafeLoader):
     """A YAML loader whose scalar resolution is the specification's, not YAML 1.1's."""
 
+    def construct_mapping(self, node, deep=False):
+        # A key resolves by the same table as a value, and a member name can only
+        # be a string: `true:` or `12:` has no JSON spelling. [APR-REP-009]
+        mapping = super().construct_mapping(node, deep=deep)
+        if any(not isinstance(key, str) for key in mapping):
+            raise AprYamlError("APR YAML requires every mapping key to resolve to a string",
+                               "PARSE_ERROR")
+        return mapping
+
 
 AprYamlLoader.yaml_implicit_resolvers = {}
 AprYamlLoader.add_implicit_resolver(

@@ -178,7 +178,7 @@ public final class AprBeta6 {
     }
 
     @SuppressWarnings("unchecked") private static Object normalizeYaml(Object value) {
-        if (value instanceof Map<?,?> map) { Map<String,Object> result = new LinkedHashMap<>(); for (var entry : map.entrySet()) { if (!(entry.getKey() instanceof String key)) throw new AprException("APR YAML keys must be strings"); result.put(key, normalizeYaml(entry.getValue())); } return result; }
+        if (value instanceof Map<?,?> map) { Map<String,Object> result = new LinkedHashMap<>(); for (var entry : map.entrySet()) { if (!(entry.getKey() instanceof String key)) throw new AprException("APR YAML requires every mapping key to resolve to a string", "PARSE_ERROR"); result.put(key, normalizeYaml(entry.getValue())); } return result; }
         if (value instanceof List<?> list) return list.stream().map(AprBeta6::normalizeYaml).toList();
         if (value instanceof String || value instanceof Number || value instanceof Boolean || value == null) return value;
         throw new AprException("APR YAML contains an unsupported value");
