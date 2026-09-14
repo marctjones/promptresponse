@@ -252,7 +252,11 @@
       "text": "[Rendering](#renderers), [security](#security), and the [conformance checklist](#checklist) constrain hosts and verify an implementation.",
       "disposition": "keep",
       "status": "applied",
-      "issue": 473
+      "issue": 473,
+      "replacedBy": [
+        "navigation/list-item/3219dacce5"
+      ],
+      "note": "no longer links the deleted checklist (#486)"
     },
     "navigation/sentence/dcc723468c": {
       "anchor": "navigation",
@@ -11485,480 +11489,600 @@
       "chapter": 15,
       "kind": "heading",
       "text": "15. Conformance checklist",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/sentence/4139364179": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "sentence",
       "text": "An implementation claiming **APR 1.0-beta.6 core** MUST:",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/b3c1e993a6": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Parse UTF-8 in both representations; reject malformed input rather than coercing it",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/d8fcb70967": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Reject a response given as a JSON number or boolean",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/701c66cc5f": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Reject a structural member given in the wrong JSON type; `canAddRows` is a boolean, `maxRows` an integer",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/3118343b1a": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Read a null or absent response as the empty string; never write null",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/20212e9741": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Reject any `aprVersion` other than `1.0-beta.6`",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/cf6d9f88ea": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Treat `documentType` as authoritative; never infer type from a filename",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/fd28c1bf70": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Label APR content with its `vnd.apr` media type; never infer behaviour from a generic one",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/352df25023": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Require `metadata.title`, section `id` and `title`, prompt `id` and `label`",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/fc8470d4e8": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Enforce document-wide id uniqueness in both namespaces; never generate or replace an id unless asked, and then only by the content rule",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/2e096226c4": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Require content in every section, tables included, and at least one instance in a table",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/2436a469b2": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Treat a table as structure, never as licence for layout data",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/b89a511d7e": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Derive table headers from the corresponding prompts' labels; correspond by position",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/e02ff0347c": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Require `templateId` on a filled form, as a URI, and never fetch it",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/689d87c074": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Preserve `metadata.regarding`, treat an unresolved reference as valid, and never read a reference as revision, authority or trust",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/5a05cf464b": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Support at least 16 levels of section nesting",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/b2c415d863": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Ignore unknown members without rejecting them, and preserve them on write",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/7cf037838e": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Name every extension member with an owned reverse-DNS prefix; add no unprefixed member",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/655435260c": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Degrade an unrecognized `expectedDataType` to text",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/f39160d03e": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Treat `signature` and `file` as unregistered types; never present a signature widget as evidence",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/8ecdb0f083": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "**Never reject, alter, or block a response because of a hint**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/b57b5c08f3": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Never alter a response on the basis of a hint",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/0c57affff6": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Report — never rewrite — hidden characters in every `submissionUrls` entry",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/d12b1b7bf0": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Refuse, at authoring time, human-facing text that is not NFC or carries invisible, deprecated or control code points",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/9245753ca4": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Deliver only by a single `PUT` to an `https` entry or an attachment to a `mailto` entry, on an explicit user action, never following a redirect",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/91043bab04": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Preserve every response byte-for-byte across a round-trip",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/56f231edb6": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Produce identical semantic models from paired JSONC and YAML documents",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/253cfd9598": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Preserve attestation records and `expr*` strings even when not implementing them",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/bfa08585fa": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Never gate parsing, validation, rendering, or data extraction on attestation state",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/6f682648d4": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Pass every fixture in `tests/Conformance/beta6/`, and every executable example in this document",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/sentence/a30706a4ff": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "sentence",
       "text": "An implementation additionally claiming **`core+streams`** MUST:",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/075fb8087f": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Read and write RS-framed APR-JSONC streams and APR-YAML document streams",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/a616430989": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Yield every record, including repeated identical form occurrences",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/8f835ef389": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Never deduplicate, reorder, or select a record by position",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/22babad73c": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Return `APR_STREAM_REQUIRES_ITERATION` from a single-form API given a stream",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/56d3c39f21": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Refuse a stream that mixes representations",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/342ac05d90": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Produce the same semantic records from either member of a paired stream",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/sentence/d6cefe1a31": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "sentence",
       "text": "An implementation additionally claiming **`core+attestations`** MUST, and MUST also satisfy `core+streams`:",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/c59a6cc2e6": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Compute `jcs-sha256` digests over the semantic model, extension members included",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/a783fc8614": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Build manifests that hold no plaintext of the values they describe",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/e09c814345": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Resolve an attestation to its subject by digest, whatever the record order",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/a25844de83": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Hold an unresolved attestation until its subject is observed, and report `unresolved` if it never is",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/6107f6ab78": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Verify a `cms/ecdsa-p256-sha256` proof over the proof-free envelope",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/caaaf60ab5": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Report an unrecognized proof type as `unverifiable`, never `invalid`, and preserve it",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/ae3b15b8e3": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Resolve a witness to the exact earlier envelope it names",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/bb33e2c4a2": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Report `valid`, `invalid`, `unresolved`, `unverifiable` and `witnessed` independently",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/b03b1dbad9": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Keep certificate trust separate from cryptographic validity",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/3b1ef0aa25": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "**Never gate parsing, validation, rendering, export or extraction on attestation state**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/sentence/37092dca0a": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "sentence",
       "text": "An implementation additionally claiming **`core+expressions`** MUST:",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/e5d89392a5": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Evaluate CEL as cel-spec `v0.25.3` defines it, and pass that release's conformance suite",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/a3d95d59c2": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Provide the CEL standard library and standard macros, and no extension library or custom function",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/6d0606ff9a": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Bind each response by its prompt's declared type",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/9cf075615d": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Treat an unconvertible or blank typed response as unbound, never as a default",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/c33a3b341a": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Supply `_this`, `_id`, `_now`, `_today` and `ctx`, and let no prompt id shadow them",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/0a0271f9d2": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Take `_now` and `_today` from the caller, never from the host clock",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/090d8ddf51": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Apply the per-hint fallback on any failure, showing more and blocking less",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/1bb532f6af": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Never overwrite a non-empty response found in a document being read; offer the recomputed value as a suggestion",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/7ac669017b": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Order computed prompts by their direct references",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "checklist/list-item/3559da2740": {
       "anchor": "checklist",
       "chapter": 15,
       "kind": "list-item",
       "text": "Bound evaluation, and report a reached bound as a fallback rather than partial mutation",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 486,
+      "note": "a hand-written second copy of the rules; docs/release/APR_CONFORMANCE_STATEMENT.md is generated from the OSCAL catalog instead"
     },
     "open-questions/heading/52505c57eb": {
       "anchor": "open-questions",
@@ -11966,7 +12090,11 @@
       "kind": "heading",
       "text": "16. Open questions",
       "disposition": "keep",
-      "status": "todo"
+      "status": "todo",
+      "replacedBy": [
+        "open-questions/heading/5091ddb6d9"
+      ],
+      "note": "renumbered when section 15 was deleted (#486)"
     },
     "open-questions/sentence/16c0508130": {
       "anchor": "open-questions",
@@ -11998,7 +12126,11 @@
       "kind": "heading",
       "text": "17. Normative references",
       "disposition": "keep",
-      "status": "todo"
+      "status": "todo",
+      "replacedBy": [
+        "normative-references/heading/878ad1aad6"
+      ],
+      "note": "renumbered when section 15 was deleted (#486)"
     },
     "normative-references/sentence/4f2947cd3a": {
       "anchor": "normative-references",
@@ -12246,7 +12378,11 @@
       "kind": "heading",
       "text": "18. Informative references",
       "disposition": "keep",
-      "status": "todo"
+      "status": "todo",
+      "replacedBy": [
+        "informative-references/heading/34d46c3cbd"
+      ],
+      "note": "renumbered when section 15 was deleted (#486)"
     },
     "informative-references/table-header/b05ff95452": {
       "anchor": "informative-references",
@@ -12294,7 +12430,11 @@
       "kind": "heading",
       "text": "19. Appendix A: Minimal valid document",
       "disposition": "keep",
-      "status": "todo"
+      "status": "todo",
+      "replacedBy": [
+        "appendix-minimal/heading/2c323d937e"
+      ],
+      "note": "renumbered when section 15 was deleted (#486)"
     },
     "appendix-minimal/sentence/57bfeb9ff4": {
       "anchor": "appendix-minimal",
@@ -12326,7 +12466,11 @@
       "kind": "heading",
       "text": "20. Appendix B: The rule to remember",
       "disposition": "keep",
-      "status": "todo"
+      "status": "todo",
+      "replacedBy": [
+        "appendix-rule/heading/fa1fc2925d"
+      ],
+      "note": "renumbered when section 15 was deleted (#486)"
     },
     "appendix-rule/sentence/4207e93885": {
       "anchor": "appendix-rule",
@@ -12366,7 +12510,11 @@
       "kind": "heading",
       "text": "21. Appendix C: Provenance of this text",
       "disposition": "keep",
-      "status": "todo"
+      "status": "todo",
+      "replacedBy": [
+        "provenance/heading/1a2dc45c69"
+      ],
+      "note": "renumbered when section 15 was deleted (#486)"
     },
     "provenance/sentence/f048ed16e9": {
       "anchor": "provenance",
@@ -12414,7 +12562,11 @@
       "kind": "heading",
       "text": "22. Appendix D: Corpus gaps",
       "disposition": "keep",
-      "status": "todo"
+      "status": "todo",
+      "replacedBy": [
+        "corpus-gaps/heading/226cfa6391"
+      ],
+      "note": "renumbered when section 15 was deleted (#486)"
     },
     "corpus-gaps/sentence/f048ed16e9": {
       "anchor": "corpus-gaps",
@@ -12470,7 +12622,11 @@
       "kind": "heading",
       "text": "23. Appendix E: What earns a primitive",
       "disposition": "keep",
-      "status": "todo"
+      "status": "todo",
+      "replacedBy": [
+        "primitives/heading/8d05a1babb"
+      ],
+      "note": "renumbered when section 15 was deleted (#486)"
     },
     "primitives/sentence/f048ed16e9": {
       "anchor": "primitives",

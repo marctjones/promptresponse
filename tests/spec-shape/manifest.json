@@ -110,11 +110,6 @@
       "purpose": "security considerations"
     },
     {
-      "anchor": "checklist",
-      "borrowedFrom": "CommonMark",
-      "purpose": "implementer checklist"
-    },
-    {
       "anchor": "open-questions",
       "borrowedFrom": "RFC practice",
       "purpose": "declared gaps"

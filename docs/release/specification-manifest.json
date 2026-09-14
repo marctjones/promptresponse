@@ -8,13 +8,13 @@
     "published": "2026-09-01",
     "normativeClauses": 314,
     "ruleIdentifiers": 339,
-    "anchors": 98,
+    "anchors": 97,
     "executableExamples": 118
   },
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:9d35f5de6ab802686721b5e5faec23e05fe97844e5a4f33c18c7267092584ff2"
+      "sha256": "sha256:f4f43a52d21bab3ac721d51d4c67bf0a754f45ab1d0003240cf4cc6d24886b04"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
@@ -34,7 +34,7 @@
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
-      "sha256": "sha256:f86d49e054f7e6579c25e13872b2096d21a18c84c902b3b40a552ceaa6540f24"
+      "sha256": "sha256:af62752e02d4f9d1e611225acfb4c5ade614d23e69090e774b7f186a955bbdd0"
     },
     "reviewRubric": {
       "path": "tests/spec-semantic/rubric.json",
@@ -46,7 +46,7 @@
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:ef3f3264ff12621adf0e206b902df21e100440b836224ea1cdd2cd3624822760"
+      "sha256": "sha256:22930ca0416046a8b3563052974a220ccc9d91c02f0a0cc709d921e9fdae25c7"
     },
     "conformanceStatement": {
       "path": "docs/release/APR_CONFORMANCE_STATEMENT.md",
@@ -56,6 +56,6 @@
   "corpus": {
     "path": "tests/Conformance/beta6",
     "files": 157,
-    "sha256": "sha256:f50f1eadcd501c4c3b62148a1285a71951a0ea775abaa6fdaf6f7fe874e93b6d"
+    "sha256": "sha256:5544cfdb22971dd9b9779d6a22c379377de99fcf9e8c46af897bfeed77a948f4"
   }
 }
