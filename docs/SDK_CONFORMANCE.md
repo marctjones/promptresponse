@@ -155,9 +155,9 @@ the corpus commit you pass:
 
 > APR 1.0-beta.6 core+streams, submits https, corpus beta6 @ `<sha>`
 
-Each profile has a checklist in the specification. Work through it; the suite
-does not cover everything a checklist states, and the gap is named per rule in
-`tests/registry.json`.
+[The conformance statement](release/APR_CONFORMANCE_STATEMENT.md) lists every rule
+each profile covers, by class of product. Work through it; the suite does not cover
+every rule it lists, and the gap is named per rule in `tests/registry.json`.
 
 ## What conformance does not decide
 

@@ -31,7 +31,8 @@ trusting a green run.
 The specification has a completeness review with a deterministic half and a
 judgement half. `scripts/check-spec-completeness.py` is the deterministic half and
 runs in CI: every concept the registry cites resolves to a substantive section,
-every schema member has a normative sentence, every profile has a checklist, and
+every schema member has a normative sentence, every profile has a section in the
+generated conformance statement, and
 no recorded gap still describes a rule that is now fully evidenced. The judgement
 half is opt-in, local, and never a gate:
 

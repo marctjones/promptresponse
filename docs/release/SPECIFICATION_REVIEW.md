@@ -41,6 +41,7 @@ surfaces first.
 - [ ] `python3 scripts/extract-spec-examples.py` — the corpus still matches the specification
 - [ ] `python3 scripts/check-test-registry.py` — per-rule coverage, fixtures, tests and suites resolve
 - [ ] `python3 scripts/build-oscal.py` — the OSCAL rule catalog matches the specification
+- [ ] `python3 scripts/build-conformance-statement.py` — the conformance statement matches the catalog
 - [ ] `python3 scripts/check-docs.py` — references and the authority ordering hold
 - [ ] `python3 scripts/check-schema.py` — corpus and examples validate against the schema
 - [ ] `python3 scripts/check-corpus.py` — every digest in the corpus is the digest it claims
@@ -74,7 +75,7 @@ surfaces first.
 
 - [ ] Legal and illegal behaviour are both stated — a rule that says what is allowed and not what happens otherwise is incomplete
 - [ ] Member tables carry requiredness, type and domain for every member
-- [ ] Conformance profiles each have a checklist an implementer can work through
+- [ ] Every rule in the conformance statement sits under the profile and class of product it binds
 - [ ] Compatibility behaviour is stated for unknown members, retired members and an unrecognised version
 - [ ] Security considerations cover what the format guarantees **and what it does not**
 

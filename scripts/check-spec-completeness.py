@@ -4,7 +4,8 @@
 Completeness has a deterministic half and a judgement half. This is the
 deterministic half: every concept the registry names has text at the anchor it
 cites, every member the schema declares has a normative sentence, and every
-conformance profile has a checklist. A script can answer all of those.
+conformance profile binds rules in the generated conformance statement. A script
+can answer all of those.
 
 It cannot answer whether a rule is stated well enough to implement from, or
 whether two sections contradict each other. That is left to the opt-in local
@@ -110,16 +111,20 @@ def main() -> int:
                  f"{len(members) - len(undocumented)} described, "
                  f"{len(RETIRED_MEMBERS & members)} retired and deliberately absent")
 
-    # 3. Every conformance profile has a checklist a reader can work through.
+    # 3. Every conformance profile binds at least one rule in the generated conformance
+    #    statement. The generator writes a heading for every profile it knows, so a
+    #    heading alone proves nothing; the rule count under it does.
     profiles = sorted(set(re.findall(r"`(core(?:\+[a-z]+)?)`", body.get("conformance", ""))))
-    checklist = body.get("checklist", "")
-    unlisted = [p for p in profiles if p not in checklist]
+    statement = ROOT / "docs" / "release" / "APR_CONFORMANCE_STATEMENT.md"
+    counts = {m.group(1): int(m.group(2)) for m in re.finditer(
+        r"^## `([^`]+)`\n\n(\d+) rules\.$", statement.read_text(encoding="utf-8"), re.M)} if statement.exists() else {}
+    unlisted = [p for p in profiles if not counts.get(p)]
     if unlisted:
         problems.append(
-            f"profiles with no checklist entry: {', '.join(unlisted)}. "
+            f"profiles with no rules in {statement.relative_to(ROOT)}: {', '.join(unlisted)}. "
             "An implementer claiming one has nothing to work through.")
     lines.append(f"  conformance profiles: {len(profiles)} defined, "
-                 f"{len(profiles) - len(unlisted)} with a checklist")
+                 f"{len(profiles) - len(unlisted)} binding rules in the conformance statement")
 
     # 4. The review surface: rules that no gated requirement covers.
     gated: set[str] = set()

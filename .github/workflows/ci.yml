@@ -194,6 +194,11 @@ jobs:
         # policies can be written against the same identifiers the spec uses.
         run: python3 scripts/build-oscal.py
 
+      - name: Verify the conformance statement is current
+        # The statement lists every rule by profile and class of product, read from the
+        # OSCAL catalog. Regenerating it must be a no-op, or it has drifted from the rules.
+        run: python3 scripts/build-conformance-statement.py
+
       - name: Verify the specification release manifest is current
         # A published baseline must identify the exact bytes it published, or the
         # version string names a moving target.
