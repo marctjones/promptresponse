@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "82fa5f29-a6b5-5c76-aa77-bd8d6f0c312a",
+    "uuid": "ca0527dc-8e0e-5e28-aa60-ccdbc5aef025",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "fd150e2d643c55990f48f3770bee9890b52d3e8b25b154ad111cd8ca138cb852"
+          "value": "76dd0c7efd41c6b01d00b184fa54f34d619fbaa8cd2d62d2ccaedecb9db529cc"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -13204,7 +13204,7 @@
               {
                 "id": "apr-digest-001_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           },
@@ -13266,7 +13266,7 @@
               {
                 "id": "apr-digest-002_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           },
@@ -13328,7 +13328,7 @@
               {
                 "id": "apr-digest-003_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           },
@@ -13390,7 +13390,7 @@
               {
                 "id": "apr-digest-004_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           },
@@ -13452,7 +13452,7 @@
               {
                 "id": "apr-digest-005_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           },
@@ -13514,7 +13514,7 @@
               {
                 "id": "apr-digest-006_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           },
@@ -13576,7 +13576,7 @@
               {
                 "id": "apr-digest-007_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           },
@@ -13638,7 +13638,7 @@
               {
                 "id": "apr-digest-008_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           },
@@ -13700,7 +13700,7 @@
               {
                 "id": "apr-digest-009_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           },
@@ -13762,7 +13762,7 @@
               {
                 "id": "apr-digest-010_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517)."
               }
             ]
           }

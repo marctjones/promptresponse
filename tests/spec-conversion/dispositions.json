@@ -8453,13 +8453,7 @@
         "digests/example/afc08e4b44",
         "digests/sentence/329a365e66",
         "digests/sentence/20523023fb",
-        "digests/example/9ba317c04a",
-        "digests/sentence/717b1bbd3d",
-        "digests/sentence/cf516669fb",
-        "digests/example/61d9ff1ba2",
-        "digests/sentence/ac291b19d6",
-        "digests/sentence/2986b38283",
-        "digests/example/0a1a68bece"
+        "digests/example/9ba317c04a"
       ],
       "issue": 482,
       "note": "examples added so the specification shows each rule it states here (#488)"

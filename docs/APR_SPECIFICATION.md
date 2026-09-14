@@ -3768,32 +3768,6 @@ diagnostic: REQUIRED_FIELD
 {"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":"/a","digest":"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"}]},"proofs":[],"witnesses":[]}
 ```
 
-**Example 10-7.** A manifest entry without its `digest`.
-
-```apr-example
-id: manifest-entry-without-digest
-rule: digests
-violates: APR-DIGEST-009
-representation: jsonc
-expect: reject
-diagnostic: REQUIRED_FIELD
----
-{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":""}]},"proofs":[],"witnesses":[]}
-```
-
-**Example 10-8.** A manifest entry without its `path`.
-
-```apr-example
-id: manifest-entry-without-path
-rule: digests
-violates: APR-DIGEST-008
-representation: jsonc
-expect: reject
-diagnostic: REQUIRED_FIELD
----
-{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":"","digest":"sha256:abababababababababababababababababababababababababababababababab"},{"digest":"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"}]},"proofs":[],"witnesses":[]}
-```
-
 An implementation producing a manifest **SHOULD** give it one entry for every
 value in the semantic model at every depth, unknown members included. [APR-DIGEST-010]
 
