@@ -27,12 +27,5 @@ Anchors are stable across edits; section numbers are not.
 | Import/export | Transform without making external layout part of APR | spec [#export](APR_SPECIFICATION.md#export); [Implementation registry](IMPLEMENTATION_REGISTRY.md) | PDF renderer/importer, CLI | PDF, CLI, release smoke tests | Shipped with limits |
 | Submission | Explicit user action only; document opening stays network-free | spec [#security](APR_SPECIFICATION.md#security), [#metadata](APR_SPECIFICATION.md#metadata) | CLI/Desktop handoff services | service and CLI tests | Limited profile |
 
-## Retired concepts
-
-| Concept | Status |
-| --- | --- |
-| Embedded signatures (`signatures`, `apr-sig-v3`) | **Retired in beta.6.** Replaced by independent attestations. A document carrying `signatures` is reported as `RETIRED_EMBEDDED_SIGNATURES` — see spec [#retired-members](APR_SPECIFICATION.md#retired-members). |
-| Table column presentation members | **Retired.** Dropped on read; see spec [#retired-members](APR_SPECIFICATION.md#retired-members). |
-
 `tests/registry.json` is the machine-readable mapping from normative requirements to
 fixtures and tests. `scripts/check-test-registry.py` verifies it in CI.

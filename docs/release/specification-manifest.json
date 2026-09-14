@@ -6,23 +6,23 @@
     "formatVersion": "1.0-beta.6",
     "status": "BETA \u2014 the format is not frozen and breaking changes are intentional",
     "published": "2026-09-01",
-    "normativeClauses": 244,
-    "ruleIdentifiers": 166,
-    "anchors": 100,
+    "normativeClauses": 241,
+    "ruleIdentifiers": 164,
+    "anchors": 98,
     "executableExamples": 27
   },
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:621b56eda884a0987f52f1c2863050b8a007cbf83430a30537ab24f45396a346"
+      "sha256": "sha256:28f7d217e480067eff1c6a623c82ee99cf7dd58fbf7c5bd5a58a46670ddda6e4"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
-      "sha256": "sha256:4488ec647879ba26e080ff6f2c3bf92ba56d30b3c194fc9693d40204bc717a22"
+      "sha256": "sha256:57fdbe0152debdef33af5d4ad1093ecd8fa075b3202fbcb1575e57bb1d882a03"
     },
     "schemaBase": {
       "path": "schemas/apr-1.0.schema.json",
-      "sha256": "sha256:e29ebed74203844b3a21cca378756a3bfd8989c8fc600cdbf8ee7f8c7760bf1a"
+      "sha256": "sha256:7a14718ad8b789d24d36f0b66d3d3f26219900f4c9c67a7f3fe96845177268e8"
     },
     "typeRegistry": {
       "path": "schemas/apr-types-1.0.json",
@@ -30,11 +30,11 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:b88337a5d1e26246fdb8643c3064835a3f611a1192192703d80b75da4bb21e1e"
+      "sha256": "sha256:43ac918407882ba79caf60fe825a08b2f47c653c1dede904d0159a3f7c72585e"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
-      "sha256": "sha256:2436a45b0d9a70d908152e5fe0dbe077c67640c05e0602faa9b43b64d54c2306"
+      "sha256": "sha256:ba6fa3372539f4bf121c794b234cba008d2a875c9ec09863033c9d5982c57759"
     },
     "reviewRubric": {
       "path": "tests/spec-semantic/rubric.json",
@@ -46,12 +46,12 @@
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:d2b39a4ca0dfff7a0f16e05802e9c5730f2f2772624a16d0e147e8c8063dd1dc"
+      "sha256": "sha256:b40245f13b067fd3baf66a8c175ab05077251918eb4d0748ebb39d4e1b0bce45"
     }
   },
   "corpus": {
     "path": "tests/Conformance/beta6",
-    "files": 159,
-    "sha256": "sha256:411407556ae08c55be4c1c39f4686e787077ee8c8bbb3e2575047fa476ec944e"
+    "files": 157,
+    "sha256": "sha256:36ba4c086ee02311ca850e0606aa1c67d7d12e823934261214dadc0b5efcb592"
   }
 }

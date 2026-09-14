@@ -131,7 +131,6 @@ def main() -> int:
         ("responses", "canonical-values"),
         ("warnings", "human-text"),
         ("never-gate", "verification"),
-        ("extensions", "retired-members"),
         ("expr-computed", "hints-advisory"),
         ("submission", "attestation-scope"),
     ]

@@ -3,7 +3,7 @@
   "$id": "https://raw.githubusercontent.com/marctjones/promptresponse/main/schemas/apr-1.0.schema.json",
   "title": "APR (Adaptive Prompt Response) Document, format generation 1.0",
   "description": "Structural schema for .aprt (template) and .aprf (filled form) documents. Covers format generation 1.0: today that means the single accepted version \"1.0-beta\"; at the stable tag \"1.0\" is added and \"1.0-beta\" is kept permanently. The filename and $id stay fixed across that transition on purpose, because the $id is a URL that implementations resolve. This schema is NORMATIVE for structure and NON-NORMATIVE for the rules it cannot express (see $comment on 'Rules this schema cannot express'). Unknown properties are permitted everywhere by design: the reference implementation ignores them, and forward-compatible extension depends on it.",
-  "$comment": "Rules this schema cannot express, which a conforming validator MUST still enforce: (1) section ids are unique document-wide; (2) prompt ids are unique document-wide (a section id and a prompt id MAY coincide); (3) canonical signature payloads verify; (4) within a kind=table section, prompts at the same position across instances should correspond (a ragged or mislabelled table is advisory, never invalid). Rules this schema deliberately does NOT express because they are advisory: every hint under prompt.hints, including validationPattern and the expr* family, never constrains 'response'. Any JSON string is a valid response.",
+  "$comment": "Rules this schema cannot express, which a conforming validator MUST still enforce: (1) section ids are unique document-wide; (2) prompt ids are unique document-wide (a section id and a prompt id MAY coincide); (3) within a kind=table section, prompts at the same position across instances should correspond (a ragged or mislabelled table is advisory, never invalid). Rules this schema deliberately does NOT express because they are advisory: every hint under prompt.hints, including validationPattern and the expr* family, never constrains 'response'. Any JSON string is a valid response.",
   "type": "object",
   "required": [
     "aprVersion",
@@ -33,13 +33,6 @@
         "$ref": "#/$defs/section"
       },
       "description": "A document MUST have at least one section."
-    },
-    "signatures": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/signature"
-      },
-      "description": "Optional. Absent on unsigned documents. Belongs to the core+signatures conformance profile; a core-only reader MUST preserve this array byte-for-intent on round-trip but is not required to verify it."
     },
     "roles": {
       "type": "array",
@@ -106,7 +99,7 @@
         },
         "publisher": {
           "type": "string",
-          "description": "The organization standing behind the template. When a publisher signature is present, the certificate identity is authoritative over this field."
+          "description": "The organization standing behind the template."
         },
         "templateId": {
           "type": "string",
@@ -121,7 +114,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Ordered explicit delivery choices for a completed form. Bound into the publisher signature payload when signed, so a destination cannot be added, removed, or redirected without invalidating that signature."
+          "description": "Ordered explicit delivery choices for a completed form."
         },
         "submissionUrl": false,
         "regarding": {
@@ -234,9 +227,6 @@
         "hints": {
           "$ref": "#/$defs/promptHints"
         },
-        "responseMetadata": {
-          "$ref": "#/$defs/responseMetadata"
-        },
         "role": {
           "type": "string",
           "description": "Who is meant to fill this in (\"patient\", \"nurse\", \"office\"). An open vocabulary and a statement of intent, never enforcement: a reader marks the field and still accepts any input. A prompt's role overrides the role of the section containing it."
@@ -326,124 +316,6 @@
         }
       },
       "$comment": "A core-only reader MUST preserve the expr* family without evaluating it. A host that renders the prompt presents it as an ordinary editable field."
-    },
-    "responseMetadata": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "type": "string",
-          "enum": [
-            "computed"
-          ],
-          "description": "Where the current response came from. \"computed\" when an exprValue produced it; absent when a person or an API wrote it. Exists so recomputation can tell a stale computed value from an answer someone typed - without it, correcting a computed field would silently revert on the next recompute. Advisory: a reader that ignores it still holds a valid document."
-        }
-      }
-    },
-    "signature": {
-      "type": "object",
-      "description": "A detached CMS/PKCS#7 SignedData over a canonical payload. Pure data: verification is a side-effect-free computation, so a signed document is no less safe to open than an unsigned one. A publisher signature binds metadata.submissionUrls by reading them from the document — the signature stores no copy of its own, because a second copy is what let a redirected metadata URL still verify.",
-      "required": [
-        "id",
-        "role",
-        "scope",
-        "algorithm",
-        "canonicalization",
-        "signedAt",
-        "cms"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/nonBlankString",
-          "description": "Unique within the document."
-        },
-        "role": {
-          "enum": [
-            "publisher",
-            "filler"
-          ]
-        },
-        "signer": {
-          "$ref": "#/$defs/signer"
-        },
-        "scope": {
-          "enum": [
-            "template",
-            "fields"
-          ],
-          "description": "\"template\" covers the whole form definition; \"fields\" covers the prompt ids listed in \"fields\"."
-        },
-        "fields": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Prompt ids covered when scope is \"fields\"."
-        },
-        "algorithm": {
-          "type": "string",
-          "default": "cms/ecdsa-p256-sha256"
-        },
-        "canonicalization": {
-          "type": "string",
-          "const": "apr-sig-v3",
-          "description": "Canonical-payload scheme. A verifier that does not recognize this value MUST report the signature as unverifiable rather than invalid. v3 binds the question a filler answered, not only their answer, and brings bounds and roles under the publisher signature."
-        },
-        "signedAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "ISO-8601 UTC, bound into the signed payload."
-        },
-        "cms": {
-          "type": "string",
-          "contentEncoding": "base64",
-          "description": "Base64 detached CMS SignedData including the signer certificate chain."
-        }
-      },
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "scope": {
-                "const": "fields"
-              }
-            },
-            "required": [
-              "scope"
-            ]
-          },
-          "then": {
-            "required": [
-              "fields"
-            ]
-          }
-        }
-      ]
-    },
-    "signer": {
-      "type": "object",
-      "description": "A human-readable projection of the X.509 certificate embedded in \"cms\". The certificate is authoritative; a verifier MUST NOT trust these fields over it.",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "identifier": {
-          "type": "string"
-        },
-        "subject": {
-          "type": "string"
-        },
-        "issuer": {
-          "type": "string"
-        },
-        "thumbprint": {
-          "type": "string",
-          "description": "SHA-256 hex, for pinning."
-        },
-        "selfSigned": {
-          "type": "boolean",
-          "description": "DOCUMENTED EXCEPTION to the strings-only rule: a JSON boolean. Derived, not user data — a verifier recomputes it from the certificate and MUST NOT trust this field."
-        }
-      }
     },
     "roleDefinition": {
       "type": "object",

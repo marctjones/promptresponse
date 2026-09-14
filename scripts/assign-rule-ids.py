@@ -41,7 +41,7 @@ AREAS = [
     ("MODEL", {"form-model", "root-object", "metadata", "section-object", "prompt-object",
                "response-metadata", "tables", "table-assertion", "table-no-layout",
                "table-rows", "table-ragged", "nesting", "hints-object", "data-types",
-               "extensions", "retired-members", "canonical-values", "roles",
+               "extensions", "canonical-values", "roles",
                "responses", "any-string", "hints-advisory"}),
     ("VAL", {"validation", "structural-validation", "warnings", "parse-errors",
              "semantic-validation"}),

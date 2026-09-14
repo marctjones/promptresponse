@@ -120,11 +120,6 @@
       "purpose": "declared gaps"
     },
     {
-      "anchor": "history",
-      "borrowedFrom": "RFC practice",
-      "purpose": "change history"
-    },
-    {
       "anchor": "normative-references",
       "borrowedFrom": "RFC 8259 \u00a713.1",
       "purpose": "binding references"
