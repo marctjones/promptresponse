@@ -50,6 +50,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:attestation-canonicalization-wrong:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-003"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-003"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-canonicalization-wrong"
+    },
+    {
       "id": "spec:attestation-document-scope",
       "source": "specification",
       "rule": "attestation-catalogue",
@@ -91,6 +111,48 @@
       ]
     },
     {
+      "id": "spec:attestation-document-scope:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-001",
+        "APR-ATTEST-002",
+        "APR-ATTEST-003",
+        "APR-ATTEST-021",
+        "APR-ATTEST-022",
+        "APR-ATTEST-023",
+        "APR-ATTEST-024",
+        "APR-ATTEST-026",
+        "APR-ATTEST-027",
+        "APR-ATTEST-028",
+        "APR-ATTEST-029",
+        "APR-ATTEST-030"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "digest": "sha256:93f6c9a6d8d0624e9e586c3a47cb968b8a6438974bea1cc8d7a1e0fb61786d58",
+      "satisfies": [
+        "APR-ATTEST-001",
+        "APR-ATTEST-002",
+        "APR-ATTEST-003",
+        "APR-ATTEST-021",
+        "APR-ATTEST-022",
+        "APR-ATTEST-023",
+        "APR-ATTEST-024",
+        "APR-ATTEST-026",
+        "APR-ATTEST-027",
+        "APR-ATTEST-028",
+        "APR-ATTEST-029",
+        "APR-ATTEST-030"
+      ],
+      "twinOf": "spec:attestation-document-scope"
+    },
+    {
       "id": "spec:attestation-entry-extra-member",
       "source": "specification",
       "rule": "attestation-catalogue",
@@ -108,6 +170,26 @@
         "APR-ATTEST-028"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:attestation-entry-extra-member:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-028"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n    value: Ada\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-028"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-entry-extra-member"
     },
     {
       "id": "spec:attestation-extension-member",
@@ -135,6 +217,32 @@
       ]
     },
     {
+      "id": "spec:attestation-extension-member:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-004",
+        "APR-ATTEST-031"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []\ncom.example.counter: front desk",
+      "digest": "sha256:23adf441b8d27164b236995ab45dcaf09608e31850e0246bea3b12b2f4b5da6e",
+      "satisfies": [
+        "APR-ATTEST-004",
+        "APR-ATTEST-031"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/com.example.counter"
+      ],
+      "twinOf": "spec:attestation-extension-member"
+    },
+    {
       "id": "spec:attestation-fields-empty",
       "source": "specification",
       "rule": "attestation-catalogue",
@@ -152,6 +260,26 @@
         "APR-ATTEST-025"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:attestation-fields-empty:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-025"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: fields\n  fields: []\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-025"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-fields-empty"
     },
     {
       "id": "spec:attestation-fields-scope",
@@ -177,6 +305,30 @@
       ]
     },
     {
+      "id": "spec:attestation-fields-scope:yaml",
+      "source": "specification",
+      "rule": "attestation-scope",
+      "anchors": [
+        "attestation-scope"
+      ],
+      "rules": [
+        "APR-ATTEST-005",
+        "APR-ATTEST-024",
+        "APR-ATTEST-025"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: fields\n  fields:\n  - name\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  - path: /sections/0/id\n    digest: sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e\n  - path: /sections/0/prompts/0\n    digest: sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a\n  - path: /sections/0/prompts/0/response\n    digest: sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a\n  - path: /sections/0/title\n    digest: sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a\nproofs: []\nwitnesses: []",
+      "digest": "sha256:bca8e277e5ef04083a119f21a3518e94fe16fee2467851817662ba764fa7e24f",
+      "satisfies": [
+        "APR-ATTEST-005",
+        "APR-ATTEST-024",
+        "APR-ATTEST-025"
+      ],
+      "twinOf": "spec:attestation-fields-scope"
+    },
+    {
       "id": "spec:attestation-manifest-extra-member",
       "source": "specification",
       "rule": "attestation-catalogue",
@@ -194,6 +346,26 @@
         "APR-ATTEST-026"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:attestation-manifest-extra-member:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-026"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  note: complete\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-026"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-manifest-extra-member"
     },
     {
       "id": "spec:attestation-manifest-root-malformed",
@@ -215,6 +387,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:attestation-manifest-root-malformed:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-027"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: c525780361ebf5ef\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-027"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-manifest-root-malformed"
+    },
+    {
       "id": "spec:attestation-proof-copies-subject",
       "source": "specification",
       "rule": "proofs",
@@ -232,6 +424,26 @@
         "APR-ATTEST-007"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:attestation-proof-copies-subject:yaml",
+      "source": "specification",
+      "rule": "proofs",
+      "anchors": [
+        "proofs"
+      ],
+      "rules": [
+        "APR-ATTEST-007"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs:\n- type: example/opaque-v1\n  value: b3BhcXVl\n  subject:\n    digest: sha256:abababababababababababababababababababababababababababababababab\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-007"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-proof-copies-subject"
     },
     {
       "id": "spec:attestation-proofs-not-array",
@@ -253,6 +465,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:attestation-proofs-not-array:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-029"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: {}\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-029"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-proofs-not-array"
+    },
+    {
       "id": "spec:attestation-record-type-wrong",
       "source": "specification",
       "rule": "attestation-catalogue",
@@ -270,6 +502,26 @@
         "APR-ATTEST-001"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:attestation-record-type-wrong:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-001"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestations\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-001"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-record-type-wrong"
     },
     {
       "id": "spec:attestation-scope-kind-unknown",
@@ -291,6 +543,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:attestation-scope-kind-unknown:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-024"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: section\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-024"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-scope-kind-unknown"
+    },
+    {
       "id": "spec:attestation-scope-missing",
       "source": "specification",
       "rule": "attestation-catalogue",
@@ -308,6 +580,26 @@
         "APR-ATTEST-023"
       ],
       "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "spec:attestation-scope-missing:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-023"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-023"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:attestation-scope-missing"
     },
     {
       "id": "spec:attestation-state-no-error",
@@ -347,6 +639,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:attestation-subject-digest-malformed:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-022"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:C525\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-022"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-subject-digest-malformed"
+    },
+    {
       "id": "spec:attestation-subject-extra-member",
       "source": "specification",
       "rule": "attestation-catalogue",
@@ -364,6 +676,26 @@
         "APR-ATTEST-021"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:attestation-subject-extra-member:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-021"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\n  note: signed at the counter\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-021"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-subject-extra-member"
     },
     {
       "id": "spec:attestation-unknown-proof-preserved",
@@ -396,6 +728,37 @@
       ]
     },
     {
+      "id": "spec:attestation-unknown-proof-preserved:yaml",
+      "source": "specification",
+      "rule": "proofs",
+      "anchors": [
+        "proofs"
+      ],
+      "rules": [
+        "APR-ATTEST-007",
+        "APR-ATTEST-033",
+        "APR-ATTEST-034",
+        "APR-ATTEST-038"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs:\n- type: example/opaque-v1\n  value: b3BhcXVl\nwitnesses: []",
+      "digest": "sha256:4ecf27252689f1999d606c727f613b6867c8df077aaf49fff8f1559bf8107c54",
+      "satisfies": [
+        "APR-ATTEST-007",
+        "APR-ATTEST-033",
+        "APR-ATTEST-034",
+        "APR-ATTEST-038"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/proofs/0/type",
+        "/proofs/0/value"
+      ],
+      "twinOf": "spec:attestation-unknown-proof-preserved"
+    },
+    {
       "id": "spec:attestation-version-wrong",
       "source": "specification",
       "rule": "attestation-catalogue",
@@ -413,6 +776,26 @@
         "APR-ATTEST-002"
       ],
       "diagnostic": "UNSUPPORTED_VERSION"
+    },
+    {
+      "id": "spec:attestation-version-wrong:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-002"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.5\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-ATTEST-002"
+      ],
+      "diagnostic": "UNSUPPORTED_VERSION",
+      "twinOf": "spec:attestation-version-wrong"
     },
     {
       "id": "spec:attestation-witness",
@@ -454,6 +837,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:attestation-witness-malformed:yaml",
+      "source": "specification",
+      "rule": "witnesses",
+      "anchors": [
+        "witnesses"
+      ],
+      "rules": [
+        "APR-ATTEST-042"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses:\n- the counter attestation",
+      "violates": [
+        "APR-ATTEST-042"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-witness-malformed"
+    },
+    {
       "id": "spec:attestation-witnesses-not-array",
       "source": "specification",
       "rule": "attestation-catalogue",
@@ -471,6 +874,26 @@
         "APR-ATTEST-030"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:attestation-witnesses-not-array:yaml",
+      "source": "specification",
+      "rule": "attestation-catalogue",
+      "anchors": [
+        "attestation-catalogue"
+      ],
+      "rules": [
+        "APR-ATTEST-030"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\n  entries:\n  - path: ''\n    digest: sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675\nproofs: []\nwitnesses: none",
+      "violates": [
+        "APR-ATTEST-030"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:attestation-witnesses-not-array"
     },
     {
       "id": "spec:attestations-several-of-one-form",
@@ -510,6 +933,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:date-bound-as-number:yaml",
+      "source": "specification",
+      "rule": "json-subset",
+      "anchors": [
+        "json-subset"
+      ],
+      "rules": [
+        "APR-REP-016"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    hints:\n      expectedDataType: date\n      min: 2026",
+      "violates": [
+        "APR-REP-016"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:date-bound-as-number"
+    },
+    {
       "id": "spec:date-bound-as-string",
       "source": "specification",
       "rule": "json-subset",
@@ -527,6 +970,26 @@
       "satisfies": [
         "APR-REP-016"
       ]
+    },
+    {
+      "id": "spec:date-bound-as-string:yaml",
+      "source": "specification",
+      "rule": "json-subset",
+      "anchors": [
+        "json-subset"
+      ],
+      "rules": [
+        "APR-REP-016"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    hints:\n      expectedDataType: date\n      min: '2026-01-01'",
+      "digest": "sha256:0971414fede0664a30b27cfe0aa2e16cf732335ab5b9b3af5e978ca10f36f50d",
+      "satisfies": [
+        "APR-REP-016"
+      ],
+      "twinOf": "spec:date-bound-as-string"
     },
     {
       "id": "spec:declared-roles",
@@ -548,6 +1011,26 @@
       ]
     },
     {
+      "id": "spec:declared-roles:yaml",
+      "source": "specification",
+      "rule": "roles",
+      "anchors": [
+        "roles"
+      ],
+      "rules": [
+        "APR-MODEL-026"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Intake\nroles:\n- id: patient\n  name: Patient\n  description: The person receiving care\n- id: nurse\n  name: Nurse\n  description: Clinical staff recording observations\n- id: office\n  name: Office use\nsections:\n- id: observations\n  title: Observations\n  role: nurse\n  prompts:\n  - id: pulse\n    label: Pulse\n  - id: pain\n    label: Pain today, 0 to 10\n    role: patient",
+      "digest": "sha256:076cc4b6eda3214ced88d60e4bedf39dbab6cf872782e49adcf27e7efc436fb0",
+      "satisfies": [
+        "APR-MODEL-026"
+      ],
+      "twinOf": "spec:declared-roles"
+    },
+    {
       "id": "spec:digest-ignores-source-syntax",
       "source": "specification",
       "rule": "digests",
@@ -565,6 +1048,26 @@
       "satisfies": [
         "APR-DIGEST-006"
       ]
+    },
+    {
+      "id": "spec:digest-ignores-source-syntax:yaml",
+      "source": "specification",
+      "rule": "digests",
+      "anchors": [
+        "digests"
+      ],
+      "rules": [
+        "APR-DIGEST-006"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "sections:\n- prompts:\n  - label: P\n    id: p\n  title: S\n  id: s\nmetadata:\n  title: T\naprVersion: 1.0-beta.6",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6",
+      "satisfies": [
+        "APR-DIGEST-006"
+      ],
+      "twinOf": "spec:digest-ignores-source-syntax"
     },
     {
       "id": "spec:digest-same-in-yaml",
@@ -605,6 +1108,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:digest-uppercase:yaml",
+      "source": "specification",
+      "rule": "digests",
+      "anchors": [
+        "digests"
+      ],
+      "rules": [
+        "APR-DIGEST-001"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:abababababababababababababababababababababababababababababababab\n  entries:\n  - path: ''\n    digest: sha256:abababababababababababababababababababababababababababababababab\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-DIGEST-001"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:digest-uppercase"
+    },
+    {
       "id": "spec:duplicate-prompt-id",
       "source": "specification",
       "rule": "structural-validation",
@@ -624,6 +1147,26 @@
       "diagnostic": "DUPLICATE_ID"
     },
     {
+      "id": "spec:duplicate-prompt-id:yaml",
+      "source": "specification",
+      "rule": "structural-validation",
+      "anchors": [
+        "structural-validation"
+      ],
+      "rules": [
+        "APR-VAL-014"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: A\n  - id: p\n    label: B",
+      "violates": [
+        "APR-VAL-014"
+      ],
+      "diagnostic": "DUPLICATE_ID",
+      "twinOf": "spec:duplicate-prompt-id"
+    },
+    {
       "id": "spec:empty-section",
       "source": "specification",
       "rule": "structural-validation",
@@ -641,6 +1184,26 @@
         "APR-VAL-015"
       ],
       "diagnostic": "EMPTY_SECTION"
+    },
+    {
+      "id": "spec:empty-section:yaml",
+      "source": "specification",
+      "rule": "structural-validation",
+      "anchors": [
+        "structural-validation"
+      ],
+      "rules": [
+        "APR-VAL-015"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S",
+      "violates": [
+        "APR-VAL-015"
+      ],
+      "diagnostic": "EMPTY_SECTION",
+      "twinOf": "spec:empty-section"
     },
     {
       "id": "spec:expr-authored-response",
@@ -675,6 +1238,39 @@
       }
     },
     {
+      "id": "spec:expr-authored-response:yaml",
+      "source": "specification",
+      "rule": "expr-computed",
+      "anchors": [
+        "expr-computed"
+      ],
+      "rules": [
+        "APR-EXPR-008"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: base\n    label: Base\n    response: '2'\n    hints:\n      expectedDataType: number\n  - id: corrected\n    label: Corrected\n    response: '99'\n    hints:\n      expectedDataType: number\n      exprValue: base * 2.0\n  - id: computed\n    label: Computed\n    hints:\n      expectedDataType: number\n      exprValue: base * 2.0",
+      "digest": "sha256:53be2d54dfff5831fbabad1a517f2c40c5ed5570c030b89f6a6402f86f4271b7",
+      "satisfies": [
+        "APR-EXPR-008"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "corrected": "99",
+          "computed": "4"
+        }
+      },
+      "twinOf": "spec:expr-authored-response"
+    },
+    {
       "id": "spec:expr-bind-currency",
       "source": "specification",
       "rule": "expr-binding",
@@ -704,6 +1300,38 @@
           "check": "five"
         }
       }
+    },
+    {
+      "id": "spec:expr-bind-currency:yaml",
+      "source": "specification",
+      "rule": "expr-binding",
+      "anchors": [
+        "expr-binding"
+      ],
+      "rules": [
+        "APR-EXPR-023"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: price\n    label: Price\n    response: '2.50'\n    hints:\n      expectedDataType: currency\n  - id: check\n    label: Check\n    hints:\n      exprValidation: 'price * 2.0 == 5.0 ? ''five'' : ''other'''",
+      "digest": "sha256:555808f26cf3b9cbf95acf701482a087a72a4ad8fa49e1790f51b5cd24d44864",
+      "satisfies": [
+        "APR-EXPR-023"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "five"
+        }
+      },
+      "twinOf": "spec:expr-bind-currency"
     },
     {
       "id": "spec:expr-bind-date",
@@ -737,6 +1365,38 @@
       }
     },
     {
+      "id": "spec:expr-bind-date:yaml",
+      "source": "specification",
+      "rule": "expr-binding",
+      "anchors": [
+        "expr-binding"
+      ],
+      "rules": [
+        "APR-EXPR-025"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: when\n    label: When\n    response: '2026-03-01'\n    hints:\n      expectedDataType: date\n  - id: check\n    label: Check\n    hints:\n      exprValidation: 'when < timestamp(''2026-01-01T00:00:00Z'') ? ''too early'' : ''ok'''",
+      "digest": "sha256:6379d7b70dd4715985099b064fae1c0b3c47b22b7aaf937f043206cc2a45f4f9",
+      "satisfies": [
+        "APR-EXPR-025"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "ok"
+        }
+      },
+      "twinOf": "spec:expr-bind-date"
+    },
+    {
       "id": "spec:expr-bind-multichoice",
       "source": "specification",
       "rule": "expr-binding",
@@ -766,6 +1426,38 @@
           "check": "two"
         }
       }
+    },
+    {
+      "id": "spec:expr-bind-multichoice:yaml",
+      "source": "specification",
+      "rule": "expr-binding",
+      "anchors": [
+        "expr-binding"
+      ],
+      "rules": [
+        "APR-EXPR-026"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: colours\n    label: Colours\n    response: 'red\n\n      green'\n    hints:\n      expectedDataType: multichoice\n  - id: check\n    label: Check\n    hints:\n      exprValidation: 'size(colours) == 2 ? ''two'' : ''other'''",
+      "digest": "sha256:abe4f39c8573f8f1ee9514a43812dd4c09647844126796843c5f56a28615a3e3",
+      "satisfies": [
+        "APR-EXPR-026"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "two"
+        }
+      },
+      "twinOf": "spec:expr-bind-multichoice"
     },
     {
       "id": "spec:expr-bind-string",
@@ -799,6 +1491,38 @@
       }
     },
     {
+      "id": "spec:expr-bind-string:yaml",
+      "source": "specification",
+      "rule": "expr-binding",
+      "anchors": [
+        "expr-binding"
+      ],
+      "rules": [
+        "APR-EXPR-027"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: name\n    label: Name\n    response: '12'\n  - id: check\n    label: Check\n    hints:\n      exprValidation: name + '!'",
+      "digest": "sha256:706cb396e4f857dce736c0f81fa6d51fc8b4c4919883b71230a845474c91a640",
+      "satisfies": [
+        "APR-EXPR-027"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "12!"
+        }
+      },
+      "twinOf": "spec:expr-bind-string"
+    },
+    {
       "id": "spec:expr-canonical-result",
       "source": "specification",
       "rule": "expr-fallback",
@@ -830,6 +1554,38 @@
       }
     },
     {
+      "id": "spec:expr-canonical-result:yaml",
+      "source": "specification",
+      "rule": "expr-fallback",
+      "anchors": [
+        "expr-fallback"
+      ],
+      "rules": [
+        "APR-EXPR-028"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: sum\n    label: Sum\n    hints:\n      expectedDataType: number\n      exprValue: 2.0 + 1.0",
+      "digest": "sha256:11eb495d389fef5fdf2e81059d4852e0ef75b39d5dfcfbeb741e298912347c0b",
+      "satisfies": [
+        "APR-EXPR-028"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "sum": "3"
+        }
+      },
+      "twinOf": "spec:expr-canonical-result"
+    },
+    {
       "id": "spec:expr-ctx",
       "source": "specification",
       "rule": "expr-activation",
@@ -859,6 +1615,38 @@
           "team": "records"
         }
       }
+    },
+    {
+      "id": "spec:expr-ctx:yaml",
+      "source": "specification",
+      "rule": "expr-activation",
+      "anchors": [
+        "expr-activation"
+      ],
+      "rules": [
+        "APR-EXPR-022"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: team\n    label: Team\n    hints:\n      exprValue: ctx.team",
+      "digest": "sha256:dcec6b4e9f1d9babbb607cfa78d7461edfca056e8c09cad0078e61abbc3c3b11",
+      "satisfies": [
+        "APR-EXPR-022"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "team": "records"
+        }
+      },
+      "twinOf": "spec:expr-ctx"
     },
     {
       "id": "spec:expr-dependency-order",
@@ -894,6 +1682,40 @@
       }
     },
     {
+      "id": "spec:expr-dependency-order:yaml",
+      "source": "specification",
+      "rule": "expr-computed",
+      "anchors": [
+        "expr-computed"
+      ],
+      "rules": [
+        "APR-EXPR-009"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: qty\n    label: Quantity\n    response: '2'\n    hints:\n      expectedDataType: number\n  - id: price\n    label: Price\n    response: '5'\n    hints:\n      expectedDataType: number\n  - id: total\n    label: Total\n    hints:\n      expectedDataType: number\n      exprValue: subtotal + tax\n  - id: tax\n    label: Tax\n    hints:\n      expectedDataType: number\n      exprValue: subtotal * 0.5\n  - id: subtotal\n    label: Subtotal\n    hints:\n      expectedDataType: number\n      exprValue: qty * price",
+      "digest": "sha256:1a020f449ddd34b87f0994bcfca6c065852c76bfa908371e448331b6f86dc125",
+      "satisfies": [
+        "APR-EXPR-009"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "subtotal": "10",
+          "tax": "5",
+          "total": "15"
+        }
+      },
+      "twinOf": "spec:expr-dependency-order"
+    },
+    {
       "id": "spec:expr-direct-binding",
       "source": "specification",
       "rule": "expr-activation",
@@ -923,6 +1745,38 @@
           "check": "too big"
         }
       }
+    },
+    {
+      "id": "spec:expr-direct-binding:yaml",
+      "source": "specification",
+      "rule": "expr-activation",
+      "anchors": [
+        "expr-activation"
+      ],
+      "rules": [
+        "APR-EXPR-017"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: amount\n    label: Amount\n    response: '12'\n    hints:\n      expectedDataType: number\n  - id: check\n    label: Check\n    hints:\n      exprValidation: 'amount > 10.0 ? ''too big'' : '''''",
+      "digest": "sha256:c26956c6a1e3af0af76dffd6cf8f2f8a596af945a44e3c4ba5369143a5751454",
+      "satisfies": [
+        "APR-EXPR-017"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "too big"
+        }
+      },
+      "twinOf": "spec:expr-direct-binding"
     },
     {
       "id": "spec:expr-extension-function-fails",
@@ -956,6 +1810,38 @@
       }
     },
     {
+      "id": "spec:expr-extension-function-fails:yaml",
+      "source": "specification",
+      "rule": "expr-language",
+      "anchors": [
+        "expr-language"
+      ],
+      "rules": [
+        "APR-EXPR-013"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: name\n    label: Name\n    response: abc\n  - id: check\n    label: Check\n    hints:\n      exprValidation: name.upperAscii()",
+      "digest": "sha256:98f6c0a49d83dacc6b96aaa9d3db79f4ed2083b04de1f9dbe73c65fcae234deb",
+      "satisfies": [
+        "APR-EXPR-013"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": ""
+        }
+      },
+      "twinOf": "spec:expr-extension-function-fails"
+    },
+    {
       "id": "spec:expr-fallback-hidden",
       "source": "specification",
       "rule": "expr-fallback",
@@ -987,6 +1873,38 @@
       }
     },
     {
+      "id": "spec:expr-fallback-hidden:yaml",
+      "source": "specification",
+      "rule": "expr-fallback",
+      "anchors": [
+        "expr-fallback"
+      ],
+      "rules": [
+        "APR-EXPR-029"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: details\n    label: Details\n    hints:\n      exprHidden: nosuch == 'no'",
+      "digest": "sha256:5c804364af867a1b4eae380649dd78854a72678e32d7eaacd0cea7c696a37416",
+      "satisfies": [
+        "APR-EXPR-029"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "hidden": {
+          "details": false
+        }
+      },
+      "twinOf": "spec:expr-fallback-hidden"
+    },
+    {
       "id": "spec:expr-fallback-validation",
       "source": "specification",
       "rule": "expr-fallback",
@@ -1016,6 +1934,38 @@
           "code": ""
         }
       }
+    },
+    {
+      "id": "spec:expr-fallback-validation:yaml",
+      "source": "specification",
+      "rule": "expr-fallback",
+      "anchors": [
+        "expr-fallback"
+      ],
+      "rules": [
+        "APR-EXPR-032"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: code\n    label: Code\n    hints:\n      exprValidation: '42'",
+      "digest": "sha256:5360be69e363f23eac39e9a379c44b42874b68829eaf0231121f840b5464556c",
+      "satisfies": [
+        "APR-EXPR-032"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "code": ""
+        }
+      },
+      "twinOf": "spec:expr-fallback-validation"
     },
     {
       "id": "spec:expr-fallback-value",
@@ -1051,6 +2001,40 @@
       }
     },
     {
+      "id": "spec:expr-fallback-value:yaml",
+      "source": "specification",
+      "rule": "expr-fallback",
+      "anchors": [
+        "expr-fallback"
+      ],
+      "rules": [
+        "APR-EXPR-033",
+        "APR-EXPR-001"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: total\n    label: Total\n    response: '7'\n    hints:\n      expectedDataType: number\n      exprValue: nosuch + 1.0",
+      "digest": "sha256:810d159e2b9e05c28c0de8a09abaa3efffef3318ea0aa7b0e6c5e41e9214d740",
+      "satisfies": [
+        "APR-EXPR-033",
+        "APR-EXPR-001"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "total": "7"
+        }
+      },
+      "twinOf": "spec:expr-fallback-value"
+    },
+    {
       "id": "spec:expr-id",
       "source": "specification",
       "rule": "expr-activation",
@@ -1080,6 +2064,38 @@
           "echo": "echo"
         }
       }
+    },
+    {
+      "id": "spec:expr-id:yaml",
+      "source": "specification",
+      "rule": "expr-activation",
+      "anchors": [
+        "expr-activation"
+      ],
+      "rules": [
+        "APR-EXPR-019"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: echo\n    label: Echo\n    hints:\n      exprValue: _id",
+      "digest": "sha256:39a9e5d6aca94b3c5083883d1379b71205dbfa359ea553326d471b5571f2a79c",
+      "satisfies": [
+        "APR-EXPR-019"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "echo": "echo"
+        }
+      },
+      "twinOf": "spec:expr-id"
     },
     {
       "id": "spec:expr-invalid-identifier",
@@ -1113,6 +2129,38 @@
       }
     },
     {
+      "id": "spec:expr-invalid-identifier:yaml",
+      "source": "specification",
+      "rule": "expr-activation",
+      "anchors": [
+        "expr-activation"
+      ],
+      "rules": [
+        "APR-EXPR-016"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: first-name\n    label: First name\n    response: Ada\n  - id: greeting\n    label: Greeting\n    hints:\n      exprValue: first_name",
+      "digest": "sha256:d84fae0a28404ea8e22fdbfe743f25b4b7341109eff61fbae7bb9a34e1a1f237",
+      "satisfies": [
+        "APR-EXPR-016"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "greeting": ""
+        }
+      },
+      "twinOf": "spec:expr-invalid-identifier"
+    },
+    {
       "id": "spec:expr-reserved-name",
       "source": "specification",
       "rule": "expr-activation",
@@ -1144,6 +2192,38 @@
       }
     },
     {
+      "id": "spec:expr-reserved-name:yaml",
+      "source": "specification",
+      "rule": "expr-activation",
+      "anchors": [
+        "expr-activation"
+      ],
+      "rules": [
+        "APR-EXPR-004"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: _today\n    label: Today\n    response: stored\n  - id: signed\n    label: Signed\n    hints:\n      exprValue: _today",
+      "digest": "sha256:98972e272db77a0a9ba979cdcbe3ede67c5a562f48354f0d6f9ac7bb16bb02af",
+      "satisfies": [
+        "APR-EXPR-004"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "signed": "2026-09-01"
+        }
+      },
+      "twinOf": "spec:expr-reserved-name"
+    },
+    {
       "id": "spec:expr-this",
       "source": "specification",
       "rule": "expr-activation",
@@ -1173,6 +2253,38 @@
           "code": "long"
         }
       }
+    },
+    {
+      "id": "spec:expr-this:yaml",
+      "source": "specification",
+      "rule": "expr-activation",
+      "anchors": [
+        "expr-activation"
+      ],
+      "rules": [
+        "APR-EXPR-018"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: code\n    label: Code\n    response: abc\n    hints:\n      exprValidation: 'size(_this) > 2 ? ''long'' : '''''",
+      "digest": "sha256:7d9bd6cd1b0060f229bda3de7325d19cbed91aec17906ee925795acac800538c",
+      "satisfies": [
+        "APR-EXPR-018"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "code": "long"
+        }
+      },
+      "twinOf": "spec:expr-this"
     },
     {
       "id": "spec:expr-today",
@@ -1208,6 +2320,40 @@
       }
     },
     {
+      "id": "spec:expr-today:yaml",
+      "source": "specification",
+      "rule": "expr-activation",
+      "anchors": [
+        "expr-activation"
+      ],
+      "rules": [
+        "APR-EXPR-021",
+        "APR-EXPR-005"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: signed\n    label: Signed\n    hints:\n      exprValue: _today",
+      "digest": "sha256:6c61cbf55cb77ebdc2b61e46c025d5da17f96b34e6408688a9c11f0a73e68515",
+      "satisfies": [
+        "APR-EXPR-021",
+        "APR-EXPR-005"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "signed": "2026-09-01"
+        }
+      },
+      "twinOf": "spec:expr-today"
+    },
+    {
       "id": "spec:expr-unbound-empty",
       "source": "specification",
       "rule": "expr-unbound",
@@ -1239,6 +2385,38 @@
       }
     },
     {
+      "id": "spec:expr-unbound-empty:yaml",
+      "source": "specification",
+      "rule": "expr-unbound",
+      "anchors": [
+        "expr-unbound"
+      ],
+      "rules": [
+        "APR-EXPR-006"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: quantity\n    label: Quantity\n    hints:\n      expectedDataType: number\n  - id: total\n    label: Total\n    response: '5'\n    hints:\n      expectedDataType: number\n      exprValue: quantity + 1.0",
+      "digest": "sha256:105926974650a2818e189ac0bcc6802e64cddfadd64ef421ad38f6e7b4553b56",
+      "satisfies": [
+        "APR-EXPR-006"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "total": "5"
+        }
+      },
+      "twinOf": "spec:expr-unbound-empty"
+    },
+    {
       "id": "spec:expression-preserved",
       "source": "specification",
       "rule": "profile-core",
@@ -1264,6 +2442,32 @@
       ]
     },
     {
+      "id": "spec:expression-preserved:yaml",
+      "source": "specification",
+      "rule": "profile-core",
+      "anchors": [
+        "profile-core"
+      ],
+      "rules": [
+        "APR-CONF-003",
+        "APR-CONF-013"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+expressions",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: a\n    label: A\n    response: '2'\n  - id: total\n    label: Total\n    hints:\n      exprValue: string(a)",
+      "digest": "sha256:4b061a69d73396d765a2e106e175fb2138d98daae75ee2117bc29471a0d91eea",
+      "satisfies": [
+        "APR-CONF-003",
+        "APR-CONF-013"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/1/hints/exprValue"
+      ],
+      "twinOf": "spec:expression-preserved"
+    },
+    {
       "id": "spec:extension-member-prefixed",
       "source": "specification",
       "rule": "extensions",
@@ -1285,6 +2489,30 @@
         "APR-MODEL-029",
         "APR-MODEL-031"
       ]
+    },
+    {
+      "id": "spec:extension-member-prefixed:yaml",
+      "source": "specification",
+      "rule": "extensions",
+      "anchors": [
+        "extensions"
+      ],
+      "rules": [
+        "APR-MODEL-020",
+        "APR-MODEL-029",
+        "APR-MODEL-031"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Extended\n  com.example.routing: desk-4\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    com.example.priority: 2",
+      "digest": "sha256:741d884dcd1c4f1e2da1b1f715f23ba0e2f06219cd09f37f40616c190b4df5c7",
+      "satisfies": [
+        "APR-MODEL-020",
+        "APR-MODEL-029",
+        "APR-MODEL-031"
+      ],
+      "twinOf": "spec:extension-member-prefixed"
     },
     {
       "id": "spec:filled-form-with-template-id",
@@ -1310,6 +2538,30 @@
       ]
     },
     {
+      "id": "spec:filled-form-with-template-id:yaml",
+      "source": "specification",
+      "rule": "metadata",
+      "anchors": [
+        "metadata"
+      ],
+      "rules": [
+        "APR-MODEL-007",
+        "APR-MODEL-008",
+        "APR-MODEL-036"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\ndocumentType: filledForm\nmetadata:\n  title: T\n  templateId: tag:example.com,2026:t\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:a45b0f9d48115f283ca35f36c0e520531a0074da9d34c38f2eafededf19124f6",
+      "satisfies": [
+        "APR-MODEL-007",
+        "APR-MODEL-008",
+        "APR-MODEL-036"
+      ],
+      "twinOf": "spec:filled-form-with-template-id"
+    },
+    {
       "id": "spec:filled-form-without-template-id",
       "source": "specification",
       "rule": "metadata",
@@ -1327,6 +2579,26 @@
         "APR-MODEL-008"
       ],
       "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "spec:filled-form-without-template-id:yaml",
+      "source": "specification",
+      "rule": "metadata",
+      "anchors": [
+        "metadata"
+      ],
+      "rules": [
+        "APR-MODEL-008"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\ndocumentType: filledForm\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-008"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:filled-form-without-template-id"
     },
     {
       "id": "spec:form-with-no-sections",
@@ -1348,6 +2620,26 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "spec:form-with-no-sections:yaml",
+      "source": "specification",
+      "rule": "root-object",
+      "anchors": [
+        "root-object"
+      ],
+      "rules": [
+        "APR-MODEL-005"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections: []",
+      "violates": [
+        "APR-MODEL-005"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:form-with-no-sections"
+    },
+    {
       "id": "spec:form-without-metadata",
       "source": "specification",
       "rule": "root-object",
@@ -1365,6 +2657,26 @@
         "APR-MODEL-055"
       ],
       "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "spec:form-without-metadata:yaml",
+      "source": "specification",
+      "rule": "root-object",
+      "anchors": [
+        "root-object"
+      ],
+      "rules": [
+        "APR-MODEL-055"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-055"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:form-without-metadata"
     },
     {
       "id": "spec:id-namespaces",
@@ -1394,6 +2706,36 @@
         "APR-MODEL-077",
         "APR-MODEL-092"
       ]
+    },
+    {
+      "id": "spec:id-namespaces:yaml",
+      "source": "specification",
+      "rule": "prompt-object",
+      "anchors": [
+        "prompt-object"
+      ],
+      "rules": [
+        "APR-MODEL-055",
+        "APR-MODEL-066",
+        "APR-MODEL-067",
+        "APR-MODEL-076",
+        "APR-MODEL-077",
+        "APR-MODEL-092"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Contact\nsections:\n- id: name\n  title: Name\n  prompts:\n  - id: name\n    label: Full name\n  - id: Name\n    label: Name as printed on the card",
+      "digest": "sha256:c8016421edde891987362d6ee7b56a35a68ded97404a7e38b47dff3b3d62722c",
+      "satisfies": [
+        "APR-MODEL-055",
+        "APR-MODEL-066",
+        "APR-MODEL-067",
+        "APR-MODEL-076",
+        "APR-MODEL-077",
+        "APR-MODEL-092"
+      ],
+      "twinOf": "spec:id-namespaces"
     },
     {
       "id": "spec:jsonc-comment-inside-string",
@@ -1516,6 +2858,30 @@
       ]
     },
     {
+      "id": "spec:language-overrides:yaml",
+      "source": "specification",
+      "rule": "metadata",
+      "anchors": [
+        "metadata"
+      ],
+      "rules": [
+        "APR-MODEL-062",
+        "APR-MODEL-075",
+        "APR-MODEL-081"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Travel declaration\n  language: en\nsections:\n- id: declaration\n  title: Déclaration\n  language: fr\n  prompts:\n  - id: name\n    label: Nom complet\n  - id: origin\n    label: Herkunftsland\n    language: de",
+      "digest": "sha256:8d8221f0b116957be8116d38571cca546d96f68ca4ad44d6d42193fda2e1ae0c",
+      "satisfies": [
+        "APR-MODEL-062",
+        "APR-MODEL-075",
+        "APR-MODEL-081"
+      ],
+      "twinOf": "spec:language-overrides"
+    },
+    {
       "id": "spec:manifest-entries-unordered",
       "source": "specification",
       "rule": "digests",
@@ -1533,6 +2899,26 @@
         "APR-DIGEST-003"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:manifest-entries-unordered:yaml",
+      "source": "specification",
+      "rule": "digests",
+      "anchors": [
+        "digests"
+      ],
+      "rules": [
+        "APR-DIGEST-003"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:abababababababababababababababababababababababababababababababab\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:abababababababababababababababababababababababababababababababab\n  entries:\n  - path: ''\n    digest: sha256:abababababababababababababababababababababababababababababababab\n  - path: /b\n    digest: sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\n  - path: /a\n    digest: sha256:efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-DIGEST-003"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:manifest-entries-unordered"
     },
     {
       "id": "spec:manifest-well-formed",
@@ -1562,6 +2948,34 @@
       ]
     },
     {
+      "id": "spec:manifest-well-formed:yaml",
+      "source": "specification",
+      "rule": "digests",
+      "anchors": [
+        "digests"
+      ],
+      "rules": [
+        "APR-DIGEST-001",
+        "APR-DIGEST-003",
+        "APR-DIGEST-004",
+        "APR-DIGEST-008",
+        "APR-DIGEST-009"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:abababababababababababababababababababababababababababababababab\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:abababababababababababababababababababababababababababababababab\n  entries:\n  - path: ''\n    digest: sha256:abababababababababababababababababababababababababababababababab\n  - path: /metadata\n    digest: sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\nproofs: []\nwitnesses: []",
+      "digest": "sha256:f298ed3c4d9e9a7dfbbcee906bab550929028f5a92e6bc8e731b147489567672",
+      "satisfies": [
+        "APR-DIGEST-001",
+        "APR-DIGEST-003",
+        "APR-DIGEST-004",
+        "APR-DIGEST-008",
+        "APR-DIGEST-009"
+      ],
+      "twinOf": "spec:manifest-well-formed"
+    },
+    {
       "id": "spec:manifest-without-root-pointer",
       "source": "specification",
       "rule": "digests",
@@ -1581,6 +2995,26 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "spec:manifest-without-root-pointer:yaml",
+      "source": "specification",
+      "rule": "digests",
+      "anchors": [
+        "digests"
+      ],
+      "rules": [
+        "APR-DIGEST-004"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core+attestations",
+      "document": "recordType: attestation\naprVersion: 1.0-beta.6\nsubject:\n  digest: sha256:abababababababababababababababababababababababababababababababab\n  canonicalization: jcs-sha256\nscope:\n  kind: document\nmanifest:\n  root: sha256:abababababababababababababababababababababababababababababababab\n  entries:\n  - path: /a\n    digest: sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\nproofs: []\nwitnesses: []",
+      "violates": [
+        "APR-DIGEST-004"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:manifest-without-root-pointer"
+    },
+    {
       "id": "spec:member-name-case",
       "source": "specification",
       "rule": "extensions",
@@ -1598,6 +3032,26 @@
         "APR-MODEL-066"
       ],
       "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "spec:member-name-case:yaml",
+      "source": "specification",
+      "rule": "extensions",
+      "anchors": [
+        "extensions"
+      ],
+      "rules": [
+        "APR-MODEL-066"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Wrong case\nsections:\n- ID: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-066"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:member-name-case"
     },
     {
       "id": "spec:minimal-form",
@@ -1621,6 +3075,30 @@
         "APR-MODEL-053",
         "APR-MODEL-055"
       ]
+    },
+    {
+      "id": "spec:minimal-form:yaml",
+      "source": "specification",
+      "rule": "root-object",
+      "anchors": [
+        "root-object"
+      ],
+      "rules": [
+        "APR-MODEL-005",
+        "APR-MODEL-053",
+        "APR-MODEL-055"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Contact\nsections:\n- id: contact\n  title: Contact\n  prompts:\n  - id: full_name\n    label: Full name",
+      "digest": "sha256:96f97049bce75f3ef6b2689a950c79c41930b7b8bbeb988c76c6523b585585d5",
+      "satisfies": [
+        "APR-MODEL-005",
+        "APR-MODEL-053",
+        "APR-MODEL-055"
+      ],
+      "twinOf": "spec:minimal-form"
     },
     {
       "id": "spec:no-document",
@@ -1661,6 +3139,26 @@
       "diagnostic": "PARSE_ERROR"
     },
     {
+      "id": "spec:null-outside-response:yaml",
+      "source": "specification",
+      "rule": "json-subset",
+      "anchors": [
+        "json-subset"
+      ],
+      "rules": [
+        "APR-REP-014"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\ndocumentType: null\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-REP-014"
+      ],
+      "diagnostic": "PARSE_ERROR",
+      "twinOf": "spec:null-outside-response"
+    },
+    {
       "id": "spec:pattern-mismatch-is-a-warning",
       "source": "specification",
       "rule": "hints-advisory",
@@ -1683,6 +3181,29 @@
       ]
     },
     {
+      "id": "spec:pattern-mismatch-is-a-warning:yaml",
+      "source": "specification",
+      "rule": "hints-advisory",
+      "anchors": [
+        "hints-advisory"
+      ],
+      "rules": [
+        "APR-MODEL-003"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    response: twelve\n    hints:\n      validationPattern: ^[0-9]+$",
+      "digest": "sha256:d797dd8b7fa60a5342ba60c41f89ef961a846e7d5758769c7d36b876dd44ccbd",
+      "satisfies": [
+        "APR-MODEL-003"
+      ],
+      "warns": [
+        "RESPONSE_PATTERN_MISMATCH"
+      ],
+      "twinOf": "spec:pattern-mismatch-is-a-warning"
+    },
+    {
       "id": "spec:prompt-ids-repeated",
       "source": "specification",
       "rule": "prompt-object",
@@ -1700,6 +3221,26 @@
         "APR-MODEL-010"
       ],
       "diagnostic": "DUPLICATE_ID"
+    },
+    {
+      "id": "spec:prompt-ids-repeated:yaml",
+      "source": "specification",
+      "rule": "prompt-object",
+      "anchors": [
+        "prompt-object"
+      ],
+      "rules": [
+        "APR-MODEL-010"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: A\n  - id: p\n    label: B",
+      "violates": [
+        "APR-MODEL-010"
+      ],
+      "diagnostic": "DUPLICATE_ID",
+      "twinOf": "spec:prompt-ids-repeated"
     },
     {
       "id": "spec:prompt-ids-unique",
@@ -1721,6 +3262,26 @@
       ]
     },
     {
+      "id": "spec:prompt-ids-unique:yaml",
+      "source": "specification",
+      "rule": "prompt-object",
+      "anchors": [
+        "prompt-object"
+      ],
+      "rules": [
+        "APR-MODEL-010"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s1\n  title: S1\n  prompts:\n  - id: a\n    label: A\n- id: s2\n  title: S2\n  prompts:\n  - id: b\n    label: B",
+      "digest": "sha256:80eaa57ca59e8e244c9e3c7c947eeadd42f8c30ac8ad32520d726def4eda3f24",
+      "satisfies": [
+        "APR-MODEL-010"
+      ],
+      "twinOf": "spec:prompt-ids-unique"
+    },
+    {
       "id": "spec:prompt-without-id",
       "source": "specification",
       "rule": "prompt-object",
@@ -1740,6 +3301,26 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "spec:prompt-without-id:yaml",
+      "source": "specification",
+      "rule": "prompt-object",
+      "anchors": [
+        "prompt-object"
+      ],
+      "rules": [
+        "APR-MODEL-076"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - label: P",
+      "violates": [
+        "APR-MODEL-076"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:prompt-without-id"
+    },
+    {
       "id": "spec:prompt-without-label",
       "source": "specification",
       "rule": "prompt-object",
@@ -1757,6 +3338,26 @@
         "APR-MODEL-077"
       ],
       "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "spec:prompt-without-label:yaml",
+      "source": "specification",
+      "rule": "prompt-object",
+      "anchors": [
+        "prompt-object"
+      ],
+      "rules": [
+        "APR-MODEL-077"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    hints:\n      placeholder: Full name",
+      "violates": [
+        "APR-MODEL-077"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:prompt-without-label"
     },
     {
       "id": "spec:ragged-table",
@@ -1784,6 +3385,34 @@
         "TABLE_RAGGED",
         "TABLE_LABEL_MISMATCH"
       ]
+    },
+    {
+      "id": "spec:ragged-table:yaml",
+      "source": "specification",
+      "rule": "table-ragged",
+      "anchors": [
+        "table-ragged"
+      ],
+      "rules": [
+        "APR-MODEL-100",
+        "APR-MODEL-014"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Ragged\nsections:\n- id: t\n  title: T\n  kind: table\n  sections:\n  - id: r1\n    title: Row 1\n    prompts:\n    - id: r1.x\n      label: X\n    - id: r1.y\n      label: Y\n  - id: r2\n    title: Row 2\n    prompts:\n    - id: r2.x\n      label: X",
+      "digest": "sha256:a7b3b75695aba8331058b4859beee2679ffaa8a502114b5a4ac1b75e4407b932",
+      "satisfies": [
+        "APR-MODEL-100"
+      ],
+      "violates": [
+        "APR-MODEL-014"
+      ],
+      "warns": [
+        "TABLE_RAGGED",
+        "TABLE_LABEL_MISMATCH"
+      ],
+      "twinOf": "spec:ragged-table"
     },
     {
       "id": "spec:regarding-chain",
@@ -1823,6 +3452,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:regarding-not-a-digest:yaml",
+      "source": "specification",
+      "rule": "regarding",
+      "anchors": [
+        "regarding"
+      ],
+      "rules": [
+        "APR-MODEL-043"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\n  regarding:\n  - sha256:NOTHEX\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-043"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:regarding-not-a-digest"
+    },
+    {
       "id": "spec:regarding-reference",
       "source": "specification",
       "rule": "regarding",
@@ -1842,6 +3491,28 @@
         "APR-MODEL-043",
         "APR-MODEL-045"
       ]
+    },
+    {
+      "id": "spec:regarding-reference:yaml",
+      "source": "specification",
+      "rule": "regarding",
+      "anchors": [
+        "regarding"
+      ],
+      "rules": [
+        "APR-MODEL-043",
+        "APR-MODEL-045"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\ndocumentType: filledForm\nmetadata:\n  title: Intake Receipt\n  templateId: tag:example.com,2026:intake-receipt\n  regarding:\n  - sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\nsections:\n- id: intake\n  title: Intake\n  prompts:\n  - id: received\n    label: Date received\n    response: '2026-09-04'\n    hints:\n      expectedDataType: date",
+      "digest": "sha256:3067d522e8d2dbe7c2bafd72cdb5ed761448a72619a10dc0c2cd3ba89eae1b21",
+      "satisfies": [
+        "APR-MODEL-043",
+        "APR-MODEL-045"
+      ],
+      "twinOf": "spec:regarding-reference"
     },
     {
       "id": "spec:response-contradicts-type",
@@ -1868,6 +3539,31 @@
       ]
     },
     {
+      "id": "spec:response-contradicts-type:yaml",
+      "source": "specification",
+      "rule": "semantic-validation",
+      "anchors": [
+        "semantic-validation"
+      ],
+      "rules": [
+        "APR-VAL-005",
+        "APR-VAL-018"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    response: about twelve\n    hints:\n      expectedDataType: number",
+      "digest": "sha256:f154fa15bc576c3ae1c12d1efe4b1015dd1d08dc1aa961bd89504197cce34776",
+      "satisfies": [
+        "APR-VAL-005",
+        "APR-VAL-018"
+      ],
+      "warns": [
+        "RESPONSE_CONTRADICTS_TYPE"
+      ],
+      "twinOf": "spec:response-contradicts-type"
+    },
+    {
       "id": "spec:response-digits-string",
       "source": "specification",
       "rule": "responses",
@@ -1889,6 +3585,28 @@
       ]
     },
     {
+      "id": "spec:response-digits-string:yaml",
+      "source": "specification",
+      "rule": "responses",
+      "anchors": [
+        "responses"
+      ],
+      "rules": [
+        "APR-MODEL-001",
+        "APR-MODEL-049"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    response: '42'",
+      "digest": "sha256:4758c268f248d8db1f21897609c2d252089d6f6b8662b2f05f0637cfe0f8a428",
+      "satisfies": [
+        "APR-MODEL-001",
+        "APR-MODEL-049"
+      ],
+      "twinOf": "spec:response-digits-string"
+    },
+    {
       "id": "spec:response-number",
       "source": "specification",
       "rule": "responses",
@@ -1908,6 +3626,28 @@
         "APR-MODEL-049"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:response-number:yaml",
+      "source": "specification",
+      "rule": "responses",
+      "anchors": [
+        "responses"
+      ],
+      "rules": [
+        "APR-MODEL-001",
+        "APR-MODEL-049"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    response: 42",
+      "violates": [
+        "APR-MODEL-001",
+        "APR-MODEL-049"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:response-number"
     },
     {
       "id": "spec:response-outside-bounds",
@@ -1934,6 +3674,31 @@
       ]
     },
     {
+      "id": "spec:response-outside-bounds:yaml",
+      "source": "specification",
+      "rule": "semantic-validation",
+      "anchors": [
+        "semantic-validation"
+      ],
+      "rules": [
+        "APR-VAL-005",
+        "APR-VAL-020"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    response: '12'\n    hints:\n      expectedDataType: number\n      max: 10",
+      "digest": "sha256:a17920594b8624b8a7185620a86a67efc284d90facfa9bf32c059ca7786f15b2",
+      "satisfies": [
+        "APR-VAL-005",
+        "APR-VAL-020"
+      ],
+      "warns": [
+        "RESPONSE_OUTSIDE_BOUNDS"
+      ],
+      "twinOf": "spec:response-outside-bounds"
+    },
+    {
       "id": "spec:response-outside-suggested-values",
       "source": "specification",
       "rule": "semantic-validation",
@@ -1958,6 +3723,31 @@
       ]
     },
     {
+      "id": "spec:response-outside-suggested-values:yaml",
+      "source": "specification",
+      "rule": "semantic-validation",
+      "anchors": [
+        "semantic-validation"
+      ],
+      "rules": [
+        "APR-VAL-005",
+        "APR-VAL-021"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    response: blue\n    hints:\n      expectedDataType: select\n      suggestedValues:\n      - red\n      - green",
+      "digest": "sha256:80403988a7a9a7a0532b96bede079873dd6cc3c731ebda409bf9478c9d754e96",
+      "satisfies": [
+        "APR-VAL-005",
+        "APR-VAL-021"
+      ],
+      "warns": [
+        "RESPONSE_OUTSIDE_SUGGESTED_VALUES"
+      ],
+      "twinOf": "spec:response-outside-suggested-values"
+    },
+    {
       "id": "spec:role-without-id",
       "source": "specification",
       "rule": "roles",
@@ -1975,6 +3765,26 @@
         "APR-MODEL-026"
       ],
       "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "spec:role-without-id:yaml",
+      "source": "specification",
+      "rule": "roles",
+      "anchors": [
+        "roles"
+      ],
+      "rules": [
+        "APR-MODEL-026"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Intake\nroles:\n- name: Patient\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-026"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:role-without-id"
     },
     {
       "id": "spec:section-empty",
@@ -1996,6 +3806,26 @@
       "diagnostic": "EMPTY_SECTION"
     },
     {
+      "id": "spec:section-empty:yaml",
+      "source": "specification",
+      "rule": "section-object",
+      "anchors": [
+        "section-object"
+      ],
+      "rules": [
+        "APR-MODEL-009"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S",
+      "violates": [
+        "APR-MODEL-009"
+      ],
+      "diagnostic": "EMPTY_SECTION",
+      "twinOf": "spec:section-empty"
+    },
+    {
       "id": "spec:section-without-id",
       "source": "specification",
       "rule": "section-object",
@@ -2015,6 +3845,26 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "spec:section-without-id:yaml",
+      "source": "specification",
+      "rule": "section-object",
+      "anchors": [
+        "section-object"
+      ],
+      "rules": [
+        "APR-MODEL-066"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-066"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:section-without-id"
+    },
+    {
       "id": "spec:section-without-title",
       "source": "specification",
       "rule": "section-object",
@@ -2032,6 +3882,26 @@
         "APR-MODEL-067"
       ],
       "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "spec:section-without-title:yaml",
+      "source": "specification",
+      "rule": "section-object",
+      "anchors": [
+        "section-object"
+      ],
+      "rules": [
+        "APR-MODEL-067"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-067"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:section-without-title"
     },
     {
       "id": "spec:stream-jsonc-framed",
@@ -2130,6 +4000,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:structural-member-wrong-type:yaml",
+      "source": "specification",
+      "rule": "json-subset",
+      "anchors": [
+        "json-subset"
+      ],
+      "rules": [
+        "APR-REP-015"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Stringly typed\nsections:\n- id: rows\n  title: Rows\n  kind: table\n  canAddRows: 'true'\n  maxRows: '25'\n  sections:\n  - id: row_1\n    title: Row 1\n    prompts:\n    - id: row_1.note\n      label: Note",
+      "violates": [
+        "APR-REP-015"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:structural-member-wrong-type"
+    },
+    {
       "id": "spec:submission-scheme-unsupported",
       "source": "specification",
       "rule": "warnings",
@@ -2150,6 +4040,29 @@
       "warns": [
         "SUBMISSION_URL_UNSUPPORTED"
       ]
+    },
+    {
+      "id": "spec:submission-scheme-unsupported:yaml",
+      "source": "specification",
+      "rule": "warnings",
+      "anchors": [
+        "warnings"
+      ],
+      "rules": [
+        "APR-VAL-030"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\n  submissionUrls:\n  - ftp://example.com/drop\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:339de043be998cf45f329f8e055dd5991887e367907958c1e03773f02395478f",
+      "satisfies": [
+        "APR-VAL-030"
+      ],
+      "warns": [
+        "SUBMISSION_URL_UNSUPPORTED"
+      ],
+      "twinOf": "spec:submission-scheme-unsupported"
     },
     {
       "id": "spec:table-max-rows-one",
@@ -2173,6 +4086,28 @@
       ]
     },
     {
+      "id": "spec:table-max-rows-one:yaml",
+      "source": "specification",
+      "rule": "section-object",
+      "anchors": [
+        "section-object"
+      ],
+      "rules": [
+        "APR-MODEL-009",
+        "APR-MODEL-047"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: t\n  title: T\n  kind: table\n  maxRows: 1\n  sections:\n  - id: r\n    title: R\n    prompts:\n    - id: r.a\n      label: A",
+      "digest": "sha256:7fe0266e295d7daa31c2e87644e1d49730fa29c7b89c13e599ab7e7cf0a47aaf",
+      "satisfies": [
+        "APR-MODEL-009",
+        "APR-MODEL-047"
+      ],
+      "twinOf": "spec:table-max-rows-one"
+    },
+    {
       "id": "spec:table-max-rows-zero",
       "source": "specification",
       "rule": "section-object",
@@ -2190,6 +4125,26 @@
         "APR-MODEL-047"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "spec:table-max-rows-zero:yaml",
+      "source": "specification",
+      "rule": "section-object",
+      "anchors": [
+        "section-object"
+      ],
+      "rules": [
+        "APR-MODEL-047"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: t\n  title: T\n  kind: table\n  maxRows: 0\n  sections:\n  - id: r\n    title: R\n    prompts:\n    - id: r.a\n      label: A",
+      "violates": [
+        "APR-MODEL-047"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:table-max-rows-zero"
     },
     {
       "id": "spec:table-members-on-a-plain-section",
@@ -2216,6 +4171,31 @@
       ]
     },
     {
+      "id": "spec:table-members-on-a-plain-section:yaml",
+      "source": "specification",
+      "rule": "tables",
+      "anchors": [
+        "tables"
+      ],
+      "rules": [
+        "APR-MODEL-038",
+        "APR-MODEL-097"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Plain section\nsections:\n- id: s\n  title: S\n  maxRows: 5\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:3acbb8637609b14cb25c9c8f1d1688795d82df7396b02cfbc5949c104797df64",
+      "satisfies": [
+        "APR-MODEL-038",
+        "APR-MODEL-097"
+      ],
+      "warns": [
+        "TABLE_MEMBERS_ON_A_PLAIN_SECTION"
+      ],
+      "twinOf": "spec:table-members-on-a-plain-section"
+    },
+    {
       "id": "spec:table-over-capacity",
       "source": "specification",
       "rule": "table-rows",
@@ -2236,6 +4216,29 @@
       "warns": [
         "TABLE_OVER_CAPACITY"
       ]
+    },
+    {
+      "id": "spec:table-over-capacity:yaml",
+      "source": "specification",
+      "rule": "table-rows",
+      "anchors": [
+        "table-rows"
+      ],
+      "rules": [
+        "APR-MODEL-099"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Over capacity\nsections:\n- id: t\n  title: T\n  kind: table\n  maxRows: 1\n  sections:\n  - id: r1\n    title: Row 1\n    prompts:\n    - id: r1.x\n      label: X\n  - id: r2\n    title: Row 2\n    prompts:\n    - id: r2.x\n      label: X",
+      "digest": "sha256:8602ec10027bff3de2164122528d10901fd5cc06aaaf073d4735af38d511deab",
+      "satisfies": [
+        "APR-MODEL-099"
+      ],
+      "warns": [
+        "TABLE_OVER_CAPACITY"
+      ],
+      "twinOf": "spec:table-over-capacity"
     },
     {
       "id": "spec:table-section",
@@ -2259,6 +4262,28 @@
       ]
     },
     {
+      "id": "spec:table-section:yaml",
+      "source": "specification",
+      "rule": "tables",
+      "anchors": [
+        "tables"
+      ],
+      "rules": [
+        "APR-MODEL-038",
+        "APR-REP-015"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Expenses\nsections:\n- id: expenses\n  title: Expense line items\n  kind: table\n  canAddRows: true\n  maxRows: 25\n  sections:\n  - id: item_1\n    title: Item 1\n    prompts:\n    - id: item_1.description\n      label: Description\n      response: Train fare\n    - id: item_1.amount\n      label: Amount\n      response: '42.50'\n      hints:\n        expectedDataType: currency",
+      "digest": "sha256:471b17fa639732bd4296e87a4a7f40ac4db64cd4bfa4caceb21e6bc5ab415d1d",
+      "satisfies": [
+        "APR-MODEL-038",
+        "APR-REP-015"
+      ],
+      "twinOf": "spec:table-section"
+    },
+    {
       "id": "spec:table-with-two-instances",
       "source": "specification",
       "rule": "tables",
@@ -2280,6 +4305,28 @@
       ]
     },
     {
+      "id": "spec:table-with-two-instances:yaml",
+      "source": "specification",
+      "rule": "tables",
+      "anchors": [
+        "tables"
+      ],
+      "rules": [
+        "APR-MODEL-014",
+        "APR-MODEL-046"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Expenses\nsections:\n- id: expenses\n  title: Expense line items\n  kind: table\n  canAddRows: true\n  maxRows: 25\n  sections:\n  - id: item_1\n    title: Item 1\n    prompts:\n    - id: item_1.description\n      label: Description\n      response: Train fare\n    - id: item_1.amount\n      label: Amount\n      response: '42.50'\n      hints:\n        expectedDataType: currency\n  - id: item_2\n    title: Item 2\n    prompts:\n    - id: item_2.description\n      label: Description\n      response: Hotel\n    - id: item_2.amount\n      label: Amount\n      response: '120.00'\n      hints:\n        expectedDataType: currency",
+      "digest": "sha256:35d2af9fe5259b28b5356bbcffb1518a8c090497ed6618ac86ffb31384fe6501",
+      "satisfies": [
+        "APR-MODEL-014",
+        "APR-MODEL-046"
+      ],
+      "twinOf": "spec:table-with-two-instances"
+    },
+    {
       "id": "spec:table-without-instances",
       "source": "specification",
       "rule": "table-rows",
@@ -2297,6 +4344,26 @@
         "APR-MODEL-046"
       ],
       "diagnostic": "EMPTY_TABLE"
+    },
+    {
+      "id": "spec:table-without-instances:yaml",
+      "source": "specification",
+      "rule": "table-rows",
+      "anchors": [
+        "table-rows"
+      ],
+      "rules": [
+        "APR-MODEL-046"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Empty table\nsections:\n- id: t\n  title: T\n  kind: table\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-046"
+      ],
+      "diagnostic": "EMPTY_TABLE",
+      "twinOf": "spec:table-without-instances"
     },
     {
       "id": "spec:template-id-not-a-uri",
@@ -2318,6 +4385,26 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "spec:template-id-not-a-uri:yaml",
+      "source": "specification",
+      "rule": "metadata",
+      "anchors": [
+        "metadata"
+      ],
+      "rules": [
+        "APR-MODEL-036"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\n  templateId: just-a-name\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-036"
+      ],
+      "diagnostic": "WRONG_TYPE",
+      "twinOf": "spec:template-id-not-a-uri"
+    },
+    {
       "id": "spec:title-blank",
       "source": "specification",
       "rule": "metadata",
@@ -2337,6 +4424,26 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "spec:title-blank:yaml",
+      "source": "specification",
+      "rule": "metadata",
+      "anchors": [
+        "metadata"
+      ],
+      "rules": [
+        "APR-MODEL-007"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: '   '\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-MODEL-007"
+      ],
+      "diagnostic": "REQUIRED_FIELD",
+      "twinOf": "spec:title-blank"
+    },
+    {
       "id": "spec:title-clean",
       "source": "specification",
       "rule": "human-text",
@@ -2354,6 +4461,26 @@
       "satisfies": [
         "APR-TEXT-011"
       ]
+    },
+    {
+      "id": "spec:title-clean:yaml",
+      "source": "specification",
+      "rule": "human-text",
+      "anchors": [
+        "human-text"
+      ],
+      "rules": [
+        "APR-TEXT-011"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Permit Application\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:7546b6b2a76c75838cab6cbe6681805d476188264e4812577439735f86e88dd4",
+      "satisfies": [
+        "APR-TEXT-011"
+      ],
+      "twinOf": "spec:title-clean"
     },
     {
       "id": "spec:title-confusable-script-mix",
@@ -2380,6 +4507,31 @@
       ]
     },
     {
+      "id": "spec:title-confusable-script-mix:yaml",
+      "source": "specification",
+      "rule": "human-text",
+      "anchors": [
+        "human-text"
+      ],
+      "rules": [
+        "APR-TEXT-012",
+        "APR-VAL-035"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Pаypal Permit\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:9a7465134f46ec26180d7c4bd00ca0027912eb6e4fe8e82deb8b383485dba781",
+      "satisfies": [
+        "APR-TEXT-012",
+        "APR-VAL-035"
+      ],
+      "warns": [
+        "CONFUSABLE_SCRIPT_MIX"
+      ],
+      "twinOf": "spec:title-confusable-script-mix"
+    },
+    {
       "id": "spec:title-forbidden-code-point",
       "source": "specification",
       "rule": "warnings",
@@ -2402,6 +4554,31 @@
       "warns": [
         "FORBIDDEN_CODE_POINT"
       ]
+    },
+    {
+      "id": "spec:title-forbidden-code-point:yaml",
+      "source": "specification",
+      "rule": "warnings",
+      "anchors": [
+        "warnings"
+      ],
+      "rules": [
+        "APR-VAL-032",
+        "APR-TEXT-014"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Permit​Application\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:1e3fb41249cdfba59cca6fbe08c8e9cd740e300ef76e892bd6fdb87bea8638ca",
+      "satisfies": [
+        "APR-VAL-032",
+        "APR-TEXT-014"
+      ],
+      "warns": [
+        "FORBIDDEN_CODE_POINT"
+      ],
+      "twinOf": "spec:title-forbidden-code-point"
     },
     {
       "id": "spec:title-not-nfc",
@@ -2428,6 +4605,31 @@
       ]
     },
     {
+      "id": "spec:title-not-nfc:yaml",
+      "source": "specification",
+      "rule": "warnings",
+      "anchors": [
+        "warnings"
+      ],
+      "rules": [
+        "APR-VAL-031",
+        "APR-TEXT-014"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Café permit\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:bfb3ad08f775917dc54ce29ac5cca6d8ab05eeb3c08d8df887cc51209dc66e53",
+      "satisfies": [
+        "APR-VAL-031",
+        "APR-TEXT-014"
+      ],
+      "warns": [
+        "NON_NFC_TEXT"
+      ],
+      "twinOf": "spec:title-not-nfc"
+    },
+    {
       "id": "spec:title-zero-width-space",
       "source": "specification",
       "rule": "human-text",
@@ -2450,6 +4652,29 @@
       ]
     },
     {
+      "id": "spec:title-zero-width-space:yaml",
+      "source": "specification",
+      "rule": "human-text",
+      "anchors": [
+        "human-text"
+      ],
+      "rules": [
+        "APR-TEXT-011"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Permit​Application\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:1e3fb41249cdfba59cca6fbe08c8e9cd740e300ef76e892bd6fdb87bea8638ca",
+      "violates": [
+        "APR-TEXT-011"
+      ],
+      "warns": [
+        "FORBIDDEN_CODE_POINT"
+      ],
+      "twinOf": "spec:title-zero-width-space"
+    },
+    {
       "id": "spec:undeclared-role",
       "source": "specification",
       "rule": "roles",
@@ -2470,6 +4695,29 @@
       "warns": [
         "UNDECLARED_ROLE"
       ]
+    },
+    {
+      "id": "spec:undeclared-role:yaml",
+      "source": "specification",
+      "rule": "roles",
+      "anchors": [
+        "roles"
+      ],
+      "rules": [
+        "APR-MODEL-051"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Intake\nroles:\n- id: patient\nsections:\n- id: s\n  title: S\n  role: nurse\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:37b43990689628e1c28b06d9126b6d01fe10fb24472bd377fb19212b5b309309",
+      "satisfies": [
+        "APR-MODEL-051"
+      ],
+      "warns": [
+        "UNDECLARED_ROLE"
+      ],
+      "twinOf": "spec:undeclared-role"
     },
     {
       "id": "spec:unprefixed-member",
@@ -2496,6 +4744,31 @@
       ]
     },
     {
+      "id": "spec:unprefixed-member:yaml",
+      "source": "specification",
+      "rule": "extensions",
+      "anchors": [
+        "extensions"
+      ],
+      "rules": [
+        "APR-MODEL-029",
+        "APR-MODEL-031"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Unprefixed\n  routing: desk-4\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:5eedf823c63d19c37fb7b247a9222123a61b7c5f5462f33967ad77a1985f4883",
+      "violates": [
+        "APR-MODEL-029",
+        "APR-MODEL-031"
+      ],
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ],
+      "twinOf": "spec:unprefixed-member"
+    },
+    {
       "id": "spec:unregistered-data-type-degrades",
       "source": "specification",
       "rule": "hints-object",
@@ -2513,6 +4786,26 @@
       "satisfies": [
         "APR-MODEL-018"
       ]
+    },
+    {
+      "id": "spec:unregistered-data-type-degrades:yaml",
+      "source": "specification",
+      "rule": "hints-object",
+      "anchors": [
+        "hints-object"
+      ],
+      "rules": [
+        "APR-MODEL-018"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Unregistered affordance\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    response: anything\n    hints:\n      expectedDataType: holographic-signature",
+      "digest": "sha256:9f05bfc81c2c6f22f91923013fc7024edeedd8c18336ed6406b78a097bcaae52",
+      "satisfies": [
+        "APR-MODEL-018"
+      ],
+      "twinOf": "spec:unregistered-data-type-degrades"
     },
     {
       "id": "spec:unregistered-data-type-warns",
@@ -2535,6 +4828,29 @@
       "warns": [
         "UNREGISTERED_DATA_TYPE"
       ]
+    },
+    {
+      "id": "spec:unregistered-data-type-warns:yaml",
+      "source": "specification",
+      "rule": "warnings",
+      "anchors": [
+        "warnings"
+      ],
+      "rules": [
+        "APR-VAL-023"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    hints:\n      expectedDataType: holographic-signature",
+      "digest": "sha256:f09f0f8a56d4ee9ce141ee97b6dce01addfea3fb1aa14e1ee7cd17724ec746ff",
+      "satisfies": [
+        "APR-VAL-023"
+      ],
+      "warns": [
+        "UNREGISTERED_DATA_TYPE"
+      ],
+      "twinOf": "spec:unregistered-data-type-warns"
     },
     {
       "id": "spec:unusable-hint",
@@ -2561,6 +4877,31 @@
       ]
     },
     {
+      "id": "spec:unusable-hint:yaml",
+      "source": "specification",
+      "rule": "hints-object",
+      "anchors": [
+        "hints-object"
+      ],
+      "rules": [
+        "APR-MODEL-039",
+        "APR-MODEL-116"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: Unusable hint\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P\n    hints:\n      validationPattern: (",
+      "digest": "sha256:02109001d482d971a98a4eb1c4b61d751fdefb2adb88d24dac48a58ff39d59ad",
+      "satisfies": [
+        "APR-MODEL-039",
+        "APR-MODEL-116"
+      ],
+      "warns": [
+        "HINT_UNUSABLE"
+      ],
+      "twinOf": "spec:unusable-hint"
+    },
+    {
       "id": "spec:version-exact",
       "source": "specification",
       "rule": "version-compatibility",
@@ -2580,6 +4921,26 @@
       ]
     },
     {
+      "id": "spec:version-exact:yaml",
+      "source": "specification",
+      "rule": "version-compatibility",
+      "anchors": [
+        "version-compatibility"
+      ],
+      "rules": [
+        "APR-SEC-002"
+      ],
+      "representation": "yaml",
+      "expect": "valid",
+      "profile": "core",
+      "document": "aprVersion: 1.0-beta.6\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6",
+      "satisfies": [
+        "APR-SEC-002"
+      ],
+      "twinOf": "spec:version-exact"
+    },
+    {
       "id": "spec:version-other",
       "source": "specification",
       "rule": "version-compatibility",
@@ -2597,6 +4958,26 @@
         "APR-SEC-002"
       ],
       "diagnostic": "UNSUPPORTED_VERSION"
+    },
+    {
+      "id": "spec:version-other:yaml",
+      "source": "specification",
+      "rule": "version-compatibility",
+      "anchors": [
+        "version-compatibility"
+      ],
+      "rules": [
+        "APR-SEC-002"
+      ],
+      "representation": "yaml",
+      "expect": "reject",
+      "profile": "core",
+      "document": "aprVersion: '2.0'\nmetadata:\n  title: T\nsections:\n- id: s\n  title: S\n  prompts:\n  - id: p\n    label: P",
+      "violates": [
+        "APR-SEC-002"
+      ],
+      "diagnostic": "UNSUPPORTED_VERSION",
+      "twinOf": "spec:version-other"
     },
     {
       "id": "spec:yaml-anchor",
