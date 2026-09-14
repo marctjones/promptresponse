@@ -2705,63 +2705,112 @@ declaration of intent that no other party has claimed.
 ## 7. Validation {#validation}
 
 Validation produces **errors** and **warnings**. A document is valid if and only
-if it has zero errors: a validator **MUST NOT** report a document as invalid for
-any reason not in the errors table, and a warning **MUST NOT** affect
-validity. [APR-VAL-007]
+if it has no errors.
+
+A validator **MUST NOT** report a document as invalid for any reason the
+[Errors](#structural-validation) table does not list. [APR-VAL-007]
 
 ### 7.1 Errors — structure only {#structural-validation}
 
-| Code | Condition |
-| --- | --- |
-| `NULL_DOCUMENT` | No document. |
-| `REQUIRED_FIELD` | `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `sections` empty; `templateId` absent on a filled form. |
-| `UNSUPPORTED_VERSION` | `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). |
-| `DUPLICATE_ID` | A section or prompt id repeats within its namespace. |
-| `EMPTY_SECTION` | A section has no prompts and no child sections. |
-| `EMPTY_TABLE` | A `kind: "table"` section has no child sections, so it has no instances ([Rows and instances](#table-rows)). |
-| `WRONG_TYPE` | A structural member is not the JSON type its member table declares ([Value types](#json-subset)). |
+Each row below is a requirement on a validator: when its condition holds, the
+validator reports an error under the row's code.
 
-This list is exhaustive, and a validator **MUST NOT** raise an error outside
-it. [APR-VAL-008] **No error may ever arise from the content of a
-response**, and none may ever arise from the state of an attestation
-([Attestations never gate the data](#never-gate)). A validator that rejects a
-document because a response is badly formatted, or because an attestation is
-missing or invalid, is not implementing APR.
+| Code | Condition | Requirement | Rule |
+| --- | --- | --- | --- |
+| `NULL_DOCUMENT` | No document. | **MUST** | [APR-VAL-011] |
+| `REQUIRED_FIELD` | `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`. | **MUST** | [APR-VAL-012] |
+| `UNSUPPORTED_VERSION` | `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). | **MUST** | [APR-VAL-013] |
+| `DUPLICATE_ID` | A section or prompt id repeats within its namespace. | **MUST** | [APR-VAL-014] |
+| `EMPTY_SECTION` | A section has no prompts and no child sections. | **MUST** | [APR-VAL-015] |
+| `EMPTY_TABLE` | A `kind: "table"` section has no child sections, so it has no instances ([Rows and instances](#table-rows)). | **MUST** | [APR-VAL-016] |
+| `WRONG_TYPE` | A structural member is not the JSON type its member table declares ([Value types](#json-subset)). | **MUST** | [APR-VAL-017] |
 
-A validator **MUST** also enforce the two rules a schema cannot express: section
-ids unique document-wide, and prompt ids unique document-wide, in separate
-namespaces. [APR-VAL-001]
+Neither what a response says ([Semantic validation](#semantic-validation))
+nor the state of an attestation ([Attestations never gate the data](#never-gate))
+is ever a reason for an error.
+
+**Example 7.1-1.** No document.
+
+```apr-example
+id: no-document
+rule: structural-validation
+violates: APR-VAL-011
+representation: yaml
+expect: reject
+diagnostic: NULL_DOCUMENT
+---
+# a comment, and no document
+```
+
+**Example 7.1-2.** A prompt id used twice.
+
+```apr-example
+id: duplicate-prompt-id
+rule: structural-validation
+violates: APR-VAL-014
+representation: jsonc
+expect: reject
+diagnostic: DUPLICATE_ID
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s", "title": "S",
+      "prompts": [ { "id": "p", "label": "A" }, { "id": "p", "label": "B" } ] }
+  ]
+}
+```
+
+**Example 7.1-3.** A section with no prompts and no child sections.
+
+```apr-example
+id: empty-section
+rule: structural-validation
+violates: APR-VAL-015
+representation: jsonc
+expect: reject
+diagnostic: EMPTY_SECTION
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S" } ]
+}
+```
 
 ### 7.2 Warnings — advisory only {#warnings}
 
-| Code | Condition |
-| --- | --- |
-| `RESPONSE_CONTRADICTS_TYPE` | A response contradicts `expectedDataType`. |
-| `RESPONSE_PATTERN_MISMATCH` | A response does not match `validationPattern`. |
-| `RESPONSE_OUTSIDE_BOUNDS` | A response falls outside the bounds family ([Hints](#hints-object)). |
-| `RESPONSE_OUTSIDE_SUGGESTED_VALUES` | A response is not one of `suggestedValues`. |
-| `HINT_UNUSABLE` | A hint cannot be applied at all — a `validationPattern` that is not a valid regular expression, a bound that will not parse. |
-| `UNREGISTERED_DATA_TYPE` | `expectedDataType` names a type the registry does not carry ([Types are affordances](#data-types)). |
-| `UNDECLARED_ROLE` | A `role` names a role `roles` does not declare ([Roles](#roles)). |
-| `TABLE_RAGGED` | Instances of a table do not carry the same prompt ids ([Ragged tables](#table-ragged)). |
-| `TABLE_LABEL_MISMATCH` | A cell's label differs across instances of the same column. |
-| `TABLE_OVER_CAPACITY` | A table carries more instances than `maxRows`. |
-| `TABLE_MEMBERS_ON_A_PLAIN_SECTION` | `maxRows` or `canAddRows` on a section that is not a table ([Tables](#tables)). |
-| `UNPREFIXED_MEMBER` | An unrecognised member with no reverse-DNS prefix ([Unknown members](#extensions)). |
-| `SUBMISSION_URL_UNSUPPORTED` | A submission entry of a scheme this document does not define ([Submission targets](#submission)). |
-| `NON_NFC_TEXT` | Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). |
-| `FORBIDDEN_CODE_POINT` | Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). |
+Each row below is a requirement on a validator that reports its condition: it
+reports a warning under the row's code.
 
-An implementation that reports one of these conditions **MUST** report it under
-the code named here. [APR-VAL-009]
+| Code | Condition | Requirement | Rule |
+| --- | --- | --- | --- |
+| `RESPONSE_CONTRADICTS_TYPE` | A response contradicts `expectedDataType`. | **MUST** | [APR-VAL-018] |
+| `RESPONSE_PATTERN_MISMATCH` | A response does not match `validationPattern`. | **MUST** | [APR-VAL-019] |
+| `RESPONSE_OUTSIDE_BOUNDS` | A response falls outside the bounds family ([Hints](#hints-object)). | **MUST** | [APR-VAL-020] |
+| `RESPONSE_OUTSIDE_SUGGESTED_VALUES` | A response is not one of `suggestedValues`. | **MUST** | [APR-VAL-021] |
+| `HINT_UNUSABLE` | A hint cannot be applied at all — a `validationPattern` that is not a valid regular expression, a bound that will not parse. | **MUST** | [APR-VAL-022] |
+| `UNREGISTERED_DATA_TYPE` | `expectedDataType` names a type the registry does not carry ([Types are affordances](#data-types)). | **MUST** | [APR-VAL-023] |
+| `UNDECLARED_ROLE` | A `role` names a role `roles` does not declare ([Roles](#roles)). | **MUST** | [APR-VAL-024] |
+| `TABLE_RAGGED` | Instances of a table do not carry the same number of prompts ([Ragged tables](#table-ragged)). | **MUST** | [APR-VAL-025] |
+| `TABLE_LABEL_MISMATCH` | A cell's label differs across instances of the same column. | **MUST** | [APR-VAL-026] |
+| `TABLE_OVER_CAPACITY` | A table carries more instances than `maxRows`. | **MUST** | [APR-VAL-027] |
+| `TABLE_MEMBERS_ON_A_PLAIN_SECTION` | `maxRows` or `canAddRows` on a section that is not a table ([Tables](#tables)). | **MUST** | [APR-VAL-028] |
+| `UNPREFIXED_MEMBER` | An unrecognised member with no reverse-DNS prefix ([Unknown members](#extensions)). | **MUST** | [APR-VAL-029] |
+| `SUBMISSION_URL_UNSUPPORTED` | A submission entry of a scheme this document does not define ([Submission targets](#submission)). | **MUST** | [APR-VAL-030] |
+| `NON_NFC_TEXT` | Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-031] |
+| `FORBIDDEN_CODE_POINT` | Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-032] |
 
-Warnings are how an implementation tells a person "this may not be what you
-meant" without ever telling them "you may not write this."
+Warnings are how an implementation tells a person "this might not be what you
+meant" without ever telling them "you are not allowed to write this."
 
-An implementation **MAY** surface any warning, including conditions this table
-does not name — a blank response the workflow may consider required, or the
-confusable and mixed-script findings the text-handling section asks for. Such feedback
-**MUST NOT** be reported as the document being invalid. [APR-VAL-002]
+An implementation **MAY** report a warning for a condition the table does not
+name, such as a blank response a workflow treats as required, or the confusable
+and mixed-script findings [Human-facing text](#human-text) asks for. [APR-VAL-034]
+
+An implementation **MUST NOT** report a warning as the document being
+invalid. [APR-VAL-002]
 
 > Rationale: the table fixes spellings, not obligations. Whether to report a
 > condition stays the implementation's choice, and this list is not exhaustive
@@ -2771,24 +2820,107 @@ confusable and mixed-script findings the text-handling section asks for. Such fe
 > `FORBIDDEN_CODE_POINT` are the exception to the choice, not to the spelling:
 > the human-facing text floor requires a validator to report those at authoring time.
 
-It **MUST NOT** prevent saving, and **MUST NOT** prevent entering any text. [APR-VAL-006]
+A renderer **MUST NOT** let a warning prevent saving. [APR-VAL-006]
+
+A renderer **MUST NOT** let a warning prevent entering text. [APR-VAL-033]
+
+**Example 7.2-1.** An `expectedDataType` outside the registry.
+
+```apr-example
+id: unregistered-data-type-warns
+rule: warnings
+satisfies: APR-VAL-023
+representation: jsonc
+expect: valid
+warns: UNREGISTERED_DATA_TYPE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s", "title": "S",
+      "prompts": [ { "id": "p", "label": "P", "hints": { "expectedDataType": "holographic-signature" } } ] }
+  ]
+}
+```
+
+**Example 7.2-2.** A submission entry of an undefined scheme.
+
+```apr-example
+id: submission-scheme-unsupported
+rule: warnings
+satisfies: APR-VAL-030
+representation: jsonc
+expect: valid
+warns: SUBMISSION_URL_UNSUPPORTED
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T", "submissionUrls": [ "ftp://example.com/drop" ] },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 7.2-3.** A title that is not in Normalization Form C.
+
+```apr-example
+id: title-not-nfc
+rule: warnings
+satisfies: APR-VAL-031
+representation: jsonc
+expect: valid
+warns: NON_NFC_TEXT
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Cafe\u0301 permit" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 7.2-4.** A title carrying a zero-width space.
+
+```apr-example
+id: title-forbidden-code-point
+rule: warnings
+satisfies: APR-VAL-032
+representation: jsonc
+expect: valid
+warns: FORBIDDEN_CODE_POINT
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Permit\u200bApplication" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
 
 ### 7.3 Parse errors are not validation errors {#parse-errors}
 
-Malformed input, a response given as a number or boolean, or a structurally wrong
-shape are **parse failures**, and a reader **MUST** fail rather than validate. [APR-VAL-003]
+Malformed input is a **parse failure**.
 
-Documents that parse cleanly and fail validation are a different class from those
-that **MUST NOT** parse at all. Keeping these stages distinct is what lets a
-reader load a flawed document and show what is wrong with it, rather than
-refusing to open it. [APR-VAL-004]
+A reader **MUST NOT** validate input it could not parse. [APR-VAL-003]
+
+A reader **MUST** read a document that parses, even when that document fails
+validation. [APR-VAL-004]
+
+> Rationale: keeping the two stages distinct is what lets a reader load a flawed
+> document and show what is wrong with it, rather than refusing to open it.
 
 A reader that reports a parse failure **MUST** report it under a parse-stage
 code: the code this document names for that condition where it names one —
 `DUPLICATE_MEMBER`, the `YAML_*` refusals, `APR_STREAM_MIXED_REPRESENTATIONS` —
-and `PARSE_ERROR` where it does not. No parse-stage code is an entry in the error
-table above, and none disturbs its exhaustiveness: a document that will not parse
-was never validated, so no validation error can describe it. [APR-VAL-010]
+and `PARSE_ERROR` where it does not. [APR-VAL-010]
+
+No parse-stage code is an entry in the error table above, and none disturbs its
+exhaustiveness: a document that will not parse was never validated, so no
+validation error can describe it.
 
 ### 7.4 Semantic validation is never required {#semantic-validation}
 
@@ -2801,6 +2933,69 @@ response, including on a prompt marked expected; one outside `suggestedValues`,
 
 The format validates that a response is a well-formed string. It never validates
 what that string says.
+
+**Example 7.4-1.** Words where a number was expected.
+
+```apr-example
+id: response-contradicts-type
+rule: semantic-validation
+satisfies: APR-VAL-005, APR-VAL-018
+representation: jsonc
+expect: valid
+warns: RESPONSE_CONTRADICTS_TYPE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s", "title": "S",
+      "prompts": [ { "id": "p", "label": "P", "response": "about twelve",
+                     "hints": { "expectedDataType": "number" } } ] }
+  ]
+}
+```
+
+**Example 7.4-2.** A number above its `max`.
+
+```apr-example
+id: response-outside-bounds
+rule: semantic-validation
+satisfies: APR-VAL-005, APR-VAL-020
+representation: jsonc
+expect: valid
+warns: RESPONSE_OUTSIDE_BOUNDS
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s", "title": "S",
+      "prompts": [ { "id": "p", "label": "P", "response": "12",
+                     "hints": { "expectedDataType": "number", "max": 10 } } ] }
+  ]
+}
+```
+
+**Example 7.4-3.** A selection outside `suggestedValues`.
+
+```apr-example
+id: response-outside-suggested-values
+rule: semantic-validation
+satisfies: APR-VAL-005, APR-VAL-021
+representation: jsonc
+expect: valid
+warns: RESPONSE_OUTSIDE_SUGGESTED_VALUES
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s", "title": "S",
+      "prompts": [ { "id": "p", "label": "P", "response": "blue",
+                     "hints": { "expectedDataType": "select", "suggestedValues": [ "red", "green" ] } } ] }
+  ]
+}
+```
 
 ---
 

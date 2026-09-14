@@ -6440,7 +6440,7 @@
       "replacedBy": [
         "roles/sentence/2d44120a39",
         "roles/sentence/f95b663359",
-        "warnings/table-row/b85373e2cb",
+        "warnings/table-row/a76b064058",
         "roles/example/ca0d3fc62d",
         "roles/sentence/c0c2cf992e",
         "roles/sentence/303d6a0e7a"
@@ -6917,7 +6917,8 @@
       "kind": "heading",
       "text": "7. Validation",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 480
     },
     "validation/sentence/23cc986b65": {
       "anchor": "validation",
@@ -6925,15 +6926,22 @@
       "kind": "sentence",
       "text": "Validation produces **errors** and **warnings**.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 480
     },
     "validation/sentence/ee68b6381e": {
       "anchor": "validation",
       "chapter": 7,
       "kind": "sentence",
       "text": "A document is valid if and only if it has zero errors: a validator **MUST NOT** report a document as invalid for any reason not in the errors table, and a warning **MUST NOT** affect validity. [APR-VAL-007]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "validation/sentence/09036ecb2e",
+        "validation/sentence/3fe2ec4122"
+      ],
+      "note": "the half saying a warning never affects validity restated APR-VAL-002",
+      "issue": 480
     },
     "structural-validation/heading/0cfed33eaf": {
       "anchor": "structural-validation",
@@ -6941,7 +6949,8 @@
       "kind": "heading",
       "text": "7.1 Errors — structure only",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 480
     },
     "structural-validation/table-header/dd7d6afc64": {
       "anchor": "structural-validation",
@@ -6949,71 +6958,116 @@
       "kind": "table-header",
       "text": "| Code | Condition |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "structural-validation/table-header/f4d1b91a6b",
+        "structural-validation/sentence/1a2452f50c",
+        "structural-validation/example/7bceb71177",
+        "structural-validation/sentence/719d543a2d",
+        "structural-validation/sentence/2d0123ac88",
+        "structural-validation/example/809be91d25",
+        "structural-validation/sentence/571c17196d",
+        "structural-validation/sentence/950b61eb21",
+        "structural-validation/example/6cc0ea8b7a",
+        "structural-validation/sentence/165923fd34",
+        "structural-validation/sentence/021320dff0"
+      ],
+      "issue": 480
     },
     "structural-validation/table-row/560629d509": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `NULL_DOCUMENT` | No document. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "structural-validation/table-row/8a7e4c0ecc"
+      ],
+      "issue": 480
     },
     "structural-validation/table-row/20fcf1c8f2": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `REQUIRED_FIELD` | `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `sections` empty; `templateId` absent on a filled form. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "structural-validation/table-row/451ba9ec01"
+      ],
+      "note": "gains an absent metadata or sections, and a role entry without id",
+      "issue": 480
     },
     "structural-validation/table-row/2f951325e5": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `UNSUPPORTED_VERSION` | `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "structural-validation/table-row/dde6c20db1"
+      ],
+      "issue": 480
     },
     "structural-validation/table-row/33150c855d": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `DUPLICATE_ID` | A section or prompt id repeats within its namespace. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "structural-validation/table-row/6be0de736d"
+      ],
+      "issue": 480
     },
     "structural-validation/table-row/ee4edf111b": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `EMPTY_SECTION` | A section has no prompts and no child sections. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "structural-validation/table-row/9639f61fa8"
+      ],
+      "issue": 480
     },
     "structural-validation/table-row/f6c8b39c75": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `EMPTY_TABLE` | A `kind: \"table\"` section has no child sections, so it has no instances ([Rows and instances](#table-rows)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "structural-validation/table-row/6f71cb3d59"
+      ],
+      "issue": 480
     },
     "structural-validation/table-row/e4f62ae224": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `WRONG_TYPE` | A structural member is not the JSON type its member table declares ([Value types](#json-subset)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "structural-validation/table-row/1b832e18b9"
+      ],
+      "issue": 480
     },
     "structural-validation/sentence/0eb05c4b96": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "sentence",
       "text": "This list is exhaustive, and a validator **MUST NOT** raise an error outside it. [APR-VAL-008]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-VAL-008 restated APR-VAL-007",
+      "issue": 480
     },
     "structural-validation/sentence/df1d628812": {
       "anchor": "structural-validation",
@@ -7021,24 +7075,31 @@
       "kind": "sentence",
       "text": "**No error may ever arise from the content of a response**, and none may ever arise from the state of an attestation ([Attestations never gate the data](#never-gate)).",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "structural-validation/sentence/712e020054"
+      ],
+      "note": "APR-VAL-005 and APR-ATTEST-011 state it; the sentence is a cross-reference",
+      "issue": 480
     },
     "structural-validation/sentence/22834b3943": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "sentence",
       "text": "A validator that rejects a document because a response is badly formatted, or because an attestation is missing or invalid, is not implementing APR.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 480
     },
     "structural-validation/sentence/1a16d30222": {
       "anchor": "structural-validation",
       "chapter": 7,
       "kind": "sentence",
       "text": "A validator **MUST** also enforce the two rules a schema cannot express: section ids unique document-wide, and prompt ids unique document-wide, in separate namespaces. [APR-VAL-001]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-VAL-001 restated the DUPLICATE_ID row (APR-VAL-014) and APR-MODEL-010 and 011",
+      "issue": 480
     },
     "warnings/heading/7cdd3520c6": {
       "anchor": "warnings",
@@ -7046,7 +7107,8 @@
       "kind": "heading",
       "text": "7.2 Warnings — advisory only",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 480
     },
     "warnings/table-header/dd7d6afc64": {
       "anchor": "warnings",
@@ -7054,135 +7116,215 @@
       "kind": "table-header",
       "text": "| Code | Condition |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-header/f4d1b91a6b",
+        "warnings/sentence/554a3d1fe9",
+        "warnings/example/8a0dc04e00",
+        "warnings/sentence/fab593518f",
+        "warnings/sentence/f5842fe929",
+        "warnings/example/1c60ad2eb4",
+        "warnings/sentence/7e9030d589",
+        "warnings/sentence/aa7677b85a",
+        "warnings/example/ed67f0ed85",
+        "warnings/sentence/5977c8d89e",
+        "warnings/sentence/a37158736a",
+        "warnings/example/606df5c645",
+        "warnings/sentence/ff2a7edb36",
+        "warnings/sentence/85935bca9a"
+      ],
+      "issue": 480
     },
     "warnings/table-row/e4baf6a22f": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `RESPONSE_CONTRADICTS_TYPE` | A response contradicts `expectedDataType`. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/fb98dbb580"
+      ],
+      "issue": 480
     },
     "warnings/table-row/99c1ada691": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `RESPONSE_PATTERN_MISMATCH` | A response does not match `validationPattern`. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/af9c87d80f"
+      ],
+      "issue": 480
     },
     "warnings/table-row/b6a4c01975": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `RESPONSE_OUTSIDE_BOUNDS` | A response falls outside the bounds family ([Hints](#hints-object)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/9ef82f550b"
+      ],
+      "issue": 480
     },
     "warnings/table-row/dfb9f38cba": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `RESPONSE_OUTSIDE_SUGGESTED_VALUES` | A response is not one of `suggestedValues`. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/afd8e9a536"
+      ],
+      "issue": 480
     },
     "warnings/table-row/3b419b1930": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `HINT_UNUSABLE` | A hint cannot be applied at all — a `validationPattern` that is not a valid regular expression, a bound that will not parse. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/90230fa49f"
+      ],
+      "issue": 480
     },
     "warnings/table-row/8f81b77fb4": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `UNREGISTERED_DATA_TYPE` | `expectedDataType` names a type the registry does not carry ([Types are affordances](#data-types)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/312e1d348e"
+      ],
+      "issue": 480
     },
     "warnings/table-row/fd8d91503b": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `UNDECLARED_ROLE` | A `role` names a role `metadata.roles` does not declare ([Roles](#roles)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/a76b064058"
+      ],
+      "issue": 480
     },
     "warnings/table-row/3e8f9f8d57": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `TABLE_RAGGED` | Instances of a table do not carry the same prompt ids ([Ragged tables](#table-ragged)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/ae37476f5e"
+      ],
+      "note": "the condition names the prompt count, which is what every validator checks",
+      "issue": 480
     },
     "warnings/table-row/0bee32da0c": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `TABLE_LABEL_MISMATCH` | A cell's label differs across instances of the same column. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/b13e69a510"
+      ],
+      "issue": 480
     },
     "warnings/table-row/7c6564c82a": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `TABLE_OVER_CAPACITY` | A table carries more instances than `maxRows`. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/e9f60ad149"
+      ],
+      "issue": 480
     },
     "warnings/table-row/f8b5cc478a": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `TABLE_MEMBERS_ON_A_PLAIN_SECTION` | `maxRows` or `canAddRows` on a section that is not a table ([Tables](#tables)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/daaf97d617"
+      ],
+      "issue": 480
     },
     "warnings/table-row/4b2326ddf2": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `UNPREFIXED_MEMBER` | An unrecognised member with no reverse-DNS prefix ([Unknown members](#extensions)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/8c134a4847"
+      ],
+      "issue": 480
     },
     "warnings/table-row/b378300676": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `SUBMISSION_URL_UNSUPPORTED` | A submission entry of a scheme this document does not define ([Submission targets](#submission)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/89688234fb"
+      ],
+      "issue": 480
     },
     "warnings/table-row/669076f965": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `NON_NFC_TEXT` | Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/d23055fbe7"
+      ],
+      "issue": 480
     },
     "warnings/table-row/42712cadc5": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "table-row",
       "text": "| `FORBIDDEN_CODE_POINT` | Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/table-row/3260b9bac0"
+      ],
+      "issue": 480
     },
     "warnings/sentence/3b37413c58": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "sentence",
       "text": "An implementation that reports one of these conditions **MUST** report it under the code named here. [APR-VAL-009]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-VAL-009 restated every warnings row",
+      "issue": 480
     },
     "warnings/sentence/bb87c499ae": {
       "anchor": "warnings",
@@ -7190,8 +7332,11 @@
       "kind": "sentence",
       "text": "Warnings are how an implementation tells a person \"this may not be what you meant\" without ever telling them \"you may not write this.\"",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "warnings/sentence/3eb5ab5933"
+      ],
+      "issue": 480
     },
     "warnings/sentence/64ba3f70ce": {
       "anchor": "warnings",
@@ -7199,7 +7344,12 @@
       "kind": "sentence",
       "text": "An implementation **MAY** surface any warning, including conditions this table does not name — a blank response the workflow may consider required, or the confusable and mixed-script findings the text-handling section asks for.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "warnings/sentence/c2a8c92735"
+      ],
+      "note": "the permission is APR-VAL-034",
+      "issue": 480
     },
     "warnings/sentence/b50c844d0c": {
       "anchor": "warnings",
@@ -7207,23 +7357,34 @@
       "kind": "sentence",
       "text": "Such feedback **MUST NOT** be reported as the document being invalid. [APR-VAL-002]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "warnings/sentence/205d65282b"
+      ],
+      "issue": 480
     },
     "warnings/rationale/603a92d81f": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "rationale",
       "text": "Rationale: the table fixes spellings, not obligations. Whether to report a condition stays the implementation's choice, and this list is not exhaustive the way the error list is. But a warning exists to be understood by whoever reads it next, and two implementations reporting the same condition under two names have produced advice that only travels as prose. `NON_NFC_TEXT` and `FORBIDDEN_CODE_POINT` are the exception to the choice, not to the spelling: the human-facing text floor requires a validator to report those at authoring time.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 480
     },
     "warnings/sentence/49780d3786": {
       "anchor": "warnings",
       "chapter": 7,
       "kind": "sentence",
       "text": "It **MUST NOT** prevent saving, and **MUST NOT** prevent entering any text. [APR-VAL-006]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "warnings/sentence/b1edbc3488",
+        "warnings/sentence/0fccea4ddb"
+      ],
+      "note": "a renderer is the subject; saving and entering text are two rules",
+      "issue": 480
     },
     "parse-errors/heading/ccebe4cccd": {
       "anchor": "parse-errors",
@@ -7231,15 +7392,22 @@
       "kind": "heading",
       "text": "7.3 Parse errors are not validation errors",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 480
     },
     "parse-errors/sentence/b0f9be99e7": {
       "anchor": "parse-errors",
       "chapter": 7,
       "kind": "sentence",
       "text": "Malformed input, a response given as a number or boolean, or a structurally wrong shape are **parse failures**, and a reader **MUST** fail rather than validate. [APR-VAL-003]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "parse-errors/sentence/b33ce5c008",
+        "parse-errors/sentence/f4c11d9827"
+      ],
+      "note": "a response given as a number or boolean, and a structurally wrong shape, are WRONG_TYPE validation errors under APR-MODEL-001",
+      "issue": 480
     },
     "parse-errors/sentence/0f2a7286bd": {
       "anchor": "parse-errors",
@@ -7247,15 +7415,24 @@
       "kind": "sentence",
       "text": "Documents that parse cleanly and fail validation are a different class from those that **MUST NOT** parse at all.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "parse-errors/sentence/c26f25abcc"
+      ],
+      "note": "a reader is the subject of APR-VAL-004",
+      "issue": 480
     },
     "parse-errors/sentence/6b309be5dd": {
       "anchor": "parse-errors",
       "chapter": 7,
       "kind": "sentence",
       "text": "Keeping these stages distinct is what lets a reader load a flawed document and show what is wrong with it, rather than refusing to open it. [APR-VAL-004]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "parse-errors/rationale/d7e4b6387a"
+      ],
+      "issue": 480
     },
     "parse-errors/sentence/09e46401e5": {
       "anchor": "parse-errors",
@@ -7263,7 +7440,11 @@
       "kind": "sentence",
       "text": "A reader that reports a parse failure **MUST** report it under a parse-stage code: the code this document names for that condition where it names one — `DUPLICATE_MEMBER`, the `YAML_*` refusals, `APR_STREAM_MIXED_REPRESENTATIONS` — and `PARSE_ERROR` where it does not.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "parse-errors/sentence/3eafa3deeb"
+      ],
+      "issue": 480
     },
     "parse-errors/sentence/49f023215f": {
       "anchor": "parse-errors",
@@ -7271,7 +7452,11 @@
       "kind": "sentence",
       "text": "No parse-stage code is an entry in the error table above, and none disturbs its exhaustiveness: a document that will not parse was never validated, so no validation error can describe it. [APR-VAL-010]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "parse-errors/sentence/48640ac718"
+      ],
+      "issue": 480
     },
     "semantic-validation/heading/7b4b3b7159": {
       "anchor": "semantic-validation",
@@ -7279,16 +7464,17 @@
       "kind": "heading",
       "text": "7.4 Semantic validation is never required",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 480
     },
     "semantic-validation/sentence/3661131880": {
       "anchor": "semantic-validation",
       "chapter": 7,
       "kind": "sentence",
       "text": "A validator **MUST NOT** reject a document because of what a response means. [APR-VAL-005]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 480
     },
     "semantic-validation/sentence/2dc205b913": {
       "anchor": "semantic-validation",
@@ -7296,7 +7482,20 @@
       "kind": "sentence",
       "text": "Each of the following is a valid document: a response that does not match its `expectedDataType`; one that does not match `validationPattern`; an empty response, including on a prompt marked expected; one outside `suggestedValues`, `min`, or `max`; and one a reader considers factually wrong.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "semantic-validation/sentence/2dc205b913",
+        "semantic-validation/example/2fe56ba1d8",
+        "semantic-validation/sentence/f0a8de85b3",
+        "semantic-validation/sentence/3aef2c12fc",
+        "semantic-validation/example/130e892459",
+        "semantic-validation/sentence/3d3d70cbcf",
+        "semantic-validation/sentence/86acdec819",
+        "semantic-validation/example/ee74c847f0",
+        "semantic-validation/sentence/2bedaf0676",
+        "semantic-validation/sentence/cf9ac110ef"
+      ],
+      "issue": 480
     },
     "semantic-validation/sentence/1a9d488c87": {
       "anchor": "semantic-validation",
@@ -7304,7 +7503,8 @@
       "kind": "sentence",
       "text": "The format validates that a response is a well-formed string.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 480
     },
     "semantic-validation/sentence/bee00b53d5": {
       "anchor": "semantic-validation",
@@ -7312,7 +7512,8 @@
       "kind": "sentence",
       "text": "It never validates what that string says.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 480
     },
     "text-handling/heading/79f71c8acc": {
       "anchor": "text-handling",

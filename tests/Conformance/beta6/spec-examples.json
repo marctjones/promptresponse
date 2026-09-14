@@ -17,6 +17,36 @@
       ]
     },
     {
+      "id": "duplicate-prompt-id",
+      "number": "7.1-2",
+      "rule": "structural-validation",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"A\" }, { \"id\": \"p\", \"label\": \"B\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-VAL-014"
+      ],
+      "violates": [
+        "APR-VAL-014"
+      ],
+      "diagnostic": "DUPLICATE_ID"
+    },
+    {
+      "id": "empty-section",
+      "number": "7.1-3",
+      "rule": "structural-validation",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\" } ]\n}\n",
+      "rules": [
+        "APR-VAL-015"
+      ],
+      "violates": [
+        "APR-VAL-015"
+      ],
+      "diagnostic": "EMPTY_SECTION"
+    },
+    {
       "id": "expression-preserved",
       "number": "3.4-1",
       "rule": "profile-expressions",
@@ -202,6 +232,21 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "no-document",
+      "number": "7.1-1",
+      "rule": "structural-validation",
+      "representation": "yaml",
+      "expect": "reject",
+      "document": "# a comment, and no document\n",
+      "rules": [
+        "APR-VAL-011"
+      ],
+      "violates": [
+        "APR-VAL-011"
+      ],
+      "diagnostic": "NULL_DOCUMENT"
+    },
+    {
       "id": "null-outside-response",
       "number": "4.6-3",
       "rule": "json-subset",
@@ -331,6 +376,25 @@
       ]
     },
     {
+      "id": "response-contradicts-type",
+      "number": "7.4-1",
+      "rule": "semantic-validation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"response\": \"about twelve\",\n                     \"hints\": { \"expectedDataType\": \"number\" } } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-VAL-005",
+        "APR-VAL-018"
+      ],
+      "satisfies": [
+        "APR-VAL-005",
+        "APR-VAL-018"
+      ],
+      "warns": [
+        "RESPONSE_CONTRADICTS_TYPE"
+      ]
+    },
+    {
       "id": "response-digits-string",
       "number": "4.7-1",
       "rule": "responses",
@@ -362,6 +426,44 @@
         "APR-MODEL-049"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "response-outside-bounds",
+      "number": "7.4-2",
+      "rule": "semantic-validation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"response\": \"12\",\n                     \"hints\": { \"expectedDataType\": \"number\", \"max\": 10 } } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-VAL-005",
+        "APR-VAL-020"
+      ],
+      "satisfies": [
+        "APR-VAL-005",
+        "APR-VAL-020"
+      ],
+      "warns": [
+        "RESPONSE_OUTSIDE_BOUNDS"
+      ]
+    },
+    {
+      "id": "response-outside-suggested-values",
+      "number": "7.4-3",
+      "rule": "semantic-validation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"response\": \"blue\",\n                     \"hints\": { \"expectedDataType\": \"select\", \"suggestedValues\": [ \"red\", \"green\" ] } } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-VAL-005",
+        "APR-VAL-021"
+      ],
+      "satisfies": [
+        "APR-VAL-005",
+        "APR-VAL-021"
+      ],
+      "warns": [
+        "RESPONSE_OUTSIDE_SUGGESTED_VALUES"
+      ]
     },
     {
       "id": "role-without-id",
@@ -437,6 +539,23 @@
         "APR-REP-015"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "submission-scheme-unsupported",
+      "number": "7.2-2",
+      "rule": "warnings",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\", \"submissionUrls\": [ \"ftp://example.com/drop\" ] },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-VAL-030"
+      ],
+      "satisfies": [
+        "APR-VAL-030"
+      ],
+      "warns": [
+        "SUBMISSION_URL_UNSUPPORTED"
+      ]
     },
     {
       "id": "table-members-on-a-plain-section",
@@ -522,6 +641,40 @@
       "diagnostic": "EMPTY_TABLE"
     },
     {
+      "id": "title-forbidden-code-point",
+      "number": "7.2-4",
+      "rule": "warnings",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Permit\\u200bApplication\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-VAL-032"
+      ],
+      "satisfies": [
+        "APR-VAL-032"
+      ],
+      "warns": [
+        "FORBIDDEN_CODE_POINT"
+      ]
+    },
+    {
+      "id": "title-not-nfc",
+      "number": "7.2-3",
+      "rule": "warnings",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Cafe\\u0301 permit\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-VAL-031"
+      ],
+      "satisfies": [
+        "APR-VAL-031"
+      ],
+      "warns": [
+        "NON_NFC_TEXT"
+      ]
+    },
+    {
       "id": "undeclared-role",
       "number": "5.10-3",
       "rule": "roles",
@@ -569,6 +722,23 @@
       ],
       "satisfies": [
         "APR-MODEL-018"
+      ]
+    },
+    {
+      "id": "unregistered-data-type-warns",
+      "number": "7.2-1",
+      "rule": "warnings",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"hints\": { \"expectedDataType\": \"holographic-signature\" } } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-VAL-023"
+      ],
+      "satisfies": [
+        "APR-VAL-023"
+      ],
+      "warns": [
+        "UNREGISTERED_DATA_TYPE"
       ]
     },
     {

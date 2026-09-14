@@ -85,7 +85,8 @@ def evaluate(case, members) -> tuple[str, set[str], str | None, dict]:
     except Exception as exc:  # noqa: BLE001
         return "reject", set(), type(exc).__name__, {}
     report = validate_apr.Report(case["id"])
-    for record in records:
+    # A stream holding no record holds no document, which validate_form reports.
+    for record in records or [None]:
         if isinstance(record, dict) and "recordType" in record:
             validate_apr.validate_attestation(report, record)
         else:

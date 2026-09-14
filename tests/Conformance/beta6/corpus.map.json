@@ -388,7 +388,7 @@
       "expect": "valid",
       "rules": [
         "APR-MODEL-010",
-        "APR-VAL-001"
+        "APR-VAL-014"
       ],
       "anchors": []
     },
@@ -396,7 +396,7 @@
       "expect": "reject",
       "rules": [
         "APR-MODEL-010",
-        "APR-VAL-001"
+        "APR-VAL-014"
       ],
       "anchors": [],
       "diagnostic": "DUPLICATE_ID"
@@ -598,7 +598,8 @@
       "expect": "valid",
       "rules": [
         "APR-MODEL-014",
-        "APR-VAL-009"
+        "APR-VAL-025",
+        "APR-VAL-026"
       ],
       "anchors": [],
       "warns": [

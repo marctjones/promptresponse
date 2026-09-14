@@ -191,24 +191,37 @@ class Report:
         self.findings.append({"severity": severity, "code": code, "path": path,
                               "message": message, "rules": list(rules)})
 
-    def error(self, code, path, msg, *rules):
-        self.add("error", code, path, msg, rules)
-
-    # Advisory spellings the warnings table fixes. Reporting one of these under
-    # the name the table gives it is what APR-VAL-009 requires, so every such
-    # finding is evidence for that rule as well as for the rule it is about.
-    SPELLED = {
-        "RESPONSE_CONTRADICTS_TYPE", "RESPONSE_PATTERN_MISMATCH",
-        "RESPONSE_OUTSIDE_BOUNDS", "RESPONSE_OUTSIDE_SUGGESTED_VALUES",
-        "HINT_UNUSABLE", "UNREGISTERED_DATA_TYPE", "UNDECLARED_ROLE",
-        "TABLE_RAGGED", "TABLE_LABEL_MISMATCH", "TABLE_OVER_CAPACITY",
-        "TABLE_MEMBERS_ON_A_PLAIN_SECTION", "UNPREFIXED_MEMBER",
-        "SUBMISSION_URL_UNSUPPORTED", "NON_NFC_TEXT", "FORBIDDEN_CODE_POINT",
+    # The code each condition in the errors and warnings tables is reported under.
+    # Reporting a condition under its row's code is what that row's rule requires,
+    # so every such finding is evidence for the row as well as for the rule the
+    # condition is about.
+    ERROR_ROWS = {
+        "NULL_DOCUMENT": "APR-VAL-011", "REQUIRED_FIELD": "APR-VAL-012",
+        "UNSUPPORTED_VERSION": "APR-VAL-013", "DUPLICATE_ID": "APR-VAL-014",
+        "EMPTY_SECTION": "APR-VAL-015", "EMPTY_TABLE": "APR-VAL-016",
+        "WRONG_TYPE": "APR-VAL-017",
+    }
+    WARNING_ROWS = {
+        "RESPONSE_CONTRADICTS_TYPE": "APR-VAL-018", "RESPONSE_PATTERN_MISMATCH": "APR-VAL-019",
+        "RESPONSE_OUTSIDE_BOUNDS": "APR-VAL-020", "RESPONSE_OUTSIDE_SUGGESTED_VALUES": "APR-VAL-021",
+        "HINT_UNUSABLE": "APR-VAL-022", "UNREGISTERED_DATA_TYPE": "APR-VAL-023",
+        "UNDECLARED_ROLE": "APR-VAL-024", "TABLE_RAGGED": "APR-VAL-025",
+        "TABLE_LABEL_MISMATCH": "APR-VAL-026", "TABLE_OVER_CAPACITY": "APR-VAL-027",
+        "TABLE_MEMBERS_ON_A_PLAIN_SECTION": "APR-VAL-028", "UNPREFIXED_MEMBER": "APR-VAL-029",
+        "SUBMISSION_URL_UNSUPPORTED": "APR-VAL-030", "NON_NFC_TEXT": "APR-VAL-031",
+        "FORBIDDEN_CODE_POINT": "APR-VAL-032",
     }
 
+    def error(self, code, path, msg, *rules):
+        row = self.ERROR_ROWS.get(code)
+        if row and row not in rules:
+            rules = (*rules, row)
+        self.add("error", code, path, msg, rules)
+
     def warn(self, code, path, msg, *rules):
-        if code in self.SPELLED and "APR-VAL-009" not in rules:
-            rules = (*rules, "APR-VAL-009")
+        row = self.WARNING_ROWS.get(code)
+        if row and row not in rules:
+            rules = (*rules, row)
         self.add("warning", code, path, msg, rules)
 
     @property
@@ -220,10 +233,10 @@ def check_text(report: Report, path: str, value: str) -> None:
     """The Unicode floor for text meant to be read or heard by a person.
 
     Specification 8.2.3 places NON_NFC_TEXT and FORBIDDEN_CODE_POINT in the
-    warnings table (7.2), not the errors table (7.1, stated exhaustive by
-    APR-VAL-008): a validator MUST report them, but a warning MUST NOT affect
-    validity or block saving (APR-VAL-006, APR-VAL-007). report.error() here
-    would reject a document the format requires to stay valid.
+    warnings table (7.2), not the errors table (7.1, exhaustive by APR-VAL-007):
+    a validator MUST report them, but a warning never makes a document invalid
+    or blocks saving (APR-VAL-002, APR-VAL-006). report.error() here would
+    reject a document the format requires to stay valid.
     """
     if unicodedata.normalize("NFC", value) != value:
         report.warn("NON_NFC_TEXT", path,
@@ -266,8 +279,8 @@ def check_text(report: Report, path: str, value: str) -> None:
 # that produces zero known false positives on real multi-script text.
 #
 # Not in specification 7.2's warnings table -- CONFUSABLE_SCRIPT_MIX is this
-# implementation's own spelling of an APR-VAL-002 "MAY surface any warning,
-# including conditions this table does not name" extension, not a code every
+# implementation's own spelling of an APR-VAL-034 "MAY report a warning for a
+# condition the table does not name" extension, not a code every
 # implementation must use.
 _CONFUSABLE_SCRIPTS = ("LATIN", "CYRILLIC", "GREEK")
 
@@ -349,7 +362,7 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
         if identifier in ids["prompt"]:
             report.error("DUPLICATE_ID", f"{path}/id",
                          f"prompt id {identifier!r} is already used",
-                         "APR-MODEL-010", "APR-MODEL-011", "APR-VAL-001")
+                         "APR-MODEL-010", "APR-MODEL-011")
         ids["prompt"].add(identifier)
     # A null response, and an absent one, are both read as the empty string. Any
     # other non-string is the coercion the format refuses.
@@ -434,7 +447,7 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
         if identifier in ids["section"]:
             report.error("DUPLICATE_ID", f"{path}/id",
                          f"section id {identifier!r} is already used",
-                         "APR-MODEL-010", "APR-MODEL-011", "APR-VAL-001")
+                         "APR-MODEL-010", "APR-MODEL-011")
         ids["section"].add(identifier)
 
     prompts = section.get("prompts") or []
@@ -703,7 +716,8 @@ def validate_spec_examples(members) -> int:
         if records is None:
             report.error("PARSE_ERROR", "", "will not parse")
         else:
-            for record in records:
+            # A stream holding no record holds no document, which validate_form reports.
+            for record in records or [None]:
                 if not aprlib.is_attestation(record):
                     validate_form(report, record, members)
         checked += 1

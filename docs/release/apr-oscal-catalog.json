@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "6ab92422-d6d5-567a-9526-d71a21f23aa0",
+    "uuid": "53bf3b2b-066b-57f4-8f64-f6c4333e6f83",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "86cafb0732a9f6f95136c4dc45f6c44b5cac7fc1a064932db2b54189cea75697"
+          "value": "13fa40eb5e2ccf12ee4628c69674b1b6687bee57dd7497e64937ccca0b75015d"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -7557,53 +7557,6 @@
         "title": "7. Validation",
         "controls": [
           {
-            "id": "apr-val-001",
-            "title": "APR-VAL-001 — 7.1 Errors — structure only",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-VAL-001"
-              },
-              {
-                "name": "section",
-                "value": "structural-validation"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "VAL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-validate-structure"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#structural-validation",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-val-001_smt",
-                "name": "statement",
-                "prose": "A validator **MUST** also enforce the two rules a schema cannot express: section ids unique document-wide, and prompt ids unique document-wide, in separate namespaces."
-              },
-              {
-                "id": "apr-val-001_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-008, that the errors table is exhaustive, is the absence of behaviour. Every valid case in the suite would catch one invented error, and none proves a validator has invented no error at all."
-              }
-            ]
-          },
-          {
             "id": "apr-val-002",
             "title": "APR-VAL-002 — 7.2 Warnings — advisory only",
             "props": [
@@ -7641,12 +7594,12 @@
               {
                 "id": "apr-val-002_smt",
                 "name": "statement",
-                "prose": "An implementation **MAY** surface any warning, including conditions this table does not name — a blank response the workflow may consider required, or the confusable and mixed-script findings the text-handling section asks for. Such feedback **MUST NOT** be reported as the document being invalid."
+                "prose": "An implementation **MUST NOT** report a warning as the document being invalid."
               },
               {
                 "id": "apr-val-002_gap",
                 "name": "assessment-gap",
-                "prose": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule. APR-VAL-006, that a warning never prevents saving or typing, is a user-interface obligation. A document is valid either way, so no case distinguishes an implementation that blocks the keyboard from one that does not."
+                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission."
               }
             ]
           },
@@ -7688,12 +7641,12 @@
               {
                 "id": "apr-val-003_smt",
                 "name": "statement",
-                "prose": "Malformed input, a response given as a number or boolean, or a structurally wrong shape are **parse failures**, and a reader **MUST** fail rather than validate."
+                "prose": "A reader **MUST NOT** validate input it could not parse."
               },
               {
                 "id": "apr-val-003_gap",
                 "name": "assessment-gap",
-                "prose": "Id uniqueness is gated. Ragged-table-is-advisory has no beta.6 vector."
+                "prose": "APR-VAL-003 and 004 concern the stage at which a reader refuses or loads a document. The suite cannot observe the stage: a parse failure and a validation failure both answer reject."
               }
             ]
           },
@@ -7735,12 +7688,12 @@
               {
                 "id": "apr-val-004_smt",
                 "name": "statement",
-                "prose": "Documents that parse cleanly and fail validation are a different class from those that **MUST NOT** parse at all. Keeping these stages distinct is what lets a reader load a flawed document and show what is wrong with it, rather than refusing to open it."
+                "prose": "A reader **MUST** read a document that parses, even when that document fails validation."
               },
               {
                 "id": "apr-val-004_gap",
                 "name": "assessment-gap",
-                "prose": "Id uniqueness is gated. Ragged-table-is-advisory has no beta.6 vector."
+                "prose": "APR-VAL-003 and 004 concern the stage at which a reader refuses or loads a document. The suite cannot observe the stage: a parse failure and a validation failure both answer reject."
               }
             ]
           },
@@ -7824,12 +7777,12 @@
               {
                 "id": "apr-val-006_smt",
                 "name": "statement",
-                "prose": "It **MUST NOT** prevent saving, and **MUST NOT** prevent entering any text."
+                "prose": "A renderer **MUST NOT** let a warning prevent saving."
               },
               {
                 "id": "apr-val-006_gap",
                 "name": "assessment-gap",
-                "prose": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule. APR-VAL-006, that a warning never prevents saving or typing, is a user-interface obligation. A document is valid either way, so no case distinguishes an implementation that blocks the keyboard from one that does not."
+                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission."
               }
             ]
           },
@@ -7871,101 +7824,12 @@
               {
                 "id": "apr-val-007_smt",
                 "name": "statement",
-                "prose": "Validation produces **errors** and **warnings**. A document is valid if and only if it has zero errors: a validator **MUST NOT** report a document as invalid for any reason not in the errors table, and a warning **MUST NOT** affect validity."
+                "prose": "A validator **MUST NOT** report a document as invalid for any reason the [Errors](#structural-validation) table does not list."
               },
               {
                 "id": "apr-val-007_gap",
                 "name": "assessment-gap",
                 "prose": "That a validator raises no error outside the table is the absence of behaviour: every valid case in the suite would catch one invented error, but no case proves a validator has invented none."
-              }
-            ]
-          },
-          {
-            "id": "apr-val-008",
-            "title": "APR-VAL-008 — 7.1 Errors — structure only",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-VAL-008"
-              },
-              {
-                "name": "section",
-                "value": "structural-validation"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "VAL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-validate-structure"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#structural-validation",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-val-008_smt",
-                "name": "statement",
-                "prose": "This list is exhaustive, and a validator **MUST NOT** raise an error outside it. **No error may ever arise from the content of a response**, and none may ever arise from the state of an attestation ([Attestations never gate the data](#never-gate)). A validator that rejects a document because a response is badly formatted, or because an attestation is missing or invalid, is not implementing APR."
-              },
-              {
-                "id": "apr-val-008_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-008, that the errors table is exhaustive, is the absence of behaviour. Every valid case in the suite would catch one invented error, and none proves a validator has invented no error at all."
-              }
-            ]
-          },
-          {
-            "id": "apr-val-009",
-            "title": "APR-VAL-009 — 7.2 Warnings — advisory only",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-VAL-009"
-              },
-              {
-                "name": "section",
-                "value": "warnings"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "VAL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-warning-code-spellings"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#warnings",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-val-009_smt",
-                "name": "statement",
-                "prose": "An implementation that reports one of these conditions **MUST** report it under the code named here."
               }
             ]
           },
@@ -8007,7 +7871,1025 @@
               {
                 "id": "apr-val-010_smt",
                 "name": "statement",
-                "prose": "A reader that reports a parse failure **MUST** report it under a parse-stage code: the code this document names for that condition where it names one — `DUPLICATE_MEMBER`, the `YAML_*` refusals, `APR_STREAM_MIXED_REPRESENTATIONS` — and `PARSE_ERROR` where it does not. No parse-stage code is an entry in the error table above, and none disturbs its exhaustiveness: a document that will not parse was never validated, so no validation error can describe it."
+                "prose": "A reader that reports a parse failure **MUST** report it under a parse-stage code: the code this document names for that condition where it names one — `DUPLICATE_MEMBER`, the `YAML_*` refusals, `APR_STREAM_MIXED_REPRESENTATIONS` — and `PARSE_ERROR` where it does not."
+              }
+            ]
+          },
+          {
+            "id": "apr-val-011",
+            "title": "APR-VAL-011 — 7.1 Errors — structure only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-011"
+              },
+              {
+                "name": "section",
+                "value": "structural-validation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-validate-structure"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#structural-validation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-011_smt",
+                "name": "statement",
+                "prose": "`NULL_DOCUMENT` — No document. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-012",
+            "title": "APR-VAL-012 — 7.1 Errors — structure only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-012"
+              },
+              {
+                "name": "section",
+                "value": "structural-validation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-validate-structure"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#structural-validation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-012_smt",
+                "name": "statement",
+                "prose": "`REQUIRED_FIELD` — `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-013",
+            "title": "APR-VAL-013 — 7.1 Errors — structure only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-013"
+              },
+              {
+                "name": "section",
+                "value": "structural-validation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-validate-structure"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#structural-validation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-013_smt",
+                "name": "statement",
+                "prose": "`UNSUPPORTED_VERSION` — `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-014",
+            "title": "APR-VAL-014 — 7.1 Errors — structure only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-014"
+              },
+              {
+                "name": "section",
+                "value": "structural-validation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-validate-structure"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#structural-validation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-014_smt",
+                "name": "statement",
+                "prose": "`DUPLICATE_ID` — A section or prompt id repeats within its namespace. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-015",
+            "title": "APR-VAL-015 — 7.1 Errors — structure only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-015"
+              },
+              {
+                "name": "section",
+                "value": "structural-validation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-validate-structure"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#structural-validation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-015_smt",
+                "name": "statement",
+                "prose": "`EMPTY_SECTION` — A section has no prompts and no child sections. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-016",
+            "title": "APR-VAL-016 — 7.1 Errors — structure only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-016"
+              },
+              {
+                "name": "section",
+                "value": "structural-validation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-validate-structure"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#structural-validation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-016_smt",
+                "name": "statement",
+                "prose": "`EMPTY_TABLE` — A `kind: \"table\"` section has no child sections, so it has no instances ([Rows and instances](#table-rows)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-017",
+            "title": "APR-VAL-017 — 7.1 Errors — structure only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-017"
+              },
+              {
+                "name": "section",
+                "value": "structural-validation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-validate-structure"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#structural-validation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-017_smt",
+                "name": "statement",
+                "prose": "`WRONG_TYPE` — A structural member is not the JSON type its member table declares ([Value types](#json-subset)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-018",
+            "title": "APR-VAL-018 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-018"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-018_smt",
+                "name": "statement",
+                "prose": "`RESPONSE_CONTRADICTS_TYPE` — A response contradicts `expectedDataType`. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-019",
+            "title": "APR-VAL-019 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-019"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-019_smt",
+                "name": "statement",
+                "prose": "`RESPONSE_PATTERN_MISMATCH` — A response does not match `validationPattern`. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-020",
+            "title": "APR-VAL-020 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-020"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-020_smt",
+                "name": "statement",
+                "prose": "`RESPONSE_OUTSIDE_BOUNDS` — A response falls outside the bounds family ([Hints](#hints-object)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-021",
+            "title": "APR-VAL-021 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-021"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-021_smt",
+                "name": "statement",
+                "prose": "`RESPONSE_OUTSIDE_SUGGESTED_VALUES` — A response is not one of `suggestedValues`. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-022",
+            "title": "APR-VAL-022 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-022"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-022_smt",
+                "name": "statement",
+                "prose": "`HINT_UNUSABLE` — A hint cannot be applied at all — a `validationPattern` that is not a valid regular expression, a bound that will not parse. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-023",
+            "title": "APR-VAL-023 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-023"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-023_smt",
+                "name": "statement",
+                "prose": "`UNREGISTERED_DATA_TYPE` — `expectedDataType` names a type the registry does not carry ([Types are affordances](#data-types)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-024",
+            "title": "APR-VAL-024 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-024"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-024_smt",
+                "name": "statement",
+                "prose": "`UNDECLARED_ROLE` — A `role` names a role `roles` does not declare ([Roles](#roles)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-025",
+            "title": "APR-VAL-025 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-025"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-025_smt",
+                "name": "statement",
+                "prose": "`TABLE_RAGGED` — Instances of a table do not carry the same number of prompts ([Ragged tables](#table-ragged)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-026",
+            "title": "APR-VAL-026 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-026"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-026_smt",
+                "name": "statement",
+                "prose": "`TABLE_LABEL_MISMATCH` — A cell's label differs across instances of the same column. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-027",
+            "title": "APR-VAL-027 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-027"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-027_smt",
+                "name": "statement",
+                "prose": "`TABLE_OVER_CAPACITY` — A table carries more instances than `maxRows`. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-028",
+            "title": "APR-VAL-028 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-028"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-028_smt",
+                "name": "statement",
+                "prose": "`TABLE_MEMBERS_ON_A_PLAIN_SECTION` — `maxRows` or `canAddRows` on a section that is not a table ([Tables](#tables)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-029",
+            "title": "APR-VAL-029 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-029"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-029_smt",
+                "name": "statement",
+                "prose": "`UNPREFIXED_MEMBER` — An unrecognised member with no reverse-DNS prefix ([Unknown members](#extensions)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-030",
+            "title": "APR-VAL-030 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-030"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-030_smt",
+                "name": "statement",
+                "prose": "`SUBMISSION_URL_UNSUPPORTED` — A submission entry of a scheme this document does not define ([Submission targets](#submission)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-031",
+            "title": "APR-VAL-031 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-031"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-031_smt",
+                "name": "statement",
+                "prose": "`NON_NFC_TEXT` — Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-032",
+            "title": "APR-VAL-032 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-032"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-032_smt",
+                "name": "statement",
+                "prose": "`FORBIDDEN_CODE_POINT` — Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-val-033",
+            "title": "APR-VAL-033 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-033"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-advisory-never-blocks"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-033_smt",
+                "name": "statement",
+                "prose": "A renderer **MUST NOT** let a warning prevent entering text."
+              },
+              {
+                "id": "apr-val-033_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission."
+              }
+            ]
+          },
+          {
+            "id": "apr-val-034",
+            "title": "APR-VAL-034 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-034"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-advisory-never-blocks"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-034_smt",
+                "name": "statement",
+                "prose": "An implementation **MAY** report a warning for a condition the table does not name, such as a blank response a workflow treats as required, or the confusable and mixed-script findings [Human-facing text](#human-text) asks for."
+              },
+              {
+                "id": "apr-val-034_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission."
               }
             ]
           }
