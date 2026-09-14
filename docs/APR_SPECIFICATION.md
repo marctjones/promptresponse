@@ -45,6 +45,13 @@ does not make it less useful — it is usually the fastest way to discover that 
 sentence here is wrong. The ordering says only which artifact gets corrected once
 the disagreement is understood.
 
+**An implementation is not a source either.** Where an implementation and this
+document disagree, the implementation has the defect. A rule that no example or
+vector exercises is a defect in the corpus, not a gap in this document.
+
+> Rationale: a specification written by reading code ratifies that code's
+> accidents, and can no longer judge whether the code is right.
+
 This document has not been ratified. Nothing in it designates APR 1.0.
 
 ### 1.1 Navigation {#navigation}
@@ -5623,41 +5630,7 @@ If you implement nothing else correctly, implement this:
 
 Everything else in APR is structure. That rule is the point.
 
-## 20. Appendix C: Provenance of this text {#provenance}
-
-Non-normative.
-
-This document is written from APR's design record, not from any implementation.
-
-**Implementations are not a source.** Where a shipped implementation and this
-document disagree, the implementation has a defect to fix.
-
-> Rationale: the alternative — writing a specification by reading the code —
-> produces a document that ratifies accidents and cannot be used to judge whether
-> the code is right.
-
-## 21. Appendix D: Corpus gaps {#corpus-gaps}
-
-Non-normative.
-
-Every rule in this document is normative. A rule with no vector is a corpus
-defect rather than a specification gap, because the corpus is derived from this
-document ([Authority](#scope)).
-
-Closed by the examples embedded here: the forbidden APR-YAML constructs — tags,
-merge keys, and directives as well as anchors — scalar resolution of bare words,
-legacy boolean spellings and non-finite floats, JSONC trailing commas and
-comments inside strings, and mixed-representation stream rejection.
-
-Still without a vector:
-
-- manifest vectors across the full range of changed member kinds. Each needs a
-  computed `jcs-sha256` digest, so these belong in the corpus beside the existing
-  digest vectors rather than embedded here.
-
----
-
-## 22. Appendix E: What earns a primitive {#primitives}
+## 20. Appendix C: What earns a primitive {#primitives}
 
 Non-normative.
 

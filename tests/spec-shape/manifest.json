@@ -123,16 +123,6 @@
       "anchor": "informative-references",
       "borrowedFrom": "RFC 8259 \u00a713.2",
       "purpose": "non-binding references"
-    },
-    {
-      "anchor": "provenance",
-      "borrowedFrom": "APR-specific",
-      "purpose": "where this text comes from"
-    },
-    {
-      "anchor": "corpus-gaps",
-      "borrowedFrom": "APR-specific",
-      "purpose": "rules without vectors"
     }
   ],
   "structuralProperties": [
@@ -245,13 +235,6 @@
       "requirement": "Classes of product named by requirements but not defined in Terminology.",
       "status": "converted chapter by chapter in #473-#487",
       "findings": 4
-    },
-    {
-      "id": "no-history",
-      "issue": 488,
-      "requirement": "Units using history vocabulary.",
-      "status": "converted chapter by chapter in #473-#487",
-      "findings": 1
     },
     {
       "id": "examples-captioned",

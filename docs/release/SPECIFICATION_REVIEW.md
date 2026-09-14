@@ -69,7 +69,7 @@ surfaces first.
 - [ ] Every new rule is either gated by an executable example or a test, or recorded in the registry as `partial` with a named gap
 - [ ] No rule is claimed to be gated by a test that does not exercise it
 - [ ] Every new example names the anchor it demonstrates and, when it expects rejection, the diagnostic
-- [ ] The corpus-gaps appendix lists what is genuinely still unexercised, and nothing that now is
+- [ ] Every rule `scripts/check-example-coverage.py` reports as uncovered is one the change did not add or alter
 
 ## 5. What the specification says about itself
 
