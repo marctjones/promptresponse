@@ -26,10 +26,12 @@ expression profile, which needs a CEL implementation.
 """
 from __future__ import annotations
 
+import io
 import json
 import pathlib
 import re
 import sys
+import tokenize
 import unicodedata
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -801,7 +803,10 @@ def enforced_rules() -> set[str]:
     """
     source = pathlib.Path(__file__).read_text(encoding="utf-8")
     body = source.split("def enforced_rules", 1)[0]
-    checks = set(re.findall(r"APR-[A-Z]+-\d{3}", body))
+    # A comment that mentions a rule enforces nothing, so only code and strings count.
+    checks = {rule for token in tokenize.generate_tokens(io.StringIO(body).readline)
+              if token.type != tokenize.COMMENT
+              for rule in re.findall(r"APR-[A-Z]+-\d{3}", token.string)}
     # A representation rule is decided while reading, so it is enforced in the
     # reference library and never reaches a check here. Counting only this file
     # would report those rules as unimplemented when they are the best-covered
