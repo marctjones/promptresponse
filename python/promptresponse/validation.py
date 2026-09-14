@@ -21,6 +21,9 @@ def validate(document: AprDocument) -> ValidationResult:
         result.errors.append(ValidationError("NULL_DOCUMENT", "No document.", ""))
         return result
     _validate_document_fields(document, result)
+    for index, role in enumerate(document.roles or []):
+        if not (role.id or "").strip():
+            result.errors.append(ValidationError("REQUIRED_FIELD", "A role entry names its id.", f"roles[{index}].id"))
     _validate_shape(document, result)
     _validate_text_floor(document, result)
     _check_confusable_script_mix(document, result)

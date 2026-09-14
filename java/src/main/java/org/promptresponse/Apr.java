@@ -43,6 +43,8 @@ public final class Apr {
         String title = AprDocument.string(document.metadata().get("title")); if(blank(title)) issue(errors,"REQUIRED_FIELD","metadata.title","metadata.title is required.");
         if(document.sections().isEmpty()) issue(errors,"REQUIRED_FIELD","sections","A document must have at least one section.");
         if("filledForm".equals(document.documentType()) && blank(AprDocument.string(document.metadata().get("templateId")))) issue(errors,"REQUIRED_FIELD","metadata.templateId","A filled form must record templateId.");
+        if (document.raw().get("roles") instanceof List<?> roles) for (int i = 0; i < roles.size(); i++)
+            if (roles.get(i) instanceof Map<?,?> role && blank(AprDocument.string(role.get("id")))) issue(errors,"REQUIRED_FIELD","roles[" + i + "].id","A role entry names its id.");
         validateShape(document, errors);
         validateTextFloor(document, warnings);
         checkConfusableScriptMix(document, warnings);
@@ -297,7 +299,7 @@ public final class Apr {
     private static void advisoriesFor(Map<String,Object> prompt, Set<String> roles, List<ValidationIssue> warnings) {
         String id = AprDocument.string(prompt.get("id"));
         String role = AprDocument.string(prompt.get("role"));
-        if (role != null && !roles.contains(role)) issue(warnings, "UNDECLARED_ROLE", id, "role '" + role + "' is not declared in metadata.roles.");
+        if (role != null && !roles.contains(role)) issue(warnings, "UNDECLARED_ROLE", id, "role '" + role + "' is not declared in roles.");
         inspectExtensions(prompt, PROMPT.keySet(), id, warnings);
 
         Map<String,Object> hints = hintsOf(prompt);
@@ -335,7 +337,7 @@ public final class Apr {
             if (!"table".equals(section.get("kind")) && (section.get("maxRows") != null || section.get("canAddRows") != null)) issue(warnings, "TABLE_MEMBERS_ON_A_PLAIN_SECTION", path,
                 "maxRows or canAddRows on a section that is not a table; a table is a table only by carrying kind: \"table\".");
             String role = AprDocument.string(section.get("role"));
-            if (role != null && !roles.contains(role)) issue(warnings, "UNDECLARED_ROLE", path, "role '" + role + "' is not declared in metadata.roles.");
+            if (role != null && !roles.contains(role)) issue(warnings, "UNDECLARED_ROLE", path, "role '" + role + "' is not declared in roles.");
             inspectExtensions(section, SECTION.keySet(), path, warnings);
             for (Object prompt : (List<Object>) section.getOrDefault("prompts", List.of())) advisoriesFor((Map<String,Object>) prompt, roles, warnings);
         });

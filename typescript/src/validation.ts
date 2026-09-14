@@ -251,7 +251,7 @@ function outOfBounds(prompt: Prompt): ValidationIssue[] {
 
 export function advisoriesFor(prompt: Prompt, roles: ReadonlySet<string>): ValidationIssue[] {
   const warnings: ValidationIssue[] = [];
-  if (prompt.role && !roles.has(prompt.role)) warnings.push({ code: "UNDECLARED_ROLE", message: `role ${JSON.stringify(prompt.role)} is not declared in metadata.roles.`, path: prompt.id });
+  if (prompt.role && !roles.has(prompt.role)) warnings.push({ code: "UNDECLARED_ROLE", message: `role ${JSON.stringify(prompt.role)} is not declared in roles.`, path: prompt.id });
   warnings.push(...inspectExtensions(prompt.extra, prompt.id));
 
   const hints = prompt.hints;
@@ -284,7 +284,7 @@ function documentAdvisories(document: AprDocument): ValidationIssue[] {
       message: "maxRows or canAddRows on a section that is not a table; a table is a table only by carrying kind: \"table\".",
       path,
     });
-    if (section.role && !roles.has(section.role)) warnings.push({ code: "UNDECLARED_ROLE", message: `role ${JSON.stringify(section.role)} is not declared in metadata.roles.`, path });
+    if (section.role && !roles.has(section.role)) warnings.push({ code: "UNDECLARED_ROLE", message: `role ${JSON.stringify(section.role)} is not declared in roles.`, path });
     warnings.push(...inspectExtensions(section.extra, path));
     for (const prompt of section.prompts) warnings.push(...advisoriesFor(prompt, roles));
   }
@@ -297,6 +297,7 @@ export function validate(document: AprDocument): ValidationResult {
   required(document.version, "aprVersion", "aprVersion"); if (document.version && !isSupportedVersion(document.version)) errors.push({ code: "UNSUPPORTED_VERSION", message: `Unsupported APR version ${document.version}.`, path: "aprVersion" });
   required(document.metadata.title, "metadata.title", "metadata.title"); if (!document.sections.length) errors.push({ code: "REQUIRED_FIELD", message: "A document must have at least one section.", path: "sections" });
   if (document.documentType === "filledForm") required(document.metadata.templateId, "metadata.templateId", "A filled form templateId");
+  (document.roles ?? []).forEach((role, index) => required(role.id, `roles[${index}].id`, "Role id"));
   validateShape(document, errors);
   validateTextFloor(document, warnings);
   checkConfusableScriptMix(document, warnings);
