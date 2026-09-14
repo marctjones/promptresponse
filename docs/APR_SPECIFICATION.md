@@ -855,6 +855,43 @@ sections:
         label: P
 ```
 
+**Example 4.5-8.** A well-formed APR-YAML document.
+
+```apr-example
+id: yaml-well-formed
+rule: apr-yaml
+satisfies: APR-REP-007
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: T
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
+
+**Example 4.5-9.** A member indented as if it were nested, which YAML cannot parse.
+
+```apr-example
+id: yaml-malformed-indentation
+rule: apr-yaml
+violates: APR-REP-007
+representation: yaml
+expect: reject
+diagnostic: PARSE_ERROR
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: T
+ sections:
+   - id: s
+```
+
 ### 4.5.1 Scalar resolution {#yaml-resolution}
 
 Resolution is stated exhaustively, because it is where YAML and JSON genuinely
@@ -1340,6 +1377,55 @@ diagnostic: PARSE_ERROR
 }
 ```
 
+**Example 4.6-4.** A date bound written as an RFC 3339 string.
+
+```apr-example
+id: date-bound-as-string
+rule: json-subset
+satisfies: APR-REP-016
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "p", "label": "P", "hints": { "expectedDataType": "date", "min": "2026-01-01" } }
+      ]
+    }
+  ]
+}
+```
+
+**Example 4.6-5.** A date bound written as a number.
+
+```apr-example
+id: date-bound-as-number
+rule: json-subset
+violates: APR-REP-016
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "p", "label": "P", "hints": { "expectedDataType": "date", "min": 2026 } }
+      ]
+    }
+  ]
+}
+```
+
 ### 4.7 Responses are strings {#responses}
 
 A reader **MUST** reject, at parse time, a `prompt.response` that is a JSON
@@ -1574,6 +1660,75 @@ expect: valid
       ]
     }
   ]
+}
+```
+
+**Example 5.2-2.** A title of spaces only.
+
+```apr-example
+id: title-blank
+rule: metadata
+violates: APR-MODEL-007
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "   " },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
+**Example 5.2-3.** A filled form naming the template it answers.
+
+```apr-example
+id: filled-form-with-template-id
+rule: metadata
+satisfies: APR-MODEL-007, APR-MODEL-008, APR-MODEL-036
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "filledForm",
+  "metadata": { "title": "T", "templateId": "tag:example.com,2026:t" },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
+**Example 5.2-4.** A filled form without a `templateId`.
+
+```apr-example
+id: filled-form-without-template-id
+rule: metadata
+violates: APR-MODEL-008
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": "filledForm",
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
+**Example 5.2-5.** A `templateId` that is not a URI.
+
+```apr-example
+id: template-id-not-a-uri
+rule: metadata
+violates: APR-MODEL-036
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T", "templateId": "just-a-name" },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
 }
 ```
 
@@ -1824,6 +1979,72 @@ diagnostic: REQUIRED_FIELD
 }
 ```
 
+**Example 5.3-3.** A table allowing at most one row.
+
+```apr-example
+id: table-max-rows-one
+rule: section-object
+satisfies: APR-MODEL-009, APR-MODEL-047
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    {
+      "id": "t",
+      "title": "T",
+      "kind": "table",
+      "maxRows": 1,
+      "sections": [ { "id": "r", "title": "R", "prompts": [ { "id": "r.a", "label": "A" } ] } ]
+    }
+  ]
+}
+```
+
+**Example 5.3-4.** A section with neither prompts nor child sections.
+
+```apr-example
+id: section-empty
+rule: section-object
+violates: APR-MODEL-009
+representation: jsonc
+expect: reject
+diagnostic: EMPTY_SECTION
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S" } ]
+}
+```
+
+**Example 5.3-5.** A table allowing no rows.
+
+```apr-example
+id: table-max-rows-zero
+rule: section-object
+violates: APR-MODEL-047
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    {
+      "id": "t",
+      "title": "T",
+      "kind": "table",
+      "maxRows": 0,
+      "sections": [ { "id": "r", "title": "R", "prompts": [ { "id": "r.a", "label": "A" } ] } ]
+    }
+  ]
+}
+```
+
 ### 5.4 Prompt {#prompt-object}
 
 Each row below is a requirement on a prompt.
@@ -1917,6 +2138,48 @@ expect: valid
         { "id": "name", "label": "Full name" },
         { "id": "Name", "label": "Name as printed on the card" }
       ]
+    }
+  ]
+}
+```
+
+**Example 5.4-4.** Prompt ids unique across two sections.
+
+```apr-example
+id: prompt-ids-unique
+rule: prompt-object
+satisfies: APR-MODEL-010
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s1", "title": "S1", "prompts": [ { "id": "a", "label": "A" } ] },
+    { "id": "s2", "title": "S2", "prompts": [ { "id": "b", "label": "B" } ] }
+  ]
+}
+```
+
+**Example 5.4-5.** Two prompts sharing an id.
+
+```apr-example
+id: prompt-ids-repeated
+rule: prompt-object
+violates: APR-MODEL-010
+representation: jsonc
+expect: reject
+diagnostic: DUPLICATE_ID
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [ { "id": "p", "label": "A" }, { "id": "p", "label": "B" } ]
     }
   ]
 }
@@ -3138,6 +3401,43 @@ warns: CONFUSABLE_SCRIPT_MIX
 }
 ```
 
+**Example 8.2.3-2.** A title in Normalization Form C with no excluded code point.
+
+```apr-example
+id: title-clean
+rule: human-text
+satisfies: APR-TEXT-011
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Permit Application" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 8.2.3-3.** A zero-width space, which is `Default_Ignorable`, inside a title.
+
+```apr-example
+id: title-zero-width-space
+rule: human-text
+violates: APR-TEXT-011
+representation: jsonc
+expect: valid
+warns: FORBIDDEN_CODE_POINT
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Permit\u200bApplication" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
 **A response is not human-facing text in this sense.** It is what a person
 typed, and [Filled data — never rewritten](#filled-never-rewritten) governs it:
 suspicious characters in a response are surfaced and rendered visibly, and the
@@ -3398,6 +3698,84 @@ An integrity manifest describes a form without holding its plaintext. It carries
 repeat a path. [APR-DIGEST-003]
 
 `entries` **MUST** contain the root pointer. [APR-DIGEST-004]
+
+**Example 10-3.** A manifest whose entries carry both members, start at the root
+pointer, and are ordered by path.
+
+```apr-example
+id: manifest-well-formed
+rule: digests
+satisfies: APR-DIGEST-001, APR-DIGEST-003, APR-DIGEST-004, APR-DIGEST-008, APR-DIGEST-009
+representation: jsonc
+expect: valid
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":"","digest":"sha256:abababababababababababababababababababababababababababababababab"},{"path":"/metadata","digest":"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"}]},"proofs":[],"witnesses":[]}
+```
+
+**Example 10-4.** A digest spelled in uppercase hexadecimal.
+
+```apr-example
+id: digest-uppercase
+rule: digests
+violates: APR-DIGEST-001
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":"","digest":"sha256:abababababababababababababababababababababababababababababababab"}]},"proofs":[],"witnesses":[]}
+```
+
+**Example 10-5.** Manifest entries out of path order.
+
+```apr-example
+id: manifest-entries-unordered
+rule: digests
+violates: APR-DIGEST-003
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":"","digest":"sha256:abababababababababababababababababababababababababababababababab"},{"path":"/b","digest":"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"},{"path":"/a","digest":"sha256:efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef"}]},"proofs":[],"witnesses":[]}
+```
+
+**Example 10-6.** A manifest without the root pointer.
+
+```apr-example
+id: manifest-without-root-pointer
+rule: digests
+violates: APR-DIGEST-004
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":"/a","digest":"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"}]},"proofs":[],"witnesses":[]}
+```
+
+**Example 10-7.** A manifest entry without its `digest`.
+
+```apr-example
+id: manifest-entry-without-digest
+rule: digests
+violates: APR-DIGEST-009
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":""}]},"proofs":[],"witnesses":[]}
+```
+
+**Example 10-8.** A manifest entry without its `path`.
+
+```apr-example
+id: manifest-entry-without-path
+rule: digests
+violates: APR-DIGEST-008
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":"","digest":"sha256:abababababababababababababababababababababababababababababababab"},{"digest":"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"}]},"proofs":[],"witnesses":[]}
+```
 
 An implementation producing a manifest **SHOULD** give it one entry for every
 value in the semantic model at every depth, unknown members included. [APR-DIGEST-010]

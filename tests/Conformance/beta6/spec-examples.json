@@ -385,6 +385,35 @@
       ]
     },
     {
+      "id": "date-bound-as-number",
+      "number": "4.6-5",
+      "rule": "json-subset",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"hints\": { \"expectedDataType\": \"date\", \"min\": 2026 } }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-REP-016"
+      ],
+      "violates": [
+        "APR-REP-016"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "date-bound-as-string",
+      "number": "4.6-4",
+      "rule": "json-subset",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"hints\": { \"expectedDataType\": \"date\", \"min\": \"2026-01-01\" } }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-REP-016"
+      ],
+      "satisfies": [
+        "APR-REP-016"
+      ]
+    },
+    {
       "id": "declared-roles",
       "number": "5.10-1",
       "rule": "roles",
@@ -427,6 +456,21 @@
         "APR-DIGEST-006"
       ],
       "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
+    },
+    {
+      "id": "digest-uppercase",
+      "number": "10-4",
+      "rule": "digests",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"path\":\"\",\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\"}]},\"proofs\":[],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-DIGEST-001"
+      ],
+      "violates": [
+        "APR-DIGEST-001"
+      ],
+      "diagnostic": "WRONG_TYPE"
     },
     {
       "id": "duplicate-prompt-id",
@@ -998,6 +1042,39 @@
       ]
     },
     {
+      "id": "filled-form-with-template-id",
+      "number": "5.2-3",
+      "rule": "metadata",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"filledForm\",\n  \"metadata\": { \"title\": \"T\", \"templateId\": \"tag:example.com,2026:t\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-007",
+        "APR-MODEL-008",
+        "APR-MODEL-036"
+      ],
+      "satisfies": [
+        "APR-MODEL-007",
+        "APR-MODEL-008",
+        "APR-MODEL-036"
+      ]
+    },
+    {
+      "id": "filled-form-without-template-id",
+      "number": "5.2-4",
+      "rule": "metadata",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"filledForm\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-008"
+      ],
+      "violates": [
+        "APR-MODEL-008"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
       "id": "form-without-metadata",
       "number": "5.1-1",
       "rule": "root-object",
@@ -1130,6 +1207,88 @@
       ]
     },
     {
+      "id": "manifest-entries-unordered",
+      "number": "10-5",
+      "rule": "digests",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"path\":\"\",\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\"},{\"path\":\"/b\",\"digest\":\"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"},{\"path\":\"/a\",\"digest\":\"sha256:efefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef\"}]},\"proofs\":[],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-DIGEST-003"
+      ],
+      "violates": [
+        "APR-DIGEST-003"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "manifest-entry-without-digest",
+      "number": "10-7",
+      "rule": "digests",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"path\":\"\"}]},\"proofs\":[],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-DIGEST-009"
+      ],
+      "violates": [
+        "APR-DIGEST-009"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "manifest-entry-without-path",
+      "number": "10-8",
+      "rule": "digests",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"path\":\"\",\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\"},{\"digest\":\"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"}]},\"proofs\":[],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-DIGEST-008"
+      ],
+      "violates": [
+        "APR-DIGEST-008"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "manifest-well-formed",
+      "number": "10-3",
+      "rule": "digests",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"path\":\"\",\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\"},{\"path\":\"/metadata\",\"digest\":\"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"}]},\"proofs\":[],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-DIGEST-001",
+        "APR-DIGEST-003",
+        "APR-DIGEST-004",
+        "APR-DIGEST-008",
+        "APR-DIGEST-009"
+      ],
+      "satisfies": [
+        "APR-DIGEST-001",
+        "APR-DIGEST-003",
+        "APR-DIGEST-004",
+        "APR-DIGEST-008",
+        "APR-DIGEST-009"
+      ]
+    },
+    {
+      "id": "manifest-without-root-pointer",
+      "number": "10-6",
+      "rule": "digests",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"path\":\"/a\",\"digest\":\"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"}]},\"proofs\":[],\"witnesses\":[]}\n",
+      "rules": [
+        "APR-DIGEST-004"
+      ],
+      "violates": [
+        "APR-DIGEST-004"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
       "id": "member-name-case",
       "number": "5.8-1",
       "rule": "extensions",
@@ -1207,6 +1366,35 @@
       ],
       "warns": [
         "RESPONSE_PATTERN_MISMATCH"
+      ]
+    },
+    {
+      "id": "prompt-ids-repeated",
+      "number": "5.4-5",
+      "rule": "prompt-object",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"A\" }, { \"id\": \"p\", \"label\": \"B\" } ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-010"
+      ],
+      "violates": [
+        "APR-MODEL-010"
+      ],
+      "diagnostic": "DUPLICATE_ID"
+    },
+    {
+      "id": "prompt-ids-unique",
+      "number": "5.4-4",
+      "rule": "prompt-object",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s1\", \"title\": \"S1\", \"prompts\": [ { \"id\": \"a\", \"label\": \"A\" } ] },\n    { \"id\": \"s2\", \"title\": \"S2\", \"prompts\": [ { \"id\": \"b\", \"label\": \"B\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-010"
+      ],
+      "satisfies": [
+        "APR-MODEL-010"
       ]
     },
     {
@@ -1412,6 +1600,21 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "section-empty",
+      "number": "5.3-4",
+      "rule": "section-object",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\" } ]\n}\n",
+      "rules": [
+        "APR-MODEL-009"
+      ],
+      "violates": [
+        "APR-MODEL-009"
+      ],
+      "diagnostic": "EMPTY_SECTION"
+    },
+    {
       "id": "section-without-id",
       "number": "5.3-2",
       "rule": "section-object",
@@ -1535,6 +1738,37 @@
       ]
     },
     {
+      "id": "table-max-rows-one",
+      "number": "5.3-3",
+      "rule": "section-object",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 1,\n      \"sections\": [ { \"id\": \"r\", \"title\": \"R\", \"prompts\": [ { \"id\": \"r.a\", \"label\": \"A\" } ] } ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-009",
+        "APR-MODEL-047"
+      ],
+      "satisfies": [
+        "APR-MODEL-009",
+        "APR-MODEL-047"
+      ]
+    },
+    {
+      "id": "table-max-rows-zero",
+      "number": "5.3-5",
+      "rule": "section-object",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    {\n      \"id\": \"t\",\n      \"title\": \"T\",\n      \"kind\": \"table\",\n      \"maxRows\": 0,\n      \"sections\": [ { \"id\": \"r\", \"title\": \"R\", \"prompts\": [ { \"id\": \"r.a\", \"label\": \"A\" } ] } ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-047"
+      ],
+      "violates": [
+        "APR-MODEL-047"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
       "id": "table-members-on-a-plain-section",
       "number": "5.5-2",
       "rule": "tables",
@@ -1618,6 +1852,50 @@
       "diagnostic": "EMPTY_TABLE"
     },
     {
+      "id": "template-id-not-a-uri",
+      "number": "5.2-5",
+      "rule": "metadata",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\", \"templateId\": \"just-a-name\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-036"
+      ],
+      "violates": [
+        "APR-MODEL-036"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "title-blank",
+      "number": "5.2-2",
+      "rule": "metadata",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"   \" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-007"
+      ],
+      "violates": [
+        "APR-MODEL-007"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "title-clean",
+      "number": "8.2.3-2",
+      "rule": "human-text",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Permit Application\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-TEXT-011"
+      ],
+      "satisfies": [
+        "APR-TEXT-011"
+      ]
+    },
+    {
       "id": "title-confusable-script-mix",
       "number": "8.2.3-1",
       "rule": "human-text",
@@ -1672,6 +1950,23 @@
       ],
       "warns": [
         "NON_NFC_TEXT"
+      ]
+    },
+    {
+      "id": "title-zero-width-space",
+      "number": "8.2.3-3",
+      "rule": "human-text",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Permit\\u200bApplication\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-TEXT-011"
+      ],
+      "violates": [
+        "APR-TEXT-011"
+      ],
+      "warns": [
+        "FORBIDDEN_CODE_POINT"
       ]
     },
     {
@@ -1971,6 +2266,21 @@
       ]
     },
     {
+      "id": "yaml-malformed-indentation",
+      "number": "4.5-9",
+      "rule": "apr-yaml",
+      "representation": "yaml",
+      "expect": "reject",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: T\n sections:\n   - id: s\n",
+      "rules": [
+        "APR-REP-007"
+      ],
+      "violates": [
+        "APR-REP-007"
+      ],
+      "diagnostic": "PARSE_ERROR"
+    },
+    {
       "id": "yaml-merge-key",
       "number": "4.5-6",
       "rule": "apr-yaml",
@@ -2142,6 +2452,20 @@
         "APR-REP-015"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "yaml-well-formed",
+      "number": "4.5-8",
+      "rule": "apr-yaml",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: T\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "rules": [
+        "APR-REP-007"
+      ],
+      "satisfies": [
+        "APR-REP-007"
+      ]
     }
   ]
 }

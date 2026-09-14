@@ -1922,7 +1922,17 @@
       "text": "4.5 APR-YAML",
       "disposition": "keep",
       "status": "applied",
-      "issue": 476
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/heading/d656199c5a",
+        "apr-yaml/sentence/e535db55b1",
+        "apr-yaml/sentence/edc6a63b1b",
+        "apr-yaml/example/b3eefb76cb",
+        "apr-yaml/sentence/3c37259855",
+        "apr-yaml/sentence/44d78d7756",
+        "apr-yaml/example/e6230e8494"
+      ],
+      "note": "examples added so the specification shows each rule it states here (#488)"
     },
     "apr-yaml/sentence/8f7541d918": {
       "anchor": "apr-yaml",
@@ -2772,7 +2782,17 @@
       "text": "4.6 Value types",
       "disposition": "keep",
       "status": "applied",
-      "issue": 476
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/heading/2b591446af",
+        "json-subset/sentence/ac8fbd5ec3",
+        "json-subset/sentence/25895408d9",
+        "json-subset/example/c5960cfb34",
+        "json-subset/sentence/58d2b4c67b",
+        "json-subset/sentence/af9daffb71",
+        "json-subset/example/0f9e0ae913"
+      ],
+      "note": "examples added so the specification shows each rule it states here (#488)"
     },
     "json-subset/sentence/1c12df3dc4": {
       "anchor": "json-subset",
@@ -3322,7 +3342,23 @@
       "text": "5.2 Metadata",
       "disposition": "keep",
       "status": "applied",
-      "issue": 477
+      "issue": 477,
+      "replacedBy": [
+        "metadata/heading/be78396f72",
+        "metadata/sentence/ca05ba4ee7",
+        "metadata/sentence/1861dff20d",
+        "metadata/example/63aeb2ce98",
+        "metadata/sentence/4e34aa9295",
+        "metadata/sentence/775bfbc2db",
+        "metadata/example/5c02333d11",
+        "metadata/sentence/864c75082b",
+        "metadata/sentence/bd9c63a7f9",
+        "metadata/example/b45f8df82b",
+        "metadata/sentence/bf08cea2a8",
+        "metadata/sentence/33f2b26304",
+        "metadata/example/52539bba75"
+      ],
+      "note": "examples added so the specification shows each rule it states here (#488)"
     },
     "metadata/table-header/bd072d4771": {
       "anchor": "metadata",
@@ -4157,7 +4193,20 @@
       "text": "5.3 Section",
       "disposition": "keep",
       "status": "applied",
-      "issue": 477
+      "issue": 477,
+      "replacedBy": [
+        "section-object/heading/67913b5be6",
+        "section-object/sentence/92791bd8ec",
+        "section-object/sentence/a82f1cfe3e",
+        "section-object/example/0032715b88",
+        "section-object/sentence/f9e6878d88",
+        "section-object/sentence/3403c690bf",
+        "section-object/example/4d7a9e6c06",
+        "section-object/sentence/5ff69088c6",
+        "section-object/sentence/a71dba6448",
+        "section-object/example/30fc585128"
+      ],
+      "note": "examples added so the specification shows each rule it states here (#488)"
     },
     "section-object/table-header/bd072d4771": {
       "anchor": "section-object",
@@ -4350,7 +4399,17 @@
       "text": "5.4 Prompt",
       "disposition": "keep",
       "status": "applied",
-      "issue": 477
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/heading/cd6bfaebd5",
+        "prompt-object/sentence/3e7c0a4b38",
+        "prompt-object/sentence/3e43c3c058",
+        "prompt-object/example/96f713fcc9",
+        "prompt-object/sentence/5522e57a40",
+        "prompt-object/sentence/756bc84849",
+        "prompt-object/example/7f9cc54028"
+      ],
+      "note": "examples added so the specification shows each rule it states here (#488)"
     },
     "prompt-object/table-header/bd072d4771": {
       "anchor": "prompt-object",
@@ -7922,9 +7981,16 @@
         "human-text/heading/eb06657b5c",
         "human-text/example/36057c6f72",
         "human-text/sentence/20f787a0b9",
-        "human-text/sentence/5926f5325e"
+        "human-text/sentence/5926f5325e",
+        "human-text/sentence/d501bbb701",
+        "human-text/sentence/0083153822",
+        "human-text/example/307958fc4c",
+        "human-text/sentence/82d3f9f2aa",
+        "human-text/sentence/a288ed548e",
+        "human-text/example/141da1293f"
       ],
-      "issue": 481
+      "issue": 481,
+      "note": "examples added so the specification shows each rule it states here (#488)"
     },
     "human-text/sentence/426c522daa": {
       "anchor": "human-text",
@@ -8368,9 +8434,28 @@
         "digests/sentence/63b62a0b70",
         "digests/example/ffb3212965",
         "digests/sentence/93f02461eb",
-        "digests/sentence/6bf3c94c41"
+        "digests/sentence/6bf3c94c41",
+        "digests/sentence/fe142e8a38",
+        "digests/sentence/093eb19845",
+        "digests/example/d079dcac73",
+        "digests/sentence/be72d9c5d1",
+        "digests/sentence/2ca9dd7b89",
+        "digests/example/6ef391300b",
+        "digests/sentence/d752c142ff",
+        "digests/sentence/64dc2bc0d8",
+        "digests/example/afc08e4b44",
+        "digests/sentence/329a365e66",
+        "digests/sentence/20523023fb",
+        "digests/example/9ba317c04a",
+        "digests/sentence/717b1bbd3d",
+        "digests/sentence/cf516669fb",
+        "digests/example/61d9ff1ba2",
+        "digests/sentence/ac291b19d6",
+        "digests/sentence/2986b38283",
+        "digests/example/0a1a68bece"
       ],
-      "issue": 482
+      "issue": 482,
+      "note": "examples added so the specification shows each rule it states here (#488)"
     },
     "digests/sentence/d1024dc7ca": {
       "anchor": "digests",
