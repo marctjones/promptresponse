@@ -228,13 +228,6 @@
       "issue": 263,
       "requirement": "The local model review asks generic coverage questions rather than checking against this manifest and the concept registry.",
       "status": "deterministic half done; the judgement half is narrowed to the 27 ungated rules"
-    },
-    {
-      "id": "classes-defined-in-terminology",
-      "issue": 488,
-      "requirement": "Classes of product named by requirements but not defined in Terminology.",
-      "status": "converted chapter by chapter in #473-#487",
-      "findings": 4
     }
   ]
 }

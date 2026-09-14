@@ -34,7 +34,7 @@ class of product.
 | [APR-MODEL-003](../APR_SPECIFICATION.md#hints-advisory) | MUST NOT | An implementation **MUST NOT** reject, alter, truncate, or refuse to save a response because of a hint, including `validationPattern` and every member of the `expr*` family. | |
 | [APR-MODEL-015](../APR_SPECIFICATION.md#nesting) | MUST | An implementation **MUST** support at least **16 levels** of section nesting. | |
 | [APR-MODEL-033](../APR_SPECIFICATION.md#submission) | MUST | Send the document as the body of one `PUT`, with the `vnd.apr` media type of its representation as `Content-Type` ([Document type](../APR_SPECIFICATION.md#media-types)) — **MUST** | |
-| [APR-MODEL-034](../APR_SPECIFICATION.md#submission) | SHOULD | An implementation submitting to a `mailto` entry **SHOULD** hand the composition to the user's mail client. | |
+| [APR-MODEL-034](../APR_SPECIFICATION.md#submission) | SHOULD | An implementation submitting to a `mailto` entry **SHOULD** hand the composition to the user's mail program. | |
 | [APR-MODEL-035](../APR_SPECIFICATION.md#submission) | MUST NOT | An implementation **MUST NOT** act on an entry whose scheme it does not recognise or does not implement. | |
 | [APR-MODEL-086](../APR_SPECIFICATION.md#submission) | MUST NOT | Send credentials, cookies, or headers derived from the document — **MUST NOT** | |
 | [APR-MODEL-087](../APR_SPECIFICATION.md#submission) | MUST | Treat any status other than 2xx as failure — **MUST** | |
@@ -343,7 +343,7 @@ class of product.
 | --- | --- | --- | --- |
 | [APR-ATTEST-011](../APR_SPECIFICATION.md#never-gate) | MUST NOT | An implementation **MUST NOT** require an attestation in order to save, send, accept, or process a form. | |
 | [APR-ATTEST-012](../APR_SPECIFICATION.md#never-gate) | MUST NOT | An implementation **MUST NOT** refuse to parse, validate, render, print, export, or extract data from a document because its attestations are absent, unrecognized, expired, untrusted, or outright invalid. | |
-| [APR-ATTEST-013](../APR_SPECIFICATION.md#never-gate) | MAY | An implementation **MAY** warn, badge, or refuse to *act* on a document by its own policy — a receiving workflow is entitled to reject an unattested permit application. | |
+| [APR-ATTEST-013](../APR_SPECIFICATION.md#never-gate) | MAY | An implementation **MAY** warn, badge, or refuse to *act* on a document by its own policy — a receiving workflow is entitled to reject an unattested permit request. | |
 | [APR-ATTEST-019](../APR_SPECIFICATION.md#never-gate) | MUST NOT | **An attestation is an assertion about a document, never a permission to read it.** An implementation **MUST NOT** treat the presence, absence, or state of an attestation as authorization to read, or to withhold, the data a form carries. | |
 | [APR-ATTEST-031](../APR_SPECIFICATION.md#attestation-catalogue) | MUST | An implementation **MUST** preserve an attestation record's extension members across a round trip. | |
 | [APR-ATTEST-035](../APR_SPECIFICATION.md#proofs) | MUST | An implementation producing a proof **MUST** compute it over the JCS serialization (RFC 8785) of the attestation's envelope: the record without its `proofs` member. | |
@@ -477,4 +477,4 @@ class of product.
 
 | Rule | Level | Requirement | Supported |
 | --- | --- | --- | --- |
-| [APR-EXPR-007](../APR_SPECIFICATION.md#expr-context) | MUST NOT | A host **MUST NOT** place credentials, secrets, authorization decisions, or private server-side facts in `ctx`. | |
+| [APR-EXPR-007](../APR_SPECIFICATION.md#expr-context) | MUST NOT | A host **MUST NOT** place credentials, secrets, authorization decisions, or facts private to its own systems in `ctx`. | |
