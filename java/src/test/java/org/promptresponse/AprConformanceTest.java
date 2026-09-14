@@ -149,6 +149,7 @@ public final class AprConformanceTest {
             throw new AssertionError("spec-examples.json carries no examples");
 
         java.util.List<String> failures = new java.util.ArrayList<>();
+        int checked = 0;
         for (Object entry : examples) {
             java.util.Map<?, ?> example = (java.util.Map<?, ?>) entry;
             String id = String.valueOf(example.get("id"));
@@ -162,6 +163,7 @@ public final class AprConformanceTest {
             // claim. The conformance runner leaves such a case unanswered, and so does this.
             if (!representation.endsWith("-stream") && (document.contains("\"recordType\"") || document.contains("recordType:")))
                 continue;
+            checked++;
 
             boolean accepted;
             String detail = "";
@@ -189,7 +191,7 @@ public final class AprConformanceTest {
                 failures.add(id + " (#" + rule + "): specification requires rejection, reader accepted it");
         }
         if (!failures.isEmpty()) throw new AssertionError("specification examples failed:\n  " + String.join("\n  ", failures));
-        System.out.println("Java specification examples passed: " + examples.size());
+        System.out.println("Java specification examples passed: " + checked + " of " + examples.size());
     }
 
     /** The activation the specification defines, and its caller-supplied instants. */
