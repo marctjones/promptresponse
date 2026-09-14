@@ -6,37 +6,18 @@ namespace PromptResponse.Desktop.ViewModels.Editing;
 /// Creates independent table snapshot models for undo/redo. Kept separate from
 /// the view-model so clone policy is explicit and reusable by table editing.
 /// </summary>
+/// <remarks>
+/// The policy itself lives in <see cref="ModelCopier"/>, in Core, with the models it
+/// copies. It used to live here, built field by field, and a field-by-field copy is
+/// a list of the members somebody remembered: extension members, the prompt's role,
+/// and the bounds hints were all absent, so undoing a table edit deleted them from
+/// the document. Preserving an unrecognised member is not a nicety the editor may
+/// skip - specification 5.8 requires a member present on read to be present,
+/// unchanged, on write (APR-MODEL-021).
+/// </remarks>
 internal static class TableSnapshotCloner
 {
-    internal static Section CloneSection(Section section) => new()
-    {
-        Id = section.Id,
-        Title = section.Title,
-        Description = section.Description,
-        Kind = section.Kind,
-        CanAddRows = section.CanAddRows,
-        MaxRows = section.MaxRows,
-        Prompts = section.Prompts.Select(ClonePrompt).ToList(),
-        Sections = section.Sections.Select(CloneSection).ToList(),
-    };
+    internal static Section CloneSection(Section section) => ModelCopier.Copy(section);
 
-    internal static Prompt ClonePrompt(Prompt prompt) => new()
-    {
-        Id = prompt.Id,
-        Label = prompt.Label,
-        Response = prompt.Response,
-        Hints = new PromptHints
-        {
-            ExpectedDataType = prompt.Hints.ExpectedDataType,
-            Placeholder = prompt.Hints.Placeholder,
-            HelpText = prompt.Hints.HelpText,
-            ValidationPattern = prompt.Hints.ValidationPattern,
-            SuggestedValues = new List<string>(prompt.Hints.SuggestedValues),
-            ExprHidden = prompt.Hints.ExprHidden,
-            ExprValue = prompt.Hints.ExprValue,
-            ExprExpected = prompt.Hints.ExprExpected,
-            ExprValidation = prompt.Hints.ExprValidation,
-            ExprReadOnly = prompt.Hints.ExprReadOnly,
-        },
-    };
+    internal static Prompt ClonePrompt(Prompt prompt) => ModelCopier.Copy(prompt);
 }

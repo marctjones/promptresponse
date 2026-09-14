@@ -36,7 +36,8 @@ internal static class TableRowFactory
             {
                 Id = $"{rowId}.{SuffixOf(cell.Id)}",
                 Label = cell.Label,
-                Hints = CloneHints(cell.Hints),
+                Role = cell.Role,
+                Hints = NewRowHints(cell.Hints),
             });
         }
         return row;
@@ -65,21 +66,47 @@ internal static class TableRowFactory
         Hints = new PromptHints { ExpectedDataType = "text" },
     };
 
-    private static Prompt Rekey(Prompt prompt, string rowId) => new()
+    /// <summary>Moves an existing prompt into a row, under the row's id.</summary>
+    /// <remarks>
+    /// The same prompt, renamed - so everything it carries travels with it, extension
+    /// members included: a member present on read must still be present, unchanged, on
+    /// write (specification 5.8, APR-MODEL-021). A copy rather than the prompt itself,
+    /// and its own hints rather than the original's, so the row that results is not
+    /// quietly sharing state with the section it was built from.
+    /// </remarks>
+    private static Prompt Rekey(Prompt prompt, string rowId)
     {
-        Id = $"{rowId}.{SuffixOf(prompt.Id)}",
-        Label = prompt.Label,
-        Response = prompt.Response,
-        Hints = prompt.Hints,
-    };
+        var cell = ModelCopier.Copy(prompt);
+        cell.Id = $"{rowId}.{SuffixOf(prompt.Id)}";
+        return cell;
+    }
 
-    private static PromptHints CloneHints(PromptHints hints) => new()
+    /// <summary>Gives a newly added row the column's shape, and none of its data.</summary>
+    /// <remarks>
+    /// A row is an instance of the table's shape, so a new one inherits the template
+    /// cell's hints in full: type, placeholder, help text, suggested values, pattern,
+    /// bounds, and expressions are what the column is. They are the specification's own
+    /// members, and every expression binding a table cell can reach is either the cell
+    /// itself (`_this`, `_id`) or something outside the row, since a dotted cell id is
+    /// not a valid CEL identifier and gets no direct binding (specification 11.4).
+    ///
+    /// Extension members are not copied. They are the producer's own data about the
+    /// object that carried them, and nothing tells this editor whether one describes
+    /// the column or that particular cell - so putting `com.example.priority: 2` on a
+    /// row the author has not filled in yet would be inventing their data, not
+    /// preserving it. For an unprefixed member it would be worse than a guess: minting
+    /// a name in the space reserved to the specification is exactly what a producer
+    /// must not do (APR-MODEL-031), and the write path refuses it.
+    ///
+    /// Preservation is not in tension with this. It binds members that arrived on an
+    /// object, and this object did not exist when the document was read.
+    /// </remarks>
+    private static PromptHints NewRowHints(PromptHints hints)
     {
-        ExpectedDataType = hints.ExpectedDataType,
-        Placeholder = hints.Placeholder,
-        HelpText = hints.HelpText,
-        SuggestedValues = new List<string>(hints.SuggestedValues),
-    };
+        var shape = ModelCopier.Copy(hints);
+        shape.Extensions = null;
+        return shape;
+    }
 
     private static string SuffixOf(string id)
     {
