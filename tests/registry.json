@@ -1236,6 +1236,14 @@
         {
           "type": "test",
           "ref": "Yaml_NestedTooDeep_IsAParseError_NotACrash"
+        },
+        {
+          "type": "test",
+          "ref": "HostileStructures_AreRefusedCleanly"
+        },
+        {
+          "type": "test",
+          "ref": "ParseCost_GrowsWithInputSize_NotWithItsSquare"
         }
       ],
       "rules": [
