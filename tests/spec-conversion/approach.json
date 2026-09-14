@@ -30,8 +30,6 @@
     "informative-references",
     "appendix-minimal",
     "appendix-rule",
-    "provenance",
-    "corpus-gaps",
     "primitives"
   ],
   "informativeKinds": ["rationale", "example", "code", "quote"],

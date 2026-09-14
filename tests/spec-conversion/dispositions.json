@@ -12509,88 +12509,108 @@
       "chapter": 21,
       "kind": "heading",
       "text": "21. Appendix C: Provenance of this text",
-      "disposition": "keep",
-      "status": "todo",
-      "replacedBy": [
-        "provenance/heading/1a2dc45c69"
-      ],
-      "note": "renumbered when section 15 was deleted (#486)"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "the appendix described where the text came from; its claim about implementations moves to About this document",
+      "issue": 487
     },
     "provenance/sentence/f048ed16e9": {
       "anchor": "provenance",
       "chapter": 21,
       "kind": "sentence",
       "text": "Non-normative.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 487,
+      "note": "the appendix is deleted"
     },
     "provenance/sentence/e5e5e79b51": {
       "anchor": "provenance",
       "chapter": 21,
       "kind": "sentence",
       "text": "This document is written from APR's design record, not from any implementation.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 487,
+      "note": "describes the text's origin, which a standalone specification does not"
     },
     "provenance/sentence/ed7941ecdb": {
       "anchor": "provenance",
       "chapter": 21,
       "kind": "sentence",
       "text": "**Implementations are not a source.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "move",
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "scope/sentence/0e9df2243a"
+      ]
     },
     "provenance/sentence/135c080d44": {
       "anchor": "provenance",
       "chapter": 21,
       "kind": "sentence",
       "text": "Where a shipped implementation and this document disagree, the implementation has a defect to fix.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "move",
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "scope/sentence/7665643d69"
+      ]
     },
     "provenance/rationale/128d686f06": {
       "anchor": "provenance",
       "chapter": 21,
       "kind": "rationale",
       "text": "Rationale: the alternative — writing a specification by reading the code — produces a document that ratifies accidents and cannot be used to judge whether the code is right.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "move",
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "scope/rationale/8d1d5356e6"
+      ]
     },
     "corpus-gaps/heading/50e790744f": {
       "anchor": "corpus-gaps",
       "chapter": 22,
       "kind": "heading",
       "text": "22. Appendix D: Corpus gaps",
-      "disposition": "keep",
-      "status": "todo",
-      "replacedBy": [
-        "corpus-gaps/heading/226cfa6391"
-      ],
-      "note": "renumbered when section 15 was deleted (#486)"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "a hand-written list of uncovered rules; scripts/check-example-coverage.py reports them",
+      "issue": 487
     },
     "corpus-gaps/sentence/f048ed16e9": {
       "anchor": "corpus-gaps",
       "chapter": 22,
       "kind": "sentence",
       "text": "Non-normative.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 487,
+      "note": "the appendix is deleted"
     },
     "corpus-gaps/sentence/38750a489c": {
       "anchor": "corpus-gaps",
       "chapter": 22,
       "kind": "sentence",
       "text": "Every rule in this document is normative.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 487,
+      "note": "restates Document conventions"
     },
     "corpus-gaps/sentence/826a60cc13": {
       "anchor": "corpus-gaps",
       "chapter": 22,
       "kind": "sentence",
       "text": "A rule with no vector is a corpus defect rather than a specification gap, because the corpus is derived from this document ([Authority](#scope)).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "move",
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "scope/sentence/101911f15c"
+      ]
     },
     "corpus-gaps/sentence/6be4e09756": {
       "anchor": "corpus-gaps",
@@ -12598,23 +12618,29 @@
       "kind": "sentence",
       "text": "Closed by the examples embedded here: the forbidden APR-YAML constructs — tags, merge keys, and directives as well as anchors — scalar resolution of bare words, legacy boolean spellings and non-finite floats, JSONC trailing commas and comments inside strings, and mixed-representation stream rejection.",
       "disposition": "delete",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487,
+      "note": "a hand-written list of uncovered rules; scripts/check-example-coverage.py reports them"
     },
     "corpus-gaps/sentence/54c397ff70": {
       "anchor": "corpus-gaps",
       "chapter": 22,
       "kind": "sentence",
       "text": "Still without a vector:",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 487,
+      "note": "a hand-written list of uncovered rules; scripts/check-example-coverage.py reports them"
     },
     "corpus-gaps/list-item/3cd90da868": {
       "anchor": "corpus-gaps",
       "chapter": 22,
       "kind": "list-item",
       "text": "manifest vectors across the full range of changed member kinds. Each needs a computed `jcs-sha256` digest, so these belong in the corpus beside the existing digest vectors rather than embedded here.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 487,
+      "note": "a hand-written list of uncovered rules; scripts/check-example-coverage.py reports them"
     },
     "primitives/heading/f574d92c2f": {
       "anchor": "primitives",
@@ -12622,11 +12648,12 @@
       "kind": "heading",
       "text": "23. Appendix E: What earns a primitive",
       "disposition": "keep",
-      "status": "todo",
+      "status": "applied",
       "replacedBy": [
-        "primitives/heading/8d05a1babb"
+        "primitives/heading/b28e4ddb84"
       ],
-      "note": "renumbered when section 15 was deleted (#486)"
+      "note": "renumbered after Appendices C and D are deleted",
+      "issue": 487
     },
     "primitives/sentence/f048ed16e9": {
       "anchor": "primitives",
