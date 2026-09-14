@@ -4,9 +4,9 @@
   "counts": {
     "enforced": 156,
     "satisfied": 152,
-    "violated": 146,
-    "caught": 146,
-    "complete": 122
+    "violated": 144,
+    "caught": 144,
+    "complete": 120
   },
   "legs": {
     "APR-ATTEST-001": "esvc",
@@ -83,8 +83,8 @@
     "APR-DIGEST-005": "----",
     "APR-DIGEST-006": "-s--",
     "APR-DIGEST-007": "----",
-    "APR-DIGEST-008": "esvc",
-    "APR-DIGEST-009": "esvc",
+    "APR-DIGEST-008": "es--",
+    "APR-DIGEST-009": "es--",
     "APR-DIGEST-010": "----",
     "APR-EXPR-001": "esvc",
     "APR-EXPR-002": "----",

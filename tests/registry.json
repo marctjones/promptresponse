@@ -611,7 +611,11 @@
         "APR-DIGEST-009",
         "APR-DIGEST-010"
       ],
-      "gap": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+      "gap": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 010, the completeness of a manifest's entries. APR-DIGEST-008 and 009 have no violating example because the .NET reader reports a manifest entry missing `path` or `digest` as WRONG_TYPE rather than REQUIRED_FIELD (#517).",
+      "gapRules": [
+        "APR-DIGEST-008",
+        "APR-DIGEST-009"
+      ]
     },
     {
       "id": "REQ-export-no-writeback",

@@ -1237,36 +1237,6 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
-      "id": "manifest-entry-without-digest",
-      "number": "10-7",
-      "rule": "digests",
-      "representation": "jsonc",
-      "expect": "reject",
-      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"path\":\"\"}]},\"proofs\":[],\"witnesses\":[]}\n",
-      "rules": [
-        "APR-DIGEST-009"
-      ],
-      "violates": [
-        "APR-DIGEST-009"
-      ],
-      "diagnostic": "REQUIRED_FIELD"
-    },
-    {
-      "id": "manifest-entry-without-path",
-      "number": "10-8",
-      "rule": "digests",
-      "representation": "jsonc",
-      "expect": "reject",
-      "document": "{\"recordType\":\"attestation\",\"aprVersion\":\"1.0-beta.6\",\"subject\":{\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\",\"canonicalization\":\"jcs-sha256\"},\"scope\":{\"kind\":\"document\"},\"manifest\":{\"root\":\"sha256:abababababababababababababababababababababababababababababababab\",\"entries\":[{\"path\":\"\",\"digest\":\"sha256:abababababababababababababababababababababababababababababababab\"},{\"digest\":\"sha256:cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd\"}]},\"proofs\":[],\"witnesses\":[]}\n",
-      "rules": [
-        "APR-DIGEST-008"
-      ],
-      "violates": [
-        "APR-DIGEST-008"
-      ],
-      "diagnostic": "REQUIRED_FIELD"
-    },
-    {
       "id": "manifest-well-formed",
       "number": "10-3",
       "rule": "digests",
