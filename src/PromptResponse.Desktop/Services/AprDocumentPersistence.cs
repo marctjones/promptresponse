@@ -10,7 +10,9 @@ internal sealed class AprDocumentPersistence
     {
         if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath)) return [];
         var source = await File.ReadAllTextAsync(filePath);
-        return new AprBeta6Reader().ReadStream(source, RepresentationFor(filePath));
+        // The content decides the representation; the extension names a file and is
+        // consulted only when writing one ([Document type](#media-types)).
+        return new AprBeta6Reader().ReadStream(source, AprBeta6Reader.RepresentationOf(source));
     }
 
     internal async Task<AprDocument?> LoadAsync(string filePath)

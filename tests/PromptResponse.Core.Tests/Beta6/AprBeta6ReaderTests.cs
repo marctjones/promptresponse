@@ -41,6 +41,46 @@ public class AprBeta6ReaderTests
         form.Sections.Single().Prompts.Single().Id.Should().Be("p");
     }
 
+    [Theory]
+    [InlineData("{ \"aprVersion\": \"1.0-beta.6\" }", AprRepresentation.Jsonc)]
+    [InlineData("\uFEFF  // a comment\n/* a block */ {}", AprRepresentation.Jsonc)]
+    [InlineData("\u001e{}\n\u001e{}", AprRepresentation.Jsonc)]
+    [InlineData("aprVersion: \"1.0-beta.6\"", AprRepresentation.Yaml)]
+    [InlineData("# a comment\n---\naprVersion: \"1.0-beta.6\"", AprRepresentation.Yaml)]
+    public void RepresentationOf_IsDecidedByContent(string source, AprRepresentation expected)
+    {
+        AprBeta6Reader.RepresentationOf(source).Should().Be(expected);
+    }
+
+    [Fact]
+    public void Yaml_NestedTooDeep_IsAParseError_NotACrash()
+    {
+        var source = new string('[', 50_000) + new string(']', 50_000);
+
+        var act = () => _reader.ReadStream(source, AprRepresentation.Yaml);
+
+        act.Should().Throw<SerializationException>().Which.Code.Should().Be("PARSE_ERROR");
+    }
+
+    [Fact]
+    public void Yaml_SixteenSectionLevels_StillRead()
+    {
+        var yaml = new System.Text.StringBuilder("aprVersion: \"1.0-beta.6\"\nmetadata: { title: T }\nsections:\n");
+        var indent = "";
+        for (var level = 0; level < 16; level++)
+        {
+            yaml.Append($"{indent}  - id: s{level}\n{indent}    title: S\n");
+            yaml.Append(level == 15
+                ? $"{indent}    prompts:\n{indent}      - id: p\n{indent}        label: P\n"
+                : $"{indent}    sections:\n");
+            indent += "    ";
+        }
+
+        var form = _reader.ReadForm(yaml.ToString(), AprRepresentation.Yaml);
+
+        form.Sections.Single().Id.Should().Be("s0");
+    }
+
     // Normalised, not raw. A raw string literal carries the line endings the compiler
     // found in the source file, so on a CRLF checkout every fixture mutation below that
     // searches for "\n" silently matches nothing and asserts against an unmutated

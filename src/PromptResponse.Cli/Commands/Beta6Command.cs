@@ -27,7 +27,7 @@ public sealed class Beta6Command : ICommand
         try
         {
             var source = await File.ReadAllTextAsync(path);
-            var representation = InputRepresentationFor(path);
+            var representation = AprBeta6Reader.RepresentationOf(source);
             var reader = new AprBeta6Reader();
             var records = reader.ReadStream(source, representation);
             if (action == "validate")
@@ -156,10 +156,6 @@ public sealed class Beta6Command : ICommand
             return 1;
         }
     }
-
-    private static AprRepresentation InputRepresentationFor(string path) =>
-        path.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase) || path.EndsWith(".yml", StringComparison.OrdinalIgnoreCase)
-            ? AprRepresentation.Yaml : AprRepresentation.Jsonc;
 
     private static AprRepresentation OutputRepresentationFor(string[] args, AprRepresentation input) =>
         args.Contains("--yaml", StringComparer.OrdinalIgnoreCase) ? AprRepresentation.Yaml

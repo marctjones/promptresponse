@@ -80,10 +80,7 @@ internal sealed class DocumentSessionWorkflow
         var source = await File.ReadAllTextAsync(path);
         if (!source.Contains("1.0-beta.6", StringComparison.Ordinal)) return fallback;
 
-        var representation = Path.GetExtension(path).Equals(".yaml", StringComparison.OrdinalIgnoreCase) ||
-                             Path.GetExtension(path).Equals(".yml", StringComparison.OrdinalIgnoreCase)
-            ? AprRepresentation.Yaml : AprRepresentation.Jsonc;
-        var records = new AprBeta6Reader().ReadStream(source, representation);
+        var records = new AprBeta6Reader().ReadStream(source, AprBeta6Reader.RepresentationOf(source));
         var forms = records.OfType<AprFormRecord>().ToList();
         if (forms.Count == 0) return null;
 

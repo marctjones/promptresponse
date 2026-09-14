@@ -252,9 +252,36 @@ def read_records(text: str, representation: str) -> list:
     return records
 
 
+def representation_of(text: str) -> str:
+    """The representation a document is written in, decided by its content (#media-types).
+
+    An APR-JSONC document is an object and an APR-JSONC stream opens with a record
+    separator, so once a byte order mark, whitespace and JSONC comments are skipped,
+    anything else is APR-YAML. The separator is checked before whitespace because
+    Python counts U+001E as whitespace."""
+    index = 1 if text.startswith("\ufeff") else 0
+    while index < len(text):
+        ch = text[index]
+        if ch in ("{", RS):
+            return "jsonc"
+        if ch.isspace():
+            index += 1
+            continue
+        if text.startswith("//", index) or text.startswith("/*", index):
+            end = text.find("\n" if text[index + 1] == "/" else "*/", index + 2)
+            if end < 0:
+                return "jsonc"
+            index = end + (1 if text[index + 1] == "/" else 2)
+            continue
+        return "yaml"
+    return "jsonc"
+
+
 def read_file(path) -> list:
+    # The content decides; a filename never does, and a reader does not reject a
+    # document because its extension disagrees with it (#media-types).
     text = path.read_text(encoding="utf-8")
-    return read_records(text, "yaml" if path.suffix in {".yaml", ".yml"} else "jsonc")
+    return read_records(text, representation_of(text))
 
 
 def is_attestation(record) -> bool:
