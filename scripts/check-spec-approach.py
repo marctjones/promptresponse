@@ -15,8 +15,12 @@ requirement level each BCP 14 keyword belongs to. Units come from spec-units.py.
                                    column, and every row carries a rule identifier
   keywords-only-in-requirements    no rationale block and no heading carries a keyword
   one-level-per-rule               a unit carrying a rule states one requirement level
+  examples-captioned               every executable example is captioned with its
+                                   number, "**Example 4.5.1-3.**", and no caption
+                                   names anything else
 
     python3 scripts/check-spec-approach.py            # report, never fails
+    python3 scripts/check-spec-approach.py --chapter 1
     python3 scripts/check-spec-approach.py --gate     # fail on any finding
     python3 scripts/check-spec-approach.py --json
     python3 scripts/check-spec-approach.py --self-test
@@ -37,7 +41,11 @@ FIXTURE = ROOT / "tests" / "spec-conversion" / "approach-fixture.md"
 _spec = importlib.util.spec_from_file_location("spec_units", ROOT / "scripts" / "spec-units.py")
 spec_units = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(spec_units)
+_spec = importlib.util.spec_from_file_location("extract_spec_examples", ROOT / "scripts" / "extract-spec-examples.py")
+extractor = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(extractor)
 
+CAPTION = re.compile(r"^\*\*Example ([^*]+?)\.\*\*", re.MULTILINE)
 CHECKS = (
     "classes-defined-in-terminology",
     "no-lowercase-obligations",
@@ -45,6 +53,7 @@ CHECKS = (
     "requirement-tables-carry-rules",
     "keywords-only-in-requirements",
     "one-level-per-rule",
+    "examples-captioned",
 )
 RULE_ID = re.compile(r"\bAPR-[A-Z]+-\d{3}\b")
 DEFINED_TERM = re.compile(r"^\*\*([^*]+)\*\*")
@@ -67,7 +76,8 @@ def lint(units: list[dict], approach: dict) -> list[dict]:
     findings: list[dict] = []
 
     def finding(check: str, unit: dict, detail: str) -> None:
-        findings.append({"check": check, "unit": unit["id"], "line": unit["line"], "detail": detail})
+        findings.append({"check": check, "unit": unit["id"], "line": unit["line"], "chapter": unit["chapter"],
+                         "detail": detail})
 
     def normative(u: dict) -> bool:
         return u["anchor"] not in informative_sections and u["kind"] not in informative_kinds
@@ -114,9 +124,49 @@ def load_approach() -> dict:
     return json.loads(APPROACH.read_text(encoding="utf-8"))
 
 
+def caption_findings(markdown: str) -> list[dict]:
+    """Each executable example is captioned with the number extraction gives it.
+
+    The caption is the paragraph immediately before the fence. A caption anywhere
+    else, or one naming a different number, is a finding too, so a renumbered
+    example cannot leave its old caption behind.
+    """
+    examples, _ = extractor.extract(markdown)
+    numbers = {e["id"]: e["number"] for e in examples}
+    headings = [(m.start(), m.group(1)) for m in extractor.HEADING.finditer(markdown)]
+    findings: list[dict] = []
+    consumed: set[int] = set()
+
+    def finding(offset: int, number: str, detail: str) -> None:
+        # The chapter is where the text sits; a stale caption's number says nothing about that.
+        section = next((n for start, n in reversed(headings) if start < offset), "")
+        chapter = section.split(".")[0]
+        findings.append({"check": "examples-captioned", "unit": f"offset/{offset}",
+                         "line": markdown.count("\n", 0, offset) + 1,
+                         "chapter": int(chapter) if chapter.isdigit() else None, "detail": detail})
+
+    for match in extractor.FENCE.finditer(markdown):
+        ident = re.search(r"^id:\s*(\S+)", match.group("header"), re.MULTILINE)
+        number = numbers.get(ident.group(1), "") if ident else ""
+        before = markdown[:match.start()].rstrip("\n")
+        start = before.rfind("\n\n") + 2 if "\n\n" in before else 0
+        caption = CAPTION.match(before, start)
+        if caption:
+            consumed.add(caption.start())
+        if not caption or caption.group(1) != number:
+            got = f"captioned {caption.group(1)}" if caption else "uncaptioned"
+            finding(match.start(), number, f"example {ident.group(1) if ident else '?'} is {got}; "
+                                           f"its caption is **Example {number}.**")
+    for caption in CAPTION.finditer(markdown):
+        if caption.start() not in consumed:
+            finding(caption.start(), caption.group(1),
+                    f"**Example {caption.group(1)}.** captions no executable example")
+    return findings
+
+
 def run(markdown: str | None = None) -> list[dict]:
     text = SPEC.read_text(encoding="utf-8") if markdown is None else markdown
-    return lint(spec_units.segment(text), load_approach())
+    return lint(spec_units.segment(text), load_approach()) + caption_findings(text)
 
 
 def self_test() -> int:
@@ -127,7 +177,7 @@ def self_test() -> int:
 
     def expect(name: str, markdown: str, wanted: str | None) -> None:
         scenarios.append(name)
-        found = {f["check"] for f in lint(spec_units.segment(markdown), approach)}
+        found = {f["check"] for f in lint(spec_units.segment(markdown), approach) + caption_findings(markdown)}
         if wanted is None and found:
             problems.append(f"{name}: expected no findings, got {sorted(found)}")
         elif wanted is not None and found != {wanted}:
@@ -167,6 +217,13 @@ def self_test() -> int:
                   "keep member order and **MAY** sort them. [APR-TEST-001]"), "one-level-per-rule")
     expect("a lowercase obligation in an informative section",
            mutate("such as must and should.", "such as must, should and may."), None)
+    expect("an uncaptioned example",
+           mutate("**Example 3.1-1.** Member order is kept.\n\n", ""), "examples-captioned")
+    expect("a caption naming the wrong number",
+           mutate("**Example 3.1-1.**", "**Example 3.1-2.**"), "examples-captioned")
+    expect("a caption on no example",
+           mutate("## 4. Normative references", "**Example 1.** An illustration.\n\n## 4. Normative references"),
+           "examples-captioned")
 
     print(f"check-spec-approach self-test: {len(CHECKS)} checks, {len(scenarios)} scenarios")
     for p in problems:
@@ -179,6 +236,9 @@ def main(argv: list[str]) -> int:
     if "--self-test" in argv:
         return self_test()
     findings = run()
+    if "--chapter" in argv:
+        chapter = int(argv[argv.index("--chapter") + 1])
+        findings = [f for f in findings if f["chapter"] == chapter]
     if "--json" in argv:
         print(json.dumps({"counts": counts(findings), "findings": findings}, indent=2))
     else:
