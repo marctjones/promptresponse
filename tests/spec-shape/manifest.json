@@ -256,7 +256,7 @@
       "issue": 488,
       "requirement": "Lowercase obligation words in normative text.",
       "status": "converted chapter by chapter in #473-#487",
-      "findings": 11
+      "findings": 9
     },
     {
       "id": "no-history",

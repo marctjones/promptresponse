@@ -329,10 +329,12 @@
           "ref": "desktop.unit"
         }
       ],
-      "gap": "Client behaviour is gated in desktop tests; no corpus vector asserts the never-blocks rule. APR-VAL-006, that a warning never prevents saving or typing, is a user-interface obligation. A document is valid either way, so no case distinguishes an implementation that blocks the keyboard from one that does not.",
+      "gap": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission.",
       "rules": [
         "APR-VAL-002",
-        "APR-VAL-006"
+        "APR-VAL-006",
+        "APR-VAL-033",
+        "APR-VAL-034"
       ]
     },
     {
@@ -351,7 +353,21 @@
         }
       ],
       "rules": [
-        "APR-VAL-009"
+        "APR-VAL-018",
+        "APR-VAL-019",
+        "APR-VAL-020",
+        "APR-VAL-021",
+        "APR-VAL-022",
+        "APR-VAL-023",
+        "APR-VAL-024",
+        "APR-VAL-025",
+        "APR-VAL-026",
+        "APR-VAL-027",
+        "APR-VAL-028",
+        "APR-VAL-029",
+        "APR-VAL-030",
+        "APR-VAL-031",
+        "APR-VAL-032"
       ]
     },
     {
@@ -1194,6 +1210,10 @@
         {
           "type": "suite",
           "ref": "accessibility"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_section_and_a_prompt_may_share_an_id"
         }
       ],
       "rules": [
@@ -1710,8 +1730,8 @@
     {
       "id": "REQ-validate-structure",
       "section": "structural-validation",
-      "statement": "Structural checks that decide whether a document is a valid APR document; the errors table is exhaustive",
-      "strength": "partial",
+      "statement": "A validator reports each structural condition as an error under the code the errors table names",
+      "strength": "gated",
       "gates": [
         {
           "type": "suite",
@@ -1724,17 +1744,17 @@
         {
           "type": "test",
           "ref": "test_an_old_version_is_rejected"
-        },
-        {
-          "type": "test",
-          "ref": "test_a_section_and_a_prompt_may_share_an_id"
         }
       ],
       "rules": [
-        "APR-VAL-001",
-        "APR-VAL-008"
-      ],
-      "gap": "APR-VAL-008, that the errors table is exhaustive, is the absence of behaviour. Every valid case in the suite would catch one invented error, and none proves a validator has invented no error at all."
+        "APR-VAL-011",
+        "APR-VAL-012",
+        "APR-VAL-013",
+        "APR-VAL-014",
+        "APR-VAL-015",
+        "APR-VAL-016",
+        "APR-VAL-017"
+      ]
     },
     {
       "id": "REQ-validator-rules",
@@ -1747,7 +1767,7 @@
           "ref": "RealFile_IdsAreUniqueWithinTheirNamespace"
         }
       ],
-      "gap": "Id uniqueness is gated. Ragged-table-is-advisory has no beta.6 vector.",
+      "gap": "APR-VAL-003 and 004 concern the stage at which a reader refuses or loads a document. The suite cannot observe the stage: a parse failure and a validation failure both answer reject.",
       "rules": [
         "APR-VAL-003",
         "APR-VAL-004"

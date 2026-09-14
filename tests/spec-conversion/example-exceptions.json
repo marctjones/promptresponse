@@ -375,5 +375,113 @@
   "APR-SEC-012": {
     "reason": "A rule on the media type a writer labels content with; a document carries no media type.",
     "coveredBy": ["tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs", "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"]
+  },
+  "APR-VAL-003": {
+    "reason": "A rule on the stage at which a reader refuses input; the suite answers reject for a parse failure and a validation failure alike.",
+    "coveredBy": ["spec:jsonc-missing-separator"]
+  },
+  "APR-VAL-004": {
+    "reason": "A rule on the stage at which a reader loads a document; the suite answers reject for a parse failure and a validation failure alike.",
+    "coveredBy": ["python/tests/test_spec_examples.py"]
+  },
+  "APR-VAL-005": {
+    "reason": "A rule on what a validator does not reject, which no document can violate.",
+    "coveredBy": ["spec:response-contradicts-type", "spec:response-outside-bounds", "spec:response-outside-suggested-values"]
+  },
+  "APR-VAL-010": {
+    "reason": "A rule on the code a reader reports a parse failure under; a document cannot make a reader choose another code.",
+    "coveredBy": ["spec:jsonc-duplicate-member", "corpus:malformed/duplicate-member.apr.jsonc"]
+  },
+  "APR-VAL-011": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:no-document"]
+  },
+  "APR-VAL-012": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:form-without-metadata", "spec:prompt-without-label"]
+  },
+  "APR-VAL-013": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:version-other"]
+  },
+  "APR-VAL-014": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:duplicate-prompt-id"]
+  },
+  "APR-VAL-015": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:empty-section"]
+  },
+  "APR-VAL-016": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:table-without-instances"]
+  },
+  "APR-VAL-017": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:structural-member-wrong-type"]
+  },
+  "APR-VAL-018": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:response-contradicts-type"]
+  },
+  "APR-VAL-019": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:pattern-mismatch-is-a-warning"]
+  },
+  "APR-VAL-020": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:response-outside-bounds"]
+  },
+  "APR-VAL-021": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:response-outside-suggested-values"]
+  },
+  "APR-VAL-022": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:unusable-hint"]
+  },
+  "APR-VAL-023": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:unregistered-data-type-warns"]
+  },
+  "APR-VAL-024": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:undeclared-role"]
+  },
+  "APR-VAL-025": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:ragged-table"]
+  },
+  "APR-VAL-026": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:ragged-table"]
+  },
+  "APR-VAL-027": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:table-over-capacity"]
+  },
+  "APR-VAL-028": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:table-members-on-a-plain-section"]
+  },
+  "APR-VAL-029": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:unprefixed-member"]
+  },
+  "APR-VAL-030": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:submission-scheme-unsupported"]
+  },
+  "APR-VAL-031": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:title-not-nfc"]
+  },
+  "APR-VAL-032": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:title-forbidden-code-point"]
+  },
+  "APR-VAL-034": {
+    "reason": "A permission to report a warning the table does not name, which no document can violate.",
+    "coveredBy": ["scripts/validate-apr.py"]
   }
 }
