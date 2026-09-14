@@ -616,7 +616,7 @@
     {
       "id": "REQ-export-no-writeback",
       "section": "export",
-      "statement": "Export layout is never written back into the document",
+      "statement": "A renderer may add layout to an export and never writes it back into the document",
       "strength": "gated",
       "gates": [
         {
@@ -633,7 +633,8 @@
         }
       ],
       "rules": [
-        "APR-RENDER-009"
+        "APR-RENDER-009",
+        "APR-RENDER-015"
       ]
     },
     {
@@ -1202,30 +1203,47 @@
     {
       "id": "REQ-offline-read",
       "section": "security",
-      "statement": "Opening a form or attestation contacts no network location",
+      "statement": "Nothing a document carries executes; reading fetches nothing and contacts no submission target or certificate endpoint unasked; a reader bounds depth, refuses cleanly at a bound, and terminates",
       "strength": "partial",
       "gates": [
         {
           "type": "test",
           "ref": "CoreCannotReachTheNetwork_ByConstruction"
+        },
+        {
+          "type": "test",
+          "ref": "NestingCeiling_LeavesRoomAboveTheRequiredSixteenLevels"
+        },
+        {
+          "type": "test",
+          "ref": "Yaml_NestedTooDeep_IsAParseError_NotACrash"
         }
       ],
       "rules": [
         "APR-SEC-009",
         "APR-SEC-010",
-        "APR-SEC-011"
+        "APR-SEC-011",
+        "APR-SEC-016",
+        "APR-SEC-017",
+        "APR-SEC-018",
+        "APR-SEC-019",
+        "APR-SEC-020"
       ],
-      "gap": "APR-SEC-009 is a property of the format rather than of a document: there is nothing to execute, so nothing can violate it. APR-SEC-010 needs the harness to observe that a reader made no request, not what it answered. APR-SEC-011 is closer than this entry said: `scripts/validate-apr.py` already threads a depth parameter through `check_section`, so enforcing a bound there plus a deeper-than-sixteen vector would gate the depth half; the size, stream-length and evaluation-cost bounds stay implementation-defined by design. Partly gated in-repo by ParserFuzzTests."
+      "gap": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
     },
     {
       "id": "REQ-ordering",
       "section": "ordering",
-      "statement": "A section's own prompts precede its child sections",
+      "statement": "Sections and prompts in array order, a section's own prompts before its child sections; a renderer may paginate, group or lazily load",
       "strength": "gated",
       "gates": [
         {
           "type": "case",
           "ref": "renderer:order-is-document-order"
+        },
+        {
+          "type": "case",
+          "ref": "renderer:own-prompts-before-child-sections"
         },
         {
           "type": "suite",
@@ -1237,7 +1255,10 @@
         }
       ],
       "rules": [
-        "APR-RENDER-008"
+        "APR-RENDER-010",
+        "APR-RENDER-011",
+        "APR-RENDER-012",
+        "APR-RENDER-013"
       ]
     },
     {
@@ -1440,7 +1461,7 @@
     {
       "id": "REQ-renderer-obligations",
       "section": "renderer-requirements",
-      "statement": "Semantic order, labels as accessible names, complete keyboard operation",
+      "statement": "Labels as accessible names, associated help text, structural nesting, keyboard reach and completion, saving never blocked, and header association",
       "strength": "gated",
       "gates": [
         {
@@ -1507,7 +1528,8 @@
         "APR-RENDER-004",
         "APR-RENDER-005",
         "APR-RENDER-006",
-        "APR-RENDER-007"
+        "APR-RENDER-007",
+        "APR-RENDER-014"
       ]
     },
     {

@@ -196,7 +196,8 @@
     {
       "id": "every-prompt-is-reachable",
       "rules": [
-        "APR-RENDER-005"
+        "APR-RENDER-005",
+        "APR-RENDER-014"
       ],
       "asks": "every prompt node carries a keyboardOrder",
       "document": {
@@ -352,7 +353,8 @@
     {
       "id": "order-is-document-order",
       "rules": [
-        "APR-RENDER-008"
+        "APR-RENDER-010",
+        "APR-RENDER-011"
       ],
       "asks": "keyboardOrder never decreases as the document pointer advances",
       "document": {
@@ -389,6 +391,61 @@
       }
     },
     {
+      "id": "own-prompts-before-child-sections",
+      "rules": [
+        "APR-RENDER-012"
+      ],
+      "asks": "a section's own prompts come before its child sections' prompts in keyboardOrder",
+      "document": {
+        "aprVersion": "1.0-beta.6",
+        "metadata": {
+          "title": "T"
+        },
+        "sections": [
+          {
+            "id": "applicant",
+            "title": "Applicant",
+            "prompts": [
+              {
+                "id": "name",
+                "label": "Name"
+              },
+              {
+                "id": "phone",
+                "label": "Phone"
+              }
+            ],
+            "sections": [
+              {
+                "id": "address",
+                "title": "Address",
+                "prompts": [
+                  {
+                    "id": "street",
+                    "label": "Street"
+                  },
+                  {
+                    "id": "city",
+                    "label": "City"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "declaration",
+            "title": "Declaration",
+            "prompts": [
+              {
+                "id": "signed",
+                "label": "Signed"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "nothing-in-a-document-executes",
       "rules": [
         "APR-SEC-009"
@@ -417,7 +474,8 @@
     {
       "id": "opening-fetches-nothing",
       "rules": [
-        "APR-SEC-010"
+        "APR-SEC-010",
+        "APR-SEC-016"
       ],
       "asks": "requests is empty; a submission target is data until somebody acts",
       "document": {

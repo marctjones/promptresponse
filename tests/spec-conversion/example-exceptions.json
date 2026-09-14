@@ -332,12 +332,32 @@
     "reason": "Table cells naming their header is a property of the rendered interface.",
     "coveredBy": ["renderer:table-cells-name-their-header"]
   },
-  "APR-RENDER-008": {
+  "APR-RENDER-009": {
+    "reason": "Not writing an export back is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:an-export-is-not-written-back"]
+  },
+  "APR-RENDER-010": {
     "reason": "Presentation order is renderer behaviour; a document cannot show it.",
     "coveredBy": ["renderer:order-is-document-order"]
   },
-  "APR-RENDER-009": {
-    "reason": "Not writing an export back is renderer behaviour; a document cannot show it.",
+  "APR-RENDER-011": {
+    "reason": "Presentation order is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:order-is-document-order"]
+  },
+  "APR-RENDER-012": {
+    "reason": "Presentation order is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:own-prompts-before-child-sections"]
+  },
+  "APR-RENDER-013": {
+    "reason": "A permission, which nothing can violate.",
+    "coveredBy": ["renderer:order-is-document-order"]
+  },
+  "APR-RENDER-014": {
+    "reason": "Completing a prompt from the keyboard is a property of the rendered interface.",
+    "coveredBy": ["renderer:every-prompt-is-reachable"]
+  },
+  "APR-RENDER-015": {
+    "reason": "A permission, which nothing can violate.",
     "coveredBy": ["renderer:an-export-is-not-written-back"]
   },
   "APR-SEC-005": {
@@ -535,6 +555,18 @@
   "APR-SEC-012": {
     "reason": "A rule on the media type a writer labels content with; a document carries no media type.",
     "coveredBy": ["tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs", "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"]
+  },
+  "APR-SEC-016": {
+    "reason": "Contacting no submission target without a user action is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:opening-fetches-nothing"]
+  },
+  "APR-SEC-019": {
+    "reason": "A rule on how a reader fails on hostile input; every document in the suite is within any bound a reader applies.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+  },
+  "APR-SEC-020": {
+    "reason": "A rule on how a reader fails on hostile input; no document can make a reader loop.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
   },
   "APR-STREAM-004": {
     "reason": "A rule on a reader asked for a single form; the document suite asks every reader to read whole streams.",

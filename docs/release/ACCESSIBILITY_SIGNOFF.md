@@ -41,7 +41,7 @@ is announced at a useful moment, whether the help text is announced before it is
 needed or long after, whether a table's row and column context is repeated so often
 it becomes noise. `tests/at-spi/README.md` records the same boundary for its layer.
 
-### R3. Whether the tab order is sensible — `APR-RENDER-005`, `APR-RENDER-008`
+### R3. Whether the tab order is sensible — `APR-RENDER-005`, `APR-RENDER-010` to `APR-RENDER-012`
 
 The harness checks that every prompt is in the focus order, that a response can be
 typed there, that Shift-Tab returns, and that the order does not contradict document
@@ -78,7 +78,7 @@ Listed here so its absence is deliberate rather than missed. It is also the one
 residue that looks like it should be a rule instead — unlike contrast, it is
 mechanically checkable the moment the specification says it.
 
-### R7. Unproven driven branches — `APR-RENDER-005`
+### R7. Unproven driven branches — `APR-RENDER-014`
 
 Two branches the headless input pipeline cannot drive, recorded rather than claimed:
 

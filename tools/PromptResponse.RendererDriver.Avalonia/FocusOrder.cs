@@ -47,8 +47,8 @@ internal static class FocusOrder
 
     /// <summary>Types into the focused control and puts back what was there.</summary>
     /// <remarks>
-    /// APR-RENDER-005 says every prompt is "reachable **and completable** by keyboard",
-    /// and traversal only shows the first half. Only text entry is proven: the headless
+    /// APR-RENDER-014 says a renderer accepts a response to every prompt from the keyboard,
+    /// and traversal only shows APR-RENDER-005, that the prompt is reached. Only text entry is proven: the headless
     /// input pipeline does not toggle a ToggleButton on Space, so a checkbox is left
     /// unclaimed rather than claimed false — an unproven branch, not a passing one.
     /// </remarks>

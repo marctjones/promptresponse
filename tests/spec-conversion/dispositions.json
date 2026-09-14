@@ -10821,7 +10821,8 @@
       "kind": "heading",
       "text": "13. Rendering",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "renderers/sentence/ffda34c93d": {
       "anchor": "renderers",
@@ -10829,7 +10830,8 @@
       "kind": "sentence",
       "text": "APR carries no presentation data.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "renderers/sentence/acec53c8b9": {
       "anchor": "renderers",
@@ -10837,7 +10839,8 @@
       "kind": "sentence",
       "text": "A renderer decides everything, and a GUI, web page, terminal, voice system, and API client are equally legitimate.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "renderer-requirements/heading/1fcf92efb0": {
       "anchor": "renderer-requirements",
@@ -10845,63 +10848,106 @@
       "kind": "heading",
       "text": "13.1 Requirements for renderers",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "renderer-requirements/heading/1fcf92efb0",
+        "renderer-requirements/sentence/f96f87048d",
+        "renderer-requirements/table-header/c651c67e1f"
+      ],
+      "note": "the requirements are a table with Requirement and Rule columns",
+      "issue": 485
     },
     "renderer-requirements/list-item/810662f91c": {
       "anchor": "renderer-requirements",
       "chapter": 13,
       "kind": "list-item",
       "text": "Section titles and prompt labels **MUST** be presented as the accessible name. [APR-RENDER-001]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "renderer-requirements/table-row/614b677774"
+      ],
+      "note": "APR-RENDER-001; a renderer is the subject",
+      "issue": 485
     },
     "renderer-requirements/list-item/e96da89d7c": {
       "anchor": "renderer-requirements",
       "chapter": 13,
       "kind": "list-item",
       "text": "A placeholder **MUST NOT** be the only label. [APR-RENDER-002]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "renderer-requirements/table-row/e2354470fa"
+      ],
+      "note": "APR-RENDER-002; a renderer is the subject",
+      "issue": 485
     },
     "renderer-requirements/list-item/53a90adee3": {
       "anchor": "renderer-requirements",
       "chapter": 13,
       "kind": "list-item",
       "text": "`helpText` **MUST** be programmatically associated with its prompt, not merely adjacent to it. [APR-RENDER-003]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "renderer-requirements/table-row/6279c2e2a4"
+      ],
+      "note": "APR-RENDER-003; a renderer is the subject",
+      "issue": 485
     },
     "renderer-requirements/list-item/5165bc76d8": {
       "anchor": "renderer-requirements",
       "chapter": 13,
       "kind": "list-item",
       "text": "Section nesting **MUST** be conveyed structurally — heading levels, groups, landmarks — not by indentation alone. [APR-RENDER-004]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "renderer-requirements/table-row/6e581a0008"
+      ],
+      "note": "APR-RENDER-004; a renderer is the subject",
+      "issue": 485
     },
     "renderer-requirements/list-item/ea045bfda6": {
       "anchor": "renderer-requirements",
       "chapter": 13,
       "kind": "list-item",
       "text": "Every prompt **MUST** be reachable and completable by keyboard. [APR-RENDER-005]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "renderer-requirements/table-row/a509999850",
+        "renderer-requirements/table-row/b992cd08f3"
+      ],
+      "note": "reaching a prompt is APR-RENDER-005; completing it from the keyboard is APR-RENDER-014 (#445)",
+      "issue": 485
     },
     "renderer-requirements/list-item/aa4a7f2dda": {
       "anchor": "renderer-requirements",
       "chapter": 13,
       "kind": "list-item",
       "text": "A renderer **MUST NOT** block saving because of a hint mismatch. [APR-RENDER-006]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "renderer-requirements/table-row/bc92ac3f53"
+      ],
+      "note": "APR-RENDER-006; a renderer is the subject",
+      "issue": 485
     },
     "renderer-requirements/list-item/7e26571179": {
       "anchor": "renderer-requirements",
       "chapter": 13,
       "kind": "list-item",
       "text": "Table sections **SHOULD** be presented with header association, not as a purely visual grid. [APR-RENDER-007]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "renderer-requirements/table-row/790e547bc3"
+      ],
+      "note": "APR-RENDER-007; a renderer is the subject",
+      "issue": 485
     },
     "renderer-requirements/sentence/84616188eb": {
       "anchor": "renderer-requirements",
@@ -10909,7 +10955,8 @@
       "kind": "sentence",
       "text": "These are format-level requirements, not house style.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "renderer-requirements/sentence/08372d5146": {
       "anchor": "renderer-requirements",
@@ -10917,7 +10964,8 @@
       "kind": "sentence",
       "text": "APR's structure is what makes an accessible rendering possible; a renderer that discards it discards the reason to use APR.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "ordering/heading/5551a24c56": {
       "anchor": "ordering",
@@ -10925,7 +10973,14 @@
       "kind": "heading",
       "text": "13.2 Ordering",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "ordering/heading/5551a24c56",
+        "ordering/sentence/f96f87048d",
+        "ordering/table-header/10d231c7c2"
+      ],
+      "note": "the ordering rules are a table with Requirement and Rule columns (#454)",
+      "issue": 485
     },
     "ordering/sentence/dbb08326a9": {
       "anchor": "ordering",
@@ -10933,7 +10988,8 @@
       "kind": "sentence",
       "text": "Presentation is otherwise free, but **order is data**.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "ordering/sentence/e4445c7f5d": {
       "anchor": "ordering",
@@ -10941,31 +10997,47 @@
       "kind": "sentence",
       "text": "A form asks its questions in a sequence its author chose, and two renderers that disagree about that sequence are showing two different forms.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "ordering/list-item/77e7b99c33": {
       "anchor": "ordering",
       "chapter": 13,
       "kind": "list-item",
       "text": "Sections are presented in array order.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "ordering/table-row/379ce57879"
+      ],
+      "note": "APR-RENDER-010 (#454)",
+      "issue": 485
     },
     "ordering/list-item/d9faa74223": {
       "anchor": "ordering",
       "chapter": 13,
       "kind": "list-item",
       "text": "Prompts within a section are presented in array order.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "ordering/table-row/21fa5b3093"
+      ],
+      "note": "APR-RENDER-011 (#454)",
+      "issue": 485
     },
     "ordering/list-item/db8c018554": {
       "anchor": "ordering",
       "chapter": 13,
       "kind": "list-item",
       "text": "**A section's own prompts are presented BEFORE its child sections.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "ordering/table-row/088815e5b4"
+      ],
+      "note": "APR-RENDER-012 (#454)",
+      "issue": 485
     },
     "ordering/sentence/f494448153": {
       "anchor": "ordering",
@@ -10973,23 +11045,37 @@
       "kind": "sentence",
       "text": "Rule 3 follows document convention: a heading's own content precedes its subheadings.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "ordering/sentence/d37efc517b"
+      ],
+      "issue": 485
     },
     "ordering/sentence/eaddb670d3": {
       "anchor": "ordering",
       "chapter": 13,
       "kind": "sentence",
       "text": "It is normative.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "claimed binding force outside BCP 14; the table rows carry the rules (#454)",
+      "issue": 485
     },
     "ordering/sentence/60c293c944": {
       "anchor": "ordering",
       "chapter": 13,
       "kind": "sentence",
       "text": "A renderer **MAY** paginate, group, or lazily load, but **MUST NOT** reorder.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "ordering/sentence/a1b4b5a097",
+        "ordering/table-row/379ce57879",
+        "ordering/table-row/21fa5b3093",
+        "ordering/table-row/088815e5b4"
+      ],
+      "note": "the permission is APR-RENDER-013; not reordering is what the three rows state, so APR-RENDER-008 is gone",
+      "issue": 485
     },
     "ordering/sentence/20351cc4ad": {
       "anchor": "ordering",
@@ -10997,7 +11083,12 @@
       "kind": "sentence",
       "text": "A wizard that shows one section at a time still visits them in array order. [APR-RENDER-008]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "ordering/sentence/8921389c18"
+      ],
+      "note": "the rule identifier went with APR-RENDER-008",
+      "issue": 485
     },
     "export/heading/8c6628bcfb": {
       "anchor": "export",
@@ -11005,7 +11096,8 @@
       "kind": "heading",
       "text": "13.3 Export",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "export/sentence/e84b147c9a": {
       "anchor": "export",
@@ -11013,15 +11105,26 @@
       "kind": "sentence",
       "text": "Exports to PDF, HTML, or print **MAY** introduce layout — page size, margins, footers.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "export/sentence/d4523e30cb"
+      ],
+      "note": "a renderer is the subject: APR-RENDER-015",
+      "issue": 485
     },
     "export/sentence/e24f76f290": {
       "anchor": "export",
       "chapter": 13,
       "kind": "sentence",
       "text": "That layout belongs to the renderer's options and **MUST NOT** be written back into the APR document.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "export/sentence/3f453d1753",
+        "export/sentence/e5a6c8195e"
+      ],
+      "note": "APR-RENDER-009 moves onto the prohibition",
+      "issue": 485
     },
     "export/sentence/3ce41cc0e2": {
       "anchor": "export",
@@ -11029,7 +11132,11 @@
       "kind": "sentence",
       "text": "The document stays presentation-free no matter how many ways it has been rendered. [APR-RENDER-009]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "export/sentence/35af489914"
+      ],
+      "issue": 485
     },
     "security/heading/f1b1264b94": {
       "anchor": "security",
@@ -11037,7 +11144,8 @@
       "kind": "heading",
       "text": "14. Security considerations",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/b1d5d95b55": {
       "anchor": "security",
@@ -11045,7 +11153,8 @@
       "kind": "sentence",
       "text": "**No executable content.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/e103e94602": {
       "anchor": "security",
@@ -11053,7 +11162,8 @@
       "kind": "sentence",
       "text": "APR contains no scripts, macros, formulas with host access, or external references.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/1bce6824e8": {
       "anchor": "security",
@@ -11061,7 +11171,11 @@
       "kind": "sentence",
       "text": "Opening an APR document from an untrusted sender executes nothing.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/23b0b9591a"
+      ],
+      "issue": 485
     },
     "security/sentence/663f4a99c1": {
       "anchor": "security",
@@ -11069,7 +11183,12 @@
       "kind": "sentence",
       "text": "This is the format's most important security property and **MUST NOT** be weakened.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/f176aa05ce"
+      ],
+      "note": "an implementation is the subject; a property of the specification is nothing a product can violate",
+      "issue": 485
     },
     "security/sentence/5cda29bd86": {
       "anchor": "security",
@@ -11077,7 +11196,12 @@
       "kind": "sentence",
       "text": "Expressions are pure, bounded, and non-Turing-complete; they are not an exception. [APR-SEC-009]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/e946eec805"
+      ],
+      "note": "the rule identifier moved onto the requirement",
+      "issue": 485
     },
     "security/sentence/b1b78a536a": {
       "anchor": "security",
@@ -11085,7 +11209,8 @@
       "kind": "sentence",
       "text": "**No network access on open.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/1a30cb440a": {
       "anchor": "security",
@@ -11093,15 +11218,27 @@
       "kind": "sentence",
       "text": "Reading a document **MUST NOT** fetch anything.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/bee7a0a49e"
+      ],
+      "note": "a reader is the subject",
+      "issue": 485
     },
     "security/sentence/55bcd6d5de": {
       "anchor": "security",
       "chapter": 14,
       "kind": "sentence",
       "text": "`submissionUrls` is data — no entry **MUST** be contacted without an explicit user action, and neither **MUST** a certificate endpoint. [APR-SEC-010]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/365c1296d0",
+        "security/sentence/afca095724",
+        "security/sentence/f4cde67a78"
+      ],
+      "note": "MUST was used in a negation; APR-SEC-016 and 017 (#445)",
+      "issue": 485
     },
     "security/sentence/1c2c9ed070": {
       "anchor": "security",
@@ -11109,15 +11246,23 @@
       "kind": "sentence",
       "text": "**Resource bounds.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/ba848956b1": {
       "anchor": "security",
       "chapter": 14,
       "kind": "sentence",
       "text": "A reader **MUST** bound nesting depth and **SHOULD** bound document size, stream length, and evaluation cost, failing cleanly rather than exhausting memory.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/c85c203aa4",
+        "security/sentence/14c58c96a4",
+        "security/sentence/7bc0caa1fa"
+      ],
+      "note": "APR-SEC-011 and 018 (#445); evaluation cost is APR-EXPR-011's, which requires the bound",
+      "issue": 485
     },
     "security/sentence/89c4cc6cc1": {
       "anchor": "security",
@@ -11125,7 +11270,12 @@
       "kind": "sentence",
       "text": "Parsing **MUST** terminate. [APR-SEC-011]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/ce6502ef17"
+      ],
+      "note": "a reader is the subject: APR-SEC-020",
+      "issue": 485
     },
     "security/sentence/c621a9d1e5": {
       "anchor": "security",
@@ -11133,7 +11283,8 @@
       "kind": "sentence",
       "text": "The depth bound has a floor this document states: sixteen levels ([Nesting depth](#nesting)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/9b8ae604ab": {
       "anchor": "security",
@@ -11141,15 +11292,21 @@
       "kind": "sentence",
       "text": "The others are deliberately the implementation's to choose, because the right limit for a phone and for a batch importer are not the same number, and a number here would be wrong for one of them.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/6edbb4046e": {
       "anchor": "security",
       "chapter": 14,
       "kind": "sentence",
       "text": "What is not optional is that a limit exists and that reaching it is a clean refusal rather than a crash.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/ee223a9fbf"
+      ],
+      "note": "APR-SEC-019 (#454)",
+      "issue": 485
     },
     "security/sentence/15ce60a4bf": {
       "anchor": "security",
@@ -11157,7 +11314,8 @@
       "kind": "sentence",
       "text": "Concrete limits above the 16-level nesting floor are **implementation-defined**.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/74f277af83": {
       "anchor": "security",
@@ -11165,7 +11323,8 @@
       "kind": "sentence",
       "text": "No numeric ceiling is specified because no test enforces one, and a limit that nothing verifies is a limit implementations will disagree about.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/520ee3d2cf": {
       "anchor": "security",
@@ -11173,7 +11332,8 @@
       "kind": "sentence",
       "text": "**Deceptive text.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/dd06ef587d": {
       "anchor": "security",
@@ -11181,7 +11341,8 @@
       "kind": "sentence",
       "text": "A filler's response is preserved and rendered defensively instead of silently cleaned.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/43bf722c6b": {
       "anchor": "security",
@@ -11189,7 +11350,8 @@
       "kind": "sentence",
       "text": "Author-supplied members a machine acts on — above all `metadata.submissionUrls` — are checked and refused at authoring time.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/442b4688ab": {
       "anchor": "security",
@@ -11197,7 +11359,8 @@
       "kind": "sentence",
       "text": "Spending strictness on the answer rather than on the submission target protects nothing and destroys data.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/0f3f8a4385": {
       "anchor": "security",
@@ -11205,7 +11368,8 @@
       "kind": "sentence",
       "text": "**Attestations are not authorization.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/ee2dc70046": {
       "anchor": "security",
@@ -11213,7 +11377,8 @@
       "kind": "sentence",
       "text": "A valid proof shows bytes are unaltered.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/eb3c7918ff": {
       "anchor": "security",
@@ -11221,8 +11386,12 @@
       "kind": "sentence",
       "text": "It does not establish that the signer is who they claim, that they were entitled to sign, or that the form should be acted on.",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/682bc6db03"
+      ],
+      "note": "reworded without a lowercase obligation",
+      "issue": 485
     },
     "security/sentence/9ad1dd793b": {
       "anchor": "security",
@@ -11230,7 +11399,8 @@
       "kind": "sentence",
       "text": "Conversely, an absent or failing attestation is not a reason to withhold data from a reader — it is information the reader is entitled to have alongside the data, not instead of it.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/e45ba3ec8f": {
       "anchor": "security",
@@ -11238,7 +11408,8 @@
       "kind": "sentence",
       "text": "**What an attestation reveals.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/0f0d198aee": {
       "anchor": "security",
@@ -11246,7 +11417,8 @@
       "kind": "sentence",
       "text": "A manifest reveals the *shape* of a form: its pointers name every attested path.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/fcdd4d2ea8": {
       "anchor": "security",
@@ -11254,7 +11426,8 @@
       "kind": "sentence",
       "text": "A `fields` attestation additionally reveals which prompts were selected.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/ef3786eb49": {
       "anchor": "security",
@@ -11262,7 +11435,8 @@
       "kind": "sentence",
       "text": "Neither reveals response values.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/33633860eb": {
       "anchor": "security",
@@ -11270,7 +11444,8 @@
       "kind": "sentence",
       "text": "A certificate chain in a proof carries the signer's identity in cleartext.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/df9f0c0081": {
       "anchor": "security",
@@ -11278,8 +11453,12 @@
       "kind": "sentence",
       "text": "**Responses may be sensitive.**",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "security/sentence/45b8e6b56b"
+      ],
+      "note": "reworded without a lowercase obligation",
+      "issue": 485
     },
     "security/sentence/b76750131d": {
       "anchor": "security",
@@ -11287,7 +11466,8 @@
       "kind": "sentence",
       "text": "APR documents routinely hold personal data in plain text.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "security/sentence/f38691b216": {
       "anchor": "security",
@@ -11295,7 +11475,8 @@
       "kind": "sentence",
       "text": "The format provides no encryption, no access control, and no redaction; protection at rest and in transit is the surrounding system's responsibility.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 485
     },
     "checklist/heading/641e1ebb4d": {
       "anchor": "checklist",
