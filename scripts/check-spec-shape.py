@@ -38,6 +38,21 @@ EXAMPLE = re.compile(r"^```apr-example\n(.*?)^---\n", re.MULTILINE | re.DOTALL)
 DESIGNATION = re.compile(r"\b(?:RFC \d{3,5}|BCP \d{1,3}|FIPS \d{3}-\d)\b")
 
 
+def reference_section(spec: str, anchor: str) -> str:
+    """The text of a reference section, from its heading to the next top-level heading."""
+    start = spec.index(f"{{#{anchor}}}")
+    end = spec.find("\n## ", start)
+    return spec[start:] if end == -1 else spec[start:end]
+
+
+def designations(section: str) -> set[str]:
+    """The first cell of each row of a reference table."""
+    return {
+        line.split("|")[1].strip() for line in section.splitlines()
+        if line.startswith("| ") and not line.startswith(("| Designation", "| ---"))
+    }
+
+
 def main() -> int:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     spec_path = ROOT / manifest["specification"]
@@ -100,18 +115,33 @@ def main() -> int:
     check("grammar-by-reference", abnf >= 2,
           f"{abnf} ABNF blocks" if abnf >= 2 else f"only {abnf} ABNF blocks")
 
-    # Reference sections, and every cited designation listed.
+    # Reference sections: every cited designation listed, every listed designation
+    # cited, and none listed twice. Checking only the first direction let rows
+    # nothing cited sit in the lists.
     has_both = "{#normative-references}" in spec and "{#informative-references}" in spec
-    listed = cited = set()
+    faults: list[str] = []
+    listed: set[str] = set()
     if has_both:
-        head, _, tail = spec.partition("{#normative-references}")
-        listed, cited = set(DESIGNATION.findall(tail)), set(DESIGNATION.findall(head))
-    uncited = sorted(cited - listed)
-    check("normative-and-informative-references-separated", has_both and not uncited,
-          f"{len(listed)} listed, all cited references resolve"
-          if has_both and not uncited
-          else ("a reference section is missing" if not has_both
-                else f"cited but unlisted: {uncited}"))
+        lists = {anchor: reference_section(spec, anchor)
+                 for anchor in ("normative-references", "informative-references")}
+        body = spec
+        for text in lists.values():
+            body = body.replace(text, "")
+        rows = {anchor: designations(text) for anchor, text in lists.items()}
+        listed = set().union(*rows.values())
+        # A row's title can name the documents it groups, as BCP 14 names RFC 2119.
+        named = set(DESIGNATION.findall("".join(lists.values())))
+        unlisted = sorted(set(DESIGNATION.findall(body)) - named)
+        uncited = sorted(d for d in listed
+                         if not re.search(rf"(?<![\w-]){re.escape(d)}(?![\w-])", body))
+        twice = sorted(set.intersection(*rows.values()))
+        faults = ([f"cited but unlisted: {unlisted}"] if unlisted else []) \
+            + ([f"listed but never cited: {uncited}"] if uncited else []) \
+            + ([f"listed as both normative and informative: {twice}"] if twice else [])
+    check("normative-and-informative-references-separated", has_both and not faults,
+          f"{len(listed)} listed, each cited and in one list"
+          if has_both and not faults
+          else ("a reference section is missing" if not has_both else "; ".join(faults)))
 
     # Rationale marked non-normative, and never carrying a requirement.
     rationale_blocks = re.findall(r"^> Rationale:.*?(?=\n\n)", spec, re.MULTILINE | re.DOTALL)

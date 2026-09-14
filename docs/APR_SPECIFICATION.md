@@ -84,8 +84,8 @@ Lowercase uses carry their ordinary English meaning and impose no requirement.
 
 ### 1.3 Document conventions {#conventions}
 
-This document is written to the W3C QA Framework: Specification Guidelines
-([Informative references](#informative-references)). Four kinds of text appear
+This document is written to W3C QA SpecGL, the W3C QA Framework: Specification
+Guidelines ([Informative references](#informative-references)). Four kinds of text appear
 here and are distinguished deliberately.
 
 - **Normative text** states requirements. A requirement names the class of
@@ -5599,10 +5599,7 @@ specification.
 
 | Designation | Title |
 | --- | --- |
-| ISO 8601 | Date and time representations. RFC 3339 is the normative profile used here. |
-| ECMA-404 | The JSON Data Interchange Syntax, the parallel standardization of RFC 8259 |
 | CommonMark | A strongly defined, highly compatible specification of Markdown |
-| UTR 36 | Unicode Security Considerations |
 | W3C QA SpecGL | QA Framework: Specification Guidelines, W3C Recommendation, 17 August 2005 |
 
 ---
