@@ -1,0 +1,51 @@
+{
+  "$comment": "Rules no in-spec example can show, because the rule is about what a renderer does rather than what a document is. Each names the test that covers it instead. Read by scripts/check-example-coverage.py.",
+  "APR-EXPR-014": {
+    "reason": "A computed value staying editable is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:a-computed-prompt-stays-editable"]
+  },
+  "APR-RENDER-001": {
+    "reason": "The accessible name is a property of the rendered interface, not of the document.",
+    "coveredBy": ["renderer:accessible-name", "renderer:a-role-does-not-become-the-name", "renderer:a-filled-form-renders-its-answers"]
+  },
+  "APR-RENDER-002": {
+    "reason": "Whether a placeholder is the only label is a property of the rendered interface.",
+    "coveredBy": ["renderer:placeholder-is-not-a-label"]
+  },
+  "APR-RENDER-003": {
+    "reason": "Associating help text with its control is a property of the rendered interface.",
+    "coveredBy": ["renderer:help-text-associated"]
+  },
+  "APR-RENDER-004": {
+    "reason": "Conveying nesting structurally is a property of the rendered interface.",
+    "coveredBy": ["renderer:nesting-is-structural"]
+  },
+  "APR-RENDER-005": {
+    "reason": "Keyboard reachability is a property of the rendered interface.",
+    "coveredBy": ["renderer:every-prompt-is-reachable", "renderer:a-hidden-prompt-may-be-absent", "renderer:a-filled-form-renders-its-answers"]
+  },
+  "APR-RENDER-006": {
+    "reason": "Not blocking a save is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:a-hint-mismatch-does-not-block-saving"]
+  },
+  "APR-RENDER-007": {
+    "reason": "Table cells naming their header is a property of the rendered interface.",
+    "coveredBy": ["renderer:table-cells-name-their-header"]
+  },
+  "APR-RENDER-008": {
+    "reason": "Presentation order is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:order-is-document-order"]
+  },
+  "APR-RENDER-009": {
+    "reason": "Not writing an export back is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:an-export-is-not-written-back"]
+  },
+  "APR-SEC-009": {
+    "reason": "Executing nothing on open is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:nothing-in-a-document-executes"]
+  },
+  "APR-SEC-010": {
+    "reason": "Fetching nothing on open is renderer behaviour; a document cannot show it.",
+    "coveredBy": ["renderer:opening-fetches-nothing"]
+  }
+}
