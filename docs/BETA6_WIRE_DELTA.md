@@ -61,7 +61,7 @@ name is not.
 
 **Found:** .NET carried its own vocabulary — `TYPE_MISMATCH` for
 `RESPONSE_CONTRADICTS_TYPE`, `ROW_COUNT_OUT_OF_HINT_RANGE` for
-`TABLE_OVER_CAPACITY` — and did not report several advisories at all. Expect
+`TABLE_OVER_CAPACITY` — and did not report eight of the fifteen advisories the section then listed. Expect
 the same: an existing validator almost certainly has its own names.
 
 **Found:** do not derive a diagnostic from an exception message. .NET matched
