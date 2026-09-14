@@ -256,7 +256,7 @@
       "issue": 488,
       "requirement": "Lowercase obligation words in normative text.",
       "status": "converted chapter by chapter in #473-#487",
-      "findings": 26
+      "findings": 24
     },
     {
       "id": "no-history",
@@ -271,13 +271,6 @@
       "requirement": "Requirement tables without a Rule column, and their rows without a rule identifier.",
       "status": "converted chapter by chapter in #473-#487",
       "findings": 54
-    },
-    {
-      "id": "keywords-only-in-requirements",
-      "issue": 488,
-      "requirement": "Headings and rationale blocks carrying a keyword.",
-      "status": "converted chapter by chapter in #473-#487",
-      "findings": 4
     },
     {
       "id": "one-level-per-rule",

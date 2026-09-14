@@ -3,6 +3,26 @@
   "formatVersion": "1.0-beta.6",
   "examples": [
     {
+      "id": "expression-preserved",
+      "number": "3.4-1",
+      "rule": "profile-expressions",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"a\", \"label\": \"A\", \"response\": \"2\" },\n        { \"id\": \"total\", \"label\": \"Total\", \"hints\": { \"exprValue\": \"string(a)\" } }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-CONF-003",
+        "APR-CONF-013"
+      ],
+      "satisfies": [
+        "APR-CONF-003",
+        "APR-CONF-013"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/1/hints/exprValue"
+      ]
+    },
+    {
       "id": "extension-member-prefixed",
       "number": "5.8-1",
       "rule": "extensions",
