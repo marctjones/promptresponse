@@ -1,0 +1,52 @@
+{
+  "$comment": "The writing approach the specification is converted to: W3C QA Framework Specification Guidelines, BCP 14 keywords, and OASIS-style rule identifiers. Read by scripts/check-spec-approach.py and scripts/check-spec-conversion.py.",
+  "classes": [
+    "application",
+    "client",
+    "consumer",
+    "editor",
+    "filler",
+    "implementation",
+    "parser",
+    "processor",
+    "producer",
+    "reader",
+    "receiver",
+    "renderer",
+    "sender",
+    "server",
+    "signer",
+    "validator",
+    "verifier",
+    "writer"
+  ],
+  "informativeSections": [
+    "navigation",
+    "normative-language",
+    "conventions",
+    "checklist",
+    "open-questions",
+    "normative-references",
+    "informative-references",
+    "appendix-minimal",
+    "appendix-rule",
+    "provenance",
+    "corpus-gaps",
+    "primitives"
+  ],
+  "informativeKinds": ["rationale", "example", "code", "quote"],
+  "historyExemptSections": ["normative-references", "informative-references"],
+  "levels": {
+    "MUST": "MUST",
+    "MUST NOT": "MUST",
+    "SHALL": "MUST",
+    "SHALL NOT": "MUST",
+    "REQUIRED": "MUST",
+    "SHOULD": "SHOULD",
+    "SHOULD NOT": "SHOULD",
+    "RECOMMENDED": "SHOULD",
+    "NOT RECOMMENDED": "SHOULD",
+    "MAY": "MAY",
+    "OPTIONAL": "MAY"
+  }
+}
