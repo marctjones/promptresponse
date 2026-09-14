@@ -154,7 +154,7 @@
     {
       "id": "normative-and-informative-references-separated",
       "borrowedFrom": "RFC 8259 \u00a713",
-      "requirement": "Two reference sections exist, and every cited designation appears in one of them."
+      "requirement": "Two reference sections exist, every cited designation appears in one of them, every listed designation is cited, and none is listed in both. Checked by scripts/check-spec-shape.py."
     },
     {
       "id": "rationale-is-marked-non-normative",

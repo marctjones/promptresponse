@@ -324,7 +324,7 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "conventions/sentence/39c9b7c807",
+        "conventions/sentence/b2471d2dde",
         "conventions/sentence/8f79ab7988",
         "informative-references/table-row/22f9c9644c"
       ],
@@ -12140,11 +12140,12 @@
       "kind": "heading",
       "text": "17. Normative references",
       "disposition": "keep",
-      "status": "todo",
+      "status": "applied",
       "replacedBy": [
         "normative-references/heading/878ad1aad6"
       ],
-      "note": "renumbered when section 15 was deleted (#486)"
+      "note": "renumbered when section 15 was deleted (#486)",
+      "issue": 487
     },
     "normative-references/sentence/4f2947cd3a": {
       "anchor": "normative-references",
@@ -12152,7 +12153,8 @@
       "kind": "sentence",
       "text": "Compliance with this specification requires the editions below.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-header/b05ff95452": {
       "anchor": "normative-references",
@@ -12160,7 +12162,8 @@
       "kind": "table-header",
       "text": "| Designation | Title |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/61b9e10e8f": {
       "anchor": "normative-references",
@@ -12168,7 +12171,8 @@
       "kind": "table-row",
       "text": "| BCP 14 | Key words for use in RFCs (RFC 2119 and RFC 8174) |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/23cc86a302": {
       "anchor": "normative-references",
@@ -12176,7 +12180,8 @@
       "kind": "table-row",
       "text": "| RFC 3339 | Date and Time on the Internet: Timestamps |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/f29ffc54b4": {
       "anchor": "normative-references",
@@ -12184,7 +12189,8 @@
       "kind": "table-row",
       "text": "| RFC 3629 | UTF-8, a transformation format of ISO 10646 |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/58ccc6fb11": {
       "anchor": "normative-references",
@@ -12192,7 +12198,8 @@
       "kind": "table-row",
       "text": "| RFC 3986 | Uniform Resource Identifier (URI): Generic Syntax |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/4a50cb5d49": {
       "anchor": "normative-references",
@@ -12200,7 +12207,8 @@
       "kind": "table-row",
       "text": "| RFC 4151 | The 'tag' URI Scheme |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/e8b7544af3": {
       "anchor": "normative-references",
@@ -12208,7 +12216,8 @@
       "kind": "table-row",
       "text": "| RFC 4648 | The Base16, Base32, and Base64 Data Encodings |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/6da73e8c33": {
       "anchor": "normative-references",
@@ -12216,7 +12225,8 @@
       "kind": "table-row",
       "text": "| RFC 4918 | HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV) |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/04742c20c6": {
       "anchor": "normative-references",
@@ -12224,7 +12234,8 @@
       "kind": "table-row",
       "text": "| RFC 5234 | Augmented BNF for Syntax Specifications (ABNF), the notation used for the grammars here |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/5b657820b5": {
       "anchor": "normative-references",
@@ -12232,7 +12243,8 @@
       "kind": "table-row",
       "text": "| RFC 5280 | Internet X.509 Public Key Infrastructure Certificate and CRL Profile |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/5379c46ae3": {
       "anchor": "normative-references",
@@ -12240,7 +12252,8 @@
       "kind": "table-row",
       "text": "| RFC 5652 | Cryptographic Message Syntax (CMS) |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/939d234d4f": {
       "anchor": "normative-references",
@@ -12248,7 +12261,8 @@
       "kind": "table-row",
       "text": "| RFC 6068 | The 'mailto' URI Scheme |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/f927962332": {
       "anchor": "normative-references",
@@ -12256,7 +12270,8 @@
       "kind": "table-row",
       "text": "| RFC 6838 | Media Type Specifications and Registration Procedures |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/1fa3ede61d": {
       "anchor": "normative-references",
@@ -12264,7 +12279,8 @@
       "kind": "table-row",
       "text": "| RFC 6839 | Additional Media Type Structured Syntax Suffixes |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/a41f9b5313": {
       "anchor": "normative-references",
@@ -12272,7 +12288,8 @@
       "kind": "table-row",
       "text": "| RFC 6901 | JavaScript Object Notation (JSON) Pointer |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/d8b6ce51cf": {
       "anchor": "normative-references",
@@ -12280,7 +12297,8 @@
       "kind": "table-row",
       "text": "| RFC 7464 | JavaScript Object Notation (JSON) Text Sequences |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/9d0393f808": {
       "anchor": "normative-references",
@@ -12288,7 +12306,8 @@
       "kind": "table-row",
       "text": "| RFC 8259 | The JavaScript Object Notation (JSON) Data Interchange Format |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/50629d5288": {
       "anchor": "normative-references",
@@ -12296,7 +12315,8 @@
       "kind": "table-row",
       "text": "| RFC 8785 | JSON Canonicalization Scheme (JCS) |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/75ab739416": {
       "anchor": "normative-references",
@@ -12304,7 +12324,8 @@
       "kind": "table-row",
       "text": "| RFC 9110 | HTTP Semantics |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/1fad19dde1": {
       "anchor": "normative-references",
@@ -12312,7 +12333,8 @@
       "kind": "table-row",
       "text": "| RFC 9512 | The application/yaml media type |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/ea3fe16712": {
       "anchor": "normative-references",
@@ -12320,7 +12342,8 @@
       "kind": "table-row",
       "text": "| FIPS 180-4 | Secure Hash Standard, for SHA-256 |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/4ebe520683": {
       "anchor": "normative-references",
@@ -12328,7 +12351,8 @@
       "kind": "table-row",
       "text": "| FIPS 186-5 | Digital Signature Standard, for ECDSA over the P-256 curve |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/1bc003983f": {
       "anchor": "normative-references",
@@ -12336,7 +12360,8 @@
       "kind": "table-row",
       "text": "| UAX #9 | Unicode Bidirectional Algorithm |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/88c0a4c9b4": {
       "anchor": "normative-references",
@@ -12344,7 +12369,8 @@
       "kind": "table-row",
       "text": "| UAX #15 | Unicode Normalization Forms |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/aaf12872b7": {
       "anchor": "normative-references",
@@ -12352,7 +12378,8 @@
       "kind": "table-row",
       "text": "| UTS #39 | Unicode Security Mechanisms |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/83bc4b214f": {
       "anchor": "normative-references",
@@ -12360,7 +12387,8 @@
       "kind": "table-row",
       "text": "| YAML 1.2.2 | YAML Ain't Markup Language, revision 1.2.2 |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/491a91178e": {
       "anchor": "normative-references",
@@ -12368,7 +12396,8 @@
       "kind": "table-row",
       "text": "| S3 pre-signed URL | Amazon S3, *Authenticating Requests: Using Query Parameters (AWS Signature Version 4)*, <https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html> |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/table-row/959e02b4c5": {
       "anchor": "normative-references",
@@ -12376,7 +12405,8 @@
       "kind": "table-row",
       "text": "| CEL | Common Expression Language, cel-spec release `v0.25.3`, <https://github.com/cel-expr/cel-spec/releases/tag/v0.25.3> |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/sentence/50ee2d300e": {
       "anchor": "normative-references",
@@ -12384,7 +12414,8 @@
       "kind": "sentence",
       "text": "The CEL entry is normative for the `core+expressions` profile only.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "informative-references/heading/e419b86870": {
       "anchor": "informative-references",
@@ -12407,23 +12438,28 @@
       "kind": "table-header",
       "text": "| Designation | Title |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "informative-references/table-row/03bffb230d": {
       "anchor": "informative-references",
       "chapter": 18,
       "kind": "table-row",
       "text": "| ISO 8601 | Date and time representations. RFC 3339 is the normative profile used here. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 487,
+      "note": "cited nowhere in this specification, so it is no reference of it"
     },
     "informative-references/table-row/2818798e05": {
       "anchor": "informative-references",
       "chapter": 18,
       "kind": "table-row",
       "text": "| ECMA-404 | The JSON Data Interchange Syntax, the parallel standardization of RFC 8259 |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 487,
+      "note": "cited nowhere in this specification, so it is no reference of it"
     },
     "informative-references/table-row/be3516df93": {
       "anchor": "informative-references",
@@ -12431,15 +12467,18 @@
       "kind": "table-row",
       "text": "| CommonMark | A strongly defined, highly compatible specification of Markdown |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "informative-references/table-row/0d9dbc5bc5": {
       "anchor": "informative-references",
       "chapter": 18,
       "kind": "table-row",
       "text": "| UTR 36 | Unicode Security Considerations |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 487,
+      "note": "cited nowhere in this specification, so it is no reference of it"
     },
     "appendix-minimal/heading/384e610f8b": {
       "anchor": "appendix-minimal",
