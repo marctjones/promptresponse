@@ -22,7 +22,7 @@ def advisories_for(prompt, roles) -> List[ValidationWarning]:
     warnings: List[ValidationWarning] = []
     if prompt.role and prompt.role not in roles:
         warnings.append(ValidationWarning(
-            "UNDECLARED_ROLE", f"role {prompt.role!r} is not declared in metadata.roles.", prompt.id))
+            "UNDECLARED_ROLE", f"role {prompt.role!r} is not declared in roles.", prompt.id))
     warnings.extend(_inspect_extensions(prompt.extra, prompt.id))
 
     hints = prompt.hints
@@ -77,7 +77,7 @@ def document_advisories(document) -> List[ValidationWarning]:
                 "table only by carrying kind: \"table\".", path))
         if section.role and section.role not in roles:
             warnings.append(ValidationWarning(
-                "UNDECLARED_ROLE", f"role {section.role!r} is not declared in metadata.roles.", path))
+                "UNDECLARED_ROLE", f"role {section.role!r} is not declared in roles.", path))
         warnings.extend(_inspect_extensions(section.extra, path))
         for prompt in section.prompts:
             warnings.extend(advisories_for(prompt, roles))

@@ -12,6 +12,7 @@ public class DocumentValidator : IValidator<AprDocument>
         if (document is null) { result.AddError(new ValidationError("Document cannot be null", "document", "NULL_DOCUMENT")); return result; }
         ValidateVersion(document, result);
         ValidateMetadata(document, result);
+        ValidateRoles(document, result);
         DocumentStructureValidator.Validate(document, result);
         AdvisoryVocabulary.Inspect(document, result);
         // The response advisories lived in DataTypeValidator, which every client called
@@ -36,6 +37,13 @@ public class DocumentValidator : IValidator<AprDocument>
         if (string.IsNullOrWhiteSpace(document.Version)) { result.AddError(new ValidationError("Version is required", "version", "REQUIRED_FIELD")); return; }
         if (!AprFormat.IsSupported(document.Version))
             result.AddError(new ValidationError($"Unsupported APR version '{document.Version}'. This build accepts only {AprFormat.CurrentVersion}.", "version", "UNSUPPORTED_VERSION"));
+    }
+
+    private static void ValidateRoles(AprDocument document, ValidationResult result)
+    {
+        if (document.Roles is null) return;
+        for (var index = 0; index < document.Roles.Count; index++)
+            if (string.IsNullOrWhiteSpace(document.Roles[index].Id)) result.AddError(new ValidationError("A role entry names its id", $"roles[{index}].id", "REQUIRED_FIELD"));
     }
 
     private static void ValidateMetadata(AprDocument document, ValidationResult result)

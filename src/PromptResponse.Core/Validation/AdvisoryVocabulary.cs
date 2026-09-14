@@ -157,7 +157,7 @@ internal static class AdvisoryVocabulary
     {
         if (role is not { Length: > 0 } named || roles.Contains(named)) return;
         result.AddWarning(new ValidationWarning(
-            $"role '{named}' is not declared in metadata.roles; an undeclared role "
+            $"role '{named}' is not declared in roles; an undeclared role "
             + "degrades to no special treatment.", path, "UNDECLARED_ROLE"));
     }
 
