@@ -221,13 +221,5 @@
       "borrowedFrom": "CommonMark and YAML 1.2.2 numbered examples",
       "requirement": "Every executable example is captioned with its number within its section, and no caption names anything else. Checked by scripts/check-spec-approach.py."
     }
-  ],
-  "knownShortfalls": [
-    {
-      "id": "semantic-review-is-generic",
-      "issue": 263,
-      "requirement": "The local model review asks generic coverage questions rather than checking against this manifest and the concept registry.",
-      "status": "deterministic half done; the judgement half is narrowed to the 27 ungated rules"
-    }
   ]
 }
