@@ -528,6 +528,10 @@
     "reason": "A permission to share an id across namespaces, which no document can violate.",
     "coveredBy": ["spec:id-namespaces"]
   },
+  "APR-SEC-011": {
+    "reason": "A rule on how a reader bounds hostile input; every document in the suite is within any bound a reader applies.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+  },
   "APR-SEC-012": {
     "reason": "A rule on the media type a writer labels content with; a document carries no media type.",
     "coveredBy": ["tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs", "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"]
