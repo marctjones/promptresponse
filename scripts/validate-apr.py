@@ -679,6 +679,12 @@ def validate_spec_examples(members) -> int:
             problems.append(f"{example['id']}: the specification marks this rejected, "
                             f"expecting {example.get('diagnostic', '?')}, but nothing here "
                             f"objects")
+        elif example.get("warns"):
+            raised = {f["code"] for f in report.findings if f["severity"] != "error"}
+            missing = [code for code in example["warns"] if code not in raised]
+            if missing:
+                problems.append(f"{example['id']}: the specification says this warns "
+                                f"{', '.join(missing)}, but nothing here reports it")
     print(f"specification examples validated: {checked}")
     if problems:
         print(f"\n{len(problems)} DISAGREEMENT(S):")
