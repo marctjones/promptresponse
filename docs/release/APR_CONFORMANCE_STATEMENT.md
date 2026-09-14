@@ -16,7 +16,7 @@ class of product.
 
 ## `core`
 
-231 rules.
+232 rules.
 
 ### Implementation
 
@@ -41,6 +41,7 @@ class of product.
 | [APR-MODEL-088](../APR_SPECIFICATION.md#submission) | MUST NOT | Follow a redirect — **MUST NOT** | |
 | [APR-MODEL-089](../APR_SPECIFICATION.md#submission) | MUST NOT | Retry without a fresh user action — **MUST NOT** | |
 | [APR-MODEL-090](../APR_SPECIFICATION.md#submission) | MAY | An implementation submitting to a `mailto` entry **MAY** send the message itself instead. | |
+| [APR-MODEL-127](../APR_SPECIFICATION.md#any-string) | MUST | An implementation **MUST** support a `prompt.response` of at least **1 MiB** (1,048,576 bytes) encoded as UTF-8. | |
 | [APR-REP-001](../APR_SPECIFICATION.md#model-layers) | MUST | An implementation that reads a document and writes it back **MUST** preserve every part of its semantic model, including members APR does not define. | |
 | [APR-SEC-009](../APR_SPECIFICATION.md#security) | MUST NOT | An implementation **MUST NOT** execute anything a document carries. | |
 | [APR-SEC-016](../APR_SPECIFICATION.md#security) | MUST NOT | An implementation **MUST NOT** contact a `submissionUrls` entry without an explicit user action. | |

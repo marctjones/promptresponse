@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "ca0527dc-8e0e-5e28-aa60-ccdbc5aef025",
+    "uuid": "daaa689c-dacf-517c-90be-5e9dc714039f",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "76dd0c7efd41c6b01d00b184fa54f34d619fbaa8cd2d62d2ccaedecb9db529cc"
+          "value": "6a31fd5a198429940d7206ffec999d697b18f00e4b82ab0c3ebd226b874532f2"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -1177,6 +1177,63 @@
                 "id": "apr-model-049_smt",
                 "name": "statement",
                 "prose": "A reader **MUST NOT** coerce such a response into a string: `42` does not become `\"42\"`, nor `true` `\"true\"`."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-127",
+            "title": "APR-MODEL-127 — 4.8 Any string is a valid response",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-127"
+              },
+              {
+                "name": "section",
+                "value": "any-string"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MUST"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "implementation"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-any-string"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#any-string",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-127_smt",
+                "name": "statement",
+                "prose": "An implementation **MUST** support a `prompt.response` of at least **1 MiB** (1,048,576 bytes) encoded as UTF-8."
               }
             ]
           },

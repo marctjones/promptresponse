@@ -426,6 +426,54 @@ public class ParserFuzzTests
             deepest.ToString());
     }
 
+    /// <summary>The response length floor the specification states, and the room above it.</summary>
+    /// <remarks>
+    /// Specification section 4.8 requires an implementation to support a response of at
+    /// least 1 MiB and states no ceiling, for the same reason section 5.6 states none for
+    /// nesting: the right limit for a phone and for a batch importer are not the same
+    /// number. So this asserts the floor only. The measured ceiling is recorded rather
+    /// than asserted - asserting it would turn an implementation detail into a contract.
+    ///
+    /// Written in two-byte characters on purpose. The floor is stated in UTF-8 bytes, and
+    /// a reader that counted UTF-16 code units instead would pass this test written in
+    /// ASCII and then refuse a real document half the size it accepted in the fixture.
+    ///
+    /// Both directions, because a floor only a reader honours is not a floor: a writer
+    /// that truncated on the way out would lose the response just as completely, and
+    /// "any string is a valid response" (APR-MODEL-002) is the promise this number makes
+    /// keepable.
+    /// </remarks>
+    [Fact]
+    public async Task ResponseOfOneMebibyte_SurvivesReadingAndWriting()
+    {
+        const int floorBytes = 1024 * 1024;   // section 4.8, APR-MODEL-127
+
+        var response = string.Concat(Enumerable.Repeat("\u00e9", floorBytes / 2));
+        Encoding.UTF8.GetByteCount(response).Should().Be(floorBytes,
+            "the fixture has to be a mebibyte of UTF-8, not a mebibyte of code units");
+
+        var json = "{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\","
+                   + "\"metadata\":{\"title\":\"t\"},\"sections\":[{\"id\":\"s\",\"title\":\"t\","
+                   + "\"prompts\":[{\"id\":\"p\",\"label\":\"l\",\"response\":\"" + response + "\"}]}]}";
+
+        // The stream overload is what opens a file, so the floor has to hold there.
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json), writable: false);
+        var document = await Serializer.DeserializeAsync(stream);
+
+        document.Should().NotBeNull(
+            "specification section 4.8 requires a response of at least 1 MiB to be readable");
+        var read = document!.Sections[0].Prompts[0].Response;
+        read.Should().Be(response,
+            "a response at the floor must come back exactly as written, not truncated to fit");
+
+        new DocumentValidator().Validate(document);
+
+        // And out again: a writer that dropped it would lose the answer just as surely.
+        var rewritten = Serializer.Deserialize(Serializer.Serialize(document));
+        rewritten!.Sections[0].Prompts[0].Response.Should().Be(response,
+            "a response at the floor must survive a write and a read back");
+    }
+
     /// <summary>Encoding hazards that only exist at the byte level.</summary>
     /// <remarks>
     /// Specification section 3.1: files MUST be UTF-8 and a reader SHOULD tolerate a

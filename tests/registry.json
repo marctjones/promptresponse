@@ -403,10 +403,15 @@
         {
           "type": "test",
           "ref": "RealFile_ResponsesAreAlwaysStrings"
+        },
+        {
+          "type": "test",
+          "ref": "ResponseOfOneMebibyte_SurvivesReadingAndWriting"
         }
       ],
       "rules": [
-        "APR-MODEL-002"
+        "APR-MODEL-002",
+        "APR-MODEL-127"
       ]
     },
     {
