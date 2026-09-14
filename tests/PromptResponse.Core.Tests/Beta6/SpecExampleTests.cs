@@ -68,6 +68,12 @@ public sealed class SpecExampleTests
             .Where(part => !string.IsNullOrWhiteSpace(part))
             .Select(part => "\u001e" + part.Trim('\n') + "\n"));
 
+    /// <summary>Whether a single-record example is an attestation rather than a form.</summary>
+    private static bool IsAttestation(Example example) =>
+        !example.Representation.EndsWith("-stream", StringComparison.Ordinal)
+        && (example.Document.Contains("\"recordType\"", StringComparison.Ordinal)
+            || example.Document.Contains("recordType:", StringComparison.Ordinal));
+
     private static List<PromptResponse.Core.Models.AprDocument> Read(Example example)
     {
         var reader = new AprBeta6Reader();
@@ -75,7 +81,8 @@ public sealed class SpecExampleTests
             ? AprRepresentation.Yaml
             : AprRepresentation.Jsonc;
 
-        if (example.Representation.EndsWith("-stream", StringComparison.Ordinal))
+        // A lone attestation record is a stream of one record, not a form.
+        if (example.Representation.EndsWith("-stream", StringComparison.Ordinal) || IsAttestation(example))
         {
             // An APR-YAML stream is already framed by its own `---` lines; only APR-JSONC
             // needs the record separators restored.
@@ -117,7 +124,9 @@ public sealed class SpecExampleTests
             {
                 // A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
                 var forms = Read(example);
-                rejected = forms.Count == 0 || forms.Any(form => !validator.Validate(form).IsValid);
+                // An attestation carries no form to validate, so only a refused read rejects it.
+                rejected = !IsAttestation(example)
+                    && (forms.Count == 0 || forms.Any(form => !validator.Validate(form).IsValid));
             }
             catch (Exception)
             {
