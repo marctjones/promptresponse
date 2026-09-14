@@ -36,6 +36,8 @@ Run these and record the output. They are ordered so the cheapest failure
 surfaces first.
 
 - [ ] `python3 scripts/check-spec-shape.py` — the document has its declared shape
+- [ ] `python3 scripts/check-spec-approach.py --gate` — every requirement names a defined class of product, states one level and carries a rule, and no text describes history
+- [ ] `python3 scripts/check-spec-conversion.py --gate` — every unit of the baseline specification carries an applied disposition
 - [ ] `python3 scripts/check-spec-completeness.py` — concepts, schema members and profiles are covered
 - [ ] `python3 scripts/check-schema-agrees.py` — schema and type registry match the member tables
 - [ ] `python3 scripts/extract-spec-examples.py` — the corpus still matches the specification
@@ -81,7 +83,19 @@ surfaces first.
 
 ## 6. Judgement — the part no gate covers
 
-- [ ] Could an implementer build a conforming reader from this text alone, without reading the code?
+The gates check that the specification has the form W3C QA SpecGL asks for: a
+conformance clause, classes of product defined in Terminology, one keyword and
+one rule per requirement, reference lists, and marked informative sections. They
+cannot check that the text serves each guideline's purpose. Each item below names
+the guideline it reads for.
+
+- [ ] Could an implementer of each class of product build a conforming implementation from this text alone, without reading the code? (Requirement 3)
+- [ ] Does About this document say what the format covers and what it leaves out, accurately? (Requirement 2)
+- [ ] Does each term a requirement relies on mean one thing throughout, as Terminology defines it, without redefining a term another specification already defines? (Requirement 5, Good Practice 10)
+- [ ] Is each profile and optional feature needed, and are its limits and its interaction with the other profiles stated? (Requirement 10, Good Practices 15 to 17)
+- [ ] Does each normative reference that can change name the edition required, or say what an implementation does when it changes? (Good Practice 8)
+- [ ] Does an implementation know what to do with a member or record it does not recognise, without an extension changing what conformance means? (Requirement 11, Good Practices 18 to 20)
+- [ ] Is handling defined for every input a class of product can meet, not only valid ones? (Good Practice 23)
 - [ ] Does any section contradict another? Pay particular attention to rules stated in two places
 - [ ] Is anything stated twice? Two copies of one fact will eventually disagree
 - [ ] Are the open questions honest — is anything listed as settled that is not, or as open that now is?
