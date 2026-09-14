@@ -46,7 +46,7 @@
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:2c46da2043da99fc30af503fb9dd574c5c1f62d1d6c85703332cf96c4fdf2168"
+      "sha256": "sha256:ef3f3264ff12621adf0e206b902df21e100440b836224ea1cdd2cd3624822760"
     }
   },
   "corpus": {
