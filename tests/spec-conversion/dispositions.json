@@ -8,7 +8,8 @@
       "kind": "heading",
       "text": "APR File Format Specification",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "apr-specification/sentence/c11dafb5fb": {
       "anchor": "apr-specification",
@@ -16,7 +17,8 @@
       "kind": "sentence",
       "text": "**Specification document version:** 1.0.0-beta.6-draft **Describes format version:** `1.0-beta.6` **Status:** BETA — the format is not frozen and breaking changes are intentional **Published:** 2026-09-01 **Editor:** Marc Jones **Normative schema:** `schemas/apr-1.0-beta.6.schema.json` **Conformance corpus:** `tests/Conformance/beta6/` **Repository:** <https://github.com/marctjones/promptresponse>",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/heading/ce2a142bc9": {
       "anchor": "scope",
@@ -24,7 +26,8 @@
       "kind": "heading",
       "text": "1. About this document",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/cb1f961e47": {
       "anchor": "scope",
@@ -32,7 +35,8 @@
       "kind": "sentence",
       "text": "APR (Adaptive Prompt Response) is a file format for forms.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/56809bf228": {
       "anchor": "scope",
@@ -40,7 +44,8 @@
       "kind": "sentence",
       "text": "An APR document describes *what to collect*, never *how to display it*.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/4a62f21627": {
       "anchor": "scope",
@@ -48,7 +53,8 @@
       "kind": "sentence",
       "text": "A blank form and a completed form are the same structure, distinguished by one member.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/235e95c341": {
       "anchor": "scope",
@@ -56,7 +62,8 @@
       "kind": "sentence",
       "text": "**This document is the normative definition of APR `1.0-beta.6`.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/d836ea543c": {
       "anchor": "scope",
@@ -64,7 +71,8 @@
       "kind": "sentence",
       "text": "Everything else that describes the format is derived from it:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/table-header/c69c2b0957": {
       "anchor": "scope",
@@ -72,7 +80,8 @@
       "kind": "table-header",
       "text": "| Artifact | Role |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/table-row/43bacd5cb9": {
       "anchor": "scope",
@@ -80,7 +89,8 @@
       "kind": "table-row",
       "text": "| This document | **Normative.** Defines the format completely: grammar, structure, semantics, and the rules no machine-readable artifact can express. |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/table-row/d5daae4050": {
       "anchor": "scope",
@@ -88,7 +98,8 @@
       "kind": "table-row",
       "text": "| `schemas/apr-1.0-beta.6.schema.json` | **Derived.** A machine-checkable projection of the structural subset. |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/table-row/643e2d5439": {
       "anchor": "scope",
@@ -96,7 +107,8 @@
       "kind": "table-row",
       "text": "| `schemas/apr-types-1.0.json` | **Derived.** A machine-readable projection of the type registry ([Hints](#hints-object)). |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/table-row/f0c97b4b40": {
       "anchor": "scope",
@@ -104,7 +116,8 @@
       "kind": "table-row",
       "text": "| `tests/Conformance/beta6/` | **Derived.** Executable vectors exercising the rules stated here. |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/2690ecf840": {
       "anchor": "scope",
@@ -112,7 +125,8 @@
       "kind": "sentence",
       "text": "Where a derived artifact disagrees with this document, **the derived artifact has the defect**.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/621cf716aa": {
       "anchor": "scope",
@@ -120,7 +134,8 @@
       "kind": "sentence",
       "text": "A schema that admits something this document forbids is a schema bug; a fixture that expects something this document does not require is a corpus bug.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/rationale/1228e1a869": {
       "anchor": "scope",
@@ -128,7 +143,8 @@
       "kind": "rationale",
       "text": "Rationale: a schema can only state what a schema can state. This one cannot express that ids are unique document-wide, that any string is a valid response, that hints never enforce, or that attestation state never gates data — and its own `$comment` says so. Ranking it above this document would leave every rule it cannot express with no authority at all. The corpus is ranked below for a different reason: it is a finite set of examples, and no finite set of examples defines a format.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/c5b98f2ec6": {
       "anchor": "scope",
@@ -136,7 +152,8 @@
       "kind": "sentence",
       "text": "**A failing fixture is still evidence.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/21460870b6": {
       "anchor": "scope",
@@ -144,7 +161,8 @@
       "kind": "sentence",
       "text": "Ranking the corpus below this document does not make it less useful — it is usually the fastest way to discover that a sentence here is wrong.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/fd36ac7793": {
       "anchor": "scope",
@@ -152,7 +170,8 @@
       "kind": "sentence",
       "text": "The ordering says only which artifact gets corrected once the disagreement is understood.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/1d8decf9d2": {
       "anchor": "scope",
@@ -160,7 +179,8 @@
       "kind": "sentence",
       "text": "This document has not been ratified.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "scope/sentence/78993b2a6d": {
       "anchor": "scope",
@@ -168,7 +188,8 @@
       "kind": "sentence",
       "text": "Nothing in it designates APR 1.0.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "navigation/heading/a670280209": {
       "anchor": "navigation",
@@ -176,7 +197,8 @@
       "kind": "heading",
       "text": "1.1 Navigation",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "navigation/sentence/1c0149a235": {
       "anchor": "navigation",
@@ -184,7 +206,8 @@
       "kind": "sentence",
       "text": "Read the specification in this order when implementing APR:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "navigation/list-item/27865c7a35": {
       "anchor": "navigation",
@@ -192,8 +215,8 @@
       "kind": "list-item",
       "text": "[Conformance profiles](#conformance) identify the required and optional behaviour.",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 473
     },
     "navigation/list-item/9fd5b6ea8e": {
       "anchor": "navigation",
@@ -201,7 +224,8 @@
       "kind": "list-item",
       "text": "[Representations](#representations), [document structure](#form-model), [document type](#media-types), [validation](#validation), and [text handling](#text-handling) define `core`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "navigation/list-item/6cd48c12b9": {
       "anchor": "navigation",
@@ -209,7 +233,8 @@
       "kind": "list-item",
       "text": "[Streams](#streams) and [digests](#digests) define `core+streams`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "navigation/list-item/1f5533a566": {
       "anchor": "navigation",
@@ -217,7 +242,8 @@
       "kind": "list-item",
       "text": "[Expressions](#expressions) and [attestations](#attestations) are the remaining optional profiles.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "navigation/list-item/37f5648f85": {
       "anchor": "navigation",
@@ -225,7 +251,8 @@
       "kind": "list-item",
       "text": "[Rendering](#renderers), [security](#security), and the [conformance checklist](#checklist) constrain hosts and verify an implementation.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "navigation/sentence/dcc723468c": {
       "anchor": "navigation",
@@ -233,7 +260,8 @@
       "kind": "sentence",
       "text": "This navigation is informative.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "navigation/sentence/63202f335a": {
       "anchor": "navigation",
@@ -241,7 +269,8 @@
       "kind": "sentence",
       "text": "The requirement language in the sections it links to remains authoritative.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "normative-language/heading/1a6890e20e": {
       "anchor": "normative-language",
@@ -249,15 +278,21 @@
       "kind": "heading",
       "text": "1.2 Requirement language",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "normative-language/sentence/0f3f7a99c0": {
       "anchor": "normative-language",
       "chapter": 1,
       "kind": "sentence",
       "text": "The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL** are to be interpreted as described in BCP 14 (RFC 2119, RFC 8174) when, and only when, they appear in all capitals.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "replacedBy": [
+        "normative-language/sentence/f5f11acc4e"
+      ],
+      "note": "replaced by the RFC 8174 boilerplate; definitional, so not a requirement",
+      "issue": 473
     },
     "normative-language/sentence/4a9609cb9f": {
       "anchor": "normative-language",
@@ -265,7 +300,8 @@
       "kind": "sentence",
       "text": "Lowercase uses carry their ordinary English meaning and impose no requirement.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "conventions/heading/5f9f36a8bf": {
       "anchor": "conventions",
@@ -273,23 +309,37 @@
       "kind": "heading",
       "text": "1.3 Document conventions",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "conventions/sentence/5ff16b0937": {
       "anchor": "conventions",
       "chapter": 1,
       "kind": "sentence",
       "text": "Three kinds of text appear here and are distinguished deliberately.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "conventions/sentence/39c9b7c807",
+        "conventions/sentence/8f79ab7988",
+        "informative-references/table-row/22f9c9644c"
+      ],
+      "note": "names the W3C guidelines as the standard, cited in the informative references",
+      "issue": 473
     },
     "conventions/list-item/e4bdca6d17": {
       "anchor": "conventions",
       "chapter": 1,
       "kind": "list-item",
       "text": "**Normative text** states requirements, using the keywords of [Requirement language](#normative-language).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "conventions/list-item/2eedd287bc",
+        "conventions/list-item/6a89297f76"
+      ],
+      "note": "normative text and normative tables stated as conventions",
+      "issue": 473
     },
     "conventions/list-item/032fa50944": {
       "anchor": "conventions",
@@ -297,7 +347,12 @@
       "kind": "list-item",
       "text": "**Examples** are captioned `Example N` and are illustrative. Where an example and normative text disagree, the normative text governs.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "conventions/list-item/07078d234a"
+      ],
+      "note": "numbered, executable, informative examples",
+      "issue": 473
     },
     "conventions/list-item/aae48abae2": {
       "anchor": "conventions",
@@ -305,7 +360,8 @@
       "kind": "list-item",
       "text": "**Rationale** appears in blockquotes beginning `Rationale:` and is non-normative. Removing every rationale block would not change the format.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "conventions/sentence/2dd1387d19": {
       "anchor": "conventions",
@@ -313,7 +369,8 @@
       "kind": "sentence",
       "text": "Each heading carries an explicit anchor, written `{#anchor-name}`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "conventions/sentence/9194769f71": {
       "anchor": "conventions",
@@ -321,7 +378,11 @@
       "kind": "sentence",
       "text": "**Every normative clause carries a rule identifier**, written `[APR-AREA-NNN]` at the end of the requirement it names.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "conventions/sentence/9971d45775"
+      ],
+      "issue": 473
     },
     "conventions/sentence/3e634f0da8": {
       "anchor": "conventions",
@@ -329,7 +390,8 @@
       "kind": "sentence",
       "text": "A test, a coverage manifest, or a defect report cites the identifier rather than a section, so what is being referred to does not depend on where it currently sits.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "conventions/sentence/128de9b147": {
       "anchor": "conventions",
@@ -337,15 +399,21 @@
       "kind": "sentence",
       "text": "Identifiers are append-only.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "conventions/sentence/2e9074f362": {
       "anchor": "conventions",
       "chapter": 1,
       "kind": "sentence",
       "text": "A new rule takes the next free number in its area, a deleted rule's number is retired rather than reused, and moving a rule between sections does not renumber it.",
-      "disposition": "delete",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "replacedBy": [
+        "conventions/sentence/b050897b3a"
+      ],
+      "note": "states the numbering convention; 'retired' reworded to 'never reused'",
+      "issue": 473
     },
     "conventions/sentence/405cfc19b6": {
       "anchor": "conventions",
@@ -353,7 +421,8 @@
       "kind": "sentence",
       "text": "Nothing about an identifier is positional, so inserting a requirement cannot renumber its neighbours.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "conventions/rationale/b99cc476b2": {
       "anchor": "conventions",
@@ -361,7 +430,8 @@
       "kind": "rationale",
       "text": "Rationale: CommonMark numbers its examples and YAML numbers its grammar productions, and in both the numbered thing — not the section — is the unit a test cites. APR states most of its requirements in prose, so the prose needs the same treatment.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "conventions/rationale/bf3ed749f7": {
       "anchor": "conventions",
@@ -369,7 +439,8 @@
       "kind": "rationale",
       "text": "Rationale: **anchors, not section numbers, are the stable identifiers.** Section numbers renumber whenever material is inserted, so a citation to a number silently comes to mean something else, while one to `#responses` either resolves or fails loudly. Cite anchors.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "version-numbers/heading/bfb92f7ea8": {
       "anchor": "version-numbers",
@@ -377,7 +448,8 @@
       "kind": "heading",
       "text": "1.4 Three version numbers",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "version-numbers/sentence/2c4bb05e35": {
       "anchor": "version-numbers",
@@ -385,7 +457,8 @@
       "kind": "sentence",
       "text": "Conflating these is the most common way to break a file format, so they are kept strictly apart.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "version-numbers/table-header/eb461dc910": {
       "anchor": "version-numbers",
@@ -393,7 +466,8 @@
       "kind": "table-header",
       "text": "| Number | Changes | Lives in | Today |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "version-numbers/table-row/5252841ab7": {
       "anchor": "version-numbers",
@@ -401,7 +475,8 @@
       "kind": "table-row",
       "text": "| **Format version** | only on a breaking change to the wire format | the `aprVersion` member of every record | `1.0-beta.6` |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "version-numbers/table-row/8ce4d7ddf3": {
       "anchor": "version-numbers",
@@ -409,7 +484,8 @@
       "kind": "table-row",
       "text": "| **Specification document version** | every release | this document's header | `1.0.0-beta.6-draft` |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "version-numbers/table-row/a5695bebb9": {
       "anchor": "version-numbers",
@@ -417,15 +493,21 @@
       "kind": "table-row",
       "text": "| **Conformance corpus tag** | every release | `tests/Conformance/beta6/` and a git tag | `corpus/beta6` |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "version-numbers/sentence/886acb307b": {
       "anchor": "version-numbers",
       "chapter": 1,
       "kind": "sentence",
       "text": "The format version **MUST NOT** track releases.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "replacedBy": [
+        "version-numbers/sentence/7751b36d22"
+      ],
+      "note": "APR-SEC-001 removed: it bound this project's versioning, which no document or implementation can violate",
+      "issue": 473
     },
     "version-numbers/sentence/58f00e4c3a": {
       "anchor": "version-numbers",
@@ -433,7 +515,11 @@
       "kind": "sentence",
       "text": "Two releases that do not change the wire format declare the same format version, and that is correct. [APR-SEC-001]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "version-numbers/sentence/5650e522d3"
+      ],
+      "issue": 473
     },
     "version-compatibility/heading/7b9b9afd1b": {
       "anchor": "version-compatibility",
@@ -441,7 +527,8 @@
       "kind": "heading",
       "text": "1.4.1 Version compatibility",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "version-compatibility/sentence/1d51f34cb7": {
       "anchor": "version-compatibility",
@@ -449,23 +536,41 @@
       "kind": "sentence",
       "text": "`aprVersion` **MUST** be exactly `\"1.0-beta.6\"`.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "version-compatibility/sentence/3d036b1091"
+      ],
+      "note": "APR-SEC-002 stated once, with a reader as its subject",
+      "issue": 473
     },
     "version-compatibility/sentence/6e807aeeb2": {
       "anchor": "version-compatibility",
       "chapter": 1,
       "kind": "sentence",
       "text": "A record declaring any other value **MUST** be rejected with `UNSUPPORTED_VERSION`. [APR-SEC-002]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "version-compatibility/sentence/3d036b1091",
+        "version-compatibility/sentence/32b81b37b7",
+        "version-compatibility/sentence/503f848985",
+        "version-compatibility/example/440616afc6",
+        "version-compatibility/sentence/a3df42c1fe",
+        "version-compatibility/sentence/107c011d8e",
+        "version-compatibility/example/1733a95cec"
+      ],
+      "note": "the rejection clause joins APR-SEC-002, shown by a satisfying and a violating example",
+      "issue": 473
     },
     "version-compatibility/sentence/bd8c5aae62": {
       "anchor": "version-compatibility",
       "chapter": 1,
       "kind": "sentence",
       "text": "Unknown-member preservation ([Unknown members](#extensions)) is **REQUIRED**.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-SEC-003 removed: it restated APR-MODEL-021",
+      "issue": 473
     },
     "version-compatibility/sentence/2ffb60dd38": {
       "anchor": "version-compatibility",
@@ -473,7 +578,12 @@
       "kind": "sentence",
       "text": "It is what keeps additive change safe within a version. [APR-SEC-003]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "version-compatibility/sentence/a8f1d3bb49"
+      ],
+      "note": "an informative pointer to unknown-member preservation",
+      "issue": 473
     },
     "version-compatibility/sentence/600473b02a": {
       "anchor": "version-compatibility",
@@ -481,15 +591,18 @@
       "kind": "sentence",
       "text": "**What BETA means here:** breaking changes are intentional until the first public release.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 473
     },
     "version-compatibility/sentence/72e21f221b": {
       "anchor": "version-compatibility",
       "chapter": 1,
       "kind": "sentence",
       "text": "Implementers **SHOULD** record the corpus tag they pass, not just the format version. [APR-SEC-004]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-SEC-004 removed: section 3.5 and APR-CONF-004 already cover the corpus revision",
+      "issue": 473
     },
     "terminology/heading/e91d4e97da": {
       "anchor": "terminology",

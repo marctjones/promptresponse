@@ -1535,26 +1535,6 @@
       ]
     },
     {
-      "id": "REQ-unknown-degrades",
-      "section": "version-numbers",
-      "statement": "Unknown members, data types, roles, and proof types degrade rather than reject",
-      "strength": "partial",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "UnsupportedProof_IsUnverifiableRatherThanInvalidatingTheForm"
-        },
-        {
-          "type": "test",
-          "ref": "test_beta6_stream_rewrite_preserves_semantic_extensions_and_cms_subjects"
-        }
-      ],
-      "rules": [
-        "APR-SEC-001"
-      ],
-      "gap": "APR-SEC-001 says the format version must not track releases. That binds how this project versions itself; no document and no implementation can violate it."
-    },
-    {
       "id": "REQ-validate-never-semantic",
       "section": "semantic-validation",
       "statement": "A document is never invalid because of what a response means",
@@ -1680,7 +1660,7 @@
       "id": "REQ-version-exact",
       "section": "version-compatibility",
       "statement": "Exact-match version rejection; no MAJOR.MINOR negotiation",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "test",
@@ -1692,11 +1672,8 @@
         }
       ],
       "rules": [
-        "APR-SEC-002",
-        "APR-SEC-003",
-        "APR-SEC-004"
-      ],
-      "gap": "APR-SEC-002 is covered. APR-SEC-003 restates unknown-member preservation, which its own rules cover, and APR-SEC-004 explains what BETA means to an implementer. Neither adds an obligation a document or an implementation could fail."
+        "APR-SEC-002"
+      ]
     },
     {
       "id": "REQ-yaml-resolution",
