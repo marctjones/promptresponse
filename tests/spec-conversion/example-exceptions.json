@@ -376,6 +376,22 @@
     "reason": "A rule on the media type a writer labels content with; a document carries no media type.",
     "coveredBy": ["tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs", "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"]
   },
+  "APR-TEXT-005": {
+    "reason": "A permission to hold authoring members to stricter rules, which no document can violate.",
+    "coveredBy": ["scripts/validate-apr.py"]
+  },
+  "APR-TEXT-008": {
+    "reason": "A rule on producing an attestation, which the document suite never asks an implementation to do.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+  },
+  "APR-TEXT-012": {
+    "reason": "A rule on what a validator reports; a document cannot show a validator that stays silent.",
+    "coveredBy": ["spec:title-confusable-script-mix", "corpus:rules/apr-text-012-warns.apr.jsonc"]
+  },
+  "APR-TEXT-014": {
+    "reason": "A rule on what a validator reports; a document cannot show a validator that stays silent.",
+    "coveredBy": ["spec:title-not-nfc", "spec:title-forbidden-code-point"]
+  },
   "APR-VAL-003": {
     "reason": "A rule on the stage at which a reader refuses input; the suite answers reject for a parse failure and a validation failure alike.",
     "coveredBy": ["spec:jsonc-missing-separator"]
@@ -483,5 +499,9 @@
   "APR-VAL-034": {
     "reason": "A permission to report a warning the table does not name, which no document can violate.",
     "coveredBy": ["scripts/validate-apr.py"]
+  },
+  "APR-VAL-035": {
+    "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
+    "coveredBy": ["spec:title-confusable-script-mix"]
   }
 }

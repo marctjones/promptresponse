@@ -1153,7 +1153,8 @@
     "rules/apr-text-011-warns.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-TEXT-011"
+        "APR-TEXT-011",
+        "APR-TEXT-014"
       ],
       "anchors": [],
       "warns": [
@@ -1170,9 +1171,13 @@
     "rules/apr-text-012-warns.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-TEXT-012"
+        "APR-TEXT-012",
+        "APR-VAL-035"
       ],
-      "anchors": []
+      "anchors": [],
+      "warns": [
+        "CONFUSABLE_SCRIPT_MIX"
+      ]
     },
     "rules/apr-model-023-roundtrip.apr.jsonc": {
       "expect": "valid",

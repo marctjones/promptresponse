@@ -367,7 +367,8 @@
         "APR-VAL-029",
         "APR-VAL-030",
         "APR-VAL-031",
-        "APR-VAL-032"
+        "APR-VAL-032",
+        "APR-VAL-035"
       ]
     },
     {
@@ -462,50 +463,75 @@
     {
       "id": "REQ-authoring-strict",
       "section": "authoring-strictness",
-      "statement": "Authoring data may be refused, never rewritten",
+      "statement": "Authoring data may be held to stricter rules, and no attestation binds a deceptive submission URL",
       "strength": "gated",
       "gates": [
         {
           "type": "test",
-          "ref": "test_inspector_reports_visually_deceptive_characters_without_changing_text"
+          "ref": "Factory_RefusesToSignAFormWhoseSubmissionUrlHasAHiddenCharacter"
         }
       ],
       "rules": [
         "APR-TEXT-005",
-        "APR-TEXT-006",
-        "APR-TEXT-007",
-        "APR-TEXT-008",
-        "APR-TEXT-009",
+        "APR-TEXT-008"
+      ]
+    },
+    {
+      "id": "REQ-authoring-never-rewritten",
+      "section": "authoring-strictness",
+      "statement": "An implementation never Unicode-normalizes authoring data or removes a code point from it",
+      "strength": "none",
+      "gates": [],
+      "rules": [
+        "APR-TEXT-006"
+      ],
+      "gap": "No case checks it, and the Python and TypeScript SDKs break it: they normalize and strip hint and role text when they read it (#412)."
+    },
+    {
+      "id": "REQ-submission-url-advisory",
+      "section": "authoring-strictness",
+      "statement": "A validator warns on a submission URL carrying a code point the floor excludes",
+      "strength": "none",
+      "gates": [],
+      "rules": [
+        "APR-TEXT-007"
+      ],
+      "gap": "Only .NET reports it, as SUBMISSION_URL_HIDDEN_CHARS, a code the warnings table does not name (#507)."
+    },
+    {
+      "id": "REQ-id-characters",
+      "section": "authoring-strictness",
+      "statement": "A validator warns on an id outside [A-Za-z0-9_.-]",
+      "strength": "none",
+      "gates": [],
+      "rules": [
         "APR-TEXT-010"
       ],
-      "gap": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
+      "gap": "No implementation reports it, and the warnings table names no code for it (#508)."
     },
     {
       "id": "REQ-human-text",
       "section": "human-text",
-      "statement": "Human-facing text is NFC and free of invisible, deprecated and control code points (UTS #39 by reference); confusable detection recommended",
-      "strength": "none",
-      "gates": [],
-      "gap": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text.",
-      "rules": [
-        "APR-TEXT-011",
-        "APR-TEXT-012"
-      ]
-    },
-    {
-      "id": "REQ-authoring-vs-filled",
-      "section": "authoring-vs-filled",
-      "statement": "Authoring data and filled data are governed differently",
-      "strength": "partial",
+      "statement": "Human-facing text meets the NFC and code point floor, a validator reports a violation, and confusable detection is recommended",
+      "strength": "gated",
       "gates": [
         {
+          "type": "fixture",
+          "ref": "rules/apr-text-011-warns.apr.jsonc"
+        },
+        {
+          "type": "fixture",
+          "ref": "rules/apr-text-012-warns.apr.jsonc"
+        },
+        {
           "type": "test",
-          "ref": "test_unicode_security_values_are_preserved_and_advised"
+          "ref": "test_legitimate_multi_script_titles_are_not_flagged"
         }
       ],
-      "gap": "Filled-data tolerance is gated; the authoring-strictness half is gated separately.",
       "rules": [
-        "APR-TEXT-002"
+        "APR-TEXT-011",
+        "APR-TEXT-012",
+        "APR-TEXT-014"
       ]
     },
     {
@@ -775,7 +801,7 @@
     {
       "id": "REQ-filled-preserved",
       "section": "filled-never-rewritten",
-      "statement": "A response is never altered on the basis of a hint",
+      "statement": "A validator warns on a response carrying a code point the human-facing text floor excludes",
       "strength": "partial",
       "gates": [
         {
@@ -784,14 +810,24 @@
         },
         {
           "type": "test",
-          "ref": "test_an_odd_but_harmless_character_is_left_alone_in_a_response"
+          "ref": "test_inspector_reports_visually_deceptive_characters_without_changing_text"
         }
       ],
       "rules": [
-        "APR-TEXT-003",
         "APR-TEXT-004"
       ],
-      "gap": "APR-TEXT-001 is covered by a round-trip vector. APR-TEXT-003 and 004 are reader behaviour: that a hint never licenses altering a response, and that suspicious characters are surfaced and rendered visibly rather than cleaned. The first is the absence of an action, and the second is a presentation obligation."
+      "gap": "Python, TypeScript and .NET warn, each under HIDDEN_* and BIDI_* codes the warnings table does not name, and each checks a list narrower than the floor; Java and the reference validator report nothing (#506). With no code in the table, no suite case can ask for the warning."
+    },
+    {
+      "id": "REQ-deceptive-text-rendering",
+      "section": "filled-never-rewritten",
+      "statement": "A renderer shows a code point the floor excludes visibly, without altering the stored value",
+      "strength": "none",
+      "gates": [],
+      "rules": [
+        "APR-TEXT-013"
+      ],
+      "gap": "No renderer case asks how an excluded code point is presented (#110)."
     },
     {
       "id": "REQ-form-model",
@@ -1388,6 +1424,14 @@
         {
           "type": "test",
           "ref": "test_unicode_warning_does_not_make_a_document_invalid"
+        },
+        {
+          "type": "test",
+          "ref": "test_unicode_security_values_are_preserved_and_advised"
+        },
+        {
+          "type": "test",
+          "ref": "test_an_odd_but_harmless_character_is_left_alone_in_a_response"
         }
       ],
       "rules": [

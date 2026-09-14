@@ -7126,12 +7126,13 @@
         "warnings/example/1c60ad2eb4",
         "warnings/sentence/7e9030d589",
         "warnings/sentence/aa7677b85a",
-        "warnings/example/ed67f0ed85",
         "warnings/sentence/5977c8d89e",
         "warnings/sentence/a37158736a",
-        "warnings/example/606df5c645",
         "warnings/sentence/ff2a7edb36",
-        "warnings/sentence/85935bca9a"
+        "warnings/sentence/85935bca9a",
+        "warnings/example/00c2e8ca1d",
+        "warnings/example/2eba503097",
+        "warnings/table-row/28a94c86f1"
       ],
       "issue": 480
     },
@@ -7346,7 +7347,7 @@
       "disposition": "requirement",
       "status": "applied",
       "replacedBy": [
-        "warnings/sentence/c2a8c92735"
+        "warnings/sentence/73126d02b4"
       ],
       "note": "the permission is APR-VAL-034",
       "issue": 480
@@ -7521,7 +7522,8 @@
       "kind": "heading",
       "text": "8. Text handling",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "text-responses/heading/d8b1e0155f": {
       "anchor": "text-responses",
@@ -7529,7 +7531,8 @@
       "kind": "heading",
       "text": "8.1 Responses are evidence",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "text-responses/sentence/3f978746c9": {
       "anchor": "text-responses",
@@ -7537,7 +7540,12 @@
       "kind": "sentence",
       "text": "A reader **MUST** preserve a response exactly on read and write: it **MUST NOT** normalize, strip, or otherwise rewrite it.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "text-responses/sentence/448a610936"
+      ],
+      "note": "an implementation is the subject, since the rule binds reading and writing",
+      "issue": 481
     },
     "text-responses/sentence/721b811056": {
       "anchor": "text-responses",
@@ -7545,7 +7553,11 @@
       "kind": "sentence",
       "text": "Escaping and visibly marking deceptive text are rendering responsibilities, not licences to alter stored data. [APR-TEXT-001]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "text-responses/sentence/0f39e5de15"
+      ],
+      "issue": 481
     },
     "authoring-vs-filled/heading/950c143b16": {
       "anchor": "authoring-vs-filled",
@@ -7553,15 +7565,21 @@
       "kind": "heading",
       "text": "8.2 Authoring data and filled data differ",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-vs-filled/sentence/5b0be86f93": {
       "anchor": "authoring-vs-filled",
       "chapter": 8,
       "kind": "sentence",
       "text": "The two halves of an APR document come from two different people under two different conditions, and they **MUST NOT** be treated alike. [APR-TEXT-002]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "replacedBy": [
+        "authoring-vs-filled/sentence/65be8b46bb"
+      ],
+      "note": "APR-TEXT-002 bound no class of product to anything testable; the sentence stays without a keyword",
+      "issue": 481
     },
     "authoring-vs-filled/table-header/81a1ecd705": {
       "anchor": "authoring-vs-filled",
@@ -7569,7 +7587,8 @@
       "kind": "table-header",
       "text": "| | **Authoring data** | **Filled data** |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-vs-filled/table-row/7366e7e3e9": {
       "anchor": "authoring-vs-filled",
@@ -7577,7 +7596,8 @@
       "kind": "table-row",
       "text": "| Written by | the form author | the person filling the form |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-vs-filled/table-row/ae3fcddce4": {
       "anchor": "authoring-vs-filled",
@@ -7585,7 +7605,8 @@
       "kind": "table-row",
       "text": "| Members | `metadata`, section `id`, `title`, `description`, prompt `id`, `label`, all of `hints` | `prompt.response` |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-vs-filled/table-row/c9a5fb6f8b": {
       "anchor": "authoring-vs-filled",
@@ -7593,7 +7614,8 @@
       "kind": "table-row",
       "text": "| Conditions | deliberate, repeatable, reviewable before publication | once, under time pressure, often on someone else's behalf |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-vs-filled/table-row/a4e272ba91": {
       "anchor": "authoring-vs-filled",
@@ -7601,7 +7623,8 @@
       "kind": "table-row",
       "text": "| Consumed by | machines and every future reader | the receiving workflow |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-vs-filled/table-row/b3b2e594c7": {
       "anchor": "authoring-vs-filled",
@@ -7609,7 +7632,12 @@
       "kind": "table-row",
       "text": "| Policy | **Strict rules are appropriate.** Reject or warn at authoring time. | **Maximum tolerance.** Accept any string; never rewrite. |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "authoring-vs-filled/table-row/a6d3157f8f"
+      ],
+      "note": "a validator reports no error for text (APR-VAL-007); the policy is warning, and refusing to attest",
+      "issue": 481
     },
     "authoring-vs-filled/rationale/65c8409e3a": {
       "anchor": "authoring-vs-filled",
@@ -7617,7 +7645,11 @@
       "kind": "rationale",
       "text": "Rationale: strictness at authoring time costs the author one correction before publishing. Strictness at fill time costs a person their answer, silently, at the moment they are least able to notice.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "authoring-vs-filled/rationale/65c8409e3a"
+      ],
+      "issue": 481
     },
     "filled-never-rewritten/heading/b9ff884413": {
       "anchor": "filled-never-rewritten",
@@ -7625,15 +7657,18 @@
       "kind": "heading",
       "text": "8.2.1 Filled data — never rewritten",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "filled-never-rewritten/sentence/274c98ff1a": {
       "anchor": "filled-never-rewritten",
       "chapter": 8,
       "kind": "sentence",
       "text": "A response **MUST NOT** be altered on the basis of any hint.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-TEXT-003 restated APR-TEXT-001, which forbids any rewrite of a response, and APR-MODEL-003",
+      "issue": 481
     },
     "filled-never-rewritten/sentence/b2437029f1": {
       "anchor": "filled-never-rewritten",
@@ -7641,15 +7676,25 @@
       "kind": "sentence",
       "text": "A `url` or `email` hint describes what the author *hoped* to receive; it does not license editing what was actually written. [APR-TEXT-003]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "filled-never-rewritten/sentence/a24573714b"
+      ],
+      "issue": 481
     },
     "filled-never-rewritten/sentence/d35afb2a8e": {
       "anchor": "filled-never-rewritten",
       "chapter": 8,
       "kind": "sentence",
       "text": "Suspicious characters in a response **MUST** be surfaced as a warning and **SHOULD** be rendered visibly — escaped or badged — leaving the stored bytes exactly as entered.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "filled-never-rewritten/sentence/f8fb5fc059",
+        "filled-never-rewritten/sentence/392bef334d"
+      ],
+      "note": "a validator reports (APR-TEXT-004) and a renderer shows it visibly (APR-TEXT-013); suspicious characters are the code points the floor excludes",
+      "issue": 481
     },
     "filled-never-rewritten/sentence/2e77caf6f3": {
       "anchor": "filled-never-rewritten",
@@ -7657,7 +7702,11 @@
       "kind": "sentence",
       "text": "The consuming workflow decides what to do about them; it is the only party that knows what the answer is for. [APR-TEXT-004]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "filled-never-rewritten/sentence/bed0f4f4fb"
+      ],
+      "issue": 481
     },
     "filled-never-rewritten/sentence/e0eb9790d0": {
       "anchor": "filled-never-rewritten",
@@ -7665,7 +7714,8 @@
       "kind": "sentence",
       "text": "A reader that \"cleans\" a hidden or bidirectional character has let a hint enforce something, which [Hints never enforce](#hints-advisory) forbids.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "filled-never-rewritten/sentence/646ddf57c0": {
       "anchor": "filled-never-rewritten",
@@ -7673,7 +7723,11 @@
       "kind": "sentence",
       "text": "Legitimate uses exist: a Persian ZWNJ and an emoji ZWJ sequence are ordinary text.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481,
+      "replacedBy": [
+        "filled-never-rewritten/sentence/4a568b5070"
+      ]
     },
     "authoring-strictness/heading/751bd940dc": {
       "anchor": "authoring-strictness",
@@ -7681,7 +7735,8 @@
       "kind": "heading",
       "text": "8.2.2 Authoring data — strictness is appropriate",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-strictness/sentence/387c4a5c42": {
       "anchor": "authoring-strictness",
@@ -7689,7 +7744,12 @@
       "kind": "sentence",
       "text": "Authoring members **MAY** be held to strict rules, and the members a machine acts on **SHOULD** be. [APR-TEXT-005]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "authoring-strictness/sentence/be939d872d"
+      ],
+      "note": "the SHOULD for members a machine acts on is deleted: APR-TEXT-007, 008 and 010 state the rules for those members",
+      "issue": 481
     },
     "authoring-strictness/sentence/1503a302c2": {
       "anchor": "authoring-strictness",
@@ -7697,7 +7757,8 @@
       "kind": "sentence",
       "text": "**Strictness here means refusing, not rewriting.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-strictness/sentence/8360b2e504": {
       "anchor": "authoring-strictness",
@@ -7705,8 +7766,11 @@
       "kind": "sentence",
       "text": "No party's data is ever silently edited — the difference between an author and a filler is that an author *can* be stopped and asked to fix something, while a filler must never be blocked.",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "authoring-strictness/sentence/c943f3b1e9"
+      ],
+      "issue": 481
     },
     "authoring-strictness/sentence/bc95cfac48": {
       "anchor": "authoring-strictness",
@@ -7714,7 +7778,8 @@
       "kind": "sentence",
       "text": "Rewriting an authored value is not the strict option; it is the same silent edit wearing a different hat.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-strictness/sentence/02c266cb5b": {
       "anchor": "authoring-strictness",
@@ -7722,7 +7787,8 @@
       "kind": "sentence",
       "text": "`metadata.submissionUrls` is the strongest case in the format.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-strictness/sentence/a04ecba65d": {
       "anchor": "authoring-strictness",
@@ -7730,23 +7796,31 @@
       "kind": "sentence",
       "text": "It is an ordered, author-supplied array of explicit delivery choices, machine-consumed and security-critical.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "authoring-strictness/sentence/b54fb2aaec": {
       "anchor": "authoring-strictness",
       "chapter": 8,
       "kind": "sentence",
       "text": "An implementation:",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 481
     },
     "authoring-strictness/list-item/7b08c50e3e": {
       "anchor": "authoring-strictness",
       "chapter": 8,
       "kind": "list-item",
       "text": "**MUST NOT** rewrite any entry to remove hidden characters. Cleaning a zero-width character out of a hostname picks a destination on the author's behalf, which is precisely the decision that must not be made automatically. [APR-TEXT-006]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "authoring-strictness/sentence/0d2c340b42",
+        "authoring-strictness/sentence/91fea78b9f"
+      ],
+      "note": "APR-TEXT-006 now covers all authoring data; cleaning a hostname is the reason given",
+      "issue": 481
     },
     "authoring-strictness/list-item/84a79db4a7": {
       "anchor": "authoring-strictness",
@@ -7754,31 +7828,46 @@
       "kind": "list-item",
       "text": "**SHOULD** report hidden characters in it as an advisory, since such a URL renders to a reviewer as one host while being another. [APR-TEXT-007]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "authoring-strictness/sentence/8f0dccf5d8"
+      ],
+      "note": "a validator is the subject; the hidden characters are the code points the floor excludes",
+      "issue": 481
     },
     "authoring-strictness/list-item/6fff2e9987": {
       "anchor": "authoring-strictness",
       "chapter": 8,
       "kind": "list-item",
       "text": "**MUST NOT** produce an attestation over a document whose `submissionUrls` contains them. Binding an address that displays as one host and resolves as another defeats the binding. [APR-TEXT-008]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "authoring-strictness/sentence/023cefc625",
+        "authoring-strictness/rationale/f98501a2db"
+      ],
+      "note": "the reason is a rationale",
+      "issue": 481
     },
     "authoring-strictness/sentence/a589087211": {
       "anchor": "authoring-strictness",
       "chapter": 8,
       "kind": "sentence",
       "text": "Implementations **SHOULD** also warn at authoring time on mixed-script or bidirectional content in `metadata.title`, `metadata.publisher`, section titles, and prompt labels — the text a person reads when deciding whether to trust a form.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-TEXT-009 restated APR-TEXT-011, which excludes bidirectional controls, and APR-TEXT-012",
+      "issue": 481
     },
     "authoring-strictness/sentence/5e65be1020": {
       "anchor": "authoring-strictness",
       "chapter": 8,
       "kind": "sentence",
       "text": "These are warnings to the author, before publication, and never modifications. [APR-TEXT-009]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-TEXT-006 states that authoring data is never modified",
+      "issue": 481
     },
     "authoring-strictness/sentence/62e4a8d1dc": {
       "anchor": "authoring-strictness",
@@ -7786,7 +7875,11 @@
       "kind": "sentence",
       "text": "Ids are machine keys.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "authoring-strictness/sentence/a04b76d101"
+      ],
+      "issue": 481
     },
     "authoring-strictness/sentence/3d785e9e73": {
       "anchor": "authoring-strictness",
@@ -7794,7 +7887,12 @@
       "kind": "sentence",
       "text": "Implementations **SHOULD** warn when an id contains characters outside `[A-Za-z0-9_.-]`, since ids appear in attestation manifests, database columns, and cell addresses. [APR-TEXT-010]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "authoring-strictness/sentence/e08356ac49"
+      ],
+      "note": "a validator is the subject; the reason is a sentence of its own",
+      "issue": 481
     },
     "human-text/heading/eb06657b5c": {
       "anchor": "human-text",
@@ -7802,7 +7900,14 @@
       "kind": "heading",
       "text": "8.2.3 Human-facing text",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "human-text/heading/eb06657b5c",
+        "human-text/example/36057c6f72",
+        "human-text/sentence/20f787a0b9",
+        "human-text/sentence/5926f5325e"
+      ],
+      "issue": 481
     },
     "human-text/sentence/426c522daa": {
       "anchor": "human-text",
@@ -7810,7 +7915,8 @@
       "kind": "sentence",
       "text": "Some members exist to be read or heard by a person: `metadata.title`, `description`, `author` and `publisher`; a role's `name` and `description`; a section's `title` and `description`; a prompt's `label`; and the `placeholder`, `helpText` and `suggestedValues` hints.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "human-text/sentence/2cf79080af": {
       "anchor": "human-text",
@@ -7818,7 +7924,8 @@
       "kind": "sentence",
       "text": "Every one of them is a string, because its whole purpose is to be rendered as text or speech, and every one of them is authoring data.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "human-text/sentence/95359cec16": {
       "anchor": "human-text",
@@ -7826,7 +7933,12 @@
       "kind": "sentence",
       "text": "Human-facing text **MUST** be in Normalization Form C (UAX #15) and **MUST NOT** contain a code point that is unassigned, a surrogate, private-use, a control other than U+0009 and U+000A, or that UTS #39 classifies with an `Identifier_Type` of `Default_Ignorable`, `Deprecated`, or `Not_Character`.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "human-text/sentence/3258e5cae7"
+      ],
+      "note": "the human-facing text of a form is the subject",
+      "issue": 481
     },
     "human-text/sentence/4323127c7d": {
       "anchor": "human-text",
@@ -7834,15 +7946,25 @@
       "kind": "sentence",
       "text": "Bidirectional and joining behaviour comes from the characters' own properties (UAX #9), never from explicit control characters, which the preceding sentence excludes.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "human-text/sentence/1da55ffe85"
+      ],
+      "issue": 481
     },
     "human-text/sentence/d80430e0d5": {
       "anchor": "human-text",
       "chapter": 8,
       "kind": "sentence",
       "text": "A validator **MUST** report a violation at authoring time; a reader that meets one in a published form renders it defensively and never rewrites it ([Responses are evidence](#text-responses)). [APR-TEXT-011]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "human-text/sentence/c68a466f50",
+        "filled-never-rewritten/sentence/392bef334d"
+      ],
+      "note": "a validator reports (APR-TEXT-014); presenting and never rewriting are APR-TEXT-013 and 006",
+      "issue": 481
     },
     "human-text/sentence/4cf8fcdb75": {
       "anchor": "human-text",
@@ -7850,7 +7972,12 @@
       "kind": "sentence",
       "text": "Beyond that floor, an implementation **SHOULD** apply the confusable and mixed-script detection of UTS #39 to human-facing text and report what it finds, as the authoring-time warning above already asks for titles and labels. [APR-TEXT-012]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "human-text/sentence/115fa395bc"
+      ],
+      "note": "a validator is the subject; CONFUSABLE_SCRIPT_MIX names the Latin, Cyrillic and Greek mix (APR-VAL-035)",
+      "issue": 481
     },
     "human-text/sentence/67b24af9ea": {
       "anchor": "human-text",
@@ -7858,7 +7985,8 @@
       "kind": "sentence",
       "text": "**A response is not human-facing text in this sense.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "human-text/sentence/d5d1822764": {
       "anchor": "human-text",
@@ -7866,7 +7994,8 @@
       "kind": "sentence",
       "text": "It is what a person typed, and [Filled data — never rewritten](#filled-never-rewritten) governs it: suspicious characters in a response are surfaced and rendered visibly, and the document stays valid.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 481
     },
     "human-text/rationale/5830eb1175": {
       "anchor": "human-text",
@@ -7874,8 +8003,11 @@
       "kind": "rationale",
       "text": "Rationale: the format is meant to be safe for a person to read and to edit by hand, so text addressed to a person must be text a person can see. The Unicode Consortium maintains the list of what is invisible, deprecated, or deceptive; restating it here would put a copy of that list in this document to drift. The rule therefore names the properties and cites the standard that defines them, and the floor is the mechanical part — the part a script can check — while confusable detection, which depends on context and script tables, is recommended rather than required.",
       "disposition": "rationale",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "human-text/rationale/5830eb1175"
+      ],
+      "issue": 481
     },
     "streams/heading/62ecb0c395": {
       "anchor": "streams",
