@@ -1,5 +1,33 @@
 {
   "$comment": "Rules no in-spec example can show, because the rule is about what a renderer does rather than what a document is. Each names the test that covers it instead. Read by scripts/check-example-coverage.py.",
+  "APR-CONF-001": {
+    "reason": "What a reader reports for a stream depends on the profiles it claims, so no one document example can state the outcome.",
+    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+  },
+  "APR-CONF-004": {
+    "reason": "A statement about what an implementation claims; the harness holds each claimed profile to every case in it.",
+    "coveredBy": ["scripts/run-conformance.py"]
+  },
+  "APR-CONF-006": {
+    "reason": "Conforming to core is answering every core case; no one document shows it.",
+    "coveredBy": ["scripts/run-conformance.py"]
+  },
+  "APR-CONF-007": {
+    "reason": "A permission to claim a profile, which nothing can violate.",
+    "coveredBy": ["scripts/run-conformance.py"]
+  },
+  "APR-CONF-008": {
+    "reason": "A permission to claim a profile, which nothing can violate.",
+    "coveredBy": ["scripts/run-conformance.py"]
+  },
+  "APR-CONF-009": {
+    "reason": "A permission to claim a profile, which nothing can violate.",
+    "coveredBy": ["scripts/run-conformance.py"]
+  },
+  "APR-CONF-010": {
+    "reason": "A constraint on a declaration, not on a document; the harness refuses a declaration that breaks it.",
+    "coveredBy": ["scripts/run-conformance.py"]
+  },
   "APR-EXPR-014": {
     "reason": "A computed value staying editable is renderer behaviour; a document cannot show it.",
     "coveredBy": ["renderer:a-computed-prompt-stays-editable"]

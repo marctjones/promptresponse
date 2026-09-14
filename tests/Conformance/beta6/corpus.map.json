@@ -862,7 +862,8 @@
     "rules/apr-conf-003-roundtrip.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-CONF-003"
+        "APR-CONF-003",
+        "APR-CONF-013"
       ],
       "anchors": [],
       "roundTrip": true,
@@ -873,7 +874,8 @@
     "rules/apr-conf-002-roundtrip.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-CONF-002"
+        "APR-CONF-002",
+        "APR-CONF-011"
       ],
       "anchors": [],
       "roundTrip": true

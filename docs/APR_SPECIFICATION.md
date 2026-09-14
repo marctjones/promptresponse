@@ -194,8 +194,8 @@ below. A requirement on a document names the form.
 
 **implementation** — software that claims conformance to APR: to `core` and to
 each profile it names ([Declaring conformance](#declaring-conformance)). An
-implementation is one or more of the classes that follow, and a requirement on
-an implementation applies to each class it is.
+implementation is one or more of a reader, writer, validator, renderer, or
+verifier, and a requirement on an implementation applies to each of these it is.
 
 **reader** — software that reads a representation into the semantic model,
 accepting or rejecting each record.
@@ -299,66 +299,124 @@ character. A whitespace-only string is treated as absent.
 ## 3. Conformance profiles {#conformance}
 
 APR is deliberately layered so that a complete, useful implementation can be
-written in an afternoon, in any language, on any device. Only the core is
-required.
+written in an afternoon, in any language, on any device.
 
-### 3.1 `core` — REQUIRED of every implementation {#profile-core}
+Conformance is stated per profile. To conform to a profile, an implementation
+meets every requirement in the sections that define it. The level of each
+profile is stated below, one per row.
 
-Parse, validate, fill, and write one document in both representations, per
-[Representations](#representations) through [Text handling](#text-handling).
+| Profile | Defined by | Requirement | Rule |
+| --- | --- | --- | --- |
+| `core` | [Representations](#representations) through [Text handling](#text-handling) | **REQUIRED** | [APR-CONF-006] |
+| `core+streams` | [Streams](#streams) and [Semantic digests](#digests) | **OPTIONAL** | [APR-CONF-007] |
+| `core+attestations` | [Attestations](#attestations) | **OPTIONAL** | [APR-CONF-008] |
+| `core+expressions` | [Expressions](#expressions) | **OPTIONAL** | [APR-CONF-009] |
+
+An implementation that claims `core+attestations` **MUST** also claim
+`core+streams`. [APR-CONF-010]
+
+### 3.1 `core` {#profile-core}
+
+`core` covers reading, validating, filling, and writing one document in both
+representations, as [Representations](#representations) through
+[Text handling](#text-handling) define.
 
 A core implementation is fully conformant. It is not a degraded one, and it need
 not emit HTML, PDF, or native controls. It exposes the semantic document and its
-advisory hints for a host application or renderer to use.
+advisory hints for a host or renderer to use.
 
-### 3.2 `core+streams` — OPTIONAL {#profile-streams}
+### 3.2 `core+streams` {#profile-streams}
 
-Additionally reads and writes streams of independent records
+`core+streams` adds reading and writing streams of independent records
 ([Streams](#streams)).
 
-A core-only implementation given a stream **MUST** report
-`APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position. [APR-CONF-001]
+A reader that does not claim `core+streams`, given a stream, **MUST** report
+`APR_STREAM_REQUIRES_ITERATION` rather than select a record by position. [APR-CONF-001]
 
-### 3.3 `core+attestations` — OPTIONAL {#profile-attestations}
+### 3.3 `core+attestations` {#profile-attestations}
 
-Additionally computes semantic digests and manifests, resolves attestations
-against forms, looks up witnesses, and reports the verification vocabulary
-([Attestations](#attestations)). Requires `core+streams`.
+`core+attestations` adds computing semantic digests and manifests, resolving
+attestations against forms, looking up witnesses, and reporting the verification
+vocabulary ([Attestations](#attestations)).
 
-A core-only implementation **MUST NOT** reject a stream containing attestations,
-and **MUST** preserve attestation records on round-trip. [APR-CONF-002]
+A reader that claims `core+streams` but not `core+attestations` **MUST NOT**
+reject a stream because it contains attestation records. [APR-CONF-002]
 
-It **MUST NOT** report a document as verified, and **SHOULD** indicate that
-attestations are present but unchecked. Saying nothing is better than saying
-verified; saying "present, unchecked" is better than both. [APR-CONF-005]
+A writer that claims `core+streams` but not `core+attestations` **MUST** preserve
+attestation records across a round trip. [APR-CONF-011]
 
-This profile is optional for a reason of policy, not merely of cost. **Nobody is
-obliged to sign, and nobody is obliged to care that something was signed.** A
-recipient may have every reason to trust a document by other means — they know
-the sender, they requested the form, the data is low-stakes, or they simply want
-to read it. Requiring verification before data can be used would impose the form
-author's threat model on every reader, which is not a decision the file format
-gets to make. See [Attestations never gate the data](#never-gate).
+An implementation that does not claim `core+attestations` **MUST NOT** report a
+document as verified. [APR-CONF-005]
 
-### 3.4 `core+expressions` — OPTIONAL {#profile-expressions}
+An implementation that does not claim `core+attestations` **SHOULD** indicate
+that attestations are present but unchecked. [APR-CONF-012]
 
-Additionally evaluates the `expr*` hint family ([Expressions](#expressions)).
+> Rationale: `core+attestations` is optional for a reason of policy, not merely
+> of cost. **Nobody is obliged to sign, and nobody is obliged to care that
+> something was signed.** A recipient may have every reason to trust a document
+> by other means — they know the sender, they requested the form, the data is
+> low-stakes, or they simply want to read it. Requiring verification before data
+> can be used would impose the form author's threat model on every reader, which
+> is not a decision the file format gets to make. Saying nothing is better than
+> saying verified, and saying "present, unchecked" is better than both. See
+> [Attestations never gate the data](#never-gate).
 
-A core-only implementation **MUST NOT** reject a document that uses expressions
-and **MUST** preserve the expression strings when writing it back. A host
-rendering the document presents those prompts as ordinary editable fields: a
-computed field simply becomes a field the user can type into — degraded, but
-never broken, and never lost. [APR-CONF-003]
+### 3.4 `core+expressions` {#profile-expressions}
+
+`core+expressions` adds evaluating the `expr*` hint family
+([Expressions](#expressions)).
+
+A reader that does not claim `core+expressions` **MUST NOT** reject a document
+because it uses expressions. [APR-CONF-003]
+
+A writer that does not claim `core+expressions` **MUST** preserve expression
+strings across a round trip. [APR-CONF-013]
+
+A host rendering such a document presents those prompts as ordinary editable
+fields: a computed field becomes a field a person can type into, degraded but
+never broken and never lost.
+
+**Example 3.4-1.** An expression a writer preserves without evaluating it.
+
+```apr-example
+id: expression-preserved
+rule: profile-expressions
+satisfies: APR-CONF-003, APR-CONF-013
+representation: jsonc
+expect: valid
+round-trip: true
+preserves: /sections/0/prompts/1/hints/exprValue
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "a", "label": "A", "response": "2" },
+        { "id": "total", "label": "Total", "hints": { "exprValue": "string(a)" } }
+      ]
+    }
+  ]
+}
+```
 
 ### 3.5 Declaring conformance {#declaring-conformance}
 
-State the profiles you implement, the submission transports you implement
-(`https`, `mailto`, both, or none — [Submission targets](#submission)), and the
-corpus commit you pass. "APR 1.0-beta.6 core+streams, submits https, corpus
-beta6 @ `<sha>`" is a complete and honest claim.
+An implementation **MUST** state, in its conformance claim, the profiles it
+claims, the submission transports it implements (`https`, `mailto`, both, or
+none — [Submission targets](#submission)), and the corpus revision it passes. [APR-CONF-014]
+
+"APR 1.0-beta.6 core+streams, submits https, corpus beta6 @ `<sha>`" is a
+complete claim.
 
 An implementation **MUST NOT** claim a profile without passing the corpus
 revision it names. [APR-CONF-004]
+
+An Implementation Conformance Statement lists, for each profile and class of
+product, every requirement a claim covers.
 
 ---
 

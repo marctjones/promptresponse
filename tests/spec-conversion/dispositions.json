@@ -634,7 +634,7 @@
         "terminology/sentence/5d9c40b746",
         "terminology/sentence/5366e918ee",
         "terminology/sentence/6109e5e60f",
-        "terminology/sentence/b413947206",
+        "terminology/sentence/728c58758a",
         "terminology/sentence/c02a92508e",
         "terminology/sentence/a6c27831b6",
         "terminology/sentence/99870ef834",
@@ -970,7 +970,8 @@
       "kind": "heading",
       "text": "3. Conformance profiles",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 475
     },
     "conformance/sentence/c1ee41e38e": {
       "anchor": "conformance",
@@ -978,16 +979,21 @@
       "kind": "sentence",
       "text": "APR is deliberately layered so that a complete, useful implementation can be written in an afternoon, in any language, on any device.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 475
     },
     "conformance/sentence/4d8b802c93": {
       "anchor": "conformance",
       "chapter": 3,
       "kind": "sentence",
       "text": "Only the core is required.",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "conformance/table-row/87036376c0"
+      ],
+      "note": "core is REQUIRED, stated as a row of the profile table",
+      "issue": 475
     },
     "profile-core/heading/70a972cc61": {
       "anchor": "profile-core",
@@ -995,15 +1001,29 @@
       "kind": "heading",
       "text": "3.1 `core` — REQUIRED of every implementation",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "profile-core/heading/4af21ee4a5"
+      ],
+      "note": "the heading is a label; the level is in the table",
+      "issue": 475
     },
     "profile-core/sentence/4d0b071201": {
       "anchor": "profile-core",
       "chapter": 3,
       "kind": "sentence",
       "text": "Parse, validate, fill, and write one document in both representations, per [Representations](#representations) through [Text handling](#text-handling).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "profile-core/sentence/d1c03f858f",
+        "conformance/sentence/a0c56cfc7e",
+        "conformance/sentence/14bcb41400",
+        "conformance/sentence/b820971eee",
+        "conformance/table-header/71713eabf4"
+      ],
+      "note": "what core covers, and the conformance clause introducing the profile table",
+      "issue": 475
     },
     "profile-core/sentence/ee3726f264": {
       "anchor": "profile-core",
@@ -1011,7 +1031,8 @@
       "kind": "sentence",
       "text": "A core implementation is fully conformant.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 475
     },
     "profile-core/sentence/a609705581": {
       "anchor": "profile-core",
@@ -1019,7 +1040,8 @@
       "kind": "sentence",
       "text": "It is not a degraded one, and it need not emit HTML, PDF, or native controls.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 475
     },
     "profile-core/sentence/20db25b0f5": {
       "anchor": "profile-core",
@@ -1027,15 +1049,26 @@
       "kind": "sentence",
       "text": "It exposes the semantic document and its advisory hints for a host application or renderer to use.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "profile-core/sentence/6b318fee01"
+      ],
+      "note": "'host application' is the defined host",
+      "issue": 475
     },
     "profile-streams/heading/ecd71f784f": {
       "anchor": "profile-streams",
       "chapter": 3,
       "kind": "heading",
       "text": "3.2 `core+streams` — OPTIONAL",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "profile-streams/heading/f5bdd68a94",
+        "conformance/table-row/1a6b73766c"
+      ],
+      "note": "heading label and OPTIONAL row",
+      "issue": 475
     },
     "profile-streams/sentence/7db44dcfc4": {
       "anchor": "profile-streams",
@@ -1043,7 +1076,11 @@
       "kind": "sentence",
       "text": "Additionally reads and writes streams of independent records ([Streams](#streams)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "profile-streams/sentence/b8fd7aa96b"
+      ],
+      "issue": 475
     },
     "profile-streams/sentence/9d3e6d16b9": {
       "anchor": "profile-streams",
@@ -1051,15 +1088,26 @@
       "kind": "sentence",
       "text": "A core-only implementation given a stream **MUST** report `APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position. [APR-CONF-001]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "profile-streams/sentence/ec7f095849"
+      ],
+      "note": "APR-CONF-001 with a reader as its subject; one refusal behaviour",
+      "issue": 475
     },
     "profile-attestations/heading/08e5864626": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "heading",
       "text": "3.3 `core+attestations` — OPTIONAL",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/heading/008b132c56",
+        "conformance/table-row/7e897ff36d"
+      ],
+      "note": "heading label and OPTIONAL row",
+      "issue": 475
     },
     "profile-attestations/sentence/54b72842fc": {
       "anchor": "profile-attestations",
@@ -1067,88 +1115,139 @@
       "kind": "sentence",
       "text": "Additionally computes semantic digests and manifests, resolves attestations against forms, looks up witnesses, and reports the verification vocabulary ([Attestations](#attestations)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/sentence/9d08dfe3b1"
+      ],
+      "issue": 475
     },
     "profile-attestations/sentence/2c17619c76": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "sentence",
       "text": "Requires `core+streams`.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "replacedBy": [
+        "conformance/sentence/1115b6589a"
+      ],
+      "note": "attestations requires streams, as APR-CONF-010",
+      "issue": 475
     },
     "profile-attestations/sentence/585de97a07": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "sentence",
       "text": "A core-only implementation **MUST NOT** reject a stream containing attestations, and **MUST** preserve attestation records on round-trip. [APR-CONF-002]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/sentence/70a0c61ee7",
+        "profile-attestations/sentence/f8dca9b67b"
+      ],
+      "note": "reader duty APR-CONF-002 and writer duty APR-CONF-011",
+      "issue": 475
     },
     "profile-attestations/sentence/4331fa94d5": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "sentence",
       "text": "It **MUST NOT** report a document as verified, and **SHOULD** indicate that attestations are present but unchecked.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/sentence/9a5d69b3c3",
+        "profile-attestations/sentence/0bcef1da44"
+      ],
+      "note": "MUST NOT APR-CONF-005 and SHOULD APR-CONF-012",
+      "issue": 475
     },
     "profile-attestations/sentence/ba9b08879a": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "sentence",
       "text": "Saying nothing is better than saying verified; saying \"present, unchecked\" is better than both. [APR-CONF-005]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/rationale/55b0eb9f29"
+      ],
+      "note": "moved into the rationale block",
+      "issue": 475
     },
     "profile-attestations/sentence/75b2c33491": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "sentence",
       "text": "This profile is optional for a reason of policy, not merely of cost.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/rationale/55b0eb9f29"
+      ],
+      "issue": 475
     },
     "profile-attestations/sentence/f89bcc706c": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "sentence",
       "text": "**Nobody is obliged to sign, and nobody is obliged to care that something was signed.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/rationale/55b0eb9f29"
+      ],
+      "issue": 475
     },
     "profile-attestations/sentence/37b9d2ac6e": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "sentence",
       "text": "A recipient may have every reason to trust a document by other means — they know the sender, they requested the form, the data is low-stakes, or they simply want to read it.",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/rationale/55b0eb9f29"
+      ],
+      "issue": 475
     },
     "profile-attestations/sentence/6b06b59ed4": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "sentence",
       "text": "Requiring verification before data can be used would impose the form author's threat model on every reader, which is not a decision the file format gets to make.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/rationale/55b0eb9f29"
+      ],
+      "issue": 475
     },
     "profile-attestations/sentence/de662acc00": {
       "anchor": "profile-attestations",
       "chapter": 3,
       "kind": "sentence",
       "text": "See [Attestations never gate the data](#never-gate).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "profile-attestations/rationale/55b0eb9f29"
+      ],
+      "issue": 475
     },
     "profile-expressions/heading/5b5120ce68": {
       "anchor": "profile-expressions",
       "chapter": 3,
       "kind": "heading",
       "text": "3.4 `core+expressions` — OPTIONAL",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "profile-expressions/heading/f695350a94",
+        "conformance/table-row/ca2756527d"
+      ],
+      "note": "heading label and OPTIONAL row",
+      "issue": 475
     },
     "profile-expressions/sentence/6b8f51e08d": {
       "anchor": "profile-expressions",
@@ -1156,23 +1255,41 @@
       "kind": "sentence",
       "text": "Additionally evaluates the `expr*` hint family ([Expressions](#expressions)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "profile-expressions/sentence/58106d72d9"
+      ],
+      "issue": 475
     },
     "profile-expressions/sentence/a7351ab841": {
       "anchor": "profile-expressions",
       "chapter": 3,
       "kind": "sentence",
       "text": "A core-only implementation **MUST NOT** reject a document that uses expressions and **MUST** preserve the expression strings when writing it back.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "profile-expressions/sentence/f5a87030be",
+        "profile-expressions/sentence/817f02d99f"
+      ],
+      "note": "reader duty APR-CONF-003 and writer duty APR-CONF-013",
+      "issue": 475
     },
     "profile-expressions/sentence/73045fe87c": {
       "anchor": "profile-expressions",
       "chapter": 3,
       "kind": "sentence",
       "text": "A host rendering the document presents those prompts as ordinary editable fields: a computed field simply becomes a field the user can type into — degraded, but never broken, and never lost. [APR-CONF-003]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "profile-expressions/sentence/5f22906b26",
+        "profile-expressions/sentence/cbdf8f9d56",
+        "profile-expressions/sentence/e0d0474949",
+        "profile-expressions/example/a65b97117a"
+      ],
+      "note": "informative sentence kept; Example 3.4-1 shows APR-CONF-003 and APR-CONF-013",
+      "issue": 475
     },
     "declaring-conformance/heading/947b40b7b4": {
       "anchor": "declaring-conformance",
@@ -1180,23 +1297,35 @@
       "kind": "heading",
       "text": "3.5 Declaring conformance",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 475
     },
     "declaring-conformance/sentence/270fc876ad": {
       "anchor": "declaring-conformance",
       "chapter": 3,
       "kind": "sentence",
       "text": "State the profiles you implement, the submission transports you implement (`https`, `mailto`, both, or none — [Submission targets](#submission)), and the corpus commit you pass.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "replacedBy": [
+        "declaring-conformance/sentence/347bc7e374"
+      ],
+      "note": "what a claim names, as APR-CONF-014",
+      "issue": 475
     },
     "declaring-conformance/sentence/f3e90ec24b": {
       "anchor": "declaring-conformance",
       "chapter": 3,
       "kind": "sentence",
       "text": "\"APR 1.0-beta.6 core+streams, submits https, corpus beta6 @ `<sha>`\" is a complete and honest claim.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "declaring-conformance/sentence/95ad26cced",
+        "declaring-conformance/sentence/1b7e01cdf4"
+      ],
+      "note": "the example claim, and the Implementation Conformance Statement a claim is checked against",
+      "issue": 475
     },
     "declaring-conformance/sentence/ead2e19560": {
       "anchor": "declaring-conformance",
@@ -1204,7 +1333,8 @@
       "kind": "sentence",
       "text": "An implementation **MUST NOT** claim a profile without passing the corpus revision it names. [APR-CONF-004]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 475
     },
     "representations/heading/09d28f0dc3": {
       "anchor": "representations",

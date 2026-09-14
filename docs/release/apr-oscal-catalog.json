@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "d05b7780-5e6b-5669-9ebb-d70e31182074",
+    "uuid": "9b0810e3-f220-5357-bc31-2106dd77f838",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "8d362d53add923545946fa0c7cff15aa3226e343f61621b3523bf5609213e7df"
+          "value": "9d26ed04278ec08ff6594c327c145343c9646867dddf90e8774aeba1c12ac48b"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -75,7 +75,7 @@
         "controls": [
           {
             "id": "apr-conf-001",
-            "title": "APR-CONF-001 — 3.2 `core+streams` — OPTIONAL",
+            "title": "APR-CONF-001 — 3.2 `core+streams`",
             "props": [
               {
                 "name": "rule-id",
@@ -111,7 +111,7 @@
               {
                 "id": "apr-conf-001_smt",
                 "name": "statement",
-                "prose": "A core-only implementation given a stream **MUST** report `APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position."
+                "prose": "A reader that does not claim `core+streams`, given a stream, **MUST** report `APR_STREAM_REQUIRES_ITERATION` rather than select a record by position."
               },
               {
                 "id": "apr-conf-001_gap",
@@ -122,7 +122,7 @@
           },
           {
             "id": "apr-conf-002",
-            "title": "APR-CONF-002 — 3.3 `core+attestations` — OPTIONAL",
+            "title": "APR-CONF-002 — 3.3 `core+attestations`",
             "props": [
               {
                 "name": "rule-id",
@@ -158,18 +158,18 @@
               {
                 "id": "apr-conf-002_smt",
                 "name": "statement",
-                "prose": "A core-only implementation **MUST NOT** reject a stream containing attestations, and **MUST** preserve attestation records on round-trip."
+                "prose": "A reader that claims `core+streams` but not `core+attestations` **MUST NOT** reject a stream because it contains attestation records."
               },
               {
                 "id": "apr-conf-002_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-005, that a core-only implementation never reports a document as verified and should say attestations are present but unchecked, is about what it displays. The harness scores acceptance, not wording."
+                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
               }
             ]
           },
           {
             "id": "apr-conf-003",
-            "title": "APR-CONF-003 — 3.4 `core+expressions` — OPTIONAL",
+            "title": "APR-CONF-003 — 3.4 `core+expressions`",
             "props": [
               {
                 "name": "rule-id",
@@ -205,7 +205,7 @@
               {
                 "id": "apr-conf-003_smt",
                 "name": "statement",
-                "prose": "A core-only implementation **MUST NOT** reject a document that uses expressions and **MUST** preserve the expression strings when writing it back. A host rendering the document presents those prompts as ordinary editable fields: a computed field simply becomes a field the user can type into — degraded, but never broken, and never lost."
+                "prose": "A reader that does not claim `core+expressions` **MUST NOT** reject a document because it uses expressions."
               }
             ]
           },
@@ -252,13 +252,13 @@
               {
                 "id": "apr-conf-004_gap",
                 "name": "assessment-gap",
-                "prose": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable."
+                "prose": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable, and APR-CONF-014, what a claim names, is checked only as far as the profiles a driver declares."
               }
             ]
           },
           {
             "id": "apr-conf-005",
-            "title": "APR-CONF-005 — 3.3 `core+attestations` — OPTIONAL",
+            "title": "APR-CONF-005 — 3.3 `core+attestations`",
             "props": [
               {
                 "name": "rule-id",
@@ -294,12 +294,430 @@
               {
                 "id": "apr-conf-005_smt",
                 "name": "statement",
-                "prose": "It **MUST NOT** report a document as verified, and **SHOULD** indicate that attestations are present but unchecked. Saying nothing is better than saying verified; saying \"present, unchecked\" is better than both."
+                "prose": "An implementation that does not claim `core+attestations` **MUST NOT** report a document as verified."
               },
               {
                 "id": "apr-conf-005_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-005, that a core-only implementation never reports a document as verified and should say attestations are present but unchecked, is about what it displays. The harness scores acceptance, not wording."
+                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-006",
+            "title": "APR-CONF-006 — 3. Conformance profiles",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-006"
+              },
+              {
+                "name": "section",
+                "value": "conformance"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-conformance-profiles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#conformance",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-006_smt",
+                "name": "statement",
+                "prose": "`core` — [Representations](#representations) through [Text handling](#text-handling) — **REQUIRED**"
+              },
+              {
+                "id": "apr-conf-006_gap",
+                "name": "assessment-gap",
+                "prose": "The harness holds each claimed profile to every case in it and refuses a declaration claiming core+attestations without core+streams. That an implementation conforms to core is what answering the core cases shows; the optional levels are permissions nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-007",
+            "title": "APR-CONF-007 — 3. Conformance profiles",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-007"
+              },
+              {
+                "name": "section",
+                "value": "conformance"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-conformance-profiles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#conformance",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-007_smt",
+                "name": "statement",
+                "prose": "`core+streams` — [Streams](#streams) and [Semantic digests](#digests) — **OPTIONAL**"
+              },
+              {
+                "id": "apr-conf-007_gap",
+                "name": "assessment-gap",
+                "prose": "The harness holds each claimed profile to every case in it and refuses a declaration claiming core+attestations without core+streams. That an implementation conforms to core is what answering the core cases shows; the optional levels are permissions nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-008",
+            "title": "APR-CONF-008 — 3. Conformance profiles",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-008"
+              },
+              {
+                "name": "section",
+                "value": "conformance"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-conformance-profiles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#conformance",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-008_smt",
+                "name": "statement",
+                "prose": "`core+attestations` — [Attestations](#attestations) — **OPTIONAL**"
+              },
+              {
+                "id": "apr-conf-008_gap",
+                "name": "assessment-gap",
+                "prose": "The harness holds each claimed profile to every case in it and refuses a declaration claiming core+attestations without core+streams. That an implementation conforms to core is what answering the core cases shows; the optional levels are permissions nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-009",
+            "title": "APR-CONF-009 — 3. Conformance profiles",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-009"
+              },
+              {
+                "name": "section",
+                "value": "conformance"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-conformance-profiles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#conformance",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-009_smt",
+                "name": "statement",
+                "prose": "`core+expressions` — [Expressions](#expressions) — **OPTIONAL**"
+              },
+              {
+                "id": "apr-conf-009_gap",
+                "name": "assessment-gap",
+                "prose": "The harness holds each claimed profile to every case in it and refuses a declaration claiming core+attestations without core+streams. That an implementation conforms to core is what answering the core cases shows; the optional levels are permissions nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-010",
+            "title": "APR-CONF-010 — 3. Conformance profiles",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-010"
+              },
+              {
+                "name": "section",
+                "value": "conformance"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-conformance-profiles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#conformance",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-010_smt",
+                "name": "statement",
+                "prose": "An implementation that claims `core+attestations` **MUST** also claim `core+streams`."
+              },
+              {
+                "id": "apr-conf-010_gap",
+                "name": "assessment-gap",
+                "prose": "The harness holds each claimed profile to every case in it and refuses a declaration claiming core+attestations without core+streams. That an implementation conforms to core is what answering the core cases shows; the optional levels are permissions nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-011",
+            "title": "APR-CONF-011 — 3.3 `core+attestations`",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-011"
+              },
+              {
+                "name": "section",
+                "value": "profile-attestations"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-profile-attestations"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#profile-attestations",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-011_smt",
+                "name": "statement",
+                "prose": "A writer that claims `core+streams` but not `core+attestations` **MUST** preserve attestation records across a round trip."
+              },
+              {
+                "id": "apr-conf-011_gap",
+                "name": "assessment-gap",
+                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-012",
+            "title": "APR-CONF-012 — 3.3 `core+attestations`",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-012"
+              },
+              {
+                "name": "section",
+                "value": "profile-attestations"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-profile-attestations"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#profile-attestations",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-012_smt",
+                "name": "statement",
+                "prose": "An implementation that does not claim `core+attestations` **SHOULD** indicate that attestations are present but unchecked."
+              },
+              {
+                "id": "apr-conf-012_gap",
+                "name": "assessment-gap",
+                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-013",
+            "title": "APR-CONF-013 — 3.4 `core+expressions`",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-013"
+              },
+              {
+                "name": "section",
+                "value": "profile-expressions"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-profile-expressions"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#profile-expressions",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-013_smt",
+                "name": "statement",
+                "prose": "A writer that does not claim `core+expressions` **MUST** preserve expression strings across a round trip."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-014",
+            "title": "APR-CONF-014 — 3.5 Declaring conformance",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-014"
+              },
+              {
+                "name": "section",
+                "value": "declaring-conformance"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-declaring-conformance"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#declaring-conformance",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-014_smt",
+                "name": "statement",
+                "prose": "An implementation **MUST** state, in its conformance claim, the profiles it claims, the submission transports it implements (`https`, `mailto`, both, or none — [Submission targets](#submission)), and the corpus revision it passes."
+              },
+              {
+                "id": "apr-conf-014_gap",
+                "name": "assessment-gap",
+                "prose": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable, and APR-CONF-014, what a claim names, is checked only as far as the profiles a driver declares."
               }
             ]
           }

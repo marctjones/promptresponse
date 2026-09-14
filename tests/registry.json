@@ -1052,6 +1052,26 @@
       ]
     },
     {
+      "id": "REQ-conformance-profiles",
+      "section": "conformance",
+      "statement": "core is required of every implementation, each other profile is optional, and core+attestations is claimed only with core+streams",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "suite",
+          "ref": "schema.gate"
+        }
+      ],
+      "rules": [
+        "APR-CONF-006",
+        "APR-CONF-007",
+        "APR-CONF-008",
+        "APR-CONF-009",
+        "APR-CONF-010"
+      ],
+      "gap": "The harness holds each claimed profile to every case in it and refuses a declaration claiming core+attestations without core+streams. That an implementation conforms to core is what answering the core cases shows; the optional levels are permissions nothing can violate."
+    },
+    {
       "id": "REQ-profile-attestations",
       "section": "profile-attestations",
       "statement": "core+attestations resolves, verifies, and reports honestly",
@@ -1068,14 +1088,16 @@
       ],
       "rules": [
         "APR-CONF-002",
-        "APR-CONF-005"
+        "APR-CONF-005",
+        "APR-CONF-011",
+        "APR-CONF-012"
       ],
-      "gap": "APR-CONF-005, that a core-only implementation never reports a document as verified and should say attestations are present but unchecked, is about what it displays. The harness scores acceptance, not wording."
+      "gap": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
     },
     {
       "id": "REQ-profile-expressions",
       "section": "profile-expressions",
-      "statement": "A core-only reader preserves expression strings and ignores them",
+      "statement": "A reader not claiming core+expressions accepts expressions, and a writer not claiming it preserves their strings",
       "strength": "gated",
       "gates": [
         {
@@ -1084,7 +1106,8 @@
         }
       ],
       "rules": [
-        "APR-CONF-003"
+        "APR-CONF-003",
+        "APR-CONF-013"
       ]
     },
     {
@@ -1339,9 +1362,10 @@
           "ref": "schema.gate"
         }
       ],
-      "gap": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable.",
+      "gap": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable, and APR-CONF-014, what a claim names, is checked only as far as the profiles a driver declares.",
       "rules": [
-        "APR-CONF-004"
+        "APR-CONF-004",
+        "APR-CONF-014"
       ]
     },
     {
