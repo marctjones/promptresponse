@@ -990,9 +990,9 @@
       "disposition": "table-row",
       "status": "applied",
       "replacedBy": [
-        "conformance/table-row/87036376c0"
+        "conformance/table-row/8c8f8c5768"
       ],
-      "note": "core is REQUIRED, stated as a row of the profile table",
+      "note": "core is REQUIRED, stated as a row of the profile table; section 3 assigns every section to a profile, and rules on implementations not claiming a profile moved to 3.1 (#486)",
       "issue": 475
     },
     "profile-core/heading/70a972cc61": {
@@ -1016,13 +1016,15 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "profile-core/sentence/d1c03f858f",
+        "profile-core/sentence/71cb1bf308",
         "conformance/sentence/a0c56cfc7e",
         "conformance/sentence/14bcb41400",
         "conformance/sentence/b820971eee",
-        "conformance/table-header/71713eabf4"
+        "conformance/table-header/71713eabf4",
+        "profile-core/sentence/2aee72da28",
+        "conformance/sentence/9754cca65c"
       ],
-      "note": "what core covers, and the conformance clause introducing the profile table",
+      "note": "what core covers, and the conformance clause introducing the profile table; section 3 assigns every section to a profile, and rules on implementations not claiming a profile moved to 3.1 (#486)",
       "issue": 475
     },
     "profile-core/sentence/ee3726f264": {
@@ -1065,9 +1067,9 @@
       "status": "applied",
       "replacedBy": [
         "profile-streams/heading/f5bdd68a94",
-        "conformance/table-row/1a6b73766c"
+        "conformance/table-row/d1bcc4cb85"
       ],
-      "note": "heading label and OPTIONAL row",
+      "note": "heading label and OPTIONAL row; section 3 assigns every section to a profile, and rules on implementations not claiming a profile moved to 3.1 (#486)",
       "issue": 475
     },
     "profile-streams/sentence/7db44dcfc4": {
@@ -1090,7 +1092,7 @@
       "disposition": "requirement",
       "status": "applied",
       "replacedBy": [
-        "profile-streams/sentence/ec7f095849"
+        "profile-core/sentence/ec7f095849"
       ],
       "note": "APR-CONF-001 with a reader as its subject; one refusal behaviour",
       "issue": 475
@@ -1104,9 +1106,9 @@
       "status": "applied",
       "replacedBy": [
         "profile-attestations/heading/008b132c56",
-        "conformance/table-row/7e897ff36d"
+        "conformance/table-row/7d6ee8cb9f"
       ],
-      "note": "heading label and OPTIONAL row",
+      "note": "heading label and OPTIONAL row; section 3 assigns every section to a profile, and rules on implementations not claiming a profile moved to 3.1 (#486)",
       "issue": 475
     },
     "profile-attestations/sentence/54b72842fc": {
@@ -1142,8 +1144,8 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "profile-attestations/sentence/70a0c61ee7",
-        "profile-attestations/sentence/f8dca9b67b"
+        "profile-streams/sentence/70a0c61ee7",
+        "profile-streams/sentence/f8dca9b67b"
       ],
       "note": "reader duty APR-CONF-002 and writer duty APR-CONF-011",
       "issue": 475
@@ -1156,8 +1158,8 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "profile-attestations/sentence/9a5d69b3c3",
-        "profile-attestations/sentence/0bcef1da44"
+        "profile-core/sentence/9a5d69b3c3",
+        "profile-core/sentence/0bcef1da44"
       ],
       "note": "MUST NOT APR-CONF-005 and SHOULD APR-CONF-012",
       "issue": 475
@@ -1244,9 +1246,9 @@
       "status": "applied",
       "replacedBy": [
         "profile-expressions/heading/f695350a94",
-        "conformance/table-row/ca2756527d"
+        "conformance/table-row/6c10c20dee"
       ],
-      "note": "heading label and OPTIONAL row",
+      "note": "heading label and OPTIONAL row; section 3 assigns every section to a profile, and rules on implementations not claiming a profile moved to 3.1 (#486)",
       "issue": 475
     },
     "profile-expressions/sentence/6b8f51e08d": {
@@ -1269,8 +1271,8 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "profile-expressions/sentence/f5a87030be",
-        "profile-expressions/sentence/817f02d99f"
+        "profile-core/sentence/f5a87030be",
+        "profile-core/sentence/817f02d99f"
       ],
       "note": "reader duty APR-CONF-003 and writer duty APR-CONF-013",
       "issue": 475
@@ -1283,12 +1285,12 @@
       "disposition": "split",
       "status": "applied",
       "replacedBy": [
-        "profile-expressions/sentence/5f22906b26",
-        "profile-expressions/sentence/cbdf8f9d56",
-        "profile-expressions/sentence/e0d0474949",
-        "profile-expressions/example/a65b97117a"
+        "profile-core/sentence/5f22906b26",
+        "profile-core/sentence/53907ef931",
+        "profile-core/sentence/e0d0474949",
+        "profile-core/example/81e17fa2e0"
       ],
-      "note": "informative sentence kept; Example 3.4-1 shows APR-CONF-003 and APR-CONF-013",
+      "note": "informative sentence kept; Example 3.4-1 shows APR-CONF-003 and APR-CONF-013; section 3 assigns every section to a profile, and rules on implementations not claiming a profile moved to 3.1 (#486)",
       "issue": 475
     },
     "declaring-conformance/heading/947b40b7b4": {

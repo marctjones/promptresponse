@@ -307,10 +307,13 @@ profile is stated below, one per row.
 
 | Profile | Defined by | Requirement | Rule |
 | --- | --- | --- | --- |
-| `core` | [Representations](#representations) through [Text handling](#text-handling) | **REQUIRED** | [APR-CONF-006] |
-| `core+streams` | [Streams](#streams) and [Semantic digests](#digests) | **OPTIONAL** | [APR-CONF-007] |
-| `core+attestations` | [Attestations](#attestations) | **OPTIONAL** | [APR-CONF-008] |
-| `core+expressions` | [Expressions](#expressions) | **OPTIONAL** | [APR-CONF-009] |
+| `core` | [About this document](#scope), [Conformance profiles](#conformance), [Representations](#representations) through [Text handling](#text-handling), [Rendering](#renderers), and [Security considerations](#security) | **REQUIRED** | [APR-CONF-006] |
+| `core+streams` | [`core+streams`](#profile-streams), [Streams](#streams), and [Semantic digests](#digests) | **OPTIONAL** | [APR-CONF-007] |
+| `core+attestations` | [`core+attestations`](#profile-attestations) and [Attestations](#attestations) | **OPTIONAL** | [APR-CONF-008] |
+| `core+expressions` | [`core+expressions`](#profile-expressions) and [Expressions](#expressions) | **OPTIONAL** | [APR-CONF-009] |
+
+A subsection belongs to the profile of the section that contains it, unless a row
+names the subsection itself.
 
 An implementation that claims `core+attestations` **MUST** also claim
 `core+streams`. [APR-CONF-010]
@@ -318,53 +321,23 @@ An implementation that claims `core+attestations` **MUST** also claim
 ### 3.1 `core` {#profile-core}
 
 `core` covers reading, validating, filling, and writing one document in both
-representations, as [Representations](#representations) through
-[Text handling](#text-handling) define.
+representations, as the sections the `core` row names define.
 
 A core implementation is fully conformant. It is not a degraded one, and it need
 not emit HTML, PDF, or native controls. It exposes the semantic document and its
 advisory hints for a host or renderer to use.
 
-### 3.2 `core+streams` {#profile-streams}
-
-`core+streams` adds reading and writing streams of independent records
-([Streams](#streams)).
+What a profile adds is optional, and what an implementation does with a document
+or stream that uses a profile it does not claim is part of `core`.
 
 A reader that does not claim `core+streams`, given a stream, **MUST** report
 `APR_STREAM_REQUIRES_ITERATION` rather than select a record by position. [APR-CONF-001]
-
-### 3.3 `core+attestations` {#profile-attestations}
-
-`core+attestations` adds computing semantic digests and manifests, resolving
-attestations against forms, looking up witnesses, and reporting the verification
-vocabulary ([Attestations](#attestations)).
-
-A reader that claims `core+streams` but not `core+attestations` **MUST NOT**
-reject a stream because it contains attestation records. [APR-CONF-002]
-
-A writer that claims `core+streams` but not `core+attestations` **MUST** preserve
-attestation records across a round trip. [APR-CONF-011]
 
 An implementation that does not claim `core+attestations` **MUST NOT** report a
 document as verified. [APR-CONF-005]
 
 An implementation that does not claim `core+attestations` **SHOULD** indicate
 that attestations are present but unchecked. [APR-CONF-012]
-
-> Rationale: `core+attestations` is optional for a reason of policy, not merely
-> of cost. **Nobody is obliged to sign, and nobody is obliged to care that
-> something was signed.** A recipient may have every reason to trust a document
-> by other means — they know the sender, they requested the form, the data is
-> low-stakes, or they simply want to read it. Requiring verification before data
-> can be used would impose the form author's threat model on every reader, which
-> is not a decision the file format gets to make. Saying nothing is better than
-> saying verified, and saying "present, unchecked" is better than both. See
-> [Attestations never gate the data](#never-gate).
-
-### 3.4 `core+expressions` {#profile-expressions}
-
-`core+expressions` adds evaluating the `expr*` hint family
-([Expressions](#expressions)).
 
 A reader that does not claim `core+expressions` **MUST NOT** reject a document
 because it uses expressions. [APR-CONF-003]
@@ -376,11 +349,11 @@ A host rendering such a document presents those prompts as ordinary editable
 fields: a computed field becomes a field a person can type into, degraded but
 never broken and never lost.
 
-**Example 3.4-1.** An expression a writer preserves without evaluating it.
+**Example 3.1-1.** An expression a writer preserves without evaluating it.
 
 ```apr-example
 id: expression-preserved
-rule: profile-expressions
+rule: profile-core
 satisfies: APR-CONF-003, APR-CONF-013
 representation: jsonc
 expect: valid
@@ -402,6 +375,38 @@ preserves: /sections/0/prompts/1/hints/exprValue
   ]
 }
 ```
+
+### 3.2 `core+streams` {#profile-streams}
+
+`core+streams` adds reading and writing streams of independent records
+([Streams](#streams)).
+
+A reader that claims `core+streams` but not `core+attestations` **MUST NOT**
+reject a stream because it contains attestation records. [APR-CONF-002]
+
+A writer that claims `core+streams` but not `core+attestations` **MUST** preserve
+attestation records across a round trip. [APR-CONF-011]
+
+### 3.3 `core+attestations` {#profile-attestations}
+
+`core+attestations` adds computing semantic digests and manifests, resolving
+attestations against forms, looking up witnesses, and reporting the verification
+vocabulary ([Attestations](#attestations)).
+
+> Rationale: `core+attestations` is optional for a reason of policy, not merely
+> of cost. **Nobody is obliged to sign, and nobody is obliged to care that
+> something was signed.** A recipient may have every reason to trust a document
+> by other means — they know the sender, they requested the form, the data is
+> low-stakes, or they simply want to read it. Requiring verification before data
+> can be used would impose the form author's threat model on every reader, which
+> is not a decision the file format gets to make. Saying nothing is better than
+> saying verified, and saying "present, unchecked" is better than both. See
+> [Attestations never gate the data](#never-gate).
+
+### 3.4 `core+expressions` {#profile-expressions}
+
+`core+expressions` adds evaluating the `expr*` hint family
+([Expressions](#expressions)).
 
 ### 3.5 Declaring conformance {#declaring-conformance}
 

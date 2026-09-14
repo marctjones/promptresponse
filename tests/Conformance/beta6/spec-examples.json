@@ -961,8 +961,8 @@
     },
     {
       "id": "expression-preserved",
-      "number": "3.4-1",
-      "rule": "profile-expressions",
+      "number": "3.1-1",
+      "rule": "profile-core",
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"a\", \"label\": \"A\", \"response\": \"2\" },\n        { \"id\": \"total\", \"label\": \"Total\", \"hints\": { \"exprValue\": \"string(a)\" } }\n      ]\n    }\n  ]\n}\n",

@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "c4537f6e-ae2a-595a-8155-2a0d29820c0d",
+    "uuid": "d0898f20-655a-5c42-bc39-628eecfd1673",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "8544417077003f2e92e1f489ab53351087e42dae2162eae5ee494befaa41ee0e"
+          "value": "9d35f5de6ab802686721b5e5faec23e05fe97844e5a4f33c18c7267092584ff2"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -75,11 +75,58 @@
         "controls": [
           {
             "id": "apr-conf-001",
-            "title": "APR-CONF-001 — 3.2 `core+streams`",
+            "title": "APR-CONF-001 — 3.1 `core`",
             "props": [
               {
                 "name": "rule-id",
                 "value": "APR-CONF-001"
+              },
+              {
+                "name": "section",
+                "value": "profile-core"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-profile-core"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#profile-core",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-001_smt",
+                "name": "statement",
+                "prose": "A reader that does not claim `core+streams`, given a stream, **MUST** report `APR_STREAM_REQUIRES_ITERATION` rather than select a record by position."
+              },
+              {
+                "id": "apr-conf-001_gap",
+                "name": "assessment-gap",
+                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-002",
+            "title": "APR-CONF-002 — 3.2 `core+streams`",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-002"
               },
               {
                 "name": "section",
@@ -93,7 +140,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -109,28 +156,23 @@
             ],
             "parts": [
               {
-                "id": "apr-conf-001_smt",
+                "id": "apr-conf-002_smt",
                 "name": "statement",
-                "prose": "A reader that does not claim `core+streams`, given a stream, **MUST** report `APR_STREAM_REQUIRES_ITERATION` rather than select a record by position."
-              },
-              {
-                "id": "apr-conf-001_gap",
-                "name": "assessment-gap",
-                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately."
+                "prose": "A reader that claims `core+streams` but not `core+attestations` **MUST NOT** reject a stream because it contains attestation records."
               }
             ]
           },
           {
-            "id": "apr-conf-002",
-            "title": "APR-CONF-002 — 3.3 `core+attestations`",
+            "id": "apr-conf-003",
+            "title": "APR-CONF-003 — 3.1 `core`",
             "props": [
               {
                 "name": "rule-id",
-                "value": "APR-CONF-002"
+                "value": "APR-CONF-003"
               },
               {
                 "name": "section",
-                "value": "profile-attestations"
+                "value": "profile-core"
               },
               {
                 "name": "area",
@@ -145,59 +187,12 @@
               {
                 "name": "requirement",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-profile-attestations"
+                "value": "REQ-profile-core"
               }
             ],
             "links": [
               {
-                "href": "../APR_SPECIFICATION.md#profile-attestations",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-conf-002_smt",
-                "name": "statement",
-                "prose": "A reader that claims `core+streams` but not `core+attestations` **MUST NOT** reject a stream because it contains attestation records."
-              },
-              {
-                "id": "apr-conf-002_gap",
-                "name": "assessment-gap",
-                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
-              }
-            ]
-          },
-          {
-            "id": "apr-conf-003",
-            "title": "APR-CONF-003 — 3.4 `core+expressions`",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-CONF-003"
-              },
-              {
-                "name": "section",
-                "value": "profile-expressions"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "CONF"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-profile-expressions"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#profile-expressions",
+                "href": "../APR_SPECIFICATION.md#profile-core",
                 "rel": "reference"
               }
             ],
@@ -206,6 +201,11 @@
                 "id": "apr-conf-003_smt",
                 "name": "statement",
                 "prose": "A reader that does not claim `core+expressions` **MUST NOT** reject a document because it uses expressions."
+              },
+              {
+                "id": "apr-conf-003_gap",
+                "name": "assessment-gap",
+                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
               }
             ]
           },
@@ -258,7 +258,7 @@
           },
           {
             "id": "apr-conf-005",
-            "title": "APR-CONF-005 — 3.3 `core+attestations`",
+            "title": "APR-CONF-005 — 3.1 `core`",
             "props": [
               {
                 "name": "rule-id",
@@ -266,7 +266,7 @@
               },
               {
                 "name": "section",
-                "value": "profile-attestations"
+                "value": "profile-core"
               },
               {
                 "name": "area",
@@ -281,12 +281,12 @@
               {
                 "name": "requirement",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-profile-attestations"
+                "value": "REQ-profile-core"
               }
             ],
             "links": [
               {
-                "href": "../APR_SPECIFICATION.md#profile-attestations",
+                "href": "../APR_SPECIFICATION.md#profile-core",
                 "rel": "reference"
               }
             ],
@@ -299,7 +299,7 @@
               {
                 "id": "apr-conf-005_gap",
                 "name": "assessment-gap",
-                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
               }
             ]
           },
@@ -341,7 +341,7 @@
               {
                 "id": "apr-conf-006_smt",
                 "name": "statement",
-                "prose": "`core` — [Representations](#representations) through [Text handling](#text-handling) — **REQUIRED**"
+                "prose": "`core` — [About this document](#scope), [Conformance profiles](#conformance), [Representations](#representations) through [Text handling](#text-handling), [Rendering](#renderers), and [Security considerations](#security) — **REQUIRED**"
               },
               {
                 "id": "apr-conf-006_gap",
@@ -388,7 +388,7 @@
               {
                 "id": "apr-conf-007_smt",
                 "name": "statement",
-                "prose": "`core+streams` — [Streams](#streams) and [Semantic digests](#digests) — **OPTIONAL**"
+                "prose": "`core+streams` — [`core+streams`](#profile-streams), [Streams](#streams), and [Semantic digests](#digests) — **OPTIONAL**"
               },
               {
                 "id": "apr-conf-007_gap",
@@ -435,7 +435,7 @@
               {
                 "id": "apr-conf-008_smt",
                 "name": "statement",
-                "prose": "`core+attestations` — [Attestations](#attestations) — **OPTIONAL**"
+                "prose": "`core+attestations` — [`core+attestations`](#profile-attestations) and [Attestations](#attestations) — **OPTIONAL**"
               },
               {
                 "id": "apr-conf-008_gap",
@@ -482,7 +482,7 @@
               {
                 "id": "apr-conf-009_smt",
                 "name": "statement",
-                "prose": "`core+expressions` — [Expressions](#expressions) — **OPTIONAL**"
+                "prose": "`core+expressions` — [`core+expressions`](#profile-expressions) and [Expressions](#expressions) — **OPTIONAL**"
               },
               {
                 "id": "apr-conf-009_gap",
@@ -540,7 +540,7 @@
           },
           {
             "id": "apr-conf-011",
-            "title": "APR-CONF-011 — 3.3 `core+attestations`",
+            "title": "APR-CONF-011 — 3.2 `core+streams`",
             "props": [
               {
                 "name": "rule-id",
@@ -548,101 +548,7 @@
               },
               {
                 "name": "section",
-                "value": "profile-attestations"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "CONF"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-profile-attestations"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#profile-attestations",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-conf-011_smt",
-                "name": "statement",
-                "prose": "A writer that claims `core+streams` but not `core+attestations` **MUST** preserve attestation records across a round trip."
-              },
-              {
-                "id": "apr-conf-011_gap",
-                "name": "assessment-gap",
-                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
-              }
-            ]
-          },
-          {
-            "id": "apr-conf-012",
-            "title": "APR-CONF-012 — 3.3 `core+attestations`",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-CONF-012"
-              },
-              {
-                "name": "section",
-                "value": "profile-attestations"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "CONF"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-profile-attestations"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#profile-attestations",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-conf-012_smt",
-                "name": "statement",
-                "prose": "An implementation that does not claim `core+attestations` **SHOULD** indicate that attestations are present but unchecked."
-              },
-              {
-                "id": "apr-conf-012_gap",
-                "name": "assessment-gap",
-                "prose": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
-              }
-            ]
-          },
-          {
-            "id": "apr-conf-013",
-            "title": "APR-CONF-013 — 3.4 `core+expressions`",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-CONF-013"
-              },
-              {
-                "name": "section",
-                "value": "profile-expressions"
+                "value": "profile-streams"
               },
               {
                 "name": "area",
@@ -657,12 +563,101 @@
               {
                 "name": "requirement",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-profile-expressions"
+                "value": "REQ-profile-streams"
               }
             ],
             "links": [
               {
-                "href": "../APR_SPECIFICATION.md#profile-expressions",
+                "href": "../APR_SPECIFICATION.md#profile-streams",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-011_smt",
+                "name": "statement",
+                "prose": "A writer that claims `core+streams` but not `core+attestations` **MUST** preserve attestation records across a round trip."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-012",
+            "title": "APR-CONF-012 — 3.1 `core`",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-012"
+              },
+              {
+                "name": "section",
+                "value": "profile-core"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-profile-core"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#profile-core",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-conf-012_smt",
+                "name": "statement",
+                "prose": "An implementation that does not claim `core+attestations` **SHOULD** indicate that attestations are present but unchecked."
+              },
+              {
+                "id": "apr-conf-012_gap",
+                "name": "assessment-gap",
+                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
+              }
+            ]
+          },
+          {
+            "id": "apr-conf-013",
+            "title": "APR-CONF-013 — 3.1 `core`",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-CONF-013"
+              },
+              {
+                "name": "section",
+                "value": "profile-core"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "CONF"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-profile-core"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#profile-core",
                 "rel": "reference"
               }
             ],
@@ -671,6 +666,11 @@
                 "id": "apr-conf-013_smt",
                 "name": "statement",
                 "prose": "A writer that does not claim `core+expressions` **MUST** preserve expression strings across a round trip."
+              },
+              {
+                "id": "apr-conf-013_gap",
+                "name": "assessment-gap",
+                "prose": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
               }
             ]
           },
