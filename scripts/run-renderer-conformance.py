@@ -290,7 +290,6 @@ CHECKS = {
     "APR-RENDER-009": an_export_is_not_written_back,
     "APR-SEC-009": nothing_executes,
     "APR-SEC-010": opening_fetches_nothing,
-    "APR-SEC-011": the_required_depth_renders,
     "APR-EXPR-014": computed_stays_editable,
     "APR-MODEL-003": saving_is_not_blocked,
     "APR-VAL-006": saving_is_not_blocked,

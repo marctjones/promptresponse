@@ -445,7 +445,6 @@
     {
       "id": "sixteen-levels-render",
       "rules": [
-        "APR-SEC-011",
         "APR-MODEL-015"
       ],
       "asks": "the depth the format requires is rendered, not refused",

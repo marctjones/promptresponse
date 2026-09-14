@@ -118,7 +118,7 @@ Windows-only contract wearing a platform-neutral name.
 | `APR-RENDER-009` | `exportedDocument` is byte-identical to the input — **the PDF exporter's driver**, not Avalonia's, since Avalonia does not export |
 | `APR-SEC-009` | no case produces an execution: a document carrying script-looking text renders it as text |
 | `APR-SEC-010` | `requests` is empty for every case that involves no explicit user action |
-| `APR-SEC-011` | a sixteen-level document renders; a deeper one refuses cleanly rather than exhausting memory |
+| `APR-MODEL-015` | a sixteen-level document renders, with every prompt reachable |
 | `APR-MODEL-003`, `APR-VAL-006` | `saveResult.written` is true even where a hint mismatch or advisory is present |
 
 ### A hidden prompt is stated by the case, not worked out by the scorer
