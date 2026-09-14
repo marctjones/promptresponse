@@ -5648,10 +5648,9 @@ Everything else in APR is structure. That rule is the point, and
 
 This appendix is informative.
 
-This document is asked from time to time to add a record kind or a structural
-element for something common and important. The answer has usually been no.
-This appendix records the test, so the next such question is decided the same
-way as the last.
+This appendix states the test a concept meets to earn its own record kind or
+structural element, rather than being expressed with the ones this document
+already defines.
 
 **A concept earns a primitive when its content cannot be posed as questions and
 answers, and when a reader computes over it rather than rendering it.**
@@ -5667,8 +5666,8 @@ always a string a person typed ([Responses are strings](#responses)).
 
 A table does not, and [Tables](#tables) says so directly. Rows are ordinary
 sections and cells are ordinary prompts, and carrying `kind` is a claim about
-structure that already exists rather than a new thing. Tables are as common as
-anything proposed since, and commonness is not the test.
+structure that already exists rather than a new thing. Tables are common, and
+commonness is not the test.
 
 A receipt does not either. What it holds — when something arrived, under what
 reference, by what route — is answers with labels, read by people. It is a form
