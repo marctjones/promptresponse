@@ -327,7 +327,7 @@
               {
                 "id": "apr-conf-004_gap",
                 "name": "assessment-gap",
-                "prose": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable, and APR-CONF-014, what a claim names, is checked only as far as the profiles a driver declares."
+                "prose": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable, and APR-CONF-014, what a claim names, is checked only as far as the profiles a driver declares. Tracked in #527."
               }
             ]
           },
@@ -942,7 +942,7 @@
               {
                 "id": "apr-conf-014_gap",
                 "name": "assessment-gap",
-                "prose": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable, and APR-CONF-014, what a claim names, is checked only as far as the profiles a driver declares."
+                "prose": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable, and APR-CONF-014, what a claim names, is checked only as far as the profiles a driver declares. Tracked in #527."
               }
             ]
           }
@@ -2962,7 +2962,7 @@
               {
                 "id": "apr-model-007_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -3024,7 +3024,7 @@
               {
                 "id": "apr-model-008_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -3139,6 +3139,11 @@
                 "id": "apr-model-010_smt",
                 "name": "statement",
                 "prose": "Within each namespace, an id **MUST** be unique across the whole document, not merely among siblings."
+              },
+              {
+                "id": "apr-model-010_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -3196,6 +3201,11 @@
                 "id": "apr-model-011_smt",
                 "name": "statement",
                 "prose": "A validator **MUST** compare ids by exact code-point equality, applying no normalization, case folding, or trimming."
+              },
+              {
+                "id": "apr-model-011_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -4152,7 +4162,7 @@
               {
                 "id": "apr-model-033_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -4214,7 +4224,7 @@
               {
                 "id": "apr-model-034_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -4276,7 +4286,7 @@
               {
                 "id": "apr-model-035_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -4338,7 +4348,7 @@
               {
                 "id": "apr-model-036_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -4400,7 +4410,7 @@
               {
                 "id": "apr-model-037_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -5062,7 +5072,7 @@
               {
                 "id": "apr-model-048_gap",
                 "name": "assessment-gap",
-                "prose": "A recommendation about id spelling that carries no behaviour. No document is wrong for ignoring it, so no vector can reach it."
+                "prose": "A recommendation about id spelling. No document is wrong for ignoring it, so no vector can reach it; the editor's tests assert that the cells it creates are named {instanceId}.{columnId}."
               }
             ]
           },
@@ -5476,7 +5486,7 @@
               {
                 "id": "apr-model-057_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -5538,7 +5548,7 @@
               {
                 "id": "apr-model-058_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -5600,7 +5610,7 @@
               {
                 "id": "apr-model-059_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -5662,7 +5672,7 @@
               {
                 "id": "apr-model-060_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -5724,7 +5734,7 @@
               {
                 "id": "apr-model-061_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -5786,7 +5796,7 @@
               {
                 "id": "apr-model-062_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -5848,7 +5858,7 @@
               {
                 "id": "apr-model-063_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -5910,7 +5920,7 @@
               {
                 "id": "apr-model-064_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -6600,6 +6610,11 @@
                 "id": "apr-model-076_smt",
                 "name": "statement",
                 "prose": "`id` — non-blank string — **REQUIRED** — Unique document-wide among prompts."
+              },
+              {
+                "id": "apr-model-076_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -6657,6 +6672,11 @@
                 "id": "apr-model-077_smt",
                 "name": "statement",
                 "prose": "`label` — non-blank string — **REQUIRED** — The accessible name."
+              },
+              {
+                "id": "apr-model-077_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -6714,6 +6734,11 @@
                 "id": "apr-model-078_smt",
                 "name": "statement",
                 "prose": "`response` — string — **OPTIONAL** — Absent means empty ([Responses are strings](#responses))."
+              },
+              {
+                "id": "apr-model-078_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -6771,6 +6796,11 @@
                 "id": "apr-model-079_smt",
                 "name": "statement",
                 "prose": "`hints` — object — **OPTIONAL** — [Hints](#hints-object). Advisory in full."
+              },
+              {
+                "id": "apr-model-079_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -6828,6 +6858,11 @@
                 "id": "apr-model-080_smt",
                 "name": "statement",
                 "prose": "`role` — string — **OPTIONAL** — Overrides the containing section's role ([Roles](#roles))."
+              },
+              {
+                "id": "apr-model-080_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -6885,6 +6920,11 @@
                 "id": "apr-model-081_smt",
                 "name": "statement",
                 "prose": "`language` — string — **OPTIONAL** — A BCP 47 language tag, overriding the language the prompt inherits ([Metadata](#metadata))."
+              },
+              {
+                "id": "apr-model-081_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -6946,7 +6986,7 @@
               {
                 "id": "apr-model-082_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -7008,7 +7048,7 @@
               {
                 "id": "apr-model-083_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -7070,7 +7110,7 @@
               {
                 "id": "apr-model-084_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -7132,7 +7172,7 @@
               {
                 "id": "apr-model-085_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434."
               }
             ]
           },
@@ -7194,7 +7234,7 @@
               {
                 "id": "apr-model-086_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -7256,7 +7296,7 @@
               {
                 "id": "apr-model-087_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -7318,7 +7358,7 @@
               {
                 "id": "apr-model-088_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -7380,7 +7420,7 @@
               {
                 "id": "apr-model-089_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -7442,7 +7482,7 @@
               {
                 "id": "apr-model-090_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -7504,7 +7544,7 @@
               {
                 "id": "apr-model-091_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523)."
               }
             ]
           },
@@ -7562,6 +7602,11 @@
                 "id": "apr-model-092_smt",
                 "name": "statement",
                 "prose": "A section and a prompt **MAY** share an id."
+              },
+              {
+                "id": "apr-model-092_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -7619,6 +7664,11 @@
                 "id": "apr-model-093_smt",
                 "name": "statement",
                 "prose": "A template **SHOULD** keep each id unchanged across its versions."
+              },
+              {
+                "id": "apr-model-093_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -7676,6 +7726,11 @@
                 "id": "apr-model-094_smt",
                 "name": "statement",
                 "prose": "A writer **MUST NOT** change an id when it reorders prompts."
+              },
+              {
+                "id": "apr-model-094_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525)."
               }
             ]
           },
@@ -8089,7 +8144,7 @@
               {
                 "id": "apr-model-101_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-101 is renderer behaviour: presenting every prompt an instance carries. No renderer case asks it."
+                "prose": "APR-MODEL-101 is renderer behaviour: presenting every prompt an instance carries. No renderer case asks it (#526)."
               }
             ]
           },
@@ -8892,7 +8947,7 @@
               {
                 "id": "apr-model-115_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-115 and 117 are renderer behaviour: presenting an unrecognised type as text, and applying hints in the order the hints table lists them. No renderer case asks either."
+                "prose": "APR-MODEL-117 is renderer behaviour: applying hints in the order the hints table lists them, and no renderer case asks it (#526). APR-MODEL-115 is shown by render.test.ts and EveryFieldIsAnswerableTests."
               }
             ]
           },
@@ -9011,7 +9066,7 @@
               {
                 "id": "apr-model-117_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-115 and 117 are renderer behaviour: presenting an unrecognised type as text, and applying hints in the order the hints table lists them. No renderer case asks either."
+                "prose": "APR-MODEL-117 is renderer behaviour: applying hints in the order the hints table lists them, and no renderer case asks it (#526). APR-MODEL-115 is shown by render.test.ts and EveryFieldIsAnswerableTests."
               }
             ]
           },
@@ -15926,7 +15981,7 @@
               {
                 "id": "apr-attest-001_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -15988,7 +16043,7 @@
               {
                 "id": "apr-attest-002_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -16050,7 +16105,7 @@
               {
                 "id": "apr-attest-003_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -16112,7 +16167,7 @@
               {
                 "id": "apr-attest-004_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -16918,7 +16973,7 @@
               {
                 "id": "apr-attest-017_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17166,7 +17221,7 @@
               {
                 "id": "apr-attest-021_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17228,7 +17283,7 @@
               {
                 "id": "apr-attest-022_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17290,7 +17345,7 @@
               {
                 "id": "apr-attest-023_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17352,7 +17407,7 @@
               {
                 "id": "apr-attest-024_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17414,7 +17469,7 @@
               {
                 "id": "apr-attest-025_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17476,7 +17531,7 @@
               {
                 "id": "apr-attest-026_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17538,7 +17593,7 @@
               {
                 "id": "apr-attest-027_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17600,7 +17655,7 @@
               {
                 "id": "apr-attest-028_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17662,7 +17717,7 @@
               {
                 "id": "apr-attest-029_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17724,7 +17779,7 @@
               {
                 "id": "apr-attest-030_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
@@ -17786,7 +17841,7 @@
               {
                 "id": "apr-attest-031_gap",
                 "name": "assessment-gap",
-                "prose": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
+                "prose": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone."
               }
             ]
           },
