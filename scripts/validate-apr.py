@@ -503,7 +503,8 @@ def validate_attestation(report: Report, record) -> None:
     """An attestation is a record with its own rules, and they were unenforced."""
     if record.get("recordType") != "attestation":
         report.error("WRONG_TYPE", "/recordType",
-                     "recordType must be exactly 'attestation'", "APR-ATTEST-001")
+                     "recordType must be exactly 'attestation'", "APR-ATTEST-001",
+                     "APR-STREAM-007", "APR-STREAM-008")
     version = record.get("aprVersion")
     if version is None:
         report.error("REQUIRED_FIELD", "/aprVersion", "aprVersion is required",

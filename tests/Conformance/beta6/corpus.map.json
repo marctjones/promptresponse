@@ -264,6 +264,9 @@
       "expect": "valid",
       "anchors": [
         "streams"
+      ],
+      "rules": [
+        "APR-STREAM-005"
       ]
     },
     "streams/out-of-order.apr.yaml": {
@@ -271,6 +274,9 @@
       "anchors": [
         "streams",
         "apr-yaml"
+      ],
+      "rules": [
+        "APR-STREAM-005"
       ]
     },
     "malformed/attestation-missing-subject.apr.jsonc": {
@@ -294,8 +300,12 @@
     "malformed/missing-record-separator.apr.jsonc": {
       "expect": "reject",
       "anchors": [
-        "streams"
-      ]
+        "jsonc-framing"
+      ],
+      "rules": [
+        "APR-STREAM-006"
+      ],
+      "diagnostic": "PARSE_ERROR"
     },
     "malformed/yaml-anchor.apr.yaml": {
       "expect": "reject",

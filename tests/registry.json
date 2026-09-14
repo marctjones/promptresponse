@@ -580,9 +580,13 @@
         "APR-DIGEST-003",
         "APR-DIGEST-004",
         "APR-DIGEST-005",
-        "APR-DIGEST-006"
+        "APR-DIGEST-006",
+        "APR-DIGEST-007",
+        "APR-DIGEST-008",
+        "APR-DIGEST-009",
+        "APR-DIGEST-010"
       ],
-      "gap": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+      "gap": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
     },
     {
       "id": "REQ-export-no-writeback",
@@ -1626,10 +1630,6 @@
           "ref": "streams/out-of-order.apr.jsonc"
         },
         {
-          "type": "fixture",
-          "ref": "malformed/missing-record-separator.apr.jsonc"
-        },
-        {
           "type": "test",
           "ref": "Stream_PreservesAttestationAndAllFormOccurrences"
         },
@@ -1638,12 +1638,29 @@
           "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
         }
       ],
-      "gap": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API.",
+      "gap": "APR-STREAM-004 concerns which entry point was called: a reader asked for one form must report APR_STREAM_REQUIRES_ITERATION when handed a stream. The document suite asks every driver to read whole streams, so only the SDK unit tests reach it.",
       "rules": [
         "APR-STREAM-001",
         "APR-STREAM-003",
         "APR-STREAM-004",
-        "APR-STREAM-005"
+        "APR-STREAM-005",
+        "APR-STREAM-007",
+        "APR-STREAM-008"
+      ]
+    },
+    {
+      "id": "REQ-jsonc-framing",
+      "section": "jsonc-framing",
+      "statement": "A reader rejects an APR-JSONC stream in which a record is not preceded by RS",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "malformed/missing-record-separator.apr.jsonc"
+        }
+      ],
+      "rules": [
+        "APR-STREAM-006"
       ]
     },
     {

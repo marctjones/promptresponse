@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "71409502-3b62-5fbb-8541-7eed45a84842",
+    "uuid": "7d3bb2eb-793a-5dbb-8e94-f8db36ab1724",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "51c9162db662f0ff6b57ced12bcb383eacc35035eca9ac915a472acb89d7f4f2"
+          "value": "f7038dd28b8fe7fd61d3d72d2da572efb56dec89f4d701b76b2fcbe28790094c"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -9472,12 +9472,12 @@
               {
                 "id": "apr-stream-001_smt",
                 "name": "statement",
-                "prose": "A stream **MUST NOT** mix representations."
+                "prose": "A reader **MUST** reject a stream that mixes representations."
               },
               {
                 "id": "apr-stream-001_gap",
                 "name": "assessment-gap",
-                "prose": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API."
+                "prose": "APR-STREAM-004 concerns which entry point was called: a reader asked for one form must report APR_STREAM_REQUIRES_ITERATION when handed a stream. The document suite asks every driver to read whole streams, so only the SDK unit tests reach it."
               }
             ]
           },
@@ -9519,7 +9519,7 @@
               {
                 "id": "apr-stream-002_smt",
                 "name": "statement",
-                "prose": "The corpus supplies paired streams whose records have equal semantic models across the two representations. A stream reader **MUST** produce the same sequence of semantic records from either member of such a pair."
+                "prose": "A reader **MUST** produce the same sequence of semantic records from an APR-JSONC stream and an APR-YAML stream whose records, in order, have equal semantic models."
               }
             ]
           },
@@ -9561,12 +9561,12 @@
               {
                 "id": "apr-stream-003_smt",
                 "name": "statement",
-                "prose": "It **MUST NOT** deduplicate repeated form occurrences, even when their semantic digests are identical. Two occurrences of one form are two records, and a reader that collapses them has lost a fact the sender stated."
+                "prose": "A reader **MUST NOT** deduplicate repeated form occurrences, even when their semantic digests are identical."
               },
               {
                 "id": "apr-stream-003_gap",
                 "name": "assessment-gap",
-                "prose": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API."
+                "prose": "APR-STREAM-004 concerns which entry point was called: a reader asked for one form must report APR_STREAM_REQUIRES_ITERATION when handed a stream. The document suite asks every driver to read whole streams, so only the SDK unit tests reach it."
               }
             ]
           },
@@ -9608,12 +9608,12 @@
               {
                 "id": "apr-stream-004_smt",
                 "name": "statement",
-                "prose": "A single-form API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position. A streaming API yields every record and may hold an unresolved attestation until its subject form has been observed."
+                "prose": "A reader asked for a single form that is given a stream **MUST** report `APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position."
               },
               {
                 "id": "apr-stream-004_gap",
                 "name": "assessment-gap",
-                "prose": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API."
+                "prose": "APR-STREAM-004 concerns which entry point was called: a reader asked for one form must report APR_STREAM_REQUIRES_ITERATION when handed a stream. The document suite asks every driver to read whole streams, so only the SDK unit tests reach it."
               }
             ]
           },
@@ -9655,12 +9655,148 @@
               {
                 "id": "apr-stream-005_smt",
                 "name": "statement",
-                "prose": "A stream is an ordered transport of independent records. Physical order is presentation only: a reader **MUST NOT** derive a subject, a revision, a chronology, or a trust relationship from the position of a record."
+                "prose": "A reader **MUST NOT** derive a subject, a revision, a chronology, or a trust relationship from the position of a record."
               },
               {
                 "id": "apr-stream-005_gap",
                 "name": "assessment-gap",
-                "prose": "Mixed-representation stream rejection has no fixture. APR-STREAM-004 is about which API was called: a single-form entry point handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not pick a record by position. The harness passes a document and reads an answer; it does not choose the caller's API."
+                "prose": "APR-STREAM-004 concerns which entry point was called: a reader asked for one form must report APR_STREAM_REQUIRES_ITERATION when handed a stream. The document suite asks every driver to read whole streams, so only the SDK unit tests reach it."
+              }
+            ]
+          },
+          {
+            "id": "apr-stream-006",
+            "title": "APR-STREAM-006 — 9.1 JSONC framing",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-STREAM-006"
+              },
+              {
+                "name": "section",
+                "value": "jsonc-framing"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "STREAM"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-jsonc-framing"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#jsonc-framing",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-stream-006_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** reject an APR-JSONC stream in which a record is not preceded by `RS`."
+              }
+            ]
+          },
+          {
+            "id": "apr-stream-007",
+            "title": "APR-STREAM-007 — 9. Streams",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-STREAM-007"
+              },
+              {
+                "name": "section",
+                "value": "streams"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "STREAM"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-stream-records"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#streams",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-stream-007_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** reject a record that is neither a form nor an attestation."
+              },
+              {
+                "id": "apr-stream-007_gap",
+                "name": "assessment-gap",
+                "prose": "APR-STREAM-004 concerns which entry point was called: a reader asked for one form must report APR_STREAM_REQUIRES_ITERATION when handed a stream. The document suite asks every driver to read whole streams, so only the SDK unit tests reach it."
+              }
+            ]
+          },
+          {
+            "id": "apr-stream-008",
+            "title": "APR-STREAM-008 — 9. Streams",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-STREAM-008"
+              },
+              {
+                "name": "section",
+                "value": "streams"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "STREAM"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-stream-records"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#streams",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-stream-008_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** read a record that carries `recordType` as an attestation, and any other record as a form."
+              },
+              {
+                "id": "apr-stream-008_gap",
+                "name": "assessment-gap",
+                "prose": "APR-STREAM-004 concerns which entry point was called: a reader asked for one form must report APR_STREAM_REQUIRES_ITERATION when handed a stream. The document suite asks every driver to read whole streams, so only the SDK unit tests reach it."
               }
             ]
           }
@@ -9713,7 +9849,7 @@
               {
                 "id": "apr-digest-001_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
               }
             ]
           },
@@ -9755,12 +9891,12 @@
               {
                 "id": "apr-digest-002_smt",
                 "name": "statement",
-                "prose": "A form digest includes every APR-defined member and every unknown extension member that survived parsing. It excludes only representation trivia. A verifier that cannot preserve or digest an extension member **MUST** report the assertion as `unverifiable`, not valid."
+                "prose": "An implementation **MUST** include in a form digest every APR-defined member and every unknown member that survived parsing, and exclude only source trivia."
               },
               {
                 "id": "apr-digest-002_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
               }
             ]
           },
@@ -9807,7 +9943,7 @@
               {
                 "id": "apr-digest-003_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
               }
             ]
           },
@@ -9849,12 +9985,12 @@
               {
                 "id": "apr-digest-004_smt",
                 "name": "statement",
-                "prose": "`entries` **MUST** contain the root pointer, and **SHOULD** contain one entry for every value in the semantic model at every depth, extension members included. A `fields` scope is the exception: what it carries is stated in [Scope](#attestation-scope), and nothing further is expected of it."
+                "prose": "`entries` **MUST** contain the root pointer."
               },
               {
                 "id": "apr-digest-004_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
               }
             ]
           },
@@ -9901,7 +10037,7 @@
               {
                 "id": "apr-digest-005_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
               }
             ]
           },
@@ -9943,12 +10079,200 @@
               {
                 "id": "apr-digest-006_smt",
                 "name": "statement",
-                "prose": "`jcs-sha256` is the semantic digest algorithm. A digest **MUST** be computed over the RFC 8785 JCS serialization of the fully parsed JSON semantic model, encoded as UTF-8, and expressed as lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`. Source syntax **MUST NOT** be hashed."
+                "prose": "An implementation that computes a semantic digest **MUST** compute it over the RFC 8785 JCS serialization of the fully parsed JSON semantic model, encoded as UTF-8, and express it as lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`."
               },
               {
                 "id": "apr-digest-006_gap",
                 "name": "assessment-gap",
-                "prose": "Entry ordering is gated by scripts/check-corpus.py; that a verifier reports a difference only at a path the manifest carries is reader behaviour no vector asserts."
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+              }
+            ]
+          },
+          {
+            "id": "apr-digest-007",
+            "title": "APR-DIGEST-007 — 10. Semantic digests and manifests",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-DIGEST-007"
+              },
+              {
+                "name": "section",
+                "value": "digests"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "DIGEST"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-digests-manifests"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#digests",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-digest-007_smt",
+                "name": "statement",
+                "prose": "A verifier that cannot preserve or digest an unknown member **MUST** report the assertion as `unverifiable`, not valid."
+              },
+              {
+                "id": "apr-digest-007_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+              }
+            ]
+          },
+          {
+            "id": "apr-digest-008",
+            "title": "APR-DIGEST-008 — 10. Semantic digests and manifests",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-DIGEST-008"
+              },
+              {
+                "name": "section",
+                "value": "digests"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "DIGEST"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-digests-manifests"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#digests",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-digest-008_smt",
+                "name": "statement",
+                "prose": "`path` — string — **REQUIRED** — A JSON Pointer (RFC 6901) to a value in the semantic model."
+              },
+              {
+                "id": "apr-digest-008_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+              }
+            ]
+          },
+          {
+            "id": "apr-digest-009",
+            "title": "APR-DIGEST-009 — 10. Semantic digests and manifests",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-DIGEST-009"
+              },
+              {
+                "name": "section",
+                "value": "digests"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "DIGEST"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-digests-manifests"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#digests",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-digest-009_smt",
+                "name": "statement",
+                "prose": "`digest` — string — **REQUIRED** — The digest of the JCS encoding of the value at `path`."
+              },
+              {
+                "id": "apr-digest-009_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
+              }
+            ]
+          },
+          {
+            "id": "apr-digest-010",
+            "title": "APR-DIGEST-010 — 10. Semantic digests and manifests",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-DIGEST-010"
+              },
+              {
+                "name": "section",
+                "value": "digests"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "DIGEST"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-digests-manifests"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#digests",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-digest-010_smt",
+                "name": "statement",
+                "prose": "An implementation producing a manifest **SHOULD** give it one entry for every value in the semantic model at every depth, unknown members included."
+              },
+              {
+                "id": "apr-digest-010_gap",
+                "name": "assessment-gap",
+                "prose": "Entry ordering, the root pointer and the digest shape are checked by the reference validator. No vector asserts APR-DIGEST-005 or 007, which are verifier behaviour, or 008 to 010, the members and completeness of a manifest's entries."
               }
             ]
           }

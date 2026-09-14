@@ -28,6 +28,10 @@
     "reason": "A constraint on a declaration, not on a document; the harness refuses a declaration that breaks it.",
     "coveredBy": ["scripts/run-conformance.py"]
   },
+  "APR-DIGEST-006": {
+    "reason": "A rule on how a digest is computed; no document can make an implementation compute another.",
+    "coveredBy": ["spec:digest-ignores-source-syntax", "spec:digest-same-in-yaml"]
+  },
   "APR-EXPR-014": {
     "reason": "A computed value staying editable is renderer behaviour; a document cannot show it.",
     "coveredBy": ["renderer:a-computed-prompt-stays-editable"]
@@ -375,6 +379,14 @@
   "APR-SEC-012": {
     "reason": "A rule on the media type a writer labels content with; a document carries no media type.",
     "coveredBy": ["tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs", "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"]
+  },
+  "APR-STREAM-004": {
+    "reason": "A rule on a reader asked for a single form; the document suite asks every reader to read whole streams.",
+    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+  },
+  "APR-STREAM-008": {
+    "reason": "A rule on how a reader tells a record's kind; a document cannot make a reader choose the other.",
+    "coveredBy": ["spec:stream-record-unknown-type", "spec:yaml-stream-two-forms"]
   },
   "APR-TEXT-005": {
     "reason": "A permission to hold authoring members to stricter rules, which no document can violate.",

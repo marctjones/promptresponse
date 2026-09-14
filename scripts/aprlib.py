@@ -70,7 +70,7 @@ ENFORCES = {
     # The generic parse refusal. It is what enforces the two representation rules
     # whose violation is a decoding failure rather than a named construct, and
     # naming it is what APR-VAL-010 asks for.
-    "PARSE_ERROR": ("APR-REP-005", "APR-REP-007", "APR-REP-009", "APR-VAL-010"),
+    "PARSE_ERROR": ("APR-REP-005", "APR-REP-007", "APR-REP-009", "APR-STREAM-006", "APR-VAL-010"),
 }
 
 

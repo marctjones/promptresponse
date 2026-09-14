@@ -8015,7 +8015,8 @@
       "kind": "heading",
       "text": "9. Streams",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "streams/sentence/e50b98d973": {
       "anchor": "streams",
@@ -8023,15 +8024,22 @@
       "kind": "sentence",
       "text": "A stream is an ordered transport of independent records.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "streams/sentence/2dbd7cb9e8": {
       "anchor": "streams",
       "chapter": 9,
       "kind": "sentence",
       "text": "Physical order is presentation only: a reader **MUST NOT** derive a subject, a revision, a chronology, or a trust relationship from the position of a record. [APR-STREAM-005]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "streams/sentence/bcb37d4617",
+        "streams/sentence/cca68864f7"
+      ],
+      "note": "the reader rule is a sentence of its own",
+      "issue": 482
     },
     "streams/sentence/eb646f2087": {
       "anchor": "streams",
@@ -8039,7 +8047,17 @@
       "kind": "sentence",
       "text": "Each record is exactly one of:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "streams/sentence/eb646f2087",
+        "streams/sentence/c20caf7568",
+        "streams/sentence/b2df0b5bf1",
+        "streams/example/f6d17d340c",
+        "streams/sentence/934ffc2ef3",
+        "streams/sentence/a6b7088fdf"
+      ],
+      "note": "a reader reads by recordType (APR-STREAM-008) and rejects any other record (APR-STREAM-007, #451)",
+      "issue": 482
     },
     "streams/list-item/01c8317d31": {
       "anchor": "streams",
@@ -8047,7 +8065,8 @@
       "kind": "list-item",
       "text": "a complete standalone APR form; or",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "streams/list-item/cd8cb7e8b2": {
       "anchor": "streams",
@@ -8055,7 +8074,8 @@
       "kind": "list-item",
       "text": "an APR attestation.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "streams/sentence/b45704efcb": {
       "anchor": "streams",
@@ -8063,7 +8083,12 @@
       "kind": "sentence",
       "text": "A stream **MUST NOT** mix representations. [APR-STREAM-001]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "streams/sentence/855bab8a9b"
+      ],
+      "note": "a reader is the subject, as for APR-STREAM-006 and 007 (#451)",
+      "issue": 482
     },
     "streams/sentence/62ca776a4e": {
       "anchor": "streams",
@@ -8071,7 +8096,12 @@
       "kind": "sentence",
       "text": "It **MUST NOT** deduplicate repeated form occurrences, even when their semantic digests are identical.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "streams/sentence/b2d50e2e73"
+      ],
+      "note": "a reader is the subject",
+      "issue": 482
     },
     "streams/sentence/4f34851bba": {
       "anchor": "streams",
@@ -8079,7 +8109,11 @@
       "kind": "sentence",
       "text": "Two occurrences of one form are two records, and a reader that collapses them has lost a fact the sender stated. [APR-STREAM-003]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "streams/sentence/c9ffee119a"
+      ],
+      "issue": 482
     },
     "streams/sentence/9cba06f7b6": {
       "anchor": "streams",
@@ -8087,7 +8121,12 @@
       "kind": "sentence",
       "text": "A single-form API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "streams/sentence/d5b92688fd"
+      ],
+      "note": "a reader asked for a single form is the subject",
+      "issue": 482
     },
     "streams/sentence/6c12cfc55c": {
       "anchor": "streams",
@@ -8095,8 +8134,12 @@
       "kind": "sentence",
       "text": "A streaming API yields every record and may hold an unresolved attestation until its subject form has been observed. [APR-STREAM-004]",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "streams/sentence/86b82bc97b"
+      ],
+      "note": "holding an attestation until its subject arrives is chapter 12's to state",
+      "issue": 482
     },
     "streams/rationale/6aa8bc9614": {
       "anchor": "streams",
@@ -8104,7 +8147,11 @@
       "kind": "rationale",
       "text": "Rationale: a stream exists so that a form and the assertions about it can travel together, and so that several related forms can be one file. It is deliberately *not* a revision history: nothing in the ordering says one form supersedes another. A workflow that wants revisions builds them from attestations, where the relationship is proved rather than positional.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "streams/rationale/6aa8bc9614"
+      ],
+      "issue": 482
     },
     "jsonc-framing/heading/763af731f1": {
       "anchor": "jsonc-framing",
@@ -8112,7 +8159,17 @@
       "kind": "heading",
       "text": "9.1 JSONC framing",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "jsonc-framing/heading/763af731f1",
+        "jsonc-framing/example/5282cd049f",
+        "jsonc-framing/sentence/033d62939f",
+        "jsonc-framing/sentence/26a5ffdffb",
+        "jsonc-framing/example/eec3e15b1a",
+        "jsonc-framing/sentence/57a73b4157",
+        "jsonc-framing/sentence/faf3c994c3"
+      ],
+      "issue": 482
     },
     "jsonc-framing/sentence/0a2b8ae387": {
       "anchor": "jsonc-framing",
@@ -8120,7 +8177,8 @@
       "kind": "sentence",
       "text": "APR-JSONC streams use the JSON text sequence framing of RFC 7464, with the element grammar replaced by APR-JSONC.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "jsonc-framing/code/e79307d92a": {
       "anchor": "jsonc-framing",
@@ -8128,7 +8186,8 @@
       "kind": "code",
       "text": "```abnf\napr-jsonc-stream = *record\nrecord           = RS apr-jsonc-text LF\nRS               = %x1E\nLF               = %x0A\n```",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "jsonc-framing/sentence/5d66180f68": {
       "anchor": "jsonc-framing",
@@ -8136,23 +8195,31 @@
       "kind": "sentence",
       "text": "A comment is confined to its one JSONC record: `apr-jsonc-text` bounds it, so no comment can span the separator.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "jsonc-framing/sentence/9c374bfaef": {
       "anchor": "jsonc-framing",
       "chapter": 9,
       "kind": "sentence",
       "text": "A record not preceded by `RS` is a framing failure.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "replacedBy": [
+        "jsonc-framing/sentence/13ac5f24b7"
+      ],
+      "note": "a reader rejects the stream: APR-STREAM-006 (#451)",
+      "issue": 482
     },
     "jsonc-framing/sentence/d747262ace": {
       "anchor": "jsonc-framing",
       "chapter": 9,
       "kind": "sentence",
       "text": "*Negative case:* `malformed/missing-record-separator.apr.jsonc`.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "the corpus map cites APR-STREAM-006 for the vector; the specification names no test file",
+      "issue": 482
     },
     "yaml-framing/heading/b78abf5241": {
       "anchor": "yaml-framing",
@@ -8160,7 +8227,8 @@
       "kind": "heading",
       "text": "9.2 YAML framing",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "yaml-framing/sentence/ca3c03c4ba": {
       "anchor": "yaml-framing",
@@ -8168,7 +8236,8 @@
       "kind": "sentence",
       "text": "APR-YAML streams are YAML streams: the document productions of YAML 1.2.2 chapter 9 apply unchanged, and every YAML document in the stream is exactly one APR record.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "yaml-framing/sentence/bedfde2bec": {
       "anchor": "yaml-framing",
@@ -8176,7 +8245,8 @@
       "kind": "sentence",
       "text": "No additional framing is defined, because YAML already has one.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "yaml-framing/sentence/178dfed2ba": {
       "anchor": "yaml-framing",
@@ -8184,7 +8254,11 @@
       "kind": "sentence",
       "text": "**Example 6.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "yaml-framing/sentence/8607eaa193"
+      ],
+      "issue": 482
     },
     "yaml-framing/sentence/69d082f832": {
       "anchor": "yaml-framing",
@@ -8192,15 +8266,21 @@
       "kind": "sentence",
       "text": "A YAML stream carrying two independent forms.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "yaml-framing/code/f2daa97aea": {
       "anchor": "yaml-framing",
       "chapter": 9,
       "kind": "code",
       "text": "```yaml\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Household contact card\nsections:\n  - id: contact\n    title: Contact\n    prompts:\n      - id: full_name\n        label: Full name\n        response: \"\"\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Emergency contact card\nsections:\n  - id: emergency\n    title: Emergency contact\n    prompts:\n      - id: emergency_name\n        label: Name\n        response: \"\"\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "replacedBy": [
+        "yaml-framing/example/ffa48a7ec7"
+      ],
+      "note": "executable, satisfying APR-STREAM-001 and 007",
+      "issue": 482
     },
     "yaml-framing/sentence/942229c54d": {
       "anchor": "yaml-framing",
@@ -8208,7 +8288,13 @@
       "kind": "sentence",
       "text": "A stream carries one representation throughout.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "yaml-framing/sentence/fea588a360",
+        "yaml-framing/sentence/db56c7da44"
+      ],
+      "note": "restated APR-STREAM-001; it is now the caption of Example 9.2-2",
+      "issue": 482
     },
     "yaml-framing/example/82a02e34e6": {
       "anchor": "yaml-framing",
@@ -8216,7 +8302,8 @@
       "kind": "example",
       "text": "```apr-example\nid: stream-mixed-representations\nrule: streams\nviolates: APR-STREAM-001\nrepresentation: jsonc-stream\nexpect: reject\ndiagnostic: APR_STREAM_MIXED_REPRESENTATIONS\n---\n{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: second\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n```",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "stream-equivalence/heading/e99c0f2ced": {
       "anchor": "stream-equivalence",
@@ -8224,15 +8311,18 @@
       "kind": "heading",
       "text": "9.3 Equivalence",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "stream-equivalence/sentence/89041055a6": {
       "anchor": "stream-equivalence",
       "chapter": 9,
       "kind": "sentence",
       "text": "The corpus supplies paired streams whose records have equal semantic models across the two representations.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "the specification does not describe its test corpus",
+      "issue": 482
     },
     "stream-equivalence/sentence/9cac0e0804": {
       "anchor": "stream-equivalence",
@@ -8240,7 +8330,12 @@
       "kind": "sentence",
       "text": "A stream reader **MUST** produce the same sequence of semantic records from either member of such a pair. [APR-STREAM-002]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "stream-equivalence/sentence/a607d95c9e"
+      ],
+      "note": "a reader is the subject, and the pair is defined by its records",
+      "issue": 482
     },
     "digests/heading/72f8a73921": {
       "anchor": "digests",
@@ -8248,7 +8343,17 @@
       "kind": "heading",
       "text": "10. Semantic digests and manifests",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/heading/72f8a73921",
+        "digests/example/c0762bbafc",
+        "digests/sentence/48768a5081",
+        "digests/sentence/63b62a0b70",
+        "digests/example/ffb3212965",
+        "digests/sentence/93f02461eb",
+        "digests/sentence/6bf3c94c41"
+      ],
+      "issue": 482
     },
     "digests/sentence/d1024dc7ca": {
       "anchor": "digests",
@@ -8256,7 +8361,8 @@
       "kind": "sentence",
       "text": "`jcs-sha256` is the semantic digest algorithm.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "digests/sentence/bace9f955a": {
       "anchor": "digests",
@@ -8264,15 +8370,25 @@
       "kind": "sentence",
       "text": "A digest **MUST** be computed over the RFC 8785 JCS serialization of the fully parsed JSON semantic model, encoded as UTF-8, and expressed as lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/9894813331"
+      ],
+      "note": "an implementation computing a digest is the subject",
+      "issue": 482
     },
     "digests/sentence/58ba85f4e6": {
       "anchor": "digests",
       "chapter": 10,
       "kind": "sentence",
       "text": "Source syntax **MUST NOT** be hashed. [APR-DIGEST-006]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/861d7eca92"
+      ],
+      "note": "restated APR-DIGEST-006; kept as its consequence, shown by Examples 10-1 and 10-2",
+      "issue": 482
     },
     "digests/sentence/ea8e056a57": {
       "anchor": "digests",
@@ -8280,15 +8396,24 @@
       "kind": "sentence",
       "text": "A digest value **MUST** match `^sha256:[0-9a-f]{64}$`. [APR-DIGEST-001]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/ea8e056a57"
+      ],
+      "issue": 482
     },
     "digests/sentence/70613a2d32": {
       "anchor": "digests",
       "chapter": 10,
       "kind": "sentence",
       "text": "A form digest includes every APR-defined member and every unknown extension member that survived parsing.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/d005a24fa5"
+      ],
+      "note": "an implementation is the subject",
+      "issue": 482
     },
     "digests/sentence/a2f2f122f4": {
       "anchor": "digests",
@@ -8296,7 +8421,12 @@
       "kind": "sentence",
       "text": "It excludes only representation trivia.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/d005a24fa5"
+      ],
+      "note": "part of APR-DIGEST-002",
+      "issue": 482
     },
     "digests/sentence/6981bdc7a4": {
       "anchor": "digests",
@@ -8304,7 +8434,12 @@
       "kind": "sentence",
       "text": "A verifier that cannot preserve or digest an extension member **MUST** report the assertion as `unverifiable`, not valid. [APR-DIGEST-002]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/2c87486383"
+      ],
+      "note": "APR-DIGEST-007, split from APR-DIGEST-002 (#445)",
+      "issue": 482
     },
     "digests/rationale/762f3954dd": {
       "anchor": "digests",
@@ -8312,7 +8447,12 @@
       "kind": "rationale",
       "text": "Rationale: including extensions prevents a whole-form attestation from silently omitting a meaningful member. An earlier signature scheme enumerated known fields only, which meant extension data on a signed document could be altered without invalidating the signature.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/rationale/9e6b779b8f"
+      ],
+      "note": "the sentence describing an earlier signature scheme is deleted",
+      "issue": 482
     },
     "digests/sentence/7486756b46": {
       "anchor": "digests",
@@ -8320,7 +8460,11 @@
       "kind": "sentence",
       "text": "An integrity manifest does not duplicate plaintext.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/d2c8700618"
+      ],
+      "issue": 482
     },
     "digests/sentence/d4580a82cf": {
       "anchor": "digests",
@@ -8328,15 +8472,27 @@
       "kind": "sentence",
       "text": "It contains `root`, the digest of the subject form, and `entries`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/f24c072a51"
+      ],
+      "issue": 482
     },
     "digests/sentence/0ccbcb0fb5": {
       "anchor": "digests",
       "chapter": 10,
       "kind": "sentence",
       "text": "Each entry has a JSON Pointer `path` (RFC 6901) and a digest of the JCS encoding of the value at that path.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/41d1c86e70",
+        "digests/table-header/a69e784d8d",
+        "digests/table-row/addd206744",
+        "digests/table-row/a06418e273"
+      ],
+      "note": "an entry's members are a table: APR-DIGEST-008 and 009 (#452)",
+      "issue": 482
     },
     "digests/sentence/080b92425b": {
       "anchor": "digests",
@@ -8344,15 +8500,25 @@
       "kind": "sentence",
       "text": "`entries` **MUST** be ordered by `path`, compared as strings, and **MUST NOT** repeat a path. [APR-DIGEST-003]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/080b92425b"
+      ],
+      "issue": 482
     },
     "digests/sentence/a11551ab29": {
       "anchor": "digests",
       "chapter": 10,
       "kind": "sentence",
       "text": "`entries` **MUST** contain the root pointer, and **SHOULD** contain one entry for every value in the semantic model at every depth, extension members included.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/d84bf495cc",
+        "digests/sentence/80ceee5cf4"
+      ],
+      "note": "the root pointer stays APR-DIGEST-004; completeness is APR-DIGEST-010 (#445)",
+      "issue": 482
     },
     "digests/sentence/ddcf7bdddd": {
       "anchor": "digests",
@@ -8360,7 +8526,11 @@
       "kind": "sentence",
       "text": "A `fields` scope is the exception: what it carries is stated in [Scope](#attestation-scope), and nothing further is expected of it. [APR-DIGEST-004]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/9720a9103c"
+      ],
+      "issue": 482
     },
     "digests/sentence/89021756bf": {
       "anchor": "digests",
@@ -8368,7 +8538,8 @@
       "kind": "sentence",
       "text": "Integrity comes from `root` alone.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "digests/sentence/8048ccf27a": {
       "anchor": "digests",
@@ -8376,7 +8547,8 @@
       "kind": "sentence",
       "text": "Entries are how a verifier explains *which* values differ without the manifest retaining what they used to be, so a manifest missing a path explains less and proves exactly as much.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 482
     },
     "digests/sentence/a763e3076e": {
       "anchor": "digests",
@@ -8384,7 +8556,11 @@
       "kind": "sentence",
       "text": "A verifier that finds a subject differing from `root` **MUST** report the difference at the most specific path the manifest carries, and **MUST NOT** report a path it does not. [APR-DIGEST-005]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "digests/sentence/a763e3076e"
+      ],
+      "issue": 482
     },
     "digests/rationale/38db91b439": {
       "anchor": "digests",
@@ -8392,8 +8568,11 @@
       "kind": "rationale",
       "text": "Rationale: ordering is required because two manifests over one form should be one manifest. Completeness is recommended rather than required because a whole-document manifest over a large form runs to thousands of entries, and buying diagnosis with size is the signer's call.",
       "disposition": "rationale",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "digests/rationale/38db91b439"
+      ],
+      "issue": 482
     },
     "expressions/heading/46a435e874": {
       "anchor": "expressions",
