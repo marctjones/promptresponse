@@ -158,7 +158,13 @@ def load_yaml(text: str) -> list:
             "PyYAML is required to read APR-YAML: pip install pyyaml") from exc
 
     class Loader(yaml.SafeLoader):
-        pass
+        def construct_mapping(self, node, deep=False):
+            # A key resolves by the same table as a value, and a member name can
+            # only be a string: `true:` or `12:` has no JSON spelling. [APR-REP-009]
+            mapping = super().construct_mapping(node, deep=deep)
+            if any(not isinstance(key, str) for key in mapping):
+                raise AprError("PARSE_ERROR")
+            return mapping
 
     def resolve_scalar(loader, node):
         value = node.value

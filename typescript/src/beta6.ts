@@ -159,7 +159,7 @@ function aprResolve(node: unknown): JsonValue {
     const object: Record<string, JsonValue> = {};
     for (const pair of node.items) {
       const key = aprResolve(pair.key);
-      if (typeof key !== "string") throw new AprParseError("APR YAML requires every mapping key to be a string");
+      if (typeof key !== "string") throw new AprParseError("APR YAML requires every mapping key to resolve to a string", "PARSE_ERROR");
       object[key] = aprResolve(pair.value);
     }
     return object;

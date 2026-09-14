@@ -399,8 +399,11 @@ public sealed class AprBeta6Reader
                 writer.WriteStartObject();
                 foreach (var (key, value) in mapping.Children)
                 {
-                    if (key is not YamlDotNet.RepresentationModel.YamlScalarNode scalarKey)
-                        throw new SerializationException("APR YAML requires every mapping key to be a string.");
+                    // A key resolves by the same table as a value, and a member name can
+                    // only be a string: `true:` or `12:` has no JSON spelling. [APR-REP-009]
+                    if (key is not YamlDotNet.RepresentationModel.YamlScalarNode scalarKey || !ResolvesToString(scalarKey))
+                        throw new SerializationException("APR YAML requires every mapping key to resolve to a string.")
+                        { Code = "PARSE_ERROR" };
                     writer.WritePropertyName(scalarKey.Value ?? "");
                     WriteYamlNode(writer, value);
                 }
@@ -417,6 +420,15 @@ public sealed class AprBeta6Reader
             default:
                 throw new SerializationException("APR YAML contains a node APR does not define.");
         }
+    }
+
+    private static bool ResolvesToString(YamlDotNet.RepresentationModel.YamlScalarNode scalar)
+    {
+        if (scalar.Style is not (YamlDotNet.Core.ScalarStyle.Plain or YamlDotNet.Core.ScalarStyle.Any))
+            return true;
+        var text = scalar.Value ?? "";
+        return text is not ("" or "~" or "null" or "Null" or "NULL" or "true" or "True" or "TRUE"
+            or "false" or "False" or "FALSE") && !JsonNumber.IsMatch(text);
     }
 
     private static void WriteYamlScalar(Utf8JsonWriter writer, YamlDotNet.RepresentationModel.YamlScalarNode scalar)
