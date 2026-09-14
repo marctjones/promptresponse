@@ -3141,24 +3141,48 @@ document stays valid.
 ## 9. Streams {#streams}
 
 A stream is an ordered transport of independent records. Physical order is
-presentation only: a reader **MUST NOT** derive a subject, a revision, a
-chronology, or a trust relationship from the position of a record. [APR-STREAM-005]
+presentation only.
+
+A reader **MUST NOT** derive a subject, a revision, a chronology, or a trust
+relationship from the position of a record. [APR-STREAM-005]
 
 Each record is exactly one of:
 
 - a complete standalone APR form; or
 - an APR attestation.
 
-A stream **MUST NOT** mix representations. [APR-STREAM-001]
+A reader **MUST** read a record that carries `recordType` as an attestation, and any
+other record as a form. [APR-STREAM-008]
 
-It **MUST NOT** deduplicate repeated form occurrences, even when their semantic
-digests are identical. Two occurrences of one form are two records, and a reader
-that collapses them has lost a fact the sender stated. [APR-STREAM-003]
+A reader **MUST** reject a record that is neither a form nor an attestation. [APR-STREAM-007]
 
-A single-form API given a stream **MUST** return `APR_STREAM_REQUIRES_ITERATION`
-and **MUST NOT** select a record by position. A streaming API yields every record
-and may hold an unresolved attestation until its subject form has been
-observed. [APR-STREAM-004]
+**Example 9-1.** A record that is neither a form nor an attestation.
+
+```apr-example
+id: stream-record-unknown-type
+rule: streams
+violates: APR-STREAM-007
+representation: jsonc-stream
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+---
+{"recordType":"note","aprVersion":"1.0-beta.6"}
+```
+
+A reader **MUST** reject a stream that mixes representations. [APR-STREAM-001]
+
+A reader **MUST NOT** deduplicate repeated form occurrences, even when their
+semantic digests are identical. [APR-STREAM-003]
+
+Two occurrences of one form are two records, and a reader that collapses them has
+lost a fact the sender stated.
+
+A reader asked for a single form that is given a stream **MUST** report
+`APR_STREAM_REQUIRES_ITERATION` and **MUST NOT** select a record by position. [APR-STREAM-004]
+
+Iterating a stream yields every record.
 
 > Rationale: a stream exists so that a form and the assertions about it can
 > travel together, and so that several related forms can be one file. It is
@@ -3179,10 +3203,38 @@ LF               = %x0A
 ```
 
 A comment is confined to its one JSONC record: `apr-jsonc-text` bounds it, so no
-comment can span the separator. A record not preceded by `RS` is a framing
-failure.
+comment can span the separator.
 
-*Negative case:* `malformed/missing-record-separator.apr.jsonc`.
+A reader **MUST** reject an APR-JSONC stream in which a record is not preceded by
+`RS`. [APR-STREAM-006]
+
+**Example 9.1-1.** Two records, each preceded by a separator.
+
+```apr-example
+id: stream-jsonc-framed
+rule: jsonc-framing
+satisfies: APR-STREAM-006, APR-STREAM-007
+representation: jsonc-stream
+expect: valid
+---
+{"aprVersion":"1.0-beta.6","metadata":{"title":"first"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+---
+{"aprVersion":"1.0-beta.6","metadata":{"title":"second"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+```
+
+**Example 9.1-2.** A second record with no separator before it.
+
+```apr-example
+id: stream-missing-record-separator
+rule: jsonc-framing
+violates: APR-STREAM-006
+representation: jsonc-stream
+expect: reject
+diagnostic: PARSE_ERROR
+---
+{"aprVersion":"1.0-beta.6","metadata":{"title":"first"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+{"aprVersion":"1.0-beta.6","metadata":{"title":"second"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+```
 
 ### 9.2 YAML framing {#yaml-framing}
 
@@ -3190,9 +3242,14 @@ APR-YAML streams are YAML streams: the document productions of YAML 1.2.2
 chapter 9 apply unchanged, and every YAML document in the stream is exactly one
 APR record. No additional framing is defined, because YAML already has one.
 
-**Example 6.** A YAML stream carrying two independent forms.
+**Example 9.2-1.** A YAML stream carrying two independent forms.
 
-```yaml
+```apr-example
+id: yaml-stream-two-forms
+rule: yaml-framing
+satisfies: APR-STREAM-001, APR-STREAM-007
+representation: yaml-stream
+expect: valid
 ---
 aprVersion: "1.0-beta.6"
 metadata:
@@ -3217,8 +3274,7 @@ sections:
         response: ""
 ```
 
-
-A stream carries one representation throughout.
+**Example 9.2-2.** A stream that switches representation.
 
 ```apr-example
 id: stream-mixed-representations
@@ -3243,43 +3299,95 @@ sections:
 
 ### 9.3 Equivalence {#stream-equivalence}
 
-The corpus supplies paired streams whose records have equal semantic models
-across the two representations. A stream reader **MUST** produce the same
-sequence of semantic records from either member of such a pair. [APR-STREAM-002]
+A reader **MUST** produce the same sequence of semantic records from an APR-JSONC
+stream and an APR-YAML stream whose records, in order, have equal semantic
+models. [APR-STREAM-002]
 
 ---
 
 ## 10. Semantic digests and manifests {#digests}
 
-`jcs-sha256` is the semantic digest algorithm. A digest **MUST** be
-computed over the RFC 8785 JCS serialization of the fully parsed JSON semantic
-model, encoded as UTF-8, and expressed as lowercase hexadecimal SHA-256
-(FIPS 180-4) prefixed with `sha256:`. Source syntax **MUST NOT** be
-hashed. [APR-DIGEST-006]
+`jcs-sha256` is the semantic digest algorithm.
+
+An implementation that computes a semantic digest **MUST** compute it over the
+RFC 8785 JCS serialization of the fully parsed JSON semantic model, encoded as
+UTF-8, and express it as lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with
+`sha256:`. [APR-DIGEST-006]
+
+Source syntax is never hashed: one form has one digest, whichever representation,
+comments, whitespace or member order it is written with.
+
+**Example 10-1.** A form written with a comment and its members out of order.
+
+```apr-example
+id: digest-ignores-source-syntax
+rule: digests
+satisfies: APR-DIGEST-006
+representation: jsonc
+expect: valid
+digest: sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6
+---
+{
+  // a comment
+  "sections": [ { "prompts": [ { "label": "P", "id": "p" } ], "title": "S", "id": "s" } ],
+  "metadata": { "title": "T" },
+  "aprVersion": "1.0-beta.6"
+}
+```
+
+**Example 10-2.** The same form in APR-YAML, with the same digest.
+
+```apr-example
+id: digest-same-in-yaml
+rule: digests
+satisfies: APR-DIGEST-006
+representation: yaml
+expect: valid
+digest: sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: T
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
 
 A digest value **MUST** match `^sha256:[0-9a-f]{64}$`. [APR-DIGEST-001]
 
-A form digest includes every APR-defined member and every unknown extension
-member that survived parsing. It excludes only representation trivia. A verifier
-that cannot preserve or digest an extension member **MUST** report the assertion
-as `unverifiable`, not valid. [APR-DIGEST-002]
+An implementation **MUST** include in a form digest every APR-defined member and
+every unknown member that survived parsing, and exclude only source
+trivia. [APR-DIGEST-002]
 
-> Rationale: including extensions prevents a whole-form attestation from silently
-> omitting a meaningful member. An earlier signature scheme enumerated known
-> fields only, which meant extension data on a signed document could be altered
-> without invalidating the signature.
+A verifier that cannot preserve or digest an unknown member **MUST** report the
+assertion as `unverifiable`, not valid. [APR-DIGEST-007]
 
-An integrity manifest does not duplicate plaintext. It contains `root`, the
-digest of the subject form, and `entries`. Each entry has a JSON Pointer `path`
-(RFC 6901) and a digest of the JCS encoding of the value at that path.
+> Rationale: including unknown members prevents a whole-form attestation from
+> silently omitting a meaningful member, so data written beside the members this
+> document defines cannot change without changing the digest.
+
+An integrity manifest describes a form without holding its plaintext. It carries
+`root`, the digest of the subject form, and `entries`
+([Attestation record](#attestation-catalogue)). Each entry has these members:
+
+| Member | Type | Requirement | Meaning | Rule |
+| --- | --- | --- | --- | --- |
+| `path` | string | **REQUIRED** | A JSON Pointer (RFC 6901) to a value in the semantic model. | [APR-DIGEST-008] |
+| `digest` | string | **REQUIRED** | The digest of the JCS encoding of the value at `path`. | [APR-DIGEST-009] |
 
 `entries` **MUST** be ordered by `path`, compared as strings, and **MUST NOT**
 repeat a path. [APR-DIGEST-003]
 
-`entries` **MUST** contain the root pointer, and **SHOULD** contain one entry for
-every value in the semantic model at every depth, extension members included. A
-`fields` scope is the exception: what it carries is stated in
-[Scope](#attestation-scope), and nothing further is expected of it. [APR-DIGEST-004]
+`entries` **MUST** contain the root pointer. [APR-DIGEST-004]
+
+An implementation producing a manifest **SHOULD** give it one entry for every
+value in the semantic model at every depth, unknown members included. [APR-DIGEST-010]
+
+A `fields` scope is the exception: what it carries is stated in
+[Scope](#attestation-scope), and nothing further is expected of it.
 
 Integrity comes from `root` alone. Entries are how a verifier explains *which*
 values differ without the manifest retaining what they used to be, so a manifest

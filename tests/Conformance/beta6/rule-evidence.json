@@ -1,12 +1,12 @@
 {
   "$comment": "Ratchet baseline for scripts/check-rule-evidence.py. Evidence is compared per rule, not in total: a rule may not lose a leg even when another rule gains one. `legs` is the record; `counts` is a readable summary of it. Regenerate with --write only when evidence has risen or a rule was deliberately retired.",
-  "rules": 270,
+  "rules": 277,
   "counts": {
-    "enforced": 119,
-    "satisfied": 109,
-    "violated": 111,
-    "caught": 110,
-    "complete": 86
+    "enforced": 122,
+    "satisfied": 113,
+    "violated": 113,
+    "caught": 112,
+    "complete": 88
   },
   "legs": {
     "APR-ATTEST-001": "esvc",
@@ -48,7 +48,11 @@
     "APR-DIGEST-003": "esvc",
     "APR-DIGEST-004": "esvc",
     "APR-DIGEST-005": "----",
-    "APR-DIGEST-006": "----",
+    "APR-DIGEST-006": "-s--",
+    "APR-DIGEST-007": "----",
+    "APR-DIGEST-008": "----",
+    "APR-DIGEST-009": "----",
+    "APR-DIGEST-010": "----",
     "APR-EXPR-001": "esvc",
     "APR-EXPR-002": "----",
     "APR-EXPR-003": "esvc",
@@ -235,7 +239,10 @@
     "APR-STREAM-002": "esvc",
     "APR-STREAM-003": "esvc",
     "APR-STREAM-004": "----",
-    "APR-STREAM-005": "----",
+    "APR-STREAM-005": "-s--",
+    "APR-STREAM-006": "esvc",
+    "APR-STREAM-007": "esvc",
+    "APR-STREAM-008": "e---",
     "APR-TEXT-001": "esvc",
     "APR-TEXT-004": "----",
     "APR-TEXT-005": "----",

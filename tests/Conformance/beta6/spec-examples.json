@@ -17,6 +17,36 @@
       ]
     },
     {
+      "id": "digest-ignores-source-syntax",
+      "number": "10-1",
+      "rule": "digests",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  // a comment\n  \"sections\": [ { \"prompts\": [ { \"label\": \"P\", \"id\": \"p\" } ], \"title\": \"S\", \"id\": \"s\" } ],\n  \"metadata\": { \"title\": \"T\" },\n  \"aprVersion\": \"1.0-beta.6\"\n}\n",
+      "rules": [
+        "APR-DIGEST-006"
+      ],
+      "satisfies": [
+        "APR-DIGEST-006"
+      ],
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
+    },
+    {
+      "id": "digest-same-in-yaml",
+      "number": "10-2",
+      "rule": "digests",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: T\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "rules": [
+        "APR-DIGEST-006"
+      ],
+      "satisfies": [
+        "APR-DIGEST-006"
+      ],
+      "digest": "sha256:dcf5ed7ce101fb3ed43e67d9d1006eb15834330860e85ad572ec7940e6fc25d6"
+    },
+    {
       "id": "duplicate-prompt-id",
       "number": "7.1-2",
       "rule": "structural-validation",
@@ -511,8 +541,39 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "stream-jsonc-framed",
+      "number": "9.1-1",
+      "rule": "jsonc-framing",
+      "representation": "jsonc-stream",
+      "expect": "valid",
+      "document": "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n---\n{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"second\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n",
+      "rules": [
+        "APR-STREAM-006",
+        "APR-STREAM-007"
+      ],
+      "satisfies": [
+        "APR-STREAM-006",
+        "APR-STREAM-007"
+      ]
+    },
+    {
+      "id": "stream-missing-record-separator",
+      "number": "9.1-2",
+      "rule": "jsonc-framing",
+      "representation": "jsonc-stream",
+      "expect": "reject",
+      "document": "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"first\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"second\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n",
+      "rules": [
+        "APR-STREAM-006"
+      ],
+      "violates": [
+        "APR-STREAM-006"
+      ],
+      "diagnostic": "PARSE_ERROR"
+    },
+    {
       "id": "stream-mixed-representations",
-      "number": "9.2-1",
+      "number": "9.2-2",
       "rule": "streams",
       "representation": "jsonc-stream",
       "expect": "reject",
@@ -524,6 +585,21 @@
         "APR-STREAM-001"
       ],
       "diagnostic": "APR_STREAM_MIXED_REPRESENTATIONS"
+    },
+    {
+      "id": "stream-record-unknown-type",
+      "number": "9-1",
+      "rule": "streams",
+      "representation": "jsonc-stream",
+      "expect": "reject",
+      "document": "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n---\n{\"recordType\":\"note\",\"aprVersion\":\"1.0-beta.6\"}\n",
+      "rules": [
+        "APR-STREAM-007"
+      ],
+      "violates": [
+        "APR-STREAM-007"
+      ],
+      "diagnostic": "WRONG_TYPE"
     },
     {
       "id": "structural-member-wrong-type",
@@ -1102,6 +1178,22 @@
       "satisfies": [
         "APR-REP-008",
         "APR-REP-012"
+      ]
+    },
+    {
+      "id": "yaml-stream-two-forms",
+      "number": "9.2-1",
+      "rule": "yaml-framing",
+      "representation": "yaml-stream",
+      "expect": "valid",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Household contact card\nsections:\n  - id: contact\n    title: Contact\n    prompts:\n      - id: full_name\n        label: Full name\n        response: \"\"\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Emergency contact card\nsections:\n  - id: emergency\n    title: Emergency contact\n    prompts:\n      - id: emergency_name\n        label: Name\n        response: \"\"\n",
+      "rules": [
+        "APR-STREAM-001",
+        "APR-STREAM-007"
+      ],
+      "satisfies": [
+        "APR-STREAM-001",
+        "APR-STREAM-007"
       ]
     },
     {

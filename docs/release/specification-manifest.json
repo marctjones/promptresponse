@@ -6,15 +6,15 @@
     "formatVersion": "1.0-beta.6",
     "status": "BETA \u2014 the format is not frozen and breaking changes are intentional",
     "published": "2026-09-01",
-    "normativeClauses": 262,
-    "ruleIdentifiers": 270,
+    "normativeClauses": 267,
+    "ruleIdentifiers": 277,
     "anchors": 98,
-    "executableExamples": 70
+    "executableExamples": 76
   },
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:51c9162db662f0ff6b57ced12bcb383eacc35035eca9ac915a472acb89d7f4f2"
+      "sha256": "sha256:f7038dd28b8fe7fd61d3d72d2da572efb56dec89f4d701b76b2fcbe28790094c"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
@@ -30,11 +30,11 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:33bc5c53eaa5259eb49c2b538e53f670a66e8304bf37486b33cba3ee6cf39089"
+      "sha256": "sha256:521af5024a6fb3b2c0cb107c96ea7c5d136464cf73a30d5aec5898d182a8a6b9"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
-      "sha256": "sha256:bc81e195383395d9fc390c719b24285499b3f92f78cae55c9e6ba3bc15b45a26"
+      "sha256": "sha256:525f81d6f769ba6d87b095ba4c131022f09bece1684887ab44c1c93d4e877ad7"
     },
     "reviewRubric": {
       "path": "tests/spec-semantic/rubric.json",
@@ -42,16 +42,16 @@
     },
     "derivedExamples": {
       "path": "tests/Conformance/beta6/spec-examples.json",
-      "sha256": "sha256:741245b33e7501da326df6ca8849c4f35647a8247444e4e2e2e87e938319fe3b"
+      "sha256": "sha256:f093e0397c73d059573eb1ade695dd4ba93caf1630ff8bced8c75c8446a1a583"
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:de02cbaf0739a78513783f2e317d945e75022ff49915b770a9b02f413df36aa7"
+      "sha256": "sha256:9dfff2994c3e6d6d5e70d74d2f154748b8cbab847793608e68c59251713c2c4d"
     }
   },
   "corpus": {
     "path": "tests/Conformance/beta6",
     "files": 157,
-    "sha256": "sha256:39fd4c999aeb2ea13c034dc96579e70f6f2fcfa3b2b880d667ae90276de87374"
+    "sha256": "sha256:67ef1fc0d64661fc6e19c7942cf721c38276a4b7a6ee94d2e539d6bc56c26306"
   }
 }
