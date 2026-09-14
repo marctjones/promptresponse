@@ -104,10 +104,9 @@ public final class Apr {
 
     // Specification 8.2.3 places NON_NFC_TEXT and FORBIDDEN_CODE_POINT in the
     // warnings table (7.2), not the errors table (7.1, stated exhaustive by
-    // APR-VAL-008): a validator MUST report them, but a warning MUST NOT affect
-    // validity or block saving (APR-VAL-006, APR-VAL-007). It also requires a
-    // reader to preserve this text exactly ("a reader that meets one in a
-    // published form... never rewrites it") -- Apr.parse() does not normalize
+    // APR-VAL-007): a validator MUST report them, but a warning MUST NOT affect
+    // validity or block saving (APR-VAL-006, APR-VAL-002). It also requires a
+    // reader to preserve this text exactly (APR-TEXT-006) -- Apr.parse() does not normalize
     // or strip any string, so a non-NFC spelling or an excluded code point in
     // the source survives to be reported here instead of being silently
     // cleaned away before anyone sees it.

@@ -54,7 +54,7 @@ model.
 ## 3. Diagnostics
 
 Section 7.1 names eight errors, 7.2 names fifteen advisories, 7.3 governs the
-parse stage. `APR-VAL-009` makes the spellings binding: whether to warn is your
+parse stage. The rules on 7.2's rows make the spellings binding: whether to warn is your
 choice, the name is not.
 
 **Found:** .NET carried its own vocabulary — `TYPE_MISMATCH` for

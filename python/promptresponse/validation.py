@@ -109,12 +109,11 @@ def _below_floor(character: str) -> bool:
 def _hold_to_the_floor(value, path: str, result: ValidationResult) -> None:
     # Specification 8.2.3 places NON_NFC_TEXT and FORBIDDEN_CODE_POINT in the
     # warnings table (7.2), not the errors table (7.1, stated exhaustive by
-    # APR-VAL-008): a validator MUST report them, but a warning MUST NOT affect
-    # validity or block saving (APR-VAL-006, APR-VAL-007). Reporting them as
+    # APR-VAL-007): a validator MUST report them, but a warning MUST NOT affect
+    # validity or block saving (APR-VAL-006, APR-VAL-002). Reporting them as
     # errors would reject a document the format requires to stay valid.
     #
-    # 8.2.3 also requires a reader to preserve this text exactly ("a reader that
-    # meets one in a published form... never rewrites it") -- serialization.py no
+    # 8.2.3 also requires a reader to preserve this text exactly (APR-TEXT-006) -- serialization.py no
     # longer runs these fields through text.normalize() at parse time, so a
     # non-NFC spelling or an excluded code point in the source survives to be
     # reported here instead of being silently cleaned away before anyone sees it.
