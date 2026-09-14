@@ -3225,7 +3225,14 @@
       "text": "5.1 Document",
       "disposition": "keep",
       "status": "applied",
-      "issue": 477
+      "issue": 477,
+      "replacedBy": [
+        "root-object/heading/2034d64368",
+        "root-object/sentence/ce4624447a",
+        "root-object/sentence/167c4f30e0",
+        "root-object/example/1d1f273acb"
+      ],
+      "note": "examples added so the specification shows each rule it states here (#488)"
     },
     "root-object/sentence/29abe08555": {
       "anchor": "root-object",

@@ -1568,6 +1568,23 @@ diagnostic: REQUIRED_FIELD
 }
 ```
 
+**Example 5.1-2.** A form whose `sections` array is empty.
+
+```apr-example
+id: form-with-no-sections
+rule: root-object
+violates: APR-MODEL-005
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": []
+}
+```
+
 ### 5.2 Metadata {#metadata}
 
 Each row below is a requirement on `metadata`.

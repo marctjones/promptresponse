@@ -1075,6 +1075,21 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
+      "id": "form-with-no-sections",
+      "number": "5.1-2",
+      "rule": "root-object",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": []\n}\n",
+      "rules": [
+        "APR-MODEL-005"
+      ],
+      "violates": [
+        "APR-MODEL-005"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
       "id": "form-without-metadata",
       "number": "5.1-1",
       "rule": "root-object",
