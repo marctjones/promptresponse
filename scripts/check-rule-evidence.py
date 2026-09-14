@@ -150,6 +150,74 @@ def naive_evaluation(document: str, representation: str, inputs: dict) -> dict:
         aprexpr.compose = original_compose
 
 
+def single_mistake_evaluations(document: str, representation: str, inputs: dict) -> list[dict]:
+    """What evaluators making one further mistake each produce.
+
+    Each mistake breaks a rule the combined evaluator above leaves alone: binding
+    every response as a string instead of its declared type (#expr-binding),
+    binding an untyped response by what it looks like, writing a result in its
+    native spelling instead of its canonical form, leaving `_this`, `_id` and the
+    ambient names out of the activation (#expr-activation), applying the opposite
+    of each hint's fallback (#expr-fallback), and reaching a prompt whose id is not
+    a CEL identifier under a similar name. They are kept apart because they
+    contradict one another: a case counts if any one of them fails it.
+    """
+    try:
+        form = aprlib.read_records(document, representation)[0]
+    except Exception:  # noqa: BLE001
+        return []
+    from celpy import celtypes
+    original = (aprexpr.bind, aprexpr.marshal, aprexpr.compose, dict(aprexpr.HINTS))
+
+    def as_string(response, declared):
+        return celtypes.StringType("" if response is None else str(response))
+
+    def by_appearance(response, declared):
+        if not declared:
+            try:
+                return celtypes.DoubleType(float(str(response).strip()))
+            except (TypeError, ValueError):
+                pass
+        return original[0](response, declared)
+
+    class WithoutOwnNames(dict):
+        def __setitem__(self, key, value):
+            if key not in ("_this", "_id"):
+                super().__setitem__(key, value)
+
+    def renamed(value):
+        copy = json.loads(json.dumps(value))
+        for prompt, _ in aprexpr.prompts_of(copy):
+            if isinstance(prompt.get("id"), str) and not aprexpr.IDENTIFIER.match(prompt["id"]):
+                prompt["id"] = re.sub(r"\W", "_", prompt["id"])
+        return copy
+
+    opposite = {key: (required, True if fallback is False else "evaluation failed"
+                      if fallback == "" else fallback)
+                for key, (required, fallback) in original[3].items()}
+    mistakes = [
+        ("bind", as_string, form),
+        ("bind", by_appearance, form),
+        ("marshal", lambda value, declared: str(value), form),
+        ("compose", lambda bound, ambient: WithoutOwnNames(bound), form),
+        ("HINTS", opposite, form),
+        (None, None, renamed(form)),
+    ]
+    results = []
+    for name, replacement, subject in mistakes:
+        try:
+            if name:
+                setattr(aprexpr, name, replacement)
+            results.append(aprexpr.evaluate(subject, _now=inputs.get("_now"),
+                                            _today=inputs.get("_today"), ctx=inputs.get("ctx")))
+        except Exception:  # noqa: BLE001
+            results.append({})
+        finally:
+            aprexpr.bind, aprexpr.marshal, aprexpr.compose = original[0], original[1], original[2]
+            aprexpr.HINTS = dict(original[3])
+    return results
+
+
 def misreading(document: str, representation: str) -> str | None:
     """The digest a plausibly wrong reader would report for the same document.
 
@@ -296,9 +364,11 @@ def main() -> int:
                 violated[rule] = violated.get(rule, 0) + 1
             representation = ("yaml" if case["representation"].startswith("yaml")
                               else "jsonc")
-            wrong = naive_evaluation(case["document"], representation,
-                                     case.get("evaluate") or {})
-            passes, _ = run_conformance.evaluation_ok(case, {"evaluated": wrong})
+            inputs = case.get("evaluate") or {}
+            wrong = [naive_evaluation(case["document"], representation, inputs),
+                     *single_mistake_evaluations(case["document"], representation, inputs)]
+            passes = all(run_conformance.evaluation_ok(case, {"evaluated": result})[0]
+                         for result in wrong)
             if passes and case.get("teeth") is False:
                 # Declared as documenting the surface rather than guarding it: no
                 # simulated mistake reaches a rule that any CEL implementation
@@ -306,9 +376,8 @@ def main() -> int:
                 continue
             if passes:
                 problems.append(
-                    f"{case['id']} is an evaluation case that an evaluator defaulting "
-                    f"unbound values, overwriting corrections, ignoring reference order "
-                    f"and reading the host clock still satisfies, so it tests nothing")
+                    f"{case['id']} is an evaluation case that every simulated wrong "
+                    f"evaluator still satisfies, so it tests nothing")
             else:
                 for rule in cited:
                     caught[rule] = "evaluation"
