@@ -450,7 +450,7 @@
         "APR-ATTEST-030",
         "APR-ATTEST-031"
       ],
-      "gap": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone.",
+      "gap": "APR-ATTEST-017: the SDK tests resolve an attestation that precedes its subject by digest, so stream position is checked, but no test gives a filename or document id that disagrees with the digest (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone.",
       "gapRules": [
         "APR-ATTEST-017"
       ]
@@ -971,9 +971,12 @@
       "statement": "A renderer presents an unrecognised type as text and applies hints in table order",
       "strength": "none",
       "gates": [],
-      "gap": "APR-MODEL-115 and 117 are renderer behaviour: presenting an unrecognised type as text, and applying hints in the order the hints table lists them. No renderer case asks either.",
+      "gap": "APR-MODEL-117 is renderer behaviour: applying hints in the order the hints table lists them, and no renderer case asks it (#526). APR-MODEL-115 is shown by render.test.ts and EveryFieldIsAnswerableTests.",
       "rules": [
         "APR-MODEL-115",
+        "APR-MODEL-117"
+      ],
+      "gapRules": [
         "APR-MODEL-117"
       ]
     },
@@ -1056,7 +1059,13 @@
         "APR-MODEL-084",
         "APR-MODEL-085"
       ],
-      "gap": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+      "gap": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one. Both HTML renderers write lang=\"en\" whatever metadata.language says (#524); 037 is also tracked in #434.",
+      "gapRules": [
+        "APR-MODEL-037",
+        "APR-MODEL-083",
+        "APR-MODEL-084",
+        "APR-MODEL-085"
+      ]
     },
     {
       "id": "REQ-model-trivia",
@@ -1136,7 +1145,7 @@
       "statement": "A submission entry is an https pre-signed PUT target or a mailto address; delivery is a single PUT or an attachment, on explicit user action, never following a redirect",
       "strength": "none",
       "gates": [],
-      "gap": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate.",
+      "gap": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523).",
       "rules": [
         "APR-MODEL-033",
         "APR-MODEL-034",
@@ -1148,6 +1157,12 @@
         "APR-MODEL-089",
         "APR-MODEL-090",
         "APR-MODEL-091"
+      ],
+      "gapRules": [
+        "APR-MODEL-086",
+        "APR-MODEL-088",
+        "APR-MODEL-089",
+        "APR-MODEL-090"
       ]
     },
     {
@@ -1359,6 +1374,12 @@
         "APR-MODEL-080",
         "APR-MODEL-081",
         "APR-MODEL-092",
+        "APR-MODEL-093",
+        "APR-MODEL-094"
+      ],
+      "gap": "APR-MODEL-011's corpus pair exercises case folding only, not normalization or trimming. APR-MODEL-093 relates two versions of a template, which no single document shows, and no test checks that a writer keeps ids when it reorders prompts (APR-MODEL-094) (#525).",
+      "gapRules": [
+        "APR-MODEL-011",
         "APR-MODEL-093",
         "APR-MODEL-094"
       ]
@@ -1635,9 +1656,12 @@
           "ref": "schema.gate"
         }
       ],
-      "gap": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable, and APR-CONF-014, what a claim names, is checked only as far as the profiles a driver declares.",
+      "gap": "Within a run the harness holds a claimed profile to every case in it, so a declaration that is not answered for fails. Whether the declaration published outside the harness is honest is not machine-checkable, and APR-CONF-014, what a claim names, is checked only as far as the profiles a driver declares. Tracked in #527.",
       "rules": [
         "APR-CONF-004",
+        "APR-CONF-014"
+      ],
+      "gapRules": [
         "APR-CONF-014"
       ]
     },
@@ -1820,8 +1844,11 @@
       "statement": "A renderer presents every prompt of a ragged instance",
       "strength": "none",
       "gates": [],
-      "gap": "APR-MODEL-101 is renderer behaviour: presenting every prompt an instance carries. No renderer case asks it.",
+      "gap": "APR-MODEL-101 is renderer behaviour: presenting every prompt an instance carries. No renderer case asks it (#526).",
       "rules": [
+        "APR-MODEL-101"
+      ],
+      "gapRules": [
         "APR-MODEL-101"
       ]
     },
@@ -1831,7 +1858,7 @@
       "statement": "Correspondence in a table is by position; the {rowId}.{columnId} id convention is recommended and carries no meaning",
       "strength": "none",
       "gates": [],
-      "gap": "A recommendation about id spelling that carries no behaviour. No document is wrong for ignoring it, so no vector can reach it.",
+      "gap": "A recommendation about id spelling. No document is wrong for ignoring it, so no vector can reach it; the editor's tests assert that the cells it creates are named {instanceId}.{columnId}.",
       "rules": [
         "APR-MODEL-048"
       ]
