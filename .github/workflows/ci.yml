@@ -251,22 +251,23 @@ jobs:
           python3 scripts/check-spec-approach.py --self-test
           python3 scripts/check-example-coverage.py --self-test
 
-      - name: Report specification rewrite progress
-        # Report mode until step 24 (#488) makes these gates: progress is published
-        # on every pull request, and nothing here fails the build except a tool
-        # that cannot read its own inputs.
+      - name: Gate the specification's writing approach
+        # Every unit of the baseline specification carries an applied disposition,
+        # and the approach lint finds nothing: a requirement names a defined class of
+        # product, states one level, carries a rule, and no text describes history.
+        run: |
+          python3 scripts/check-spec-conversion.py --gate
+          python3 scripts/check-spec-approach.py --gate
+
+      - name: Report example coverage
+        # Report mode until every rule is shown by an example or holds a recorded
+        # exception naming the test that covers it (#488).
         if: always()
         run: |
           mkdir -p spec-rewrite-report
-          python3 scripts/spec-units.py --check > spec-rewrite-report/units.txt || true
-          python3 scripts/check-spec-conversion.py --report > spec-rewrite-report/conversion.txt
-          python3 scripts/check-spec-approach.py > spec-rewrite-report/approach.txt
           python3 scripts/check-example-coverage.py > spec-rewrite-report/example-coverage.txt
-          python3 scripts/check-spec-approach.py --json > spec-rewrite-report/approach.json
           python3 scripts/check-example-coverage.py --json > spec-rewrite-report/example-coverage.json
-          for part in units conversion approach example-coverage; do
-            { echo "### Specification rewrite: $part"; echo '```'; head -n 40 "spec-rewrite-report/$part.txt"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
-          done
+          { echo "### Example coverage"; echo '```'; head -n 40 spec-rewrite-report/example-coverage.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Publish the specification rewrite report
         if: always()
