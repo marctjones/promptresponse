@@ -154,9 +154,8 @@ def main() -> int:
             flush()
             current = heading.group(1)
             continue
-        # These three restate rules rather than stating them: two define the
-        # vocabulary, and the checklist is a reader's index of what is already said.
-        if current in {"normative-language", "conventions", "checklist"}:
+        # These two define the vocabulary rules are stated in, and state no rule.
+        if current in {"normative-language", "conventions"}:
             continue
         # A requirement wraps across lines and carries its identifier at the end, so
         # the unit is the block, not the line. Table rows are their own blocks.
