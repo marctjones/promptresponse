@@ -20,6 +20,7 @@ renderer-suite.json.
 
     python3 scripts/check-example-coverage.py            # report, never fails
     python3 scripts/check-example-coverage.py --missing  # only rules not covered
+    python3 scripts/check-example-coverage.py --chapter 1
     python3 scripts/check-example-coverage.py --gate     # fail unless every rule is covered or excepted
     python3 scripts/check-example-coverage.py --json
     python3 scripts/check-example-coverage.py --self-test
@@ -41,6 +42,9 @@ EXCEPTIONS = ROOT / "tests" / "spec-conversion" / "example-exceptions.json"
 _spec = importlib.util.spec_from_file_location("extract_spec_examples", ROOT / "scripts" / "extract-spec-examples.py")
 extractor = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(extractor)
+_spec = importlib.util.spec_from_file_location("spec_units", ROOT / "scripts" / "spec-units.py")
+spec_units = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(spec_units)
 
 STATUSES = ("covered", "missing-violating", "missing-satisfying", "corpus-only", "uncovered",
             "not-expressible")
@@ -108,7 +112,12 @@ def load() -> tuple[dict[str, dict], list[str]]:
     exceptions = json.loads(EXCEPTIONS.read_text(encoding="utf-8")) if EXCEPTIONS.exists() else {}
     exceptions = {k: v for k, v in exceptions.items() if not k.startswith("$")}
     problems += exception_problems(exceptions, set(rules), {c["id"] for c in cases})
-    return classify(rules, examples, cases, exceptions), problems
+    report = classify(rules, examples, cases, exceptions)
+    for unit in spec_units.segment(text):
+        for rule in unit["rules"]:
+            if rule in report:
+                report[rule]["chapter"] = unit["chapter"]
+    return report, problems
 
 
 def counts(report: dict[str, dict]) -> dict[str, int]:
@@ -165,6 +174,9 @@ def main(argv: list[str]) -> int:
     if "--self-test" in argv:
         return self_test()
     report, problems = load()
+    if "--chapter" in argv:
+        chapter = int(argv[argv.index("--chapter") + 1])
+        report = {rule: row for rule, row in report.items() if row.get("chapter") == chapter}
     totals = counts(report)
     if "--json" in argv:
         print(json.dumps({"counts": totals, "problems": problems, "rules": report}, indent=2))

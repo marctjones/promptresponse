@@ -32,6 +32,8 @@ A reader **MAY** report a warning for an empty title. [APR-TEST-003]
 > Rationale: order is kept because a person reads the form top to bottom, and
 > a writer that must reorder would surprise them.
 
+**Example 3.1-1.** Member order is kept.
+
 ```apr-example
 id: fixture-order
 rules: APR-TEST-001
