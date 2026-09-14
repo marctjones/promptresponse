@@ -68,7 +68,7 @@ public sealed class SpecExampleTests
             .Where(part => !string.IsNullOrWhiteSpace(part))
             .Select(part => "\u001e" + part.Trim('\n') + "\n"));
 
-    private static void Read(Example example)
+    private static List<PromptResponse.Core.Models.AprDocument> Read(Example example)
     {
         var reader = new AprBeta6Reader();
         var representation = example.Representation.StartsWith("yaml", StringComparison.Ordinal)
@@ -77,11 +77,11 @@ public sealed class SpecExampleTests
 
         if (example.Representation.EndsWith("-stream", StringComparison.Ordinal))
         {
-            reader.ReadStream(Framed(example.Document), representation);
-            return;
+            return reader.ReadStream(Framed(example.Document), representation)
+                .OfType<AprFormRecord>().Select(record => record.Form).ToList();
         }
 
-        reader.ReadForm(example.Document, representation);
+        return [reader.ReadForm(example.Document, representation)];
     }
 
     [Theory]
@@ -106,7 +106,19 @@ public sealed class SpecExampleTests
 
         if (example.Expect == "reject")
         {
-            act.Should().Throw<Exception>(
+            // Rejection is a refused read or a form that fails validation: a missing label
+            // parses and is an error, as the conformance driver reports it.
+            var validator = new PromptResponse.Core.Validation.DocumentValidator();
+            bool rejected;
+            try
+            {
+                rejected = Read(example).Any(form => !validator.Validate(form).IsValid);
+            }
+            catch (Exception)
+            {
+                rejected = true;
+            }
+            rejected.Should().BeTrue(
                 $"{example.Id} demonstrates #{example.Rule} and the specification requires rejection");
             return;
         }

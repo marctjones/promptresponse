@@ -162,16 +162,24 @@ public final class AprConformanceTest {
             boolean accepted;
             String detail = "";
             try {
-                if (representation.endsWith("-stream")) AprBeta6.readStream(form == AprBeta6.Representation.JSONC ? framed(document) : document, form);
-                else AprBeta6.readForm(document, form);
-                accepted = true;
+                // Rejection is a refused read or a form that fails validation: a missing
+                // label parses and is an error, as the conformance driver reports it.
+                java.util.List<AprDocument> forms = new java.util.ArrayList<>();
+                if (representation.endsWith("-stream")) {
+                    for (AprBeta6.Record record : AprBeta6.readStream(form == AprBeta6.Representation.JSONC ? framed(document) : document, form))
+                        if (record instanceof AprBeta6.FormRecord formRecord) forms.add(formRecord.document());
+                } else forms.add(AprBeta6.readForm(document, form));
+                java.util.List<String> errors = new java.util.ArrayList<>();
+                for (AprDocument read : forms) for (ValidationIssue issue : Apr.validate(read).errors()) errors.add(issue.code());
+                accepted = errors.isEmpty();
+                if (!accepted) detail = String.join(", ", errors);
             } catch (RuntimeException rejected) {
                 accepted = false;
                 detail = String.valueOf(rejected.getMessage());
             }
 
             if ("valid".equals(expect) && !accepted)
-                failures.add(id + " (#" + rule + "): specification says valid, reader rejected it — " + detail);
+                failures.add(id + " (#" + rule + "): specification says valid, it was rejected — " + detail);
             if ("reject".equals(expect) && accepted)
                 failures.add(id + " (#" + rule + "): specification requires rejection, reader accepted it");
         }

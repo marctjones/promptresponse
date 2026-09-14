@@ -61,6 +61,23 @@ def read(example):
     return pr.read_beta6_form(document, representation)
 
 
+def rejected(example) -> bool:
+    """Whether the example is refused: its read fails, or a form it holds fails validation.
+
+    A prompt without a label parses and is a validation error, a malformed document
+    fails to parse, and the specification asks for rejection either way, as the
+    conformance driver reports it.
+    """
+    try:
+        result = read(example)
+    except Exception:
+        return True
+    records = result if isinstance(result, list) else [result]
+    documents = [getattr(r, "document", r) for r in records
+                 if not isinstance(r, pr.beta6.Beta6Record) or isinstance(r, pr.beta6.Beta6FormRecord)]
+    return any(pr.validate(document).errors for document in documents)
+
+
 def identifiers():
     return [e["id"] for e in load_examples()]
 
@@ -82,8 +99,7 @@ def test_specification_example_behaves_as_the_specification_says(example, reques
         return
 
     if expectation == "reject":
-        with pytest.raises(Exception):
-            read(example)
+        assert rejected(example), f"{example['id']} was accepted; the specification requires rejection"
         return
 
     if expectation == "equivalent":
