@@ -1282,14 +1282,43 @@
       "gap": "The harness holds each claimed profile to every case in it and refuses a declaration claiming core+attestations without core+streams. That an implementation conforms to core is what answering the core cases shows; the optional levels are permissions nothing can violate."
     },
     {
-      "id": "REQ-profile-attestations",
-      "section": "profile-attestations",
-      "statement": "core+attestations resolves, verifies, and reports honestly",
+      "id": "REQ-profile-core",
+      "section": "profile-core",
+      "statement": "What core does with a stream, an attestation or an expression when it does not claim the profile that defines them",
       "strength": "partial",
       "gates": [
         {
           "type": "test",
-          "ref": "ValidCmsProof_MakesTheResolvedAttestationValid"
+          "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
+        },
+        {
+          "type": "test",
+          "ref": "Check_ReportsTypeErrorsAtAuthoringTime"
+        }
+      ],
+      "rules": [
+        "APR-CONF-001",
+        "APR-CONF-003",
+        "APR-CONF-005",
+        "APR-CONF-012",
+        "APR-CONF-013"
+      ],
+      "gap": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately. APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording.",
+      "gapRules": [
+        "APR-CONF-001",
+        "APR-CONF-005",
+        "APR-CONF-012"
+      ]
+    },
+    {
+      "id": "REQ-profile-streams",
+      "section": "profile-streams",
+      "statement": "A streams reader that does not claim core+attestations accepts attestation records, and a streams writer preserves them",
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "Stream_PreservesAttestationAndAllFormOccurrences"
         },
         {
           "type": "test",
@@ -1298,47 +1327,8 @@
       ],
       "rules": [
         "APR-CONF-002",
-        "APR-CONF-005",
-        "APR-CONF-011",
-        "APR-CONF-012"
-      ],
-      "gap": "APR-CONF-005 and APR-CONF-012, that an implementation not claiming core+attestations never reports a document as verified and should say attestations are present but unchecked, are about what it displays. The harness scores acceptance, not wording."
-    },
-    {
-      "id": "REQ-profile-expressions",
-      "section": "profile-expressions",
-      "statement": "A reader not claiming core+expressions accepts expressions, and a writer not claiming it preserves their strings",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "Check_ReportsTypeErrorsAtAuthoringTime"
-        }
-      ],
-      "rules": [
-        "APR-CONF-003",
-        "APR-CONF-013"
+        "APR-CONF-011"
       ]
-    },
-    {
-      "id": "REQ-profile-streams",
-      "section": "profile-streams",
-      "statement": "core+streams reads and writes independent records",
-      "strength": "partial",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "Stream_PreservesAttestationAndAllFormOccurrences"
-        },
-        {
-          "type": "test",
-          "ref": "test_beta6_stream_keeps_duplicate_forms_and_requires_iteration"
-        }
-      ],
-      "rules": [
-        "APR-CONF-001"
-      ],
-      "gap": "APR-CONF-001 is core-only behaviour: a single-form API handed a stream must report APR_STREAM_REQUIRES_ITERATION and must not select a record by position. The harness asks whether a document was accepted, not which API was called. Reaching it needs the profile-scoped run tracked separately."
     },
     {
       "id": "REQ-prompt-members",
