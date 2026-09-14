@@ -23,6 +23,7 @@ What is checked:
     python3 scripts/check-spec-conversion.py --chapter 5
     python3 scripts/check-spec-conversion.py --json
     python3 scripts/check-spec-conversion.py --self-test
+    python3 scripts/check-spec-conversion.py --init COMMIT  # write the baseline ledger, once
 """
 from __future__ import annotations
 
@@ -32,6 +33,7 @@ import importlib.util
 import json
 import pathlib
 import re
+import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -160,6 +162,47 @@ def check(ledger: dict, current: list[dict], approach: dict, chapter: int | None
             "currentUnits": len(current), "findings": findings, "progress": progress}
 
 
+def suggested(unit: dict) -> str:
+    """The disposition a unit's flags suggest. A suggestion only: every entry starts todo."""
+    if unit["historyVocabulary"]:
+        return "delete"
+    if unit["kind"] == "rationale":
+        return "rationale"
+    if unit["keywords"] and unit["kind"] == "table-row":
+        return "table-row"
+    if unit["keywords"] and unit["kind"] in {"sentence", "list-item"}:
+        return "requirement"
+    return "keep"
+
+
+def initial_ledger(units: list[dict], baseline: str) -> dict:
+    entries = {}
+    for u in units:
+        entry = {"anchor": u["anchor"], "chapter": u["chapter"], "kind": u["kind"], "text": u["text"],
+                 "disposition": suggested(u), "status": "todo"}
+        if u["lowercaseObligation"]:
+            entry["note"] = "carries a lowercase obligation word: decide whether it states a requirement"
+        entries[u["id"]] = entry
+    return {"$comment": "One decision per unit of the specification at baselineCommit, from "
+                        "scripts/spec-units.py. Dispositions start as suggestions with status todo; "
+                        "checked by scripts/check-spec-conversion.py.",
+            "baselineCommit": baseline, "units": entries}
+
+
+def init(commit: str) -> int:
+    if LEDGER.exists():
+        print(f"{LEDGER.relative_to(ROOT)} already exists; the baseline is written once.")
+        return 1
+    sha = subprocess.run(["git", "rev-parse", "--verify", f"{commit}^{{commit}}"], cwd=ROOT,
+                         capture_output=True, text=True, check=True).stdout.strip()
+    text = subprocess.run(["git", "show", f"{sha}:{SPEC.relative_to(ROOT).as_posix()}"], cwd=ROOT,
+                          capture_output=True, text=True, check=True).stdout
+    ledger = initial_ledger(spec_units.segment(text), sha)
+    LEDGER.write_text(json.dumps(ledger, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"Wrote {LEDGER.relative_to(ROOT)}: {len(ledger['units'])} units at {sha}, all todo")
+    return 0
+
+
 def ledger_from(units: list[dict], disposition: str = "keep", status: str = "applied") -> dict:
     return {"baselineCommit": "fixture", "units": {
         u["id"]: {"anchor": u["anchor"], "chapter": u["chapter"], "kind": u["kind"], "text": u["text"],
@@ -227,7 +270,24 @@ def self_test() -> int:
     todo = ledger_from(units, status="todo")
     expect("a ledger of undecided units is complete, only unfinished", todo, units, None)
 
-    print(f"check-spec-conversion self-test: {len(units)} fixture units, 12 scenarios")
+    initial = initial_ledger(units, "fixture")
+    expect("the baseline ledger", initial, units, None)
+    suggestions = {e["text"]: e for e in initial["units"].values()}
+    for text, wanted in (("An earlier draft said something else.", "delete"),
+                         ("Rationale: explanation that carries no keyword.", "rationale"),
+                         ("A reader **MUST** keep this.", "requirement"),
+                         ("| `title` | REQUIRED | APR-TEST-002 |", "table-row"),
+                         ("Alpha paragraph opens the chapter.", "keep")):
+        got = suggestions.get(text, {}).get("disposition")
+        if got != wanted:
+            problems.append(f"baseline suggests {got!r} for {text!r}, expected {wanted!r}")
+    if {e["status"] for e in initial["units"].values()} != {"todo"}:
+        problems.append("the baseline ledger accepted a suggestion")
+    lowercase = "A writer must not do that, and one word changes here. [APR-TEST-001]"
+    if "note" not in suggestions.get(lowercase, {}):
+        problems.append("the baseline ledger does not flag a lowercase obligation for review")
+
+    print(f"check-spec-conversion self-test: {len(units)} fixture units, 13 scenarios")
     for p in problems:
         print(f"  FAIL  {p}")
     print("  all scenarios behave" if not problems else f"{len(problems)} PROBLEM(S)")
@@ -237,6 +297,8 @@ def self_test() -> int:
 def main(argv: list[str]) -> int:
     if "--self-test" in argv:
         return self_test()
+    if "--init" in argv:
+        return init(argv[argv.index("--init") + 1])
     gate = "--gate" in argv
     chapter = int(argv[argv.index("--chapter") + 1]) if "--chapter" in argv else None
     if not LEDGER.exists():
