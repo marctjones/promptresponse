@@ -3024,7 +3024,15 @@
       "text": "4.8 Any string is a valid response",
       "disposition": "keep",
       "status": "applied",
-      "issue": 476
+      "issue": 476,
+      "replacedBy": [
+        "any-string/heading/0e3e10b240",
+        "any-string/sentence/8abf91b9ae",
+        "any-string/sentence/ad0edda7ff",
+        "any-string/sentence/803c484771",
+        "any-string/rationale/c6bc1ce0d7"
+      ],
+      "note": "APR-MODEL-127 states the floor that makes \"any string\" a promise a reader can keep, with the ceiling left to the implementation"
     },
     "any-string/sentence/93858207ea": {
       "anchor": "any-string",
@@ -11387,7 +11395,11 @@
       "text": "The depth bound has a floor this document states: sixteen levels ([Nesting depth](#nesting)).",
       "disposition": "keep",
       "status": "applied",
-      "issue": 485
+      "issue": 485,
+      "replacedBy": [
+        "security/sentence/8900caf558"
+      ],
+      "note": "names the response floor alongside the nesting floor (APR-MODEL-127)"
     },
     "security/sentence/9b8ae604ab": {
       "anchor": "security",
@@ -11418,7 +11430,11 @@
       "text": "Concrete limits above the 16-level nesting floor are **implementation-defined**.",
       "disposition": "keep",
       "status": "applied",
-      "issue": 485
+      "issue": 485,
+      "replacedBy": [
+        "security/sentence/18d4bc4b6a"
+      ],
+      "note": "names the response floor alongside the nesting floor (APR-MODEL-127)"
     },
     "security/sentence/74f277af83": {
       "anchor": "security",
