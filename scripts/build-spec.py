@@ -42,6 +42,7 @@ ARTIFACTS = {
     "reviewRubric": "tests/spec-semantic/rubric.json",
     "derivedExamples": "tests/Conformance/beta6/spec-examples.json",
     "oscalCatalog": "docs/release/apr-oscal-catalog.json",
+    "conformanceStatement": "docs/release/APR_CONFORMANCE_STATEMENT.md",
 }
 
 CORPUS = ROOT / "tests" / "Conformance" / "beta6"
