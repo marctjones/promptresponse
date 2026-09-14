@@ -104,6 +104,9 @@ here and are distinguished deliberately.
 - **Rationale** appears in blockquotes beginning `Rationale:` and is
   non-normative. Removing every rationale block would not change the format.
 
+An informative section says so in its opening or closing sentence and states no
+requirement.
+
 Each heading carries an explicit anchor, written `{#anchor-name}`.
 
 **Every requirement carries a rule identifier**, written `[APR-AREA-NNN]` at the
@@ -5541,7 +5544,7 @@ responsibility.
 
 ## 15. Open questions {#open-questions}
 
-An honest list of what this baseline does not settle.
+This section is informative. It lists what this specification does not settle.
 
 1. **Media types not yet registered.** `application/vnd.apr+json`,
    `application/vnd.apr+yaml` and `application/vnd.apr+json-seq` are defined
@@ -5591,6 +5594,9 @@ The CEL entry is normative for the `core+expressions` profile only.
 
 ## 17. Informative references {#informative-references}
 
+This section is informative. Nothing below is required to implement this
+specification.
+
 | Designation | Title |
 | --- | --- |
 | ISO 8601 | Date and time representations. RFC 3339 is the normative profile used here. |
@@ -5603,19 +5609,27 @@ The CEL entry is normative for the `core+expressions` profile only.
 
 ## 18. Appendix A: Minimal valid document {#appendix-minimal}
 
-**Example 8.** The smallest conformant APR form.
+This appendix is informative.
 
-```jsonc
+**Example 18-1.** The smallest valid form: the three members a document
+requires, one section and one prompt.
+
+```apr-example
+id: minimal-form
+rule: root-object
+satisfies: APR-MODEL-005, APR-MODEL-053, APR-MODEL-055
+representation: jsonc
+expect: valid
+---
 {
   "aprVersion": "1.0-beta.6",
-  "documentType": "template",
   "metadata": { "title": "Contact" },
   "sections": [
     {
       "id": "contact",
       "title": "Contact",
       "prompts": [
-        { "id": "full_name", "label": "Full name", "response": "" }
+        { "id": "full_name", "label": "Full name" }
       ]
     }
   ]
@@ -5624,15 +5638,18 @@ The CEL entry is normative for the `core+expressions` profile only.
 
 ## 19. Appendix B: The rule to remember {#appendix-rule}
 
+This appendix is informative.
+
 If you implement nothing else correctly, implement this:
 
 > **Any string is a valid response, and a hint never says otherwise.**
 
-Everything else in APR is structure. That rule is the point.
+Everything else in APR is structure. That rule is the point, and
+[Any string is a valid response](#any-string) states it.
 
 ## 20. Appendix C: What earns a primitive {#primitives}
 
-Non-normative.
+This appendix is informative.
 
 This document is asked from time to time to add a record kind or a structural
 element for something common and important. The answer has usually been no.

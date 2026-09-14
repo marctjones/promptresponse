@@ -365,7 +365,12 @@
       "text": "**Rationale** appears in blockquotes beginning `Rationale:` and is non-normative. Removing every rationale block would not change the format.",
       "disposition": "keep",
       "status": "applied",
-      "issue": 473
+      "issue": 473,
+      "replacedBy": [
+        "conventions/list-item/aae48abae2",
+        "conventions/sentence/6d1036614a"
+      ],
+      "note": "an informative section says so; the convention is stated beside the other kinds of text"
     },
     "conventions/sentence/2dd1387d19": {
       "anchor": "conventions",
@@ -12090,11 +12095,12 @@
       "kind": "heading",
       "text": "16. Open questions",
       "disposition": "keep",
-      "status": "todo",
+      "status": "applied",
       "replacedBy": [
         "open-questions/heading/5091ddb6d9"
       ],
-      "note": "renumbered when section 15 was deleted (#486)"
+      "note": "renumbered when section 15 was deleted (#486)",
+      "issue": 487
     },
     "open-questions/sentence/16c0508130": {
       "anchor": "open-questions",
@@ -12102,7 +12108,13 @@
       "kind": "sentence",
       "text": "An honest list of what this baseline does not settle.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "open-questions/sentence/6cb1bbe60f",
+        "open-questions/sentence/1a66b90bb5"
+      ],
+      "note": "says it is informative, as Document conventions requires"
     },
     "open-questions/list-item/2af40c0fa2": {
       "anchor": "open-questions",
@@ -12110,7 +12122,8 @@
       "kind": "list-item",
       "text": "**Media types not yet registered.** `application/vnd.apr+json`, `application/vnd.apr+yaml` and `application/vnd.apr+json-seq` are defined ([Document type](#media-types)) but the IANA vendor-tree registration has not been filed.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "open-questions/list-item/c2ba1bcf6c": {
       "anchor": "open-questions",
@@ -12118,7 +12131,8 @@
       "kind": "list-item",
       "text": "**No governance.** A format used by public institutions eventually needs stewardship that is not a single repository.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "normative-references/heading/aa922934a4": {
       "anchor": "normative-references",
@@ -12378,11 +12392,14 @@
       "kind": "heading",
       "text": "18. Informative references",
       "disposition": "keep",
-      "status": "todo",
+      "status": "applied",
       "replacedBy": [
-        "informative-references/heading/34d46c3cbd"
+        "informative-references/heading/34d46c3cbd",
+        "informative-references/sentence/6cb1bbe60f",
+        "informative-references/sentence/1bbdfcadba"
       ],
-      "note": "renumbered when section 15 was deleted (#486)"
+      "note": "says it is informative, as Document conventions requires",
+      "issue": 487
     },
     "informative-references/table-header/b05ff95452": {
       "anchor": "informative-references",
@@ -12430,11 +12447,13 @@
       "kind": "heading",
       "text": "19. Appendix A: Minimal valid document",
       "disposition": "keep",
-      "status": "todo",
+      "status": "applied",
       "replacedBy": [
-        "appendix-minimal/heading/2c323d937e"
+        "appendix-minimal/heading/2c323d937e",
+        "appendix-minimal/sentence/9a2def4ee2"
       ],
-      "note": "renumbered when section 15 was deleted (#486)"
+      "note": "says it is informative, as Document conventions requires",
+      "issue": 487
     },
     "appendix-minimal/sentence/57bfeb9ff4": {
       "anchor": "appendix-minimal",
@@ -12442,7 +12461,12 @@
       "kind": "sentence",
       "text": "**Example 8.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "appendix-minimal/sentence/d0517f0d5f"
+      ],
+      "note": "captions the executable example with its number within the section"
     },
     "appendix-minimal/sentence/36672e4e36": {
       "anchor": "appendix-minimal",
@@ -12450,15 +12474,24 @@
       "kind": "sentence",
       "text": "The smallest conformant APR form.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "appendix-minimal/sentence/19d074db91"
+      ]
     },
     "appendix-minimal/code/70687e4398": {
       "anchor": "appendix-minimal",
       "chapter": 19,
       "kind": "code",
       "text": "```jsonc\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Contact\" },\n  \"sections\": [\n    {\n      \"id\": \"contact\",\n      \"title\": \"Contact\",\n      \"prompts\": [\n        { \"id\": \"full_name\", \"label\": \"Full name\", \"response\": \"\" }\n      ]\n    }\n  ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "appendix-minimal/example/1f7a10fe01"
+      ],
+      "note": "executable, and minimal: documentType and response are optional"
     },
     "appendix-rule/heading/47bf123b4a": {
       "anchor": "appendix-rule",
@@ -12466,11 +12499,13 @@
       "kind": "heading",
       "text": "20. Appendix B: The rule to remember",
       "disposition": "keep",
-      "status": "todo",
+      "status": "applied",
       "replacedBy": [
-        "appendix-rule/heading/fa1fc2925d"
+        "appendix-rule/heading/fa1fc2925d",
+        "appendix-rule/sentence/9a2def4ee2"
       ],
-      "note": "renumbered when section 15 was deleted (#486)"
+      "note": "says it is informative, as Document conventions requires",
+      "issue": 487
     },
     "appendix-rule/sentence/4207e93885": {
       "anchor": "appendix-rule",
@@ -12478,7 +12513,8 @@
       "kind": "sentence",
       "text": "If you implement nothing else correctly, implement this:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "appendix-rule/quote/78bd5625eb": {
       "anchor": "appendix-rule",
@@ -12486,7 +12522,8 @@
       "kind": "quote",
       "text": "**Any string is a valid response, and a hint never says otherwise.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "appendix-rule/sentence/8aaa23dd65": {
       "anchor": "appendix-rule",
@@ -12494,7 +12531,8 @@
       "kind": "sentence",
       "text": "Everything else in APR is structure.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487
     },
     "appendix-rule/sentence/e1fc8b6588": {
       "anchor": "appendix-rule",
@@ -12502,7 +12540,12 @@
       "kind": "sentence",
       "text": "That rule is the point.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "appendix-rule/sentence/05be7e590a"
+      ],
+      "note": "links the rule it restates"
     },
     "provenance/heading/d44cc2fc5f": {
       "anchor": "provenance",
@@ -12661,7 +12704,12 @@
       "kind": "sentence",
       "text": "Non-normative.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 487,
+      "replacedBy": [
+        "primitives/sentence/9a2def4ee2"
+      ],
+      "note": "the marker Document conventions defines"
     },
     "primitives/sentence/fbc66cdde0": {
       "anchor": "primitives",
