@@ -20,6 +20,10 @@
     "reason": "A rule on what an implementation preserves across a round trip; no document can make a writer drop a member.",
     "coveredBy": ["spec:attestation-extension-member"]
   },
+  "APR-ATTEST-015": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py", "typescript/src/test/beta6.test.ts", "java/src/test/java/org/promptresponse/AprConformanceTest.java", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"]
+  },
   "APR-ATTEST-035": {
     "reason": "A rule on how a proof is computed and checked; no document can make an implementation sign or verify other bytes.",
     "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs", "python/tests/test_beta6.py"]
@@ -64,6 +68,14 @@
     "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
     "coveredBy": ["python/tests/test_beta6.py"]
   },
+  "APR-ATTEST-018": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py", "typescript/src/test/beta6.test.ts", "java/src/test/java/org/promptresponse/AprConformanceTest.java", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"]
+  },
+  "APR-ATTEST-051": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py", "typescript/src/test/beta6.test.ts", "java/src/test/java/org/promptresponse/AprConformanceTest.java", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"]
+  },
   "APR-ATTEST-053": {
     "reason": "A rule on what a validator leaves out of its errors; no document can make a validator report attestation state.",
     "coveredBy": ["spec:attestation-state-no-error"]
@@ -72,9 +84,21 @@
     "reason": "What a reader reports for a stream depends on the profiles it claims, so no one document example can state the outcome.",
     "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
   },
+  "APR-CONF-002": {
+    "reason": "A rule scoped to which profiles a reader claims, which no document shows; the document is the same whichever reader reads it.",
+    "coveredBy": ["corpus:rules/apr-conf-002-roundtrip.apr.jsonc", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs", "python/tests/test_beta6.py"]
+  },
+  "APR-CONF-011": {
+    "reason": "A rule on what a writer emits, which no input document shows.",
+    "coveredBy": ["corpus:rules/apr-conf-002-roundtrip.apr.jsonc"]
+  },
   "APR-CONF-004": {
     "reason": "A statement about what an implementation claims; the harness holds each claimed profile to every case in it.",
     "coveredBy": ["scripts/run-conformance.py"]
+  },
+  "APR-REP-001": {
+    "reason": "A rule on what an implementation writes after reading, which no input document shows.",
+    "coveredBy": ["corpus:rules/apr-rep-001-roundtrip.apr.jsonc", "corpus:rules/apr-digest-002-roundtrip.apr.jsonc", "tests/PromptResponse.Core.Tests/Beta6/WriteFormPreservesPresenceTests.cs"]
   },
   "APR-CONF-006": {
     "reason": "Conforming to core is answering every core case; no one document shows it.",
@@ -100,9 +124,17 @@
     "reason": "A rule on how a digest is computed; no document can make an implementation compute another.",
     "coveredBy": ["spec:digest-ignores-source-syntax", "spec:digest-same-in-yaml"]
   },
+  "APR-DIGEST-002": {
+    "reason": "A rule on what an implementation computes, which a document shows only through the digest it expects.",
+    "coveredBy": ["corpus:rules/apr-digest-002-roundtrip.apr.jsonc", "corpus:rules/apr-rep-001-roundtrip.apr.jsonc"]
+  },
   "APR-EXPR-001": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
     "coveredBy": ["spec:expr-fallback-value"]
+  },
+  "APR-EXPR-003": {
+    "reason": "A rule on how an implementation handles its own evaluation failure; no document can make an implementation propagate an error.",
+    "coveredBy": ["corpus:rules/apr-expr-003-evaluates.apr.jsonc", "tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"]
   },
   "APR-EXPR-004": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
@@ -119,6 +151,10 @@
   "APR-EXPR-008": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
     "coveredBy": ["spec:expr-authored-response"]
+  },
+  "APR-EXPR-034": {
+    "reason": "A permission about a reader's own session state, which the document never records.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"]
   },
   "APR-EXPR-009": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
@@ -160,6 +196,10 @@
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
     "coveredBy": ["spec:expr-bind-currency"]
   },
+  "APR-EXPR-024": {
+    "reason": "A rule on how an implementation binds a response for evaluation; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Expressions/FormExpressionsTests.cs"]
+  },
   "APR-EXPR-025": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
     "coveredBy": ["spec:expr-bind-date"]
@@ -196,9 +236,17 @@
     "reason": "A rule on what a validator does with an unregistered type, which no document can violate; the example and vector are read valid with a warning.",
     "coveredBy": ["spec:unregistered-data-type-degrades", "corpus:rules/apr-model-018-warns.apr.jsonc"]
   },
+  "APR-MODEL-115": {
+    "reason": "A rule on what a renderer presents, which no input document shows; the unregistered-type example shows only that the document is valid.",
+    "coveredBy": ["typescript/src/test/render.test.ts", "tests/PromptResponse.Desktop.Tests/ViewModels/EveryFieldIsAnswerableTests.cs"]
+  },
   "APR-MODEL-020": {
     "reason": "A rule on what a reader does with an unknown member, which no document can violate.",
     "coveredBy": ["spec:extension-member-prefixed", "corpus:rules/apr-model-021-roundtrip.apr.jsonc"]
+  },
+  "APR-MODEL-021": {
+    "reason": "Preservation needs a write after a read, which a static document cannot show; the suite's roundTrip harness and unit tests supply it.",
+    "coveredBy": ["corpus:rules/apr-model-021-roundtrip.apr.jsonc", "tests/PromptResponse.Core.Tests/Models/ModelCopierTests.cs", "tests/PromptResponse.Desktop.Tests/ViewModels/TableExtensionMemberTests.cs", "python/tests/test_beta6.py", "typescript/src/test/beta6.test.ts"]
   },
   "APR-MODEL-038": {
     "reason": "A rule on what a reader infers, which no document can violate.",
@@ -212,9 +260,25 @@
     "reason": "A rule on what a validator does with an undeclared role, which no document can violate.",
     "coveredBy": ["spec:undeclared-role", "corpus:rules/apr-model-026-warns.apr.jsonc"]
   },
+  "APR-MODEL-027": {
+    "reason": "A rule on how a reader behaves at fill time, which no input document shows.",
+    "coveredBy": ["tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"]
+  },
+  "APR-MODEL-028": {
+    "reason": "A rule on what a reader offers the person, which no input document shows.",
+    "coveredBy": ["tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"]
+  },
+  "APR-MODEL-125": {
+    "reason": "A rule on what a reader presents, which no input document shows.",
+    "coveredBy": ["tests/PromptResponse.Desktop.Tests/ViewModels/RoleAwarenessTests.cs"]
+  },
   "APR-MODEL-097": {
     "reason": "A rule on what a reader preserves, which no document can violate.",
     "coveredBy": ["spec:table-members-on-a-plain-section"]
+  },
+  "APR-MODEL-048": {
+    "reason": "A rule on the ids a writer chooses, which no input document shows; a cell with any other id is still valid.",
+    "coveredBy": ["tests/PromptResponse.Desktop.Tests/ViewModels/TableSectionViewModelTests.cs", "tests/PromptResponse.Desktop.Tests/ViewModels/TableRowIdUniquenessTests.cs"]
   },
   "APR-MODEL-098": {
     "reason": "A rule on how a reader reads an absent member, which no document can violate.",
@@ -227,6 +291,10 @@
   "APR-MODEL-100": {
     "reason": "A rule on what a validator does with a ragged table, which no document can violate.",
     "coveredBy": ["spec:ragged-table"]
+  },
+  "APR-MODEL-015": {
+    "reason": "A document can show the sixteen-level floor and the corpus does; the specification carries no sixteen-level example because it would be long and says nothing a reader of the prose needs.",
+    "coveredBy": ["corpus:rules/apr-model-015-satisfies.apr.jsonc", "renderer:sixteen-levels-render", "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
   },
   "APR-MODEL-102": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
@@ -303,6 +371,10 @@
   "APR-MODEL-124": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional.",
     "coveredBy": ["schemas/apr-1.0.schema.json"]
+  },
+  "APR-MODEL-050": {
+    "reason": "A rule on what a reader shows, which no input document shows.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Models/FormRolesTests.cs"]
   },
   "APR-RENDER-001": {
     "reason": "The accessible name is a property of the rendered interface, not of the document.",
@@ -412,6 +484,10 @@
     "reason": "A rule on what a writer emits, which no input document shows.",
     "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
   },
+  "APR-REP-025": {
+    "reason": "A rule on what a writer emits, which no input document shows.",
+    "coveredBy": ["python/tests/test_format_rules.py"]
+  },
   "APR-REP-024": {
     "reason": "A rule on what a reader reads a null or absent response as. A document cannot show a reader reading it wrongly; the digest of the satisfying example catches it.",
     "coveredBy": ["spec:yaml-plain-null-response-is-empty"]
@@ -443,6 +519,10 @@
   "APR-MODEL-035": {
     "reason": "A rule on what an implementation does with an entry, which no document shows.",
     "coveredBy": ["tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs", "tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs"]
+  },
+  "APR-MODEL-091": {
+    "reason": "A document can show this warning and the corpus does; the specification's submission section gives no example because the prose names the code directly.",
+    "coveredBy": ["corpus:rules/apr-model-035-warns.apr.jsonc", "tests/PromptResponse.Core.Tests/Validation/AdvisoryVocabularyTests.cs"]
   },
   "APR-MODEL-045": {
     "reason": "A rule on what a reader does with an unresolved reference. A document shows the reference is valid, but not a reader rejecting it.",
@@ -552,6 +632,10 @@
     "reason": "A permission to share an id across namespaces, which no document can violate.",
     "coveredBy": ["spec:id-namespaces"]
   },
+  "APR-MODEL-040": {
+    "reason": "Preservation needs a write after a read, which a static document cannot show; the suite's roundTrip harness supplies it.",
+    "coveredBy": ["corpus:rules/apr-model-040-roundtrip.apr.jsonc"]
+  },
   "APR-SEC-011": {
     "reason": "A rule on how a reader bounds hostile input; every document in the suite is within any bound a reader applies.",
     "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
@@ -580,6 +664,10 @@
     "reason": "A rule on how a reader tells a record's kind; a document cannot make a reader choose the other.",
     "coveredBy": ["spec:stream-record-unknown-type", "spec:yaml-stream-two-forms"]
   },
+  "APR-STREAM-003": {
+    "reason": "A rule on the records a reader produces, which an accepted document does not show without asking the reader to write it back.",
+    "coveredBy": ["corpus:rules/apr-stream-003-roundtrip.apr.jsonc", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs", "python/tests/test_beta6.py"]
+  },
   "APR-TEXT-005": {
     "reason": "A permission to hold authoring members to stricter rules, which no document can violate.",
     "coveredBy": ["scripts/validate-apr.py"]
@@ -607,6 +695,10 @@
   "APR-VAL-005": {
     "reason": "A rule on what a validator does not reject, which no document can violate.",
     "coveredBy": ["spec:response-contradicts-type", "spec:response-outside-bounds", "spec:response-outside-suggested-values"]
+  },
+  "APR-TEXT-001": {
+    "reason": "A rule on what an implementation does to a response as it reads or writes it, which no input document shows.",
+    "coveredBy": ["corpus:rules/apr-text-001-roundtrip.apr.jsonc", "python/tests/test_format_rules.py", "python/tests/test_unicode_security.py", "tests/PromptResponse.Core.Tests/Serialization/ResponsePreservationTests.cs"]
   },
   "APR-VAL-010": {
     "reason": "A rule on the code a reader reports a parse failure under; a document cannot make a reader choose another code.",
@@ -703,6 +795,14 @@
   "APR-VAL-034": {
     "reason": "A permission to report a warning the table does not name, which no document can violate.",
     "coveredBy": ["scripts/validate-apr.py"]
+  },
+  "APR-VAL-002": {
+    "reason": "A rule on how an implementation reports a warning, which a document can only show as valid; the case shows the verdict, the rule governs the reporting.",
+    "coveredBy": ["corpus:rules/apr-val-002-warns.apr.jsonc", "tests/PromptResponse.Core.Tests/Validation/AdvisoryVocabularyTests.cs", "python/tests/test_unicode_security.py"]
+  },
+  "APR-VAL-006": {
+    "reason": "A rule on what a renderer lets a person do, which no input document shows.",
+    "coveredBy": ["renderer:a-hint-mismatch-does-not-block-saving"]
   },
   "APR-VAL-035": {
     "reason": "A rule on the code a validator reports a condition under; a document cannot make a validator choose another code.",
