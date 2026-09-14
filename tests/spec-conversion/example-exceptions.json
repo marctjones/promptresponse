@@ -32,6 +32,122 @@
     "reason": "A computed value staying editable is renderer behaviour; a document cannot show it.",
     "coveredBy": ["renderer:a-computed-prompt-stays-editable"]
   },
+  "APR-MODEL-012": {
+    "reason": "A permission for how a renderer presents a table, which no document can violate because the document does not choose the presentation.",
+    "coveredBy": ["renderer:table-cells-name-their-header"]
+  },
+  "APR-MODEL-018": {
+    "reason": "A rule on what a validator does with an unregistered type, which no document can violate; the example and vector are read valid with a warning.",
+    "coveredBy": ["spec:unregistered-data-type-degrades", "corpus:rules/apr-model-018-warns.apr.jsonc"]
+  },
+  "APR-MODEL-020": {
+    "reason": "A rule on what a reader does with an unknown member, which no document can violate.",
+    "coveredBy": ["spec:extension-member-prefixed", "corpus:rules/apr-model-021-roundtrip.apr.jsonc"]
+  },
+  "APR-MODEL-038": {
+    "reason": "A rule on what a reader infers, which no document can violate.",
+    "coveredBy": ["spec:table-members-on-a-plain-section", "corpus:rules/apr-model-038-warns.apr.jsonc"]
+  },
+  "APR-MODEL-039": {
+    "reason": "A rule on what a reader preserves, which no document can violate.",
+    "coveredBy": ["spec:unusable-hint", "corpus:rules/apr-model-039-warns.apr.jsonc"]
+  },
+  "APR-MODEL-051": {
+    "reason": "A rule on what a validator does with an undeclared role, which no document can violate.",
+    "coveredBy": ["spec:undeclared-role", "corpus:rules/apr-model-026-warns.apr.jsonc"]
+  },
+  "APR-MODEL-097": {
+    "reason": "A rule on what a reader preserves, which no document can violate.",
+    "coveredBy": ["spec:table-members-on-a-plain-section"]
+  },
+  "APR-MODEL-098": {
+    "reason": "A rule on how a reader reads an absent member, which no document can violate.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Models/TableSectionTests.cs"]
+  },
+  "APR-MODEL-099": {
+    "reason": "A rule on what a validator does with a table over its cap, which no document can violate.",
+    "coveredBy": ["spec:table-over-capacity"]
+  },
+  "APR-MODEL-100": {
+    "reason": "A rule on what a validator does with a ragged table, which no document can violate.",
+    "coveredBy": ["spec:ragged-table"]
+  },
+  "APR-MODEL-102": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-103": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-104": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-105": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-106": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-107": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-108": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-109": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-110": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-111": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-112": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-113": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-114": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-116": {
+    "reason": "A rule on what a validator does with an unusable hint, which no document can violate.",
+    "coveredBy": ["spec:unusable-hint"]
+  },
+  "APR-MODEL-118": {
+    "reason": "A rule on how a reader compares member names, which no document can violate; the example shows its consequence.",
+    "coveredBy": ["spec:member-name-case"]
+  },
+  "APR-MODEL-121": {
+    "reason": "A rule on how a reader resolves a prompt's role, which no document can violate.",
+    "coveredBy": ["python/tests/test_format_rules.py"]
+  },
+  "APR-MODEL-122": {
+    "reason": "A rule on what a reader shows for an undeclared role, which no document can violate.",
+    "coveredBy": ["python/tests/test_format_rules.py"]
+  },
+  "APR-MODEL-123": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional.",
+    "coveredBy": ["schemas/apr-1.0.schema.json"]
+  },
+  "APR-MODEL-124": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional.",
+    "coveredBy": ["schemas/apr-1.0.schema.json"]
+  },
   "APR-RENDER-001": {
     "reason": "The accessible name is a property of the rendered interface, not of the document.",
     "coveredBy": ["renderer:accessible-name", "renderer:a-role-does-not-become-the-name", "renderer:a-filled-form-renders-its-answers"]

@@ -4667,15 +4667,21 @@
       "kind": "heading",
       "text": "5.5 Tables",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "tables/sentence/41d00f2ee8": {
       "anchor": "tables",
       "chapter": 5,
       "kind": "sentence",
       "text": "A table introduces **no new primitive**.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "tables/sentence/77831bd29d",
+        "tables/sentence/48c4591bad"
+      ],
+      "issue": 478
     },
     "tables/sentence/b36c0612ba": {
       "anchor": "tables",
@@ -4683,48 +4689,69 @@
       "kind": "sentence",
       "text": "Rows are ordinary sections; cells are ordinary prompts.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "tables/sentence/48c4591bad"
+      ],
+      "issue": 478
     },
     "tables/sentence/28efa073c0": {
       "anchor": "tables",
       "chapter": 5,
       "kind": "sentence",
       "text": "A section becomes a table by carrying `kind: \"table\"`, and **only** by carrying it: a reader **MUST NOT** infer a table from `maxRows`, `canAddRows`, or the presence of child sections, and **MUST** preserve and ignore those members on a section that is not a table. [APR-MODEL-038]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "tables/sentence/67f8c282ad",
+        "tables/sentence/f5e400e8b9",
+        "tables/example/ca4caa1247",
+        "tables/sentence/a148de6187",
+        "tables/sentence/939fb0e03c"
+      ],
+      "issue": 478
     },
     "tables/rationale/691fd3a9ad": {
       "anchor": "tables",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: a plain section may have child sections too, so inference would have to guess, and two readers guessing differently about the same document is the failure the format exists to prevent.",
-      "disposition": "rationale",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "tables/sentence/8f4e1a10e4": {
       "anchor": "tables",
       "chapter": 5,
       "kind": "sentence",
       "text": "**Example 4.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "replacedBy": [
+        "tables/example/6b9b1bb883",
+        "tables/sentence/3d9062fbc8",
+        "tables/sentence/b04d31a5f9"
+      ],
+      "issue": 478
     },
     "tables/sentence/43a17d4dde": {
       "anchor": "tables",
       "chapter": 5,
       "kind": "sentence",
       "text": "A table section.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 478
     },
     "tables/code/3040a61745": {
       "anchor": "tables",
       "chapter": 5,
       "kind": "code",
       "text": "```jsonc\n{\n  \"id\": \"expenses\",\n  \"title\": \"Expense line items\",\n  \"kind\": \"table\",\n  \"canAddRows\": true,\n  \"maxRows\": 25,\n  \"sections\": [\n    {\n      \"id\": \"item_1\",\n      \"title\": \"Item 1\",\n      \"prompts\": [\n        { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n        { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n          \"hints\": { \"expectedDataType\": \"currency\" } }\n      ]\n    }\n  ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "the fragment is now the executable Example 5.5-1",
+      "issue": 478
     },
     "table-assertion/heading/affdf1e7bb": {
       "anchor": "table-assertion",
@@ -4732,7 +4759,8 @@
       "kind": "heading",
       "text": "5.5.1 What a table asserts",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "table-assertion/sentence/5f0386a5fa": {
       "anchor": "table-assertion",
@@ -4740,7 +4768,11 @@
       "kind": "sentence",
       "text": "It is **a claim about structure, not appearance**:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-assertion/sentence/183f7bc5ba"
+      ],
+      "issue": 478
     },
     "table-assertion/list-item/2f7d278a0b": {
       "anchor": "table-assertion",
@@ -4748,7 +4780,11 @@
       "kind": "list-item",
       "text": "child sections are **instances**, not free-standing subsections;",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-assertion/list-item/e53ed80494"
+      ],
+      "issue": 478
     },
     "table-assertion/list-item/d40ab554f3": {
       "anchor": "table-assertion",
@@ -4756,7 +4792,11 @@
       "kind": "list-item",
       "text": "prompts at the **same position correspond** across instances — this is what makes \"the Amount field\" a thing that exists in every row;",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-assertion/list-item/99e3b4b3d1"
+      ],
+      "issue": 478
     },
     "table-assertion/list-item/e6bdfbc1de": {
       "anchor": "table-assertion",
@@ -4764,7 +4804,8 @@
       "kind": "list-item",
       "text": "an instance's `title` **identifies** it; and",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "table-assertion/list-item/121a27561f": {
       "anchor": "table-assertion",
@@ -4772,7 +4813,8 @@
       "kind": "list-item",
       "text": "a prompt's `label` **names the corresponding field** across every instance.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "table-assertion/sentence/c0b36fe611": {
       "anchor": "table-assertion",
@@ -4780,7 +4822,11 @@
       "kind": "sentence",
       "text": "There is deliberately **no column definition**.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-assertion/sentence/633b29011b"
+      ],
+      "issue": 478
     },
     "table-assertion/sentence/c885154a30": {
       "anchor": "table-assertion",
@@ -4788,15 +4834,23 @@
       "kind": "sentence",
       "text": "A column header *is* the corresponding prompt's label; a column's type hint *is* that prompt's `expectedDataType`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-assertion/sentence/f1d3d5292b"
+      ],
+      "issue": 478
     },
     "table-assertion/sentence/3da78c1c2b": {
       "anchor": "table-assertion",
       "chapter": 5,
       "kind": "sentence",
       "text": "Declaring columns separately would state twice what the prompts already state, and anything stated twice can disagree — which is the failure this design removes rather than manages.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "table-assertion/rationale/1bf4cd78bb"
+      ],
+      "issue": 478
     },
     "table-assertion/sentence/1ad52bf589": {
       "anchor": "table-assertion",
@@ -4804,7 +4858,11 @@
       "kind": "sentence",
       "text": "Correspondence is **by position**.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-assertion/sentence/b56429964b"
+      ],
+      "issue": 478
     },
     "table-assertion/sentence/edfc12e827": {
       "anchor": "table-assertion",
@@ -4812,7 +4870,12 @@
       "kind": "sentence",
       "text": "Ids are free-form; the convention `{rowId}.{columnId}` is **RECOMMENDED** for addressability and database import, but carries no meaning the renderer depends on. [APR-MODEL-048]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-assertion/sentence/9985f518d8"
+      ],
+      "note": "a writer is the subject of APR-MODEL-048",
+      "issue": 478
     },
     "table-no-layout/heading/b6aeea4482": {
       "anchor": "table-no-layout",
@@ -4820,7 +4883,8 @@
       "kind": "heading",
       "text": "5.5.2 A table licenses no layout",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "table-no-layout/sentence/d7002b3370": {
       "anchor": "table-no-layout",
@@ -4828,7 +4892,11 @@
       "kind": "sentence",
       "text": "A renderer **MAY** present a table as a grid, as stacked cards, as a flat sequence of prompts, or as speech.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-no-layout/sentence/f0cbccd07e"
+      ],
+      "issue": 478
     },
     "table-no-layout/sentence/45775ec084": {
       "anchor": "table-no-layout",
@@ -4836,15 +4904,20 @@
       "kind": "sentence",
       "text": "**All are conformant**, and none is a fallback. [APR-MODEL-012]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-no-layout/sentence/d2aa660669"
+      ],
+      "issue": 478
     },
     "table-no-layout/rationale/153b64fe17": {
       "anchor": "table-no-layout",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: this matters most where tables are hardest. A six-column grid is unusable on a phone and at 200% zoom, and many screen-reader users prefer the linear reading. Choosing the linear presentation is not a degraded rendering of a table — it is an equally valid reading of the same claim.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "table-no-layout/sentence/ec338a51ec": {
       "anchor": "table-no-layout",
@@ -4852,7 +4925,12 @@
       "kind": "sentence",
       "text": "A table **MUST NOT** be treated as licence for width, alignment, colour, or font data. [APR-MODEL-013]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-no-layout/sentence/790fd0e1f7"
+      ],
+      "note": "a writer is the subject of APR-MODEL-013",
+      "issue": 478
     },
     "table-rows/heading/ee04d2a9f5": {
       "anchor": "table-rows",
@@ -4860,24 +4938,31 @@
       "kind": "heading",
       "text": "5.5.3 Rows and instances",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "table-rows/sentence/08f86e42d3": {
       "anchor": "table-rows",
       "chapter": 5,
       "kind": "sentence",
       "text": "`canAddRows` is `true` when a filler may add or remove instances; absent means fixed.",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "table-rows/sentence/915530316d",
+        "table-rows/sentence/75520ceeea"
+      ],
+      "note": "#450: an absent canAddRows is APR-MODEL-098",
+      "issue": 478
     },
     "table-rows/rationale/7cf06c9f12": {
       "anchor": "table-rows",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: the default is deliberately restrictive. A fixed table that silently gained a row is a worse failure than a line-item table needing one explicit property.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "table-rows/sentence/45e0cd024a": {
       "anchor": "table-rows",
@@ -4885,7 +4970,11 @@
       "kind": "sentence",
       "text": "**Mutability and population are independent.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-rows/sentence/90a3e8815b"
+      ],
+      "issue": 478
     },
     "table-rows/sentence/64e2d5341a": {
       "anchor": "table-rows",
@@ -4893,16 +4982,20 @@
       "kind": "sentence",
       "text": "Whether instances may be added has nothing to do with whether they currently hold values — a filled table may still accept new rows, and a fixed table may be entirely blank.",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "table-rows/sentence/90a3e8815b"
+      ],
+      "issue": 478
     },
     "table-rows/sentence/c07aecb52a": {
       "anchor": "table-rows",
       "chapter": 5,
       "kind": "sentence",
       "text": "**A table always has at least one instance.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 478
     },
     "table-rows/sentence/f0652339da": {
       "anchor": "table-rows",
@@ -4910,7 +5003,11 @@
       "kind": "sentence",
       "text": "A section carrying `kind: \"table\"` **MUST** carry at least one child section.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-rows/sentence/1157217842"
+      ],
+      "issue": 478
     },
     "table-rows/sentence/67ec17be31": {
       "anchor": "table-rows",
@@ -4918,31 +5015,52 @@
       "kind": "sentence",
       "text": "Prompts alone satisfy [Section](#section-object) but not this: a table's cells live in its instances, so a table without one has nowhere to put them.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-rows/sentence/78e0c4ca29",
+        "table-rows/rationale/4d87ac20d5",
+        "table-rows/example/1aae269c1e",
+        "table-rows/sentence/d10500aae6",
+        "table-rows/sentence/1f522dc513",
+        "table-rows/example/dc8c71116d",
+        "table-rows/sentence/2758f16301",
+        "table-rows/sentence/faca0ce3e0"
+      ],
+      "issue": 478
     },
     "table-rows/sentence/ef50dd63d0": {
       "anchor": "table-rows",
       "chapter": 5,
       "kind": "sentence",
       "text": "A reader **MUST** report `EMPTY_TABLE`. [APR-MODEL-046]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "the EMPTY_TABLE row in Errors names the code",
+      "issue": 478
     },
     "table-rows/sentence/ba5edfc6c0": {
       "anchor": "table-rows",
       "chapter": 5,
       "kind": "sentence",
       "text": "An \"empty\" table was never empty: a UI offering to add the first row is already presenting a row, and how that row is shown is a display decision.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "table-rows/rationale/4d87ac20d5"
+      ],
+      "issue": 478
     },
     "table-rows/sentence/5f56faf7ba": {
       "anchor": "table-rows",
       "chapter": 5,
       "kind": "sentence",
       "text": "The instance also carries the table's field names, so a table without one cannot describe itself.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "table-rows/rationale/4d87ac20d5"
+      ],
+      "issue": 478
     },
     "table-rows/sentence/13102b9305": {
       "anchor": "table-rows",
@@ -4950,15 +5068,24 @@
       "kind": "sentence",
       "text": "`maxRows` is advisory.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-rows/sentence/d28e9edbca"
+      ],
+      "issue": 478
     },
     "table-rows/sentence/19fe212ff7": {
       "anchor": "table-rows",
       "chapter": 5,
       "kind": "sentence",
       "text": "A table carrying more instances is still valid and is reported as a warning ([Warnings](#warnings)).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "replacedBy": [
+        "table-rows/sentence/526927e63c"
+      ],
+      "note": "#450: maxRows is advisory as APR-MODEL-099",
+      "issue": 478
     },
     "table-ragged/heading/d242d1b839": {
       "anchor": "table-ragged",
@@ -4966,7 +5093,8 @@
       "kind": "heading",
       "text": "5.5.4 Ragged tables",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "table-ragged/sentence/5d100141c1": {
       "anchor": "table-ragged",
@@ -4974,23 +5102,36 @@
       "kind": "sentence",
       "text": "Instances **SHOULD** agree in prompt count and in the label at each position.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "table-ragged/sentence/9575a5166d"
+      ],
+      "issue": 478
     },
     "table-ragged/sentence/e534e53cde": {
       "anchor": "table-ragged",
       "chapter": 5,
       "kind": "sentence",
       "text": "When they disagree the document is still **valid**; a validator reports `TABLE_RAGGED` or `TABLE_LABEL_MISMATCH` and a renderer presents what is there. [APR-MODEL-014]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "table-ragged/sentence/236c56f898",
+        "table-ragged/sentence/f1f0eb69a4",
+        "table-ragged/example/6388260fd6",
+        "table-ragged/sentence/52266ee710",
+        "table-ragged/sentence/c35d3324a1"
+      ],
+      "issue": 478
     },
     "table-ragged/rationale/4c5eeec12f": {
       "anchor": "table-ragged",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: refusing to open the document would discard whatever a filler had already written, which [Any string is a valid response](#any-string) exists to prevent.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "nesting/heading/e4b8576770": {
       "anchor": "nesting",
@@ -4998,7 +5139,8 @@
       "kind": "heading",
       "text": "5.6 Nesting depth",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "nesting/sentence/45cc8ed0b1": {
       "anchor": "nesting",
@@ -5006,7 +5148,8 @@
       "kind": "sentence",
       "text": "Sections nest recursively.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "nesting/sentence/f853bcb7b5": {
       "anchor": "nesting",
@@ -5014,31 +5157,43 @@
       "kind": "sentence",
       "text": "Every implementation **MUST** support at least **16 levels** of section nesting.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "nesting/sentence/6738e1ed09"
+      ],
+      "issue": 478
     },
     "nesting/sentence/f4cf4fdd89": {
       "anchor": "nesting",
       "chapter": 5,
       "kind": "sentence",
       "text": "Implementations **MAY** support more. [APR-MODEL-015]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "a permission nothing forbids",
+      "issue": 478
     },
     "nesting/sentence/fc4ab25bc4": {
       "anchor": "nesting",
       "chapter": 5,
       "kind": "sentence",
       "text": "Any particular ceiling above that floor is an implementation detail and **MUST NOT** be relied upon by a document author. [APR-MODEL-016]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "move",
+      "status": "applied",
+      "replacedBy": [
+        "nesting/sentence/26b9316147"
+      ],
+      "note": "APR-MODEL-016 bound a document author, which is not a class of product",
+      "issue": 478
     },
     "nesting/rationale/3d04f4952d": {
       "anchor": "nesting",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: unbounded depth is not implementable. Every real parser has a depth limit, and a format that promises infinity promises a stack overflow.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "nesting/sentence/658cd14064": {
       "anchor": "nesting",
@@ -5046,7 +5201,12 @@
       "kind": "sentence",
       "text": "Authors **SHOULD** stay far below the floor.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "nesting/sentence/11e9ea9914"
+      ],
+      "note": "a writer is the subject of APR-MODEL-017",
+      "issue": 478
     },
     "nesting/sentence/06b262ce18": {
       "anchor": "nesting",
@@ -5054,7 +5214,11 @@
       "kind": "sentence",
       "text": "Forms nested more than four or five levels deep are difficult to navigate with any input method. [APR-MODEL-017]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "nesting/sentence/91add57cf9"
+      ],
+      "issue": 478
     },
     "hints-object/heading/e6f4504e0d": {
       "anchor": "hints-object",
@@ -5062,15 +5226,21 @@
       "kind": "heading",
       "text": "5.7 Hints",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "hints-object/sentence/ccaea50d55": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "All OPTIONAL, all advisory ([Hints never enforce](#hints-advisory)).",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/4c51755fa9",
+        "hints-object/sentence/2c537699f3"
+      ],
+      "issue": 478
     },
     "hints-object/table-header/bd072d4771": {
       "anchor": "hints-object",
@@ -5078,111 +5248,167 @@
       "kind": "table-header",
       "text": "| Member | Type | Required | Notes |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-header/66a78c1006"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/a91f3a5d7b": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `placeholder` | string | No | Text shown in an empty control. Never a substitute for `label`. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/65858a9ba3"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/5b968855c8": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `expectedDataType` | string | No | Suggested input affordance. Open registry; see below. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/dc084a0f16"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/aadbeeea4a": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `suggestedValues` | array of string | No | Offered as options. A response outside the list is still valid. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/a89e9d7718"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/858ab76d47": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `helpText` | string | No | Explanatory text for the prompt. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/53a96953e7"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/0711f1920b": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `validationPattern` | string | No | Advisory regular expression. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/d85368e4cd"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/13407008b0": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `min` | number or string | No | Suggested lower bound for an ordered field. A number on `number`, `currency`, and `range`; a canonical-form string on `date`, `time`, and `datetime`. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/a8e794a9ec"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/a785f9d80c": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `max` | number or string | No | Suggested upper bound for an ordered field. Typed as `min`. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/77fb3fcae2"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/5e0b346a23": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `step` | number | No | Suggested increment for an ordered field. Meaningful on `number`, `currency`, and `range`. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/469c6a73cd"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/20fa955a73": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `exprHidden` | string | No | CEL. Truthy hides this prompt ([Expressions](#expressions)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/5f0091b3f2"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/b7c93a39fa": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `exprValue` | string | No | CEL. Computed value. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/15c3e18bfd"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/29bf81254d": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `exprExpected` | string | No | CEL. Truthy marks the prompt as expected. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/4e7a529a00"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/ea518a1dba": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `exprValidation` | string | No | CEL. Returns a message; empty means valid. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/525dd25000"
+      ],
+      "issue": 478
     },
     "hints-object/table-row/dc38e1617c": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `exprReadOnly` | string | No | CEL. Truthy makes this prompt read-only in a renderer. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/table-row/be8878d62b"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/aaa34fc49b": {
       "anchor": "hints-object",
@@ -5190,63 +5416,87 @@
       "kind": "sentence",
       "text": "`expectedDataType` registry: `text`, `multiline`, `email`, `phone`, `url`, `date`, `time`, `datetime`, `number`, `currency`, `boolean`, `select`, `multichoice`, `password`, `range`, `color`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "hints-object/sentence/71577a10f6": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "**There is no `signature` type and no `file` type.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/rationale/d73285f619"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/d9425ab711": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "A signature is not a response: evidence that a person stood behind a form is an attestation record travelling beside it in the stream ([Attestations](#attestations)), never a drawn image or a typed name in a field.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/rationale/d73285f619"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/0e15715bc4": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "An attachment is not a response either: a form carries what a person typed, and the format defines no representation for bytes that were not typed.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/rationale/d73285f619"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/c0f2863e4e": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "A reader encountering either name treats it as any other unregistered value and degrades it to text. [APR-MODEL-030]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-MODEL-030 restated APR-MODEL-018; its corpus vectors cite 018",
+      "issue": 478
     },
     "hints-object/rationale/c0e9f37082": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: both names once stood in the registry with their meaning marked as unspecified, so two implementations could accept the same form and store different things. A signature field in particular invited the mistake the roles section warns against — treating a widget as evidence.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 478
     },
     "hints-object/sentence/3e5f413163": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "Country-specific field types are deliberately absent.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/rationale/2afc578ea8"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/1a7d2146a3": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "A postcode, a national identity number, or a tax reference is `text` with a `validationPattern`: baking one country's formats into the vocabulary would oblige every reader everywhere to carry them.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/rationale/2afc578ea8"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/1ab256a24c": {
       "anchor": "hints-object",
@@ -5254,7 +5504,11 @@
       "kind": "sentence",
       "text": "**This registry is open.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/43c47d9fe0"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/821d3bff10": {
       "anchor": "hints-object",
@@ -5262,15 +5516,28 @@
       "kind": "sentence",
       "text": "An unrecognized value **MUST** degrade to a plain text field.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/0d432214a3"
+      ],
+      "note": "a renderer is the subject of APR-MODEL-115",
+      "issue": 478
     },
     "hints-object/sentence/e65185698a": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "It **MUST NOT** cause an error — that is what lets the registry grow without breaking every existing reader. [APR-MODEL-018]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/7813efdde0",
+        "hints-object/rationale/cc2ec60e27",
+        "hints-object/example/5e4c5e5eaf",
+        "hints-object/sentence/46eb6da8e3",
+        "hints-object/sentence/f5842fe929"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/5d1d560a57": {
       "anchor": "hints-object",
@@ -5278,15 +5545,28 @@
       "kind": "sentence",
       "text": "**A hint a reader cannot use is not an error.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/03d9110fa7"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/61b94300ea": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "A hint that is unrecognised, unsupported, or malformed — an unparseable `validationPattern`, a bound of the wrong type, an expression that will not compile — **MUST** be preserved and **MAY** be reported as a warning; it **MUST NOT** make the document invalid.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/046c5fb84d",
+        "hints-object/sentence/2f1e954ad8",
+        "hints-object/example/7caba1af62",
+        "hints-object/sentence/ac34dda831",
+        "hints-object/sentence/9ad7ec40d6"
+      ],
+      "note": "the warning is the HINT_UNUSABLE row",
+      "issue": 478
     },
     "hints-object/sentence/31e832b4fe": {
       "anchor": "hints-object",
@@ -5294,7 +5574,11 @@
       "kind": "sentence",
       "text": "Hints are applied in the order the member table lists them, and where two hints on one prompt conflict, the earlier one stands and the later one is skipped and **MAY** be reported. [APR-MODEL-039]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/ef19c99367"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/1f3ce38434": {
       "anchor": "hints-object",
@@ -5302,7 +5586,11 @@
       "kind": "sentence",
       "text": "The list above is the normative registry.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/321d8b94ab"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/140b2ad8b3": {
       "anchor": "hints-object",
@@ -5310,7 +5598,8 @@
       "kind": "sentence",
       "text": "`schemas/apr-types-1.0.json` publishes it in machine-readable form, together with each type's canonical write form, accepted read forms, expression type, and meaningful hints.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "hints-object/sentence/f01e957145": {
       "anchor": "hints-object",
@@ -5318,23 +5607,27 @@
       "kind": "sentence",
       "text": "That file is a **derived projection** of this section: where the two disagree, this section governs and the file is a defect.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "hints-object/rationale/19ac8fac15": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: the same facts stated in prose, in a schema, and in code will eventually disagree, which is the failure [Tables](#table-assertion) removes by refusing to declare a column twice. Naming one source and deriving the rest is the same move applied to the type vocabulary.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "hints-object/sentence/8f31c9b5f4": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "`suggestedValues` offers options; a response outside the list is still valid.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "the suggestedValues row states it",
+      "issue": 478
     },
     "hints-object/sentence/8f9be9d06d": {
       "anchor": "hints-object",
@@ -5342,7 +5635,11 @@
       "kind": "sentence",
       "text": "On a `boolean` it names the two options, so a renderer can label them as the author intended without changing the type.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/d068445ec0"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/07bbc71179": {
       "anchor": "hints-object",
@@ -5350,7 +5647,8 @@
       "kind": "sentence",
       "text": "**Bounds are an offer, not a limit.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "hints-object/sentence/35270580d4": {
       "anchor": "hints-object",
@@ -5358,8 +5656,11 @@
       "kind": "sentence",
       "text": "`min`, `max`, and `step` describe the range a widget should offer: the ends of a slider, the increment of a spinner.",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/1e46d96783"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/b9a60c9ce4": {
       "anchor": "hints-object",
@@ -5367,7 +5668,11 @@
       "kind": "sentence",
       "text": "They are meaningful only on ordered types.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/cc4b475a0a"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/7542d89ef7": {
       "anchor": "hints-object",
@@ -5375,7 +5680,8 @@
       "kind": "sentence",
       "text": "On `number`, `currency`, and `range` they are JSON numbers.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "hints-object/sentence/5495f21b0d": {
       "anchor": "hints-object",
@@ -5383,7 +5689,11 @@
       "kind": "sentence",
       "text": "On `date`, `time`, and `datetime`, `min` and `max` are the earliest and latest suggested values, written as strings in that type's canonical form ([Value types](#json-subset)); `step` has no meaning there.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/6953d60dee"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/147c7602d4": {
       "anchor": "hints-object",
@@ -5391,23 +5701,31 @@
       "kind": "sentence",
       "text": "A response outside them is **still valid**, exactly as for `suggestedValues`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "hints-object/sentence/ca86d87110"
+      ],
+      "issue": 478
     },
     "hints-object/sentence/fa64487cb6": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "A slider that stops at 100 does not make `120` a wrong answer, and a validator **MUST NOT** reject one.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-MODEL-003 forbids rejecting a response because of any hint",
+      "issue": 478
     },
     "hints-object/sentence/137620bd6c": {
       "anchor": "hints-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "Bounds shape the affordance offered to someone who wants it; they never shrink what a person is allowed to say. [APR-MODEL-019]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-MODEL-019 restated APR-MODEL-003; its corpus vectors cite 003",
+      "issue": 478
     },
     "data-types/heading/75bb1f5bd5": {
       "anchor": "data-types",
@@ -5415,7 +5733,8 @@
       "kind": "heading",
       "text": "5.7.1 Types are affordances, not validators",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "data-types/sentence/dfd4f8b6d1": {
       "anchor": "data-types",
@@ -5423,7 +5742,8 @@
       "kind": "sentence",
       "text": "`expectedDataType` tells a renderer which input affordance to offer and tells the person filling the form what the author expected.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "data-types/sentence/cf0cc400d6": {
       "anchor": "data-types",
@@ -5431,7 +5751,8 @@
       "kind": "sentence",
       "text": "It does nothing else.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "data-types/sentence/bd3227c9fa": {
       "anchor": "data-types",
@@ -5439,7 +5760,11 @@
       "kind": "sentence",
       "text": "Every response below is valid for its prompt:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "data-types/sentence/40e867d977"
+      ],
+      "issue": 478
     },
     "data-types/table-header/2aa7299431": {
       "anchor": "data-types",
@@ -5447,7 +5772,8 @@
       "kind": "table-header",
       "text": "| `expectedDataType` | Responses that are all valid |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "data-types/table-row/0d7f5d0ac7": {
       "anchor": "data-types",
@@ -5455,7 +5781,8 @@
       "kind": "table-row",
       "text": "| `date` | `2025-01-15`, `January 15th`, `next Tuesday`, `TBD`, empty |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "data-types/table-row/303a07c30f": {
       "anchor": "data-types",
@@ -5463,7 +5790,8 @@
       "kind": "table-row",
       "text": "| `number` | `42`, `forty-two`, `~50`, `N/A`, empty |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "data-types/table-row/c2497fb477": {
       "anchor": "data-types",
@@ -5471,7 +5799,8 @@
       "kind": "table-row",
       "text": "| `email` | `user@example.com`, `none`, `see attached`, empty |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "data-types/table-row/43494bab1a": {
       "anchor": "data-types",
@@ -5479,7 +5808,8 @@
       "kind": "table-row",
       "text": "| `phone` | `+1-555-0100`, `unlisted`, `ask my assistant`, empty |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "data-types/table-row/c9fbd0a99d": {
       "anchor": "data-types",
@@ -5487,15 +5817,17 @@
       "kind": "table-row",
       "text": "| `boolean` | `Yes`, `No`, `Maybe`, `It's complicated`, empty |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "data-types/rationale/8210e2247a": {
       "anchor": "data-types",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: the author's intent and what the person actually wrote are two different facts. APR preserves the second exactly. Whether it is acceptable is a decision for the workflow that consumes the form.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "extensions/heading/f1bf2731eb": {
       "anchor": "extensions",
@@ -5503,63 +5835,83 @@
       "kind": "heading",
       "text": "5.8 Unknown members",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "extensions/sentence/40433a0aa9": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "sentence",
       "text": "A reader **MUST** ignore members it does not recognise, at every level, and **MUST NOT** reject a document for carrying them. [APR-MODEL-020]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "extensions/sentence/f3480e7f3c": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "sentence",
       "text": "A reader **MUST** also **preserve** them: an unrecognised member present on read **MUST** still be present, unchanged, on write. [APR-MODEL-021]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "extensions/rationale/0c54f41c15": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: without preservation, every additive change to the format is destructive. A document written by a newer version would lose its new members the first time an older reader opened and saved it, silently, with no error anywhere.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "extensions/sentence/3221f1181b": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "sentence",
       "text": "**Member names are case-sensitive.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "replacedBy": [
+        "extensions/sentence/a9dafdb97f"
+      ],
+      "note": "#449",
+      "issue": 478
     },
     "extensions/sentence/3c5b3f6244": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "sentence",
       "text": "A wrongly-cased member is an unknown member: it is preserved as data, and the property it resembles takes its default.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "extensions/sentence/a9dafdb97f",
+        "extensions/sentence/96dc6564e0",
+        "extensions/example/bd257feade",
+        "extensions/sentence/f3e915605a",
+        "extensions/sentence/1bec001cfc"
+      ],
+      "issue": 478
     },
     "extensions/sentence/a1c23219a0": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "sentence",
       "text": "This is a common source of \"my field vanished\" reports.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 478
     },
     "extensions/sentence/1a36436351": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "sentence",
       "text": "Extension members participate in whole-document digests ([Digests](#digests)), so an attestation over a form covers them.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-DIGEST-002 includes every extension member in a form digest",
+      "issue": 478
     },
     "extensions/sentence/88756931ad": {
       "anchor": "extensions",
@@ -5567,7 +5919,8 @@
       "kind": "sentence",
       "text": "**Unprefixed names belong to the specification.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "extensions/sentence/91bde49610": {
       "anchor": "extensions",
@@ -5575,7 +5928,11 @@
       "kind": "sentence",
       "text": "Every member this document defines is unprefixed, and every member a later version of APR adds will be.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "extensions/sentence/c2f71bdef2"
+      ],
+      "issue": 478
     },
     "extensions/sentence/68432a77f0": {
       "anchor": "extensions",
@@ -5583,7 +5940,12 @@
       "kind": "sentence",
       "text": "A producer **MUST NOT** add a member whose name carries no prefix. [APR-MODEL-031]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "extensions/sentence/16f857ceed"
+      ],
+      "note": "a writer is the subject of APR-MODEL-031",
+      "issue": 478
     },
     "extensions/sentence/e0353c4983": {
       "anchor": "extensions",
@@ -5591,7 +5953,8 @@
       "kind": "sentence",
       "text": "**An extension member is named by its owner.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "extensions/sentence/990f531374": {
       "anchor": "extensions",
@@ -5599,7 +5962,11 @@
       "kind": "sentence",
       "text": "An extension member name **MUST** begin with a reverse-DNS prefix owned by the producer, followed by a dot: `com.example.priority`, `gov.ct.dmv.routing`.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "extensions/sentence/1e42df336c"
+      ],
+      "issue": 478
     },
     "extensions/sentence/724e684342": {
       "anchor": "extensions",
@@ -5607,15 +5974,18 @@
       "kind": "sentence",
       "text": "A reader identifies an extension member by the dot in its name.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "extensions/sentence/cb771fb3ea": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "sentence",
       "text": "A validator **MAY** report an unrecognised undotted member as `UNPREFIXED_MEMBER`; it **MUST NOT** reject the document, and **MUST** still preserve the member ([Warnings](#warnings)). [APR-MODEL-029]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "the UNPREFIXED_MEMBER row names the warning, APR-MODEL-020 forbids rejecting and APR-MODEL-021 requires preserving an unknown member",
+      "issue": 478
     },
     "extensions/sentence/5e813421a1": {
       "anchor": "extensions",
@@ -5623,7 +5993,8 @@
       "kind": "sentence",
       "text": "**An extension member is the author's own data.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "extensions/sentence/fdc7211264": {
       "anchor": "extensions",
@@ -5631,7 +6002,11 @@
       "kind": "sentence",
       "text": "It is written by whoever wrote the form, travels inside it, and is covered by its digest.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "extensions/sentence/f6d63c304b"
+      ],
+      "issue": 478
     },
     "extensions/sentence/6e056b44a3": {
       "anchor": "extensions",
@@ -5639,23 +6014,34 @@
       "kind": "sentence",
       "text": "Data *about* a form written by somebody else — a receipt, a review, a routing decision — is not an extension member: it is a new form naming what it was about ([Related records](#regarding)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "extensions/rationale/e22f6fa32a": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: two producers choosing the same member name produce documents that round-trip correctly and mean different things, and a format that cannot add a member without colliding with somebody's private one cannot grow. Reserving the unprefixed space and requiring an owned prefix for everything else closes both problems without a registry, which is what OpenAPI's `x-` and reverse-DNS naming in Java and Apple platforms do. A domain is the one namespace every producer already owns, so no one has to run anything.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 478
     },
     "extensions/example/88d2e61ea1": {
       "anchor": "extensions",
       "chapter": 5,
       "kind": "example",
       "text": "```apr-example\nid: extension-member-prefixed\nrule: extensions\nsatisfies: APR-MODEL-020, APR-MODEL-029, APR-MODEL-031\nrepresentation: jsonc\nexpect: valid\n---\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Extended\", \"com.example.routing\": \"desk-4\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"com.example.priority\": 2 } ] }\n  ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "replacedBy": [
+        "extensions/example/88d2e61ea1",
+        "extensions/sentence/d1d2dc31e6",
+        "extensions/sentence/f252336a12",
+        "extensions/example/071f00824d",
+        "extensions/sentence/96a446c5d6",
+        "extensions/sentence/5237d45919"
+      ],
+      "issue": 478
     },
     "canonical-values/heading/638f2e325f": {
       "anchor": "canonical-values",
@@ -5663,7 +6049,8 @@
       "kind": "heading",
       "text": "5.9 Canonical value forms",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "canonical-values/sentence/4eafe393e1": {
       "anchor": "canonical-values",
@@ -5671,7 +6058,11 @@
       "kind": "sentence",
       "text": "Any string remains a valid response.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/sentence/7cf3868022"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/bead08c710": {
       "anchor": "canonical-values",
@@ -5679,7 +6070,11 @@
       "kind": "sentence",
       "text": "This section governs only what a renderer **writes** when it controls the value — a date picker, a checkbox, a multi-select list.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/sentence/aa0cb2cd1c"
+      ],
+      "issue": 478
     },
     "canonical-values/rationale/dc8f20b11f": {
       "anchor": "canonical-values",
@@ -5687,7 +6082,11 @@
       "kind": "rationale",
       "text": "Rationale: without it, the same template filled in two implementations yields two different datasets, and \"database-ready\" stops being true.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/rationale/4535fb2c76"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/ab30997a1f": {
       "anchor": "canonical-values",
@@ -5695,7 +6094,11 @@
       "kind": "sentence",
       "text": "A reader **MUST** accept every listed read form.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/sentence/6de2235a65"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/c4b30c6aed": {
       "anchor": "canonical-values",
@@ -5703,7 +6106,11 @@
       "kind": "sentence",
       "text": "A writer **SHOULD** emit the canonical form.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/sentence/2e3030e7cb"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/1411e2be1a": {
       "anchor": "canonical-values",
@@ -5711,7 +6118,11 @@
       "kind": "sentence",
       "text": "Neither rule ever makes a document invalid. [APR-MODEL-023]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/sentence/3ced706187"
+      ],
+      "issue": 478
     },
     "canonical-values/table-header/9772670018": {
       "anchor": "canonical-values",
@@ -5719,7 +6130,8 @@
       "kind": "table-header",
       "text": "| Hint | Canonical write form | Also accepted on read |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "canonical-values/table-row/c778613541": {
       "anchor": "canonical-values",
@@ -5727,7 +6139,8 @@
       "kind": "table-row",
       "text": "| `date` | `YYYY-MM-DD` (RFC 3339 full-date) | anything |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "canonical-values/table-row/824c091afc": {
       "anchor": "canonical-values",
@@ -5735,7 +6148,8 @@
       "kind": "table-row",
       "text": "| `time` | `HH:MM` or `HH:MM:SS`, 24-hour | anything |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "canonical-values/table-row/4fe6f54f8b": {
       "anchor": "canonical-values",
@@ -5743,7 +6157,8 @@
       "kind": "table-row",
       "text": "| `datetime` | RFC 3339 | anything |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "canonical-values/table-row/a68809b87f": {
       "anchor": "canonical-values",
@@ -5751,7 +6166,8 @@
       "kind": "table-row",
       "text": "| `boolean` | `true` / `false` | `yes`, `y`, `1`, `on`, `x`, `checked` / `no`, `n`, `0`, `off`, `unchecked`, case-insensitive |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "canonical-values/table-row/4429db630e": {
       "anchor": "canonical-values",
@@ -5759,7 +6175,8 @@
       "kind": "table-row",
       "text": "| `number`, `currency` | digits with `.` as decimal separator, no grouping | anything, including symbols and words |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "canonical-values/table-row/1d7f55b3a8": {
       "anchor": "canonical-values",
@@ -5767,7 +6184,8 @@
       "kind": "table-row",
       "text": "| `multichoice` | selections separated by U+000A, one per line | a single line separated by comma and space |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "canonical-values/table-row/3bef1f4a2f": {
       "anchor": "canonical-values",
@@ -5775,80 +6193,115 @@
       "kind": "table-row",
       "text": "| `select` | exactly one value, verbatim from `suggestedValues` | anything |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "canonical-values/sentence/7b8b284c96": {
       "anchor": "canonical-values",
       "chapter": 5,
       "kind": "sentence",
       "text": "**Why `true`/`false` and not `yes`/`no`.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/rationale/bd2319da11"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/b7d6439df4": {
       "anchor": "canonical-values",
       "chapter": 5,
       "kind": "sentence",
       "text": "`yes` is English.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/rationale/bd2319da11"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/98905ba6ae": {
       "anchor": "canonical-values",
       "chapter": 5,
       "kind": "sentence",
       "text": "A format that renders to voice, to other languages, and into database columns cannot make its canonical boolean depend on one language.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/rationale/bd2319da11"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/bd3b98e433": {
       "anchor": "canonical-values",
       "chapter": 5,
       "kind": "sentence",
       "text": "**Why newline and not comma for `multichoice`.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/rationale/a67a2478f1"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/59bed95f80": {
       "anchor": "canonical-values",
       "chapter": 5,
       "kind": "sentence",
       "text": "A suggested value may itself contain a comma — `Bloomfield, CT` is an ordinary option in a municipal form.",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/rationale/a67a2478f1"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/8db80955b5": {
       "anchor": "canonical-values",
       "chapter": 5,
       "kind": "sentence",
       "text": "Comma separation silently turns one selection into two, which is data loss.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/rationale/a67a2478f1"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/3c5f4ffb1f": {
       "anchor": "canonical-values",
       "chapter": 5,
       "kind": "sentence",
       "text": "A newline cannot appear inside a single-line option, so the encoding is lossless.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/rationale/a67a2478f1"
+      ],
+      "issue": 478
     },
     "canonical-values/sentence/428e0ec5cb": {
       "anchor": "canonical-values",
       "chapter": 5,
       "kind": "sentence",
       "text": "Readers **MUST** accept the comma form. [APR-MODEL-024]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "APR-MODEL-024 restated the multichoice read form under APR-MODEL-023",
+      "issue": 478
     },
     "canonical-values/sentence/4eafa83416": {
       "anchor": "canonical-values",
       "chapter": 5,
       "kind": "sentence",
       "text": "An empty string means \"no selection\" for every hint above.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "replacedBy": [
+        "canonical-values/sentence/fa0669d4ff"
+      ],
+      "note": "#450",
+      "issue": 478
     },
     "roles/heading/efe35aaf43": {
       "anchor": "roles",
@@ -5856,7 +6309,8 @@
       "kind": "heading",
       "text": "5.10 Roles — who each part is for",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "roles/sentence/9057882298": {
       "anchor": "roles",
@@ -5864,7 +6318,8 @@
       "kind": "sentence",
       "text": "Most real forms are filled by more than one person.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "roles/sentence/1bef2fb41c": {
       "anchor": "roles",
@@ -5872,7 +6327,8 @@
       "kind": "sentence",
       "text": "A patient completes an intake, a nurse records observations, the office stamps a reference.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "roles/sentence/0ce3885302": {
       "anchor": "roles",
@@ -5880,23 +6336,34 @@
       "kind": "sentence",
       "text": "With nowhere to say so, all three arrive as one undifferentiated list and the patient is left guessing which questions are theirs.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 478
     },
     "roles/sentence/3dc5e28583": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "A section or a prompt **MAY** carry `role`: a short string naming who is meant to fill it in.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/815dbda98d"
+      ],
+      "note": "the section and prompt role rows state the permission",
+      "issue": 478
     },
     "roles/sentence/39c434ba61": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "A prompt's role overrides the role of the section containing it, so a single field can be handed back to the patient without splitting the section in two.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/5a448bb4b1",
+        "roles/sentence/2ac464ed7c"
+      ],
+      "issue": 478
     },
     "roles/sentence/b81dc5dee1": {
       "anchor": "roles",
@@ -5904,55 +6371,91 @@
       "kind": "sentence",
       "text": "The vocabulary is **open**: a reader that does not recognise a role **MUST** present the field normally rather than erroring. [APR-MODEL-025]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/b937937d1c"
+      ],
+      "issue": 478
     },
     "roles/sentence/f0cb1375a0": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "**Example 5.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "replacedBy": [
+        "roles/example/191e4b6103",
+        "roles/sentence/7af8b85dc9",
+        "roles/sentence/404a3ad38d",
+        "roles/example/d01550edfa",
+        "roles/sentence/16112817c4",
+        "roles/sentence/638ef9638e"
+      ],
+      "issue": 478
     },
     "roles/sentence/8a7547b3f3": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "Declared roles.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 478
     },
     "roles/code/cfef097c85": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "code",
       "text": "```jsonc\n\"roles\": [\n  { \"id\": \"patient\", \"name\": \"Patient\",\n    \"description\": \"The person receiving care\" },\n  { \"id\": \"nurse\", \"name\": \"Nurse\",\n    \"description\": \"Clinical staff recording observations\" },\n  { \"id\": \"office\", \"name\": \"Office use\" }\n]\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "the fragment is now the executable Example 5.10-1",
+      "issue": 478
     },
     "roles/sentence/0a6af5bb8d": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "Each entry **MUST** carry `id`; `name` and `description` are OPTIONAL. [APR-MODEL-026]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/abaf0ad8de",
+        "roles/sentence/95474cbc6a",
+        "roles/table-header/66a78c1006",
+        "roles/table-row/5cdee4af1d",
+        "roles/table-row/9cc8707b0f",
+        "roles/table-row/bd0fcfd50c"
+      ],
+      "issue": 478
     },
     "roles/sentence/f0d066f1c3": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "A reader with no `name` **MUST** fall back to the identifier, and **MUST** show the identifier rather than erroring where a role is referenced but never declared. [APR-MODEL-050]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/2d44120a39",
+        "roles/sentence/f95b663359",
+        "warnings/table-row/b85373e2cb",
+        "roles/example/ca0d3fc62d",
+        "roles/sentence/c0c2cf992e",
+        "roles/sentence/303d6a0e7a"
+      ],
+      "issue": 478
     },
     "roles/sentence/8e5f05caa2": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "Declaring is itself optional and **MUST NOT** be required: a section or prompt **MAY** reference a role the document never declares.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "the roles row makes declaring optional, and APR-MODEL-051 forbids rejecting an undeclared role",
+      "issue": 478
     },
     "roles/sentence/2ec71277c3": {
       "anchor": "roles",
@@ -5960,7 +6463,11 @@
       "kind": "sentence",
       "text": "A validator **MAY** warn about an undeclared role; it **MUST NOT** reject one. [APR-MODEL-051]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/b52fcfacba"
+      ],
+      "issue": 478
     },
     "roles/sentence/4b0ec49481": {
       "anchor": "roles",
@@ -5968,7 +6475,11 @@
       "kind": "sentence",
       "text": "**A role says who a field is for.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/b01ffa0186"
+      ],
+      "issue": 478
     },
     "roles/sentence/a8e10d87d7": {
       "anchor": "roles",
@@ -5976,32 +6487,46 @@
       "kind": "sentence",
       "text": "It never says who may type into it.**",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/b01ffa0186"
+      ],
+      "issue": 478
     },
     "roles/sentence/d0c0b818e7": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "The format has no identity at fill time — nothing in a document knows who is at the keyboard — so a reader **MUST NOT** refuse input to a field because of its role. [APR-MODEL-027]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/d93db64ef4",
+        "roles/rationale/39309c8eba"
+      ],
+      "issue": 478
     },
     "roles/sentence/62c6c1b0af": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "What a reader **SHOULD** do is make the answer obvious without being asked.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 478
     },
     "roles/sentence/8e280f1c3f": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "Where a document declares roles, a reader **SHOULD** let the person say which role they are filling and then show plainly which fields are theirs.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/7881a0f858",
+        "roles/sentence/2737ac9331"
+      ],
+      "issue": 478
     },
     "roles/sentence/0fd10e6a84": {
       "anchor": "roles",
@@ -6009,55 +6534,84 @@
       "kind": "sentence",
       "text": "Fields belonging to others stay visible and stay editable; they are marked, not locked.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/2737ac9331"
+      ],
+      "issue": 478
     },
     "roles/sentence/6bff7a73e1": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "A reader **SHOULD** also make a role legible to assistive technology, since a visual treatment alone communicates nothing to a screen reader. [APR-MODEL-028]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "roles/sentence/42e5788c7b",
+        "roles/rationale/d977a3a30b"
+      ],
+      "issue": 478
     },
     "roles/sentence/62a6ab444b": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "**Accountability comes from attestations, not from the widget.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "roles/rationale/58de79d605"
+      ],
+      "issue": 478
     },
     "roles/sentence/b2c4dba0db": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "A greyed-out box is evidence of nothing: whoever holds the document can edit it directly.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "roles/rationale/58de79d605"
+      ],
+      "issue": 478
     },
     "roles/sentence/48fa83cb44": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "A fields-scoped attestation over those prompts, made with the nurse's certificate, is evidence the nurse filled them.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "roles/rationale/58de79d605"
+      ],
+      "issue": 478
     },
     "roles/sentence/ef3fe5e76f": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "Roles describe intent; attestations establish fact.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "roles/rationale/58de79d605"
+      ],
+      "issue": 478
     },
     "roles/sentence/0caa916a07": {
       "anchor": "roles",
       "chapter": 5,
       "kind": "sentence",
       "text": "An implementation that treats a role as a security control has misread this section.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "rationale",
+      "status": "applied",
+      "replacedBy": [
+        "roles/rationale/58de79d605"
+      ],
+      "issue": 478
     },
     "media-types/heading/14e23187cf": {
       "anchor": "media-types",

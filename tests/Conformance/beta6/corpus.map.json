@@ -626,14 +626,14 @@
     "rules/apr-model-019-satisfies.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-019"
+        "APR-MODEL-003"
       ],
       "anchors": []
     },
     "rules/apr-model-019-warns.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-019"
+        "APR-MODEL-003"
       ],
       "anchors": [],
       "warns": [
@@ -662,14 +662,14 @@
     "rules/apr-model-030-satisfies.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-030"
+        "APR-MODEL-018"
       ],
       "anchors": []
     },
     "rules/apr-model-030-warns.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-030"
+        "APR-MODEL-018"
       ],
       "anchors": [],
       "warns": [
@@ -1189,7 +1189,7 @@
     "rules/apr-model-024-roundtrip.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-024"
+        "APR-MODEL-023"
       ],
       "anchors": [],
       "roundTrip": true,

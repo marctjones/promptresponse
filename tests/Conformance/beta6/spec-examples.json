@@ -3,6 +3,20 @@
   "formatVersion": "1.0-beta.6",
   "examples": [
     {
+      "id": "declared-roles",
+      "number": "5.10-1",
+      "rule": "roles",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Intake\" },\n  \"roles\": [\n    { \"id\": \"patient\", \"name\": \"Patient\", \"description\": \"The person receiving care\" },\n    { \"id\": \"nurse\", \"name\": \"Nurse\", \"description\": \"Clinical staff recording observations\" },\n    { \"id\": \"office\", \"name\": \"Office use\" }\n  ],\n  \"sections\": [\n    { \"id\": \"observations\", \"title\": \"Observations\", \"role\": \"nurse\",\n      \"prompts\": [\n        { \"id\": \"pulse\", \"label\": \"Pulse\" },\n        { \"id\": \"pain\", \"label\": \"Pain today, 0 to 10\", \"role\": \"patient\" }\n      ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-026"
+      ],
+      "satisfies": [
+        "APR-MODEL-026"
+      ]
+    },
+    {
       "id": "expression-preserved",
       "number": "3.4-1",
       "rule": "profile-expressions",
@@ -24,7 +38,7 @@
     },
     {
       "id": "extension-member-prefixed",
-      "number": "5.8-1",
+      "number": "5.8-2",
       "rule": "extensions",
       "representation": "jsonc",
       "expect": "valid",
@@ -173,6 +187,21 @@
       ]
     },
     {
+      "id": "member-name-case",
+      "number": "5.8-1",
+      "rule": "extensions",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Wrong case\" },\n  \"sections\": [\n    { \"ID\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-066"
+      ],
+      "violates": [
+        "APR-MODEL-066"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
       "id": "null-outside-response",
       "number": "4.6-3",
       "rule": "json-subset",
@@ -233,6 +262,28 @@
         "APR-MODEL-077"
       ],
       "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "ragged-table",
+      "number": "5.5.4-1",
+      "rule": "table-ragged",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Ragged\" },\n  \"sections\": [\n    { \"id\": \"t\", \"title\": \"T\", \"kind\": \"table\",\n      \"sections\": [\n        { \"id\": \"r1\", \"title\": \"Row 1\",\n          \"prompts\": [ { \"id\": \"r1.x\", \"label\": \"X\" }, { \"id\": \"r1.y\", \"label\": \"Y\" } ] },\n        { \"id\": \"r2\", \"title\": \"Row 2\",\n          \"prompts\": [ { \"id\": \"r2.x\", \"label\": \"X\" } ] }\n      ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-100",
+        "APR-MODEL-014"
+      ],
+      "satisfies": [
+        "APR-MODEL-100"
+      ],
+      "violates": [
+        "APR-MODEL-014"
+      ],
+      "warns": [
+        "TABLE_RAGGED",
+        "TABLE_LABEL_MISMATCH"
+      ]
     },
     {
       "id": "regarding-chain",
@@ -313,6 +364,21 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "role-without-id",
+      "number": "5.10-2",
+      "rule": "roles",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Intake\" },\n  \"roles\": [ { \"name\": \"Patient\" } ],\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-026"
+      ],
+      "violates": [
+        "APR-MODEL-026"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
       "id": "section-without-id",
       "number": "5.3-2",
       "rule": "section-object",
@@ -373,6 +439,42 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "table-members-on-a-plain-section",
+      "number": "5.5-2",
+      "rule": "tables",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Plain section\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"maxRows\": 5,\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-038",
+        "APR-MODEL-097"
+      ],
+      "satisfies": [
+        "APR-MODEL-038",
+        "APR-MODEL-097"
+      ],
+      "warns": [
+        "TABLE_MEMBERS_ON_A_PLAIN_SECTION"
+      ]
+    },
+    {
+      "id": "table-over-capacity",
+      "number": "5.5.3-2",
+      "rule": "table-rows",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Over capacity\" },\n  \"sections\": [\n    { \"id\": \"t\", \"title\": \"T\", \"kind\": \"table\", \"maxRows\": 1,\n      \"sections\": [\n        { \"id\": \"r1\", \"title\": \"Row 1\", \"prompts\": [ { \"id\": \"r1.x\", \"label\": \"X\" } ] },\n        { \"id\": \"r2\", \"title\": \"Row 2\", \"prompts\": [ { \"id\": \"r2.x\", \"label\": \"X\" } ] }\n      ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-099"
+      ],
+      "satisfies": [
+        "APR-MODEL-099"
+      ],
+      "warns": [
+        "TABLE_OVER_CAPACITY"
+      ]
+    },
+    {
       "id": "table-section",
       "number": "4.6-1",
       "rule": "tables",
@@ -389,6 +491,73 @@
       ]
     },
     {
+      "id": "table-with-two-instances",
+      "number": "5.5-1",
+      "rule": "tables",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": true,\n      \"maxRows\": 25,\n      \"sections\": [\n        { \"id\": \"item_1\", \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ] },\n        { \"id\": \"item_2\", \"title\": \"Item 2\",\n          \"prompts\": [\n            { \"id\": \"item_2.description\", \"label\": \"Description\", \"response\": \"Hotel\" },\n            { \"id\": \"item_2.amount\", \"label\": \"Amount\", \"response\": \"120.00\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ] }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-014",
+        "APR-MODEL-046"
+      ],
+      "satisfies": [
+        "APR-MODEL-014",
+        "APR-MODEL-046"
+      ]
+    },
+    {
+      "id": "table-without-instances",
+      "number": "5.5.3-1",
+      "rule": "table-rows",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Empty table\" },\n  \"sections\": [\n    { \"id\": \"t\", \"title\": \"T\", \"kind\": \"table\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-046"
+      ],
+      "violates": [
+        "APR-MODEL-046"
+      ],
+      "diagnostic": "EMPTY_TABLE"
+    },
+    {
+      "id": "undeclared-role",
+      "number": "5.10-3",
+      "rule": "roles",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Intake\" },\n  \"roles\": [ { \"id\": \"patient\" } ],\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"role\": \"nurse\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-051"
+      ],
+      "satisfies": [
+        "APR-MODEL-051"
+      ],
+      "warns": [
+        "UNDECLARED_ROLE"
+      ]
+    },
+    {
+      "id": "unprefixed-member",
+      "number": "5.8-3",
+      "rule": "extensions",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Unprefixed\", \"routing\": \"desk-4\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-029",
+        "APR-MODEL-031"
+      ],
+      "violates": [
+        "APR-MODEL-029",
+        "APR-MODEL-031"
+      ],
+      "warns": [
+        "UNPREFIXED_MEMBER"
+      ]
+    },
+    {
       "id": "unregistered-data-type-degrades",
       "number": "5.7-1",
       "rule": "hints-object",
@@ -400,6 +569,25 @@
       ],
       "satisfies": [
         "APR-MODEL-018"
+      ]
+    },
+    {
+      "id": "unusable-hint",
+      "number": "5.7-2",
+      "rule": "hints-object",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Unusable hint\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"hints\": { \"validationPattern\": \"(\" } } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-039",
+        "APR-MODEL-116"
+      ],
+      "satisfies": [
+        "APR-MODEL-039",
+        "APR-MODEL-116"
+      ],
+      "warns": [
+        "HINT_UNUSABLE"
       ]
     },
     {

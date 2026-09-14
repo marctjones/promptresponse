@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "00d410cb-f0fb-5b2d-8c24-04155142fa24",
+    "uuid": "1ea76f46-7c9c-5876-b511-7ac795b79313",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "71ea4852cfc65bbe46b5846b92bd122647ec9d49208b585caeaf713abe01b276"
+          "value": "70a76df241718ffbc4c517b13767e06bc3050ea057f8cea35ddd4c253e984537"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -2442,12 +2442,12 @@
               {
                 "id": "apr-model-012_smt",
                 "name": "statement",
-                "prose": "A renderer **MAY** present a table as a grid, as stacked cards, as a flat sequence of prompts, or as speech. **All are conformant**, and none is a fallback."
+                "prose": "A renderer **MAY** present a table as a grid, as stacked cards, as a flat sequence of prompts, or as speech."
               },
               {
                 "id": "apr-model-012_gap",
                 "name": "assessment-gap",
-                "prose": "Nine corpus cases carry a table section, so the fixtures exist. What is unreached is the obligation itself: APR-MODEL-012 says every presentation of a table is conformant and none is a fallback, which no document can violate because the document does not choose the presentation. APR-MODEL-013 is the retired-member drop, reachable by a round-trip case carrying a retired column member and asserting it is gone on write; nobody has written one."
+                "prose": "APR-MODEL-012 is a permission to present a table any way, which no document can violate because the document does not choose the presentation. APR-MODEL-013 binds a writer, and no test checks that a writer adds no layout member to a table."
               }
             ]
           },
@@ -2489,12 +2489,12 @@
               {
                 "id": "apr-model-013_smt",
                 "name": "statement",
-                "prose": "A table **MUST NOT** be treated as licence for width, alignment, colour, or font data."
+                "prose": "A writer **MUST NOT** add a member to a table that states width, alignment, colour, or font."
               },
               {
                 "id": "apr-model-013_gap",
                 "name": "assessment-gap",
-                "prose": "Nine corpus cases carry a table section, so the fixtures exist. What is unreached is the obligation itself: APR-MODEL-012 says every presentation of a table is conformant and none is a fallback, which no document can violate because the document does not choose the presentation. APR-MODEL-013 is the retired-member drop, reachable by a round-trip case carrying a retired column member and asserting it is gone on write; nobody has written one."
+                "prose": "APR-MODEL-012 is a permission to present a table any way, which no document can violate because the document does not choose the presentation. APR-MODEL-013 binds a writer, and no test checks that a writer adds no layout member to a table."
               }
             ]
           },
@@ -2536,7 +2536,7 @@
               {
                 "id": "apr-model-014_smt",
                 "name": "statement",
-                "prose": "Instances **SHOULD** agree in prompt count and in the label at each position. When they disagree the document is still **valid**; a validator reports `TABLE_RAGGED` or `TABLE_LABEL_MISMATCH` and a renderer presents what is there."
+                "prose": "The instances of a table **SHOULD** carry the same number of prompts and the same label at each position."
               }
             ]
           },
@@ -2578,59 +2578,12 @@
               {
                 "id": "apr-model-015_smt",
                 "name": "statement",
-                "prose": "Sections nest recursively. Every implementation **MUST** support at least **16 levels** of section nesting. Implementations **MAY** support more."
+                "prose": "An implementation **MUST** support at least **16 levels** of section nesting."
               },
               {
                 "id": "apr-model-015_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-015 is covered by a sixteen-level vector. APR-MODEL-016 and 017 cannot be: one forbids an author from relying on a ceiling above the floor, and the other asks authors to stay well below it. Both bind the person writing a form, and no document is wrong for ignoring either."
-              }
-            ]
-          },
-          {
-            "id": "apr-model-016",
-            "title": "APR-MODEL-016 — 5.6 Nesting depth",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-MODEL-016"
-              },
-              {
-                "name": "section",
-                "value": "nesting"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "MODEL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-nesting-floor"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#nesting",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-model-016_smt",
-                "name": "statement",
-                "prose": "Any particular ceiling above that floor is an implementation detail and **MUST NOT** be relied upon by a document author."
-              },
-              {
-                "id": "apr-model-016_gap",
-                "name": "assessment-gap",
-                "prose": "APR-MODEL-015 is covered by a sixteen-level vector. APR-MODEL-016 and 017 cannot be: one forbids an author from relying on a ceiling above the floor, and the other asks authors to stay well below it. Both bind the person writing a form, and no document is wrong for ignoring either."
+                "prose": "APR-MODEL-015 is covered by a sixteen-level vector. APR-MODEL-017 cannot be: it asks a writer to nest shallowly, and a deeper form is still valid."
               }
             ]
           },
@@ -2672,12 +2625,12 @@
               {
                 "id": "apr-model-017_smt",
                 "name": "statement",
-                "prose": "Authors **SHOULD** stay far below the floor. Forms nested more than four or five levels deep are difficult to navigate with any input method."
+                "prose": "A writer **SHOULD NOT** nest sections more than five levels deep."
               },
               {
                 "id": "apr-model-017_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-015 is covered by a sixteen-level vector. APR-MODEL-016 and 017 cannot be: one forbids an author from relying on a ceiling above the floor, and the other asks authors to stay well below it. Both bind the person writing a form, and no document is wrong for ignoring either."
+                "prose": "APR-MODEL-015 is covered by a sixteen-level vector. APR-MODEL-017 cannot be: it asks a writer to nest shallowly, and a deeper form is still valid."
               }
             ]
           },
@@ -2719,49 +2672,7 @@
               {
                 "id": "apr-model-018_smt",
                 "name": "statement",
-                "prose": "**This registry is open.** An unrecognized value **MUST** degrade to a plain text field. It **MUST NOT** cause an error — that is what lets the registry grow without breaking every existing reader."
-              }
-            ]
-          },
-          {
-            "id": "apr-model-019",
-            "title": "APR-MODEL-019 — 5.7 Hints",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-MODEL-019"
-              },
-              {
-                "name": "section",
-                "value": "hints-object"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "MODEL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-hint-members"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#hints-object",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-model-019_smt",
-                "name": "statement",
-                "prose": "A response outside them is **still valid**, exactly as for `suggestedValues`. A slider that stops at 100 does not make `120` a wrong answer, and a validator **MUST NOT** reject one. Bounds shape the affordance offered to someone who wants it; they never shrink what a person is allowed to say."
+                "prose": "A validator **MUST NOT** reject a form because its `expectedDataType` is not in the registry."
               }
             ]
           },
@@ -2887,49 +2798,7 @@
               {
                 "id": "apr-model-023_smt",
                 "name": "statement",
-                "prose": "A reader **MUST** accept every listed read form. A writer **SHOULD** emit the canonical form. Neither rule ever makes a document invalid."
-              }
-            ]
-          },
-          {
-            "id": "apr-model-024",
-            "title": "APR-MODEL-024 — 5.9 Canonical value forms",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-MODEL-024"
-              },
-              {
-                "name": "section",
-                "value": "canonical-values"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "MODEL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-types-are-affordances"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#canonical-values",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-model-024_smt",
-                "name": "statement",
-                "prose": "**Why newline and not comma for `multichoice`.** A suggested value may itself contain a comma — `Bloomfield, CT` is an ordinary option in a municipal form. Comma separation silently turns one selection into two, which is data loss. A newline cannot appear inside a single-line option, so the encoding is lossless. Readers **MUST** accept the comma form."
+                "prose": "A reader **MUST** read every form the table lists, canonical or accepted on read, as the value it spells."
               }
             ]
           },
@@ -2971,12 +2840,12 @@
               {
                 "id": "apr-model-025_smt",
                 "name": "statement",
-                "prose": "A section or a prompt **MAY** carry `role`: a short string naming who is meant to fill it in. A prompt's role overrides the role of the section containing it, so a single field can be handed back to the patient without splitting the section in two. The vocabulary is **open**: a reader that does not recognise a role **MUST** present the field normally rather than erroring."
+                "prose": "A reader **MUST** present a field whose role it does not recognise as it presents any other field, without an error."
               },
               {
                 "id": "apr-model-025_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
               }
             ]
           },
@@ -3018,12 +2887,12 @@
               {
                 "id": "apr-model-026_smt",
                 "name": "statement",
-                "prose": "Each entry **MUST** carry `id`; `name` and `description` are OPTIONAL."
+                "prose": "`id` — string — **REQUIRED** — The identifier a `role` member names."
               },
               {
                 "id": "apr-model-026_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
               }
             ]
           },
@@ -3065,12 +2934,12 @@
               {
                 "id": "apr-model-027_smt",
                 "name": "statement",
-                "prose": "**A role says who a field is for. It never says who may type into it.** The format has no identity at fill time — nothing in a document knows who is at the keyboard — so a reader **MUST NOT** refuse input to a field because of its role."
+                "prose": "A reader **MUST NOT** refuse input to a field because of its role."
               },
               {
                 "id": "apr-model-027_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
               }
             ]
           },
@@ -3112,12 +2981,12 @@
               {
                 "id": "apr-model-028_smt",
                 "name": "statement",
-                "prose": "What a reader **SHOULD** do is make the answer obvious without being asked. Where a document declares roles, a reader **SHOULD** let the person say which role they are filling and then show plainly which fields are theirs. Fields belonging to others stay visible and stay editable; they are marked, not locked. A reader **SHOULD** also make a role legible to assistive technology, since a visual treatment alone communicates nothing to a screen reader."
+                "prose": "Where a form declares roles, a reader **SHOULD** let the person say which role they are filling."
               },
               {
                 "id": "apr-model-028_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
               }
             ]
           },
@@ -3159,49 +3028,7 @@
               {
                 "id": "apr-model-029_smt",
                 "name": "statement",
-                "prose": "**An extension member is named by its owner.** An extension member name **MUST** begin with a reverse-DNS prefix owned by the producer, followed by a dot: `com.example.priority`, `gov.ct.dmv.routing`. A reader identifies an extension member by the dot in its name. A validator **MAY** report an unrecognised undotted member as `UNPREFIXED_MEMBER`; it **MUST NOT** reject the document, and **MUST** still preserve the member ([Warnings](#warnings))."
-              }
-            ]
-          },
-          {
-            "id": "apr-model-030",
-            "title": "APR-MODEL-030 — 5.7 Hints",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-MODEL-030"
-              },
-              {
-                "name": "section",
-                "value": "hints-object"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "MODEL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-hint-members"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#hints-object",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-model-030_smt",
-                "name": "statement",
-                "prose": "**There is no `signature` type and no `file` type.** A signature is not a response: evidence that a person stood behind a form is an attestation record travelling beside it in the stream ([Attestations](#attestations)), never a drawn image or a typed name in a field. An attachment is not a response either: a form carries what a person typed, and the format defines no representation for bytes that were not typed. A reader encountering either name treats it as any other unregistered value and degrades it to text."
+                "prose": "**An extension member is named by its owner.** An extension member name **MUST** begin with a reverse-DNS prefix its writer owns, followed by a dot: `com.example.priority`, `gov.ct.dmv.routing`."
               }
             ]
           },
@@ -3243,7 +3070,7 @@
               {
                 "id": "apr-model-031_smt",
                 "name": "statement",
-                "prose": "**Unprefixed names belong to the specification.** Every member this document defines is unprefixed, and every member a later version of APR adds will be. A producer **MUST NOT** add a member whose name carries no prefix."
+                "prose": "A writer **MUST NOT** add a member whose name carries no prefix."
               }
             ]
           },
@@ -3520,7 +3347,7 @@
               {
                 "id": "apr-model-038_smt",
                 "name": "statement",
-                "prose": "A table introduces **no new primitive**. Rows are ordinary sections; cells are ordinary prompts. A section becomes a table by carrying `kind: \"table\"`, and **only** by carrying it: a reader **MUST NOT** infer a table from `maxRows`, `canAddRows`, or the presence of child sections, and **MUST** preserve and ignore those members on a section that is not a table."
+                "prose": "A reader **MUST NOT** treat a section as a table unless it carries `kind: \"table\"`, whatever its `maxRows`, `canAddRows`, or child sections."
               }
             ]
           },
@@ -3562,7 +3389,7 @@
               {
                 "id": "apr-model-039_smt",
                 "name": "statement",
-                "prose": "**A hint a reader cannot use is not an error.** A hint that is unrecognised, unsupported, or malformed — an unparseable `validationPattern`, a bound of the wrong type, an expression that will not compile — **MUST** be preserved and **MAY** be reported as a warning; it **MUST NOT** make the document invalid. Hints are applied in the order the member table lists them, and where two hints on one prompt conflict, the earlier one stands and the later one is skipped and **MAY** be reported."
+                "prose": "A reader **MUST** preserve a hint that is unrecognised, unsupported, or malformed."
               }
             ]
           },
@@ -3886,7 +3713,7 @@
               {
                 "id": "apr-model-046_smt",
                 "name": "statement",
-                "prose": "**A table always has at least one instance.** A section carrying `kind: \"table\"` **MUST** carry at least one child section. Prompts alone satisfy [Section](#section-object) but not this: a table's cells live in its instances, so a table without one has nowhere to put them. A reader **MUST** report `EMPTY_TABLE`."
+                "prose": "A section carrying `kind: \"table\"` **MUST** carry at least one child section."
               }
             ]
           },
@@ -3970,7 +3797,7 @@
               {
                 "id": "apr-model-048_smt",
                 "name": "statement",
-                "prose": "Correspondence is **by position**. Ids are free-form; the convention `{rowId}.{columnId}` is **RECOMMENDED** for addressability and database import, but carries no meaning the renderer depends on."
+                "prose": "A writer **SHOULD** give a cell the id `{instanceId}.{columnId}`, which helps addressing and database import."
               },
               {
                 "id": "apr-model-048_gap",
@@ -4017,12 +3844,12 @@
               {
                 "id": "apr-model-050_smt",
                 "name": "statement",
-                "prose": "A reader with no `name` **MUST** fall back to the identifier, and **MUST** show the identifier rather than erroring where a role is referenced but never declared."
+                "prose": "A reader **MUST** show a role's `id` where the role has no `name`."
               },
               {
                 "id": "apr-model-050_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
               }
             ]
           },
@@ -4064,12 +3891,12 @@
               {
                 "id": "apr-model-051_smt",
                 "name": "statement",
-                "prose": "Declaring is itself optional and **MUST NOT** be required: a section or prompt **MAY** reference a role the document never declares. A validator **MAY** warn about an undeclared role; it **MUST NOT** reject one."
+                "prose": "A validator **MUST NOT** reject a form whose `role` names a role that `roles` does not declare."
               },
               {
                 "id": "apr-model-051_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
               }
             ]
           },
@@ -6023,6 +5850,1321 @@
                 "id": "apr-model-096_gap",
                 "name": "assessment-gap",
                 "prose": "No vector yet asserts the generation algorithm; a digest vector for the three worked ids belongs beside the digest fixtures."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-097",
+            "title": "APR-MODEL-097 — 5.5 Tables",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-097"
+              },
+              {
+                "name": "section",
+                "value": "tables"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-tables"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#tables",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-097_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** preserve a `maxRows` or `canAddRows` member on a section that is not a table."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-098",
+            "title": "APR-MODEL-098 — 5.5.3 Rows and instances",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-098"
+              },
+              {
+                "name": "section",
+                "value": "table-rows"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-table-rows"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#table-rows",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-098_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** treat a table without `canAddRows` as fixed."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-099",
+            "title": "APR-MODEL-099 — 5.5.3 Rows and instances",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-099"
+              },
+              {
+                "name": "section",
+                "value": "table-rows"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-table-rows"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#table-rows",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-099_smt",
+                "name": "statement",
+                "prose": "A validator **MUST NOT** reject a table that carries more instances than its `maxRows`."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-100",
+            "title": "APR-MODEL-100 — 5.5.4 Ragged tables",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-100"
+              },
+              {
+                "name": "section",
+                "value": "table-ragged"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-table-ragged"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#table-ragged",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-100_smt",
+                "name": "statement",
+                "prose": "A validator **MUST NOT** reject a table whose instances disagree."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-101",
+            "title": "APR-MODEL-101 — 5.5.4 Ragged tables",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-101"
+              },
+              {
+                "name": "section",
+                "value": "table-ragged"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-table-ragged-rendering"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#table-ragged",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-101_smt",
+                "name": "statement",
+                "prose": "A renderer **MUST** present every prompt an instance carries, whether or not the other instances carry one at that position."
+              },
+              {
+                "id": "apr-model-101_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-101 is renderer behaviour: presenting every prompt an instance carries. No renderer case asks it."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-102",
+            "title": "APR-MODEL-102 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-102"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-102_smt",
+                "name": "statement",
+                "prose": "`placeholder` — string — **OPTIONAL** — Text shown in an empty control. Never a substitute for `label`."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-103",
+            "title": "APR-MODEL-103 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-103"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-103_smt",
+                "name": "statement",
+                "prose": "`expectedDataType` — string — **OPTIONAL** — Suggested input affordance, from the registry below."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-104",
+            "title": "APR-MODEL-104 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-104"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-104_smt",
+                "name": "statement",
+                "prose": "`suggestedValues` — array of string — **OPTIONAL** — Offered as options. A response outside the list is still valid."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-105",
+            "title": "APR-MODEL-105 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-105"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-105_smt",
+                "name": "statement",
+                "prose": "`helpText` — string — **OPTIONAL** — Explanatory text for the prompt."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-106",
+            "title": "APR-MODEL-106 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-106"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-106_smt",
+                "name": "statement",
+                "prose": "`validationPattern` — string — **OPTIONAL** — Advisory regular expression."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-107",
+            "title": "APR-MODEL-107 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-107"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-107_smt",
+                "name": "statement",
+                "prose": "`min` — number or string — **OPTIONAL** — Suggested lower bound for an ordered field. A number on `number`, `currency`, and `range`; a canonical-form string on `date`, `time`, and `datetime`."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-108",
+            "title": "APR-MODEL-108 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-108"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-108_smt",
+                "name": "statement",
+                "prose": "`max` — number or string — **OPTIONAL** — Suggested upper bound for an ordered field. Typed as `min`."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-109",
+            "title": "APR-MODEL-109 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-109"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-109_smt",
+                "name": "statement",
+                "prose": "`step` — number — **OPTIONAL** — Suggested increment for an ordered field. Applies to `number`, `currency`, and `range`."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-110",
+            "title": "APR-MODEL-110 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-110"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-110_smt",
+                "name": "statement",
+                "prose": "`exprHidden` — string — **OPTIONAL** — CEL. Truthy hides this prompt ([Expressions](#expressions))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-111",
+            "title": "APR-MODEL-111 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-111"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-111_smt",
+                "name": "statement",
+                "prose": "`exprValue` — string — **OPTIONAL** — CEL. Computed value."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-112",
+            "title": "APR-MODEL-112 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-112"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-112_smt",
+                "name": "statement",
+                "prose": "`exprExpected` — string — **OPTIONAL** — CEL. Truthy marks the prompt as expected."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-113",
+            "title": "APR-MODEL-113 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-113"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-113_smt",
+                "name": "statement",
+                "prose": "`exprValidation` — string — **OPTIONAL** — CEL. Returns a message; empty means valid."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-114",
+            "title": "APR-MODEL-114 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-114"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-114_smt",
+                "name": "statement",
+                "prose": "`exprReadOnly` — string — **OPTIONAL** — CEL. Truthy makes this prompt read-only in a renderer."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-115",
+            "title": "APR-MODEL-115 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-115"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-rendering"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-115_smt",
+                "name": "statement",
+                "prose": "A renderer **MUST** present a prompt whose `expectedDataType` it does not recognise as a `text` prompt."
+              },
+              {
+                "id": "apr-model-115_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-115 and 117 are renderer behaviour: presenting an unrecognised type as text, and applying hints in the order the hints table lists them. No renderer case asks either."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-116",
+            "title": "APR-MODEL-116 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-116"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-116_smt",
+                "name": "statement",
+                "prose": "A validator **MUST NOT** reject a form because a hint is unusable, such as a `validationPattern` that is not a regular expression, a bound of the wrong type, or an expression that does not compile."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-117",
+            "title": "APR-MODEL-117 — 5.7 Hints",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-117"
+              },
+              {
+                "name": "section",
+                "value": "hints-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-hint-rendering"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#hints-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-117_smt",
+                "name": "statement",
+                "prose": "A renderer **MUST** apply a prompt's hints in the order the table above lists them, and where two conflict, apply the earlier and skip the later."
+              },
+              {
+                "id": "apr-model-117_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-115 and 117 are renderer behaviour: presenting an unrecognised type as text, and applying hints in the order the hints table lists them. No renderer case asks either."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-118",
+            "title": "APR-MODEL-118 — 5.8 Unknown members",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-118"
+              },
+              {
+                "name": "section",
+                "value": "extensions"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-extensions-roundtrip"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#extensions",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-118_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** compare member names case-sensitively, so a member whose name matches a defined member only when case is ignored is an unknown member."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-119",
+            "title": "APR-MODEL-119 — 5.9 Canonical value forms",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-119"
+              },
+              {
+                "name": "section",
+                "value": "canonical-values"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-canonical-behaviour"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#canonical-values",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-119_smt",
+                "name": "statement",
+                "prose": "A writer choosing a response **SHOULD** write it in the canonical write form the table below gives for the prompt's `expectedDataType`."
+              },
+              {
+                "id": "apr-model-119_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-119 binds a writer choosing a value, and APR-MODEL-120 how a reader reads an empty response. No test checks either."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-120",
+            "title": "APR-MODEL-120 — 5.9 Canonical value forms",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-120"
+              },
+              {
+                "name": "section",
+                "value": "canonical-values"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-canonical-behaviour"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#canonical-values",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-120_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** read an empty response to a prompt of any type above as no selection."
+              },
+              {
+                "id": "apr-model-120_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-119 binds a writer choosing a value, and APR-MODEL-120 how a reader reads an empty response. No test checks either."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-121",
+            "title": "APR-MODEL-121 — 5.10 Roles — who each part is for",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-121"
+              },
+              {
+                "name": "section",
+                "value": "roles"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-roles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#roles",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-121_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** take a prompt's role from the prompt where it carries one, and otherwise from the section containing it."
+              },
+              {
+                "id": "apr-model-121_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-122",
+            "title": "APR-MODEL-122 — 5.10 Roles — who each part is for",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-122"
+              },
+              {
+                "name": "section",
+                "value": "roles"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-roles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#roles",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-122_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** show the identifier of a role no entry declares, without an error."
+              },
+              {
+                "id": "apr-model-122_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-123",
+            "title": "APR-MODEL-123 — 5.10 Roles — who each part is for",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-123"
+              },
+              {
+                "name": "section",
+                "value": "roles"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-roles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#roles",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-123_smt",
+                "name": "statement",
+                "prose": "`name` — string — **OPTIONAL** — The name shown to a person."
+              },
+              {
+                "id": "apr-model-123_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-124",
+            "title": "APR-MODEL-124 — 5.10 Roles — who each part is for",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-124"
+              },
+              {
+                "name": "section",
+                "value": "roles"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-roles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#roles",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-124_smt",
+                "name": "statement",
+                "prose": "`description` — string — **OPTIONAL** — Who this role is, where the name alone is not obvious."
+              },
+              {
+                "id": "apr-model-124_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-125",
+            "title": "APR-MODEL-125 — 5.10 Roles — who each part is for",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-125"
+              },
+              {
+                "name": "section",
+                "value": "roles"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-roles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#roles",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-125_smt",
+                "name": "statement",
+                "prose": "A reader **SHOULD** mark which fields belong to the person's role, leaving the fields of other roles visible and editable."
+              },
+              {
+                "id": "apr-model-125_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-126",
+            "title": "APR-MODEL-126 — 5.10 Roles — who each part is for",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-126"
+              },
+              {
+                "name": "section",
+                "value": "roles"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-roles"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#roles",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-126_smt",
+                "name": "statement",
+                "prose": "A reader **SHOULD** make a field's role available to assistive technology."
+              },
+              {
+                "id": "apr-model-126_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
               }
             ]
           }

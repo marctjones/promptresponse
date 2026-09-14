@@ -362,7 +362,7 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
     if isinstance(role, str) and roles and role not in roles:
         report.warn("UNDECLARED_ROLE", f"{path}/role", f"role {role!r} is not declared; a validator may warn about "
                     f"one and must not reject it",
-                    "APR-MODEL-026", "APR-MODEL-051")
+                    "APR-MODEL-051")
     hints = prompt.get("hints")
     if isinstance(hints, dict):
         check_object(report, hints, "hints", f"{path}/hints", members)
@@ -379,12 +379,10 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
         if isinstance(declared, str) and declared not in data_types():
             # An unrecognised type degrades to a plain text field. It is reported so
             # an author learns, and never as an error, which is what lets the
-            # registry grow. `signature` and `file` were retired into this path.
-            rules = (("APR-MODEL-018", "APR-MODEL-030")
-                     if declared in {"signature", "file"} else ("APR-MODEL-018",))
+            # registry grow.
             report.warn("UNREGISTERED_DATA_TYPE", f"{path}/hints/expectedDataType",
                         f"{declared!r} is not in the registry and degrades to a text "
-                        f"field", *rules)
+                        f"field", "APR-MODEL-018")
         if isinstance(response, str) and response.strip() and declared in {"number", "currency"} \
                 and as_number(response) is None:
             report.warn("RESPONSE_CONTRADICTS_TYPE", f"{path}/response",
@@ -398,7 +396,7 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
                         and worse(as_number(response), float(limit)):
                     report.warn("RESPONSE_OUTSIDE_BOUNDS", f"{path}/response",
                                 f"the response is outside {bound}, which is still valid: "
-                                f"a bound is an offer, not a limit", "APR-MODEL-019")
+                                f"a bound is an offer, not a limit", "APR-MODEL-003")
 
         temporal = hints.get("expectedDataType") in {"date", "time", "datetime"}
         for bound in ("min", "max"):
@@ -418,7 +416,7 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
                 report.warn("HINT_UNUSABLE", f"{path}/hints/validationPattern",
                             "validationPattern is not a usable regular expression; "
                             "a hint a reader cannot use is never an error",
-                            "APR-MODEL-039")
+                            "APR-MODEL-039", "APR-MODEL-116")
             if compiled is not None and isinstance(response, str) and response \
                     and not compiled.search(response):
                 report.warn("RESPONSE_PATTERN_MISMATCH", f"{path}/response",
@@ -450,7 +448,7 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
     if isinstance(role, str) and roles and role not in roles:
         report.warn("UNDECLARED_ROLE", f"{path}/role", f"role {role!r} is not declared; a validator may warn about "
                     f"one and must not reject it",
-                    "APR-MODEL-026", "APR-MODEL-051")
+                    "APR-MODEL-051")
 
     if section.get("kind") == "table":
         if not children:
@@ -466,22 +464,22 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
         if isinstance(cap, int) and not isinstance(cap, bool) and len(children) > cap:
             report.warn("TABLE_OVER_CAPACITY", path,
                         f"{len(children)} instances exceed the advisory cap of {cap}",
-                        "APR-VAL-002")
+                        "APR-MODEL-099")
         shapes = {len(child.get("prompts") or []) for child in children
                   if isinstance(child, dict)}
         if len(shapes) > 1:
             report.warn("TABLE_RAGGED", path,
                         "instances disagree in prompt count, which is still valid",
-                        "APR-MODEL-014")
+                        "APR-MODEL-014", "APR-MODEL-100")
         labels = [tuple((p or {}).get("label") for p in (child.get("prompts") or []))
                   for child in children if isinstance(child, dict)]
         if len(set(labels)) > 1:
             report.warn("TABLE_LABEL_MISMATCH", path,
-                        "instances disagree in the label at some position", "APR-MODEL-014")
+                        "instances disagree in the label at some position", "APR-MODEL-014", "APR-MODEL-100")
     elif "maxRows" in section or "canAddRows" in section:
         report.warn("TABLE_MEMBERS_ON_A_PLAIN_SECTION", path,
                     "a table is never inferred; these members are preserved and ignored",
-                    "APR-MODEL-038")
+                    "APR-MODEL-038", "APR-MODEL-097")
 
     for index, prompt in enumerate(prompts):
         check_prompt(report, prompt, f"{path}/prompts/{index}", members, ids, roles)
@@ -636,6 +634,14 @@ def validate_form(report: Report, form, members) -> None:
     if not isinstance(sections, list) or not sections:
         report.error("REQUIRED_FIELD", "/sections", "a form must carry at least one section", "APR-MODEL-005")
         return
+    for index, role in enumerate(form.get("roles") or []):
+        where = f"/roles/{index}"
+        if not isinstance(role, dict):
+            report.error("WRONG_TYPE", where, "a role entry is an object", "APR-MODEL-026")
+        elif "id" in role and not isinstance(role["id"], str):
+            report.error("WRONG_TYPE", f"{where}/id", "a role id is a string", "APR-MODEL-026")
+        elif not (role.get("id") or "").strip():
+            report.error("REQUIRED_FIELD", f"{where}/id", "a role entry names its id", "APR-MODEL-026")
     roles = {r.get("id") for r in (form.get("roles") or []) if isinstance(r, dict)}
     ids = {"section": set(), "prompt": set()}
     for index, section in enumerate(sections):
