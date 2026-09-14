@@ -2718,12 +2718,12 @@ validator reports an error under the row's code.
 | Code | Condition | Requirement | Rule |
 | --- | --- | --- | --- |
 | `NULL_DOCUMENT` | No document. | **MUST** | [APR-VAL-011] |
-| `REQUIRED_FIELD` | `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`. | **MUST** | [APR-VAL-012] |
+| `REQUIRED_FIELD` | `aprVersion`, `metadata.title`, section `id` or `title`, prompt `id` or `label` blank; `metadata` or `sections` absent; `sections` empty; `templateId` absent on a filled form; a role entry without `id`; a member the attestation record table requires, absent. | **MUST** | [APR-VAL-012] |
 | `UNSUPPORTED_VERSION` | `aprVersion` is not exactly `1.0-beta.6` ([Version compatibility](#version-compatibility)). | **MUST** | [APR-VAL-013] |
 | `DUPLICATE_ID` | A section or prompt id repeats within its namespace. | **MUST** | [APR-VAL-014] |
 | `EMPTY_SECTION` | A section has no prompts and no child sections. | **MUST** | [APR-VAL-015] |
 | `EMPTY_TABLE` | A `kind: "table"` section has no child sections, so it has no instances ([Rows and instances](#table-rows)). | **MUST** | [APR-VAL-016] |
-| `WRONG_TYPE` | A structural member is not the JSON type its member table declares ([Value types](#json-subset)). | **MUST** | [APR-VAL-017] |
+| `WRONG_TYPE` | A structural member is not the JSON type its member table declares ([Value types](#json-subset)); an attestation member outside what its row allows. | **MUST** | [APR-VAL-017] |
 
 Neither what a response says ([Semantic validation](#semantic-validation))
 nor the state of an attestation ([Attestations never gate the data](#never-gate))
@@ -4403,50 +4403,609 @@ anything.
 
 ### 12.2 Attestation record {#attestation-catalogue}
 
-**Example 7.** An attestation.
+An attestation is a JSON object. Each row below is a requirement on an
+attestation record, and its Requirement column says whether the member is
+present. A validator reports a member its row requires that is missing, and a
+member outside what its row allows, by the codes
+[Errors](#structural-validation) names.
 
-```jsonc
+| Member | Type | Requirement | Rule | Notes |
+| --- | --- | --- | --- | --- |
+| `recordType` | string | **REQUIRED** | [APR-ATTEST-001] | Exactly `attestation`. |
+| `aprVersion` | string | **REQUIRED** | [APR-ATTEST-002] | Exactly `1.0-beta.6`. |
+| `subject` | object | **REQUIRED** | [APR-ATTEST-021] | `digest` and `canonicalization`, and no other member. |
+| `subject.digest` | string | **REQUIRED** | [APR-ATTEST-022] | The digest ([Digests and manifests](#digests)) of the subject form's complete semantic model. |
+| `subject.canonicalization` | string | **REQUIRED** | [APR-ATTEST-003] | Exactly `jcs-sha256`. |
+| `scope` | object | **REQUIRED** | [APR-ATTEST-023] | `kind` and `fields` ([Scope](#attestation-scope)), and no other member. |
+| `scope.kind` | string | **REQUIRED** | [APR-ATTEST-024] | `document` or `fields`. |
+| `scope.fields` | array | **REQUIRED** when `kind` is `fields` | [APR-ATTEST-025] | One or more prompt ids, none blank. |
+| `manifest` | object | **REQUIRED** | [APR-ATTEST-026] | `root` and `entries`, and no other member. |
+| `manifest.root` | string | **REQUIRED** | [APR-ATTEST-027] | The digest of the subject form. |
+| `manifest.entries` | array | **REQUIRED** | [APR-ATTEST-028] | Entries as [Digests and manifests](#digests) defines them, each with no other member. |
+| `proofs` | array | **REQUIRED** | [APR-ATTEST-029] | Zero or more proofs ([Proofs](#proofs)). |
+| `witnesses` | array | **REQUIRED** | [APR-ATTEST-030] | Zero or more witnesses ([Witnesses](#witnesses)). |
+
+An attestation record **MAY** carry extension members. [APR-ATTEST-004]
+
+An implementation **MUST** preserve an attestation record's extension members
+across a round trip. [APR-ATTEST-031]
+
+A verifier **MUST** resolve a subject by `subject.digest` alone, and never by
+stream position, filename, or document id. [APR-ATTEST-017]
+
+**Example 12.2-1.** An attestation over a whole form.
+
+```apr-example
+id: attestation-document-scope
+rule: attestation-catalogue
+satisfies: APR-ATTEST-001, APR-ATTEST-002, APR-ATTEST-003, APR-ATTEST-021, APR-ATTEST-022, APR-ATTEST-023, APR-ATTEST-024, APR-ATTEST-026, APR-ATTEST-027, APR-ATTEST-028, APR-ATTEST-029, APR-ATTEST-030
+representation: jsonc
+expect: valid
+---
 {
   "recordType": "attestation",
   "aprVersion": "1.0-beta.6",
-  "subject": { "digest": "sha256:...", "canonicalization": "jcs-sha256" },
-  "scope": { "kind": "document" },
-  "manifest": { "root": "sha256:...", "entries": [] },
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
   "proofs": [],
   "witnesses": []
 }
 ```
 
-| Member | Type | Required | Domain |
-| --- | --- | --- | --- |
-| `recordType` | string | **Yes** | **MUST** be `attestation`. [APR-ATTEST-001] |
-| `aprVersion` | string | **Yes** | **MUST** be `1.0-beta.6`. [APR-ATTEST-002] |
-| `subject` | object | **Yes** | `digest` and `canonicalization`, no other members. |
-| `subject.digest` | string | **Yes** | `sha256:` and 64 lowercase hex characters. |
-| `subject.canonicalization` | string | **Yes** | **MUST** be `jcs-sha256`. [APR-ATTEST-003] |
-| `scope` | object | **Yes** | `document` or `fields` form. |
-| `manifest` | object | **Yes** | `root` and `entries`, no other members. |
-| `manifest.root` | string | **Yes** | Digest of the subject form. |
-| `manifest.entries` | array | **Yes** | Entries of `path` and `digest`, no other members. |
-| `proofs` | array | **Yes** | Entries of `type` and `value`. May be empty. |
-| `witnesses` | array | **Yes** | Unique digests of earlier envelopes. May be empty. |
+**Example 12.2-2.** A `recordType` that is not `attestation`.
 
-`subject`, `scope`, `manifest`, and their entries admit no additional members. An
-attestation record itself **MAY** carry extension members, which round-trip. [APR-ATTEST-004]
+```apr-example
+id: attestation-record-type-wrong
+rule: attestation-catalogue
+violates: APR-ATTEST-001
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestations",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
 
-`subject.digest` **MUST** identify the complete form semantic model, and a
-verifier **MUST NOT** resolve a subject by stream position, filename, or document
-id. [APR-ATTEST-017]
+**Example 12.2-3.** An attestation written to another version.
+
+```apr-example
+id: attestation-version-wrong
+rule: attestation-catalogue
+violates: APR-ATTEST-002
+representation: jsonc
+expect: reject
+diagnostic: UNSUPPORTED_VERSION
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.5",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-4.** A canonicalization other than `jcs-sha256`.
+
+```apr-example
+id: attestation-canonicalization-wrong
+rule: attestation-catalogue
+violates: APR-ATTEST-003
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-5.** A `subject` with a member it does not define.
+
+```apr-example
+id: attestation-subject-extra-member
+rule: attestation-catalogue
+violates: APR-ATTEST-021
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256",
+    "note": "signed at the counter"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-6.** A `subject.digest` that is not a digest.
+
+```apr-example
+id: attestation-subject-digest-malformed
+rule: attestation-catalogue
+violates: APR-ATTEST-022
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:C525",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-7.** An attestation without a `scope`.
+
+```apr-example
+id: attestation-scope-missing
+rule: attestation-catalogue
+violates: APR-ATTEST-023
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-8.** A `scope.kind` that is neither `document` nor `fields`.
+
+```apr-example
+id: attestation-scope-kind-unknown
+rule: attestation-catalogue
+violates: APR-ATTEST-024
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "section"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-9.** A `fields` scope that names no prompt.
+
+```apr-example
+id: attestation-fields-empty
+rule: attestation-catalogue
+violates: APR-ATTEST-025
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "fields",
+    "fields": []
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-10.** A `manifest` with a member it does not define.
+
+```apr-example
+id: attestation-manifest-extra-member
+rule: attestation-catalogue
+violates: APR-ATTEST-026
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ],
+    "note": "complete"
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-11.** A `manifest.root` that is not a digest.
+
+```apr-example
+id: attestation-manifest-root-malformed
+rule: attestation-catalogue
+violates: APR-ATTEST-027
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "c525780361ebf5ef",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-12.** A manifest entry with a member it does not define.
+
+```apr-example
+id: attestation-entry-extra-member
+rule: attestation-catalogue
+violates: APR-ATTEST-028
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+        "value": "Ada"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
+
+**Example 12.2-13.** `proofs` that is not an array.
+
+```apr-example
+id: attestation-proofs-not-array
+rule: attestation-catalogue
+violates: APR-ATTEST-029
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": {},
+  "witnesses": []
+}
+```
+
+**Example 12.2-14.** `witnesses` that is not an array.
+
+```apr-example
+id: attestation-witnesses-not-array
+rule: attestation-catalogue
+violates: APR-ATTEST-030
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": "none"
+}
+```
+
+**Example 12.2-15.** An extension member on an attestation record survives a round trip.
+
+```apr-example
+id: attestation-extension-member
+rule: attestation-catalogue
+satisfies: APR-ATTEST-004, APR-ATTEST-031
+representation: jsonc
+expect: valid
+round-trip: true
+preserves: /com.example.counter
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": [],
+  "com.example.counter": "front desk"
+}
+```
 
 ### 12.3 Scope {#attestation-scope}
 
-`scope.kind` is `document` or `fields`.
+A `document` scope covers the complete form, including its extension members.
 
-`document` covers the complete form, including its extension members.
+A `fields` scope covers the prompts its `fields` member names.
 
-A `fields` scope lists prompt ids, and the manifest **MUST** include each
-selected prompt, its response and hints, and every ancestor section's id, title,
-description, kind, and role. [APR-ATTEST-005]
+The manifest of a `fields` attestation **MUST** include each selected prompt,
+its response and hints, and every ancestor section's id, title, description,
+kind, and role. [APR-ATTEST-005]
+
+**Example 12.3-1.** A `fields` attestation over one prompt and the section it sits in.
+
+```apr-example
+id: attestation-fields-scope
+rule: attestation-scope
+satisfies: APR-ATTEST-005, APR-ATTEST-024, APR-ATTEST-025
+representation: jsonc
+expect: valid
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "fields",
+    "fields": [
+      "name"
+    ]
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      },
+      {
+        "path": "/sections/0/id",
+        "digest": "sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e"
+      },
+      {
+        "path": "/sections/0/prompts/0",
+        "digest": "sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a"
+      },
+      {
+        "path": "/sections/0/prompts/0/response",
+        "digest": "sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a"
+      },
+      {
+        "path": "/sections/0/title",
+        "digest": "sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": []
+}
+```
 
 **A filler attests to the question, not only the answer.** Anything less is not
 an attestation on a form.
@@ -4458,21 +5017,28 @@ an attestation on a form.
 > question, its type, and its offered options is what closes that.
 
 A fields scope is deliberately *not* the whole document: a filler attests to
-their part, and someone else editing an unrelated section **MUST NOT** be
-reported as making their attestation `invalid`. [APR-ATTEST-006]
+their part.
+
+A verifier **MUST NOT** report a `fields` attestation as `invalid` because someone
+edited a section it does not cover. [APR-ATTEST-006]
 
 **What that protection is, exactly.** `subject.digest` names the complete form,
 so an edit anywhere produces a changed form, and against *that* form the
 attestation is `unresolved` rather than invalid
 ([Changed forms](#changed-forms), [Verification vocabulary](#verification)). It
 stays `valid` against the form it was made over, which is why a workflow retains
-the original record rather than replacing it. A verifier **MUST NOT** report
-`invalid` merely because the form it holds is a later one. [APR-ATTEST-015]
+the original record rather than replacing it.
 
-A verifier **MAY** additionally compare a `fields` manifest's entries against a
-changed form and report which attested paths still match. That is a diagnostic
-and **MUST NOT** be reported as a verification result: the attestation remains an
-assertion about its original subject and is never transferred to another. [APR-ATTEST-016]
+A verifier **MUST NOT** report `invalid` merely because the form it holds is a
+later one. [APR-ATTEST-015]
+
+A verifier **MAY** compare a `fields` manifest's entries against a changed form
+and report which attested paths still match. [APR-ATTEST-016]
+
+A verifier **MUST NOT** report that comparison as a verification result. [APR-ATTEST-032]
+
+The comparison is a diagnostic, and the attestation remains an assertion about
+its original subject.
 
 > Rationale: the promise above is worth making and was worth stating precisely.
 > Read loosely it suggests a fields attestation keeps verifying across edits,
@@ -4483,41 +5049,207 @@ assertion about its original subject and is never transferred to another. [APR-A
 
 ### 12.4 Proofs {#proofs}
 
-`proofs` are assertions over the JCS serialization of the attestation envelope
-after omitting `proofs` themselves.
+A proof is a JSON object. Each row below is a requirement on a proof.
 
-This specification defines one proof type, `cms/ecdsa-p256-sha256`: ECDSA over the P-256
-curve with SHA-256 (FIPS 186-5), carried as CMS SignedData (RFC 5652), encoded as
-base64 (RFC 4648), with the X.509 certificate chain (RFC 5280) included.
+| Member | Type | Requirement | Rule | Notes |
+| --- | --- | --- | --- | --- |
+| `type` | string | **REQUIRED** | [APR-ATTEST-033] | The proof type. |
+| `value` | string | **REQUIRED** | [APR-ATTEST-034] | The proof, encoded as its type defines. |
 
-A proof **MUST NOT** invent a second copy of the subject digest or scope. [APR-ATTEST-007]
+A proof **MUST NOT** carry a copy of the subject digest or the scope. [APR-ATTEST-007]
 
 > Rationale: two copies of one fact is a correctness bug everywhere in this
 > format, and here it is a security hole: a verifier that checks a second copy
 > reports a signature valid after the real value has changed.
 
-A verifier that does not recognize a proof type **MUST** report it as
-**unverifiable**, never as invalid, and **MUST** preserve it. "I cannot check
-this" and "this is forged" are different statements and **MUST NOT** be conflated
-in a user interface. [APR-ATTEST-008]
+**Example 12.4-1.** A proof carrying its own copy of the subject.
 
-**A proof MAY carry a claimed signing time.** In `cms/ecdsa-p256-sha256` that is
+```apr-example
+id: attestation-proof-copies-subject
+rule: proofs
+violates: APR-ATTEST-007
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [
+    {
+      "type": "example/opaque-v1",
+      "value": "b3BhcXVl",
+      "subject": {
+        "digest": "sha256:abababababababababababababababababababababababababababababababab"
+      }
+    }
+  ],
+  "witnesses": []
+}
+```
+
+An implementation producing a proof **MUST** compute it over the JCS
+serialization (RFC 8785) of the attestation's envelope: the record without its
+`proofs` member. [APR-ATTEST-035]
+
+A verifier **MUST** verify a proof over that same serialization. [APR-ATTEST-036]
+
+> Rationale: two implementations that sign different bytes can each pass their
+> own tests and never verify each other.
+
+This specification defines one proof type. Each row below is a requirement on a
+proof of that type: its `value` is what the row states.
+
+| Type | Value | Requirement | Rule |
+| --- | --- | --- | --- |
+| `cms/ecdsa-p256-sha256` | ECDSA over the P-256 curve with SHA-256 (FIPS 186-5), carried as CMS SignedData (RFC 5652) with the X.509 certificate chain (RFC 5280) included, encoded as base64 (RFC 4648). | **MUST** | [APR-ATTEST-037] |
+
+A verifier that does not recognize a proof type **MUST** report the proof as
+`unverifiable`, never as `invalid`. [APR-ATTEST-008]
+
+An implementation **MUST** preserve a proof whose type it does not
+recognize. [APR-ATTEST-038]
+
+**Example 12.4-2.** A proof of a type the reader does not recognize survives a round trip.
+
+```apr-example
+id: attestation-unknown-proof-preserved
+rule: proofs
+satisfies: APR-ATTEST-007, APR-ATTEST-033, APR-ATTEST-034, APR-ATTEST-038
+representation: jsonc
+expect: valid
+round-trip: true
+preserves: /proofs/0/type, /proofs/0/value
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [
+    {
+      "type": "example/opaque-v1",
+      "value": "b3BhcXVl"
+    }
+  ],
+  "witnesses": []
+}
+```
+
+"I cannot check this" and "this is forged" are different statements.
+
+A renderer **MUST NOT** present an `unverifiable` proof as `invalid`. [APR-ATTEST-039]
+
+A proof **MAY** carry a claimed signing time. [APR-ATTEST-014]
+
+In `cms/ecdsa-p256-sha256` that is
 the CMS signing-time signed attribute (RFC 5652), which sits inside the signature
 and therefore cannot be altered without breaking it. What nothing vouches for is
 the clock: the value is the signer's assertion that they signed then, and no
-more. A reader that shows it **MUST** show it as claimed rather than proven, and
-**MUST NOT** derive from it that one record precedes another. [APR-ATTEST-014]
+more.
+
+A renderer that shows a claimed signing time **MUST** show it as claimed rather
+than proven. [APR-ATTEST-040]
+
+An implementation **MUST NOT** conclude from a claimed signing time that one
+record precedes another. [APR-ATTEST-041]
 
 > Rationale: every signature format works this way, and pretending otherwise is
 > how a plausible timestamp becomes evidence it was never entitled to be.
-> Trusted time needs a time authority, which this baseline does not define. A
-> claimed time is still worth carrying, because it is what the signer said.
+> Trusted time needs a time authority, which this specification does not define.
+> A claimed time is still worth carrying, because it is what the signer said.
 
 ### 12.5 Witnesses {#witnesses}
 
-`witnesses` is an ordered, duplicate-free list of semantic digests of earlier
-attestation envelopes, again excluding `proofs`. It records that this
-attestation's signer explicitly witnessed those assertions.
+`witnesses` records that this attestation's signer explicitly witnessed earlier
+assertions.
+
+Each entry in `witnesses` **MUST** be the digest of an earlier attestation's
+envelope. [APR-ATTEST-042]
+
+`witnesses` **MUST NOT** repeat a digest. [APR-ATTEST-043]
+
+**Example 12.5-1.** An attestation witnessing an earlier one in the same stream.
+
+```apr-example
+id: attestation-witness
+rule: witnesses
+satisfies: APR-ATTEST-042, APR-ATTEST-043
+representation: jsonc-stream
+expect: valid
+---
+{"aprVersion":"1.0-beta.6","documentType":"template","metadata":{"title":"Beta 6 permit"},"sections":[{"id":"applicant","title":"Applicant","prompts":[{"id":"name","label":"Name","response":"Ada"}]}]}
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","entries":[{"path":"","digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"}]},"proofs":[],"witnesses":[]}
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","canonicalization":"jcs-sha256"},"scope":{"kind":"fields","fields":["name"]},"manifest":{"root":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","entries":[{"path":"","digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"},{"path":"/sections/0/id","digest":"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e"},{"path":"/sections/0/prompts/0","digest":"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a"},{"path":"/sections/0/prompts/0/response","digest":"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a"},{"path":"/sections/0/title","digest":"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a"}]},"proofs":[],"witnesses":["sha256:48f60a7124d41f89159e9d38003441a22755f09bc8744227dabde81a5bf8f1d0"]}
+```
+
+**Example 12.5-2.** A witness that is not a digest.
+
+```apr-example
+id: attestation-witness-malformed
+rule: witnesses
+violates: APR-ATTEST-042
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "recordType": "attestation",
+  "aprVersion": "1.0-beta.6",
+  "subject": {
+    "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "canonicalization": "jcs-sha256"
+  },
+  "scope": {
+    "kind": "document"
+  },
+  "manifest": {
+    "root": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675",
+    "entries": [
+      {
+        "path": "",
+        "digest": "sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"
+      }
+    ]
+  },
+  "proofs": [],
+  "witnesses": [
+    "the counter attestation"
+  ]
+}
+```
 
 Witnessing neither authorizes a change nor proves a clock order, workflow
 acceptance, real-world identity, or trusted time.
@@ -4525,11 +5257,47 @@ acceptance, real-world identity, or trusted time.
 ### 12.6 Changed forms {#changed-forms}
 
 A changed form is another complete form occurrence with a different subject
-digest. Earlier attestations remain assertions about their original subject and
-**MUST NOT** be transferred to the changed form. [APR-ATTEST-009]
+digest.
 
-Multiple attestations may target one unchanged form, and an attestation may be
-encountered before its subject.
+A verifier **MUST NOT** transfer an attestation to a changed form. [APR-ATTEST-009]
+
+The attestation remains an assertion about its original subject.
+
+A reader **MUST** accept a stream holding several attestations of one
+form. [APR-ATTEST-044]
+
+A reader **MUST** accept an attestation that comes before its subject in a
+stream. [APR-ATTEST-045]
+
+**Example 12.6-1.** A form and two attestations of it.
+
+```apr-example
+id: attestations-several-of-one-form
+rule: changed-forms
+satisfies: APR-ATTEST-044
+representation: jsonc-stream
+expect: valid
+---
+{"aprVersion":"1.0-beta.6","documentType":"template","metadata":{"title":"Beta 6 permit"},"sections":[{"id":"applicant","title":"Applicant","prompts":[{"id":"name","label":"Name","response":"Ada"}]}]}
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","entries":[{"path":"","digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"}]},"proofs":[],"witnesses":[]}
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","canonicalization":"jcs-sha256"},"scope":{"kind":"fields","fields":["name"]},"manifest":{"root":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","entries":[{"path":"","digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"},{"path":"/sections/0/id","digest":"sha256:ddb020662a633640dd1d4d0dd981e920629b458a79fc1a1f083ed4a83a2b8a6e"},{"path":"/sections/0/prompts/0","digest":"sha256:ecb874b2ecb9667ab8ff21f6479c62ed5db164db6f059a87ec6fc3a100f5a94a"},{"path":"/sections/0/prompts/0/response","digest":"sha256:a39afeed7d3319213be7a235840b3c6d3f09f2810b9c91779f34572b6b36832a"},{"path":"/sections/0/title","digest":"sha256:290ba830f4a1f9820d0bfe1e494a084252c7dcb52b61d406f09d2fa51bed9f9a"}]},"proofs":[],"witnesses":[]}
+```
+
+**Example 12.6-2.** An attestation that comes before its subject.
+
+```apr-example
+id: attestation-before-subject
+rule: changed-forms
+satisfies: APR-ATTEST-045
+representation: jsonc-stream
+expect: valid
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675","entries":[{"path":"","digest":"sha256:c525780361ebf5ef97b1c6ffb6db963c12281bce62a0bdc150a2d2c7f1a14675"}]},"proofs":[],"witnesses":[]}
+---
+{"aprVersion":"1.0-beta.6","documentType":"template","metadata":{"title":"Beta 6 permit"},"sections":[{"id":"applicant","title":"Applicant","prompts":[{"id":"name","label":"Name","response":"Ada"}]}]}
+```
 
 **Say what happened, not only what is missing.** An attestation whose subject
 resolves to nothing is `unresolved` ([Verification vocabulary](#verification)),
@@ -4552,23 +5320,27 @@ the attested form is absent, and that a different form is present. [APR-ATTEST-0
 
 ### 12.7 Verification vocabulary {#verification}
 
-Verification reports these independent facts:
+Each row below is a requirement on a verifier: it reports the result when the
+row's condition holds.
 
-| Result | Meaning |
-| --- | --- |
-| `valid` | The subject resolved, digest and manifest match, and a recognized proof verifies. |
-| `invalid` | A recognized proof fails, or a resolved subject differs from the attested digest or manifest. |
-| `unresolved` | No matching form occurrence is available. |
-| `unverifiable` | Required representation, extension, digest, or proof support is unavailable. |
-| `witnessed` | One or more referenced envelopes resolve and match. |
+| Result | Condition | Requirement | Rule |
+| --- | --- | --- | --- |
+| `valid` | The subject resolved, digest and manifest match, and a recognized proof verifies. | **MUST** | [APR-ATTEST-046] |
+| `invalid` | A recognized proof fails, or a resolved subject differs from the attested digest or manifest. | **MUST** | [APR-ATTEST-047] |
+| `unresolved` | No matching form occurrence is available. | **MUST** | [APR-ATTEST-048] |
+| `unverifiable` | Required representation, extension, digest, or proof support is unavailable. | **MUST** | [APR-ATTEST-049] |
+| `witnessed` | One or more referenced envelopes resolve and match. | **MUST** | [APR-ATTEST-050] |
 
-These are independent, and a verifier **MUST** report them independently: an
-attestation may be both `unverifiable` and `witnessed`, and `unresolved`
-**MUST NOT** be reported as a failure of the assertion. [APR-ATTEST-018]
+A verifier **MUST** report each result independently of the others, so an
+attestation can be both `unverifiable` and `witnessed`. [APR-ATTEST-018]
+
+A verifier **MUST NOT** report `unresolved` as a failure of the assertion. [APR-ATTEST-051]
 
 **Validity is independent of trust.** A self-signed certificate can produce a
-perfectly valid proof that proves nothing about identity. Implementations
-**MUST** report these separately. [APR-ATTEST-010]
+perfectly valid proof that proves nothing about identity.
+
+A verifier **MUST** report whether a proof verifies separately from whether its
+certificate is trusted. [APR-ATTEST-010]
 
 > Rationale: collapsing content validity and certificate trust into one green
 > checkmark teaches people to trust a checkmark that does not mean what they
@@ -4581,22 +5353,43 @@ it.** An implementation **MUST NOT** treat the presence, absence, or state of an
 attestation as authorization to read, or to withhold, the data a form
 carries. [APR-ATTEST-019]
 
-**Attesting is never required.** A form with no attestation is a complete,
-ordinary, fully valid APR document. An implementation **MUST NOT** require one in
-order to save, send, accept, or process a form, and **MUST NOT** present an
-unattested document as deficient. [APR-ATTEST-011]
+**A form needs no attestation.** A form with no attestation is a complete,
+ordinary, fully valid APR document.
 
-**Acting on an attestation is never required.** An implementation **MUST NOT**
-refuse to parse, validate, render, print, export, or extract data from a document
-because its attestations are absent, unrecognized, expired, untrusted, or
-outright invalid. Attestation state **MUST NOT** appear in the validation error
-list. [APR-ATTEST-012]
+An implementation **MUST NOT** require an attestation in order to save, send,
+accept, or process a form. [APR-ATTEST-011]
+
+A renderer **MUST NOT** present an unattested document as deficient. [APR-ATTEST-052]
+
+**Nothing waits on an attestation.**
+
+An implementation **MUST NOT** refuse to parse, validate, render, print, export,
+or extract data from a document because its attestations are absent,
+unrecognized, expired, untrusted, or outright invalid. [APR-ATTEST-012]
+
+A validator **MUST NOT** report attestation state as an error. [APR-ATTEST-053]
+
+**Example 12.8-1.** A form beside an attestation of a different form is valid.
+
+```apr-example
+id: attestation-state-no-error
+rule: never-gate
+satisfies: APR-ATTEST-053
+representation: jsonc-stream
+expect: valid
+---
+{"aprVersion":"1.0-beta.6","documentType":"template","metadata":{"title":"Beta 6 permit"},"sections":[{"id":"applicant","title":"Applicant","prompts":[{"id":"name","label":"Name","response":"Ada"}]}]}
+---
+{"recordType":"attestation","aprVersion":"1.0-beta.6","subject":{"digest":"sha256:abababababababababababababababababababababababababababababababab","canonicalization":"jcs-sha256"},"scope":{"kind":"document"},"manifest":{"root":"sha256:abababababababababababababababababababababababababababababababab","entries":[{"path":"","digest":"sha256:abababababababababababababababababababababababababababababababab"}]},"proofs":[],"witnesses":[]}
+```
 
 An implementation **MAY** warn, badge, or refuse to *act* on a document by its
 own policy — a receiving workflow is entitled to reject an unattested permit
-application. That is the workflow's decision. It is not the file format's, and a
+application. [APR-ATTEST-013]
+
+That is the workflow's decision. It is not the file format's, and a
 reader that enforces it on the workflow's behalf has taken a choice away from
-every other consumer of the same document. [APR-ATTEST-013]
+every other consumer of the same document.
 
 > Rationale: the reasoning is the same one behind
 > [Any string is a valid response](#any-string). A format that withheld data

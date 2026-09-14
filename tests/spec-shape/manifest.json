@@ -256,7 +256,7 @@
       "issue": 488,
       "requirement": "Lowercase obligation words in normative text.",
       "status": "converted chapter by chapter in #473-#487",
-      "findings": 5
+      "findings": 2
     },
     {
       "id": "no-history",
@@ -266,18 +266,11 @@
       "findings": 1
     },
     {
-      "id": "requirement-tables-carry-rules",
-      "issue": 488,
-      "requirement": "Requirement tables without a Rule column, and their rows without a rule identifier.",
-      "status": "converted chapter by chapter in #473-#487",
-      "findings": 9
-    },
-    {
       "id": "examples-captioned",
       "issue": 488,
       "requirement": "Executable examples without their numbered caption, and captions on no executable example.",
       "status": "converted chapter by chapter in #473-#487",
-      "findings": 2
+      "findings": 1
     }
   ]
 }
