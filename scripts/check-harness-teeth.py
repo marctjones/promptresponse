@@ -143,46 +143,25 @@ PROFILES = {
     "over-claiming": ["core", "core+streams", "core+attestations", "core+expressions"],
 }
 
+# Every mutant damages the reference driver's own answer. A hand-kept copy of it
+# drifted: it named the wrong diagnostics and wrote streams that would not read
+# back, so every mutant shared eleven failures that proved nothing about it.
 REFERENCE_BODY = '''
+spec = importlib.util.spec_from_file_location("reference_driver", {reference!r})
+reference_driver = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(reference_driver)
+
 def representation(case):
     return "yaml" if case["representation"].startswith("yaml") else "jsonc"
 
 def reference(case):
-    try:
-        records = aprlib.read_records(case["document"], representation(case))
-    except aprlib.AprError as exc:
-        return {"id": case["id"], "outcome": "reject",
-                "diagnostic": getattr(exc, "code", None) or "PARSE_ERROR"}
-    except Exception:
-        return {"id": case["id"], "outcome": "reject", "diagnostic": "PARSE_ERROR"}
-    report = validate_apr.Report(case["id"])
-    for record in records:
-        if isinstance(record, dict) and "recordType" in record:
-            validate_apr.validate_attestation(report, record)
-        else:
-            validate_apr.validate_form(report, record, MEMBERS)
-    if report.errors:
-        return {"id": case["id"], "outcome": "reject",
-                "diagnostic": next(f["code"] for f in report.findings
-                                   if f["severity"] == "error")}
-    answer = {"id": case["id"], "outcome": "valid",
-              "warnings": sorted({f["code"] for f in report.findings
-                                  if f["severity"] == "warning"})}
-    if len(records) == 1:
-        answer["digest"] = aprlib.digest(records[0])
-    if case.get("evaluates") or case.get("expects"):
-        inputs = case.get("evaluate") or {}
-        try:
-            answer["evaluated"] = aprexpr.evaluate(
-                records[0], _now=inputs.get("_now"), _today=inputs.get("_today"),
-                ctx=inputs.get("ctx"))
-        except Exception as exc:
-            answer["evaluated"] = {"error": type(exc).__name__}
-    if case.get("roundTrip"):
-        answer["written"] = "".join(
-            json.dumps(record, indent=2, ensure_ascii=False) + "\\n" for record in records)
-    return answer
+    return reference_driver.answer(case, MEMBERS)
 '''
+CONTROL = '''
+for case in suite["cases"]:
+    results.append(reference(case))
+'''
+ALL_PROFILES = ["core", "core+streams", "core+attestations", "core+expressions"]
 
 
 def run(driver: pathlib.Path) -> tuple[int, int, str]:
@@ -195,7 +174,7 @@ def run(driver: pathlib.Path) -> tuple[int, int, str]:
     except json.JSONDecodeError:
         return -1, -1, (completed.stderr or completed.stdout).strip()[:300]
     tally = report.get("tally", {})
-    failing = [r for r in report.get("results", []) if r.get("status") != "pass"]
+    failing = [r for r in report.get("cases", []) if r.get("status") != "pass"]
     detail = ""
     if failing:
         detail = f"{failing[0].get('id')}: {failing[0].get('detail', '')}"
@@ -214,16 +193,27 @@ def main() -> int:
     print(f"reference driver: {passed} pass, {failed} fail")
 
     with tempfile.TemporaryDirectory() as workspace:
-        for name, (description, body) in MUTANTS.items():
+        def driver(name: str, body: str, profiles: list[str]) -> pathlib.Path:
             source = (PREAMBLE.format(scripts=str(ROOT / "scripts"),
                                       validator=str(ROOT / "scripts" / "validate-apr.py"))
-                      + REFERENCE_BODY + body
+                      + REFERENCE_BODY.format(reference=str(REFERENCE)) + body
                       + f'\njson.dump({{"implementation": {{"name": "{name}", '
-                        f'"version": "0", "profiles": {json.dumps(PROFILES.get(name, ["core"]))}}}, '
+                        f'"version": "0", "profiles": {json.dumps(profiles)}}}, '
                         '"results": results}, sys.stdout)\n')
             path = pathlib.Path(workspace) / f"{name}.py"
             path.write_text(source, encoding="utf-8")
-            passed, failed, detail = run(path)
+            return path
+
+        # The control is a mutant with no damage. It must pass everything, or a
+        # mutant's failures could be the base it shares with every other mutant.
+        passed, failed, detail = run(driver("control", CONTROL, ALL_PROFILES))
+        if failed != 0:
+            problems.append(f"the undamaged mutant base fails {failed} cases, so no mutant's "
+                            f"failures can be told from it — {detail}")
+        print(f"  {'control':20} {passed:>4} pass {failed:>4} fail   the reference answers, undamaged")
+
+        for name, (description, body) in MUTANTS.items():
+            passed, failed, detail = run(driver(name, body, PROFILES.get(name, ["core"])))
             if failed < 0:
                 problems.append(f"{name}: the mutant did not run — {detail}")
                 continue
