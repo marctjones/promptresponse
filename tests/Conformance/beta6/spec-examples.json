@@ -4,6 +4,7 @@
   "examples": [
     {
       "id": "extension-member-prefixed",
+      "number": "5.8-1",
       "rule": "extensions",
       "representation": "jsonc",
       "expect": "valid",
@@ -12,20 +13,30 @@
         "APR-MODEL-020",
         "APR-MODEL-029",
         "APR-MODEL-031"
+      ],
+      "satisfies": [
+        "APR-MODEL-020",
+        "APR-MODEL-029",
+        "APR-MODEL-031"
       ]
     },
     {
       "id": "jsonc-comment-inside-string",
+      "number": "4.4-2",
       "rule": "apr-jsonc",
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"// not a comment /* nor this */\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
       "rules": [
         "APR-REP-005"
+      ],
+      "satisfies": [
+        "APR-REP-005"
       ]
     },
     {
       "id": "jsonc-duplicate-member",
+      "number": "4.4-3",
       "rule": "apr-jsonc",
       "representation": "jsonc",
       "expect": "reject",
@@ -33,30 +44,42 @@
       "rules": [
         "APR-REP-006"
       ],
+      "violates": [
+        "APR-REP-006"
+      ],
       "diagnostic": "DUPLICATE_MEMBER"
     },
     {
       "id": "jsonc-trailing-comma",
+      "number": "4.4-1",
       "rule": "apr-jsonc",
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Trailing commas\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" }, ] },\n  ],\n}\n",
       "rules": [
         "APR-REP-005"
+      ],
+      "satisfies": [
+        "APR-REP-005"
       ]
     },
     {
       "id": "regarding-chain",
+      "number": "5.2.2-2",
       "rule": "regarding",
       "representation": "jsonc-stream",
       "expect": "valid",
       "document": "{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Permit Application\",\"templateId\":\"tag:example.com,2026:permit\"},\"sections\":[{\"id\":\"applicant\",\"title\":\"Applicant\",\"prompts\":[{\"id\":\"full_name\",\"label\":\"Full name\",\"response\":\"Ada Lovelace\"}]}]}\n---\n{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Intake Receipt\",\"templateId\":\"tag:example.com,2026:intake-receipt\",\"regarding\":[\"sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\"]},\"sections\":[{\"id\":\"intake\",\"title\":\"Intake\",\"prompts\":[{\"id\":\"received\",\"label\":\"Date received\",\"response\":\"2026-09-04\"}]}]}\n",
       "rules": [
         "APR-MODEL-043"
+      ],
+      "satisfies": [
+        "APR-MODEL-043"
       ]
     },
     {
       "id": "regarding-reference",
+      "number": "5.2.2-1",
       "rule": "regarding",
       "representation": "jsonc",
       "expect": "valid",
@@ -64,10 +87,15 @@
       "rules": [
         "APR-MODEL-043",
         "APR-MODEL-045"
+      ],
+      "satisfies": [
+        "APR-MODEL-043",
+        "APR-MODEL-045"
       ]
     },
     {
       "id": "stream-mixed-representations",
+      "number": "9.2-1",
       "rule": "streams",
       "representation": "jsonc-stream",
       "expect": "reject",
@@ -75,10 +103,14 @@
       "rules": [
         "APR-STREAM-001"
       ],
+      "violates": [
+        "APR-STREAM-001"
+      ],
       "diagnostic": "APR_STREAM_MIXED_REPRESENTATIONS"
     },
     {
       "id": "structural-member-wrong-type",
+      "number": "4.5.1-12",
       "rule": "json-subset",
       "representation": "jsonc",
       "expect": "reject",
@@ -86,10 +118,14 @@
       "rules": [
         "APR-REP-015"
       ],
+      "violates": [
+        "APR-REP-015"
+      ],
       "diagnostic": "WRONG_TYPE"
     },
     {
       "id": "table-section",
+      "number": "4.5.1-11",
       "rule": "tables",
       "representation": "jsonc",
       "expect": "valid",
@@ -97,20 +133,29 @@
       "rules": [
         "APR-MODEL-038",
         "APR-REP-015"
+      ],
+      "satisfies": [
+        "APR-MODEL-038",
+        "APR-REP-015"
       ]
     },
     {
       "id": "unregistered-data-type-degrades",
+      "number": "4.5.1-13",
       "rule": "hints-object",
       "representation": "jsonc",
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Unregistered affordance\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"response\": \"anything\",\n          \"hints\": { \"expectedDataType\": \"holographic-signature\" } }\n      ]\n    }\n  ]\n}\n",
       "rules": [
         "APR-MODEL-018"
+      ],
+      "satisfies": [
+        "APR-MODEL-018"
       ]
     },
     {
       "id": "yaml-anchor",
+      "number": "4.5.1-3",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
@@ -118,10 +163,14 @@
       "rules": [
         "APR-REP-010"
       ],
+      "violates": [
+        "APR-REP-010"
+      ],
       "diagnostic": "YAML_ANCHOR_FORBIDDEN"
     },
     {
       "id": "yaml-bare-decimal-is-a-string",
+      "number": "4.5.1-17",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -129,10 +178,15 @@
       "rules": [
         "APR-REP-008",
         "APR-REP-012"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-012"
       ]
     },
     {
       "id": "yaml-bare-word-is-a-string",
+      "number": "4.5.1-7",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -140,10 +194,15 @@
       "rules": [
         "APR-REP-008",
         "APR-REP-012"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-012"
       ]
     },
     {
       "id": "yaml-date-like-is-a-string",
+      "number": "4.5.1-10",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -151,10 +210,15 @@
       "rules": [
         "APR-REP-008",
         "APR-REP-012"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-012"
       ]
     },
     {
       "id": "yaml-directive",
+      "number": "4.5.1-6",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
@@ -162,10 +226,14 @@
       "rules": [
         "APR-REP-010"
       ],
+      "violates": [
+        "APR-REP-010"
+      ],
       "diagnostic": "YAML_DIRECTIVE_FORBIDDEN"
     },
     {
       "id": "yaml-hex-is-a-string",
+      "number": "4.5.1-15",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -173,10 +241,15 @@
       "rules": [
         "APR-REP-008",
         "APR-REP-012"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-012"
       ]
     },
     {
       "id": "yaml-leading-zero-is-a-string",
+      "number": "4.5.1-9",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -184,10 +257,15 @@
       "rules": [
         "APR-REP-008",
         "APR-REP-012"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-012"
       ]
     },
     {
       "id": "yaml-legacy-boolean-is-a-string",
+      "number": "4.5.1-8",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -195,10 +273,15 @@
       "rules": [
         "APR-REP-008",
         "APR-REP-012"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-012"
       ]
     },
     {
       "id": "yaml-merge-key",
+      "number": "4.5.1-5",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
@@ -206,10 +289,14 @@
       "rules": [
         "APR-REP-010"
       ],
+      "violates": [
+        "APR-REP-010"
+      ],
       "diagnostic": "YAML_MERGE_KEY_FORBIDDEN"
     },
     {
       "id": "yaml-non-finite-float",
+      "number": "4.5.1-20",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "reject",
@@ -217,10 +304,14 @@
       "rules": [
         "APR-REP-011"
       ],
+      "violates": [
+        "APR-REP-011"
+      ],
       "diagnostic": "YAML_NON_FINITE_NUMBER"
     },
     {
       "id": "yaml-plain-null-response-is-empty",
+      "number": "4.5.1-19",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -228,30 +319,43 @@
       "rules": [
         "APR-REP-008",
         "APR-REP-014"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-014"
       ]
     },
     {
       "id": "yaml-quoted-null-is-a-string",
+      "number": "4.5.1-18",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: \"null\"\n",
       "rules": [
         "APR-REP-008"
+      ],
+      "satisfies": [
+        "APR-REP-008"
       ]
     },
     {
       "id": "yaml-quoted-scalar-stays-string",
+      "number": "4.5.1-2",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Quoted template version\n  templateVersion: \"1.0\"\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "rules": [
         "APR-REP-017"
+      ],
+      "satisfies": [
+        "APR-REP-017"
       ]
     },
     {
       "id": "yaml-sexagesimal-is-a-string",
+      "number": "4.5.1-14",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -259,10 +363,15 @@
       "rules": [
         "APR-REP-008",
         "APR-REP-012"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-012"
       ]
     },
     {
       "id": "yaml-tag",
+      "number": "4.5.1-4",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
@@ -270,10 +379,14 @@
       "rules": [
         "APR-REP-010"
       ],
+      "violates": [
+        "APR-REP-010"
+      ],
       "diagnostic": "YAML_TAG_FORBIDDEN"
     },
     {
       "id": "yaml-underscored-number-is-a-string",
+      "number": "4.5.1-16",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -281,15 +394,23 @@
       "rules": [
         "APR-REP-008",
         "APR-REP-012"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-012"
       ]
     },
     {
       "id": "yaml-unquoted-scalar-wrong-type",
+      "number": "4.5.1-1",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "reject",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Unquoted template version\n  templateVersion: 1.0\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "rules": [
+        "APR-REP-017"
+      ],
+      "violates": [
         "APR-REP-017"
       ],
       "diagnostic": "WRONG_TYPE"

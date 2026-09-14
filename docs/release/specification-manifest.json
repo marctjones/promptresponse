@@ -14,7 +14,7 @@
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:28f7d217e480067eff1c6a623c82ee99cf7dd58fbf7c5bd5a58a46670ddda6e4"
+      "sha256": "sha256:05e8d90ec336ecc66e427f2bc1654202572b42d3ded0b39a20bca90c53a99444"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
@@ -42,16 +42,16 @@
     },
     "derivedExamples": {
       "path": "tests/Conformance/beta6/spec-examples.json",
-      "sha256": "sha256:c6768204d78a633214b74ad1061b2a0205ee72a8ebe257b7678796cf2f21c22a"
+      "sha256": "sha256:2357c7a4ebe99b85219870c5962a880802272921eba7ff7a64a589e7cef57f96"
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:b40245f13b067fd3baf66a8c175ab05077251918eb4d0748ebb39d4e1b0bce45"
+      "sha256": "sha256:64ac047c096bb2402478742285585e1f836f4ce1b7be989cffe8555bf22ecaed"
     }
   },
   "corpus": {
     "path": "tests/Conformance/beta6",
     "files": 157,
-    "sha256": "sha256:36ba4c086ee02311ca850e0606aa1c67d7d12e823934261214dadc0b5efcb592"
+    "sha256": "sha256:ffdcdb599d8d129a2d95127341be97dc20b03482a1572e3a2e25b34551afb988"
   }
 }

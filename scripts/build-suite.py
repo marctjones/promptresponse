@@ -103,8 +103,17 @@ def build() -> dict:
                 raise  # never a property of the vector; the package is absent
             except Exception:  # noqa: BLE001 - a vector we cannot read states no digest
                 pass
-        if example.get("diagnostic"):
-            case["diagnostic"] = example["diagnostic"]
+        if example.get("digest"):
+            # A digest the specification states is a claim about the semantic model.
+            # A document that produces another one means the example is wrong.
+            if case.get("digest") and case["digest"] != example["digest"]:
+                raise SystemExit(f"spec:{example['id']} states {example['digest']}, but the "
+                                 f"document produces {case['digest']}")
+            case["digest"] = example["digest"]
+        for key in ("satisfies", "violates", "diagnostic", "warns", "roundTrip", "preserves",
+                    "evaluate", "expects"):
+            if example.get(key):
+                case[key] = example[key]
         if example.get("equivalentTo"):
             case["equivalentTo"] = f"spec:{example['equivalentTo']}"
         cases.append(case)
