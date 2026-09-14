@@ -24,10 +24,10 @@ public sealed class AttestCommand : ICommand
 
         try
         {
-            var representation = input.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase) || input.EndsWith(".yml", StringComparison.OrdinalIgnoreCase)
-                ? AprRepresentation.Yaml : AprRepresentation.Jsonc;
+            var source = await File.ReadAllTextAsync(input);
+            var representation = AprBeta6Reader.RepresentationOf(source);
             var reader = new AprBeta6Reader();
-            var records = reader.ReadStream(await File.ReadAllTextAsync(input), representation);
+            var records = reader.ReadStream(source, representation);
             var forms = records.OfType<AprFormRecord>().ToList();
             if (forms.Count != 1)
             {

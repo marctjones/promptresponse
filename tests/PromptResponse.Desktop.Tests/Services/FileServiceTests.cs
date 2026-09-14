@@ -12,7 +12,7 @@ namespace PromptResponse.Desktop.Tests.Services;
 /// </summary>
 /// <remarks>
 /// These tests focus on testable aspects of FileService that don't require Avalonia dialogs:
-/// CurrentFilePath management and extension-based DocumentType override.
+/// CurrentFilePath management, and that neither saving nor loading lets an extension decide DocumentType.
 /// SaveFileAsync writes a real (empty) file to a per-test temp directory; no fictitious
 /// paths are used.
 /// </remarks>
@@ -169,6 +169,32 @@ public class FileServiceTests : IDisposable
         await service.SaveFileAsync(document, filePath);
 
         (await File.ReadAllTextAsync(filePath)).Should().Contain("\"aprVersion\": \"1.0-beta.6\"");
+    }
+
+    [Fact]
+    public async Task LoadFileAsync_ReadsTheContent_WhateverTheExtensionSays()
+    {
+        // A YAML filled form named as a JSONC template. The content decides the
+        // representation and documentType decides what the document is; the
+        // extension decides neither (specification, Document type).
+        var path = PathFor("form.aprt");
+        await File.WriteAllTextAsync(path, """
+            aprVersion: "1.0-beta.6"
+            documentType: filledForm
+            metadata: { title: T, templateId: "tag:example.com,2026:t" }
+            sections:
+              - id: s
+                title: S
+                prompts:
+                  - id: p
+                    label: P
+                    response: "yes"
+            """);
+
+        var document = await CreateService().LoadFileAsync(path);
+
+        document.Should().NotBeNull();
+        document!.DocumentType.Should().Be(DocumentType.FilledForm);
     }
 
     [Fact]

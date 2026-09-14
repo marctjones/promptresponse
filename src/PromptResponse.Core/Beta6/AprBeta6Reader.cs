@@ -92,6 +92,37 @@ public sealed class AprBeta6Reader
         }
     }
 
+    /// <summary>The representation a source is written in, decided by its content.</summary>
+    /// <remarks>
+    /// A reader never takes the representation from a filename or a media type
+    /// ([Document type](#media-types)). An APR-JSONC document is an object and an
+    /// APR-JSONC stream opens with a record separator, so once a byte order mark,
+    /// whitespace and JSONC comments are skipped, anything else is APR-YAML.
+    /// </remarks>
+    public static AprRepresentation RepresentationOf(string source)
+    {
+        ArgumentNullException.ThrowIfNull(source);
+        var index = source.Length > 0 && source[0] == '\uFEFF' ? 1 : 0;
+        while (index < source.Length)
+        {
+            var ch = source[index];
+            if (ch is '{' or '\u001e') return AprRepresentation.Jsonc;
+            if (char.IsWhiteSpace(ch)) { index++; continue; }
+            if (ch == '/' && index + 1 < source.Length && source[index + 1] is '/' or '*')
+            {
+                var line = source[index + 1] == '/';
+                var end = line
+                    ? source.IndexOf('\n', index + 2)
+                    : source.IndexOf("*/", index + 2, StringComparison.Ordinal);
+                if (end < 0) return AprRepresentation.Jsonc;
+                index = line ? end + 1 : end + 2;
+                continue;
+            }
+            return AprRepresentation.Yaml;
+        }
+        return AprRepresentation.Jsonc;
+    }
+
     /// <summary>Writes one beta.6 form in the requested source representation.</summary>
     public string WriteForm(AprDocument form, AprRepresentation representation)
     {
@@ -470,6 +501,10 @@ public sealed class AprBeta6Reader
     // "string(fee_count * 8.0)", are ordinary characters of an ordinary string. A
     // merge key is a plain "<<" in key position; a quoted one is a string key.
     // Running on events, before deserialization, also means an alias is never expanded.
+    // The depth System.Text.Json refuses beyond by default, so a document nests as deep
+    // in APR-YAML as in APR-JSONC. Sixteen section levels need well under half of it.
+    private const int MaxYamlDepth = 64;
+
     private static void RejectYamlFeatures(string source)
     {
         var parser = new Parser(new StringReader(source));
@@ -504,6 +539,12 @@ public sealed class AprBeta6Reader
                 case Scalar scalar when isKey && scalar.Style == ScalarStyle.Plain && scalar.Value == "<<":
                     throw new SerializationException("APR YAML forbids merge keys.")
                         { Code = "YAML_MERGE_KEY_FORBIDDEN" };
+                // Refused here, while the parser is still iterative: the node tree built
+                // afterwards recurses once per level, and a deep enough document ends the
+                // process with a stack overflow instead of a parse error.
+                case MappingStart or SequenceStart when frames.Count >= MaxYamlDepth:
+                    throw new SerializationException($"APR YAML nests deeper than {MaxYamlDepth} levels.")
+                        { Code = "PARSE_ERROR" };
                 case MappingStart:
                     frames.Push([1, 0]);
                     break;
