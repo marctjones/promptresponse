@@ -41,6 +41,21 @@
       ]
     },
     {
+      "id": "form-without-metadata",
+      "number": "5.1-1",
+      "rule": "root-object",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-055"
+      ],
+      "violates": [
+        "APR-MODEL-055"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
       "id": "id-namespaces",
       "number": "5.4-3",
       "rule": "prompt-object",
@@ -48,6 +63,7 @@
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Contact\" },\n  \"sections\": [\n    {\n      \"id\": \"name\",\n      \"title\": \"Name\",\n      \"prompts\": [\n        { \"id\": \"name\", \"label\": \"Full name\" },\n        { \"id\": \"Name\", \"label\": \"Name as printed on the card\" }\n      ]\n    }\n  ]\n}\n",
       "rules": [
+        "APR-MODEL-055",
         "APR-MODEL-066",
         "APR-MODEL-067",
         "APR-MODEL-076",
@@ -55,6 +71,7 @@
         "APR-MODEL-092"
       ],
       "satisfies": [
+        "APR-MODEL-055",
         "APR-MODEL-066",
         "APR-MODEL-067",
         "APR-MODEL-076",

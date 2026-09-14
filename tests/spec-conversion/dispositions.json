@@ -3231,7 +3231,10 @@
         "root-object/table-header/66a78c1006",
         "root-object/sentence/ddd96dfa99",
         "root-object/sentence/884bc6a35b",
-        "root-object/sentence/e02593a21e"
+        "root-object/sentence/e02593a21e",
+        "root-object/example/bcf2941d94",
+        "root-object/sentence/e8ab0b4319",
+        "root-object/sentence/c4aef467c4"
       ],
       "note": "Required: Yes/No becomes a Requirement column with a rule per row"
     },
@@ -4349,7 +4352,7 @@
         "prompt-object/example/d8a84e498b",
         "prompt-object/sentence/6f6d671fc4",
         "prompt-object/sentence/d07158bfcc",
-        "prompt-object/example/e1e93645c9",
+        "prompt-object/example/37170b9756",
         "prompt-object/sentence/c32953d72d",
         "prompt-object/sentence/ad7c60af2d",
         "prompt-object/sentence/c21955ca3a"
