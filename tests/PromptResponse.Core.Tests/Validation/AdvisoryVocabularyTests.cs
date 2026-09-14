@@ -171,8 +171,8 @@ public class AdvisoryVocabularyTests
         document.Metadata.Title = "Café";   // decomposed
 
         // NON_NFC_TEXT is a warning (specification 7.2), not an error (7.1 is
-        // exhaustive per APR-VAL-008): it must be reported, but a warning must
-        // never affect validity (APR-VAL-007) or block saving (APR-VAL-006).
+        // exhaustive per APR-VAL-007): it must be reported, but a warning must
+        // never affect validity (APR-VAL-002) or block saving (APR-VAL-006).
         var result = Check(document);
         result.IsValid.Should().BeTrue("a warning must never make the document invalid");
         result.Warnings.Should().Contain(w => w.WarningCode == "NON_NFC_TEXT",
@@ -201,8 +201,8 @@ public class AdvisoryVocabularyTests
         document.Metadata.Title = $"Permit{hidden}Application";
 
         // FORBIDDEN_CODE_POINT is a warning (specification 7.2), not an error
-        // (7.1 is exhaustive per APR-VAL-008): it must be reported, but a warning
-        // must never affect validity (APR-VAL-007) or block saving (APR-VAL-006).
+        // (7.1 is exhaustive per APR-VAL-007): it must be reported, but a warning
+        // must never affect validity (APR-VAL-002) or block saving (APR-VAL-006).
         var result = Check(document);
         result.IsValid.Should().BeTrue("a warning must never make the document invalid");
         result.Warnings.Should().Contain(w => w.WarningCode == "FORBIDDEN_CODE_POINT",

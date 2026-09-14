@@ -7,8 +7,8 @@ namespace PromptResponse.Core.Validation;
 /// The advisory conditions the format names, reported under the codes it names them by.
 /// </summary>
 /// <remarks>
-/// APR-VAL-009 says an implementation reporting one of these conditions reports it under
-/// the code section 7.2 gives it. Whether to warn at all stays this library's choice;
+/// The rules on section 7.2's rows (APR-VAL-018 to APR-VAL-035) say an implementation
+/// reporting one of these conditions reports it under the code the row gives it. Whether to warn at all stays this library's choice;
 /// the spelling does not, because a warning exists to be understood by whoever reads it
 /// next, and two implementations reporting one condition under two names have produced
 /// advice that only travels as prose.
@@ -314,8 +314,8 @@ internal static class AdvisoryVocabulary
 
     // Specification 8.2.3 places NON_NFC_TEXT and FORBIDDEN_CODE_POINT in the
     // warnings table (7.2), not the errors table (7.1, stated exhaustive by
-    // APR-VAL-008): a validator MUST report them, but a warning MUST NOT affect
-    // validity or block saving (APR-VAL-006, APR-VAL-007). AddError here would
+    // APR-VAL-007): a validator MUST report them, but a warning MUST NOT affect
+    // validity or block saving (APR-VAL-006, APR-VAL-002). AddError here would
     // reject a document the format requires to stay valid.
     private static void HoldToTheFloor(string? value, string path, ValidationResult result)
     {
