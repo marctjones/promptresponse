@@ -3410,6 +3410,7 @@ path the manifest carries, and **MUST NOT** report a path it does not. [APR-DIGE
 
 Five advisory hints that let a form react to its own answers: showing a field
 only when relevant, computing a total, flagging a cross-field inconsistency.
+Each is an optional member of [Hints](#hints-object).
 
 | Hint | Effect when truthy |
 | --- | --- |
@@ -3421,14 +3422,22 @@ only when relevant, computing a total, flagging a cross-field inconsistency.
 
 ### 11.2 Invariants {#expr-invariants}
 
-1. Stored responses remain authoritative. An expression **MUST NOT** reject,
-   rewrite, or invalidate a response. [APR-EXPR-001]
-2. Evaluation is pure. An implementation **MUST NOT** expose filesystem,
-   network, process, clock, randomness, reflection, environment, or
-   document-mutation access to an expression. [APR-EXPR-002]
-3. Failure preserves data. A failed evaluation produces a diagnostic and the
-   fallback below; it **MUST NOT** propagate as an error into a filling
-   workflow. [APR-EXPR-003]
+Stored responses remain authoritative.
+
+An implementation evaluating an expression **MUST NOT** reject, rewrite, or
+invalidate a response. [APR-EXPR-001]
+
+Evaluation is pure.
+
+An implementation **MUST NOT** expose filesystem, network, process, clock,
+randomness, reflection, environment, or document-mutation access to an
+expression. [APR-EXPR-002]
+
+Failure preserves data: a failed evaluation produces a diagnostic and the
+fallback ([Results and fallback](#expr-fallback)).
+
+An implementation **MUST NOT** let a failed evaluation propagate as an error
+into a filling workflow. [APR-EXPR-003]
 
 ### 11.3 Language {#expr-language}
 
@@ -3447,72 +3456,579 @@ standard library, and its standard macros. An implementation claiming
 **MUST** pass that release's conformance suite for the surface it exposes. [APR-EXPR-012]
 
 An implementation **MUST** provide the standard library and the standard macros,
-and **MUST NOT** provide any extension library or custom function. An expression
-naming a function outside that surface is an evaluation failure, and the per-hint
-fallback applies ([Results and fallback](#expr-fallback)). [APR-EXPR-013]
+and **MUST NOT** provide any extension library or custom function. [APR-EXPR-013]
+
+An expression naming a function outside that surface is an evaluation failure,
+and the per-hint fallback applies ([Results and fallback](#expr-fallback)).
+
+**Example 11.3-1.** A function from an extension library fails, and the fallback applies.
+
+```apr-example
+id: expr-extension-function-fails
+rule: expr-language
+satisfies: APR-EXPR-013
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"check": ""}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "name",
+          "label": "Name",
+          "response": "abc"
+        },
+        {
+          "id": "check",
+          "label": "Check",
+          "hints": {
+            "exprValidation": "name.upperAscii()"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
 
 > Rationale: without a pin, a function that did not exist when a form was written
 > is neither clearly valid nor clearly invalid, and two conforming readers may
 > evaluate the same form to different values. Pinning the specification release
-> rather than a library means the four implementations may each track their own
-> language's library, provided each conforms to the same definition. A later
-> baseline moves the pin deliberately, as a behavioural change.
+> rather than a library lets implementations in different languages each track
+> their own language's library, provided each conforms to the same definition.
 
 ### 11.4 Activation {#expr-activation}
 
-An expression **MUST** be evaluated against this read-only activation and nothing
-else. [APR-EXPR-015]
+An implementation **MUST** evaluate an expression against this read-only
+activation and nothing else. [APR-EXPR-015]
 
-| Name | Type | Meaning |
-| --- | --- | --- |
-| a prompt's `id` | that prompt's bound type | Direct binding, where the id is a valid CEL identifier and not reserved. |
-| `_this` | the owning prompt's bound type | The response of the prompt carrying this hint. |
-| `_id` | `string` | The owning prompt's id. |
-| `_now` | `timestamp` | The evaluation instant, supplied by the caller. |
-| `_today` | `string` | The evaluation date, supplied by the caller. |
-| `ctx` | `map` | Host-supplied context ([Context](#expr-context)). |
+Each row below is a requirement on an implementation: it supplies the name in
+the activation, with the type and meaning the row gives.
 
-`_this`, `_id`, `_now`, `_today`, and `ctx` are reserved and **MUST NOT** be
-shadowed by a direct binding. [APR-EXPR-004]
+| Name | Type | Meaning | Requirement | Rule |
+| --- | --- | --- | --- | --- |
+| a prompt's `id` | that prompt's bound type | Direct binding, where the id is a valid CEL identifier and not reserved. | **MUST** | [APR-EXPR-017] |
+| `_this` | the owning prompt's bound type | The response of the prompt carrying this hint. | **MUST** | [APR-EXPR-018] |
+| `_id` | `string` | The owning prompt's id. | **MUST** | [APR-EXPR-019] |
+| `_now` | `timestamp` | The evaluation instant, supplied by the caller. | **MUST** | [APR-EXPR-020] |
+| `_today` | `string` | The evaluation date, supplied by the caller. | **MUST** | [APR-EXPR-021] |
+| `ctx` | `map` | Host-supplied context ([Context](#expr-context)). | **MUST** | [APR-EXPR-022] |
 
-A prompt whose id is not a valid CEL identifier **MUST NOT** be given a direct
-binding, and **MUST NOT** be reachable from an expression by any other
-name. [APR-EXPR-016]
+An implementation **MUST NOT** let a direct binding shadow `_this`, `_id`, `_now`,
+`_today`, or `ctx`. [APR-EXPR-004]
 
-`_now` and `_today` **MUST** be supplied by the caller rather than read from the
-host clock during evaluation, so that evaluating the same form twice with the
-same inputs yields the same result. [APR-EXPR-005]
+An implementation **MUST NOT** give a prompt whose id is not a valid CEL
+identifier a direct binding, nor make it reachable from an expression by any
+other name. [APR-EXPR-016]
+
+An implementation **MUST** take `_now` and `_today` from the caller and never
+from the host clock during evaluation. [APR-EXPR-005]
+
+Evaluating the same form twice with the same inputs then yields the same result.
+
+**Example 11.4-1.** A prompt read by its id.
+
+```apr-example
+id: expr-direct-binding
+rule: expr-activation
+satisfies: APR-EXPR-017
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"check": "too big"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "amount",
+          "label": "Amount",
+          "response": "12",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "check",
+          "label": "Check",
+          "hints": {
+            "exprValidation": "amount > 10.0 ? 'too big' : ''"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.4-2.** `_this` is the owning prompt's response.
+
+```apr-example
+id: expr-this
+rule: expr-activation
+satisfies: APR-EXPR-018
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"code": "long"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "code",
+          "label": "Code",
+          "response": "abc",
+          "hints": {
+            "exprValidation": "size(_this) > 2 ? 'long' : ''"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.4-3.** `_id` is the owning prompt's id.
+
+```apr-example
+id: expr-id
+rule: expr-activation
+satisfies: APR-EXPR-019
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"echo": "echo"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "echo",
+          "label": "Echo",
+          "hints": {
+            "exprValue": "_id"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.4-4.** `_today` comes from the caller.
+
+```apr-example
+id: expr-today
+rule: expr-activation
+satisfies: APR-EXPR-021, APR-EXPR-005
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"signed": "2026-09-01"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "signed",
+          "label": "Signed",
+          "hints": {
+            "exprValue": "_today"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.4-5.** `ctx` carries what the host supplies.
+
+```apr-example
+id: expr-ctx
+rule: expr-activation
+satisfies: APR-EXPR-022
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"team": "records"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "team",
+          "label": "Team",
+          "hints": {
+            "exprValue": "ctx.team"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.4-6.** A prompt whose id is a reserved name does not shadow it.
+
+```apr-example
+id: expr-reserved-name
+rule: expr-activation
+satisfies: APR-EXPR-004
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"signed": "2026-09-01"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "_today",
+          "label": "Today",
+          "response": "stored"
+        },
+        {
+          "id": "signed",
+          "label": "Signed",
+          "hints": {
+            "exprValue": "_today"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.4-7.** A prompt whose id is not a CEL identifier cannot be read, not even under a similar name.
+
+```apr-example
+id: expr-invalid-identifier
+rule: expr-activation
+satisfies: APR-EXPR-016
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"greeting": ""}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "first-name",
+          "label": "First name",
+          "response": "Ada"
+        },
+        {
+          "id": "greeting",
+          "label": "Greeting",
+          "hints": {
+            "exprValue": "first_name"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
 
 ### 11.5 The type environment {#expr-binding}
 
-CEL is statically typed. `expectedDataType` supplies the types:
+CEL is statically typed. `expectedDataType` supplies the types, and an
+implementation binds a response to the CEL type of its row:
 
-| `expectedDataType` | CEL type |
-| --- | --- |
-| `number`, `currency`, `range` | `double` |
-| `boolean` | `bool` |
-| `date`, `time`, `datetime` | `timestamp` |
-| `multichoice` | `list<string>` |
-| everything else, or absent | `string` |
+| `expectedDataType` | CEL type | Requirement | Rule |
+| --- | --- | --- | --- |
+| `number`, `currency`, `range` | `double` | **MUST** | [APR-EXPR-023] |
+| `boolean` | `bool` | **MUST** | [APR-EXPR-024] |
+| `date`, `time`, `datetime` | `timestamp` | **MUST** | [APR-EXPR-025] |
+| `multichoice` | `list<string>` | **MUST** | [APR-EXPR-026] |
+| everything else, or absent | `string` | **MUST** | [APR-EXPR-027] |
 
 > Rationale: this is what lets an author write `quantity * unit_price` rather
 > than wrapping every reference in a conversion, and what lets a type checker
 > tell them an expression is wrong before a filler ever sees the form.
 
+**Example 11.5-1.** A `currency` response binds as a `double`.
+
+```apr-example
+id: expr-bind-currency
+rule: expr-binding
+satisfies: APR-EXPR-023
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"check": "five"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "price",
+          "label": "Price",
+          "response": "2.50",
+          "hints": {
+            "expectedDataType": "currency"
+          }
+        },
+        {
+          "id": "check",
+          "label": "Check",
+          "hints": {
+            "exprValidation": "price * 2.0 == 5.0 ? 'five' : 'other'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.5-2.** A `date` response binds as a `timestamp`.
+
+```apr-example
+id: expr-bind-date
+rule: expr-binding
+satisfies: APR-EXPR-025
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"check": "ok"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "when",
+          "label": "When",
+          "response": "2026-03-01",
+          "hints": {
+            "expectedDataType": "date"
+          }
+        },
+        {
+          "id": "check",
+          "label": "Check",
+          "hints": {
+            "exprValidation": "when < timestamp('2026-01-01T00:00:00Z') ? 'too early' : 'ok'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.5-3.** A `multichoice` response binds as a `list<string>`.
+
+```apr-example
+id: expr-bind-multichoice
+rule: expr-binding
+satisfies: APR-EXPR-026
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"check": "two"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "colours",
+          "label": "Colours",
+          "response": "red\ngreen",
+          "hints": {
+            "expectedDataType": "multichoice"
+          }
+        },
+        {
+          "id": "check",
+          "label": "Check",
+          "hints": {
+            "exprValidation": "size(colours) == 2 ? 'two' : 'other'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.5-4.** A response with no `expectedDataType` binds as a `string`, even when it looks like a number.
+
+```apr-example
+id: expr-bind-string
+rule: expr-binding
+satisfies: APR-EXPR-027
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"check": "12!"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "name",
+          "label": "Name",
+          "response": "12"
+        },
+        {
+          "id": "check",
+          "label": "Check",
+          "hints": {
+            "exprValidation": "name + '!'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
 ### 11.6 Values that will not bind {#expr-unbound}
 
-A response that cannot be converted to its declared type — free text in a
-`number` field, an unparseable date, or an empty one — **MUST** be treated as
-unbound, **never** as a default. The expression errors and applies the fallback. [APR-EXPR-006]
+An implementation **MUST** treat a response that cannot be converted to its
+declared type — free text in a `number` field, an unparseable date, or an empty
+one — as unbound, and never as a default. [APR-EXPR-006]
+
+An expression reading an unbound value fails, and the fallback applies.
 
 > Rationale: binding an empty number as zero would make a blank field silently
 > total as zero — a wrong answer rather than no answer. Unbound also keeps
 > short-circuiting usable: a conjunction whose first operand is false does not
 > need its second operand to bind.
 
-**Nothing about the response changes.** It is stored verbatim, displayed
-verbatim, and the document stays valid. It simply does not participate in a
-calculation — which is what advisory has meant all along.
+**Example 11.6-1.** An empty `number` does not bind as zero, so the total keeps its stored response.
+
+```apr-example
+id: expr-unbound-empty
+rule: expr-unbound
+satisfies: APR-EXPR-006
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"total": "5"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "quantity",
+          "label": "Quantity",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "total",
+          "label": "Total",
+          "response": "5",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "quantity + 1.0"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
 
 ### 11.7 Context {#expr-context}
 
@@ -3521,47 +4037,193 @@ their organization, their environment — so a form can offer what it already
 knows.
 
 A host **MUST NOT** place credentials, secrets, authorization decisions, or
-private server-side facts in `ctx`. An expression is document-supplied text; what
-it can read, a document author can read. [APR-EXPR-007]
+private server-side facts in `ctx`. [APR-EXPR-007]
+
+An expression is document-supplied text; what it can read, a document author can
+read.
 
 ### 11.8 Results and fallback {#expr-fallback}
 
-A result is marshalled back to a stored string through the canonical write forms
-of [Canonical value forms](#canonical-values), which serve both directions.
+An implementation **MUST** write a result back to a stored string through the
+canonical write forms of [Canonical value forms](#canonical-values). [APR-EXPR-028]
 
 Each hint requires a result type. Any failure — a compile error, an evaluation
-error, an unbound reference, or a result of the wrong type — applies the
-fallback.
+error, an unbound reference, or a result of the wrong type — applies the hint's
+fallback, and an implementation applies it as its row states:
 
-| Hint | Required result | Fallback |
-| --- | --- | --- |
-| `exprHidden` | `bool` | false — show the prompt |
-| `exprExpected` | `bool` | false — do not mark expected |
-| `exprReadOnly` | `bool` | false — keep editable |
-| `exprValidation` | `string` | empty — no advisory |
-| `exprValue` | the prompt's bound type | Do not write; retain the stored response exactly |
+| Hint | Required result | Fallback | Requirement | Rule |
+| --- | --- | --- | --- | --- |
+| `exprHidden` | `bool` | false — show the prompt | **MUST** | [APR-EXPR-029] |
+| `exprExpected` | `bool` | false — do not mark expected | **MUST** | [APR-EXPR-030] |
+| `exprReadOnly` | `bool` | false — keep editable | **MUST** | [APR-EXPR-031] |
+| `exprValidation` | `string` | empty — no advisory | **MUST** | [APR-EXPR-032] |
+| `exprValue` | the prompt's bound type | Do not write; retain the stored response exactly | **MUST** | [APR-EXPR-033] |
 
 Every fallback shows more and blocks less. A form whose expressions all fail is a
 plain form.
 
+**Example 11.8-1.** A computed `number` is written in its canonical form.
+
+```apr-example
+id: expr-canonical-result
+rule: expr-fallback
+satisfies: APR-EXPR-028
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"sum": "3"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "sum",
+          "label": "Sum",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "2.0 + 1.0"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.8-2.** An `exprHidden` that fails shows the prompt.
+
+```apr-example
+id: expr-fallback-hidden
+rule: expr-fallback
+satisfies: APR-EXPR-029
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"hidden": {"details": false}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "details",
+          "label": "Details",
+          "hints": {
+            "exprHidden": "nosuch == 'no'"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.8-3.** An `exprValidation` that returns the wrong type gives no advisory.
+
+```apr-example
+id: expr-fallback-validation
+rule: expr-fallback
+satisfies: APR-EXPR-032
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"validation": {"code": ""}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "code",
+          "label": "Code",
+          "hints": {
+            "exprValidation": "42"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Example 11.8-4.** An `exprValue` that fails leaves the stored response alone.
+
+```apr-example
+id: expr-fallback-value
+rule: expr-fallback
+satisfies: APR-EXPR-033, APR-EXPR-001
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"total": "7"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "total",
+          "label": "Total",
+          "response": "7",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "nosuch + 1.0"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
 ### 11.9 A computed value is a suggestion, not a lock {#expr-computed}
 
-**A computed prompt MUST remain editable.** Any string is a valid response, and a
-renderer that refuses typing into a computed field has stopped implementing the
-format. A total that is wrong — because the form's arithmetic does not match what
-was actually agreed — must be correctable by the person filling it in. [APR-EXPR-014]
+A renderer **MUST** keep a computed prompt editable. [APR-EXPR-014]
+
+Any string is a valid response, and a renderer that refuses typing into a
+computed field has stopped implementing the format. A total that is wrong —
+because the form's arithmetic does not match what was actually agreed — is for
+the person filling it in to correct.
 
 Being computed does not make a prompt read-only. `exprReadOnly` asks for that
 *presentation*, and even then it is an affordance rather than a wall.
 
-**A correction MUST survive recomputation.** Every non-empty response in a
-document as it was read is **authored**, whatever produced it, and recomputation
-**MUST NOT** overwrite an authored response. A reader presents the recomputed
-value as a suggestion instead. [APR-EXPR-008]
+**A correction survives recomputation.** Every non-empty response in a document
+as it was read is **authored**, whatever produced it.
 
-Within a session a reader knows which responses it computed itself and may
-replace those freely; that knowledge is the reader's own state and the document
-records nothing about it.
+An implementation **MUST NOT** overwrite an authored response when it recomputes. [APR-EXPR-008]
+
+A reader presents the recomputed value as a suggestion instead.
+
+A reader **MAY** replace a response it computed itself in the same session. [APR-EXPR-034]
+
+That knowledge is the reader's own state, and the document records nothing about
+it.
 
 > Rationale: a document cannot tell a stale computed value from a correction
 > someone typed. Treating every response already in the file as
@@ -3570,9 +4232,130 @@ records nothing about it.
 > not silently refresh across a save and reopen, and that is the correct cost: a
 > computed value is a suggestion, not a lock.
 
+**Example 11.9-1.** A response already in the document is not overwritten, while an empty one is computed.
+
+```apr-example
+id: expr-authored-response
+rule: expr-computed
+satisfies: APR-EXPR-008
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"corrected": "99", "computed": "4"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "base",
+          "label": "Base",
+          "response": "2",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "corrected",
+          "label": "Corrected",
+          "response": "99",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "base * 2.0"
+          }
+        },
+        {
+          "id": "computed",
+          "label": "Computed",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "base * 2.0"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
 An implementation **MUST** order computed prompts by their direct references so
-that a subtotal feeds a tax feeds a total in one pass. A self-reference or a
-dependency cycle is an authoring error. [APR-EXPR-009]
+that a subtotal feeds a tax feeds a total in one pass. [APR-EXPR-009]
+
+A self-reference or a dependency cycle is an authoring error, and evaluating one
+is an evaluation failure that applies the fallback.
+
+**Example 11.9-2.** A total that depends on a tax that depends on a subtotal settles in one pass.
+
+```apr-example
+id: expr-dependency-order
+rule: expr-computed
+satisfies: APR-EXPR-009
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"subtotal": "10", "tax": "5", "total": "15"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "T"
+  },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "qty",
+          "label": "Quantity",
+          "response": "2",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "price",
+          "label": "Price",
+          "response": "5",
+          "hints": {
+            "expectedDataType": "number"
+          }
+        },
+        {
+          "id": "total",
+          "label": "Total",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "subtotal + tax"
+          }
+        },
+        {
+          "id": "tax",
+          "label": "Tax",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "subtotal * 0.5"
+          }
+        },
+        {
+          "id": "subtotal",
+          "label": "Subtotal",
+          "hints": {
+            "expectedDataType": "number",
+            "exprValue": "qty * price"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
 
 ### 11.10 Authoring-time checking {#expr-authoring}
 
@@ -3587,11 +4370,13 @@ degrades.
 
 ### 11.11 Bounds {#expr-limits}
 
-Evaluation **MUST** terminate. An implementation bounds expression size,
-complexity, and evaluation cost, and **MUST** report reaching a bound as a
-failure that applies the fallback rather than as partial mutation. [APR-EXPR-011]
+An implementation **MUST** bound expression size, complexity, and evaluation
+cost, so that evaluation terminates. [APR-EXPR-011]
 
-Exact bounds are implementation-defined in this baseline, for the reason given in
+An implementation **MUST** report reaching a bound as a failure that applies the
+fallback, never as partial mutation. [APR-EXPR-035]
+
+Exact bounds are implementation-defined, for the reason given in
 [Security considerations](#security).
 
 ---

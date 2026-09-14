@@ -8580,15 +8580,18 @@
       "kind": "heading",
       "text": "11. Profile: expressions",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expressions/sentence/34c31a0834": {
       "anchor": "expressions",
       "chapter": 11,
       "kind": "sentence",
       "text": "**OPTIONAL.**",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 483,
+      "note": "a profile marker; Conformance classes state what claiming the profile requires"
     },
     "expressions/sentence/9d8e573096": {
       "anchor": "expressions",
@@ -8596,7 +8599,8 @@
       "kind": "sentence",
       "text": "Core implementations skip this section entirely.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-what/heading/2d62d7565c": {
       "anchor": "expr-what",
@@ -8604,7 +8608,12 @@
       "kind": "heading",
       "text": "11.1 What expressions are",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-what/heading/2d62d7565c",
+        "expr-what/sentence/c5c4bceff6"
+      ],
+      "issue": 483
     },
     "expr-what/sentence/18a0cb7c71": {
       "anchor": "expr-what",
@@ -8612,7 +8621,8 @@
       "kind": "sentence",
       "text": "Five advisory hints that let a form react to its own answers: showing a field only when relevant, computing a total, flagging a cross-field inconsistency.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-what/table-header/620f593af0": {
       "anchor": "expr-what",
@@ -8620,7 +8630,8 @@
       "kind": "table-header",
       "text": "| Hint | Effect when truthy |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-what/table-row/e0fecedf3f": {
       "anchor": "expr-what",
@@ -8628,7 +8639,8 @@
       "kind": "table-row",
       "text": "| `exprHidden` | Hide this prompt |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-what/table-row/6f6d49c2e8": {
       "anchor": "expr-what",
@@ -8636,7 +8648,8 @@
       "kind": "table-row",
       "text": "| `exprValue` | Computed value, still editable |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-what/table-row/d5127c54a8": {
       "anchor": "expr-what",
@@ -8644,7 +8657,8 @@
       "kind": "table-row",
       "text": "| `exprExpected` | Mark as expected; advisory, never blocks |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-what/table-row/133df3e131": {
       "anchor": "expr-what",
@@ -8652,7 +8666,8 @@
       "kind": "table-row",
       "text": "| `exprValidation` | Returns a message; empty means valid |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-what/table-row/b709925900": {
       "anchor": "expr-what",
@@ -8660,7 +8675,8 @@
       "kind": "table-row",
       "text": "| `exprReadOnly` | Make read-only |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-invariants/heading/6fb70831ef": {
       "anchor": "expr-invariants",
@@ -8668,31 +8684,49 @@
       "kind": "heading",
       "text": "11.2 Invariants",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-invariants/list-item/c69756e0a4": {
       "anchor": "expr-invariants",
       "chapter": 11,
       "kind": "list-item",
       "text": "Stored responses remain authoritative. An expression **MUST NOT** reject, rewrite, or invalidate a response. [APR-EXPR-001]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "expr-invariants/sentence/539c5cdbba",
+        "expr-invariants/sentence/388f8a8892"
+      ],
+      "note": "an implementation evaluating an expression is the subject",
+      "issue": 483
     },
     "expr-invariants/list-item/b0bf27510a": {
       "anchor": "expr-invariants",
       "chapter": 11,
       "kind": "list-item",
       "text": "Evaluation is pure. An implementation **MUST NOT** expose filesystem, network, process, clock, randomness, reflection, environment, or document-mutation access to an expression. [APR-EXPR-002]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "expr-invariants/sentence/dfbef96174",
+        "expr-invariants/sentence/044b6e4d81"
+      ],
+      "issue": 483
     },
     "expr-invariants/list-item/4706673af1": {
       "anchor": "expr-invariants",
       "chapter": 11,
       "kind": "list-item",
       "text": "Failure preserves data. A failed evaluation produces a diagnostic and the fallback below; it **MUST NOT** propagate as an error into a filling workflow. [APR-EXPR-003]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "expr-invariants/sentence/50999af38e",
+        "expr-invariants/sentence/09682b46df"
+      ],
+      "note": "an implementation is the subject",
+      "issue": 483
     },
     "expr-language/heading/3caa8b4fb5": {
       "anchor": "expr-language",
@@ -8700,7 +8734,8 @@
       "kind": "heading",
       "text": "11.3 Language",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-language/sentence/2e9baef14f": {
       "anchor": "expr-language",
@@ -8708,7 +8743,8 @@
       "kind": "sentence",
       "text": "**APR expressions are CEL**, the Common Expression Language.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-language/sentence/0ddf97f0a4": {
       "anchor": "expr-language",
@@ -8716,7 +8752,8 @@
       "kind": "sentence",
       "text": "This specification does not define the language: grammar, operators, functions, and type rules come from cel-spec, and language conformance is that project's own test suite, which APR neither writes nor maintains.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-language/sentence/2f2ae9f0fd": {
       "anchor": "expr-language",
@@ -8724,7 +8761,8 @@
       "kind": "sentence",
       "text": "CEL is non-Turing-complete, terminates by construction, and has no I/O or host access, which is why it is safe to evaluate on a document from an untrusted sender.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-language/sentence/fb78f73de6": {
       "anchor": "expr-language",
@@ -8732,7 +8770,8 @@
       "kind": "sentence",
       "text": "The language is **cel-spec release `v0.25.3`**: its language definition, its standard library, and its standard macros.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-language/sentence/597b88d53e": {
       "anchor": "expr-language",
@@ -8740,7 +8779,8 @@
       "kind": "sentence",
       "text": "An implementation claiming `core+expressions` **MUST** evaluate expressions as that release specifies and **MUST** pass that release's conformance suite for the surface it exposes. [APR-EXPR-012]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-language/sentence/db3cc7c7ed": {
       "anchor": "expr-language",
@@ -8748,7 +8788,11 @@
       "kind": "sentence",
       "text": "An implementation **MUST** provide the standard library and the standard macros, and **MUST NOT** provide any extension library or custom function.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-language/sentence/8a5808f3d6"
+      ],
+      "issue": 483
     },
     "expr-language/sentence/4ac4ca20fa": {
       "anchor": "expr-language",
@@ -8756,7 +8800,14 @@
       "kind": "sentence",
       "text": "An expression naming a function outside that surface is an evaluation failure, and the per-hint fallback applies ([Results and fallback](#expr-fallback)). [APR-EXPR-013]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-language/sentence/38744ce542",
+        "expr-language/example/591beaba0c",
+        "expr-language/sentence/5d8f4e4710",
+        "expr-language/sentence/3c83164ccb"
+      ],
+      "issue": 483
     },
     "expr-language/rationale/ba2141876e": {
       "anchor": "expr-language",
@@ -8764,8 +8815,12 @@
       "kind": "rationale",
       "text": "Rationale: without a pin, a function that did not exist when a form was written is neither clearly valid nor clearly invalid, and two conforming readers may evaluate the same form to different values. Pinning the specification release rather than a library means the four implementations may each track their own language's library, provided each conforms to the same definition. A later baseline moves the pin deliberately, as a behavioural change.",
       "disposition": "rationale",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "expr-language/rationale/840c4442e0"
+      ],
+      "note": "no longer counts this repository's implementations or looks ahead to a later baseline",
+      "issue": 483
     },
     "expr-activation/heading/56124ff09a": {
       "anchor": "expr-activation",
@@ -8773,7 +8828,32 @@
       "kind": "heading",
       "text": "11.4 Activation",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/heading/56124ff09a",
+        "expr-activation/example/d9bf6f70f1",
+        "expr-activation/sentence/1f152d3b66",
+        "expr-activation/sentence/dea1fa55b6",
+        "expr-activation/example/45659f4252",
+        "expr-activation/sentence/a395d5a370",
+        "expr-activation/sentence/3df3a9b790",
+        "expr-activation/example/04ce1d3674",
+        "expr-activation/sentence/9a38ab6839",
+        "expr-activation/sentence/414124f1ff",
+        "expr-activation/example/65735f6290",
+        "expr-activation/sentence/632e217b9c",
+        "expr-activation/sentence/aea36cc2cb",
+        "expr-activation/example/500b10c694",
+        "expr-activation/sentence/f09eeee290",
+        "expr-activation/sentence/45cfa81d5a",
+        "expr-activation/example/d6313ace69",
+        "expr-activation/sentence/60f67c79b1",
+        "expr-activation/sentence/b04e2b9a0c",
+        "expr-activation/example/324adf108b",
+        "expr-activation/sentence/fa6c07e42e",
+        "expr-activation/sentence/cb346ea291"
+      ],
+      "issue": 483
     },
     "expr-activation/sentence/758514db6f": {
       "anchor": "expr-activation",
@@ -8781,7 +8861,12 @@
       "kind": "sentence",
       "text": "An expression **MUST** be evaluated against this read-only activation and nothing else. [APR-EXPR-015]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/sentence/45049602a3"
+      ],
+      "note": "an implementation is the subject",
+      "issue": 483
     },
     "expr-activation/table-header/a177c9e536": {
       "anchor": "expr-activation",
@@ -8789,55 +8874,91 @@
       "kind": "table-header",
       "text": "| Name | Type | Meaning |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/sentence/bb599a285c",
+        "expr-activation/table-header/93dcea5f3f"
+      ],
+      "note": "the activation table carries Requirement and Rule columns",
+      "issue": 483
     },
     "expr-activation/table-row/cc4904ffea": {
       "anchor": "expr-activation",
       "chapter": 11,
       "kind": "table-row",
       "text": "| a prompt's `id` | that prompt's bound type | Direct binding, where the id is a valid CEL identifier and not reserved. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/table-row/d88107b04b"
+      ],
+      "note": "APR-EXPR-017",
+      "issue": 483
     },
     "expr-activation/table-row/bc55959e59": {
       "anchor": "expr-activation",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `_this` | the owning prompt's bound type | The response of the prompt carrying this hint. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/table-row/2422107c02"
+      ],
+      "note": "APR-EXPR-018",
+      "issue": 483
     },
     "expr-activation/table-row/5f5ab8ec41": {
       "anchor": "expr-activation",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `_id` | `string` | The owning prompt's id. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/table-row/3fda9cd2d9"
+      ],
+      "note": "APR-EXPR-019",
+      "issue": 483
     },
     "expr-activation/table-row/ef4ae4f3d2": {
       "anchor": "expr-activation",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `_now` | `timestamp` | The evaluation instant, supplied by the caller. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/table-row/113e1bfe39"
+      ],
+      "note": "APR-EXPR-020",
+      "issue": 483
     },
     "expr-activation/table-row/c2bb6d1ef8": {
       "anchor": "expr-activation",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `_today` | `string` | The evaluation date, supplied by the caller. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/table-row/54a7ab92a9"
+      ],
+      "note": "APR-EXPR-021",
+      "issue": 483
     },
     "expr-activation/table-row/a5576f8efc": {
       "anchor": "expr-activation",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `ctx` | `map` | Host-supplied context ([Context](#expr-context)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/table-row/3b2a88b61e"
+      ],
+      "note": "APR-EXPR-022",
+      "issue": 483
     },
     "expr-activation/sentence/ad30ae58d3": {
       "anchor": "expr-activation",
@@ -8845,7 +8966,12 @@
       "kind": "sentence",
       "text": "`_this`, `_id`, `_now`, `_today`, and `ctx` are reserved and **MUST NOT** be shadowed by a direct binding. [APR-EXPR-004]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/sentence/1a5dd66bde"
+      ],
+      "note": "an implementation is the subject",
+      "issue": 483
     },
     "expr-activation/sentence/d8aee22737": {
       "anchor": "expr-activation",
@@ -8853,15 +8979,26 @@
       "kind": "sentence",
       "text": "A prompt whose id is not a valid CEL identifier **MUST NOT** be given a direct binding, and **MUST NOT** be reachable from an expression by any other name. [APR-EXPR-016]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/sentence/3eaf15d835"
+      ],
+      "note": "an implementation is the subject",
+      "issue": 483
     },
     "expr-activation/sentence/8c92c17214": {
       "anchor": "expr-activation",
       "chapter": 11,
       "kind": "sentence",
       "text": "`_now` and `_today` **MUST** be supplied by the caller rather than read from the host clock during evaluation, so that evaluating the same form twice with the same inputs yields the same result. [APR-EXPR-005]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "expr-activation/sentence/e76adeed67",
+        "expr-activation/sentence/bfd4cc4693"
+      ],
+      "note": "an implementation is the subject; the reason is a sentence of its own",
+      "issue": 483
     },
     "expr-binding/heading/05794dd6fd": {
       "anchor": "expr-binding",
@@ -8869,7 +9006,23 @@
       "kind": "heading",
       "text": "11.5 The type environment",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-binding/heading/05794dd6fd",
+        "expr-binding/example/51fb5b0340",
+        "expr-binding/sentence/c7f2468df1",
+        "expr-binding/sentence/ffca69dbf7",
+        "expr-binding/example/4897d7f2eb",
+        "expr-binding/sentence/7d4d476cb8",
+        "expr-binding/sentence/8757a48c97",
+        "expr-binding/example/aee80aaa90",
+        "expr-binding/sentence/f4028450be",
+        "expr-binding/sentence/83cd638488",
+        "expr-binding/example/5b0d709a91",
+        "expr-binding/sentence/97f1b941dd",
+        "expr-binding/sentence/e610ed2201"
+      ],
+      "issue": 483
     },
     "expr-binding/sentence/1135bd8dfd": {
       "anchor": "expr-binding",
@@ -8877,7 +9030,8 @@
       "kind": "sentence",
       "text": "CEL is statically typed.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-binding/sentence/a017e95a9b": {
       "anchor": "expr-binding",
@@ -8885,7 +9039,11 @@
       "kind": "sentence",
       "text": "`expectedDataType` supplies the types:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-binding/sentence/8f254f0646"
+      ],
+      "issue": 483
     },
     "expr-binding/table-header/2a588b2922": {
       "anchor": "expr-binding",
@@ -8893,47 +9051,77 @@
       "kind": "table-header",
       "text": "| `expectedDataType` | CEL type |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-binding/table-header/3742315a8d"
+      ],
+      "note": "the type environment carries Requirement and Rule columns",
+      "issue": 483
     },
     "expr-binding/table-row/1327e9129b": {
       "anchor": "expr-binding",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `number`, `currency`, `range` | `double` |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-binding/table-row/6fc4deb5f8"
+      ],
+      "note": "APR-EXPR-023",
+      "issue": 483
     },
     "expr-binding/table-row/e1c9380107": {
       "anchor": "expr-binding",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `boolean` | `bool` |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-binding/table-row/1abc52f21a"
+      ],
+      "note": "APR-EXPR-024",
+      "issue": 483
     },
     "expr-binding/table-row/1e6962e3fb": {
       "anchor": "expr-binding",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `date`, `time`, `datetime` | `timestamp` |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-binding/table-row/bd6339c27a"
+      ],
+      "note": "APR-EXPR-025",
+      "issue": 483
     },
     "expr-binding/table-row/64f3ac9380": {
       "anchor": "expr-binding",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `multichoice` | `list<string>` |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-binding/table-row/1e1b949fbe"
+      ],
+      "note": "APR-EXPR-026",
+      "issue": 483
     },
     "expr-binding/table-row/ae94b85bcd": {
       "anchor": "expr-binding",
       "chapter": 11,
       "kind": "table-row",
       "text": "| everything else, or absent | `string` |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-binding/table-row/3ae583efca"
+      ],
+      "note": "APR-EXPR-027",
+      "issue": 483
     },
     "expr-binding/rationale/c316cd2c7f": {
       "anchor": "expr-binding",
@@ -8941,7 +9129,8 @@
       "kind": "rationale",
       "text": "Rationale: this is what lets an author write `quantity * unit_price` rather than wrapping every reference in a conversion, and what lets a type checker tell them an expression is wrong before a filler ever sees the form.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-unbound/heading/53c19e1d98": {
       "anchor": "expr-unbound",
@@ -8949,7 +9138,14 @@
       "kind": "heading",
       "text": "11.6 Values that will not bind",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-unbound/heading/53c19e1d98",
+        "expr-unbound/example/10324bcd54",
+        "expr-unbound/sentence/f04d023c06",
+        "expr-unbound/sentence/4ef23ba858"
+      ],
+      "issue": 483
     },
     "expr-unbound/sentence/473fb990e1": {
       "anchor": "expr-unbound",
@@ -8957,7 +9153,12 @@
       "kind": "sentence",
       "text": "A response that cannot be converted to its declared type — free text in a `number` field, an unparseable date, or an empty one — **MUST** be treated as unbound, **never** as a default.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-unbound/sentence/266fac34ba"
+      ],
+      "note": "an implementation is the subject",
+      "issue": 483
     },
     "expr-unbound/sentence/3c72b849f2": {
       "anchor": "expr-unbound",
@@ -8965,7 +9166,11 @@
       "kind": "sentence",
       "text": "The expression errors and applies the fallback. [APR-EXPR-006]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-unbound/sentence/da4b4bd0ca"
+      ],
+      "issue": 483
     },
     "expr-unbound/rationale/46a4b46ab6": {
       "anchor": "expr-unbound",
@@ -8973,31 +9178,38 @@
       "kind": "rationale",
       "text": "Rationale: binding an empty number as zero would make a blank field silently total as zero — a wrong answer rather than no answer. Unbound also keeps short-circuiting usable: a conjunction whose first operand is false does not need its second operand to bind.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-unbound/sentence/cf689aa5f9": {
       "anchor": "expr-unbound",
       "chapter": 11,
       "kind": "sentence",
       "text": "**Nothing about the response changes.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "restated APR-EXPR-001: evaluating an expression never rejects, rewrites or invalidates a response",
+      "issue": 483
     },
     "expr-unbound/sentence/11f8dc72cf": {
       "anchor": "expr-unbound",
       "chapter": 11,
       "kind": "sentence",
       "text": "It is stored verbatim, displayed verbatim, and the document stays valid.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "restated APR-EXPR-001: evaluating an expression never rejects, rewrites or invalidates a response",
+      "issue": 483
     },
     "expr-unbound/sentence/dd6b95e691": {
       "anchor": "expr-unbound",
       "chapter": 11,
       "kind": "sentence",
       "text": "It simply does not participate in a calculation — which is what advisory has meant all along.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "note": "restated APR-EXPR-001: evaluating an expression never rejects, rewrites or invalidates a response",
+      "issue": 483
     },
     "expr-context/heading/85dd3d27ad": {
       "anchor": "expr-context",
@@ -9005,7 +9217,8 @@
       "kind": "heading",
       "text": "11.7 Context",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-context/sentence/06f51fd613": {
       "anchor": "expr-context",
@@ -9013,7 +9226,8 @@
       "kind": "sentence",
       "text": "`ctx` carries data the host application supplies — the person's own details, their organization, their environment — so a form can offer what it already knows.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-context/sentence/b36a6a539b": {
       "anchor": "expr-context",
@@ -9021,7 +9235,12 @@
       "kind": "sentence",
       "text": "A host **MUST NOT** place credentials, secrets, authorization decisions, or private server-side facts in `ctx`.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483,
+      "replacedBy": [
+        "expr-context/sentence/25247b4cf0"
+      ],
+      "note": "the rule identifier sits on the requirement; its reason is a sentence of its own"
     },
     "expr-context/sentence/392b2c9232": {
       "anchor": "expr-context",
@@ -9029,7 +9248,11 @@
       "kind": "sentence",
       "text": "An expression is document-supplied text; what it can read, a document author can read. [APR-EXPR-007]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483,
+      "replacedBy": [
+        "expr-context/sentence/ec96aec601"
+      ]
     },
     "expr-fallback/heading/bb85223a84": {
       "anchor": "expr-fallback",
@@ -9037,15 +9260,36 @@
       "kind": "heading",
       "text": "11.8 Results and fallback",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-fallback/heading/bb85223a84",
+        "expr-fallback/example/b329096821",
+        "expr-fallback/sentence/18b6b9865c",
+        "expr-fallback/sentence/5d2bbe8f6b",
+        "expr-fallback/example/e8aa1ae0b6",
+        "expr-fallback/sentence/e145e576b4",
+        "expr-fallback/sentence/c41267a078",
+        "expr-fallback/example/12ab03e1c2",
+        "expr-fallback/sentence/2e680e1974",
+        "expr-fallback/sentence/83399d0365",
+        "expr-fallback/example/1a1560610d",
+        "expr-fallback/sentence/d5dcb9e58e",
+        "expr-fallback/sentence/592eaccd52"
+      ],
+      "issue": 483
     },
     "expr-fallback/sentence/599a63acdd": {
       "anchor": "expr-fallback",
       "chapter": 11,
       "kind": "sentence",
       "text": "A result is marshalled back to a stored string through the canonical write forms of [Canonical value forms](#canonical-values), which serve both directions.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "replacedBy": [
+        "expr-fallback/sentence/25be28bc2e"
+      ],
+      "note": "a result is written through the canonical write forms: APR-EXPR-028 (#453)",
+      "issue": 483
     },
     "expr-fallback/sentence/926c9e12a1": {
       "anchor": "expr-fallback",
@@ -9053,7 +9297,8 @@
       "kind": "sentence",
       "text": "Each hint requires a result type.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-fallback/sentence/ddad10f5d6": {
       "anchor": "expr-fallback",
@@ -9061,7 +9306,11 @@
       "kind": "sentence",
       "text": "Any failure — a compile error, an evaluation error, an unbound reference, or a result of the wrong type — applies the fallback.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-fallback/sentence/1767bb60a5"
+      ],
+      "issue": 483
     },
     "expr-fallback/table-header/506e5a0cb2": {
       "anchor": "expr-fallback",
@@ -9069,47 +9318,77 @@
       "kind": "table-header",
       "text": "| Hint | Required result | Fallback |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-fallback/table-header/0fc92aa845"
+      ],
+      "note": "the fallback table carries Requirement and Rule columns (#453)",
+      "issue": 483
     },
     "expr-fallback/table-row/4b109e5331": {
       "anchor": "expr-fallback",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `exprHidden` | `bool` | false — show the prompt |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-fallback/table-row/294b18aa91"
+      ],
+      "note": "APR-EXPR-029",
+      "issue": 483
     },
     "expr-fallback/table-row/1f223239ae": {
       "anchor": "expr-fallback",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `exprExpected` | `bool` | false — do not mark expected |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-fallback/table-row/7bf378cba1"
+      ],
+      "note": "APR-EXPR-030",
+      "issue": 483
     },
     "expr-fallback/table-row/9cf19a9a6f": {
       "anchor": "expr-fallback",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `exprReadOnly` | `bool` | false — keep editable |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-fallback/table-row/3990f285e6"
+      ],
+      "note": "APR-EXPR-031",
+      "issue": 483
     },
     "expr-fallback/table-row/b7865e6b2c": {
       "anchor": "expr-fallback",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `exprValidation` | `string` | empty — no advisory |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-fallback/table-row/410d5d0a7d"
+      ],
+      "note": "APR-EXPR-032",
+      "issue": 483
     },
     "expr-fallback/table-row/953780b659": {
       "anchor": "expr-fallback",
       "chapter": 11,
       "kind": "table-row",
       "text": "| `exprValue` | the prompt's bound type | Do not write; retain the stored response exactly |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "replacedBy": [
+        "expr-fallback/table-row/b0f3c8bb91"
+      ],
+      "note": "APR-EXPR-033",
+      "issue": 483
     },
     "expr-fallback/sentence/c2886518dd": {
       "anchor": "expr-fallback",
@@ -9117,7 +9396,8 @@
       "kind": "sentence",
       "text": "Every fallback shows more and blocks less.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-fallback/sentence/07154e3e10": {
       "anchor": "expr-fallback",
@@ -9125,7 +9405,8 @@
       "kind": "sentence",
       "text": "A form whose expressions all fail is a plain form.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-computed/heading/182a3a6e30": {
       "anchor": "expr-computed",
@@ -9133,7 +9414,17 @@
       "kind": "heading",
       "text": "11.9 A computed value is a suggestion, not a lock",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-computed/heading/182a3a6e30",
+        "expr-computed/example/4b8f790c4c",
+        "expr-computed/sentence/14d61b26de",
+        "expr-computed/sentence/19e989cf09",
+        "expr-computed/example/f4252d60c9",
+        "expr-computed/sentence/4be4a69f77",
+        "expr-computed/sentence/4584891fe9"
+      ],
+      "issue": 483
     },
     "expr-computed/sentence/c02578121a": {
       "anchor": "expr-computed",
@@ -9141,7 +9432,12 @@
       "kind": "sentence",
       "text": "**A computed prompt MUST remain editable.**",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-computed/sentence/616d4e5c7f"
+      ],
+      "note": "a renderer is the subject",
+      "issue": 483
     },
     "expr-computed/sentence/a408ea666d": {
       "anchor": "expr-computed",
@@ -9149,7 +9445,8 @@
       "kind": "sentence",
       "text": "Any string is a valid response, and a renderer that refuses typing into a computed field has stopped implementing the format.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-computed/sentence/df0a5ba3f4": {
       "anchor": "expr-computed",
@@ -9157,8 +9454,11 @@
       "kind": "sentence",
       "text": "A total that is wrong — because the form's arithmetic does not match what was actually agreed — must be correctable by the person filling it in. [APR-EXPR-014]",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "replacedBy": [
+        "expr-computed/sentence/6dafc330dd"
+      ],
+      "issue": 483
     },
     "expr-computed/sentence/4384d021cc": {
       "anchor": "expr-computed",
@@ -9166,7 +9466,8 @@
       "kind": "sentence",
       "text": "Being computed does not make a prompt read-only.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-computed/sentence/b8790db222": {
       "anchor": "expr-computed",
@@ -9174,23 +9475,35 @@
       "kind": "sentence",
       "text": "`exprReadOnly` asks for that *presentation*, and even then it is an affordance rather than a wall.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-computed/sentence/bcbb77abef": {
       "anchor": "expr-computed",
       "chapter": 11,
       "kind": "sentence",
       "text": "**A correction MUST survive recomputation.**",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "replacedBy": [
+        "expr-computed/sentence/99f978cb6d"
+      ],
+      "note": "a lead-in; APR-EXPR-008 states the rule",
+      "issue": 483
     },
     "expr-computed/sentence/7682817a99": {
       "anchor": "expr-computed",
       "chapter": 11,
       "kind": "sentence",
       "text": "Every non-empty response in a document as it was read is **authored**, whatever produced it, and recomputation **MUST NOT** overwrite an authored response.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "expr-computed/sentence/e25ed314ad",
+        "expr-computed/sentence/e7e93a50ca"
+      ],
+      "note": "the definition of authored, then the rule on an implementation",
+      "issue": 483
     },
     "expr-computed/sentence/56edd85047": {
       "anchor": "expr-computed",
@@ -9198,16 +9511,25 @@
       "kind": "sentence",
       "text": "A reader presents the recomputed value as a suggestion instead. [APR-EXPR-008]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-computed/sentence/ac5aa80b0c"
+      ],
+      "issue": 483
     },
     "expr-computed/sentence/f1b99b1354": {
       "anchor": "expr-computed",
       "chapter": 11,
       "kind": "sentence",
       "text": "Within a session a reader knows which responses it computed itself and may replace those freely; that knowledge is the reader's own state and the document records nothing about it.",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "expr-computed/sentence/dbbc9825cb",
+        "expr-computed/sentence/94f5fd6530"
+      ],
+      "note": "the permission is APR-EXPR-034 (#453)",
+      "issue": 483
     },
     "expr-computed/rationale/7caea6c721": {
       "anchor": "expr-computed",
@@ -9215,7 +9537,8 @@
       "kind": "rationale",
       "text": "Rationale: a document cannot tell a stale computed value from a correction someone typed. Treating every response already in the file as authored needs no marker and errs toward keeping an answer, which is the one thing this format exists to prevent losing. The cost is that a stale value does not silently refresh across a save and reopen, and that is the correct cost: a computed value is a suggestion, not a lock.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-computed/sentence/88ef31fa2b": {
       "anchor": "expr-computed",
@@ -9223,7 +9546,11 @@
       "kind": "sentence",
       "text": "An implementation **MUST** order computed prompts by their direct references so that a subtotal feeds a tax feeds a total in one pass.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-computed/sentence/ab7f5a403e"
+      ],
+      "issue": 483
     },
     "expr-computed/sentence/c9e152f678": {
       "anchor": "expr-computed",
@@ -9231,7 +9558,12 @@
       "kind": "sentence",
       "text": "A self-reference or a dependency cycle is an authoring error. [APR-EXPR-009]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-computed/sentence/ac2d6fe099"
+      ],
+      "note": "evaluating a cycle is a failure that applies the fallback",
+      "issue": 483
     },
     "expr-authoring/heading/7a6bc6820a": {
       "anchor": "expr-authoring",
@@ -9239,7 +9571,8 @@
       "kind": "heading",
       "text": "11.10 Authoring-time checking",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-authoring/sentence/e694091e6d": {
       "anchor": "expr-authoring",
@@ -9247,7 +9580,8 @@
       "kind": "sentence",
       "text": "An implementation **SHOULD** type-check expressions against the document's type environment when a template is authored, and report failures to the author with position information. [APR-EXPR-010]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-authoring/sentence/fdec45fff0": {
       "anchor": "expr-authoring",
@@ -9255,7 +9589,8 @@
       "kind": "sentence",
       "text": "This is exactly where [Authoring data](#authoring-strictness) says strictness belongs.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-authoring/sentence/21771ba027": {
       "anchor": "expr-authoring",
@@ -9263,7 +9598,8 @@
       "kind": "sentence",
       "text": "The **author** is stopped and asked to fix something before publication; the **filler** is never blocked, because at fill time the same expression degrades.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-limits/heading/a50879a1f9": {
       "anchor": "expr-limits",
@@ -9271,7 +9607,8 @@
       "kind": "heading",
       "text": "11.11 Bounds",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 483
     },
     "expr-limits/sentence/e452938d39": {
       "anchor": "expr-limits",
@@ -9279,15 +9616,26 @@
       "kind": "sentence",
       "text": "Evaluation **MUST** terminate.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-limits/sentence/4ff6f552e7"
+      ],
+      "note": "an implementation bounds evaluation so that it terminates",
+      "issue": 483
     },
     "expr-limits/sentence/2ca90d37b8": {
       "anchor": "expr-limits",
       "chapter": 11,
       "kind": "sentence",
       "text": "An implementation bounds expression size, complexity, and evaluation cost, and **MUST** report reaching a bound as a failure that applies the fallback rather than as partial mutation. [APR-EXPR-011]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "replacedBy": [
+        "expr-limits/sentence/4ff6f552e7",
+        "expr-limits/sentence/b4e9f000f6"
+      ],
+      "note": "reaching a bound is APR-EXPR-035 (#445)",
+      "issue": 483
     },
     "expr-limits/sentence/5078f05111": {
       "anchor": "expr-limits",
@@ -9295,7 +9643,11 @@
       "kind": "sentence",
       "text": "Exact bounds are implementation-defined in this baseline, for the reason given in [Security considerations](#security).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "replacedBy": [
+        "expr-limits/sentence/8f423b2999"
+      ],
+      "issue": 483
     },
     "attestations/heading/a06bc6cd10": {
       "anchor": "attestations",

@@ -32,9 +32,93 @@
     "reason": "A rule on how a digest is computed; no document can make an implementation compute another.",
     "coveredBy": ["spec:digest-ignores-source-syntax", "spec:digest-same-in-yaml"]
   },
+  "APR-EXPR-001": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-fallback-value"]
+  },
+  "APR-EXPR-004": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-reserved-name"]
+  },
+  "APR-EXPR-005": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-today"]
+  },
+  "APR-EXPR-006": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-unbound-empty"]
+  },
+  "APR-EXPR-008": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-authored-response"]
+  },
+  "APR-EXPR-009": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-dependency-order"]
+  },
+  "APR-EXPR-013": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-extension-function-fails"]
+  },
   "APR-EXPR-014": {
     "reason": "A computed value staying editable is renderer behaviour; a document cannot show it.",
     "coveredBy": ["renderer:a-computed-prompt-stays-editable"]
+  },
+  "APR-EXPR-016": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-invalid-identifier"]
+  },
+  "APR-EXPR-017": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-direct-binding"]
+  },
+  "APR-EXPR-018": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-this"]
+  },
+  "APR-EXPR-019": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-id"]
+  },
+  "APR-EXPR-021": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-today"]
+  },
+  "APR-EXPR-022": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-ctx"]
+  },
+  "APR-EXPR-023": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-bind-currency"]
+  },
+  "APR-EXPR-025": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-bind-date"]
+  },
+  "APR-EXPR-026": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-bind-multichoice"]
+  },
+  "APR-EXPR-027": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-bind-string"]
+  },
+  "APR-EXPR-028": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-canonical-result"]
+  },
+  "APR-EXPR-029": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-fallback-hidden"]
+  },
+  "APR-EXPR-032": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-fallback-validation"]
+  },
+  "APR-EXPR-033": {
+    "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
+    "coveredBy": ["spec:expr-fallback-value"]
   },
   "APR-MODEL-012": {
     "reason": "A permission for how a renderer presents a table, which no document can violate because the document does not choose the presentation.",
