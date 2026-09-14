@@ -80,7 +80,6 @@ function parseSection(value: JsonValue): Section {
   return { id: string(node, "id", "section") ?? "", title: string(node, "title", "section") ?? "", description: string(node, "description", "section"), kind: string(node, "kind", "section"), canAddRows: boolean(node, "canAddRows", "section"), maxRows: integer(node, "maxRows", "section"), role: string(node, "role", "section"), prompts: prompts.map(parsePrompt), sections: sections.map(parseSection), extra: rest(node, known) };
 }
 function parseMetadata(value: JsonValue): Metadata {
-  if (object(value, "metadata").submissionUrl !== undefined) throw new AprParseError("metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings");
   const node = object(value, "metadata"); const known = new Set(["title", "description", "author", "created", "modified", "templateId", "templateVersion", "publisher", "submissionUrls"]);
   return { title: string(node, "title", "metadata") ?? "", description: string(node, "description", "metadata"), author: string(node, "author", "metadata"), created: string(node, "created", "metadata"), modified: string(node, "modified", "metadata"), templateId: string(node, "templateId", "metadata"), templateVersion: string(node, "templateVersion", "metadata"), publisher: string(node, "publisher", "metadata"), submissionUrls: strings(node.submissionUrls, "metadata.submissionUrls"), extra: rest(node, known) };
 }

@@ -9,9 +9,5 @@ internal static class AprCompatibilityGuard
     {
         if (!string.Equals(document.Version, AprFormat.CurrentVersion, StringComparison.Ordinal))
             throw new SerializationException($"Unsupported APR version {document.Version ?? "(missing)"}; this build accepts only {AprFormat.CurrentVersion}");
-
-        if (document.Metadata?.Extensions?.ContainsKey("submissionUrl") == true)
-            throw new SerializationException("metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings");
-
     }
 }

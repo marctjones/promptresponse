@@ -179,8 +179,6 @@ def _parse_section(node) -> Section:
 
 def _parse_metadata(node) -> Metadata:
     node = _require_object(node, "metadata")
-    if "submissionUrl" in node:
-        raise AprParseError("metadata.submissionUrl is retired; use metadata.submissionUrls as an array of strings")
     known = {
         "title", "description", "author", "created", "modified", "templateId",
         "templateVersion", "publisher", "submissionUrls",

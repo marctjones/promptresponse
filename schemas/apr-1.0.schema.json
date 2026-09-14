@@ -116,7 +116,6 @@
           },
           "description": "Ordered explicit delivery choices for a completed form."
         },
-        "submissionUrl": false,
         "regarding": {
           "type": "array",
           "uniqueItems": true,
