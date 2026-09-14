@@ -77,7 +77,10 @@ public sealed class SpecExampleTests
 
         if (example.Representation.EndsWith("-stream", StringComparison.Ordinal))
         {
-            return reader.ReadStream(Framed(example.Document), representation)
+            // An APR-YAML stream is already framed by its own `---` lines; only APR-JSONC
+            // needs the record separators restored.
+            var source = representation == AprRepresentation.Jsonc ? Framed(example.Document) : example.Document;
+            return reader.ReadStream(source, representation)
                 .OfType<AprFormRecord>().Select(record => record.Form).ToList();
         }
 
