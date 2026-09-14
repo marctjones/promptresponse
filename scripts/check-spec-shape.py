@@ -215,24 +215,10 @@ def main() -> int:
           "derived artifacts and defect ownership stated"
           if derived else "the specification does not name its derived artifacts")
 
-    # The writing approach, linted over the whole specification. A check the rewrite
-    # has not reached yet is a declared shortfall carrying its finding count, and the
-    # count must match: a rise is a regression to fix, a fall is recorded, and a
-    # shortfall that reaches zero is removed.
-    shortfalls = {s["id"]: s for s in manifest["knownShortfalls"]}
+    # The writing approach, linted over the whole specification.
     for name, found in spec_approach.counts(spec_approach.run(spec)).items():
-        declared = shortfalls.get(name, {}).get("findings")
-        if declared is None:
-            check(name, found == 0, "no findings" if found == 0
-                  else f"{found} finding(s); see scripts/check-spec-approach.py")
-        elif found == 0:
-            check(name, False, "no findings left; remove its declared shortfall")
-        elif found > declared:
-            check(name, False, f"{found - declared} new finding(s) over the declared {declared}; "
-                               "see scripts/check-spec-approach.py")
-        else:
-            check(name, found == declared, f"declared shortfall, {found} finding(s)" if found == declared
-                  else f"{found} finding(s); lower the declared count from {declared}")
+        check(name, found == 0, "no findings" if found == 0
+              else f"{found} finding(s); see scripts/check-spec-approach.py")
 
     normative_count = len(NORMATIVE.findall(spec))
 
@@ -243,7 +229,6 @@ def main() -> int:
             "anchors": len(anchors),
             "executableExamples": len(parsed),
             "checks": [{"id": n, "ok": ok, "detail": d} for n, ok, d in checks],
-            "knownShortfalls": manifest["knownShortfalls"],
         }, indent=2))
         return 1 if problems else 0
 
@@ -252,10 +237,6 @@ def main() -> int:
           f"{len(parsed)} executable examples\n")
     for name, ok, detail in checks:
         print(f"  {'PASS' if ok else 'FAIL'}  {name:48} {detail}")
-
-    print("\nDeclared shortfalls (tracked, not failures):")
-    for s in manifest["knownShortfalls"]:
-        print(f"  #{s['issue']:<4} {s['id']:32} {s['status']}")
 
     if problems:
         print(f"\n{len(problems)} PROBLEM(S):")
