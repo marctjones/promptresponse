@@ -610,7 +610,8 @@
       "kind": "heading",
       "text": "2. Terminology",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/824e972c59": {
       "anchor": "terminology",
@@ -618,23 +619,40 @@
       "kind": "sentence",
       "text": "These terms carry the meanings below throughout.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/1031118bcc": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "Where a term is also an ordinary English word, the definition here governs.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "replacedBy": [
+        "terminology/sentence/1031118bcc",
+        "terminology/sentence/5d9c40b746",
+        "terminology/sentence/5366e918ee",
+        "terminology/sentence/6109e5e60f",
+        "terminology/sentence/b413947206",
+        "terminology/sentence/c02a92508e",
+        "terminology/sentence/a6c27831b6",
+        "terminology/sentence/99870ef834",
+        "terminology/sentence/5a762f56a4",
+        "terminology/sentence/699019cc37",
+        "terminology/sentence/fac41ad0f2"
+      ],
+      "note": "the classes of product every requirement names, defined here",
+      "issue": 474
     },
     "terminology/sentence/996c713eb3": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**form** — the complete semantic model of one APR document: its version, document type, metadata, section tree, and roles.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/b05d6ef413": {
       "anchor": "terminology",
@@ -642,63 +660,71 @@
       "kind": "sentence",
       "text": "A form is ordinary data and carries no cryptographic assertion of its own.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/96d47806f6": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**template** — a form whose `documentType` is `template`: the questions, without any particular respondent's answers.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/507f347ef8": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**filled form** — a form whose `documentType` is `filledForm`: the questions together with one respondent's answers, naming the template it answers.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/f785121ff6": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**section** — a named node of the form tree, holding prompts, child sections, or both.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/870a1936be": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**prompt** — a single question, owning a label, an optional response, and optional advisory hints.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/8e6a7c9081": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**response** — the answer stored for a prompt, always a string.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/ba4fde65b2": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**hint** — advisory guidance attached to a prompt, describing how a response might be presented or checked, never whether it is acceptable.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/c2d5aca3d8": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**advisory** — never rejecting, altering, or blocking a response.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/2a5ec99293": {
       "anchor": "terminology",
@@ -706,23 +732,26 @@
       "kind": "sentence",
       "text": "The opposite of binding, not of important.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/4a9ed8a8f3": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**instance** — one repetition of a table section's shape.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/db4132f585": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**semantic model** — the information APR defines, independent of how it is written down.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/8f4a74f0a5": {
       "anchor": "terminology",
@@ -730,15 +759,17 @@
       "kind": "sentence",
       "text": "Two documents with the same semantic model are the same form.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/e5114e1a70": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**source trivia** — everything in the bytes but absent from the semantic model: comments, whitespace, indentation, quoting style, mapping order, and record framing.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/e1b97519df": {
       "anchor": "terminology",
@@ -746,15 +777,17 @@
       "kind": "sentence",
       "text": "Trivia carries no APR meaning.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/fd53fa56d0": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**representation** — a concrete spelling of the semantic model.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/3108d30bb1": {
       "anchor": "terminology",
@@ -762,23 +795,26 @@
       "kind": "sentence",
       "text": "APR defines two, APR-JSONC and APR-YAML.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/dce9320d2b": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**record** — one complete unit in a stream: either a whole form or one attestation.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/d8aab592d2": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**stream** — an ordered transport carrying independent records.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/4587caa618": {
       "anchor": "terminology",
@@ -786,15 +822,17 @@
       "kind": "sentence",
       "text": "Order is presentation, not meaning.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/61790b85bc": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**occurrence** — one appearance of a form in a stream.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/9a41890ae5": {
       "anchor": "terminology",
@@ -802,80 +840,93 @@
       "kind": "sentence",
       "text": "Two occurrences with identical semantic models remain two occurrences; an occurrence is neither a copy to be collapsed nor a revision of an earlier one.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/9abe62f176": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**digest** — the value identifying a semantic model, computed over its canonical serialization rather than over its bytes.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/f5cc8a4876": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**manifest** — the list of digests describing a form's parts, holding no plaintext of the values it describes.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/a5de1058fb": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**attestation** — an independent record making a cryptographic assertion about a form identified by digest.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/8be0b4f786": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**envelope** — an attestation record excluding its own proofs; this is what a proof signs and what a witness references.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/3ed9a308ba": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**subject** — the form an attestation asserts about, identified by digest.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/5afd5b0726": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**scope** — how much of the subject an attestation covers: the whole document, or a named set of prompts.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/d5106cdefe": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**proof** — a verifiable assertion over an envelope.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/74aaf28021": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**witness** — a reference from one attestation to the digest of an earlier envelope, recording that its signer saw that assertion.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/61c756c8b8": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**profile** — an optional conformance capability an implementation may claim.",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "definition",
+      "status": "applied",
+      "replacedBy": [
+        "terminology/sentence/1900198ee5"
+      ],
+      "note": "reworded without a lowercase obligation word",
+      "issue": 474
     },
     "terminology/sentence/22b71531e4": {
       "anchor": "terminology",
@@ -883,23 +934,26 @@
       "kind": "sentence",
       "text": "Optional to claim; binding once claimed.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/2eaaf4dd89": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**extension member** — a member APR does not define, named with a reverse-DNS prefix by the producer that owns it, carried by a document and preserved across a round trip ([Unknown members](#extensions)).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/75a1a466d3": {
       "anchor": "terminology",
       "chapter": 2,
       "kind": "sentence",
       "text": "**non-blank string** — a string containing at least one non-whitespace character.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "definition",
+      "status": "applied",
+      "issue": 474
     },
     "terminology/sentence/510fe64839": {
       "anchor": "terminology",
@@ -907,7 +961,8 @@
       "kind": "sentence",
       "text": "A whitespace-only string is treated as absent.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 474
     },
     "conformance/heading/fd7ca02904": {
       "anchor": "conformance",

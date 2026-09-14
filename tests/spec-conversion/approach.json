@@ -6,6 +6,7 @@
     "consumer",
     "editor",
     "filler",
+    "host",
     "implementation",
     "parser",
     "processor",

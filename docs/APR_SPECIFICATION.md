@@ -189,6 +189,32 @@ public release.
 These terms carry the meanings below throughout. Where a term is also an
 ordinary English word, the definition here governs.
 
+Every requirement names its subject from the classes of product defined first
+below. A requirement on a document names the form.
+
+**implementation** — software that claims conformance to APR: to `core` and to
+each profile it names ([Declaring conformance](#declaring-conformance)). An
+implementation is one or more of the classes that follow, and a requirement on
+an implementation applies to each class it is.
+
+**reader** — software that reads a representation into the semantic model,
+accepting or rejecting each record.
+
+**writer** — software that serializes a semantic model into a representation.
+
+**validator** — software that checks a form against this document and reports
+errors and warnings ([Validation](#validation)).
+
+**renderer** — software that presents a form to a person and collects their
+responses ([Rendering](#renderers)).
+
+**verifier** — software that evaluates attestations against the forms they
+identify ([Attestations](#attestations)).
+
+**host** — the software that embeds an implementation and supplies what a
+document leaves outside itself: evaluation context, the current time, and policy
+([Expressions](#expressions)).
+
 **form** — the complete semantic model of one APR document: its version,
 document type, metadata, section tree, and roles. A form is ordinary data and
 carries no cryptographic assertion of its own.
@@ -257,8 +283,9 @@ or a named set of prompts.
 **witness** — a reference from one attestation to the digest of an earlier
 envelope, recording that its signer saw that assertion.
 
-**profile** — an optional conformance capability an implementation may claim.
-Optional to claim; binding once claimed.
+**profile** — a named set of conformance requirements beyond `core` that an
+implementation chooses whether to claim. Optional to claim; binding once
+claimed.
 
 **extension member** — a member APR does not define, named with a reverse-DNS
 prefix by the producer that owns it, carried by a document and preserved across
