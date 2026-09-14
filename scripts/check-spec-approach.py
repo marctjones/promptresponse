@@ -84,6 +84,9 @@ def lint(units: list[dict], approach: dict) -> list[dict]:
 
     defined = {m.group(1).strip().lower() for u in units if u["anchor"] == "terminology"
                for m in [DEFINED_TERM.match(u["text"])] if m}
+    # A missing definition is a defect of Terminology, not of whichever requirement
+    # happens to name the class first, so the finding sits in Terminology's chapter.
+    terminology = next((u for u in units if u["anchor"] == "terminology" and u["kind"] == "heading"), None)
     requirements = [u for u in units if u["keywords"] and u["kind"] in STATEMENT_KINDS and normative(u)]
     for cls in approach.get("classes", []):
         if cls in defined:
@@ -91,8 +94,9 @@ def lint(units: list[dict], approach: dict) -> list[dict]:
         pattern = re.compile(rf"\b{re.escape(cls)}s?\b", re.IGNORECASE)
         naming = [u for u in requirements if pattern.search(INLINE_CODE.sub("", u["text"]))]
         if naming:
-            finding("classes-defined-in-terminology", naming[0],
-                    f"'{cls}' is named by {len(naming)} requirement(s) and not defined in Terminology")
+            finding("classes-defined-in-terminology", terminology or naming[0],
+                    f"'{cls}' is named by {len(naming)} requirement(s), first at line {naming[0]['line']}, "
+                    f"and not defined in Terminology")
 
     header = None
     for u in units:
