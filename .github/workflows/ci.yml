@@ -236,6 +236,40 @@ jobs:
       - name: Test the example extractor on every header key and malformed headers
         run: python3 scripts/extract-spec-examples.py --self-test
 
+      - name: Test the specification rewrite tools
+        # The rewrite to the W3C writing approach is tracked by these tools, so each
+        # proves on its fixture that it catches what it claims before its report is
+        # believed. The tools are gated; what they report about the text is not.
+        run: |
+          python3 scripts/spec-units.py --self-test
+          python3 scripts/check-spec-conversion.py --self-test
+          python3 scripts/check-spec-approach.py --self-test
+          python3 scripts/check-example-coverage.py --self-test
+
+      - name: Report specification rewrite progress
+        # Report mode until step 24 (#488) makes these gates: progress is published
+        # on every pull request, and nothing here fails the build except a tool
+        # that cannot read its own inputs.
+        if: always()
+        run: |
+          mkdir -p spec-rewrite-report
+          python3 scripts/spec-units.py --check > spec-rewrite-report/units.txt || true
+          python3 scripts/check-spec-conversion.py --report > spec-rewrite-report/conversion.txt
+          python3 scripts/check-spec-approach.py > spec-rewrite-report/approach.txt
+          python3 scripts/check-example-coverage.py > spec-rewrite-report/example-coverage.txt
+          python3 scripts/check-spec-approach.py --json > spec-rewrite-report/approach.json
+          python3 scripts/check-example-coverage.py --json > spec-rewrite-report/example-coverage.json
+          for part in units conversion approach example-coverage; do
+            { echo "### Specification rewrite: $part"; echo '```'; head -n 40 "spec-rewrite-report/$part.txt"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - name: Publish the specification rewrite report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: spec-rewrite-report
+          path: spec-rewrite-report/
+
       - name: Verify release-status documentation agrees with the repository
         run: python3 scripts/check-docs.py
 

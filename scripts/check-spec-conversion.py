@@ -18,6 +18,7 @@ What is checked:
   reopened     an applied entry whose unit, or whose replacement, changed since
 
     python3 scripts/check-spec-conversion.py            # report, never fails
+    python3 scripts/check-spec-conversion.py --report   # the same, said explicitly
     python3 scripts/check-spec-conversion.py --gate     # fail on any finding
     python3 scripts/check-spec-conversion.py --chapter 5
     python3 scripts/check-spec-conversion.py --json
