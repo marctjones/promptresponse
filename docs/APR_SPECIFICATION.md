@@ -5594,7 +5594,7 @@ The CEL entry is normative for the `core+expressions` profile only.
 
 ## 17. Informative references {#informative-references}
 
-This section is informative. Nothing below is required to implement this
+This section is informative. Nothing below is needed to implement this
 specification.
 
 | Designation | Title |
