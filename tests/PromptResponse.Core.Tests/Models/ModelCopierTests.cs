@@ -186,7 +186,8 @@ public class ModelCopierTests
         Written(typeof(Prompt)).Should().Equal(
             Sorted(
                 nameof(Prompt.Extensions), nameof(Prompt.Id), nameof(Prompt.Label),
-                nameof(Prompt.Response), nameof(Prompt.Hints), nameof(Prompt.Role)),
+                nameof(Prompt.Response), nameof(Prompt.Hints), nameof(Prompt.Role),
+                nameof(Prompt.Language)),
             "ModelCopier.Copy(Prompt) must name every prompt member");
 
         Written(typeof(PromptHints)).Should().Equal(
@@ -205,7 +206,7 @@ public class ModelCopierTests
                 nameof(Section.Extensions), nameof(Section.Id), nameof(Section.Title),
                 nameof(Section.Description), nameof(Section.Sections), nameof(Section.Prompts),
                 nameof(Section.Kind), nameof(Section.Role), nameof(Section.CanAddRows),
-                nameof(Section.MaxRows)),
+                nameof(Section.MaxRows), nameof(Section.Language)),
             "ModelCopier.Copy(Section) must name every section member");
     }
 

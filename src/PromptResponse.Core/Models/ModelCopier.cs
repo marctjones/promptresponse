@@ -35,6 +35,7 @@ public static class ModelCopier
             Description = section.Description,
             Kind = section.Kind,
             Role = section.Role,
+            Language = section.Language,
             CanAddRows = section.CanAddRows,
             MaxRows = section.MaxRows,
             Prompts = section.Prompts.Select(Copy).ToList(),
@@ -55,6 +56,7 @@ public static class ModelCopier
             Id = prompt.Id,
             Label = prompt.Label,
             Role = prompt.Role,
+            Language = prompt.Language,
             Hints = Copy(prompt.Hints),
         };
         // Not through the Response setter: assigning marks the response authored and

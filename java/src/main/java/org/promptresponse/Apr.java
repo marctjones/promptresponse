@@ -406,6 +406,7 @@ public final class Apr {
         Map.entry("publisher", new Class<?>[]{String.class}),
         Map.entry("templateId", new Class<?>[]{String.class}),
         Map.entry("templateVersion", new Class<?>[]{String.class}),
+        Map.entry("language", new Class<?>[]{String.class}),
         Map.entry("created", new Class<?>[]{String.class}),
         Map.entry("modified", new Class<?>[]{String.class}),
         Map.entry("submissionUrls", new Class<?>[]{List.class}),
@@ -413,12 +414,13 @@ public final class Apr {
     private static final Map<String,Class<?>[]> SECTION = Map.of(
         "id", new Class<?>[]{String.class}, "title", new Class<?>[]{String.class},
         "description", new Class<?>[]{String.class}, "role", new Class<?>[]{String.class},
-        "kind", new Class<?>[]{String.class},
+        "kind", new Class<?>[]{String.class}, "language", new Class<?>[]{String.class},
         "canAddRows", new Class<?>[]{Boolean.class}, "maxRows", new Class<?>[]{Number.class},
         "prompts", new Class<?>[]{List.class}, "sections", new Class<?>[]{List.class});
     private static final Map<String,Class<?>[]> PROMPT = Map.of(
         "id", new Class<?>[]{String.class}, "label", new Class<?>[]{String.class},
         "response", new Class<?>[]{String.class}, "role", new Class<?>[]{String.class},
+        "language", new Class<?>[]{String.class},
         "hints", new Class<?>[]{Map.class});
     // Map.of caps at ten pairs, and hints has more members than that.
     private static final Map<String,Class<?>[]> HINTS = Map.ofEntries(

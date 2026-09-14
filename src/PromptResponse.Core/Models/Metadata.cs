@@ -101,6 +101,16 @@ public class Metadata
     public string? TemplateVersion { get; set; }
 
     /// <summary>
+    /// Gets or sets the BCP 47 language tag of the form's human-facing authoring text.
+    /// </summary>
+    /// <remarks>
+    /// The default for every section and prompt that does not declare its own. Advisory:
+    /// it never affects validity, and never relaxes a check on that text.
+    /// </remarks>
+    /// <example>"en", "fr-CA"</example>
+    public string? Language { get; set; }
+
+    /// <summary>
     /// Gets or sets the publisher of the form (the organization or person that
     /// authored and stands behind the template).
     /// </summary>

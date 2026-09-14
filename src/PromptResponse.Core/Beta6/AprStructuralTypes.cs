@@ -40,6 +40,7 @@ internal static class AprStructuralTypes
         ["publisher"] = [JsonValueKind.String],
         ["templateId"] = [JsonValueKind.String],
         ["templateVersion"] = [JsonValueKind.String],
+        ["language"] = [JsonValueKind.String],
         ["created"] = [JsonValueKind.String],
         ["modified"] = [JsonValueKind.String],
         ["submissionUrls"] = [JsonValueKind.Array],
@@ -54,6 +55,7 @@ internal static class AprStructuralTypes
         ["description"] = [JsonValueKind.String],
         ["role"] = [JsonValueKind.String],
         ["kind"] = [JsonValueKind.String],
+        ["language"] = [JsonValueKind.String],
         ["canAddRows"] = [JsonValueKind.True, JsonValueKind.False],
         ["maxRows"] = [JsonValueKind.Number],
         ["prompts"] = [JsonValueKind.Array],
@@ -70,6 +72,7 @@ internal static class AprStructuralTypes
         // thing this format will not do.
         ["response"] = [JsonValueKind.String],
         ["role"] = [JsonValueKind.String],
+        ["language"] = [JsonValueKind.String],
         ["hints"] = [JsonValueKind.Object],
     };
 
