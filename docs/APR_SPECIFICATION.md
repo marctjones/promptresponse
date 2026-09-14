@@ -234,7 +234,7 @@ any particular respondent's answers.
 **filled form** — a form whose `documentType` is `filledForm`: the questions
 together with one respondent's answers, naming the template it answers.
 
-**filler** — the person who answers a form's prompts, through a renderer.
+**filler** — the person who answers a form's prompts.
 
 **section** — a named node of the form tree, holding prompts, child sections, or
 both.
