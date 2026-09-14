@@ -234,6 +234,8 @@ any particular respondent's answers.
 **filled form** — a form whose `documentType` is `filledForm`: the questions
 together with one respondent's answers, naming the template it answers.
 
+**filler** — the person who answers a form's prompts, through a renderer.
+
 **section** — a named node of the form tree, holding prompts, child sections, or
 both.
 
@@ -1621,7 +1623,7 @@ body; a lone form is a one-record stream. The message leaves only on an explicit
 user action.
 
 An implementation submitting to a `mailto` entry **SHOULD** hand the
-composition to the user's mail client. [APR-MODEL-034]
+composition to the user's mail program. [APR-MODEL-034]
 
 An implementation submitting to a `mailto` entry **MAY** send the message
 itself instead. [APR-MODEL-090]
@@ -4051,7 +4053,7 @@ their organization, their environment — so a form can offer what it already
 knows.
 
 A host **MUST NOT** place credentials, secrets, authorization decisions, or
-private server-side facts in `ctx`. [APR-EXPR-007]
+facts private to its own systems in `ctx`. [APR-EXPR-007]
 
 An expression is document-supplied text; what it can read, a document author can
 read.
@@ -5399,7 +5401,7 @@ expect: valid
 
 An implementation **MAY** warn, badge, or refuse to *act* on a document by its
 own policy — a receiving workflow is entitled to reject an unattested permit
-application. [APR-ATTEST-013]
+request. [APR-ATTEST-013]
 
 That is the workflow's decision. It is not the file format's, and a
 reader that enforces it on the workflow's behalf has taken a choice away from

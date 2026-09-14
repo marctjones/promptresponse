@@ -688,7 +688,12 @@
       "text": "**filled form** — a form whose `documentType` is `filledForm`: the questions together with one respondent's answers, naming the template it answers.",
       "disposition": "definition",
       "status": "applied",
-      "issue": 474
+      "issue": 474,
+      "replacedBy": [
+        "terminology/sentence/507f347ef8",
+        "terminology/sentence/d020c3eeaa"
+      ],
+      "note": "filler is defined beside it: requirements and tables name the person answering a form (#488)"
     },
     "terminology/sentence/f785121ff6": {
       "anchor": "terminology",
@@ -3793,9 +3798,10 @@
       "status": "applied",
       "issue": 477,
       "replacedBy": [
-        "submission/sentence/0309dad81e",
+        "submission/sentence/cab01abb9f",
         "submission/sentence/1001a1fb7a"
-      ]
+      ],
+      "note": "reworded so an ordinary English word is not read as a class of product (#488)"
     },
     "submission/sentence/0a8eee0bbc": {
       "anchor": "submission",
@@ -9249,9 +9255,9 @@
       "status": "applied",
       "issue": 483,
       "replacedBy": [
-        "expr-context/sentence/25247b4cf0"
+        "expr-context/sentence/8bd47594fc"
       ],
-      "note": "the rule identifier sits on the requirement; its reason is a sentence of its own"
+      "note": "the rule identifier sits on the requirement; its reason is a sentence of its own; reworded so an ordinary English word is not read as a class of product (#488)"
     },
     "expr-context/sentence/392b2c9232": {
       "anchor": "expr-context",
@@ -10792,9 +10798,9 @@
       "status": "applied",
       "issue": 484,
       "replacedBy": [
-        "never-gate/sentence/7a5dce465b"
+        "never-gate/sentence/ffbde58ade"
       ],
-      "note": "the rule ID moved onto the permission"
+      "note": "the rule ID moved onto the permission; reworded so an ordinary English word is not read as a class of product (#488)"
     },
     "never-gate/sentence/64cb48858d": {
       "anchor": "never-gate",

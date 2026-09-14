@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "3ce652b8-4a10-58e5-977b-27edcc5b07c7",
+    "uuid": "bcc8b6e7-4c6c-59c7-8750-e2376f8a4337",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "10c1af88a3cad9ca8a2dcf246c447124aa0b18303a057366ddade4829d23bf0b"
+          "value": "4848763b82c06c59f1d73c80cbc43ebe06d81f7d9a6ff38c8cf85f44d7f5e1d3"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -4209,7 +4209,7 @@
               {
                 "id": "apr-model-034_smt",
                 "name": "statement",
-                "prose": "An implementation submitting to a `mailto` entry **SHOULD** hand the composition to the user's mail client."
+                "prose": "An implementation submitting to a `mailto` entry **SHOULD** hand the composition to the user's mail program."
               },
               {
                 "id": "apr-model-034_gap",
@@ -14137,7 +14137,7 @@
               {
                 "id": "apr-expr-007_smt",
                 "name": "statement",
-                "prose": "A host **MUST NOT** place credentials, secrets, authorization decisions, or private server-side facts in `ctx`."
+                "prose": "A host **MUST NOT** place credentials, secrets, authorization decisions, or facts private to its own systems in `ctx`."
               },
               {
                 "id": "apr-expr-007_gap",
@@ -16665,7 +16665,7 @@
               {
                 "id": "apr-attest-013_smt",
                 "name": "statement",
-                "prose": "An implementation **MAY** warn, badge, or refuse to *act* on a document by its own policy — a receiving workflow is entitled to reject an unattested permit application."
+                "prose": "An implementation **MAY** warn, badge, or refuse to *act* on a document by its own policy — a receiving workflow is entitled to reject an unattested permit request."
               },
               {
                 "id": "apr-attest-013_gap",
