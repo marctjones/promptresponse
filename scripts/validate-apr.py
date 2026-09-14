@@ -209,7 +209,7 @@ class Report:
         "TABLE_LABEL_MISMATCH": "APR-VAL-026", "TABLE_OVER_CAPACITY": "APR-VAL-027",
         "TABLE_MEMBERS_ON_A_PLAIN_SECTION": "APR-VAL-028", "UNPREFIXED_MEMBER": "APR-VAL-029",
         "SUBMISSION_URL_UNSUPPORTED": "APR-VAL-030", "NON_NFC_TEXT": "APR-VAL-031",
-        "FORBIDDEN_CODE_POINT": "APR-VAL-032",
+        "FORBIDDEN_CODE_POINT": "APR-VAL-032", "CONFUSABLE_SCRIPT_MIX": "APR-VAL-035",
     }
 
     def error(self, code, path, msg, *rules):
@@ -241,17 +241,17 @@ def check_text(report: Report, path: str, value: str) -> None:
     if unicodedata.normalize("NFC", value) != value:
         report.warn("NON_NFC_TEXT", path,
                     "human-facing text must be in Normalization Form C",
-                    "APR-TEXT-011")
+                    "APR-TEXT-011", "APR-TEXT-014")
     for char in value:
         point = ord(char)
         category = unicodedata.category(char)
         if category == "Cc" and point not in CONTROL_OK:
             report.warn("FORBIDDEN_CODE_POINT", path,
-                        f"U+{point:04X} is a control character", "APR-TEXT-011")
+                        f"U+{point:04X} is a control character", "APR-TEXT-011", "APR-TEXT-014")
         elif category in {"Cs", "Co", "Cn"}:
             report.warn("FORBIDDEN_CODE_POINT", path,
                          f"U+{point:04X} is a surrogate, private-use or unassigned",
-                         "APR-TEXT-011")
+                         "APR-TEXT-011", "APR-TEXT-014")
         elif category == "Cf":
             # Category Cf ("Format") is not uniformly invisible: it also holds ZWJ
             # and ZWNJ, load-bearing for correct glyph shaping in Persian, Hindi and
@@ -260,28 +260,21 @@ def check_text(report: Report, path: str, value: str) -> None:
             # effect), so the message says what the rule actually is, not why.
             report.warn("FORBIDDEN_CODE_POINT", path,
                         f"U+{point:04X} is a code point the human-facing text floor excludes",
-                        "APR-TEXT-011")
+                        "APR-TEXT-011", "APR-TEXT-014")
 
 
-# APR-TEXT-012: "SHOULD apply the confusable and mixed-script detection of
-# UTS #39... report what it finds." Full UTS #39 restriction-level analysis
-# needs a declared document language to avoid flagging ordinary multi-script
-# text (Japanese Han+Hiragana+Katakana, Korean Hangul+Han, Latin loanwords in
-# Indic/Arabic/Hebrew text) -- APR has no metadata.language member yet, so
-# that full analysis isn't attempted here.
+# APR-TEXT-012 asks a validator to apply UTS #39's confusable and mixed-script
+# detection to human-facing text. The full restriction-level analysis flags
+# ordinary multi-script text (Japanese Han+Hiragana+Katakana, Korean Hangul+Han,
+# Latin loanwords in Indic, Arabic or Hebrew text) unless it knows the text's
+# language, so it isn't attempted here.
 #
-# What doesn't need a declared language: Latin, Cyrillic and Greek have
-# extensive letter-shape homoglyphs between them (Cyrillic а/Latin a, Greek
-# Α/Latin A) and essentially no legitimate reason to co-occur within one
-# title or label -- unlike CJK/Hangul/Indic scripts, which routinely mix with
-# Latin for brand names, loanwords and numerals. Flagging only these three
-# scripts mixing with each other is a narrow, script-agnostic slice of UTS #39
-# that produces zero known false positives on real multi-script text.
-#
-# Not in specification 7.2's warnings table -- CONFUSABLE_SCRIPT_MIX is this
-# implementation's own spelling of an APR-VAL-034 "MAY report a warning for a
-# condition the table does not name" extension, not a code every
-# implementation must use.
+# What needs no language: Latin, Cyrillic and Greek share many letter shapes
+# (Cyrillic а and Latin a, Greek Α and Latin A) and have essentially no reason
+# to co-occur within one title or label, unlike CJK, Hangul and Indic scripts,
+# which routinely mix with Latin for brand names, loanwords and numerals. That
+# mix is the condition specification 7.2 names CONFUSABLE_SCRIPT_MIX
+# (APR-VAL-035).
 _CONFUSABLE_SCRIPTS = ("LATIN", "CYRILLIC", "GREEK")
 
 

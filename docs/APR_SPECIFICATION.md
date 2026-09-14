@@ -2801,13 +2801,13 @@ reports a warning under the row's code.
 | `SUBMISSION_URL_UNSUPPORTED` | A submission entry of a scheme this document does not define ([Submission targets](#submission)). | **MUST** | [APR-VAL-030] |
 | `NON_NFC_TEXT` | Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-031] |
 | `FORBIDDEN_CODE_POINT` | Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-032] |
+| `CONFUSABLE_SCRIPT_MIX` | One member of human-facing text mixes letters of two or more of the Latin, Cyrillic and Greek scripts ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-035] |
 
 Warnings are how an implementation tells a person "this might not be what you
 meant" without ever telling them "you are not allowed to write this."
 
 An implementation **MAY** report a warning for a condition the table does not
-name, such as a blank response a workflow treats as required, or the confusable
-and mixed-script findings [Human-facing text](#human-text) asks for. [APR-VAL-034]
+name, such as a blank response a workflow treats as required. [APR-VAL-034]
 
 An implementation **MUST NOT** report a warning as the document being
 invalid. [APR-VAL-002]
@@ -2868,7 +2868,7 @@ warns: SUBMISSION_URL_UNSUPPORTED
 ```apr-example
 id: title-not-nfc
 rule: warnings
-satisfies: APR-VAL-031
+satisfies: APR-VAL-031, APR-TEXT-014
 representation: jsonc
 expect: valid
 warns: NON_NFC_TEXT
@@ -2887,7 +2887,7 @@ warns: NON_NFC_TEXT
 ```apr-example
 id: title-forbidden-code-point
 rule: warnings
-satisfies: APR-VAL-032
+satisfies: APR-VAL-032, APR-TEXT-014
 representation: jsonc
 expect: valid
 warns: FORBIDDEN_CODE_POINT
@@ -3003,14 +3003,16 @@ warns: RESPONSE_OUTSIDE_SUGGESTED_VALUES
 
 ### 8.1 Responses are evidence {#text-responses}
 
-A reader **MUST** preserve a response exactly on read and write: it **MUST NOT**
-normalize, strip, or otherwise rewrite it. Escaping and visibly marking deceptive
-text are rendering responsibilities, not licences to alter stored data. [APR-TEXT-001]
+An implementation **MUST NOT** normalize, strip, or otherwise rewrite a response
+when it reads or writes one. [APR-TEXT-001]
+
+Escaping and visibly marking deceptive text are rendering responsibilities, not
+licences to alter stored data.
 
 ### 8.2 Authoring data and filled data differ {#authoring-vs-filled}
 
 The two halves of an APR document come from two different people under two
-different conditions, and they **MUST NOT** be treated alike. [APR-TEXT-002]
+different conditions, and this document governs them differently.
 
 | | **Authoring data** | **Filled data** |
 | --- | --- | --- |
@@ -3018,7 +3020,7 @@ different conditions, and they **MUST NOT** be treated alike. [APR-TEXT-002]
 | Members | `metadata`, section `id`, `title`, `description`, prompt `id`, `label`, all of `hints` | `prompt.response` |
 | Conditions | deliberate, repeatable, reviewable before publication | once, under time pressure, often on someone else's behalf |
 | Consumed by | machines and every future reader | the receiving workflow |
-| Policy | **Strict rules are appropriate.** Reject or warn at authoring time. | **Maximum tolerance.** Accept any string; never rewrite. |
+| Policy | **Strict rules are appropriate.** Warn at authoring time; refuse to attest a deceptive value. | **Maximum tolerance.** Accept any string; never rewrite. |
 
 > Rationale: strictness at authoring time costs the author one correction before
 > publishing. Strictness at fill time costs a person their answer, silently, at
@@ -3026,52 +3028,57 @@ different conditions, and they **MUST NOT** be treated alike. [APR-TEXT-002]
 
 #### 8.2.1 Filled data — never rewritten {#filled-never-rewritten}
 
-A response **MUST NOT** be altered on the basis of any hint. A `url` or `email`
-hint describes what the author *hoped* to receive; it does not license editing
-what was actually written. [APR-TEXT-003]
+A `url` or `email` hint describes what the author *hoped* to receive; it does not
+license editing what was actually written.
 
-Suspicious characters in a response **MUST** be surfaced as a warning and
-**SHOULD** be rendered visibly — escaped or badged — leaving the stored bytes
-exactly as entered. The consuming workflow decides what to do about them; it is
-the only party that knows what the answer is for. [APR-TEXT-004]
+A validator **MUST** report a warning for a response that contains a code point
+[Human-facing text](#human-text) excludes. [APR-TEXT-004]
+
+The consuming workflow decides what to do about such a response; it is the only
+party that knows what the answer is for.
+
+A renderer **SHOULD** show a code point that [Human-facing text](#human-text)
+excludes visibly, escaped or badged, wherever it presents one, without altering
+the stored value. [APR-TEXT-013]
 
 A reader that "cleans" a hidden or bidirectional character has let a hint enforce
 something, which [Hints never enforce](#hints-advisory) forbids. Legitimate uses
-exist: a Persian ZWNJ and an emoji ZWJ sequence are ordinary text.
+exist: a Persian ZWNJ and an emoji ZWJ sequence are ordinary text; the warning
+says so without altering them.
 
 #### 8.2.2 Authoring data — strictness is appropriate {#authoring-strictness}
 
-Authoring members **MAY** be held to strict rules, and the members a machine acts
-on **SHOULD** be. [APR-TEXT-005]
+An implementation **MAY** hold authoring members to rules stricter than this
+document states. [APR-TEXT-005]
 
 **Strictness here means refusing, not rewriting.** No party's data is ever
 silently edited — the difference between an author and a filler is that an author
-*can* be stopped and asked to fix something, while a filler must never be
-blocked. Rewriting an authored value is not the strict option; it is the same
-silent edit wearing a different hat.
+*can* be stopped and asked to fix something, while a filler is never blocked.
+Rewriting an authored value is not the strict option; it is the same silent edit
+wearing a different hat.
+
+An implementation **MUST NOT** Unicode-normalize authoring data or remove a code
+point from it. [APR-TEXT-006]
 
 `metadata.submissionUrls` is the strongest case in the format. It is an ordered,
 author-supplied array of explicit delivery choices, machine-consumed and
-security-critical. An implementation:
+security-critical. Cleaning a zero-width character out of a hostname picks a
+destination on the author's behalf, a decision only the author can make.
 
-- **MUST NOT** rewrite any entry to remove hidden characters. Cleaning a
-  zero-width character out of a hostname picks a destination on the author's
-  behalf, which is precisely the decision that must not be made automatically. [APR-TEXT-006]
-- **SHOULD** report hidden characters in it as an advisory, since such a URL
-  renders to a reviewer as one host while being another. [APR-TEXT-007]
-- **MUST NOT** produce an attestation over a document whose `submissionUrls`
-  contains them. Binding an address that displays as one host and resolves as
-  another defeats the binding. [APR-TEXT-008]
+A validator **SHOULD** report a warning for a `submissionUrls` entry that contains
+a code point [Human-facing text](#human-text) excludes. [APR-TEXT-007]
 
-Implementations **SHOULD** also warn at authoring time on mixed-script or
-bidirectional content in `metadata.title`, `metadata.publisher`, section titles,
-and prompt labels — the text a person reads when deciding whether to trust a
-form. These are warnings to the author, before publication, and never
-modifications. [APR-TEXT-009]
+An implementation **MUST NOT** produce an attestation over a form whose
+`submissionUrls` has such an entry. [APR-TEXT-008]
 
-Ids are machine keys. Implementations **SHOULD** warn when an id contains
-characters outside `[A-Za-z0-9_.-]`, since ids appear in attestation manifests,
-database columns, and cell addresses. [APR-TEXT-010]
+> Rationale: such a URL renders to a reviewer as one host while being another.
+> An attestation binding it binds an address nobody reviewing the form could see.
+
+Ids are machine keys: they appear in attestation manifests, database columns, and
+cell addresses.
+
+A validator **SHOULD** report a warning for an id that contains a character
+outside `[A-Za-z0-9_.-]`. [APR-TEXT-010]
 
 #### 8.2.3 Human-facing text {#human-text}
 
@@ -3082,19 +3089,38 @@ section's `title` and `description`; a prompt's `label`; and the `placeholder`,
 its whole purpose is to be rendered as text or speech, and every one of them is
 authoring data.
 
-Human-facing text **MUST** be in Normalization Form C (UAX #15) and **MUST
-NOT** contain a code point that is unassigned, a surrogate, private-use, a
+The human-facing text of a form **MUST** be in Normalization Form C (UAX #15) and
+**MUST NOT** contain a code point that is unassigned, a surrogate, private-use, a
 control other than U+0009 and U+000A, or that UTS #39 classifies with an
-`Identifier_Type` of `Default_Ignorable`, `Deprecated`, or `Not_Character`.
-Bidirectional and joining behaviour comes from the characters' own properties
-(UAX #9), never from explicit control characters, which the preceding sentence
-excludes. A validator **MUST** report a violation at authoring time; a reader
-that meets one in a published form renders it defensively and never rewrites
-it ([Responses are evidence](#text-responses)). [APR-TEXT-011]
+`Identifier_Type` of `Default_Ignorable`, `Deprecated`, or `Not_Character`. [APR-TEXT-011]
 
-Beyond that floor, an implementation **SHOULD** apply the confusable and
-mixed-script detection of UTS #39 to human-facing text and report what it
-finds, as the authoring-time warning above already asks for titles and labels. [APR-TEXT-012]
+Bidirectional and joining behaviour comes from the characters' own properties
+(UAX #9), never from explicit control characters, which the rule above excludes.
+
+A validator **MUST** report a warning for human-facing text that is not in
+Normalization Form C or that contains a code point the rule above excludes. [APR-TEXT-014]
+
+A validator **SHOULD** apply the confusable and mixed-script detection of UTS #39
+to human-facing text and report what it finds. [APR-TEXT-012]
+
+**Example 8.2.3-1.** A Cyrillic letter in a Latin title.
+
+```apr-example
+id: title-confusable-script-mix
+rule: human-text
+satisfies: APR-TEXT-012, APR-VAL-035
+representation: jsonc
+expect: valid
+warns: CONFUSABLE_SCRIPT_MIX
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "P\u0430ypal Permit" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
 
 **A response is not human-facing text in this sense.** It is what a person
 typed, and [Filled data — never rewritten](#filled-never-rewritten) governs it:

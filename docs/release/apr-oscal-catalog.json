@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "53bf3b2b-066b-57f4-8f64-f6c4333e6f83",
+    "uuid": "71409502-3b62-5fbb-8541-7eed45a84842",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "13fa40eb5e2ccf12ee4628c69674b1b6687bee57dd7497e64937ccca0b75015d"
+          "value": "51c9162db662f0ff6b57ced12bcb383eacc35035eca9ac915a472acb89d7f4f2"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -8884,12 +8884,54 @@
               {
                 "id": "apr-val-034_smt",
                 "name": "statement",
-                "prose": "An implementation **MAY** report a warning for a condition the table does not name, such as a blank response a workflow treats as required, or the confusable and mixed-script findings [Human-facing text](#human-text) asks for."
+                "prose": "An implementation **MAY** report a warning for a condition the table does not name, such as a blank response a workflow treats as required."
               },
               {
                 "id": "apr-val-034_gap",
                 "name": "assessment-gap",
                 "prose": "APR-VAL-006 and 033 are renderer obligations: a warning never prevents saving, and never prevents entering text. A document is valid either way, so no document case distinguishes a renderer that blocks the keyboard from one that does not; the renderer suite asks the saving half. APR-VAL-034 is a permission."
+              }
+            ]
+          },
+          {
+            "id": "apr-val-035",
+            "title": "APR-VAL-035 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-035"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-035_smt",
+                "name": "statement",
+                "prose": "`CONFUSABLE_SCRIPT_MIX` — One member of human-facing text mixes letters of two or more of the Latin, Cyrillic and Greek scripts ([Human-facing text](#human-text)). — **MUST**"
               }
             ]
           }
@@ -8937,101 +8979,7 @@
               {
                 "id": "apr-text-001_smt",
                 "name": "statement",
-                "prose": "A reader **MUST** preserve a response exactly on read and write: it **MUST NOT** normalize, strip, or otherwise rewrite it. Escaping and visibly marking deceptive text are rendering responsibilities, not licences to alter stored data."
-              }
-            ]
-          },
-          {
-            "id": "apr-text-002",
-            "title": "APR-TEXT-002 — 8.2 Authoring data and filled data differ",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-TEXT-002"
-              },
-              {
-                "name": "section",
-                "value": "authoring-vs-filled"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "TEXT"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-authoring-vs-filled"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#authoring-vs-filled",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-text-002_smt",
-                "name": "statement",
-                "prose": "The two halves of an APR document come from two different people under two different conditions, and they **MUST NOT** be treated alike."
-              },
-              {
-                "id": "apr-text-002_gap",
-                "name": "assessment-gap",
-                "prose": "Filled-data tolerance is gated; the authoring-strictness half is gated separately."
-              }
-            ]
-          },
-          {
-            "id": "apr-text-003",
-            "title": "APR-TEXT-003 — 8.2.1 Filled data — never rewritten",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-TEXT-003"
-              },
-              {
-                "name": "section",
-                "value": "filled-never-rewritten"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "TEXT"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-filled-preserved"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#filled-never-rewritten",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-text-003_smt",
-                "name": "statement",
-                "prose": "A response **MUST NOT** be altered on the basis of any hint. A `url` or `email` hint describes what the author *hoped* to receive; it does not license editing what was actually written."
-              },
-              {
-                "id": "apr-text-003_gap",
-                "name": "assessment-gap",
-                "prose": "APR-TEXT-001 is covered by a round-trip vector. APR-TEXT-003 and 004 are reader behaviour: that a hint never licenses altering a response, and that suspicious characters are surfaced and rendered visibly rather than cleaned. The first is the absence of an action, and the second is a presentation obligation."
+                "prose": "An implementation **MUST NOT** normalize, strip, or otherwise rewrite a response when it reads or writes one."
               }
             ]
           },
@@ -9073,12 +9021,12 @@
               {
                 "id": "apr-text-004_smt",
                 "name": "statement",
-                "prose": "Suspicious characters in a response **MUST** be surfaced as a warning and **SHOULD** be rendered visibly — escaped or badged — leaving the stored bytes exactly as entered. The consuming workflow decides what to do about them; it is the only party that knows what the answer is for."
+                "prose": "A validator **MUST** report a warning for a response that contains a code point [Human-facing text](#human-text) excludes."
               },
               {
                 "id": "apr-text-004_gap",
                 "name": "assessment-gap",
-                "prose": "APR-TEXT-001 is covered by a round-trip vector. APR-TEXT-003 and 004 are reader behaviour: that a hint never licenses altering a response, and that suspicious characters are surfaced and rendered visibly rather than cleaned. The first is the absence of an action, and the second is a presentation obligation."
+                "prose": "Python, TypeScript and .NET warn, each under HIDDEN_* and BIDI_* codes the warnings table does not name, and each checks a list narrower than the floor; Java and the reference validator report nothing (#506). With no code in the table, no suite case can ask for the warning."
               }
             ]
           },
@@ -9120,12 +9068,7 @@
               {
                 "id": "apr-text-005_smt",
                 "name": "statement",
-                "prose": "Authoring members **MAY** be held to strict rules, and the members a machine acts on **SHOULD** be."
-              },
-              {
-                "id": "apr-text-005_gap",
-                "name": "assessment-gap",
-                "prose": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
+                "prose": "An implementation **MAY** hold authoring members to rules stricter than this document states."
               }
             ]
           },
@@ -9149,12 +9092,12 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "none"
               },
               {
                 "name": "requirement",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-authoring-strict"
+                "value": "REQ-authoring-never-rewritten"
               }
             ],
             "links": [
@@ -9167,12 +9110,12 @@
               {
                 "id": "apr-text-006_smt",
                 "name": "statement",
-                "prose": "**MUST NOT** rewrite any entry to remove hidden characters. Cleaning a zero-width character out of a hostname picks a destination on the author's behalf, which is precisely the decision that must not be made automatically."
+                "prose": "An implementation **MUST NOT** Unicode-normalize authoring data or remove a code point from it."
               },
               {
                 "id": "apr-text-006_gap",
                 "name": "assessment-gap",
-                "prose": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
+                "prose": "No case checks it, and the Python and TypeScript SDKs break it: they normalize and strip hint and role text when they read it (#412)."
               }
             ]
           },
@@ -9196,12 +9139,12 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "none"
               },
               {
                 "name": "requirement",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-authoring-strict"
+                "value": "REQ-submission-url-advisory"
               }
             ],
             "links": [
@@ -9214,12 +9157,12 @@
               {
                 "id": "apr-text-007_smt",
                 "name": "statement",
-                "prose": "**SHOULD** report hidden characters in it as an advisory, since such a URL renders to a reviewer as one host while being another."
+                "prose": "A validator **SHOULD** report a warning for a `submissionUrls` entry that contains a code point [Human-facing text](#human-text) excludes."
               },
               {
                 "id": "apr-text-007_gap",
                 "name": "assessment-gap",
-                "prose": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
+                "prose": "Only .NET reports it, as SUBMISSION_URL_HIDDEN_CHARS, a code the warnings table does not name (#507)."
               }
             ]
           },
@@ -9261,59 +9204,7 @@
               {
                 "id": "apr-text-008_smt",
                 "name": "statement",
-                "prose": "**MUST NOT** produce an attestation over a document whose `submissionUrls` contains them. Binding an address that displays as one host and resolves as another defeats the binding."
-              },
-              {
-                "id": "apr-text-008_gap",
-                "name": "assessment-gap",
-                "prose": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
-              }
-            ]
-          },
-          {
-            "id": "apr-text-009",
-            "title": "APR-TEXT-009 — 8.2.2 Authoring data — strictness is appropriate",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-TEXT-009"
-              },
-              {
-                "name": "section",
-                "value": "authoring-strictness"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "TEXT"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-authoring-strict"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#authoring-strictness",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-text-009_smt",
-                "name": "statement",
-                "prose": "Implementations **SHOULD** also warn at authoring time on mixed-script or bidirectional content in `metadata.title`, `metadata.publisher`, section titles, and prompt labels — the text a person reads when deciding whether to trust a form. These are warnings to the author, before publication, and never modifications."
-              },
-              {
-                "id": "apr-text-009_gap",
-                "name": "assessment-gap",
-                "prose": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
+                "prose": "An implementation **MUST NOT** produce an attestation over a form whose `submissionUrls` has such an entry."
               }
             ]
           },
@@ -9337,12 +9228,12 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "none"
               },
               {
                 "name": "requirement",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-authoring-strict"
+                "value": "REQ-id-characters"
               }
             ],
             "links": [
@@ -9355,12 +9246,12 @@
               {
                 "id": "apr-text-010_smt",
                 "name": "statement",
-                "prose": "Ids are machine keys. Implementations **SHOULD** warn when an id contains characters outside `[A-Za-z0-9_.-]`, since ids appear in attestation manifests, database columns, and cell addresses."
+                "prose": "A validator **SHOULD** report a warning for an id that contains a character outside `[A-Za-z0-9_.-]`."
               },
               {
                 "id": "apr-text-010_gap",
                 "name": "assessment-gap",
-                "prose": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
+                "prose": "No implementation reports it, and the warnings table names no code for it (#508)."
               }
             ]
           },
@@ -9384,7 +9275,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -9402,12 +9293,7 @@
               {
                 "id": "apr-text-011_smt",
                 "name": "statement",
-                "prose": "Human-facing text **MUST** be in Normalization Form C (UAX #15) and **MUST NOT** contain a code point that is unassigned, a surrogate, private-use, a control other than U+0009 and U+000A, or that UTS #39 classifies with an `Identifier_Type` of `Default_Ignorable`, `Deprecated`, or `Not_Character`. Bidirectional and joining behaviour comes from the characters' own properties (UAX #9), never from explicit control characters, which the preceding sentence excludes. A validator **MUST** report a violation at authoring time; a reader that meets one in a published form renders it defensively and never rewrites it ([Responses are evidence](#text-responses))."
-              },
-              {
-                "id": "apr-text-011_gap",
-                "name": "assessment-gap",
-                "prose": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
+                "prose": "The human-facing text of a form **MUST** be in Normalization Form C (UAX #15) and **MUST NOT** contain a code point that is unassigned, a surrogate, private-use, a control other than U+0009 and U+000A, or that UTS #39 classifies with an `Identifier_Type` of `Default_Ignorable`, `Deprecated`, or `Not_Character`."
               }
             ]
           },
@@ -9431,7 +9317,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -9449,12 +9335,96 @@
               {
                 "id": "apr-text-012_smt",
                 "name": "statement",
-                "prose": "Beyond that floor, an implementation **SHOULD** apply the confusable and mixed-script detection of UTS #39 to human-facing text and report what it finds, as the authoring-time warning above already asks for titles and labels."
+                "prose": "A validator **SHOULD** apply the confusable and mixed-script detection of UTS #39 to human-facing text and report what it finds."
+              }
+            ]
+          },
+          {
+            "id": "apr-text-013",
+            "title": "APR-TEXT-013 — 8.2.1 Filled data — never rewritten",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-TEXT-013"
               },
               {
-                "id": "apr-text-012_gap",
+                "name": "section",
+                "value": "filled-never-rewritten"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "TEXT"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-deceptive-text-rendering"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#filled-never-rewritten",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-text-013_smt",
+                "name": "statement",
+                "prose": "A renderer **SHOULD** show a code point that [Human-facing text](#human-text) excludes visibly, escaped or badged, wherever it presents one, without altering the stored value."
+              },
+              {
+                "id": "apr-text-013_gap",
                 "name": "assessment-gap",
-                "prose": "No vector yet asserts the NFC and Identifier_Type floor for human-facing text."
+                "prose": "No renderer case asks how an excluded code point is presented (#110)."
+              }
+            ]
+          },
+          {
+            "id": "apr-text-014",
+            "title": "APR-TEXT-014 — 8.2.3 Human-facing text",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-TEXT-014"
+              },
+              {
+                "name": "section",
+                "value": "human-text"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "TEXT"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-human-text"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#human-text",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-text-014_smt",
+                "name": "statement",
+                "prose": "A validator **MUST** report a warning for human-facing text that is not in Normalization Form C or that contains a code point the rule above excludes."
               }
             ]
           }

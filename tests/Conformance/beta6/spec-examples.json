@@ -641,6 +641,25 @@
       "diagnostic": "EMPTY_TABLE"
     },
     {
+      "id": "title-confusable-script-mix",
+      "number": "8.2.3-1",
+      "rule": "human-text",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"P\\u0430ypal Permit\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-TEXT-012",
+        "APR-VAL-035"
+      ],
+      "satisfies": [
+        "APR-TEXT-012",
+        "APR-VAL-035"
+      ],
+      "warns": [
+        "CONFUSABLE_SCRIPT_MIX"
+      ]
+    },
+    {
       "id": "title-forbidden-code-point",
       "number": "7.2-4",
       "rule": "warnings",
@@ -648,10 +667,12 @@
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Permit\\u200bApplication\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
       "rules": [
-        "APR-VAL-032"
+        "APR-VAL-032",
+        "APR-TEXT-014"
       ],
       "satisfies": [
-        "APR-VAL-032"
+        "APR-VAL-032",
+        "APR-TEXT-014"
       ],
       "warns": [
         "FORBIDDEN_CODE_POINT"
@@ -665,10 +686,12 @@
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Cafe\\u0301 permit\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
       "rules": [
-        "APR-VAL-031"
+        "APR-VAL-031",
+        "APR-TEXT-014"
       ],
       "satisfies": [
-        "APR-VAL-031"
+        "APR-VAL-031",
+        "APR-TEXT-014"
       ],
       "warns": [
         "NON_NFC_TEXT"
