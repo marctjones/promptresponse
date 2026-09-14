@@ -798,7 +798,10 @@
       "rules": [
         "APR-REP-014",
         "APR-REP-015",
-        "APR-REP-016"
+        "APR-REP-016",
+        "APR-REP-023",
+        "APR-REP-024",
+        "APR-REP-025"
       ]
     },
     {
@@ -823,7 +826,7 @@
       "id": "REQ-hints-advisory",
       "section": "hints-advisory",
       "statement": "No hint rejects, alters, or blocks a response",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "suite",
@@ -834,10 +837,8 @@
           "ref": "core.unit"
         }
       ],
-      "gap": "Advisory behavior is gated in client tests; no beta.6 corpus vector asserts it.",
       "rules": [
-        "APR-MODEL-003",
-        "APR-MODEL-004"
+        "APR-MODEL-003"
       ]
     },
     {
@@ -1287,9 +1288,11 @@
       "rules": [
         "APR-REP-002",
         "APR-REP-003",
-        "APR-REP-004"
+        "APR-REP-004",
+        "APR-REP-018",
+        "APR-REP-019"
       ],
-      "gap": "APR-REP-002, 003 and 004 concern the byte layer: UTF-8 encoding, a byte-order mark, ill-formed sequences, U+0000 and unpaired surrogates. The suite carries documents as text in a JSON file, so it cannot express a malformed byte sequence. Reaching them needs the suite to carry encoded bytes rather than strings."
+      "gap": "APR-REP-002, 003 and 019 concern the byte layer, which the suite cannot carry because it holds documents as text; the encoding hazards in ParserFuzzTests cover them. No test checks that a writer omits a byte-order mark (APR-REP-018), and no vector shows a string with a forbidden code point (APR-REP-004)."
     },
     {
       "id": "REQ-response-verbatim",
@@ -1702,7 +1705,7 @@
     {
       "id": "REQ-yaml-resolution",
       "section": "yaml-resolution",
-      "statement": "APR-YAML scalars resolve to the JSON value space; non-finite floats are rejected; a YAML author quotes a scalar that would otherwise resolve as a literal",
+      "statement": "APR-YAML scalars resolve by APR's own table to the JSON value space; non-finite floats are rejected; a reader uses a safe loader",
       "strength": "partial",
       "gates": [
         {
@@ -1715,18 +1718,22 @@
         }
       ],
       "rules": [
+        "APR-REP-008",
         "APR-REP-011",
         "APR-REP-012",
         "APR-REP-013",
-        "APR-REP-017"
+        "APR-REP-026",
+        "APR-REP-027",
+        "APR-REP-028",
+        "APR-REP-029"
       ],
-      "gap": "APR-REP-008, 011, 012 and 017 are covered. APR-REP-013 requires a safe loader that never constructs a host-language object from document content. Proving that needs inspection of the reader, and a document that would exploit an unsafe loader is already refused by the excluded-constructs rules."
+      "gap": "APR-REP-013 requires a safe loader, which no document can show: one that would exploit an unsafe loader needs a tag, which APR-REP-020 already refuses. The resolution rows (APR-REP-008 and 026 to 029) and APR-REP-012 are shown satisfied, and a wrong resolution is caught by digest rather than by a violating document."
     },
     {
       "id": "REQ-yaml-restricted",
       "section": "apr-yaml",
-      "statement": "Restricted YAML: string keys, safe loader, forbidden constructs rejected",
-      "strength": "partial",
+      "statement": "APR-YAML is well-formed YAML with string keys, and its excluded constructs are rejected",
+      "strength": "gated",
       "gates": [
         {
           "type": "fixture",
@@ -1737,12 +1744,13 @@
           "ref": "Writer_RoundTripsAFormThroughYaml"
         }
       ],
-      "gap": "Only anchors have a vector. Tags, merge keys, non-finite numbers, binary, implicit dates and constructors are unexercised.",
       "rules": [
         "APR-REP-007",
-        "APR-REP-008",
         "APR-REP-009",
-        "APR-REP-010"
+        "APR-REP-010",
+        "APR-REP-020",
+        "APR-REP-021",
+        "APR-REP-022"
       ]
     }
   ]

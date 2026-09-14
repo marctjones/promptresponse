@@ -75,5 +75,57 @@
   "APR-SEC-010": {
     "reason": "Fetching nothing on open is renderer behaviour; a document cannot show it.",
     "coveredBy": ["renderer:opening-fetches-nothing"]
+  },
+  "APR-MODEL-003": {
+    "reason": "A rule on what an implementation does with a response, such as saving it. A document can show the mismatch stays valid, but not an implementation refusing to save.",
+    "coveredBy": ["renderer:a-hint-mismatch-does-not-block-saving"]
+  },
+  "APR-REP-002": {
+    "reason": "The suite carries a document as text, so it cannot hold an encoding, a byte-order mark or a malformed byte sequence.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+  },
+  "APR-REP-003": {
+    "reason": "The suite carries a document as text, so it cannot hold an encoding, a byte-order mark or a malformed byte sequence.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+  },
+  "APR-REP-008": {
+    "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
+    "coveredBy": ["spec:yaml-bare-word-is-a-string", "spec:yaml-leading-zero-is-a-string"]
+  },
+  "APR-REP-012": {
+    "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
+    "coveredBy": ["spec:yaml-leading-zero-is-a-string", "spec:yaml-legacy-boolean-is-a-string"]
+  },
+  "APR-REP-013": {
+    "reason": "A rule on how a reader is built. A document that would exploit an unsafe loader needs a tag, which the excluded-constructs table already refuses.",
+    "coveredBy": ["spec:yaml-tag"]
+  },
+  "APR-REP-019": {
+    "reason": "The suite carries a document as text, so it cannot hold an encoding, a byte-order mark or a malformed byte sequence.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+  },
+  "APR-REP-023": {
+    "reason": "A rule on what a writer emits, which no input document shows.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+  },
+  "APR-REP-024": {
+    "reason": "A rule on what a reader reads a null or absent response as. A document cannot show a reader reading it wrongly; the digest of the satisfying example catches it.",
+    "coveredBy": ["spec:yaml-plain-null-response-is-empty"]
+  },
+  "APR-REP-026": {
+    "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
+    "coveredBy": ["spec:yaml-quoted-null-is-a-string"]
+  },
+  "APR-REP-027": {
+    "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
+    "coveredBy": ["spec:yaml-plain-null-response-is-empty"]
+  },
+  "APR-REP-028": {
+    "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
+    "coveredBy": ["spec:yaml-boolean-and-number"]
+  },
+  "APR-REP-029": {
+    "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
+    "coveredBy": ["spec:yaml-boolean-and-number"]
   }
 }

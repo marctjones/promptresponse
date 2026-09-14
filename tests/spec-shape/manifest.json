@@ -249,14 +249,14 @@
       "issue": 488,
       "requirement": "Classes of product named by requirements but not defined in Terminology.",
       "status": "converted chapter by chapter in #473-#487",
-      "findings": 6
+      "findings": 5
     },
     {
       "id": "no-lowercase-obligations",
       "issue": 488,
       "requirement": "Lowercase obligation words in normative text.",
       "status": "converted chapter by chapter in #473-#487",
-      "findings": 24
+      "findings": 19
     },
     {
       "id": "no-history",
@@ -284,7 +284,7 @@
       "issue": 488,
       "requirement": "Executable examples without their numbered caption, and captions on no executable example.",
       "status": "converted chapter by chapter in #473-#487",
-      "findings": 35
+      "findings": 11
     }
   ]
 }

@@ -59,9 +59,9 @@ ENFORCES = {
     # every named parse code enforces APR-VAL-010 alongside the rule it is about.
     "DUPLICATE_MEMBER": ("APR-REP-006", "APR-VAL-010"),
     "YAML_ANCHOR_FORBIDDEN": ("APR-REP-010", "APR-VAL-010"),
-    "YAML_TAG_FORBIDDEN": ("APR-REP-010", "APR-VAL-010"),
-    "YAML_DIRECTIVE_FORBIDDEN": ("APR-REP-010", "APR-VAL-010"),
-    "YAML_MERGE_KEY_FORBIDDEN": ("APR-REP-010", "APR-VAL-010"),
+    "YAML_TAG_FORBIDDEN": ("APR-REP-020", "APR-VAL-010"),
+    "YAML_DIRECTIVE_FORBIDDEN": ("APR-REP-022", "APR-VAL-010"),
+    "YAML_MERGE_KEY_FORBIDDEN": ("APR-REP-021", "APR-VAL-010"),
     "YAML_NON_FINITE_NUMBER": ("APR-REP-011", "APR-VAL-010"),
     "APR_STREAM_MIXED_REPRESENTATIONS": ("APR-STREAM-001", "APR-VAL-010"),
     # Scalar resolution is enforced by resolving, not by refusing: a plain `Yes`
@@ -70,7 +70,7 @@ ENFORCES = {
     # The generic parse refusal. It is what enforces the two representation rules
     # whose violation is a decoding failure rather than a named construct, and
     # naming it is what APR-VAL-010 asks for.
-    "PARSE_ERROR": ("APR-REP-005", "APR-REP-007", "APR-VAL-010"),
+    "PARSE_ERROR": ("APR-REP-005", "APR-REP-007", "APR-REP-009", "APR-VAL-010"),
 }
 
 
