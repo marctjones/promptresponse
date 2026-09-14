@@ -53,13 +53,15 @@ model.
 
 ## 3. Diagnostics
 
-Section 7.1 names eight errors, 7.2 names fifteen advisories, 7.3 governs the
-parse stage. The rules on 7.2's rows make the spellings binding: whether to warn is your
-choice, the name is not.
+[Errors](APR_SPECIFICATION.md#structural-validation) names the validation errors,
+[Warnings](APR_SPECIFICATION.md#warnings) names the advisories, and
+[Parse errors](APR_SPECIFICATION.md#parse-errors) governs the parse stage. The rules
+on the Warnings rows make the spellings binding: whether to warn is your choice, the
+name is not.
 
 **Found:** .NET carried its own vocabulary — `TYPE_MISMATCH` for
 `RESPONSE_CONTRADICTS_TYPE`, `ROW_COUNT_OUT_OF_HINT_RANGE` for
-`TABLE_OVER_CAPACITY` — and did not report eight of the fifteen at all. Expect
+`TABLE_OVER_CAPACITY` — and did not report several advisories at all. Expect
 the same: an existing validator almost certainly has its own names.
 
 **Found:** do not derive a diagnostic from an exception message. .NET matched
