@@ -1450,6 +1450,22 @@ by the codes [Errors](#structural-validation) names.
 | `sections` | array | **REQUIRED** | [APR-MODEL-005] | At least one section ([Section](#section-object)). |
 | `roles` | array | **OPTIONAL** | [APR-MODEL-056] | [Roles](#roles) |
 
+**Example 5.1-1.** A form with no `metadata`.
+
+```apr-example
+id: form-without-metadata
+rule: root-object
+violates: APR-MODEL-055
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
 ### 5.2 Metadata {#metadata}
 
 Each row below is a requirement on `metadata`.
@@ -1870,7 +1886,7 @@ differ only by case. All three ids are distinct within their namespaces.
 ```apr-example
 id: id-namespaces
 rule: prompt-object
-satisfies: APR-MODEL-066, APR-MODEL-067, APR-MODEL-076, APR-MODEL-077, APR-MODEL-092
+satisfies: APR-MODEL-055, APR-MODEL-066, APR-MODEL-067, APR-MODEL-076, APR-MODEL-077, APR-MODEL-092
 representation: jsonc
 expect: valid
 ---

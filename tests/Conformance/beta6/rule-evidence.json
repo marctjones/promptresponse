@@ -3,9 +3,9 @@
   "rules": 222,
   "counts": {
     "enforced": 97,
-    "satisfied": 111,
-    "violated": 96,
-    "caught": 95,
+    "satisfied": 112,
+    "violated": 97,
+    "caught": 96,
     "complete": 88
   },
   "legs": {
@@ -114,7 +114,7 @@
     "APR-MODEL-051": "esvc",
     "APR-MODEL-053": "----",
     "APR-MODEL-054": "----",
-    "APR-MODEL-055": "----",
+    "APR-MODEL-055": "-svc",
     "APR-MODEL-056": "----",
     "APR-MODEL-057": "----",
     "APR-MODEL-058": "----",
