@@ -386,6 +386,14 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install conformance tooling dependencies
+        # run-conformance.py reads back what a driver writes, to check a round trip
+        # actually preserved what the case says it preserves. Now that the suite carries
+        # both representations of every case, reading that back can mean reading APR-YAML,
+        # which needs PyYAML in the harness — not in the SDK under test. Without it the
+        # harness reported a driver as failing for a package the driver never used.
+        run: pip install --disable-pip-version-check -r scripts/requirements.txt
+
       - name: Set up uv
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
 
