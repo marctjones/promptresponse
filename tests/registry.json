@@ -493,25 +493,6 @@
       ]
     },
     {
-      "id": "REQ-beta6-only",
-      "section": "retired-members",
-      "statement": "version MUST be 1.0-beta.6; retired embedded signatures are reported",
-      "strength": "gated",
-      "gates": [
-        {
-          "type": "test",
-          "ref": "Beta3EmbeddedSignatures_AreRejected"
-        },
-        {
-          "type": "test",
-          "ref": "test_beta6_rejects_retired_embedded_signatures"
-        }
-      ],
-      "rules": [
-        "APR-MODEL-022"
-      ]
-    },
-    {
       "id": "REQ-changed-form",
       "section": "changed-forms",
       "statement": "A changed form is a new subject; earlier attestations do not transfer",
@@ -1379,8 +1360,7 @@
         }
       ],
       "rules": [
-        "APR-MODEL-005",
-        "APR-MODEL-006"
+        "APR-MODEL-005"
       ]
     },
     {

@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "a09d1546-4089-57b5-a4fc-15530fd3101c",
+    "uuid": "8f878aed-41b1-508f-87f9-7b882fa1c2f6",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "621b56eda884a0987f52f1c2863050b8a007cbf83430a30537ab24f45396a346"
+          "value": "28f7d217e480067eff1c6a623c82ee99cf7dd58fbf7c5bd5a58a46670ddda6e4"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -110,7 +110,7 @@
               {
                 "id": "apr-sec-002_smt",
                 "name": "statement",
-                "prose": "`aprVersion` **MUST** be exactly `\"1.0-beta.6\"`. A record declaring any other value **MUST** be rejected with `UNSUPPORTED_VERSION`, including `1.0-beta`, `1.0-beta.3`, and any later beta."
+                "prose": "`aprVersion` **MUST** be exactly `\"1.0-beta.6\"`. A record declaring any other value **MUST** be rejected with `UNSUPPORTED_VERSION`."
               },
               {
                 "id": "apr-sec-002_gap",
@@ -157,7 +157,7 @@
               {
                 "id": "apr-sec-003_smt",
                 "name": "statement",
-                "prose": "Unknown-member preservation ([Unknown members](#extensions)) is unaffected and remains **REQUIRED**. It is what keeps additive change safe within a version."
+                "prose": "Unknown-member preservation ([Unknown members](#extensions)) is **REQUIRED**. It is what keeps additive change safe within a version."
               },
               {
                 "id": "apr-sec-003_gap",
@@ -1493,48 +1493,6 @@
             ]
           },
           {
-            "id": "apr-model-006",
-            "title": "APR-MODEL-006 — 5.1 Document",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-MODEL-006"
-              },
-              {
-                "name": "section",
-                "value": "root-object"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "MODEL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-root-members"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#root-object",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-model-006_smt",
-                "name": "statement",
-                "prose": "A form **MUST NOT** carry a `signatures` member. A reader encountering one **MUST** report `RETIRED_EMBEDDED_SIGNATURES` ([Retired members](#retired-members))."
-              }
-            ]
-          },
-          {
             "id": "apr-model-007",
             "title": "APR-MODEL-007 — 5.2 Metadata",
             "props": [
@@ -1839,7 +1797,7 @@
               {
                 "id": "apr-model-013_smt",
                 "name": "statement",
-                "prose": "A table **MUST NOT** be treated as licence for width, alignment, colour, or font data. Those member names are retired ([Retired members](#retired-members)) and are dropped on read."
+                "prose": "A table **MUST NOT** be treated as licence for width, alignment, colour, or font data."
               },
               {
                 "id": "apr-model-013_gap",
@@ -2200,48 +2158,6 @@
             ]
           },
           {
-            "id": "apr-model-022",
-            "title": "APR-MODEL-022 — 5.8.1 Retired members are the exception",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-MODEL-022"
-              },
-              {
-                "name": "section",
-                "value": "retired-members"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "MODEL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-beta6-only"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#retired-members",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-model-022_smt",
-                "name": "statement",
-                "prose": "`signatures` is reported rather than silently dropped: a reader **MUST** report `RETIRED_EMBEDDED_SIGNATURES`, because a document carrying it was making a cryptographic claim that beta.6 cannot honour, and losing that silently would be worse than refusing it."
-              }
-            ]
-          },
-          {
             "id": "apr-model-023",
             "title": "APR-MODEL-023 — 5.9 Canonical value forms",
             "props": [
@@ -2321,7 +2237,7 @@
               {
                 "id": "apr-model-024_smt",
                 "name": "statement",
-                "prose": "**Why newline and not comma for `multichoice`.** A suggested value may itself contain a comma — `Bloomfield, CT` is an ordinary option in a municipal form. Comma separation silently turns one selection into two, which is data loss. A newline cannot appear inside a single-line option, so the encoding is lossless. Readers **MUST** still accept the legacy comma form."
+                "prose": "**Why newline and not comma for `multichoice`.** A suggested value may itself contain a comma — `Bloomfield, CT` is an ordinary option in a municipal form. Comma separation silently turns one selection into two, which is data loss. A newline cannot appear inside a single-line option, so the encoding is lossless. Readers **MUST** accept the comma form."
               }
             ]
           },
@@ -5435,7 +5351,7 @@
               {
                 "id": "apr-digest-006_smt",
                 "name": "statement",
-                "prose": "`jcs-sha256` is the beta.6 semantic digest algorithm. A digest **MUST** be computed over the RFC 8785 JCS serialization of the fully parsed JSON semantic model, encoded as UTF-8, and expressed as lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`. Source syntax **MUST NOT** be hashed."
+                "prose": "`jcs-sha256` is the semantic digest algorithm. A digest **MUST** be computed over the RFC 8785 JCS serialization of the fully parsed JSON semantic model, encoded as UTF-8, and expressed as lowercase hexadecimal SHA-256 (FIPS 180-4) prefixed with `sha256:`. Source syntax **MUST NOT** be hashed."
               },
               {
                 "id": "apr-digest-006_gap",

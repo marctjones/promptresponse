@@ -339,23 +339,6 @@
       "anchors": [],
       "diagnostic": "REQUIRED_FIELD"
     },
-    "rules/apr-model-006-satisfies.apr.jsonc": {
-      "expect": "valid",
-      "rules": [
-        "APR-MODEL-006",
-        "APR-MODEL-022"
-      ],
-      "anchors": []
-    },
-    "rules/apr-model-006-violates.apr.jsonc": {
-      "expect": "reject",
-      "rules": [
-        "APR-MODEL-006",
-        "APR-MODEL-022"
-      ],
-      "anchors": [],
-      "diagnostic": "RETIRED_EMBEDDED_SIGNATURES"
-    },
     "rules/apr-model-007-satisfies.apr.jsonc": {
       "expect": "valid",
       "rules": [

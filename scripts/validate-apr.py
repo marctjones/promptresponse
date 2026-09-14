@@ -550,10 +550,6 @@ def validate_form(report: Report, form, members) -> None:
     if not isinstance(form, dict):
         report.error("WRONG_TYPE", "", "a form must be an object")
         return
-    if "signatures" in form:
-        report.error("RETIRED_EMBEDDED_SIGNATURES", "/signatures",
-                     "embedded signatures are retired; attestations are separate records",
-                     "APR-MODEL-006", "APR-MODEL-022")
 
     version_member = next((m for m in members["form"] if m.lower().endswith("version")), None)
     version = form.get(version_member) if version_member else None

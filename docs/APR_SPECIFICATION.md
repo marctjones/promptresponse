@@ -45,12 +45,6 @@ does not make it less useful — it is usually the fastest way to discover that 
 sentence here is wrong. The ordering says only which artifact gets corrected once
 the disagreement is understood.
 
-> Decision (beta.6): this inverts the earlier ordering, under which the corpus
-> outranked the schema, which outranked this prose. That ordering suited a
-> descriptive specification that documented what had been built. This document is
-> no longer descriptive: it states what APR is, and an implementation, a schema,
-> or a fixture that departs from it is wrong rather than authoritative.
-
 This document has not been ratified. Nothing in it designates APR 1.0.
 
 ### 1.1 Navigation {#navigation}
@@ -83,7 +77,7 @@ Lowercase uses carry their ordinary English meaning and impose no requirement.
 
 ### 1.3 Document conventions {#conventions}
 
-Four kinds of text appear here and are distinguished deliberately.
+Three kinds of text appear here and are distinguished deliberately.
 
 - **Normative text** states requirements, using the keywords of
   [Requirement language](#normative-language).
@@ -91,9 +85,6 @@ Four kinds of text appear here and are distinguished deliberately.
   and normative text disagree, the normative text governs.
 - **Rationale** appears in blockquotes beginning `Rationale:` and is
   non-normative. Removing every rationale block would not change the format.
-- **Decisions** appear in blockquotes beginning `Decision (beta.6):` and mark a
-  rule this document originates rather than inherits. They are normative, and
-  marked so that every such rule can be found.
 
 Each heading carries an explicit anchor, written `{#anchor-name}`.
 
@@ -134,26 +125,10 @@ the wire format declare the same format version, and that is correct. [APR-SEC-0
 #### 1.4.1 Version compatibility {#version-compatibility}
 
 `aprVersion` **MUST** be exactly `"1.0-beta.6"`. A record declaring any other
-value **MUST** be rejected with `UNSUPPORTED_VERSION`, including `1.0-beta`,
-`1.0-beta.3`, and any later beta. [APR-SEC-002]
+value **MUST** be rejected with `UNSUPPORTED_VERSION`. [APR-SEC-002]
 
-> Decision (beta.6): the member is named `aprVersion`, not `version`. A bare
-> `version` in a document that also carries `templateVersion` reads as though
-> it were the form author's own version number, which is the one thing it is
-> not. The name says whose version it is.
-
-> Decision (beta.6): version handling is **exact-match rejection**. An earlier
-> baseline decided compatibility by MAJOR.MINOR, so that a newer MINOR was read
-> with a warning and its unknown members preserved. That tolerance is withdrawn.
->
-> The reason is that beta.6 changes the meaning of an existing document rather
-> than adding to it: embedded signatures are retired, and a beta.3 document read
-> as beta.6 would silently lose its cryptographic assertions. Reading it "with a
-> warning" would be worse than refusing it. Negotiation returns when there is a
-> released version to negotiate with.
-
-Unknown-member preservation ([Unknown members](#extensions)) is unaffected and
-remains **REQUIRED**. It is what keeps additive change safe within a version. [APR-SEC-003]
+Unknown-member preservation ([Unknown members](#extensions)) is
+**REQUIRED**. It is what keeps additive change safe within a version. [APR-SEC-003]
 
 **What BETA means here:** breaking changes are intentional until the first
 public release. Implementers **SHOULD** record the corpus tag they pass, not
@@ -1142,10 +1117,6 @@ An implementation **MAY** surface a hint mismatch as an advisory warning. It
 | `sections` | array | **Yes** | **MUST** contain at least one section. [APR-MODEL-005] |
 | `roles` | array | No | [Roles](#roles) |
 
-A form **MUST NOT** carry a `signatures` member. A reader encountering one
-**MUST** report `RETIRED_EMBEDDED_SIGNATURES`
-([Retired members](#retired-members)). [APR-MODEL-006]
-
 ### 5.2 Metadata {#metadata}
 
 | Member | Type | Required | Notes |
@@ -1194,11 +1165,6 @@ not members of it. This document defines no member for them, and a workflow
 that needs to record them writes its own form and names what that form was
 about ([Related records](#regarding)), never adding them to a form somebody
 else wrote. [APR-MODEL-037]
-
-> Rationale: an earlier draft carried `filledBy` and `filledDate`. They were
-> written by the wrong party — the filler asserting facts about the
-> submission — and sat inside the object an attestation covers, so a
-> receiver's bookkeeping could not change without disturbing a signature.
 
 #### 5.2.1 Submission targets {#submission}
 
@@ -1505,8 +1471,7 @@ fallback. [APR-MODEL-012]
 > a table — it is an equally valid reading of the same claim.
 
 A table **MUST NOT** be treated as licence for width, alignment, colour, or font
-data. Those member names are retired ([Retired members](#retired-members)) and
-are dropped on read. [APR-MODEL-013]
+data. [APR-MODEL-013]
 
 #### 5.5.3 Rows and instances {#table-rows}
 
@@ -1531,12 +1496,6 @@ An "empty" table was never empty: a UI offering to add the first row is already
 presenting a row, and how that row is shown is a display decision. The instance
 also carries the table's field names, so a table without one cannot describe
 itself.
-
-> Rationale: this was stated here in plain prose for the whole of the beta, as
-> "a table always has at least one instance", with no keyword and no identifier.
-> It read as a requirement, nothing could cite it, and no test could reach it.
-> The check that reports it had to attribute itself to a rule about layout data,
-> which was simply wrong.
 
 `maxRows` is advisory. A table carrying more instances is still valid and is
 reported as a warning ([Warnings](#warnings)).
@@ -1728,31 +1687,6 @@ expect: valid
 }
 ```
 
-#### 5.8.1 Retired members are the exception {#retired-members}
-
-Members the specification has **removed** are dropped rather than preserved.
-Today those are:
-
-- the table-column presentation set — `width`, `alignment`, `color`,
-  `background`, `fontSize`, `bold`, `style`;
-- `signatures`, the embedded-signature array retired in beta.6
-  ([Attestations](#attestations)); and
-- `responseMetadata` and every member it carried, retired in beta.6 as workflow
-  state ([A computed value is a suggestion](#expr-computed)).
-
-`signatures` is reported rather than silently dropped: a reader **MUST** report
-`RETIRED_EMBEDDED_SIGNATURES`, because a document carrying it was making a
-cryptographic claim that beta.6 cannot honour, and losing that silently would be
-worse than refusing it. [APR-MODEL-022]
-
-> Rationale: retirement has to mean something. If a removed member were preserved
-> as an unknown one, a renderer could keep writing column widths forever and "APR
-> carries no presentation data" would be unenforceable. Dropping them is how the
-> removal takes effect.
-
-A name is added to the retired list only when this specification retires it. A
-member that is merely unfamiliar is preserved, not dropped.
-
 ### 5.9 Canonical value forms {#canonical-values}
 
 Any string remains a valid response. This section governs only what a renderer
@@ -1772,7 +1706,7 @@ canonical form. Neither rule ever makes a document invalid. [APR-MODEL-023]
 | `datetime` | RFC 3339 | anything |
 | `boolean` | `true` / `false` | `yes`, `y`, `1`, `on`, `x`, `checked` / `no`, `n`, `0`, `off`, `unchecked`, case-insensitive |
 | `number`, `currency` | digits with `.` as decimal separator, no grouping | anything, including symbols and words |
-| `multichoice` | selections separated by U+000A, one per line | a single line separated by comma and space, legacy |
+| `multichoice` | selections separated by U+000A, one per line | a single line separated by comma and space |
 | `select` | exactly one value, verbatim from `suggestedValues` | anything |
 
 **Why `true`/`false` and not `yes`/`no`.** `yes` is English. A format that
@@ -1783,7 +1717,7 @@ canonical boolean depend on one language.
 contain a comma — `Bloomfield, CT` is an ordinary option in a municipal form.
 Comma separation silently turns one selection into two, which is data loss. A
 newline cannot appear inside a single-line option, so the encoding is lossless.
-Readers **MUST** still accept the legacy comma form. [APR-MODEL-024]
+Readers **MUST** accept the comma form. [APR-MODEL-024]
 
 An empty string means "no selection" for every hint above.
 
@@ -1858,11 +1792,11 @@ document is a template or a filled form from that member alone. [APR-SEC-005]
 A filename extension is a **desktop affordance** — it drives icons, file
 associations, and save dialogs. It is not part of the data model.
 
-> Rationale: an earlier draft made the extension override `documentType`. That
-> rule cannot be implemented anywhere a filename does not exist: an HTTP request
+> Rationale: a rule letting the extension override `documentType` cannot be
+> implemented anywhere a filename does not exist: an HTTP request
 > body, a database column, a clipboard paste, a mobile share intent, a
-> `postMessage` between frames, a byte array in an enterprise queue. Under it a
-> browser-based reader and a desktop reader would reach *different conclusions
+> `postMessage` between frames, a byte array in an enterprise queue. Under such a
+> rule a browser-based reader and a desktop reader would reach *different conclusions
 > about identical bytes* — precisely the interoperability failure the format
 > exists to prevent. A document must mean the same thing everywhere, including
 > where it has no name.
@@ -1940,7 +1874,6 @@ validity. [APR-VAL-007]
 | `DUPLICATE_ID` | A section or prompt id repeats within its namespace. |
 | `EMPTY_SECTION` | A section has no prompts and no child sections. |
 | `EMPTY_TABLE` | A `kind: "table"` section has no child sections, so it has no instances ([Rows and instances](#table-rows)). |
-| `RETIRED_EMBEDDED_SIGNATURES` | The document carries a `signatures` member. |
 | `WRONG_TYPE` | A structural member is not the JSON type its member table declares ([Value types](#json-subset)). |
 
 This list is exhaustive, and a validator **MUST NOT** raise an error outside
@@ -2252,7 +2185,7 @@ sequence of semantic records from either member of such a pair. [APR-STREAM-002]
 
 ## 10. Semantic digests and manifests {#digests}
 
-`jcs-sha256` is the beta.6 semantic digest algorithm. A digest **MUST** be
+`jcs-sha256` is the semantic digest algorithm. A digest **MUST** be
 computed over the RFC 8785 JCS serialization of the fully parsed JSON semantic
 model, encoded as UTF-8, and expressed as lowercase hexadecimal SHA-256
 (FIPS 180-4) prefixed with `sha256:`. Source syntax **MUST NOT** be
@@ -2288,9 +2221,7 @@ missing a path explains less and proves exactly as much. A verifier that finds a
 subject differing from `root` **MUST** report the difference at the most specific
 path the manifest carries, and **MUST NOT** report a path it does not. [APR-DIGEST-005]
 
-> Rationale: an earlier draft asserted completeness in prose without requiring
-> it, so a manifest could omit half a document without breaking a rule while a
-> reader was entitled to expect otherwise. Ordering is required because two
+> Rationale: ordering is required because two
 > manifests over one form should be one manifest. Completeness is recommended
 > rather than required because a whole-document manifest over a large form runs
 > to thousands of entries, and buying diagnosis with size is the signer's call.
@@ -2345,15 +2276,6 @@ An implementation **MUST** provide the standard library and the standard macros,
 and **MUST NOT** provide any extension library or custom function. An expression
 naming a function outside that surface is an evaluation failure, and the per-hint
 fallback applies ([Results and fallback](#expr-fallback)). [APR-EXPR-013]
-
-> Decision (beta.6): the CEL strings extension is **not** required. An earlier
-> draft of this baseline required it, on the reasoning that trimming, splitting
-> and case-folding are what form authors reach for first. It was withdrawn on
-> evidence: the extension is defined by cel-go and is not carried by every CEL
-> binding — the Python one ships the standard library and macros without it — so
-> requiring it would have obliged an implementer to write the extension before
-> they could claim the profile. A surface every binding already has is worth more
-> than a convenient one only some of them do.
 
 > Rationale: without a pin, a function that did not exist when a form was written
 > is neither clearly valid nor clearly invalid, and two conforming readers may
@@ -2468,9 +2390,7 @@ replace those freely; that knowledge is the reader's own state and the document
 records nothing about it.
 
 > Rationale: a document cannot tell a stale computed value from a correction
-> someone typed, and the earlier design that tried — a `computed` marker in
-> `responseMetadata` — rested a prohibition on a member every reader was free to
-> ignore, which is not a guarantee. Treating every response already in the file as
+> someone typed. Treating every response already in the file as
 > authored needs no marker and errs toward keeping an answer, which is the one
 > thing this format exists to prevent losing. The cost is that a stale value does
 > not silently refresh across a save and reopen, and that is the correct cost: a
@@ -2509,14 +2429,11 @@ as unchecked.
 
 ### 12.1 Model {#attestation-model}
 
-Beta.6 retires the embedded `signatures` array. An APR form is ordinary form
+An APR form is ordinary form
 data; cryptographic assertions live in **independent attestation records** that
 travel in the same stream.
 
-> Rationale: an embedded signature made the document and the assertion about it
-> one object, so every reader had to understand signatures to read a form, and
-> every signature had to describe its own scope inside the thing it was signing.
-> Separating them means a reader that ignores attestations simply reads forms,
+> Rationale: keeping the assertion outside the form means a reader that ignores attestations simply reads forms,
 > and an attestation identifies its subject by content rather than by position or
 > filename — so it does not matter what order records arrive in, or whether the
 > subject is even present.
@@ -2575,9 +2492,9 @@ description, kind, and role. [APR-ATTEST-005]
 **A filler attests to the question, not only the answer.** Anything less is not
 an attestation on a form.
 
-> Rationale: an earlier scheme covered the response alone. Sign "No" to *"Have
+> Rationale: a scope covering the response alone fails like this. Sign "No" to *"Have
 > you ever been convicted of a felony?"*, let someone afterwards change the label
-> to *"Do you enjoy long walks?"*, and the signature still verified — putting a
+> to *"Do you enjoy long walks?"*, and the signature would still verify — putting a
 > person on record as having answered a question they never saw. Covering the
 > question, its type, and its offered options is what closes that.
 
@@ -2610,17 +2527,15 @@ assertion about its original subject and is never transferred to another. [APR-A
 `proofs` are assertions over the JCS serialization of the attestation envelope
 after omitting `proofs` themselves.
 
-Beta.6 defines one proof type, `cms/ecdsa-p256-sha256`: ECDSA over the P-256
+This specification defines one proof type, `cms/ecdsa-p256-sha256`: ECDSA over the P-256
 curve with SHA-256 (FIPS 186-5), carried as CMS SignedData (RFC 5652), encoded as
 base64 (RFC 4648), with the X.509 certificate chain (RFC 5280) included.
 
 A proof **MUST NOT** invent a second copy of the subject digest or scope. [APR-ATTEST-007]
 
 > Rationale: two copies of one fact is a correctness bug everywhere in this
-> format, and here it was a security hole. An earlier scheme stored the
-> submission URL a second time on the signature object and verified against
-> *that* copy, so redirecting the document's real URL left the signature
-> reporting valid.
+> format, and here it is a security hole: a verifier that checks a second copy
+> reports a signature valid after the real value has changed.
 
 A verifier that does not recognize a proof type **MUST** report it as
 **unverifiable**, never as invalid, and **MUST** preserve it. "I cannot check
@@ -2805,10 +2720,10 @@ the same number, and a number here would be wrong for one of them. What is not
 optional is that a limit exists and that reaching it is a clean refusal rather
 than a crash.
 
-> Decision (beta.6): concrete limits above the 16-level nesting floor are
-> **implementation-defined**. No numeric ceiling is specified because no test
-> enforces one, and a limit that nothing verifies is a limit implementations will
-> disagree about.
+Concrete limits above the 16-level nesting floor are
+**implementation-defined**. No numeric ceiling is specified because no test
+enforces one, and a limit that nothing verifies is a limit implementations will
+disagree about.
 
 **Deceptive text.** A filler's response is preserved and rendered defensively
 instead of silently cleaned. Author-supplied members a machine acts on — above
@@ -2843,7 +2758,6 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Reject a structural member given in the wrong JSON type; `canAddRows` is a boolean, `maxRows` an integer
 - [ ] Read a null or absent response as the empty string; never write null
 - [ ] Reject any `aprVersion` other than `1.0-beta.6`
-- [ ] Report `RETIRED_EMBEDDED_SIGNATURES` for a `signatures` member
 - [ ] Treat `documentType` as authoritative; never infer type from a filename
 - [ ] Label APR content with its `vnd.apr` media type; never infer behaviour from a generic one
 - [ ] Require `metadata.title`, section `id` and `title`, prompt `id` and `label`
@@ -2856,7 +2770,6 @@ An implementation claiming **APR 1.0-beta.6 core** MUST:
 - [ ] Support at least 16 levels of section nesting
 - [ ] Ignore unknown members without rejecting them, and preserve them on write
 - [ ] Name every extension member with an owned reverse-DNS prefix; add no unprefixed member
-- [ ] Drop retired members rather than preserving them
 - [ ] Degrade an unrecognized `expectedDataType` to text
 - [ ] Treat `signature` and `file` as unregistered types; never present a signature widget as evidence
 - [ ] **Never reject, alter, or block a response because of a hint**
@@ -2922,16 +2835,7 @@ An honest list of what this baseline does not settle.
 
 ---
 
-## 17. Change history {#history}
-
-| Format version | Change |
-| --- | --- |
-| `1.0-beta.6` | Retired embedded `signatures` and `apr-sig-v3` in favour of independent attestation records. Added the APR-JSONC and APR-YAML representations, representation-neutral record streams, `jcs-sha256` semantic digests, integrity manifests, and the verification vocabulary. Replaced MAJOR.MINOR compatibility with exact-match version rejection. Structural members now use native JSON types; only responses are always strings. Removed the `signature` and `file` data types: signing is an attestation, and attachments have no representation. Reserved unprefixed member names to the specification; extension members carry a reverse-DNS prefix. Defined the `vnd.apr` media type family. Defined submission as a pre-signed HTTPS PUT or a mailto attachment, and nothing else. `templateId` is a URI. Removed `filledBy`, `filledDate` and `responseMetadata` entirely as workflow state: `inferredDataType` and `lastModified` went first, and `source` followed once recomputation was restated to protect every response already in the file rather than only an unmarked one. Human-facing text is held to UTS #39 by reference. Defined content-derived generated ids for repair. Renamed the format-version member from `version` to `aprVersion` on both record kinds. Added `metadata.regarding`, so a workflow step is an ordinary form naming the records it was completed against. Made a table's first instance required rather than merely described, adding `EMPTY_TABLE`. Gave identifiers to four obligations that had none, and split five rules that bundled obligations failing independently. Made manifest ordering and completeness normative, stated that a proof may carry a claimed signing time, and stated precisely what a `fields` scope protects. |
-| `1.0-beta` | Made `documentType` authoritative over the filename extension. Replaced the table layout model with a structural table claim, removing column records and width data. Adopted CEL for expressions. Added roles, the bounds family, and normative text handling. Set the 16-level nesting floor. Removed localization, attachments, response identifiers, submission history, and the structured publisher and version objects. |
-
----
-
-## 18. Normative references {#normative-references}
+## 17. Normative references {#normative-references}
 
 Compliance with this specification requires the editions below.
 
@@ -2967,7 +2871,7 @@ Compliance with this specification requires the editions below.
 
 The CEL entry is normative for the `core+expressions` profile only.
 
-## 19. Informative references {#informative-references}
+## 18. Informative references {#informative-references}
 
 | Designation | Title |
 | --- | --- |
@@ -2978,7 +2882,7 @@ The CEL entry is normative for the `core+expressions` profile only.
 
 ---
 
-## 20. Appendix A: Minimal valid document {#appendix-minimal}
+## 19. Appendix A: Minimal valid document {#appendix-minimal}
 
 **Example 8.** The smallest conformant APR form.
 
@@ -2999,7 +2903,7 @@ The CEL entry is normative for the `core+expressions` profile only.
 }
 ```
 
-## 21. Appendix B: The rule to remember {#appendix-rule}
+## 20. Appendix B: The rule to remember {#appendix-rule}
 
 If you implement nothing else correctly, implement this:
 
@@ -3007,16 +2911,11 @@ If you implement nothing else correctly, implement this:
 
 Everything else in APR is structure. That rule is the point.
 
-## 22. Appendix C: Provenance of this text {#provenance}
+## 21. Appendix C: Provenance of this text {#provenance}
 
 Non-normative.
 
 This document is written from APR's design record, not from any implementation.
-It merges the beta.3 specification, which supplies the core form profile, with
-the beta.6 design decisions, which supply the changes made deliberately since.
-The schema and conformance corpus scope which features this baseline carries: a
-feature an earlier text described and beta.6 dropped is not revived here by being
-written down again.
 
 **Implementations are not a source.** Where a shipped implementation and this
 document disagree, the implementation has a defect to fix.
@@ -3025,7 +2924,7 @@ document disagree, the implementation has a defect to fix.
 > produces a document that ratifies accidents and cannot be used to judge whether
 > the code is right.
 
-## 23. Appendix D: Corpus gaps {#corpus-gaps}
+## 22. Appendix D: Corpus gaps {#corpus-gaps}
 
 Non-normative.
 
@@ -3046,7 +2945,7 @@ Still without a vector:
 
 ---
 
-## 24. Appendix E: What earns a primitive {#primitives}
+## 23. Appendix E: What earns a primitive {#primitives}
 
 Non-normative.
 

@@ -83,7 +83,6 @@ surfaces first.
 - [ ] Could an implementer build a conforming reader from this text alone, without reading the code?
 - [ ] Does any section contradict another? Pay particular attention to rules stated in two places
 - [ ] Is anything stated twice? Two copies of one fact will eventually disagree
-- [ ] Does every `Decision (beta.6):` block still reflect a decision someone made deliberately, rather than one inherited by accident?
 - [ ] Are the open questions honest — is anything listed as settled that is not, or as open that now is?
 
 The opt-in local review (`scripts/run-spec-semantic-review.py`) assists here. It
