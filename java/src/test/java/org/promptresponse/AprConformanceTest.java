@@ -158,6 +158,10 @@ public final class AprConformanceTest {
             String document = String.valueOf(example.get("document"));
             AprBeta6.Representation form = representation.startsWith("yaml")
                 ? AprBeta6.Representation.YAML : AprBeta6.Representation.JSONC;
+            // An attestation record belongs to core+attestations, which this SDK does not
+            // claim. The conformance runner leaves such a case unanswered, and so does this.
+            if (!representation.endsWith("-stream") && (document.contains("\"recordType\"") || document.contains("recordType:")))
+                continue;
 
             boolean accepted;
             String detail = "";

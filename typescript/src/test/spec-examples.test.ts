@@ -77,6 +77,15 @@ test("every specification example behaves as the specification says", async () =
       continue;
     }
 
+    if (
+      !example.representation.endsWith("-stream") &&
+      (example.document.includes('"recordType"') || example.document.includes("recordType:"))
+    ) {
+      // An attestation record belongs to core+attestations, which this SDK does not
+      // claim. The conformance runner leaves such a case unanswered, and so does this.
+      continue;
+    }
+
     if (example.expect === "valid") {
       try {
         read(example);

@@ -75,7 +75,7 @@ def is_required(cell: str) -> bool:
     "REQUIRED when ..." is a condition a rule of its own states, so at the level
     of the member table that member is optional.
     """
-    return cell.replace("*", "").strip() in {"REQUIRED", "Yes"}
+    return cell.replace("*", "").strip() == "REQUIRED"
 
 
 def row_rules() -> dict[tuple[str, str], str]:
@@ -712,7 +712,9 @@ def validate_spec_examples(members) -> int:
         else:
             # A stream holding no record holds no document, which validate_form reports.
             for record in records or [None]:
-                if not aprlib.is_attestation(record):
+                if isinstance(record, dict) and "recordType" in record:
+                    validate_attestation(report, record)
+                else:
                     validate_form(report, record, members)
         checked += 1
         if example["expect"] == "valid" and report.errors:

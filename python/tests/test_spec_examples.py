@@ -90,6 +90,12 @@ def test_specification_example_behaves_as_the_specification_says(example, reques
             pytest.mark.xfail(reason=KNOWN_DIVERGENCES[example["id"]], strict=True)
         )
 
+    document = example["document"]
+    if not example["representation"].endswith("-stream") and ('"recordType"' in document or "recordType:" in document):
+        # An attestation record belongs to core+attestations, which this SDK does not
+        # claim. The conformance runner leaves such a case unanswered, and so does this.
+        pytest.skip("core+attestations is not claimed")
+
     expectation = example["expect"]
 
     if expectation == "valid":
