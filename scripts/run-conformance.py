@@ -350,7 +350,8 @@ def oscal(suite: dict, response: dict, rows: list[dict], path: pathlib.Path) -> 
 
 # Fields that state the answer. A driver receiving them could score a perfect run
 # by echoing what it was told, and nothing here would notice.
-ANSWERS = ("expect", "digest", "expects", "warns", "diagnostic", "preserves", "acceptance")
+ANSWERS = ("expect", "digest", "expects", "warns", "diagnostic", "preserves", "acceptance",
+           "satisfies", "violates")
 
 
 def blind(suite: dict) -> dict:
