@@ -38,6 +38,28 @@ public class AprJsonSerializer : IAprSerializer
         }
     }
 
+    /// <summary>Is this a form object missing <c>metadata</c> or <c>sections</c>?</summary>
+    /// <remarks>
+    /// Both are required members ([Document](#root-object)), and a validator reports a
+    /// missing one as REQUIRED_FIELD. The required-member check fires during
+    /// deserialization, so without this the reader reported a well-formed form as a
+    /// parse failure.
+    /// </remarks>
+    private static bool AbsentRequiredMember(string content)
+    {
+        try
+        {
+            using var probe = JsonDocument.Parse(content);
+            return probe.RootElement.ValueKind == JsonValueKind.Object
+                && (!probe.RootElement.TryGetProperty("metadata", out _)
+                    || !probe.RootElement.TryGetProperty("sections", out _));
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="AprJsonSerializer"/> class.
     /// </summary>
@@ -108,12 +130,20 @@ public class AprJsonSerializer : IAprSerializer
             // cause. Say the cause: this is the commonest thing a pre-beta.6 document
             // does, and "Invalid JSON format" sends the reader looking for a syntax error
             // in a file whose syntax is fine.
-            throw new SerializationException(
-                RetiredVersionMember(content)
-                    ? $"This document declares the retired `version` member. APR "
-                      + $"{AprFormat.CurrentVersion} names it `aprVersion`, and a reader "
-                      + "accepts no other spelling."
-                    : "Invalid JSON format", ex);
+            if (RetiredVersionMember(content))
+            {
+                throw new SerializationException(
+                    $"This document declares the retired `version` member. APR "
+                    + $"{AprFormat.CurrentVersion} names it `aprVersion`, and a reader "
+                    + "accepts no other spelling.", ex);
+            }
+            if (AbsentRequiredMember(content))
+            {
+                throw new SerializationException(
+                    "A form requires `metadata` and `sections`.", ex)
+                { Code = "REQUIRED_FIELD" };
+            }
+            throw new SerializationException("Invalid JSON format", ex);
         }
         catch (OperationCanceledException)
         {
