@@ -233,6 +233,9 @@ jobs:
         # and fails if the committed file differs, so prose and evidence cannot drift.
         run: python3 scripts/extract-spec-examples.py
 
+      - name: Test the example extractor on every header key and malformed headers
+        run: python3 scripts/extract-spec-examples.py --self-test
+
       - name: Verify release-status documentation agrees with the repository
         run: python3 scripts/check-docs.py
 
