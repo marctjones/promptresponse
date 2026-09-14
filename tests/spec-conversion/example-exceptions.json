@@ -1,5 +1,73 @@
 {
   "$comment": "Rules no in-spec example can show, because the rule is about what a renderer does rather than what a document is. Each names the test that covers it instead. Read by scripts/check-example-coverage.py.",
+  "APR-ATTEST-004": {
+    "reason": "A permission, which nothing can violate.",
+    "coveredBy": ["spec:attestation-extension-member"]
+  },
+  "APR-ATTEST-008": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+  },
+  "APR-ATTEST-009": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py"]
+  },
+  "APR-ATTEST-014": {
+    "reason": "A permission, which nothing can violate.",
+    "coveredBy": ["tests/Conformance/beta6/attestations/permit.cms.attestation.jsonc"]
+  },
+  "APR-ATTEST-031": {
+    "reason": "A rule on what an implementation preserves across a round trip; no document can make a writer drop a member.",
+    "coveredBy": ["spec:attestation-extension-member"]
+  },
+  "APR-ATTEST-035": {
+    "reason": "A rule on how a proof is computed and checked; no document can make an implementation sign or verify other bytes.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs", "python/tests/test_beta6.py"]
+  },
+  "APR-ATTEST-036": {
+    "reason": "A rule on how a proof is computed and checked; no document can make an implementation sign or verify other bytes.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs", "python/tests/test_beta6.py"]
+  },
+  "APR-ATTEST-037": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+  },
+  "APR-ATTEST-038": {
+    "reason": "A rule on what an implementation preserves across a round trip; no document can make a writer drop a member.",
+    "coveredBy": ["spec:attestation-unknown-proof-preserved", "tests/Conformance/beta6/rules/apr-attest-038-roundtrip.apr.jsonc"]
+  },
+  "APR-ATTEST-044": {
+    "reason": "A rule on what a reader accepts; no document can make a reader refuse a stream it has to accept.",
+    "coveredBy": ["spec:attestations-several-of-one-form"]
+  },
+  "APR-ATTEST-045": {
+    "reason": "A rule on what a reader accepts; no document can make a reader refuse a stream it has to accept.",
+    "coveredBy": ["spec:attestation-before-subject"]
+  },
+  "APR-ATTEST-046": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+  },
+  "APR-ATTEST-047": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+  },
+  "APR-ATTEST-048": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py"]
+  },
+  "APR-ATTEST-049": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"]
+  },
+  "APR-ATTEST-050": {
+    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "coveredBy": ["python/tests/test_beta6.py"]
+  },
+  "APR-ATTEST-053": {
+    "reason": "A rule on what a validator leaves out of its errors; no document can make a validator report attestation state.",
+    "coveredBy": ["spec:attestation-state-no-error"]
+  },
   "APR-CONF-001": {
     "reason": "What a reader reports for a stream depends on the profiles it claims, so no one document example can state the outcome.",
     "coveredBy": ["python/tests/test_beta6.py", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]

@@ -516,17 +516,17 @@
       "anchors": [],
       "diagnostic": "WRONG_TYPE"
     },
-    "rules/apr-attest-004-satisfies.apr.jsonc": {
+    "rules/apr-attest-021-satisfies.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-ATTEST-004"
+        "APR-ATTEST-021"
       ],
       "anchors": []
     },
-    "rules/apr-attest-004-violates.apr.jsonc": {
+    "rules/apr-attest-021-violates.apr.jsonc": {
       "expect": "reject",
       "rules": [
-        "APR-ATTEST-004"
+        "APR-ATTEST-021"
       ],
       "anchors": [],
       "diagnostic": "WRONG_TYPE"
@@ -1214,10 +1214,10 @@
         "/sections/0/prompts/0/hints/suggestedValues"
       ]
     },
-    "rules/apr-attest-008-roundtrip.apr.jsonc": {
+    "rules/apr-attest-038-roundtrip.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-ATTEST-008"
+        "APR-ATTEST-038"
       ],
       "anchors": [],
       "roundTrip": true,

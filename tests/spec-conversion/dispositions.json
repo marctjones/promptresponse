@@ -6994,7 +6994,7 @@
       "disposition": "table-row",
       "status": "applied",
       "replacedBy": [
-        "structural-validation/table-row/451ba9ec01"
+        "structural-validation/table-row/892b3a0417"
       ],
       "note": "gains an absent metadata or sections, and a role entry without id",
       "issue": 480
@@ -7055,7 +7055,7 @@
       "disposition": "table-row",
       "status": "applied",
       "replacedBy": [
-        "structural-validation/table-row/1b832e18b9"
+        "structural-validation/table-row/57b88785d3"
       ],
       "issue": 480
     },
@@ -9655,15 +9655,21 @@
       "kind": "heading",
       "text": "12. Profile: attestations",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestations/sentence/34c31a0834": {
       "anchor": "attestations",
       "chapter": 12,
       "kind": "sentence",
       "text": "**OPTIONAL.**",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestations/sentence/34c31a0834"
+      ],
+      "note": "a profile marker; APR-CONF-008 states that the profile is optional to claim"
     },
     "attestations/sentence/31a6f93506": {
       "anchor": "attestations",
@@ -9671,7 +9677,8 @@
       "kind": "sentence",
       "text": "Core implementations preserve attestation records and report them as unchecked.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-model/heading/345fb123b9": {
       "anchor": "attestation-model",
@@ -9679,7 +9686,8 @@
       "kind": "heading",
       "text": "12.1 Model",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-model/sentence/7eb97aaf4a": {
       "anchor": "attestation-model",
@@ -9687,7 +9695,8 @@
       "kind": "sentence",
       "text": "An APR form is ordinary form data; cryptographic assertions live in **independent attestation records** that travel in the same stream.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-model/rationale/1bada3770f": {
       "anchor": "attestation-model",
@@ -9695,7 +9704,8 @@
       "kind": "rationale",
       "text": "Rationale: keeping the assertion outside the form means a reader that ignores attestations simply reads forms, and an attestation identifies its subject by content rather than by position or filename — so it does not matter what order records arrive in, or whether the subject is even present.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-model/sentence/46bb1cd1ae": {
       "anchor": "attestation-model",
@@ -9703,7 +9713,8 @@
       "kind": "sentence",
       "text": "Verification is a pure computation over bytes already in hand: **a form carrying attestations is exactly as safe to open as one without.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-model/sentence/0ddb768820": {
       "anchor": "attestation-model",
@@ -9711,7 +9722,8 @@
       "kind": "sentence",
       "text": "APR never executes anything.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-catalogue/heading/b7e9e5ac81": {
       "anchor": "attestation-catalogue",
@@ -9719,31 +9731,101 @@
       "kind": "heading",
       "text": "12.2 Attestation record",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/heading/b7e9e5ac81",
+        "attestation-catalogue/example/898c8cc941",
+        "attestation-catalogue/sentence/cf2a682bcb",
+        "attestation-catalogue/sentence/51a5472794",
+        "attestation-catalogue/example/dbc27b97b7",
+        "attestation-catalogue/sentence/54c309897e",
+        "attestation-catalogue/sentence/9ed8b921ea",
+        "attestation-catalogue/example/f0600f7450",
+        "attestation-catalogue/sentence/61a9e40304",
+        "attestation-catalogue/sentence/96b0c8817f",
+        "attestation-catalogue/example/0a028241ad",
+        "attestation-catalogue/sentence/641ef6fa4c",
+        "attestation-catalogue/sentence/a391fd9035",
+        "attestation-catalogue/example/5e660c0af4",
+        "attestation-catalogue/sentence/f617b96241",
+        "attestation-catalogue/sentence/10a171ec65",
+        "attestation-catalogue/example/66bcef49cf",
+        "attestation-catalogue/sentence/9f1263dc89",
+        "attestation-catalogue/sentence/482b6139b3",
+        "attestation-catalogue/example/60a8282e09",
+        "attestation-catalogue/sentence/d4619c8323",
+        "attestation-catalogue/sentence/b4feb10ded",
+        "attestation-catalogue/example/d82a0631a8",
+        "attestation-catalogue/sentence/14e0cf3028",
+        "attestation-catalogue/sentence/eac90aeda8",
+        "attestation-catalogue/example/c6a19756ee",
+        "attestation-catalogue/sentence/dd5cc4a1b5",
+        "attestation-catalogue/sentence/6a0eaf308a",
+        "attestation-catalogue/example/036d81e829",
+        "attestation-catalogue/sentence/2e4a27d872",
+        "attestation-catalogue/sentence/7a258c2da7",
+        "attestation-catalogue/example/58d91174f5",
+        "attestation-catalogue/sentence/bc7f548f2d",
+        "attestation-catalogue/sentence/7e004eecb5",
+        "attestation-catalogue/example/01f94ac078",
+        "attestation-catalogue/sentence/c9211ed870",
+        "attestation-catalogue/sentence/30127e6fdd",
+        "attestation-catalogue/example/ad60a84645",
+        "attestation-catalogue/sentence/c5043d6348",
+        "attestation-catalogue/sentence/98fac809ac",
+        "attestation-catalogue/example/a182fda1b9",
+        "attestation-catalogue/sentence/bab5308a6d",
+        "attestation-catalogue/sentence/cee026a0e1",
+        "attestation-catalogue/example/3129a47ae7",
+        "attestation-catalogue/sentence/0f489cd0ce",
+        "attestation-catalogue/sentence/15653231a9"
+      ]
     },
     "attestation-catalogue/sentence/6a0adf1225": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "sentence",
       "text": "**Example 7.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/example/898c8cc941",
+        "attestation-catalogue/sentence/cf2a682bcb",
+        "attestation-catalogue/sentence/51a5472794"
+      ],
+      "note": "an executable example over a real form replaces the elided one"
     },
     "attestation-catalogue/sentence/afdf1743ea": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "sentence",
       "text": "An attestation.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/example/898c8cc941",
+        "attestation-catalogue/sentence/cf2a682bcb",
+        "attestation-catalogue/sentence/51a5472794"
+      ],
+      "note": "an executable example over a real form replaces the elided one"
     },
     "attestation-catalogue/code/c03eba1ad8": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "code",
       "text": "```jsonc\n{\n  \"recordType\": \"attestation\",\n  \"aprVersion\": \"1.0-beta.6\",\n  \"subject\": { \"digest\": \"sha256:...\", \"canonicalization\": \"jcs-sha256\" },\n  \"scope\": { \"kind\": \"document\" },\n  \"manifest\": { \"root\": \"sha256:...\", \"entries\": [] },\n  \"proofs\": [],\n  \"witnesses\": []\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/example/898c8cc941",
+        "attestation-catalogue/sentence/cf2a682bcb",
+        "attestation-catalogue/sentence/51a5472794"
+      ],
+      "note": "an executable example over a real form replaces the elided one"
     },
     "attestation-catalogue/table-header/570d83fccd": {
       "anchor": "attestation-catalogue",
@@ -9751,7 +9833,15 @@
       "kind": "table-header",
       "text": "| Member | Type | Required | Domain |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/sentence/dc507efc5e",
+        "attestation-catalogue/sentence/38ef00e4e3",
+        "attestation-catalogue/sentence/d46a8a80ec",
+        "attestation-catalogue/table-header/66a78c1006"
+      ],
+      "note": "the member table carries Requirement and Rule columns (#452)"
     },
     "attestation-catalogue/table-row/7f3301c898": {
       "anchor": "attestation-catalogue",
@@ -9759,7 +9849,12 @@
       "kind": "table-row",
       "text": "| `recordType` | string | **Yes** | **MUST** be `attestation`. [APR-ATTEST-001] |",
       "disposition": "table-row",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/5b7768e6e6"
+      ],
+      "note": "APR-ATTEST-001"
     },
     "attestation-catalogue/table-row/86bdcfadfa": {
       "anchor": "attestation-catalogue",
@@ -9767,23 +9862,38 @@
       "kind": "table-row",
       "text": "| `aprVersion` | string | **Yes** | **MUST** be `1.0-beta.6`. [APR-ATTEST-002] |",
       "disposition": "table-row",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/48ef116495"
+      ],
+      "note": "APR-ATTEST-002"
     },
     "attestation-catalogue/table-row/bdb2311258": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `subject` | object | **Yes** | `digest` and `canonicalization`, no other members. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/508fa03f56"
+      ],
+      "note": "APR-ATTEST-021"
     },
     "attestation-catalogue/table-row/2d9c9ebdb9": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `subject.digest` | string | **Yes** | `sha256:` and 64 lowercase hex characters. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/145723dfc6"
+      ],
+      "note": "APR-ATTEST-022"
     },
     "attestation-catalogue/table-row/6e3f2f181d": {
       "anchor": "attestation-catalogue",
@@ -9791,79 +9901,137 @@
       "kind": "table-row",
       "text": "| `subject.canonicalization` | string | **Yes** | **MUST** be `jcs-sha256`. [APR-ATTEST-003] |",
       "disposition": "table-row",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/ac60b3bced"
+      ],
+      "note": "APR-ATTEST-003"
     },
     "attestation-catalogue/table-row/0fc7f50aea": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `scope` | object | **Yes** | `document` or `fields` form. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/d55834f9dd"
+      ],
+      "note": "APR-ATTEST-023"
     },
     "attestation-catalogue/table-row/78c6d056e2": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `manifest` | object | **Yes** | `root` and `entries`, no other members. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/036e0d74d8"
+      ],
+      "note": "APR-ATTEST-026"
     },
     "attestation-catalogue/table-row/0d133bd5a5": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `manifest.root` | string | **Yes** | Digest of the subject form. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/8acb2fdb02"
+      ],
+      "note": "APR-ATTEST-027"
     },
     "attestation-catalogue/table-row/2a7f7e4475": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `manifest.entries` | array | **Yes** | Entries of `path` and `digest`, no other members. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/4f781b4054"
+      ],
+      "note": "APR-ATTEST-028"
     },
     "attestation-catalogue/table-row/a40551566b": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `proofs` | array | **Yes** | Entries of `type` and `value`. May be empty. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/68ba6cf833",
+        "proofs/table-row/c010fd51ae",
+        "proofs/table-row/b8139b634a"
+      ],
+      "note": "APR-ATTEST-029; a proof's members are APR-ATTEST-033 and 034"
     },
     "attestation-catalogue/table-row/108c1a0848": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `witnesses` | array | **Yes** | Unique digests of earlier envelopes. May be empty. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/54b16c4e6c",
+        "witnesses/sentence/7b153cec79"
+      ],
+      "note": "APR-ATTEST-030; not repeating a digest is APR-ATTEST-043"
     },
     "attestation-catalogue/sentence/b15afa9817": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "sentence",
       "text": "`subject`, `scope`, `manifest`, and their entries admit no additional members.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "move",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/508fa03f56",
+        "attestation-catalogue/table-row/d55834f9dd",
+        "attestation-catalogue/table-row/036e0d74d8",
+        "attestation-catalogue/table-row/4f781b4054"
+      ],
+      "note": "each closed object's row states it"
     },
     "attestation-catalogue/sentence/8e4d4f943b": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "sentence",
       "text": "An attestation record itself **MAY** carry extension members, which round-trip. [APR-ATTEST-004]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/sentence/886be489b8",
+        "attestation-catalogue/sentence/76099b55e9"
+      ],
+      "note": "the round trip is APR-ATTEST-031 (#445)"
     },
     "attestation-catalogue/sentence/ed0857bf8b": {
       "anchor": "attestation-catalogue",
       "chapter": 12,
       "kind": "sentence",
       "text": "`subject.digest` **MUST** identify the complete form semantic model, and a verifier **MUST NOT** resolve a subject by stream position, filename, or document id. [APR-ATTEST-017]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/145723dfc6",
+        "attestation-catalogue/sentence/5ef22f2d33"
+      ],
+      "note": "what the digest names is its row; a verifier resolving by it is APR-ATTEST-017"
     },
     "attestation-scope/heading/0ec559dfa7": {
       "anchor": "attestation-scope",
@@ -9871,15 +10039,27 @@
       "kind": "heading",
       "text": "12.3 Scope",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-scope/heading/0ec559dfa7",
+        "attestation-scope/example/5036c9d0a4",
+        "attestation-scope/sentence/7f497103f7",
+        "attestation-scope/sentence/6d3c05b99a"
+      ]
     },
     "attestation-scope/sentence/0a7faf219c": {
       "anchor": "attestation-scope",
       "chapter": 12,
       "kind": "sentence",
       "text": "`scope.kind` is `document` or `fields`.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "move",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-catalogue/table-row/7a0d1c5e74"
+      ],
+      "note": "APR-ATTEST-024 (#452)"
     },
     "attestation-scope/sentence/93f8ce4209": {
       "anchor": "attestation-scope",
@@ -9887,15 +10067,26 @@
       "kind": "sentence",
       "text": "`document` covers the complete form, including its extension members.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-scope/sentence/bede1a68d2"
+      ]
     },
     "attestation-scope/sentence/54311161e2": {
       "anchor": "attestation-scope",
       "chapter": 12,
       "kind": "sentence",
       "text": "A `fields` scope lists prompt ids, and the manifest **MUST** include each selected prompt, its response and hints, and every ancestor section's id, title, description, kind, and role. [APR-ATTEST-005]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-scope/sentence/bd9637bc8d",
+        "attestation-catalogue/table-row/e8d664edff",
+        "attestation-scope/sentence/bfffa91919"
+      ],
+      "note": "the fields member is APR-ATTEST-025; the manifest rule keeps APR-ATTEST-005"
     },
     "attestation-scope/sentence/7678777b7f": {
       "anchor": "attestation-scope",
@@ -9903,7 +10094,8 @@
       "kind": "sentence",
       "text": "**A filler attests to the question, not only the answer.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-scope/sentence/28c1cfb200": {
       "anchor": "attestation-scope",
@@ -9911,7 +10103,8 @@
       "kind": "sentence",
       "text": "Anything less is not an attestation on a form.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-scope/rationale/4d04f1c5ea": {
       "anchor": "attestation-scope",
@@ -9919,15 +10112,22 @@
       "kind": "rationale",
       "text": "Rationale: a scope covering the response alone fails like this. Sign \"No\" to *\"Have you ever been convicted of a felony?\"*, let someone afterwards change the label to *\"Do you enjoy long walks?\"*, and the signature would still verify — putting a person on record as having answered a question they never saw. Covering the question, its type, and its offered options is what closes that.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-scope/sentence/c7fdb0959e": {
       "anchor": "attestation-scope",
       "chapter": 12,
       "kind": "sentence",
       "text": "A fields scope is deliberately *not* the whole document: a filler attests to their part, and someone else editing an unrelated section **MUST NOT** be reported as making their attestation `invalid`. [APR-ATTEST-006]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-scope/sentence/bc696a3208",
+        "attestation-scope/sentence/dda6d1aa4d"
+      ],
+      "note": "a verifier is the subject"
     },
     "attestation-scope/sentence/8b5fcb65a4": {
       "anchor": "attestation-scope",
@@ -9935,7 +10135,8 @@
       "kind": "sentence",
       "text": "**What that protection is, exactly.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-scope/sentence/cc4547d5a7": {
       "anchor": "attestation-scope",
@@ -9943,7 +10144,8 @@
       "kind": "sentence",
       "text": "`subject.digest` names the complete form, so an edit anywhere produces a changed form, and against *that* form the attestation is `unresolved` rather than invalid ([Changed forms](#changed-forms), [Verification vocabulary](#verification)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-scope/sentence/2a63dc3cb0": {
       "anchor": "attestation-scope",
@@ -9951,7 +10153,8 @@
       "kind": "sentence",
       "text": "It stays `valid` against the form it was made over, which is why a workflow retains the original record rather than replacing it.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-scope/sentence/737eaba1bf": {
       "anchor": "attestation-scope",
@@ -9959,7 +10162,8 @@
       "kind": "sentence",
       "text": "A verifier **MUST NOT** report `invalid` merely because the form it holds is a later one. [APR-ATTEST-015]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "attestation-scope/sentence/f21abc19f7": {
       "anchor": "attestation-scope",
@@ -9967,15 +10171,25 @@
       "kind": "sentence",
       "text": "A verifier **MAY** additionally compare a `fields` manifest's entries against a changed form and report which attested paths still match.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-scope/sentence/d57d0327a0"
+      ]
     },
     "attestation-scope/sentence/72adb1e5b7": {
       "anchor": "attestation-scope",
       "chapter": 12,
       "kind": "sentence",
       "text": "That is a diagnostic and **MUST NOT** be reported as a verification result: the attestation remains an assertion about its original subject and is never transferred to another. [APR-ATTEST-016]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "attestation-scope/sentence/f0d3c78ecf",
+        "attestation-scope/sentence/e2a41f54e7"
+      ],
+      "note": "the prohibition is APR-ATTEST-032 (#445); that nothing transfers is APR-ATTEST-009"
     },
     "attestation-scope/rationale/b32e2ac9b1": {
       "anchor": "attestation-scope",
@@ -9983,7 +10197,8 @@
       "kind": "rationale",
       "text": "Rationale: the promise above is worth making and was worth stating precisely. Read loosely it suggests a fields attestation keeps verifying across edits, which nothing in the format delivers, because a digest over the whole form moves when any part of it does. What the format does deliver is that a filler is never reported as having signed something false — and, for a reader that wants it, a per-path answer to what actually changed.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "proofs/heading/ca11416e9e": {
       "anchor": "proofs",
@@ -9991,23 +10206,51 @@
       "kind": "heading",
       "text": "12.4 Proofs",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "proofs/heading/ca11416e9e",
+        "proofs/sentence/ccfd3ee6cb",
+        "proofs/sentence/62b02d5d40",
+        "proofs/table-header/66a78c1006",
+        "proofs/example/f6b953ac9d",
+        "proofs/sentence/1321935e30",
+        "proofs/sentence/990e97938b",
+        "proofs/example/3532a6bac7",
+        "proofs/sentence/c50c4c2082",
+        "proofs/sentence/335d9fc832"
+      ]
     },
     "proofs/sentence/926542560d": {
       "anchor": "proofs",
       "chapter": 12,
       "kind": "sentence",
       "text": "`proofs` are assertions over the JCS serialization of the attestation envelope after omitting `proofs` themselves.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "proofs/sentence/46146ae4ee",
+        "proofs/sentence/4443ef9d95",
+        "proofs/rationale/5aab2b26d8"
+      ],
+      "note": "the signing input is APR-ATTEST-035 and 036 (#452)"
     },
     "proofs/sentence/72f189b7ac": {
       "anchor": "proofs",
       "chapter": 12,
       "kind": "sentence",
       "text": "This specification defines one proof type, `cms/ecdsa-p256-sha256`: ECDSA over the P-256 curve with SHA-256 (FIPS 186-5), carried as CMS SignedData (RFC 5652), encoded as base64 (RFC 4648), with the X.509 certificate chain (RFC 5280) included.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "proofs/sentence/2718374cf7",
+        "proofs/sentence/647d14269d",
+        "proofs/table-header/571fcfa5b2",
+        "proofs/table-row/70d7ab2901"
+      ],
+      "note": "the proof type is APR-ATTEST-037 (#452)"
     },
     "proofs/sentence/19c3bbac76": {
       "anchor": "proofs",
@@ -10015,7 +10258,11 @@
       "kind": "sentence",
       "text": "A proof **MUST NOT** invent a second copy of the subject digest or scope. [APR-ATTEST-007]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "proofs/sentence/9dbaddccba"
+      ]
     },
     "proofs/rationale/3659461b92": {
       "anchor": "proofs",
@@ -10023,23 +10270,36 @@
       "kind": "rationale",
       "text": "Rationale: two copies of one fact is a correctness bug everywhere in this format, and here it is a security hole: a verifier that checks a second copy reports a signature valid after the real value has changed.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "proofs/sentence/7767a27bcb": {
       "anchor": "proofs",
       "chapter": 12,
       "kind": "sentence",
       "text": "A verifier that does not recognize a proof type **MUST** report it as **unverifiable**, never as invalid, and **MUST** preserve it.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "proofs/sentence/063f3ca83e",
+        "proofs/sentence/cb818242c3"
+      ],
+      "note": "preserving the proof is APR-ATTEST-038 (#445)"
     },
     "proofs/sentence/8a4c9ba73f": {
       "anchor": "proofs",
       "chapter": 12,
       "kind": "sentence",
       "text": "\"I cannot check this\" and \"this is forged\" are different statements and **MUST NOT** be conflated in a user interface. [APR-ATTEST-008]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "proofs/sentence/cfa0ea714a",
+        "proofs/sentence/fa9d6755df"
+      ],
+      "note": "a renderer is the subject: APR-ATTEST-039"
     },
     "proofs/sentence/9f816a18dc": {
       "anchor": "proofs",
@@ -10047,7 +10307,12 @@
       "kind": "sentence",
       "text": "**A proof MAY carry a claimed signing time.**",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "proofs/sentence/1d0278b72f"
+      ],
+      "note": "the permission carries APR-ATTEST-014"
     },
     "proofs/sentence/fcc697f68f": {
       "anchor": "proofs",
@@ -10055,7 +10320,8 @@
       "kind": "sentence",
       "text": "In `cms/ecdsa-p256-sha256` that is the CMS signing-time signed attribute (RFC 5652), which sits inside the signature and therefore cannot be altered without breaking it.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "proofs/sentence/85c3890f64": {
       "anchor": "proofs",
@@ -10063,15 +10329,22 @@
       "kind": "sentence",
       "text": "What nothing vouches for is the clock: the value is the signer's assertion that they signed then, and no more.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "proofs/sentence/951fd06078": {
       "anchor": "proofs",
       "chapter": 12,
       "kind": "sentence",
       "text": "A reader that shows it **MUST** show it as claimed rather than proven, and **MUST NOT** derive from it that one record precedes another. [APR-ATTEST-014]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "proofs/sentence/7db1ddfdcf",
+        "proofs/sentence/857b4ca390"
+      ],
+      "note": "APR-ATTEST-040 and 041 (#445)"
     },
     "proofs/rationale/36adab67e2": {
       "anchor": "proofs",
@@ -10079,7 +10352,12 @@
       "kind": "rationale",
       "text": "Rationale: every signature format works this way, and pretending otherwise is how a plausible timestamp becomes evidence it was never entitled to be. Trusted time needs a time authority, which this baseline does not define. A claimed time is still worth carrying, because it is what the signer said.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "proofs/rationale/855f50a6c3"
+      ],
+      "note": "a time authority this specification does not define"
     },
     "witnesses/heading/120d28d34f": {
       "anchor": "witnesses",
@@ -10087,15 +10365,31 @@
       "kind": "heading",
       "text": "12.5 Witnesses",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "witnesses/heading/120d28d34f",
+        "witnesses/example/6a28ce39e7",
+        "witnesses/sentence/e44f60ea0e",
+        "witnesses/sentence/e8a46750e2",
+        "witnesses/example/85685e370c",
+        "witnesses/sentence/3a85c07f1f",
+        "witnesses/sentence/5da88f5ca6"
+      ]
     },
     "witnesses/sentence/cedfe5ed4f": {
       "anchor": "witnesses",
       "chapter": 12,
       "kind": "sentence",
       "text": "`witnesses` is an ordered, duplicate-free list of semantic digests of earlier attestation envelopes, again excluding `proofs`.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "witnesses/sentence/30857b66e8",
+        "witnesses/sentence/7b153cec79"
+      ],
+      "note": "APR-ATTEST-042 and 043 (#452); nothing defined an order, so the word is gone"
     },
     "witnesses/sentence/bf7d84255e": {
       "anchor": "witnesses",
@@ -10103,7 +10397,11 @@
       "kind": "sentence",
       "text": "It records that this attestation's signer explicitly witnessed those assertions.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "witnesses/sentence/9d19dd76f4"
+      ]
     },
     "witnesses/sentence/ff28f7bfac": {
       "anchor": "witnesses",
@@ -10111,7 +10409,8 @@
       "kind": "sentence",
       "text": "Witnessing neither authorizes a change nor proves a clock order, workflow acceptance, real-world identity, or trusted time.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "changed-forms/heading/e53531d267": {
       "anchor": "changed-forms",
@@ -10119,7 +10418,17 @@
       "kind": "heading",
       "text": "12.6 Changed forms",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "changed-forms/heading/e53531d267",
+        "changed-forms/example/dd3b183632",
+        "changed-forms/sentence/e0429bcb79",
+        "changed-forms/sentence/2b720e28ac",
+        "changed-forms/example/85979d866b",
+        "changed-forms/sentence/4378e4588b",
+        "changed-forms/sentence/534bb2381a"
+      ]
     },
     "changed-forms/sentence/707fb5b174": {
       "anchor": "changed-forms",
@@ -10127,24 +10436,36 @@
       "kind": "sentence",
       "text": "A changed form is another complete form occurrence with a different subject digest.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "changed-forms/sentence/3e2a9e8a9b": {
       "anchor": "changed-forms",
       "chapter": 12,
       "kind": "sentence",
       "text": "Earlier attestations remain assertions about their original subject and **MUST NOT** be transferred to the changed form. [APR-ATTEST-009]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "changed-forms/sentence/3bc742ecaf",
+        "changed-forms/sentence/f58bf8fb41"
+      ],
+      "note": "a verifier is the subject"
     },
     "changed-forms/sentence/e4ce1e77ac": {
       "anchor": "changed-forms",
       "chapter": 12,
       "kind": "sentence",
       "text": "Multiple attestations may target one unchanged form, and an attestation may be encountered before its subject.",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "changed-forms/sentence/321bd41608",
+        "changed-forms/sentence/6733906c09"
+      ],
+      "note": "a reader is the subject: APR-ATTEST-044 and 045 (#452)"
     },
     "changed-forms/sentence/99734e4b75": {
       "anchor": "changed-forms",
@@ -10152,7 +10473,8 @@
       "kind": "sentence",
       "text": "**Say what happened, not only what is missing.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "changed-forms/sentence/a161d8e665": {
       "anchor": "changed-forms",
@@ -10160,7 +10482,8 @@
       "kind": "sentence",
       "text": "An attestation whose subject resolves to nothing is `unresolved` ([Verification vocabulary](#verification)), and that is the whole of what the vocabulary states.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "changed-forms/sentence/0fc1ebf64c": {
       "anchor": "changed-forms",
@@ -10168,7 +10491,8 @@
       "kind": "sentence",
       "text": "Where a verifier holds a form occurrence that is not the subject, it **SHOULD** report both facts: that the attested form is absent, and that a different form is present. [APR-ATTEST-020]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "changed-forms/rationale/019e85e89e": {
       "anchor": "changed-forms",
@@ -10176,7 +10500,8 @@
       "kind": "rationale",
       "text": "Rationale: the common cause of an unresolved attestation is not a lost file. It is that somebody opened the form, corrected a typo and saved. Reporting only that the signed document is missing is true and sends that person looking for a file that was never lost, when what they need to know is that the one in front of them is no longer the one that was signed. The result stays `unresolved`, because the assertion really does have no subject here; what this adds is the second fact beside it.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "changed-forms/rationale/adc69ba730": {
       "anchor": "changed-forms",
@@ -10184,7 +10509,8 @@
       "kind": "rationale",
       "text": "Rationale: this is how a workflow builds revision history without APR defining one. A sequence of forms with attestations that witness each other is a chain whose relationships are proved. A sequence of forms without them is just several forms, and the format declines to guess.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "verification/heading/c232f21ebe": {
       "anchor": "verification",
@@ -10192,7 +10518,8 @@
       "kind": "heading",
       "text": "12.7 Verification vocabulary",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "verification/sentence/9bda608004": {
       "anchor": "verification",
@@ -10200,7 +10527,11 @@
       "kind": "sentence",
       "text": "Verification reports these independent facts:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "verification/sentence/6f91d0d3c8"
+      ]
     },
     "verification/table-header/d5d09ca4e5": {
       "anchor": "verification",
@@ -10208,55 +10539,91 @@
       "kind": "table-header",
       "text": "| Result | Meaning |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "verification/table-header/c8f60457a0"
+      ],
+      "note": "the vocabulary carries Condition, Requirement and Rule columns"
     },
     "verification/table-row/c7aecfd9fa": {
       "anchor": "verification",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `valid` | The subject resolved, digest and manifest match, and a recognized proof verifies. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "verification/table-row/c0f407f3d7"
+      ],
+      "note": "APR-ATTEST-046"
     },
     "verification/table-row/9a7085f3a5": {
       "anchor": "verification",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `invalid` | A recognized proof fails, or a resolved subject differs from the attested digest or manifest. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "verification/table-row/f34c867683"
+      ],
+      "note": "APR-ATTEST-047"
     },
     "verification/table-row/339d6f01dd": {
       "anchor": "verification",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `unresolved` | No matching form occurrence is available. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "verification/table-row/45e783fe02"
+      ],
+      "note": "APR-ATTEST-048"
     },
     "verification/table-row/2ad5dc341e": {
       "anchor": "verification",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `unverifiable` | Required representation, extension, digest, or proof support is unavailable. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "verification/table-row/60b0a671fa"
+      ],
+      "note": "APR-ATTEST-049"
     },
     "verification/table-row/fe81317660": {
       "anchor": "verification",
       "chapter": 12,
       "kind": "table-row",
       "text": "| `witnessed` | One or more referenced envelopes resolve and match. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "verification/table-row/b27bc2ced1"
+      ],
+      "note": "APR-ATTEST-050"
     },
     "verification/sentence/4ae1606faa": {
       "anchor": "verification",
       "chapter": 12,
       "kind": "sentence",
       "text": "These are independent, and a verifier **MUST** report them independently: an attestation may be both `unverifiable` and `witnessed`, and `unresolved` **MUST NOT** be reported as a failure of the assertion. [APR-ATTEST-018]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "verification/sentence/2abce1ef05",
+        "verification/sentence/ef944c9a6c"
+      ],
+      "note": "not reporting unresolved as a failure is APR-ATTEST-051 (#445)"
     },
     "verification/sentence/4bdfe38e94": {
       "anchor": "verification",
@@ -10264,7 +10631,8 @@
       "kind": "sentence",
       "text": "**Validity is independent of trust.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "verification/sentence/71d63c0580": {
       "anchor": "verification",
@@ -10272,7 +10640,8 @@
       "kind": "sentence",
       "text": "A self-signed certificate can produce a perfectly valid proof that proves nothing about identity.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "verification/sentence/1fe2d51472": {
       "anchor": "verification",
@@ -10280,7 +10649,12 @@
       "kind": "sentence",
       "text": "Implementations **MUST** report these separately. [APR-ATTEST-010]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "verification/sentence/d57e5cf607"
+      ],
+      "note": "a verifier is the subject"
     },
     "verification/rationale/b155504cb3": {
       "anchor": "verification",
@@ -10288,7 +10662,8 @@
       "kind": "rationale",
       "text": "Rationale: collapsing content validity and certificate trust into one green checkmark teaches people to trust a checkmark that does not mean what they think.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "never-gate/heading/1bafabd89e": {
       "anchor": "never-gate",
@@ -10296,7 +10671,14 @@
       "kind": "heading",
       "text": "12.8 Attestations never gate the data",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "never-gate/heading/1bafabd89e",
+        "never-gate/example/4e4dbc5cc5",
+        "never-gate/sentence/bae9098c2f",
+        "never-gate/sentence/7fd7976d20"
+      ]
     },
     "never-gate/sentence/bd0b22288b": {
       "anchor": "never-gate",
@@ -10304,7 +10686,8 @@
       "kind": "sentence",
       "text": "**An attestation is an assertion about a document, never a permission to read it.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "never-gate/sentence/7a71fc407a": {
       "anchor": "never-gate",
@@ -10312,7 +10695,8 @@
       "kind": "sentence",
       "text": "An implementation **MUST NOT** treat the presence, absence, or state of an attestation as authorization to read, or to withhold, the data a form carries. [APR-ATTEST-019]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "never-gate/sentence/39b5dac51f": {
       "anchor": "never-gate",
@@ -10320,8 +10704,12 @@
       "kind": "sentence",
       "text": "**Attesting is never required.**",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "never-gate/sentence/4d2b820a26"
+      ],
+      "note": "reworded without a lowercase obligation"
     },
     "never-gate/sentence/c282b8b588": {
       "anchor": "never-gate",
@@ -10329,15 +10717,22 @@
       "kind": "sentence",
       "text": "A form with no attestation is a complete, ordinary, fully valid APR document.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "never-gate/sentence/1991cb6428": {
       "anchor": "never-gate",
       "chapter": 12,
       "kind": "sentence",
       "text": "An implementation **MUST NOT** require one in order to save, send, accept, or process a form, and **MUST NOT** present an unattested document as deficient. [APR-ATTEST-011]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "never-gate/sentence/73ecdbd2a3",
+        "never-gate/sentence/9a1b2a3427"
+      ],
+      "note": "a renderer presenting a form as deficient is APR-ATTEST-052 (#445)"
     },
     "never-gate/sentence/3ca6b52842": {
       "anchor": "never-gate",
@@ -10345,8 +10740,12 @@
       "kind": "sentence",
       "text": "**Acting on an attestation is never required.**",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "never-gate/sentence/e49d6589fa"
+      ],
+      "note": "reworded without a lowercase obligation"
     },
     "never-gate/sentence/24dafdbc5f": {
       "anchor": "never-gate",
@@ -10354,7 +10753,11 @@
       "kind": "sentence",
       "text": "An implementation **MUST NOT** refuse to parse, validate, render, print, export, or extract data from a document because its attestations are absent, unrecognized, expired, untrusted, or outright invalid.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "never-gate/sentence/c03a5f3480"
+      ]
     },
     "never-gate/sentence/ebec3809fc": {
       "anchor": "never-gate",
@@ -10362,7 +10765,12 @@
       "kind": "sentence",
       "text": "Attestation state **MUST NOT** appear in the validation error list. [APR-ATTEST-012]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "never-gate/sentence/a758a4faf0"
+      ],
+      "note": "a validator is the subject: APR-ATTEST-053 (#445)"
     },
     "never-gate/sentence/18ac6cd9b9": {
       "anchor": "never-gate",
@@ -10370,7 +10778,12 @@
       "kind": "sentence",
       "text": "An implementation **MAY** warn, badge, or refuse to *act* on a document by its own policy — a receiving workflow is entitled to reject an unattested permit application.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "never-gate/sentence/7a5dce465b"
+      ],
+      "note": "the rule ID moved onto the permission"
     },
     "never-gate/sentence/64cb48858d": {
       "anchor": "never-gate",
@@ -10378,7 +10791,8 @@
       "kind": "sentence",
       "text": "That is the workflow's decision.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484
     },
     "never-gate/sentence/6ae15f04e8": {
       "anchor": "never-gate",
@@ -10386,7 +10800,11 @@
       "kind": "sentence",
       "text": "It is not the file format's, and a reader that enforces it on the workflow's behalf has taken a choice away from every other consumer of the same document. [APR-ATTEST-013]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 484,
+      "replacedBy": [
+        "never-gate/sentence/f597245c78"
+      ]
     },
     "never-gate/rationale/a3ba24e973": {
       "anchor": "never-gate",
@@ -10394,8 +10812,8 @@
       "kind": "rationale",
       "text": "Rationale: the reasoning is the same one behind [Any string is a valid response](#any-string). A format that withheld data until a cryptographic condition was met would fail exactly when it is most needed: an expired certificate, a verifier that does not recognize a proof type, a proxy that re-encoded the bytes, an archived form whose signing authority no longer exists. In every one of those cases the answers a person wrote are still there, still true, and still the reason the document exists. **The data outlives the attestation, and the format must let it.**",
       "disposition": "rationale",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 484
     },
     "renderers/heading/743fd8ee30": {
       "anchor": "renderers",

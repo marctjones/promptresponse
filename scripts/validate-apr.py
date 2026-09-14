@@ -495,12 +495,11 @@ def check_section(report: Report, section, path, members, ids, roles, depth) -> 
 
 ATTESTATION_MEMBERS = {"recordType", "aprVersion", "subject", "scope", "manifest",
                        "proofs", "witnesses"}
-CLOSED = {"subject": {"digest", "canonicalization"},
-          "manifest": {"root", "entries"}}
+JSON_TYPES = {dict: "an object", list: "an array", str: "a string"}
 
 
 def validate_attestation(report: Report, record) -> None:
-    """An attestation is a record with its own rules, and they were unenforced."""
+    """An attestation record, held to the member tables of Attestation record and Proofs."""
     if record.get("recordType") != "attestation":
         report.error("WRONG_TYPE", "/recordType",
                      "recordType must be exactly 'attestation'", "APR-ATTEST-001",
@@ -513,40 +512,76 @@ def validate_attestation(report: Report, record) -> None:
         report.error("UNSUPPORTED_VERSION", "/aprVersion",
                      f"{version!r} is not exactly {FORMAT_VERSION!r}", "APR-ATTEST-002")
 
-    for name in ("subject", "scope", "manifest", "proofs", "witnesses"):
-        if name not in record:
-            report.error("REQUIRED_FIELD", f"/{name}",
-                         f"an attestation must carry {name}", "APR-ATTEST-004")
+    def member(node: dict, name: str, where: str, kind: type, rule: str):
+        """The member when present and of its row's JSON type; otherwise reported."""
+        if name not in node:
+            report.error("REQUIRED_FIELD", f"{where}/{name}", f"{name} is required", rule)
+            return None
+        if not isinstance(node[name], kind):
+            report.error("WRONG_TYPE", f"{where}/{name}", f"{name} is not {JSON_TYPES[kind]}", rule)
+            return None
+        return node[name]
 
-    # subject, scope, manifest and their entries admit no additional members.
-    for name, allowed in CLOSED.items():
-        node = record.get(name)
-        if isinstance(node, dict):
-            for extra in sorted(set(node) - allowed):
-                report.error("WRONG_TYPE", f"/{name}/{extra}",
-                             f"{name} admits no member {extra!r}", "APR-ATTEST-004")
+    def closed(node: dict, where: str, allowed: set[str], rule: str) -> None:
+        for extra in sorted(set(node) - allowed):
+            report.error("WRONG_TYPE", f"{where}/{extra}",
+                         f"{where} admits no member {extra!r}", rule)
 
-    subject = record.get("subject")
-    if isinstance(subject, dict):
-        if subject.get("canonicalization") != "jcs-sha256":
+    def digest(node: dict, name: str, where: str, rule: str) -> None:
+        if name not in node:
+            report.error("REQUIRED_FIELD", f"{where}/{name}", f"{name} is required", rule)
+        elif not (isinstance(node[name], str) and aprlib.DIGEST_PATTERN.match(node[name])):
+            report.error("WRONG_TYPE", f"{where}/{name}",
+                         "a digest is 'sha256:' and 64 lowercase hex characters",
+                         "APR-DIGEST-001", rule)
+
+    subject = member(record, "subject", "", dict, "APR-ATTEST-021")
+    if subject is not None:
+        closed(subject, "/subject", {"digest", "canonicalization"}, "APR-ATTEST-021")
+        digest(subject, "digest", "/subject", "APR-ATTEST-022")
+        if "canonicalization" not in subject:
+            report.error("REQUIRED_FIELD", "/subject/canonicalization",
+                         "canonicalization is required", "APR-ATTEST-003")
+        elif subject["canonicalization"] != "jcs-sha256":
             report.error("WRONG_TYPE", "/subject/canonicalization",
                          "canonicalization must be 'jcs-sha256'", "APR-ATTEST-003")
-        digest = subject.get("digest")
-        if not (isinstance(digest, str) and aprlib.DIGEST_PATTERN.match(digest)):
-            report.error("WRONG_TYPE", "/subject/digest",
-                         "a digest is 'sha256:' and 64 lowercase hex characters",
-                         "APR-DIGEST-001")
 
-    manifest = record.get("manifest")
-    if isinstance(manifest, dict):
-        root = manifest.get("root")
-        if not (isinstance(root, str) and aprlib.DIGEST_PATTERN.match(root)):
-            report.error("WRONG_TYPE", "/manifest/root",
-                         "a digest is 'sha256:' and 64 lowercase hex characters",
-                         "APR-DIGEST-001")
-        entries = manifest.get("entries")
-        if isinstance(entries, list):
-            paths = [e.get("path") for e in entries if isinstance(e, dict)]
+    scope = member(record, "scope", "", dict, "APR-ATTEST-023")
+    if scope is not None:
+        closed(scope, "/scope", {"kind", "fields"}, "APR-ATTEST-023")
+        kind = scope.get("kind")
+        if "kind" not in scope:
+            report.error("REQUIRED_FIELD", "/scope/kind", "kind is required", "APR-ATTEST-024")
+        elif kind not in ("document", "fields"):
+            report.error("WRONG_TYPE", "/scope/kind",
+                         "scope.kind is 'document' or 'fields'", "APR-ATTEST-024")
+        if kind == "fields":
+            fields = scope.get("fields")
+            if "fields" not in scope:
+                report.error("REQUIRED_FIELD", "/scope/fields",
+                             "a fields scope names its prompts", "APR-ATTEST-025")
+            elif not (isinstance(fields, list) and fields
+                      and all(isinstance(f, str) and f.strip() for f in fields)):
+                report.error("WRONG_TYPE", "/scope/fields",
+                             "a fields scope names one or more prompt ids, none blank",
+                             "APR-ATTEST-025")
+
+    manifest = member(record, "manifest", "", dict, "APR-ATTEST-026")
+    if manifest is not None:
+        closed(manifest, "/manifest", {"root", "entries"}, "APR-ATTEST-026")
+        digest(manifest, "root", "/manifest", "APR-ATTEST-027")
+        entries = member(manifest, "entries", "/manifest", list, "APR-ATTEST-028")
+        if entries is not None:
+            for index, entry in enumerate(entries):
+                where = f"/manifest/entries/{index}"
+                if not isinstance(entry, dict):
+                    report.error("WRONG_TYPE", where, "a manifest entry is an object",
+                                 "APR-ATTEST-028")
+                    continue
+                closed(entry, where, {"path", "digest"}, "APR-ATTEST-028")
+                member(entry, "path", where, str, "APR-DIGEST-008")
+                digest(entry, "digest", where, "APR-DIGEST-009")
+            paths = [e["path"] for e in entries if isinstance(e, dict) and isinstance(e.get("path"), str)]
             if paths != sorted(paths):
                 report.error("WRONG_TYPE", "/manifest/entries",
                              "manifest entries must be ordered by path",
@@ -560,16 +595,32 @@ def validate_attestation(report: Report, record) -> None:
                              "a manifest carrying entries must carry the root pointer",
                              "APR-DIGEST-004")
 
-    subject_digest = (record.get("subject") or {}).get("digest")
-    for index, proof in enumerate(record.get("proofs") or []):
+    proofs = member(record, "proofs", "", list, "APR-ATTEST-029")
+    for index, proof in enumerate(proofs or []):
+        where = f"/proofs/{index}"
         if not isinstance(proof, dict):
+            report.error("WRONG_TYPE", where, "a proof is an object", "APR-ATTEST-029")
             continue
-        for extra in sorted(set(proof) - {"type", "value"}):
-            report.error("WRONG_TYPE", f"/proofs/{index}/{extra}",
-                         "a proof carries a type and a value; a second copy of the "
-                         "subject digest or scope is what an earlier scheme verified "
-                         "against instead of the real one",
-                         "APR-ATTEST-007")
+        member(proof, "type", where, str, "APR-ATTEST-033")
+        member(proof, "value", where, str, "APR-ATTEST-034")
+        for copy in ("subject", "scope"):
+            if copy in proof:
+                report.error("WRONG_TYPE", f"{where}/{copy}",
+                             f"a proof carries no copy of the {copy}; a verifier checking "
+                             f"the copy would miss a change to the real one",
+                             "APR-ATTEST-007")
+
+    witnesses = member(record, "witnesses", "", list, "APR-ATTEST-030")
+    if witnesses is not None:
+        for index, witness in enumerate(witnesses):
+            if not (isinstance(witness, str) and aprlib.DIGEST_PATTERN.match(witness)):
+                report.error("WRONG_TYPE", f"/witnesses/{index}",
+                             "a witness is the digest of an earlier envelope",
+                             "APR-DIGEST-001", "APR-ATTEST-042")
+        named = [w for w in witnesses if isinstance(w, str)]
+        if len(set(named)) != len(named):
+            report.error("WRONG_TYPE", "/witnesses", "witnesses must not repeat a digest",
+                         "APR-ATTEST-043")
 
     for name in sorted(set(record) - ATTESTATION_MEMBERS):
         if "." not in name:

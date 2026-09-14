@@ -412,7 +412,7 @@
     {
       "id": "REQ-attestation-members",
       "section": "attestation-catalogue",
-      "statement": "Attestation record members, requiredness, and closed sub-objects; a subject is resolved by digest, never by position or filename",
+      "statement": "Attestation record members, their presence and domains, closed sub-objects, extension members that round-trip, and a subject resolved by digest alone",
       "strength": "partial",
       "gates": [
         {
@@ -426,6 +426,10 @@
         {
           "type": "test",
           "ref": "FieldsScope_MustCarryPromptResponseAndSectionContext"
+        },
+        {
+          "type": "fixture",
+          "ref": "rules/apr-attest-021-violates.apr.jsonc"
         }
       ],
       "rules": [
@@ -433,9 +437,23 @@
         "APR-ATTEST-002",
         "APR-ATTEST-003",
         "APR-ATTEST-004",
-        "APR-ATTEST-017"
+        "APR-ATTEST-017",
+        "APR-ATTEST-021",
+        "APR-ATTEST-022",
+        "APR-ATTEST-023",
+        "APR-ATTEST-024",
+        "APR-ATTEST-025",
+        "APR-ATTEST-026",
+        "APR-ATTEST-027",
+        "APR-ATTEST-028",
+        "APR-ATTEST-029",
+        "APR-ATTEST-030",
+        "APR-ATTEST-031"
       ],
-      "gap": "APR-ATTEST-017, that a subject is resolved by digest and never by stream position or filename, is verifier behaviour. The corpus supplies the case that would separate the two — a stream whose only form is not the attested one — but the harness scores whether a document was accepted, not how a subject was resolved."
+      "gap": "APR-ATTEST-017, that a verifier resolves a subject by digest and never by stream position or filename, is verifier behaviour, and the harness scores documents rather than how a subject was resolved (#333). A missing member is REQUIRED_FIELD by section 7.1, and the .NET reader reports several as WRONG_TYPE (#517), so the examples show absence with `scope` alone.",
+      "gapRules": [
+        "APR-ATTEST-017"
+      ]
     },
     {
       "id": "REQ-attestation-scope",
@@ -456,9 +474,10 @@
         "APR-ATTEST-005",
         "APR-ATTEST-006",
         "APR-ATTEST-015",
-        "APR-ATTEST-016"
+        "APR-ATTEST-016",
+        "APR-ATTEST-032"
       ],
-      "gap": "APR-ATTEST-005 is covered. APR-ATTEST-006, 015 and 016 are verifier behaviour: that an unrelated edit is never reported as invalid, that a later form leaves an attestation unresolved rather than invalid, and that a verifier may report per-path which attested values still match. All three are about what a verifier says, and the harness scores documents rather than verification reports."
+      "gap": "APR-ATTEST-005 has a satisfying example and corpus vector but no violating one: no validator checks what a fields manifest includes. APR-ATTEST-006, 015, 016 and 032 are about what a verifier reports, and the harness scores documents rather than verification reports (#333)."
     },
     {
       "id": "REQ-authoring-strict",
@@ -537,7 +556,7 @@
     {
       "id": "REQ-changed-form",
       "section": "changed-forms",
-      "statement": "A changed form is a new subject; earlier attestations do not transfer",
+      "statement": "A changed form is a new subject; earlier attestations do not transfer; a reader accepts several attestations of one form and an attestation before its subject",
       "strength": "partial",
       "gates": [
         {
@@ -551,9 +570,15 @@
       ],
       "rules": [
         "APR-ATTEST-009",
-        "APR-ATTEST-020"
+        "APR-ATTEST-020",
+        "APR-ATTEST-044",
+        "APR-ATTEST-045"
       ],
-      "gap": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333)."
+      "gap": "APR-ATTEST-009, that an earlier attestation is never transferred to a changed form, is verifier behaviour: the document is valid either way, and what differs is what a verifier says about it. APR-ATTEST-020, that a verifier holding a form which is not the subject says so alongside `unresolved`, is unreachable for the same reason and additionally needs the harness to score what a verifier reports (#333).",
+      "gapRules": [
+        "APR-ATTEST-009",
+        "APR-ATTEST-020"
+      ]
     },
     {
       "id": "REQ-digests-manifests",
@@ -1076,7 +1101,7 @@
       "id": "REQ-never-gate",
       "section": "never-gate",
       "statement": "Attestation state never gates parsing, validation, rendering, or extraction; an attestation never authorizes reading or withholding data",
-      "strength": "none",
+      "strength": "partial",
       "gates": [
         {
           "type": "test",
@@ -1091,9 +1116,18 @@
         "APR-ATTEST-011",
         "APR-ATTEST-012",
         "APR-ATTEST-013",
-        "APR-ATTEST-019"
+        "APR-ATTEST-019",
+        "APR-ATTEST-052",
+        "APR-ATTEST-053"
       ],
-      "gap": "Reader behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates."
+      "gap": "APR-ATTEST-053 has an example every implementation passes. The rest are reader and renderer behaviour: that a form without an attestation is ordinary, that parsing and extraction never wait on verification, and that refusing to act is a host policy rather than a format rule. A document is valid either way, so no vector distinguishes a conforming reader from one that gates.",
+      "gapRules": [
+        "APR-ATTEST-011",
+        "APR-ATTEST-012",
+        "APR-ATTEST-013",
+        "APR-ATTEST-019",
+        "APR-ATTEST-052"
+      ]
     },
     {
       "id": "REQ-submission",
@@ -1336,7 +1370,7 @@
     {
       "id": "REQ-proofs",
       "section": "proofs",
-      "statement": "Proofs cover the proof-free envelope; unsupported types are unverifiable; a claimed signing time is presented as claimed, never as proven",
+      "statement": "A proof's members and signing input, the one proof type, unrecognized types reported unverifiable and preserved, and a claimed signing time shown as claimed",
       "strength": "partial",
       "gates": [
         {
@@ -1355,11 +1389,52 @@
       "rules": [
         "APR-ATTEST-007",
         "APR-ATTEST-008",
-        "APR-ATTEST-014"
+        "APR-ATTEST-014",
+        "APR-ATTEST-033",
+        "APR-ATTEST-034",
+        "APR-ATTEST-035",
+        "APR-ATTEST-036",
+        "APR-ATTEST-037",
+        "APR-ATTEST-038",
+        "APR-ATTEST-039",
+        "APR-ATTEST-040",
+        "APR-ATTEST-041"
       ],
-      "gap": "APR-ATTEST-014, that a claimed signing time is shown as claimed rather than proven, is about how a reader labels a value. The corpus carries a CMS proof with a signing time, and nothing distinguishes an implementation that presents it honestly from one that presents it as trusted time.",
+      "gap": "APR-ATTEST-033 and 034 have no violating example because the .NET reader accepts a proof without `type` or `value` (#517). APR-ATTEST-008 and 035 to 037 are about signing and verifying, which the harness does not score (#333). APR-ATTEST-039 to 041 are about what a renderer shows and what an implementation concludes from a claimed time.",
       "gapRules": [
-        "APR-ATTEST-014"
+        "APR-ATTEST-008",
+        "APR-ATTEST-033",
+        "APR-ATTEST-034",
+        "APR-ATTEST-035",
+        "APR-ATTEST-036",
+        "APR-ATTEST-037",
+        "APR-ATTEST-039",
+        "APR-ATTEST-040",
+        "APR-ATTEST-041"
+      ]
+    },
+    {
+      "id": "REQ-witnesses",
+      "section": "witnesses",
+      "statement": "Each witness is the digest of an earlier envelope, and no witness repeats",
+      "strength": "partial",
+      "gates": [
+        {
+          "type": "fixture",
+          "ref": "streams/witnessed.apr.jsonc"
+        },
+        {
+          "type": "test",
+          "ref": "test_beta6_shared_witness_vector_resolves_exact_envelope"
+        }
+      ],
+      "rules": [
+        "APR-ATTEST-042",
+        "APR-ATTEST-043"
+      ],
+      "gap": "APR-ATTEST-043 has no violating example: the .NET reader accepts a repeated witness (#517).",
+      "gapRules": [
+        "APR-ATTEST-043"
       ]
     },
     {
@@ -1885,7 +1960,7 @@
     {
       "id": "REQ-verification-vocabulary",
       "section": "verification",
-      "statement": "valid, invalid, unresolved, unverifiable, witnessed; status never gates data; verification results are reported independently",
+      "statement": "A verifier reports valid, invalid, unresolved, unverifiable and witnessed each when its condition holds, independently, never unresolved as a failure, and validity apart from trust",
       "strength": "none",
       "gates": [
         {
@@ -1915,9 +1990,15 @@
       ],
       "rules": [
         "APR-ATTEST-010",
-        "APR-ATTEST-018"
+        "APR-ATTEST-018",
+        "APR-ATTEST-046",
+        "APR-ATTEST-047",
+        "APR-ATTEST-048",
+        "APR-ATTEST-049",
+        "APR-ATTEST-050",
+        "APR-ATTEST-051"
       ],
-      "gap": "That validity is reported independently of trust is about what a verifier says, not what a document contains. The corpus supplies a self-signed proof that is cryptographically valid and establishes no identity, but nothing checks that an implementation reports those two facts separately."
+      "gap": "Every rule here is about what a verifier reports, and the harness scores documents rather than verification reports (#333). The .NET and Python resolvers are tested for valid, invalid, unresolved, unverifiable and witnessed; nothing checks that validity and trust are reported separately."
     },
     {
       "id": "REQ-version-exact",
