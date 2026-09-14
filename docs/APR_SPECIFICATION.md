@@ -1482,6 +1482,22 @@ diagnostic: WRONG_TYPE
 A `prompt.response` **MAY** be any string, whatever its hints ask for.
 [APR-MODEL-002]
 
+An implementation **MUST** support a `prompt.response` of at least **1 MiB**
+(1,048,576 bytes) encoded as UTF-8. [APR-MODEL-127]
+
+Above that floor the limit is the implementation's, for the reason
+[Security considerations](#security) gives. A reader that applies one refuses
+the document cleanly rather than truncating the response to fit.
+
+> Rationale: "any string" is a promise no reader can keep without a number
+> attached to it. A reader is free to bound document size, and with no floor
+> stated, a reader that refused a two-kilobyte answer would be as conformant as
+> one that accepted a book — so a filler would have no way to know whether what
+> they wrote survives being saved. A megabyte is roughly 150,000 words: longer
+> than any answer a person types into a form, and small enough that a phone can
+> hold one. Above it, the ceiling is the implementation's, because the right
+> limit for a phone and for a batch importer are not the same number.
+
 The format has no opinion about whether that string is "correct".
 
 | `expectedDataType` | Response | Document validity |
@@ -5879,15 +5895,16 @@ A reader **MUST** terminate on every input. [APR-SEC-020]
 
 Evaluation cost is bounded as [Bounds](#expr-limits) states.
 
-The depth bound has a floor this document states: sixteen levels
-([Nesting depth](#nesting)). The others are deliberately the implementation's
-to choose, because the right limit for a phone and for a batch importer are not
-the same number, and a number here would be wrong for one of them.
+Two of these bounds have floors this document states: sixteen levels of
+nesting ([Nesting depth](#nesting)) and a one-mebibyte response
+([Any string is a valid response](#any-string)). The others are deliberately the
+implementation's to choose, because the right limit for a phone and for a batch
+importer are not the same number, and a number here would be wrong for one of
+them.
 
-Concrete limits above the 16-level nesting floor are
-**implementation-defined**. No numeric ceiling is specified because no test
-enforces one, and a limit that nothing verifies is a limit implementations will
-disagree about.
+Concrete limits above those two floors are **implementation-defined**. No
+numeric ceiling is specified because no test enforces one, and a limit that
+nothing verifies is a limit implementations will disagree about.
 
 **Deceptive text.** A filler's response is preserved and rendered defensively
 instead of silently cleaned. Author-supplied members a machine acts on — above
