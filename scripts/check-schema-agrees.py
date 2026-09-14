@@ -70,7 +70,9 @@ def spec_members() -> dict[str, dict[str, bool]]:
         # the member the schema declares at this level.
         if "." in name:
             continue
-        tables.setdefault(anchor, {})[name] = "yes" in required.strip().lower()
+        # "REQUIRED when ..." is a condition a rule of its own states; at the level
+        # of the member table, and of the schema's `required`, it is optional.
+        tables.setdefault(anchor, {})[name] = required.replace("*", "").strip() in {"REQUIRED", "Yes"}
     return tables
 
 

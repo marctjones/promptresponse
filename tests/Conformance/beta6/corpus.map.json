@@ -686,7 +686,7 @@
     "rules/apr-model-035-warns.apr.jsonc": {
       "expect": "valid",
       "rules": [
-        "APR-MODEL-035"
+        "APR-MODEL-091"
       ],
       "anchors": [],
       "warns": [

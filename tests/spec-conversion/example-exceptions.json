@@ -127,5 +127,125 @@
   "APR-REP-029": {
     "reason": "A rule on how a reader resolves a scalar. A document cannot show a reader resolving one wrongly; the digest of each satisfying example catches it.",
     "coveredBy": ["spec:yaml-boolean-and-number"]
+  },
+  "APR-MODEL-033": {
+    "reason": "A rule on how an implementation submits, which no document shows.",
+    "coveredBy": ["tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs"]
+  },
+  "APR-MODEL-034": {
+    "reason": "A rule on how an implementation hands a message to a mail client, which no document shows.",
+    "coveredBy": ["tests/PromptResponse.Desktop.Tests/Services/MailHandoffServiceTests.cs"]
+  },
+  "APR-MODEL-035": {
+    "reason": "A rule on what an implementation does with an entry, which no document shows.",
+    "coveredBy": ["tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs", "tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs"]
+  },
+  "APR-MODEL-045": {
+    "reason": "A rule on what a reader does with an unresolved reference. A document shows the reference is valid, but not a reader rejecting it.",
+    "coveredBy": ["spec:regarding-reference"]
+  },
+  "APR-MODEL-054": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-056": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-057": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-058": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-059": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-060": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-061": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-062": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-063": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-064": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-065": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-068": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-069": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-070": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-071": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-072": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-073": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-074": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-075": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-078": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-079": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-080": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-081": {
+    "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
+    "coveredBy": ["scripts/check-schema-agrees.py"]
+  },
+  "APR-MODEL-082": {
+    "reason": "A rule on what a reader does with a templateId, which no document shows. The core library references no HTTP client, so no read can fetch one.",
+    "coveredBy": ["tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"]
+  },
+  "APR-MODEL-087": {
+    "reason": "A rule on how an implementation reads a submission's status, which no document shows.",
+    "coveredBy": ["tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs"]
+  },
+  "APR-MODEL-092": {
+    "reason": "A permission to share an id across namespaces, which no document can violate.",
+    "coveredBy": ["spec:id-namespaces"]
   }
 }
