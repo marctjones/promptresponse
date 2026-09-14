@@ -69,34 +69,46 @@ links to remains authoritative.
 ### 1.2 Requirement language {#normative-language}
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**,
-**SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, and **OPTIONAL** are to be
-interpreted as described in BCP 14 (RFC 2119, RFC 8174) when, and only when,
-they appear in all capitals.
+**SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **NOT RECOMMENDED**, **MAY**, and
+**OPTIONAL** in this document are to be interpreted as described in BCP 14
+(RFC 2119, RFC 8174) when, and only when, they appear in all capitals, as shown
+here.
 
 Lowercase uses carry their ordinary English meaning and impose no requirement.
 
 ### 1.3 Document conventions {#conventions}
 
-Three kinds of text appear here and are distinguished deliberately.
+This document is written to the W3C QA Framework: Specification Guidelines
+([Informative references](#informative-references)). Four kinds of text appear
+here and are distinguished deliberately.
 
-- **Normative text** states requirements, using the keywords of
-  [Requirement language](#normative-language).
-- **Examples** are captioned `Example N` and are illustrative. Where an example
-  and normative text disagree, the normative text governs.
+- **Normative text** states requirements. A requirement names the class of
+  product it binds, from [Terminology](#terminology), uses one keyword of
+  [Requirement language](#normative-language), and ends with its rule
+  identifier.
+- **Normative tables** state uniform requirements, one per row, with a
+  Requirement column holding the keyword and a Rule column holding the rule
+  identifier.
+- **Examples** are numbered within their section and captioned
+  `Example 4.5.1-3` for the third example in section 4.5.1. Each is executable:
+  its header names the rules its document satisfies or violates and the outcome
+  an implementation reports, and the conformance suite is extracted from it.
+  Examples are informative. Where an example and normative text disagree, the
+  normative text governs.
 - **Rationale** appears in blockquotes beginning `Rationale:` and is
   non-normative. Removing every rationale block would not change the format.
 
 Each heading carries an explicit anchor, written `{#anchor-name}`.
 
-**Every normative clause carries a rule identifier**, written `[APR-AREA-NNN]` at
-the end of the requirement it names. A test, a coverage manifest, or a defect
-report cites the identifier rather than a section, so what is being referred to
-does not depend on where it currently sits.
+**Every requirement carries a rule identifier**, written `[APR-AREA-NNN]` at the
+end of the requirement it names. A test, a coverage manifest, or a defect report
+cites the identifier rather than a section, so what is being referred to does
+not depend on where it currently sits.
 
 Identifiers are append-only. A new rule takes the next free number in its area, a
-deleted rule's number is retired rather than reused, and moving a rule between
-sections does not renumber it. Nothing about an identifier is positional, so
-inserting a requirement cannot renumber its neighbours.
+deleted rule's number is never reused, and moving a rule between sections does
+not renumber it. Nothing about an identifier is positional, so inserting a
+requirement cannot renumber its neighbours.
 
 > Rationale: CommonMark numbers its examples and YAML numbers its grammar
 > productions, and in both the numbered thing — not the section — is the unit a
@@ -119,20 +131,56 @@ strictly apart.
 | **Specification document version** | every release | this document's header | `1.0.0-beta.6-draft` |
 | **Conformance corpus tag** | every release | `tests/Conformance/beta6/` and a git tag | `corpus/beta6` |
 
-The format version **MUST NOT** track releases. Two releases that do not change
-the wire format declare the same format version, and that is correct. [APR-SEC-001]
+The format version changes only with the wire format. Two releases that do not
+change the wire format declare the same format version.
 
 #### 1.4.1 Version compatibility {#version-compatibility}
 
-`aprVersion` **MUST** be exactly `"1.0-beta.6"`. A record declaring any other
-value **MUST** be rejected with `UNSUPPORTED_VERSION`. [APR-SEC-002]
+A reader **MUST** reject a record whose `aprVersion` is not exactly
+`"1.0-beta.6"`, reporting `UNSUPPORTED_VERSION`. [APR-SEC-002]
 
-Unknown-member preservation ([Unknown members](#extensions)) is
-**REQUIRED**. It is what keeps additive change safe within a version. [APR-SEC-003]
+**Example 1.4.1-1.** A record at this format version.
+
+```apr-example
+id: version-exact
+rule: version-compatibility
+satisfies: APR-SEC-002
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 1.4.1-2.** A record at any other format version.
+
+```apr-example
+id: version-other
+rule: version-compatibility
+violates: APR-SEC-002
+representation: jsonc
+expect: reject
+diagnostic: UNSUPPORTED_VERSION
+---
+{
+  "aprVersion": "2.0",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+Unknown members are preserved across a round trip within a version
+([Unknown members](#extensions)), which is what keeps additive change safe.
 
 **What BETA means here:** breaking changes are intentional until the first
-public release. Implementers **SHOULD** record the corpus tag they pass, not
-just the format version. [APR-SEC-004]
+public release.
 
 ---
 
@@ -2879,6 +2927,7 @@ The CEL entry is normative for the `core+expressions` profile only.
 | ECMA-404 | The JSON Data Interchange Syntax, the parallel standardization of RFC 8259 |
 | CommonMark | A strongly defined, highly compatible specification of Markdown |
 | UTR 36 | Unicode Security Considerations |
+| W3C QA SpecGL | QA Framework: Specification Guidelines, W3C Recommendation, 17 August 2005 |
 
 ---
 

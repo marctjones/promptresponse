@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "fc53555f-6d8b-58b2-a009-e70defd47d8b",
+    "uuid": "0c6ba489-d2e1-5fb8-99c2-88800823788e",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "05e8d90ec336ecc66e427f2bc1654202572b42d3ded0b39a20bca90c53a99444"
+          "value": "a8e6368d2b5ec35042da54842a702c08da6a71368545583cb0a430288872df40"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -25,53 +25,6 @@
         "id": "apr-1-about-this-document",
         "title": "1. About this document",
         "controls": [
-          {
-            "id": "apr-sec-001",
-            "title": "APR-SEC-001 — 1.4 Three version numbers",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-SEC-001"
-              },
-              {
-                "name": "section",
-                "value": "version-numbers"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "SEC"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-unknown-degrades"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#version-numbers",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-sec-001_smt",
-                "name": "statement",
-                "prose": "The format version **MUST NOT** track releases. Two releases that do not change the wire format declare the same format version, and that is correct."
-              },
-              {
-                "id": "apr-sec-001_gap",
-                "name": "assessment-gap",
-                "prose": "APR-SEC-001 says the format version must not track releases. That binds how this project versions itself; no document and no implementation can violate it."
-              }
-            ]
-          },
           {
             "id": "apr-sec-002",
             "title": "APR-SEC-002 — 1.4.1 Version compatibility",
@@ -92,7 +45,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "requirement",
@@ -110,106 +63,7 @@
               {
                 "id": "apr-sec-002_smt",
                 "name": "statement",
-                "prose": "`aprVersion` **MUST** be exactly `\"1.0-beta.6\"`. A record declaring any other value **MUST** be rejected with `UNSUPPORTED_VERSION`."
-              },
-              {
-                "id": "apr-sec-002_gap",
-                "name": "assessment-gap",
-                "prose": "APR-SEC-002 is covered. APR-SEC-003 restates unknown-member preservation, which its own rules cover, and APR-SEC-004 explains what BETA means to an implementer. Neither adds an obligation a document or an implementation could fail."
-              }
-            ]
-          },
-          {
-            "id": "apr-sec-003",
-            "title": "APR-SEC-003 — 1.4.1 Version compatibility",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-SEC-003"
-              },
-              {
-                "name": "section",
-                "value": "version-compatibility"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "SEC"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-version-exact"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#version-compatibility",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-sec-003_smt",
-                "name": "statement",
-                "prose": "Unknown-member preservation ([Unknown members](#extensions)) is **REQUIRED**. It is what keeps additive change safe within a version."
-              },
-              {
-                "id": "apr-sec-003_gap",
-                "name": "assessment-gap",
-                "prose": "APR-SEC-002 is covered. APR-SEC-003 restates unknown-member preservation, which its own rules cover, and APR-SEC-004 explains what BETA means to an implementer. Neither adds an obligation a document or an implementation could fail."
-              }
-            ]
-          },
-          {
-            "id": "apr-sec-004",
-            "title": "APR-SEC-004 — 1.4.1 Version compatibility",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-SEC-004"
-              },
-              {
-                "name": "section",
-                "value": "version-compatibility"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "SEC"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-version-exact"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#version-compatibility",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-sec-004_smt",
-                "name": "statement",
-                "prose": "**What BETA means here:** breaking changes are intentional until the first public release. Implementers **SHOULD** record the corpus tag they pass, not just the format version."
-              },
-              {
-                "id": "apr-sec-004_gap",
-                "name": "assessment-gap",
-                "prose": "APR-SEC-002 is covered. APR-SEC-003 restates unknown-member preservation, which its own rules cover, and APR-SEC-004 explains what BETA means to an implementer. Neither adds an obligation a document or an implementation could fail."
+                "prose": "A reader **MUST** reject a record whose `aprVersion` is not exactly `\"1.0-beta.6\"`, reporting `UNSUPPORTED_VERSION`."
               }
             ]
           }

@@ -263,7 +263,7 @@
       "issue": 488,
       "requirement": "Units using history vocabulary.",
       "status": "converted chapter by chapter in #473-#487",
-      "findings": 2
+      "findings": 1
     },
     {
       "id": "requirement-tables-carry-rules",
