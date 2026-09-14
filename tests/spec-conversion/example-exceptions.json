@@ -184,6 +184,14 @@
     "reason": "Not writing an export back is renderer behaviour; a document cannot show it.",
     "coveredBy": ["renderer:an-export-is-not-written-back"]
   },
+  "APR-SEC-005": {
+    "reason": "A rule on where a reader takes documentType from; the suite passes documents without a filename, so no document case can set one against the member.",
+    "coveredBy": ["tests/PromptResponse.Desktop.Tests/Services/FileServiceTests.cs"]
+  },
+  "APR-SEC-007": {
+    "reason": "A rule on a reader facing a filename that disagrees with the content; the suite passes documents without a filename.",
+    "coveredBy": ["tests/PromptResponse.Desktop.Tests/Services/FileServiceTests.cs", "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"]
+  },
   "APR-SEC-009": {
     "reason": "Executing nothing on open is renderer behaviour; a document cannot show it.",
     "coveredBy": ["renderer:nothing-in-a-document-executes"]
@@ -363,5 +371,9 @@
   "APR-MODEL-092": {
     "reason": "A permission to share an id across namespaces, which no document can violate.",
     "coveredBy": ["spec:id-namespaces"]
+  },
+  "APR-SEC-012": {
+    "reason": "A rule on the media type a writer labels content with; a document carries no media type.",
+    "coveredBy": ["tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs", "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"]
   }
 }
