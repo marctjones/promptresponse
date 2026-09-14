@@ -109,12 +109,6 @@ def test_specification_example_behaves_as_the_specification_says(example, reques
         assert rejected(example), f"{example['id']} was accepted; the specification requires rejection"
         return
 
-    if expectation == "equivalent":
-        other = next(e for e in load_examples() if e["id"] == example["equivalentTo"])
-        assert read(example) is not None
-        assert read(other) is not None
-        return
-
     pytest.fail(f"unrecognised expectation {expectation!r}")
 
 

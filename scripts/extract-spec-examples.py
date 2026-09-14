@@ -36,9 +36,8 @@ Header keys are:
                     rejected example names at least one, and a valid one only
                     alongside the warnings the violation raises
     representation  jsonc | yaml | jsonc-stream | yaml-stream
-    expect          valid | reject | equivalent
+    expect          valid | reject
     diagnostic      required when expect is reject: the reported code
-    equivalent-to   required when expect is equivalent: another example id
     warns           comma separated: warning codes a reader reports for a valid example
     round-trip      true: a writer returns the same document
     preserves       comma separated JSON Pointers that survive the round trip
@@ -71,9 +70,9 @@ POINTER = re.compile(r"^(?:/(?:[^~/]|~[01])*)+$")
 DIGEST = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 REPRESENTATIONS = {"jsonc", "yaml", "jsonc-stream", "yaml-stream"}
-OUTCOMES = {"valid", "reject", "equivalent"}
+OUTCOMES = {"valid", "reject"}
 KEYS = {"id", "rule", "satisfies", "violates", "representation", "expect", "diagnostic",
-        "equivalent-to", "warns", "round-trip", "preserves", "evaluate", "expects", "digest"}
+        "warns", "round-trip", "preserves", "evaluate", "expects", "digest"}
 
 
 def listed(value: str) -> list[str]:
@@ -148,8 +147,6 @@ def extract(text: str) -> tuple[list[dict], list[str]]:
             problems.append(f"{ident}: expect is reject but no diagnostic is named")
         if expect == "reject" and not violates:
             problems.append(f"{ident}: expect is reject but violates names no rule")
-        if expect == "equivalent" and not header.get("equivalent-to"):
-            problems.append(f"{ident}: expect is equivalent but no equivalent-to is named")
 
         warns = listed(header.get("warns", ""))
         for code in warns:
@@ -220,8 +217,6 @@ def extract(text: str) -> tuple[list[dict], list[str]]:
             example["violates"] = violates
         if header.get("diagnostic"):
             example["diagnostic"] = header["diagnostic"]
-        if header.get("equivalent-to"):
-            example["equivalentTo"] = header["equivalent-to"]
         if warns:
             example["warns"] = warns
         if round_trip == "true":
@@ -234,12 +229,6 @@ def extract(text: str) -> tuple[list[dict], list[str]]:
         if digest:
             example["digest"] = digest
         examples.append(example)
-
-    ids = {e["id"] for e in examples}
-    for e in examples:
-        target = e.get("equivalentTo")
-        if target and target not in ids:
-            problems.append(f"{e['id']}: equivalent-to names {target}, which is not an example")
 
     examples.sort(key=lambda e: e["id"])
     return examples, problems

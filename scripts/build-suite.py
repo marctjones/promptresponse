@@ -114,8 +114,6 @@ def build() -> dict:
                     "evaluate", "expects"):
             if example.get(key):
                 case[key] = example[key]
-        if example.get("equivalentTo"):
-            case["equivalentTo"] = f"spec:{example['equivalentTo']}"
         cases.append(case)
 
     for path in sorted(CORPUS.rglob("*")):
