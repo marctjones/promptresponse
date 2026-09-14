@@ -3179,7 +3179,8 @@
       "kind": "heading",
       "text": "5. Document structure",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "root-object/heading/2034d64368": {
       "anchor": "root-object",
@@ -3187,63 +3188,88 @@
       "kind": "heading",
       "text": "5.1 Document",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "root-object/sentence/29abe08555": {
       "anchor": "root-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "**Example 3.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 477
     },
     "root-object/sentence/64cbe64088": {
       "anchor": "root-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "The shape of a form.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 477
     },
     "root-object/code/00054144f6": {
       "anchor": "root-object",
       "chapter": 5,
       "kind": "code",
       "text": "```jsonc\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Permit Application\" },\n  \"sections\": [ /* ... */ ],\n  \"roles\": [ /* ... */ ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 477,
+      "note": "the sketch had an empty sections array; Example 4.4-5 shows a form's shape"
     },
     "root-object/table-header/bd072d4771": {
       "anchor": "root-object",
       "chapter": 5,
       "kind": "table-header",
       "text": "| Member | Type | Required | Notes |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "root-object/table-header/66a78c1006",
+        "root-object/sentence/ddd96dfa99",
+        "root-object/sentence/884bc6a35b",
+        "root-object/sentence/e02593a21e"
+      ],
+      "note": "Required: Yes/No becomes a Requirement column with a rule per row"
     },
     "root-object/table-row/9ca309b7b3": {
       "anchor": "root-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `aprVersion` | string | **Yes** | Exactly `\"1.0-beta.6\"` — the version of *this specification* the record is written to, never the form's own ([Version compatibility](#version-compatibility)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "root-object/table-row/dea157907e"
+      ]
     },
     "root-object/table-row/6565c336bf": {
       "anchor": "root-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `documentType` | string | No | `template` or `filledForm`. Absent means `template`. Authoritative — see [Document type](#media-types). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "root-object/table-row/9a9bc892db"
+      ]
     },
     "root-object/table-row/721ea7e307": {
       "anchor": "root-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `metadata` | object | **Yes** | [Metadata](#metadata) |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "root-object/table-row/bbddc8d828"
+      ]
     },
     "root-object/table-row/dde13fe523": {
       "anchor": "root-object",
@@ -3251,15 +3277,24 @@
       "kind": "table-row",
       "text": "| `sections` | array | **Yes** | **MUST** contain at least one section. [APR-MODEL-005] |",
       "disposition": "table-row",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "root-object/table-row/0ce74a9c4b"
+      ],
+      "note": "APR-MODEL-005 is the row's rule"
     },
     "root-object/table-row/5a6462b94b": {
       "anchor": "root-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `roles` | array | No | [Roles](#roles) |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "root-object/table-row/e3f3e51650"
+      ]
     },
     "metadata/heading/be78396f72": {
       "anchor": "metadata",
@@ -3267,143 +3302,234 @@
       "kind": "heading",
       "text": "5.2 Metadata",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "metadata/table-header/bd072d4771": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-header",
       "text": "| Member | Type | Required | Notes |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-header/66a78c1006",
+        "metadata/sentence/05304e4a5c",
+        "metadata/table-row/712ff483bc",
+        "metadata/sentence/fd5c4fe1f7",
+        "metadata/sentence/dfaf37124b",
+        "metadata/sentence/c5883f86bb",
+        "metadata/sentence/c5711076ee",
+        "metadata/sentence/28136d32e1",
+        "metadata/sentence/510b282d59",
+        "metadata/sentence/2944425bfb",
+        "metadata/sentence/3bf2a08c3e",
+        "metadata/rationale/18a48e8228",
+        "section-object/table-row/220b9cb43d",
+        "prompt-object/table-row/a3bad77055",
+        "normative-references/table-row/1b6f600e78",
+        "metadata/example/2e484b8b95",
+        "metadata/sentence/00ab820628",
+        "metadata/sentence/abbb06575d"
+      ],
+      "note": "Required: Yes/No becomes a Requirement column with a rule per row; language is added as #411 decided"
     },
     "metadata/table-row/366e56c030": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `title` | non-blank string | **Yes** | The form's name. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/aaa62596e1"
+      ]
     },
     "metadata/table-row/753723fe75": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `description` | string | No | Prose about the form as a whole. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/c3c5ed0f9f"
+      ]
     },
     "metadata/table-row/c9a7cac6a3": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `created` | date-time | No | RFC 3339. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/2343774aa4"
+      ]
     },
     "metadata/table-row/4f5d151a7a": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `modified` | date-time | No | RFC 3339. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/a14f6ce268"
+      ]
     },
     "metadata/table-row/e226f38945": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `author` | string | No | A person. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/a1fbe61c3c"
+      ]
     },
     "metadata/table-row/ee99315159": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `publisher` | string | No | The organization standing behind the form. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/a7b3280f62"
+      ]
     },
     "metadata/table-row/2135872548": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `templateId` | string | No | Required on a `filledForm`. A URI identifying the template it answers ([Template identity](#template-identity)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/8801822c17"
+      ]
     },
     "metadata/table-row/7f2baed871": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `templateVersion` | string | No | The template revision answered. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/5a2b0d744f"
+      ]
     },
     "metadata/table-row/f4cc384bf2": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `submissionUrls` | array of string | No | Ordered explicit delivery choices; `https` or `mailto` ([Submission targets](#submission)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/76a8fdfbf3"
+      ]
     },
     "metadata/table-row/c6e8a17936": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `regarding` | array of string | No | Digests of the records this form was completed with reference to ([Related records](#regarding)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/1190f0d27e"
+      ]
     },
     "metadata/sentence/cfc2f32618": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "sentence",
       "text": "`title` **MUST** contain a non-whitespace character. [APR-MODEL-007]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/aaa62596e1"
+      ],
+      "note": "APR-MODEL-007 is the title row's rule"
     },
     "metadata/sentence/ea97043b18": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "sentence",
       "text": "`submissionUrls`, when present, **MUST** be an ordered array of strings.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/76a8fdfbf3"
+      ],
+      "note": "the row's type states it"
     },
     "metadata/sentence/3abf6ccd74": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "sentence",
       "text": "Even one delivery choice is represented as a one-element array; a scalar `submissionUrl` **MUST NOT** be written, and a reader encountering one **MUST** treat it as an unknown member rather than honouring it. [APR-MODEL-052]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 477,
+      "note": "a name this document does not define is an unknown member"
     },
     "metadata/sentence/1454ff0e5c": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "sentence",
       "text": "Order is the author's preferred display order, never permission for a client to choose or fall back to a target automatically; submitting remains an explicit user action.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/sentence/762eb1c426",
+        "metadata/sentence/8032e5b2b3"
+      ]
     },
     "metadata/sentence/8893a84f0d": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "sentence",
       "text": "When `documentType` is `filledForm`, `templateId` is **REQUIRED**: a completed form that cannot name the form it completes is not traceable. [APR-MODEL-008]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/table-row/8801822c17",
+        "metadata/sentence/7df57b5859"
+      ],
+      "note": "APR-MODEL-008 is the templateId row's rule"
     },
     "metadata/sentence/75d82f70b6": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "sentence",
       "text": "**Template identity.** {#template-identity} `templateId` **MUST** be a URI (RFC 3986).",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/sentence/c10310722f",
+        "metadata/sentence/539479d28e"
+      ]
     },
     "metadata/sentence/093c2e024a": {
       "anchor": "metadata",
@@ -3411,15 +3537,24 @@
       "kind": "sentence",
       "text": "It identifies; it need not resolve.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/sentence/ed3df0fe70"
+      ]
     },
     "metadata/sentence/929d0fcde7": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "sentence",
       "text": "The **RECOMMENDED** form is a tag URI (RFC 4151), `tag:skpt.cl,2026:dog-license`, which is unique by construction — it is minted from a domain or email address the author held on a date — and needs no server.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/sentence/bfc0fbf330"
+      ],
+      "note": "it bound an author, who is not a class of product"
     },
     "metadata/sentence/cf91a3fca3": {
       "anchor": "metadata",
@@ -3427,7 +3562,11 @@
       "kind": "sentence",
       "text": "Any URI the author controls the uniqueness of is acceptable, an email address as a `mailto` URI included.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/sentence/c0c4c249b1"
+      ]
     },
     "metadata/sentence/adcd6a3d3c": {
       "anchor": "metadata",
@@ -3435,15 +3574,21 @@
       "kind": "sentence",
       "text": "A reader **MUST NOT** fetch a `templateId`. [APR-MODEL-036]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/sentence/7b0330ca87"
+      ],
+      "note": "a rule of its own, APR-MODEL-082"
     },
     "metadata/rationale/c5bc8ea9c4": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: a filled form is consumed by the template it answers, so the identifier has to be unique across every author who will ever publish a form. Relying on a URI puts that uniqueness on a namespace someone already owns rather than on a registry. `file:///example.apr` is a valid URI and a poor identifier, and the format does not stop an author choosing badly; it only gives them a good form to choose.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 477
     },
     "metadata/sentence/0415d31c6e": {
       "anchor": "metadata",
@@ -3451,7 +3596,8 @@
       "kind": "sentence",
       "text": "**Workflow state is not form data.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "metadata/sentence/18d01096ba": {
       "anchor": "metadata",
@@ -3459,15 +3605,26 @@
       "kind": "sentence",
       "text": "When a form was received, by whom, and what happened to it next are facts the *receiver* tracks against the form, not members of it.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/sentence/48ee51c0e3"
+      ]
     },
     "metadata/sentence/73129e17f9": {
       "anchor": "metadata",
       "chapter": 5,
       "kind": "sentence",
       "text": "This document defines no member for them, and a workflow that needs to record them writes its own form and names what that form was about ([Related records](#regarding)), never adding them to a form somebody else wrote. [APR-MODEL-037]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "metadata/sentence/58b812e190",
+        "metadata/sentence/39386e75ea",
+        "metadata/sentence/b176ffc06f"
+      ],
+      "note": "a writer is the subject of APR-MODEL-037"
     },
     "submission/heading/1fe75e26c3": {
       "anchor": "submission",
@@ -3475,7 +3632,8 @@
       "kind": "heading",
       "text": "5.2.1 Submission targets",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "submission/sentence/6a9238da51": {
       "anchor": "submission",
@@ -3483,7 +3641,11 @@
       "kind": "sentence",
       "text": "A `submissionUrls` entry is one of exactly two kinds, told apart by its scheme.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/c278d2d192"
+      ]
     },
     "submission/sentence/e80c9fca3c": {
       "anchor": "submission",
@@ -3491,7 +3653,12 @@
       "kind": "sentence",
       "text": "This document defines no other transport. [APR-MODEL-032]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/027e5e16fd"
+      ],
+      "note": "APR-MODEL-032 is removed: APR-MODEL-035 and -091 say what an undefined scheme means"
     },
     "submission/table-header/b3ae140475": {
       "anchor": "submission",
@@ -3499,7 +3666,8 @@
       "kind": "table-header",
       "text": "| Scheme | Meaning | Defined by |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "submission/table-row/8c6f6b0f84": {
       "anchor": "submission",
@@ -3507,7 +3675,8 @@
       "kind": "table-row",
       "text": "| `https` | A pre-signed object-store PUT target | HTTP (RFC 9110); the S3 pre-signed URL convention |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "submission/table-row/cfbe809693": {
       "anchor": "submission",
@@ -3515,7 +3684,8 @@
       "kind": "table-row",
       "text": "| `mailto` | An email address to attach the document to | RFC 6068 |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "submission/sentence/ae91234d50": {
       "anchor": "submission",
@@ -3523,15 +3693,23 @@
       "kind": "sentence",
       "text": "**`https`.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "submission/sentence/645eb83d69": {
       "anchor": "submission",
       "chapter": 5,
       "kind": "sentence",
       "text": "The entry is a URL to which the complete document is delivered by a single HTTP `PUT`, with the document as the body and the `vnd.apr` media type of its representation as `Content-Type` ([Document type](#media-types)).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/4ed0d81cd8",
+        "submission/sentence/3ccbff1a4f",
+        "submission/table-header/846cfc2998",
+        "submission/table-row/4e71da965c"
+      ]
     },
     "submission/sentence/83c3c9c97f": {
       "anchor": "submission",
@@ -3539,15 +3717,24 @@
       "kind": "sentence",
       "text": "The URL is used verbatim, query string included: this is the contract of an S3 pre-signed PUT URL, which carries its own authorisation and expiry in the query, and any receiver that accepts a plain `PUT` of a body satisfies it identically.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "submission/sentence/18ffb1fd05": {
       "anchor": "submission",
       "chapter": 5,
       "kind": "sentence",
       "text": "A client **MUST** send only the document — no credentials, cookies, or headers derived from it — **MUST** treat any status other than 2xx as failure, **MUST NOT** follow a redirect, and **MUST NOT** retry without a fresh user action. [APR-MODEL-033]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/table-row/2bcc31bac1",
+        "submission/table-row/d6c6607daa",
+        "submission/table-row/45cb06fd15",
+        "submission/table-row/edc4b1508a"
+      ],
+      "note": "four independently failable obligations, one row and rule each"
     },
     "submission/sentence/1dad98d263": {
       "anchor": "submission",
@@ -3555,7 +3742,8 @@
       "kind": "sentence",
       "text": "**`mailto`.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "submission/sentence/f3eabf8371": {
       "anchor": "submission",
@@ -3563,23 +3751,37 @@
       "kind": "sentence",
       "text": "The entry is an RFC 6068 address, with any header fields it carries such as `subject` passed through.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/722aed4df7"
+      ]
     },
     "submission/sentence/fb1abef298": {
       "anchor": "submission",
       "chapter": 5,
       "kind": "sentence",
       "text": "Submitting means composing a message to that address with the **stream** as a single attachment, never inlined in the body; a lone form is a one-record stream.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/623f77d1ee",
+        "submission/sentence/8f054fbe0c"
+      ]
     },
     "submission/sentence/56feb9e5fb": {
       "anchor": "submission",
       "chapter": 5,
       "kind": "sentence",
       "text": "A client **SHOULD** hand the composition to the user's mail client, and **MAY** instead send natively if it has that ability; either way the message leaves only on an explicit user action. [APR-MODEL-034]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/0309dad81e",
+        "submission/sentence/1001a1fb7a"
+      ]
     },
     "submission/sentence/0a8eee0bbc": {
       "anchor": "submission",
@@ -3587,7 +3789,11 @@
       "kind": "sentence",
       "text": "What the receiver holds after a `PUT` is the request body, byte for byte: the stream as the client wrote it, already a valid APR file.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/43019a8234"
+      ]
     },
     "submission/sentence/ad3e0de96f": {
       "anchor": "submission",
@@ -3595,7 +3801,12 @@
       "kind": "sentence",
       "text": "No processing on the receiving side is assumed or permitted to be needed.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/43019a8234"
+      ],
+      "note": "a receiver is not a class of product this document binds"
     },
     "submission/sentence/acd174d1c0": {
       "anchor": "submission",
@@ -3603,23 +3814,36 @@
       "kind": "sentence",
       "text": "A WebDAV collection (RFC 4918) is an ordinary `PUT` target and needs no separate treatment.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/dd9c5c658c"
+      ]
     },
     "submission/sentence/b59daa58e6": {
       "anchor": "submission",
       "chapter": 5,
       "kind": "sentence",
       "text": "Each transport is **OPTIONAL** and claimed separately ([Declaring conformance](#declaring-conformance)).",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/ea06bfddb4"
+      ]
     },
     "submission/sentence/e341fcb9c8": {
       "anchor": "submission",
       "chapter": 5,
       "kind": "sentence",
       "text": "A client **MUST NOT** act on an entry whose scheme it does not recognise or does not implement, and a validator **SHOULD** report an entry of a scheme this document does not define as `SUBMISSION_URL_UNSUPPORTED` ([Warnings](#warnings)).",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/2abb09a649",
+        "submission/sentence/dc4526465e"
+      ]
     },
     "submission/sentence/1affd4f083": {
       "anchor": "submission",
@@ -3627,7 +3851,11 @@
       "kind": "sentence",
       "text": "An `http` entry is unsupported. [APR-MODEL-035]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/sentence/0c12d07087"
+      ]
     },
     "submission/rationale/cf9a5ecc36": {
       "anchor": "submission",
@@ -3635,8 +3863,11 @@
       "kind": "rationale",
       "text": "Rationale: the format defines *where* a completed form may go and borrows *how* from transports that already exist, rather than specifying one. A pre-signed PUT is the industry's common way to accept an upload without handing out credentials, and every S3-compatible store implements it; a `mailto` address is the way an office without any server at all still receives forms. Redirects are refused for the same reason hidden characters are reported: following one delivers the form to a host the author never named. A pre-signed browser POST is deliberately absent — it needs policy fields beyond the URL, which a string entry cannot carry, and every S3-compatible store accepts a pre-signed PUT. No authentication step is defined because a pre-signed URL *is* the authorisation: the grant travels in the query string, so the client never holds a credential.",
       "disposition": "rationale",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "submission/rationale/9f6bbf18d0"
+      ]
     },
     "regarding/heading/edd42bd9f7": {
       "anchor": "regarding",
@@ -3644,7 +3875,8 @@
       "kind": "heading",
       "text": "5.2.2 Related records",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/7de27fd52c": {
       "anchor": "regarding",
@@ -3652,7 +3884,8 @@
       "kind": "sentence",
       "text": "`regarding` names the records this form was completed with reference to, each by its semantic digest ([Digests](#digests)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/834f1bbf05": {
       "anchor": "regarding",
@@ -3660,7 +3893,8 @@
       "kind": "sentence",
       "text": "A step of a process is an ordinary form.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/25b1e18ad1": {
       "anchor": "regarding",
@@ -3668,7 +3902,8 @@
       "kind": "sentence",
       "text": "The office publishes a template for it — a receipt, a review, a routing decision — somebody fills that template in while looking at what came before, and the form they produce names what they looked at.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/4b54a6f964": {
       "anchor": "regarding",
@@ -3676,15 +3911,20 @@
       "kind": "sentence",
       "text": "Every record they looked at is left exactly as it was, so its digest holds and the attestations over it stay `valid`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/f7d4b76049": {
       "anchor": "regarding",
       "chapter": 5,
       "kind": "sentence",
       "text": "`regarding` is an ordered, duplicate-free array of digest strings, each matching the digest form ([Digests](#digests)).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/sentence/c206f119e2"
+      ]
     },
     "regarding/sentence/da2fcc07e2": {
       "anchor": "regarding",
@@ -3692,15 +3932,21 @@
       "kind": "sentence",
       "text": "Order is the author's preferred display order and means nothing else.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/991ae2f189": {
       "anchor": "regarding",
       "chapter": 5,
       "kind": "sentence",
       "text": "An entry **MAY** name a form or an attestation, so a form can pin not only what it was about but the attestation state it was about. [APR-MODEL-043]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/sentence/ffb16fc06f"
+      ],
+      "note": "what an entry names, not a permission"
     },
     "regarding/sentence/5d18e5f0d3": {
       "anchor": "regarding",
@@ -3708,7 +3954,8 @@
       "kind": "sentence",
       "text": "**A reference asserts context and nothing else.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/a5974ccf1b": {
       "anchor": "regarding",
@@ -3716,15 +3963,21 @@
       "kind": "sentence",
       "text": "It records that whoever completed this form had those records in front of them.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/b3482d0e23": {
       "anchor": "regarding",
       "chapter": 5,
       "kind": "sentence",
       "text": "It creates no revision, no supersession, no chronology, no authority, and no trust relationship, and a reader **MUST NOT** present one as any of those. [APR-MODEL-044]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/sentence/24abbea4dd",
+        "regarding/sentence/d710722135"
+      ]
     },
     "regarding/sentence/eb420430a4": {
       "anchor": "regarding",
@@ -3732,7 +3985,8 @@
       "kind": "sentence",
       "text": "Unsigned, a reference is a claim anyone could write.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/4bac4053fb": {
       "anchor": "regarding",
@@ -3740,7 +3994,8 @@
       "kind": "sentence",
       "text": "An attestation over the form binds it, because a form digest covers `metadata`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/47f7c64b41": {
       "anchor": "regarding",
@@ -3748,7 +4003,8 @@
       "kind": "sentence",
       "text": "Proving a history is therefore what it always was — attestations, never position and never assertion ([Changed forms](#changed-forms)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/85bf630983": {
       "anchor": "regarding",
@@ -3756,7 +4012,11 @@
       "kind": "sentence",
       "text": "A referenced digest matching no available record is `unresolved` ([Verification vocabulary](#verification)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/sentence/cd25e925a5"
+      ]
     },
     "regarding/sentence/23ce352155": {
       "anchor": "regarding",
@@ -3764,7 +4024,11 @@
       "kind": "sentence",
       "text": "The document is **valid**: a reader **MUST NOT** reject it, report it as damaged, or withhold its data. [APR-MODEL-045]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/sentence/7de3a3e97e"
+      ]
     },
     "regarding/quote/d03312f0d1": {
       "anchor": "regarding",
@@ -3772,7 +4036,8 @@
       "kind": "quote",
       "text": "References are acyclic by construction. A form's digest covers its own `regarding` list, so a record can only name one whose digest was already fixed. Nothing needs to forbid a cycle, because none can be built.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "regarding/sentence/04c08b3c47": {
       "anchor": "regarding",
@@ -3780,15 +4045,26 @@
       "kind": "sentence",
       "text": "A receipt naming the submission it was written against:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/sentence/1cd0918061"
+      ]
     },
     "regarding/example/7f11e9a569": {
       "anchor": "regarding",
       "chapter": 5,
       "kind": "example",
       "text": "```apr-example\nid: regarding-reference\nrule: regarding\nsatisfies: APR-MODEL-043, APR-MODEL-045\nrepresentation: jsonc\nexpect: valid\n---\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"filledForm\",\n  \"metadata\": {\n    \"title\": \"Intake Receipt\",\n    \"templateId\": \"tag:example.com,2026:intake-receipt\",\n    \"regarding\": [\"sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\"]\n  },\n  \"sections\": [\n    {\n      \"id\": \"intake\",\n      \"title\": \"Intake\",\n      \"prompts\": [\n        { \"id\": \"received\", \"label\": \"Date received\", \"response\": \"2026-09-04\",\n          \"hints\": { \"expectedDataType\": \"date\" } }\n      ]\n    }\n  ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/example/7f11e9a569",
+        "regarding/sentence/1ec22c2936",
+        "regarding/sentence/1cd0918061",
+        "regarding/sentence/1a699a49e0"
+      ]
     },
     "regarding/sentence/a822cd1cf2": {
       "anchor": "regarding",
@@ -3796,7 +4072,11 @@
       "kind": "sentence",
       "text": "The referenced record need not accompany it.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/sentence/1a699a49e0"
+      ]
     },
     "regarding/sentence/77f1106881": {
       "anchor": "regarding",
@@ -3804,31 +4084,51 @@
       "kind": "sentence",
       "text": "Alone, the receipt above is a valid form whose one reference is `unresolved`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/sentence/1a699a49e0"
+      ]
     },
     "regarding/sentence/ef9f21473a": {
       "anchor": "regarding",
       "chapter": 5,
       "kind": "sentence",
       "text": "In a stream with its subject, the reference resolves and the chain is legible to a reader.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/sentence/244cc209a1",
+        "regarding/sentence/301df79ff8"
+      ]
     },
     "regarding/example/b3c54722c8": {
       "anchor": "regarding",
       "chapter": 5,
       "kind": "example",
       "text": "```apr-example\nid: regarding-chain\nrule: regarding\nsatisfies: APR-MODEL-043\nrepresentation: jsonc-stream\nexpect: valid\n---\n{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Permit Application\",\"templateId\":\"tag:example.com,2026:permit\"},\"sections\":[{\"id\":\"applicant\",\"title\":\"Applicant\",\"prompts\":[{\"id\":\"full_name\",\"label\":\"Full name\",\"response\":\"Ada Lovelace\"}]}]}\n---\n{\"aprVersion\":\"1.0-beta.6\",\"documentType\":\"filledForm\",\"metadata\":{\"title\":\"Intake Receipt\",\"templateId\":\"tag:example.com,2026:intake-receipt\",\"regarding\":[\"sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28\"]},\"sections\":[{\"id\":\"intake\",\"title\":\"Intake\",\"prompts\":[{\"id\":\"received\",\"label\":\"Date received\",\"response\":\"2026-09-04\"}]}]}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "regarding/example/b3c54722c8",
+        "regarding/sentence/fc0a698f0c",
+        "regarding/sentence/244cc209a1",
+        "regarding/sentence/301df79ff8",
+        "regarding/example/a04aa60ce6",
+        "regarding/sentence/daaf6c0d26",
+        "regarding/sentence/10201ecfc9"
+      ]
     },
     "regarding/rationale/148b131e8f": {
       "anchor": "regarding",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: a workflow that wants to record something about a form has two bad options and one good one. Editing the form destroys the digest every attestation over it depends on. Widening the form with the receiver's data puts one party's assertions inside another party's document. Writing a new form and naming what it was about leaves every earlier record untouched, and makes each step of a process a document a person can read, a role can own, and a signature can cover — using the primitive the format already has instead of inventing a second one.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 477
     },
     "section-object/heading/67913b5be6": {
       "anchor": "section-object",
@@ -3836,88 +4136,138 @@
       "kind": "heading",
       "text": "5.3 Section",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "section-object/table-header/bd072d4771": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-header",
       "text": "| Member | Type | Required | Notes |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-header/66a78c1006",
+        "section-object/sentence/f10f5b55c0",
+        "section-object/example/05938abe53",
+        "section-object/sentence/4dc501801b",
+        "section-object/sentence/75aa320634",
+        "section-object/example/c7a5384e38",
+        "section-object/sentence/12e6c1c581",
+        "section-object/sentence/e021c08098"
+      ],
+      "note": "Required: Yes/No becomes a Requirement column with a rule per row"
     },
     "section-object/table-row/f20fda50f1": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `id` | string | **Yes** | Non-whitespace. Unique document-wide among sections. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-row/61546fea9a"
+      ]
     },
     "section-object/table-row/aebc37120a": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `title` | string | **Yes** | Non-whitespace. **Never optional.** |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-row/9f7891e2e4"
+      ]
     },
     "section-object/table-row/9c861ead31": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `description` | string | No | |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-row/d874104cb6"
+      ]
     },
     "section-object/table-row/bf7fc77072": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `sections` | array | No | Child sections — recursive. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-row/ddf06fef95"
+      ]
     },
     "section-object/table-row/d9c013d8ea": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `prompts` | array | No | |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-row/25ae9e81d3"
+      ]
     },
     "section-object/table-row/526df1e246": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `kind` | string | No | `table` when this section's child sections are repeating instances ([Tables](#tables)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-row/e549729f1f"
+      ]
     },
     "section-object/table-row/cfd1ea48b7": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `canAddRows` | boolean | No | `true` if a filler may add or remove instances. Absent means fixed. |",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-row/d9ac155689"
+      ]
     },
     "section-object/table-row/d999334e66": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `maxRows` | integer | No | Advisory cap on instance count. **MUST** be at least 1. [APR-MODEL-047] |",
-      "disposition": "table-row",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-row/91411f67fd",
+        "section-object/sentence/6770c22b09"
+      ],
+      "note": "APR-MODEL-047 is a sentence below the table; the row states the permission"
     },
     "section-object/table-row/0e814c6be5": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `role` | string | No | [Roles](#roles) |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/table-row/3a12fb0347"
+      ]
     },
     "section-object/sentence/2adeed2858": {
       "anchor": "section-object",
@@ -3925,15 +4275,23 @@
       "kind": "sentence",
       "text": "A section **MUST** carry content: at least one prompt or at least one child section.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/sentence/439c068aeb"
+      ]
     },
     "section-object/sentence/1af15ede30": {
       "anchor": "section-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "There is no exception — tables included. [APR-MODEL-009]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/sentence/439c068aeb"
+      ]
     },
     "section-object/sentence/876e415fc4": {
       "anchor": "section-object",
@@ -3941,8 +4299,11 @@
       "kind": "sentence",
       "text": "**Section titles are required, not optional.**",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "section-object/sentence/a3a59cad93"
+      ]
     },
     "section-object/sentence/c8f399bf94": {
       "anchor": "section-object",
@@ -3950,7 +4311,8 @@
       "kind": "sentence",
       "text": "The section tree is the document outline that a screen-reader user navigates by.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "section-object/sentence/881a1a3c19": {
       "anchor": "section-object",
@@ -3958,7 +4320,8 @@
       "kind": "sentence",
       "text": "An untitled section is a hole in that outline, so the format refuses to produce one.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "prompt-object/heading/cd6bfaebd5": {
       "anchor": "prompt-object",
@@ -3966,55 +4329,92 @@
       "kind": "heading",
       "text": "5.4 Prompt",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "prompt-object/table-header/bd072d4771": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "table-header",
       "text": "| Member | Type | Required | Notes |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/table-header/66a78c1006",
+        "prompt-object/sentence/d14d01925c",
+        "prompt-object/example/a7c2bc23f8",
+        "prompt-object/sentence/b9b9f40e2f",
+        "prompt-object/sentence/0eb2cd89bb",
+        "prompt-object/example/d8a84e498b",
+        "prompt-object/sentence/6f6d671fc4",
+        "prompt-object/sentence/d07158bfcc",
+        "prompt-object/example/e1e93645c9",
+        "prompt-object/sentence/c32953d72d",
+        "prompt-object/sentence/ad7c60af2d",
+        "prompt-object/sentence/c21955ca3a"
+      ],
+      "note": "Required: Yes/No becomes a Requirement column with a rule per row"
     },
     "prompt-object/table-row/bb6d8eb0c7": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `id` | string | **Yes** | Non-whitespace. Unique document-wide among prompts. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/table-row/3a437a689a"
+      ]
     },
     "prompt-object/table-row/5e5e192965": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `label` | string | **Yes** | Non-whitespace. This is the accessible name. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/table-row/25d4375670"
+      ]
     },
     "prompt-object/table-row/015e9d6d60": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `response` | string | No | Absent means empty ([Responses are strings](#responses)). |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/table-row/556623c820"
+      ]
     },
     "prompt-object/table-row/839af6be70": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `hints` | object | No | [Hints](#hints-object). Advisory in full. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/table-row/efe5fd669b"
+      ]
     },
     "prompt-object/table-row/0f2a8c06e5": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "table-row",
       "text": "| `role` | string | No | Overrides the containing section's role. |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/table-row/d0c21958e5"
+      ]
     },
     "prompt-object/sentence/9b10e97e12": {
       "anchor": "prompt-object",
@@ -4022,8 +4422,11 @@
       "kind": "sentence",
       "text": "**`label` is required and placeholder text is never a substitute for it.**",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/sentence/0b5d8229ea"
+      ]
     },
     "prompt-object/sentence/b0ee810d5c": {
       "anchor": "prompt-object",
@@ -4031,7 +4434,8 @@
       "kind": "sentence",
       "text": "A placeholder disappears when the user types, is invisible to many assistive technologies, and leaves the field permanently unnamed.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "prompt-object/sentence/62fad5b1fe": {
       "anchor": "prompt-object",
@@ -4039,39 +4443,64 @@
       "kind": "sentence",
       "text": "A prompt with a placeholder and no label is invalid APR.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/sentence/0666e52d53"
+      ],
+      "note": "the label row's rule already says it; the sentence names the diagnostic"
     },
     "prompt-object/sentence/13cd548880": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "Section ids and prompt ids occupy **separate namespaces**: a section and a prompt **MAY** share an id.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/sentence/95d857b9cd",
+        "prompt-object/sentence/e937cc0074"
+      ]
     },
     "prompt-object/sentence/9be3a7fcb3": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "Within each namespace, ids **MUST** be unique across the whole document, not merely among siblings — a filled form is consumed by field id, and a duplicate makes the data ambiguous. [APR-MODEL-010]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/sentence/d702d2a2a2",
+        "prompt-object/sentence/676b5be33e"
+      ]
     },
     "prompt-object/sentence/038a5a9f79": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "Ids are compared by exact code-point equality; no normalization, case folding, or trimming is applied.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/sentence/6c1d2d761c"
+      ],
+      "note": "a validator is the subject of APR-MODEL-011"
     },
     "prompt-object/sentence/27ecd6942e": {
       "anchor": "prompt-object",
       "chapter": 5,
       "kind": "sentence",
       "text": "Ids **SHOULD** be stable across template versions and **MUST NOT** change when prompts are reordered.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/sentence/1259730e10",
+        "prompt-object/sentence/e2f2f4845e"
+      ]
     },
     "prompt-object/sentence/6077f9be0b": {
       "anchor": "prompt-object",
@@ -4079,7 +4508,11 @@
       "kind": "sentence",
       "text": "Reordering a form is a presentation change; changing an id silently breaks every downstream consumer and every attestation covering it. [APR-MODEL-011]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "prompt-object/sentence/c728ea46f6"
+      ]
     },
     "generated-ids/heading/7cf7e9ad3c": {
       "anchor": "generated-ids",
@@ -4087,7 +4520,8 @@
       "kind": "heading",
       "text": "5.4.1 Generated ids",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "generated-ids/sentence/63e15faf54": {
       "anchor": "generated-ids",
@@ -4095,15 +4529,22 @@
       "kind": "sentence",
       "text": "An author names things.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "generated-ids/sentence/1c46d94bb4": {
       "anchor": "generated-ids",
       "chapter": 5,
       "kind": "sentence",
       "text": "A writer **MUST** preserve every valid id it read, and **MUST NOT** invent or replace an id unless the caller explicitly asks it to repair the document; by default a blank id or a duplicate is simply the error [Errors](#structural-validation) says it is. [APR-MODEL-040]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "generated-ids/sentence/a3111617f2",
+        "generated-ids/sentence/ea15007680",
+        "generated-ids/sentence/9884a30f8e"
+      ]
     },
     "generated-ids/sentence/0164b2b898": {
       "anchor": "generated-ids",
@@ -4111,7 +4552,8 @@
       "kind": "sentence",
       "text": "When asked to repair, a writer generates ids by **content**, so that every implementation repairing the same document arrives at the same names:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "generated-ids/list-item/e5afe4116b": {
       "anchor": "generated-ids",
@@ -4119,7 +4561,8 @@
       "kind": "list-item",
       "text": "Take the **title path**: the titles of the enclosing sections from the outermost inward, followed by the member's own `title` (a section) or `label` (a prompt), as a JSON array of strings.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "generated-ids/list-item/e228c9cdaf": {
       "anchor": "generated-ids",
@@ -4127,7 +4570,8 @@
       "kind": "list-item",
       "text": "Serialize that array with JCS (RFC 8785), digest it with SHA-256, and encode the digest with base32 (RFC 4648 §6) in lowercase, without padding.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "generated-ids/list-item/9eceec4757": {
       "anchor": "generated-ids",
@@ -4135,7 +4579,8 @@
       "kind": "list-item",
       "text": "The id is `s` for a section or `p` for a prompt, followed by the first five characters. `sdwlrh` names the section titled *Applicant*; `pnzapj` names the prompt *Full name* inside it; `sasnpa` names row *Item 1* of a table titled *Expense line items*.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "generated-ids/list-item/ae9f5acebc": {
       "anchor": "generated-ids",
@@ -4143,23 +4588,32 @@
       "kind": "list-item",
       "text": "If the result collides with any id already in its namespace, append the member's 1-based position among its siblings to the array and repeat; if it still collides, append its parent's position, and so on outward.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "generated-ids/sentence/46fd752094": {
       "anchor": "generated-ids",
       "chapter": 5,
       "kind": "sentence",
       "text": "A blank or whitespace-only id receives a generated one.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "generated-ids/sentence/4465088c68"
+      ]
     },
     "generated-ids/sentence/7cb44af50c": {
       "anchor": "generated-ids",
       "chapter": 5,
       "kind": "sentence",
       "text": "Where two members share an id, **both** are renamed, since neither has a better claim to the name than the other. [APR-MODEL-041]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "generated-ids/sentence/bfca27fde5"
+      ]
     },
     "generated-ids/sentence/c5251286f7": {
       "anchor": "generated-ids",
@@ -4167,15 +4621,21 @@
       "kind": "sentence",
       "text": "Generated ids are short, typeable, and carry no order: two adjacent prompts get unrelated names, and nothing about a name says where it sits.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477
     },
     "generated-ids/sentence/7a510f8799": {
       "anchor": "generated-ids",
       "chapter": 5,
       "kind": "sentence",
       "text": "A writer **MUST NOT** generate ids that encode position — `q1`, `q2`, `row_3` — because a person reading them will take the sequence to mean something, and inserting one row would then appear to renumber the rest.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "generated-ids/sentence/739775d4e3",
+        "generated-ids/sentence/35e4b1a08f"
+      ]
     },
     "generated-ids/sentence/cef2717a5f": {
       "anchor": "generated-ids",
@@ -4183,15 +4643,20 @@
       "kind": "sentence",
       "text": "A renamed id is a changed id, with everything the stability rule above warns of: a `fields` attestation naming the old id resolves to nothing afterwards, which is the honest outcome, since the thing it named is no longer there under that name. [APR-MODEL-042]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 477,
+      "replacedBy": [
+        "generated-ids/sentence/c230e4d543"
+      ]
     },
     "generated-ids/rationale/12d1b9573b": {
       "anchor": "generated-ids",
       "chapter": 5,
       "kind": "rationale",
       "text": "Rationale: ids are how a filled form is consumed, so a document with a missing or duplicated id is unusable, and *somebody* has to name the member. Deriving the name from what the member is — its label in its place in the outline — means the name is stable for as long as the thing it names is, and means a document repaired on two machines is the same document. Deriving it from a counter would make it stable only by luck and would make the names look like an order. Rows in a table follow the same rule for the same reason: a row's position is already carried by the document order, which is meaningful, and a name that repeats it is a second copy of one fact.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 477
     },
     "tables/heading/46f41642f2": {
       "anchor": "tables",

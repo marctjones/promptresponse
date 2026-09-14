@@ -889,9 +889,19 @@
         "APR-MODEL-008",
         "APR-MODEL-036",
         "APR-MODEL-037",
-        "APR-MODEL-052"
+        "APR-MODEL-057",
+        "APR-MODEL-058",
+        "APR-MODEL-059",
+        "APR-MODEL-060",
+        "APR-MODEL-061",
+        "APR-MODEL-062",
+        "APR-MODEL-063",
+        "APR-MODEL-082",
+        "APR-MODEL-083",
+        "APR-MODEL-084",
+        "APR-MODEL-085"
       ],
-      "gap": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
+      "gap": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
     },
     {
       "id": "REQ-model-trivia",
@@ -963,12 +973,18 @@
       "statement": "A submission entry is an https pre-signed PUT target or a mailto address; delivery is a single PUT or an attachment, on explicit user action, never following a redirect",
       "strength": "none",
       "gates": [],
-      "gap": "APR-MODEL-035 is gated by a warns case. Section 7.2 now names `SUBMISSION_URL_UNSUPPORTED` with a code, so APR-MODEL-032's validator half is an ordinary warns case too and is worth writing. APR-MODEL-033 and APR-MODEL-034 are transport behaviour — what a client does with a PUT or a mailto — and need a transport harness the suite does not have.",
+      "gap": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate.",
       "rules": [
-        "APR-MODEL-032",
         "APR-MODEL-033",
         "APR-MODEL-034",
-        "APR-MODEL-035"
+        "APR-MODEL-035",
+        "APR-MODEL-064",
+        "APR-MODEL-086",
+        "APR-MODEL-087",
+        "APR-MODEL-088",
+        "APR-MODEL-089",
+        "APR-MODEL-090",
+        "APR-MODEL-091"
       ]
     },
     {
@@ -986,7 +1002,8 @@
       "rules": [
         "APR-MODEL-043",
         "APR-MODEL-044",
-        "APR-MODEL-045"
+        "APR-MODEL-045",
+        "APR-MODEL-065"
       ]
     },
     {
@@ -1148,7 +1165,16 @@
       ],
       "rules": [
         "APR-MODEL-010",
-        "APR-MODEL-011"
+        "APR-MODEL-011",
+        "APR-MODEL-076",
+        "APR-MODEL-077",
+        "APR-MODEL-078",
+        "APR-MODEL-079",
+        "APR-MODEL-080",
+        "APR-MODEL-081",
+        "APR-MODEL-092",
+        "APR-MODEL-093",
+        "APR-MODEL-094"
       ]
     },
     {
@@ -1161,7 +1187,9 @@
       "rules": [
         "APR-MODEL-040",
         "APR-MODEL-041",
-        "APR-MODEL-042"
+        "APR-MODEL-042",
+        "APR-MODEL-095",
+        "APR-MODEL-096"
       ]
     },
     {
@@ -1387,7 +1415,11 @@
         }
       ],
       "rules": [
-        "APR-MODEL-005"
+        "APR-MODEL-005",
+        "APR-MODEL-053",
+        "APR-MODEL-054",
+        "APR-MODEL-055",
+        "APR-MODEL-056"
       ]
     },
     {
@@ -1403,7 +1435,17 @@
       ],
       "rules": [
         "APR-MODEL-009",
-        "APR-MODEL-047"
+        "APR-MODEL-047",
+        "APR-MODEL-066",
+        "APR-MODEL-067",
+        "APR-MODEL-068",
+        "APR-MODEL-069",
+        "APR-MODEL-070",
+        "APR-MODEL-071",
+        "APR-MODEL-072",
+        "APR-MODEL-073",
+        "APR-MODEL-074",
+        "APR-MODEL-075"
       ]
     },
     {

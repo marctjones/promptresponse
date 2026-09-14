@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "7b552a03-6cac-50b9-87bb-9cd7dc9ba6de",
+    "uuid": "20d5b8ce-6f24-514c-99b3-4fc4c3926c34",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "edb2a4d8b158e99a971e8cd7ba2db5f120f082f83a6b60b0830fb8256a872081"
+          "value": "2ee58f5aa2e3ab735812a74b8199b294b6dda2d75ce0a0c54aaebfb330610e9f"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -2180,7 +2180,7 @@
               {
                 "id": "apr-model-005_smt",
                 "name": "statement",
-                "prose": "`sections` — array — **Yes** — **MUST** contain at least one section."
+                "prose": "`sections` — array — **REQUIRED** — At least one section ([Section](#section-object))."
               }
             ]
           },
@@ -2222,12 +2222,12 @@
               {
                 "id": "apr-model-007_smt",
                 "name": "statement",
-                "prose": "`title` **MUST** contain a non-whitespace character."
+                "prose": "`title` — non-blank string — **REQUIRED** — The form's name."
               },
               {
                 "id": "apr-model-007_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
               }
             ]
           },
@@ -2269,12 +2269,12 @@
               {
                 "id": "apr-model-008_smt",
                 "name": "statement",
-                "prose": "When `documentType` is `filledForm`, `templateId` is **REQUIRED**: a completed form that cannot name the form it completes is not traceable."
+                "prose": "`templateId` — string — **REQUIRED** when `documentType` is `filledForm` — A URI identifying the template a filled form answers ([Template identity](#template-identity)). Optional on a template."
               },
               {
                 "id": "apr-model-008_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
               }
             ]
           },
@@ -2316,7 +2316,7 @@
               {
                 "id": "apr-model-009_smt",
                 "name": "statement",
-                "prose": "A section **MUST** carry content: at least one prompt or at least one child section. There is no exception — tables included."
+                "prose": "A section **MUST** contain at least one prompt or at least one child section, tables included."
               }
             ]
           },
@@ -2358,7 +2358,7 @@
               {
                 "id": "apr-model-010_smt",
                 "name": "statement",
-                "prose": "Section ids and prompt ids occupy **separate namespaces**: a section and a prompt **MAY** share an id. Within each namespace, ids **MUST** be unique across the whole document, not merely among siblings — a filled form is consumed by field id, and a duplicate makes the data ambiguous."
+                "prose": "Within each namespace, an id **MUST** be unique across the whole document, not merely among siblings."
               }
             ]
           },
@@ -2400,7 +2400,7 @@
               {
                 "id": "apr-model-011_smt",
                 "name": "statement",
-                "prose": "Ids are compared by exact code-point equality; no normalization, case folding, or trimming is applied. Ids **SHOULD** be stable across template versions and **MUST NOT** change when prompts are reordered. Reordering a form is a presentation change; changing an id silently breaks every downstream consumer and every attestation covering it."
+                "prose": "A validator **MUST** compare ids by exact code-point equality, applying no normalization, case folding, or trimming."
               }
             ]
           },
@@ -3248,53 +3248,6 @@
             ]
           },
           {
-            "id": "apr-model-032",
-            "title": "APR-MODEL-032 — 5.2.1 Submission targets",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-MODEL-032"
-              },
-              {
-                "name": "section",
-                "value": "submission"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "MODEL"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-submission"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#submission",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-model-032_smt",
-                "name": "statement",
-                "prose": "A `submissionUrls` entry is one of exactly two kinds, told apart by its scheme. This document defines no other transport."
-              },
-              {
-                "id": "apr-model-032_gap",
-                "name": "assessment-gap",
-                "prose": "APR-MODEL-035 is gated by a warns case. Section 7.2 now names `SUBMISSION_URL_UNSUPPORTED` with a code, so APR-MODEL-032's validator half is an ordinary warns case too and is worth writing. APR-MODEL-033 and APR-MODEL-034 are transport behaviour — what a client does with a PUT or a mailto — and need a transport harness the suite does not have."
-              }
-            ]
-          },
-          {
             "id": "apr-model-033",
             "title": "APR-MODEL-033 — 5.2.1 Submission targets",
             "props": [
@@ -3332,12 +3285,12 @@
               {
                 "id": "apr-model-033_smt",
                 "name": "statement",
-                "prose": "**`https`.** The entry is a URL to which the complete document is delivered by a single HTTP `PUT`, with the document as the body and the `vnd.apr` media type of its representation as `Content-Type` ([Document type](#media-types)). The URL is used verbatim, query string included: this is the contract of an S3 pre-signed PUT URL, which carries its own authorisation and expiry in the query, and any receiver that accepts a plain `PUT` of a body satisfies it identically. A client **MUST** send only the document — no credentials, cookies, or headers derived from it — **MUST** treat any status other than 2xx as failure, **MUST NOT** follow a redirect, and **MUST NOT** retry without a fresh user action."
+                "prose": "Send the document as the body of one `PUT`, with the `vnd.apr` media type of its representation as `Content-Type` ([Document type](#media-types)) — **MUST**"
               },
               {
                 "id": "apr-model-033_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-035 is gated by a warns case. Section 7.2 now names `SUBMISSION_URL_UNSUPPORTED` with a code, so APR-MODEL-032's validator half is an ordinary warns case too and is worth writing. APR-MODEL-033 and APR-MODEL-034 are transport behaviour — what a client does with a PUT or a mailto — and need a transport harness the suite does not have."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
               }
             ]
           },
@@ -3379,12 +3332,12 @@
               {
                 "id": "apr-model-034_smt",
                 "name": "statement",
-                "prose": "**`mailto`.** The entry is an RFC 6068 address, with any header fields it carries such as `subject` passed through. Submitting means composing a message to that address with the **stream** as a single attachment, never inlined in the body; a lone form is a one-record stream. A client **SHOULD** hand the composition to the user's mail client, and **MAY** instead send natively if it has that ability; either way the message leaves only on an explicit user action."
+                "prose": "An implementation submitting to a `mailto` entry **SHOULD** hand the composition to the user's mail client."
               },
               {
                 "id": "apr-model-034_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-035 is gated by a warns case. Section 7.2 now names `SUBMISSION_URL_UNSUPPORTED` with a code, so APR-MODEL-032's validator half is an ordinary warns case too and is worth writing. APR-MODEL-033 and APR-MODEL-034 are transport behaviour — what a client does with a PUT or a mailto — and need a transport harness the suite does not have."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
               }
             ]
           },
@@ -3426,12 +3379,12 @@
               {
                 "id": "apr-model-035_smt",
                 "name": "statement",
-                "prose": "Each transport is **OPTIONAL** and claimed separately ([Declaring conformance](#declaring-conformance)). A client **MUST NOT** act on an entry whose scheme it does not recognise or does not implement, and a validator **SHOULD** report an entry of a scheme this document does not define as `SUBMISSION_URL_UNSUPPORTED` ([Warnings](#warnings)). An `http` entry is unsupported."
+                "prose": "An implementation **MUST NOT** act on an entry whose scheme it does not recognise or does not implement."
               },
               {
                 "id": "apr-model-035_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-035 is gated by a warns case. Section 7.2 now names `SUBMISSION_URL_UNSUPPORTED` with a code, so APR-MODEL-032's validator half is an ordinary warns case too and is worth writing. APR-MODEL-033 and APR-MODEL-034 are transport behaviour — what a client does with a PUT or a mailto — and need a transport harness the suite does not have."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
               }
             ]
           },
@@ -3473,12 +3426,12 @@
               {
                 "id": "apr-model-036_smt",
                 "name": "statement",
-                "prose": "**Template identity.** `templateId` **MUST** be a URI (RFC 3986). It identifies; it need not resolve. The **RECOMMENDED** form is a tag URI (RFC 4151), `tag:skpt.cl,2026:dog-license`, which is unique by construction — it is minted from a domain or email address the author held on a date — and needs no server. Any URI the author controls the uniqueness of is acceptable, an email address as a `mailto` URI included. A reader **MUST NOT** fetch a `templateId`."
+                "prose": "A `templateId` **MUST** be a URI (RFC 3986)."
               },
               {
                 "id": "apr-model-036_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
               }
             ]
           },
@@ -3520,12 +3473,12 @@
               {
                 "id": "apr-model-037_smt",
                 "name": "statement",
-                "prose": "**Workflow state is not form data.** When a form was received, by whom, and what happened to it next are facts the *receiver* tracks against the form, not members of it. This document defines no member for them, and a workflow that needs to record them writes its own form and names what that form was about ([Related records](#regarding)), never adding them to a form somebody else wrote."
+                "prose": "A writer **MUST NOT** add a member to a form to record when it was received, by whom, or what happened to it next."
               },
               {
                 "id": "apr-model-037_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
               }
             ]
           },
@@ -3651,7 +3604,7 @@
               {
                 "id": "apr-model-040_smt",
                 "name": "statement",
-                "prose": "An author names things. A writer **MUST** preserve every valid id it read, and **MUST NOT** invent or replace an id unless the caller explicitly asks it to repair the document; by default a blank id or a duplicate is simply the error [Errors](#structural-validation) says it is."
+                "prose": "A writer **MUST** preserve every valid id it read."
               },
               {
                 "id": "apr-model-040_gap",
@@ -3698,7 +3651,7 @@
               {
                 "id": "apr-model-041_smt",
                 "name": "statement",
-                "prose": "A blank or whitespace-only id receives a generated one. Where two members share an id, **both** are renamed, since neither has a better claim to the name than the other."
+                "prose": "A writer repairing a document **MUST** give a blank or whitespace-only id an id generated by the steps above."
               },
               {
                 "id": "apr-model-041_gap",
@@ -3745,7 +3698,7 @@
               {
                 "id": "apr-model-042_smt",
                 "name": "statement",
-                "prose": "Generated ids are short, typeable, and carry no order: two adjacent prompts get unrelated names, and nothing about a name says where it sits. A writer **MUST NOT** generate ids that encode position — `q1`, `q2`, `row_3` — because a person reading them will take the sequence to mean something, and inserting one row would then appear to renumber the rest. A renamed id is a changed id, with everything the stability rule above warns of: a `fields` attestation naming the old id resolves to nothing afterwards, which is the honest outcome, since the thing it named is no longer there under that name."
+                "prose": "A writer **MUST NOT** generate an id that encodes position, such as `q1`, `q2`, or `row_3`."
               },
               {
                 "id": "apr-model-042_gap",
@@ -3792,7 +3745,7 @@
               {
                 "id": "apr-model-043_smt",
                 "name": "statement",
-                "prose": "`regarding` is an ordered, duplicate-free array of digest strings, each matching the digest form ([Digests](#digests)). Order is the author's preferred display order and means nothing else. An entry **MAY** name a form or an attestation, so a form can pin not only what it was about but the attestation state it was about."
+                "prose": "`regarding` **MUST** be an array of distinct digest strings, each in the digest form ([Digests](#digests))."
               },
               {
                 "id": "apr-model-043_gap",
@@ -3839,7 +3792,7 @@
               {
                 "id": "apr-model-044_smt",
                 "name": "statement",
-                "prose": "**A reference asserts context and nothing else.** It records that whoever completed this form had those records in front of them. It creates no revision, no supersession, no chronology, no authority, and no trust relationship, and a reader **MUST NOT** present one as any of those."
+                "prose": "A reader **MUST NOT** present a reference as a revision, a supersession, a chronology, an authority, or a trust relationship."
               },
               {
                 "id": "apr-model-044_gap",
@@ -3886,7 +3839,7 @@
               {
                 "id": "apr-model-045_smt",
                 "name": "statement",
-                "prose": "A referenced digest matching no available record is `unresolved` ([Verification vocabulary](#verification)). The document is **valid**: a reader **MUST NOT** reject it, report it as damaged, or withhold its data."
+                "prose": "A reader **MUST NOT** reject a document for an unresolved reference, report it as damaged, or withhold its data."
               },
               {
                 "id": "apr-model-045_gap",
@@ -3975,7 +3928,7 @@
               {
                 "id": "apr-model-047_smt",
                 "name": "statement",
-                "prose": "`maxRows` — integer — No — Advisory cap on instance count. **MUST** be at least 1."
+                "prose": "A section's `maxRows` **MUST** be at least 1."
               }
             ]
           },
@@ -4121,12 +4074,180 @@
             ]
           },
           {
-            "id": "apr-model-052",
-            "title": "APR-MODEL-052 — 5.2 Metadata",
+            "id": "apr-model-053",
+            "title": "APR-MODEL-053 — 5.1 Document",
             "props": [
               {
                 "name": "rule-id",
-                "value": "APR-MODEL-052"
+                "value": "APR-MODEL-053"
+              },
+              {
+                "name": "section",
+                "value": "root-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-root-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#root-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-053_smt",
+                "name": "statement",
+                "prose": "`aprVersion` — string — **REQUIRED** — The version of *this specification* the record is written to, never the form's own ([Version compatibility](#version-compatibility))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-054",
+            "title": "APR-MODEL-054 — 5.1 Document",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-054"
+              },
+              {
+                "name": "section",
+                "value": "root-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-root-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#root-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-054_smt",
+                "name": "statement",
+                "prose": "`documentType` — string — **OPTIONAL** — `template` or `filledForm`; absent means `template` ([Document type](#media-types))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-055",
+            "title": "APR-MODEL-055 — 5.1 Document",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-055"
+              },
+              {
+                "name": "section",
+                "value": "root-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-root-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#root-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-055_smt",
+                "name": "statement",
+                "prose": "`metadata` — object — **REQUIRED** — [Metadata](#metadata)"
+              }
+            ]
+          },
+          {
+            "id": "apr-model-056",
+            "title": "APR-MODEL-056 — 5.1 Document",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-056"
+              },
+              {
+                "name": "section",
+                "value": "root-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-root-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#root-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-056_smt",
+                "name": "statement",
+                "prose": "`roles` — array — **OPTIONAL** — [Roles](#roles)"
+              }
+            ]
+          },
+          {
+            "id": "apr-model-057",
+            "title": "APR-MODEL-057 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-057"
               },
               {
                 "name": "section",
@@ -4156,14 +4277,1752 @@
             ],
             "parts": [
               {
-                "id": "apr-model-052_smt",
+                "id": "apr-model-057_smt",
                 "name": "statement",
-                "prose": "`submissionUrls`, when present, **MUST** be an ordered array of strings. Even one delivery choice is represented as a one-element array; a scalar `submissionUrl` **MUST NOT** be written, and a reader encountering one **MUST** treat it as an unknown member rather than honouring it. Order is the author's preferred display order, never permission for a client to choose or fall back to a target automatically; submitting remains an explicit user action."
+                "prose": "`description` — string — **OPTIONAL** — Prose about the form as a whole."
               },
               {
-                "id": "apr-model-052_gap",
+                "id": "apr-model-057_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-037, that workflow state is not form data, forbids this document from defining a member rather than forbidding anything a document may contain. A receiver recording a date in an owned extension member is conforming, so no vector separates compliance from violation."
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-058",
+            "title": "APR-MODEL-058 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-058"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-058_smt",
+                "name": "statement",
+                "prose": "`created` — date-time — **OPTIONAL** — RFC 3339."
+              },
+              {
+                "id": "apr-model-058_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-059",
+            "title": "APR-MODEL-059 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-059"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-059_smt",
+                "name": "statement",
+                "prose": "`modified` — date-time — **OPTIONAL** — RFC 3339."
+              },
+              {
+                "id": "apr-model-059_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-060",
+            "title": "APR-MODEL-060 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-060"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-060_smt",
+                "name": "statement",
+                "prose": "`author` — string — **OPTIONAL** — A person."
+              },
+              {
+                "id": "apr-model-060_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-061",
+            "title": "APR-MODEL-061 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-061"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-061_smt",
+                "name": "statement",
+                "prose": "`publisher` — string — **OPTIONAL** — The organization standing behind the form."
+              },
+              {
+                "id": "apr-model-061_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-062",
+            "title": "APR-MODEL-062 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-062"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-062_smt",
+                "name": "statement",
+                "prose": "`language` — string — **OPTIONAL** — A BCP 47 language tag for the form's human-facing authoring text."
+              },
+              {
+                "id": "apr-model-062_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-063",
+            "title": "APR-MODEL-063 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-063"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-063_smt",
+                "name": "statement",
+                "prose": "`templateVersion` — string — **OPTIONAL** — The template revision answered."
+              },
+              {
+                "id": "apr-model-063_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-064",
+            "title": "APR-MODEL-064 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-064"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-064_smt",
+                "name": "statement",
+                "prose": "`submissionUrls` — array of string — **OPTIONAL** — Ordered delivery choices, each `https` or `mailto` ([Submission targets](#submission))."
+              },
+              {
+                "id": "apr-model-064_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-065",
+            "title": "APR-MODEL-065 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-065"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-regarding"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-065_smt",
+                "name": "statement",
+                "prose": "`regarding` — array of string — **OPTIONAL** — Digests of the records this form was completed with reference to ([Related records](#regarding))."
+              },
+              {
+                "id": "apr-model-065_gap",
+                "name": "assessment-gap",
+                "prose": "The array shape and digest form are gated by the schema and two executable examples. That a reader never reads a reference as revision or authority, and never rejects an unresolved one, is reader behaviour no vector asserts."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-066",
+            "title": "APR-MODEL-066 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-066"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-066_smt",
+                "name": "statement",
+                "prose": "`id` — non-blank string — **REQUIRED** — Unique document-wide among sections ([Prompt](#prompt-object))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-067",
+            "title": "APR-MODEL-067 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-067"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-067_smt",
+                "name": "statement",
+                "prose": "`title` — non-blank string — **REQUIRED** — The section's heading in the document outline."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-068",
+            "title": "APR-MODEL-068 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-068"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-068_smt",
+                "name": "statement",
+                "prose": "`description` — string — **OPTIONAL**"
+              }
+            ]
+          },
+          {
+            "id": "apr-model-069",
+            "title": "APR-MODEL-069 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-069"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-069_smt",
+                "name": "statement",
+                "prose": "`sections` — array — **OPTIONAL** — Child sections, recursively."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-070",
+            "title": "APR-MODEL-070 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-070"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-070_smt",
+                "name": "statement",
+                "prose": "`prompts` — array — **OPTIONAL**"
+              }
+            ]
+          },
+          {
+            "id": "apr-model-071",
+            "title": "APR-MODEL-071 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-071"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-071_smt",
+                "name": "statement",
+                "prose": "`kind` — string — **OPTIONAL** — `table` when this section's child sections are repeating instances ([Tables](#tables))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-072",
+            "title": "APR-MODEL-072 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-072"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-072_smt",
+                "name": "statement",
+                "prose": "`canAddRows` — boolean — **OPTIONAL** — Whether a filler can add or remove instances ([Rows and instances](#table-rows))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-073",
+            "title": "APR-MODEL-073 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-073"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-073_smt",
+                "name": "statement",
+                "prose": "`maxRows` — integer — **OPTIONAL** — Advisory cap on instance count."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-074",
+            "title": "APR-MODEL-074 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-074"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-074_smt",
+                "name": "statement",
+                "prose": "`role` — string — **OPTIONAL** — [Roles](#roles)"
+              }
+            ]
+          },
+          {
+            "id": "apr-model-075",
+            "title": "APR-MODEL-075 — 5.3 Section",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-075"
+              },
+              {
+                "name": "section",
+                "value": "section-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-section-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#section-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-075_smt",
+                "name": "statement",
+                "prose": "`language` — string — **OPTIONAL** — A BCP 47 language tag, overriding the language the section inherits ([Metadata](#metadata))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-076",
+            "title": "APR-MODEL-076 — 5.4 Prompt",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-076"
+              },
+              {
+                "name": "section",
+                "value": "prompt-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-prompt-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#prompt-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-076_smt",
+                "name": "statement",
+                "prose": "`id` — non-blank string — **REQUIRED** — Unique document-wide among prompts."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-077",
+            "title": "APR-MODEL-077 — 5.4 Prompt",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-077"
+              },
+              {
+                "name": "section",
+                "value": "prompt-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-prompt-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#prompt-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-077_smt",
+                "name": "statement",
+                "prose": "`label` — non-blank string — **REQUIRED** — The accessible name."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-078",
+            "title": "APR-MODEL-078 — 5.4 Prompt",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-078"
+              },
+              {
+                "name": "section",
+                "value": "prompt-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-prompt-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#prompt-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-078_smt",
+                "name": "statement",
+                "prose": "`response` — string — **OPTIONAL** — Absent means empty ([Responses are strings](#responses))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-079",
+            "title": "APR-MODEL-079 — 5.4 Prompt",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-079"
+              },
+              {
+                "name": "section",
+                "value": "prompt-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-prompt-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#prompt-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-079_smt",
+                "name": "statement",
+                "prose": "`hints` — object — **OPTIONAL** — [Hints](#hints-object). Advisory in full."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-080",
+            "title": "APR-MODEL-080 — 5.4 Prompt",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-080"
+              },
+              {
+                "name": "section",
+                "value": "prompt-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-prompt-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#prompt-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-080_smt",
+                "name": "statement",
+                "prose": "`role` — string — **OPTIONAL** — Overrides the containing section's role ([Roles](#roles))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-081",
+            "title": "APR-MODEL-081 — 5.4 Prompt",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-081"
+              },
+              {
+                "name": "section",
+                "value": "prompt-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-prompt-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#prompt-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-081_smt",
+                "name": "statement",
+                "prose": "`language` — string — **OPTIONAL** — A BCP 47 language tag, overriding the language the prompt inherits ([Metadata](#metadata))."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-082",
+            "title": "APR-MODEL-082 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-082"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-082_smt",
+                "name": "statement",
+                "prose": "A reader **MUST NOT** fetch a `templateId`."
+              },
+              {
+                "id": "apr-model-082_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-083",
+            "title": "APR-MODEL-083 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-083"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-083_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** take the language of a section or prompt that declares none from the nearest enclosing section that declares one, and otherwise from `metadata.language`."
+              },
+              {
+                "id": "apr-model-083_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-084",
+            "title": "APR-MODEL-084 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-084"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-084_smt",
+                "name": "statement",
+                "prose": "A writer filling a form **MUST NOT** add or change a `language` member."
+              },
+              {
+                "id": "apr-model-084_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-085",
+            "title": "APR-MODEL-085 — 5.2 Metadata",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-085"
+              },
+              {
+                "name": "section",
+                "value": "metadata"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-metadata-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#metadata",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-085_smt",
+                "name": "statement",
+                "prose": "A validator **MUST NOT** relax a check on human-facing text because of a `language` member."
+              },
+              {
+                "id": "apr-model-085_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-037 and 084 bind a writer, 083 a reader and 085 a validator, and no test checks them: that a writer adds no workflow member and no language, that a reader inherits a language, or that a validator never relaxes a text check for one."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-086",
+            "title": "APR-MODEL-086 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-086"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-086_smt",
+                "name": "statement",
+                "prose": "Send credentials, cookies, or headers derived from the document — **MUST NOT**"
+              },
+              {
+                "id": "apr-model-086_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-087",
+            "title": "APR-MODEL-087 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-087"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-087_smt",
+                "name": "statement",
+                "prose": "Treat any status other than 2xx as failure — **MUST**"
+              },
+              {
+                "id": "apr-model-087_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-088",
+            "title": "APR-MODEL-088 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-088"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-088_smt",
+                "name": "statement",
+                "prose": "Follow a redirect — **MUST NOT**"
+              },
+              {
+                "id": "apr-model-088_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-089",
+            "title": "APR-MODEL-089 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-089"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-089_smt",
+                "name": "statement",
+                "prose": "Retry without a fresh user action — **MUST NOT**"
+              },
+              {
+                "id": "apr-model-089_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-090",
+            "title": "APR-MODEL-090 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-090"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-090_smt",
+                "name": "statement",
+                "prose": "An implementation submitting to a `mailto` entry **MAY** send the message itself instead."
+              },
+              {
+                "id": "apr-model-090_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-091",
+            "title": "APR-MODEL-091 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-091"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-091_smt",
+                "name": "statement",
+                "prose": "A validator **SHOULD** report an entry whose scheme this document does not define as `SUBMISSION_URL_UNSUPPORTED` ([Warnings](#warnings))."
+              },
+              {
+                "id": "apr-model-091_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. APR-MODEL-090 is a permission, which nothing can violate."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-092",
+            "title": "APR-MODEL-092 — 5.4 Prompt",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-092"
+              },
+              {
+                "name": "section",
+                "value": "prompt-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-prompt-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#prompt-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-092_smt",
+                "name": "statement",
+                "prose": "A section and a prompt **MAY** share an id."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-093",
+            "title": "APR-MODEL-093 — 5.4 Prompt",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-093"
+              },
+              {
+                "name": "section",
+                "value": "prompt-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-prompt-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#prompt-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-093_smt",
+                "name": "statement",
+                "prose": "A template **SHOULD** keep each id unchanged across its versions."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-094",
+            "title": "APR-MODEL-094 — 5.4 Prompt",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-094"
+              },
+              {
+                "name": "section",
+                "value": "prompt-object"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-prompt-members"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#prompt-object",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-094_smt",
+                "name": "statement",
+                "prose": "A writer **MUST NOT** change an id when it reorders prompts."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-095",
+            "title": "APR-MODEL-095 — 5.4.1 Generated ids",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-095"
+              },
+              {
+                "name": "section",
+                "value": "generated-ids"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-generated-ids"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#generated-ids",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-095_smt",
+                "name": "statement",
+                "prose": "A writer **MUST NOT** invent or replace an id unless the caller explicitly asks it to repair the document."
+              },
+              {
+                "id": "apr-model-095_gap",
+                "name": "assessment-gap",
+                "prose": "No vector yet asserts the generation algorithm; a digest vector for the three worked ids belongs beside the digest fixtures."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-096",
+            "title": "APR-MODEL-096 — 5.4.1 Generated ids",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-096"
+              },
+              {
+                "name": "section",
+                "value": "generated-ids"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-generated-ids"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#generated-ids",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-096_smt",
+                "name": "statement",
+                "prose": "A writer repairing a document **MUST** give both members sharing an id an id generated by the steps above, since neither has a better claim to the name."
+              },
+              {
+                "id": "apr-model-096_gap",
+                "name": "assessment-gap",
+                "prose": "No vector yet asserts the generation algorithm; a digest vector for the three worked ids belongs beside the digest fixtures."
               }
             ]
           }

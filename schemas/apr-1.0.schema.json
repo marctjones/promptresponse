@@ -109,6 +109,10 @@
         "templateVersion": {
           "type": "string"
         },
+        "language": {
+          "type": "string",
+          "description": "A BCP 47 language tag for the human-facing authoring text of this form, unless a section or prompt overrides it. Advisory: it never affects validity, and never relaxes a check on that text."
+        },
         "submissionUrls": {
           "type": "array",
           "items": {
@@ -173,6 +177,10 @@
           "minimum": 1,
           "description": "Advisory upper bound on instance count. A table carrying more is still valid and is reported as a warning."
         },
+        "language": {
+          "type": "string",
+          "description": "A BCP 47 language tag for the human-facing authoring text of this section and what it contains, overriding the language it inherits. Advisory: it never affects validity, and never relaxes a check on that text."
+        },
         "role": {
           "type": "string",
           "description": "Who is meant to fill this in (\"patient\", \"nurse\", \"office\"). An open vocabulary and a statement of intent, never enforcement: a reader marks the field and still accepts any input. A prompt's role overrides the role of the section containing it."
@@ -225,6 +233,10 @@
         },
         "hints": {
           "$ref": "#/$defs/promptHints"
+        },
+        "language": {
+          "type": "string",
+          "description": "A BCP 47 language tag for the human-facing authoring text of this prompt, overriding the language it inherits. Advisory: it never affects validity, and never relaxes a check on that text."
         },
         "role": {
           "type": "string",

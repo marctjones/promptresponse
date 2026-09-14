@@ -41,6 +41,28 @@
       ]
     },
     {
+      "id": "id-namespaces",
+      "number": "5.4-3",
+      "rule": "prompt-object",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Contact\" },\n  \"sections\": [\n    {\n      \"id\": \"name\",\n      \"title\": \"Name\",\n      \"prompts\": [\n        { \"id\": \"name\", \"label\": \"Full name\" },\n        { \"id\": \"Name\", \"label\": \"Name as printed on the card\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-066",
+        "APR-MODEL-067",
+        "APR-MODEL-076",
+        "APR-MODEL-077",
+        "APR-MODEL-092"
+      ],
+      "satisfies": [
+        "APR-MODEL-066",
+        "APR-MODEL-067",
+        "APR-MODEL-076",
+        "APR-MODEL-077",
+        "APR-MODEL-092"
+      ]
+    },
+    {
       "id": "jsonc-comment-inside-string",
       "number": "4.4-2",
       "rule": "apr-jsonc",
@@ -116,6 +138,24 @@
       ]
     },
     {
+      "id": "language-overrides",
+      "number": "5.2-1",
+      "rule": "metadata",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Travel declaration\", \"language\": \"en\" },\n  \"sections\": [\n    {\n      \"id\": \"declaration\",\n      \"title\": \"D\u00e9claration\",\n      \"language\": \"fr\",\n      \"prompts\": [\n        { \"id\": \"name\", \"label\": \"Nom complet\" },\n        { \"id\": \"origin\", \"label\": \"Herkunftsland\", \"language\": \"de\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-062",
+        "APR-MODEL-075",
+        "APR-MODEL-081"
+      ],
+      "satisfies": [
+        "APR-MODEL-062",
+        "APR-MODEL-075",
+        "APR-MODEL-081"
+      ]
+    },
+    {
       "id": "null-outside-response",
       "number": "4.6-3",
       "rule": "json-subset",
@@ -148,6 +188,36 @@
       ]
     },
     {
+      "id": "prompt-without-id",
+      "number": "5.4-2",
+      "rule": "prompt-object",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-076"
+      ],
+      "violates": [
+        "APR-MODEL-076"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "prompt-without-label",
+      "number": "5.4-1",
+      "rule": "prompt-object",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\",\n    \"prompts\": [ { \"id\": \"p\", \"hints\": { \"placeholder\": \"Full name\" } } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-077"
+      ],
+      "violates": [
+        "APR-MODEL-077"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
       "id": "regarding-chain",
       "number": "5.2.2-2",
       "rule": "regarding",
@@ -160,6 +230,21 @@
       "satisfies": [
         "APR-MODEL-043"
       ]
+    },
+    {
+      "id": "regarding-not-a-digest",
+      "number": "5.2.2-3",
+      "rule": "regarding",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\", \"regarding\": [ \"sha256:NOTHEX\" ] },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-043"
+      ],
+      "violates": [
+        "APR-MODEL-043"
+      ],
+      "diagnostic": "WRONG_TYPE"
     },
     {
       "id": "regarding-reference",
@@ -209,6 +294,36 @@
         "APR-MODEL-049"
       ],
       "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "section-without-id",
+      "number": "5.3-2",
+      "rule": "section-object",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-066"
+      ],
+      "violates": [
+        "APR-MODEL-066"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "section-without-title",
+      "number": "5.3-1",
+      "rule": "section-object",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-067"
+      ],
+      "violates": [
+        "APR-MODEL-067"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
     },
     {
       "id": "stream-mixed-representations",

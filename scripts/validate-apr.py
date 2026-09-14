@@ -69,6 +69,32 @@ MEMBER_RULES = {
 }
 
 
+def is_required(cell: str) -> bool:
+    """Whether a Requirement cell makes a member required unconditionally.
+
+    "REQUIRED when ..." is a condition a rule of its own states, so at the level
+    of the member table that member is optional.
+    """
+    return cell.replace("*", "").strip() in {"REQUIRED", "Yes"}
+
+
+def row_rules() -> dict[tuple[str, str], str]:
+    """(object, member) -> the rule its member-table row states."""
+    text = SPEC.read_text(encoding="utf-8")
+    rules: dict[tuple[str, str], str] = {}
+    anchor = None
+    for line in text.split("\n"):
+        heading = HEADING.match(line)
+        if heading:
+            anchor = heading.group(1)
+            continue
+        match = MEMBER.match(line) if anchor in TABLES else None
+        rule = re.search(r"\[(APR-[A-Z]+-\d{3})\]", line) if match else None
+        if rule:
+            rules[(TABLES[anchor], match.group(1))] = rule.group(1)
+    return rules
+
+
 def spec_members() -> dict[str, dict[str, tuple[str, bool]]]:
     """Member name -> (declared type, required), per specification table."""
     text = SPEC.read_text(encoding="utf-8")
@@ -88,13 +114,17 @@ def spec_members() -> dict[str, dict[str, tuple[str, bool]]]:
         if "." in name:  # a dotted row documents a nested member
             continue
         tables.setdefault(TABLES[anchor], {})[name] = (
-            declared.strip().strip("`"), "yes" in required.strip().lower())
+            declared.strip().strip("`"), is_required(required))
     missing = set(TABLES.values()) - set(tables)
     if missing:
         raise SystemExit(
             f"cannot find member tables for {sorted(missing)} in the specification; "
             f"this tool reads its vocabulary from them")
     return tables
+
+
+# Member presence is stated row by row, so a missing or blank member cites its row.
+ROW_RULES = row_rules()
 
 
 def data_types() -> set[str]:
@@ -272,9 +302,11 @@ def check_object(report: Report, node, kind: str, path: str, members) -> None:
         # resolved to the wrong JSON type fails here exactly as the JSONC spelling
         # does, whichever representation the document was read from.
         rules = MEMBER_RULES.get((kind, name), ("APR-REP-015", "APR-REP-016"))
+        # Absence and blankness break the requirement the member's own row states.
+        presence = (ROW_RULES[(kind, name)],) if (kind, name) in ROW_RULES else rules
         if required and (name not in node or node[name] is None):
             report.error("REQUIRED_FIELD", f"{path}/{name}",
-                         f"{kind}.{name} is required", *rules)
+                         f"{kind}.{name} is required", *presence)
         elif name in node and node[name] is None:
             # `null` is not an APR value, and outside a response position it is a parse
             # failure rather than a wrong type: the member is not carrying the wrong
@@ -289,7 +321,7 @@ def check_object(report: Report, node, kind: str, path: str, members) -> None:
             # tells a reader to look at the type of a value whose type is fine.
             report.error("REQUIRED_FIELD", f"{path}/{name}",
                          f"{kind}.{name} is blank; it must contain a non-whitespace "
-                         f"character", *rules)
+                         f"character", *presence)
         elif name in node and not type_ok(node[name], declared_type):
             report.error("WRONG_TYPE", f"{path}/{name}",
                          f"{kind}.{name} must be {declared_type}, "
@@ -573,7 +605,7 @@ def validate_form(report: Report, form, members) -> None:
             if isinstance(url, str) and url.split(":", 1)[0].lower() not in {"https", "mailto"}:
                 report.warn("SUBMISSION_URL_UNSUPPORTED",
                             f"/metadata/submissionUrls/{index}",
-                            "only https and mailto targets are defined", "APR-MODEL-035")
+                            "only https and mailto targets are defined", "APR-MODEL-091")
         for index, reference in enumerate(metadata.get("regarding") or []):
             if not (isinstance(reference, str) and aprlib.DIGEST_PATTERN.match(reference)):
                 report.error("WRONG_TYPE", f"/metadata/regarding/{index}",

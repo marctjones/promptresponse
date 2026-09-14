@@ -1437,60 +1437,55 @@ warns: RESPONSE_PATTERN_MISMATCH
 
 ### 5.1 Document {#root-object}
 
-**Example 3.** The shape of a form.
+A form is a JSON object. Each row below is a requirement on a form, and its
+Requirement column says whether the member is present. A validator reports a
+member its row requires, missing or blank, and a member of another JSON type,
+by the codes [Errors](#structural-validation) names.
 
-```jsonc
-{
-  "aprVersion": "1.0-beta.6",
-  "documentType": "template",
-  "metadata": { "title": "Permit Application" },
-  "sections": [ /* ... */ ],
-  "roles": [ /* ... */ ]
-}
-```
-
-| Member | Type | Required | Notes |
-| --- | --- | --- | --- |
-| `aprVersion` | string | **Yes** | Exactly `"1.0-beta.6"` — the version of *this specification* the record is written to, never the form's own ([Version compatibility](#version-compatibility)). |
-| `documentType` | string | No | `template` or `filledForm`. Absent means `template`. Authoritative — see [Document type](#media-types). |
-| `metadata` | object | **Yes** | [Metadata](#metadata) |
-| `sections` | array | **Yes** | **MUST** contain at least one section. [APR-MODEL-005] |
-| `roles` | array | No | [Roles](#roles) |
+| Member | Type | Requirement | Rule | Notes |
+| --- | --- | --- | --- | --- |
+| `aprVersion` | string | **REQUIRED** | [APR-MODEL-053] | The version of *this specification* the record is written to, never the form's own ([Version compatibility](#version-compatibility)). |
+| `documentType` | string | **OPTIONAL** | [APR-MODEL-054] | `template` or `filledForm`; absent means `template` ([Document type](#media-types)). |
+| `metadata` | object | **REQUIRED** | [APR-MODEL-055] | [Metadata](#metadata) |
+| `sections` | array | **REQUIRED** | [APR-MODEL-005] | At least one section ([Section](#section-object)). |
+| `roles` | array | **OPTIONAL** | [APR-MODEL-056] | [Roles](#roles) |
 
 ### 5.2 Metadata {#metadata}
 
-| Member | Type | Required | Notes |
-| --- | --- | --- | --- |
-| `title` | non-blank string | **Yes** | The form's name. |
-| `description` | string | No | Prose about the form as a whole. |
-| `created` | date-time | No | RFC 3339. |
-| `modified` | date-time | No | RFC 3339. |
-| `author` | string | No | A person. |
-| `publisher` | string | No | The organization standing behind the form. |
-| `templateId` | string | No | Required on a `filledForm`. A URI identifying the template it answers ([Template identity](#template-identity)). |
-| `templateVersion` | string | No | The template revision answered. |
-| `submissionUrls` | array of string | No | Ordered explicit delivery choices; `https` or `mailto` ([Submission targets](#submission)). |
-| `regarding` | array of string | No | Digests of the records this form was completed with reference to ([Related records](#regarding)). |
+Each row below is a requirement on `metadata`.
 
-`title` **MUST** contain a non-whitespace character. [APR-MODEL-007]
+| Member | Type | Requirement | Rule | Notes |
+| --- | --- | --- | --- | --- |
+| `title` | non-blank string | **REQUIRED** | [APR-MODEL-007] | The form's name. |
+| `description` | string | **OPTIONAL** | [APR-MODEL-057] | Prose about the form as a whole. |
+| `created` | date-time | **OPTIONAL** | [APR-MODEL-058] | RFC 3339. |
+| `modified` | date-time | **OPTIONAL** | [APR-MODEL-059] | RFC 3339. |
+| `author` | string | **OPTIONAL** | [APR-MODEL-060] | A person. |
+| `publisher` | string | **OPTIONAL** | [APR-MODEL-061] | The organization standing behind the form. |
+| `language` | string | **OPTIONAL** | [APR-MODEL-062] | A BCP 47 language tag for the form's human-facing authoring text. |
+| `templateId` | string | **REQUIRED** when `documentType` is `filledForm` | [APR-MODEL-008] | A URI identifying the template a filled form answers ([Template identity](#template-identity)). Optional on a template. |
+| `templateVersion` | string | **OPTIONAL** | [APR-MODEL-063] | The template revision answered. |
+| `submissionUrls` | array of string | **OPTIONAL** | [APR-MODEL-064] | Ordered delivery choices, each `https` or `mailto` ([Submission targets](#submission)). |
+| `regarding` | array of string | **OPTIONAL** | [APR-MODEL-065] | Digests of the records this form was completed with reference to ([Related records](#regarding)). |
 
-`submissionUrls`, when present, **MUST** be an ordered array of strings. Even one
-delivery choice is represented as a one-element array; a scalar `submissionUrl`
-**MUST NOT** be written, and a reader encountering one **MUST** treat it as an
-unknown member rather than honouring it. [APR-MODEL-052] Order is the author's preferred display order, never permission for a
-client to choose or fall back to a target automatically; submitting remains an
-explicit user action.
+`submissionUrls` is ordered by the author's preferred display order. The order
+never permits an implementation to choose a target, or fall back to another,
+without the user: submitting is an explicit user action.
 
-When `documentType` is `filledForm`, `templateId` is **REQUIRED**: a completed
-form that cannot name the form it completes is not traceable. [APR-MODEL-008]
+A completed form that cannot name the form it completes is not traceable, which
+is why a filled form carries `templateId`.
 
-**Template identity.** {#template-identity} `templateId` **MUST** be a URI
-(RFC 3986). It identifies; it need not resolve. The **RECOMMENDED** form is a
-tag URI (RFC 4151), `tag:skpt.cl,2026:dog-license`, which is unique by
-construction — it is minted from a domain or email address the author held on
-a date — and needs no server. Any URI the author controls the uniqueness of is
-acceptable, an email address as a `mailto` URI included. A reader **MUST NOT**
-fetch a `templateId`. [APR-MODEL-036]
+**Template identity.** {#template-identity}
+
+A `templateId` **MUST** be a URI (RFC 3986). [APR-MODEL-036]
+
+A `templateId` identifies a template; it is not a location. A tag URI
+(RFC 4151), such as `tag:skpt.cl,2026:dog-license`, is unique by construction,
+because it is minted from a domain or email address the author held on a date,
+and it needs no server. Any URI whose uniqueness the author controls serves, an
+email address as a `mailto` URI included.
+
+A reader **MUST NOT** fetch a `templateId`. [APR-MODEL-082]
 
 > Rationale: a filled form is consumed by the template it answers, so the
 > identifier has to be unique across every author who will ever publish a
@@ -1499,17 +1494,71 @@ fetch a `templateId`. [APR-MODEL-036]
 > poor identifier, and the format does not stop an author choosing badly; it
 > only gives them a good form to choose.
 
-**Workflow state is not form data.** When a form was received, by whom, and
-what happened to it next are facts the *receiver* tracks against the form,
-not members of it. This document defines no member for them, and a workflow
-that needs to record them writes its own form and names what that form was
-about ([Related records](#regarding)), never adding them to a form somebody
-else wrote. [APR-MODEL-037]
+**Language.** `language` is a BCP 47 language tag (RFC 5646) naming the language
+of the author's human-facing text:
+titles, descriptions, labels, help text, placeholders, and suggested values. It
+lets a renderer present that text in its language, to a screen reader above
+all. It never describes a response, and it applies to a template and a filled
+form alike. A section or a prompt carries its own `language` where its text is
+in another language.
+
+A reader **MUST** take the language of a section or prompt that declares none
+from the nearest enclosing section that declares one, and otherwise from
+`metadata.language`. [APR-MODEL-083]
+
+A writer filling a form **MUST NOT** add or change a `language` member.
+[APR-MODEL-084]
+
+A validator **MUST NOT** relax a check on human-facing text because of a
+`language` member. [APR-MODEL-085]
+
+> Rationale: a declared language is a claim by the author, so it cannot excuse
+> the author's own text from a check. Mixing look-alike scripts is suspicious
+> whatever the form says its language is. A filler's answers are in whatever
+> language the filler typed; a workflow that needs to know which asks for it as
+> a prompt.
+
+**Example 5.2-1.** A form in English, with one section in French and one of its
+prompts in German.
+
+```apr-example
+id: language-overrides
+rule: metadata
+satisfies: APR-MODEL-062, APR-MODEL-075, APR-MODEL-081
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Travel declaration", "language": "en" },
+  "sections": [
+    {
+      "id": "declaration",
+      "title": "Déclaration",
+      "language": "fr",
+      "prompts": [
+        { "id": "name", "label": "Nom complet" },
+        { "id": "origin", "label": "Herkunftsland", "language": "de" }
+      ]
+    }
+  ]
+}
+```
+
+**Workflow state is not form data.** When a form was received, by whom, and what
+happened to it next are facts the receiver tracks against the form. This
+document defines no member for them.
+
+A writer **MUST NOT** add a member to a form to record when it was received, by
+whom, or what happened to it next. [APR-MODEL-037]
+
+A workflow that needs to record them writes a form of its own and names the
+form it was about ([Related records](#regarding)).
 
 #### 5.2.1 Submission targets {#submission}
 
-A `submissionUrls` entry is one of exactly two kinds, told apart by its scheme.
-This document defines no other transport. [APR-MODEL-032]
+A `submissionUrls` entry names one of two transports, told apart by its scheme.
+This document defines no other.
 
 | Scheme | Meaning | Defined by |
 | --- | --- | --- |
@@ -1517,35 +1566,45 @@ This document defines no other transport. [APR-MODEL-032]
 | `mailto` | An email address to attach the document to | RFC 6068 |
 
 **`https`.** The entry is a URL to which the complete document is delivered by a
-single HTTP `PUT`, with the document as the body and the `vnd.apr` media type
-of its representation as `Content-Type` ([Document type](#media-types)). The
-URL is used verbatim, query string included: this is the contract of an S3
-pre-signed PUT URL, which carries its own authorisation and expiry in the
-query, and any receiver that accepts a plain `PUT` of a body satisfies it
-identically. A client **MUST** send only the document — no credentials,
-cookies, or headers derived from it — **MUST** treat any status other than
-2xx as failure, **MUST NOT** follow a redirect, and **MUST NOT** retry
-without a fresh user action. [APR-MODEL-033]
+single HTTP `PUT`. The URL is used verbatim, query string included: this is the
+contract of an S3 pre-signed PUT URL, which carries its own authorisation and
+expiry in the query, and any receiver that accepts a plain `PUT` of a body
+satisfies it identically. Each row below is a requirement on an implementation
+submitting to an `https` entry.
+
+| Behaviour | Requirement | Rule |
+| --- | --- | --- |
+| Send the document as the body of one `PUT`, with the `vnd.apr` media type of its representation as `Content-Type` ([Document type](#media-types)) | **MUST** | [APR-MODEL-033] |
+| Send credentials, cookies, or headers derived from the document | **MUST NOT** | [APR-MODEL-086] |
+| Treat any status other than 2xx as failure | **MUST** | [APR-MODEL-087] |
+| Follow a redirect | **MUST NOT** | [APR-MODEL-088] |
+| Retry without a fresh user action | **MUST NOT** | [APR-MODEL-089] |
+
+What a receiver holds after a `PUT` is the request body, byte for byte: the
+stream as the implementation wrote it, already a valid APR file, needing no
+processing. A WebDAV collection (RFC 4918) is an ordinary `PUT` target.
 
 **`mailto`.** The entry is an RFC 6068 address, with any header fields it
-carries such as `subject` passed through. Submitting means composing a message
-to that address with the **stream** as a single attachment, never inlined in
-the body; a lone form is a one-record stream. A client **SHOULD** hand the
-composition to the user's mail client, and **MAY** instead send natively if it
-has that ability; either way the message leaves only on an explicit user
-action. [APR-MODEL-034]
+carries, such as `subject`, passed through. Submitting composes a message to
+that address with the **stream** as a single attachment, never inlined in the
+body; a lone form is a one-record stream. The message leaves only on an explicit
+user action.
 
-What the receiver holds after a `PUT` is the request body, byte for byte: the
-stream as the client wrote it, already a valid APR file. No processing on the
-receiving side is assumed or permitted to be needed. A WebDAV collection
-(RFC 4918) is an ordinary `PUT` target and needs no separate treatment.
+An implementation submitting to a `mailto` entry **SHOULD** hand the
+composition to the user's mail client. [APR-MODEL-034]
 
-Each transport is **OPTIONAL** and claimed separately
-([Declaring conformance](#declaring-conformance)). A client **MUST NOT** act
-on an entry whose scheme it does not recognise or does not implement, and a
-validator **SHOULD** report an entry of a scheme this document does not define
-as `SUBMISSION_URL_UNSUPPORTED` ([Warnings](#warnings)). An `http` entry is
-unsupported. [APR-MODEL-035]
+An implementation submitting to a `mailto` entry **MAY** send the message
+itself instead. [APR-MODEL-090]
+
+Each transport is claimed separately ([Declaring conformance](#declaring-conformance)).
+
+An implementation **MUST NOT** act on an entry whose scheme it does not
+recognise or does not implement. [APR-MODEL-035]
+
+A validator **SHOULD** report an entry whose scheme this document does not
+define as `SUBMISSION_URL_UNSUPPORTED` ([Warnings](#warnings)). [APR-MODEL-091]
+
+An `http` entry is one such scheme.
 
 > Rationale: the format defines *where* a completed form may go and borrows
 > *how* from transports that already exist, rather than specifying one. A
@@ -1558,7 +1617,7 @@ unsupported. [APR-MODEL-035]
 > fields beyond the URL, which a string entry cannot carry, and every
 > S3-compatible store accepts a pre-signed PUT. No authentication step is
 > defined because a pre-signed URL *is* the authorisation: the grant travels
-> in the query string, so the client never holds a credential.
+> in the query string, so the implementation never holds a credential.
 
 #### 5.2.2 Related records {#regarding}
 
@@ -1571,16 +1630,19 @@ while looking at what came before, and the form they produce names what they
 looked at. Every record they looked at is left exactly as it was, so its digest
 holds and the attestations over it stay `valid`.
 
-`regarding` is an ordered, duplicate-free array of digest strings, each
-matching the digest form ([Digests](#digests)). Order is the author's preferred
-display order and means nothing else. An entry **MAY** name a form or an
-attestation, so a form can pin not only what it was about but the attestation
-state it was about. [APR-MODEL-043]
+`regarding` **MUST** be an array of distinct digest strings, each in the digest
+form ([Digests](#digests)). [APR-MODEL-043]
+
+Order is the author's preferred display order and means nothing else. An entry
+can name a form or an attestation, so a form can pin not only what it was about
+but the attestation state it was about.
 
 **A reference asserts context and nothing else.** It records that whoever
 completed this form had those records in front of them. It creates no revision,
-no supersession, no chronology, no authority, and no trust relationship, and a
-reader **MUST NOT** present one as any of those. [APR-MODEL-044]
+no supersession, no chronology, no authority, and no trust relationship.
+
+A reader **MUST NOT** present a reference as a revision, a supersession, a
+chronology, an authority, or a trust relationship. [APR-MODEL-044]
 
 Unsigned, a reference is a claim anyone could write. An attestation over the
 form binds it, because a form digest covers `metadata`. Proving a history is
@@ -1588,14 +1650,18 @@ therefore what it always was — attestations, never position and never
 assertion ([Changed forms](#changed-forms)).
 
 A referenced digest matching no available record is `unresolved`
-([Verification vocabulary](#verification)). The document is **valid**: a reader
-**MUST NOT** reject it, report it as damaged, or withhold its data. [APR-MODEL-045]
+([Verification vocabulary](#verification)), and the document is valid.
+
+A reader **MUST NOT** reject a document for an unresolved reference, report it
+as damaged, or withhold its data. [APR-MODEL-045]
 
 > References are acyclic by construction. A form's digest covers its own
 > `regarding` list, so a record can only name one whose digest was already
 > fixed. Nothing needs to forbid a cycle, because none can be built.
 
-A receipt naming the submission it was written against:
+**Example 5.2.2-1.** A receipt naming the submission it was written against. The
+referenced record does not accompany it, so the one reference is `unresolved`,
+and the receipt is valid.
 
 ```apr-example
 id: regarding-reference
@@ -1625,9 +1691,8 @@ expect: valid
 }
 ```
 
-The referenced record need not accompany it. Alone, the receipt above is a
-valid form whose one reference is `unresolved`. In a stream with its subject,
-the reference resolves and the chain is legible to a reader.
+**Example 5.2.2-2.** The same receipt in a stream with its subject. The
+reference resolves, and the chain is legible to a reader.
 
 ```apr-example
 id: regarding-chain
@@ -1641,6 +1706,23 @@ expect: valid
 {"aprVersion":"1.0-beta.6","documentType":"filledForm","metadata":{"title":"Intake Receipt","templateId":"tag:example.com,2026:intake-receipt","regarding":["sha256:b4363edd8ccc7f2e2acca6786a73a1f855fb8e9d8cad0245c16934107cfc4c28"]},"sections":[{"id":"intake","title":"Intake","prompts":[{"id":"received","label":"Date received","response":"2026-09-04"}]}]}
 ```
 
+**Example 5.2.2-3.** A `regarding` entry that is not a digest.
+
+```apr-example
+id: regarding-not-a-digest
+rule: regarding
+violates: APR-MODEL-043
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T", "regarding": [ "sha256:NOTHEX" ] },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
 > Rationale: a workflow that wants to record something about a form has two bad
 > options and one good one. Editing the form destroys the digest every
 > attestation over it depends on. Widening the form with the receiver's data
@@ -1652,60 +1734,174 @@ expect: valid
 
 ### 5.3 Section {#section-object}
 
-| Member | Type | Required | Notes |
-| --- | --- | --- | --- |
-| `id` | string | **Yes** | Non-whitespace. Unique document-wide among sections. |
-| `title` | string | **Yes** | Non-whitespace. **Never optional.** |
-| `description` | string | No | |
-| `sections` | array | No | Child sections — recursive. |
-| `prompts` | array | No | |
-| `kind` | string | No | `table` when this section's child sections are repeating instances ([Tables](#tables)). |
-| `canAddRows` | boolean | No | `true` if a filler may add or remove instances. Absent means fixed. |
-| `maxRows` | integer | No | Advisory cap on instance count. **MUST** be at least 1. [APR-MODEL-047] |
-| `role` | string | No | [Roles](#roles) |
+Each row below is a requirement on a section.
 
-A section **MUST** carry content: at least one prompt or at least one child
-section. There is no exception — tables included. [APR-MODEL-009]
+| Member | Type | Requirement | Rule | Notes |
+| --- | --- | --- | --- | --- |
+| `id` | non-blank string | **REQUIRED** | [APR-MODEL-066] | Unique document-wide among sections ([Prompt](#prompt-object)). |
+| `title` | non-blank string | **REQUIRED** | [APR-MODEL-067] | The section's heading in the document outline. |
+| `description` | string | **OPTIONAL** | [APR-MODEL-068] | |
+| `sections` | array | **OPTIONAL** | [APR-MODEL-069] | Child sections, recursively. |
+| `prompts` | array | **OPTIONAL** | [APR-MODEL-070] | |
+| `kind` | string | **OPTIONAL** | [APR-MODEL-071] | `table` when this section's child sections are repeating instances ([Tables](#tables)). |
+| `canAddRows` | boolean | **OPTIONAL** | [APR-MODEL-072] | Whether a filler can add or remove instances ([Rows and instances](#table-rows)). |
+| `maxRows` | integer | **OPTIONAL** | [APR-MODEL-073] | Advisory cap on instance count. |
+| `role` | string | **OPTIONAL** | [APR-MODEL-074] | [Roles](#roles) |
+| `language` | string | **OPTIONAL** | [APR-MODEL-075] | A BCP 47 language tag, overriding the language the section inherits ([Metadata](#metadata)). |
 
-**Section titles are required, not optional.** The section tree is the document
-outline that a screen-reader user navigates by. An untitled section is a hole in
-that outline, so the format refuses to produce one.
+A section's `maxRows` **MUST** be at least 1. [APR-MODEL-047]
+
+A section **MUST** contain at least one prompt or at least one child section,
+tables included. [APR-MODEL-009]
+
+**Every section has a title.** The section tree is the document outline that a
+screen-reader user navigates by. An untitled section is a hole in that outline,
+so the format refuses to produce one.
+
+**Example 5.3-1.** A section with no title.
+
+```apr-example
+id: section-without-title
+rule: section-object
+violates: APR-MODEL-067
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
+**Example 5.3-2.** A section with no id.
+
+```apr-example
+id: section-without-id
+rule: section-object
+violates: APR-MODEL-066
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [ { "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
 
 ### 5.4 Prompt {#prompt-object}
 
-| Member | Type | Required | Notes |
-| --- | --- | --- | --- |
-| `id` | string | **Yes** | Non-whitespace. Unique document-wide among prompts. |
-| `label` | string | **Yes** | Non-whitespace. This is the accessible name. |
-| `response` | string | No | Absent means empty ([Responses are strings](#responses)). |
-| `hints` | object | No | [Hints](#hints-object). Advisory in full. |
-| `role` | string | No | Overrides the containing section's role. |
+Each row below is a requirement on a prompt.
 
-**`label` is required and placeholder text is never a substitute for it.** A
-placeholder disappears when the user types, is invisible to many assistive
-technologies, and leaves the field permanently unnamed. A prompt with a
-placeholder and no label is invalid APR.
+| Member | Type | Requirement | Rule | Notes |
+| --- | --- | --- | --- | --- |
+| `id` | non-blank string | **REQUIRED** | [APR-MODEL-076] | Unique document-wide among prompts. |
+| `label` | non-blank string | **REQUIRED** | [APR-MODEL-077] | The accessible name. |
+| `response` | string | **OPTIONAL** | [APR-MODEL-078] | Absent means empty ([Responses are strings](#responses)). |
+| `hints` | object | **OPTIONAL** | [APR-MODEL-079] | [Hints](#hints-object). Advisory in full. |
+| `role` | string | **OPTIONAL** | [APR-MODEL-080] | Overrides the containing section's role ([Roles](#roles)). |
+| `language` | string | **OPTIONAL** | [APR-MODEL-081] | A BCP 47 language tag, overriding the language the prompt inherits ([Metadata](#metadata)). |
 
-Section ids and prompt ids occupy **separate namespaces**: a section and a prompt
-**MAY** share an id. Within each namespace, ids **MUST** be unique across the
-whole document, not merely among siblings — a filled form is consumed by field
-id, and a duplicate makes the data ambiguous. [APR-MODEL-010]
+**Placeholder text never substitutes for a label.** A placeholder disappears
+when the user types, is invisible to many assistive technologies, and leaves the
+field permanently unnamed. A prompt with a placeholder and no label has no
+`label`, and a validator reports it as `REQUIRED_FIELD`.
 
-Ids are compared by exact code-point equality; no normalization, case folding, or
-trimming is applied. Ids **SHOULD** be stable across template versions and
-**MUST NOT** change when prompts are reordered. Reordering a form is a
-presentation change; changing an id silently breaks every downstream consumer and
-every attestation covering it. [APR-MODEL-011]
+**Example 5.4-1.** A prompt with a placeholder and no label.
+
+```apr-example
+id: prompt-without-label
+rule: prompt-object
+violates: APR-MODEL-077
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S",
+    "prompts": [ { "id": "p", "hints": { "placeholder": "Full name" } } ] } ]
+}
+```
+
+**Example 5.4-2.** A prompt with no id.
+
+```apr-example
+id: prompt-without-id
+rule: prompt-object
+violates: APR-MODEL-076
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "label": "P" } ] } ]
+}
+```
+
+Section ids and prompt ids occupy separate namespaces.
+
+A section and a prompt **MAY** share an id. [APR-MODEL-092]
+
+Within each namespace, an id **MUST** be unique across the whole document, not
+merely among siblings. [APR-MODEL-010]
+
+A filled form is consumed by field id, and a duplicate makes the data ambiguous.
+
+A validator **MUST** compare ids by exact code-point equality, applying no
+normalization, case folding, or trimming. [APR-MODEL-011]
+
+A template **SHOULD** keep each id unchanged across its versions. [APR-MODEL-093]
+
+A writer **MUST NOT** change an id when it reorders prompts. [APR-MODEL-094]
+
+Reordering a form is a presentation change; changing an id silently breaks every
+downstream consumer and every attestation covering it.
+
+**Example 5.4-3.** A section and a prompt sharing an id, and two prompt ids that
+differ only by case. All three ids are distinct within their namespaces.
+
+```apr-example
+id: id-namespaces
+rule: prompt-object
+satisfies: APR-MODEL-066, APR-MODEL-067, APR-MODEL-076, APR-MODEL-077, APR-MODEL-092
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Contact" },
+  "sections": [
+    {
+      "id": "name",
+      "title": "Name",
+      "prompts": [
+        { "id": "name", "label": "Full name" },
+        { "id": "Name", "label": "Name as printed on the card" }
+      ]
+    }
+  ]
+}
+```
 
 #### 5.4.1 Generated ids {#generated-ids}
 
-An author names things. A writer **MUST** preserve every valid id it read, and
-**MUST NOT** invent or replace an id unless the caller explicitly asks it to
-repair the document; by default a blank id or a duplicate is simply the error
-[Errors](#structural-validation) says it is. [APR-MODEL-040]
+An author names things.
 
-When asked to repair, a writer generates ids by **content**, so that every
-implementation repairing the same document arrives at the same names:
+A writer **MUST** preserve every valid id it read. [APR-MODEL-040]
+
+A writer **MUST NOT** invent or replace an id unless the caller explicitly asks
+it to repair the document. [APR-MODEL-095]
+
+By default, a blank id or a duplicate is the error [Errors](#structural-validation)
+says it is. When asked to repair, a writer generates ids by **content**, so that
+every implementation repairing the same document arrives at the same names:
 
 1. Take the **title path**: the titles of the enclosing sections from the
    outermost inward, followed by the member's own `title` (a section) or
@@ -1720,18 +1916,23 @@ implementation repairing the same document arrives at the same names:
    member's 1-based position among its siblings to the array and repeat;
    if it still collides, append its parent's position, and so on outward.
 
-A blank or whitespace-only id receives a generated one. Where two members
-share an id, **both** are renamed, since neither has a better claim to the
-name than the other. [APR-MODEL-041]
+A writer repairing a document **MUST** give a blank or whitespace-only id an id
+generated by the steps above. [APR-MODEL-041]
 
-Generated ids are short, typeable, and carry no order: two adjacent prompts
-get unrelated names, and nothing about a name says where it sits. A writer
-**MUST NOT** generate ids that encode position — `q1`, `q2`, `row_3` —
-because a person reading them will take the sequence to mean something, and
-inserting one row would then appear to renumber the rest. A renamed id is a
-changed id, with everything the stability rule above warns of: a `fields` attestation
-naming the old id resolves to nothing afterwards, which is the honest
-outcome, since the thing it named is no longer there under that name. [APR-MODEL-042]
+A writer repairing a document **MUST** give both members sharing an id an id
+generated by the steps above, since neither has a better claim to the name.
+[APR-MODEL-096]
+
+Generated ids are short, typeable, and carry no order: two adjacent prompts get
+unrelated names, and nothing about a name says where it sits.
+
+A writer **MUST NOT** generate an id that encodes position, such as `q1`, `q2`,
+or `row_3`. [APR-MODEL-042]
+
+A person reading such ids takes the sequence to mean something, and inserting
+one row would appear to renumber the rest. A renamed id is a changed id: a
+`fields` attestation naming the old id resolves to nothing afterwards, which is
+the honest outcome, since the thing it named is no longer there under that name.
 
 > Rationale: ids are how a filled form is consumed, so a document with a
 > missing or duplicated id is unusable, and *somebody* has to name the
@@ -3205,6 +3406,7 @@ Compliance with this specification requires the editions below.
 | Designation | Title |
 | --- | --- |
 | BCP 14 | Key words for use in RFCs (RFC 2119 and RFC 8174) |
+| BCP 47 | Tags for Identifying Languages (RFC 5646) |
 | RFC 3339 | Date and Time on the Internet: Timestamps |
 | RFC 3629 | UTF-8, a transformation format of ISO 10646 |
 | RFC 3986 | Uniform Resource Identifier (URI): Generic Syntax |

@@ -6,15 +6,15 @@
     "formatVersion": "1.0-beta.6",
     "status": "BETA \u2014 the format is not frozen and breaking changes are intentional",
     "published": "2026-09-01",
-    "normativeClauses": 242,
-    "ruleIdentifiers": 180,
+    "normativeClauses": 253,
+    "ruleIdentifiers": 222,
     "anchors": 98,
-    "executableExamples": 40
+    "executableExamples": 47
   },
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:edb2a4d8b158e99a971e8cd7ba2db5f120f082f83a6b60b0830fb8256a872081"
+      "sha256": "sha256:2ee58f5aa2e3ab735812a74b8199b294b6dda2d75ce0a0c54aaebfb330610e9f"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
@@ -22,7 +22,7 @@
     },
     "schemaBase": {
       "path": "schemas/apr-1.0.schema.json",
-      "sha256": "sha256:7a14718ad8b789d24d36f0b66d3d3f26219900f4c9c67a7f3fe96845177268e8"
+      "sha256": "sha256:d5f0a55dcae06b684f1ff9af82cfc671a2250b4e38f21c77d857049f0e6540f6"
     },
     "typeRegistry": {
       "path": "schemas/apr-types-1.0.json",
@@ -30,11 +30,11 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:f65e530f94428eb90f0ee4a1ac22835bf28b1236f37d13bf3f328c323106542a"
+      "sha256": "sha256:de08fef70ce8e685ee1423d66ada1e1bbae517aa5b900821cab6655757f369f9"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
-      "sha256": "sha256:eeb8367001121255e85bc146c865af2c6d5fc7ea45758f7330e2b4c4508e9ea9"
+      "sha256": "sha256:a86e35ca586c18f383e3a91c51ffd5f3d4619f745d0dc7ffdc79b6fe884b04cb"
     },
     "reviewRubric": {
       "path": "tests/spec-semantic/rubric.json",
@@ -42,16 +42,16 @@
     },
     "derivedExamples": {
       "path": "tests/Conformance/beta6/spec-examples.json",
-      "sha256": "sha256:b9bbe87948e00af26865cad8bc0a0418940c838dfbb66a5f59df702cff676f1e"
+      "sha256": "sha256:b15517e0c1787d7dde6839b13c345678e5362792b68bb95bf508ed3a13281241"
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:4f49b9f7a0b6a4afb6db38999b8aff535a431854935ceed84f004cd93b157dfa"
+      "sha256": "sha256:45d431ababed7297d9ed86348d06effb01624de4c72dfd4fecff2c545e53714b"
     }
   },
   "corpus": {
     "path": "tests/Conformance/beta6",
     "files": 157,
-    "sha256": "sha256:e1af24e8a9a04ae954e1e3e4cb850cb7f8b5d426521f037b0ae2208d3a359036"
+    "sha256": "sha256:642eb5b67af2ee6c963003996cdffdfeec6daa2556bf1a92f68c7fa251f6fb62"
   }
 }
