@@ -132,7 +132,7 @@ def _parse_hints(node) -> PromptHints:
 
 def _parse_prompt(node) -> Prompt:
     node = _require_object(node, "prompt")
-    known = {"id", "label", "response", "role", "hints"}
+    known = {"id", "label", "response", "role", "language", "hints"}
     return Prompt(
         id=_string(node, "id", "prompt") or "",
         # Human-facing text is preserved exactly and validated to a floor
@@ -144,6 +144,7 @@ def _parse_prompt(node) -> Prompt:
         # safe display is the renderer's responsibility, not a parser rewrite.
         response=_string(node, "response", "prompt") or "",
         role=_string(node, "role", "prompt"),
+        language=_string(node, "language", "prompt"),
         hints=_parse_hints(node["hints"]) if node.get("hints") else PromptHints(),
         extra=_rest(node, known),
         response_is_declared="response" in node,
@@ -154,7 +155,7 @@ def _parse_section(node) -> Section:
     node = _require_object(node, "section")
     known = {
         "id", "title", "description", "kind", "canAddRows", "maxRows",
-        "role", "prompts", "sections",
+        "role", "language", "prompts", "sections",
     }
     prompts = node.get("prompts") or []
     sections = node.get("sections") or []
@@ -171,6 +172,7 @@ def _parse_section(node) -> Section:
         can_add_rows=_boolean(node, "canAddRows", "section"),
         max_rows=_integer(node, "maxRows", "section"),
         role=_string(node, "role", "section"),
+        language=_string(node, "language", "section"),
         prompts=[_parse_prompt(p) for p in prompts],
         sections=[_parse_section(s) for s in sections],
         extra=_rest(node, known),
@@ -181,7 +183,7 @@ def _parse_metadata(node) -> Metadata:
     node = _require_object(node, "metadata")
     known = {
         "title", "description", "author", "created", "modified", "templateId",
-        "templateVersion", "publisher", "submissionUrls",
+        "templateVersion", "language", "publisher", "submissionUrls",
     }
     return Metadata(
         title=_string(node, "title", "metadata") or "",
@@ -191,6 +193,7 @@ def _parse_metadata(node) -> Metadata:
         modified=_string(node, "modified", "metadata"),
         template_id=_string(node, "templateId", "metadata"),
         template_version=_string(node, "templateVersion", "metadata"),
+        language=_string(node, "language", "metadata"),
         publisher=_string(node, "publisher", "metadata"),
         # Deliberately not normalised: machine-consumed and signature-bound, so a
         # hidden character is reported rather than quietly cleaned to another host.
@@ -305,6 +308,8 @@ def _prompt_json(prompt: Prompt) -> Dict[str, Any]:
         node["response"] = prompt.response
     if prompt.role:
         node["role"] = prompt.role
+    if prompt.language:
+        node["language"] = prompt.language
     hints = _hints_json(prompt.hints)
     if hints:
         node["hints"] = hints
@@ -320,6 +325,7 @@ def _section_json(section: Section) -> Dict[str, Any]:
         "canAddRows": section.can_add_rows,
         "maxRows": section.max_rows,
         "role": section.role,
+        "language": section.language,
     }))
     if section.prompts:
         node["prompts"] = [_prompt_json(p) for p in section.prompts]
@@ -341,6 +347,7 @@ def dumps(document: AprDocument, indent: int = 2) -> str:
         "modified": document.metadata.modified,
         "templateId": document.metadata.template_id,
         "templateVersion": document.metadata.template_version,
+        "language": document.metadata.language,
         "publisher": document.metadata.publisher,
         "submissionUrls": document.metadata.submission_urls,
     }))

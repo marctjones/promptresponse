@@ -10,7 +10,7 @@ export interface PromptHints {
   extra: JsonObject;
 }
 export interface Prompt {
-  id: string; label: string; response: string; role?: string;
+  id: string; label: string; response: string; role?: string; language?: string;
   hints: PromptHints; extra: JsonObject;
   /**
    * Whether this filling session computed the response now in `response`.
@@ -37,13 +37,13 @@ export interface Prompt {
 }
 export interface Section {
   id: string; title: string; description?: string; kind?: string;
-  canAddRows?: boolean; maxRows?: number; role?: string;
+  canAddRows?: boolean; maxRows?: number; role?: string; language?: string;
   prompts: Prompt[]; sections: Section[]; extra: JsonObject;
 }
 export interface RoleDefinition { id: string; name?: string; description?: string; extra: JsonObject; }
 export interface Metadata {
   title: string; description?: string; author?: string; created?: string; modified?: string;
-  templateId?: string; templateVersion?: string;
+  templateId?: string; templateVersion?: string; language?: string;
   publisher?: string; submissionUrls?: string[]; extra: JsonObject;
 }
 export interface AprDocument {

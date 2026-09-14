@@ -147,6 +147,15 @@ public class Section
     /// </remarks>
     public string? Role { get; set; }
 
+    /// <summary>
+    /// Gets or sets the BCP 47 language tag of this section's human-facing authoring text.
+    /// </summary>
+    /// <remarks>
+    /// Overrides the language it inherits from its parent section or the form's metadata. Advisory: it never
+    /// affects validity, and never relaxes a check on that text.
+    /// </remarks>
+    public string? Language { get; set; }
+
 
     /// <summary>
     /// Whether a filler may add or remove instances. String <c>"true"</c> to allow it;

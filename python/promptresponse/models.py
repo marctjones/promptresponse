@@ -57,6 +57,7 @@ class Prompt:
     label: str = ""
     response: str = ""
     role: Optional[str] = None
+    language: Optional[str] = None
     hints: PromptHints = field(default_factory=PromptHints)
     extra: Dict[str, Any] = field(default_factory=dict)
     # Whether this filling session computed the response now in `response`.
@@ -93,6 +94,7 @@ class Section:
     can_add_rows: Optional[bool] = None
     max_rows: Optional[int] = None
     role: Optional[str] = None
+    language: Optional[str] = None
     prompts: List[Prompt] = field(default_factory=list)
     sections: List["Section"] = field(default_factory=list)
     extra: Dict[str, Any] = field(default_factory=dict)
@@ -124,6 +126,7 @@ class Metadata:
     modified: Optional[str] = None
     template_id: Optional[str] = None
     template_version: Optional[str] = None
+    language: Optional[str] = None
     publisher: Optional[str] = None
     submission_urls: Optional[List[str]] = None
     extra: Dict[str, Any] = field(default_factory=dict)
