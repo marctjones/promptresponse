@@ -112,7 +112,9 @@ public sealed class SpecExampleTests
             bool rejected;
             try
             {
-                rejected = Read(example).Any(form => !validator.Validate(form).IsValid);
+                // A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
+                var forms = Read(example);
+                rejected = forms.Count == 0 || forms.Any(form => !validator.Validate(form).IsValid);
             }
             catch (Exception)
             {

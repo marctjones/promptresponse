@@ -75,7 +75,8 @@ def rejected(example) -> bool:
     records = result if isinstance(result, list) else [result]
     documents = [getattr(r, "document", r) for r in records
                  if not isinstance(r, pr.beta6.Beta6Record) or isinstance(r, pr.beta6.Beta6FormRecord)]
-    return any(pr.validate(document).errors for document in documents)
+    # A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
+    return not documents or any(pr.validate(document).errors for document in documents)
 
 
 def identifiers():

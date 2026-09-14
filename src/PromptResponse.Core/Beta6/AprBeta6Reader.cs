@@ -393,9 +393,12 @@ public sealed class AprBeta6Reader
     private static IReadOnlyList<string> SplitYamlDocuments(string source)
     {
         RejectYamlFeatures(source);
-        var documents = System.Text.RegularExpressions.Regex.Split(source, "(?m)^---\\s*$")
-            .Where(document => !string.IsNullOrWhiteSpace(document)).ToArray();
-        return documents.Length == 0 ? [source] : documents;
+        // A document holding only blank lines and comments holds no record, so a YAML
+        // stream of nothing else is an empty stream, not one record that fails as a form.
+        return System.Text.RegularExpressions.Regex.Split(source, "(?m)^---\\s*$")
+            .Where(document => document.Split('\n').Any(line =>
+                line.Trim() is { Length: > 0 } content && !content.StartsWith('#')))
+            .ToArray();
     }
 
     // APR defines its own YAML schema (specification section 4.5.1). YamlDotNet is

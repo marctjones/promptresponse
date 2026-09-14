@@ -171,7 +171,8 @@ public final class AprConformanceTest {
                 } else forms.add(AprBeta6.readForm(document, form));
                 java.util.List<String> errors = new java.util.ArrayList<>();
                 for (AprDocument read : forms) for (ValidationIssue issue : Apr.validate(read).errors()) errors.add(issue.code());
-                accepted = errors.isEmpty();
+                // A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
+                accepted = !forms.isEmpty() && errors.isEmpty();
                 if (!accepted) detail = String.join(", ", errors);
             } catch (RuntimeException rejected) {
                 accepted = false;

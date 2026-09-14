@@ -82,6 +82,10 @@ JsonObject Answer(JsonObject testCase)
         };
     }
 
+    // A stream that holds no record holds no document ([Errors](#structural-validation)).
+    if (records.Count == 0)
+        return new JsonObject { ["id"] = id, ["outcome"] = "reject", ["diagnostic"] = "NULL_DOCUMENT" };
+
     var warnings = new SortedSet<string>(StringComparer.Ordinal);
     foreach (var record in records)
     {

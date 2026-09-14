@@ -98,7 +98,8 @@ test("every specification example behaves as the specification says", async () =
         const documents = Array.isArray(result)
           ? result.filter(record => record.type === "form").map(record => record.document)
           : [result];
-        accepted = documents.every(document => validate(document).errors.length === 0);
+        // A read that yields no form holds no document, which is refused too (NULL_DOCUMENT).
+        accepted = documents.length > 0 && documents.every(document => validate(document).errors.length === 0);
       } catch {
         // Rejected, as the specification requires.
       }
