@@ -59,9 +59,8 @@ Read the specification in this order when implementing APR:
 3. [Streams](#streams) and [digests](#digests) define `core+streams`.
 4. [Expressions](#expressions) and [attestations](#attestations) are the
    remaining optional profiles.
-5. [Rendering](#renderers), [security](#security), and the
-   [conformance checklist](#checklist) constrain hosts and verify an
-   implementation.
+5. [Rendering](#renderers) and [security](#security) constrain renderers,
+   readers, and hosts.
 
 This navigation is informative. The requirement language in the sections it
 links to remains authoritative.
@@ -5533,80 +5532,7 @@ responsibility.
 
 ---
 
-## 15. Conformance checklist {#checklist}
-
-An implementation claiming **APR 1.0-beta.6 core** MUST:
-
-- [ ] Parse UTF-8 in both representations; reject malformed input rather than coercing it
-- [ ] Reject a response given as a JSON number or boolean
-- [ ] Reject a structural member given in the wrong JSON type; `canAddRows` is a boolean, `maxRows` an integer
-- [ ] Read a null or absent response as the empty string; never write null
-- [ ] Reject any `aprVersion` other than `1.0-beta.6`
-- [ ] Treat `documentType` as authoritative; never infer type from a filename
-- [ ] Label APR content with its `vnd.apr` media type; never infer behaviour from a generic one
-- [ ] Require `metadata.title`, section `id` and `title`, prompt `id` and `label`
-- [ ] Enforce document-wide id uniqueness in both namespaces; never generate or replace an id unless asked, and then only by the content rule
-- [ ] Require content in every section, tables included, and at least one instance in a table
-- [ ] Treat a table as structure, never as licence for layout data
-- [ ] Derive table headers from the corresponding prompts' labels; correspond by position
-- [ ] Require `templateId` on a filled form, as a URI, and never fetch it
-- [ ] Preserve `metadata.regarding`, treat an unresolved reference as valid, and never read a reference as revision, authority or trust
-- [ ] Support at least 16 levels of section nesting
-- [ ] Ignore unknown members without rejecting them, and preserve them on write
-- [ ] Name every extension member with an owned reverse-DNS prefix; add no unprefixed member
-- [ ] Degrade an unrecognized `expectedDataType` to text
-- [ ] Treat `signature` and `file` as unregistered types; never present a signature widget as evidence
-- [ ] **Never reject, alter, or block a response because of a hint**
-- [ ] Never alter a response on the basis of a hint
-- [ ] Report — never rewrite — hidden characters in every `submissionUrls` entry
-- [ ] Refuse, at authoring time, human-facing text that is not NFC or carries invisible, deprecated or control code points
-- [ ] Deliver only by a single `PUT` to an `https` entry or an attachment to a `mailto` entry, on an explicit user action, never following a redirect
-- [ ] Preserve every response byte-for-byte across a round-trip
-- [ ] Produce identical semantic models from paired JSONC and YAML documents
-- [ ] Preserve attestation records and `expr*` strings even when not implementing them
-- [ ] Never gate parsing, validation, rendering, or data extraction on attestation state
-- [ ] Pass every fixture in `tests/Conformance/beta6/`, and every executable
-      example in this document
-
-An implementation additionally claiming **`core+streams`** MUST:
-
-- [ ] Read and write RS-framed APR-JSONC streams and APR-YAML document streams
-- [ ] Yield every record, including repeated identical form occurrences
-- [ ] Never deduplicate, reorder, or select a record by position
-- [ ] Return `APR_STREAM_REQUIRES_ITERATION` from a single-form API given a stream
-- [ ] Refuse a stream that mixes representations
-- [ ] Produce the same semantic records from either member of a paired stream
-
-An implementation additionally claiming **`core+attestations`** MUST, and MUST
-also satisfy `core+streams`:
-
-- [ ] Compute `jcs-sha256` digests over the semantic model, extension members included
-- [ ] Build manifests that hold no plaintext of the values they describe
-- [ ] Resolve an attestation to its subject by digest, whatever the record order
-- [ ] Hold an unresolved attestation until its subject is observed, and report `unresolved` if it never is
-- [ ] Verify a `cms/ecdsa-p256-sha256` proof over the proof-free envelope
-- [ ] Report an unrecognized proof type as `unverifiable`, never `invalid`, and preserve it
-- [ ] Resolve a witness to the exact earlier envelope it names
-- [ ] Report `valid`, `invalid`, `unresolved`, `unverifiable` and `witnessed` independently
-- [ ] Keep certificate trust separate from cryptographic validity
-- [ ] **Never gate parsing, validation, rendering, export or extraction on attestation state**
-
-An implementation additionally claiming **`core+expressions`** MUST:
-
-- [ ] Evaluate CEL as cel-spec `v0.25.3` defines it, and pass that release's conformance suite
-- [ ] Provide the CEL standard library and standard macros, and no extension library or custom function
-- [ ] Bind each response by its prompt's declared type
-- [ ] Treat an unconvertible or blank typed response as unbound, never as a default
-- [ ] Supply `_this`, `_id`, `_now`, `_today` and `ctx`, and let no prompt id shadow them
-- [ ] Take `_now` and `_today` from the caller, never from the host clock
-- [ ] Apply the per-hint fallback on any failure, showing more and blocking less
-- [ ] Never overwrite a non-empty response found in a document being read; offer the recomputed value as a suggestion
-- [ ] Order computed prompts by their direct references
-- [ ] Bound evaluation, and report a reached bound as a fallback rather than partial mutation
-
----
-
-## 16. Open questions {#open-questions}
+## 15. Open questions {#open-questions}
 
 An honest list of what this baseline does not settle.
 
@@ -5619,7 +5545,7 @@ An honest list of what this baseline does not settle.
 
 ---
 
-## 17. Normative references {#normative-references}
+## 16. Normative references {#normative-references}
 
 Compliance with this specification requires the editions below.
 
@@ -5656,7 +5582,7 @@ Compliance with this specification requires the editions below.
 
 The CEL entry is normative for the `core+expressions` profile only.
 
-## 18. Informative references {#informative-references}
+## 17. Informative references {#informative-references}
 
 | Designation | Title |
 | --- | --- |
@@ -5668,7 +5594,7 @@ The CEL entry is normative for the `core+expressions` profile only.
 
 ---
 
-## 19. Appendix A: Minimal valid document {#appendix-minimal}
+## 18. Appendix A: Minimal valid document {#appendix-minimal}
 
 **Example 8.** The smallest conformant APR form.
 
@@ -5689,7 +5615,7 @@ The CEL entry is normative for the `core+expressions` profile only.
 }
 ```
 
-## 20. Appendix B: The rule to remember {#appendix-rule}
+## 19. Appendix B: The rule to remember {#appendix-rule}
 
 If you implement nothing else correctly, implement this:
 
@@ -5697,7 +5623,7 @@ If you implement nothing else correctly, implement this:
 
 Everything else in APR is structure. That rule is the point.
 
-## 21. Appendix C: Provenance of this text {#provenance}
+## 20. Appendix C: Provenance of this text {#provenance}
 
 Non-normative.
 
@@ -5710,7 +5636,7 @@ document disagree, the implementation has a defect to fix.
 > produces a document that ratifies accidents and cannot be used to judge whether
 > the code is right.
 
-## 22. Appendix D: Corpus gaps {#corpus-gaps}
+## 21. Appendix D: Corpus gaps {#corpus-gaps}
 
 Non-normative.
 
@@ -5731,7 +5657,7 @@ Still without a vector:
 
 ---
 
-## 23. Appendix E: What earns a primitive {#primitives}
+## 22. Appendix E: What earns a primitive {#primitives}
 
 Non-normative.
 
