@@ -286,13 +286,15 @@ public final class Apr {
         if (min == null && max == null) return;
         double value;
         try { value = Double.parseDouble(response.trim()); } catch (NumberFormatException notNumeric) { return; }
-        for (var bound : List.of(Map.entry("minimum", min), Map.entry("maximum", max))) {
-            Object limitRaw = bound.getValue();
+        // Map.entry refuses a null value, so a hint carrying only max threw here
+        // before either bound was compared.
+        for (String name : List.of("minimum", "maximum")) {
+            Object limitRaw = "minimum".equals(name) ? min : max;
             if (limitRaw == null) continue;
             double limit;
             try { limit = limitRaw instanceof Number n ? n.doubleValue() : Double.parseDouble(String.valueOf(limitRaw).trim()); } catch (NumberFormatException notNumeric) { continue; }
-            boolean worse = "minimum".equals(bound.getKey()) ? value < limit : value > limit;
-            if (worse) issue(warnings, "RESPONSE_OUTSIDE_BOUNDS", id, "Outside the suggested " + bound.getKey() + " of " + limitRaw + ". Bounds describe the control offered, not a limit on the answer.");
+            boolean worse = "minimum".equals(name) ? value < limit : value > limit;
+            if (worse) issue(warnings, "RESPONSE_OUTSIDE_BOUNDS", id, "Outside the suggested " + name + " of " + limitRaw + ". Bounds describe the control offered, not a limit on the answer.");
         }
     }
 
