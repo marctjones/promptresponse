@@ -5409,16 +5409,18 @@ page, terminal, voice system, and API client are equally legitimate.
 
 ### 13.1 Requirements for renderers {#renderer-requirements}
 
-- Section titles and prompt labels **MUST** be presented as the accessible name. [APR-RENDER-001]
-- A placeholder **MUST NOT** be the only label. [APR-RENDER-002]
-- `helpText` **MUST** be programmatically associated with its prompt, not merely
-  adjacent to it. [APR-RENDER-003]
-- Section nesting **MUST** be conveyed structurally — heading levels, groups,
-  landmarks — not by indentation alone. [APR-RENDER-004]
-- Every prompt **MUST** be reachable and completable by keyboard. [APR-RENDER-005]
-- A renderer **MUST NOT** block saving because of a hint mismatch. [APR-RENDER-006]
-- Table sections **SHOULD** be presented with header association, not as a purely
-  visual grid. [APR-RENDER-007]
+Each row below is a requirement on a renderer.
+
+| Obligation | Requirement | Rule |
+| --- | --- | --- |
+| Present section titles and prompt labels as the accessible name. | **MUST** | [APR-RENDER-001] |
+| Use a placeholder as the only label. | **MUST NOT** | [APR-RENDER-002] |
+| Associate `helpText` programmatically with its prompt, not merely place it adjacent to it. | **MUST** | [APR-RENDER-003] |
+| Convey section nesting structurally — heading levels, groups, landmarks — and not by indentation alone. | **MUST** | [APR-RENDER-004] |
+| Make every prompt reachable by keyboard. | **MUST** | [APR-RENDER-005] |
+| Accept a response to every prompt from the keyboard. | **MUST** | [APR-RENDER-014] |
+| Block saving because of a hint mismatch. | **MUST NOT** | [APR-RENDER-006] |
+| Present a table section with header association, not as a purely visual grid. | **SHOULD** | [APR-RENDER-007] |
 
 These are format-level requirements, not house style. APR's structure is what
 makes an accessible rendering possible; a renderer that discards it discards the
@@ -5430,22 +5432,31 @@ Presentation is otherwise free, but **order is data**. A form asks its questions
 in a sequence its author chose, and two renderers that disagree about that
 sequence are showing two different forms.
 
-1. Sections are presented in array order.
-2. Prompts within a section are presented in array order.
-3. **A section's own prompts are presented BEFORE its child sections.**
+Each row below is a requirement on a renderer.
 
-Rule 3 follows document convention: a heading's own content precedes its
-subheadings. It is normative.
+| Order | Requirement | Rule |
+| --- | --- | --- |
+| Present sections in array order. | **MUST** | [APR-RENDER-010] |
+| Present the prompts within a section in array order. | **MUST** | [APR-RENDER-011] |
+| Present a section's own prompts before its child sections. | **MUST** | [APR-RENDER-012] |
 
-A renderer **MAY** paginate, group, or lazily load, but **MUST NOT** reorder. A
-wizard that shows one section at a time still visits them in array order. [APR-RENDER-008]
+A section's own prompts come first by document convention: a heading's own content
+precedes its subheadings.
+
+A renderer **MAY** paginate, group, or lazily load a form. [APR-RENDER-013]
+
+A wizard that shows one section at a time still visits them in array order.
 
 ### 13.3 Export {#export}
 
-Exports to PDF, HTML, or print **MAY** introduce layout — page size, margins,
-footers. That layout belongs to the renderer's options and **MUST NOT** be
-written back into the APR document. The document stays presentation-free no
-matter how many ways it has been rendered. [APR-RENDER-009]
+A renderer **MAY** introduce layout — page size, margins, footers — into an
+export to PDF, HTML, or print. [APR-RENDER-015]
+
+That layout belongs to the renderer's options.
+
+A renderer **MUST NOT** write export layout back into the APR document. [APR-RENDER-009]
+
+The document stays presentation-free no matter how many ways it has been rendered.
 
 ---
 
@@ -5453,24 +5464,40 @@ matter how many ways it has been rendered. [APR-RENDER-009]
 
 **No executable content.** APR contains no scripts, macros, formulas with host
 access, or external references. Opening an APR document from an untrusted sender
-executes nothing. This is the format's most important security property and
-**MUST NOT** be weakened. Expressions are pure, bounded, and non-Turing-complete;
-they are not an exception. [APR-SEC-009]
+executes nothing, and this is the format's most important security property.
 
-**No network access on open.** Reading a document **MUST NOT** fetch anything.
-`submissionUrls` is data — no entry **MUST** be contacted without an explicit
-user action, and neither **MUST** a certificate endpoint. [APR-SEC-010]
+An implementation **MUST NOT** execute anything a document carries. [APR-SEC-009]
 
-**Resource bounds.** A reader **MUST** bound nesting depth and **SHOULD** bound
-document size, stream length, and evaluation cost, failing cleanly rather than
-exhausting memory. Parsing **MUST** terminate. [APR-SEC-011]
+Expressions are pure, bounded, and non-Turing-complete; they are not an exception.
+
+**No network access on open.** `submissionUrls` is data, and so is a certificate
+chain.
+
+A reader **MUST NOT** fetch anything when it reads a document. [APR-SEC-010]
+
+An implementation **MUST NOT** contact a `submissionUrls` entry without an explicit
+user action. [APR-SEC-016]
+
+An implementation **MUST NOT** contact a certificate endpoint without an explicit
+user action. [APR-SEC-017]
+
+**Resource bounds.**
+
+A reader **MUST** bound nesting depth. [APR-SEC-011]
+
+A reader **SHOULD** bound document size and stream length. [APR-SEC-018]
+
+A reader **MUST** refuse a document cleanly on reaching a bound it applies, rather
+than exhausting memory or crashing. [APR-SEC-019]
+
+A reader **MUST** terminate on every input. [APR-SEC-020]
+
+Evaluation cost is bounded as [Bounds](#expr-limits) states.
 
 The depth bound has a floor this document states: sixteen levels
 ([Nesting depth](#nesting)). The others are deliberately the implementation's
 to choose, because the right limit for a phone and for a batch importer are not
-the same number, and a number here would be wrong for one of them. What is not
-optional is that a limit exists and that reaching it is a clean refusal rather
-than a crash.
+the same number, and a number here would be wrong for one of them.
 
 Concrete limits above the 16-level nesting floor are
 **implementation-defined**. No numeric ceiling is specified because no test
@@ -5484,8 +5511,8 @@ Spending strictness on the answer rather than on the submission target protects
 nothing and destroys data.
 
 **Attestations are not authorization.** A valid proof shows bytes are unaltered.
-It does not establish that the signer is who they claim, that they were entitled
-to sign, or that the form should be acted on. Conversely, an absent or failing
+It does not show that the signer is who they claim, that they were entitled
+to sign, or that the form is to be acted on. Conversely, an absent or failing
 attestation is not a reason to withhold data from a reader — it is information
 the reader is entitled to have alongside the data, not instead of it.
 
@@ -5494,7 +5521,7 @@ pointers name every attested path. A `fields` attestation additionally reveals
 which prompts were selected. Neither reveals response values. A certificate chain
 in a proof carries the signer's identity in cleartext.
 
-**Responses may be sensitive.** APR documents routinely hold personal data in
+**Responses can be sensitive.** APR documents routinely hold personal data in
 plain text. The format provides no encryption, no access control, and no
 redaction; protection at rest and in transit is the surrounding system's
 responsibility.

@@ -80,9 +80,9 @@ carries — nothing here is invented for the harness.
 | `headingLevel` | 1-6, or absent | `APR-RENDER-004` — structure conveyed, not indentation |
 | `helpText` | text programmatically associated | `APR-RENDER-003` — associated, not adjacent |
 | `labelledBy`, `columnHeader` | the element that names this one | `APR-RENDER-003`, `APR-RENDER-007` |
-| `documentPointer` | RFC 6901 pointer into the document | Ties every node to what it renders, so `APR-RENDER-008` is checkable |
+| `documentPointer` | RFC 6901 pointer into the document | Ties every node to what it renders, so `APR-RENDER-010` to `APR-RENDER-012` are checkable |
 | `keyboardOrder` | position in the focus order, or absent if unreachable | `APR-RENDER-005` |
-| `completedByKeyboard` | whether a response could actually be entered there, or absent if the driver cannot type | `APR-RENDER-005` — reachable is half the rule |
+| `completedByKeyboard` | whether a response could actually be entered there, or absent if the driver cannot type | `APR-RENDER-014` — reaching a field is not completing it |
 | `reachableBackwards` | false when Shift-Tab never returns to it | `APR-RENDER-005` |
 | `editable` | whether typing is accepted | `APR-EXPR-014` — a computed field stays editable |
 | `value` | the response as the field shows it | Reported, **not checked** — see below |
@@ -111,13 +111,14 @@ Windows-only contract wearing a platform-neutral name.
 | `APR-RENDER-002` | a prompt with a placeholder and no label has no node, because the document is invalid; a prompt with both takes its `name` from the label |
 | `APR-RENDER-003` | a prompt with `helpText` has it on the node or reachable through `labelledBy`, not merely as a neighbouring text node |
 | `APR-RENDER-004` | nested sections produce nodes whose `headingLevel` increases with depth, or groups that nest — indentation alone produces neither |
-| `APR-RENDER-005` | every prompt a case does not list as `hidden` has a node with a `keyboardOrder`, and no node says `completedByKeyboard: false` or `reachableBackwards: false`. Both claims are optional: a driver that renders to markup cannot type, and absent means unproven rather than passing |
+| `APR-RENDER-005` | every prompt a case does not list as `hidden` has a node with a `keyboardOrder`, and no node says `reachableBackwards: false` |
+| `APR-RENDER-014` | no prompt a case does not list as `hidden` says `completedByKeyboard: false`. The claim is optional: a driver that renders to markup cannot type, and absent means unproven rather than passing |
 | `APR-RENDER-006` | after a response contradicting `expectedDataType`, `saveResult.written` is true |
 | `APR-RENDER-007` | every cell node carries `columnHeader` naming a node whose `isColumnHeader` is true |
-| `APR-RENDER-008` | `keyboardOrder` is non-decreasing in document-pointer order |
+| `APR-RENDER-010`, `APR-RENDER-011`, `APR-RENDER-012` | `keyboardOrder` is non-decreasing in document-pointer order, which visits sections and prompts in array order and a section's own prompts before its child sections |
 | `APR-RENDER-009` | `exportedDocument` is byte-identical to the input — **the PDF exporter's driver**, not Avalonia's, since Avalonia does not export |
 | `APR-SEC-009` | no case produces an execution: a document carrying script-looking text renders it as text |
-| `APR-SEC-010` | `requests` is empty for every case that involves no explicit user action |
+| `APR-SEC-010`, `APR-SEC-016` | `requests` is empty for every case that involves no explicit user action |
 | `APR-MODEL-015` | a sixteen-level document renders, with every prompt reachable |
 | `APR-MODEL-003`, `APR-VAL-006` | `saveResult.written` is true even where a hint mismatch or advisory is present |
 

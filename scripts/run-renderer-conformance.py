@@ -145,7 +145,22 @@ def hidden_prompts(case) -> set[str]:
 
 
 def every_prompt_is_reachable(case, document, snapshot):
-    """APR-RENDER-005: reachable *and completable*, and the second half is optional.
+    """APR-RENDER-005: every prompt a case does not hide is in the keyboard order, both ways."""
+    found, hidden = by_pointer(snapshot), hidden_prompts(case)
+    for pointer, kind, _ in walk(document):
+        if kind != "prompt" or pointer in hidden:
+            continue
+        node = found.get(pointer) or {}
+        if node.get("keyboardOrder") is None:
+            return f"{pointer} is not in the keyboard order, so it cannot be completed"
+        if node.get("reachableBackwards") is False:
+            return (f"{pointer} is reachable forwards and not backwards; a field somebody "
+                    f"can Tab into and not Tab back to is reachable only on a checklist")
+    return None
+
+
+def every_prompt_is_completable(case, document, snapshot):
+    """APR-RENDER-014: a response can be entered from the keyboard, where a driver proved it.
 
     A driver that renders to markup cannot type, so it cannot honestly say whether a
     field can be filled in from the keyboard; one driving a live application can. So
@@ -157,15 +172,9 @@ def every_prompt_is_reachable(case, document, snapshot):
     for pointer, kind, _ in walk(document):
         if kind != "prompt" or pointer in hidden:
             continue
-        node = found.get(pointer) or {}
-        if node.get("keyboardOrder") is None:
-            return f"{pointer} is not in the keyboard order, so it cannot be completed"
-        if node.get("completedByKeyboard") is False:
+        if (found.get(pointer) or {}).get("completedByKeyboard") is False:
             return (f"{pointer} takes focus and does not accept a response from the "
                     f"keyboard; reaching a field is not completing it")
-        if node.get("reachableBackwards") is False:
-            return (f"{pointer} is reachable forwards and not backwards; a field somebody "
-                    f"can Tab into and not Tab back to is reachable only on a checklist")
     return None
 
 
@@ -286,10 +295,14 @@ CHECKS = {
     "APR-RENDER-005": every_prompt_is_reachable,
     "APR-RENDER-006": saving_is_not_blocked,
     "APR-RENDER-007": cells_name_their_header,
-    "APR-RENDER-008": order_is_document_order,
+    "APR-RENDER-010": order_is_document_order,
+    "APR-RENDER-011": order_is_document_order,
+    "APR-RENDER-012": order_is_document_order,
+    "APR-RENDER-014": every_prompt_is_completable,
     "APR-RENDER-009": an_export_is_not_written_back,
     "APR-SEC-009": nothing_executes,
     "APR-SEC-010": opening_fetches_nothing,
+    "APR-SEC-016": opening_fetches_nothing,
     "APR-EXPR-014": computed_stays_editable,
     "APR-MODEL-003": saving_is_not_blocked,
     "APR-VAL-006": saving_is_not_blocked,

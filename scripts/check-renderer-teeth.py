@@ -84,7 +84,7 @@ for node in snapshot["nodes"]:
         break
 '''),
     "focus-without-entry": ("takes focus on a field nothing can be typed into",
-                            "APR-RENDER-005", '''
+                            "APR-RENDER-014", '''
 for node in snapshot["nodes"]:
     if node.get("keyboardOrder") is not None and node.get("role") == "textbox":
         node["completedByKeyboard"] = False
@@ -111,10 +111,35 @@ if len(headers) > 1:
     for header, name in zip(headers, names[::-1]):
         header["name"] = name
 '''),
-    "reordering": ("reorders the fields it shows", "APR-RENDER-008", '''
+    "reordering": ("reorders the fields it shows", "APR-RENDER-011", '''
 orders = sorted(n["keyboardOrder"] for n in snapshot["nodes"] if n.get("keyboardOrder") is not None)
 for node in reversed([n for n in snapshot["nodes"] if n.get("keyboardOrder") is not None]):
     node["keyboardOrder"] = orders.pop(0)
+'''),
+    "sections-reversed": ("visits a form's sections last to first", "APR-RENDER-010", '''
+document = json.loads(case["document"])
+def prompts(section, pointer):
+    for position, _ in enumerate(section.get("prompts") or []):
+        yield f"{pointer}/prompts/{position}"
+    for index, child in enumerate(section.get("sections") or []):
+        yield from prompts(child, f"{pointer}/sections/{index}")
+nodes = {n.get("documentPointer"): n for n in snapshot["nodes"] if n.get("keyboardOrder") is not None}
+tops = document.get("sections") or []
+visit = [p for index in reversed(range(len(tops))) for p in prompts(tops[index], f"/sections/{index}") if p in nodes]
+for pointer, order in zip(visit, sorted(nodes[p]["keyboardOrder"] for p in visit)):
+    nodes[pointer]["keyboardOrder"] = order
+'''),
+    "children-first": ("presents a section's child sections before its own prompts", "APR-RENDER-012", '''
+document = json.loads(case["document"])
+def children_first(section, pointer):
+    for index, child in enumerate(section.get("sections") or []):
+        yield from children_first(child, f"{pointer}/sections/{index}")
+    for position, _ in enumerate(section.get("prompts") or []):
+        yield f"{pointer}/prompts/{position}"
+nodes = {n.get("documentPointer"): n for n in snapshot["nodes"] if n.get("keyboardOrder") is not None}
+visit = [p for index, top in enumerate(document.get("sections") or []) for p in children_first(top, f"/sections/{index}") if p in nodes]
+for pointer, order in zip(visit, sorted(nodes[p]["keyboardOrder"] for p in visit)):
+    nodes[pointer]["keyboardOrder"] = order
 '''),
     "writes-back-an-export": ("changes the document when it exports", "APR-RENDER-009", '''
 if "exportedDocument" in snapshot:

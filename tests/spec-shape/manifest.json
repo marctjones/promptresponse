@@ -252,13 +252,6 @@
       "findings": 4
     },
     {
-      "id": "no-lowercase-obligations",
-      "issue": 488,
-      "requirement": "Lowercase obligation words in normative text.",
-      "status": "converted chapter by chapter in #473-#487",
-      "findings": 2
-    },
-    {
       "id": "no-history",
       "issue": 488,
       "requirement": "Units using history vocabulary.",

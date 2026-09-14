@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "2818dd61-6d66-5bf9-99da-5015ce52f74e",
+    "uuid": "c4537f6e-ae2a-595a-8155-2a0d29820c0d",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "69e584dc8d826c15bf634393905924617484a63c41e7d359eb9bfc946f4e1cf3"
+          "value": "8544417077003f2e92e1f489ab53351087e42dae2162eae5ee494befaa41ee0e"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -14443,7 +14443,7 @@
               {
                 "id": "apr-render-001_smt",
                 "name": "statement",
-                "prose": "Section titles and prompt labels **MUST** be presented as the accessible name."
+                "prose": "Present section titles and prompt labels as the accessible name. — **MUST**"
               }
             ]
           },
@@ -14485,7 +14485,7 @@
               {
                 "id": "apr-render-002_smt",
                 "name": "statement",
-                "prose": "A placeholder **MUST NOT** be the only label."
+                "prose": "Use a placeholder as the only label. — **MUST NOT**"
               }
             ]
           },
@@ -14527,7 +14527,7 @@
               {
                 "id": "apr-render-003_smt",
                 "name": "statement",
-                "prose": "`helpText` **MUST** be programmatically associated with its prompt, not merely adjacent to it."
+                "prose": "Associate `helpText` programmatically with its prompt, not merely place it adjacent to it. — **MUST**"
               }
             ]
           },
@@ -14569,7 +14569,7 @@
               {
                 "id": "apr-render-004_smt",
                 "name": "statement",
-                "prose": "Section nesting **MUST** be conveyed structurally — heading levels, groups, landmarks — not by indentation alone."
+                "prose": "Convey section nesting structurally — heading levels, groups, landmarks — and not by indentation alone. — **MUST**"
               }
             ]
           },
@@ -14611,7 +14611,7 @@
               {
                 "id": "apr-render-005_smt",
                 "name": "statement",
-                "prose": "Every prompt **MUST** be reachable and completable by keyboard."
+                "prose": "Make every prompt reachable by keyboard. — **MUST**"
               }
             ]
           },
@@ -14653,7 +14653,7 @@
               {
                 "id": "apr-render-006_smt",
                 "name": "statement",
-                "prose": "A renderer **MUST NOT** block saving because of a hint mismatch."
+                "prose": "Block saving because of a hint mismatch. — **MUST NOT**"
               }
             ]
           },
@@ -14695,49 +14695,7 @@
               {
                 "id": "apr-render-007_smt",
                 "name": "statement",
-                "prose": "Table sections **SHOULD** be presented with header association, not as a purely visual grid."
-              }
-            ]
-          },
-          {
-            "id": "apr-render-008",
-            "title": "APR-RENDER-008 — 13.2 Ordering",
-            "props": [
-              {
-                "name": "rule-id",
-                "value": "APR-RENDER-008"
-              },
-              {
-                "name": "section",
-                "value": "ordering"
-              },
-              {
-                "name": "area",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "RENDER"
-              },
-              {
-                "name": "gate-strength",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
-              },
-              {
-                "name": "requirement",
-                "ns": "https://skpt.cl/apr/oscal",
-                "value": "REQ-ordering"
-              }
-            ],
-            "links": [
-              {
-                "href": "../APR_SPECIFICATION.md#ordering",
-                "rel": "reference"
-              }
-            ],
-            "parts": [
-              {
-                "id": "apr-render-008_smt",
-                "name": "statement",
-                "prose": "A renderer **MAY** paginate, group, or lazily load, but **MUST NOT** reorder. A wizard that shows one section at a time still visits them in array order."
+                "prose": "Present a table section with header association, not as a purely visual grid. — **SHOULD**"
               }
             ]
           },
@@ -14779,7 +14737,259 @@
               {
                 "id": "apr-render-009_smt",
                 "name": "statement",
-                "prose": "Exports to PDF, HTML, or print **MAY** introduce layout — page size, margins, footers. That layout belongs to the renderer's options and **MUST NOT** be written back into the APR document. The document stays presentation-free no matter how many ways it has been rendered."
+                "prose": "A renderer **MUST NOT** write export layout back into the APR document."
+              }
+            ]
+          },
+          {
+            "id": "apr-render-010",
+            "title": "APR-RENDER-010 — 13.2 Ordering",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-RENDER-010"
+              },
+              {
+                "name": "section",
+                "value": "ordering"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "RENDER"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-ordering"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#ordering",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-render-010_smt",
+                "name": "statement",
+                "prose": "Present sections in array order. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-render-011",
+            "title": "APR-RENDER-011 — 13.2 Ordering",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-RENDER-011"
+              },
+              {
+                "name": "section",
+                "value": "ordering"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "RENDER"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-ordering"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#ordering",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-render-011_smt",
+                "name": "statement",
+                "prose": "Present the prompts within a section in array order. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-render-012",
+            "title": "APR-RENDER-012 — 13.2 Ordering",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-RENDER-012"
+              },
+              {
+                "name": "section",
+                "value": "ordering"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "RENDER"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-ordering"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#ordering",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-render-012_smt",
+                "name": "statement",
+                "prose": "Present a section's own prompts before its child sections. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-render-013",
+            "title": "APR-RENDER-013 — 13.2 Ordering",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-RENDER-013"
+              },
+              {
+                "name": "section",
+                "value": "ordering"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "RENDER"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-ordering"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#ordering",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-render-013_smt",
+                "name": "statement",
+                "prose": "A renderer **MAY** paginate, group, or lazily load a form."
+              }
+            ]
+          },
+          {
+            "id": "apr-render-014",
+            "title": "APR-RENDER-014 — 13.1 Requirements for renderers",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-RENDER-014"
+              },
+              {
+                "name": "section",
+                "value": "renderer-requirements"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "RENDER"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-renderer-obligations"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#renderer-requirements",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-render-014_smt",
+                "name": "statement",
+                "prose": "Accept a response to every prompt from the keyboard. — **MUST**"
+              }
+            ]
+          },
+          {
+            "id": "apr-render-015",
+            "title": "APR-RENDER-015 — 13.3 Export",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-RENDER-015"
+              },
+              {
+                "name": "section",
+                "value": "export"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "RENDER"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "gated"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-export-no-writeback"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#export",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-render-015_smt",
+                "name": "statement",
+                "prose": "A renderer **MAY** introduce layout — page size, margins, footers — into an export to PDF, HTML, or print."
               }
             ]
           }
@@ -14827,12 +15037,12 @@
               {
                 "id": "apr-sec-009_smt",
                 "name": "statement",
-                "prose": "**No executable content.** APR contains no scripts, macros, formulas with host access, or external references. Opening an APR document from an untrusted sender executes nothing. This is the format's most important security property and **MUST NOT** be weakened. Expressions are pure, bounded, and non-Turing-complete; they are not an exception."
+                "prose": "An implementation **MUST NOT** execute anything a document carries."
               },
               {
                 "id": "apr-sec-009_gap",
                 "name": "assessment-gap",
-                "prose": "APR-SEC-009 is a property of the format rather than of a document: there is nothing to execute, so nothing can violate it. APR-SEC-010 needs the harness to observe that a reader made no request, not what it answered. APR-SEC-011 is closer than this entry said: `scripts/validate-apr.py` already threads a depth parameter through `check_section`, so enforcing a bound there plus a deeper-than-sixteen vector would gate the depth half; the size, stream-length and evaluation-cost bounds stay implementation-defined by design. Partly gated in-repo by ParserFuzzTests."
+                "prose": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
               }
             ]
           },
@@ -14874,12 +15084,12 @@
               {
                 "id": "apr-sec-010_smt",
                 "name": "statement",
-                "prose": "**No network access on open.** Reading a document **MUST NOT** fetch anything. `submissionUrls` is data — no entry **MUST** be contacted without an explicit user action, and neither **MUST** a certificate endpoint."
+                "prose": "A reader **MUST NOT** fetch anything when it reads a document."
               },
               {
                 "id": "apr-sec-010_gap",
                 "name": "assessment-gap",
-                "prose": "APR-SEC-009 is a property of the format rather than of a document: there is nothing to execute, so nothing can violate it. APR-SEC-010 needs the harness to observe that a reader made no request, not what it answered. APR-SEC-011 is closer than this entry said: `scripts/validate-apr.py` already threads a depth parameter through `check_section`, so enforcing a bound there plus a deeper-than-sixteen vector would gate the depth half; the size, stream-length and evaluation-cost bounds stay implementation-defined by design. Partly gated in-repo by ParserFuzzTests."
+                "prose": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
               }
             ]
           },
@@ -14921,12 +15131,247 @@
               {
                 "id": "apr-sec-011_smt",
                 "name": "statement",
-                "prose": "**Resource bounds.** A reader **MUST** bound nesting depth and **SHOULD** bound document size, stream length, and evaluation cost, failing cleanly rather than exhausting memory. Parsing **MUST** terminate."
+                "prose": "A reader **MUST** bound nesting depth."
               },
               {
                 "id": "apr-sec-011_gap",
                 "name": "assessment-gap",
-                "prose": "APR-SEC-009 is a property of the format rather than of a document: there is nothing to execute, so nothing can violate it. APR-SEC-010 needs the harness to observe that a reader made no request, not what it answered. APR-SEC-011 is closer than this entry said: `scripts/validate-apr.py` already threads a depth parameter through `check_section`, so enforcing a bound there plus a deeper-than-sixteen vector would gate the depth half; the size, stream-length and evaluation-cost bounds stay implementation-defined by design. Partly gated in-repo by ParserFuzzTests."
+                "prose": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
+              }
+            ]
+          },
+          {
+            "id": "apr-sec-016",
+            "title": "APR-SEC-016 — 14. Security considerations",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-SEC-016"
+              },
+              {
+                "name": "section",
+                "value": "security"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SEC"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-offline-read"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#security",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-sec-016_smt",
+                "name": "statement",
+                "prose": "An implementation **MUST NOT** contact a `submissionUrls` entry without an explicit user action."
+              },
+              {
+                "id": "apr-sec-016_gap",
+                "name": "assessment-gap",
+                "prose": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
+              }
+            ]
+          },
+          {
+            "id": "apr-sec-017",
+            "title": "APR-SEC-017 — 14. Security considerations",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-SEC-017"
+              },
+              {
+                "name": "section",
+                "value": "security"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SEC"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-offline-read"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#security",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-sec-017_smt",
+                "name": "statement",
+                "prose": "An implementation **MUST NOT** contact a certificate endpoint without an explicit user action."
+              },
+              {
+                "id": "apr-sec-017_gap",
+                "name": "assessment-gap",
+                "prose": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
+              }
+            ]
+          },
+          {
+            "id": "apr-sec-018",
+            "title": "APR-SEC-018 — 14. Security considerations",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-SEC-018"
+              },
+              {
+                "name": "section",
+                "value": "security"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SEC"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-offline-read"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#security",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-sec-018_smt",
+                "name": "statement",
+                "prose": "A reader **SHOULD** bound document size and stream length."
+              },
+              {
+                "id": "apr-sec-018_gap",
+                "name": "assessment-gap",
+                "prose": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
+              }
+            ]
+          },
+          {
+            "id": "apr-sec-019",
+            "title": "APR-SEC-019 — 14. Security considerations",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-SEC-019"
+              },
+              {
+                "name": "section",
+                "value": "security"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SEC"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-offline-read"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#security",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-sec-019_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** refuse a document cleanly on reaching a bound it applies, rather than exhausting memory or crashing."
+              },
+              {
+                "id": "apr-sec-019_gap",
+                "name": "assessment-gap",
+                "prose": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
+              }
+            ]
+          },
+          {
+            "id": "apr-sec-020",
+            "title": "APR-SEC-020 — 14. Security considerations",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-SEC-020"
+              },
+              {
+                "name": "section",
+                "value": "security"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SEC"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-offline-read"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#security",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-sec-020_smt",
+                "name": "statement",
+                "prose": "A reader **MUST** terminate on every input."
+              },
+              {
+                "id": "apr-sec-020_gap",
+                "name": "assessment-gap",
+                "prose": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
               }
             ]
           }
