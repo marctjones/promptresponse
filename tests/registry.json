@@ -752,7 +752,8 @@
         "APR-MODEL-020",
         "APR-MODEL-021",
         "APR-MODEL-029",
-        "APR-MODEL-031"
+        "APR-MODEL-031",
+        "APR-MODEL-118"
       ]
     },
     {
@@ -817,9 +818,33 @@
       ],
       "rules": [
         "APR-MODEL-018",
-        "APR-MODEL-019",
-        "APR-MODEL-030",
-        "APR-MODEL-039"
+        "APR-MODEL-039",
+        "APR-MODEL-102",
+        "APR-MODEL-103",
+        "APR-MODEL-104",
+        "APR-MODEL-105",
+        "APR-MODEL-106",
+        "APR-MODEL-107",
+        "APR-MODEL-108",
+        "APR-MODEL-109",
+        "APR-MODEL-110",
+        "APR-MODEL-111",
+        "APR-MODEL-112",
+        "APR-MODEL-113",
+        "APR-MODEL-114",
+        "APR-MODEL-116"
+      ]
+    },
+    {
+      "id": "REQ-hint-rendering",
+      "section": "hints-object",
+      "statement": "A renderer presents an unrecognised type as text and applies hints in table order",
+      "strength": "none",
+      "gates": [],
+      "gap": "APR-MODEL-115 and 117 are renderer behaviour: presenting an unrecognised type as text, and applying hints in the order the hints table lists them. No renderer case asks either.",
+      "rules": [
+        "APR-MODEL-115",
+        "APR-MODEL-117"
       ]
     },
     {
@@ -939,10 +964,9 @@
       ],
       "rules": [
         "APR-MODEL-015",
-        "APR-MODEL-016",
         "APR-MODEL-017"
       ],
-      "gap": "APR-MODEL-015 is covered by a sixteen-level vector. APR-MODEL-016 and 017 cannot be: one forbids an author from relying on a ceiling above the floor, and the other asks authors to stay well below it. Both bind the person writing a form, and no document is wrong for ignoring either."
+      "gap": "APR-MODEL-015 is covered by a sixteen-level vector. APR-MODEL-017 cannot be: it asks a writer to nest shallowly, and a deeper form is still valid."
     },
     {
       "id": "REQ-never-gate",
@@ -1378,9 +1402,15 @@
         "APR-MODEL-027",
         "APR-MODEL-028",
         "APR-MODEL-050",
-        "APR-MODEL-051"
+        "APR-MODEL-051",
+        "APR-MODEL-121",
+        "APR-MODEL-122",
+        "APR-MODEL-123",
+        "APR-MODEL-124",
+        "APR-MODEL-125",
+        "APR-MODEL-126"
       ],
-      "gap": "APR-MODEL-025 and 026 are covered. APR-MODEL-027 and 028 are reader behaviour: that a role never decides who may type, and that a reader should make roles legible including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour: falling back to the identifier when a role has no name, and showing an undeclared role rather than erroring. A document is valid either way."
+      "gap": "APR-MODEL-025 and 026 are covered, and APR-MODEL-121 and 122 have unit tests. APR-MODEL-027, 028, 125 and 126 are reader behaviour: that a role never decides who can type, and that a reader makes roles plain, including to assistive technology. A document declaring roles is valid whether a reader honours them or ignores them. APR-MODEL-050 is reader behaviour too: showing the identifier of a role with no name."
     },
     {
       "id": "REQ-declaring-conformance",
@@ -1460,7 +1490,8 @@
         }
       ],
       "rules": [
-        "APR-MODEL-038"
+        "APR-MODEL-038",
+        "APR-MODEL-097"
       ]
     },
     {
@@ -1475,7 +1506,9 @@
         }
       ],
       "rules": [
-        "APR-MODEL-046"
+        "APR-MODEL-046",
+        "APR-MODEL-098",
+        "APR-MODEL-099"
       ]
     },
     {
@@ -1552,7 +1585,19 @@
         }
       ],
       "rules": [
-        "APR-MODEL-014"
+        "APR-MODEL-014",
+        "APR-MODEL-100"
+      ]
+    },
+    {
+      "id": "REQ-table-ragged-rendering",
+      "section": "table-ragged",
+      "statement": "A renderer presents every prompt of a ragged instance",
+      "strength": "none",
+      "gates": [],
+      "gap": "APR-MODEL-101 is renderer behaviour: presenting every prompt an instance carries. No renderer case asks it.",
+      "rules": [
+        "APR-MODEL-101"
       ]
     },
     {
@@ -1577,7 +1622,7 @@
           "ref": "schema.gate"
         }
       ],
-      "gap": "Nine corpus cases carry a table section, so the fixtures exist. What is unreached is the obligation itself: APR-MODEL-012 says every presentation of a table is conformant and none is a fallback, which no document can violate because the document does not choose the presentation. APR-MODEL-013 is the retired-member drop, reachable by a round-trip case carrying a retired column member and asserting it is gone on write; nobody has written one.",
+      "gap": "APR-MODEL-012 is a permission to present a table any way, which no document can violate because the document does not choose the presentation. APR-MODEL-013 binds a writer, and no test checks that a writer adds no layout member to a table.",
       "rules": [
         "APR-MODEL-012",
         "APR-MODEL-013"
@@ -1599,8 +1644,19 @@
         }
       ],
       "rules": [
-        "APR-MODEL-023",
-        "APR-MODEL-024"
+        "APR-MODEL-023"
+      ]
+    },
+    {
+      "id": "REQ-canonical-behaviour",
+      "section": "canonical-values",
+      "statement": "A writer choosing a value writes its canonical form; an empty response is no selection",
+      "strength": "none",
+      "gates": [],
+      "gap": "APR-MODEL-119 binds a writer choosing a value, and APR-MODEL-120 how a reader reads an empty response. No test checks either.",
+      "rules": [
+        "APR-MODEL-119",
+        "APR-MODEL-120"
       ]
     },
     {

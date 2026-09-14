@@ -1963,169 +1963,289 @@ the honest outcome, since the thing it named is no longer there under that name.
 
 ### 5.5 Tables {#tables}
 
-A table introduces **no new primitive**. Rows are ordinary sections; cells are
-ordinary prompts. A section becomes a table by carrying `kind: "table"`, and
-**only** by carrying it: a reader **MUST NOT** infer a table from `maxRows`,
-`canAddRows`, or the presence of child sections, and **MUST** preserve and ignore
-those members on a section that is not a table. [APR-MODEL-038]
+A table is a section carrying `kind: "table"`. Its child sections are its
+instances and their prompts are its cells; a table adds no member a section
+lacks.
+
+A reader **MUST NOT** treat a section as a table unless it carries
+`kind: "table"`, whatever its `maxRows`, `canAddRows`, or child sections. [APR-MODEL-038]
+
+A reader **MUST** preserve a `maxRows` or `canAddRows` member on a section that is
+not a table. [APR-MODEL-097]
 
 > Rationale: a plain section may have child sections too, so inference would
 > have to guess, and two readers guessing differently about the same document
 > is the failure the format exists to prevent.
 
-**Example 4.** A table section.
+**Example 5.5-1.** A table with two instances.
 
-```jsonc
+```apr-example
+id: table-with-two-instances
+rule: tables
+satisfies: APR-MODEL-014, APR-MODEL-046
+representation: jsonc
+expect: valid
+---
 {
-  "id": "expenses",
-  "title": "Expense line items",
-  "kind": "table",
-  "canAddRows": true,
-  "maxRows": 25,
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Expenses" },
   "sections": [
     {
-      "id": "item_1",
-      "title": "Item 1",
-      "prompts": [
-        { "id": "item_1.description", "label": "Description", "response": "Train fare" },
-        { "id": "item_1.amount", "label": "Amount", "response": "42.50",
-          "hints": { "expectedDataType": "currency" } }
+      "id": "expenses",
+      "title": "Expense line items",
+      "kind": "table",
+      "canAddRows": true,
+      "maxRows": 25,
+      "sections": [
+        { "id": "item_1", "title": "Item 1",
+          "prompts": [
+            { "id": "item_1.description", "label": "Description", "response": "Train fare" },
+            { "id": "item_1.amount", "label": "Amount", "response": "42.50",
+              "hints": { "expectedDataType": "currency" } }
+          ] },
+        { "id": "item_2", "title": "Item 2",
+          "prompts": [
+            { "id": "item_2.description", "label": "Description", "response": "Hotel" },
+            { "id": "item_2.amount", "label": "Amount", "response": "120.00",
+              "hints": { "expectedDataType": "currency" } }
+          ] }
       ]
     }
   ]
 }
 ```
 
+**Example 5.5-2.** Table members on a section that is not a table.
+
+```apr-example
+id: table-members-on-a-plain-section
+rule: tables
+satisfies: APR-MODEL-038, APR-MODEL-097
+representation: jsonc
+expect: valid
+warns: TABLE_MEMBERS_ON_A_PLAIN_SECTION
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Plain section" },
+  "sections": [
+    { "id": "s", "title": "S", "maxRows": 5,
+      "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
 #### 5.5.1 What a table asserts {#table-assertion}
 
-It is **a claim about structure, not appearance**:
+A table is a claim about structure, not appearance:
 
-- child sections are **instances**, not free-standing subsections;
-- prompts at the **same position correspond** across instances — this is what
+- its child sections are **instances**, not free-standing subsections;
+- prompts at the **same position correspond** across instances, which is what
   makes "the Amount field" a thing that exists in every row;
 - an instance's `title` **identifies** it; and
 - a prompt's `label` **names the corresponding field** across every instance.
 
-There is deliberately **no column definition**. A column header *is* the
-corresponding prompt's label; a column's type hint *is* that prompt's
-`expectedDataType`. Declaring columns separately would state twice what the
-prompts already state, and anything stated twice can disagree — which is the
-failure this design removes rather than manages.
+A table has no column definition. A column's header is the corresponding prompt's
+`label`, and a column's type is that prompt's `expectedDataType`.
 
-Correspondence is **by position**. Ids are free-form; the convention
-`{rowId}.{columnId}` is **RECOMMENDED** for addressability and database import,
-but carries no meaning the renderer depends on. [APR-MODEL-048]
+> Rationale: declaring columns separately would state twice what the prompts
+> already state, and anything stated twice can disagree.
+
+Correspondence is by position, never by id.
+
+A writer **SHOULD** give a cell the id `{instanceId}.{columnId}`, which helps
+addressing and database import. [APR-MODEL-048]
 
 #### 5.5.2 A table licenses no layout {#table-no-layout}
 
 A renderer **MAY** present a table as a grid, as stacked cards, as a flat
-sequence of prompts, or as speech. **All are conformant**, and none is a
-fallback. [APR-MODEL-012]
+sequence of prompts, or as speech. [APR-MODEL-012]
+
+Each of these is a conforming presentation, and none is a fallback.
 
 > Rationale: this matters most where tables are hardest. A six-column grid is
 > unusable on a phone and at 200% zoom, and many screen-reader users prefer the
 > linear reading. Choosing the linear presentation is not a degraded rendering of
 > a table — it is an equally valid reading of the same claim.
 
-A table **MUST NOT** be treated as licence for width, alignment, colour, or font
-data. [APR-MODEL-013]
+A writer **MUST NOT** add a member to a table that states width, alignment,
+colour, or font. [APR-MODEL-013]
 
 #### 5.5.3 Rows and instances {#table-rows}
 
-`canAddRows` is `true` when a filler may add or remove instances; absent means
-fixed.
+A filler can add or remove the instances of a table whose `canAddRows` is `true`.
+
+A reader **MUST** treat a table without `canAddRows` as fixed. [APR-MODEL-098]
 
 > Rationale: the default is deliberately restrictive. A fixed table that silently
 > gained a row is a worse failure than a line-item table needing one explicit
 > property.
 
-**Mutability and population are independent.** Whether instances may be added has
-nothing to do with whether they currently hold values — a filled table may still
-accept new rows, and a fixed table may be entirely blank.
+Whether instances can be added is independent of whether they hold values: a
+filled table can still accept new instances, and a fixed table can be entirely
+blank.
 
-**A table always has at least one instance.** A section carrying
-`kind: "table"` **MUST** carry at least one child section. Prompts alone satisfy
-[Section](#section-object) but not this: a table's cells live in its instances,
-so a table without one has nowhere to put them. A reader **MUST** report
-`EMPTY_TABLE`. [APR-MODEL-046]
+A section carrying `kind: "table"` **MUST** carry at least one child section. [APR-MODEL-046]
 
-An "empty" table was never empty: a UI offering to add the first row is already
-presenting a row, and how that row is shown is a display decision. The instance
-also carries the table's field names, so a table without one cannot describe
-itself.
+Prompts alone satisfy [Section](#section-object) but not this rule.
 
-`maxRows` is advisory. A table carrying more instances is still valid and is
-reported as a warning ([Warnings](#warnings)).
+> Rationale: a table's cells live in its instances, so a table without one has
+> nowhere to put them, and the instance carries the table's field names. A form
+> offering to add the first row is already presenting a row; how that row is
+> shown is a display decision.
+
+`maxRows` is an advisory cap on the number of instances.
+
+A validator **MUST NOT** reject a table that carries more instances than its
+`maxRows`. [APR-MODEL-099]
+
+**Example 5.5.3-1.** A table without instances.
+
+```apr-example
+id: table-without-instances
+rule: table-rows
+violates: APR-MODEL-046
+representation: jsonc
+expect: reject
+diagnostic: EMPTY_TABLE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Empty table" },
+  "sections": [
+    { "id": "t", "title": "T", "kind": "table",
+      "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 5.5.3-2.** A table over its `maxRows`.
+
+```apr-example
+id: table-over-capacity
+rule: table-rows
+satisfies: APR-MODEL-099
+representation: jsonc
+expect: valid
+warns: TABLE_OVER_CAPACITY
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Over capacity" },
+  "sections": [
+    { "id": "t", "title": "T", "kind": "table", "maxRows": 1,
+      "sections": [
+        { "id": "r1", "title": "Row 1", "prompts": [ { "id": "r1.x", "label": "X" } ] },
+        { "id": "r2", "title": "Row 2", "prompts": [ { "id": "r2.x", "label": "X" } ] }
+      ] }
+  ]
+}
+```
 
 #### 5.5.4 Ragged tables {#table-ragged}
 
-Instances **SHOULD** agree in prompt count and in the label at each position.
-When they disagree the document is still **valid**; a validator reports
-`TABLE_RAGGED` or `TABLE_LABEL_MISMATCH` and a renderer presents what is there. [APR-MODEL-014]
+The instances of a table **SHOULD** carry the same number of prompts and the same
+label at each position. [APR-MODEL-014]
+
+A validator **MUST NOT** reject a table whose instances disagree. [APR-MODEL-100]
+
+A renderer **MUST** present every prompt an instance carries, whether or not the
+other instances carry one at that position. [APR-MODEL-101]
 
 > Rationale: refusing to open the document would discard whatever a filler had
 > already written, which [Any string is a valid response](#any-string) exists to
 > prevent.
 
+**Example 5.5.4-1.** A ragged table.
+
+```apr-example
+id: ragged-table
+rule: table-ragged
+satisfies: APR-MODEL-100
+violates: APR-MODEL-014
+representation: jsonc
+expect: valid
+warns: TABLE_RAGGED, TABLE_LABEL_MISMATCH
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Ragged" },
+  "sections": [
+    { "id": "t", "title": "T", "kind": "table",
+      "sections": [
+        { "id": "r1", "title": "Row 1",
+          "prompts": [ { "id": "r1.x", "label": "X" }, { "id": "r1.y", "label": "Y" } ] },
+        { "id": "r2", "title": "Row 2",
+          "prompts": [ { "id": "r2.x", "label": "X" } ] }
+      ] }
+  ]
+}
+```
+
 ### 5.6 Nesting depth {#nesting}
 
-Sections nest recursively. Every implementation **MUST** support at least **16
-levels** of section nesting. Implementations **MAY** support more. [APR-MODEL-015]
+Sections nest recursively.
 
-Any particular ceiling above that floor is an implementation detail and
-**MUST NOT** be relied upon by a document author. [APR-MODEL-016]
+An implementation **MUST** support at least **16 levels** of section nesting. [APR-MODEL-015]
+
+Beyond 16 levels, whether a form can be read depends on the implementation.
 
 > Rationale: unbounded depth is not implementable. Every real parser has a depth
 > limit, and a format that promises infinity promises a stack overflow.
 
-Authors **SHOULD** stay far below the floor. Forms nested more than four or five
-levels deep are difficult to navigate with any input method. [APR-MODEL-017]
+A writer **SHOULD NOT** nest sections more than five levels deep. [APR-MODEL-017]
+
+Deeper forms are difficult to navigate with any input method.
 
 ### 5.7 Hints {#hints-object}
 
-All OPTIONAL, all advisory ([Hints never enforce](#hints-advisory)).
+A prompt's `hints` object holds advisory guidance
+([Hints never enforce](#hints-advisory)). Each row below is a member of it, and
+its Requirement column says whether the member is present.
 
-| Member | Type | Required | Notes |
-| --- | --- | --- | --- |
-| `placeholder` | string | No | Text shown in an empty control. Never a substitute for `label`. |
-| `expectedDataType` | string | No | Suggested input affordance. Open registry; see below. |
-| `suggestedValues` | array of string | No | Offered as options. A response outside the list is still valid. |
-| `helpText` | string | No | Explanatory text for the prompt. |
-| `validationPattern` | string | No | Advisory regular expression. |
-| `min` | number or string | No | Suggested lower bound for an ordered field. A number on `number`, `currency`, and `range`; a canonical-form string on `date`, `time`, and `datetime`. |
-| `max` | number or string | No | Suggested upper bound for an ordered field. Typed as `min`. |
-| `step` | number | No | Suggested increment for an ordered field. Meaningful on `number`, `currency`, and `range`. |
-| `exprHidden` | string | No | CEL. Truthy hides this prompt ([Expressions](#expressions)). |
-| `exprValue` | string | No | CEL. Computed value. |
-| `exprExpected` | string | No | CEL. Truthy marks the prompt as expected. |
-| `exprValidation` | string | No | CEL. Returns a message; empty means valid. |
-| `exprReadOnly` | string | No | CEL. Truthy makes this prompt read-only in a renderer. |
+| Member | Type | Requirement | Rule | Notes |
+| --- | --- | --- | --- | --- |
+| `placeholder` | string | **OPTIONAL** | [APR-MODEL-102] | Text shown in an empty control. Never a substitute for `label`. |
+| `expectedDataType` | string | **OPTIONAL** | [APR-MODEL-103] | Suggested input affordance, from the registry below. |
+| `suggestedValues` | array of string | **OPTIONAL** | [APR-MODEL-104] | Offered as options. A response outside the list is still valid. |
+| `helpText` | string | **OPTIONAL** | [APR-MODEL-105] | Explanatory text for the prompt. |
+| `validationPattern` | string | **OPTIONAL** | [APR-MODEL-106] | Advisory regular expression. |
+| `min` | number or string | **OPTIONAL** | [APR-MODEL-107] | Suggested lower bound for an ordered field. A number on `number`, `currency`, and `range`; a canonical-form string on `date`, `time`, and `datetime`. |
+| `max` | number or string | **OPTIONAL** | [APR-MODEL-108] | Suggested upper bound for an ordered field. Typed as `min`. |
+| `step` | number | **OPTIONAL** | [APR-MODEL-109] | Suggested increment for an ordered field. Applies to `number`, `currency`, and `range`. |
+| `exprHidden` | string | **OPTIONAL** | [APR-MODEL-110] | CEL. Truthy hides this prompt ([Expressions](#expressions)). |
+| `exprValue` | string | **OPTIONAL** | [APR-MODEL-111] | CEL. Computed value. |
+| `exprExpected` | string | **OPTIONAL** | [APR-MODEL-112] | CEL. Truthy marks the prompt as expected. |
+| `exprValidation` | string | **OPTIONAL** | [APR-MODEL-113] | CEL. Returns a message; empty means valid. |
+| `exprReadOnly` | string | **OPTIONAL** | [APR-MODEL-114] | CEL. Truthy makes this prompt read-only in a renderer. |
 
 `expectedDataType` registry: `text`, `multiline`, `email`, `phone`, `url`,
 `date`, `time`, `datetime`, `number`, `currency`, `boolean`, `select`,
 `multichoice`, `password`, `range`, `color`.
 
-**There is no `signature` type and no `file` type.** A signature is not a
-response: evidence that a person stood behind a form is an attestation record
-travelling beside it in the stream ([Attestations](#attestations)), never a
-drawn image or a typed name in a field. An attachment is not a response either:
-a form carries what a person typed, and the format defines no representation
-for bytes that were not typed. A reader encountering either name treats it as
-any other unregistered value and degrades it to text. [APR-MODEL-030]
+> Rationale: the registry has no `signature` type and no `file` type. A
+> signature is not a response: evidence that a person stood behind a form is an
+> attestation record travelling beside it in the stream
+> ([Attestations](#attestations)), never a drawn image or a typed name in a field.
+> An attachment is not a response either: a form carries what a person typed, and
+> the format defines no representation for bytes that were not typed.
 
-> Rationale: both names once stood in the registry with their meaning marked as
-> unspecified, so two implementations could accept the same form and store
-> different things. A signature field in particular invited the mistake the
-> roles section warns against — treating a widget as evidence.
+> Rationale: country-specific field types are absent. A postcode, a national
+> identity number, or a tax reference is `text` with a `validationPattern`: baking
+> one country's formats into the vocabulary would oblige every reader everywhere to
+> carry them.
 
-Country-specific field types are deliberately absent. A postcode, a national
-identity number, or a tax reference is `text` with a `validationPattern`: baking
-one country's formats into the vocabulary would oblige every reader everywhere to
-carry them.
+The registry is open.
 
-**This registry is open.** An unrecognized value **MUST** degrade to a plain text
-field. It **MUST NOT** cause an error — that is what lets the registry grow
-without breaking every existing reader. [APR-MODEL-018]
+A validator **MUST NOT** reject a form because its `expectedDataType` is not in
+the registry. [APR-MODEL-018]
+
+A renderer **MUST** present a prompt whose `expectedDataType` it does not
+recognise as a `text` prompt. [APR-MODEL-115]
+
+> Rationale: an open registry can grow without breaking every existing reader.
+
+**Example 5.7-1.** An `expectedDataType` outside the registry.
 
 ```apr-example
 id: unregistered-data-type-degrades
@@ -2150,17 +2270,41 @@ expect: valid
 }
 ```
 
-**A hint a reader cannot use is not an error.** A hint that is unrecognised,
-unsupported, or malformed — an unparseable `validationPattern`, a bound of the
-wrong type, an expression that will not compile — **MUST** be preserved and
-**MAY** be reported as a warning; it **MUST NOT** make the document invalid.
-Hints are applied in the order the member table lists them, and where two
-hints on one prompt conflict, the earlier one stands and the later one is
-skipped and **MAY** be reported. [APR-MODEL-039]
+A hint a reader cannot use is not an error.
 
-The list above is the normative registry. `schemas/apr-types-1.0.json` publishes
-it in machine-readable form, together with each type's canonical write form,
-accepted read forms, expression type, and meaningful hints. That file is a
+A reader **MUST** preserve a hint that is unrecognised, unsupported, or
+malformed. [APR-MODEL-039]
+
+A validator **MUST NOT** reject a form because a hint is unusable, such as a
+`validationPattern` that is not a regular expression, a bound of the wrong type,
+or an expression that does not compile. [APR-MODEL-116]
+
+A renderer **MUST** apply a prompt's hints in the order the table above lists
+them, and where two conflict, apply the earlier and skip the later. [APR-MODEL-117]
+
+**Example 5.7-2.** A `validationPattern` that is not a regular expression.
+
+```apr-example
+id: unusable-hint
+rule: hints-object
+satisfies: APR-MODEL-039, APR-MODEL-116
+representation: jsonc
+expect: valid
+warns: HINT_UNUSABLE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Unusable hint" },
+  "sections": [
+    { "id": "s", "title": "S",
+      "prompts": [ { "id": "p", "label": "P", "hints": { "validationPattern": "(" } } ] }
+  ]
+}
+```
+
+The registry above is the normative registry. `schemas/apr-types-1.0.json`
+publishes it in machine-readable form, together with each type's canonical write
+form, accepted read forms, expression type, and meaningful hints. That file is a
 **derived projection** of this section: where the two disagree, this section
 governs and the file is a defect.
 
@@ -2169,28 +2313,26 @@ governs and the file is a defect.
 > refusing to declare a column twice. Naming one source and deriving the rest is
 > the same move applied to the type vocabulary.
 
-`suggestedValues` offers options; a response outside the list is still valid. On
-a `boolean` it names the two options, so a renderer can label them as the author
-intended without changing the type.
+On a `boolean`, `suggestedValues` names the two options, so a renderer can label
+them as the author intended without changing the type.
 
 **Bounds are an offer, not a limit.** `min`, `max`, and `step` describe the range
-a widget should offer: the ends of a slider, the increment of a spinner. They are
-meaningful only on ordered types. On `number`, `currency`, and `range` they are
-JSON numbers. On `date`, `time`, and `datetime`, `min` and `max` are the earliest
-and latest suggested values, written as strings in that type's canonical form
-([Value types](#json-subset)); `step` has no meaning there.
+a widget offers: the ends of a slider, the increment of a spinner. They apply
+only to ordered types. On `number`, `currency`, and `range` they are JSON
+numbers. On `date`, `time`, and `datetime`, `min` and `max` are the earliest and
+latest suggested values, written as strings in that type's canonical form
+([Value types](#json-subset)), and `step` does not apply.
 
-A response outside them is **still valid**, exactly as for `suggestedValues`. A
-slider that stops at 100 does not make `120` a wrong answer, and a validator
-**MUST NOT** reject one. Bounds shape the affordance offered to someone who wants
-it; they never shrink what a person is allowed to say. [APR-MODEL-019]
+A response outside the bounds is still valid
+([Hints never enforce](#hints-advisory)): a slider that stops at 100 does not make
+`120` a wrong answer.
 
 #### 5.7.1 Types are affordances, not validators {#data-types}
 
 `expectedDataType` tells a renderer which input affordance to offer and tells the
 person filling the form what the author expected. It does nothing else.
 
-Every response below is valid for its prompt:
+Every response below is valid for its prompt ([Any string](#any-string)):
 
 | `expectedDataType` | Responses that are all valid |
 | --- | --- |
@@ -2217,29 +2359,45 @@ A reader **MUST** also **preserve** them: an unrecognised member present on read
 > the first time an older reader opened and saved it, silently, with no error
 > anywhere.
 
-**Member names are case-sensitive.** A wrongly-cased member is an unknown member:
-it is preserved as data, and the property it resembles takes its default. This is
-a common source of "my field vanished" reports.
+A reader **MUST** compare member names case-sensitively, so a member whose name
+matches a defined member only when case is ignored is an unknown member. [APR-MODEL-118]
 
-Extension members participate in whole-document digests ([Digests](#digests)),
-so an attestation over a form covers them.
+The defined member it resembles takes its default.
+
+**Example 5.8-1.** A section whose `id` is spelled `ID`.
+
+```apr-example
+id: member-name-case
+rule: extensions
+violates: APR-MODEL-066
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Wrong case" },
+  "sections": [
+    { "ID": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
 
 **Unprefixed names belong to the specification.** Every member this document
-defines is unprefixed, and every member a later version of APR adds will be.
-A producer **MUST NOT** add a member whose name carries no prefix. [APR-MODEL-031]
+defines is unprefixed, and so is every member a later version of APR adds.
+
+A writer **MUST NOT** add a member whose name carries no prefix. [APR-MODEL-031]
 
 **An extension member is named by its owner.** An extension member name
-**MUST** begin with a reverse-DNS prefix owned by the producer, followed by a
-dot: `com.example.priority`, `gov.ct.dmv.routing`. A reader identifies an
-extension member by the dot in its name. A validator **MAY** report an
-unrecognised undotted member as `UNPREFIXED_MEMBER`; it **MUST NOT** reject
-the document, and **MUST** still preserve the member
-([Warnings](#warnings)). [APR-MODEL-029]
+**MUST** begin with a reverse-DNS prefix its writer owns, followed by a dot:
+`com.example.priority`, `gov.ct.dmv.routing`. [APR-MODEL-029]
+
+A reader identifies an extension member by the dot in its name.
 
 **An extension member is the author's own data.** It is written by whoever wrote
-the form, travels inside it, and is covered by its digest. Data *about* a form
-written by somebody else — a receipt, a review, a routing decision — is not an
-extension member: it is a new form naming what it was about
+the form, travels inside it, and is covered by its digest ([Digests](#digests)).
+Data *about* a form written by somebody else — a receipt, a review, a routing
+decision — is not an extension member: it is a new form naming what it was about
 ([Related records](#regarding)).
 
 > Rationale: two producers choosing the same member name produce documents that
@@ -2249,6 +2407,8 @@ extension member: it is a new form naming what it was about
 > both problems without a registry, which is what OpenAPI's `x-` and reverse-DNS
 > naming in Java and Apple platforms do. A domain is the one namespace every
 > producer already owns, so no one has to run anything.
+
+**Example 5.8-2.** Extension members with a prefix.
 
 ```apr-example
 id: extension-member-prefixed
@@ -2267,17 +2427,41 @@ expect: valid
 }
 ```
 
+**Example 5.8-3.** An unknown member with no prefix.
+
+```apr-example
+id: unprefixed-member
+rule: extensions
+violates: APR-MODEL-029, APR-MODEL-031
+representation: jsonc
+expect: valid
+warns: UNPREFIXED_MEMBER
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Unprefixed", "routing": "desk-4" },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
 ### 5.9 Canonical value forms {#canonical-values}
 
-Any string remains a valid response. This section governs only what a renderer
-**writes** when it controls the value — a date picker, a checkbox, a
-multi-select list.
+Any string remains a valid response ([Any string](#any-string)). The forms below
+apply only where an implementation chooses the value itself, as a date picker, a
+checkbox, or a multi-select list does.
 
-> Rationale: without it, the same template filled in two implementations yields
+> Rationale: without them, the same template filled in two implementations yields
 > two different datasets, and "database-ready" stops being true.
 
-A reader **MUST** accept every listed read form. A writer **SHOULD** emit the
-canonical form. Neither rule ever makes a document invalid. [APR-MODEL-023]
+A writer choosing a response **SHOULD** write it in the canonical write form the
+table below gives for the prompt's `expectedDataType`. [APR-MODEL-119]
+
+A reader **MUST** read every form the table lists, canonical or accepted on read,
+as the value it spells. [APR-MODEL-023]
+
+Neither rule makes a response invalid.
 
 | Hint | Canonical write form | Also accepted on read |
 | --- | --- | --- |
@@ -2289,17 +2473,18 @@ canonical form. Neither rule ever makes a document invalid. [APR-MODEL-023]
 | `multichoice` | selections separated by U+000A, one per line | a single line separated by comma and space |
 | `select` | exactly one value, verbatim from `suggestedValues` | anything |
 
-**Why `true`/`false` and not `yes`/`no`.** `yes` is English. A format that
-renders to voice, to other languages, and into database columns cannot make its
-canonical boolean depend on one language.
+A reader **MUST** read an empty response to a prompt of any type above as no
+selection. [APR-MODEL-120]
 
-**Why newline and not comma for `multichoice`.** A suggested value may itself
-contain a comma — `Bloomfield, CT` is an ordinary option in a municipal form.
-Comma separation silently turns one selection into two, which is data loss. A
-newline cannot appear inside a single-line option, so the encoding is lossless.
-Readers **MUST** accept the comma form. [APR-MODEL-024]
+> Rationale: the canonical boolean is `true`/`false`, not `yes`/`no`, because
+> `yes` is English. A format that renders to voice, to other languages, and into
+> database columns cannot make its canonical boolean depend on one language.
 
-An empty string means "no selection" for every hint above.
+> Rationale: `multichoice` separates selections by newline, not comma, because a
+> suggested value can itself contain a comma — `Bloomfield, CT` is an ordinary
+> option in a municipal form — and comma separation silently turns one selection
+> into two. A newline cannot appear inside a single-line option, so the encoding
+> is lossless.
 
 ### 5.10 Roles — who each part is for {#roles}
 
@@ -2308,51 +2493,125 @@ intake, a nurse records observations, the office stamps a reference. With nowher
 to say so, all three arrive as one undifferentiated list and the patient is left
 guessing which questions are theirs.
 
-A section or a prompt **MAY** carry `role`: a short string naming who is meant to
-fill it in. A prompt's role overrides the role of the section containing it, so a
-single field can be handed back to the patient without splitting the section in
-two. The vocabulary is **open**: a reader that does not recognise a role **MUST**
-present the field normally rather than erroring. [APR-MODEL-025]
+`role` on a section or a prompt names who is meant to fill it in.
 
-**Example 5.** Declared roles.
+A reader **MUST** take a prompt's role from the prompt where it carries one, and
+otherwise from the section containing it. [APR-MODEL-121]
 
-```jsonc
-"roles": [
-  { "id": "patient", "name": "Patient",
-    "description": "The person receiving care" },
-  { "id": "nurse", "name": "Nurse",
-    "description": "Clinical staff recording observations" },
-  { "id": "office", "name": "Office use" }
-]
+This lets a single field be handed back to the patient without splitting the
+section in two.
+
+A reader **MUST** present a field whose role it does not recognise as it presents
+any other field, without an error. [APR-MODEL-025]
+
+A form declares roles in its `roles` array ([Document](#root-object)). Each entry
+is an object with these members:
+
+| Member | Type | Requirement | Rule | Notes |
+| --- | --- | --- | --- | --- |
+| `id` | string | **REQUIRED** | [APR-MODEL-026] | The identifier a `role` member names. |
+| `name` | string | **OPTIONAL** | [APR-MODEL-123] | The name shown to a person. |
+| `description` | string | **OPTIONAL** | [APR-MODEL-124] | Who this role is, where the name alone is not obvious. |
+
+**Example 5.10-1.** Declared roles, and a prompt handed back to the patient.
+
+```apr-example
+id: declared-roles
+rule: roles
+satisfies: APR-MODEL-026
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Intake" },
+  "roles": [
+    { "id": "patient", "name": "Patient", "description": "The person receiving care" },
+    { "id": "nurse", "name": "Nurse", "description": "Clinical staff recording observations" },
+    { "id": "office", "name": "Office use" }
+  ],
+  "sections": [
+    { "id": "observations", "title": "Observations", "role": "nurse",
+      "prompts": [
+        { "id": "pulse", "label": "Pulse" },
+        { "id": "pain", "label": "Pain today, 0 to 10", "role": "patient" }
+      ] }
+  ]
+}
 ```
 
-Each entry **MUST** carry `id`; `name` and `description` are OPTIONAL. [APR-MODEL-026]
+**Example 5.10-2.** A role entry without an `id`.
 
-A reader with no `name` **MUST** fall back to the identifier, and **MUST** show
-the identifier rather than erroring where a role is referenced but never
-declared. [APR-MODEL-050]
+```apr-example
+id: role-without-id
+rule: roles
+violates: APR-MODEL-026
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Intake" },
+  "roles": [ { "name": "Patient" } ],
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
 
-Declaring is itself optional and **MUST NOT** be required: a section or prompt
-**MAY** reference a role the document never declares. A validator **MAY** warn
-about an undeclared role; it **MUST NOT** reject one. [APR-MODEL-051]
+A reader **MUST** show a role's `id` where the role has no `name`. [APR-MODEL-050]
 
-**A role says who a field is for. It never says who may type into it.** The
-format has no identity at fill time — nothing in a document knows who is at the
-keyboard — so a reader **MUST NOT** refuse input to a field because of its role. [APR-MODEL-027]
+A reader **MUST** show the identifier of a role no entry declares, without an
+error. [APR-MODEL-122]
 
-What a reader **SHOULD** do is make the answer obvious without being asked. Where
-a document declares roles, a reader **SHOULD** let the person say which role they
-are filling and then show plainly which fields are theirs. Fields belonging to
-others stay visible and stay editable; they are marked, not locked. A reader
-**SHOULD** also make a role legible to assistive technology, since a visual
-treatment alone communicates nothing to a screen reader. [APR-MODEL-028]
+A validator **MUST NOT** reject a form whose `role` names a role that `roles` does
+not declare. [APR-MODEL-051]
 
-**Accountability comes from attestations, not from the widget.** A greyed-out box
-is evidence of nothing: whoever holds the document can edit it directly. A
-fields-scoped attestation over those prompts, made with the nurse's certificate,
-is evidence the nurse filled them. Roles describe intent; attestations establish
-fact. An implementation that treats a role as a security control has misread this
-section.
+**Example 5.10-3.** A role no entry declares.
+
+```apr-example
+id: undeclared-role
+rule: roles
+satisfies: APR-MODEL-051
+representation: jsonc
+expect: valid
+warns: UNDECLARED_ROLE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Intake" },
+  "roles": [ { "id": "patient" } ],
+  "sections": [
+    { "id": "s", "title": "S", "role": "nurse",
+      "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**A role says who a field is for, never who can type into it.**
+
+A reader **MUST NOT** refuse input to a field because of its role. [APR-MODEL-027]
+
+> Rationale: the format has no identity at fill time. Nothing in a document knows
+> who is at the keyboard.
+
+Where a form declares roles, a reader **SHOULD** let the person say which role
+they are filling. [APR-MODEL-028]
+
+A reader **SHOULD** mark which fields belong to the person's role, leaving the
+fields of other roles visible and editable. [APR-MODEL-125]
+
+A reader **SHOULD** make a field's role available to assistive technology. [APR-MODEL-126]
+
+> Rationale: a visual treatment alone communicates nothing to a screen reader.
+
+> Rationale: accountability comes from attestations, not from the widget. A
+> greyed-out box is evidence of nothing: whoever holds the document can edit it
+> directly. A fields-scoped attestation over those prompts, made with the nurse's
+> certificate, is evidence the nurse filled them. Roles describe intent;
+> attestations establish fact, and an implementation that treats a role as a
+> security control has misread this section.
 
 ---
 
@@ -2477,7 +2736,7 @@ namespaces. [APR-VAL-001]
 | `RESPONSE_OUTSIDE_SUGGESTED_VALUES` | A response is not one of `suggestedValues`. |
 | `HINT_UNUSABLE` | A hint cannot be applied at all — a `validationPattern` that is not a valid regular expression, a bound that will not parse. |
 | `UNREGISTERED_DATA_TYPE` | `expectedDataType` names a type the registry does not carry ([Types are affordances](#data-types)). |
-| `UNDECLARED_ROLE` | A `role` names a role `metadata.roles` does not declare ([Roles](#roles)). |
+| `UNDECLARED_ROLE` | A `role` names a role `roles` does not declare ([Roles](#roles)). |
 | `TABLE_RAGGED` | Instances of a table do not carry the same prompt ids ([Ragged tables](#table-ragged)). |
 | `TABLE_LABEL_MISMATCH` | A cell's label differs across instances of the same column. |
 | `TABLE_OVER_CAPACITY` | A table carries more instances than `maxRows`. |
