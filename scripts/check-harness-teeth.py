@@ -138,9 +138,16 @@ for case in suite["cases"]:
     if case.get("profile") == "core":
         results.append(reference(case))
 '''),
+    "attestations-without-streams": (
+        "answers every case correctly but claims core+attestations without core+streams",
+        '''
+for case in suite["cases"]:
+    results.append(reference(case))
+'''),
 }
 PROFILES = {
     "over-claiming": ["core", "core+streams", "core+attestations", "core+expressions"],
+    "attestations-without-streams": ["core", "core+attestations"],
 }
 
 # Every mutant damages the reference driver's own answer. A hand-kept copy of it

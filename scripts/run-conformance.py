@@ -181,6 +181,14 @@ def score(suite: dict, response: dict) -> tuple[list[dict], dict]:
     rows: list[dict] = []
     tally = {"pass": 0, "fail": 0, "unanswered": 0, "discrepancy": 0}
 
+    # A declaration is held to the specification too: core+attestations is claimed
+    # only together with core+streams. [APR-CONF-010]
+    if "core+attestations" in claimed and "core+streams" not in claimed:
+        rows.append({"id": "declaration:profiles", "rule": "APR-CONF-010", "expect": "valid",
+                     "profile": "core", "status": "fail",
+                     "detail": "claims core+attestations without core+streams"})
+        tally["fail"] += 1
+
     for case in suite["cases"]:
         result = reported.get(case["id"])
         row = {"id": case["id"], "rule": case["rule"], "expect": case["expect"]}
