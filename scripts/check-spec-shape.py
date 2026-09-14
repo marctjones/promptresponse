@@ -14,6 +14,7 @@ judgement, and belongs to the opt-in local review suite.
 """
 from __future__ import annotations
 
+import importlib.util
 import json
 import pathlib
 import re
@@ -21,6 +22,10 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / "tests" / "spec-shape" / "manifest.json"
+
+_spec = importlib.util.spec_from_file_location("spec_approach", ROOT / "scripts" / "check-spec-approach.py")
+spec_approach = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(spec_approach)
 
 # Section 1.2 says a keyword is normative "when, and only when, they appear in all
 # capitals". Bold is a typographic habit, so matching only bolded keywords missed a
@@ -181,6 +186,25 @@ def main() -> int:
           "derived artifacts and defect ownership stated"
           if derived else "the specification does not name its derived artifacts")
 
+    # The writing approach, linted over the whole specification. A check the rewrite
+    # has not reached yet is a declared shortfall carrying its finding count, and the
+    # count must match: a rise is a regression to fix, a fall is recorded, and a
+    # shortfall that reaches zero is removed.
+    shortfalls = {s["id"]: s for s in manifest["knownShortfalls"]}
+    for name, found in spec_approach.counts(spec_approach.run(spec)).items():
+        declared = shortfalls.get(name, {}).get("findings")
+        if declared is None:
+            check(name, found == 0, "no findings" if found == 0
+                  else f"{found} finding(s); see scripts/check-spec-approach.py")
+        elif found == 0:
+            check(name, False, "no findings left; remove its declared shortfall")
+        elif found > declared:
+            check(name, False, f"{found - declared} new finding(s) over the declared {declared}; "
+                               "see scripts/check-spec-approach.py")
+        else:
+            check(name, found == declared, f"declared shortfall, {found} finding(s)" if found == declared
+                  else f"{found} finding(s); lower the declared count from {declared}")
+
     normative_count = len(NORMATIVE.findall(spec))
 
     if "--json" in sys.argv:
@@ -202,7 +226,7 @@ def main() -> int:
 
     print("\nDeclared shortfalls (tracked, not failures):")
     for s in manifest["knownShortfalls"]:
-        print(f"  #{s['issue']:<4} {s['id']:28} {s['status']}")
+        print(f"  #{s['issue']:<4} {s['id']:32} {s['status']}")
 
     if problems:
         print(f"\n{len(problems)} PROBLEM(S):")

@@ -34,7 +34,7 @@
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
-      "sha256": "sha256:ba6fa3372539f4bf121c794b234cba008d2a875c9ec09863033c9d5982c57759"
+      "sha256": "sha256:271f5f558d97ac57e86eda54b068e9d66c191bf1c3487209567f9714bc8a6065"
     },
     "reviewRubric": {
       "path": "tests/spec-semantic/rubric.json",

@@ -200,6 +200,36 @@
       "id": "inventories-are-covered",
       "borrowedFrom": "APR-specific",
       "requirement": "Every concept the registry names, every member the schema declares, and every conformance profile has prose. Checked by scripts/check-spec-completeness.py."
+    },
+    {
+      "id": "classes-defined-in-terminology",
+      "borrowedFrom": "W3C QA Framework: Specification Guidelines, classes of product",
+      "requirement": "Every class of product a requirement binds is a term defined in Terminology. Checked by scripts/check-spec-approach.py."
+    },
+    {
+      "id": "no-lowercase-obligations",
+      "borrowedFrom": "RFC 8174 (BCP 14)",
+      "requirement": "Normative text says must, shall, should, required or may only as a capitalised BCP 14 keyword. Checked by scripts/check-spec-approach.py."
+    },
+    {
+      "id": "no-history",
+      "borrowedFrom": "APR-specific; the specification stands alone",
+      "requirement": "Nothing in the specification describes an earlier version or draft, or a retired or legacy feature. Checked by scripts/check-spec-approach.py."
+    },
+    {
+      "id": "requirement-tables-carry-rules",
+      "borrowedFrom": "OpenTelemetry requirement-level tables; OASIS Test Assertions Guidelines",
+      "requirement": "A table with a Requirement or Required column has a Rule column, and every row carries a rule identifier. Checked by scripts/check-spec-approach.py."
+    },
+    {
+      "id": "keywords-only-in-requirements",
+      "borrowedFrom": "W3C QA Framework: Specification Guidelines, conformance requirements distinguished from informative text",
+      "requirement": "No rationale block and no heading carries a BCP 14 keyword. Checked by scripts/check-spec-approach.py."
+    },
+    {
+      "id": "one-level-per-rule",
+      "borrowedFrom": "OASIS Test Assertions Guidelines, prescription level",
+      "requirement": "A statement carrying a rule identifier states one requirement level. Checked by scripts/check-spec-approach.py."
     }
   ],
   "knownShortfalls": [
@@ -208,6 +238,48 @@
       "issue": 263,
       "requirement": "The local model review asks generic coverage questions rather than checking against this manifest and the concept registry.",
       "status": "deterministic half done; the judgement half is narrowed to the 27 ungated rules"
+    },
+    {
+      "id": "classes-defined-in-terminology",
+      "issue": 488,
+      "requirement": "Classes of product named by requirements but not defined in Terminology.",
+      "status": "converted chapter by chapter in #473-#487",
+      "findings": 12
+    },
+    {
+      "id": "no-lowercase-obligations",
+      "issue": 488,
+      "requirement": "Lowercase obligation words in normative text.",
+      "status": "converted chapter by chapter in #473-#487",
+      "findings": 27
+    },
+    {
+      "id": "no-history",
+      "issue": 488,
+      "requirement": "Units using history vocabulary.",
+      "status": "converted chapter by chapter in #473-#487",
+      "findings": 2
+    },
+    {
+      "id": "requirement-tables-carry-rules",
+      "issue": 488,
+      "requirement": "Requirement tables without a Rule column, and their rows without a rule identifier.",
+      "status": "converted chapter by chapter in #473-#487",
+      "findings": 54
+    },
+    {
+      "id": "keywords-only-in-requirements",
+      "issue": 488,
+      "requirement": "Headings and rationale blocks carrying a keyword.",
+      "status": "converted chapter by chapter in #473-#487",
+      "findings": 4
+    },
+    {
+      "id": "one-level-per-rule",
+      "issue": 488,
+      "requirement": "Rule-carrying statements stating more than one requirement level.",
+      "status": "converted chapter by chapter in #473-#487",
+      "findings": 5
     }
   ]
 }
