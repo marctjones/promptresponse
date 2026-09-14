@@ -422,9 +422,9 @@ product, every requirement a claim covers.
 
 ## 4. Representations {#representations}
 
-The semantic model is representation-neutral. The same form or attestation may
-be written as APR-JSONC or APR-YAML; comments, whitespace, indentation, scalar
-spelling, and mapping order have no semantic effect.
+APR has two representations, APR-JSONC and APR-YAML, and each spells the same
+semantic model. Comments, whitespace, indentation, scalar spelling, and mapping
+order are source trivia, with no semantic effect.
 
 ### 4.1 Model, serialization, presentation {#model-layers}
 
@@ -441,10 +441,12 @@ Two documents with the same semantic model are the same form, whatever their
 presentation. This is what makes a semantic digest ([Digests](#digests))
 meaningful: it is computed over the model, never over the bytes.
 
-Information is discarded deliberately when moving from presentation to model.
-Source trivia **MUST NOT** carry APR meaning, and a writer is under no obligation
-to reproduce it. Everything else — including members APR does not define — **MUST**
-survive a round trip. [APR-REP-001]
+Moving from presentation to model discards source trivia, which carries no APR
+meaning, so a round trip is free to change it.
+
+An implementation that reads a document and writes it back **MUST** preserve
+every part of its semantic model, including members APR does not define.
+[APR-REP-001]
 
 ### 4.2 Syntax conventions {#syntax-conventions}
 
@@ -466,19 +468,29 @@ Nothing else in the imported grammar changes. A construct this document does not
 mention is permitted exactly as the cited specification permits it, and one it
 excludes is excluded wherever it would otherwise appear.
 
+Each production this document defines carries a number in brackets, as `[1]`, and
+the text cites a production by that number. A production number in
+[APR-YAML](#apr-yaml) is YAML 1.2.2's own.
+
 ### 4.3 Encoding {#encoding}
 
-A document **MUST** be encoded as UTF-8 (RFC 3629). A byte-order mark
-**SHOULD NOT** be written; a reader **SHOULD** tolerate a leading one. [APR-REP-002]
+A document **MUST** be encoded as UTF-8 (RFC 3629). [APR-REP-002]
+
+A writer **SHOULD NOT** write a byte-order mark. [APR-REP-018]
+
+A reader **SHOULD** accept a document that begins with a byte-order mark.
+[APR-REP-019]
 
 A reader **MUST** reject ill-formed UTF-8 rather than substituting replacement
-characters silently. [APR-REP-003]
+characters. [APR-REP-003]
 
-Every string **MUST NOT** contain U+0000, and **MUST NOT** contain an unpaired
-surrogate in the range U+D800 to U+DFFF. Control characters U+0001 through
-U+001F **MUST NOT** appear, except tab (U+0009), line feed (U+000A), and
-carriage return (U+000D), which are permitted so that a multiline response can
-hold the line breaks a person typed. [APR-REP-004]
+A string in a document **MUST NOT** contain U+0000, an unpaired surrogate in the
+range U+D800 to U+DFFF, or a control character in the range U+0001 to U+001F
+other than tab (U+0009), line feed (U+000A), and carriage return (U+000D).
+[APR-REP-004]
+
+> Rationale: tab, line feed, and carriage return are allowed so that a multiline
+> response holds the line breaks a person typed.
 
 ### 4.4 APR-JSONC {#apr-jsonc}
 
@@ -491,54 +503,55 @@ admitted. It is defined as a delta against that grammar, per
 ; begin-object, end-object, begin-array, end-array,
 ; name-separator, value-separator, and everything they reference.
 
-apr-jsonc-text  = ws value ws
+apr-jsonc-text  = ws value ws                                  ; [1]
 
 ; REDEFINED. Whitespace admits comments, so a comment is legal
 ; wherever whitespace is, and nowhere else.
-ws              = *( %x20 / %x09 / %x0A / %x0D / comment )
+ws              = *( %x20 / %x09 / %x0A / %x0D / comment )     ; [2]
 
-comment         = line-comment / block-comment
-line-comment    = %x2F.2F *( %x00-09 / %x0B-10FFFF )
-block-comment   = %x2F.2A *( not-star / star-not-slash ) %x2A.2F
-not-star        = %x00-29 / %x2B-10FFFF
-star-not-slash  = %x2A ( %x00-2E / %x30-10FFFF )
+comment         = line-comment / block-comment                 ; [3]
+line-comment    = %x2F.2F *( %x00-09 / %x0B-10FFFF )           ; [4]
+block-comment   = %x2F.2A *( not-star / star-not-slash ) %x2A.2F  ; [5]
+not-star        = %x00-29 / %x2B-10FFFF                        ; [6]
+star-not-slash  = %x2A ( %x00-2E / %x30-10FFFF )               ; [7]
 
 ; REDEFINED. A trailing comma is permitted after the final element.
-object          = begin-object
+object          = begin-object                                 ; [8]
                   [ member *( value-separator member ) [ value-separator ] ]
                   end-object
-array           = begin-array
+array           = begin-array                                  ; [9]
                   [ value *( value-separator value ) [ value-separator ] ]
                   end-array
 ```
 
-Because a comment is a production of `ws`, and `ws` never appears inside
+Because a comment is a production of `ws` [2], and `ws` never appears inside
 `string`, **a comment sequence inside a string literal is not a comment.** The
 `string` rule is imported unchanged, so `"// not a comment"` is an ordinary
 string value. This is the first question an implementer asks, and the grammar
 answers it rather than leaving it to prose.
 
-Once comments and trailing commas are removed, the text **MUST** decode as JSON
-(RFC 8259) to the semantic model. Comments are source trivia and cannot carry
-APR meaning. [APR-REP-005]
+Removing an APR-JSONC document's comments and trailing commas leaves JSON
+(RFC 8259), which decodes to the semantic model.
 
-**One constraint the grammar cannot express.** RFC 8259 §4 says object member
-names SHOULD be unique. APR raises this: a parser **MUST** reject a duplicate
-member name rather than applying a last-key-wins rule. [APR-REP-006]
+An APR-JSONC document **MUST** match production [1] `apr-jsonc-text`.
+[APR-REP-005]
+
+The grammar cannot express one constraint. RFC 8259 §4 leaves an object with
+two members of the same name to the parser, and a last-key-wins parser keeps
+whichever came last.
+
+A reader **MUST** reject an APR-JSONC object that has two members of the same
+name, reporting `DUPLICATE_MEMBER`. [APR-REP-006]
 
 > Rationale: last-key-wins makes a document's meaning depend on which parser
 > reads it, which is precisely what a semantic digest cannot tolerate.
 
-*Negative case:* `malformed/duplicate-member.apr.jsonc`.
-
-These examples are executable. `scripts/extract-spec-examples.py` derives the
-conformance vectors from them, so a change to the rule and a change to its
-evidence are the same edit ([Authority](#scope)).
+**Example 4.4-1.** A trailing comma after the final element.
 
 ```apr-example
 id: jsonc-trailing-comma
 rule: apr-jsonc
-satisfies: APR-REP-005
+satisfies: APR-REP-005, APR-REP-006
 representation: jsonc
 expect: valid
 ---
@@ -551,8 +564,8 @@ expect: valid
 }
 ```
 
-A comment sequence inside a string is not a comment, because `ws` never occurs
-inside `string`.
+**Example 4.4-2.** A comment sequence inside a string is not a comment, because
+`ws` never occurs inside `string`.
 
 ```apr-example
 id: jsonc-comment-inside-string
@@ -567,6 +580,26 @@ expect: valid
   "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
 }
 ```
+
+**Example 4.4-3.** A missing value separator. The comment is legal; the text
+around it does not match `apr-jsonc-text`.
+
+```apr-example
+id: jsonc-missing-separator
+rule: apr-jsonc
+violates: APR-REP-005
+representation: jsonc
+expect: reject
+diagnostic: PARSE_ERROR
+---
+// a comment
+{
+  "aprVersion": "1.0-beta.6"
+  "metadata": { "title": "T" }
+}
+```
+
+**Example 4.4-4.** Two members named `metadata`.
 
 ```apr-example
 id: jsonc-duplicate-member
@@ -584,10 +617,16 @@ diagnostic: DUPLICATE_MEMBER
 }
 ```
 
+**Example 4.4-5.** A form in APR-JSONC, with comments that carry no meaning.
 
-**Example 1.** A form in APR-JSONC, with comments that carry no meaning.
-
-```jsonc
+```apr-example
+id: jsonc-permit-application
+rule: apr-jsonc
+satisfies: APR-REP-005
+representation: jsonc
+expect: valid
+digest: sha256:2ceb181e7fa718df949ba40c13d8bbb02f3b0385565660166a29b534964cfc16
+---
 {
   // Comments are trivia: they survive a byte-level copy and vanish from
   // the semantic model. They are never hashed and never attested.
@@ -612,117 +651,99 @@ APR-YAML is **YAML 1.2.2 syntax carrying the JSON value space**. Its syntax is
 referenced rather than restated; only its resolution and its exclusions are
 stated here, because those are the parts APR constrains.
 
-A conforming APR-YAML document:
+An APR-YAML document **MUST** be a well-formed YAML 1.2.2 stream, per that
+specification's character, structural, flow, block, and document-stream
+productions (chapters 5 to 9, through [211] `l-yaml-stream`). [APR-REP-007]
 
-1. **MUST** be a well-formed YAML 1.2.2 document, per that specification's
-   character, structural, flow, block, and document-stream productions
-   (chapters 5 to 9). [APR-REP-007]
-2. **MUST** resolve every scalar to a value of the JSON data model (RFC 8259):
-   null, boolean, number, string, array, or object, and nothing else. [APR-REP-008]
-3. **MUST** resolve every mapping key to a string. [APR-REP-009]
-4. **MUST NOT** use the constructs excluded below. [APR-REP-010]
+A member name in JSON is always a string, so a mapping key that resolves to
+anything else has no JSON spelling.
 
-### 4.5.1 Scalar resolution {#yaml-resolution}
+Every mapping key in an APR-YAML document **MUST** resolve to a string by
+[Scalar resolution](#yaml-resolution). [APR-REP-009]
 
-Resolution is stated exhaustively, because it is where YAML and JSON genuinely
-differ and where a reference alone would be ambiguous.
+**Excluded constructs.** Each construct below is YAML structure rather than
+scalar resolution, so no choice of schema removes it. Each row is a requirement
+on an APR-YAML document, and names the diagnostic a reader reports for a
+document that breaks it.
 
-| Scalar | Resolves to |
-| --- | --- |
-| Any quoted scalar | string, verbatim |
-| Plain `null`, `Null`, `NULL`, `~`, or empty | null |
-| Plain `true`, `True`, `TRUE`, `false`, `False`, `FALSE` | boolean |
-| A plain scalar matching JSON's `number` production (RFC 8259 §6) | number |
-| **Any other plain scalar** | **string** |
+| Construct | YAML 1.2.2 | Requirement | Diagnostic | Rule |
+| --- | --- | --- | --- | --- |
+| Anchors and aliases | [101] `c-ns-anchor-property`, [104] `c-ns-alias-node` | **MUST NOT** | `YAML_ANCHOR_FORBIDDEN` | [APR-REP-010] |
+| Tags, including `!!str`, `!!binary`, and local tags | [97] `c-ns-tag-property` | **MUST NOT** | `YAML_TAG_FORBIDDEN` | [APR-REP-020] |
+| Merge keys: a plain `<<` in key position | none; the merge key is a YAML 1.1 type | **MUST NOT** | `YAML_MERGE_KEY_FORBIDDEN` | [APR-REP-021] |
+| Directives, including `%YAML` and `%TAG` | [82] `l-directive` | **MUST NOT** | `YAML_DIRECTIVE_FORBIDDEN` | [APR-REP-022] |
 
-A plain scalar denoting a non-finite float — `.inf`, `-.inf`, `.nan`, in any
-capitalization — **MUST** be rejected. JSON has no representation for it, so
-there is no value for it to resolve to. [APR-REP-011]
+A character inside a scalar's content is not a construct. `&`, `*`, and `!`
+within a plain scalar, as in `string(fee_count * 8.0)`, are ordinary characters,
+and a quoted `"<<"` is an ordinary key.
 
-**APR defines its own YAML schema.** YAML 1.2.2 chapter 10 presents failsafe,
-JSON, and core as *recommended* schemas rather than mandatory ones, and a
-processor may define another. The table above is APR's.
+A reader **MUST** use a safe loader: one that constructs only JSON values and
+never instantiates a host-language object from document content. [APR-REP-013]
 
-An implementation therefore uses a YAML library for **syntax** — characters,
-structure, flow and block style, document streams — and **MUST NOT** use that
-library's default scalar resolution. [APR-REP-012]
-
-> Rationale: this is close to YAML's Core Schema, restricted to what JSON can
-> represent. The narrower JSON Schema is deliberately *not* used: under it a
-> plain scalar that is not a literal has no resolution at all, so `title: Permit
-> Application` would be invalid and every string in an APR-YAML document would
-> have to be quoted. That is not a document anyone would write.
->
-> Choosing a YAML 1.2 library instead of a 1.1 one does not remove the need for
-> this table. Under YAML 1.2's Core Schema `012` resolves as the number 12 and
-> `.inf` as a float, so a leading-zero identifier is still corrupted and a
-> non-finite value still appears. The distance being closed here is not between
-> YAML versions; it is between any YAML schema and the JSON value space.
-
-Because the target is the JSON value space rather than YAML's, an entire class of
-YAML-only behaviour disappears without APR enumerating it. Sexagesimals,
-implicit timestamps, and the YAML 1.1 `y`/`n`/`on`/`off` boolean spellings are
-not JSON values and therefore resolve as ordinary strings.
-
-**Excluded constructs.** These are structural rather than resolution behaviour,
-so the JSON Schema does not exclude them and this document must:
-
-| Excluded | Defined in YAML 1.2.2 | Example |
-| --- | --- | --- |
-| Anchors and aliases | §3.2.2.2, node properties and alias nodes | `yaml-anchor` |
-| Tags, including `!!binary` and language-specific tags | §3.2.1.2, node properties | `yaml-tag` |
-| Merge keys | the `<<` mapping-merge convention | `yaml-merge-key` |
-| Directives, including `%YAML` and `%TAG` | §6.8 | `yaml-directive` |
-
-Implementations **MUST** use a safe loader: one that constructs only the JSON
-Schema value types and never instantiates a host-language object from document
-content. [APR-REP-013]
-
-Responses remain strings even where a scalar would otherwise resolve as a number
-or boolean under the JSON Schema, because
-[Responses are strings](#responses) governs the semantic model regardless of how
-a scalar resolved. Anywhere else, an author who means the *string* `true` or
-`25` — as a suggested value, say — **MUST** quote it, exactly as a JSON author
-must; the table above is the only thing that decides. [APR-REP-017]
-
-An unquoted `metadata.templateVersion: 1.0` resolves as the number `1.0` by the
-table above, and `templateVersion` is declared a string, so the document is
-rejected — the same `WRONG_TYPE` a JSON author gets from writing
-`"templateVersion": 1.0`. Quoting the scalar is what an author who means the
-*string* `"1.0"` must do; a writer that emits the unquoted form for a value it
-knows to be a string has produced a document that fails to parse.
+**Example 4.5-1.** The form of Example 4.4-5 in APR-YAML. The two have the same
+semantic model, and therefore the same digest.
 
 ```apr-example
-id: yaml-unquoted-scalar-wrong-type
-rule: yaml-resolution
-violates: APR-REP-017
+id: yaml-permit-application
+rule: apr-yaml
+satisfies: APR-REP-008, APR-REP-026
 representation: yaml
-expect: reject
-diagnostic: WRONG_TYPE
+expect: valid
+digest: sha256:2ceb181e7fa718df949ba40c13d8bbb02f3b0385565660166a29b534964cfc16
 ---
 aprVersion: "1.0-beta.6"
+documentType: template
 metadata:
-  title: Unquoted template version
-  templateVersion: 1.0
+  title: Permit Application
 sections:
-  - id: s
-    title: S
+  - id: applicant
+    title: Applicant
     prompts:
-      - id: p
-        label: P
+      - id: full_name
+        label: Full name
+        response: ""
 ```
 
+**Example 4.5-2.** Indicator characters inside content, and quoted keys that
+would otherwise be a merge key and a boolean. None is an excluded construct.
+
 ```apr-example
-id: yaml-quoted-scalar-stays-string
-rule: yaml-resolution
-satisfies: APR-REP-017
+id: yaml-indicators-in-content
+rule: apr-yaml
+satisfies: APR-REP-009, APR-REP-010, APR-REP-020, APR-REP-021, APR-REP-022
 representation: yaml
 expect: valid
 ---
 aprVersion: "1.0-beta.6"
 metadata:
-  title: Quoted template version
-  templateVersion: "1.0"
+  title: Fish & chips
+  com.example.flags:
+    "<<": kept
+    "true": kept
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: fee
+        label: Fee
+        response: string(fee_count * 8.0) !important
+```
+
+**Example 4.5-3.** A plain `true` as a key resolves to a boolean.
+
+```apr-example
+id: yaml-boolean-key
+rule: apr-yaml
+violates: APR-REP-009
+representation: yaml
+expect: reject
+diagnostic: PARSE_ERROR
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Boolean key
+  com.example.flags:
+    true: kept
 sections:
   - id: s
     title: S
@@ -731,7 +752,7 @@ sections:
         label: P
 ```
 
-The excluded constructs, each with its vector.
+**Example 4.5-4.** An anchor.
 
 ```apr-example
 id: yaml-anchor
@@ -752,10 +773,12 @@ sections:
         label: P
 ```
 
+**Example 4.5-5.** A tag, though it names the type the scalar would have anyway.
+
 ```apr-example
 id: yaml-tag
 rule: apr-yaml
-violates: APR-REP-010
+violates: APR-REP-020
 representation: yaml
 expect: reject
 diagnostic: YAML_TAG_FORBIDDEN
@@ -771,10 +794,12 @@ sections:
         label: P
 ```
 
+**Example 4.5-6.** A merge key.
+
 ```apr-example
 id: yaml-merge-key
 rule: apr-yaml
-violates: APR-REP-010
+violates: APR-REP-021
 representation: yaml
 expect: reject
 diagnostic: YAML_MERGE_KEY_FORBIDDEN
@@ -791,10 +816,12 @@ sections:
         label: P
 ```
 
+**Example 4.5-7.** A `%YAML` directive.
+
 ```apr-example
 id: yaml-directive
 rule: apr-yaml
-violates: APR-REP-010
+violates: APR-REP-022
 representation: yaml
 expect: reject
 diagnostic: YAML_DIRECTIVE_FORBIDDEN
@@ -812,8 +839,62 @@ sections:
         label: P
 ```
 
-Resolution, including the cases that separate APR from YAML's own schemas. A bare
-word is a string, and a non-finite float has no JSON value to resolve to.
+### 4.5.1 Scalar resolution {#yaml-resolution}
+
+Resolution is stated exhaustively, because it is where YAML and JSON genuinely
+differ and where a reference alone would be ambiguous. Each row is a requirement
+on a reader resolving a scalar of an APR-YAML document, keys included.
+
+| Scalar | Resolves to | Requirement | Rule |
+| --- | --- | --- | --- |
+| Any quoted scalar | a string, verbatim | **MUST** | [APR-REP-026] |
+| Plain `null`, `Null`, `NULL`, `~`, or empty | null | **MUST** | [APR-REP-027] |
+| Plain `true`, `True`, `TRUE`, `false`, `False`, `FALSE` | a boolean | **MUST** | [APR-REP-028] |
+| A plain scalar matching JSON's `number` production (RFC 8259 §6) | a number | **MUST** | [APR-REP-029] |
+| Any other plain scalar | a string | **MUST** | [APR-REP-008] |
+
+A plain scalar denoting a non-finite float, such as `.inf`, `-.inf`, or `.nan` in
+any capitalization, matches no row that JSON can represent.
+
+A reader **MUST** reject a document containing a plain scalar that denotes a
+non-finite float, reporting `YAML_NON_FINITE_NUMBER`. [APR-REP-011]
+
+**APR defines its own YAML schema.** YAML 1.2.2 chapter 10 presents failsafe,
+JSON, and core as *recommended* schemas and leaves a processor free to define
+another. The table above is APR's.
+
+An implementation therefore uses a YAML library for **syntax** — characters,
+structure, flow and block style, document streams — and not for resolution.
+
+A reader **MUST NOT** resolve a scalar by a YAML library's default schema.
+[APR-REP-012]
+
+> Rationale: this is close to YAML's Core Schema, restricted to what JSON can
+> represent. The narrower JSON Schema is deliberately *not* used: under it a
+> plain scalar that is not a literal has no resolution at all, so `title: Permit
+> Application` would be invalid and every string in an APR-YAML document would
+> have to be quoted. That is not a document anyone would write.
+>
+> Choosing a YAML 1.2 library instead of a 1.1 one does not remove the need for
+> this table. Under YAML 1.2's Core Schema `012` resolves as the number 12 and
+> `.inf` as a float, so a leading-zero identifier is still corrupted and a
+> non-finite value still appears. The distance being closed here is not between
+> YAML versions; it is between any YAML schema and the JSON value space.
+
+Because the target is the JSON value space rather than YAML's, an entire class of
+YAML-only behaviour disappears without APR enumerating it. Sexagesimals,
+implicit timestamps, and the YAML 1.1 `y`/`n`/`on`/`off` boolean spellings are
+not JSON values and therefore resolve as ordinary strings.
+
+The table alone decides a scalar's type, whatever the member expects. An
+unquoted `metadata.templateVersion: 1.0` resolves as the number `1.0`, and
+`templateVersion` is declared a string, so a reader rejects the document with
+`WRONG_TYPE`, as it rejects `"templateVersion": 1.0` in APR-JSONC
+([Value types](#json-subset)). Quoting the scalar spells the string `"1.0"`. A
+response is no exception: an unquoted `response: 42` is the number 42, which
+[Responses are strings](#responses) rejects.
+
+**Example 4.5.1-1.** A bare word is a string.
 
 ```apr-example
 id: yaml-bare-word-is-a-string
@@ -834,6 +915,8 @@ sections:
         response: about twelve
 ```
 
+**Example 4.5.1-2.** A YAML 1.1 boolean spelling is a string.
+
 ```apr-example
 id: yaml-legacy-boolean-is-a-string
 rule: yaml-resolution
@@ -852,6 +935,8 @@ sections:
         label: P
         response: yes
 ```
+
+**Example 4.5.1-3.** A leading zero is not a JSON number, so `012` is a string.
 
 ```apr-example
 id: yaml-leading-zero-is-a-string
@@ -872,6 +957,8 @@ sections:
         response: 012
 ```
 
+**Example 4.5.1-4.** An implicit timestamp is a string.
+
 ```apr-example
 id: yaml-date-like-is-a-string
 rule: yaml-resolution
@@ -891,12 +978,271 @@ sections:
         response: 2026-01-01
 ```
 
-These pin the surface where YAML schemas and the JSON value space differ. Each
-is a spelling some YAML schema resolves to a non-string; none is a JSON number,
-so each is a string here.
+**Example 4.5.1-5.** A sexagesimal is a string.
 
-A table is a structural claim, and an unregistered affordance degrades rather
-than failing.
+```apr-example
+id: yaml-sexagesimal-is-a-string
+rule: yaml-resolution
+satisfies: APR-REP-008, APR-REP-012
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: 1:30
+```
+
+**Example 4.5.1-6.** A hexadecimal integer is a string.
+
+```apr-example
+id: yaml-hex-is-a-string
+rule: yaml-resolution
+satisfies: APR-REP-008, APR-REP-012
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: 0x1F
+```
+
+**Example 4.5.1-7.** An underscored number is a string.
+
+```apr-example
+id: yaml-underscored-number-is-a-string
+rule: yaml-resolution
+satisfies: APR-REP-008, APR-REP-012
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: 1_000
+```
+
+**Example 4.5.1-8.** A decimal with no leading digit is a string.
+
+```apr-example
+id: yaml-bare-decimal-is-a-string
+rule: yaml-resolution
+satisfies: APR-REP-008, APR-REP-012
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: .5
+```
+
+**Example 4.5.1-9.** A quoted `null` is a string.
+
+```apr-example
+id: yaml-quoted-null-is-a-string
+rule: yaml-resolution
+satisfies: APR-REP-026
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: "null"
+```
+
+**Example 4.5.1-10.** A quoted `1.0` is the string a string member declares.
+
+```apr-example
+id: yaml-quoted-scalar-stays-string
+rule: yaml-resolution
+satisfies: APR-REP-015, APR-REP-026
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Quoted template version
+  templateVersion: "1.0"
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
+
+**Example 4.5.1-11.** An unquoted `1.0` is a number, which a string member
+refuses.
+
+```apr-example
+id: yaml-unquoted-scalar-wrong-type
+rule: yaml-resolution
+violates: APR-REP-015
+representation: yaml
+expect: reject
+diagnostic: WRONG_TYPE
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Unquoted template version
+  templateVersion: 1.0
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
+
+**Example 4.5.1-12.** A plain `null` is the null value, and a null response reads
+as the empty string.
+
+```apr-example
+id: yaml-plain-null-response-is-empty
+rule: yaml-resolution
+satisfies: APR-REP-014, APR-REP-024, APR-REP-027
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Resolution
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+        response: null
+```
+
+**Example 4.5.1-13.** A plain `true` is a boolean and a plain `25` a number,
+each the type its member declares.
+
+```apr-example
+id: yaml-boolean-and-number
+rule: yaml-resolution
+satisfies: APR-REP-011, APR-REP-028, APR-REP-029
+representation: yaml
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Expenses
+sections:
+  - id: expenses
+    title: Expense line items
+    kind: table
+    canAddRows: true
+    maxRows: 25
+    sections:
+      - id: item_1
+        title: Item 1
+        prompts:
+          - id: item_1.description
+            label: Description
+```
+
+**Example 4.5.1-14.** A non-finite float has no JSON value to resolve to.
+
+```apr-example
+id: yaml-non-finite-float
+rule: yaml-resolution
+violates: APR-REP-011
+representation: yaml
+expect: reject
+diagnostic: YAML_NON_FINITE_NUMBER
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Non-finite
+sections:
+  - id: s
+    title: S
+    kind: table
+    maxRows: .inf
+    prompts:
+      - id: p
+        label: P
+```
+
+### 4.6 Value types {#json-subset}
+
+APR uses a restricted subset of the JSON data model. A response is a string
+([Responses are strings](#responses)). Every other member is **structural**: it
+describes the form rather than carrying what a person typed.
+
+A structural member uses the **JSON type that fits it**, natively: a flag is a
+JSON boolean, a count is a JSON integer, a numeric bound is a JSON number, and a
+name, identifier, or piece of text is a JSON string. Its member table declares
+that type.
+
+A writer **MUST** emit each structural member in the JSON type its member table
+declares. [APR-REP-023]
+
+A reader **MUST** reject a structural member of any other JSON type, reporting
+`WRONG_TYPE` ([Errors](#structural-validation)). [APR-REP-015]
+
+`"canAddRows": "true"` is not a boolean, and `"maxRows": "25"` is not a count.
+
+A structural member that no JSON type fits **MUST** be a string in the form its
+member table states: an RFC 3339 string for a timestamp, and for a bound on a
+temporal field, that field's canonical write form
+([Canonical value forms](#canonical-values)). [APR-REP-016]
+
+A structural member is a string only when a string is the fitting type.
+
+> Rationale: a response is a string because it carries what a person typed, and
+> typing produces text. A row count does not come from a person; spelling it
+> `"25"` obliges every reader to parse a number out of a string and to decide
+> what `"25.0"` or `" 25"` mean, which is exactly the class of silent divergence
+> the format exists to remove. Native types give the schema the check and give
+> readers nothing to interpret.
+
+`null` is not an APR value.
+
+A writer **MUST NOT** emit `null`. [APR-REP-025]
+
+A reader **MUST** read a `null` or absent `response` as the empty string.
+[APR-REP-024]
+
+A reader **MUST** reject a document in which a member other than `response` is
+`null`. [APR-REP-014]
+
+**Example 4.6-1.** A table section, with a boolean flag and an integer count.
 
 ```apr-example
 id: table-section
@@ -931,6 +1277,8 @@ expect: valid
 }
 ```
 
+**Example 4.6-2.** The same flag and count, spelled as strings.
+
 ```apr-example
 id: structural-member-wrong-type
 rule: json-subset
@@ -958,242 +1306,81 @@ diagnostic: WRONG_TYPE
 }
 ```
 
+**Example 4.6-3.** A `null` outside a response.
+
 ```apr-example
-id: unregistered-data-type-degrades
-rule: hints-object
-satisfies: APR-MODEL-018
+id: null-outside-response
+rule: json-subset
+violates: APR-REP-014
+representation: jsonc
+expect: reject
+diagnostic: PARSE_ERROR
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "documentType": null,
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] } ]
+}
+```
+
+### 4.7 Responses are strings {#responses}
+
+A reader **MUST** reject, at parse time, a `prompt.response` that is a JSON
+number, boolean, array, or object. [APR-MODEL-001]
+
+A reader **MUST NOT** coerce such a response into a string: `42` does not become
+`"42"`, nor `true` `"true"`. [APR-MODEL-049]
+
+Rejecting and coercing are different failures: one refuses the document, the
+other accepts it having invented data.
+
+> Rationale: silent coercion is worse than rejection. It produces a document that
+> looks conformant while having invented data that no person entered.
+
+**Example 4.7-1.** A response of digits, written as a string.
+
+```apr-example
+id: response-digits-string
+rule: responses
+satisfies: APR-MODEL-001, APR-MODEL-049
 representation: jsonc
 expect: valid
 ---
 {
   "aprVersion": "1.0-beta.6",
-  "metadata": { "title": "Unregistered affordance" },
-  "sections": [
-    {
-      "id": "s",
-      "title": "S",
-      "prompts": [
-        { "id": "p", "label": "P", "response": "anything",
-          "hints": { "expectedDataType": "holographic-signature" } }
-      ]
-    }
-  ]
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S",
+    "prompts": [ { "id": "p", "label": "P", "response": "42" } ] } ]
 }
 ```
 
-```apr-example
-id: yaml-sexagesimal-is-a-string
-rule: yaml-resolution
-satisfies: APR-REP-008, APR-REP-012
-representation: yaml
-expect: valid
----
-aprVersion: "1.0-beta.6"
-metadata:
-  title: Resolution
-sections:
-  - id: s
-    title: S
-    prompts:
-      - id: p
-        label: P
-        response: 1:30
-```
+**Example 4.7-2.** A response written as a JSON number.
 
 ```apr-example
-id: yaml-hex-is-a-string
-rule: yaml-resolution
-satisfies: APR-REP-008, APR-REP-012
-representation: yaml
-expect: valid
----
-aprVersion: "1.0-beta.6"
-metadata:
-  title: Resolution
-sections:
-  - id: s
-    title: S
-    prompts:
-      - id: p
-        label: P
-        response: 0x1F
-```
-
-```apr-example
-id: yaml-underscored-number-is-a-string
-rule: yaml-resolution
-satisfies: APR-REP-008, APR-REP-012
-representation: yaml
-expect: valid
----
-aprVersion: "1.0-beta.6"
-metadata:
-  title: Resolution
-sections:
-  - id: s
-    title: S
-    prompts:
-      - id: p
-        label: P
-        response: 1_000
-```
-
-```apr-example
-id: yaml-bare-decimal-is-a-string
-rule: yaml-resolution
-satisfies: APR-REP-008, APR-REP-012
-representation: yaml
-expect: valid
----
-aprVersion: "1.0-beta.6"
-metadata:
-  title: Resolution
-sections:
-  - id: s
-    title: S
-    prompts:
-      - id: p
-        label: P
-        response: .5
-```
-
-```apr-example
-id: yaml-quoted-null-is-a-string
-rule: yaml-resolution
-satisfies: APR-REP-008
-representation: yaml
-expect: valid
----
-aprVersion: "1.0-beta.6"
-metadata:
-  title: Resolution
-sections:
-  - id: s
-    title: S
-    prompts:
-      - id: p
-        label: P
-        response: "null"
-```
-
-A plain `null` is the null value, and a null response reads as the empty string.
-
-```apr-example
-id: yaml-plain-null-response-is-empty
-rule: yaml-resolution
-satisfies: APR-REP-008, APR-REP-014
-representation: yaml
-expect: valid
----
-aprVersion: "1.0-beta.6"
-metadata:
-  title: Resolution
-sections:
-  - id: s
-    title: S
-    prompts:
-      - id: p
-        label: P
-        response: null
-```
-
-```apr-example
-id: yaml-non-finite-float
-rule: yaml-resolution
-violates: APR-REP-011
-representation: yaml
+id: response-number
+rule: responses
+violates: APR-MODEL-001, APR-MODEL-049
+representation: jsonc
 expect: reject
-diagnostic: YAML_NON_FINITE_NUMBER
+diagnostic: WRONG_TYPE
 ---
-aprVersion: "1.0-beta.6"
-metadata:
-  title: Non-finite
-sections:
-  - id: s
-    title: S
-    kind: table
-    maxRows: .inf
-    prompts:
-      - id: p
-        label: P
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S",
+    "prompts": [ { "id": "p", "label": "P", "response": 42 } ] } ]
+}
 ```
-
-Every exclusion above names the example that exercises it, and those examples are
-in this document ([Authority](#scope)).
-
-**Example 2.** The same form as Example 1, in APR-YAML. Both have identical
-semantic models and therefore identical digests.
-
-```yaml
-aprVersion: "1.0-beta.6"
-documentType: template
-metadata:
-  title: Permit Application
-sections:
-  - id: applicant
-    title: Applicant
-    prompts:
-      - id: full_name
-        label: Full name
-        response: ""
-```
-
-### 4.6 Value types {#json-subset}
-
-APR uses a restricted subset of the JSON data model.
-
-A **response** is always a JSON string ([Responses are strings](#responses)). It
-is never a number, boolean, array, or object, whatever the prompt's advisory
-type suggests.
-
-Every other member is **structural**: it describes the form rather than carrying
-what a person typed. A structural member uses the **JSON type that fits it**,
-natively: a flag is a JSON boolean, a count is a JSON integer, a numeric bound
-is a JSON number, and a name, identifier, or piece of text is a JSON string. A
-writer **MUST** emit each structural member in the type its member table
-declares, and a reader **MUST** report a structural member of another type as
-`WRONG_TYPE` ([Errors](#structural-validation)). `"canAddRows": "true"`
-is not a boolean and `"maxRows": "25"` is not a count. [APR-REP-015]
-
-Where JSON has no type for a value, the member is a string in a stated form:
-timestamps are RFC 3339 strings, and a bound on a temporal field is a string in
-that field's canonical write form ([Canonical value forms](#canonical-values)).
-A structural member is never a string *because* it is structural; it is a
-string only when a string is the fitting type. [APR-REP-016]
-
-> Rationale: the strings-only rule once applied to the whole document, and the
-> reason for it never did. A response is a string because it carries what a
-> person typed, and typing produces text. A row count does not come from a
-> person; spelling it `"25"` obliges every reader to parse a number out of a
-> string and to decide what `"25.0"` or `" 25"` mean, which is exactly the class
-> of silent divergence the format exists to remove. Native types give the schema
-> the check and give readers nothing to interpret.
-
-`null` is not an APR value. A writer **MUST NOT** emit it. A reader tolerates it
-in a response position only, coercing it to the empty string; anywhere else it is
-a parse failure. [APR-REP-014]
-
-### 4.7 Responses are strings {#responses}
-
-A `prompt.response` **MUST** be a JSON string, and a response given as a JSON
-number or boolean **MUST** be rejected at parse time. [APR-MODEL-001]
-
-It **MUST NOT** be coerced to `"42"` or `"true"`. Rejecting and coercing are
-different failures: one refuses the document, the other accepts it having invented
-data. [APR-MODEL-049]
-
-> Rationale: silent coercion is worse than rejection. It produces a document that
-> looks conformant while having invented data that no person entered.
-
-A `null` response and an absent `response` member are both read as the empty
-string.
 
 ### 4.8 Any string is a valid response {#any-string}
 
 **This is the rule the rest of the format exists to protect.**
 
-A response **MAY** contain any string. The format has no opinion about whether
-that string is "correct". [APR-MODEL-002]
+A `prompt.response` **MAY** be any string, whatever its hints ask for.
+[APR-MODEL-002]
+
+The format has no opinion about whether that string is "correct".
 
 | `expectedDataType` | Response | Document validity |
 | --- | --- | --- |
@@ -1204,9 +1391,9 @@ that string is "correct". [APR-MODEL-002]
 
 The distinction is between **document validity** — is this well-formed APR? —
 and **workflow acceptance** — will the receiving office act on it? A benefits
-office may reject a form for a blank field or an unparseable date. That is a
-workflow decision, made by a workflow, and it has nothing to do with whether the
-document is valid APR.
+office is free to refuse a form for a blank field or an unparseable date. That is
+a workflow decision, made by a workflow, and it has nothing to do with whether
+the document is valid APR.
 
 > Rationale: forms are filled by people under conditions the author did not
 > anticipate. Someone whose legal name does not fit the field, whose address is
@@ -1216,13 +1403,33 @@ document is valid APR.
 
 ### 4.9 Hints never enforce {#hints-advisory}
 
-Every member of `prompt.hints` is advisory. A hint **MUST NOT** cause a response
-to be rejected, altered, truncated, or blocked from being saved. This applies to
-`validationPattern` — a non-matching response is a warning at most — and to every
-member of the `expr*` family. [APR-MODEL-003]
+Every member of `prompt.hints` is advisory.
 
-An implementation **MAY** surface a hint mismatch as an advisory warning. It
-**MUST NOT** prevent the user from saving. [APR-MODEL-004]
+An implementation **MUST NOT** reject, alter, truncate, or refuse to save a
+response because of a hint, including `validationPattern` and every member of
+the `expr*` family. [APR-MODEL-003]
+
+A response that does not match its `validationPattern` is a warning at most.
+
+**Example 4.9-1.** A response that does not match its pattern. The document is
+valid, and the mismatch is a warning.
+
+```apr-example
+id: pattern-mismatch-is-a-warning
+rule: hints-advisory
+satisfies: APR-MODEL-003
+representation: jsonc
+expect: valid
+warns: RESPONSE_PATTERN_MISMATCH
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [ { "id": "s", "title": "S",
+    "prompts": [ { "id": "p", "label": "P", "response": "twelve",
+      "hints": { "validationPattern": "^[0-9]+$" } } ] } ]
+}
+```
 
 ---
 
@@ -1702,6 +1909,29 @@ carry them.
 **This registry is open.** An unrecognized value **MUST** degrade to a plain text
 field. It **MUST NOT** cause an error — that is what lets the registry grow
 without breaking every existing reader. [APR-MODEL-018]
+
+```apr-example
+id: unregistered-data-type-degrades
+rule: hints-object
+satisfies: APR-MODEL-018
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Unregistered affordance" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "p", "label": "P", "response": "anything",
+          "hints": { "expectedDataType": "holographic-signature" } }
+      ]
+    }
+  ]
+}
+```
 
 **A hint a reader cannot use is not an error.** A hint that is unrecognised,
 unsupported, or malformed — an unparseable `validationPattern`, a bound of the

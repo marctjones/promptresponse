@@ -56,7 +56,7 @@
     },
     {
       "id": "jsonc-duplicate-member",
-      "number": "4.4-3",
+      "number": "4.4-4",
       "rule": "apr-jsonc",
       "representation": "jsonc",
       "expect": "reject",
@@ -70,6 +70,36 @@
       "diagnostic": "DUPLICATE_MEMBER"
     },
     {
+      "id": "jsonc-missing-separator",
+      "number": "4.4-3",
+      "rule": "apr-jsonc",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "// a comment\n{\n  \"aprVersion\": \"1.0-beta.6\"\n  \"metadata\": { \"title\": \"T\" }\n}\n",
+      "rules": [
+        "APR-REP-005"
+      ],
+      "violates": [
+        "APR-REP-005"
+      ],
+      "diagnostic": "PARSE_ERROR"
+    },
+    {
+      "id": "jsonc-permit-application",
+      "number": "4.4-5",
+      "rule": "apr-jsonc",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  // Comments are trivia: they survive a byte-level copy and vanish from\n  // the semantic model. They are never hashed and never attested.\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Permit Application\" },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        { \"id\": \"full_name\", \"label\": \"Full name\", \"response\": \"\" },\n      ],\n    },\n  ],\n}\n",
+      "rules": [
+        "APR-REP-005"
+      ],
+      "satisfies": [
+        "APR-REP-005"
+      ],
+      "digest": "sha256:2ceb181e7fa718df949ba40c13d8bbb02f3b0385565660166a29b534964cfc16"
+    },
+    {
       "id": "jsonc-trailing-comma",
       "number": "4.4-1",
       "rule": "apr-jsonc",
@@ -77,10 +107,44 @@
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Trailing commas\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" }, ] },\n  ],\n}\n",
       "rules": [
-        "APR-REP-005"
+        "APR-REP-005",
+        "APR-REP-006"
       ],
       "satisfies": [
-        "APR-REP-005"
+        "APR-REP-005",
+        "APR-REP-006"
+      ]
+    },
+    {
+      "id": "null-outside-response",
+      "number": "4.6-3",
+      "rule": "json-subset",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": null,\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n",
+      "rules": [
+        "APR-REP-014"
+      ],
+      "violates": [
+        "APR-REP-014"
+      ],
+      "diagnostic": "PARSE_ERROR"
+    },
+    {
+      "id": "pattern-mismatch-is-a-warning",
+      "number": "4.9-1",
+      "rule": "hints-advisory",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\",\n    \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"response\": \"twelve\",\n      \"hints\": { \"validationPattern\": \"^[0-9]+$\" } } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-003"
+      ],
+      "satisfies": [
+        "APR-MODEL-003"
+      ],
+      "warns": [
+        "RESPONSE_PATTERN_MISMATCH"
       ]
     },
     {
@@ -114,6 +178,39 @@
       ]
     },
     {
+      "id": "response-digits-string",
+      "number": "4.7-1",
+      "rule": "responses",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\",\n    \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"response\": \"42\" } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-001",
+        "APR-MODEL-049"
+      ],
+      "satisfies": [
+        "APR-MODEL-001",
+        "APR-MODEL-049"
+      ]
+    },
+    {
+      "id": "response-number",
+      "number": "4.7-2",
+      "rule": "responses",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\",\n    \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"response\": 42 } ] } ]\n}\n",
+      "rules": [
+        "APR-MODEL-001",
+        "APR-MODEL-049"
+      ],
+      "violates": [
+        "APR-MODEL-001",
+        "APR-MODEL-049"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
       "id": "stream-mixed-representations",
       "number": "9.2-1",
       "rule": "streams",
@@ -130,7 +227,7 @@
     },
     {
       "id": "structural-member-wrong-type",
-      "number": "4.5.1-12",
+      "number": "4.6-2",
       "rule": "json-subset",
       "representation": "jsonc",
       "expect": "reject",
@@ -145,7 +242,7 @@
     },
     {
       "id": "table-section",
-      "number": "4.5.1-11",
+      "number": "4.6-1",
       "rule": "tables",
       "representation": "jsonc",
       "expect": "valid",
@@ -161,7 +258,7 @@
     },
     {
       "id": "unregistered-data-type-degrades",
-      "number": "4.5.1-13",
+      "number": "5.7-1",
       "rule": "hints-object",
       "representation": "jsonc",
       "expect": "valid",
@@ -204,7 +301,7 @@
     },
     {
       "id": "yaml-anchor",
-      "number": "4.5.1-3",
+      "number": "4.5-4",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
@@ -219,7 +316,7 @@
     },
     {
       "id": "yaml-bare-decimal-is-a-string",
-      "number": "4.5.1-17",
+      "number": "4.5.1-8",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -235,7 +332,7 @@
     },
     {
       "id": "yaml-bare-word-is-a-string",
-      "number": "4.5.1-7",
+      "number": "4.5.1-1",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -250,8 +347,41 @@
       ]
     },
     {
+      "id": "yaml-boolean-and-number",
+      "number": "4.5.1-13",
+      "rule": "yaml-resolution",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Expenses\nsections:\n  - id: expenses\n    title: Expense line items\n    kind: table\n    canAddRows: true\n    maxRows: 25\n    sections:\n      - id: item_1\n        title: Item 1\n        prompts:\n          - id: item_1.description\n            label: Description\n",
+      "rules": [
+        "APR-REP-011",
+        "APR-REP-028",
+        "APR-REP-029"
+      ],
+      "satisfies": [
+        "APR-REP-011",
+        "APR-REP-028",
+        "APR-REP-029"
+      ]
+    },
+    {
+      "id": "yaml-boolean-key",
+      "number": "4.5-3",
+      "rule": "apr-yaml",
+      "representation": "yaml",
+      "expect": "reject",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Boolean key\n  com.example.flags:\n    true: kept\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "rules": [
+        "APR-REP-009"
+      ],
+      "violates": [
+        "APR-REP-009"
+      ],
+      "diagnostic": "PARSE_ERROR"
+    },
+    {
       "id": "yaml-date-like-is-a-string",
-      "number": "4.5.1-10",
+      "number": "4.5.1-4",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -267,22 +397,22 @@
     },
     {
       "id": "yaml-directive",
-      "number": "4.5.1-6",
+      "number": "4.5-7",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
       "document": "%YAML 1.2\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Directed\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "rules": [
-        "APR-REP-010"
+        "APR-REP-022"
       ],
       "violates": [
-        "APR-REP-010"
+        "APR-REP-022"
       ],
       "diagnostic": "YAML_DIRECTIVE_FORBIDDEN"
     },
     {
       "id": "yaml-hex-is-a-string",
-      "number": "4.5.1-15",
+      "number": "4.5.1-6",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -297,8 +427,30 @@
       ]
     },
     {
+      "id": "yaml-indicators-in-content",
+      "number": "4.5-2",
+      "rule": "apr-yaml",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Fish & chips\n  com.example.flags:\n    \"<<\": kept\n    \"true\": kept\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: fee\n        label: Fee\n        response: string(fee_count * 8.0) !important\n",
+      "rules": [
+        "APR-REP-009",
+        "APR-REP-010",
+        "APR-REP-020",
+        "APR-REP-021",
+        "APR-REP-022"
+      ],
+      "satisfies": [
+        "APR-REP-009",
+        "APR-REP-010",
+        "APR-REP-020",
+        "APR-REP-021",
+        "APR-REP-022"
+      ]
+    },
+    {
       "id": "yaml-leading-zero-is-a-string",
-      "number": "4.5.1-9",
+      "number": "4.5.1-3",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -314,7 +466,7 @@
     },
     {
       "id": "yaml-legacy-boolean-is-a-string",
-      "number": "4.5.1-8",
+      "number": "4.5.1-2",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -330,22 +482,22 @@
     },
     {
       "id": "yaml-merge-key",
-      "number": "4.5.1-5",
+      "number": "4.5-6",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Merged\nsections:\n  - id: s\n    title: S\n    <<: { description: merged in }\n    prompts:\n      - id: p\n        label: P\n",
       "rules": [
-        "APR-REP-010"
+        "APR-REP-021"
       ],
       "violates": [
-        "APR-REP-010"
+        "APR-REP-021"
       ],
       "diagnostic": "YAML_MERGE_KEY_FORBIDDEN"
     },
     {
       "id": "yaml-non-finite-float",
-      "number": "4.5.1-20",
+      "number": "4.5.1-14",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "reject",
@@ -359,52 +511,73 @@
       "diagnostic": "YAML_NON_FINITE_NUMBER"
     },
     {
+      "id": "yaml-permit-application",
+      "number": "4.5-1",
+      "rule": "apr-yaml",
+      "representation": "yaml",
+      "expect": "valid",
+      "document": "aprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata:\n  title: Permit Application\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: full_name\n        label: Full name\n        response: \"\"\n",
+      "rules": [
+        "APR-REP-008",
+        "APR-REP-026"
+      ],
+      "satisfies": [
+        "APR-REP-008",
+        "APR-REP-026"
+      ],
+      "digest": "sha256:2ceb181e7fa718df949ba40c13d8bbb02f3b0385565660166a29b534964cfc16"
+    },
+    {
       "id": "yaml-plain-null-response-is-empty",
-      "number": "4.5.1-19",
+      "number": "4.5.1-12",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: null\n",
       "rules": [
-        "APR-REP-008",
-        "APR-REP-014"
+        "APR-REP-014",
+        "APR-REP-024",
+        "APR-REP-027"
       ],
       "satisfies": [
-        "APR-REP-008",
-        "APR-REP-014"
+        "APR-REP-014",
+        "APR-REP-024",
+        "APR-REP-027"
       ]
     },
     {
       "id": "yaml-quoted-null-is-a-string",
-      "number": "4.5.1-18",
+      "number": "4.5.1-9",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: \"null\"\n",
       "rules": [
-        "APR-REP-008"
+        "APR-REP-026"
       ],
       "satisfies": [
-        "APR-REP-008"
+        "APR-REP-026"
       ]
     },
     {
       "id": "yaml-quoted-scalar-stays-string",
-      "number": "4.5.1-2",
+      "number": "4.5.1-10",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Quoted template version\n  templateVersion: \"1.0\"\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "rules": [
-        "APR-REP-017"
+        "APR-REP-015",
+        "APR-REP-026"
       ],
       "satisfies": [
-        "APR-REP-017"
+        "APR-REP-015",
+        "APR-REP-026"
       ]
     },
     {
       "id": "yaml-sexagesimal-is-a-string",
-      "number": "4.5.1-14",
+      "number": "4.5.1-5",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -420,22 +593,22 @@
     },
     {
       "id": "yaml-tag",
-      "number": "4.5.1-4",
+      "number": "4.5-5",
       "rule": "apr-yaml",
       "representation": "yaml",
       "expect": "reject",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: !!str Tagged\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "rules": [
-        "APR-REP-010"
+        "APR-REP-020"
       ],
       "violates": [
-        "APR-REP-010"
+        "APR-REP-020"
       ],
       "diagnostic": "YAML_TAG_FORBIDDEN"
     },
     {
       "id": "yaml-underscored-number-is-a-string",
-      "number": "4.5.1-16",
+      "number": "4.5.1-7",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "valid",
@@ -451,16 +624,16 @@
     },
     {
       "id": "yaml-unquoted-scalar-wrong-type",
-      "number": "4.5.1-1",
+      "number": "4.5.1-11",
       "rule": "yaml-resolution",
       "representation": "yaml",
       "expect": "reject",
       "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Unquoted template version\n  templateVersion: 1.0\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
       "rules": [
-        "APR-REP-017"
+        "APR-REP-015"
       ],
       "violates": [
-        "APR-REP-017"
+        "APR-REP-015"
       ],
       "diagnostic": "WRONG_TYPE"
     }

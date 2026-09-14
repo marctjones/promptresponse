@@ -272,7 +272,7 @@
       "id": "a-hint-mismatch-does-not-block-saving",
       "rules": [
         "APR-RENDER-006",
-        "APR-MODEL-004",
+        "APR-MODEL-003",
         "APR-VAL-006"
       ],
       "asks": "saveResult.written is true though the response contradicts its declared type",

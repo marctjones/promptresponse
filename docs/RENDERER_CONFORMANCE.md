@@ -86,7 +86,7 @@ carries — nothing here is invented for the harness.
 | `reachableBackwards` | false when Shift-Tab never returns to it | `APR-RENDER-005` |
 | `editable` | whether typing is accepted | `APR-EXPR-014` — a computed field stays editable |
 | `value` | the response as the field shows it | Reported, **not checked** — see below |
-| `saveResult` | whether a save was written, and what blocked it | `APR-RENDER-006`, `APR-MODEL-004`, `APR-VAL-006` |
+| `saveResult` | whether a save was written, and what blocked it | `APR-RENDER-006`, `APR-MODEL-003`, `APR-VAL-006` |
 | `exportedDocument` | the document as it stands after an export | `APR-RENDER-009` |
 | `requests` | every network request made while rendering | `APR-SEC-010` |
 
@@ -119,7 +119,7 @@ Windows-only contract wearing a platform-neutral name.
 | `APR-SEC-009` | no case produces an execution: a document carrying script-looking text renders it as text |
 | `APR-SEC-010` | `requests` is empty for every case that involves no explicit user action |
 | `APR-SEC-011` | a sixteen-level document renders; a deeper one refuses cleanly rather than exhausting memory |
-| `APR-MODEL-004`, `APR-VAL-006` | `saveResult.written` is true even where a hint mismatch or advisory is present |
+| `APR-MODEL-003`, `APR-VAL-006` | `saveResult.written` is true even where a hint mismatch or advisory is present |
 
 ### A hidden prompt is stated by the case, not worked out by the scorer
 

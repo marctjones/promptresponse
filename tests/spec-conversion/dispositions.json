@@ -1342,7 +1342,8 @@
       "kind": "heading",
       "text": "4. Representations",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "representations/sentence/f3b197ba72": {
       "anchor": "representations",
@@ -1350,16 +1351,24 @@
       "kind": "sentence",
       "text": "The semantic model is representation-neutral.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "representations/sentence/de310f75fe"
+      ]
     },
     "representations/sentence/3521a28f7b": {
       "anchor": "representations",
       "chapter": 4,
       "kind": "sentence",
       "text": "The same form or attestation may be written as APR-JSONC or APR-YAML; comments, whitespace, indentation, scalar spelling, and mapping order have no semantic effect.",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "representations/sentence/de310f75fe",
+        "representations/sentence/8a664198f0"
+      ]
     },
     "model-layers/heading/ca67d8242c": {
       "anchor": "model-layers",
@@ -1367,7 +1376,8 @@
       "kind": "heading",
       "text": "4.1 Model, serialization, presentation",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "model-layers/sentence/c5148a7904": {
       "anchor": "model-layers",
@@ -1375,7 +1385,8 @@
       "kind": "sentence",
       "text": "APR separates three layers.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "model-layers/sentence/11fdba1e01": {
       "anchor": "model-layers",
@@ -1383,7 +1394,8 @@
       "kind": "sentence",
       "text": "A rule stated at one layer does not constrain another.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "model-layers/list-item/d72feea072": {
       "anchor": "model-layers",
@@ -1391,7 +1403,8 @@
       "kind": "list-item",
       "text": "**Semantic model** — the information APR defines. All APR semantics are properties of this layer.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "model-layers/list-item/e382c663e5": {
       "anchor": "model-layers",
@@ -1399,7 +1412,8 @@
       "kind": "list-item",
       "text": "**Serialization** — the JSON data model the semantic model maps onto: objects, arrays, strings, numbers, booleans, and null.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "model-layers/list-item/1b3d32e2be": {
       "anchor": "model-layers",
@@ -1407,7 +1421,8 @@
       "kind": "list-item",
       "text": "**Presentation** — the bytes actually written.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "model-layers/sentence/599cafb27c": {
       "anchor": "model-layers",
@@ -1415,7 +1430,8 @@
       "kind": "sentence",
       "text": "Two documents with the same semantic model are the same form, whatever their presentation.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "model-layers/sentence/cbc8bbf14d": {
       "anchor": "model-layers",
@@ -1423,7 +1439,8 @@
       "kind": "sentence",
       "text": "This is what makes a semantic digest ([Digests](#digests)) meaningful: it is computed over the model, never over the bytes.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "model-layers/sentence/e46c53e0ef": {
       "anchor": "model-layers",
@@ -1431,15 +1448,24 @@
       "kind": "sentence",
       "text": "Information is discarded deliberately when moving from presentation to model.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "model-layers/sentence/6007be4881"
+      ]
     },
     "model-layers/sentence/a812f369db": {
       "anchor": "model-layers",
       "chapter": 4,
       "kind": "sentence",
       "text": "Source trivia **MUST NOT** carry APR meaning, and a writer is under no obligation to reproduce it.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "model-layers/sentence/6007be4881"
+      ],
+      "note": "source trivia is defined in Terminology; that it carries no meaning is a consequence, not a requirement"
     },
     "model-layers/sentence/0efcf6a0dd": {
       "anchor": "model-layers",
@@ -1447,7 +1473,12 @@
       "kind": "sentence",
       "text": "Everything else — including members APR does not define — **MUST** survive a round trip. [APR-REP-001]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "model-layers/sentence/34f8fab734"
+      ],
+      "note": "an implementation that reads and writes back is the subject"
     },
     "syntax-conventions/heading/e220130663": {
       "anchor": "syntax-conventions",
@@ -1455,7 +1486,8 @@
       "kind": "heading",
       "text": "4.2 Syntax conventions",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "syntax-conventions/sentence/c7c556d12d": {
       "anchor": "syntax-conventions",
@@ -1463,7 +1495,8 @@
       "kind": "sentence",
       "text": "APR does not define a grammar of its own.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "syntax-conventions/sentence/e76eccf0ca": {
       "anchor": "syntax-conventions",
@@ -1471,7 +1504,8 @@
       "kind": "sentence",
       "text": "It defines a **delta** against grammars that already exist, so that an implementer reuses a JSON or YAML parser rather than writing an APR one.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "syntax-conventions/sentence/2d00757712": {
       "anchor": "syntax-conventions",
@@ -1479,7 +1513,8 @@
       "kind": "sentence",
       "text": "Grammar in this document is ABNF (RFC 5234).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "syntax-conventions/sentence/ed382d641f": {
       "anchor": "syntax-conventions",
@@ -1487,7 +1522,8 @@
       "kind": "sentence",
       "text": "Two conventions apply:",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "syntax-conventions/list-item/1e612f39bd": {
       "anchor": "syntax-conventions",
@@ -1495,7 +1531,8 @@
       "kind": "list-item",
       "text": "**Rules are imported by name.** A rule referenced but not defined here is the rule of that name in the cited specification, unchanged. `value`, `string`, `number`, `member`, and the structural characters are RFC 8259's.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "syntax-conventions/list-item/3f85372100": {
       "anchor": "syntax-conventions",
@@ -1503,7 +1540,8 @@
       "kind": "list-item",
       "text": "**A redefinition replaces the imported rule wherever it appears.** Where this document defines a rule that the cited specification also defines, the definition here governs for APR, and every imported rule that references it picks up the replacement.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "syntax-conventions/sentence/e17627c79e": {
       "anchor": "syntax-conventions",
@@ -1511,7 +1549,8 @@
       "kind": "sentence",
       "text": "Nothing else in the imported grammar changes.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "syntax-conventions/sentence/5b0ac24d60": {
       "anchor": "syntax-conventions",
@@ -1519,7 +1558,8 @@
       "kind": "sentence",
       "text": "A construct this document does not mention is permitted exactly as the cited specification permits it, and one it excludes is excluded wherever it would otherwise appear.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "encoding/heading/7e78f32855": {
       "anchor": "encoding",
@@ -1527,7 +1567,8 @@
       "kind": "heading",
       "text": "4.3 Encoding",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "encoding/sentence/50b93af94e": {
       "anchor": "encoding",
@@ -1535,15 +1576,25 @@
       "kind": "sentence",
       "text": "A document **MUST** be encoded as UTF-8 (RFC 3629).",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "encoding/sentence/fdb6af6047"
+      ]
     },
     "encoding/sentence/e0afa210e4": {
       "anchor": "encoding",
       "chapter": 4,
       "kind": "sentence",
       "text": "A byte-order mark **SHOULD NOT** be written; a reader **SHOULD** tolerate a leading one. [APR-REP-002]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "encoding/sentence/53db17e0cc",
+        "encoding/sentence/3ddd9ff538"
+      ],
+      "note": "writer omits a byte-order mark (APR-REP-018); reader accepts one (APR-REP-019)"
     },
     "encoding/sentence/769fa60204": {
       "anchor": "encoding",
@@ -1551,7 +1602,11 @@
       "kind": "sentence",
       "text": "A reader **MUST** reject ill-formed UTF-8 rather than substituting replacement characters silently. [APR-REP-003]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "encoding/sentence/73ded33f47"
+      ]
     },
     "encoding/sentence/cb2458dfef": {
       "anchor": "encoding",
@@ -1559,15 +1614,26 @@
       "kind": "sentence",
       "text": "Every string **MUST NOT** contain U+0000, and **MUST NOT** contain an unpaired surrogate in the range U+D800 to U+DFFF.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "encoding/sentence/efc8a40bad"
+      ],
+      "note": "one MUST NOT with a string in a document as its subject; meaning unchanged"
     },
     "encoding/sentence/1adb58d6f9": {
       "anchor": "encoding",
       "chapter": 4,
       "kind": "sentence",
       "text": "Control characters U+0001 through U+001F **MUST NOT** appear, except tab (U+0009), line feed (U+000A), and carriage return (U+000D), which are permitted so that a multiline response can hold the line breaks a person typed. [APR-REP-004]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "encoding/sentence/efc8a40bad",
+        "encoding/rationale/586dc0c4be"
+      ],
+      "note": "the exceptions join the requirement; why they exist is rationale"
     },
     "apr-jsonc/heading/c3a58c658b": {
       "anchor": "apr-jsonc",
@@ -1575,7 +1641,8 @@
       "kind": "heading",
       "text": "4.4 APR-JSONC",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/sentence/db62801ed1": {
       "anchor": "apr-jsonc",
@@ -1583,7 +1650,8 @@
       "kind": "sentence",
       "text": "APR-JSONC is the JSON grammar of RFC 8259 with comments and trailing commas admitted.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/sentence/c6b87e76b1": {
       "anchor": "apr-jsonc",
@@ -1591,15 +1659,23 @@
       "kind": "sentence",
       "text": "It is defined as a delta against that grammar, per [Syntax conventions](#syntax-conventions).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/code/b967a85ff8": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "code",
       "text": "```abnf\n; Imported unchanged from RFC 8259: value, member, string, number,\n; begin-object, end-object, begin-array, end-array,\n; name-separator, value-separator, and everything they reference.\n\napr-jsonc-text  = ws value ws\n\n; REDEFINED. Whitespace admits comments, so a comment is legal\n; wherever whitespace is, and nowhere else.\nws              = *( %x20 / %x09 / %x0A / %x0D / comment )\n\ncomment         = line-comment / block-comment\nline-comment    = %x2F.2F *( %x00-09 / %x0B-10FFFF )\nblock-comment   = %x2F.2A *( not-star / star-not-slash ) %x2A.2F\nnot-star        = %x00-29 / %x2B-10FFFF\nstar-not-slash  = %x2A ( %x00-2E / %x30-10FFFF )\n\n; REDEFINED. A trailing comma is permitted after the final element.\nobject          = begin-object\n                  [ member *( value-separator member ) [ value-separator ] ]\n                  end-object\narray           = begin-array\n                  [ value *( value-separator value ) [ value-separator ] ]\n                  end-array\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/code/25479a62c8",
+        "syntax-conventions/sentence/ac0cf53d06",
+        "syntax-conventions/sentence/12231ebf49"
+      ],
+      "note": "productions are numbered, and the convention is stated in 4.2"
     },
     "apr-jsonc/sentence/95b00ddd41": {
       "anchor": "apr-jsonc",
@@ -1607,7 +1683,11 @@
       "kind": "sentence",
       "text": "Because a comment is a production of `ws`, and `ws` never appears inside `string`, **a comment sequence inside a string literal is not a comment.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/sentence/eb66db6af8"
+      ]
     },
     "apr-jsonc/sentence/ede7985d75": {
       "anchor": "apr-jsonc",
@@ -1615,7 +1695,8 @@
       "kind": "sentence",
       "text": "The `string` rule is imported unchanged, so `\"// not a comment\"` is an ordinary string value.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/sentence/8e7bb536f7": {
       "anchor": "apr-jsonc",
@@ -1623,15 +1704,26 @@
       "kind": "sentence",
       "text": "This is the first question an implementer asks, and the grammar answers it rather than leaving it to prose.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/sentence/a1c513d7f0": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "sentence",
       "text": "Once comments and trailing commas are removed, the text **MUST** decode as JSON (RFC 8259) to the semantic model.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/sentence/1fc76cd12e",
+        "apr-jsonc/sentence/16d48af886",
+        "apr-jsonc/example/907ca11064",
+        "apr-jsonc/sentence/d82d4f65bc",
+        "apr-jsonc/sentence/edb0d9aeec",
+        "apr-jsonc/sentence/d06e9457f6"
+      ],
+      "note": "a document matches production [1]; decoding to the model is informative"
     },
     "apr-jsonc/sentence/b95062366c": {
       "anchor": "apr-jsonc",
@@ -1639,7 +1731,12 @@
       "kind": "sentence",
       "text": "Comments are source trivia and cannot carry APR meaning. [APR-REP-005]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "representations/sentence/8a664198f0"
+      ],
+      "note": "comments are source trivia, stated once in the chapter introduction"
     },
     "apr-jsonc/sentence/05bb2ff503": {
       "anchor": "apr-jsonc",
@@ -1647,15 +1744,24 @@
       "kind": "sentence",
       "text": "**One constraint the grammar cannot express.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/sentence/666d532b15"
+      ]
     },
     "apr-jsonc/sentence/6c0cdb2458": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "sentence",
       "text": "RFC 8259 §4 says object member names SHOULD be unique.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/sentence/68e5a47808"
+      ],
+      "note": "RFC 8259's position is described without its keyword"
     },
     "apr-jsonc/sentence/15e687f91b": {
       "anchor": "apr-jsonc",
@@ -1663,47 +1769,62 @@
       "kind": "sentence",
       "text": "APR raises this: a parser **MUST** reject a duplicate member name rather than applying a last-key-wins rule. [APR-REP-006]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/sentence/0fcc0de3ff"
+      ],
+      "note": "a reader is the subject and the diagnostic is named"
     },
     "apr-jsonc/rationale/9cc307dfbd": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "rationale",
       "text": "Rationale: last-key-wins makes a document's meaning depend on which parser reads it, which is precisely what a semantic digest cannot tolerate.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/sentence/3945e9a14c": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "sentence",
       "text": "*Negative case:* `malformed/duplicate-member.apr.jsonc`.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/sentence/eabac9f84e": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "sentence",
       "text": "These examples are executable.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/sentence/87bcd91af1": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "sentence",
       "text": "`scripts/extract-spec-examples.py` derives the conformance vectors from them, so a change to the rule and a change to its evidence are the same edit ([Authority](#scope)).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/example/6e70cb4200": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: jsonc-trailing-comma\nrule: apr-jsonc\nsatisfies: APR-REP-005\nrepresentation: jsonc\nexpect: valid\n---\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Trailing commas\" },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" }, ] },\n  ],\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/example/c65c2b80d3",
+        "apr-jsonc/sentence/6361bf2f04",
+        "apr-jsonc/sentence/1a2e0760c4"
+      ]
     },
     "apr-jsonc/sentence/279fa9feab": {
       "anchor": "apr-jsonc",
@@ -1711,23 +1832,36 @@
       "kind": "sentence",
       "text": "A comment sequence inside a string is not a comment, because `ws` never occurs inside `string`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/example/a81670aec5": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: jsonc-comment-inside-string\nrule: apr-jsonc\nsatisfies: APR-REP-005\nrepresentation: jsonc\nexpect: valid\n---\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"// not a comment /* nor this */\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/example/a81670aec5",
+        "apr-jsonc/sentence/bf00764ce1",
+        "apr-jsonc/sentence/279fa9feab"
+      ]
     },
     "apr-jsonc/example/f5af168755": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: jsonc-duplicate-member\nrule: apr-jsonc\nviolates: APR-REP-006\nrepresentation: jsonc\nexpect: reject\ndiagnostic: DUPLICATE_MEMBER\n---\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"first\" },\n  \"metadata\": { \"title\": \"second\" },\n  \"sections\": [ { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] } ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/example/f5af168755",
+        "apr-jsonc/sentence/204b96631e",
+        "apr-jsonc/sentence/e7eaeb3041"
+      ]
     },
     "apr-jsonc/sentence/ce29c0f44f": {
       "anchor": "apr-jsonc",
@@ -1735,7 +1869,11 @@
       "kind": "sentence",
       "text": "**Example 1.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/sentence/87a78149e3"
+      ]
     },
     "apr-jsonc/sentence/3bcebcdc3a": {
       "anchor": "apr-jsonc",
@@ -1743,15 +1881,23 @@
       "kind": "sentence",
       "text": "A form in APR-JSONC, with comments that carry no meaning.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-jsonc/code/d983b8a697": {
       "anchor": "apr-jsonc",
       "chapter": 4,
       "kind": "code",
       "text": "```jsonc\n{\n  // Comments are trivia: they survive a byte-level copy and vanish from\n  // the semantic model. They are never hashed and never attested.\n  \"aprVersion\": \"1.0-beta.6\",\n  \"documentType\": \"template\",\n  \"metadata\": { \"title\": \"Permit Application\" },\n  \"sections\": [\n    {\n      \"id\": \"applicant\",\n      \"title\": \"Applicant\",\n      \"prompts\": [\n        { \"id\": \"full_name\", \"label\": \"Full name\", \"response\": \"\" },\n      ],\n    },\n  ],\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-jsonc/example/2ee285fc6d",
+        "apr-jsonc/sentence/87a78149e3",
+        "apr-jsonc/sentence/3bcebcdc3a"
+      ],
+      "note": "the illustration is an executable example"
     },
     "apr-yaml/heading/d656199c5a": {
       "anchor": "apr-yaml",
@@ -1759,7 +1905,8 @@
       "kind": "heading",
       "text": "4.5 APR-YAML",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-yaml/sentence/8f7541d918": {
       "anchor": "apr-yaml",
@@ -1767,7 +1914,8 @@
       "kind": "sentence",
       "text": "APR-YAML is **YAML 1.2.2 syntax carrying the JSON value space**.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-yaml/sentence/c58624a051": {
       "anchor": "apr-yaml",
@@ -1775,15 +1923,17 @@
       "kind": "sentence",
       "text": "Its syntax is referenced rather than restated; only its resolution and its exclusions are stated here, because those are the parts APR constrains.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "apr-yaml/sentence/bbbdab479b": {
       "anchor": "apr-yaml",
       "chapter": 4,
       "kind": "sentence",
       "text": "A conforming APR-YAML document:",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "apr-yaml/list-item/d0f13514cb": {
       "anchor": "apr-yaml",
@@ -1791,31 +1941,64 @@
       "kind": "list-item",
       "text": "**MUST** be a well-formed YAML 1.2.2 document, per that specification's character, structural, flow, block, and document-stream productions (chapters 5 to 9). [APR-REP-007]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/sentence/23b1e8291c"
+      ]
     },
     "apr-yaml/list-item/03e1a2ece0": {
       "anchor": "apr-yaml",
       "chapter": 4,
       "kind": "list-item",
       "text": "**MUST** resolve every scalar to a value of the JSON data model (RFC 8259): null, boolean, number, string, array, or object, and nothing else. [APR-REP-008]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/table-row/f45a2abac4",
+        "yaml-resolution/table-row/1230bcc56e",
+        "yaml-resolution/table-row/1e34cf2e1d",
+        "yaml-resolution/table-row/a4090377f5",
+        "yaml-resolution/table-row/e60796deed"
+      ],
+      "note": "resolution is a normative table, one rule per row"
     },
     "apr-yaml/list-item/6ea5218db4": {
       "anchor": "apr-yaml",
       "chapter": 4,
       "kind": "list-item",
       "text": "**MUST** resolve every mapping key to a string. [APR-REP-009]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/sentence/2fa7c22ab5",
+        "apr-yaml/sentence/384067c537",
+        "apr-yaml/example/45cd204d59",
+        "apr-yaml/sentence/4f0e79b40c",
+        "apr-yaml/sentence/3147847f95",
+        "apr-yaml/sentence/e74f7afaa7",
+        "apr-yaml/example/5da7b41539",
+        "apr-yaml/sentence/1d8188a4fb",
+        "apr-yaml/sentence/9e5c3623ef"
+      ]
     },
     "apr-yaml/list-item/076738eed5": {
       "anchor": "apr-yaml",
       "chapter": 4,
       "kind": "list-item",
       "text": "**MUST NOT** use the constructs excluded below. [APR-REP-010]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/table-row/d8141af145",
+        "apr-yaml/table-row/f9bf874f46",
+        "apr-yaml/table-row/fc04849fdf",
+        "apr-yaml/table-row/8e3b9f1148"
+      ],
+      "note": "the exclusions are a normative table, one rule per row"
     },
     "yaml-resolution/heading/b265f8e247": {
       "anchor": "yaml-resolution",
@@ -1823,7 +2006,8 @@
       "kind": "heading",
       "text": "4.5.1 Scalar resolution",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/794b403ce2": {
       "anchor": "yaml-resolution",
@@ -1831,7 +2015,8 @@
       "kind": "sentence",
       "text": "Resolution is stated exhaustively, because it is where YAML and JSON genuinely differ and where a reference alone would be ambiguous.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/table-header/deab6a8a2b": {
       "anchor": "yaml-resolution",
@@ -1839,55 +2024,86 @@
       "kind": "table-header",
       "text": "| Scalar | Resolves to |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/table-header/9e6f1698ec",
+        "yaml-resolution/sentence/8755ed85f9"
+      ],
+      "note": "the table header gains Requirement and Rule columns, and a sentence names the subject of each row"
     },
     "yaml-resolution/table-row/1985e90976": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "table-row",
       "text": "| Any quoted scalar | string, verbatim |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/table-row/f45a2abac4"
+      ]
     },
     "yaml-resolution/table-row/4d8ed0bd79": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "table-row",
       "text": "| Plain `null`, `Null`, `NULL`, `~`, or empty | null |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/table-row/1230bcc56e"
+      ]
     },
     "yaml-resolution/table-row/07a9848477": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "table-row",
       "text": "| Plain `true`, `True`, `TRUE`, `false`, `False`, `FALSE` | boolean |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/table-row/1e34cf2e1d"
+      ]
     },
     "yaml-resolution/table-row/01ee4db049": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "table-row",
       "text": "| A plain scalar matching JSON's `number` production (RFC 8259 §6) | number |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/table-row/a4090377f5"
+      ]
     },
     "yaml-resolution/table-row/f69a846104": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "table-row",
       "text": "| **Any other plain scalar** | **string** |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/table-row/e60796deed"
+      ]
     },
     "yaml-resolution/sentence/62daa4c390": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "A plain scalar denoting a non-finite float — `.inf`, `-.inf`, `.nan`, in any capitalization — **MUST** be rejected.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/sentence/e274da266e",
+        "yaml-resolution/sentence/541bdf5202"
+      ]
     },
     "yaml-resolution/sentence/91f2ad2d85": {
       "anchor": "yaml-resolution",
@@ -1895,7 +2111,11 @@
       "kind": "sentence",
       "text": "JSON has no representation for it, so there is no value for it to resolve to. [APR-REP-011]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/sentence/e274da266e"
+      ]
     },
     "yaml-resolution/sentence/20601b20f1": {
       "anchor": "yaml-resolution",
@@ -1903,7 +2123,8 @@
       "kind": "sentence",
       "text": "**APR defines its own YAML schema.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/122592194e": {
       "anchor": "yaml-resolution",
@@ -1911,8 +2132,11 @@
       "kind": "sentence",
       "text": "YAML 1.2.2 chapter 10 presents failsafe, JSON, and core as *recommended* schemas rather than mandatory ones, and a processor may define another.",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/sentence/4bdc897174"
+      ]
     },
     "yaml-resolution/sentence/274a531c9d": {
       "anchor": "yaml-resolution",
@@ -1920,23 +2144,30 @@
       "kind": "sentence",
       "text": "The table above is APR's.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/7255276fb8": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "An implementation therefore uses a YAML library for **syntax** — characters, structure, flow and block style, document streams — and **MUST NOT** use that library's default scalar resolution. [APR-REP-012]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/sentence/f9cadfeec9",
+        "yaml-resolution/sentence/f87221dc34"
+      ]
     },
     "yaml-resolution/rationale/b44dffd624": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "rationale",
       "text": "Rationale: this is close to YAML's Core Schema, restricted to what JSON can represent. The narrower JSON Schema is deliberately *not* used: under it a plain scalar that is not a literal has no resolution at all, so `title: Permit Application` would be invalid and every string in an APR-YAML document would have to be quoted. That is not a document anyone would write.  Choosing a YAML 1.2 library instead of a 1.1 one does not remove the need for this table. Under YAML 1.2's Core Schema `012` resolves as the number 12 and `.inf` as a float, so a leading-zero identifier is still corrupted and a non-finite value still appears. The distance being closed here is not between YAML versions; it is between any YAML schema and the JSON value space.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/64673256c1": {
       "anchor": "yaml-resolution",
@@ -1944,7 +2175,8 @@
       "kind": "sentence",
       "text": "Because the target is the JSON value space rather than YAML's, an entire class of YAML-only behaviour disappears without APR enumerating it.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/ab1f1b3037": {
       "anchor": "yaml-resolution",
@@ -1952,24 +2184,35 @@
       "kind": "sentence",
       "text": "Sexagesimals, implicit timestamps, and the YAML 1.1 `y`/`n`/`on`/`off` boolean spellings are not JSON values and therefore resolve as ordinary strings.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/284d86db38": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "**Excluded constructs.**",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "move",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/sentence/284d86db38"
+      ]
     },
     "yaml-resolution/sentence/c2d90d7920": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "These are structural rather than resolution behaviour, so the JSON Schema does not exclude them and this document must:",
-      "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/sentence/a592a8d094",
+        "apr-yaml/sentence/2dfceb77dd",
+        "apr-yaml/sentence/ea2d66124b",
+        "apr-yaml/sentence/7a6538c6c5"
+      ]
     },
     "yaml-resolution/table-header/de0e2dd64a": {
       "anchor": "yaml-resolution",
@@ -1977,39 +2220,59 @@
       "kind": "table-header",
       "text": "| Excluded | Defined in YAML 1.2.2 | Example |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/table-header/15b3865068"
+      ]
     },
     "yaml-resolution/table-row/1f9af89e9d": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "table-row",
       "text": "| Anchors and aliases | §3.2.2.2, node properties and alias nodes | `yaml-anchor` |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/table-row/d8141af145"
+      ]
     },
     "yaml-resolution/table-row/ee050cb5df": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "table-row",
       "text": "| Tags, including `!!binary` and language-specific tags | §3.2.1.2, node properties | `yaml-tag` |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/table-row/f9bf874f46"
+      ]
     },
     "yaml-resolution/table-row/4f614a5241": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "table-row",
       "text": "| Merge keys | the `<<` mapping-merge convention | `yaml-merge-key` |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/table-row/fc04849fdf"
+      ]
     },
     "yaml-resolution/table-row/6665235591": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "table-row",
       "text": "| Directives, including `%YAML` and `%TAG` | §6.8 | `yaml-directive` |",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "table-row",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/table-row/8e3b9f1148"
+      ]
     },
     "yaml-resolution/sentence/88e5373201": {
       "anchor": "yaml-resolution",
@@ -2017,7 +2280,12 @@
       "kind": "sentence",
       "text": "Implementations **MUST** use a safe loader: one that constructs only the JSON Schema value types and never instantiates a host-language object from document content. [APR-REP-013]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/sentence/7a8aa13b49"
+      ],
+      "note": "a reader is the subject"
     },
     "yaml-resolution/sentence/5837f48a41": {
       "anchor": "yaml-resolution",
@@ -2025,15 +2293,27 @@
       "kind": "sentence",
       "text": "Responses remain strings even where a scalar would otherwise resolve as a number or boolean under the JSON Schema, because [Responses are strings](#responses) governs the semantic model regardless of how a scalar resolved.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/sentence/379911e603"
+      ],
+      "note": "an unquoted number in a response is a number, which Responses are strings rejects"
     },
     "yaml-resolution/sentence/ae6d8d1aa6": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "Anywhere else, an author who means the *string* `true` or `25` — as a suggested value, say — **MUST** quote it, exactly as a JSON author must; the table above is the only thing that decides. [APR-REP-017]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/sentence/dbfaad601b",
+        "yaml-resolution/sentence/75d40b77ee",
+        "yaml-resolution/sentence/0c240f0d7a"
+      ],
+      "note": "an author is not a class of product; the table and APR-REP-015 already decide the case"
     },
     "yaml-resolution/sentence/eb6025c598": {
       "anchor": "yaml-resolution",
@@ -2041,7 +2321,11 @@
       "kind": "sentence",
       "text": "An unquoted `metadata.templateVersion: 1.0` resolves as the number `1.0` by the table above, and `templateVersion` is declared a string, so the document is rejected — the same `WRONG_TYPE` a JSON author gets from writing `\"templateVersion\": 1.0`.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/sentence/75d40b77ee"
+      ]
     },
     "yaml-resolution/sentence/b05c5b5bce": {
       "anchor": "yaml-resolution",
@@ -2049,200 +2333,320 @@
       "kind": "sentence",
       "text": "Quoting the scalar is what an author who means the *string* `\"1.0\"` must do; a writer that emits the unquoted form for a value it knows to be a string has produced a document that fails to parse.",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/sentence/0c240f0d7a"
+      ]
     },
     "yaml-resolution/example/7790db8c70": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-unquoted-scalar-wrong-type\nrule: yaml-resolution\nviolates: APR-REP-017\nrepresentation: yaml\nexpect: reject\ndiagnostic: WRONG_TYPE\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Unquoted template version\n  templateVersion: 1.0\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/6d4feedac9",
+        "yaml-resolution/sentence/3d025cdfb8",
+        "yaml-resolution/sentence/78b4d0eb24"
+      ]
     },
     "yaml-resolution/example/55dae4d289": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-quoted-scalar-stays-string\nrule: yaml-resolution\nsatisfies: APR-REP-017\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Quoted template version\n  templateVersion: \"1.0\"\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/8d45e9513f",
+        "yaml-resolution/sentence/1ea3979b83",
+        "yaml-resolution/sentence/5754acec5a"
+      ]
     },
     "yaml-resolution/sentence/1899d6dd34": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "The excluded constructs, each with its vector.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/example/c2c974e5d1": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-anchor\nrule: apr-yaml\nviolates: APR-REP-010\nrepresentation: yaml\nexpect: reject\ndiagnostic: YAML_ANCHOR_FORBIDDEN\n---\naprVersion: \"1.0-beta.6\"\nmetadata: &meta\n  title: Anchored\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/example/c2c974e5d1",
+        "apr-yaml/sentence/515cc58fc0",
+        "apr-yaml/sentence/8188f6fe1f"
+      ]
     },
     "yaml-resolution/example/15be3e25e6": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-tag\nrule: apr-yaml\nviolates: APR-REP-010\nrepresentation: yaml\nexpect: reject\ndiagnostic: YAML_TAG_FORBIDDEN\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: !!str Tagged\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/example/20496de804",
+        "apr-yaml/sentence/36816a4b96",
+        "apr-yaml/sentence/8ff907a09a"
+      ]
     },
     "yaml-resolution/example/4b9b98c3eb": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-merge-key\nrule: apr-yaml\nviolates: APR-REP-010\nrepresentation: yaml\nexpect: reject\ndiagnostic: YAML_MERGE_KEY_FORBIDDEN\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Merged\nsections:\n  - id: s\n    title: S\n    <<: { description: merged in }\n    prompts:\n      - id: p\n        label: P\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/example/43ebb75fa7",
+        "apr-yaml/sentence/e650a25695",
+        "apr-yaml/sentence/411a7f178d"
+      ]
     },
     "yaml-resolution/example/bac703e746": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-directive\nrule: apr-yaml\nviolates: APR-REP-010\nrepresentation: yaml\nexpect: reject\ndiagnostic: YAML_DIRECTIVE_FORBIDDEN\n---\n%YAML 1.2\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Directed\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/example/08e7e5bef5",
+        "apr-yaml/sentence/1fe1114cb3",
+        "apr-yaml/sentence/eb7906f003"
+      ]
     },
     "yaml-resolution/sentence/683cc86ef5": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "Resolution, including the cases that separate APR from YAML's own schemas.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/5dc87fc5cd": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "A bare word is a string, and a non-finite float has no JSON value to resolve to.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/sentence/5519af4296",
+        "yaml-resolution/sentence/0614e50ea1"
+      ]
     },
     "yaml-resolution/example/b9a3e3e3c5": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-bare-word-is-a-string\nrule: yaml-resolution\nsatisfies: APR-REP-008, APR-REP-012\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Permit Application\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: about twelve\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/b9a3e3e3c5",
+        "yaml-resolution/sentence/e091ae8183",
+        "yaml-resolution/sentence/5519af4296"
+      ]
     },
     "yaml-resolution/example/1f0513540b": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-legacy-boolean-is-a-string\nrule: yaml-resolution\nsatisfies: APR-REP-008, APR-REP-012\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Legacy spellings\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: yes\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/1f0513540b",
+        "yaml-resolution/sentence/378c267938",
+        "yaml-resolution/sentence/91b53c0c19"
+      ]
     },
     "yaml-resolution/example/509e1be78d": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-leading-zero-is-a-string\nrule: yaml-resolution\nsatisfies: APR-REP-008, APR-REP-012\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Leading zero\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 012\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/509e1be78d",
+        "yaml-resolution/sentence/39e4bf2b34",
+        "yaml-resolution/sentence/314a6e69d2"
+      ]
     },
     "yaml-resolution/example/6d36c73310": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-date-like-is-a-string\nrule: yaml-resolution\nsatisfies: APR-REP-008, APR-REP-012\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Date-like\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 2026-01-01\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/6d36c73310",
+        "yaml-resolution/sentence/8ba7497493",
+        "yaml-resolution/sentence/c351c7ee01"
+      ]
     },
     "yaml-resolution/sentence/be65391b17": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "These pin the surface where YAML schemas and the JSON value space differ.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/ddbc9187f7": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "Each is a spelling some YAML schema resolves to a non-string; none is a JSON number, so each is a string here.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/4a4810fc09": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "A table is a structural claim, and an unregistered affordance degrades rather than failing.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/example/3e091bc0a3": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: table-section\nrule: tables\nsatisfies: APR-MODEL-038, APR-REP-015\nrepresentation: jsonc\nexpect: valid\n---\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Expenses\" },\n  \"sections\": [\n    {\n      \"id\": \"expenses\",\n      \"title\": \"Expense line items\",\n      \"kind\": \"table\",\n      \"canAddRows\": true,\n      \"maxRows\": 25,\n      \"sections\": [\n        {\n          \"id\": \"item_1\",\n          \"title\": \"Item 1\",\n          \"prompts\": [\n            { \"id\": \"item_1.description\", \"label\": \"Description\", \"response\": \"Train fare\" },\n            { \"id\": \"item_1.amount\", \"label\": \"Amount\", \"response\": \"42.50\",\n              \"hints\": { \"expectedDataType\": \"currency\" } }\n          ]\n        }\n      ]\n    }\n  ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/example/3e091bc0a3",
+        "json-subset/sentence/44a3dc6485",
+        "json-subset/sentence/33fb9bd861"
+      ]
     },
     "yaml-resolution/example/9b70d82fd4": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: structural-member-wrong-type\nrule: json-subset\nviolates: APR-REP-015\nrepresentation: jsonc\nexpect: reject\ndiagnostic: WRONG_TYPE\n---\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Stringly typed\" },\n  \"sections\": [\n    {\n      \"id\": \"rows\",\n      \"title\": \"Rows\",\n      \"kind\": \"table\",\n      \"canAddRows\": \"true\",\n      \"maxRows\": \"25\",\n      \"sections\": [\n        { \"id\": \"row_1\", \"title\": \"Row 1\",\n          \"prompts\": [ { \"id\": \"row_1.note\", \"label\": \"Note\" } ] }\n      ]\n    }\n  ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/example/9b70d82fd4",
+        "json-subset/sentence/d56b6c32d1",
+        "json-subset/sentence/6609010e50"
+      ]
     },
     "yaml-resolution/example/5e4c5e5eaf": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: unregistered-data-type-degrades\nrule: hints-object\nsatisfies: APR-MODEL-018\nrepresentation: jsonc\nexpect: valid\n---\n{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Unregistered affordance\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"response\": \"anything\",\n          \"hints\": { \"expectedDataType\": \"holographic-signature\" } }\n      ]\n    }\n  ]\n}\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "move",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "hints-object/example/5e4c5e5eaf"
+      ],
+      "note": "shows APR-MODEL-018, so it sits with that rule"
     },
     "yaml-resolution/example/84e2d03aba": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-sexagesimal-is-a-string\nrule: yaml-resolution\nsatisfies: APR-REP-008, APR-REP-012\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1:30\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/84e2d03aba",
+        "yaml-resolution/sentence/3a82beeb6e",
+        "yaml-resolution/sentence/49e80e08cb"
+      ]
     },
     "yaml-resolution/example/bcc3cca483": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-hex-is-a-string\nrule: yaml-resolution\nsatisfies: APR-REP-008, APR-REP-012\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 0x1F\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/bcc3cca483",
+        "yaml-resolution/sentence/ed0e171468",
+        "yaml-resolution/sentence/ede3f2f933"
+      ]
     },
     "yaml-resolution/example/ca7765d053": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-underscored-number-is-a-string\nrule: yaml-resolution\nsatisfies: APR-REP-008, APR-REP-012\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: 1_000\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/ca7765d053",
+        "yaml-resolution/sentence/e5965448a7",
+        "yaml-resolution/sentence/0636bb0972"
+      ]
     },
     "yaml-resolution/example/682f80758c": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-bare-decimal-is-a-string\nrule: yaml-resolution\nsatisfies: APR-REP-008, APR-REP-012\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: .5\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/682f80758c",
+        "yaml-resolution/sentence/b381ffe0da",
+        "yaml-resolution/sentence/fb664db1fb"
+      ]
     },
     "yaml-resolution/example/fa957a2c18": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-quoted-null-is-a-string\nrule: yaml-resolution\nsatisfies: APR-REP-008\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: \"null\"\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/af542dc743",
+        "yaml-resolution/sentence/376baeee4b",
+        "yaml-resolution/sentence/f7221c03d5"
+      ]
     },
     "yaml-resolution/sentence/f3c2a57a47": {
       "anchor": "yaml-resolution",
@@ -2250,31 +2654,48 @@
       "kind": "sentence",
       "text": "A plain `null` is the null value, and a null response reads as the empty string.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/example/3cf5b2bdf5": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-plain-null-response-is-empty\nrule: yaml-resolution\nsatisfies: APR-REP-008, APR-REP-014\nrepresentation: yaml\nexpect: valid\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Resolution\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n        response: null\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/f92959d861",
+        "yaml-resolution/sentence/7362785f49",
+        "yaml-resolution/sentence/f3c2a57a47",
+        "yaml-resolution/example/76ecd0c91c",
+        "yaml-resolution/sentence/47021d9de7",
+        "yaml-resolution/sentence/41d552e728"
+      ]
     },
     "yaml-resolution/example/742a854a88": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "example",
       "text": "```apr-example\nid: yaml-non-finite-float\nrule: yaml-resolution\nviolates: APR-REP-011\nrepresentation: yaml\nexpect: reject\ndiagnostic: YAML_NON_FINITE_NUMBER\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Non-finite\nsections:\n  - id: s\n    title: S\n    kind: table\n    maxRows: .inf\n    prompts:\n      - id: p\n        label: P\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "yaml-resolution/example/742a854a88",
+        "yaml-resolution/sentence/6b0ec323bb",
+        "yaml-resolution/sentence/0614e50ea1"
+      ]
     },
     "yaml-resolution/sentence/66dde73d09": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "sentence",
       "text": "Every exclusion above names the example that exercises it, and those examples are in this document ([Authority](#scope)).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "yaml-resolution/sentence/eb2568c24d": {
       "anchor": "yaml-resolution",
@@ -2282,7 +2703,11 @@
       "kind": "sentence",
       "text": "**Example 2.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/sentence/66de9b6c7a"
+      ]
     },
     "yaml-resolution/sentence/2254262157": {
       "anchor": "yaml-resolution",
@@ -2290,7 +2715,11 @@
       "kind": "sentence",
       "text": "The same form as Example 1, in APR-YAML.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/sentence/d90f9c7793"
+      ]
     },
     "yaml-resolution/sentence/d06b5f7496": {
       "anchor": "yaml-resolution",
@@ -2298,15 +2727,27 @@
       "kind": "sentence",
       "text": "Both have identical semantic models and therefore identical digests.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/sentence/457763dce4"
+      ]
     },
     "yaml-resolution/code/ab8e5a3524": {
       "anchor": "yaml-resolution",
       "chapter": 4,
       "kind": "code",
       "text": "```yaml\naprVersion: \"1.0-beta.6\"\ndocumentType: template\nmetadata:\n  title: Permit Application\nsections:\n  - id: applicant\n    title: Applicant\n    prompts:\n      - id: full_name\n        label: Full name\n        response: \"\"\n```",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "example",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "apr-yaml/example/9747ebb731",
+        "apr-yaml/sentence/66de9b6c7a",
+        "apr-yaml/sentence/d90f9c7793",
+        "apr-yaml/sentence/457763dce4"
+      ],
+      "note": "the illustration is an executable example, equivalent to Example 4.4-5"
     },
     "json-subset/heading/2b591446af": {
       "anchor": "json-subset",
@@ -2314,7 +2755,8 @@
       "kind": "heading",
       "text": "4.6 Value types",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "json-subset/sentence/1c12df3dc4": {
       "anchor": "json-subset",
@@ -2322,7 +2764,8 @@
       "kind": "sentence",
       "text": "APR uses a restricted subset of the JSON data model.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "json-subset/sentence/1faff29eaa": {
       "anchor": "json-subset",
@@ -2330,15 +2773,20 @@
       "kind": "sentence",
       "text": "A **response** is always a JSON string ([Responses are strings](#responses)).",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/sentence/f8cdd66bc5"
+      ]
     },
     "json-subset/sentence/448d94d082": {
       "anchor": "json-subset",
       "chapter": 4,
       "kind": "sentence",
       "text": "It is never a number, boolean, array, or object, whatever the prompt's advisory type suggests.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "json-subset/sentence/b7b9955dfc": {
       "anchor": "json-subset",
@@ -2346,7 +2794,8 @@
       "kind": "sentence",
       "text": "Every other member is **structural**: it describes the form rather than carrying what a person typed.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "json-subset/sentence/2954a80eba": {
       "anchor": "json-subset",
@@ -2354,15 +2803,23 @@
       "kind": "sentence",
       "text": "A structural member uses the **JSON type that fits it**, natively: a flag is a JSON boolean, a count is a JSON integer, a numeric bound is a JSON number, and a name, identifier, or piece of text is a JSON string.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "json-subset/sentence/e7b56a5a0a": {
       "anchor": "json-subset",
       "chapter": 4,
       "kind": "sentence",
       "text": "A writer **MUST** emit each structural member in the type its member table declares, and a reader **MUST** report a structural member of another type as `WRONG_TYPE` ([Errors](#structural-validation)).",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/sentence/654f76aeb0",
+        "json-subset/sentence/7768b1843b",
+        "json-subset/sentence/f4048a14e2"
+      ],
+      "note": "writer emits the declared type (APR-REP-023); reader rejects another (APR-REP-015)"
     },
     "json-subset/sentence/5598c54972": {
       "anchor": "json-subset",
@@ -2370,15 +2827,23 @@
       "kind": "sentence",
       "text": "`\"canAddRows\": \"true\"` is not a boolean and `\"maxRows\": \"25\"` is not a count. [APR-REP-015]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/sentence/21e72f00d6"
+      ]
     },
     "json-subset/sentence/f8dae5d803": {
       "anchor": "json-subset",
       "chapter": 4,
       "kind": "sentence",
       "text": "Where JSON has no type for a value, the member is a string in a stated form: timestamps are RFC 3339 strings, and a bound on a temporal field is a string in that field's canonical write form ([Canonical value forms](#canonical-values)).",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/sentence/bb74537c00"
+      ]
     },
     "json-subset/sentence/3659f2887a": {
       "anchor": "json-subset",
@@ -2386,7 +2851,11 @@
       "kind": "sentence",
       "text": "A structural member is never a string *because* it is structural; it is a string only when a string is the fitting type. [APR-REP-016]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/sentence/9405468978"
+      ]
     },
     "json-subset/rationale/6f2e42e745": {
       "anchor": "json-subset",
@@ -2394,7 +2863,11 @@
       "kind": "rationale",
       "text": "Rationale: the strings-only rule once applied to the whole document, and the reason for it never did. A response is a string because it carries what a person typed, and typing produces text. A row count does not come from a person; spelling it `\"25\"` obliges every reader to parse a number out of a string and to decide what `\"25.0\"` or `\" 25\"` mean, which is exactly the class of silent divergence the format exists to remove. Native types give the schema the check and give readers nothing to interpret.",
       "disposition": "rationale",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/rationale/ad28689867"
+      ]
     },
     "json-subset/sentence/7e56c23614": {
       "anchor": "json-subset",
@@ -2402,7 +2875,8 @@
       "kind": "sentence",
       "text": "`null` is not an APR value.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "json-subset/sentence/26760f4bea": {
       "anchor": "json-subset",
@@ -2410,15 +2884,28 @@
       "kind": "sentence",
       "text": "A writer **MUST NOT** emit it.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/sentence/3314f4c4dc"
+      ]
     },
     "json-subset/sentence/cb498e073c": {
       "anchor": "json-subset",
       "chapter": 4,
       "kind": "sentence",
       "text": "A reader tolerates it in a response position only, coercing it to the empty string; anywhere else it is a parse failure. [APR-REP-014]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/sentence/b9428cb10d",
+        "json-subset/sentence/f9dc459197",
+        "json-subset/example/cff424850d",
+        "json-subset/sentence/4563e473e1",
+        "json-subset/sentence/d5331bcc43"
+      ],
+      "note": "reader reads a null response as empty (APR-REP-024); reader rejects null elsewhere (APR-REP-014)"
     },
     "responses/heading/2b09792e51": {
       "anchor": "responses",
@@ -2426,7 +2913,8 @@
       "kind": "heading",
       "text": "4.7 Responses are strings",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "responses/sentence/9ef48b65dd": {
       "anchor": "responses",
@@ -2434,7 +2922,12 @@
       "kind": "sentence",
       "text": "A `prompt.response` **MUST** be a JSON string, and a response given as a JSON number or boolean **MUST** be rejected at parse time. [APR-MODEL-001]",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "responses/sentence/287c3af20b"
+      ],
+      "note": "a reader is the subject; one MUST"
     },
     "responses/sentence/9965ecc75a": {
       "anchor": "responses",
@@ -2442,7 +2935,11 @@
       "kind": "sentence",
       "text": "It **MUST NOT** be coerced to `\"42\"` or `\"true\"`.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "responses/sentence/35b638ee29"
+      ]
     },
     "responses/sentence/63fd518baf": {
       "anchor": "responses",
@@ -2450,23 +2947,39 @@
       "kind": "sentence",
       "text": "Rejecting and coercing are different failures: one refuses the document, the other accepts it having invented data. [APR-MODEL-049]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "responses/sentence/d4c67681bd",
+        "responses/example/4d4eb7e85b",
+        "responses/sentence/cd4a49fabf",
+        "responses/sentence/b69671511e",
+        "responses/example/3adde39c5e",
+        "responses/sentence/d68ca47297",
+        "responses/sentence/8549cbb940"
+      ]
     },
     "responses/rationale/96e1e685bb": {
       "anchor": "responses",
       "chapter": 4,
       "kind": "rationale",
       "text": "Rationale: silent coercion is worse than rejection. It produces a document that looks conformant while having invented data that no person entered.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 476
     },
     "responses/sentence/e08b085ebc": {
       "anchor": "responses",
       "chapter": 4,
       "kind": "sentence",
       "text": "A `null` response and an absent `response` member are both read as the empty string.",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "requirement",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "json-subset/sentence/b9428cb10d"
+      ],
+      "note": "stated once, as APR-REP-024"
     },
     "any-string/heading/0e3e10b240": {
       "anchor": "any-string",
@@ -2474,7 +2987,8 @@
       "kind": "heading",
       "text": "4.8 Any string is a valid response",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "any-string/sentence/93858207ea": {
       "anchor": "any-string",
@@ -2482,7 +2996,8 @@
       "kind": "sentence",
       "text": "**This is the rule the rest of the format exists to protect.**",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "any-string/sentence/fc2ceaba17": {
       "anchor": "any-string",
@@ -2490,7 +3005,11 @@
       "kind": "sentence",
       "text": "A response **MAY** contain any string.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "any-string/sentence/3271c5c630"
+      ]
     },
     "any-string/sentence/dd01a64009": {
       "anchor": "any-string",
@@ -2498,7 +3017,11 @@
       "kind": "sentence",
       "text": "The format has no opinion about whether that string is \"correct\". [APR-MODEL-002]",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "any-string/sentence/7bd87ce317"
+      ]
     },
     "any-string/table-header/c0027a5e51": {
       "anchor": "any-string",
@@ -2506,7 +3029,8 @@
       "kind": "table-header",
       "text": "| `expectedDataType` | Response | Document validity |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "any-string/table-row/e2c710f363": {
       "anchor": "any-string",
@@ -2514,7 +3038,8 @@
       "kind": "table-row",
       "text": "| `number` | `about twelve` | **Valid** |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "any-string/table-row/ad6bfa22bc": {
       "anchor": "any-string",
@@ -2522,7 +3047,8 @@
       "kind": "table-row",
       "text": "| `email` | `call me instead` | **Valid** |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "any-string/table-row/5690572667": {
       "anchor": "any-string",
@@ -2530,7 +3056,8 @@
       "kind": "table-row",
       "text": "| `date` | `the summer of 1985` | **Valid** |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "any-string/table-row/e9a252e055": {
       "anchor": "any-string",
@@ -2538,7 +3065,8 @@
       "kind": "table-row",
       "text": "| anything | empty | **Valid** |",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "any-string/sentence/db4ccb7c70": {
       "anchor": "any-string",
@@ -2546,7 +3074,8 @@
       "kind": "sentence",
       "text": "The distinction is between **document validity** — is this well-formed APR? — and **workflow acceptance** — will the receiving office act on it?",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "any-string/sentence/4564c36b8b": {
       "anchor": "any-string",
@@ -2554,8 +3083,11 @@
       "kind": "sentence",
       "text": "A benefits office may reject a form for a blank field or an unparseable date.",
       "disposition": "keep",
-      "status": "todo",
-      "note": "carries a lowercase obligation word: decide whether it states a requirement"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "any-string/sentence/8a3f9f04fc"
+      ]
     },
     "any-string/sentence/f398aa08d2": {
       "anchor": "any-string",
@@ -2563,15 +3095,17 @@
       "kind": "sentence",
       "text": "That is a workflow decision, made by a workflow, and it has nothing to do with whether the document is valid APR.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "any-string/rationale/d4746ffccd": {
       "anchor": "any-string",
       "chapter": 4,
       "kind": "rationale",
       "text": "Rationale: forms are filled by people under conditions the author did not anticipate. Someone whose legal name does not fit the field, whose address is not a street address, whose answer is \"I don't know\" — all produce valid APR. A format that rejected them would discard true information because it was inconveniently shaped.",
-      "disposition": "rationale",
-      "status": "todo"
+      "disposition": "keep",
+      "status": "applied",
+      "issue": 476
     },
     "hints-advisory/heading/fc9f4846c2": {
       "anchor": "hints-advisory",
@@ -2579,7 +3113,8 @@
       "kind": "heading",
       "text": "4.9 Hints never enforce",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "hints-advisory/sentence/0fc0511301": {
       "anchor": "hints-advisory",
@@ -2587,7 +3122,8 @@
       "kind": "sentence",
       "text": "Every member of `prompt.hints` is advisory.",
       "disposition": "keep",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476
     },
     "hints-advisory/sentence/f5f904decc": {
       "anchor": "hints-advisory",
@@ -2595,31 +3131,47 @@
       "kind": "sentence",
       "text": "A hint **MUST NOT** cause a response to be rejected, altered, truncated, or blocked from being saved.",
       "disposition": "requirement",
-      "status": "todo"
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "hints-advisory/sentence/fee18c1844"
+      ],
+      "note": "an implementation is the subject"
     },
     "hints-advisory/sentence/a5d865cd3e": {
       "anchor": "hints-advisory",
       "chapter": 4,
       "kind": "sentence",
       "text": "This applies to `validationPattern` — a non-matching response is a warning at most — and to every member of the `expr*` family. [APR-MODEL-003]",
-      "disposition": "keep",
-      "status": "todo"
+      "disposition": "split",
+      "status": "applied",
+      "issue": 476,
+      "replacedBy": [
+        "hints-advisory/sentence/fee18c1844",
+        "hints-advisory/sentence/8ad82d8e3c",
+        "hints-advisory/example/9254e76ead",
+        "hints-advisory/sentence/5849788fbf",
+        "hints-advisory/sentence/8adb99888e",
+        "hints-advisory/sentence/2923f60ca2"
+      ]
     },
     "hints-advisory/sentence/9cb2bad9eb": {
       "anchor": "hints-advisory",
       "chapter": 4,
       "kind": "sentence",
       "text": "An implementation **MAY** surface a hint mismatch as an advisory warning.",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "hints-advisory/sentence/57f3c64396": {
       "anchor": "hints-advisory",
       "chapter": 4,
       "kind": "sentence",
       "text": "It **MUST NOT** prevent the user from saving. [APR-MODEL-004]",
-      "disposition": "requirement",
-      "status": "todo"
+      "disposition": "delete",
+      "status": "applied",
+      "issue": 476
     },
     "form-model/heading/08f028d7a2": {
       "anchor": "form-model",

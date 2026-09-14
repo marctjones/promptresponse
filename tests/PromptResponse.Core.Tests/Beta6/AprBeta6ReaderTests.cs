@@ -298,9 +298,9 @@ public class AprBeta6ReaderTests
     [InlineData("null")]
     public void Writer_QuotesStringsThatWouldOtherwisePlainScalarResolveToAnotherType(string value)
     {
-        // APR-REP-017: an author who means the *string* "1.0" must have it quoted in the
+        // APR-REP-023: a string such as "1.0" is emitted quoted in the
         // YAML this writer produces, or this same reader's own plain-scalar resolution
-        // (APR-REP-008) reads it back as a number/boolean/null instead and the document
+        // (APR-REP-027 to 029) reads it back as a null/boolean/number instead and the document
         // fails WRONG_TYPE on its very next read -- exactly what happened before
         // WithQuotingNecessaryStrings was added to the YAML SerializerBuilder.
         var form = _reader.ReadForm($$"""

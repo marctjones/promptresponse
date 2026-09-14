@@ -268,12 +268,10 @@ def check_object(report: Report, node, kind: str, path: str, members) -> None:
     for name, (declared_type, required) in declared.items():
         if kind == "prompt" and name == "response":
             continue  # null is tolerated here alone; check_prompt states the rule
-        # The default pair is the JSONC framing of "declared type"; APR-REP-017 is
-        # the same constraint from APR-YAML's side (a plain scalar that resolved to
-        # the wrong JSON type because an author needed to quote it and didn't) --
-        # this one check is what enforces both, for whichever representation the
-        # document happened to be read from.
-        rules = MEMBER_RULES.get((kind, name), ("APR-REP-015", "APR-REP-016", "APR-REP-017"))
+        # A member is checked after resolution, so an unquoted APR-YAML scalar that
+        # resolved to the wrong JSON type fails here exactly as the JSONC spelling
+        # does, whichever representation the document was read from.
+        rules = MEMBER_RULES.get((kind, name), ("APR-REP-015", "APR-REP-016"))
         if required and (name not in node or node[name] is None):
             report.error("REQUIRED_FIELD", f"{path}/{name}",
                          f"{kind}.{name} is required", *rules)
@@ -393,7 +391,7 @@ def check_prompt(report: Report, prompt, path, members, ids, roles) -> None:
                     and not compiled.search(response):
                 report.warn("RESPONSE_PATTERN_MISMATCH", f"{path}/response",
                             "response does not match the advisory pattern, "
-                            "which is valid", "APR-VAL-005", "APR-VAL-002")
+                            "which is valid", "APR-VAL-005", "APR-VAL-002", "APR-MODEL-003")
 
 
 def check_section(report: Report, section, path, members, ids, roles, depth) -> None:

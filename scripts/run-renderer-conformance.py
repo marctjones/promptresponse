@@ -292,7 +292,7 @@ CHECKS = {
     "APR-SEC-010": opening_fetches_nothing,
     "APR-SEC-011": the_required_depth_renders,
     "APR-EXPR-014": computed_stays_editable,
-    "APR-MODEL-004": saving_is_not_blocked,
+    "APR-MODEL-003": saving_is_not_blocked,
     "APR-VAL-006": saving_is_not_blocked,
     "APR-MODEL-015": the_required_depth_renders,
 }
