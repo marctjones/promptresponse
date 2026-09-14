@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
 import { readBeta6Form, readBeta6Stream } from "../index.js";
+import { validate } from "../validation.js";
 
 /**
  * Runs the executable examples embedded in the APR specification.
@@ -53,7 +54,7 @@ function framed(document: string): string {
     .join("");
 }
 
-function read(example: Example): unknown {
+function read(example: Example): any {
   const representation = example.representation.startsWith("yaml") ? "yaml" : "jsonc";
   if (example.representation.endsWith("-stream")) {
     return readBeta6Stream(
@@ -89,10 +90,15 @@ test("every specification example behaves as the specification says", async () =
     }
 
     if (example.expect === "reject") {
+      // Rejection is a refused read or a form that fails validation: a missing label
+      // parses and is an error, as the conformance driver reports it.
       let accepted = false;
       try {
-        read(example);
-        accepted = true;
+        const result = read(example);
+        const documents = Array.isArray(result)
+          ? result.filter(record => record.type === "form").map(record => record.document)
+          : [result];
+        accepted = documents.every(document => validate(document).errors.length === 0);
       } catch {
         // Rejected, as the specification requires.
       }
