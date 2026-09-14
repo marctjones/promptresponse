@@ -626,13 +626,34 @@
           "ref": "EveryRegisteredType_TypeChecksAsTheRegistryDeclares"
         }
       ],
-      "gap": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects.",
+      "gap": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike.",
       "rules": [
         "APR-EXPR-004",
         "APR-EXPR-005",
         "APR-EXPR-015",
-        "APR-EXPR-016"
+        "APR-EXPR-016",
+        "APR-EXPR-017",
+        "APR-EXPR-018",
+        "APR-EXPR-019",
+        "APR-EXPR-020",
+        "APR-EXPR-021",
+        "APR-EXPR-022"
       ]
+    },
+    {
+      "id": "REQ-expr-binding",
+      "section": "expr-binding",
+      "statement": "A response binds to the CEL type its expectedDataType row gives",
+      "strength": "partial",
+      "gates": [],
+      "rules": [
+        "APR-EXPR-023",
+        "APR-EXPR-024",
+        "APR-EXPR-025",
+        "APR-EXPR-026",
+        "APR-EXPR-027"
+      ],
+      "gap": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
     },
     {
       "id": "REQ-expr-authoring",
@@ -649,6 +670,22 @@
         "APR-EXPR-010"
       ],
       "gap": "A SHOULD about type-checking at authoring time, before a filler ever sees the form. The harness evaluates a completed document and has no authoring step."
+    },
+    {
+      "id": "REQ-expr-fallback",
+      "section": "expr-fallback",
+      "statement": "A result is written in its canonical form, and a failed hint applies its fallback",
+      "strength": "partial",
+      "gates": [],
+      "rules": [
+        "APR-EXPR-028",
+        "APR-EXPR-029",
+        "APR-EXPR-030",
+        "APR-EXPR-031",
+        "APR-EXPR-032",
+        "APR-EXPR-033"
+      ],
+      "gap": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
     },
     {
       "id": "REQ-expr-computed",
@@ -679,6 +716,17 @@
       ]
     },
     {
+      "id": "REQ-expr-session-replace",
+      "section": "expr-computed",
+      "statement": "A reader may replace a response it computed itself in the same session",
+      "strength": "none",
+      "gates": [],
+      "rules": [
+        "APR-EXPR-034"
+      ],
+      "gap": "A permission about a reader's own session state, which the document never records."
+    },
+    {
       "id": "REQ-expr-context",
       "section": "expr-context",
       "statement": "ctx carries host-supplied data and never carries secrets or authorization decisions; a computed prompt stays editable",
@@ -689,7 +737,7 @@
           "ref": "core.unit"
         }
       ],
-      "gap": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector.",
+      "gap": "APR-EXPR-007 binds a host, and a document cannot show what a host placed in ctx. APR-EXPR-014, that a computed prompt stays editable, is scored by the renderer case a-computed-prompt-stays-editable.",
       "rules": [
         "APR-EXPR-007",
         "APR-EXPR-014"
@@ -723,7 +771,6 @@
       "statement": "Expressions are CEL as cel-spec v0.25.3 defines it, with the standard library and standard macros, and no extension library",
       "strength": "external",
       "gates": [],
-      "gap": "APR-EXPR-012 pins the language itself. A case can show the standard library working, but no simulated wrong evaluator fails it, because any CEL implementation satisfies it by existing. Its evidence stops at satisfied and violated; the pin is held by naming a release, not by a vector.",
       "gapRules": [
         "APR-EXPR-012"
       ],
@@ -749,7 +796,8 @@
       ],
       "gap": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit.",
       "rules": [
-        "APR-EXPR-011"
+        "APR-EXPR-011",
+        "APR-EXPR-035"
       ]
     },
     {

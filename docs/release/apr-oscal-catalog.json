@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "7d3bb2eb-793a-5dbb-8e94-f8db36ab1724",
+    "uuid": "600cf133-4db9-5f46-a57d-293d045641b9",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "f7038dd28b8fe7fd61d3d72d2da572efb56dec89f4d701b76b2fcbe28790094c"
+          "value": "eaf18cb44cba704559695a5e1591f1a62199da5303d2cfce95c76da8353b0ce8"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -10320,7 +10320,7 @@
               {
                 "id": "apr-expr-001_smt",
                 "name": "statement",
-                "prose": "Stored responses remain authoritative. An expression **MUST NOT** reject, rewrite, or invalidate a response."
+                "prose": "An implementation evaluating an expression **MUST NOT** reject, rewrite, or invalidate a response."
               },
               {
                 "id": "apr-expr-001_gap",
@@ -10367,7 +10367,7 @@
               {
                 "id": "apr-expr-002_smt",
                 "name": "statement",
-                "prose": "Evaluation is pure. An implementation **MUST NOT** expose filesystem, network, process, clock, randomness, reflection, environment, or document-mutation access to an expression."
+                "prose": "An implementation **MUST NOT** expose filesystem, network, process, clock, randomness, reflection, environment, or document-mutation access to an expression."
               },
               {
                 "id": "apr-expr-002_gap",
@@ -10414,7 +10414,7 @@
               {
                 "id": "apr-expr-003_smt",
                 "name": "statement",
-                "prose": "Failure preserves data. A failed evaluation produces a diagnostic and the fallback below; it **MUST NOT** propagate as an error into a filling workflow."
+                "prose": "An implementation **MUST NOT** let a failed evaluation propagate as an error into a filling workflow."
               },
               {
                 "id": "apr-expr-003_gap",
@@ -10461,12 +10461,12 @@
               {
                 "id": "apr-expr-004_smt",
                 "name": "statement",
-                "prose": "`_this`, `_id`, `_now`, `_today`, and `ctx` are reserved and **MUST NOT** be shadowed by a direct binding."
+                "prose": "An implementation **MUST NOT** let a direct binding shadow `_this`, `_id`, `_now`, `_today`, or `ctx`."
               },
               {
                 "id": "apr-expr-004_gap",
                 "name": "assessment-gap",
-                "prose": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -10508,12 +10508,12 @@
               {
                 "id": "apr-expr-005_smt",
                 "name": "statement",
-                "prose": "`_now` and `_today` **MUST** be supplied by the caller rather than read from the host clock during evaluation, so that evaluating the same form twice with the same inputs yields the same result."
+                "prose": "An implementation **MUST** take `_now` and `_today` from the caller and never from the host clock during evaluation."
               },
               {
                 "id": "apr-expr-005_gap",
                 "name": "assessment-gap",
-                "prose": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -10555,7 +10555,7 @@
               {
                 "id": "apr-expr-006_smt",
                 "name": "statement",
-                "prose": "A response that cannot be converted to its declared type — free text in a `number` field, an unparseable date, or an empty one — **MUST** be treated as unbound, **never** as a default. The expression errors and applies the fallback."
+                "prose": "An implementation **MUST** treat a response that cannot be converted to its declared type — free text in a `number` field, an unparseable date, or an empty one — as unbound, and never as a default."
               }
             ]
           },
@@ -10597,12 +10597,12 @@
               {
                 "id": "apr-expr-007_smt",
                 "name": "statement",
-                "prose": "A host **MUST NOT** place credentials, secrets, authorization decisions, or private server-side facts in `ctx`. An expression is document-supplied text; what it can read, a document author can read."
+                "prose": "A host **MUST NOT** place credentials, secrets, authorization decisions, or private server-side facts in `ctx`."
               },
               {
                 "id": "apr-expr-007_gap",
                 "name": "assessment-gap",
-                "prose": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector."
+                "prose": "APR-EXPR-007 binds a host, and a document cannot show what a host placed in ctx. APR-EXPR-014, that a computed prompt stays editable, is scored by the renderer case a-computed-prompt-stays-editable."
               }
             ]
           },
@@ -10644,7 +10644,7 @@
               {
                 "id": "apr-expr-008_smt",
                 "name": "statement",
-                "prose": "**A correction MUST survive recomputation.** Every non-empty response in a document as it was read is **authored**, whatever produced it, and recomputation **MUST NOT** overwrite an authored response. A reader presents the recomputed value as a suggestion instead."
+                "prose": "An implementation **MUST NOT** overwrite an authored response when it recomputes."
               }
             ]
           },
@@ -10686,7 +10686,7 @@
               {
                 "id": "apr-expr-009_smt",
                 "name": "statement",
-                "prose": "An implementation **MUST** order computed prompts by their direct references so that a subtotal feeds a tax feeds a total in one pass. A self-reference or a dependency cycle is an authoring error."
+                "prose": "An implementation **MUST** order computed prompts by their direct references so that a subtotal feeds a tax feeds a total in one pass."
               }
             ]
           },
@@ -10775,7 +10775,7 @@
               {
                 "id": "apr-expr-011_smt",
                 "name": "statement",
-                "prose": "Evaluation **MUST** terminate. An implementation bounds expression size, complexity, and evaluation cost, and **MUST** report reaching a bound as a failure that applies the fallback rather than as partial mutation."
+                "prose": "An implementation **MUST** bound expression size, complexity, and evaluation cost, so that evaluation terminates."
               },
               {
                 "id": "apr-expr-011_gap",
@@ -10823,11 +10823,6 @@
                 "id": "apr-expr-012_smt",
                 "name": "statement",
                 "prose": "The language is **cel-spec release `v0.25.3`**: its language definition, its standard library, and its standard macros. An implementation claiming `core+expressions` **MUST** evaluate expressions as that release specifies and **MUST** pass that release's conformance suite for the surface it exposes."
-              },
-              {
-                "id": "apr-expr-012_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-012 pins the language itself. A case can show the standard library working, but no simulated wrong evaluator fails it, because any CEL implementation satisfies it by existing. Its evidence stops at satisfied and violated; the pin is held by naming a release, not by a vector."
               }
             ]
           },
@@ -10869,12 +10864,7 @@
               {
                 "id": "apr-expr-013_smt",
                 "name": "statement",
-                "prose": "An implementation **MUST** provide the standard library and the standard macros, and **MUST NOT** provide any extension library or custom function. An expression naming a function outside that surface is an evaluation failure, and the per-hint fallback applies ([Results and fallback](#expr-fallback))."
-              },
-              {
-                "id": "apr-expr-013_gap",
-                "name": "assessment-gap",
-                "prose": "APR-EXPR-012 pins the language itself. A case can show the standard library working, but no simulated wrong evaluator fails it, because any CEL implementation satisfies it by existing. Its evidence stops at satisfied and violated; the pin is held by naming a release, not by a vector."
+                "prose": "An implementation **MUST** provide the standard library and the standard macros, and **MUST NOT** provide any extension library or custom function."
               }
             ]
           },
@@ -10916,12 +10906,12 @@
               {
                 "id": "apr-expr-014_smt",
                 "name": "statement",
-                "prose": "**A computed prompt MUST remain editable.** Any string is a valid response, and a renderer that refuses typing into a computed field has stopped implementing the format. A total that is wrong — because the form's arithmetic does not match what was actually agreed — must be correctable by the person filling it in."
+                "prose": "A renderer **MUST** keep a computed prompt editable."
               },
               {
                 "id": "apr-expr-014_gap",
                 "name": "assessment-gap",
-                "prose": "ctx is bound in .NET, Python and TypeScript but declared with a different element type in each, so a portable expression over ctx is not yet guaranteed. No corpus vector."
+                "prose": "APR-EXPR-007 binds a host, and a document cannot show what a host placed in ctx. APR-EXPR-014, that a computed prompt stays editable, is scored by the renderer case a-computed-prompt-stays-editable."
               }
             ]
           },
@@ -10963,12 +10953,12 @@
               {
                 "id": "apr-expr-015_smt",
                 "name": "statement",
-                "prose": "An expression **MUST** be evaluated against this read-only activation and nothing else."
+                "prose": "An implementation **MUST** evaluate an expression against this read-only activation and nothing else."
               },
               {
                 "id": "apr-expr-015_gap",
                 "name": "assessment-gap",
-                "prose": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
               }
             ]
           },
@@ -11010,12 +11000,905 @@
               {
                 "id": "apr-expr-016_smt",
                 "name": "statement",
-                "prose": "A prompt whose id is not a valid CEL identifier **MUST NOT** be given a direct binding, and **MUST NOT** be reachable from an expression by any other name."
+                "prose": "An implementation **MUST NOT** give a prompt whose id is not a valid CEL identifier a direct binding, nor make it reachable from an expression by any other name."
               },
               {
                 "id": "apr-expr-016_gap",
                 "name": "assessment-gap",
-                "prose": "Direct bindings and _this are gated. _id and _now are specified but unimplemented in every SDK; _today is caller-supplied per spec but defaults to the host clock in Python and TypeScript. Tracked as implementation defects."
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-017",
+            "title": "APR-EXPR-017 — 11.4 Activation",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-017"
+              },
+              {
+                "name": "section",
+                "value": "expr-activation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-activation"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-activation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-017_smt",
+                "name": "statement",
+                "prose": "a prompt's `id` — that prompt's bound type — Direct binding, where the id is a valid CEL identifier and not reserved. — **MUST**"
+              },
+              {
+                "id": "apr-expr-017_gap",
+                "name": "assessment-gap",
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-018",
+            "title": "APR-EXPR-018 — 11.4 Activation",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-018"
+              },
+              {
+                "name": "section",
+                "value": "expr-activation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-activation"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-activation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-018_smt",
+                "name": "statement",
+                "prose": "`_this` — the owning prompt's bound type — The response of the prompt carrying this hint. — **MUST**"
+              },
+              {
+                "id": "apr-expr-018_gap",
+                "name": "assessment-gap",
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-019",
+            "title": "APR-EXPR-019 — 11.4 Activation",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-019"
+              },
+              {
+                "name": "section",
+                "value": "expr-activation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-activation"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-activation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-019_smt",
+                "name": "statement",
+                "prose": "`_id` — `string` — The owning prompt's id. — **MUST**"
+              },
+              {
+                "id": "apr-expr-019_gap",
+                "name": "assessment-gap",
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-020",
+            "title": "APR-EXPR-020 — 11.4 Activation",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-020"
+              },
+              {
+                "name": "section",
+                "value": "expr-activation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-activation"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-activation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-020_smt",
+                "name": "statement",
+                "prose": "`_now` — `timestamp` — The evaluation instant, supplied by the caller. — **MUST**"
+              },
+              {
+                "id": "apr-expr-020_gap",
+                "name": "assessment-gap",
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-021",
+            "title": "APR-EXPR-021 — 11.4 Activation",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-021"
+              },
+              {
+                "name": "section",
+                "value": "expr-activation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-activation"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-activation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-021_smt",
+                "name": "statement",
+                "prose": "`_today` — `string` — The evaluation date, supplied by the caller. — **MUST**"
+              },
+              {
+                "id": "apr-expr-021_gap",
+                "name": "assessment-gap",
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-022",
+            "title": "APR-EXPR-022 — 11.4 Activation",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-022"
+              },
+              {
+                "name": "section",
+                "value": "expr-activation"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-activation"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-activation",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-022_smt",
+                "name": "statement",
+                "prose": "`ctx` — `map` — Host-supplied context ([Context](#expr-context)). — **MUST**"
+              },
+              {
+                "id": "apr-expr-022_gap",
+                "name": "assessment-gap",
+                "prose": "The Java SDK does not bind _now (#513), so no example requires APR-EXPR-020. Every other name in the activation is shown by an example all five implementations evaluate alike."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-023",
+            "title": "APR-EXPR-023 — 11.5 The type environment",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-023"
+              },
+              {
+                "name": "section",
+                "value": "expr-binding"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-binding"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-binding",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-023_smt",
+                "name": "statement",
+                "prose": "`number`, `currency`, `range` — `double` — **MUST**"
+              },
+              {
+                "id": "apr-expr-023_gap",
+                "name": "assessment-gap",
+                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-024",
+            "title": "APR-EXPR-024 — 11.5 The type environment",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-024"
+              },
+              {
+                "name": "section",
+                "value": "expr-binding"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-binding"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-binding",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-024_smt",
+                "name": "statement",
+                "prose": "`boolean` — `bool` — **MUST**"
+              },
+              {
+                "id": "apr-expr-024_gap",
+                "name": "assessment-gap",
+                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-025",
+            "title": "APR-EXPR-025 — 11.5 The type environment",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-025"
+              },
+              {
+                "name": "section",
+                "value": "expr-binding"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-binding"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-binding",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-025_smt",
+                "name": "statement",
+                "prose": "`date`, `time`, `datetime` — `timestamp` — **MUST**"
+              },
+              {
+                "id": "apr-expr-025_gap",
+                "name": "assessment-gap",
+                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-026",
+            "title": "APR-EXPR-026 — 11.5 The type environment",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-026"
+              },
+              {
+                "name": "section",
+                "value": "expr-binding"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-binding"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-binding",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-026_smt",
+                "name": "statement",
+                "prose": "`multichoice` — `list<string>` — **MUST**"
+              },
+              {
+                "id": "apr-expr-026_gap",
+                "name": "assessment-gap",
+                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-027",
+            "title": "APR-EXPR-027 — 11.5 The type environment",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-027"
+              },
+              {
+                "name": "section",
+                "value": "expr-binding"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-binding"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-binding",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-027_smt",
+                "name": "statement",
+                "prose": "everything else, or absent — `string` — **MUST**"
+              },
+              {
+                "id": "apr-expr-027_gap",
+                "name": "assessment-gap",
+                "prose": "The Python SDK does not bind a boolean response (#512), so no example requires APR-EXPR-024. The multichoice example uses the canonical newline form, since the reference evaluator does not bind the comma-and-space read form (#515)."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-028",
+            "title": "APR-EXPR-028 — 11.8 Results and fallback",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-028"
+              },
+              {
+                "name": "section",
+                "value": "expr-fallback"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-fallback"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-fallback",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-028_smt",
+                "name": "statement",
+                "prose": "An implementation **MUST** write a result back to a stored string through the canonical write forms of [Canonical value forms](#canonical-values)."
+              },
+              {
+                "id": "apr-expr-028_gap",
+                "name": "assessment-gap",
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-029",
+            "title": "APR-EXPR-029 — 11.8 Results and fallback",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-029"
+              },
+              {
+                "name": "section",
+                "value": "expr-fallback"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-fallback"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-fallback",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-029_smt",
+                "name": "statement",
+                "prose": "`exprHidden` — `bool` — false — show the prompt — **MUST**"
+              },
+              {
+                "id": "apr-expr-029_gap",
+                "name": "assessment-gap",
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-030",
+            "title": "APR-EXPR-030 — 11.8 Results and fallback",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-030"
+              },
+              {
+                "name": "section",
+                "value": "expr-fallback"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-fallback"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-fallback",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-030_smt",
+                "name": "statement",
+                "prose": "`exprExpected` — `bool` — false — do not mark expected — **MUST**"
+              },
+              {
+                "id": "apr-expr-030_gap",
+                "name": "assessment-gap",
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-031",
+            "title": "APR-EXPR-031 — 11.8 Results and fallback",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-031"
+              },
+              {
+                "name": "section",
+                "value": "expr-fallback"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-fallback"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-fallback",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-031_smt",
+                "name": "statement",
+                "prose": "`exprReadOnly` — `bool` — false — keep editable — **MUST**"
+              },
+              {
+                "id": "apr-expr-031_gap",
+                "name": "assessment-gap",
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-032",
+            "title": "APR-EXPR-032 — 11.8 Results and fallback",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-032"
+              },
+              {
+                "name": "section",
+                "value": "expr-fallback"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-fallback"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-fallback",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-032_smt",
+                "name": "statement",
+                "prose": "`exprValidation` — `string` — empty — no advisory — **MUST**"
+              },
+              {
+                "id": "apr-expr-032_gap",
+                "name": "assessment-gap",
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-033",
+            "title": "APR-EXPR-033 — 11.8 Results and fallback",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-033"
+              },
+              {
+                "name": "section",
+                "value": "expr-fallback"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-fallback"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-fallback",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-033_smt",
+                "name": "statement",
+                "prose": "`exprValue` — the prompt's bound type — Do not write; retain the stored response exactly — **MUST**"
+              },
+              {
+                "id": "apr-expr-033_gap",
+                "name": "assessment-gap",
+                "prose": "No SDK driver reports exprExpected or exprReadOnly results (#514), so no case requires APR-EXPR-030 or 031."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-034",
+            "title": "APR-EXPR-034 — 11.9 A computed value is a suggestion, not a lock",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-034"
+              },
+              {
+                "name": "section",
+                "value": "expr-computed"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-session-replace"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-computed",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-034_smt",
+                "name": "statement",
+                "prose": "A reader **MAY** replace a response it computed itself in the same session."
+              },
+              {
+                "id": "apr-expr-034_gap",
+                "name": "assessment-gap",
+                "prose": "A permission about a reader's own session state, which the document never records."
+              }
+            ]
+          },
+          {
+            "id": "apr-expr-035",
+            "title": "APR-EXPR-035 — 11.11 Bounds",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-EXPR-035"
+              },
+              {
+                "name": "section",
+                "value": "expr-limits"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "EXPR"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-expr-limits"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#expr-limits",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-expr-035_smt",
+                "name": "statement",
+                "prose": "An implementation **MUST** report reaching a bound as a failure that applies the fallback, never as partial mutation."
+              },
+              {
+                "id": "apr-expr-035_gap",
+                "name": "assessment-gap",
+                "prose": "Degradation on failure is gated. Exact bounds are implementation-defined in this baseline, so no vector asserts a limit."
               }
             ]
           }

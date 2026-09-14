@@ -77,6 +77,507 @@
       "diagnostic": "EMPTY_SECTION"
     },
     {
+      "id": "expr-authored-response",
+      "number": "11.9-1",
+      "rule": "expr-computed",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"base\",\n          \"label\": \"Base\",\n          \"response\": \"2\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"corrected\",\n          \"label\": \"Corrected\",\n          \"response\": \"99\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"base * 2.0\"\n          }\n        },\n        {\n          \"id\": \"computed\",\n          \"label\": \"Computed\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"base * 2.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-008"
+      ],
+      "satisfies": [
+        "APR-EXPR-008"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "corrected": "99",
+          "computed": "4"
+        }
+      }
+    },
+    {
+      "id": "expr-bind-currency",
+      "number": "11.5-1",
+      "rule": "expr-binding",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"price\",\n          \"label\": \"Price\",\n          \"response\": \"2.50\",\n          \"hints\": {\n            \"expectedDataType\": \"currency\"\n          }\n        },\n        {\n          \"id\": \"check\",\n          \"label\": \"Check\",\n          \"hints\": {\n            \"exprValidation\": \"price * 2.0 == 5.0 ? 'five' : 'other'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-023"
+      ],
+      "satisfies": [
+        "APR-EXPR-023"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "five"
+        }
+      }
+    },
+    {
+      "id": "expr-bind-date",
+      "number": "11.5-2",
+      "rule": "expr-binding",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"when\",\n          \"label\": \"When\",\n          \"response\": \"2026-03-01\",\n          \"hints\": {\n            \"expectedDataType\": \"date\"\n          }\n        },\n        {\n          \"id\": \"check\",\n          \"label\": \"Check\",\n          \"hints\": {\n            \"exprValidation\": \"when < timestamp('2026-01-01T00:00:00Z') ? 'too early' : 'ok'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-025"
+      ],
+      "satisfies": [
+        "APR-EXPR-025"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "ok"
+        }
+      }
+    },
+    {
+      "id": "expr-bind-multichoice",
+      "number": "11.5-3",
+      "rule": "expr-binding",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"colours\",\n          \"label\": \"Colours\",\n          \"response\": \"red\\ngreen\",\n          \"hints\": {\n            \"expectedDataType\": \"multichoice\"\n          }\n        },\n        {\n          \"id\": \"check\",\n          \"label\": \"Check\",\n          \"hints\": {\n            \"exprValidation\": \"size(colours) == 2 ? 'two' : 'other'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-026"
+      ],
+      "satisfies": [
+        "APR-EXPR-026"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "two"
+        }
+      }
+    },
+    {
+      "id": "expr-bind-string",
+      "number": "11.5-4",
+      "rule": "expr-binding",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"name\",\n          \"label\": \"Name\",\n          \"response\": \"12\"\n        },\n        {\n          \"id\": \"check\",\n          \"label\": \"Check\",\n          \"hints\": {\n            \"exprValidation\": \"name + '!'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-027"
+      ],
+      "satisfies": [
+        "APR-EXPR-027"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "12!"
+        }
+      }
+    },
+    {
+      "id": "expr-canonical-result",
+      "number": "11.8-1",
+      "rule": "expr-fallback",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"sum\",\n          \"label\": \"Sum\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"2.0 + 1.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-028"
+      ],
+      "satisfies": [
+        "APR-EXPR-028"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "sum": "3"
+        }
+      }
+    },
+    {
+      "id": "expr-ctx",
+      "number": "11.4-5",
+      "rule": "expr-activation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"team\",\n          \"label\": \"Team\",\n          \"hints\": {\n            \"exprValue\": \"ctx.team\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-022"
+      ],
+      "satisfies": [
+        "APR-EXPR-022"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "team": "records"
+        }
+      }
+    },
+    {
+      "id": "expr-dependency-order",
+      "number": "11.9-2",
+      "rule": "expr-computed",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"qty\",\n          \"label\": \"Quantity\",\n          \"response\": \"2\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"price\",\n          \"label\": \"Price\",\n          \"response\": \"5\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"total\",\n          \"label\": \"Total\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"subtotal + tax\"\n          }\n        },\n        {\n          \"id\": \"tax\",\n          \"label\": \"Tax\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"subtotal * 0.5\"\n          }\n        },\n        {\n          \"id\": \"subtotal\",\n          \"label\": \"Subtotal\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"qty * price\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-009"
+      ],
+      "satisfies": [
+        "APR-EXPR-009"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "subtotal": "10",
+          "tax": "5",
+          "total": "15"
+        }
+      }
+    },
+    {
+      "id": "expr-direct-binding",
+      "number": "11.4-1",
+      "rule": "expr-activation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"amount\",\n          \"label\": \"Amount\",\n          \"response\": \"12\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"check\",\n          \"label\": \"Check\",\n          \"hints\": {\n            \"exprValidation\": \"amount > 10.0 ? 'too big' : ''\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-017"
+      ],
+      "satisfies": [
+        "APR-EXPR-017"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": "too big"
+        }
+      }
+    },
+    {
+      "id": "expr-extension-function-fails",
+      "number": "11.3-1",
+      "rule": "expr-language",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"name\",\n          \"label\": \"Name\",\n          \"response\": \"abc\"\n        },\n        {\n          \"id\": \"check\",\n          \"label\": \"Check\",\n          \"hints\": {\n            \"exprValidation\": \"name.upperAscii()\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-013"
+      ],
+      "satisfies": [
+        "APR-EXPR-013"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "check": ""
+        }
+      }
+    },
+    {
+      "id": "expr-fallback-hidden",
+      "number": "11.8-2",
+      "rule": "expr-fallback",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"details\",\n          \"label\": \"Details\",\n          \"hints\": {\n            \"exprHidden\": \"nosuch == 'no'\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-029"
+      ],
+      "satisfies": [
+        "APR-EXPR-029"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "hidden": {
+          "details": false
+        }
+      }
+    },
+    {
+      "id": "expr-fallback-validation",
+      "number": "11.8-3",
+      "rule": "expr-fallback",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"code\",\n          \"label\": \"Code\",\n          \"hints\": {\n            \"exprValidation\": \"42\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-032"
+      ],
+      "satisfies": [
+        "APR-EXPR-032"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "code": ""
+        }
+      }
+    },
+    {
+      "id": "expr-fallback-value",
+      "number": "11.8-4",
+      "rule": "expr-fallback",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"total\",\n          \"label\": \"Total\",\n          \"response\": \"7\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"nosuch + 1.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-033",
+        "APR-EXPR-001"
+      ],
+      "satisfies": [
+        "APR-EXPR-033",
+        "APR-EXPR-001"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "total": "7"
+        }
+      }
+    },
+    {
+      "id": "expr-id",
+      "number": "11.4-3",
+      "rule": "expr-activation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"echo\",\n          \"label\": \"Echo\",\n          \"hints\": {\n            \"exprValue\": \"_id\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-019"
+      ],
+      "satisfies": [
+        "APR-EXPR-019"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "echo": "echo"
+        }
+      }
+    },
+    {
+      "id": "expr-invalid-identifier",
+      "number": "11.4-7",
+      "rule": "expr-activation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"first-name\",\n          \"label\": \"First name\",\n          \"response\": \"Ada\"\n        },\n        {\n          \"id\": \"greeting\",\n          \"label\": \"Greeting\",\n          \"hints\": {\n            \"exprValue\": \"first_name\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-016"
+      ],
+      "satisfies": [
+        "APR-EXPR-016"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "greeting": ""
+        }
+      }
+    },
+    {
+      "id": "expr-reserved-name",
+      "number": "11.4-6",
+      "rule": "expr-activation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"_today\",\n          \"label\": \"Today\",\n          \"response\": \"stored\"\n        },\n        {\n          \"id\": \"signed\",\n          \"label\": \"Signed\",\n          \"hints\": {\n            \"exprValue\": \"_today\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-004"
+      ],
+      "satisfies": [
+        "APR-EXPR-004"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "signed": "2026-09-01"
+        }
+      }
+    },
+    {
+      "id": "expr-this",
+      "number": "11.4-2",
+      "rule": "expr-activation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"code\",\n          \"label\": \"Code\",\n          \"response\": \"abc\",\n          \"hints\": {\n            \"exprValidation\": \"size(_this) > 2 ? 'long' : ''\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-018"
+      ],
+      "satisfies": [
+        "APR-EXPR-018"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "validation": {
+          "code": "long"
+        }
+      }
+    },
+    {
+      "id": "expr-today",
+      "number": "11.4-4",
+      "rule": "expr-activation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"signed\",\n          \"label\": \"Signed\",\n          \"hints\": {\n            \"exprValue\": \"_today\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-021",
+        "APR-EXPR-005"
+      ],
+      "satisfies": [
+        "APR-EXPR-021",
+        "APR-EXPR-005"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "signed": "2026-09-01"
+        }
+      }
+    },
+    {
+      "id": "expr-unbound-empty",
+      "number": "11.6-1",
+      "rule": "expr-unbound",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"T\"\n  },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"quantity\",\n          \"label\": \"Quantity\",\n          \"hints\": {\n            \"expectedDataType\": \"number\"\n          }\n        },\n        {\n          \"id\": \"total\",\n          \"label\": \"Total\",\n          \"response\": \"5\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"exprValue\": \"quantity + 1.0\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-006"
+      ],
+      "satisfies": [
+        "APR-EXPR-006"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "total": "5"
+        }
+      }
+    },
+    {
       "id": "expression-preserved",
       "number": "3.4-1",
       "rule": "profile-expressions",
