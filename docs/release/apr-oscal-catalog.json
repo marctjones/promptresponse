@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "1ea76f46-7c9c-5876-b511-7ac795b79313",
+    "uuid": "6ab92422-d6d5-567a-9526-d71a21f23aa0",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "70a76df241718ffbc4c517b13767e06bc3050ea057f8cea35ddd4c253e984537"
+          "value": "86cafb0732a9f6f95136c4dc45f6c44b5cac7fc1a064932db2b54189cea75697"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -7212,12 +7212,12 @@
               {
                 "id": "apr-sec-005_smt",
                 "name": "statement",
-                "prose": "`documentType` is **authoritative**. A reader **MUST** determine whether a document is a template or a filled form from that member alone."
+                "prose": "A reader **MUST** determine whether a document is a template or a filled form from its `documentType` member alone."
               },
               {
                 "id": "apr-sec-005_gap",
                 "name": "assessment-gap",
-                "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
+                "prose": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them."
               }
             ]
           },
@@ -7259,12 +7259,12 @@
               {
                 "id": "apr-sec-006_smt",
                 "name": "statement",
-                "prose": "An implementation **SHOULD** write the extension matching `documentType`, and **SHOULD** warn on mismatch rather than silently honouring either one."
+                "prose": "A writer **SHOULD** give a file the extension that matches its `documentType`."
               },
               {
                 "id": "apr-sec-006_gap",
                 "name": "assessment-gap",
-                "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
+                "prose": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them."
               }
             ]
           },
@@ -7306,12 +7306,12 @@
               {
                 "id": "apr-sec-007_smt",
                 "name": "statement",
-                "prose": "Representation is determined by content, not by name: a reader **MUST NOT** reject a document because its extension disagrees with its content, and **MUST NOT** infer `documentType` from an extension."
+                "prose": "A reader **MUST NOT** reject a document because its extension disagrees with its content."
               },
               {
                 "id": "apr-sec-007_gap",
                 "name": "assessment-gap",
-                "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
+                "prose": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them."
               }
             ]
           },
@@ -7353,12 +7353,12 @@
               {
                 "id": "apr-sec-008_smt",
                 "name": "statement",
-                "prose": "Converting a template to a filled form is an explicit act: set `documentType` to `filledForm` and record `templateId`. Implementations **SHOULD** prompt for a new filename so the blank template is not overwritten."
+                "prose": "A host **SHOULD** ask for a new filename when it turns a template into a filled form, so the blank template is not overwritten."
               },
               {
                 "id": "apr-sec-008_gap",
                 "name": "assessment-gap",
-                "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
+                "prose": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them."
               }
             ]
           },
@@ -7400,12 +7400,12 @@
               {
                 "id": "apr-sec-012_smt",
                 "name": "statement",
-                "prose": "A producer that labels APR content **MUST** use the type above for its representation."
+                "prose": "A writer that labels APR content **MUST** use the type above for its representation."
               },
               {
                 "id": "apr-sec-012_gap",
                 "name": "assessment-gap",
-                "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
+                "prose": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them."
               }
             ]
           },
@@ -7452,7 +7452,7 @@
               {
                 "id": "apr-sec-013_gap",
                 "name": "assessment-gap",
-                "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
+                "prose": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them."
               }
             ]
           },
@@ -7494,12 +7494,59 @@
               {
                 "id": "apr-sec-014_smt",
                 "name": "statement",
-                "prose": "A reader **MUST NOT** treat a mismatch between a media type and the content as grounds for rejection: the content decides, exactly as for a filename extension."
+                "prose": "A reader **MUST NOT** reject a document because its media type and its content disagree."
               },
               {
                 "id": "apr-sec-014_gap",
                 "name": "assessment-gap",
-                "prose": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus."
+                "prose": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them."
+              }
+            ]
+          },
+          {
+            "id": "apr-sec-015",
+            "title": "APR-SEC-015 — 6. Document type and file extensions",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-SEC-015"
+              },
+              {
+                "name": "section",
+                "value": "media-types"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SEC"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-no-media-type"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#media-types",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-sec-015_smt",
+                "name": "statement",
+                "prose": "A reader **SHOULD** warn when a file's extension and its `documentType` disagree, rather than silently honouring either."
+              },
+              {
+                "id": "apr-sec-015_gap",
+                "name": "assessment-gap",
+                "prose": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them."
               }
             ]
           }

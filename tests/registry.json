@@ -1039,9 +1039,17 @@
         {
           "type": "test",
           "ref": "RealFile_Validates"
+        },
+        {
+          "type": "test",
+          "ref": "LoadFileAsync_ReadsTheContent_WhateverTheExtensionSays"
+        },
+        {
+          "type": "test",
+          "ref": "RepresentationOf_IsDecidedByContent"
         }
       ],
-      "gap": "documentType-over-extension has no beta.6 fixture; the beta.3 vector was removed with its corpus. No vector exercises media-type labelling; it is transport behaviour outside the corpus.",
+      "gap": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them.",
       "rules": [
         "APR-SEC-005",
         "APR-SEC-006",
@@ -1049,7 +1057,8 @@
         "APR-SEC-008",
         "APR-SEC-012",
         "APR-SEC-013",
-        "APR-SEC-014"
+        "APR-SEC-014",
+        "APR-SEC-015"
       ]
     },
     {

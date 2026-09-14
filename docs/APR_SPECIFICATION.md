@@ -2617,8 +2617,10 @@ A reader **SHOULD** make a field's role available to assistive technology. [APR-
 
 ## 6. Document type and file extensions {#media-types}
 
-`documentType` is **authoritative**. A reader **MUST** determine whether a
-document is a template or a filled form from that member alone. [APR-SEC-005]
+`documentType` is **authoritative**.
+
+A reader **MUST** determine whether a document is a template or a filled form
+from its `documentType` member alone. [APR-SEC-005]
 
 | Extension | Meaning | Status |
 | --- | --- | --- |
@@ -2628,28 +2630,32 @@ document is a template or a filled form from that member alone. [APR-SEC-005]
 | `.apr.jsonc` | An APR-JSONC document or stream | Convention |
 | `.apr.yaml` | An APR-YAML document or stream | Convention |
 
-A filename extension is a **desktop affordance** — it drives icons, file
+A filename extension is a **desktop affordance**: it drives icons, file
 associations, and save dialogs. It is not part of the data model.
 
-> Rationale: a rule letting the extension override `documentType` cannot be
-> implemented anywhere a filename does not exist: an HTTP request
-> body, a database column, a clipboard paste, a mobile share intent, a
-> `postMessage` between frames, a byte array in an enterprise queue. Under such a
-> rule a browser-based reader and a desktop reader would reach *different conclusions
-> about identical bytes* — precisely the interoperability failure the format
-> exists to prevent. A document must mean the same thing everywhere, including
-> where it has no name.
+> Rationale: an extension cannot decide what a document is anywhere a filename
+> does not exist: an HTTP request body, a database column, a clipboard paste, a
+> mobile share intent, a `postMessage` between frames, a byte array in an
+> enterprise queue. A browser-based reader and a desktop reader would reach
+> *different conclusions about identical bytes*, which is the interoperability
+> failure the format exists to prevent. A document means the same thing
+> everywhere, including where it has no name.
 
-An implementation **SHOULD** write the extension matching `documentType`, and
-**SHOULD** warn on mismatch rather than silently honouring either one. [APR-SEC-006]
+A writer **SHOULD** give a file the extension that matches its `documentType`. [APR-SEC-006]
 
-Representation is determined by content, not by name: a reader **MUST NOT**
-reject a document because its extension disagrees with its content, and
-**MUST NOT** infer `documentType` from an extension. [APR-SEC-007]
+A reader **SHOULD** warn when a file's extension and its `documentType` disagree,
+rather than silently honouring either. [APR-SEC-015]
 
-Converting a template to a filled form is an explicit act: set `documentType` to
-`filledForm` and record `templateId`. Implementations **SHOULD** prompt for a new
-filename so the blank template is not overwritten. [APR-SEC-008]
+Representation is determined by content, not by name.
+
+A reader **MUST NOT** reject a document because its extension disagrees with its
+content. [APR-SEC-007]
+
+A template becomes a filled form when its `documentType` is set to `filledForm`
+and its `templateId` is recorded.
+
+A host **SHOULD** ask for a new filename when it turns a template into a filled
+form, so the blank template is not overwritten. [APR-SEC-008]
 
 **Media types.** Where a document travels with a media type, the type names the
 representation, and the `documentType` member remains authoritative for what the
@@ -2661,22 +2667,22 @@ document is.
 | An APR-YAML document or document stream | `application/vnd.apr+yaml` |
 | An APR-JSONC record stream | `application/vnd.apr+json-seq` |
 
-A producer that labels APR content **MUST** use the type above for its
+A writer that labels APR content **MUST** use the type above for its
 representation. [APR-SEC-012]
 
 A reader **MUST NOT** select APR behaviour from the generic `application/json`,
 `application/yaml`, or `application/json-seq` types. [APR-SEC-013]
 
-A reader **MUST NOT** treat a mismatch between a media type and the content as
-grounds for rejection: the content decides, exactly as for a filename
-extension. [APR-SEC-014]
+A reader **MUST NOT** reject a document because its media type and its content
+disagree. [APR-SEC-014]
 
-> Rationale: these three fail independently, and a case citing one bundle could
-> not say which broke. A producer labelling APR-YAML as `application/json` is a
-> mislabelled document; a reader inferring APR from `application/json` treats
-> every JSON file it meets as a form; a reader refusing a mismatch loses a
-> readable document to a header. Only the last is data loss, which is why the
-> content deciding is stated as its own rule.
+The content decides, as it does for a filename extension.
+
+> Rationale: a writer labelling APR-YAML as `application/json` mislabels a
+> document; a reader inferring APR from `application/json` treats every JSON file
+> it meets as a form; a reader refusing a mismatch loses a readable document to a
+> header. Only the last loses data, which is why the content deciding is a rule
+> of its own.
 
 The types are in the vendor tree of RFC 6838, with the `+json` (RFC 6839),
 `+yaml` (RFC 9512) and `+json-seq` (RFC 7464) structured syntax suffixes.

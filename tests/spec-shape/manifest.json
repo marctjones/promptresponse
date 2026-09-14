@@ -249,7 +249,7 @@
       "issue": 488,
       "requirement": "Classes of product named by requirements but not defined in Terminology.",
       "status": "converted chapter by chapter in #473-#487",
-      "findings": 5
+      "findings": 4
     },
     {
       "id": "no-lowercase-obligations",
