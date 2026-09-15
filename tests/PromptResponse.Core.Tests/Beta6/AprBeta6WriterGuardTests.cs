@@ -24,6 +24,24 @@ public class AprBeta6WriterGuardTests
         new() { [name] = JsonDocument.Parse("\"v\"").RootElement.Clone() };
 
     [Fact]
+    public void FillingATable_AddsNoPresentationMember()
+    {
+        // APR-MODEL-013: a writer adds no width, alignment, colour or font member to a table.
+        const string source = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},"
+            + "\"sections\":[{\"id\":\"t\",\"title\":\"T\",\"kind\":\"table\",\"maxRows\":3,\"canAddRows\":true,"
+            + "\"sections\":[{\"id\":\"r\",\"title\":\"R\",\"prompts\":[{\"id\":\"r.a\",\"label\":\"A\"}]}]}]}";
+        var form = _reader.ReadForm(source, AprRepresentation.Jsonc);
+        form.Sections![0].Sections![0].Prompts![0].Response = "filled";
+
+        var written = System.Text.Json.Nodes.JsonNode.Parse(_reader.WriteForm(form, AprRepresentation.Jsonc));
+        var expected = System.Text.Json.Nodes.JsonNode.Parse(
+            source.Replace("\"label\":\"A\"}", "\"label\":\"A\",\"response\":\"filled\"}", StringComparison.Ordinal));
+
+        System.Text.Json.Nodes.JsonNode.DeepEquals(written, expected).Should().BeTrue(
+            $"filling a table adds no presentation member, and wrote {written}");
+    }
+
+    [Fact]
     public void FillingAForm_AddsNothingButTheResponse()
     {
         // APR-MODEL-037: no member recording receipt or what happened next.

@@ -192,6 +192,19 @@ test("beta.6 filling a form adds nothing but the response (APR-MODEL-037, APR-MO
   assert.deepEqual(JSON.parse(writeBeta6Form(document, "jsonc")), expected);
 });
 
+test("beta.6 filling a table adds no presentation member (APR-MODEL-013)", () => {
+  const source = {
+    aprVersion: "1.0-beta.6", metadata: { title: "T" },
+    sections: [{ id: "t", title: "T", kind: "table", maxRows: 3, canAddRows: true,
+      sections: [{ id: "r", title: "R", prompts: [{ id: "r.a", label: "A" }] }] }],
+  };
+  const document = readBeta6Form(JSON.stringify(source), "jsonc");
+  document.sections[0].sections[0].prompts[0].response = "filled";
+  const expected = JSON.parse(JSON.stringify(source));
+  expected.sections[0].sections[0].prompts[0].response = "filled";
+  assert.deepEqual(JSON.parse(writeBeta6Form(document, "jsonc")), expected);
+});
+
 test("beta.6 shared malformed corpus is rejected", async () => {
   for (const name of ["missing-record-separator.apr.jsonc", "duplicate-member.apr.jsonc", "yaml-anchor.apr.yaml"]) {
     const source = await readFile(new URL(`../../../tests/Conformance/beta6/malformed/${name}`, import.meta.url), "utf8");

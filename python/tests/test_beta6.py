@@ -160,6 +160,18 @@ def test_beta6_filling_a_form_adds_nothing_but_the_response():
     assert json.loads(pr.write_beta6_form(document, "jsonc")) == expected
 
 
+def test_beta6_filling_a_table_adds_no_presentation_member():
+    # APR-MODEL-013: a writer adds no width, alignment, colour or font member to a table.
+    source = {"aprVersion": "1.0-beta.6", "metadata": {"title": "T"},
+              "sections": [{"id": "t", "title": "T", "kind": "table", "maxRows": 3, "canAddRows": True,
+                            "sections": [{"id": "r", "title": "R", "prompts": [{"id": "r.a", "label": "A"}]}]}]}
+    document = pr.read_beta6_form(json.dumps(source), "jsonc")
+    document.sections[0].sections[0].prompts[0].response = "filled"
+    expected = json.loads(json.dumps(source))
+    expected["sections"][0]["sections"][0]["prompts"][0]["response"] = "filled"
+    assert json.loads(pr.write_beta6_form(document, "jsonc")) == expected
+
+
 def test_beta6_shared_malformed_corpus_is_rejected():
     for path in (CORPUS.parent / "malformed").iterdir():
         with pytest.raises(pr.AprParseError):
