@@ -39,4 +39,17 @@ function htmlRendererFallsBackSafelyAndNeverContactsNetwork(): void {
 }
 
 test("HTML renderer preserves accessible structure and escapes content", htmlRendererPreservesAccessibleStructureAndEscapesContent);
+
+test("HTML renderer presents every prompt a ragged table instance carries (APR-MODEL-101)", () => {
+  const document = loads(JSON.stringify({
+    aprVersion: "1.0-beta.6", metadata: { title: "T" },
+    sections: [{ id: "t", title: "T", kind: "table", sections: [
+      { id: "r1", title: "Row 1", prompts: [{ id: "r1.a", label: "A", response: "one" }] },
+      { id: "r2", title: "Row 2", prompts: [{ id: "r2.a", label: "A", response: "two" }, { id: "r2.b", label: "B", response: "extra" }] },
+    ] }],
+  }));
+  const html = renderHtml(document);
+  assert.match(html, /data-apr-prompt="r2\.b"/, "the second instance's extra prompt is presented");
+  assert.match(html, /extra/, "and its response with it");
+});
 test("HTML renderer has safe fallback and no network access", htmlRendererFallsBackSafelyAndNeverContactsNetwork);

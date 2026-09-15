@@ -887,6 +887,13 @@
       "spec:ragged-table"
     ]
   },
+  "APR-MODEL-101": {
+    "reason": "A rule on what a renderer presents, which no input document shows. The tests build a table whose second instance carries a prompt the first does not, and check the .NET render model and the TypeScript HTML renderer both present it.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Rendering/DocumentRenderModelBuilderTableTests.cs",
+      "typescript/src/test/render.test.ts"
+    ]
+  },
   "APR-MODEL-102": {
     "reason": "A permission to omit a member, which no document can violate. The schema declares the member optional, and check-schema-agrees holds the schema to this table.",
     "coveredBy": [

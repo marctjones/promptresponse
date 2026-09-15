@@ -8163,7 +8163,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -8197,11 +8197,6 @@
                 "id": "apr-model-101_smt",
                 "name": "statement",
                 "prose": "A renderer **MUST** present every prompt an instance carries, whether or not the other instances carry one at that position."
-              },
-              {
-                "id": "apr-model-101_gap",
-                "name": "assessment-gap",
-                "prose": "APR-MODEL-101 is renderer behaviour: presenting every prompt an instance carries. No renderer case asks it (#526)."
               }
             ]
           },
