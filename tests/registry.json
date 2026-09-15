@@ -1237,9 +1237,17 @@
         {
           "type": "test",
           "ref": "RepresentationOf_IsDecidedByContent"
+        },
+        {
+          "type": "test",
+          "ref": "OnlyTheOtherKindsExtensionIsAMismatch"
+        },
+        {
+          "type": "test",
+          "ref": "ConvertingIsExplicitAndCarriesATemplateId"
         }
       ],
-      "gap": "APR-SEC-005 and 007 have reader and desktop tests, and APR-SEC-012 has submission tests. APR-SEC-006, 008 and 015 are writer, host and reader behaviour around filenames that no test checks. APR-SEC-013 and 014 concern a media type arriving with a document, and no implementation reads one, so no test reaches them.",
+      "gap": "APR-SEC-005 and 007 have reader and desktop tests, APR-SEC-012 has submission tests, and APR-SEC-006, 008 and 015 are covered by SaveAsRespectsDocumentTypeTests, which asserts which extension and documentType pairs disagree, that converting to a filled form records a templateId, and that the file service no longer assigns documentType from an extension. None of those five can have an example: every one turns on a filename, which is a desktop affordance and appears in no document. APR-SEC-013 and 014 concern a media type arriving alongside a document, and nothing in this repository reads one: no reader in Core, the Python SDK or the TypeScript SDK takes a media type as an argument, so both rules hold by construction and no test would fail if a reader started consulting one.",
       "rules": [
         "APR-SEC-005",
         "APR-SEC-006",
@@ -1249,6 +1257,10 @@
         "APR-SEC-013",
         "APR-SEC-014",
         "APR-SEC-015"
+      ],
+      "gapRules": [
+        "APR-SEC-013",
+        "APR-SEC-014"
       ]
     },
     {

@@ -1050,11 +1050,23 @@
       "tests/PromptResponse.Desktop.Tests/Services/FileServiceTests.cs"
     ]
   },
+  "APR-SEC-006": {
+    "reason": "A rule about the name a writer gives a file. A filename is a desktop affordance and not part of the data model, so it exists nowhere in a document and no example can carry it.",
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/Services/SaveAsRespectsDocumentTypeTests.cs"
+    ]
+  },
   "APR-SEC-007": {
     "reason": "A rule on a reader facing a filename that disagrees with the content; the suite passes documents without a filename.",
     "coveredBy": [
       "tests/PromptResponse.Desktop.Tests/Services/FileServiceTests.cs",
       "tests/PromptResponse.Core.Tests/Beta6/AprBeta6ReaderTests.cs"
+    ]
+  },
+  "APR-SEC-008": {
+    "reason": "A rule about what a host asks the person when a template becomes a filled form. It is a dialog, not a document.",
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/Services/SaveAsRespectsDocumentTypeTests.cs"
     ]
   },
   "APR-SEC-009": {
@@ -1080,6 +1092,12 @@
     "coveredBy": [
       "tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs",
       "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"
+    ]
+  },
+  "APR-SEC-015": {
+    "reason": "A rule about a disagreement between a file's extension and its documentType. One half of the comparison is the filename, which a document does not carry.",
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/Services/SaveAsRespectsDocumentTypeTests.cs"
     ]
   },
   "APR-SEC-016": {
