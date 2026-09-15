@@ -370,7 +370,7 @@
       "id": "REQ-warning-code-spellings",
       "section": "warnings",
       "statement": "A reported advisory condition carries the code the warnings table names",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "fixture",
@@ -379,6 +379,14 @@
         {
           "type": "suite",
           "ref": "core.conformance"
+        },
+        {
+          "type": "test",
+          "ref": "AResponseCarryingAnExcludedCodePoint_Warns_ButACarriageReturnDoesNot"
+        },
+        {
+          "type": "test",
+          "ref": "ASubmissionUrlCarryingAnExcludedCodePoint_Warns"
         }
       ],
       "rules": [
@@ -401,11 +409,6 @@
         "APR-VAL-036",
         "APR-VAL-037",
         "APR-VAL-038"
-      ],
-      "gap": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507).",
-      "gapRules": [
-        "APR-VAL-036",
-        "APR-VAL-037"
       ]
     },
     {
@@ -570,12 +573,24 @@
       "id": "REQ-submission-url-advisory",
       "section": "authoring-strictness",
       "statement": "A validator warns on a submission URL carrying a code point the floor excludes",
-      "strength": "none",
-      "gates": [],
+      "strength": "gated",
+      "gates": [
+        {
+          "type": "test",
+          "ref": "ASubmissionUrlCarryingAnExcludedCodePoint_Warns"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_submission_url_carrying_an_excluded_code_point_warns"
+        },
+        {
+          "type": "suite",
+          "ref": "core.conformance"
+        }
+      ],
       "rules": [
         "APR-TEXT-007"
-      ],
-      "gap": "Section 7.2 now names SUBMISSION_URL_FORBIDDEN_CODE_POINT (APR-VAL-037), so this condition has a code to ask for. Measured on a submissionUrls entry carrying U+200B: only .NET warns, and it reports SUBMISSION_URL_HIDDEN_CHARS, which the warnings table does not name; the reference validator, Python, TypeScript and Java are all silent (#507)."
+      ]
     },
     {
       "id": "REQ-id-characters",
@@ -981,7 +996,7 @@
       "id": "REQ-filled-preserved",
       "section": "filled-never-rewritten",
       "statement": "A validator warns on a response carrying a code point the human-facing text floor excludes",
-      "strength": "partial",
+      "strength": "gated",
       "gates": [
         {
           "type": "test",
@@ -990,12 +1005,19 @@
         {
           "type": "test",
           "ref": "test_inspector_reports_visually_deceptive_characters_without_changing_text"
+        },
+        {
+          "type": "test",
+          "ref": "AResponseCarryingAnExcludedCodePoint_Warns_ButACarriageReturnDoesNot"
+        },
+        {
+          "type": "test",
+          "ref": "test_a_response_carrying_an_excluded_code_point_warns_and_a_carriage_return_does_not"
         }
       ],
       "rules": [
         "APR-TEXT-004"
-      ],
-      "gap": "The blocker moved with beta.7 and this records where it went. Section 7.2 now names RESPONSE_FORBIDDEN_CODE_POINT (APR-VAL-036), so the table no longer lacks a code for this condition; what is missing is a reader that emits it. Measured on a response carrying U+200B: .NET, Python and TypeScript each warn under HIDDEN_ZWSP, a spelling this document does not define, and each checks a list narrower than the section 8.2.3 floor; the reference validator and Java report nothing. A case naming the specified code fails all five, and a case naming HIDDEN_ZWSP would certify the drift rather than the rule (#506)."
+      ]
     },
     {
       "id": "REQ-deceptive-text-rendering",

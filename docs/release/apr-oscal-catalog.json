@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "bc3e2c58-3e09-525e-b5e8-8026c5c802f6",
+    "uuid": "c8d7e8cf-6bfa-535a-85db-f7d945a23463",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "51de1aa7ae456a33c99ff9c8445020bb9b79a544c920fb106535740f27b87e23"
+          "value": "222311cc498fd75f8ecae0ec9e977609d4c0ce00a47787f2eb1c066cde5ebb5f"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -11847,7 +11847,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -11881,11 +11881,6 @@
                 "id": "apr-val-018_smt",
                 "name": "statement",
                 "prose": "`RESPONSE_CONTRADICTS_TYPE` — A response contradicts `expectedDataType`. — **MUST**"
-              },
-              {
-                "id": "apr-val-018_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -11909,7 +11904,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -11943,11 +11938,6 @@
                 "id": "apr-val-019_smt",
                 "name": "statement",
                 "prose": "`RESPONSE_PATTERN_MISMATCH` — A response does not match `validationPattern`. — **MUST**"
-              },
-              {
-                "id": "apr-val-019_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -11971,7 +11961,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12005,11 +11995,6 @@
                 "id": "apr-val-020_smt",
                 "name": "statement",
                 "prose": "`RESPONSE_OUTSIDE_BOUNDS` — A response falls outside the bounds family ([Hints](#hints-object)). — **MUST**"
-              },
-              {
-                "id": "apr-val-020_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12033,7 +12018,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12067,11 +12052,6 @@
                 "id": "apr-val-021_smt",
                 "name": "statement",
                 "prose": "`RESPONSE_OUTSIDE_SUGGESTED_VALUES` — A response is not one of `suggestedValues`. — **MUST**"
-              },
-              {
-                "id": "apr-val-021_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12095,7 +12075,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12129,11 +12109,6 @@
                 "id": "apr-val-022_smt",
                 "name": "statement",
                 "prose": "`HINT_UNUSABLE` — A hint cannot be applied at all — a `validationPattern` that is not a valid regular expression, a bound that will not parse. — **MUST**"
-              },
-              {
-                "id": "apr-val-022_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12157,7 +12132,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12191,11 +12166,6 @@
                 "id": "apr-val-023_smt",
                 "name": "statement",
                 "prose": "`UNREGISTERED_DATA_TYPE` — `expectedDataType` names a type the registry does not carry ([Types are affordances](#data-types)). — **MUST**"
-              },
-              {
-                "id": "apr-val-023_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12219,7 +12189,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12253,11 +12223,6 @@
                 "id": "apr-val-024_smt",
                 "name": "statement",
                 "prose": "`UNDECLARED_ROLE` — A `role` names a role `roles` does not declare ([Roles](#roles)). — **MUST**"
-              },
-              {
-                "id": "apr-val-024_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12281,7 +12246,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12315,11 +12280,6 @@
                 "id": "apr-val-025_smt",
                 "name": "statement",
                 "prose": "`TABLE_RAGGED` — Instances of a table do not carry the same number of prompts ([Ragged tables](#table-ragged)). — **MUST**"
-              },
-              {
-                "id": "apr-val-025_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12343,7 +12303,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12377,11 +12337,6 @@
                 "id": "apr-val-026_smt",
                 "name": "statement",
                 "prose": "`TABLE_LABEL_MISMATCH` — A cell's label differs across instances of the same column. — **MUST**"
-              },
-              {
-                "id": "apr-val-026_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12405,7 +12360,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12439,11 +12394,6 @@
                 "id": "apr-val-027_smt",
                 "name": "statement",
                 "prose": "`TABLE_OVER_CAPACITY` — A table carries more instances than `maxRows`. — **MUST**"
-              },
-              {
-                "id": "apr-val-027_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12467,7 +12417,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12501,11 +12451,6 @@
                 "id": "apr-val-028_smt",
                 "name": "statement",
                 "prose": "`TABLE_MEMBERS_ON_A_PLAIN_SECTION` — `maxRows` or `canAddRows` on a section that is not a table ([Tables](#tables)). — **MUST**"
-              },
-              {
-                "id": "apr-val-028_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12529,7 +12474,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12563,11 +12508,6 @@
                 "id": "apr-val-029_smt",
                 "name": "statement",
                 "prose": "`UNPREFIXED_MEMBER` — An unrecognised member with no reverse-DNS prefix ([Unknown members](#extensions)). — **MUST**"
-              },
-              {
-                "id": "apr-val-029_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12591,7 +12531,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12625,11 +12565,6 @@
                 "id": "apr-val-030_smt",
                 "name": "statement",
                 "prose": "`SUBMISSION_URL_UNSUPPORTED` — A submission entry of a scheme this document does not define ([Submission targets](#submission)). — **MUST**"
-              },
-              {
-                "id": "apr-val-030_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12653,7 +12588,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12687,11 +12622,6 @@
                 "id": "apr-val-031_smt",
                 "name": "statement",
                 "prose": "`NON_NFC_TEXT` — Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). — **MUST**"
-              },
-              {
-                "id": "apr-val-031_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12715,7 +12645,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12749,11 +12679,6 @@
                 "id": "apr-val-032_smt",
                 "name": "statement",
                 "prose": "`FORBIDDEN_CODE_POINT` — Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). — **MUST**"
-              },
-              {
-                "id": "apr-val-032_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12901,7 +12826,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12935,11 +12860,6 @@
                 "id": "apr-val-035_smt",
                 "name": "statement",
                 "prose": "`CONFUSABLE_SCRIPT_MIX` — One member of human-facing text mixes letters of two or more of the Latin, Cyrillic and Greek scripts ([Human-facing text](#human-text)). — **MUST**"
-              },
-              {
-                "id": "apr-val-035_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -12963,7 +12883,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -12996,12 +12916,7 @@
               {
                 "id": "apr-val-036_smt",
                 "name": "statement",
-                "prose": "`RESPONSE_FORBIDDEN_CODE_POINT` — A response carries a code point the floor excludes ([Human-facing text](#human-text)). — **MUST**"
-              },
-              {
-                "id": "apr-val-036_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
+                "prose": "`RESPONSE_FORBIDDEN_CODE_POINT` — A response carries a code point the floor excludes, other than a carriage return ([Human-facing text](#human-text)). — **MUST**"
               }
             ]
           },
@@ -13025,7 +12940,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -13059,11 +12974,6 @@
                 "id": "apr-val-037_smt",
                 "name": "statement",
                 "prose": "`SUBMISSION_URL_FORBIDDEN_CODE_POINT` — A `submissionUrls` entry carries a code point the floor excludes ([Human-facing text](#human-text)). — **SHOULD**"
-              },
-              {
-                "id": "apr-val-037_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           },
@@ -13087,7 +12997,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -13121,11 +13031,6 @@
                 "id": "apr-val-038_smt",
                 "name": "statement",
                 "prose": "`ID_FORBIDDEN_CHARACTER` — An id carries a character outside `[A-Za-z0-9_.-]` ([Ids](#prompt-object)). — **SHOULD**"
-              },
-              {
-                "id": "apr-val-038_gap",
-                "name": "assessment-gap",
-                "prose": "APR-VAL-036 and 037 name the codes for two hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits either. Measured through the driver protocol on a response carrying U+200B and a submissionUrls entry carrying U+200B: for the response, .NET, Python and TypeScript all report HIDDEN_ZWSP, a spelling this document does not define, while the reference validator and Java report nothing; for the submission target, only .NET warns and it reports SUBMISSION_URL_HIDDEN_CHARS, also undefined here. A case naming the specified code fails every driver, and a case naming the readers' own spellings would certify the drift rather than the rule (#506, #507)."
               }
             ]
           }
@@ -13212,7 +13117,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "partial"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -13245,12 +13150,7 @@
               {
                 "id": "apr-text-004_smt",
                 "name": "statement",
-                "prose": "A validator **MUST** report a warning, `RESPONSE_FORBIDDEN_CODE_POINT` ([Warnings](#warnings)), for a response that contains a code point [Human-facing text](#human-text) excludes."
-              },
-              {
-                "id": "apr-text-004_gap",
-                "name": "assessment-gap",
-                "prose": "The blocker moved with beta.7 and this records where it went. Section 7.2 now names RESPONSE_FORBIDDEN_CODE_POINT (APR-VAL-036), so the table no longer lacks a code for this condition; what is missing is a reader that emits it. Measured on a response carrying U+200B: .NET, Python and TypeScript each warn under HIDDEN_ZWSP, a spelling this document does not define, and each checks a list narrower than the section 8.2.3 floor; the reference validator and Java report nothing. A case naming the specified code fails all five, and a case naming HIDDEN_ZWSP would certify the drift rather than the rule (#506)."
+                "prose": "A validator **MUST** report a warning, `RESPONSE_FORBIDDEN_CODE_POINT` ([Warnings](#warnings)), for a response that contains a code point [Human-facing text](#human-text) excludes, other than a carriage return (U+000D)."
               }
             ]
           },
@@ -13388,7 +13288,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "gated"
               },
               {
                 "name": "profile",
@@ -13422,11 +13322,6 @@
                 "id": "apr-text-007_smt",
                 "name": "statement",
                 "prose": "A validator **SHOULD** report a warning, `SUBMISSION_URL_FORBIDDEN_CODE_POINT` ([Warnings](#warnings)), for a `submissionUrls` entry that contains a code point [Human-facing text](#human-text) excludes."
-              },
-              {
-                "id": "apr-text-007_gap",
-                "name": "assessment-gap",
-                "prose": "Section 7.2 now names SUBMISSION_URL_FORBIDDEN_CODE_POINT (APR-VAL-037), so this condition has a code to ask for. Measured on a submissionUrls entry carrying U+200B: only .NET warns, and it reports SUBMISSION_URL_HIDDEN_CHARS, which the warnings table does not name; the reference validator, Python, TypeScript and Java are all silent (#507)."
               }
             ]
           },

@@ -615,10 +615,14 @@
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Notes\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"Observations\",\n          \"response\": \"one\\ttwo\\r\\nthree\" }\n      ]\n    }\n  ]\n}\n",
       "rules": [
-        "APR-REP-004"
+        "APR-REP-004",
+        "APR-TEXT-004",
+        "APR-VAL-036"
       ],
       "satisfies": [
-        "APR-REP-004"
+        "APR-REP-004",
+        "APR-TEXT-004",
+        "APR-VAL-036"
       ]
     },
     {
@@ -1365,7 +1369,7 @@
     },
     {
       "id": "id-allowed-characters",
-      "number": "8.2.2-3",
+      "number": "8.2.2-4",
       "rule": "authoring-strictness",
       "representation": "jsonc",
       "expect": "valid",
@@ -1404,7 +1408,7 @@
     },
     {
       "id": "id-forbidden-character",
-      "number": "8.2.2-2",
+      "number": "8.2.2-3",
       "rule": "authoring-strictness",
       "representation": "jsonc",
       "expect": "valid",
@@ -1907,6 +1911,25 @@
       ]
     },
     {
+      "id": "response-forbidden-code-point",
+      "number": "8.2.1-1",
+      "rule": "filled-never-rewritten",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Registration\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"name\", \"label\": \"Name\", \"response\": \"Ad\u200ba\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-TEXT-004",
+        "APR-VAL-036"
+      ],
+      "violates": [
+        "APR-TEXT-004",
+        "APR-VAL-036"
+      ],
+      "warns": [
+        "RESPONSE_FORBIDDEN_CODE_POINT"
+      ]
+    },
+    {
       "id": "response-number",
       "number": "4.7-2",
       "rule": "responses",
@@ -2165,10 +2188,33 @@
       "expect": "valid",
       "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Well permit\",\n    \"submissionUrls\": [\n      \"https://uploads.example.gov/permits/abc?X-Amz-Signature=deadbeef\",\n      \"mailto:permits@example.gov?subject=Well%20permit\"\n    ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
       "rules": [
-        "APR-MODEL-133"
+        "APR-MODEL-133",
+        "APR-TEXT-007",
+        "APR-VAL-037"
       ],
       "satisfies": [
-        "APR-MODEL-133"
+        "APR-MODEL-133",
+        "APR-TEXT-007",
+        "APR-VAL-037"
+      ]
+    },
+    {
+      "id": "submission-url-forbidden-code-point",
+      "number": "8.2.2-2",
+      "rule": "authoring-strictness",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Well permit\",\n    \"submissionUrls\": [ \"https://uploads.exa\u200bmple.gov/permits\" ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-TEXT-007",
+        "APR-VAL-037"
+      ],
+      "violates": [
+        "APR-TEXT-007",
+        "APR-VAL-037"
+      ],
+      "warns": [
+        "SUBMISSION_URL_FORBIDDEN_CODE_POINT"
       ]
     },
     {

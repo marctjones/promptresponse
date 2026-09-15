@@ -536,7 +536,7 @@ the response keeps them.
 ```apr-example
 id: encoding-allowed-controls
 rule: encoding
-satisfies: APR-REP-004
+satisfies: APR-REP-004, APR-TEXT-004, APR-VAL-036
 representation: jsonc
 expect: valid
 ---
@@ -1946,7 +1946,7 @@ preference.
 ```apr-example
 id: submission-string-entries
 rule: submission
-satisfies: APR-MODEL-133
+satisfies: APR-MODEL-133, APR-TEXT-007, APR-VAL-037
 representation: jsonc
 expect: valid
 ---
@@ -3571,7 +3571,7 @@ reports a warning under the row's code.
 | `NON_NFC_TEXT` | Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-031] |
 | `FORBIDDEN_CODE_POINT` | Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-032] |
 | `CONFUSABLE_SCRIPT_MIX` | One member of human-facing text mixes letters of two or more of the Latin, Cyrillic and Greek scripts ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-035] |
-| `RESPONSE_FORBIDDEN_CODE_POINT` | A response carries a code point the floor excludes ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-036] |
+| `RESPONSE_FORBIDDEN_CODE_POINT` | A response carries a code point the floor excludes, other than a carriage return ([Human-facing text](#human-text)). | **MUST** | [APR-VAL-036] |
 | `SUBMISSION_URL_FORBIDDEN_CODE_POINT` | A `submissionUrls` entry carries a code point the floor excludes ([Human-facing text](#human-text)). | **SHOULD** | [APR-VAL-037] |
 | `ID_FORBIDDEN_CHARACTER` | An id carries a character outside `[A-Za-z0-9_.-]` ([Ids](#prompt-object)). | **SHOULD** | [APR-VAL-038] |
 
@@ -3805,7 +3805,37 @@ license editing what was actually written.
 
 A validator **MUST** report a warning, `RESPONSE_FORBIDDEN_CODE_POINT`
 ([Warnings](#warnings)), for a response that contains a code point
-[Human-facing text](#human-text) excludes. [APR-TEXT-004]
+[Human-facing text](#human-text) excludes, other than a carriage return
+(U+000D). [APR-TEXT-004]
+
+> Rationale: a response keeps the line breaks a person typed ([Encoding](#encoding)),
+> and a carriage return is one of them.
+
+**Example 8.2.1-1.** A response carrying a zero-width space. The document is valid,
+the response is kept exactly as written, and the validator warns.
+
+```apr-example
+id: response-forbidden-code-point
+rule: filled-never-rewritten
+violates: APR-TEXT-004, APR-VAL-036
+representation: jsonc
+expect: valid
+warns: RESPONSE_FORBIDDEN_CODE_POINT
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Registration" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "name", "label": "Name", "response": "Ad​a" }
+      ]
+    }
+  ]
+}
+```
 
 The floor is the whole of it: the excluded set is the one
 [Human-facing text](#human-text) states, not a shorter list of the invisible
@@ -3882,6 +3912,29 @@ An implementation **MUST NOT** produce an attestation over a form whose
 > Rationale: such a URL renders to a reviewer as one host while being another.
 > An attestation binding it binds an address nobody reviewing the form could see.
 
+**Example 8.2.2-2.** A submission target with a zero-width space inside its host. The
+document is valid, the entry is kept exactly as written, and the validator warns.
+
+```apr-example
+id: submission-url-forbidden-code-point
+rule: authoring-strictness
+violates: APR-TEXT-007, APR-VAL-037
+representation: jsonc
+expect: valid
+warns: SUBMISSION_URL_FORBIDDEN_CODE_POINT
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "Well permit",
+    "submissionUrls": [ "https://uploads.exa​mple.gov/permits" ]
+  },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
 Ids are machine keys: they appear in attestation manifests, database columns, and
 cell addresses.
 
@@ -3889,7 +3942,7 @@ A validator **SHOULD** report a warning, `ID_FORBIDDEN_CHARACTER`
 ([Warnings](#warnings)), for an id that contains a character outside
 `[A-Za-z0-9_.-]`. [APR-TEXT-010]
 
-**Example 8.2.2-2.** A prompt id with a space in it. The document is valid, and the
+**Example 8.2.2-3.** A prompt id with a space in it. The document is valid, and the
 id draws a warning.
 
 ```apr-example
@@ -3915,7 +3968,7 @@ warns: ID_FORBIDDEN_CHARACTER
 }
 ```
 
-**Example 8.2.2-3.** Ids using every character the rule admits. No warning.
+**Example 8.2.2-4.** Ids using every character the rule admits. No warning.
 
 ```apr-example
 id: id-allowed-characters

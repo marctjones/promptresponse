@@ -1620,7 +1620,7 @@
       "issue": 476,
       "replacedBy": [
         "encoding/heading/7e78f32855",
-        "encoding/example/fbc9aa2745",
+        "encoding/example/d66b01a7cc",
         "encoding/sentence/1862fc6ead",
         "encoding/sentence/49ee18d4a2",
         "encoding/sentence/6f125033db",
@@ -3791,7 +3791,7 @@
         "submission/sentence/ed2798f253",
         "submission/sentence/873026214b",
         "submission/sentence/fb96492d93",
-        "submission/example/25595f7e05",
+        "submission/example/458dbc3ced",
         "submission/sentence/6d2ff8c1e6",
         "submission/sentence/bcaa9c48a8",
         "submission/sentence/eaf393ca42",
@@ -7350,7 +7350,7 @@
       "issue": 480,
       "replacedBy": [
         "warnings/heading/7cdd3520c6",
-        "warnings/table-row/e03a63aab4",
+        "warnings/table-row/1d23b6c9b5",
         "warnings/table-row/7492147866",
         "warnings/table-row/12de0c0cfa"
       ],
@@ -7904,7 +7904,15 @@
       "text": "8.2.1 Filled data — never rewritten",
       "disposition": "keep",
       "status": "applied",
-      "issue": 481
+      "issue": 481,
+      "replacedBy": [
+        "filled-never-rewritten/heading/b9ff884413",
+        "filled-never-rewritten/rationale/9a3db02c19",
+        "filled-never-rewritten/sentence/0581cd3ff6",
+        "filled-never-rewritten/sentence/856e0fe4fd",
+        "filled-never-rewritten/sentence/87e4676f1d",
+        "filled-never-rewritten/example/52e02f5bd7"
+      ]
     },
     "filled-never-rewritten/sentence/274c98ff1a": {
       "anchor": "filled-never-rewritten",
@@ -7937,7 +7945,7 @@
       "status": "applied",
       "replacedBy": [
         "filled-never-rewritten/sentence/392bef334d",
-        "filled-never-rewritten/sentence/314aa711f5",
+        "filled-never-rewritten/sentence/20fcfa0179",
         "filled-never-rewritten/sentence/2788693392",
         "filled-never-rewritten/sentence/3e59e4d210"
       ],
@@ -7998,7 +8006,11 @@
         "authoring-strictness/sentence/08bce92188",
         "authoring-strictness/sentence/d2d62fcf57",
         "authoring-strictness/sentence/e83e761aeb",
-        "authoring-strictness/example/227676ebf7"
+        "authoring-strictness/example/227676ebf7",
+        "authoring-strictness/sentence/0020bbb42e",
+        "authoring-strictness/sentence/672ea9e42d",
+        "authoring-strictness/example/b2cf678f74",
+        "authoring-strictness/sentence/f17be59f9f"
       ],
       "note": "a round-trip example that authoring data is not Unicode-normalized (APR-TEXT-006)"
     },
