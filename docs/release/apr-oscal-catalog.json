@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "ac23f99a-77f8-5abd-98ee-8111e7036013",
+    "uuid": "a8b840df-1191-5a84-b651-1d375c856dce",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "7c6e82a7fc3deda0b4d3507729333c7ed8c6c3dfb50df698915246ad6faa6609"
+          "value": "bae1d166f920d45f79429623ab641b9ad0e582b715a4f549efd46833abd392a1"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -4229,7 +4229,7 @@
               {
                 "id": "apr-model-033_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -4291,7 +4291,7 @@
               {
                 "id": "apr-model-034_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -4353,7 +4353,7 @@
               {
                 "id": "apr-model-035_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -5987,7 +5987,7 @@
               {
                 "id": "apr-model-064_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -7301,7 +7301,7 @@
               {
                 "id": "apr-model-086_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -7363,7 +7363,7 @@
               {
                 "id": "apr-model-087_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -7425,7 +7425,7 @@
               {
                 "id": "apr-model-088_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -7487,7 +7487,7 @@
               {
                 "id": "apr-model-089_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -7549,7 +7549,7 @@
               {
                 "id": "apr-model-090_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -7611,7 +7611,7 @@
               {
                 "id": "apr-model-091_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -9748,7 +9748,7 @@
               {
                 "id": "apr-model-128_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -9810,7 +9810,7 @@
               {
                 "id": "apr-model-129_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -9872,7 +9872,7 @@
               {
                 "id": "apr-model-130_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -9934,7 +9934,7 @@
               {
                 "id": "apr-model-131_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -9996,7 +9996,7 @@
               {
                 "id": "apr-model-132_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -10058,7 +10058,7 @@
               {
                 "id": "apr-model-133_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -10120,7 +10120,7 @@
               {
                 "id": "apr-model-134_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -10182,7 +10182,7 @@
               {
                 "id": "apr-model-135_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -10244,7 +10244,7 @@
               {
                 "id": "apr-model-136_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -10306,7 +10306,7 @@
               {
                 "id": "apr-model-137_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -10368,7 +10368,7 @@
               {
                 "id": "apr-model-138_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           },
@@ -10430,7 +10430,69 @@
               {
                 "id": "apr-model-139_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418)."
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
+              }
+            ]
+          },
+          {
+            "id": "apr-model-140",
+            "title": "APR-MODEL-140 — 5.2.1 Submission targets",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-MODEL-140"
+              },
+              {
+                "name": "section",
+                "value": "submission"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MODEL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "none"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MUST"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "implementation"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-submission"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#submission",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-model-140_smt",
+                "name": "statement",
+                "prose": "An implementation submitting to a `mailto` entry **MUST** compose a message to that address carrying the stream as a single attachment, and **MUST NOT** inline it in the message body."
+              },
+              {
+                "id": "apr-model-140_gap",
+                "name": "assessment-gap",
+                "prose": "APR-MODEL-086, 088 and 089 have no test: nothing checks that a submission sends no credentials, cookies or derived headers, refuses a redirect, and never retries on its own. Both submission paths disable redirects, but no test returns one. APR-MODEL-090 is a permission, and nothing shows it (#523). APR-MODEL-128 to 139 define the object form of an entry, the post kind, and refresh. No reader accepts an object entry yet — the reference validator and the Python SDK both report WRONG_TYPE for one — so no case can carry them and none is written, because it would fail every driver (#418). APR-MODEL-140 states the mailto attachment shape, which was prose without a keyword or a rule until now; no driver submits, so the suite cannot ask it (#523)."
               }
             ]
           }
