@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "10ee953d-8cf9-5caa-a9b6-83908b51ac88",
+    "uuid": "741e1148-9d4e-5e8f-a51f-6614d86ece6a",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "311a87b5b6ebaf2ec29e36ae4c5ea44aab6be9cbf0eb8b6f394f70626f891e6f"
+          "value": "98bc73635e449dff9210e1a1bacf87dc3704148a10cb1c321aa79890e9b223c3"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -11031,7 +11031,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11065,6 +11065,11 @@
                 "id": "apr-val-018_smt",
                 "name": "statement",
                 "prose": "`RESPONSE_CONTRADICTS_TYPE` — A response contradicts `expectedDataType`. — **MUST**"
+              },
+              {
+                "id": "apr-val-018_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11088,7 +11093,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11122,6 +11127,11 @@
                 "id": "apr-val-019_smt",
                 "name": "statement",
                 "prose": "`RESPONSE_PATTERN_MISMATCH` — A response does not match `validationPattern`. — **MUST**"
+              },
+              {
+                "id": "apr-val-019_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11145,7 +11155,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11179,6 +11189,11 @@
                 "id": "apr-val-020_smt",
                 "name": "statement",
                 "prose": "`RESPONSE_OUTSIDE_BOUNDS` — A response falls outside the bounds family ([Hints](#hints-object)). — **MUST**"
+              },
+              {
+                "id": "apr-val-020_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11202,7 +11217,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11236,6 +11251,11 @@
                 "id": "apr-val-021_smt",
                 "name": "statement",
                 "prose": "`RESPONSE_OUTSIDE_SUGGESTED_VALUES` — A response is not one of `suggestedValues`. — **MUST**"
+              },
+              {
+                "id": "apr-val-021_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11259,7 +11279,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11293,6 +11313,11 @@
                 "id": "apr-val-022_smt",
                 "name": "statement",
                 "prose": "`HINT_UNUSABLE` — A hint cannot be applied at all — a `validationPattern` that is not a valid regular expression, a bound that will not parse. — **MUST**"
+              },
+              {
+                "id": "apr-val-022_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11316,7 +11341,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11350,6 +11375,11 @@
                 "id": "apr-val-023_smt",
                 "name": "statement",
                 "prose": "`UNREGISTERED_DATA_TYPE` — `expectedDataType` names a type the registry does not carry ([Types are affordances](#data-types)). — **MUST**"
+              },
+              {
+                "id": "apr-val-023_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11373,7 +11403,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11407,6 +11437,11 @@
                 "id": "apr-val-024_smt",
                 "name": "statement",
                 "prose": "`UNDECLARED_ROLE` — A `role` names a role `roles` does not declare ([Roles](#roles)). — **MUST**"
+              },
+              {
+                "id": "apr-val-024_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11430,7 +11465,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11464,6 +11499,11 @@
                 "id": "apr-val-025_smt",
                 "name": "statement",
                 "prose": "`TABLE_RAGGED` — Instances of a table do not carry the same number of prompts ([Ragged tables](#table-ragged)). — **MUST**"
+              },
+              {
+                "id": "apr-val-025_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11487,7 +11527,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11521,6 +11561,11 @@
                 "id": "apr-val-026_smt",
                 "name": "statement",
                 "prose": "`TABLE_LABEL_MISMATCH` — A cell's label differs across instances of the same column. — **MUST**"
+              },
+              {
+                "id": "apr-val-026_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11544,7 +11589,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11578,6 +11623,11 @@
                 "id": "apr-val-027_smt",
                 "name": "statement",
                 "prose": "`TABLE_OVER_CAPACITY` — A table carries more instances than `maxRows`. — **MUST**"
+              },
+              {
+                "id": "apr-val-027_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11601,7 +11651,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11635,6 +11685,11 @@
                 "id": "apr-val-028_smt",
                 "name": "statement",
                 "prose": "`TABLE_MEMBERS_ON_A_PLAIN_SECTION` — `maxRows` or `canAddRows` on a section that is not a table ([Tables](#tables)). — **MUST**"
+              },
+              {
+                "id": "apr-val-028_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11658,7 +11713,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11692,6 +11747,11 @@
                 "id": "apr-val-029_smt",
                 "name": "statement",
                 "prose": "`UNPREFIXED_MEMBER` — An unrecognised member with no reverse-DNS prefix ([Unknown members](#extensions)). — **MUST**"
+              },
+              {
+                "id": "apr-val-029_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11715,7 +11775,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11749,6 +11809,11 @@
                 "id": "apr-val-030_smt",
                 "name": "statement",
                 "prose": "`SUBMISSION_URL_UNSUPPORTED` — A submission entry of a scheme this document does not define ([Submission targets](#submission)). — **MUST**"
+              },
+              {
+                "id": "apr-val-030_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11772,7 +11837,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11806,6 +11871,11 @@
                 "id": "apr-val-031_smt",
                 "name": "statement",
                 "prose": "`NON_NFC_TEXT` — Human-facing text is not in Normalization Form C ([Human-facing text](#human-text)). — **MUST**"
+              },
+              {
+                "id": "apr-val-031_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -11829,7 +11899,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -11863,6 +11933,11 @@
                 "id": "apr-val-032_smt",
                 "name": "statement",
                 "prose": "`FORBIDDEN_CODE_POINT` — Human-facing text carries a code point the floor excludes ([Human-facing text](#human-text)). — **MUST**"
+              },
+              {
+                "id": "apr-val-032_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           },
@@ -12010,7 +12085,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "gated"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -12044,6 +12119,197 @@
                 "id": "apr-val-035_smt",
                 "name": "statement",
                 "prose": "`CONFUSABLE_SCRIPT_MIX` — One member of human-facing text mixes letters of two or more of the Latin, Cyrillic and Greek scripts ([Human-facing text](#human-text)). — **MUST**"
+              },
+              {
+                "id": "apr-val-035_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+              }
+            ]
+          },
+          {
+            "id": "apr-val-036",
+            "title": "APR-VAL-036 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-036"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "MUST"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "validator"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-036_smt",
+                "name": "statement",
+                "prose": "`RESPONSE_FORBIDDEN_CODE_POINT` — A response carries a code point the floor excludes ([Human-facing text](#human-text)). — **MUST**"
+              },
+              {
+                "id": "apr-val-036_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+              }
+            ]
+          },
+          {
+            "id": "apr-val-037",
+            "title": "APR-VAL-037 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-037"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SHOULD"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "validator"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-037_smt",
+                "name": "statement",
+                "prose": "`SUBMISSION_URL_FORBIDDEN_CODE_POINT` — A `submissionUrls` entry carries a code point the floor excludes ([Human-facing text](#human-text)). — **SHOULD**"
+              },
+              {
+                "id": "apr-val-037_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
+              }
+            ]
+          },
+          {
+            "id": "apr-val-038",
+            "title": "APR-VAL-038 — 7.2 Warnings — advisory only",
+            "props": [
+              {
+                "name": "rule-id",
+                "value": "APR-VAL-038"
+              },
+              {
+                "name": "section",
+                "value": "warnings"
+              },
+              {
+                "name": "area",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "VAL"
+              },
+              {
+                "name": "gate-strength",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "partial"
+              },
+              {
+                "name": "profile",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "core"
+              },
+              {
+                "name": "level",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "SHOULD"
+              },
+              {
+                "name": "subject",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "validator"
+              },
+              {
+                "name": "requirement",
+                "ns": "https://skpt.cl/apr/oscal",
+                "value": "REQ-warning-code-spellings"
+              }
+            ],
+            "links": [
+              {
+                "href": "../APR_SPECIFICATION.md#warnings",
+                "rel": "reference"
+              }
+            ],
+            "parts": [
+              {
+                "id": "apr-val-038_smt",
+                "name": "statement",
+                "prose": "`ID_FORBIDDEN_CHARACTER` — An id carries a character outside `[A-Za-z0-9_.-]` ([Ids](#prompt-object)). — **SHOULD**"
+              },
+              {
+                "id": "apr-val-038_gap",
+                "name": "assessment-gap",
+                "prose": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
               }
             ]
           }
@@ -12163,7 +12429,7 @@
               {
                 "id": "apr-text-004_smt",
                 "name": "statement",
-                "prose": "A validator **MUST** report a warning for a response that contains a code point [Human-facing text](#human-text) excludes."
+                "prose": "A validator **MUST** report a warning, `RESPONSE_FORBIDDEN_CODE_POINT` ([Warnings](#warnings)), for a response that contains a code point [Human-facing text](#human-text) excludes."
               },
               {
                 "id": "apr-text-004_gap",
@@ -12344,7 +12610,7 @@
               {
                 "id": "apr-text-007_smt",
                 "name": "statement",
-                "prose": "A validator **SHOULD** report a warning for a `submissionUrls` entry that contains a code point [Human-facing text](#human-text) excludes."
+                "prose": "A validator **SHOULD** report a warning, `SUBMISSION_URL_FORBIDDEN_CODE_POINT` ([Warnings](#warnings)), for a `submissionUrls` entry that contains a code point [Human-facing text](#human-text) excludes."
               },
               {
                 "id": "apr-text-007_gap",
@@ -12463,7 +12729,7 @@
               {
                 "id": "apr-text-010_smt",
                 "name": "statement",
-                "prose": "A validator **SHOULD** report a warning for an id that contains a character outside `[A-Za-z0-9_.-]`."
+                "prose": "A validator **SHOULD** report a warning, `ID_FORBIDDEN_CHARACTER` ([Warnings](#warnings)), for an id that contains a character outside `[A-Za-z0-9_.-]`."
               },
               {
                 "id": "apr-text-010_gap",

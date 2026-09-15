@@ -341,7 +341,7 @@
       "id": "REQ-warning-code-spellings",
       "section": "warnings",
       "statement": "A reported advisory condition carries the code the warnings table names",
-      "strength": "gated",
+      "strength": "partial",
       "gates": [
         {
           "type": "fixture",
@@ -368,8 +368,12 @@
         "APR-VAL-030",
         "APR-VAL-031",
         "APR-VAL-032",
-        "APR-VAL-035"
-      ]
+        "APR-VAL-035",
+        "APR-VAL-036",
+        "APR-VAL-037",
+        "APR-VAL-038"
+      ],
+      "gap": "APR-VAL-036, 037 and 038 name the codes for the hidden-character conditions chapter 8 states, so that a suite case has a code to ask for. No reader emits them yet: Python, TypeScript and .NET report a fixed list of code points under their own spellings, and Java and the reference validator report nothing (#506, #507, #508). No case scores them until the readers are aligned to the floor, and none is written here because it would fail every driver."
     },
     {
       "id": "REQ-parse-error-code",
