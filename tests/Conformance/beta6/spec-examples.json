@@ -1103,7 +1103,7 @@
     },
     {
       "id": "filled-form-with-template-id",
-      "number": "5.2-3",
+      "number": "5.2-4",
       "rule": "metadata",
       "representation": "jsonc",
       "expect": "valid",
@@ -1121,7 +1121,7 @@
     },
     {
       "id": "filled-form-without-template-id",
-      "number": "5.2-4",
+      "number": "5.2-5",
       "rule": "metadata",
       "representation": "jsonc",
       "expect": "reject",
@@ -1278,8 +1278,25 @@
       ]
     },
     {
-      "id": "language-overrides",
+      "id": "language-does-not-relax-the-check",
       "number": "5.2-1",
+      "rule": "metadata",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Inta\\u200bke\",\n    \"language\": \"ar\"\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-085"
+      ],
+      "satisfies": [
+        "APR-MODEL-085"
+      ],
+      "warns": [
+        "FORBIDDEN_CODE_POINT"
+      ]
+    },
+    {
+      "id": "language-overrides",
+      "number": "5.2-2",
       "rule": "metadata",
       "representation": "jsonc",
       "expect": "valid",
@@ -1926,7 +1943,7 @@
     },
     {
       "id": "template-id-not-a-uri",
-      "number": "5.2-5",
+      "number": "5.2-6",
       "rule": "metadata",
       "representation": "jsonc",
       "expect": "reject",
@@ -1941,7 +1958,7 @@
     },
     {
       "id": "title-blank",
-      "number": "5.2-2",
+      "number": "5.2-3",
       "rule": "metadata",
       "representation": "jsonc",
       "expect": "reject",
