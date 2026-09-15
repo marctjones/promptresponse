@@ -2193,6 +2193,126 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "submission-entry-without-kind",
+      "number": "5.2.1-4",
+      "rule": "submission",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Dog licence\",\n    \"submissionUrls\": [ { \"url\": \"https://uploads.example.gov/licences/abc\" } ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-128"
+      ],
+      "violates": [
+        "APR-MODEL-128"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "submission-entry-without-url",
+      "number": "5.2.1-5",
+      "rule": "submission",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Dog licence\",\n    \"submissionUrls\": [ { \"kind\": \"put\" } ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-129"
+      ],
+      "violates": [
+        "APR-MODEL-129"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "submission-expires-not-string",
+      "number": "5.2.1-8",
+      "rule": "submission",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Dog licence\",\n    \"submissionUrls\": [\n      { \"kind\": \"put\", \"url\": \"https://uploads.example.gov/licences/abc\", \"expires\": 1788890400 }\n    ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-131"
+      ],
+      "violates": [
+        "APR-MODEL-131"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "submission-fields-not-object",
+      "number": "5.2.1-7",
+      "rule": "submission",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Dog licence\",\n    \"submissionUrls\": [\n      { \"kind\": \"post\", \"url\": \"https://uploads.example.gov/\", \"fields\": \"key=submissions/licence\" }\n    ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-130"
+      ],
+      "violates": [
+        "APR-MODEL-130"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
+      "id": "submission-object-entries",
+      "number": "5.2.1-3",
+      "rule": "submission",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Dog licence\",\n    \"submissionUrls\": [\n      {\n        \"kind\": \"post\",\n        \"url\": \"https://uploads.example.gov/\",\n        \"fields\": {\n          \"key\": \"submissions/licence\",\n          \"policy\": \"eyJjb25kaXRpb25zIjpbXX0=\",\n          \"x-amz-signature\": \"deadbeef\"\n        },\n        \"expires\": \"2026-09-08T18:00:00Z\",\n        \"refresh\": \"https://forms.example.gov/dog-licence/submission-target\",\n        \"gov.example.office\": \"licensing\"\n      },\n      { \"kind\": \"put\", \"url\": \"https://uploads.example.gov/licences/abc?X-Amz-Signature=deadbeef\" },\n      \"mailto:licences@example.gov\"\n    ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-128",
+        "APR-MODEL-129",
+        "APR-MODEL-130",
+        "APR-MODEL-131",
+        "APR-MODEL-132",
+        "APR-MODEL-133",
+        "APR-MODEL-135"
+      ],
+      "satisfies": [
+        "APR-MODEL-128",
+        "APR-MODEL-129",
+        "APR-MODEL-130",
+        "APR-MODEL-131",
+        "APR-MODEL-132",
+        "APR-MODEL-133",
+        "APR-MODEL-135"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/metadata/submissionUrls/0/fields"
+      ]
+    },
+    {
+      "id": "submission-post-without-fields",
+      "number": "5.2.1-6",
+      "rule": "submission",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Dog licence\",\n    \"submissionUrls\": [ { \"kind\": \"post\", \"url\": \"https://uploads.example.gov/\" } ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-135"
+      ],
+      "violates": [
+        "APR-MODEL-135"
+      ],
+      "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "submission-refresh-not-string",
+      "number": "5.2.1-9",
+      "rule": "submission",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Dog licence\",\n    \"submissionUrls\": [\n      {\n        \"kind\": \"put\",\n        \"url\": \"https://uploads.example.gov/licences/abc\",\n        \"refresh\": { \"url\": \"https://forms.example.gov/dog-licence/submission-target\" }\n      }\n    ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-132"
+      ],
+      "violates": [
+        "APR-MODEL-132"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
       "id": "submission-scheme-unsupported",
       "number": "7.2-2",
       "rule": "warnings",

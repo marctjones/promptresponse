@@ -9,12 +9,12 @@
     "normativeClauses": 329,
     "ruleIdentifiers": 356,
     "anchors": 95,
-    "executableExamples": 170
+    "executableExamples": 177
   },
   "artifacts": {
     "specification": {
       "path": "docs/APR_SPECIFICATION.md",
-      "sha256": "sha256:ef40c693a15b93e03ec6c304411ddb21fa4fe381eb3a3879b056bc01c3b13f26"
+      "sha256": "sha256:35c57529a6fff4df7ca0b0c2ae1d8463a3887cc55e4ddd6288088bc42fc640da"
     },
     "schema": {
       "path": "schemas/apr-1.0-beta.6.schema.json",
@@ -22,7 +22,7 @@
     },
     "schemaBase": {
       "path": "schemas/apr-1.0.schema.json",
-      "sha256": "sha256:d5f0a55dcae06b684f1ff9af82cfc671a2250b4e38f21c77d857049f0e6540f6"
+      "sha256": "sha256:8e3f1f5abc26cf3bbc6f484d26fb0d7c37077d76657e8e0e43f48f9b51b4efa3"
     },
     "typeRegistry": {
       "path": "schemas/apr-types-1.0.json",
@@ -30,7 +30,7 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:a513645c94608a1b2fc14ff528c80ce370862941ec6803580c3cb192884d5f25"
+      "sha256": "sha256:a03c66721f593c51c6758815f88d3121d01b0f6e5d015e89718644456976d55f"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
@@ -42,11 +42,11 @@
     },
     "derivedExamples": {
       "path": "tests/Conformance/beta6/spec-examples.json",
-      "sha256": "sha256:33d59f8c6d60dea6553d60943c4b4d35ee8a56556492bbaadec942d4b11348e4"
+      "sha256": "sha256:0c9648945531bc22eee203d66258f49d150f9cbdbb1ff199ef2cebf04122b36d"
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:edfb2e5878768bfb9967c22d945229fce322606b8369c0ac339684111d4fafab"
+      "sha256": "sha256:5cdb55ab74836a21a21120dc78d7b07bbab43ac21f1a77e062af470ea0cec8d4"
     },
     "conformanceStatement": {
       "path": "docs/release/APR_CONFORMANCE_STATEMENT.md",
@@ -56,6 +56,6 @@
   "corpus": {
     "path": "tests/Conformance/beta6",
     "files": 161,
-    "sha256": "sha256:48ce08ab5486d4a197c6a8cb8ef73e6b594133da88764921de4400ee90f1bae2"
+    "sha256": "sha256:3cf0d737256b3a299e183bcccd7d9173d63d3896be54e17b9bcff5af8b37b506"
   }
 }

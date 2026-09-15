@@ -1094,6 +1094,19 @@
       "java/src/test/java/org/promptresponse/AprConformanceTest.java"
     ]
   },
+  "APR-MODEL-134": {
+    "reason": "A rule on how a reader reads a string entry, which no document can show: the shorthand and the object it stands for are different documents. The SDK tests read a string entry and find a put target to that url.",
+    "coveredBy": [
+      "tests/PromptResponse.Core.Tests/Beta6/SubmissionTargetTests.cs"
+    ]
+  },
+  "APR-MODEL-139": {
+    "reason": "A rule on what an implementation acts on, which no document can show. The command-line and desktop tests offer a post entry and an entry of an unknown kind, and neither is acted on.",
+    "coveredBy": [
+      "tests/PromptResponse.Cli.Tests/Commands/SubmitCommandTests.cs",
+      "tests/PromptResponse.Desktop.Tests/ViewModels/MainShellViewModelTests.Behaviors.cs"
+    ]
+  },
   "APR-RENDER-001": {
     "reason": "The accessible name is a property of the rendered interface, not of the document.",
     "coveredBy": [

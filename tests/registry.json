@@ -1322,9 +1322,29 @@
         {
           "type": "suite",
           "ref": "core.conformance"
+        },
+        {
+          "type": "test",
+          "ref": "AStringEntry_ReadsAsAPutTargetWithThatUrl"
+        },
+        {
+          "type": "test",
+          "ref": "EveryEntry_IsWrittenBackInTheSpellingItArrivedIn"
+        },
+        {
+          "type": "test",
+          "ref": "AnObjectSubmissionEntry_IsAdvisedAtItsUrl"
+        },
+        {
+          "type": "test",
+          "ref": "APostTarget_IsNotSubmittedTo"
+        },
+        {
+          "type": "test",
+          "ref": "OnlyPutEntries_AreOfferedForSubmission"
         }
       ],
-      "gap": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523).",
+      "gap": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523).",
       "rules": [
         "APR-MODEL-033",
         "APR-MODEL-034",
@@ -1351,17 +1371,9 @@
         "APR-MODEL-140"
       ],
       "gapRules": [
-        "APR-MODEL-128",
-        "APR-MODEL-129",
-        "APR-MODEL-130",
-        "APR-MODEL-131",
-        "APR-MODEL-132",
-        "APR-MODEL-134",
-        "APR-MODEL-135",
         "APR-MODEL-136",
         "APR-MODEL-137",
         "APR-MODEL-138",
-        "APR-MODEL-139",
         "APR-MODEL-140"
       ]
     },

@@ -2000,6 +2000,187 @@ carries these members.
 
 A `post` entry **MUST** carry `fields`. [APR-MODEL-135]
 
+**Example 5.2.1-3.** A `post` entry carrying its policy, a `put` entry, and the
+string shorthand, side by side.
+
+```apr-example
+id: submission-object-entries
+rule: submission
+satisfies: APR-MODEL-128, APR-MODEL-129, APR-MODEL-130, APR-MODEL-131, APR-MODEL-132, APR-MODEL-133, APR-MODEL-135
+representation: jsonc
+expect: valid
+round-trip: true
+preserves: /metadata/submissionUrls/0/fields
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "Dog licence",
+    "submissionUrls": [
+      {
+        "kind": "post",
+        "url": "https://uploads.example.gov/",
+        "fields": {
+          "key": "submissions/licence",
+          "policy": "eyJjb25kaXRpb25zIjpbXX0=",
+          "x-amz-signature": "deadbeef"
+        },
+        "expires": "2026-09-08T18:00:00Z",
+        "refresh": "https://forms.example.gov/dog-licence/submission-target",
+        "gov.example.office": "licensing"
+      },
+      { "kind": "put", "url": "https://uploads.example.gov/licences/abc?X-Amz-Signature=deadbeef" },
+      "mailto:licences@example.gov"
+    ]
+  },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 5.2.1-4.** An object entry without a `kind`.
+
+```apr-example
+id: submission-entry-without-kind
+rule: submission
+violates: APR-MODEL-128
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "Dog licence",
+    "submissionUrls": [ { "url": "https://uploads.example.gov/licences/abc" } ]
+  },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 5.2.1-5.** An object entry without a `url`.
+
+```apr-example
+id: submission-entry-without-url
+rule: submission
+violates: APR-MODEL-129
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "Dog licence",
+    "submissionUrls": [ { "kind": "put" } ]
+  },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 5.2.1-6.** A `post` entry without the `fields` it is sent with.
+
+```apr-example
+id: submission-post-without-fields
+rule: submission
+violates: APR-MODEL-135
+representation: jsonc
+expect: reject
+diagnostic: REQUIRED_FIELD
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "Dog licence",
+    "submissionUrls": [ { "kind": "post", "url": "https://uploads.example.gov/" } ]
+  },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 5.2.1-7.** `fields` that is not an object.
+
+```apr-example
+id: submission-fields-not-object
+rule: submission
+violates: APR-MODEL-130
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "Dog licence",
+    "submissionUrls": [
+      { "kind": "post", "url": "https://uploads.example.gov/", "fields": "key=submissions/licence" }
+    ]
+  },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 5.2.1-8.** `expires` that is not a string.
+
+```apr-example
+id: submission-expires-not-string
+rule: submission
+violates: APR-MODEL-131
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "Dog licence",
+    "submissionUrls": [
+      { "kind": "put", "url": "https://uploads.example.gov/licences/abc", "expires": 1788890400 }
+    ]
+  },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
+**Example 5.2.1-9.** `refresh` that is not a string.
+
+```apr-example
+id: submission-refresh-not-string
+rule: submission
+violates: APR-MODEL-132
+representation: jsonc
+expect: reject
+diagnostic: WRONG_TYPE
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": {
+    "title": "Dog licence",
+    "submissionUrls": [
+      {
+        "kind": "put",
+        "url": "https://uploads.example.gov/licences/abc",
+        "refresh": { "url": "https://forms.example.gov/dog-licence/submission-target" }
+      }
+    ]
+  },
+  "sections": [
+    { "id": "s", "title": "S", "prompts": [ { "id": "p", "label": "P" } ] }
+  ]
+}
+```
+
 An implementation **MUST NOT** act on an entry whose `kind` it does not
 recognise or does not implement. [APR-MODEL-139]
 

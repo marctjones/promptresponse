@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "b5f4ca5f-f169-56d3-99ab-8d0658896ef1",
+    "uuid": "765f7314-22ec-507c-a53f-0d55d2ee832e",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "ef40c693a15b93e03ec6c304411ddb21fa4fe381eb3a3879b056bc01c3b13f26"
+          "value": "35c57529a6fff4df7ca0b0c2ae1d8463a3887cc55e4ddd6288088bc42fc640da"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -4219,7 +4219,7 @@
               {
                 "id": "apr-model-033_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -4281,7 +4281,7 @@
               {
                 "id": "apr-model-034_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -4343,7 +4343,7 @@
               {
                 "id": "apr-model-035_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -5977,7 +5977,7 @@
               {
                 "id": "apr-model-064_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -7291,7 +7291,7 @@
               {
                 "id": "apr-model-086_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -7353,7 +7353,7 @@
               {
                 "id": "apr-model-087_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -7415,7 +7415,7 @@
               {
                 "id": "apr-model-088_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -7477,7 +7477,7 @@
               {
                 "id": "apr-model-089_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -7539,7 +7539,7 @@
               {
                 "id": "apr-model-090_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -7601,7 +7601,7 @@
               {
                 "id": "apr-model-091_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -9733,7 +9733,7 @@
               {
                 "id": "apr-model-128_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -9795,7 +9795,7 @@
               {
                 "id": "apr-model-129_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -9857,7 +9857,7 @@
               {
                 "id": "apr-model-130_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -9919,7 +9919,7 @@
               {
                 "id": "apr-model-131_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -9981,7 +9981,7 @@
               {
                 "id": "apr-model-132_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -10043,7 +10043,7 @@
               {
                 "id": "apr-model-133_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -10105,7 +10105,7 @@
               {
                 "id": "apr-model-134_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -10167,7 +10167,7 @@
               {
                 "id": "apr-model-135_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -10229,7 +10229,7 @@
               {
                 "id": "apr-model-136_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -10291,7 +10291,7 @@
               {
                 "id": "apr-model-137_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -10353,7 +10353,7 @@
               {
                 "id": "apr-model-138_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -10415,7 +10415,7 @@
               {
                 "id": "apr-model-139_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           },
@@ -10477,7 +10477,7 @@
               {
                 "id": "apr-model-140_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
+                "prose": "APR-MODEL-128 to 135 describe an entry's shape, and the examples in 5.2.1 show each of them: every reader accepts a string or an object entry, reads a string as a put to that url (APR-MODEL-134, tested in each SDK), and writes each entry back in the spelling it arrived in. APR-MODEL-139 binds whatever acts on an entry: the command-line client and the desktop client act only on put entries, and their tests offer a post entry and an entry of an unknown kind and find neither acted on. APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes, the multipart POST shape, the refresh fetch, the object name and the mailto attachment, which no document can exhibit. No client here sends a POST or fetches refresh yet, and no test exercises the object name or the mailto attachment (#418, #523)."
               }
             ]
           }
