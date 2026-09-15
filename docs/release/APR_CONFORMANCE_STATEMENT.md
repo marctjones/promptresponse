@@ -16,7 +16,7 @@ class of product.
 
 ## `core`
 
-247 rules.
+248 rules.
 
 ### Implementation
 
@@ -45,6 +45,7 @@ class of product.
 | [APR-MODEL-136](../APR_SPECIFICATION.md#submission) | MUST | Send the document to a `post` entry as one `multipart/form-data` POST, every member of `fields` as a form field ahead of the document, the document last and carrying that same media type — **MUST** | |
 | [APR-MODEL-137](../APR_SPECIFICATION.md#submission) | MUST NOT | An implementation **MUST NOT** fetch `refresh` without an explicit user action. | |
 | [APR-MODEL-139](../APR_SPECIFICATION.md#submission) | MUST NOT | An implementation **MUST NOT** act on an entry whose `kind` it does not recognise or does not implement. | |
+| [APR-MODEL-140](../APR_SPECIFICATION.md#submission) | MUST | An implementation submitting to a `mailto` entry **MUST** compose a message to that address carrying the stream as a single attachment, and **MUST NOT** inline it in the message body. | |
 | [APR-REP-001](../APR_SPECIFICATION.md#model-layers) | MUST | An implementation that reads a document and writes it back **MUST** preserve every part of its semantic model, including members APR does not define. | |
 | [APR-SEC-009](../APR_SPECIFICATION.md#security) | MUST NOT | An implementation **MUST NOT** execute anything a document carries. | |
 | [APR-SEC-016](../APR_SPECIFICATION.md#security) | MUST NOT | An implementation **MUST NOT** contact a `submissionUrls` entry without an explicit user action. | |

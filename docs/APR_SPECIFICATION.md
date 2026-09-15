@@ -1873,10 +1873,13 @@ never fetches a `templateId` ([Metadata](#metadata)), and `refresh` never names
 the document.
 
 **`mailto`.** The entry is an RFC 6068 address, with any header fields it
-carries, such as `subject`, passed through. Submitting composes a message to
-that address with the **stream** as a single attachment, never inlined in the
-body; a lone form is a one-record stream. The message leaves only on an explicit
-user action.
+carries, such as `subject`, passed through. A lone form is a one-record stream,
+and the message leaves only on an explicit user action
+([Security considerations](#security)).
+
+An implementation submitting to a `mailto` entry **MUST** compose a message to
+that address carrying the stream as a single attachment, and **MUST NOT** inline
+it in the message body. [APR-MODEL-140]
 
 An implementation submitting to a `mailto` entry **SHOULD** hand the
 composition to the user's mail program. [APR-MODEL-034]

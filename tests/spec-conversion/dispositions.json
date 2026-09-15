@@ -3903,9 +3903,10 @@
       "status": "applied",
       "issue": 477,
       "replacedBy": [
-        "submission/sentence/623f77d1ee",
-        "submission/sentence/8f054fbe0c"
-      ]
+        "submission/sentence/9e1974e22c",
+        "submission/sentence/02f2f7be66"
+      ],
+      "note": "APR-MODEL-140 gives the attachment shape a keyword and a rule; it was prose."
     },
     "submission/sentence/56feb9e5fb": {
       "anchor": "submission",
