@@ -9,6 +9,7 @@ public final class AprConformanceTest {
         beta6();
         forbiddenCodePoints();
         versionPresence();
+        writerFloors();
         jcsNumbers();
         beta6Corpus();
         specificationExamples();
@@ -28,6 +29,35 @@ public final class AprConformanceTest {
         expectParseError("{\"aprVersion\":\"1.0-beta.6\",\"x.a\\u0001b\":1,\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}", "a member name");
         AprDocument kept = AprBeta6.readForm(prefix + "\\t\\r\\n \\ud83d\\ude00" + suffix, AprBeta6.Representation.JSONC);
         if (!("a\t\r\n 😀b").equals(kept.metadata().get("title"))) throw new AssertionError("tab, line breaks and a surrogate pair must be read: " + kept.metadata().get("title"));
+    }
+
+    /** APR-REP-018, APR-MODEL-127 and APR-DIGEST-010: what a writer and a manifest producer emit. */
+    private static void writerFloors() {
+        String form = "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"Ada\"}]}]}";
+        AprDocument document = AprBeta6.readForm(form, AprBeta6.Representation.JSONC);
+        for (AprBeta6.Representation representation : AprBeta6.Representation.values()) {
+            String written = AprBeta6.writeForm(document, representation);
+            if (written.isEmpty() || written.charAt(0) == 0xFEFF) throw new AssertionError("a writer must not write a byte-order mark: " + representation);
+        }
+
+        String response = String.valueOf((char) 0xE9).repeat(1024 * 512);
+        if (response.getBytes(java.nio.charset.StandardCharsets.UTF_8).length != 1024 * 1024) throw new AssertionError("the response under test must be exactly 1 MiB of UTF-8");
+        AprDocument large = AprBeta6.readForm(form.replace("\"response\":\"Ada\"", "\"response\":\"" + response + "\""), AprBeta6.Representation.JSONC);
+        AprDocument again = AprBeta6.readForm(AprBeta6.writeForm(large, AprBeta6.Representation.JSONC), AprBeta6.Representation.JSONC);
+        Object kept = ((java.util.Map<?,?>)((java.util.List<?>)((java.util.Map<?,?>)again.sections().getFirst()).get("prompts")).getFirst()).get("response");
+        if (!response.equals(kept)) throw new AssertionError("a 1 MiB response must survive a round trip unchanged");
+
+        Object value = Json.parse("{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\",\"org.example.note\":[\"a\",{\"b\":1}]},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\",\"response\":\"Ada\"}]}]}");
+        java.util.List<String> expected = java.util.List.of("", "/aprVersion", "/metadata", "/metadata/org.example.note", "/metadata/org.example.note/0",
+            "/metadata/org.example.note/1", "/metadata/org.example.note/1/b", "/metadata/title", "/sections", "/sections/0", "/sections/0/id",
+            "/sections/0/prompts", "/sections/0/prompts/0", "/sections/0/prompts/0/id", "/sections/0/prompts/0/label",
+            "/sections/0/prompts/0/response", "/sections/0/title");
+        java.util.List<String> paths = new java.util.ArrayList<>();
+        for (var entry : AprBeta6Integrity.createManifest(value).entries()) paths.add(entry.path());
+        java.util.Collections.sort(paths);
+        java.util.List<String> sortedExpected = new java.util.ArrayList<>(expected);
+        java.util.Collections.sort(sortedExpected);
+        if (!paths.equals(sortedExpected)) throw new AssertionError("a manifest must carry an entry for every value at every depth: " + paths);
     }
 
     /** An absent or blank aprVersion states no version: REQUIRED_FIELD, never UNSUPPORTED_VERSION. */

@@ -85,6 +85,44 @@ def test_beta6_an_absent_or_blank_version_is_a_missing_member(stated, code):
     assert refused.value.code == code
 
 
+@pytest.mark.parametrize("representation", ["jsonc", "yaml"])
+def test_beta6_a_writer_writes_no_byte_order_mark(representation):
+    # APR-REP-018.
+    written = pr.write_beta6_form(pr.read_beta6_form(FORM, "jsonc"), representation)
+    assert written and written[0] != "﻿"
+
+
+def test_beta6_a_mebibyte_response_survives_a_round_trip():
+    # APR-MODEL-127: a response of at least 1 MiB of UTF-8.
+    response = "é" * (1024 * 512)
+    assert len(response.encode("utf-8")) == 1024 * 1024
+    source = FORM.replace('"response":"Ada"', f'"response":"{response}"')
+    assert source != FORM
+    document = pr.read_beta6_form(source, "jsonc")
+    again = pr.read_beta6_form(pr.write_beta6_form(document, "jsonc"), "jsonc")
+    assert again.sections[0].prompts[0].response == response
+
+
+MANIFEST_VALUE = {
+    "aprVersion": "1.0-beta.6",
+    "metadata": {"title": "T", "org.example.note": ["a", {"b": 1}]},
+    "sections": [{"id": "s", "title": "S", "prompts": [{"id": "p", "label": "P", "response": "Ada"}]}],
+}
+MANIFEST_PATHS = [
+    "", "/aprVersion", "/metadata", "/metadata/org.example.note", "/metadata/org.example.note/0",
+    "/metadata/org.example.note/1", "/metadata/org.example.note/1/b", "/metadata/title", "/sections",
+    "/sections/0", "/sections/0/id", "/sections/0/prompts", "/sections/0/prompts/0",
+    "/sections/0/prompts/0/id", "/sections/0/prompts/0/label", "/sections/0/prompts/0/response",
+    "/sections/0/title",
+]
+
+
+def test_beta6_a_manifest_carries_an_entry_for_every_value():
+    # APR-DIGEST-010: one entry per value at every depth, unknown members included.
+    paths = [entry["path"] for entry in pr.create_manifest(MANIFEST_VALUE)["entries"]]
+    assert sorted(paths) == sorted(MANIFEST_PATHS)
+
+
 def test_beta6_shared_malformed_corpus_is_rejected():
     for path in (CORPUS.parent / "malformed").iterdir():
         with pytest.raises(pr.AprParseError):

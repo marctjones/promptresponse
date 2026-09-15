@@ -23,6 +23,32 @@ public class AprBeta6WriterGuardTests
     private static Dictionary<string, JsonElement> Member(string name) =>
         new() { [name] = JsonDocument.Parse("\"v\"").RootElement.Clone() };
 
+    [Theory]
+    [InlineData(AprRepresentation.Jsonc)]
+    [InlineData(AprRepresentation.Yaml)]
+    public void AWriter_WritesNoByteOrderMark(AprRepresentation representation)
+    {
+        // APR-REP-018.
+        var written = _reader.WriteForm(Form(), representation);
+
+        written.Should().NotBeEmpty();
+        written[0].Should().NotBe('﻿');
+    }
+
+    [Fact]
+    public void AMebibyteResponse_SurvivesARoundTrip()
+    {
+        // APR-MODEL-127: a response of at least 1 MiB of UTF-8.
+        var response = new string('é', 1024 * 512);
+        System.Text.Encoding.UTF8.GetByteCount(response).Should().Be(1024 * 1024);
+        var form = Form();
+        form.Sections![0].Prompts![0].Response = response;
+
+        var again = _reader.ReadForm(_reader.WriteForm(form, AprRepresentation.Jsonc), AprRepresentation.Jsonc);
+
+        again.Sections![0].Prompts![0].Response.Should().Be(response);
+    }
+
     [Fact]
     public void AnUnprefixedExtensionMember_IsRefusedOnWrite()
     {

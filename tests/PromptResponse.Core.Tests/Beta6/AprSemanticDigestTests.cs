@@ -91,4 +91,25 @@ public class AprSemanticDigestTests
         manifest.Entries.Should().Contain(entry => entry.Path == "");
         manifest.Entries.Should().Contain(entry => entry.Path == "/sections/0/prompts/0/response" && entry.Digest != "Ada");
     }
+
+    [Fact]
+    public void Manifest_CarriesAnEntryForEveryValue_UnknownMembersIncluded()
+    {
+        // APR-DIGEST-010: one entry per value at every depth, not the root and the leaves alone.
+        using var form = JsonDocument.Parse("""
+            {"aprVersion":"1.0-beta.6","metadata":{"title":"T","org.example.note":["a",{"b":1}]},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P","response":"Ada"}]}]}
+            """);
+
+        var paths = AprSemanticDigest.CreateManifest(form.RootElement).Entries.Select(entry => entry.Path).ToList();
+
+        paths.Should().OnlyHaveUniqueItems();
+        paths.Should().BeEquivalentTo(new[]
+        {
+            "", "/aprVersion", "/metadata", "/metadata/org.example.note", "/metadata/org.example.note/0",
+            "/metadata/org.example.note/1", "/metadata/org.example.note/1/b", "/metadata/title", "/sections",
+            "/sections/0", "/sections/0/id", "/sections/0/prompts", "/sections/0/prompts/0",
+            "/sections/0/prompts/0/id", "/sections/0/prompts/0/label", "/sections/0/prompts/0/response",
+            "/sections/0/title",
+        });
+    }
 }

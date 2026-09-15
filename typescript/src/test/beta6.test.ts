@@ -130,6 +130,37 @@ test("beta.6 an absent or blank aprVersion is a missing member, not an unsupport
   }
 });
 
+test("beta.6 a writer writes no byte-order mark (APR-REP-018)", () => {
+  const document = readBeta6Form(form, "jsonc");
+  for (const representation of ["jsonc", "yaml"] as const) {
+    const written = writeBeta6Form(document, representation);
+    assert.ok(written.length > 0 && written.charCodeAt(0) !== 0xfeff, representation);
+  }
+});
+
+test("beta.6 a mebibyte response survives a round trip (APR-MODEL-127)", () => {
+  const response = "é".repeat(1024 * 512);
+  assert.equal(Buffer.byteLength(response, "utf8"), 1024 * 1024);
+  const source = form.replace('"response":"Ada"', `"response":"${response}"`);
+  assert.notEqual(source, form);
+  const again = readBeta6Form(writeBeta6Form(readBeta6Form(source, "jsonc"), "jsonc"), "jsonc");
+  assert.equal(again.sections[0].prompts[0].response, response);
+});
+
+test("beta.6 a manifest carries an entry for every value (APR-DIGEST-010)", () => {
+  const value = {
+    aprVersion: "1.0-beta.6",
+    metadata: { title: "T", "org.example.note": ["a", { b: 1 }] },
+    sections: [{ id: "s", title: "S", prompts: [{ id: "p", label: "P", response: "Ada" }] }],
+  };
+  const expected = ["", "/aprVersion", "/metadata", "/metadata/org.example.note", "/metadata/org.example.note/0",
+    "/metadata/org.example.note/1", "/metadata/org.example.note/1/b", "/metadata/title", "/sections",
+    "/sections/0", "/sections/0/id", "/sections/0/prompts", "/sections/0/prompts/0",
+    "/sections/0/prompts/0/id", "/sections/0/prompts/0/label", "/sections/0/prompts/0/response", "/sections/0/title"];
+  const paths = createBeta6Manifest(value).entries.map(entry => entry.path);
+  assert.deepEqual([...paths].sort(), [...expected].sort());
+});
+
 test("beta.6 shared malformed corpus is rejected", async () => {
   for (const name of ["missing-record-separator.apr.jsonc", "duplicate-member.apr.jsonc", "yaml-anchor.apr.yaml"]) {
     const source = await readFile(new URL(`../../../tests/Conformance/beta6/malformed/${name}`, import.meta.url), "utf8");
