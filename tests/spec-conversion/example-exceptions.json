@@ -1108,12 +1108,6 @@
       "scripts/validate-apr.py"
     ]
   },
-  "APR-TEXT-006": {
-    "reason": "A rule on what an implementation does to a value it holds; no document can make a writer normalize. The round-trip example is the observable half.",
-    "coveredBy": [
-      "spec:authoring-not-normalized"
-    ]
-  },
   "APR-TEXT-008": {
     "reason": "A rule on producing an attestation, which the document suite never asks an implementation to do.",
     "coveredBy": [

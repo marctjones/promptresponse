@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "uuid": "5bdf966d-6d43-50e5-9e45-a95649acf77a",
+    "uuid": "9c218d56-1d25-5be0-87f2-4208cf0484e2",
     "metadata": {
       "title": "APR File Format Specification — rule catalog",
       "last-modified": "2026-09-01T00:00:00Z",
@@ -15,7 +15,7 @@
         {
           "name": "specification-sha256",
           "ns": "https://skpt.cl/apr/oscal",
-          "value": "4cddf008d499d16ca5f6c81a05bcc18414cf858d19164846e9a98e6bf0292102"
+          "value": "93910d349b801b14002875f1a97d643b611524d02eef5ccf6204e8c61410f890"
         }
       ],
       "remarks": "Derived from docs/APR_SPECIFICATION.md by scripts/build-oscal.py. The specification is normative; where this catalog disagrees with it, the catalog has the defect."
@@ -13331,7 +13331,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -13365,11 +13365,6 @@
                 "id": "apr-text-006_smt",
                 "name": "statement",
                 "prose": "An implementation **MUST NOT** Unicode-normalize authoring data or remove a code point from it."
-              },
-              {
-                "id": "apr-text-006_gap",
-                "name": "assessment-gap",
-                "prose": "No case checks it, and the Python and TypeScript SDKs break it: they normalize and strip hint and role text when they read it (#412)."
               }
             ]
           },
