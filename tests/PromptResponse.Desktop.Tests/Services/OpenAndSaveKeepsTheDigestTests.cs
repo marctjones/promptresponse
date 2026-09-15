@@ -70,10 +70,10 @@ public class OpenAndSaveKeepsTheDigestTests
     private static string RepositoryRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !Directory.Exists(Path.Combine(directory.FullName, ".git")))
+        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "PromptResponse.sln")))
             directory = directory.Parent;
         return directory?.FullName
-            ?? throw new InvalidOperationException("no repository root above the test binary");
+            ?? throw new InvalidOperationException("no PromptResponse.sln above the test binary");
     }
 
     [Theory]
