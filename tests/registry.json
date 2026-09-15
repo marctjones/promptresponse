@@ -1329,7 +1329,17 @@
         "APR-SEC-019",
         "APR-SEC-020"
       ],
-      "gap": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-017 has no case: no renderer case carries a proof whose certificate names an endpoint. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-018 is a recommendation whose bounds are implementation-defined."
+      "gap": "APR-SEC-009, 010 and 016 are scored by renderer cases, which only the renderer drivers answer. APR-SEC-011, 019 and 020 are tested in .NET, where a document nested past the reader's ceiling is refused with a parse error rather than a crash; no document vector nests past a bound, and none could fix what a conforming bound is. APR-SEC-017 has no case — no renderer case carries a proof whose certificate names an endpoint — and the by-construction gate on this entry does not substitute for one. CoreCannotReachTheNetwork_ByConstruction requires no type or referenced assembly in PromptResponse.Core to start with System.Net, which is sound for the reader and the renderer and blind to exactly this rule: certificate chain building runs through X509Chain, in System.Security.Cryptography.X509Certificates, so a fetch it performs leaves no System.Net trace to find. Reading AprAttestationTrustEvaluator, revocation is opt-in — CheckRevocation defaults to false, so the mode is NoCheck — but ChainPolicy.DisableCertificateDownloads is never set and defaults to permitting AIA intermediate downloads, which RevocationMode does not govern (#535). Closing APR-SEC-017 takes a test that would fail if a network path reopened; the type scan cannot be that test. APR-SEC-018 recommends bounding document size and stream length, and the gap previously said only that the bounds are implementation-defined. The sharper fact is that no reader bounds either one: no document-size limit, record count or stream-length limit appears in the .NET, Python or TypeScript readers or in scripts/aprlib.py. Nesting depth is bounded and tested, but that is APR-SEC-011 and a different bound. The only document-size ceiling anywhere in the stack is snakeyaml's default code-point limit, which reaches APR-YAML in Java alone and which this project does not set. Exact bounds are implementation-defined, so no vector can assert a particular limit, but a test could assert that some bound exists and that crossing it refuses cleanly, which is the shape APR-SEC-019 already has for nesting.",
+      "gapRules": [
+        "APR-SEC-009",
+        "APR-SEC-010",
+        "APR-SEC-011",
+        "APR-SEC-016",
+        "APR-SEC-017",
+        "APR-SEC-018",
+        "APR-SEC-019",
+        "APR-SEC-020"
+      ]
     },
     {
       "id": "REQ-ordering",
