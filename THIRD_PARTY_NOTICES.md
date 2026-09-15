@@ -11,8 +11,9 @@ be introduced into this repository or its released artifacts. Accepted license
 families are Apache-2.0, MIT, BSD-2-Clause, BSD-3-Clause, ISC, 0BSD, and
 public-domain dedications. The Bitstream Vera license is also permitted solely
 for the existing DejaVu font asset because it is a permissive font license and
-its notice is retained. A component under any other license requires an
-explicit policy change before it can be added.
+its notice is retained. Weak-copyleft licenses, including MPL-2.0 and EPL-2.0,
+are not accepted. A component under any other license requires an explicit
+policy change before it can be added.
 
 This is a maintainer policy, not legal advice. Before updating a dependency,
 the contributor must inspect its declared license and the licenses of shipped
