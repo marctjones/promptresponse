@@ -39,10 +39,21 @@ export interface Section {
   prompts: Prompt[]; sections: Section[]; extra: JsonObject;
 }
 export interface RoleDefinition { id: string; name?: string; description?: string; extra: JsonObject; }
+/** One submissionUrls entry: where a filled form is sent, and how. */
+export interface SubmissionTarget {
+  kind: string; url: string; fields?: JsonObject; expires?: string; refresh?: string; extra: JsonObject;
+  /**
+   * Whether the source spelled this entry as a bare URL, the shorthand for a `put`.
+   *
+   * Not a member, and never written directly: a writer writes the entry back as
+   * that string while it still says only what the string said.
+   */
+  shorthand?: boolean;
+}
 export interface Metadata {
   title: string; description?: string; author?: string; created?: string; modified?: string;
   templateId?: string; templateVersion?: string; language?: string;
-  publisher?: string; submissionUrls?: string[]; extra: JsonObject;
+  publisher?: string; submissionUrls?: SubmissionTarget[]; extra: JsonObject;
 }
 export interface AprDocument {
   version: string; documentType?: string; metadata: Metadata; sections: Section[];

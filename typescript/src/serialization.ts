@@ -1,5 +1,5 @@
 import { AprParseError } from "./errors.js";
-import { AprDocument, JsonObject, JsonValue, Metadata, Prompt, PromptHints, RoleDefinition, Section } from "./model.js";
+import { AprDocument, JsonObject, JsonValue, Metadata, Prompt, PromptHints, RoleDefinition, Section, SubmissionTarget } from "./model.js";
 import { normalize } from "./text.js";
 
 export const CURRENT_VERSION = "1.0-beta.6";
@@ -79,9 +79,22 @@ function parseSection(value: JsonValue): Section {
   if (!Array.isArray(prompts) || !Array.isArray(sections)) throw new AprParseError("section.prompts and section.sections must be arrays", "WRONG_TYPE");
   return { id: string(node, "id", "section") ?? "", title: string(node, "title", "section") ?? "", description: string(node, "description", "section"), kind: string(node, "kind", "section"), canAddRows: boolean(node, "canAddRows", "section"), maxRows: integer(node, "maxRows", "section"), role: string(node, "role", "section"), language: string(node, "language", "section"), prompts: prompts.map(parsePrompt), sections: sections.map(parseSection), extra: rest(node, known) };
 }
+// A string entry is the shorthand for a `put` to that URL (APR-MODEL-134); an object
+// states its kind. A missing kind or url is a validation error, not a parse failure.
+function parseSubmission(value: JsonValue, index: number): SubmissionTarget {
+  const what = `metadata.submissionUrls[${index}]`;
+  if (typeof value === "string") return { kind: "put", url: value, extra: {}, shorthand: true };
+  if (value === null || typeof value !== "object" || Array.isArray(value)) throw new AprParseError(`${what} is ${spell(value)} where the format declares a string or an object; APR values are never coerced.`, "WRONG_TYPE");
+  const known = new Set(["kind", "url", "fields", "expires", "refresh"]);
+  const fields = value.fields ?? undefined;
+  if (fields !== undefined && (typeof fields !== "object" || Array.isArray(fields))) throw wrongType(what, "fields", "an object", fields);
+  return { kind: string(value, "kind", what) ?? "", url: string(value, "url", what) ?? "", fields: fields as JsonObject | undefined, expires: string(value, "expires", what), refresh: string(value, "refresh", what), extra: rest(value, known) };
+}
 function parseMetadata(value: JsonValue): Metadata {
   const node = object(value, "metadata"); const known = new Set(["title", "description", "author", "created", "modified", "templateId", "templateVersion", "language", "publisher", "submissionUrls"]);
-  return { title: string(node, "title", "metadata") ?? "", description: string(node, "description", "metadata"), author: string(node, "author", "metadata"), created: string(node, "created", "metadata"), modified: string(node, "modified", "metadata"), templateId: string(node, "templateId", "metadata"), templateVersion: string(node, "templateVersion", "metadata"), language: string(node, "language", "metadata"), publisher: string(node, "publisher", "metadata"), submissionUrls: strings(node.submissionUrls, "metadata.submissionUrls"), extra: rest(node, known) };
+  const submissionUrls = node.submissionUrls ?? [];
+  if (!Array.isArray(submissionUrls)) throw wrongType("metadata", "submissionUrls", "an array", submissionUrls);
+  return { title: string(node, "title", "metadata") ?? "", description: string(node, "description", "metadata"), author: string(node, "author", "metadata"), created: string(node, "created", "metadata"), modified: string(node, "modified", "metadata"), templateId: string(node, "templateId", "metadata"), templateVersion: string(node, "templateVersion", "metadata"), language: string(node, "language", "metadata"), publisher: string(node, "publisher", "metadata"), submissionUrls: submissionUrls.map(parseSubmission), extra: rest(node, known) };
 }
 function parseRole(value: JsonValue): RoleDefinition {
   const node = object(value, "role"); const known = new Set(["id", "name", "description"]);
@@ -117,10 +130,13 @@ function hintsJson(hints: PromptHints): JsonObject { return { ...compact({ expec
 // source -- so a response an application fills in after loading a template is
 // still written.
 function promptJson(prompt: Prompt): JsonObject { const node: JsonObject = { id: prompt.id, label: prompt.label }; if (prompt.responseIsDeclared || prompt.response) node.response = prompt.response; if (prompt.role) node.role = prompt.role; if (prompt.language) node.language = prompt.language; const hints = hintsJson(prompt.hints); if (Object.keys(hints).length) node.hints = hints; return { ...node, ...prompt.extra }; }
+// `fields` stays even when empty: compact() would drop `{}`, turning a valid post into
+// one without its fields.
+function submissionJson(target: SubmissionTarget): JsonValue { if (target.shorthand && target.kind === "put" && target.fields === undefined && !target.expires && !target.refresh && !Object.keys(target.extra).length) return target.url; const node: JsonObject = { kind: target.kind, url: target.url }; if (target.fields !== undefined) node.fields = target.fields; return { ...node, ...compact({ expires: target.expires, refresh: target.refresh }), ...target.extra }; }
 function sectionJson(section: Section): JsonObject { const node: JsonObject = { id: section.id, title: section.title, ...compact({ description: section.description, kind: section.kind, canAddRows: section.canAddRows, maxRows: section.maxRows, role: section.role, language: section.language }) }; if (section.prompts.length) node.prompts = section.prompts.map(promptJson); if (section.sections.length) node.sections = section.sections.map(sectionJson); return { ...node, ...section.extra }; }
 /** Serialize an APR document while preserving unknown members. */
 export function dumps(document: AprDocument, indent = 2): string {
   if (!isSupportedVersion(document.version)) throw new AprParseError(`Unsupported APR version ${document.version}; this build accepts only ${CURRENT_VERSION}`);
-  const metadata: JsonObject = { title: document.metadata.title, ...compact({ description: document.metadata.description, author: document.metadata.author, created: document.metadata.created, modified: document.metadata.modified, templateId: document.metadata.templateId, templateVersion: document.metadata.templateVersion, language: document.metadata.language, publisher: document.metadata.publisher, submissionUrls: document.metadata.submissionUrls }), ...document.metadata.extra };
+  const metadata: JsonObject = { title: document.metadata.title, ...compact({ description: document.metadata.description, author: document.metadata.author, created: document.metadata.created, modified: document.metadata.modified, templateId: document.metadata.templateId, templateVersion: document.metadata.templateVersion, language: document.metadata.language, publisher: document.metadata.publisher, submissionUrls: document.metadata.submissionUrls?.map(submissionJson) }), ...document.metadata.extra };
   const node: JsonObject = { aprVersion: document.version, metadata, sections: document.sections.map(sectionJson) }; if (document.documentType) node.documentType = document.documentType; if (document.roles) node.roles = document.roles.map(role => ({ ...compact({ id: role.id, name: role.name, description: role.description }), ...role.extra })); return JSON.stringify({ ...node, ...document.extra }, null, indent);
 }

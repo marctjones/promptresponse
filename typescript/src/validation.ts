@@ -1,4 +1,4 @@
-import { AprDocument, Prompt, Section } from "./model.js";
+import { AprDocument, Prompt, Section, SubmissionTarget } from "./model.js";
 import { isSupportedVersion } from "./serialization.js";
 import { inspectText } from "./unicode-security.js";
 
@@ -111,8 +111,8 @@ function reportExcluded(value: string | undefined, path: string, code: string, a
  * the same floor under their own codes, a response less a carriage return.
  */
 function validateTextFloor(document: AprDocument, warnings: ValidationIssue[]): void {
-  (document.metadata.submissionUrls ?? []).forEach((url, index) =>
-    reportExcluded(url, `metadata.submissionUrls[${index}]`, "SUBMISSION_URL_FORBIDDEN_CODE_POINT", "", warnings));
+  (document.metadata.submissionUrls ?? []).forEach((target, index) =>
+    reportExcluded(target.url, submissionUrlPath(target, index), "SUBMISSION_URL_FORBIDDEN_CODE_POINT", "", warnings));
   holdToTheFloor(document.metadata.title, "metadata.title", warnings);
   holdToTheFloor(document.metadata.description, "metadata.description", warnings);
   holdToTheFloor(document.metadata.author, "metadata.author", warnings);
@@ -227,11 +227,16 @@ function inspectExtensions(extra: Record<string, unknown>, path: string): Valida
     .map(name => ({ code: "UNPREFIXED_MEMBER", message: `unknown member ${JSON.stringify(name)} carries no reverse-DNS prefix; unprefixed names are reserved to the specification.`, path: `${path}.${name}` }));
 }
 
-function inspectSubmission(urls: readonly string[]): ValidationIssue[] {
-  return urls.flatMap((url, index) => {
-    const scheme = url.includes(":") ? url.slice(0, url.indexOf(":")) : "";
+/** A shorthand entry is its URL; an object entry names it in `url`. */
+function submissionUrlPath(target: SubmissionTarget, index: number): string {
+  return target.shorthand ? `metadata.submissionUrls[${index}]` : `metadata.submissionUrls[${index}].url`;
+}
+
+function inspectSubmission(targets: readonly SubmissionTarget[]): ValidationIssue[] {
+  return targets.flatMap((target, index) => {
+    const scheme = target.url.includes(":") ? target.url.slice(0, target.url.indexOf(":")) : "";
     if (SUBMISSION_SCHEMES.has(scheme.toLowerCase())) return [];
-    return [{ code: "SUBMISSION_URL_UNSUPPORTED", message: `submission entry ${index} names the scheme ${JSON.stringify(scheme)}, which this document does not define; a reader offers the entries it understands.`, path: `metadata.submissionUrls[${index}]` }];
+    return [{ code: "SUBMISSION_URL_UNSUPPORTED", message: `submission entry ${index} names the scheme ${JSON.stringify(scheme)}, which this document does not define; a reader offers the entries it understands.`, path: submissionUrlPath(target, index) }];
   });
 }
 
@@ -327,6 +332,12 @@ export function validate(document: AprDocument): ValidationResult {
   required(document.metadata.title, "metadata.title", "metadata.title"); if (!document.sections.length) errors.push({ code: "REQUIRED_FIELD", message: "A document must have at least one section.", path: "sections" });
   if (document.documentType === "filledForm") required(document.metadata.templateId, "metadata.templateId", "A filled form templateId");
   (document.roles ?? []).forEach((role, index) => required(role.id, `roles[${index}].id`, "Role id"));
+  (document.metadata.submissionUrls ?? []).forEach((target, index) => {
+    if (target.shorthand) return;
+    const path = `metadata.submissionUrls[${index}]`;
+    required(target.kind, `${path}.kind`, "A submission entry kind"); required(target.url, `${path}.url`, "A submission entry url");
+    if (target.kind === "post" && target.fields === undefined) errors.push({ code: "REQUIRED_FIELD", message: "A post entry carries the policy fields it is sent with.", path: `${path}.fields` });
+  });
   validateShape(document, errors);
   validateTextFloor(document, warnings);
   checkConfusableScriptMix(document, warnings);
