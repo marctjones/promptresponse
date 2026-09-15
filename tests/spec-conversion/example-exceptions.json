@@ -275,6 +275,12 @@
       "renderer:a-computed-prompt-stays-editable"
     ]
   },
+  "APR-EXPR-015": {
+    "reason": "A rule on what an implementation evaluates against. Violating it means reading something outside the activation, which no document can cause.",
+    "coveredBy": [
+      "spec:expr-activation-is-all-there-is"
+    ]
+  },
   "APR-EXPR-016": {
     "reason": "A rule on how an implementation evaluates; no document can make an implementation evaluate otherwise.",
     "coveredBy": [
@@ -439,6 +445,12 @@
     "reason": "A rule on what a reader reads a value as. Every form the table lists is valid either way, so no document violates it.",
     "coveredBy": [
       "spec:canonical-accepted-on-read"
+    ]
+  },
+  "APR-MODEL-025": {
+    "reason": "A rule on how a reader presents a field. The document is valid either way, so no document violates it; the case shows the observable half, that an unrecognised role is not an error.",
+    "coveredBy": [
+      "spec:unrecognised-role-is-ordinary"
     ]
   },
   "APR-MODEL-027": {
@@ -814,6 +826,12 @@
       "spec:member-name-case"
     ]
   },
+  "APR-MODEL-119": {
+    "reason": "A SHOULD on a writer choosing a value. A response in any other form is still valid ([Any string](#any-string)), so no document violates it.",
+    "coveredBy": [
+      "spec:canonical-write-forms"
+    ]
+  },
   "APR-MODEL-120": {
     "reason": "A rule on what a reader reads an empty response as. An empty response is valid whatever the reader makes of it, so no document violates it.",
     "coveredBy": [
@@ -1083,6 +1101,13 @@
       "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
     ]
   },
+  "APR-STREAM-002": {
+    "reason": "A rule relating two documents: the same records in each representation must read the same. A single document cannot violate it, so the pair shows it holding instead.",
+    "coveredBy": [
+      "spec:stream-equivalence-jsonc",
+      "spec:stream-equivalence-yaml"
+    ]
+  },
   "APR-STREAM-003": {
     "reason": "A rule on the records a reader produces, which an accepted document does not show without asking the reader to write it back.",
     "coveredBy": [
@@ -1172,6 +1197,12 @@
     "reason": "A rule on what a renderer lets a person do, which no input document shows.",
     "coveredBy": [
       "renderer:a-hint-mismatch-does-not-block-saving"
+    ]
+  },
+  "APR-VAL-007": {
+    "reason": "The rule is that a validator invents no reason of its own. Violating it means reporting a code for a condition no row states, which is a property of the validator, not of any document.",
+    "coveredBy": [
+      "spec:no-unlisted-reason-to-refuse"
     ]
   },
   "APR-VAL-010": {

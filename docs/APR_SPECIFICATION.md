@@ -2956,6 +2956,36 @@ checkbox, or a multi-select list does.
 A writer choosing a response **SHOULD** write it in the canonical write form the
 table below gives for the prompt's `expectedDataType`. [APR-MODEL-119]
 
+**Example 5.9-1.** Three responses a writer chose, each in the canonical write form its
+`expectedDataType` names.
+
+```apr-example
+id: canonical-write-forms
+rule: canonical-values
+satisfies: APR-MODEL-119
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Permit" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "issued", "label": "Issued",
+          "hints": { "expectedDataType": "date" }, "response": "2026-01-15" },
+        { "id": "agreed", "label": "Agreed",
+          "hints": { "expectedDataType": "boolean" }, "response": "true" },
+        { "id": "fee", "label": "Fee",
+          "hints": { "expectedDataType": "currency" }, "response": "1250.00" }
+      ]
+    }
+  ]
+}
+```
+
 A reader **MUST** read every form the table lists, canonical or accepted on read,
 as the value it spells. [APR-MODEL-023]
 
@@ -2974,7 +3004,7 @@ Neither rule makes a response invalid.
 A reader **MUST** read an empty response to a prompt of any type above as no
 selection. [APR-MODEL-120]
 
-**Example 5.9-1.** A boolean answered `yes` and a multichoice answered as one
+**Example 5.9-2.** A boolean answered `yes` and a multichoice answered as one
 comma-separated line. Both are forms the table accepts on read, so both are read
 as the value they spell.
 
@@ -3005,7 +3035,7 @@ expect: valid
 }
 ```
 
-**Example 5.9-2.** An empty response to a `select` prompt. It is no selection, not an
+**Example 5.9-3.** An empty response to a `select` prompt. It is no selection, not an
 invalid one.
 
 ```apr-example
@@ -3061,6 +3091,27 @@ section in two.
 A reader **MUST** present a field whose role it does not recognise as it presents
 any other field, without an error. [APR-MODEL-025]
 
+**Example 5.10-1.** A prompt whose role no entry declares and which this document never
+defines. The field is an ordinary field.
+
+```apr-example
+id: unrecognised-role-is-ordinary
+rule: roles
+satisfies: APR-MODEL-025
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Intake" },
+  "roles": [ { "id": "patient" } ],
+  "sections": [
+    { "id": "s", "title": "S",
+      "prompts": [ { "id": "p", "label": "P", "role": "notary" } ] }
+  ]
+}
+```
+
 A form declares roles in its `roles` array ([Document](#root-object)). Each entry
 is an object with these members:
 
@@ -3070,7 +3121,7 @@ is an object with these members:
 | `name` | string | **OPTIONAL** | [APR-MODEL-123] | The name shown to a person. |
 | `description` | string | **OPTIONAL** | [APR-MODEL-124] | Who this role is, where the name alone is not obvious. |
 
-**Example 5.10-1.** Declared roles, and a prompt handed back to the patient.
+**Example 5.10-2.** Declared roles, and a prompt handed back to the patient.
 
 ```apr-example
 id: declared-roles
@@ -3097,7 +3148,7 @@ expect: valid
 }
 ```
 
-**Example 5.10-2.** A role entry without an `id`.
+**Example 5.10-3.** A role entry without an `id`.
 
 ```apr-example
 id: role-without-id
@@ -3125,7 +3176,7 @@ error. [APR-MODEL-122]
 A validator **MUST NOT** reject a form whose `role` names a role that `roles` does
 not declare. [APR-MODEL-051]
 
-**Example 5.10-3.** A role no entry declares.
+**Example 5.10-4.** A role no entry declares.
 
 ```apr-example
 id: undeclared-role
@@ -3266,6 +3317,43 @@ if it has no errors.
 
 A validator **MUST NOT** report a document as invalid for any reason the
 [Errors](#structural-validation) table does not list. [APR-VAL-007]
+
+**Example 7-1.** A document carrying an unknown member, a response that matches
+neither its `expectedDataType` nor its `validationPattern`, and a value outside
+`suggestedValues`. None of that is a condition the errors table lists, so the
+document is valid.
+
+```apr-example
+id: no-unlisted-reason-to-refuse
+rule: validation
+satisfies: APR-VAL-007
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "com.example.note": "not a defined member",
+  "metadata": { "title": "T" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        {
+          "id": "p",
+          "label": "P",
+          "hints": {
+            "expectedDataType": "number",
+            "validationPattern": "^[0-9]+$",
+            "suggestedValues": [ "1", "2" ]
+          },
+          "response": "not a number at all"
+        }
+      ]
+    }
+  ]
+}
+```
 
 ### 7.1 Errors — structure only {#structural-validation}
 
@@ -3937,6 +4025,51 @@ A reader **MUST** produce the same sequence of semantic records from an APR-JSON
 stream and an APR-YAML stream whose records, in order, have equal semantic
 models. [APR-STREAM-002]
 
+**Example 9.3-1.** The same two records, framed as an APR-JSONC stream and as an
+APR-YAML stream. Each reader produces the same two semantic records from either.
+
+```apr-example
+id: stream-equivalence-jsonc
+rule: stream-equivalence
+satisfies: APR-STREAM-002
+representation: jsonc-stream
+expect: valid
+---
+{"aprVersion":"1.0-beta.6","metadata":{"title":"First"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+---
+{"aprVersion":"1.0-beta.6","metadata":{"title":"Second"},"sections":[{"id":"s","title":"S","prompts":[{"id":"p","label":"P"}]}]}
+```
+
+**Example 9.3-2.** The same two records as APR-YAML.
+
+```apr-example
+id: stream-equivalence-yaml
+rule: stream-equivalence
+satisfies: APR-STREAM-002
+representation: yaml-stream
+expect: valid
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: First
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+---
+aprVersion: "1.0-beta.6"
+metadata:
+  title: Second
+sections:
+  - id: s
+    title: S
+    prompts:
+      - id: p
+        label: P
+```
+
 ---
 
 ## 10. Semantic digests and manifests {#digests}
@@ -4197,6 +4330,35 @@ expects: {"validation": {"check": ""}}
 An implementation **MUST** evaluate an expression against this read-only
 activation and nothing else. [APR-EXPR-015]
 
+**Example 11.4-1.** An expression naming something the activation does not hold. There
+is no host environment to reach, so the evaluation fails and `exprValue`'s
+fallback retains the stored response exactly.
+
+```apr-example
+id: expr-activation-is-all-there-is
+rule: expr-activation
+satisfies: APR-EXPR-015
+representation: jsonc
+expect: valid
+evaluate: {"_today": "2026-09-01", "_now": "2026-09-01T12:00:00Z", "ctx": {"team": "records"}}
+expects: {"responses": {"p": "kept"}}
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "p", "label": "P", "response": "kept",
+          "hints": { "exprValue": "env.HOME" } }
+      ]
+    }
+  ]
+}
+```
+
 Each row below is a requirement on an implementation: it supplies the name in
 the activation, with the type and meaning the row gives.
 
@@ -4221,7 +4383,7 @@ from the host clock during evaluation. [APR-EXPR-005]
 
 Evaluating the same form twice with the same inputs then yields the same result.
 
-**Example 11.4-1.** A prompt read by its id.
+**Example 11.4-2.** A prompt read by its id.
 
 ```apr-example
 id: expr-direct-binding
@@ -4263,7 +4425,7 @@ expects: {"validation": {"check": "too big"}}
 }
 ```
 
-**Example 11.4-2.** `_this` is the owning prompt's response.
+**Example 11.4-3.** `_this` is the owning prompt's response.
 
 ```apr-example
 id: expr-this
@@ -4298,7 +4460,7 @@ expects: {"validation": {"code": "long"}}
 }
 ```
 
-**Example 11.4-3.** `_id` is the owning prompt's id.
+**Example 11.4-4.** `_id` is the owning prompt's id.
 
 ```apr-example
 id: expr-id
@@ -4332,7 +4494,7 @@ expects: {"responses": {"echo": "echo"}}
 }
 ```
 
-**Example 11.4-4.** `_today` comes from the caller.
+**Example 11.4-5.** `_today` comes from the caller.
 
 ```apr-example
 id: expr-today
@@ -4366,7 +4528,7 @@ expects: {"responses": {"signed": "2026-09-01"}}
 }
 ```
 
-**Example 11.4-5.** `ctx` carries what the host supplies.
+**Example 11.4-6.** `ctx` carries what the host supplies.
 
 ```apr-example
 id: expr-ctx
@@ -4400,7 +4562,7 @@ expects: {"responses": {"team": "records"}}
 }
 ```
 
-**Example 11.4-6.** A prompt whose id is a reserved name does not shadow it.
+**Example 11.4-7.** A prompt whose id is a reserved name does not shadow it.
 
 ```apr-example
 id: expr-reserved-name
@@ -4439,7 +4601,7 @@ expects: {"responses": {"signed": "2026-09-01"}}
 }
 ```
 
-**Example 11.4-7.** A prompt whose id is not a CEL identifier cannot be read, not even under a similar name.
+**Example 11.4-8.** A prompt whose id is not a CEL identifier cannot be read, not even under a similar name.
 
 ```apr-example
 id: expr-invalid-identifier

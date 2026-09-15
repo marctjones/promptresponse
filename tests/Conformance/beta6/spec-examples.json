@@ -404,7 +404,7 @@
     },
     {
       "id": "canonical-accepted-on-read",
-      "number": "5.9-1",
+      "number": "5.9-2",
       "rule": "canonical-values",
       "representation": "jsonc",
       "expect": "valid",
@@ -418,7 +418,7 @@
     },
     {
       "id": "canonical-empty-is-no-selection",
-      "number": "5.9-2",
+      "number": "5.9-3",
       "rule": "canonical-values",
       "representation": "jsonc",
       "expect": "valid",
@@ -428,6 +428,20 @@
       ],
       "satisfies": [
         "APR-MODEL-120"
+      ]
+    },
+    {
+      "id": "canonical-write-forms",
+      "number": "5.9-1",
+      "rule": "canonical-values",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Permit\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"issued\", \"label\": \"Issued\",\n          \"hints\": { \"expectedDataType\": \"date\" }, \"response\": \"2026-01-15\" },\n        { \"id\": \"agreed\", \"label\": \"Agreed\",\n          \"hints\": { \"expectedDataType\": \"boolean\" }, \"response\": \"true\" },\n        { \"id\": \"fee\", \"label\": \"Fee\",\n          \"hints\": { \"expectedDataType\": \"currency\" }, \"response\": \"1250.00\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-119"
+      ],
+      "satisfies": [
+        "APR-MODEL-119"
       ]
     },
     {
@@ -461,7 +475,7 @@
     },
     {
       "id": "declared-roles",
-      "number": "5.10-1",
+      "number": "5.10-2",
       "rule": "roles",
       "representation": "jsonc",
       "expect": "valid",
@@ -561,6 +575,32 @@
       "satisfies": [
         "APR-REP-004"
       ]
+    },
+    {
+      "id": "expr-activation-is-all-there-is",
+      "number": "11.4-1",
+      "rule": "expr-activation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"P\", \"response\": \"kept\",\n          \"hints\": { \"exprValue\": \"env.HOME\" } }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-EXPR-015"
+      ],
+      "satisfies": [
+        "APR-EXPR-015"
+      ],
+      "evaluate": {
+        "_today": "2026-09-01",
+        "_now": "2026-09-01T12:00:00Z",
+        "ctx": {
+          "team": "records"
+        }
+      },
+      "expects": {
+        "responses": {
+          "p": "kept"
+        }
+      }
     },
     {
       "id": "expr-authored-response",
@@ -721,7 +761,7 @@
     },
     {
       "id": "expr-ctx",
-      "number": "11.4-5",
+      "number": "11.4-6",
       "rule": "expr-activation",
       "representation": "jsonc",
       "expect": "valid",
@@ -775,7 +815,7 @@
     },
     {
       "id": "expr-direct-binding",
-      "number": "11.4-1",
+      "number": "11.4-2",
       "rule": "expr-activation",
       "representation": "jsonc",
       "expect": "valid",
@@ -907,7 +947,7 @@
     },
     {
       "id": "expr-id",
-      "number": "11.4-3",
+      "number": "11.4-4",
       "rule": "expr-activation",
       "representation": "jsonc",
       "expect": "valid",
@@ -933,7 +973,7 @@
     },
     {
       "id": "expr-invalid-identifier",
-      "number": "11.4-7",
+      "number": "11.4-8",
       "rule": "expr-activation",
       "representation": "jsonc",
       "expect": "valid",
@@ -959,7 +999,7 @@
     },
     {
       "id": "expr-reserved-name",
-      "number": "11.4-6",
+      "number": "11.4-7",
       "rule": "expr-activation",
       "representation": "jsonc",
       "expect": "valid",
@@ -985,7 +1025,7 @@
     },
     {
       "id": "expr-this",
-      "number": "11.4-2",
+      "number": "11.4-3",
       "rule": "expr-activation",
       "representation": "jsonc",
       "expect": "valid",
@@ -1011,7 +1051,7 @@
     },
     {
       "id": "expr-today",
-      "number": "11.4-4",
+      "number": "11.4-5",
       "rule": "expr-activation",
       "representation": "jsonc",
       "expect": "valid",
@@ -1427,6 +1467,20 @@
       "diagnostic": "NULL_DOCUMENT"
     },
     {
+      "id": "no-unlisted-reason-to-refuse",
+      "number": "7-1",
+      "rule": "validation",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"com.example.note\": \"not a defined member\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        {\n          \"id\": \"p\",\n          \"label\": \"P\",\n          \"hints\": {\n            \"expectedDataType\": \"number\",\n            \"validationPattern\": \"^[0-9]+$\",\n            \"suggestedValues\": [ \"1\", \"2\" ]\n          },\n          \"response\": \"not a number at all\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-VAL-007"
+      ],
+      "satisfies": [
+        "APR-VAL-007"
+      ]
+    },
+    {
       "id": "null-outside-response",
       "number": "4.6-3",
       "rule": "json-subset",
@@ -1676,7 +1730,7 @@
     },
     {
       "id": "role-without-id",
-      "number": "5.10-2",
+      "number": "5.10-3",
       "rule": "roles",
       "representation": "jsonc",
       "expect": "reject",
@@ -1733,6 +1787,34 @@
         "APR-MODEL-067"
       ],
       "diagnostic": "REQUIRED_FIELD"
+    },
+    {
+      "id": "stream-equivalence-jsonc",
+      "number": "9.3-1",
+      "rule": "stream-equivalence",
+      "representation": "jsonc-stream",
+      "expect": "valid",
+      "document": "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"First\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n---\n{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Second\"},\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}\n",
+      "rules": [
+        "APR-STREAM-002"
+      ],
+      "satisfies": [
+        "APR-STREAM-002"
+      ]
+    },
+    {
+      "id": "stream-equivalence-yaml",
+      "number": "9.3-2",
+      "rule": "stream-equivalence",
+      "representation": "yaml-stream",
+      "expect": "valid",
+      "document": "aprVersion: \"1.0-beta.6\"\nmetadata:\n  title: First\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n---\naprVersion: \"1.0-beta.6\"\nmetadata:\n  title: Second\nsections:\n  - id: s\n    title: S\n    prompts:\n      - id: p\n        label: P\n",
+      "rules": [
+        "APR-STREAM-002"
+      ],
+      "satisfies": [
+        "APR-STREAM-002"
+      ]
     },
     {
       "id": "stream-jsonc-framed",
@@ -2061,7 +2143,7 @@
     },
     {
       "id": "undeclared-role",
-      "number": "5.10-3",
+      "number": "5.10-4",
       "rule": "roles",
       "representation": "jsonc",
       "expect": "valid",
@@ -2093,6 +2175,20 @@
       ],
       "warns": [
         "UNPREFIXED_MEMBER"
+      ]
+    },
+    {
+      "id": "unrecognised-role-is-ordinary",
+      "number": "5.10-1",
+      "rule": "roles",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Intake\" },\n  \"roles\": [ { \"id\": \"patient\" } ],\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\",\n      \"prompts\": [ { \"id\": \"p\", \"label\": \"P\", \"role\": \"notary\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-025"
+      ],
+      "satisfies": [
+        "APR-MODEL-025"
       ]
     },
     {
