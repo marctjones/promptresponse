@@ -42,13 +42,6 @@ TABLES = {
     "attestation-catalogue": ("<attestation>", None),
 }
 
-# Members the schema carries for a retired feature. The specification does not
-# describe them because beta.6 retires embedded signatures and `responseMetadata`.
-RETIRED = {"signatures", "signature", "signer", "selfSigned", "thumbprint",
-           "issuer", "signedAt", "cms", "algorithm", "canonicalization",
-           "identifier", "subject", "name", "scope", "fields", "id", "role",
-           "responseMetadata"}
-
 
 def spec_members() -> dict[str, dict[str, bool]]:
     """Member name -> required, per specification table."""
@@ -135,16 +128,6 @@ def check_type_registry(spec_text: str, hints: dict[str, bool], problems: list[s
             if hint not in hints:
                 problems.append(
                     f"type registry: `{entry['id']}` names hint `{hint}`, which no specification table declares")
-
-    # An enumeration for a retired member is drift.
-    retired_enums = sorted(
-        key for key in types.get("enumeratedValues", {})
-        if key.split(".")[0] in {"signature", "signer"}
-    )
-    for key in retired_enums:
-        problems.append(
-            f"type registry: enumerates `{key}`, which beta.6 retired with embedded signatures")
-    summary["retiredEnumerations"] = retired_enums
     return summary
 
 
@@ -178,7 +161,7 @@ def main() -> int:
                     f"#{anchor}: `{name}` is {expected} in the specification and {actual} in the schema")
 
         for name in present:
-            if name in declared or name in RETIRED:
+            if name in declared:
                 continue
             problems.append(
                 f"#{anchor}: the schema declares `{name}` and no specification table documents it")

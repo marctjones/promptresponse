@@ -32,12 +32,6 @@ BETA = ROOT / "schemas" / "apr-1.0-beta.6.schema.json"
 RULE_ID = re.compile(r"\[(APR-[A-Z]+-\d{3})\]")
 HEADING = re.compile(r"^(#{2,4})\s+.*\{#([a-z0-9-]+)\}\s*$", re.MULTILINE)
 
-# Members that exist only for the embedded-signature model beta.6 retired.
-RETIRED_MEMBERS = {
-    "signatures", "signature", "signer", "selfSigned", "thumbprint", "issuer",
-    "signedAt", "cms", "algorithm", "identifier",
-}
-
 
 def sections(spec: str) -> dict[str, str]:
     """Anchor -> section body, including its subsections.
@@ -101,15 +95,11 @@ def main() -> int:
 
     # 2. Every member the schema declares is described somewhere in the prose.
     members = schema_member_names()
-    undocumented = sorted(
-        name for name in members
-        if name not in RETIRED_MEMBERS and f"`{name}`" not in spec
-    )
+    undocumented = sorted(name for name in members if f"`{name}`" not in spec)
     for name in undocumented:
         problems.append(f"the schema declares `{name}` and the specification never mentions it")
     lines.append(f"  schema members: {len(members)} declared, "
-                 f"{len(members) - len(undocumented)} described, "
-                 f"{len(RETIRED_MEMBERS & members)} retired and deliberately absent")
+                 f"{len(members) - len(undocumented)} described")
 
     # 3. Every conformance profile binds at least one rule in the generated conformance
     #    statement. The generator writes a heading for every profile it knows, so a
