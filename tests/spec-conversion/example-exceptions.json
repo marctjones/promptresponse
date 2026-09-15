@@ -6,17 +6,31 @@
       "spec:attestation-extension-member"
     ]
   },
-  "APR-ATTEST-008": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+  "APR-ATTEST-006": {
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/fields-changed-form.apr.jsonc"
+    ]
+  },
+  "APR-ATTEST-008": {
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
+    "coveredBy": [
+      "corpus:streams/unsupported-proof.apr.jsonc",
       "python/tests/test_beta6.py",
       "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
     ]
   },
   "APR-ATTEST-009": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/changed-form.apr.jsonc",
       "python/tests/test_beta6.py"
+    ]
+  },
+  "APR-ATTEST-010": {
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
+    "coveredBy": [
+      "corpus:streams/cms-proof.apr.jsonc"
     ]
   },
   "APR-ATTEST-014": {
@@ -26,17 +40,28 @@
     ]
   },
   "APR-ATTEST-015": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/fields-changed-form.apr.jsonc",
       "python/tests/test_beta6.py",
       "typescript/src/test/beta6.test.ts",
       "java/src/test/java/org/promptresponse/AprConformanceTest.java",
       "tests/PromptResponse.Core.Tests/Beta6/AprBeta6CorpusTests.cs"
     ]
   },
-  "APR-ATTEST-018": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+  "APR-ATTEST-017": {
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/changed-form.apr.jsonc",
+      "corpus:streams/out-of-order.apr.jsonc",
+      "corpus:streams/out-of-order.apr.yaml"
+    ]
+  },
+  "APR-ATTEST-018": {
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
+    "coveredBy": [
+      "corpus:streams/witnessed.apr.jsonc",
+      "corpus:streams/witness-chain.apr.jsonc",
       "python/tests/test_beta6.py",
       "typescript/src/test/beta6.test.ts",
       "java/src/test/java/org/promptresponse/AprConformanceTest.java",
@@ -64,8 +89,9 @@
     ]
   },
   "APR-ATTEST-037": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/cms-proof.apr.jsonc",
       "python/tests/test_beta6.py",
       "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
     ]
@@ -90,41 +116,49 @@
     ]
   },
   "APR-ATTEST-046": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/cms-proof.apr.jsonc",
       "python/tests/test_beta6.py",
       "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
     ]
   },
   "APR-ATTEST-047": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the tests named here assert the report.",
     "coveredBy": [
       "python/tests/test_beta6.py",
       "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
     ]
   },
   "APR-ATTEST-048": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/changed-form.apr.jsonc",
+      "corpus:streams/fields-changed-form.apr.jsonc",
       "python/tests/test_beta6.py"
     ]
   },
   "APR-ATTEST-049": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/witnessed.apr.jsonc",
+      "corpus:streams/unsupported-proof.apr.jsonc",
       "python/tests/test_beta6.py",
       "tests/PromptResponse.Core.Tests/Beta6/AprAttestationResolverTests.cs"
     ]
   },
   "APR-ATTEST-050": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/witnessed.apr.jsonc",
+      "corpus:streams/witness-chain.apr.jsonc",
       "python/tests/test_beta6.py"
     ]
   },
   "APR-ATTEST-051": {
-    "reason": "A rule on what a verifier reports; the conformance harness scores documents, not verification reports.",
+    "reason": "A rule on what a verifier reports. A document is valid whatever its attestations say, so no in-spec example can show it; the suite's verification cases state the report, and check-harness-teeth.py proves a verifier breaking it fails.",
     "coveredBy": [
+      "corpus:streams/changed-form.apr.jsonc",
       "python/tests/test_beta6.py",
       "typescript/src/test/beta6.test.ts",
       "java/src/test/java/org/promptresponse/AprConformanceTest.java",
@@ -162,6 +196,13 @@
     "reason": "A statement about what an implementation claims; the harness holds each claimed profile to every case in it.",
     "coveredBy": [
       "scripts/run-conformance.py"
+    ]
+  },
+  "APR-CONF-005": {
+    "reason": "A rule on what an implementation that does not claim core+attestations reports. The harness fails a driver reporting an attestation valid without the claim, and check-harness-teeth.py proves a driver doing so fails.",
+    "coveredBy": [
+      "corpus:streams/cms-proof.apr.jsonc",
+      "scripts/check-harness-teeth.py"
     ]
   },
   "APR-CONF-006": {
