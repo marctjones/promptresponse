@@ -1893,6 +1893,21 @@
       "diagnostic": "WRONG_TYPE"
     },
     {
+      "id": "submission-entry-wrong-type",
+      "number": "5.2.1-2",
+      "rule": "submission",
+      "representation": "jsonc",
+      "expect": "reject",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Well permit\",\n    \"submissionUrls\": [ 42 ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-133"
+      ],
+      "violates": [
+        "APR-MODEL-133"
+      ],
+      "diagnostic": "WRONG_TYPE"
+    },
+    {
       "id": "submission-scheme-unsupported",
       "number": "7.2-2",
       "rule": "warnings",
@@ -1907,6 +1922,20 @@
       ],
       "warns": [
         "SUBMISSION_URL_UNSUPPORTED"
+      ]
+    },
+    {
+      "id": "submission-string-entries",
+      "number": "5.2.1-1",
+      "rule": "submission",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": {\n    \"title\": \"Well permit\",\n    \"submissionUrls\": [\n      \"https://uploads.example.gov/permits/abc?X-Amz-Signature=deadbeef\",\n      \"mailto:permits@example.gov?subject=Well%20permit\"\n    ]\n  },\n  \"sections\": [\n    { \"id\": \"s\", \"title\": \"S\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-133"
+      ],
+      "satisfies": [
+        "APR-MODEL-133"
       ]
     },
     {

@@ -3775,9 +3775,16 @@
         "submission/sentence/e441625f8d",
         "submission/sentence/ed2798f253",
         "submission/sentence/873026214b",
-        "submission/sentence/fb96492d93"
+        "submission/sentence/fb96492d93",
+        "submission/example/25595f7e05",
+        "submission/example/cadb6fb7fe",
+        "submission/sentence/6d2ff8c1e6",
+        "submission/sentence/8a241fa0d3",
+        "submission/sentence/b3a633dc29",
+        "submission/sentence/bcaa9c48a8",
+        "submission/sentence/eaf393ca42"
       ],
-      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418)"
+      "note": "section 5.2.1 generalises a submission entry to a string or an object, and adds the post kind and refresh (#418) examples that an entry is a string or an object, and that anything else is the wrong type (APR-MODEL-133)"
     },
     "submission/sentence/6a9238da51": {
       "anchor": "submission",
