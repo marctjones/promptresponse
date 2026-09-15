@@ -4,7 +4,7 @@ import unicodedata
 from typing import List
 from urllib.parse import urlparse
 
-from .advisories import document_advisories
+from .advisories import document_advisories, submission_urls
 from .models import AprDocument, Section
 from .validation_result import ValidationError, ValidationResult, ValidationWarning
 from .versioning import is_supported_version
@@ -154,9 +154,8 @@ def _validate_text_floor(document: AprDocument, result: ValidationResult) -> Non
             # return is not held against it (APR-TEXT-004).
             _report_excluded(prompt.response, f"{path}.prompts[{index}].response",
                              "RESPONSE_FORBIDDEN_CODE_POINT", "\r", result)
-    for index, url in enumerate(document.metadata.submission_urls or []):
-        _report_excluded(url, f"metadata.submissionUrls[{index}]",
-                         "SUBMISSION_URL_FORBIDDEN_CODE_POINT", "", result)
+    for _, url, path in submission_urls(document):
+        _report_excluded(url, path, "SUBMISSION_URL_FORBIDDEN_CODE_POINT", "", result)
 
 
 def _report_excluded(value, path: str, code: str, also_allowed: str, result: ValidationResult) -> None:
@@ -298,6 +297,13 @@ def _validate_document_fields(document: AprDocument, result: ValidationResult) -
         result.errors.append(ValidationError("REQUIRED_FIELD", "A document must have at least one section.", "sections"))
     if document.document_type == "filledForm" and not (document.metadata.template_id or "").strip():
         result.errors.append(ValidationError("REQUIRED_FIELD", "A filled form must record the templateId it answers.", "metadata.templateId"))
+    for index, target in enumerate(document.metadata.submission_urls or []):
+        path = f"metadata.submissionUrls[{index}]"
+        for name in ("kind", "url"):
+            if getattr(target, name) is None:
+                result.errors.append(ValidationError("REQUIRED_FIELD", f"A submission entry object carries {name}.", f"{path}.{name}"))
+        if target.kind == "post" and target.fields is None:
+            result.errors.append(ValidationError("REQUIRED_FIELD", "A post entry carries the policy fields it is sent with.", f"{path}.fields"))
 
 
 def _validate_section(section: Section, path: str, result: ValidationResult, section_ids: List[str], prompt_ids: List[str]) -> None:

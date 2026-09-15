@@ -30,15 +30,6 @@ def string_member(node: Dict[str, Any], key: str, what: str):
     return value
 
 
-def string_list_member(node: Dict[str, Any], key: str, what: str):
-    if key not in node or node[key] is None:
-        return None
-    value = node[key]
-    if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
-        raise AprParseError(f"{what}.{key} must be an array of strings", "WRONG_TYPE")
-    return value
-
-
 def unknown_members(node: Dict[str, Any], known: Iterable[str]) -> Dict[str, Any]:
     """Return every member not in ``known``, unchanged, so a writer can put it back."""
     taken = set(known)

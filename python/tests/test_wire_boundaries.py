@@ -3,7 +3,7 @@ import pytest
 from promptresponse.errors import AprParseError
 from promptresponse.serialization import loads
 from promptresponse.validation import validate
-from promptresponse.wire import compact_members, string_list_member, string_member, unknown_members
+from promptresponse.wire import compact_members, string_member, unknown_members
 from promptresponse.versioning import is_supported_version
 
 
@@ -38,8 +38,6 @@ def test_max_rows_must_be_an_integer_and_at_least_one():
 def test_wire_helpers_reject_non_string_members_without_coercion():
     with pytest.raises(AprParseError, match="prompt.response must be a string"):
         string_member({"response": 42}, "response", "prompt")
-    with pytest.raises(AprParseError, match="array of strings"):
-        string_list_member({"submissionUrls": ["https://example.test", 4]}, "submissionUrls", "metadata")
 
 
 def test_wire_helpers_preserve_unknown_members_and_omit_empty_members():

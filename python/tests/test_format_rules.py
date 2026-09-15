@@ -132,6 +132,79 @@ def test_a_submission_url_carrying_an_excluded_code_point_warns():
     assert "SUBMISSION_URL_FORBIDDEN_CODE_POINT" in _codes(document)
 
 
+# ── 5.2.1 submission targets ─────────────────────────────────────────────────
+
+def _submitting(*entries):
+    return json.dumps({
+        "aprVersion": "1.0-beta.6",
+        "metadata": {"title": "T", "submissionUrls": list(entries)},
+        "sections": [{"id": "s", "title": "S", "prompts": [{"id": "p", "label": "L"}]}]})
+
+
+def test_a_string_entry_reads_as_a_put_to_that_url():
+    target, = pr.loads(_submitting("https://uploads.example.gov/abc")).metadata.submission_urls
+    assert (target.kind, target.url) == ("put", "https://uploads.example.gov/abc")
+
+
+def test_a_post_entry_exposes_the_policy_fields_it_is_sent_with():
+    fields = {"key": "submissions/licence", "policy": "eyJjb25kaXRpb25zIjpbXX0="}
+    document = pr.loads(_submitting({"kind": "post", "url": "https://uploads.example.gov/", "fields": fields,
+                                     "expires": "2026-09-08T18:00:00Z", "refresh": "https://forms.example.gov/r"}))
+    target, = document.metadata.submission_urls
+    assert (target.kind, target.fields, target.expires, target.refresh) == (
+        "post", fields, "2026-09-08T18:00:00Z", "https://forms.example.gov/r")
+    assert pr.validate(document).is_valid
+
+
+def test_mixed_entries_round_trip_as_written():
+    """A string stays a string, and an object keeps every member it had, an empty
+    `fields` and an unknown member included."""
+    entries = [
+        {"kind": "post", "url": "https://uploads.example.gov/", "fields": {}, "com.example.note": {"kept": True}},
+        {"kind": "put", "url": "https://uploads.example.gov/licences/abc"},
+        "mailto:licences@example.gov",
+    ]
+    written = json.loads(pr.dumps(pr.loads(_submitting(*entries))))
+    assert written["metadata"]["submissionUrls"] == entries
+
+
+@pytest.mark.parametrize("entry, path", [
+    ({"url": "https://uploads.example.gov/abc"}, "metadata.submissionUrls[0].kind"),
+    ({"kind": "put"}, "metadata.submissionUrls[0].url"),
+    ({"kind": "post", "url": "https://uploads.example.gov/"}, "metadata.submissionUrls[0].fields"),
+])
+def test_an_entry_missing_a_required_member_is_reported(entry, path):
+    errors = pr.validate(pr.loads(_submitting(entry))).errors
+    assert [(error.code, error.path) for error in errors] == [("REQUIRED_FIELD", path)]
+
+
+@pytest.mark.parametrize("entry", [
+    42,
+    {"kind": "post", "url": "https://uploads.example.gov/", "fields": "key=submissions/licence"},
+    {"kind": "put", "url": "https://uploads.example.gov/abc", "expires": 1788890400},
+    {"kind": "put", "url": "https://uploads.example.gov/abc", "refresh": {"url": "https://forms.example.gov/r"}},
+])
+def test_an_entry_member_of_the_wrong_type_is_refused(entry):
+    with pytest.raises(pr.AprParseError) as excinfo:
+        pr.loads(_submitting(entry))
+    assert excinfo.value.code == "WRONG_TYPE"
+
+
+def test_an_unrecognised_kind_is_neither_an_error_nor_a_warning():
+    result = pr.validate(pr.loads(_submitting({"kind": "patch", "url": "https://uploads.example.gov/abc"})))
+    assert result.is_valid and not result.warnings
+
+
+def test_the_url_advisories_apply_to_an_object_entry_at_its_url():
+    result = pr.validate(pr.loads(_submitting(
+        {"kind": "put", "url": "ftp://example.com/drop"},
+        {"kind": "put", "url": "https://uploads.exa​mple.gov/permits"})))
+    assert {(w.code, w.path) for w in result.warnings} == {
+        ("SUBMISSION_URL_UNSUPPORTED", "metadata.submissionUrls[0].url"),
+        ("SUBMISSION_URL_FORBIDDEN_CODE_POINT", "metadata.submissionUrls[1].url"),
+    }
+
+
 # ── APR-TEXT-010 ids are machine keys ────────────────────────────────────────
 
 @pytest.mark.parametrize("identifier, warns", [

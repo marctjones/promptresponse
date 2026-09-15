@@ -103,6 +103,27 @@ class RoleDefinition:
 
 
 @dataclass
+class SubmissionTarget:
+    """One ``submissionUrls`` entry: a ``put`` or ``post`` target (specification 5.2.1).
+
+    ``kind`` and ``url`` are None only when an object entry omitted them, which
+    validation reports. An unrecognised ``kind`` is kept, never acted on.
+    """
+
+    kind: Optional[str] = None
+    url: Optional[str] = None
+    fields: Optional[Dict[str, Any]] = None
+    expires: Optional[str] = None
+    refresh: Optional[str] = None
+    extra: Dict[str, Any] = field(default_factory=dict)
+    # Whether the source wrote this entry as the string shorthand. A string
+    # reads as a put to that URL (APR-MODEL-134), and a writer puts the string
+    # back rather than expanding it into an object the source never carried.
+    # Not a member, never compared.
+    shorthand: bool = field(default=False, compare=False, repr=False)
+
+
+@dataclass
 class Metadata:
     """Document-level facts."""
 
@@ -115,7 +136,7 @@ class Metadata:
     template_version: Optional[str] = None
     language: Optional[str] = None
     publisher: Optional[str] = None
-    submission_urls: Optional[List[str]] = None
+    submission_urls: Optional[List[SubmissionTarget]] = None
     extra: Dict[str, Any] = field(default_factory=dict)
 
 

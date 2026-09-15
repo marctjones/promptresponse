@@ -12,6 +12,7 @@ from .models import (
     PromptHints,
     RoleDefinition,
     Section,
+    SubmissionTarget,
 )
 from .serialization import dump, dumps, load, loads
 from .versioning import CURRENT_VERSION
@@ -33,7 +34,7 @@ PROFILE = "core+expressions"
 
 __all__ = [
     "AprDocument", "Metadata", "Prompt", "PromptHints",
-    "RoleDefinition", "Section",
+    "RoleDefinition", "Section", "SubmissionTarget",
     "AprParseError", "AprVersionError",
     "load", "loads", "dump", "dumps",
     "validate", "ValidationError", "ValidationResult", "ValidationWarning",

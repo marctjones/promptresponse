@@ -1,7 +1,7 @@
 """Advisory-only response checks, shared by document and interactive callers."""
 
 import re
-from typing import Dict, Iterable, List
+from typing import Dict, Iterator, List, Tuple
 
 from .unicode_security import inspect_text
 from .validation_result import ValidationWarning
@@ -80,7 +80,7 @@ def advisories_for(prompt, roles) -> List[ValidationWarning]:
 def document_advisories(document) -> List[ValidationWarning]:
     roles = {role.id for role in (document.roles or []) if role.id}
     warnings = list(_inspect_extensions(document.metadata.extra, "metadata"))
-    warnings.extend(_inspect_submission(document.metadata.submission_urls or []))
+    warnings.extend(_inspect_submission(document))
     for index, role in enumerate(document.roles or []):
         warnings.extend(_id_advisory(role.id, f"roles[{index}].id"))
     for section, path in _walk_sections(document.sections, "sections"):
@@ -117,17 +117,26 @@ def _inspect_extensions(extra: Dict, path: str) -> List[ValidationWarning]:
     ]
 
 
-def _inspect_submission(urls: Iterable[str]) -> List[ValidationWarning]:
+def submission_urls(document) -> Iterator[Tuple[int, str, str]]:
+    """Each submission entry's index, URL and path: the entry itself for the string
+    shorthand, its ``url`` member for an object. An entry without a URL is skipped;
+    validation reports it."""
+    for index, target in enumerate(document.metadata.submission_urls or []):
+        if target.url is not None:
+            path = f"metadata.submissionUrls[{index}]"
+            yield index, target.url, path if target.shorthand else f"{path}.url"
+
+
+def _inspect_submission(document) -> List[ValidationWarning]:
     warnings = []
-    for index, url in enumerate(urls):
+    for index, url, path in submission_urls(document):
         scheme = url.split(":", 1)[0] if ":" in url else ""
         if scheme.lower() in _SUBMISSION_SCHEMES:
             continue
         warnings.append(ValidationWarning(
             "SUBMISSION_URL_UNSUPPORTED",
             f"submission entry {index} names the scheme {scheme!r}, which this document "
-            "does not define; a reader offers the entries it understands.",
-            f"metadata.submissionUrls[{index}]"))
+            "does not define; a reader offers the entries it understands.", path))
     return warnings
 
 

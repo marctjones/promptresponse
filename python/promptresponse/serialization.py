@@ -11,7 +11,7 @@ APR versions.
 """
 
 import json
-from typing import Any, Dict
+from typing import Any, Dict, List, Optional, Union
 
 from .errors import AprParseError
 from .models import (
@@ -21,13 +21,13 @@ from .models import (
     PromptHints,
     RoleDefinition,
     Section,
+    SubmissionTarget,
 )
 from .text import normalize
 from .versioning import CURRENT_VERSION, is_supported_version
 from .wire import (
     compact_members as _compact,
     require_object as _require_object,
-    string_list_member as _strings,
     string_member as _string,
     unknown_members as _rest,
 )
@@ -179,6 +179,36 @@ def _parse_section(node) -> Section:
     )
 
 
+def _parse_submission_target(entry) -> SubmissionTarget:
+    # A string is the shorthand for a put to that URL (APR-MODEL-134). A missing
+    # kind or url, or a post without fields, is left for validation to report.
+    if isinstance(entry, str):
+        return SubmissionTarget(kind="put", url=entry, shorthand=True)
+    if not isinstance(entry, dict):
+        raise _wrong_type("metadata", "submissionUrls entry", "a string or an object", entry)
+    what = "submissionUrls entry"
+    fields = entry.get("fields")
+    if fields is not None and not isinstance(fields, dict):
+        raise _wrong_type(what, "fields", "an object", fields)
+    return SubmissionTarget(
+        kind=_string(entry, "kind", what),
+        url=_string(entry, "url", what),
+        fields=fields,
+        expires=_string(entry, "expires", what),
+        refresh=_string(entry, "refresh", what),
+        extra=_rest(entry, {"kind", "url", "fields", "expires", "refresh"}),
+    )
+
+
+def _submission_targets(node) -> Optional[List[SubmissionTarget]]:
+    entries = node.get("submissionUrls")
+    if entries is None:
+        return None
+    if not isinstance(entries, list):
+        raise _wrong_type("metadata", "submissionUrls", "an array", entries)
+    return [_parse_submission_target(entry) for entry in entries]
+
+
 def _parse_metadata(node) -> Metadata:
     node = _require_object(node, "metadata")
     known = {
@@ -197,7 +227,7 @@ def _parse_metadata(node) -> Metadata:
         publisher=_string(node, "publisher", "metadata"),
         # Deliberately not normalised: machine-consumed and signature-bound, so a
         # hidden character is reported rather than quietly cleaned to another host.
-        submission_urls=_strings(node, "submissionUrls", "metadata"),
+        submission_urls=_submission_targets(node),
         extra=_rest(node, known),
     )
 
@@ -329,6 +359,21 @@ def _section_json(section: Section) -> Dict[str, Any]:
     return node
 
 
+def _submission_json(target: SubmissionTarget) -> Union[str, Dict[str, Any]]:
+    # A shorthand entry still exactly a put to its URL goes back as the string it
+    # was read from. Not through _compact, which would drop an empty `fields`
+    # object and turn a valid post into one without its fields.
+    if target.shorthand and target == SubmissionTarget(kind="put", url=target.url):
+        return target.url
+    node: Dict[str, Any] = {}
+    for key, value in (("kind", target.kind), ("url", target.url), ("fields", target.fields),
+                       ("expires", target.expires), ("refresh", target.refresh)):
+        if value is not None:
+            node[key] = value
+    node.update(target.extra)
+    return node
+
+
 def dumps(document: AprDocument, indent: int = 2) -> str:
     """Writes APR JSON, preserving every member this reader did not recognise."""
     if not is_supported_version(document.version):
@@ -343,7 +388,10 @@ def dumps(document: AprDocument, indent: int = 2) -> str:
         "templateVersion": document.metadata.template_version,
         "language": document.metadata.language,
         "publisher": document.metadata.publisher,
-        "submissionUrls": document.metadata.submission_urls,
+        "submissionUrls": (
+            [_submission_json(target) for target in document.metadata.submission_urls]
+            if document.metadata.submission_urls is not None else None
+        ),
     }))
     metadata.update(document.metadata.extra)
 
