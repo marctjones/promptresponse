@@ -52,16 +52,20 @@ function evaluate(document, inputs) {
   const context = buildExpressionContext(document, today, ctx);
 
   const hidden = {};
+  const expected = {};
+  const readOnly = {};
   const result = {};
   for (const prompt of allPrompts(document.sections)) {
     if (prompt.hints.exprHidden) hidden[prompt.id] = condition(prompt, prompt.hints.exprHidden, context);
+    if (prompt.hints.exprExpected) expected[prompt.id] = condition(prompt, prompt.hints.exprExpected, context);
+    if (prompt.hints.exprReadOnly) readOnly[prompt.id] = condition(prompt, prompt.hints.exprReadOnly, context);
     if (prompt.hints.exprValidation) result[prompt.id] = validationMessage(prompt, context) ?? "";
   }
 
   recomputeComputedValues(document, today, ctx);
   const responses = {};
   for (const prompt of allPrompts(document.sections)) if (prompt.hints.exprValue) responses[prompt.id] = prompt.response;
-  return { responses, hidden, validation: result };
+  return { responses, hidden, expected, readOnly, validation: result };
 }
 
 function written(records) {

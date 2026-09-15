@@ -150,6 +150,8 @@ public sealed class ConformanceCommand : ICommand
 
         var responses = new JsonObject();
         var hidden = new JsonObject();
+        var expected = new JsonObject();
+        var readOnly = new JsonObject();
         var validation = new JsonObject();
         foreach (var record in records.OfType<AprFormRecord>())
         {
@@ -161,6 +163,14 @@ public sealed class ConformanceCommand : ICommand
                 if (prompt.Hints?.ExprHidden is { Length: > 0 })
                 {
                     hidden[id] = FormExpressions.IsHidden(prompt, environment);
+                }
+                if (prompt.Hints?.ExprExpected is { Length: > 0 })
+                {
+                    expected[id] = FormExpressions.IsExpected(prompt, environment);
+                }
+                if (prompt.Hints?.ExprReadOnly is { Length: > 0 })
+                {
+                    readOnly[id] = FormExpressions.IsReadOnly(prompt, environment);
                 }
                 if (prompt.Hints?.ExprValidation is { Length: > 0 })
                 {
@@ -176,6 +186,8 @@ public sealed class ConformanceCommand : ICommand
         {
             ["responses"] = responses,
             ["hidden"] = hidden,
+            ["expected"] = expected,
+            ["readOnly"] = readOnly,
             ["validation"] = validation,
         };
     }

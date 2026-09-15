@@ -51,10 +51,16 @@ def _evaluate(document, inputs: dict) -> dict:
     context = expressions.build_expression_context(document, today, ctx)
 
     hidden: dict[str, bool] = {}
+    expected: dict[str, bool] = {}
+    read_only: dict[str, bool] = {}
     result: dict[str, str] = {}
     for prompt in document.all_prompts():
         if prompt.hints.expr_hidden:
             hidden[prompt.id] = expressions.condition(prompt, prompt.hints.expr_hidden, context)
+        if prompt.hints.expr_expected:
+            expected[prompt.id] = expressions.condition(prompt, prompt.hints.expr_expected, context)
+        if prompt.hints.expr_read_only:
+            read_only[prompt.id] = expressions.condition(prompt, prompt.hints.expr_read_only, context)
         if prompt.hints.expr_validation:
             result[prompt.id] = expressions.validation_message(prompt, context) or ""
 
@@ -64,7 +70,8 @@ def _evaluate(document, inputs: dict) -> dict:
         for prompt in document.all_prompts()
         if prompt.hints.expr_value
     }
-    return {"responses": responses, "hidden": hidden, "validation": result}
+    return {"responses": responses, "hidden": hidden, "expected": expected,
+            "readOnly": read_only, "validation": result}
 
 
 def _written(records) -> str:

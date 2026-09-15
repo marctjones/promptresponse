@@ -146,12 +146,18 @@ public final class AprConformanceDriver {
 
         AprExpressions.Context context = new AprExpressions.Context(document, today, ctx);
         Map<String, Object> hidden = new LinkedHashMap<>();
+        Map<String, Object> expected = new LinkedHashMap<>();
+        Map<String, Object> readOnly = new LinkedHashMap<>();
         Map<String, Object> validation = new LinkedHashMap<>();
         for (Map<String, Object> prompt : allPrompts(document.sections())) {
             String id = AprDocument.string(prompt.get("id"));
             Map<String, Object> hints = hintsOf(prompt);
             String exprHidden = AprDocument.string(hints.get("exprHidden"));
             if (!blank(exprHidden)) hidden.put(id, Boolean.TRUE.equals(context.evaluateRaw(prompt, exprHidden)));
+            String exprExpected = AprDocument.string(hints.get("exprExpected"));
+            if (!blank(exprExpected)) expected.put(id, Boolean.TRUE.equals(context.evaluateRaw(prompt, exprExpected)));
+            String exprReadOnly = AprDocument.string(hints.get("exprReadOnly"));
+            if (!blank(exprReadOnly)) readOnly.put(id, Boolean.TRUE.equals(context.evaluateRaw(prompt, exprReadOnly)));
             String exprValidation = AprDocument.string(hints.get("exprValidation"));
             if (!blank(exprValidation)) {
                 Object raw = context.evaluateRaw(prompt, exprValidation);
@@ -169,6 +175,8 @@ public final class AprConformanceDriver {
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("responses", responses);
         result.put("hidden", hidden);
+        result.put("expected", expected);
+        result.put("readOnly", readOnly);
         result.put("validation", validation);
         return result;
     }

@@ -89,10 +89,9 @@ seven of 171 now.
   is valid either way cannot tell a reader that says the right thing from one that
   stays silent. Reporting more than the suite names is a discrepancy, not a failure.
 - `evaluated` is what evaluating the expression hints produced, required by any case
-  carrying `expects`. Report the groups the suite asserts — `responses`, `hidden` and
-  `validation`, each keyed by prompt id. Only what a case names is checked, so
-  reporting more is harmless; `expected` and `readOnly` were documented here and are
-  consumed by nothing. The case supplies `_now`, `_today` and `ctx` under `evaluate` —
+  carrying `expects`. Report the groups the suite asserts — `responses`, `hidden`,
+  `expected`, `readOnly` and `validation`, each keyed by prompt id. Only what a case
+  names is checked, so reporting more is harmless. The case supplies `_now`, `_today` and `ctx` under `evaluate` —
   the reserved names the specification's activation section states — and taking them
   from there rather than the host clock is what makes a form evaluate the same way
   twice. Every non-empty response in the document as you read it is authored, whatever

@@ -158,6 +158,8 @@ static JsonObject Evaluate(IReadOnlyList<AprStreamRecord> records, JsonNode? inp
 
     var responses = new JsonObject();
     var hidden = new JsonObject();
+    var expected = new JsonObject();
+    var readOnly = new JsonObject();
     var validation = new JsonObject();
     foreach (var record in records)
     {
@@ -172,6 +174,14 @@ static JsonObject Evaluate(IReadOnlyList<AprStreamRecord> records, JsonNode? inp
             if (prompt.Hints?.ExprHidden is { Length: > 0 })
             {
                 hidden[id] = FormExpressions.IsHidden(prompt, environment);
+            }
+            if (prompt.Hints?.ExprExpected is { Length: > 0 })
+            {
+                expected[id] = FormExpressions.IsExpected(prompt, environment);
+            }
+            if (prompt.Hints?.ExprReadOnly is { Length: > 0 })
+            {
+                readOnly[id] = FormExpressions.IsReadOnly(prompt, environment);
             }
             if (prompt.Hints?.ExprValidation is { Length: > 0 })
             {
@@ -190,6 +200,8 @@ static JsonObject Evaluate(IReadOnlyList<AprStreamRecord> records, JsonNode? inp
     {
         ["responses"] = responses,
         ["hidden"] = hidden,
+        ["expected"] = expected,
+        ["readOnly"] = readOnly,
         ["validation"] = validation,
     };
 }
