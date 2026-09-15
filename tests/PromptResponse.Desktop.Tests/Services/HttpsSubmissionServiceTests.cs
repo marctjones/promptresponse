@@ -19,16 +19,62 @@ public class HttpsSubmissionServiceTests
     {
         public HttpRequestMessage? LastRequest { get; private set; }
         public string? LastRequestBody { get; private set; }
+        public int Requests { get; private set; }
 
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            Requests++;
             LastRequest = request;
             LastRequestBody = request.Content is null
                 ? null
                 : await request.Content.ReadAsStringAsync(cancellationToken);
-            return new HttpResponseMessage(statusCode);
+            var response = new HttpResponseMessage(statusCode);
+            if ((int)statusCode is >= 300 and < 400)
+                response.Headers.Location = new Uri("https://elsewhere.example/other");
+            return response;
         }
+    }
+
+    [Fact]
+    public void TheDefaultSubmissionHandler_FollowsNoRedirect()
+    {
+        // APR-MODEL-088, for the client this service actually builds.
+        using var handler = HttpsSubmissionService.CreateHandler();
+
+        handler.Should().BeOfType<HttpClientHandler>().Which.AllowAutoRedirect.Should().BeFalse();
+    }
+
+    [Theory]
+    [InlineData(HttpStatusCode.Found)]
+    [InlineData(HttpStatusCode.TemporaryRedirect)]
+    [InlineData(HttpStatusCode.ServiceUnavailable)]
+    public async Task SubmitAsync_SendsOneRequest_AndNeverFollowsOrRetries(HttpStatusCode status)
+    {
+        // APR-MODEL-088 and APR-MODEL-089: a redirect or a failure ends the attempt; a second
+        // request would be a second submission.
+        var handler = new RecordingHandler(status);
+        using var service = new HttpsSubmissionService(handler);
+
+        var result = await service.SubmitAsync("https://example.com/submit", "{}");
+
+        result.Succeeded.Should().BeFalse();
+        handler.Requests.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task SubmitAsync_SendsNoCredentialsOrHeadersDerivedFromTheDocument()
+    {
+        // APR-MODEL-086: nothing the document says becomes part of the request but its body.
+        var handler = new RecordingHandler();
+        using var service = new HttpsSubmissionService(handler);
+
+        await service.SubmitAsync("https://example.com/submit",
+            "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Authorization: Bearer secret\",\"author\":\"Cookie: session=1\"}}");
+
+        handler.LastRequest!.Headers.Should().BeEmpty();
+        handler.LastRequest.Content!.Headers.Select(header => header.Key)
+            .Should().BeSubsetOf(["Content-Type", "Content-Length"]);
     }
 
     [Fact]

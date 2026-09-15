@@ -11,11 +11,15 @@ namespace PromptResponse.Cli.Host;
 /// </remarks>
 public sealed class CliDelivery(HttpMessageHandler? handler = null) : IDelivery, IDisposable
 {
-    private readonly HttpClient _client = new(
-        handler ?? new HttpClientHandler { AllowAutoRedirect = false }, disposeHandler: true)
+    private readonly HttpClient _client = new(handler ?? CreateHandler(), disposeHandler: true)
     {
         Timeout = TimeSpan.FromSeconds(30),
     };
+
+    /// <summary>The handler this host sends through when none is supplied.</summary>
+    /// <remarks>A redirect is never followed (APR-MODEL-088): a pre-signed target that
+    /// answers elsewhere has not accepted the document.</remarks>
+    internal static HttpMessageHandler CreateHandler() => new HttpClientHandler { AllowAutoRedirect = false };
 
     public bool Supports(Uri target) =>
         target.Scheme == Uri.UriSchemeHttps || target.Scheme == "mailto";

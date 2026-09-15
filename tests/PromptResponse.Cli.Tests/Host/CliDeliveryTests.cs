@@ -20,16 +20,65 @@ public class CliDeliveryTests
     {
         public HttpRequestMessage? LastRequest { get; private set; }
         public string? LastRequestBody { get; private set; }
+        public int Requests { get; private set; }
 
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            Requests++;
             LastRequest = request;
             LastRequestBody = request.Content is null
                 ? null
                 : await request.Content.ReadAsStringAsync(cancellationToken);
-            return new HttpResponseMessage(statusCode);
+            var response = new HttpResponseMessage(statusCode);
+            if ((int)statusCode is >= 300 and < 400)
+                response.Headers.Location = new Uri("https://elsewhere.example/other");
+            return response;
         }
+    }
+
+    [Fact]
+    public void TheDefaultHandler_FollowsNoRedirect()
+    {
+        // APR-MODEL-088, for the client this host actually builds.
+        using var handler = CliDelivery.CreateHandler();
+
+        handler.Should().BeOfType<HttpClientHandler>().Which.AllowAutoRedirect.Should().BeFalse();
+    }
+
+    [Theory]
+    [InlineData(HttpStatusCode.Found)]
+    [InlineData(HttpStatusCode.TemporaryRedirect)]
+    [InlineData(HttpStatusCode.ServiceUnavailable)]
+    public async Task DeliverAsync_SendsOneRequest_AndNeverFollowsOrRetries(HttpStatusCode status)
+    {
+        // APR-MODEL-088 and APR-MODEL-089: a redirect or a failure ends the attempt; a second
+        // request would be a second submission.
+        var handler = new RecordingHandler(status);
+        using var delivery = new CliDelivery(handler);
+
+        var result = await delivery.DeliverAsync(
+            new Uri("https://example.com/submit"), Encoding.UTF8.GetBytes("{}"), "application/vnd.apr+json", "form.aprf");
+
+        result.Outcome.Should().Be(DeliveryOutcome.Refused);
+        handler.Requests.Should().Be(1);
+    }
+
+    [Fact]
+    public async Task DeliverAsync_SendsNoCredentialsOrHeadersDerivedFromTheDocument()
+    {
+        // APR-MODEL-086: nothing the document says becomes part of the request but its body.
+        var handler = new RecordingHandler();
+        using var delivery = new CliDelivery(handler);
+        var document = Encoding.UTF8.GetBytes(
+            "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"Authorization: Bearer secret\",\"author\":\"Cookie: session=1\"}}");
+
+        await delivery.DeliverAsync(
+            new Uri("https://example.com/submit"), document, "application/vnd.apr+json", "form.aprf");
+
+        handler.LastRequest!.Headers.Should().BeEmpty();
+        handler.LastRequest.Content!.Headers.Select(header => header.Key)
+            .Should().BeSubsetOf(["Content-Type", "Content-Length"]);
     }
 
     [Fact]

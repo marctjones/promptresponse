@@ -31,11 +31,15 @@ public sealed record HttpsSubmissionResult(bool Succeeded, string Message);
 public sealed class HttpsSubmissionService(HttpMessageHandler? handler = null)
     : IHttpsSubmissionService, IDisposable
 {
-    private readonly HttpClient _client = new(
-        handler ?? new HttpClientHandler { AllowAutoRedirect = false }, disposeHandler: true)
+    private readonly HttpClient _client = new(handler ?? CreateHandler(), disposeHandler: true)
     {
         Timeout = TimeSpan.FromSeconds(30),
     };
+
+    /// <summary>The handler this service sends through when none is supplied.</summary>
+    /// <remarks>A redirect is never followed (APR-MODEL-088): a pre-signed target that
+    /// answers elsewhere has not accepted the document.</remarks>
+    internal static HttpMessageHandler CreateHandler() => new HttpClientHandler { AllowAutoRedirect = false };
 
     public async Task<HttpsSubmissionResult> SubmitAsync(
         string target, string aprJson, CancellationToken cancellationToken = default)
