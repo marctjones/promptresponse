@@ -662,6 +662,12 @@
       "tests/PromptResponse.Core.Tests/Conformance/ParserFuzzTests.cs"
     ]
   },
+  "APR-MODEL-085": {
+    "reason": "The rule is that a check is not relaxed, and the harness traces a warning to the rule the advisory itself cites. FORBIDDEN_CODE_POINT cites APR-VAL-032, so no advisory can cite a rule about declining to suppress one. The case shows the observable behaviour: the same text warns identically with and without a language member.",
+    "coveredBy": [
+      "spec:language-does-not-relax-the-check"
+    ]
+  },
   "APR-MODEL-087": {
     "reason": "A rule on how an implementation reads a submission's status, which no document shows.",
     "coveredBy": [

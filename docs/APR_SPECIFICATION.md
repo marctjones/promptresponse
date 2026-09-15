@@ -1724,7 +1724,7 @@ member changes nothing about the check.
 ```apr-example
 id: language-does-not-relax-the-check
 rule: metadata
-satisfies: APR-MODEL-085
+satisfies: APR-VAL-032
 representation: jsonc
 expect: valid
 warns: FORBIDDEN_CODE_POINT
