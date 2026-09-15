@@ -68,6 +68,7 @@ MEMBER_RULES = {
     ("metadata", "title"): ("APR-MODEL-007",),
     ("form", "sections"): ("APR-MODEL-005",),
     ("prompt", "response"): ("APR-MODEL-001",),
+    ("metadata", "submissionUrls"): ("APR-MODEL-133", "APR-REP-015", "APR-REP-016"),
 }
 
 
