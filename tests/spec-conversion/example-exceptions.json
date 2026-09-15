@@ -778,10 +778,37 @@
       "spec:language-does-not-relax-the-check"
     ]
   },
+  "APR-MODEL-086": {
+    "reason": "A rule on what a submitting implementation sends, which no document shows. The tests submit a document whose text names credentials and check the request carries no header but its content type and length.",
+    "coveredBy": [
+      "tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs",
+      "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"
+    ]
+  },
   "APR-MODEL-087": {
     "reason": "A rule on how an implementation reads a submission's status, which no document shows.",
     "coveredBy": [
       "tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs"
+    ]
+  },
+  "APR-MODEL-088": {
+    "reason": "A rule on what a submitting implementation does with a redirect, which no document shows. The tests check the client each host builds follows no redirect, and that a redirect answer ends the attempt after one request.",
+    "coveredBy": [
+      "tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs",
+      "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"
+    ]
+  },
+  "APR-MODEL-089": {
+    "reason": "A rule on what a submitting implementation does after a failure, which no document shows. The tests check a failure answer ends the attempt after one request.",
+    "coveredBy": [
+      "tests/PromptResponse.Cli.Tests/Host/CliDeliveryTests.cs",
+      "tests/PromptResponse.Desktop.Tests/Services/HttpsSubmissionServiceTests.cs"
+    ]
+  },
+  "APR-MODEL-090": {
+    "reason": "A permission, which nothing can violate. The desktop hands a mailto submission to the person's mail program, the path the SHOULD beside it names.",
+    "coveredBy": [
+      "tests/PromptResponse.Desktop.Tests/ViewModels/MainShellViewModelTests.Behaviors.cs"
     ]
   },
   "APR-MODEL-091": {

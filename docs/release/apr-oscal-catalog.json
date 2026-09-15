@@ -4181,7 +4181,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -4219,7 +4219,7 @@
               {
                 "id": "apr-model-033_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -4243,7 +4243,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -4281,7 +4281,7 @@
               {
                 "id": "apr-model-034_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -4305,7 +4305,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -4343,7 +4343,7 @@
               {
                 "id": "apr-model-035_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -5939,7 +5939,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -5977,7 +5977,7 @@
               {
                 "id": "apr-model-064_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -7253,7 +7253,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -7291,7 +7291,7 @@
               {
                 "id": "apr-model-086_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -7315,7 +7315,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -7353,7 +7353,7 @@
               {
                 "id": "apr-model-087_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -7377,7 +7377,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -7415,7 +7415,7 @@
               {
                 "id": "apr-model-088_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -7439,7 +7439,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -7477,7 +7477,7 @@
               {
                 "id": "apr-model-089_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -7501,7 +7501,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -7539,7 +7539,7 @@
               {
                 "id": "apr-model-090_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -7563,7 +7563,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -7601,7 +7601,7 @@
               {
                 "id": "apr-model-091_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -9700,7 +9700,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -9738,7 +9738,7 @@
               {
                 "id": "apr-model-128_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -9762,7 +9762,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -9800,7 +9800,7 @@
               {
                 "id": "apr-model-129_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -9824,7 +9824,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -9862,7 +9862,7 @@
               {
                 "id": "apr-model-130_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -9886,7 +9886,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -9924,7 +9924,7 @@
               {
                 "id": "apr-model-131_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -9948,7 +9948,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -9986,7 +9986,7 @@
               {
                 "id": "apr-model-132_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -10010,7 +10010,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -10048,7 +10048,7 @@
               {
                 "id": "apr-model-133_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -10072,7 +10072,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -10110,7 +10110,7 @@
               {
                 "id": "apr-model-134_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -10134,7 +10134,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -10172,7 +10172,7 @@
               {
                 "id": "apr-model-135_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -10196,7 +10196,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -10234,7 +10234,7 @@
               {
                 "id": "apr-model-136_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -10258,7 +10258,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -10296,7 +10296,7 @@
               {
                 "id": "apr-model-137_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -10320,7 +10320,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -10358,7 +10358,7 @@
               {
                 "id": "apr-model-138_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -10382,7 +10382,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -10420,7 +10420,7 @@
               {
                 "id": "apr-model-139_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           },
@@ -10444,7 +10444,7 @@
               {
                 "name": "gate-strength",
                 "ns": "https://skpt.cl/apr/oscal",
-                "value": "none"
+                "value": "partial"
               },
               {
                 "name": "profile",
@@ -10482,7 +10482,7 @@
               {
                 "id": "apr-model-140_gap",
                 "name": "assessment-gap",
-                "prose": "APR-MODEL-133's satisfying half is spec:submission-string-entries. Its violating half is written and withdrawn: an entry of `[ 42 ]` is refused as WRONG_TYPE by the reference tooling and all five drivers, which is what the specification requires, but no check in validate-apr.py cites APR-MODEL-133 for a member-type refusal, so check-rule-evidence cannot trace the refusal to the rule and the case would certify itself. Crediting it needs the reference validator to name the rule, which is code. APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-086, 088, 089, 090, 136, 137, 138 and 140 are properties of the request a submission makes — no credentials, no redirect, no retry, the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises; SubmitCommandTests covers target choice, confirmation and refusal, not the wire behaviour (#523)."
+                "prose": "APR-MODEL-128 to 132, 134, 135 and 139 describe the object form of an entry, and an example could show every one of them — but no reader accepts an object entry yet: fed a put, a post, a full entry with expires and refresh, a mixed array, an entry missing kind, one missing url, a post without fields and an unrecognised kind, the reference tooling and all five SDK and .NET drivers reject every one with WRONG_TYPE, still enforcing the array-of-string shape beta.7 widened. They stay uncovered rather than excepted, because the work is real (#418). APR-MODEL-136, 137, 138 and 140 are properties of the request a submission makes — the multipart POST shape, the refresh fetch, the object name, the mailto attachment — which no document can exhibit and no test in this repository exercises (#523)."
               }
             ]
           }

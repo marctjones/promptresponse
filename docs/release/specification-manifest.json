@@ -30,7 +30,7 @@
     },
     "coverageRegistry": {
       "path": "tests/registry.json",
-      "sha256": "sha256:cef8a876eb0d45176d9ed30d884890e9af6e2363b78443e0b7254a3c88aadc11"
+      "sha256": "sha256:f50ab63b72e5ba3912cd19df5d89a75a5474d1bfccd31c840678946a69aacdd3"
     },
     "shapeManifest": {
       "path": "tests/spec-shape/manifest.json",
@@ -46,7 +46,7 @@
     },
     "oscalCatalog": {
       "path": "docs/release/apr-oscal-catalog.json",
-      "sha256": "sha256:35f21dcc6edfbea1adab16576e9c23484572864ec53c897d8079be5d18bdfce6"
+      "sha256": "sha256:1744d59bf309e298f6ee7636eaf3280f2bc05126aafd299a10b415e18bf4a7b7"
     },
     "conformanceStatement": {
       "path": "docs/release/APR_CONFORMANCE_STATEMENT.md",
