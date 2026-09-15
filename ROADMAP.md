@@ -1,6 +1,7 @@
 # PromptResponse roadmap
 
-**Current format target:** APR `1.0-beta.6`
+**Current format target:** APR `1.0-beta.7`, which a reader accepts alongside
+`1.0-beta.6`
 **Planning authority:** GitHub milestones and issues; this document states product
 direction, not an alternate delivery tracker.
 
@@ -18,13 +19,22 @@ keeps responses as strings, and does not store presentation layout.
 For the full product boundary, see [Product](docs/PRODUCT.md). For present shipped
 surfaces and their evidence, see the [implementation registry](docs/IMPLEMENTATION_REGISTRY.md).
 
-## Current focus: APR `1.0-beta.6`
+## Current focus: APR `1.0-beta.7`
 
 APR has not been publicly released. The beta.3 wire contract is therefore not a
-compatibility target: beta.6 makes the required breaking changes once, before we
-stabilize around it. Beta.6 replaces the embedded `signatures` / `apr-sig-v3`
-model with independent attestation records, adds the APR-JSONC and APR-YAML
-representations, and introduces representation-neutral streams.
+compatibility target: the beta line makes the required breaking changes once,
+before we stabilize around it. Beta.6 replaces the embedded `signatures` /
+`apr-sig-v3` model with independent attestation records, adds the APR-JSONC and
+APR-YAML representations, and introduces representation-neutral streams. Beta.7
+adds the object form of a `submissionUrls` entry, so a presigned browser POST can
+carry its policy; it moves no other member, which is why a reader accepts both
+versions.
+
+The readers are at beta.6. Aligning them with what beta.7 states — the version
+pair, the hidden-character warning codes outside human-facing text, the object
+submission entry, and the diagnostic for an absent `aprVersion` — is the code
+pass that follows the specification change, and the precondition for any of it
+being scored.
 
 ### Where the contract stands
 
