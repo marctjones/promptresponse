@@ -1617,7 +1617,15 @@
       "text": "4.3 Encoding",
       "disposition": "keep",
       "status": "applied",
-      "issue": 476
+      "issue": 476,
+      "replacedBy": [
+        "encoding/heading/7e78f32855",
+        "encoding/example/fbc9aa2745",
+        "encoding/sentence/1862fc6ead",
+        "encoding/sentence/49ee18d4a2",
+        "encoding/sentence/6f125033db"
+      ],
+      "note": "an example that tab, carriage return and line feed are the control characters a string may carry (APR-REP-004)"
     },
     "encoding/sentence/50b93af94e": {
       "anchor": "encoding",
@@ -4492,9 +4500,13 @@
         "prompt-object/example/96f713fcc9",
         "prompt-object/sentence/5522e57a40",
         "prompt-object/sentence/756bc84849",
-        "prompt-object/example/7f9cc54028"
+        "prompt-object/example/7f9cc54028",
+        "prompt-object/example/b42c2e7e03",
+        "prompt-object/sentence/af3faaf0bd",
+        "prompt-object/sentence/d6c5387260",
+        "prompt-object/sentence/db1afe8f12"
       ],
-      "note": "examples added so the specification shows each rule it states here (#488)"
+      "note": "examples added so the specification shows each rule it states here (#488) an example that ids are compared by code point, so canonically equivalent ids are distinct (APR-MODEL-011)"
     },
     "prompt-object/table-header/bd072d4771": {
       "anchor": "prompt-object",
@@ -5301,7 +5313,15 @@
       "text": "5.6 Nesting depth",
       "disposition": "keep",
       "status": "applied",
-      "issue": 478
+      "issue": 478,
+      "replacedBy": [
+        "nesting/heading/e4b8576770",
+        "nesting/example/45290355ca",
+        "nesting/sentence/697b891ac9",
+        "nesting/sentence/8baa43d33f",
+        "nesting/sentence/e7cb8bb926"
+      ],
+      "note": "an example that the five-level advice is a SHOULD NOT, so a deeper document is still valid (APR-MODEL-017)"
     },
     "nesting/sentence/45cc8ed0b1": {
       "anchor": "nesting",
@@ -6211,7 +6231,19 @@
       "text": "5.9 Canonical value forms",
       "disposition": "keep",
       "status": "applied",
-      "issue": 478
+      "issue": 478,
+      "replacedBy": [
+        "canonical-values/heading/638f2e325f",
+        "canonical-values/example/58bedc013c",
+        "canonical-values/example/926059e08d",
+        "canonical-values/sentence/023f367c33",
+        "canonical-values/sentence/1426ce83ba",
+        "canonical-values/sentence/7f85d42e14",
+        "canonical-values/sentence/dd6d0b76fd",
+        "canonical-values/sentence/f16e7dad5d",
+        "canonical-values/sentence/fed0e4573a"
+      ],
+      "note": "examples of the forms accepted on read and of an empty response as no selection (APR-MODEL-023, APR-MODEL-120)"
     },
     "canonical-values/sentence/4eafe393e1": {
       "anchor": "canonical-values",
@@ -7907,7 +7939,15 @@
       "text": "8.2.2 Authoring data — strictness is appropriate",
       "disposition": "keep",
       "status": "applied",
-      "issue": 481
+      "issue": 481,
+      "replacedBy": [
+        "authoring-strictness/heading/751bd940dc",
+        "authoring-strictness/example/ad15844747",
+        "authoring-strictness/sentence/14c2a3a7ff",
+        "authoring-strictness/sentence/cf516c1687",
+        "authoring-strictness/sentence/ecba0a34d6"
+      ],
+      "note": "a round-trip example that authoring data is not Unicode-normalized (APR-TEXT-006)"
     },
     "authoring-strictness/sentence/387c4a5c42": {
       "anchor": "authoring-strictness",

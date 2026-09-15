@@ -385,6 +385,52 @@
       ]
     },
     {
+      "id": "authoring-not-normalized",
+      "number": "8.2.2-1",
+      "rule": "authoring-strictness",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Registration\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"Cafe\\u0301 name\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-TEXT-006"
+      ],
+      "satisfies": [
+        "APR-TEXT-006"
+      ],
+      "roundTrip": true,
+      "preserves": [
+        "/sections/0/prompts/0/label"
+      ]
+    },
+    {
+      "id": "canonical-accepted-on-read",
+      "number": "5.9-1",
+      "rule": "canonical-values",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Intake\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"consent\", \"label\": \"Consent given\",\n          \"hints\": { \"expectedDataType\": \"boolean\" }, \"response\": \"yes\" },\n        { \"id\": \"days\", \"label\": \"Days available\",\n          \"hints\": { \"expectedDataType\": \"multichoice\",\n                     \"suggestedValues\": [ \"Monday\", \"Tuesday\" ] },\n          \"response\": \"Monday, Tuesday\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-023"
+      ],
+      "satisfies": [
+        "APR-MODEL-023"
+      ]
+    },
+    {
+      "id": "canonical-empty-is-no-selection",
+      "number": "5.9-2",
+      "rule": "canonical-values",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Intake\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"ward\", \"label\": \"Ward\",\n          \"hints\": { \"expectedDataType\": \"select\",\n                     \"suggestedValues\": [ \"North\", \"South\" ] },\n          \"response\": \"\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-120"
+      ],
+      "satisfies": [
+        "APR-MODEL-120"
+      ]
+    },
+    {
       "id": "date-bound-as-number",
       "number": "4.6-5",
       "rule": "json-subset",
@@ -501,6 +547,20 @@
         "APR-VAL-015"
       ],
       "diagnostic": "EMPTY_SECTION"
+    },
+    {
+      "id": "encoding-allowed-controls",
+      "number": "4.3-1",
+      "rule": "encoding",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Notes\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"p\", \"label\": \"Observations\",\n          \"response\": \"one\\ttwo\\r\\nthree\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-REP-004"
+      ],
+      "satisfies": [
+        "APR-REP-004"
+      ]
     },
     {
       "id": "expr-authored-response",
@@ -1105,8 +1165,22 @@
       "diagnostic": "REQUIRED_FIELD"
     },
     {
-      "id": "id-namespaces",
+      "id": "id-code-point-equality",
       "number": "5.4-3",
+      "rule": "prompt-object",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"Caf\\u00e9\" },\n  \"sections\": [\n    {\n      \"id\": \"s\",\n      \"title\": \"S\",\n      \"prompts\": [\n        { \"id\": \"caf\\u00e9\", \"label\": \"Composed\" },\n        { \"id\": \"cafe\\u0301\", \"label\": \"Decomposed\" }\n      ]\n    }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-011"
+      ],
+      "satisfies": [
+        "APR-MODEL-011"
+      ]
+    },
+    {
+      "id": "id-namespaces",
+      "number": "5.4-4",
       "rule": "prompt-object",
       "representation": "jsonc",
       "expect": "valid",
@@ -1307,6 +1381,20 @@
       ]
     },
     {
+      "id": "nesting-six-levels",
+      "number": "5.6-1",
+      "rule": "nesting",
+      "representation": "jsonc",
+      "expect": "valid",
+      "document": "{\n  \"aprVersion\": \"1.0-beta.6\",\n  \"metadata\": { \"title\": \"T\" },\n  \"sections\": [\n    { \"id\": \"s1\", \"title\": \"S1\", \"sections\": [\n      { \"id\": \"s2\", \"title\": \"S2\", \"sections\": [\n        { \"id\": \"s3\", \"title\": \"S3\", \"sections\": [\n          { \"id\": \"s4\", \"title\": \"S4\", \"sections\": [\n            { \"id\": \"s5\", \"title\": \"S5\", \"sections\": [\n              { \"id\": \"s6\", \"title\": \"S6\", \"prompts\": [ { \"id\": \"p\", \"label\": \"P\" } ] }\n            ] }\n          ] }\n        ] }\n      ] }\n    ] }\n  ]\n}\n",
+      "rules": [
+        "APR-MODEL-017"
+      ],
+      "satisfies": [
+        "APR-MODEL-017"
+      ]
+    },
+    {
       "id": "no-document",
       "number": "7.1-1",
       "rule": "structural-validation",
@@ -1355,7 +1443,7 @@
     },
     {
       "id": "prompt-ids-repeated",
-      "number": "5.4-5",
+      "number": "5.4-6",
       "rule": "prompt-object",
       "representation": "jsonc",
       "expect": "reject",
@@ -1370,7 +1458,7 @@
     },
     {
       "id": "prompt-ids-unique",
-      "number": "5.4-4",
+      "number": "5.4-5",
       "rule": "prompt-object",
       "representation": "jsonc",
       "expect": "valid",

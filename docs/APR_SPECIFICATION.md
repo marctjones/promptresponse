@@ -529,6 +529,33 @@ other than tab (U+0009), line feed (U+000A), and carriage return (U+000D).
 > Rationale: tab, line feed, and carriage return are allowed so that a multiline
 > response holds the line breaks a person typed.
 
+**Example 4.3-1.** A response carrying a tab, a carriage return and a line feed. These
+are the three control characters the rule admits, so the document is valid and
+the response keeps them.
+
+```apr-example
+id: encoding-allowed-controls
+rule: encoding
+satisfies: APR-REP-004
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Notes" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "p", "label": "Observations",
+          "response": "one\ttwo\r\nthree" }
+      ]
+    }
+  ]
+}
+```
+
 ### 4.4 APR-JSONC {#apr-jsonc}
 
 APR-JSONC is the JSON grammar of RFC 8259 with comments and trailing commas
@@ -2229,7 +2256,34 @@ A writer **MUST NOT** change an id when it reorders prompts. [APR-MODEL-094]
 Reordering a form is a presentation change; changing an id silently breaks every
 downstream consumer and every attestation covering it.
 
-**Example 5.4-3.** A section and a prompt sharing an id, and two prompt ids that
+**Example 5.4-3.** Two prompt ids that are canonically equivalent under Unicode
+normalization. Compared by code point they are distinct, so neither is a
+duplicate.
+
+```apr-example
+id: id-code-point-equality
+rule: prompt-object
+satisfies: APR-MODEL-011
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Caf\u00e9" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "caf\u00e9", "label": "Composed" },
+        { "id": "cafe\u0301", "label": "Decomposed" }
+      ]
+    }
+  ]
+}
+```
+
+**Example 5.4-4.** A section and a prompt sharing an id, and two prompt ids that
 differ only by case. All three ids are distinct within their namespaces.
 
 ```apr-example
@@ -2255,7 +2309,7 @@ expect: valid
 }
 ```
 
-**Example 5.4-4.** Prompt ids unique across two sections.
+**Example 5.4-5.** Prompt ids unique across two sections.
 
 ```apr-example
 id: prompt-ids-unique
@@ -2274,7 +2328,7 @@ expect: valid
 }
 ```
 
-**Example 5.4-5.** Two prompts sharing an id.
+**Example 5.4-6.** Two prompts sharing an id.
 
 ```apr-example
 id: prompt-ids-repeated
@@ -2588,6 +2642,35 @@ A writer **SHOULD NOT** nest sections more than five levels deep. [APR-MODEL-017
 
 Deeper forms are difficult to navigate with any input method.
 
+**Example 5.6-1.** Six levels of nesting. The advice is a **SHOULD NOT**, so the
+document is valid and a reader opens it.
+
+```apr-example
+id: nesting-six-levels
+rule: nesting
+satisfies: APR-MODEL-017
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "T" },
+  "sections": [
+    { "id": "s1", "title": "S1", "sections": [
+      { "id": "s2", "title": "S2", "sections": [
+        { "id": "s3", "title": "S3", "sections": [
+          { "id": "s4", "title": "S4", "sections": [
+            { "id": "s5", "title": "S5", "sections": [
+              { "id": "s6", "title": "S6", "prompts": [ { "id": "p", "label": "P" } ] }
+            ] }
+          ] }
+        ] }
+      ] }
+    ] }
+  ]
+}
+```
+
 ### 5.7 Hints {#hints-object}
 
 A prompt's `hints` object holds advisory guidance
@@ -2866,6 +2949,65 @@ Neither rule makes a response invalid.
 
 A reader **MUST** read an empty response to a prompt of any type above as no
 selection. [APR-MODEL-120]
+
+**Example 5.9-1.** A boolean answered `yes` and a multichoice answered as one
+comma-separated line. Both are forms the table accepts on read, so both are read
+as the value they spell.
+
+```apr-example
+id: canonical-accepted-on-read
+rule: canonical-values
+satisfies: APR-MODEL-023
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Intake" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "consent", "label": "Consent given",
+          "hints": { "expectedDataType": "boolean" }, "response": "yes" },
+        { "id": "days", "label": "Days available",
+          "hints": { "expectedDataType": "multichoice",
+                     "suggestedValues": [ "Monday", "Tuesday" ] },
+          "response": "Monday, Tuesday" }
+      ]
+    }
+  ]
+}
+```
+
+**Example 5.9-2.** An empty response to a `select` prompt. It is no selection, not an
+invalid one.
+
+```apr-example
+id: canonical-empty-is-no-selection
+rule: canonical-values
+satisfies: APR-MODEL-120
+representation: jsonc
+expect: valid
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Intake" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "ward", "label": "Ward",
+          "hints": { "expectedDataType": "select",
+                     "suggestedValues": [ "North", "South" ] },
+          "response": "" }
+      ]
+    }
+  ]
+}
+```
 
 > Rationale: the canonical boolean is `true`/`false`, not `yes`/`no`, because
 > `yes` is English. A format that renders to voice, to other languages, and into
@@ -3460,6 +3602,34 @@ wearing a different hat.
 
 An implementation **MUST NOT** Unicode-normalize authoring data or remove a code
 point from it. [APR-TEXT-006]
+
+**Example 8.2.2-1.** A label written in decomposed form. A reader that writes the
+document back leaves the code points as it found them, rather than composing them
+into the canonically equivalent single character.
+
+```apr-example
+id: authoring-not-normalized
+rule: authoring-strictness
+satisfies: APR-TEXT-006
+representation: jsonc
+expect: valid
+round-trip: true
+preserves: /sections/0/prompts/0/label
+---
+{
+  "aprVersion": "1.0-beta.6",
+  "metadata": { "title": "Registration" },
+  "sections": [
+    {
+      "id": "s",
+      "title": "S",
+      "prompts": [
+        { "id": "p", "label": "Cafe\u0301 name" }
+      ]
+    }
+  ]
+}
+```
 
 `metadata.submissionUrls` is the strongest case in the format. It is an ordered,
 author-supplied array of explicit delivery choices, machine-consumed and
