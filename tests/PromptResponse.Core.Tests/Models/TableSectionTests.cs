@@ -48,10 +48,8 @@ public class TableSectionTests
     }
 
     [Fact]
-    public void RoundTrip_DropsRetiredDisplayFields_ButKeepsTheStructure()
+    public void RoundTrip_KeepsTheStructure()
     {
-        // "width" was retired from the format, so it is dropped rather than preserved
-        // as an unknown member — otherwise removing it would never take effect.
         var json = """
             {
               "aprVersion": "1.0-beta.6",
@@ -65,8 +63,7 @@ public class TableSectionTests
                   "id": "r1",
                   "title": "R1",
                   "prompts": [
-                    { "id": "r1.q1", "label": "Q1", "response": "", "width": "25%",
-                      "hints": { "expectedDataType": "currency" } },
+                    { "id": "r1.q1", "label": "Q1", "response": "", "hints": { "expectedDataType": "currency" } },
                     { "id": "r1.q2", "label": "Q2", "response": "", "hints": { "expectedDataType": "currency" } }
                   ]
                 }]
@@ -75,9 +72,6 @@ public class TableSectionTests
             """;
 
         var roundTripped = _serializer.Serialize(_serializer.Deserialize(json));
-
-        roundTripped.Should().NotContain("\"width\"", "retired display fields must not survive a round-trip");
-        roundTripped.Should().NotContain("\"25%\"");
 
         var doc = _serializer.Deserialize(roundTripped);
         var table = doc.Sections[0];

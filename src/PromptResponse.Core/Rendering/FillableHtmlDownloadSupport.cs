@@ -35,21 +35,18 @@ internal static class FillableHtmlDownloadSupport
     });
     return map;
   }
-  function apply(section, map, stamp) {
+  function apply(section, map) {
     (section.prompts || []).forEach(function (p) {
       if (Object.prototype.hasOwnProperty.call(map, p.id)) {
         p.response = map[p.id];
-        p.responseMetadata = p.responseMetadata || {};
-        p.responseMetadata.lastModified = stamp;
       }
     });
-    (section.sections || []).forEach(function (s) { apply(s, map, stamp); });
+    (section.sections || []).forEach(function (s) { apply(s, map); });
   }
   document.getElementById('apr-download').addEventListener('click', function () {
     var doc = JSON.parse(raw);
     var map = collect();
-    var stamp = new Date().toISOString();
-    (doc.sections || []).forEach(function (s) { apply(s, map, stamp); });
+    (doc.sections || []).forEach(function (s) { apply(s, map); });
     doc.documentType = 'filledForm';
     var name = (doc.metadata && doc.metadata.title ? doc.metadata.title : 'form').replace(/[\\/:*?"<>|]+/g, '_');
     var blob = new Blob([JSON.stringify(doc, null, 2)], { type: 'application/json' });

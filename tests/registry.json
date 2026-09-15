@@ -2148,7 +2148,7 @@
       "gates": [
         {
           "type": "test",
-          "ref": "Beta3EmbeddedSignatures_AreRejected"
+          "ref": "Deserialize_AcceptsOnlyABeta6Form"
         },
         {
           "type": "suite",

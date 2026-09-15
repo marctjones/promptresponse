@@ -106,37 +106,6 @@ public class AprBeta6WriterGuardTests
         write.Should().Throw<SerializationException>().Which.Code.Should().Be("UNSUPPORTED_VERSION");
     }
 
-    [Fact]
-    public void ARetiredMember_IsDroppedOnRead_NotRefused()
-    {
-        // Retirement means the member goes, not that the document does. `signatures` is
-        // the one exception, because it carried a cryptographic claim.
-        var form = _reader.ReadForm(
-            "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},"
-            + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\","
-            + "\"responseMetadata\":{\"source\":\"computed\"}}]}]}",
-            AprRepresentation.Jsonc);
-
-        form.Sections[0].Prompts[0].Extensions.Should().BeNullOrEmpty(
-            "responseMetadata was retired in beta.6 and is dropped rather than preserved");
-        var write = () => _reader.WriteForm(form, AprRepresentation.Jsonc);
-        write.Should().NotThrow("the retired member is gone, so nothing unprefixed remains");
-    }
-
-    [Fact]
-    public void AWronglyCasedRetiredName_IsAnUnknownMember()
-    {
-        // Member names are case-sensitive (specification 5.8), so `Width` is not the
-        // retired `width`: it is an unknown member, preserved like any other.
-        var form = _reader.ReadForm(
-            "{\"aprVersion\":\"1.0-beta.6\",\"metadata\":{\"title\":\"T\"},\"sections\":[{\"id\":\"s\","
-            + "\"title\":\"S\",\"width\":40,\"Width\":40,\"STYLE\":\"bold\",\"prompts\":[{\"id\":\"p\",\"label\":\"P\"}]}]}",
-            AprRepresentation.Jsonc);
-
-        form.Sections[0].Extensions.Should().ContainKeys("Width", "STYLE")
-            .And.NotContainKey("width", "the lowercase name is the retired one");
-    }
-
     private const string CarriedEverywhere =
         "{\"aprVersion\":\"1.0-beta.6\",\"routing\":\"a\",\"metadata\":{\"title\":\"T\",\"routing\":\"b\"},"
         + "\"sections\":[{\"id\":\"s\",\"title\":\"S\",\"tableLayout\":{\"fixedRows\":2},"

@@ -68,7 +68,7 @@ public class AprAttestationResolverTests
     }
 
     [Fact]
-    public void Factory_CreatesIndependentCmsAttestationWithoutMutatingTheForm()
+    public void Factory_CreatesIndependentCmsAttestation()
     {
         var form = FormRecord();
         using var certificate = SignatureCertificates.CreateSelfSigned("Ada", DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddDays(1));
@@ -78,7 +78,6 @@ public class AprAttestationResolverTests
         attestation.Value.GetProperty("scope").GetProperty("kind").GetString().Should().Be("fields");
         AprAttestationProofs.Verify(attestation).Single().ContentValid.Should().BeTrue();
         AprAttestationResolver.Resolve([form, attestation]).Single().State.Should().Be(AprAttestationState.Valid);
-        form.Value.TryGetProperty("signatures", out _).Should().BeFalse();
     }
 
     [Fact]

@@ -79,7 +79,5 @@ internal static class ExportContentRenderer
         foreach (var child in section.Sections) AppendTextSection(child, level + 1, builder);
     }
 
-    // No lastModified: beta.6 retired it as workflow state, because an unsigned claim
-    // about when an answer was written is not evidence that it was.
     private sealed record ResponseItem(string Section, string? Subsection, string PromptId, string Label, string Response, string? DataType);
 }

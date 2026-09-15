@@ -11,18 +11,12 @@ public sealed class Beta6AprSerializerTests
     private readonly Beta6AprSerializer _serializer = new();
 
     [Fact]
-    public void Deserialize_AcceptsOnlyOneUnsignedBeta6Form()
+    public void Deserialize_AcceptsOnlyABeta6Form()
     {
         _serializer.Deserialize("""{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[{"id":"s","title":"S","prompts":[]}]}""").Metadata.Title.Should().Be("T");
 
-        var beta3 = () => _serializer.Deserialize("""{"version":"1.0-beta","metadata":{"title":"T"},"sections":[]}""");
-        beta3.Should().Throw<SerializationException>().WithMessage("*1.0-beta.6*");
-
-        var signed = () => _serializer.Deserialize("""{"aprVersion":"1.0-beta.6","metadata":{"title":"T"},"sections":[],"signatures":[]}""");
-        signed.Should().Throw<SerializationException>()
-            // The code is structured data now, not a substring of the prose:
-            // a caller reports what the format names without parsing English.
-            .Which.Code.Should().Be("RETIRED_EMBEDDED_SIGNATURES");
+        var beta3 = () => _serializer.Deserialize("""{"aprVersion":"1.0-beta.3","metadata":{"title":"T"},"sections":[]}""");
+        beta3.Should().Throw<SerializationException>().Which.Code.Should().Be("UNSUPPORTED_VERSION");
     }
 
     [Fact]

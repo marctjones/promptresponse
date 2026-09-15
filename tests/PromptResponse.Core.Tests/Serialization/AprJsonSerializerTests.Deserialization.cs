@@ -37,13 +37,6 @@ public sealed class AprJsonSerializerDeserializationTests : AprJsonSerializerTes
     }
 
     [Fact]
-    public void Deserialize_WithRetiredVersion_ShouldThrowException()
-    {
-        var act = () => Serializer.Deserialize("""{ "version": "1.0-beta", "metadata": { "title": "Old" }, "sections": [] }""");
-        act.Should().Throw<SerializationException>().WithMessage("*1.0-beta.6*");
-    }
-
-    [Fact]
     public void Deserialize_WithNullFields_ShouldHandleGracefully()
     {
         var document = Serializer.Deserialize("""

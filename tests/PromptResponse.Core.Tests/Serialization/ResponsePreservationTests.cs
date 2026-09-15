@@ -6,35 +6,9 @@ using Xunit;
 namespace PromptResponse.Core.Tests.Serialization;
 
 /// <summary>
-/// What survived the retirement of `responseMetadata`. These two assert contracts
-/// that still hold — a response is preserved exactly, and serializing does not mutate
-/// the document it was handed — and they were lost when the file holding them was
-/// deleted for its other tests. Recovered from 8f581f7~1.
+/// Saving and loading must not look like someone answered the form: a response is
+/// preserved exactly, and serializing does not mutate the document it was handed.
 /// </summary>
-/// <summary>
-/// Saving and loading must not look like someone answered the form.
-/// </summary>
-/// <remarks>
-/// <para>
-/// The serializer normalizes text on the way in and on the way out, and it did so by
-/// assigning through Prompt.Response - the setter that exists to record an authoring
-/// edit. So every load and every save stamped LastModified with the current time and
-/// cleared Source on every prompt in the document, whether or not a single character
-/// changed.
-/// </para>
-/// <para>
-/// That cost two things. LastModified stopped answering "when did this answer change"
-/// and started answering "when was this file last touched by any tool at all". And
-/// Source - the computed-versus-typed marker that tells a recomputation to leave a
-/// hand-corrected value alone - was erased on the way through disk, so a value someone
-/// deliberately overrode came back looking computed and was eligible to be overwritten
-/// again on the next recompute.
-/// </para>
-/// <para>
-/// Found by an export-immutability test that turned out to be measuring the serializer
-/// rather than the renderer, which is why the control case in that suite exists.
-/// </para>
-/// </remarks>
 public class ResponsePreservationTests
 {
     private static readonly AprJsonSerializer Serializer = new();

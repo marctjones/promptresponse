@@ -91,12 +91,7 @@ public class Prompt
 
     /// <summary>Did this reader compute the current response, in this session?</summary>
     /// <remarks>
-    /// Reader state, and never written to a document. beta.6 retired
-    /// `responseMetadata.source`, which tried to carry this between parties: it rested a
-    /// prohibition on a member every reader was free to ignore, so it was not the
-    /// guarantee it looked like.
-    ///
-    /// What survived is the part that was always true. On reading a document, every
+    /// Reader state, and never written to a document. On reading a document, every
     /// non-empty response is authored and recomputation must not overwrite one. Within a
     /// session a reader knows which responses it computed itself, and may replace those
     /// freely — which is what keeps a live total tracking its inputs while somebody types.
@@ -108,16 +103,9 @@ public class Prompt
     /// Replaces the response text without recording the write as an answer.
     /// </summary>
     /// <remarks>
-    /// Normalizing is not answering. Sanitization runs on every load and every save, and
-    /// it assigned through the Response setter above - so opening a file restamped
-    /// LastModified on every prompt and cleared Source on every prompt, whether or not
-    /// the text changed at all.
-    ///
-    /// Two things were lost. LastModified stopped meaning "when this answer changed" and
-    /// started meaning "when the file was last opened or saved". And Source - the marker
-    /// saying whether a value was computed or typed by a person - was erased, which is
-    /// what tells a recomputation to leave a hand-corrected value alone. A round trip
-    /// through disk would have made every corrected computed field look computed again.
+    /// Normalizing is not answering. Sanitization runs on every load and every save, so
+    /// it must not go through the Response setter above, which records an assignment as
+    /// an answer.
     /// </remarks>
     internal void SetNormalizedResponse(string? value) => _response = value ?? string.Empty;
 

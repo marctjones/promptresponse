@@ -1,9 +1,8 @@
 using PromptResponse.Core.Models;
-using PromptResponse.Core.Text;
 
 namespace PromptResponse.Core.Serialization;
 
-/// <summary>Drops retired members on read. Human-facing text is reported, never rewritten.</summary>
+/// <summary>Runs on every read and write. Human-facing text is reported, never rewritten.</summary>
 /// <remarks>
 /// This used to strip abusive code points out of every title, label, description and
 /// help text as it read them. That is what APR-TEXT-011 forbids: a validator reports a
@@ -23,22 +22,17 @@ internal static class AprDocumentSanitizer
 {
     internal static void Sanitize(AprDocument document)
     {
-        AprFormat.DropRetiredMembers(document.Extensions);
-        AprFormat.DropRetiredMembers(document.Metadata?.Extensions);
         foreach (var section in document.Sections) SanitizeSection(section);
     }
 
     private static void SanitizeSection(Section section)
     {
-        AprFormat.DropRetiredMembers(section.Extensions);
         foreach (var prompt in section.Prompts) SanitizePrompt(prompt);
         foreach (var nested in section.Sections) SanitizeSection(nested);
     }
 
     private static void SanitizePrompt(Prompt prompt)
     {
-        AprFormat.DropRetiredMembers(prompt.Extensions);
-        AprFormat.DropRetiredMembers(prompt.Hints?.Extensions);
         // A response is what a person typed, and is preserved byte for byte. The setter
         // is kept because it is where that guarantee lives.
         prompt.SetNormalizedResponse(prompt.Response);

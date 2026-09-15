@@ -15,7 +15,7 @@ namespace PromptResponse.Desktop.Tests.ViewModels;
 /// <remarks>
 /// <para>
 /// A computed field stays editable (specification 8.6), and a correction survives
-/// recomputation because responseMetadata.source records who wrote the value. All of that
+/// recomputation because a reader replaces only what it computed in this session. All of that
 /// machinery existed and none of it was visible: somebody looking at a total could not
 /// tell whether the form had calculated it, and somebody who corrected one had no way to
 /// know their answer would not be quietly reverted on the next pass.

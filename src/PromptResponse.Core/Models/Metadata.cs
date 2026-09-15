@@ -10,7 +10,7 @@ namespace PromptResponse.Core.Models;
 /// Contains different fields depending on whether the document is a template or filled form.
 /// Common fields: Title, Description, Created, Modified
 /// Template-specific: Author, TemplateId, TemplateVersion
-/// FilledForm-specific: TemplateId, TemplateVersion, FilledBy, FilledDate
+/// FilledForm-specific: TemplateId, TemplateVersion
 /// </remarks>
 public class Metadata
 {

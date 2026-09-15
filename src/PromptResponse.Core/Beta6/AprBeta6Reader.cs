@@ -174,9 +174,6 @@ public sealed class AprBeta6Reader
             return new AprAttestationRecord(root.Clone());
         }
         RequireBeta6(root);
-        if (root.TryGetProperty("signatures", out _))
-            throw new SerializationException("beta.6 forms carry attestations as stream records.")
-                { Code = "RETIRED_EMBEDDED_SIGNATURES" };
         // Before the typed model. A structural member of the wrong JSON type is the
         // validation error the format names, not the parse stage's generic code, and a
         // typed deserializer cannot tell the two conditions apart.
@@ -315,9 +312,6 @@ public sealed class AprBeta6Reader
     private static string ValidatedFormRecordJson(AprFormRecord form)
     {
         RequireBeta6(form.Value);
-        if (form.Value.TryGetProperty("signatures", out _))
-            throw new SerializationException("beta.6 forms cannot emit root signatures.")
-            { Code = "RETIRED_EMBEDDED_SIGNATURES" };
         // No unprefixed-member guard: this writes the value exactly as it was read, so
         // an unprefixed member in it arrived rather than being added. APR-MODEL-021 and
         // APR-MODEL-029 require it back unchanged; APR-MODEL-031 forbids adding one,
